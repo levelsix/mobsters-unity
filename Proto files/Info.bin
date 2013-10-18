@@ -1,0 +1,671 @@
+
+¸t
+
+Info.protocom.lvl6.proto"K
+TaskStageProto
+stageId ((
+mp (2.com.lvl6.proto.MonsterProto"ì
+MonsterProto
+	monsterId (
+name (	
+maxHp (
+	imageName (	=
+monsterType (2(.com.lvl6.proto.MonsterProto.MonsterType
+weaponId (
+	weaponLvl (
+armorId (
+armorLvl	 (
+amuletId
+ (
+	amuletLvl (
+	expGained (
+silverGained (
+equipId ("3
+MonsterType
+REGULAR
+	MINI_BOSS
+BOSS"S
+UserCityGemProto
+userId (
+cityId (
+gemId (
+quantity ("v
+CityGemProto
+gemId (
+dropRate (
+isActive (
+gemImageName (	
+droppedOnlyFromBosses ("
+MentorshipProto
+
+id (
+mentorId (
+menteeId (
+	startTime (
+questOneCompleteTime (
+questTwoCompleteTime (
+questThreeCompleteTime (
+questFourCompleteTime (
+questFiveCompleteTime	 (
+	isDropped
+ ("r
+MinimumUserProtoForMentorship-
+mup (2 .com.lvl6.proto.MinimumUserProto
+
+createTime (
+isGood ("½
+PrivateChatPostProto
+privateChatPostId (0
+poster (2 .com.lvl6.proto.MinimumUserProto3
+	recipient (2 .com.lvl6.proto.MinimumUserProto
+
+timeOfPost (
+content (	"•
+RareBoosterPurchaseProto.
+user (2 .com.lvl6.proto.MinimumUserProto1
+booster (2 .com.lvl6.proto.BoosterPackProto
+timeOfPurchase ("}
+UserBoosterPackProto
+boosterPackId (
+userId (>
+userBoosterItems (2$.com.lvl6.proto.UserBoosterItemProto"R
+UserBoosterItemProto
+boosterItemId (
+userId (
+numReceived ("ð
+BoosterPackProto
+boosterPackId (
+
+costsCoins (
+name (	
+
+chestImage (	
+middleImage (	
+backgroundImage (	
+minLevel (
+maxLevel (
+
+dailyLimit	 (6
+boosterItems
+ (2 .com.lvl6.proto.BoosterItemProto
+salePriceOne (
+retailPriceOne (
+salePriceTwo (
+retailPriceTwo (
+isStarterPack ("_
+BoosterItemProto
+boosterItemId (
+equipId (
+quantity (
+	isSpecial ("˜
+"MinimumUserProtoForClanTowerScoresH
+minUserProtoWithLevel (2).com.lvl6.proto.MinimumUserProtoWithLevel
+pointsGained (
+
+pointsLost ("ì
+EquipEnhancementProto
+enhancementId (
+userId (A
+enhancingEquip (2).com.lvl6.proto.EquipEnhancementItemProto?
+feederEquips (2).com.lvl6.proto.EquipEnhancementItemProto
+	startTime (
+timeOfSpeedup ("Z
+EquipEnhancementItemProto
+equipId (
+level (
+enhancementPercentage ("i
+InAppPurchasePackageProto
+	packageId (	
+currencyAmount (
+isGold (
+	imageName (	"6
+
+ColorProto
+red (
+green (
+blue ("³
+LeaderboardEventProto
+eventId (
+	startDate (
+endDate (
+	eventName (	<
+rewards (2+.com.lvl6.proto.LeaderboardEventRewardProto
+lastShowDate ("Ö
+LeaderboardEventRewardProto
+leaderboardEventId (
+minRank (
+maxRank (
+goldRewarded (
+backgroundImageName (	
+prizeImageName (	.
+
+titleColor (2.com.lvl6.proto.ColorProto"Ê
+ClanTowerProto
+towerId (
+	towerName (	
+towerImageName (	4
+
+towerOwner (2 .com.lvl6.proto.MinimumClanProto
+ownedStartTime (
+silverReward (
+
+goldReward (
+numHoursToCollect (7
+towerAttacker	 (2 .com.lvl6.proto.MinimumClanProto
+attackStartTime
+ (
+ownerBattlesWin (
+attackerBattlesWin (
+numHoursForBattle (
+lastRewardGiven (.
+
+titleColor (2.com.lvl6.proto.ColorProto"×
+GoldSaleProto
+saleId (
+	startDate (
+endDate (
+package1SaleIdentifier (	
+package2SaleIdentifier (	
+package3SaleIdentifier (	
+package4SaleIdentifier (	
+package5SaleIdentifier (	
+goldShoppeImageName	 (	
+goldBarImageName
+ (	
+packageS1SaleIdentifier (	
+packageS2SaleIdentifier (	
+packageS3SaleIdentifier (	
+packageS4SaleIdentifier (	
+packageS5SaleIdentifier (	
+isBeginnerSale ("
+GroupChatMessageProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+
+timeOfChat (
+content (	
+isAdmin (
+chatId ("·
+LockBoxItemProto
+lockBoxItemId (
+lockBoxEventId (
+chanceToUnlock (
+name (	
+	imageName (	 
+redeemForNumBoosterItems (
+isGoldBoosterPack ("Ô
+UserLockBoxEventProto
+lockBoxEventId (
+userId (
+numLockBoxes (
+numTimesCompleted (
+lastPickTime (3
+items (2$.com.lvl6.proto.UserLockBoxItemProto
+hasBeenRedeemed ("O
+UserLockBoxItemProto
+lockBoxItemId (
+userId (
+quantity ("¥
+FullBossProto
+bossId (
+cityId (
+assetNumWithinCity (
+regularAttackEnergyCost (
+minutesToKill (#
+superAttackDamageMultiplier (
+superAttackEnergyCost (
+name (	
+expConstantA	 (
+expConstantB
+ (
+hpConstantA (
+hpConstantB (
+hpConstantC (
+dmgConstantA (
+dmgConstantB (
+mapIconImageName (	
+unlockedBossImageName (	"o
+FullUserBossProto
+bossId (
+userId (
+	curHealth (
+currentLevel (
+	startTime ("Z
+FullClanProtoWithClanSize+
+clan (2.com.lvl6.proto.FullClanProto
+clanSize ("š
+ClanBulletinPostProto
+clanBulletinPostId (0
+poster (2 .com.lvl6.proto.MinimumUserProto
+clanId (
+
+timeOfPost (
+content (	"M
+ClanTierLevelProto
+	tierLevel (
+maxSize (
+upgradeCost ("—
+MinimumUserProtoForClansG
+minUserProto (21.com.lvl6.proto.MinimumUserProtoWithBattleHistory2
+
+clanStatus (2.com.lvl6.proto.UserClanStatus"x
+FullUserClanProto
+userId (
+clanId (.
+status (2.com.lvl6.proto.UserClanStatus
+requestTime ("«
+!MinimumUserProtoWithBattleHistoryH
+minUserProtoWithLevel (2).com.lvl6.proto.MinimumUserProtoWithLevel
+
+battlesWon (
+battlesLost (
+battlesFled ("a
+MonteCardProto
+cardId (
+diamondsGained (
+
+equipLevel (
+coinsGained ("Ý
+FullClanProto
+clanId (
+name (	/
+owner (2 .com.lvl6.proto.MinimumUserProto
+
+createTime (
+description (	
+tag (	
+isGood (
+currentTierLevel (
+requestToJoinRequired	 ("À
+MinimumClanProto
+clanId (
+name (	
+ownerId (
+
+createTime (
+description (	
+tag (	
+isGood (
+currentTierLevel (
+requestToJoinRequired	 ("`
+MinimumUserProto
+userId (
+name (	.
+clan (2 .com.lvl6.proto.MinimumClanProto"b
+MinimumUserProtoWithLevel6
+minUserProto (2 .com.lvl6.proto.MinimumUserProto
+level ("Ý
+'MinimumUserProtoWithLevelForLeaderboard6
+minUserProto (2 .com.lvl6.proto.MinimumUserProto
+level (8
+leaderboardType (2.com.lvl6.proto.LeaderboardType
+leaderboardRank (
+leaderboardScore ("‡
+FullUserProto
+userId (
+name (	
+level (
+diamonds (
+coins (
+
+experience (
+tasksCompleted (
+
+battlesWon (
+battlesLost	 (
+flees
+ (
+referralCode (	
+numReferrals (
+lastLoginTime (
+lastLogoutTime (
+isFake (
+isAdmin ($
+numCoinsRetrievedFromStructs (.
+clan (2 .com.lvl6.proto.MinimumClanProto
+hasReceivedfbReward (
+numAdditionalForgeSlots (!
+numBeginnerSalesPurchased (
+hasActiveShield (
+shieldEndTime  (
+elo! (
+rank" (	
+lastTimeQueued# (
+
+attacksWon$ (
+defensesWon% (
+attacksLost& (
+defensesLost' (
+udid (	
+deviceToken (	"
+lastBattleNotificationTime (
+	numBadges (
+
+createTime (
+	apsalarId ( 
+numConsecutiveDaysPlayed ($
+lastWallPostNotificationTime (
+	kabamNaid (	"§
+FullUserStructureProto
+userStructId (
+userId (
+structId (
+lastRetrieved (4
+coordinates (2.com.lvl6.proto.CoordinateProto
+level (
+purchaseTime (
+lastUpgradeTime (
+
+isComplete	 (6
+orientation
+ (2!.com.lvl6.proto.StructOrientation"“
+FullUserEquipProto
+userEquipId (
+userId (
+equipId (
+level (
+enhancementPercentage (
+currentDurability ("ø
+FullStructureProto
+structId (
+name (	
+income (
+minutesToGain (
+minutesToBuild (
+minutesToUpgradeBase (
+	coinPrice (
+diamondPrice (
+minLevel	 (
+xLength
+ (
+yLength (
+instaBuildDiamondCost ($
+instaRetrieveDiamondCostBase (#
+instaUpgradeDiamondCostBase (
+imgVerticalPixelOffset ("¬
+FullTaskProto
+taskId (
+name (	
+cityId ( 
+numRequiredForCompletion (
+
+energyCost (
+minCoinsGained (
+maxCoinsGained (
+chanceOfEquipLoot (
+potentialLootEquipIds	 (
+	expGained
+ (
+assetNumWithinCity (
+processingText (	<
+spriteLandingCoords (2.com.lvl6.proto.CoordinateProto4
+animationType (2.com.lvl6.proto.AnimationTypeF
+	equipReqs (23.com.lvl6.proto.FullTaskProto.FullTaskEquipReqProtoJ
+FullTaskEquipReqProto
+taskId (
+equipId (
+quantity ("ý
+FullCityProto
+cityId (
+name (	
+minLevel (
+expGainedBaseOnRankup (
+coinsGainedBaseOnRankup (
+
+mapImgName (	/
+center (2.com.lvl6.proto.CoordinateProto
+taskIds
+ (
+bossIds (
+boosterPackId ("€
+UserCityExpansionDataProto
+userId (
+	xPosition (
+	yPosition (
+isExpanding (
+expandStartTime ("E
+CityExpansionCostProto
+expansionNum (
+expansionCost ("q
+FullUserCityProto
+userId (
+cityId (
+currentRank ('
+numTasksCurrentlyCompleteInRank ("'
+CoordinateProto	
+x (	
+y ("ž
+NeutralCityElementProto
+cityId (
+assetId (
+name	 (	I
+type (2;.com.lvl6.proto.NeutralCityElementProto.NeutralCityElemType/
+coords (2.com.lvl6.proto.CoordinateProto
+xLength (
+yLength (
+imgId (	6
+orientation (2!.com.lvl6.proto.StructOrientation"o
+NeutralCityElemType
+PERSON_QUEST_GIVER 
+BUILDING
+
+DECORATION
+PERSON_NEUTRAL_ENEMY
+BOSS"°
+FullUserCritstructProto,
+type (2.com.lvl6.proto.CritStructType/
+coords (2.com.lvl6.proto.CoordinateProto6
+orientation (2!.com.lvl6.proto.StructOrientation"M
+MinimumUserTaskProto
+userId (
+taskId (
+numTimesActed ("Ñ
+FullUserQuestDataLargeProto
+userId (
+questId (
+
+isRedeemed (
+
+isComplete (T
+requiredDefeatTypeJobProgress (2-.com.lvl6.proto.MinimumUserDefeatTypeJobProtoV
+requiredBuildStructJobProgress (2..com.lvl6.proto.MinimumUserBuildStructJobProtoZ
+ requiredUpgradeStructJobProgress (20.com.lvl6.proto.MinimumUserUpgradeStructJobProtoX
+requiredPossessEquipJobProgress (2/.com.lvl6.proto.MinimumUserPossessEquipJobProtoH
+requiredTasksProgress	 (2).com.lvl6.proto.MinimumUserQuestTaskProto
+coinsRetrievedForReq (
+numComponentsComplete
+ ("c
+MinimumUserQuestTaskProto
+userId (
+questId (
+taskId (
+numTimesActed ("n
+MinimumUserDefeatTypeJobProto
+userId (
+questId (
+defeatTypeJobId (
+numDefeated ("Ç
+DefeatTypeJobProto
+defeatTypeJobId (N
+typeOfEnemy (29.com.lvl6.proto.DefeatTypeJobProto.DefeatTypeJobEnemyType
+numEnemiesToDefeat (
+cityId ("›
+DefeatTypeJobEnemyType
+GOOD_WARRIOR 
+GOOD_ARCHER
+	GOOD_MAGE
+BAD_WARRIOR
+
+BAD_ARCHER
+BAD_MAGE 
+ALL_TYPES_FROM_OPPOSING_SIDE"w
+MinimumUserBuildStructJobProto
+userId (
+questId (
+buildStructJobId (
+numOfStructUserHas ("[
+BuildStructJobProto
+buildStructJobId (
+structId (
+quantityRequired ("u
+ MinimumUserUpgradeStructJobProto
+userId (
+questId (
+upgradeStructJobId (
+currentLevel ("W
+UpgradeStructJobProto
+upgradeStructJobId (
+structId (
+levelReq ("v
+MinimumUserPossessEquipJobProto
+userId (
+questId (
+possessEquipJobId (
+numEquipUserHas ("W
+PossessEquipJobProto
+possessEquipJobId (
+equipId (
+quantityReq ("ú
+FullQuestProto
+questId (
+cityId (
+name (	
+description (	
+doneResponse (	
+assetNumWithinCity (
+coinsGained (
+diamondsGained	 (
+	expGained
+ (
+equipIdGained (
+questsRequiredForThis (
+taskReqs (
+upgradeStructJobsReqs (
+buildStructJobsReqs (
+defeatTypeReqs (
+possessEquipJobReqs (
+coinRetrievalReq (A
+specialQuestActionReq (2".com.lvl6.proto.SpecialQuestAction
+numComponentsForGood (5
+acceptDialogue (2.com.lvl6.proto.DialogueProto
+questGiverName (	
+questGiverImageSuffix (	
+priority ("ò
+DialogueProtoG
+speechSegment (20.com.lvl6.proto.DialogueProto.SpeechSegmentProto—
+SpeechSegmentProtoQ
+speaker (2@.com.lvl6.proto.DialogueProto.SpeechSegmentProto.DialogueSpeaker
+speakerText (	"˜
+DialogueSpeaker
+PLAYER_TYPE
+GOOD_WARRIOR
+GOOD_ARCHER
+	GOOD_MAGE
+BAD_WARRIOR
+
+BAD_ARCHER
+BAD_MAGE
+GOOD_TUTORIAL_GIRL
+BAD_TUTORIAL_GIRL	
+QUESTGIVER_1
+
+QUESTGIVER_2
+QUESTGIVER_3
+QUESTGIVER_4
+QUESTGIVER_5
+
+BAZAAR"›
+PlayerWallPostProto
+playerWallPostId (0
+poster (2 .com.lvl6.proto.MinimumUserProto
+wallOwnerId (
+
+timeOfPost (
+content (	"Á
+UnhandledBlacksmithAttemptProto
+blacksmithId (
+userId (
+equipId (
+	goalLevel (
+
+guaranteed (
+	startTime (
+diamondGuaranteeCost (
+timeOfSpeedup	 (
+attemptComplete
+ ("
+equipOneEnhancementPercent ("
+equipTwoEnhancementPercent (
+forgeSlotNumber (*"
+PurchaseOption
+ONE 
+TWO*,
+UserClanStatus
+
+MEMBER 
+
+REQUESTING*@
+GroupChatScope
+
+GLOBAL 
+ALLIANCE
+
+LEGION
+CLAN*^
+LeaderboardType
+MOST_BATTLES_WON
+
+MOST_COINS
+MOST_EXP
+BEST_KDR	
+EVENT*f
+CharacterModType
+
+NEW_PLAYER
+RESET_SKILL_POINTS
+CHANGE_CHARACTER_TYPE
+CHANGE_NAME*;
+AnimationType
+GENERIC_ACTION
+
+ATTACK
+
+DRAGON*Q
+EarnFreeDiamondsType
+
+FB_CONNECT
+
+TAPJOY
+FLURRY_VIDEO
+TWITTER*Á
+SpecialQuestAction
+PURCHASE_FROM_ARMORY
+SELL_TO_ARMORY
+DEPOSIT_IN_VAULT
+WITHDRAW_FROM_VAULT
+WRITE_ON_ENEMY_WALL
+REQUEST_JOIN_CLAN
+SUCCESSFULLY_FORGE_AN_ITEM	*E
+BattleResult
+ATTACKER_WIN 
+DEFENDER_WIN
+ATTACKER_FLEE*R
+CritStructType
+
+AVIARY 
+	CARPENTER	
+VAULT
+
+ARMORY
+
+BLACKSMITH*3
+StructOrientation
+
+POSITION_1 
+
+POSITION_2*P
+ExpansionDirection
+FAR_LEFT 
+	FAR_RIGHT
+	NEAR_LEFT
+
+NEAR_RIGHTBB	InfoProto
