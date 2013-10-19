@@ -1,0 +1,64 @@
+
+Ú
+EventMonster.protocom.lvl6.protoMonsterStuff.proto
+User.proto"™
+$SubmitMonsterEnhancementRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+enhancingUserMonsterId (
+feederUserMonsterIds (
+
+clientTime ("Ù
+%SubmitMonsterEnhancementResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoZ
+status (2J.com.lvl6.proto.SubmitMonsterEnhancementResponseProto.EnhanceMonsterStatus"º
+EnhanceMonsterStatus
+SUCCESS
+
+OTHER_FAIL%
+!CLIENT_TOO_APART_FROM_SERVER_TIME(
+$MAIN_OR_FEEDER_OR_EQUIPS_NONEXISTENT
+TRYING_TO_SURPASS_MAX_LEVEL
+NOT_ENOUGH_SILVER"ú
+UpdateMonsterHealthRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto3
+fumps (2$.com.lvl6.proto.FullUserMonsterProto
+
+clientTime ("º
+ UpdateMonsterHealthResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto3
+fumps (2$.com.lvl6.proto.FullUserMonsterProtoZ
+status (2J.com.lvl6.proto.UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus"U
+UpdateMonsterHealthStatus
+SUCCESS
+FAIL_INSUFFICIENT_FUNDS
+
+FAIL_OTHER"ç
+HealMonsterRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto:
+	umhDelete (2'.com.lvl6.proto.UserMonsterHealingProto:
+	umhUpdate (2'.com.lvl6.proto.UserMonsterHealingProto7
+umhNew (2'.com.lvl6.proto.UserMonsterHealingProto
+gemCost ("≤
+HealMonsterResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoJ
+status (2:.com.lvl6.proto.HealMonsterResponseProto.HealMonsterStatus"ó
+HealMonsterStatus
+SUCCESS
+FAIL_INSUFFICIENT_FUNDS%
+!FAIL_ALL_MONSTERS_ALREADY_HEALING!
+FAIL_ALL_MONSTERS_NONEXISTENT
+
+FAIL_OTHER"Ü
+'HealMonsterWaitTimeCompleteRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+	isSpeedup (
+userMonsterIds ("∆
+(HealMonsterWaitTimeCompleteResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoj
+status (2Z.com.lvl6.proto.HealMonsterWaitTimeCompleteResponseProto.HealMonsterWaitTimeCompleteStatus"|
+!HealMonsterWaitTimeCompleteStatus
+SUCCESS
+FAIL_HEALING_NOT_COMPLETE
+FAIL_INSUFFICIENT_FUNDS
+
+FAIL_OTHERBBEventMonsterProto

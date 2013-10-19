@@ -1,0 +1,50 @@
+
+è
+MonsterStuff.protocom.lvl6.proto"ê
+MonsterProto
+	monsterId (
+name (	<
+quality (2+.com.lvl6.proto.MonsterProto.MonsterQuality
+evolutionLevel (
+displayName (	<
+element (2+.com.lvl6.proto.MonsterProto.MonsterElement
+maxHp (
+	imageName (	=
+monsterType	 (2(.com.lvl6.proto.MonsterProto.MonsterType
+	expReward
+ (
+silverReward (
+monsterIdSuccessor (
+puzzlePieceDropped ("3
+MonsterType
+REGULAR
+	MINI_BOSS
+BOSS"J
+MonsterQuality
+
+COMMON
+RARE	
+ULTRA
+EPIC
+	LEGENDARY"M
+MonsterElement
+FIRE	
+GRASS	
+WATER
+	LIGHTNING
+DARKNESS"Â
+FullUserMonsterProto
+userMonsterId (
+userId (
+	monsterId (
+enhancementPercentage (
+currentHealth (
+	numPieces (
+
+isComplete (
+teamSlotNum ("{
+UserMonsterHealingProto
+userId (
+userMonsterId (
+expectedStartTimeMillis (
+queuedTimeMillis (BBMonsterStuffProto

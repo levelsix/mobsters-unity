@@ -1,0 +1,30 @@
+
+Ö
+EventStaticData.protocom.lvl6.proto	Job.proto
+City.protoQuest.protoStructure.proto
+Task.proto
+User.proto"å
+RetrieveStaticDataRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+	structIds (
+taskIds (
+questIds (
+cityIds (
+
+monsterIds (
+buildStructJobIds (
+upgradeStructJobIds ("§
+RetrieveStaticDataResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto3
+structs (2".com.lvl6.proto.FullStructureProto,
+tasks (2.com.lvl6.proto.FullTaskProto.
+quests (2.com.lvl6.proto.FullQuestProto-
+cities (2.com.lvl6.proto.FullCityProto<
+buildStructJobs (2#.com.lvl6.proto.BuildStructJobProto@
+upgradeStructJobs (2%.com.lvl6.proto.UpgradeStructJobProtoX
+status (2H.com.lvl6.proto.RetrieveStaticDataResponseProto.RetrieveStaticDataStatus"6
+RetrieveStaticDataStatus
+SUCCESS
+	SOME_FAIL"6
+"PurgeClientStaticDataResponseProto
+senderId (BBEventStaticDataProto

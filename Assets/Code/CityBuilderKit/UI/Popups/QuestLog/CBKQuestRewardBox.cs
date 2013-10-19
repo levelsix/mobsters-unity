@@ -73,7 +73,7 @@ public class CBKQuestRewardBox : MonoBehaviour, CBKIPoolable {
 		}
 	}
 	
-	public void Init(FullUserEquipProto equip)
+	public void Init(MonsterProto monsterReward)
 	{
 		//TODO: This!!!
 	}

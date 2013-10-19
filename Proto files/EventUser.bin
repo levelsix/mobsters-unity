@@ -1,0 +1,46 @@
+
+é
+EventUser.protocom.lvl6.protoStructure.proto
+User.proto"Ï
+UserCreateRequestProto
+udid (	
+name (	
+referrerCode (	
+deviceToken (	
+timeOfStructPurchase (
+timeOfStructBuild (5
+structCoords (2.com.lvl6.proto.CoordinateProto
+usedDiamondsToBuilt ("ê
+UserCreateResponseProto-
+sender (2.com.lvl6.proto.FullUserProtoH
+status (28.com.lvl6.proto.UserCreateResponseProto.UserCreateStatus"|
+UserCreateStatus
+SUCCESS
+INVALID_NAME!
+USER_WITH_UDID_ALREADY_EXISTS
+INVALID_REFER_CODE
+
+OTHER_FAIL"G
+LevelUpRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto"π
+LevelUpResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoB
+status (22.com.lvl6.proto.LevelUpResponseProto.LevelUpStatusA
+newlyAvailableStructs (2".com.lvl6.proto.FullStructureProto"h
+LevelUpStatus
+SUCCESS 
+NOT_ENOUGH_EXP_TO_NEXT_LEVEL
+ALREADY_AT_MAX_LEVEL
+
+OTHER_FAIL"q
+#RetrieveUsersForUserIdsRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+requestedUserIds ("è
+$RetrieveUsersForUserIdsResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto5
+requestedUsers (2.com.lvl6.proto.FullUserProto"F
+LogoutRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto"h
+UpdateClientUserResponseProto-
+sender (2.com.lvl6.proto.FullUserProto
+timeOfUserUpdate (BBEventUserProto

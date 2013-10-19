@@ -170,32 +170,17 @@ public class CBKQuestLog : MonoBehaviour {
 			task = GetTask();
 			task.InitMoneyCollect(fullQ.userQuest.coinsRetrievedForReq, fullQ.quest.coinRetrievalReq);
 		}
-		foreach (var item in fullQ.userQuest.requiredBuildStructJobProgress) 
-		{
-			task = GetTask ();
-			task.Init(item);
-		}
-		foreach (var item in fullQ.userQuest.requiredDefeatTypeJobProgress) 
-		{
-			task = GetTask ();
-			task.Init(item);
-		}
-		foreach (var item in fullQ.userQuest.requiredPossessEquipJobProgress) 
-		{
-			task = GetTask ();
-			task.Init(item);
-		}
 		foreach (var item in fullQ.userQuest.requiredTasksProgress) 
 		{
 			task = GetTask ();
 			task.Init(item);
 		}
-		foreach (var item in fullQ.userQuest.requiredUpgradeStructJobProgress) 
+		foreach (var item in fullQ.userQuest.requiredBuildStructJobProgress) 
 		{
 			task = GetTask ();
 			task.Init(item);
 		}
-		foreach (var item in fullQ.userQuest.requiredPossessEquipJobProgress) 
+		foreach (var item in fullQ.userQuest.requiredUpgradeStructJobProgress) 
 		{
 			task = GetTask ();
 			task.Init(item);

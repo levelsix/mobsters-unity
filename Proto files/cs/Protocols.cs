@@ -8,506 +8,336 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Protocols.proto
-// Note: requires additional types generated from: Event.proto
+// Note: requires additional types generated from: Battle.proto
+// Note: requires additional types generated from: BoosterPackStuff.proto
+// Note: requires additional types generated from: Chat.proto
+// Note: requires additional types generated from: City.proto
+// Note: requires additional types generated from: Clan.proto
+// Note: requires additional types generated from: EventApns.proto
+// Note: requires additional types generated from: EventBoosterPack.proto
+// Note: requires additional types generated from: EventChat.proto
+// Note: requires additional types generated from: EventCity.proto
+// Note: requires additional types generated from: EventClan.proto
+// Note: requires additional types generated from: EventDungeon.proto
+// Note: requires additional types generated from: EventInAppPurchase.proto
+// Note: requires additional types generated from: EventMonster.proto
+// Note: requires additional types generated from: EventPvp.proto
+// Note: requires additional types generated from: EventQuest.proto
+// Note: requires additional types generated from: EventReferral.proto
+// Note: requires additional types generated from: EventStartup.proto
+// Note: requires additional types generated from: EventStaticData.proto
+// Note: requires additional types generated from: EventStructure.proto
+// Note: requires additional types generated from: EventTournament.proto
+// Note: requires additional types generated from: EventUser.proto
+// Note: requires additional types generated from: InAppPurchase.proto
+// Note: requires additional types generated from: Job.proto
+// Note: requires additional types generated from: MonsterStuff.proto
+// Note: requires additional types generated from: Quest.proto
+// Note: requires additional types generated from: Structure.proto
+// Note: requires additional types generated from: Task.proto
+// Note: requires additional types generated from: TournamentStuff.proto
+// Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
     [global::ProtoBuf.ProtoContract(Name=@"EventProtocolRequest")]
     public enum EventProtocolRequest
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_CHAT_EVENT", Value=0)]
-      C_CHAT_EVENT = 0,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_STARTUP_EVENT", Value=1)]
+      C_STARTUP_EVENT = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_BATTLE_EVENT", Value=1)]
-      C_BATTLE_EVENT = 1,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_IN_APP_PURCHASE_EVENT", Value=2)]
+      C_IN_APP_PURCHASE_EVENT = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_TASK_ACTION_EVENT", Value=3)]
-      C_TASK_ACTION_EVENT = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_PURCHASE_NORM_STRUCTURE_EVENT", Value=3)]
+      C_PURCHASE_NORM_STRUCTURE_EVENT = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_USER_EQUIP_FOR_USER", Value=4)]
-      C_RETRIEVE_USER_EQUIP_FOR_USER = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT", Value=4)]
+      C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_STARTUP_EVENT", Value=5)]
-      C_STARTUP_EVENT = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_SELL_NORM_STRUCTURE_EVENT", Value=5)]
+      C_SELL_NORM_STRUCTURE_EVENT = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT", Value=8)]
-      C_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT = 8,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_UPGRADE_NORM_STRUCTURE_EVENT", Value=6)]
+      C_UPGRADE_NORM_STRUCTURE_EVENT = 6,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_ARMORY_EVENT", Value=9)]
-      C_ARMORY_EVENT = 9,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT", Value=7)]
+      C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT = 7,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_IN_APP_PURCHASE_EVENT", Value=10)]
-      C_IN_APP_PURCHASE_EVENT = 10,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT", Value=8)]
+      C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT = 8,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_GENERATE_ATTACK_LIST_EVENT", Value=16)]
-      C_GENERATE_ATTACK_LIST_EVENT = 16,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_NORM_STRUCT_WAIT_COMPLETE_EVENT", Value=9)]
+      C_NORM_STRUCT_WAIT_COMPLETE_EVENT = 9,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_PURCHASE_NORM_STRUCTURE_EVENT", Value=17)]
-      C_PURCHASE_NORM_STRUCTURE_EVENT = 17,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_LOAD_PLAYER_CITY_EVENT", Value=10)]
+      C_LOAD_PLAYER_CITY_EVENT = 10,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT", Value=18)]
-      C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT = 18,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_STATIC_DATA_EVENT", Value=11)]
+      C_RETRIEVE_STATIC_DATA_EVENT = 11,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_SELL_NORM_STRUCTURE_EVENT", Value=19)]
-      C_SELL_NORM_STRUCTURE_EVENT = 19,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_QUEST_ACCEPT_EVENT", Value=12)]
+      C_QUEST_ACCEPT_EVENT = 12,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_UPGRADE_NORM_STRUCTURE_EVENT", Value=20)]
-      C_UPGRADE_NORM_STRUCTURE_EVENT = 20,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_USER_QUEST_DETAILS_EVENT", Value=13)]
+      C_USER_QUEST_DETAILS_EVENT = 13,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT", Value=21)]
-      C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT = 21,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_QUEST_REDEEM_EVENT", Value=14)]
+      C_QUEST_REDEEM_EVENT = 14,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT", Value=23)]
-      C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT = 23,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_PURCHASE_CITY_EXPANSION_EVENT", Value=15)]
+      C_PURCHASE_CITY_EXPANSION_EVENT = 15,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_NORM_STRUCT_WAIT_COMPLETE_EVENT", Value=24)]
-      C_NORM_STRUCT_WAIT_COMPLETE_EVENT = 24,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_EXPANSION_WAIT_COMPLETE_EVENT", Value=16)]
+      C_EXPANSION_WAIT_COMPLETE_EVENT = 16,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_CRIT_STRUCTURE_ACTION_EVENT", Value=26)]
-      C_CRIT_STRUCTURE_ACTION_EVENT = 26,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_LEVEL_UP_EVENT", Value=17)]
+      C_LEVEL_UP_EVENT = 17,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_LOAD_PLAYER_CITY_EVENT", Value=27)]
-      C_LOAD_PLAYER_CITY_EVENT = 27,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_ENABLE_APNS_EVENT", Value=18)]
+      C_ENABLE_APNS_EVENT = 18,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_STATIC_DATA_EVENT", Value=28)]
-      C_RETRIEVE_STATIC_DATA_EVENT = 28,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_USER_CREATE_EVENT", Value=19)]
+      C_USER_CREATE_EVENT = 19,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_QUEST_ACCEPT_EVENT", Value=29)]
-      C_QUEST_ACCEPT_EVENT = 29,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_LOAD_CITY_EVENT", Value=20)]
+      C_LOAD_CITY_EVENT = 20,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_USER_QUEST_DETAILS_EVENT", Value=30)]
-      C_USER_QUEST_DETAILS_EVENT = 30,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_USERS_FOR_USER_IDS_EVENT", Value=21)]
+      C_RETRIEVE_USERS_FOR_USER_IDS_EVENT = 21,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_QUEST_REDEEM_EVENT", Value=31)]
-      C_QUEST_REDEEM_EVENT = 31,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_EARN_FREE_DIAMONDS_EVENT", Value=22)]
+      C_EARN_FREE_DIAMONDS_EVENT = 22,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_PURCHASE_CITY_EXPANSION_EVENT", Value=32)]
-      C_PURCHASE_CITY_EXPANSION_EVENT = 32,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_SEND_GROUP_CHAT_EVENT", Value=23)]
+      C_SEND_GROUP_CHAT_EVENT = 23,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_EXPANSION_WAIT_COMPLETE_EVENT", Value=33)]
-      C_EXPANSION_WAIT_COMPLETE_EVENT = 33,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_CREATE_CLAN_EVENT", Value=24)]
+      C_CREATE_CLAN_EVENT = 24,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_LEVEL_UP_EVENT", Value=35)]
-      C_LEVEL_UP_EVENT = 35,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_LEAVE_CLAN_EVENT", Value=25)]
+      C_LEAVE_CLAN_EVENT = 25,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_ENABLE_APNS_EVENT", Value=36)]
-      C_ENABLE_APNS_EVENT = 36,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_REQUEST_JOIN_CLAN_EVENT", Value=26)]
+      C_REQUEST_JOIN_CLAN_EVENT = 26,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_USER_CREATE_EVENT", Value=38)]
-      C_USER_CREATE_EVENT = 38,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRACT_REQUEST_JOIN_CLAN_EVENT", Value=27)]
+      C_RETRACT_REQUEST_JOIN_CLAN_EVENT = 27,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_EQUIP_EQUIPMENT_EVENT", Value=39)]
-      C_EQUIP_EQUIPMENT_EVENT = 39,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT", Value=28)]
+      C_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT = 28,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_LOAD_NEUTRAL_CITY_EVENT", Value=41)]
-      C_LOAD_NEUTRAL_CITY_EVENT = 41,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_TRANSFER_CLAN_OWNERSHIP", Value=29)]
+      C_TRANSFER_CLAN_OWNERSHIP = 29,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_USERS_FOR_USER_IDS_EVENT", Value=42)]
-      C_RETRIEVE_USERS_FOR_USER_IDS_EVENT = 42,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_CLAN_INFO_EVENT", Value=30)]
+      C_RETRIEVE_CLAN_INFO_EVENT = 30,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_POST_ON_PLAYER_WALL_EVENT", Value=43)]
-      C_POST_ON_PLAYER_WALL_EVENT = 43,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_CHANGE_CLAN_DESCRIPTION_EVENT", Value=31)]
+      C_CHANGE_CLAN_DESCRIPTION_EVENT = 31,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_PLAYER_WALL_POSTS_EVENT", Value=44)]
-      C_RETRIEVE_PLAYER_WALL_POSTS_EVENT = 44,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_BOOT_PLAYER_FROM_CLAN_EVENT", Value=32)]
+      C_BOOT_PLAYER_FROM_CLAN_EVENT = 32,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_EARN_FREE_DIAMONDS_EVENT", Value=45)]
-      C_EARN_FREE_DIAMONDS_EVENT = 45,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_PICK_LOCK_BOX_EVENT", Value=33)]
+      C_PICK_LOCK_BOX_EVENT = 33,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RECONNECT_EVENT", Value=46)]
-      C_RECONNECT_EVENT = 46,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_TOURNAMENT_RANKINGS_EVENT", Value=34)]
+      C_RETRIEVE_TOURNAMENT_RANKINGS_EVENT = 34,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_SUBMIT_EQUIPS_TO_BLACKSMITH", Value=48)]
-      C_SUBMIT_EQUIPS_TO_BLACKSMITH = 48,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_SUBMIT_MONSTER_ENHANCEMENT_EVENT", Value=35)]
+      C_SUBMIT_MONSTER_ENHANCEMENT_EVENT = 35,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_FORGE_ATTEMPT_WAIT_COMPLETE", Value=49)]
-      C_FORGE_ATTEMPT_WAIT_COMPLETE = 49,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_BOOSTER_PACK_EVENT", Value=36)]
+      C_RETRIEVE_BOOSTER_PACK_EVENT = 36,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS", Value=50)]
-      C_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS = 50,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_PURCHASE_BOOSTER_PACK_EVENT", Value=37)]
+      C_PURCHASE_BOOSTER_PACK_EVENT = 37,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_COLLECT_FORGE_EQUIPS", Value=51)]
-      C_COLLECT_FORGE_EQUIPS = 51,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_RESET_BOOSTER_PACK_EVENT", Value=38)]
+      C_RESET_BOOSTER_PACK_EVENT = 38,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_CHARACTER_MOD_EVENT", Value=52)]
-      C_CHARACTER_MOD_EVENT = 52,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_CHANGE_CLAN_JOIN_TYPE_EVENT", Value=39)]
+      C_CHANGE_CLAN_JOIN_TYPE_EVENT = 39,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_LEADERBOARD_EVENT", Value=53)]
-      C_RETRIEVE_LEADERBOARD_EVENT = 53,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_PRIVATE_CHAT_POST_EVENT", Value=40)]
+      C_PRIVATE_CHAT_POST_EVENT = 40,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_SEND_GROUP_CHAT_EVENT", Value=54)]
-      C_SEND_GROUP_CHAT_EVENT = 54,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_PRIVATE_CHAT_POST_EVENT", Value=41)]
+      C_RETRIEVE_PRIVATE_CHAT_POST_EVENT = 41,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_CREATE_CLAN_EVENT", Value=56)]
-      C_CREATE_CLAN_EVENT = 56,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_REDEEM_USER_LOCK_BOX_ITEMS_EVENT", Value=42)]
+      C_REDEEM_USER_LOCK_BOX_ITEMS_EVENT = 42,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_LEAVE_CLAN_EVENT", Value=57)]
-      C_LEAVE_CLAN_EVENT = 57,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_BEGIN_DUNGEON_EVENT", Value=43)]
+      C_BEGIN_DUNGEON_EVENT = 43,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_REQUEST_JOIN_CLAN_EVENT", Value=58)]
-      C_REQUEST_JOIN_CLAN_EVENT = 58,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_END_DUNGEON_EVENT", Value=44)]
+      C_END_DUNGEON_EVENT = 44,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRACT_REQUEST_JOIN_CLAN_EVENT", Value=59)]
-      C_RETRACT_REQUEST_JOIN_CLAN_EVENT = 59,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_REVIVE_IN_DUNGEON_EVENT", Value=45)]
+      C_REVIVE_IN_DUNGEON_EVENT = 45,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT", Value=60)]
-      C_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT = 60,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_QUEUE_UP_EVENT", Value=46)]
+      C_QUEUE_UP_EVENT = 46,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_TRANSFER_CLAN_OWNERSHIP", Value=61)]
-      C_TRANSFER_CLAN_OWNERSHIP = 61,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_UPDATE_MONSTER_HEALTH_EVENT", Value=47)]
+      C_UPDATE_MONSTER_HEALTH_EVENT = 47,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_CLAN_INFO_EVENT", Value=62)]
-      C_RETRIEVE_CLAN_INFO_EVENT = 62,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_CHANGE_CLAN_DESCRIPTION_EVENT", Value=63)]
-      C_CHANGE_CLAN_DESCRIPTION_EVENT = 63,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_POST_ON_CLAN_BULLETIN_EVENT", Value=64)]
-      C_POST_ON_CLAN_BULLETIN_EVENT = 64,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_CLAN_BULLETIN_POSTS_EVENT", Value=65)]
-      C_RETRIEVE_CLAN_BULLETIN_POSTS_EVENT = 65,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_BOOT_PLAYER_FROM_CLAN_EVENT", Value=66)]
-      C_BOOT_PLAYER_FROM_CLAN_EVENT = 66,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_THREE_CARD_MONTE_EVENT", Value=67)]
-      C_RETRIEVE_THREE_CARD_MONTE_EVENT = 67,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_PLAY_THREE_CARD_MONTE_EVENT", Value=68)]
-      C_PLAY_THREE_CARD_MONTE_EVENT = 68,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_BEGIN_GOLDMINE_TIMER_EVENT", Value=69)]
-      C_BEGIN_GOLDMINE_TIMER_EVENT = 69,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_COLLECT_FROM_GOLDMINE_EVENT", Value=70)]
-      C_COLLECT_FROM_GOLDMINE_EVENT = 70,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_PICK_LOCK_BOX_EVENT", Value=71)]
-      C_PICK_LOCK_BOX_EVENT = 71,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_BOSS_ACTION_EVENT", Value=72)]
-      C_BOSS_ACTION_EVENT = 72,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_BEGIN_CLAN_TOWER_WAR", Value=73)]
-      C_BEGIN_CLAN_TOWER_WAR = 73,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_UPGRADE_CLAN_TIER_EVENT", Value=74)]
-      C_UPGRADE_CLAN_TIER_EVENT = 74,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_CONCEDE_CLAN_TOWER_WAR", Value=75)]
-      C_CONCEDE_CLAN_TOWER_WAR = 75,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_LEADERBOARD_RANKINGS_EVENT", Value=76)]
-      C_RETRIEVE_LEADERBOARD_RANKINGS_EVENT = 76,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_SUBMIT_EQUIP_ENHANCEMENT_EVENT", Value=78)]
-      C_SUBMIT_EQUIP_ENHANCEMENT_EVENT = 78,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_COLLECT_EQUIP_ENHANCEMENT_EVENT", Value=79)]
-      C_COLLECT_EQUIP_ENHANCEMENT_EVENT = 79,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_CLAN_TOWER_SCORES_EVENT", Value=80)]
-      C_RETRIEVE_CLAN_TOWER_SCORES_EVENT = 80,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_BOOSTER_PACK_EVENT", Value=81)]
-      C_RETRIEVE_BOOSTER_PACK_EVENT = 81,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_PURCHASE_BOOSTER_PACK_EVENT", Value=82)]
-      C_PURCHASE_BOOSTER_PACK_EVENT = 82,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RESET_BOOSTER_PACK_EVENT", Value=83)]
-      C_RESET_BOOSTER_PACK_EVENT = 83,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_CHANGE_CLAN_JOIN_TYPE_EVENT", Value=84)]
-      C_CHANGE_CLAN_JOIN_TYPE_EVENT = 84,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_PURCHASE_FORGE_SLOT_EVENT", Value=85)]
-      C_PURCHASE_FORGE_SLOT_EVENT = 85,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_PRESTIGE_EVENT", Value=86)]
-      C_PRESTIGE_EVENT = 86,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_PRIVATE_CHAT_POST_EVENT", Value=87)]
-      C_PRIVATE_CHAT_POST_EVENT = 87,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_PRIVATE_CHAT_POST_EVENT", Value=88)]
-      C_RETRIEVE_PRIVATE_CHAT_POST_EVENT = 88,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_REDEEM_USER_LOCK_BOX_ITEMS_EVENT", Value=89)]
-      C_REDEEM_USER_LOCK_BOX_ITEMS_EVENT = 89,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_REDEEM_USER_CITY_GEMS_EVENT", Value=95)]
-      C_REDEEM_USER_CITY_GEMS_EVENT = 95,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_BEGIN_DUNGEON_EVENT", Value=96)]
-      C_BEGIN_DUNGEON_EVENT = 96,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_END_DUNGEON_EVENT", Value=97)]
-      C_END_DUNGEON_EVENT = 97,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_REVIVE_IN_DUNGEON_EVENT", Value=98)]
-      C_REVIVE_IN_DUNGEON_EVENT = 98,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_QUEUE_UP_EVENT", Value=99)]
-      C_QUEUE_UP_EVENT = 99,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_UPDATE_EQUIP_DURABILITY_EVENT", Value=200)]
-      C_UPDATE_EQUIP_DURABILITY_EVENT = 200,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_HEAL_MONSTER_EVENT", Value=48)]
+      C_HEAL_MONSTER_EVENT = 48,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
-      C_LOGOUT_EVENT = 101,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"A_ADMIN_UPDATE", Value=300)]
-      A_ADMIN_UPDATE = 300
+      C_LOGOUT_EVENT = 101
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"EventProtocolResponse")]
     public enum EventProtocolResponse
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_CHAT_EVENT", Value=0)]
-      S_CHAT_EVENT = 0,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_STARTUP_EVENT", Value=1)]
+      S_STARTUP_EVENT = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_BATTLE_EVENT", Value=1)]
-      S_BATTLE_EVENT = 1,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_IN_APP_PURCHASE_EVENT", Value=2)]
+      S_IN_APP_PURCHASE_EVENT = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_TASK_ACTION_EVENT", Value=3)]
-      S_TASK_ACTION_EVENT = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_PURCHASE_NORM_STRUCTURE_EVENT", Value=3)]
+      S_PURCHASE_NORM_STRUCTURE_EVENT = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_USER_EQUIP_FOR_USER", Value=4)]
-      S_RETRIEVE_USER_EQUIP_FOR_USER = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT", Value=4)]
+      S_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_STARTUP_EVENT", Value=5)]
-      S_STARTUP_EVENT = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_SELL_NORM_STRUCTURE_EVENT", Value=5)]
+      S_SELL_NORM_STRUCTURE_EVENT = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT", Value=8)]
-      S_RETRIEVE_STATIC_DATA_FOR_SHOP_EVENT = 8,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_UPGRADE_NORM_STRUCTURE_EVENT", Value=6)]
+      S_UPGRADE_NORM_STRUCTURE_EVENT = 6,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_ARMORY_EVENT", Value=9)]
-      S_ARMORY_EVENT = 9,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT", Value=7)]
+      S_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT = 7,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_IN_APP_PURCHASE_EVENT", Value=10)]
-      S_IN_APP_PURCHASE_EVENT = 10,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT", Value=8)]
+      S_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT = 8,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_GENERATE_ATTACK_LIST_EVENT", Value=16)]
-      S_GENERATE_ATTACK_LIST_EVENT = 16,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_NORM_STRUCT_WAIT_COMPLETE_EVENT", Value=9)]
+      S_NORM_STRUCT_WAIT_COMPLETE_EVENT = 9,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_PURCHASE_NORM_STRUCTURE_EVENT", Value=17)]
-      S_PURCHASE_NORM_STRUCTURE_EVENT = 17,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_LOAD_PLAYER_CITY_EVENT", Value=10)]
+      S_LOAD_PLAYER_CITY_EVENT = 10,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT", Value=18)]
-      S_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT = 18,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_STATIC_DATA_EVENT", Value=11)]
+      S_RETRIEVE_STATIC_DATA_EVENT = 11,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_SELL_NORM_STRUCTURE_EVENT", Value=19)]
-      S_SELL_NORM_STRUCTURE_EVENT = 19,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_QUEST_ACCEPT_EVENT", Value=12)]
+      S_QUEST_ACCEPT_EVENT = 12,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_UPGRADE_NORM_STRUCTURE_EVENT", Value=20)]
-      S_UPGRADE_NORM_STRUCTURE_EVENT = 20,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_USER_QUEST_DETAILS_EVENT", Value=13)]
+      S_USER_QUEST_DETAILS_EVENT = 13,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT", Value=21)]
-      S_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT = 21,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_QUEST_REDEEM_EVENT", Value=14)]
+      S_QUEST_REDEEM_EVENT = 14,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT", Value=23)]
-      S_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT = 23,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_PURCHASE_CITY_EXPANSION_EVENT", Value=15)]
+      S_PURCHASE_CITY_EXPANSION_EVENT = 15,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_NORM_STRUCT_WAIT_COMPLETE_EVENT", Value=24)]
-      S_NORM_STRUCT_WAIT_COMPLETE_EVENT = 24,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_EXPANSION_WAIT_COMPLETE_EVENT", Value=16)]
+      S_EXPANSION_WAIT_COMPLETE_EVENT = 16,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_CRIT_STRUCTURE_ACTION_EVENT", Value=26)]
-      S_CRIT_STRUCTURE_ACTION_EVENT = 26,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_LEVEL_UP_EVENT", Value=17)]
+      S_LEVEL_UP_EVENT = 17,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_LOAD_PLAYER_CITY_EVENT", Value=27)]
-      S_LOAD_PLAYER_CITY_EVENT = 27,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_ENABLE_APNS_EVENT", Value=18)]
+      S_ENABLE_APNS_EVENT = 18,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_STATIC_DATA_EVENT", Value=28)]
-      S_RETRIEVE_STATIC_DATA_EVENT = 28,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_USER_CREATE_EVENT", Value=19)]
+      S_USER_CREATE_EVENT = 19,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_QUEST_ACCEPT_EVENT", Value=29)]
-      S_QUEST_ACCEPT_EVENT = 29,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_LOAD_CITY_EVENT", Value=20)]
+      S_LOAD_CITY_EVENT = 20,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_USER_QUEST_DETAILS_EVENT", Value=30)]
-      S_USER_QUEST_DETAILS_EVENT = 30,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_USERS_FOR_USER_IDS_EVENT", Value=21)]
+      S_RETRIEVE_USERS_FOR_USER_IDS_EVENT = 21,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_QUEST_REDEEM_EVENT", Value=31)]
-      S_QUEST_REDEEM_EVENT = 31,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_EARN_FREE_DIAMONDS_EVENT", Value=22)]
+      S_EARN_FREE_DIAMONDS_EVENT = 22,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_PURCHASE_CITY_EXPANSION_EVENT", Value=32)]
-      S_PURCHASE_CITY_EXPANSION_EVENT = 32,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_SEND_GROUP_CHAT_EVENT", Value=23)]
+      S_SEND_GROUP_CHAT_EVENT = 23,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_EXPANSION_WAIT_COMPLETE_EVENT", Value=33)]
-      S_EXPANSION_WAIT_COMPLETE_EVENT = 33,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_CREATE_CLAN_EVENT", Value=24)]
+      S_CREATE_CLAN_EVENT = 24,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_LEVEL_UP_EVENT", Value=35)]
-      S_LEVEL_UP_EVENT = 35,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_LEAVE_CLAN_EVENT", Value=25)]
+      S_LEAVE_CLAN_EVENT = 25,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_ENABLE_APNS_EVENT", Value=36)]
-      S_ENABLE_APNS_EVENT = 36,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_REQUEST_JOIN_CLAN_EVENT", Value=26)]
+      S_REQUEST_JOIN_CLAN_EVENT = 26,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_USER_CREATE_EVENT", Value=38)]
-      S_USER_CREATE_EVENT = 38,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRACT_REQUEST_JOIN_CLAN_EVENT", Value=27)]
+      S_RETRACT_REQUEST_JOIN_CLAN_EVENT = 27,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_EQUIP_EQUIPMENT_EVENT", Value=39)]
-      S_EQUIP_EQUIPMENT_EVENT = 39,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT", Value=28)]
+      S_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT = 28,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_LOAD_NEUTRAL_CITY_EVENT", Value=41)]
-      S_LOAD_NEUTRAL_CITY_EVENT = 41,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_TRANSFER_CLAN_OWNERSHIP", Value=29)]
+      S_TRANSFER_CLAN_OWNERSHIP = 29,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_USERS_FOR_USER_IDS_EVENT", Value=42)]
-      S_RETRIEVE_USERS_FOR_USER_IDS_EVENT = 42,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_CLAN_INFO_EVENT", Value=30)]
+      S_RETRIEVE_CLAN_INFO_EVENT = 30,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_POST_ON_PLAYER_WALL_EVENT", Value=43)]
-      S_POST_ON_PLAYER_WALL_EVENT = 43,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_CHANGE_CLAN_DESCRIPTION_EVENT", Value=31)]
+      S_CHANGE_CLAN_DESCRIPTION_EVENT = 31,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_PLAYER_WALL_POSTS_EVENT", Value=44)]
-      S_RETRIEVE_PLAYER_WALL_POSTS_EVENT = 44,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_BOOT_PLAYER_FROM_CLAN_EVENT", Value=32)]
+      S_BOOT_PLAYER_FROM_CLAN_EVENT = 32,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_EARN_FREE_DIAMONDS_EVENT", Value=45)]
-      S_EARN_FREE_DIAMONDS_EVENT = 45,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_PICK_LOCK_BOX_EVENT", Value=33)]
+      S_PICK_LOCK_BOX_EVENT = 33,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RECONNECT_EVENT", Value=46)]
-      S_RECONNECT_EVENT = 46,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_TOURNAMENT_RANKINGS_EVENT", Value=34)]
+      S_RETRIEVE_TOURNAMENT_RANKINGS_EVENT = 34,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_SUBMIT_EQUIPS_TO_BLACKSMITH", Value=48)]
-      S_SUBMIT_EQUIPS_TO_BLACKSMITH = 48,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_SUBMIT_MONSTER_ENHANCEMENT_EVENT", Value=35)]
+      S_SUBMIT_MONSTER_ENHANCEMENT_EVENT = 35,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_FORGE_ATTEMPT_WAIT_COMPLETE", Value=49)]
-      S_FORGE_ATTEMPT_WAIT_COMPLETE = 49,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_BOOSTER_PACK_EVENT", Value=36)]
+      S_RETRIEVE_BOOSTER_PACK_EVENT = 36,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS", Value=50)]
-      S_FINISH_FORGE_ATTEMPT_WAITTIME_WITH_DIAMONDS = 50,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_PURCHASE_BOOSTER_PACK_EVENT", Value=37)]
+      S_PURCHASE_BOOSTER_PACK_EVENT = 37,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_COLLECT_FORGE_EQUIPS", Value=51)]
-      S_COLLECT_FORGE_EQUIPS = 51,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RESET_BOOSTER_PACK_EVENT", Value=38)]
+      S_RESET_BOOSTER_PACK_EVENT = 38,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_CHARACTER_MOD_EVENT", Value=52)]
-      S_CHARACTER_MOD_EVENT = 52,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_CHANGE_CLAN_JOIN_TYPE_EVENT", Value=39)]
+      S_CHANGE_CLAN_JOIN_TYPE_EVENT = 39,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_LEADERBOARD_EVENT", Value=53)]
-      S_RETRIEVE_LEADERBOARD_EVENT = 53,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_PRIVATE_CHAT_POST_EVENT", Value=40)]
+      S_PRIVATE_CHAT_POST_EVENT = 40,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_SEND_GROUP_CHAT_EVENT", Value=54)]
-      S_SEND_GROUP_CHAT_EVENT = 54,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_PRIVATE_CHAT_POST_EVENT", Value=41)]
+      S_RETRIEVE_PRIVATE_CHAT_POST_EVENT = 41,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_CREATE_CLAN_EVENT", Value=56)]
-      S_CREATE_CLAN_EVENT = 56,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_REDEEM_USER_LOCK_BOX_ITEMS_EVENT", Value=42)]
+      S_REDEEM_USER_LOCK_BOX_ITEMS_EVENT = 42,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_LEAVE_CLAN_EVENT", Value=57)]
-      S_LEAVE_CLAN_EVENT = 57,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_BEGIN_DUNGEON_EVENT", Value=43)]
+      S_BEGIN_DUNGEON_EVENT = 43,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_REQUEST_JOIN_CLAN_EVENT", Value=58)]
-      S_REQUEST_JOIN_CLAN_EVENT = 58,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_END_DUNGEON_EVENT", Value=44)]
+      S_END_DUNGEON_EVENT = 44,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRACT_REQUEST_JOIN_CLAN_EVENT", Value=59)]
-      S_RETRACT_REQUEST_JOIN_CLAN_EVENT = 59,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_REVIVE_IN_DUNGEON_EVENT", Value=45)]
+      S_REVIVE_IN_DUNGEON_EVENT = 45,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT", Value=60)]
-      S_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT = 60,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_QUEUE_UP_EVENT", Value=46)]
+      S_QUEUE_UP_EVENT = 46,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_TRANSFER_CLAN_OWNERSHIP", Value=61)]
-      S_TRANSFER_CLAN_OWNERSHIP = 61,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_MONSTER_HEALTH_EVENT", Value=47)]
+      S_UPDATE_MONSTER_HEALTH_EVENT = 47,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_CLAN_INFO_EVENT", Value=62)]
-      S_RETRIEVE_CLAN_INFO_EVENT = 62,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_CHANGE_CLAN_DESCRIPTION_EVENT", Value=63)]
-      S_CHANGE_CLAN_DESCRIPTION_EVENT = 63,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_POST_ON_CLAN_BULLETIN_EVENT", Value=64)]
-      S_POST_ON_CLAN_BULLETIN_EVENT = 64,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_CLAN_BULLETIN_POSTS_EVENT", Value=65)]
-      S_RETRIEVE_CLAN_BULLETIN_POSTS_EVENT = 65,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_BOOT_PLAYER_FROM_CLAN_EVENT", Value=66)]
-      S_BOOT_PLAYER_FROM_CLAN_EVENT = 66,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_THREE_CARD_MONTE_EVENT", Value=67)]
-      S_RETRIEVE_THREE_CARD_MONTE_EVENT = 67,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_PLAY_THREE_CARD_MONTE_EVENT", Value=68)]
-      S_PLAY_THREE_CARD_MONTE_EVENT = 68,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_BEGIN_GOLDMINE_TIMER_EVENT", Value=69)]
-      S_BEGIN_GOLDMINE_TIMER_EVENT = 69,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_COLLECT_FROM_GOLDMINE_EVENT", Value=70)]
-      S_COLLECT_FROM_GOLDMINE_EVENT = 70,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_PICK_LOCK_BOX_EVENT", Value=71)]
-      S_PICK_LOCK_BOX_EVENT = 71,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_BOSS_ACTION_EVENT", Value=72)]
-      S_BOSS_ACTION_EVENT = 72,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_BEGIN_CLAN_TOWER_WAR", Value=73)]
-      S_BEGIN_CLAN_TOWER_WAR = 73,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_UPGRADE_CLAN_TIER_EVENT", Value=74)]
-      S_UPGRADE_CLAN_TIER_EVENT = 74,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_CONCEDE_CLAN_TOWER_WAR_EVENT", Value=75)]
-      S_CONCEDE_CLAN_TOWER_WAR_EVENT = 75,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_CHANGED_CLAN_TOWER_EVENT", Value=76)]
-      S_CHANGED_CLAN_TOWER_EVENT = 76,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_LEADERBOARD_RANKINGS_EVENT", Value=77)]
-      S_RETRIEVE_LEADERBOARD_RANKINGS_EVENT = 77,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_SUBMIT_EQUIP_ENHANCEMENT_EVENT", Value=78)]
-      S_SUBMIT_EQUIP_ENHANCEMENT_EVENT = 78,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_COLLECT_EQUIP_ENHANCEMENT_EVENT", Value=79)]
-      S_COLLECT_EQUIP_ENHANCEMENT_EVENT = 79,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_CLAN_TOWER_SCORES_EVENT", Value=80)]
-      S_RETRIEVE_CLAN_TOWER_SCORES_EVENT = 80,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_BOOSTER_PACK_EVENT", Value=81)]
-      S_RETRIEVE_BOOSTER_PACK_EVENT = 81,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_PURCHASE_BOOSTER_PACK_EVENT", Value=82)]
-      S_PURCHASE_BOOSTER_PACK_EVENT = 82,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RESET_BOOSTER_PACK_EVENT", Value=83)]
-      S_RESET_BOOSTER_PACK_EVENT = 83,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_CHANGE_CLAN_JOIN_TYPE_EVENT", Value=84)]
-      S_CHANGE_CLAN_JOIN_TYPE_EVENT = 84,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_PURCHASE_FORGE_SLOT_EVENT", Value=85)]
-      S_PURCHASE_FORGE_SLOT_EVENT = 85,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_PRESTIGE_EVENT", Value=86)]
-      S_PRESTIGE_EVENT = 86,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_PRIVATE_CHAT_POST_EVENT", Value=87)]
-      S_PRIVATE_CHAT_POST_EVENT = 87,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_PRIVATE_CHAT_POST_EVENT", Value=88)]
-      S_RETRIEVE_PRIVATE_CHAT_POST_EVENT = 88,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_REDEEM_USER_LOCK_BOX_ITEMS_EVENT", Value=89)]
-      S_REDEEM_USER_LOCK_BOX_ITEMS_EVENT = 89,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_REDEEM_USER_CITY_GEMS_EVENT", Value=95)]
-      S_REDEEM_USER_CITY_GEMS_EVENT = 95,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_BEGIN_DUNGEON_EVENT", Value=96)]
-      S_BEGIN_DUNGEON_EVENT = 96,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_END_DUNGEON_EVENT", Value=97)]
-      S_END_DUNGEON_EVENT = 97,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_REVIVE_IN_DUNGEON_EVENT", Value=98)]
-      S_REVIVE_IN_DUNGEON_EVENT = 98,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_QUEUE_UP_EVENT", Value=99)]
-      S_QUEUE_UP_EVENT = 99,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_EQUIP_DURABILITY_EVENT", Value=200)]
-      S_UPDATE_EQUIP_DURABILITY_EVENT = 200,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_HEAL_MONSTER_EVENT", Value=48)]
+      S_HEAL_MONSTER_EVENT = 48,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

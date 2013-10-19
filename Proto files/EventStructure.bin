@@ -1,0 +1,126 @@
+
+£"
+EventStructure.protocom.lvl6.proto
+City.protoStructure.proto
+User.proto"ª
+!PurchaseNormStructureRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto:
+structCoordinates (2.com.lvl6.proto.CoordinateProto
+structId (
+timeOfPurchase ("•
+"PurchaseNormStructureResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto^
+status (2N.com.lvl6.proto.PurchaseNormStructureResponseProto.PurchaseNormStructureStatus
+userStructId ("÷
+PurchaseNormStructureStatus
+SUCCESS
+NOT_ENOUGH_MATERIALS
+LEVEL_TOO_LOW!
+ANOTHER_STRUCT_STILL_BUILDING#
+ALREADY_HAVE_MAX_OF_THIS_STRUCT
+
+OTHER_FAIL%
+!CLIENT_TOO_APART_FROM_SERVER_TIME"˝
+%MoveOrRotateNormStructureRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+userStructId (^
+type (2P.com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType=
+curStructCoordinates (2.com.lvl6.proto.CoordinateProto9
+newOrientation (2!.com.lvl6.proto.StructOrientation"2
+MoveOrRotateNormStructType
+MOVE
+
+ROTATE"Ç
+&MoveOrRotateNormStructureResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtof
+status (2V.com.lvl6.proto.MoveOrRotateNormStructureResponseProto.MoveOrRotateNormStructureStatus">
+MoveOrRotateNormStructureStatus
+SUCCESS
+
+OTHER_FAIL"g
+SellNormStructureRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+userStructId ("‹
+SellNormStructureResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoV
+status (2F.com.lvl6.proto.SellNormStructureResponseProto.SellNormStructureStatus"0
+SellNormStructureStatus
+SUCCESS
+FAIL"Å
+ UpgradeNormStructureRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+userStructId (
+timeOfUpgrade ("ó
+!UpgradeNormStructureResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto\
+status (2L.com.lvl6.proto.UpgradeNormStructureResponseProto.UpgradeNormStructureStatus"·
+UpgradeNormStructureStatus
+SUCCESS
+NOT_ENOUGH_MATERIALS
+NOT_BUILT_YET
+NOT_USERS_STRUCT"
+ANOTHER_STRUCT_STILL_UPGRADING
+
+OTHER_FAIL%
+!CLIENT_TOO_APART_FROM_SERVER_TIME
+AT_MAX_LEVEL_ALREADY"å
+-RetrieveCurrencyFromNormStructureRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProtog
+structRetrievals (2M.com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval@
+StructRetrieval
+userStructId (
+timeOfRetrieval ("ﬂ
+.RetrieveCurrencyFromNormStructureResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtov
+status (2f.com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus"Ç
+'RetrieveCurrencyFromNormStructureStatus
+
+OTHER_FAIL
+SUCCESS%
+!CLIENT_TOO_APART_FROM_SERVER_TIME
+NOT_LONG_ENOUGH"ë
+0FinishNormStructWaittimeWithDiamondsRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+userStructId (
+timeOfSpeedup ("÷
+1FinishNormStructWaittimeWithDiamondsResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtop
+status (2`.com.lvl6.proto.FinishNormStructWaittimeWithDiamondsResponseProto.FinishNormStructWaittimeStatus"}
+FinishNormStructWaittimeStatus
+SUCCESS
+NOT_ENOUGH_DIAMONDS
+
+OTHER_FAIL%
+!CLIENT_TOO_APART_FROM_SERVER_TIME"}
+"NormStructWaitCompleteRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+userStructId (
+curTime ("Î
+#NormStructWaitCompleteResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto`
+status (2P.com.lvl6.proto.NormStructWaitCompleteResponseProto.NormStructWaitCompleteStatus:
+
+userStruct (2&.com.lvl6.proto.FullUserStructureProto"t
+NormStructWaitCompleteStatus
+SUCCESS
+NOT_DONE_YET
+
+OTHER_FAIL%
+!CLIENT_TOO_APART_FROM_SERVER_TIME"ù
+!ExpansionWaitCompleteRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+curTime (
+speedUp (
+	xPosition (
+	yPosition ("˛
+"ExpansionWaitCompleteResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto^
+status (2N.com.lvl6.proto.ExpansionWaitCompleteResponseProto.ExpansionWaitCompleteStatus9
+ucedp (2*.com.lvl6.proto.UserCityExpansionDataProto"ä
+ExpansionWaitCompleteStatus
+SUCCESS
+WAS_NOT_EXPANDING
+NOT_DONE_YET
+
+OTHER_FAIL%
+!CLIENT_TOO_APART_FROM_SERVER_TIMEBBEventStructureProto

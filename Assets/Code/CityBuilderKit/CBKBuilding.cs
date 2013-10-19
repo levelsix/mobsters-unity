@@ -295,7 +295,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		Setup ();
 	}
 	
-	public void Init(NeutralCityElementProto proto)
+	public void Init(CityElementProto proto)
 	{
 		name = proto.name;
 		

@@ -1,0 +1,62 @@
+
+ë
+EventChat.protocom.lvl6.proto
+Chat.proto
+User.proto"B
+SendAdminMessageResponseProto
+senderId (
+message (	"l
+ GeneralNotificationResponseProto
+title (	
+subtitle (	'
+rgb (2.com.lvl6.proto.ColorProto"¥
+SendGroupChatRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto-
+scope (2.com.lvl6.proto.GroupChatScope
+chatMessage (	
+
+clientTime ("ì
+SendGroupChatResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoN
+status (2>.com.lvl6.proto.SendGroupChatResponseProto.SendGroupChatStatus"L
+SendGroupChatStatus
+SUCCESS
+TOO_LONG
+
+OTHER_FAIL
+
+BANNED"§
+ReceivedGroupChatResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+chatMessage (	-
+scope (2.com.lvl6.proto.GroupChatScope
+isAdmin ("u
+PrivateChatPostRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+recipientId (
+content (	"Ã
+PrivateChatPostResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoR
+status (2B.com.lvl6.proto.PrivateChatPostResponseProto.PrivateChatPostStatus2
+post (2$.com.lvl6.proto.PrivateChatPostProto"i
+PrivateChatPostStatus
+SUCCESS
+NO_CONTENT_SENT
+POST_TOO_LARGE
+
+OTHER_FAIL
+
+BANNED"Š
+$RetrievePrivateChatPostsRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+otherUserId (
+beforePrivateChatId ("à
+%RetrievePrivateChatPostsResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto4
+posts (2%.com.lvl6.proto.GroupChatMessageProto
+beforePrivateChatId (d
+status (2T.com.lvl6.proto.RetrievePrivateChatPostsResponseProto.RetrievePrivateChatPostsStatus
+otherUserId ("7
+RetrievePrivateChatPostsStatus
+SUCCESS
+FAILBBEventChatProto

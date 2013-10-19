@@ -92,7 +92,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			{
 				gem = CBKPoolManager.instance.Get(gemPrefab, Vector3.zero) as PZGem;
 				gem.transf.parent = trans;
-				gem.Init(PickColor(), j);
+				gem.Init(PickColor(i, j), j);
 			}
 			yield return new WaitForSeconds(WAIT_BETWEEN_LINES);
 		}
@@ -126,9 +126,43 @@ public class PZPuzzleManager : MonoBehaviour {
 		
 	}
 	
-	public int PickColor()
+	/// <summary>
+	/// Picks a color.
+	/// If coordiantes are suppiled, this uses the space two to the
+	/// left and the space two down to determine what colors to not be,
+	/// in order to guarentee no starting matches. 
+	/// </summary>
+	/// <returns>
+	/// The color index
+	/// </returns>
+	/// <param name='row'>
+	/// Row.
+	/// </param>
+	/// <param name='col'>
+	/// Column
+	/// </param>
+	public int PickColor(int row = 0, int col = 0)
 	{
-		return Random.Range(0,colors.Length);
+		int picked;
+		int rowCol = -1;
+		if (row >= 2)
+		{
+			rowCol = board[col,row-2].colorIndex;
+		}
+		int colCol = -1;
+		if (col >= 2)
+		{
+			colCol = board[col-2,row].colorIndex;
+		}
+		while(true)
+		{
+			picked = Random.Range(0,colors.Length);
+			if (picked != rowCol && picked != colCol)
+			{
+				break;
+			}
+		}
+		return picked;
 	}
 	
 	public void OnStartMoving(PZGem gem)
@@ -160,11 +194,13 @@ public class PZPuzzleManager : MonoBehaviour {
 				else
 				{
 					lastSwapSuccessful = true;
+					PZCombatManager.instance.OnBreakGems(currGems, combo);
 				}
 				processingSwap = false;
 				
-				PZCombatManager.instance.OnBreakGems(currGems, combo);
 				ResetCombo();
+				
+				Debug.Log("Board has matches: " + CheckForMatchMoves());
 			}
 			processingSwap = false;
 		}
@@ -177,8 +213,6 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		List<PZGem> currGems = new List<PZGem>();
 		PZGem curr;
-		
-		//Debug.Log("Getting matches on board");
 		
 		//Determine horizontal matches
 		for (int i = 0; i < BOARD_WIDTH; i++) 
@@ -328,6 +362,17 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 		}
 	}
+
+	void IncrementCombo (List<PZMatch> matchList)
+	{
+		foreach (PZMatch item in matchList) 
+		{
+			if (item.gems.Count > 0)
+			{
+				combo++;
+			}
+		}
+	}
 	
 	/// <summary>
 	/// Checks the whole board.
@@ -346,13 +391,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		
 		DetonateSpecialsInMatches (matchList);
 		
-		foreach (PZMatch item in matchList) 
-		{
-			if (item.gems.Count > 0)
-			{
-				combo++;
-			}
-		}
+		IncrementCombo (matchList);
 		
 		DestroyMatches (matchList);
 	}
@@ -391,6 +430,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		
 		DetonateSpecialsInMatches(matchList);
 		DestroyMatches(matchList);
+		IncrementCombo(matchList);
 	}
 	
 	PZMatch GetMolotovGroup(PZGem molly, int colorIndex)
@@ -475,5 +515,124 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			gem.colorIndex = colorToGive;
 		}
+	}
+	
+	/// <summary>
+	/// Checks the whole board to see if there are any moves that
+	/// could produce matches
+	/// PRECONDITION: Board doesn't have any matches on it
+	/// </summary>
+	/// <returns>
+	/// The for matches.
+	/// </returns>
+	bool CheckForMatchMoves()
+	{
+		PZGem gem;
+		
+		//Check horizontal possibilities
+		for (int i = 0; i < BOARD_HEIGHT; i++) 
+		{
+			for (int j = 0; j < BOARD_WIDTH-2; j++) 
+			{
+				gem = board[j, i];
+				if (j < BOARD_WIDTH-3)
+				{
+					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+3,i].colorIndex)
+					{
+						return true;
+					}
+					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+3,i].colorIndex)
+					{
+						return true;
+					}
+				}
+				if (i > 0)
+				{
+					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+2,i-1].colorIndex)
+					{
+						return true;
+					}
+					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+1,i-1].colorIndex)
+					{
+						return true;
+					}
+					if (gem.colorIndex == board[j+1,i-1].colorIndex && gem.colorIndex == board[j+2,i-1].colorIndex)
+					{
+						return true;
+					}
+				}
+				if (i < BOARD_HEIGHT-1)
+				{
+					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+2,i+1].colorIndex)
+					{
+						return true;
+					}
+					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+1,i+1].colorIndex)
+					{
+						return true;
+					}
+					if (gem.colorIndex == board[j+2,i+1].colorIndex && gem.colorIndex == board[j+1,i+1].colorIndex)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		
+		//Check vertical possibilities
+		for (int i = 0; i < BOARD_WIDTH; i++) 
+		{
+			for (int j = 0; j < BOARD_HEIGHT-2; j++) 
+			{
+				gem = board[i,j];
+				if (gem.gemType == PZGem.GemType.MOLOTOV)
+				{
+					return true;
+				}
+				if (j < BOARD_HEIGHT-3)
+				{
+					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i, j+3].colorIndex)
+					{
+						return true;
+					}
+					if (gem.colorIndex == board[i, j+1].colorIndex && gem.colorIndex == board[i, j+3].colorIndex)
+					{
+						return true;
+					}
+				}
+				if (i > 0)
+				{
+					if (gem.colorIndex == board[i,j+1].colorIndex && gem.colorIndex == board[i-1,j+2].colorIndex)
+					{
+						return true;
+					}
+					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i-1,j+1].colorIndex)
+					{
+						return true;
+					}
+					if (gem.colorIndex == board[i-1, j+1].colorIndex && gem.colorIndex == board[i-1, j+2].colorIndex)
+					{
+						return true;
+					}
+				}
+				if (i < BOARD_HEIGHT-1)
+				{
+					if (gem.colorIndex == board[i,j+1].colorIndex && gem.colorIndex == board[i+1,j+2].colorIndex)
+					{
+						return true;
+					}
+					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i+1,j+1].colorIndex)
+					{
+						return true;
+					}
+					if (gem.colorIndex == board[i+1,j+1].colorIndex && gem.colorIndex == board[i+1,j+2].colorIndex)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
 	}
 }

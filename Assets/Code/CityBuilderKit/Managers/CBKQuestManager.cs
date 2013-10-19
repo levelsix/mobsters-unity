@@ -24,10 +24,16 @@ public class CBKQuestManager : MonoBehaviour {
 	{
 		CBKEventManager.Quest.OnStructureBuilt += OnStructureBuilt;
 		CBKEventManager.Quest.OnStructureUpgraded += OnStructureUpgraded;
-		CBKEventManager.Quest.OnOpponentDefeated += OnOpponentDefeated;
-		CBKEventManager.Quest.OnEquipObtained += OnEquipObtained;
 		CBKEventManager.Quest.OnTaskCompleted += OnTaskCompleted;
 		CBKEventManager.Quest.OnMoneyCollected += OnMoneyCollected;
+	}
+	
+	public void Disable()
+	{
+		CBKEventManager.Quest.OnStructureBuilt -= OnStructureBuilt;
+		CBKEventManager.Quest.OnStructureUpgraded -= OnStructureUpgraded;
+		CBKEventManager.Quest.OnTaskCompleted -= OnTaskCompleted;
+		CBKEventManager.Quest.OnMoneyCollected -= OnMoneyCollected;
 	}
 	
 	public void Init(StartupResponseProto proto, RetrieveStaticDataRequestProto dataRequest)
@@ -101,7 +107,6 @@ public class CBKQuestManager : MonoBehaviour {
 				CheckQuest(fullQuest);
 			}
 		}
-		
 		
 #if DEBUG1
 		string deb = "Loaded Quest details: ";
@@ -208,9 +213,7 @@ public class CBKQuestManager : MonoBehaviour {
 		}
 		else
 		{
-			//TODO: If the quest required equips, take them away (like candy from a baby)
-			
-			if (response.equipRewardFromQuest != null)
+			if (response.monsterId > 0)
 			{
 				//TODO: Get that equip bro
 			}
@@ -272,38 +275,6 @@ public class CBKQuestManager : MonoBehaviour {
 		}
 	}
 	
-	void OnOpponentDefeated()
-	{
-		foreach (CBKFullQuest item in questDict.Values) 
-		{
-			foreach (MinimumUserDefeatTypeJobProto job in item.userQuest.requiredDefeatTypeJobProgress)
-			{
-				DefeatTypeJobProto defeatJob = CBKDataManager.instance.Get(typeof(DefeatTypeJobProto), job.defeatTypeJobId) as DefeatTypeJobProto;
-				if (job.numDefeated < defeatJob.numEnemiesToDefeat && ++job.numDefeated == defeatJob.numEnemiesToDefeat)
-				{
-					item.userQuest.numComponentsComplete++;
-					CheckQuest(item);
-				}
-			}
-		}
-	}
-	
-	void OnEquipObtained(int equipID)
-	{
-		foreach (CBKFullQuest item in questDict.Values)
-		{
-			foreach (MinimumUserPossessEquipJobProto job in item.userQuest.requiredPossessEquipJobProgress) 
-			{
-				PossessEquipJobProto possJob = CBKDataManager.instance.Get(typeof(PossessEquipJobProto), job.possessEquipJobId) as PossessEquipJobProto;
-				if (job.numEquipUserHas < possJob.quantityReq && ++job.numEquipUserHas == possJob.quantityReq)
-				{
-					item.userQuest.numComponentsComplete++;
-					CheckQuest(item);
-				}
-			}
-		}
-	}
-	
 	void OnTaskCompleted(int taskID)
 	{
 		foreach (CBKFullQuest item in questDict.Values)
@@ -311,11 +282,8 @@ public class CBKQuestManager : MonoBehaviour {
 			foreach (MinimumUserQuestTaskProto job in item.userQuest.requiredTasksProgress)
 			{
 				FullTaskProto task = CBKDataManager.instance.Get(typeof(FullTaskProto), job.taskId) as FullTaskProto;
-				if (job.numTimesActed < task.numRequiredForCompletion && ++job.numTimesActed == task.numRequiredForCompletion)
-				{
-					item.userQuest.numComponentsComplete++;
-					CheckQuest(item);
-				}
+				item.userQuest.numComponentsComplete++;
+				CheckQuest(item);
 			}
 		}
 	}

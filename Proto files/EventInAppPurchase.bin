@@ -1,0 +1,39 @@
+
+ê
+EventInAppPurchase.protocom.lvl6.protoInAppPurchase.proto
+User.proto"©
+InAppPurchaseRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+receipt (	
+
+localcents (	
+localcurrency (	
+locale (	
+ipaddr (	"Ì
+InAppPurchaseResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoN
+status (2>.com.lvl6.proto.InAppPurchaseResponseProto.InAppPurchaseStatus
+diamondsGained (
+coinsGained (
+packageName (	
+packagePrice (
+receipt (	"C
+InAppPurchaseStatus
+SUCCESS
+FAIL
+DUPLICATE_RECEIPT"¤
+EarnFreeDiamondsRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto>
+freeDiamondsType (2$.com.lvl6.proto.EarnFreeDiamondsType
+
+clientTime ("ß
+EarnFreeDiamondsResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoT
+status (2D.com.lvl6.proto.EarnFreeDiamondsResponseProto.EarnFreeDiamondsStatus>
+freeDiamondsType (2$.com.lvl6.proto.EarnFreeDiamondsType"v
+EarnFreeDiamondsStatus
+SUCCESS%
+!CLIENT_TOO_APART_FROM_SERVER_TIME
+METHOD_NOT_SUPPORTED
+
+OTHER_FAILBBEventInAppPurchaseProto

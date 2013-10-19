@@ -154,10 +154,10 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	public IEnumerator LoadNeutralCity(int cityId)
 	{
-		LoadNeutralCityRequestProto load = new LoadNeutralCityRequestProto();
+		LoadCityRequestProto load = new LoadCityRequestProto();
 		load.sender = CBKWhiteboard.localMup;
 		load.cityId = cityId;
-		int cityTag = UMQNetworkManager.instance.SendRequest(load, (int)EventProtocolRequest.C_LOAD_NEUTRAL_CITY_EVENT, null);
+		int cityTag = UMQNetworkManager.instance.SendRequest(load, (int)EventProtocolRequest.C_LOAD_CITY_EVENT, null);
 		
 		RecycleCity();
 		
@@ -166,7 +166,7 @@ public class CBKBuildingManager : MonoBehaviour
 			yield return null;
 		}
 		
-		LoadNeutralCityResponseProto response = UMQNetworkManager.responseDict[cityTag] as LoadNeutralCityResponseProto;
+		LoadCityResponseProto response = UMQNetworkManager.responseDict[cityTag] as LoadCityResponseProto;
 		UMQNetworkManager.responseDict.Remove(cityTag);
 		
 		Debug.Log("Loading neutral city: " + response.cityId);
@@ -175,36 +175,15 @@ public class CBKBuildingManager : MonoBehaviour
 		{
 			Debug.Log("Making neutral element " + i);
 			switch (response.cityElements[i].type) {
-				case NeutralCityElementProto.NeutralCityElemType.BUILDING:
+				case CityElementProto.CityElemType.BUILDING:
 					MakeBuilding(response.cityElements[i]);
 					break;
-				case NeutralCityElementProto.NeutralCityElemType.PERSON_QUEST_GIVER:
-				case NeutralCityElementProto.NeutralCityElemType.PERSON_NEUTRAL_ENEMY:
-				case NeutralCityElementProto.NeutralCityElemType.BOSS:
+				case CityElementProto.CityElemType.PERSON_NEUTRAL_ENEMY:
+				case CityElementProto.CityElemType.BOSS:
 					MakeNPC(response.cityElements[i]);
 					break;
 				default:
 					break;
-			}
-		}
-		
-		foreach (MinimumUserTaskProto item in response.userTasksInfo)
-		{
-			FullTaskProto task = CBKDataManager.instance.Get(typeof(FullTaskProto), item.taskId) as FullTaskProto;
-			Debug.Log("MUTP: " + item.userId + ": " + item.taskId + ": " + task.name);
-			if (buildings.ContainsKey(task.assetNumWithinCity))
-			{
-				buildings[task.assetNumWithinCity].task = task;
-				buildings[task.assetNumWithinCity].userTask = item;
-			}
-			else if (units.ContainsKey(task.assetNumWithinCity))
-			{
-				units[task.assetNumWithinCity].task = task;
-				units[task.assetNumWithinCity].userTask = item;
-			}
-			else
-			{
-				Debug.LogError("Problem: Could not find asset " + task.assetNumWithinCity + " for task: " + task.taskId);
 			}
 		}
 		
@@ -246,7 +225,7 @@ public class CBKBuildingManager : MonoBehaviour
 		}
 	}
 	
-	void MakeNPC(NeutralCityElementProto element)
+	void MakeNPC(CityElementProto element)
 	{
 		CBKUnit unit = CBKPoolManager.instance.Get(unitPrefab, Vector3.zero) as CBKUnit;
 		unit.transf.parent = unitParent;
@@ -290,7 +269,7 @@ public class CBKBuildingManager : MonoBehaviour
     	return building;
 	}
 	
-	CBKBuilding MakeBuilding(NeutralCityElementProto proto)
+	CBKBuilding MakeBuilding(CityElementProto proto)
 	{
 		Debug.Log("Neutral building " + proto.name + " at " + proto.coords.x + ", " + proto.coords.y);
 		

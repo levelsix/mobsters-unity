@@ -1,0 +1,49 @@
+
+ô
+EventCity.protocom.lvl6.proto
+City.protoQuest.protoStructure.proto
+User.proto"c
+LoadPlayerCityRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+cityOwnerId ("µ
+LoadPlayerCityResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto3
+	cityOwner (2 .com.lvl6.proto.MinimumUserProtoP
+status (2@.com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus@
+ownerNormStructs (2&.com.lvl6.proto.FullUserStructureProtoR
+userCityExpansionDataProtoList (2*.com.lvl6.proto.UserCityExpansionDataProto"G
+LoadPlayerCityStatus
+SUCCESS
+NO_SUCH_PLAYER
+
+OTHER_FAIL"“
+!PurchaseCityExpansionRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+	xPosition (
+	yPosition (
+timeOfPurchase ("‚
+"PurchaseCityExpansionResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProto^
+status (2N.com.lvl6.proto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus9
+ucedp (2*.com.lvl6.proto.UserCityExpansionDataProto"Ž
+PurchaseCityExpansionStatus
+SUCCESS
+NOT_ENOUGH_COINS
+ALREADY_EXPANDING
+
+OTHER_FAIL%
+!CLIENT_TOO_APART_FROM_SERVER_TIME"X
+LoadCityRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+cityId ("ö
+LoadCityResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoD
+status (24.com.lvl6.proto.LoadCityResponseProto.LoadCityStatus6
+cityElements (2 .com.lvl6.proto.CityElementProto
+cityId (R
+inProgressUserQuestDataInCity (2+.com.lvl6.proto.FullUserQuestDataLargeProto"I
+LoadCityStatus
+SUCCESS
+NOT_ACCESSIBLE_TO_USER
+
+OTHER_FAILBBEventCityProto

@@ -31,7 +31,7 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_NORM_STRUCT_WAIT_COMPLETE_EVENT, typeof(NormStructWaitCompleteResponseProto)},
 		{EventProtocolResponse.S_UPDATE_CLIENT_USER_EVENT, typeof(UpdateClientUserResponseProto)},
 		{EventProtocolResponse.S_SEND_GROUP_CHAT_EVENT, typeof(SendGroupChatResponseProto)},
-		{EventProtocolResponse.S_LOAD_NEUTRAL_CITY_EVENT, typeof(LoadNeutralCityResponseProto)},
+		{EventProtocolResponse.S_LOAD_CITY_EVENT, typeof(LoadCityResponseProto)},
 		{EventProtocolResponse.S_USER_QUEST_DETAILS_EVENT, typeof(UserQuestDetailsResponseProto)},
 		{EventProtocolResponse.S_QUEST_ACCEPT_EVENT, typeof(QuestAcceptResponseProto)},
 		{EventProtocolResponse.S_RETRIEVE_STATIC_DATA_EVENT, typeof(RetrieveStaticDataResponseProto)},

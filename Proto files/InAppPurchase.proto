@@ -1,0 +1,43 @@
+package com.lvl6.proto;
+
+option java_outer_classname = "InAppPurchaseProto";
+//DO NOT USE ID AS THE NAME OF A PROPERTY IN ANY PROTO
+
+message InAppPurchasePackageProto {
+	optional string iapPackageId = 1;
+	optional int32 currencyAmount = 2;
+	optional bool isGold = 3;
+	optional string imageName = 4;
+}
+
+//------------------------------------------------------------------------------------------
+
+message GoldSaleProto {
+	optional int32 saleId = 1;
+	optional int64 startDate = 2;
+	optional int64 endDate = 3;
+	optional string package1SaleIdentifier = 4;
+	optional string package2SaleIdentifier = 5;
+	optional string package3SaleIdentifier = 6;
+	optional string package4SaleIdentifier = 7;
+	optional string package5SaleIdentifier = 8;
+	optional string goldShoppeImageName = 9;
+	optional string goldBarImageName = 10;
+	optional string packageS1SaleIdentifier = 11;
+	optional string packageS2SaleIdentifier = 12;
+	optional string packageS3SaleIdentifier = 13;
+	optional string packageS4SaleIdentifier = 14;
+	optional string packageS5SaleIdentifier = 15;
+	optional bool isBeginnerSale = 16;
+}
+
+//------------------------------------------------------------------------------------------
+
+enum EarnFreeDiamondsType {
+	FB_CONNECT = 1;
+	TAPJOY = 2;
+	FLURRY_VIDEO = 3;
+	TWITTER = 4;
+}
+
+//------------------------------------------------------------------------------------------

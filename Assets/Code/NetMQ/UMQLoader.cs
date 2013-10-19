@@ -66,7 +66,7 @@ public class UMQLoader : MonoBehaviour {
 			CBKUtil.LoadLocalUser (response.sender);
 			CBKEventManager.Loading.LoadBuildings();
 			CBKResourceManager.instance.Init(response.sender.level, response.sender.experience,
-				response.experienceRequiredForNextLevel, response.sender.coins, response.sender.diamonds);
+				100/*response.experienceRequiredForNextLevel*/, response.sender.coins, response.sender.diamonds);
 		}
 		
 		CBKQuestManager.instance.Init(response, staticDataRequest);

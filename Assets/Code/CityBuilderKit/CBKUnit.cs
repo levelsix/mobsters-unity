@@ -8,7 +8,21 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 	public UISprite sprite;
 	public UISpriteAnimation anim;
 	
-	public string spriteBaseName = "GangsterBrute";
+	string _spriteName = "GangsterBrute";
+	
+	public string spriteBaseName
+	{
+		get
+		{
+			return _spriteName;
+		}
+		set
+		{
+			_spriteName = value;
+			sprite.atlas = CBKAtlasUtil.instance.LookupGoonAtlas(_spriteName);
+			SetAnimation(AnimationType.IDLE);
+		}
+	}
 	
 	[SerializeField]
 	UILabel nameLabel;
@@ -35,7 +49,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 	}
 	
 	MinimumUserProto mup;
-	NeutralCityElementProto ncep;
+	CityElementProto ncep;
 	
 	public FullTaskProto task;
 	public MinimumUserTaskProto userTask;
@@ -46,7 +60,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 	{
 		set
 		{
-			SetAnimation(value, direction);
+			SetAnimation(value);
 		}
 	}
 	
@@ -117,7 +131,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		Setup();
 	}
 	
-	public void Init (NeutralCityElementProto proto)
+	public void Init (CityElementProto proto)
 	{
 		mup = null;
 		
@@ -140,7 +154,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 			cityUnit.Init ();
 		}
 		
-		SetAnimation(AnimationType.IDLE, direction);
+		SetAnimation(AnimationType.IDLE);
 		
 		if (nameLabel != null)
 		{
@@ -148,7 +162,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		}
 	}
 	
-	void SetAnimation(AnimationType animate, CBKValues.Direction dir)
+	void SetAnimation(AnimationType animate)
 	{
 		string animationPrefix = spriteBaseName;
 		
@@ -160,7 +174,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 				break;
 			case AnimationType.FLINCH:
 				animationPrefix += "Flinch";
-				anim.framesPerSecond = ANIMATION_FPS;
+				anim.framesPerSecond = 3;
 				break;
 			case AnimationType.IDLE:
 				animationPrefix += "Attack";
@@ -173,9 +187,9 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 			default:
 				break;
 		}
-		animationPrefix += dirNameDict[dir];
+		animationPrefix += dirNameDict[direction];
 		
-		if (dir == CBKValues.Direction.SOUTH || dir == CBKValues.Direction.EAST)
+		if (direction == CBKValues.Direction.SOUTH || direction == CBKValues.Direction.EAST)
 		{
 			sprite.transform.localScale = new Vector3(-1,1,1);
 		}

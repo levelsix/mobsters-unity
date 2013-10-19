@@ -18,6 +18,9 @@ public class CBKAtlasUtil : MonoBehaviour {
 	[SerializeField]
 	UIAtlas clown001;
 	
+	[SerializeField]
+	UIAtlas cheerleader1, cheerleader2, cheerleader3;
+	
 	/// <summary>
 	/// Maps building names to the atlas that they're contained in
 	/// </summary>
@@ -82,6 +85,12 @@ public class CBKAtlasUtil : MonoBehaviour {
 		goonAtlasDict["MafiaMan"] = gangsterMafia;
 		goonAtlasDict["MafiaWoman"] = gangsterMafia;
 		goonAtlasDict["Clown_Boss"] = clown001;
+		goonAtlasDict["Cheerleader1SMG"] = cheerleader1;
+		goonAtlasDict["Cheerleader1Bazooka"] = cheerleader1;
+		goonAtlasDict["Cheerleader1Uzi"] = cheerleader1;
+		goonAtlasDict["Cheerleader2SMG"] = cheerleader1;
+		goonAtlasDict["Cheerleader2Bazooka"] = cheerleader1;
+		goonAtlasDict["Cheerleader2Uzi"] = cheerleader1;
 	}
 	
 	public UISpriteData LookupBuildingSprite(string name)

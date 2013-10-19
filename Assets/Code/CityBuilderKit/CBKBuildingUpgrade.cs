@@ -41,7 +41,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		{
 			if (building.userStructProto.lastUpgradeTime > 0)
 			{
-				return building.userStructProto.lastUpgradeTime + CBKMath.TimeToBuildOrUpgradeStruct(building.structProto.minutesToUpgradeBase, building.userStructProto.level);
+				return building.userStructProto.lastUpgradeTime + CBKMath.TimeToBuildOrUpgradeStruct(building.structProto.minutesToBuild, building.userStructProto.level);
 			}
 			else
 			{
@@ -200,7 +200,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		}
 		else
 		{
-			return CBKMath.TimeToBuildOrUpgradeStruct(building.structProto.minutesToUpgradeBase, level);
+			return CBKMath.TimeToBuildOrUpgradeStruct(building.structProto.minutesToBuild, level);
 		}
 	}
 	
@@ -243,14 +243,6 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		request.sender = CBKWhiteboard.localMup;
 		request.userStructId = building.userStructProto.userStructId;
 		request.timeOfSpeedup = CBKUtil.timeNow;
-		if (level > 0)
-		{
-			request.waitTimeType = FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType.FINISH_UPGRADE;
-		}
-		else
-		{
-			request.waitTimeType = FinishNormStructWaittimeWithDiamondsRequestProto.NormStructWaitTimeType.FINISH_CONSTRUCTION;
-		}
 		UMQNetworkManager.instance.SendRequest(request, 
 			(int)EventProtocolRequest.C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT, LoadPremiumFinishResponse);
 	}

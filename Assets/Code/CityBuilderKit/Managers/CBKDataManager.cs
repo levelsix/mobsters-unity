@@ -136,14 +136,6 @@ public class CBKDataManager : MonoBehaviour {
 			}
 		}
 		
-		foreach (int item in quest.defeatTypeReqs) 
-		{
-			if (!Has(typeof(DefeatTypeJobProto), item))
-			{
-				request.defeatTypeJobIds.Add(item);
-			}
-		}
-		
 		foreach (int item in quest.buildStructJobsReqs) 
 		{
 			if (!Has(typeof(BuildStructJobProto), item))
@@ -157,14 +149,6 @@ public class CBKDataManager : MonoBehaviour {
 			if (!Has(typeof(UpgradeStructJobProto), item))
 			{
 				request.upgradeStructJobIds.Add(item);
-			}
-		}
-		
-		foreach (int item in quest.possessEquipJobReqs) 
-		{
-			if (!Has(typeof(MinimumUserPossessEquipJobProto), item))
-			{
-				request.possessEquipJobIds.Add(item);
 			}
 		}
 	}
@@ -183,8 +167,8 @@ public class CBKDataManager : MonoBehaviour {
 		BuildQuestDataToStaticDataRequest (quest, request);
 		
 		//Only send the request if we actually have something we need to load from it
-		if (request.taskIds.Count > 0 || request.buildStructJobIds.Count > 0 || request.defeatTypeJobIds.Count > 0 
-			|| request.possessEquipJobIds.Count > 0 || request.upgradeStructJobIds.Count > 0)
+		if (request.taskIds.Count > 0 || request.buildStructJobIds.Count > 0
+			|| request.upgradeStructJobIds.Count > 0)
 		{
 			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RETRIEVE_STATIC_DATA_EVENT, LoadStaticDataResponse);
 		}
@@ -226,29 +210,9 @@ public class CBKDataManager : MonoBehaviour {
 			Load(item, item.buildStructJobId);
 		}
 		
-		foreach (DefeatTypeJobProto item in response.defeatTypeJobs)
-		{
-			Load(item, item.defeatTypeJobId);
-		}
-		
-		foreach (PossessEquipJobProto item in response.possessEquipJobs)
-		{
-			Load(item, item.possessEquipJobId);
-		}
-		
 		foreach (UpgradeStructJobProto item in response.upgradeStructJobs)
 		{
 			Load(item, item.upgradeStructJobId);
-		}
-		
-		foreach (ClanTierLevelProto item in response.clanTierLevels)
-		{
-			Load(item, item.tierLevel);
-		}
-		
-		foreach (FullBossProto item in response.bosses)
-		{
-			Load(item, item.bossId);
 		}
 	}
 	

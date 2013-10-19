@@ -127,8 +127,8 @@ public class CBKResourceManager : MonoBehaviour {
 		
 		if (response.status == LevelUpResponseProto.LevelUpStatus.SUCCESS)
 		{
-			_level = response.newLevel;
-			_expForNextLevel = response.experienceRequiredForNewNextLevel;
+			_level++;
+			//_expForNextLevel = response.experienceRequiredForNewNextLevel;
 		}
 		else
 		{

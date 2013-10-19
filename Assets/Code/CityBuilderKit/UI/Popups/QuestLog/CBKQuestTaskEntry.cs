@@ -83,9 +83,9 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKIPoolable
 		
 		taskNameLabel.text = fullTask.name;
 		
-		numLeftLabel.text = task.numTimesActed + "/" + fullTask.numRequiredForCompletion;
+		numLeftLabel.text = task.numTimesActed + "/" + 1;
 		
-		SetComplete(task.numTimesActed >= fullTask.numRequiredForCompletion);
+		SetComplete(task.numTimesActed > 0);
 	}
 	
 	public void Init(MinimumUserBuildStructJobProto job)
@@ -112,45 +112,6 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKIPoolable
 		numLeftLabel.text = job.currentLevel + "/" + upgradeJob.levelReq;
 		
 		SetComplete(job.currentLevel >= upgradeJob.levelReq);
-	}
-	
-	/// <summary>
-	/// Init from the specified job.
-	/// DOES NOT WORK
-	/// ROB: TODO: Finish this when we have a more clear equip system---------------------------------------------------------------------------------
-	/// </summary>
-	/// <param name='job'>
-	/// Job.
-	/// </param>
-	public void Init(MinimumUserPossessEquipJobProto job)
-	{
-		PossessEquipJobProto possJob = CBKDataManager.instance.Get (typeof(PossessEquipJobProto), job.possessEquipJobId) as PossessEquipJobProto;
-		
-		//FullEquipProto equip = CBKDataManager.instance.Get(typeof(FullEquipProto), possJob.equipId) as FullEquipProto;
-		
-		//taskNameLabel.text = "Possess " + possJob.quantityReq + " " + equip.name + "s";
-		
-		//numLeftLabel.text = job.numEquipUserHas + "/" + possJob.quantityReq;
-		
-		//SetComplete(job.numEquipUserHas >= possJob.quantityReq);
-	}
-	
-	public void Init(MinimumUserDefeatTypeJobProto job)
-	{	
-		DefeatTypeJobProto defeatJob = CBKDataManager.instance.Get(typeof(DefeatTypeJobProto), job.defeatTypeJobId) as DefeatTypeJobProto;
-		
-		taskNameLabel.text = "Defeat " + defeatJob.numEnemiesToDefeat + " ";
-		
-		switch (defeatJob.typeOfEnemy) 
-		{
-			default:
-				taskNameLabel.text += "FINISH THIS ROB";
-				break;
-		}
-		
-		numLeftLabel.text = job.numDefeated + "/" + defeatJob.numEnemiesToDefeat;
-		
-		SetComplete(job.numDefeated >= defeatJob.numEnemiesToDefeat);
 	}
 	
 	public void SetComplete(bool complete)
