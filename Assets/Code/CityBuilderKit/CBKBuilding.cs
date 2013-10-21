@@ -107,6 +107,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	/// </summary>
 	public int id;
 	
+	public CBKTaskable taskable;
+	
     #endregion
 
     #region Private
@@ -311,6 +313,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		
 		upgrade.Init(false);
 		collector.Init(false);
+		
+		taskable = gameObj.AddComponent(typeof(CBKTaskable)) as CBKTaskable;
 	}
 	
 	void Setup ()
@@ -569,6 +573,11 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	
 	public void Pool ()
 	{
+		if (taskable != null)
+		{
+			Destroy(taskable);
+			taskable = null;
+		}
 		CBKPoolManager.instance.Pool(this);
 	}
 	

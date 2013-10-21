@@ -18,14 +18,14 @@ public class PZCombatManager : MonoBehaviour {
 	/// <summary>
 	/// The player goonies that they brought into combat with them.
 	/// </summary>
-	List<MonsterProto> playerGoonies = new List<MonsterProto>();
+	public List<MonsterProto> playerGoonies = new List<MonsterProto>();
 	
 	/// <summary>
 	/// The remaining enemies. This is populated during level loading,
 	/// and dequeued whenever we need another enemy. When this is empty
 	/// and an enemy is defeated, the dungeon is complete.
 	/// </summary>
-	Queue<MonsterProto> enemies = new Queue<MonsterProto>();
+	public Queue<TaskStageMonsterProto> enemies = new Queue<TaskStageMonsterProto>();
 	
 	/// <summary>
 	/// The player's active goonie, who deals and takes damage.
@@ -82,12 +82,23 @@ public class PZCombatManager : MonoBehaviour {
 		instance = this;
 	}
 	
+	void OnEnable()
+	{
+		CBKEventManager.Scene.OnPuzzle += OnPuzzle;
+	}
+	
+	void OnDisable()
+	{
+		CBKEventManager.Scene.OnPuzzle -= OnPuzzle;
+	}
+	
 	/// <summary>
 	/// Start this instance. Gets the combat going.
-	/// TODO: Change this to an init that gets called when we switch to the combat view
+	/// TODO: Make this react to picking a goon instead of starting the puzzle view
 	/// </summary>
-	void Start()
+	void OnPuzzle()
 	{
+		
 		StartCoroutine(ScrollToNextEnemy());
 	}
 	
@@ -168,6 +179,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// </param>
 	IEnumerator DamageAnimations(int damage, MonsterProto.MonsterElement element)
 	{
+		PZPuzzleManager.instance.swapLock += 1;
 		
 		activePlayer.unit.animat = CBKUnit.AnimationType.ATTACK;
 		
@@ -179,5 +191,32 @@ public class PZCombatManager : MonoBehaviour {
 		yield return new WaitForSeconds(0.7f);
 		
 		activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
+		
+		yield return new WaitForSeconds(0.5f);
+		
+		activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
+		activeEnemy.DealDamage(PickEnemyGems(), out damage, out element);
+		activePlayer.TakeDamage(damage, element);
+		
+		yield return new WaitForSeconds(0.4f);
+		
+		activePlayer.unit.animat = CBKUnit.AnimationType.FLINCH;
+		
+		yield return new WaitForSeconds(0.7f);
+		
+		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
+		
+		PZPuzzleManager.instance.swapLock -= 1;
+	}
+	
+	int[] PickEnemyGems()
+	{
+		int num = Random.Range(1,4);
+		int type = Random.Range (0,5);
+		
+		int[] gems = new int[5];
+		gems[type] = num;
+		
+		return gems;
 	}
 }

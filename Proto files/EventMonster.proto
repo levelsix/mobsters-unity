@@ -73,6 +73,9 @@ message HealMonsterResponseProto {
 	optional MinimumUserProto sender = 1;
 	optional HealMonsterStatus status = 2;
 	
+	//these are the monsters in the table 
+	repeated UserMonsterHealingProto umhp = 3;
+	
 	enum HealMonsterStatus {
 		SUCCESS = 1;
 		FAIL_INSUFFICIENT_FUNDS = 2;
@@ -86,10 +89,11 @@ message HealMonsterResponseProto {
 
 message HealMonsterWaitTimeCompleteRequestProto {
 	optional MinimumUserProto sender = 1;
-	//speeds up all or nothing, 
+	//speeds up all or some monsters finished healing by waiting 
 	optional bool isSpeedup = 2; 
-	repeated int64 userMonsterIds = 3;
-	
+	//will be set if isSpeedup is true
+	optional int32 gemsForSpeedup = 3;
+	repeated int64 userMonsterIds = 4;
 }
 
 message HealMonsterWaitTimeCompleteResponseProto {
@@ -105,3 +109,57 @@ message HealMonsterWaitTimeCompleteResponseProto {
 }
 
 //------------------------------------------------------------------------------------------
+
+message AddMonsterToBattleTeamRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 teamSlotNum = 2;
+	optional int64 userMonsterId = 3;
+}
+
+message AddMonsterToBattleTeamResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional AddMonsterToBattleTeamStatus status = 2;
+	
+	enum AddMonsterToBattleTeamStatus {
+		SUCCESS = 1;
+		FAIL_OTHER = 2;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message RemoveMonsterFromBattleTeamRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int64 userMonsterId = 3;
+}
+
+message RemoveMonsterFromBattleTeamResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional AddMonsterToBattleTeamStatus status = 2;
+	
+	enum AddMonsterToBattleTeamStatus {
+		SUCCESS = 1;
+		FAIL_OTHER = 2;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message BuyMonsterInventorySlotRequestProto {
+	optional MinimumUserProto sender = 1;
+	optional int32 numPurchases = 2;
+}	
+
+message BuyMonsterInventorySlotResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional BuyMonsterInventorySlotStatus status = 2;
+	
+	 enum BuyMonsterInventorySlotStatus {
+		SUCCESS = 1;
+		FAIL_INSUFFICIENT_FUNDS = 2;
+		FAIL_OTHER = 3;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+

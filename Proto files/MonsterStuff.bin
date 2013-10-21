@@ -1,25 +1,29 @@
 
-è
-MonsterStuff.protocom.lvl6.proto"ê
+º
+MonsterStuff.protocom.lvl6.proto"Ö
 MonsterProto
 	monsterId (
 name (	<
 quality (2+.com.lvl6.proto.MonsterProto.MonsterQuality
 evolutionLevel (
 displayName (	<
-element (2+.com.lvl6.proto.MonsterProto.MonsterElement
-maxHp (
-	imageName (	=
-monsterType	 (2(.com.lvl6.proto.MonsterProto.MonsterType
-	expReward
- (
-silverReward (
-monsterIdSuccessor (
-puzzlePieceDropped ("3
-MonsterType
-REGULAR
-	MINI_BOSS
-BOSS"J
+element (2+.com.lvl6.proto.MonsterProto.MonsterElement
+baseHp (
+	imageName (	
+numPuzzlePieces	 (
+elementOneDmg
+ (
+elementTwoDmg (
+elementThreeDmg (
+elementFourDmg (
+elementFiveDmg (
+hpLevelMultiplier (
+attackLevelMultiplier (
+maxLevel (
+evolutionMonsterId (
+carrotRecruited (	
+carrotDefeated (	
+carrotEvolved (	"J
 MonsterQuality
 
 COMMON
@@ -42,9 +46,8 @@
 	numPieces (
 
 isComplete (
-teamSlotNum ("{
+teamSlotNum ("a
 UserMonsterHealingProto
 userId (
 userMonsterId (
-expectedStartTimeMillis (
-queuedTimeMillis (BBMonsterStuffProto
+expectedStartTimeMillis (BBMonsterStuffProto

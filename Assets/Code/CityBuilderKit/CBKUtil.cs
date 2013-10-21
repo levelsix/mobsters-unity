@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public static class CBKUtil {
 	
+	
+	#region Time
+	
 	//Don't fuck with these unless you're a wizard
 	const int SECS_PER_MIN = 60;
 	const int SECS_PER_HOUR = 60 * 60;
@@ -220,6 +223,62 @@ public static class CBKUtil {
 			}
 			return time + " second";
 		}
+	}
+	
+	#endregion
+	
+	const float normalDamageRatio = 1f;
+	const float weakDamageRatio = 1.25f;
+	const float resistantDamageRatio = .75f;
+	
+	//Maps Monster Type -> Type of the damage it is taking -> damage multiplier
+	public static readonly Dictionary<MonsterProto.MonsterElement, Dictionary<MonsterProto.MonsterElement, float>> elementStrengths = 
+		new Dictionary<MonsterProto.MonsterElement, Dictionary<MonsterProto.MonsterElement, float>>()
+	{
+		{
+			MonsterProto.MonsterElement.FIRE, new Dictionary<MonsterProto.MonsterElement, float>()
+			{
+				{MonsterProto.MonsterElement.GRASS, resistantDamageRatio},
+				{MonsterProto.MonsterElement.WATER, weakDamageRatio}
+			}
+		},
+		{
+			MonsterProto.MonsterElement.WATER, new Dictionary<MonsterProto.MonsterElement, float>()
+			{
+				{MonsterProto.MonsterElement.GRASS, weakDamageRatio},
+				{MonsterProto.MonsterElement.FIRE, resistantDamageRatio}
+			}
+		},
+		{
+			MonsterProto.MonsterElement.GRASS, new Dictionary<MonsterProto.MonsterElement, float>()
+			{
+				{MonsterProto.MonsterElement.FIRE, weakDamageRatio},
+				{MonsterProto.MonsterElement.WATER, resistantDamageRatio}
+			}
+		},
+		{
+			MonsterProto.MonsterElement.DARKNESS, new Dictionary<MonsterProto.MonsterElement, float>()
+			{
+				{MonsterProto.MonsterElement.DARKNESS, resistantDamageRatio},
+				{MonsterProto.MonsterElement.LIGHTNING, weakDamageRatio}
+			}
+		},
+		{
+			MonsterProto.MonsterElement.LIGHTNING, new Dictionary<MonsterProto.MonsterElement, float>()
+			{
+				{MonsterProto.MonsterElement.DARKNESS, weakDamageRatio},
+				{MonsterProto.MonsterElement.LIGHTNING, resistantDamageRatio}
+			}
+		}
+	};
+	
+	public static float GetTypeDamageMultiplier(MonsterProto.MonsterElement monsterType, MonsterProto.MonsterElement attackType)
+	{
+		if (elementStrengths[monsterType].ContainsKey(attackType))
+		{
+			return elementStrengths[monsterType][attackType];
+		}
+		return normalDamageRatio;
 	}
 	
 	public static void LoadLocalUser (FullUserProto user)

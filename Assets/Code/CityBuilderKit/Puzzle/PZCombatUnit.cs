@@ -51,7 +51,7 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		this.monster = proto;
 		
-		hp = proto.maxHp;
+		hp = proto.baseHp;
 	}
 	
 	/// <summary>
@@ -82,11 +82,12 @@ public class PZCombatUnit : MonoBehaviour {
 	public void DealDamage(int[] gems, out int damage, out MonsterProto.MonsterElement element)
 	{
 		damage = 0;
-		for (int i = 0; i < gems.Length; i++) 
-		{
-			//TODO: Use monster's damage table to look up damage per gem
-			damage += gems[i];
-		}
+		damage += gems[0] * monster.elementOneDmg;
+		damage += gems[1] * monster.elementTwoDmg;
+		damage += gems[2] * monster.elementThreeDmg;
+		damage += gems[3] * monster.elementFourDmg;
+		damage += gems[4] * monster.elementFiveDmg;
+		
 		element = monster.element;
 	}
 	
@@ -101,7 +102,11 @@ public class PZCombatUnit : MonoBehaviour {
 	/// </param>
 	public void TakeDamage(int damage, MonsterProto.MonsterElement element)
 	{
-		hp -= damage;
+		int fullDamage = (int)(damage * CBKUtil.GetTypeDamageMultiplier(monster.element, element));
+		
+		//TODO: If fullDamage != damage, do some animation or something to reflect super/notvery effective
+		
+		hp -= fullDamage;
 		
 		if (hp <= 0)
 		{

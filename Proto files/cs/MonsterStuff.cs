@@ -70,13 +70,13 @@ namespace com.lvl6.proto
       set { _element = value; }
     }
 
-    private int _maxHp = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"maxHp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _baseHp = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"baseHp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int maxHp
+    public int baseHp
     {
-      get { return _maxHp; }
-      set { _maxHp = value; }
+      get { return _baseHp; }
+      set { _baseHp = value; }
     }
 
     private string _imageName = "";
@@ -88,64 +88,122 @@ namespace com.lvl6.proto
       set { _imageName = value; }
     }
 
-    private com.lvl6.proto.MonsterProto.MonsterType _monsterType = com.lvl6.proto.MonsterProto.MonsterType.REGULAR;
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"monsterType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.MonsterType.REGULAR)]
-    public com.lvl6.proto.MonsterProto.MonsterType monsterType
-    {
-      get { return _monsterType; }
-      set { _monsterType = value; }
-    }
-
-    private int _expReward = default(int);
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"expReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _numPuzzlePieces = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"numPuzzlePieces", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int expReward
+    public int numPuzzlePieces
     {
-      get { return _expReward; }
-      set { _expReward = value; }
+      get { return _numPuzzlePieces; }
+      set { _numPuzzlePieces = value; }
     }
 
-    private int _silverReward = default(int);
-    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"silverReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _elementOneDmg = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"elementOneDmg", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int silverReward
+    public int elementOneDmg
     {
-      get { return _silverReward; }
-      set { _silverReward = value; }
+      get { return _elementOneDmg; }
+      set { _elementOneDmg = value; }
     }
 
-    private int _monsterIdSuccessor = default(int);
-    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"monsterIdSuccessor", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _elementTwoDmg = default(int);
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"elementTwoDmg", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int monsterIdSuccessor
+    public int elementTwoDmg
     {
-      get { return _monsterIdSuccessor; }
-      set { _monsterIdSuccessor = value; }
+      get { return _elementTwoDmg; }
+      set { _elementTwoDmg = value; }
     }
 
-    private bool _puzzlePieceDropped = default(bool);
-    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"puzzlePieceDropped", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool puzzlePieceDropped
+    private int _elementThreeDmg = default(int);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"elementThreeDmg", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int elementThreeDmg
     {
-      get { return _puzzlePieceDropped; }
-      set { _puzzlePieceDropped = value; }
+      get { return _elementThreeDmg; }
+      set { _elementThreeDmg = value; }
     }
-    [global::ProtoBuf.ProtoContract(Name=@"MonsterType")]
-    public enum MonsterType
+
+    private int _elementFourDmg = default(int);
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"elementFourDmg", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int elementFourDmg
     {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"REGULAR", Value=1)]
-      REGULAR = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"MINI_BOSS", Value=2)]
-      MINI_BOSS = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"BOSS", Value=3)]
-      BOSS = 3
+      get { return _elementFourDmg; }
+      set { _elementFourDmg = value; }
     }
-  
+
+    private int _elementFiveDmg = default(int);
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"elementFiveDmg", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int elementFiveDmg
+    {
+      get { return _elementFiveDmg; }
+      set { _elementFiveDmg = value; }
+    }
+
+    private float _hpLevelMultiplier = default(float);
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"hpLevelMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float hpLevelMultiplier
+    {
+      get { return _hpLevelMultiplier; }
+      set { _hpLevelMultiplier = value; }
+    }
+
+    private float _attackLevelMultiplier = default(float);
+    [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"attackLevelMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float attackLevelMultiplier
+    {
+      get { return _attackLevelMultiplier; }
+      set { _attackLevelMultiplier = value; }
+    }
+
+    private int _maxLevel = default(int);
+    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"maxLevel", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxLevel
+    {
+      get { return _maxLevel; }
+      set { _maxLevel = value; }
+    }
+
+    private int _evolutionMonsterId = default(int);
+    [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name=@"evolutionMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int evolutionMonsterId
+    {
+      get { return _evolutionMonsterId; }
+      set { _evolutionMonsterId = value; }
+    }
+
+    private string _carrotRecruited = "";
+    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"carrotRecruited", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string carrotRecruited
+    {
+      get { return _carrotRecruited; }
+      set { _carrotRecruited = value; }
+    }
+
+    private string _carrotDefeated = "";
+    [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"carrotDefeated", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string carrotDefeated
+    {
+      get { return _carrotDefeated; }
+      set { _carrotDefeated = value; }
+    }
+
+    private string _carrotEvolved = "";
+    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"carrotEvolved", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string carrotEvolved
+    {
+      get { return _carrotEvolved; }
+      set { _carrotEvolved = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"MonsterQuality")]
     public enum MonsterQuality
     {
@@ -304,15 +362,6 @@ namespace com.lvl6.proto
     {
       get { return _expectedStartTimeMillis; }
       set { _expectedStartTimeMillis = value; }
-    }
-
-    private long _queuedTimeMillis = default(long);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"queuedTimeMillis", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long queuedTimeMillis
-    {
-      get { return _queuedTimeMillis; }
-      set { _queuedTimeMillis = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

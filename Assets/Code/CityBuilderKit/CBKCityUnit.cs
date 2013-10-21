@@ -93,6 +93,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 			path = PlanPath(target, ChooseTarget());
 		}
 		SetTarget(path.Pop());
+		unit.animat = CBKUnit.AnimationType.RUN;
 	}
 	
 	public void SetTarget(CBKGridNode node)

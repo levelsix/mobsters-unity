@@ -19,7 +19,22 @@ public class CBKAtlasUtil : MonoBehaviour {
 	UIAtlas clown001;
 	
 	[SerializeField]
-	UIAtlas cheerleader1, cheerleader2, cheerleader3;
+	UIAtlas cheerleader1;
+	
+	[SerializeField]
+	UIAtlas cheerleader2;
+	
+	[SerializeField]
+	UIAtlas cheerleader3;
+	
+	[SerializeField]
+	UIAtlas rapper1;
+	
+	[SerializeField]
+	UIAtlas rapper2;
+	
+	[SerializeField]
+	UIAtlas rapper3;
 	
 	/// <summary>
 	/// Maps building names to the atlas that they're contained in
@@ -60,23 +75,23 @@ public class CBKAtlasUtil : MonoBehaviour {
 		buildingAtlasDict["Gym"] = building001;
 		buildingAtlasDict["Hospital"] = building001;
 		buildingAtlasDict["Bakery"] = building001;
-		buildingAtlasDict["house"] = building001;
+		buildingAtlasDict["House"] = building001;
 		buildingAtlasDict["IndianRestaurant"] = building001;
 		buildingAtlasDict["JewelryStore"] = building001;
 		buildingAtlasDict["Lofts"] = building001;
 		buildingAtlasDict["Motel6"] = building001;
 		buildingAtlasDict["MovieTheater"] = building001;
 		
-		buildingAtlasDict["NightClub"] = building002;
-		buildingAtlasDict["ParkingGarage"] = building002;
-		buildingAtlasDict["pizzeria"] = building002;
-		buildingAtlasDict["PoliceStation"] = building002;
-		buildingAtlasDict["PowerPlant"] = building002;
-		buildingAtlasDict["PublicSchool"] = building002;
-		buildingAtlasDict["Supermarket"] = building002;
-		buildingAtlasDict["SushiBar"] = building002;
-		buildingAtlasDict["TeaShop"] = building002;
-		buildingAtlasDict["TVStation"] = building002;
+		buildingAtlasDict["NightClub"] = building001;
+		buildingAtlasDict["ParkingGarage"] = building001;
+		buildingAtlasDict["pizzeria"] = building001;
+		buildingAtlasDict["PoliceStation"] = building001;
+		buildingAtlasDict["PowerPlant"] = building001;
+		buildingAtlasDict["PublicSchool"] = building001;
+		buildingAtlasDict["Supermarket"] = building001;
+		buildingAtlasDict["SushiBar"] = building001;
+		buildingAtlasDict["TeaShop"] = building001;
+		buildingAtlasDict["TVStation"] = building001;
 		
 		goonAtlasDict["GangsterBrute"] = gangsterMafia;
 		goonAtlasDict["GangsterMan"] = gangsterMafia;
@@ -84,13 +99,40 @@ public class CBKAtlasUtil : MonoBehaviour {
 		goonAtlasDict["MafiaBrute"] = gangsterMafia;
 		goonAtlasDict["MafiaMan"] = gangsterMafia;
 		goonAtlasDict["MafiaWoman"] = gangsterMafia;
+		
 		goonAtlasDict["Clown_Boss"] = clown001;
+		
 		goonAtlasDict["Cheerleader1SMG"] = cheerleader1;
 		goonAtlasDict["Cheerleader1Bazooka"] = cheerleader1;
 		goonAtlasDict["Cheerleader1Uzi"] = cheerleader1;
 		goonAtlasDict["Cheerleader2SMG"] = cheerleader1;
 		goonAtlasDict["Cheerleader2Bazooka"] = cheerleader1;
 		goonAtlasDict["Cheerleader2Uzi"] = cheerleader1;
+		goonAtlasDict["Cheerleader3SMG"] = cheerleader2;
+		goonAtlasDict["Cheerleader3Bazooka"] = cheerleader2;
+		goonAtlasDict["Cheerleader3Uzi"] = cheerleader2;
+		goonAtlasDict["Cheerleader4SMG"] = cheerleader2;
+		goonAtlasDict["Cheerleader4Bazooka"] = cheerleader2;
+		goonAtlasDict["Cheerleader4Uzi"] = cheerleader2;
+		goonAtlasDict["Cheerleader5SMG"] = cheerleader3;
+		goonAtlasDict["Cheerleader5Bazooka"] = cheerleader3;
+		goonAtlasDict["Cheerleader5Uzi"] = cheerleader3;
+		
+		goonAtlasDict["Rapper1AK"] = rapper1;
+		goonAtlasDict["Rapper1Shotgun"] = rapper1;
+		goonAtlasDict["Rapper1Uzi"] = rapper1;
+		goonAtlasDict["Rapper2AK"] = rapper1;
+		goonAtlasDict["Rapper2Shotgun"] = rapper1;
+		goonAtlasDict["Rapper2Uzi"] = rapper1;
+		goonAtlasDict["Rapper3AK"] = rapper2;
+		goonAtlasDict["Rapper3Shotgun"] = rapper2;
+		goonAtlasDict["Rapper3Uzi"] = rapper2;
+		goonAtlasDict["Rapper4AK"] = rapper2;
+		goonAtlasDict["Rapper4Shotgun"] = rapper2;
+		goonAtlasDict["Rapper4Uzi"] = rapper2;
+		goonAtlasDict["Rapper5AK"] = rapper3;
+		goonAtlasDict["Rapper5Shotgun"] = rapper3;
+		goonAtlasDict["Rapper5Uzi"] = rapper3;
 	}
 	
 	public UISpriteData LookupBuildingSprite(string name)

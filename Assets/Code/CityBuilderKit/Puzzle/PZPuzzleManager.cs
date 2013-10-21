@@ -37,7 +37,8 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 	}
 	
-	Transform trans;
+	[SerializeField]
+	Transform puzzleParent;
 	
 	List<PZGem> movingGems = new List<PZGem>();
 	List<PZGem> gemsToCheck = new List<PZGem>();
@@ -61,8 +62,6 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		instance = this;
 		
-		trans = transform;
-		
 		board = new PZGem[BOARD_WIDTH, BOARD_HEIGHT];
 		
 		currGems = new int[colors.Length];
@@ -70,7 +69,17 @@ public class PZPuzzleManager : MonoBehaviour {
 		ResetCombo();
 	}
 	
-	public void Start()
+	void OnEnable()
+	{
+		CBKEventManager.Scene.OnPuzzle += OnPuzzle;
+	}
+	
+	void OnDisable()
+	{
+		CBKEventManager.Scene.OnPuzzle -= OnPuzzle;
+	}
+	
+	void OnPuzzle()
 	{
 		StartCoroutine(InitBoard());
 	}
@@ -91,7 +100,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			for (int j = 0; j < BOARD_WIDTH; j++) 
 			{
 				gem = CBKPoolManager.instance.Get(gemPrefab, Vector3.zero) as PZGem;
-				gem.transf.parent = trans;
+				gem.transf.parent = puzzleParent;
 				gem.Init(PickColor(i, j), j);
 			}
 			yield return new WaitForSeconds(WAIT_BETWEEN_LINES);

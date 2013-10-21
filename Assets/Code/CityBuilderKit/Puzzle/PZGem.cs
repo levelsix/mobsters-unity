@@ -100,9 +100,13 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 	[SerializeField]
 	Vector2 currDrag = Vector2.zero;
 	
+	[HideInInspector]
 	public bool moving = false;
 	
 	bool dragged = false;
+	
+	int id;
+	static int nextID = 0;
 	
 	static readonly Dictionary<CBKValues.Direction, Vector3> dirVals = new Dictionary<CBKValues.Direction, Vector3>()
 	{
@@ -117,6 +121,7 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 		sprite = GetComponent<UISprite>();
 		trans = transform;
 		gameObj = gameObject;
+		id = nextID++;
 	}
 	
 	public CBKIPoolable Make (Vector3 origin)
@@ -139,7 +144,6 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 		
 		gemType = GemType.NORMAL;
 		
-		moving = false;
 		CheckFall();
 	}
 	
@@ -175,6 +179,7 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 	
 	IEnumerator Fall()
 	{
+		Debug.Log("Fall!: " + id);
 		moving = true;
 		PZPuzzleManager.instance.OnStartMoving(this);
 		float fallSpeed = BASE_FALL_SPEED;

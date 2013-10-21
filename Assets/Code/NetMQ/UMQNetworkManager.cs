@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 
 using UnityEngine;
 using System.Collections;
@@ -46,6 +46,8 @@ public class UMQNetworkManager : MonoBehaviour {
 	
 	[SerializeField]
 	UILabel debugTextLabel;
+	
+	public bool ready = false;
 	
 	void Awake()
 	{
@@ -109,6 +111,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		StartCoroutine(Consume(consumer));
 		
+		ready = true;
 	}
 	
 	public void CreateUserIDQueue(MinimumUserProto user)

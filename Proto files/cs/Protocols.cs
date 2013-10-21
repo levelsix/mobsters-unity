@@ -187,6 +187,18 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_HEAL_MONSTER_EVENT", Value=48)]
       C_HEAL_MONSTER_EVENT = 48,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT", Value=49)]
+      C_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT = 49,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT", Value=50)]
+      C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT = 50,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT", Value=51)]
+      C_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT = 51,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_BUY_MONSTER_INVENTORY_SLOT_EVENT", Value=52)]
+      C_BUY_MONSTER_INVENTORY_SLOT_EVENT = 52,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101
     }
@@ -338,6 +350,18 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_HEAL_MONSTER_EVENT", Value=48)]
       S_HEAL_MONSTER_EVENT = 48,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT", Value=49)]
+      S_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT = 49,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_ADD_MONSTER_TO_BATTLE_TEAM_EVENT", Value=50)]
+      S_ADD_MONSTER_TO_BATTLE_TEAM_EVENT = 50,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT", Value=51)]
+      S_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT = 51,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_BUY_MONSTER_INVENTORY_SLOT_EVENT", Value=52)]
+      S_BUY_MONSTER_INVENTORY_SLOT_EVENT = 52,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

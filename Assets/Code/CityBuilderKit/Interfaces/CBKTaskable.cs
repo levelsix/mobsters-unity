@@ -8,6 +8,11 @@ public class CBKTaskable : MonoBehaviour {
 	
 	public MinimumUserTaskProto userTask;
 	
+	public void Init(FullTaskProto proto)
+	{
+		task = proto;
+	}
+	
 	public void EngageTask()
 	{
 		//TODO: First, check if there's enough stamina/energy/whatever so we don't waste time loading all this scrote
@@ -34,10 +39,15 @@ public class CBKTaskable : MonoBehaviour {
 		
 		if (response.status == BeginDungeonResponseProto.BeginDungeonStatus.SUCCESS)
 		{
+			PZCombatManager.instance.enemies.Clear();
+			
 			foreach (TaskStageProto stage in response.tsp)
 			{
-				//TODO: Load monsters and start combat
+				PZCombatManager.instance.enemies.Enqueue(stage.stageMonsters[0]);
+				Debug.Log("Stage: " + stage.stageId + ": Adding monster " + stage.stageMonsters[0].monsterId);
 			}
 		}
+		
+		CBKEventManager.Scene.OnPuzzle();
 	}
 }

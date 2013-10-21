@@ -1,11 +1,11 @@
 
-ý
+Ñ"
 Protocols.protocom.lvl6.protoBattle.protoBoosterPackStuff.proto
 Chat.proto
 City.proto
 Clan.protoEventApns.protoEventBoosterPack.protoEventChat.protoEventCity.protoEventClan.protoEventDungeon.protoEventInAppPurchase.protoEventMonster.protoEventPvp.protoEventQuest.protoEventReferral.protoEventStartup.protoEventStaticData.protoEventStructure.protoEventTournament.protoEventUser.protoInAppPurchase.proto	Job.protoMonsterStuff.protoQuest.protoStructure.proto
 Task.protoTournamentStuff.proto
-User.proto*â
+User.proto*Œ
 EventProtocolRequest
 C_STARTUP_EVENT
 C_IN_APP_PURCHASE_EVENT#
@@ -55,8 +55,12 @@ $C_RETRIEVE_TOURNAMENT_RANKINGS_EVENT"&
 C_REVIVE_IN_DUNGEON_EVENT-
 C_QUEUE_UP_EVENT.!
 C_UPDATE_MONSTER_HEALTH_EVENT/
-C_HEAL_MONSTER_EVENT0
-C_LOGOUT_EVENTe*Ù
+C_HEAL_MONSTER_EVENT0+
+'C_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT1&
+"C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT2+
+'C_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT3&
+"C_BUY_MONSTER_INVENTORY_SLOT_EVENT4
+C_LOGOUT_EVENTe*ƒ
 EventProtocolResponse
 S_STARTUP_EVENT
 S_IN_APP_PURCHASE_EVENT#
@@ -106,7 +110,11 @@ $S_RETRIEVE_TOURNAMENT_RANKINGS_EVENT"&
 S_REVIVE_IN_DUNGEON_EVENT-
 S_QUEUE_UP_EVENT.!
 S_UPDATE_MONSTER_HEALTH_EVENT/
-S_HEAL_MONSTER_EVENT0
+S_HEAL_MONSTER_EVENT0+
+'S_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT1&
+"S_ADD_MONSTER_TO_BATTLE_TEAM_EVENT2+
+'S_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT3&
+"S_BUY_MONSTER_INVENTORY_SLOT_EVENT4
 S_UPDATE_CLIENT_USER_EVENTe
 S_QUEST_COMPLETE_EVENTf
 S_REFERRAL_CODE_USED_EVENTg

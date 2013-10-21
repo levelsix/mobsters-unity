@@ -27,19 +27,34 @@ public class CBKTaskButton : CBKTriggerPopupButton {
 	public void SetupBuilding(CBKBuilding building)
 	{
 		currBuilding = building;
-		if (building.userStructProto.isComplete)
+		
+		if (currBuilding.locallyOwned)
 		{
-			text.text = "UPGRADE";
+			if (building.userStructProto.isComplete)
+			{
+				text.text = "UPGRADE";
+			}
+			else
+			{
+				text.text = "FINISH";
+			}
 		}
 		else
 		{
-			text.text = "FINISH";
+			text.text = "ENGAGE";
 		}
 	}
 	
 	public override void OnClick ()
 	{
-		base.OnClick ();
-		popup.GetComponent<CBKBuildingUpgradePopup>().Init(currBuilding);
+		if (currBuilding.locallyOwned)
+		{
+			base.OnClick ();
+			popup.GetComponent<CBKBuildingUpgradePopup>().Init(currBuilding);
+		}
+		else
+		{
+			currBuilding.GetComponent<CBKTaskable>().EngageTask();
+		}
 	}
 }

@@ -25,11 +25,11 @@ namespace com.lvl6.proto
       get { return _stageId; }
       set { _stageId = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> _mp = new global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"mp", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> mp
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.TaskStageMonsterProto> _stageMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.TaskStageMonsterProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"stageMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.TaskStageMonsterProto> stageMonsters
     {
-      get { return _mp; }
+      get { return _stageMonsters; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -115,6 +115,84 @@ namespace com.lvl6.proto
       get { return _numTimesActed; }
       set { _numTimesActed = value; }
     }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TaskStageMonsterProto")]
+  public partial class TaskStageMonsterProto : global::ProtoBuf.IExtensible
+  {
+    public TaskStageMonsterProto() {}
+    
+
+    private int _monsterId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"monsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int monsterId
+    {
+      get { return _monsterId; }
+      set { _monsterId = value; }
+    }
+
+    private com.lvl6.proto.TaskStageMonsterProto.MonsterType _monsterType = com.lvl6.proto.TaskStageMonsterProto.MonsterType.REGULAR;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"monsterType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.TaskStageMonsterProto.MonsterType.REGULAR)]
+    public com.lvl6.proto.TaskStageMonsterProto.MonsterType monsterType
+    {
+      get { return _monsterType; }
+      set { _monsterType = value; }
+    }
+
+    private int _expReward = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"expReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int expReward
+    {
+      get { return _expReward; }
+      set { _expReward = value; }
+    }
+
+    private int _silverReward = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"silverReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int silverReward
+    {
+      get { return _silverReward; }
+      set { _silverReward = value; }
+    }
+
+    private bool _puzzlePieceDropped = default(bool);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"puzzlePieceDropped", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool puzzlePieceDropped
+    {
+      get { return _puzzlePieceDropped; }
+      set { _puzzlePieceDropped = value; }
+    }
+
+    private int _level = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"level", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int level
+    {
+      get { return _level; }
+      set { _level = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"MonsterType")]
+    public enum MonsterType
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"REGULAR", Value=1)]
+      REGULAR = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"MINI_BOSS", Value=2)]
+      MINI_BOSS = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"BOSS", Value=3)]
+      BOSS = 3
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

@@ -263,6 +263,13 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto> _umhp = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"umhp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto> umhp
+    {
+      get { return _umhp; }
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"HealMonsterStatus")]
     public enum HealMonsterStatus
     {
@@ -311,8 +318,17 @@ namespace com.lvl6.proto
       get { return _isSpeedup; }
       set { _isSpeedup = value; }
     }
+
+    private int _gemsForSpeedup = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gemsForSpeedup", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsForSpeedup
+    {
+      get { return _gemsForSpeedup; }
+      set { _gemsForSpeedup = value; }
+    }
     private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public global::System.Collections.Generic.List<long> userMonsterIds
     {
       get { return _userMonsterIds; }
@@ -361,6 +377,219 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
       FAIL_OTHER = 4
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AddMonsterToBattleTeamRequestProto")]
+  public partial class AddMonsterToBattleTeamRequestProto : global::ProtoBuf.IExtensible
+  {
+    public AddMonsterToBattleTeamRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private int _teamSlotNum = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"teamSlotNum", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int teamSlotNum
+    {
+      get { return _teamSlotNum; }
+      set { _teamSlotNum = value; }
+    }
+
+    private long _userMonsterId = default(long);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userMonsterId
+    {
+      get { return _userMonsterId; }
+      set { _userMonsterId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AddMonsterToBattleTeamResponseProto")]
+  public partial class AddMonsterToBattleTeamResponseProto : global::ProtoBuf.IExtensible
+  {
+    public AddMonsterToBattleTeamResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.AddMonsterToBattleTeamResponseProto.AddMonsterToBattleTeamStatus _status = com.lvl6.proto.AddMonsterToBattleTeamResponseProto.AddMonsterToBattleTeamStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.AddMonsterToBattleTeamResponseProto.AddMonsterToBattleTeamStatus.SUCCESS)]
+    public com.lvl6.proto.AddMonsterToBattleTeamResponseProto.AddMonsterToBattleTeamStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"AddMonsterToBattleTeamStatus")]
+    public enum AddMonsterToBattleTeamStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RemoveMonsterFromBattleTeamRequestProto")]
+  public partial class RemoveMonsterFromBattleTeamRequestProto : global::ProtoBuf.IExtensible
+  {
+    public RemoveMonsterFromBattleTeamRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private long _userMonsterId = default(long);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userMonsterId
+    {
+      get { return _userMonsterId; }
+      set { _userMonsterId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RemoveMonsterFromBattleTeamResponseProto")]
+  public partial class RemoveMonsterFromBattleTeamResponseProto : global::ProtoBuf.IExtensible
+  {
+    public RemoveMonsterFromBattleTeamResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.AddMonsterToBattleTeamStatus _status = com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.AddMonsterToBattleTeamStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.AddMonsterToBattleTeamStatus.SUCCESS)]
+    public com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.AddMonsterToBattleTeamStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"AddMonsterToBattleTeamStatus")]
+    public enum AddMonsterToBattleTeamStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BuyMonsterInventorySlotRequestProto")]
+  public partial class BuyMonsterInventorySlotRequestProto : global::ProtoBuf.IExtensible
+  {
+    public BuyMonsterInventorySlotRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private int _numPurchases = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"numPurchases", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numPurchases
+    {
+      get { return _numPurchases; }
+      set { _numPurchases = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BuyMonsterInventorySlotResponseProto")]
+  public partial class BuyMonsterInventorySlotResponseProto : global::ProtoBuf.IExtensible
+  {
+    public BuyMonsterInventorySlotResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.BuyMonsterInventorySlotResponseProto.BuyMonsterInventorySlotStatus _status = com.lvl6.proto.BuyMonsterInventorySlotResponseProto.BuyMonsterInventorySlotStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.BuyMonsterInventorySlotResponseProto.BuyMonsterInventorySlotStatus.SUCCESS)]
+    public com.lvl6.proto.BuyMonsterInventorySlotResponseProto.BuyMonsterInventorySlotStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"BuyMonsterInventorySlotStatus")]
+    public enum BuyMonsterInventorySlotStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_FUNDS", Value=2)]
+      FAIL_INSUFFICIENT_FUNDS = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;

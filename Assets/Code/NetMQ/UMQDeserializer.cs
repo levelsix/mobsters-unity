@@ -36,7 +36,8 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_QUEST_ACCEPT_EVENT, typeof(QuestAcceptResponseProto)},
 		{EventProtocolResponse.S_RETRIEVE_STATIC_DATA_EVENT, typeof(RetrieveStaticDataResponseProto)},
 		{EventProtocolResponse.S_QUEST_REDEEM_EVENT, typeof(QuestRedeemResponseProto)},
-		{EventProtocolResponse.S_QUEST_COMPLETE_EVENT, typeof(QuestRedeemResponseProto)}
+		{EventProtocolResponse.S_QUEST_COMPLETE_EVENT, typeof(QuestRedeemResponseProto)},
+		{EventProtocolResponse.S_BEGIN_DUNGEON_EVENT, typeof(BeginDungeonResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

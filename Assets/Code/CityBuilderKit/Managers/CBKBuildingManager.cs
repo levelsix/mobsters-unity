@@ -51,6 +51,9 @@ public class CBKBuildingManager : MonoBehaviour
 	[SerializeField]
 	Transform unitParent;
 	
+	[SerializeField]
+	Transform buildingParent;
+	
     #endregion
 
     #region Private
@@ -187,11 +190,25 @@ public class CBKBuildingManager : MonoBehaviour
 			}
 		}
 		
-		if (CBKEventManager.Loading.OnBuildingsLoaded != null)
+		foreach (FullTaskProto task in CBKDataManager.instance.GetAll(typeof(FullTaskProto)).Values)
 		{
-			CBKEventManager.Loading.OnBuildingsLoaded();
+			if (task.cityId == cityId)
+			{
+				if(buildings.ContainsKey(task.assetNumWithinCity))
+				{
+					buildings[task.assetNumWithinCity].taskable.task = task;
+				}
+				else if(units.ContainsKey(task.assetNumWithinCity))
+				{
+					units[task.assetNumWithinCity].task = task;
+				}
+			}
 		}
 		
+		if (CBKEventManager.Scene.OnCity != null)
+		{
+			CBKEventManager.Scene.OnCity();
+		}
 	}
 	
 	public void LoadPlayerCity(int tagNum)
@@ -219,9 +236,9 @@ public class CBKBuildingManager : MonoBehaviour
 			units.Add (i, dude);
 		}
 		
-		if (CBKEventManager.Loading.OnBuildingsLoaded != null)
+		if (CBKEventManager.Scene.OnCity != null)
 		{
-			CBKEventManager.Loading.OnBuildingsLoaded();
+			CBKEventManager.Scene.OnCity();
 		}
 	}
 	
@@ -238,9 +255,9 @@ public class CBKBuildingManager : MonoBehaviour
 		Vector3 position = new Vector3(CBKGridManager.instance.spaceSize * x, 0, 
     		CBKGridManager.instance.spaceSize * y);
     	
-	    CBKBuilding building = Instantiate(buildingPrefab, position, transform.rotation) as CBKBuilding;
+	    CBKBuilding building = Instantiate(buildingPrefab, position, buildingParent.rotation) as CBKBuilding;
     	
-    	building.trans.parent = transform;
+    	building.trans.parent = buildingParent;
     	building.Init(proto);
     	
 	    CBKGridManager.instance.AddBuilding(building, x, y, proto.xLength, proto.yLength);
@@ -257,14 +274,14 @@ public class CBKBuildingManager : MonoBehaviour
     	
 	    CBKBuilding building = CBKPoolManager.instance.Get(buildingPrefab, position) as CBKBuilding;
 		
-		building.trans.rotation = transform.rotation;
-    	building.trans.parent = transform;
+		building.trans.rotation = buildingParent.rotation;
+    	building.trans.parent = buildingParent;
     	building.Init(proto);
     	
 		FullStructureProto fsp = CBKDataManager.instance.Get(typeof(FullStructureProto), proto.structId) as FullStructureProto;
 	    CBKGridManager.instance.AddBuilding(building, (int)proto.coordinates.x, (int)proto.coordinates.y, fsp.xLength, fsp.yLength);
 	
-		buildings.Add(proto.userId, building);
+		buildings.Add(proto.userStructId, building);
 		
     	return building;
 	}
@@ -278,8 +295,8 @@ public class CBKBuildingManager : MonoBehaviour
     	
 	    CBKBuilding building = CBKPoolManager.instance.Get(buildingPrefab, position) as CBKBuilding;
 		
-		building.trans.rotation = transform.rotation;
-    	building.trans.parent = transform;
+		building.trans.rotation = buildingParent.rotation;
+    	building.trans.parent = buildingParent;
     	building.Init(proto);
     	
 	    CBKGridManager.instance.AddBuilding(building, (int)proto.coords.x, (int)proto.coords.y, proto.xLength, proto.yLength);
@@ -362,9 +379,9 @@ public class CBKBuildingManager : MonoBehaviour
 		Vector3 position = new Vector3(CBKGridManager.instance.spaceSize * coords.x, 0, 
 			CBKGridManager.instance.spaceSize * coords.z);
 		
-		CBKBuilding building = Instantiate(buildingPrefab, position, transform.rotation) as CBKBuilding;
+		CBKBuilding building = Instantiate(buildingPrefab, position, buildingParent.rotation) as CBKBuilding;
 		
-		building.trans.parent = transform;
+		building.trans.parent = buildingParent;
 		building.Init(proto);
 		building.upgrade.StartConstruction();
         CBKGridManager.instance.AddBuilding(building, (int)coords.x, (int)coords.z, proto.xLength, proto.yLength);
@@ -556,6 +573,7 @@ public class CBKBuildingManager : MonoBehaviour
 			item.Pool();
 		}
 		buildings.Clear();
+		units.Clear();
 	}
 	
 	#endregion

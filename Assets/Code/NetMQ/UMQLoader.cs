@@ -18,7 +18,12 @@ public class UMQLoader : MonoBehaviour {
 	// Use this for initialization
 	IEnumerator Start () {
 		
-		yield return new WaitForSeconds(2);
+		//Hang here while we set up the connetion
+		//TODO: Time out if we've been hanging here for too long
+		while(!UMQNetworkManager.instance.ready)
+		{
+			yield return null;
+		}
 		
 		UMQNetworkManager.instance.WriteDebug("Sending StartupRequest");
 		
@@ -28,18 +33,13 @@ public class UMQLoader : MonoBehaviour {
 		startup.versionNum = 1.0f;
 		startup.isForceTutorial = false;
 		
-		UMQNetworkManager.instance.SendRequest(startup, (int) EventProtocolRequest.C_STARTUP_EVENT, LoadStartupResponse);
+		int tagNum = UMQNetworkManager.instance.SendRequest(startup, (int) EventProtocolRequest.C_STARTUP_EVENT, null);
 
-	}
-	
-	/// <summary>
-	/// Loads the startup response once it has been received
-	/// </summary>
-	/// <param name='tagNum'>
-	/// Tag number.
-	/// </param>
-	void LoadStartupResponse(int tagNum)
-	{
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
 		UMQNetworkManager.instance.WriteDebug(tagNum + ": Received StartupResponse");
 		
 		StartupResponseProto response = (StartupResponseProto) UMQNetworkManager.responseDict[tagNum];
@@ -67,6 +67,11 @@ public class UMQLoader : MonoBehaviour {
 			CBKEventManager.Loading.LoadBuildings();
 			CBKResourceManager.instance.Init(response.sender.level, response.sender.experience,
 				100/*response.experienceRequiredForNextLevel*/, response.sender.coins, response.sender.diamonds);
+			
+			if (CBKEventManager.Scene.OnCity != null)
+			{
+				CBKEventManager.Scene.OnCity();
+			}
 		}
 		
 		CBKQuestManager.instance.Init(response, staticDataRequest);
@@ -87,6 +92,10 @@ public class UMQLoader : MonoBehaviour {
 		foreach (var item in response.staticStructs) 
 		{
 			CBKDataManager.instance.Load(item, item.structId);
+		}
+		foreach (var item in response.staticMonsters) 
+		{
+			CBKDataManager.instance.Load(item, item.monsterId);
 		}
 	}
 }

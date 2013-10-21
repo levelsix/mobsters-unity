@@ -89,8 +89,17 @@ namespace com.lvl6.proto
     public StartupResponseProto() {}
     
 
+    private long _serverTimeMillis = default(long);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"serverTimeMillis", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long serverTimeMillis
+    {
+      get { return _serverTimeMillis; }
+      set { _serverTimeMillis = value; }
+    }
+
     private com.lvl6.proto.FullUserProto _sender = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
     public com.lvl6.proto.FullUserProto sender
     {
@@ -99,7 +108,7 @@ namespace com.lvl6.proto
     }
 
     private com.lvl6.proto.StartupResponseProto.StartupStatus _startupStatus = com.lvl6.proto.StartupResponseProto.StartupStatus.USER_IN_DB;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"startupStatus", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"startupStatus", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StartupResponseProto.StartupStatus.USER_IN_DB)]
     public com.lvl6.proto.StartupResponseProto.StartupStatus startupStatus
     {
@@ -108,7 +117,7 @@ namespace com.lvl6.proto
     }
 
     private com.lvl6.proto.StartupResponseProto.UpdateStatus _updateStatus = com.lvl6.proto.StartupResponseProto.UpdateStatus.NO_UPDATE;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"updateStatus", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"updateStatus", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StartupResponseProto.UpdateStatus.NO_UPDATE)]
     public com.lvl6.proto.StartupResponseProto.UpdateStatus updateStatus
     {
@@ -117,7 +126,7 @@ namespace com.lvl6.proto
     }
 
     private com.lvl6.proto.StartupResponseProto.StartupConstants _startupConstants = null;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"startupConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"startupConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
     public com.lvl6.proto.StartupResponseProto.StartupConstants startupConstants
     {
@@ -125,57 +134,43 @@ namespace com.lvl6.proto
       set { _startupConstants = value; }
     }
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullCityProto> _allCities = new global::System.Collections.Generic.List<com.lvl6.proto.FullCityProto>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"allCities", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(6, Name=@"allCities", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullCityProto> allCities
     {
       get { return _allCities; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> _inProgressIncompleteQuests = new global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto>();
-    [global::ProtoBuf.ProtoMember(6, Name=@"inProgressIncompleteQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(7, Name=@"inProgressIncompleteQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> inProgressIncompleteQuests
     {
       get { return _inProgressIncompleteQuests; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> _inProgressCompleteQuests = new global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto>();
-    [global::ProtoBuf.ProtoMember(7, Name=@"inProgressCompleteQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(8, Name=@"inProgressCompleteQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> inProgressCompleteQuests
     {
       get { return _inProgressCompleteQuests; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> _availableQuests = new global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto>();
-    [global::ProtoBuf.ProtoMember(8, Name=@"availableQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(9, Name=@"availableQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> availableQuests
     {
       get { return _availableQuests; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserClanProto> _userClanInfo = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserClanProto>();
-    [global::ProtoBuf.ProtoMember(9, Name=@"userClanInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(10, Name=@"userClanInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullUserClanProto> userClanInfo
     {
       get { return _userClanInfo; }
     }
   
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.AttackedNotificationProto> _attackNotifications = new global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.AttackedNotificationProto>();
-    [global::ProtoBuf.ProtoMember(10, Name=@"attackNotifications", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.AttackedNotificationProto> attackNotifications
-    {
-      get { return _attackNotifications; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.ReferralNotificationProto> _referralNotifications = new global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.ReferralNotificationProto>();
-    [global::ProtoBuf.ProtoMember(11, Name=@"referralNotifications", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.ReferralNotificationProto> referralNotifications
-    {
-      get { return _referralNotifications; }
-    }
-  
 
     private string _appStoreURL = "";
-    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"appStoreURL", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"appStoreURL", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string appStoreURL
     {
@@ -184,7 +179,7 @@ namespace com.lvl6.proto
     }
 
     private string _reviewPageURL = "";
-    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"reviewPageURL", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"reviewPageURL", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string reviewPageURL
     {
@@ -193,7 +188,7 @@ namespace com.lvl6.proto
     }
 
     private string _reviewPageConfirmationMessage = "";
-    [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"reviewPageConfirmationMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"reviewPageConfirmationMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string reviewPageConfirmationMessage
     {
@@ -202,13 +197,34 @@ namespace com.lvl6.proto
     }
 
     private bool _playerHasBoughtInAppPurchase = default(bool);
-    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"playerHasBoughtInAppPurchase", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"playerHasBoughtInAppPurchase", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
     public bool playerHasBoughtInAppPurchase
     {
       get { return _playerHasBoughtInAppPurchase; }
       set { _playerHasBoughtInAppPurchase = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.GoldSaleProto> _goldSales = new global::System.Collections.Generic.List<com.lvl6.proto.GoldSaleProto>();
+    [global::ProtoBuf.ProtoMember(15, Name=@"goldSales", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.GoldSaleProto> goldSales
+    {
+      get { return _goldSales; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.AttackedNotificationProto> _attackNotifications = new global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.AttackedNotificationProto>();
+    [global::ProtoBuf.ProtoMember(16, Name=@"attackNotifications", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.AttackedNotificationProto> attackNotifications
+    {
+      get { return _attackNotifications; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.ReferralNotificationProto> _referralNotifications = new global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.ReferralNotificationProto>();
+    [global::ProtoBuf.ProtoMember(17, Name=@"referralNotifications", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.ReferralNotificationProto> referralNotifications
+    {
+      get { return _referralNotifications; }
+    }
+  
     private readonly global::System.Collections.Generic.List<string> _noticesToPlayers = new global::System.Collections.Generic.List<string>();
     [global::ProtoBuf.ProtoMember(18, Name=@"noticesToPlayers", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<string> noticesToPlayers
@@ -230,11 +246,11 @@ namespace com.lvl6.proto
       get { return _clanChats; }
     }
   
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.GoldSaleProto> _goldSales = new global::System.Collections.Generic.List<com.lvl6.proto.GoldSaleProto>();
-    [global::ProtoBuf.ProtoMember(21, Name=@"goldSales", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.GoldSaleProto> goldSales
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PrivateChatPostProto> _pcpp = new global::System.Collections.Generic.List<com.lvl6.proto.PrivateChatPostProto>();
+    [global::ProtoBuf.ProtoMember(21, Name=@"pcpp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PrivateChatPostProto> pcpp
     {
-      get { return _goldSales; }
+      get { return _pcpp; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullStructureProto> _staticStructs = new global::System.Collections.Generic.List<com.lvl6.proto.FullStructureProto>();
@@ -244,8 +260,36 @@ namespace com.lvl6.proto
       get { return _staticStructs; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.CityExpansionCostProto> _expansionCosts = new global::System.Collections.Generic.List<com.lvl6.proto.CityExpansionCostProto>();
+    [global::ProtoBuf.ProtoMember(23, Name=@"expansionCosts", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.CityExpansionCostProto> expansionCosts
+    {
+      get { return _expansionCosts; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> _staticMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto>();
+    [global::ProtoBuf.ProtoMember(24, Name=@"staticMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> staticMonsters
+    {
+      get { return _staticMonsters; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _usersMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(25, Name=@"usersMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> usersMonsters
+    {
+      get { return _usersMonsters; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto> _monstersHealing = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto>();
+    [global::ProtoBuf.ProtoMember(26, Name=@"monstersHealing", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto> monstersHealing
+    {
+      get { return _monstersHealing; }
+    }
+  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.RareBoosterPurchaseProto> _rareBoosterPurchases = new global::System.Collections.Generic.List<com.lvl6.proto.RareBoosterPurchaseProto>();
-    [global::ProtoBuf.ProtoMember(23, Name=@"rareBoosterPurchases", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(27, Name=@"rareBoosterPurchases", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.RareBoosterPurchaseProto> rareBoosterPurchases
     {
       get { return _rareBoosterPurchases; }
@@ -253,32 +297,18 @@ namespace com.lvl6.proto
   
 
     private string _kabamNaid = "";
-    [global::ProtoBuf.ProtoMember(24, IsRequired = false, Name=@"kabamNaid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(28, IsRequired = false, Name=@"kabamNaid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string kabamNaid
     {
       get { return _kabamNaid; }
       set { _kabamNaid = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PrivateChatPostProto> _pcpp = new global::System.Collections.Generic.List<com.lvl6.proto.PrivateChatPostProto>();
-    [global::ProtoBuf.ProtoMember(25, Name=@"pcpp", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.PrivateChatPostProto> pcpp
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.LevelAndRequiredExpProto> _larep = new global::System.Collections.Generic.List<com.lvl6.proto.LevelAndRequiredExpProto>();
+    [global::ProtoBuf.ProtoMember(29, Name=@"larep", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.LevelAndRequiredExpProto> larep
     {
-      get { return _pcpp; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.CityExpansionCostProto> _expansionCosts = new global::System.Collections.Generic.List<com.lvl6.proto.CityExpansionCostProto>();
-    [global::ProtoBuf.ProtoMember(26, Name=@"expansionCosts", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.CityExpansionCostProto> expansionCosts
-    {
-      get { return _expansionCosts; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> _staticMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto>();
-    [global::ProtoBuf.ProtoMember(27, Name=@"staticMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> staticMonsters
-    {
-      get { return _staticMonsters; }
+      get { return _larep; }
     }
   
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
@@ -607,13 +637,13 @@ namespace com.lvl6.proto
     public ClanConstants() {}
     
 
-    private int _diamondPriceToCreateClan = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"diamondPriceToCreateClan", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _coinPriceToCreateClan = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"coinPriceToCreateClan", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int diamondPriceToCreateClan
+    public int coinPriceToCreateClan
     {
-      get { return _diamondPriceToCreateClan; }
-      set { _diamondPriceToCreateClan = value; }
+      get { return _coinPriceToCreateClan; }
+      set { _coinPriceToCreateClan = value; }
     }
 
     private int _maxCharLengthForClanName = default(int);

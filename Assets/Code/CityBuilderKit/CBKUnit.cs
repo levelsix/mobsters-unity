@@ -48,7 +48,6 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		}
 	}
 	
-	MinimumUserProto mup;
 	CityElementProto ncep;
 	
 	public FullTaskProto task;
@@ -126,22 +125,22 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 	public void Init ()
 	{	
 		name = "Rob";
-		mup = new MinimumUserProto();
+		
+		spriteBaseName = "GangsterBrute";
 		
 		Setup();
 	}
 	
 	public void Init (CityElementProto proto)
 	{
-		mup = null;
 		
 		name = proto.name;
 		
 		ncep = proto;
 		
-		sprite.atlas = CBKAtlasUtil.instance.LookupGoonAtlas(ncep.imgId);
-		
 		spriteBaseName = ncep.imgId;
+		
+		sprite.atlas = CBKAtlasUtil.instance.LookupGoonAtlas(ncep.imgId);
 		
 		Setup();
 	}

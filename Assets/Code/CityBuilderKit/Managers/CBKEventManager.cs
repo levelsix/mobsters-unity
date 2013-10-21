@@ -98,5 +98,10 @@ public static class CBKEventManager
 		public static Action<int> OnMoneyCollected;
 	}
 	
+	public static class Scene
+	{
+		public static Action OnCity;
+		public static Action OnPuzzle;
+	}
 	
 }

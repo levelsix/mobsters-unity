@@ -109,8 +109,8 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=2)]
       OTHER_FAIL = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_ENOUGH_DIAMONDS", Value=3)]
-      NOT_ENOUGH_DIAMONDS = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"NOT_ENOUGH_COINS", Value=3)]
+      NOT_ENOUGH_COINS = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"NAME_TAKEN", Value=4)]
       NAME_TAKEN = 4,
