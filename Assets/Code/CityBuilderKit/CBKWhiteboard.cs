@@ -19,6 +19,8 @@ public static class CBKWhiteboard {
 	/// </summary>
 	public static MinimumUserProto localMup;
 	
+	public static StartupResponseProto.StartupConstants constants;
+	
 	public enum CityType {PLAYER, NEUTRAL};
 	
 	public static CityType currCityType = CityType.PLAYER;
@@ -29,5 +31,7 @@ public static class CBKWhiteboard {
 	
 	public static FullStructureProto tempStructureProto;
 	public static CBKGridNode tempStructurePos;
+	
+	public static long currTaskID;
 	
 }

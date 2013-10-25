@@ -14,12 +14,17 @@ public static class CBKUtil {
 	const int SECS_PER_HOUR = 60 * 60;
 	const int SECS_PER_DAY = 60 * 60 * 24;
 	
-	public static long timeNow
+	public static long timeNowMillis
 	{
 		get
 		{
 			return CBKMath.UnixTimeStamp(DateTime.UtcNow) * 1000;
 		}
+	}
+	
+	public static long timeSince(long time)
+	{
+		return timeNowMillis - time;
 	}
 	
 	/// <summary>

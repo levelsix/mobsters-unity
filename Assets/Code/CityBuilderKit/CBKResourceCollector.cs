@@ -49,11 +49,11 @@ public class CBKResourceCollector : MonoBehaviour {
 		{
 			//Debug.Log("Seconds:\nLast Retrieved: " + _building.userStructProto.lastRetrieved + "\nNow: " + CBKUtil.timeNow +
 				//"\nTime to gen: " + timeToGenerate);
-			if (_building.userStructProto.lastRetrieved + timeToGenerate < CBKUtil.timeNow)
+			if (_building.userStructProto.lastRetrieved + timeToGenerate < CBKUtil.timeNowMillis)
 			{
 				return 0;
 			}
-			return (_building.userStructProto.lastRetrieved + timeToGenerate) - CBKUtil.timeNow;
+			return (_building.userStructProto.lastRetrieved + timeToGenerate) - CBKUtil.timeNowMillis;
 		}
 	}
 	
@@ -159,7 +159,7 @@ public class CBKResourceCollector : MonoBehaviour {
 			CBKMoneyPickup money = CBKPoolManager.instance.Get(CBKPrefabList.instance.moneyPrefab, transform.position) as CBKMoneyPickup;
 			money.Init(_building, income);
 			
-			_building.userStructProto.lastRetrieved = CBKUtil.timeNow;
+			_building.userStructProto.lastRetrieved = CBKUtil.timeNowMillis;
 			hasResourcesPopup.SetActive(false);
 			
 			SendCollectRequest();
@@ -172,7 +172,7 @@ public class CBKResourceCollector : MonoBehaviour {
 		request.sender = CBKWhiteboard.localMup;
 		request.structRetrievals.Add(new com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval());
 		request.structRetrievals[0].userStructId = _building.userStructProto.userStructId;
-		request.structRetrievals[0].timeOfRetrieval = CBKUtil.timeNow;
+		request.structRetrievals[0].timeOfRetrieval = CBKUtil.timeNowMillis;
 		
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, LoadCollectResponse);
 	}
@@ -187,7 +187,7 @@ public class CBKResourceCollector : MonoBehaviour {
 			Debug.LogError("Problem collecting money: " + response.status.ToString());
 			if (response.status == RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME)
 			{
-				Debug.Log("Client time: " + CBKUtil.timeNow);
+				Debug.Log("Client time: " + CBKUtil.timeNowMillis);
 			}
 		}
 	}

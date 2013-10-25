@@ -9,6 +9,7 @@
 
 // Generated from: EventQuest.proto
 // Note: requires additional types generated from: City.proto
+// Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
@@ -80,11 +81,14 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_AVAIL_TO_USER", Value=2)]
-      NOT_AVAIL_TO_USER = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_AVAIL_TO_USER", Value=2)]
+      FAIL_NOT_AVAIL_TO_USER = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=3)]
-      OTHER_FAIL = 3
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_ALREADY_ACCEPTED", Value=3)]
+      FAIL_ALREADY_ACCEPTED = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
+      FAIL_OTHER = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -92,10 +96,10 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"QuestCompleteResponseProto")]
-  public partial class QuestCompleteResponseProto : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"QuestProgressRequestProto")]
+  public partial class QuestProgressRequestProto : global::ProtoBuf.IExtensible
   {
-    public QuestCompleteResponseProto() {}
+    public QuestProgressRequestProto() {}
     
 
     private com.lvl6.proto.MinimumUserProto _sender = null;
@@ -116,14 +120,72 @@ namespace com.lvl6.proto
       set { _questId = value; }
     }
 
-    private com.lvl6.proto.CityElementProto _CityElement = null;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"CityElement", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.CityElementProto CityElement
+    private int _currentProgress = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"currentProgress", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int currentProgress
     {
-      get { return _CityElement; }
-      set { _CityElement = value; }
+      get { return _currentProgress; }
+      set { _currentProgress = value; }
     }
+
+    private bool _isComplete = default(bool);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"isComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isComplete
+    {
+      get { return _isComplete; }
+      set { _isComplete = value; }
+    }
+    private readonly global::System.Collections.Generic.List<long> _deleteUserMonsterIds = new global::System.Collections.Generic.List<long>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"deleteUserMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<long> deleteUserMonsterIds
+    {
+      get { return _deleteUserMonsterIds; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"QuestProgressResponseProto")]
+  public partial class QuestProgressResponseProto : global::ProtoBuf.IExtensible
+  {
+    public QuestProgressResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.QuestProgressResponseProto.QuestProgressStatus _status = com.lvl6.proto.QuestProgressResponseProto.QuestProgressStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.QuestProgressResponseProto.QuestProgressStatus.SUCCESS)]
+    public com.lvl6.proto.QuestProgressResponseProto.QuestProgressStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"QuestProgressStatus")]
+    public enum QuestProgressStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NO_QUEST_EXISTS", Value=2)]
+      FAIL_NO_QUEST_EXISTS = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -188,13 +250,22 @@ namespace com.lvl6.proto
       set { _status = value; }
     }
 
-    private int _monsterId = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"monsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int monsterId
+    private com.lvl6.proto.FullUserMonsterProto _fump = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"fump", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.FullUserMonsterProto fump
     {
-      get { return _monsterId; }
-      set { _monsterId = value; }
+      get { return _fump; }
+      set { _fump = value; }
+    }
+
+    private int _questId = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"questId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int questId
+    {
+      get { return _questId; }
+      set { _questId = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"QuestRedeemStatus")]
     public enum QuestRedeemStatus
@@ -203,88 +274,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_COMPLETE", Value=2)]
-      NOT_COMPLETE = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_COMPLETE", Value=2)]
+      FAIL_NOT_COMPLETE = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=3)]
-      OTHER_FAIL = 3
-    }
-  
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserQuestDetailsRequestProto")]
-  public partial class UserQuestDetailsRequestProto : global::ProtoBuf.IExtensible
-  {
-    public UserQuestDetailsRequestProto() {}
-    
-
-    private com.lvl6.proto.MinimumUserProto _sender = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
-    {
-      get { return _sender; }
-      set { _sender = value; }
-    }
-
-    private int _questId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"questId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int questId
-    {
-      get { return _questId; }
-      set { _questId = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserQuestDetailsResponseProto")]
-  public partial class UserQuestDetailsResponseProto : global::ProtoBuf.IExtensible
-  {
-    public UserQuestDetailsResponseProto() {}
-    
-
-    private com.lvl6.proto.MinimumUserProto _sender = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
-    {
-      get { return _sender; }
-      set { _sender = value; }
-    }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserQuestDataLargeProto> _inProgressUserQuestData = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserQuestDataLargeProto>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"inProgressUserQuestData", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserQuestDataLargeProto> inProgressUserQuestData
-    {
-      get { return _inProgressUserQuestData; }
-    }
-  
-
-    private com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus _status = com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus.SUCCESS;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus.SUCCESS)]
-    public com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus status
-    {
-      get { return _status; }
-      set { _status = value; }
-    }
-    [global::ProtoBuf.ProtoContract(Name=@"UserQuestDetailsStatus")]
-    public enum UserQuestDetailsStatus
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
-      SUCCESS = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SUPPLIED_QUESTID_CURRENTLY_NOT_IN_PROGRESS", Value=2)]
-      SUPPLIED_QUESTID_CURRENTLY_NOT_IN_PROGRESS = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SOME_FAIL", Value=3)]
-      SOME_FAIL = 3
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;

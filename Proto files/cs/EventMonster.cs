@@ -26,31 +26,27 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
-    private long _enhancingUserMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"enhancingUserMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long enhancingUserMonsterId
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto> _ueipDelete = new global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"ueipDelete", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto> ueipDelete
     {
-      get { return _enhancingUserMonsterId; }
-      set { _enhancingUserMonsterId = value; }
-    }
-    private readonly global::System.Collections.Generic.List<long> _feederUserMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"feederUserMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> feederUserMonsterIds
-    {
-      get { return _feederUserMonsterIds; }
+      get { return _ueipDelete; }
     }
   
-
-    private long _clientTime = default(long);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long clientTime
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto> _ueipUpdate = new global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"ueipUpdate", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto> ueipUpdate
     {
-      get { return _clientTime; }
-      set { _clientTime = value; }
+      get { return _ueipUpdate; }
     }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto> _ueipNew = new global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto>();
+    [global::ProtoBuf.ProtoMember(4, Name=@"ueipNew", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto> ueipNew
+    {
+      get { return _ueipNew; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -71,16 +67,16 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private com.lvl6.proto.SubmitMonsterEnhancementResponseProto.EnhanceMonsterStatus _status = com.lvl6.proto.SubmitMonsterEnhancementResponseProto.EnhanceMonsterStatus.SUCCESS;
+    private com.lvl6.proto.SubmitMonsterEnhancementResponseProto.SubmitMonsterEnhancementStatus _status = com.lvl6.proto.SubmitMonsterEnhancementResponseProto.SubmitMonsterEnhancementStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SubmitMonsterEnhancementResponseProto.EnhanceMonsterStatus.SUCCESS)]
-    public com.lvl6.proto.SubmitMonsterEnhancementResponseProto.EnhanceMonsterStatus status
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SubmitMonsterEnhancementResponseProto.SubmitMonsterEnhancementStatus.SUCCESS)]
+    public com.lvl6.proto.SubmitMonsterEnhancementResponseProto.SubmitMonsterEnhancementStatus status
     {
       get { return _status; }
       set { _status = value; }
     }
-    [global::ProtoBuf.ProtoContract(Name=@"EnhanceMonsterStatus")]
-    public enum EnhanceMonsterStatus
+    [global::ProtoBuf.ProtoContract(Name=@"SubmitMonsterEnhancementStatus")]
+    public enum SubmitMonsterEnhancementStatus
     {
             
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
@@ -107,6 +103,104 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EnhancementWaitTimeCompleteRequestProto")]
+  public partial class EnhancementWaitTimeCompleteRequestProto : global::ProtoBuf.IExtensible
+  {
+    public EnhancementWaitTimeCompleteRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private bool _isSpeedup = default(bool);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"isSpeedup", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isSpeedup
+    {
+      get { return _isSpeedup; }
+      set { _isSpeedup = value; }
+    }
+
+    private int _gemsForSpeedup = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gemsForSpeedup", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsForSpeedup
+    {
+      get { return _gemsForSpeedup; }
+      set { _gemsForSpeedup = value; }
+    }
+
+    private com.lvl6.proto.UserMonsterCurrentExpProto _umcep = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"umcep", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserMonsterCurrentExpProto umcep
+    {
+      get { return _umcep; }
+      set { _umcep = value; }
+    }
+    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<long> userMonsterIds
+    {
+      get { return _userMonsterIds; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EnhancementWaitTimeCompleteResponseProto")]
+  public partial class EnhancementWaitTimeCompleteResponseProto : global::ProtoBuf.IExtensible
+  {
+    public EnhancementWaitTimeCompleteResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus _status = com.lvl6.proto.EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus.SUCCESS)]
+    public com.lvl6.proto.EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"EnhancementWaitTimeCompleteStatus")]
+    public enum EnhancementWaitTimeCompleteStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_HEALING_NOT_COMPLETE", Value=2)]
+      FAIL_HEALING_NOT_COMPLETE = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_FUNDS", Value=3)]
+      FAIL_INSUFFICIENT_FUNDS = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
+      FAIL_OTHER = 4
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UpdateMonsterHealthRequestProto")]
   public partial class UpdateMonsterHealthRequestProto : global::ProtoBuf.IExtensible
   {
@@ -121,11 +215,11 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _fumps = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"fumps", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> fumps
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> _umchp = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"umchp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> umchp
     {
-      get { return _fumps; }
+      get { return _umchp; }
     }
   
 
@@ -156,16 +250,9 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _fumps = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"fumps", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> fumps
-    {
-      get { return _fumps; }
-    }
-  
 
     private com.lvl6.proto.UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus _status = com.lvl6.proto.UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus.SUCCESS;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus.SUCCESS)]
     public com.lvl6.proto.UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus status
     {
@@ -227,8 +314,17 @@ namespace com.lvl6.proto
     }
   
 
+    private int _cashCost = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"cashCost", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int cashCost
+    {
+      get { return _cashCost; }
+      set { _cashCost = value; }
+    }
+
     private int _gemCost = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"gemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"gemCost", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int gemCost
     {
@@ -263,13 +359,6 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto> _umhp = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"umhp", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto> umhp
-    {
-      get { return _umhp; }
-    }
-  
     [global::ProtoBuf.ProtoContract(Name=@"HealMonsterStatus")]
     public enum HealMonsterStatus
     {
@@ -327,11 +416,11 @@ namespace com.lvl6.proto
       get { return _gemsForSpeedup; }
       set { _gemsForSpeedup = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(4, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> userMonsterIds
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> _umchp = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto>();
+    [global::ProtoBuf.ProtoMember(4, Name=@"umchp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> umchp
     {
-      get { return _userMonsterIds; }
+      get { return _umchp; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -503,16 +592,16 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.AddMonsterToBattleTeamStatus _status = com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.AddMonsterToBattleTeamStatus.SUCCESS;
+    private com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.RemoveMonsterFromBattleTeamStatus _status = com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.RemoveMonsterFromBattleTeamStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.AddMonsterToBattleTeamStatus.SUCCESS)]
-    public com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.AddMonsterToBattleTeamStatus status
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.RemoveMonsterFromBattleTeamStatus.SUCCESS)]
+    public com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.RemoveMonsterFromBattleTeamStatus status
     {
       get { return _status; }
       set { _status = value; }
     }
-    [global::ProtoBuf.ProtoContract(Name=@"AddMonsterToBattleTeamStatus")]
-    public enum AddMonsterToBattleTeamStatus
+    [global::ProtoBuf.ProtoContract(Name=@"RemoveMonsterFromBattleTeamStatus")]
+    public enum RemoveMonsterFromBattleTeamStatus
     {
             
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]

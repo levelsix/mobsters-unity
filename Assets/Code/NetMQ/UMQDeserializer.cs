@@ -32,12 +32,13 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_UPDATE_CLIENT_USER_EVENT, typeof(UpdateClientUserResponseProto)},
 		{EventProtocolResponse.S_SEND_GROUP_CHAT_EVENT, typeof(SendGroupChatResponseProto)},
 		{EventProtocolResponse.S_LOAD_CITY_EVENT, typeof(LoadCityResponseProto)},
-		{EventProtocolResponse.S_USER_QUEST_DETAILS_EVENT, typeof(UserQuestDetailsResponseProto)},
+		{EventProtocolResponse.S_QUEST_PROGRESS_EVENT, typeof(QuestProgressResponseProto)},
 		{EventProtocolResponse.S_QUEST_ACCEPT_EVENT, typeof(QuestAcceptResponseProto)},
 		{EventProtocolResponse.S_RETRIEVE_STATIC_DATA_EVENT, typeof(RetrieveStaticDataResponseProto)},
 		{EventProtocolResponse.S_QUEST_REDEEM_EVENT, typeof(QuestRedeemResponseProto)},
-		{EventProtocolResponse.S_QUEST_COMPLETE_EVENT, typeof(QuestRedeemResponseProto)},
-		{EventProtocolResponse.S_BEGIN_DUNGEON_EVENT, typeof(BeginDungeonResponseProto)}
+		{EventProtocolResponse.S_BEGIN_DUNGEON_EVENT, typeof(BeginDungeonResponseProto)},
+		{EventProtocolResponse.S_UPDATE_MONSTER_HEALTH_EVENT, typeof(UpdateMonsterHealthResponseProto)},
+		{EventProtocolResponse.S_END_DUNGEON_EVENT, typeof(EndDungeonResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

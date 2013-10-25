@@ -18,14 +18,14 @@ public class PZCombatManager : MonoBehaviour {
 	/// <summary>
 	/// The player goonies that they brought into combat with them.
 	/// </summary>
-	public List<MonsterProto> playerGoonies = new List<MonsterProto>();
+	public List<PZMonster> playerGoonies = new List<PZMonster>();
 	
 	/// <summary>
 	/// The remaining enemies. This is populated during level loading,
 	/// and dequeued whenever we need another enemy. When this is empty
 	/// and an enemy is defeated, the dungeon is complete.
 	/// </summary>
-	public Queue<TaskStageMonsterProto> enemies = new Queue<TaskStageMonsterProto>();
+	public Queue<PZMonster> enemies = new Queue<PZMonster>();
 	
 	/// <summary>
 	/// The player's active goonie, who deals and takes damage.
@@ -74,6 +74,18 @@ public class PZCombatManager : MonoBehaviour {
 	/// </value>
 	public static readonly Vector3 enemySpawnPosition = new Vector3(464, 511);
 	
+	[SerializeField]
+	PZDeployPopup deployPopup;
+	
+	/// <summary>
+	/// The popup that displays when the player fails a mission
+	/// </summary>
+	[SerializeField]
+	UITweener losePopup;
+	
+	[SerializeField]
+	UITweener winPopup;
+	
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
 	/// </summary>
@@ -85,27 +97,74 @@ public class PZCombatManager : MonoBehaviour {
 	void OnEnable()
 	{
 		CBKEventManager.Scene.OnPuzzle += OnPuzzle;
+		CBKEventManager.Puzzle.OnDeploy += OnDeploy;
+		activePlayer.OnDeath += OnPlayerDeath;
 	}
 	
 	void OnDisable()
 	{
 		CBKEventManager.Scene.OnPuzzle -= OnPuzzle;
+		CBKEventManager.Puzzle.OnDeploy -= OnDeploy;
+		activePlayer.OnDeath -= OnPlayerDeath;
 	}
 	
 	/// <summary>
 	/// Start this instance. Gets the combat going.
-	/// TODO: Make this react to picking a goon instead of starting the puzzle view
 	/// </summary>
 	void OnPuzzle()
 	{
+		winPopup.gameObject.SetActive(false);
+		losePopup.gameObject.SetActive(false);
 		
+		if (activeEnemy != null)
+		{
+			activeEnemy.unit.sprite.alpha = 0;
+		}
+		
+		foreach (PZMonster monster in CBKMonsterManager.instance.userTeam)
+		{
+			playerGoonies.Add(monster);
+		}
+		
+		CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
+		deployPopup.Init(playerGoonies);
+		
+		//Lock swap until deploy
+		PZPuzzleManager.instance.swapLock += 1;
+	}
+	
+	void OnDeploy(PZMonster monster)
+	{
+		PZPuzzleManager.instance.swapLock -= 1;
+		CBKEventManager.Popup.CloseAllPopups();
+		activePlayer.Init(monster);
 		StartCoroutine(ScrollToNextEnemy());
 	}
 	
 	void OnEnemyDeath()
 	{
-		activeEnemy.OnDeath -= OnEnemyDeath;
 		StartCoroutine(ScrollToNextEnemy());
+	}
+	
+	void OnPlayerDeath()
+	{
+		//Debug.Log("Lock: Player death");
+		PZPuzzleManager.instance.swapLock += 1;
+		
+		foreach (var goon in playerGoonies)
+		{
+			if (goon.currHP > 0)
+			{
+				CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
+				deployPopup.Init(playerGoonies);
+				return;
+			}
+		}
+		
+		losePopup.gameObject.SetActive(true);
+		losePopup.Play();
+		
+		StartCoroutine(SendEndResult(false));
 	}
 	
 	/// <summary>
@@ -114,30 +173,76 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	IEnumerator ScrollToNextEnemy()
 	{
+		//Debug.Log("Lock: Scrolling");
 		PZPuzzleManager.instance.swapLock += 1;
 		
-		activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
 		
-		activeEnemy = (CBKPoolManager.instance.Get(unitPrefab, Vector3.zero) as CBKUnit).GetComponent<PZCombatUnit>();
-		activeEnemy.unit.transf.parent = combatParent;
-		activeEnemy.unit.transf.localScale = Vector3.one;
-		activeEnemy.unit.transf.localPosition = enemySpawnPosition;
-		activeEnemy.unit.direction = CBKValues.Direction.WEST;
-		activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
-		activeEnemy.hp = 100;
-		activeEnemy.unit.spriteBaseName = "Cheerleader1SMG";
-		
-		activeEnemy.OnDeath += OnEnemyDeath;
-		
-		while(activeEnemy.unit.transf.localPosition.y > enemyYThreshold)
+		if (enemies.Count > 0)
 		{
-			background.Scroll(activeEnemy.unit);
+			activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
+			
+			if (activeEnemy == null)
+			{
+				activeEnemy = (CBKPoolManager.instance.Get(unitPrefab, Vector3.zero) as CBKUnit).GetComponent<PZCombatUnit>();
+				activeEnemy.OnDeath += OnEnemyDeath;
+			}
+			activeEnemy.unit.transf.parent = combatParent;
+			activeEnemy.unit.transf.localScale = Vector3.one;
+			activeEnemy.unit.transf.localPosition = enemySpawnPosition;
+			activeEnemy.unit.direction = CBKValues.Direction.WEST;
+			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
+			
+			activeEnemy.Init(enemies.Dequeue());
+			
+			
+			while(activeEnemy.unit.transf.localPosition.y > enemyYThreshold)
+			{
+				background.Scroll(activeEnemy.unit);
+				yield return null;
+			}
+			
+			activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
+		}
+		else
+		{
+			activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
+			
+			winPopup.gameObject.SetActive(true);
+			winPopup.Play();
+			StartCoroutine(SendEndResult(true));
+		}
+		
+		//Debug.Log("Unlock: Done Scrolling");
+		PZPuzzleManager.instance.swapLock -= 1;
+	}
+	
+	IEnumerator SendEndResult(bool userWon)
+	{
+		EndDungeonRequestProto request = new EndDungeonRequestProto();
+		request.sender = CBKWhiteboard.localMup;
+		request.userTaskId = CBKWhiteboard.currTaskID;
+		request.userWon = userWon;
+		request.clientTime = CBKUtil.timeNowMillis;
+		
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_END_DUNGEON_EVENT, null);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
 			yield return null;
 		}
 		
-		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
+		EndDungeonResponseProto response = UMQNetworkManager.responseDict[tagNum] as EndDungeonResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		PZPuzzleManager.instance.swapLock -= 1;
+		if (response.status == EndDungeonResponseProto.EndDungeonStatus.SUCCESS)
+		{
+			CBKMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
+		}
+		else
+		{
+			Debug.LogError("Problem in End Dungeon: " + response.status.ToString());
+		}
+		
 	}
 	
 	/// <summary>
@@ -179,6 +284,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// </param>
 	IEnumerator DamageAnimations(int damage, MonsterProto.MonsterElement element)
 	{
+		//Debug.Log("Lock: Animating");
 		PZPuzzleManager.instance.swapLock += 1;
 		
 		activePlayer.unit.animat = CBKUnit.AnimationType.ATTACK;
@@ -190,22 +296,29 @@ public class PZCombatManager : MonoBehaviour {
 		
 		yield return new WaitForSeconds(0.7f);
 		
-		activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
+		//Enemy attack back if not dead
+		if (activeEnemy.monster.currHP > 0)
+		{
 		
-		yield return new WaitForSeconds(0.5f);
+			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
+			
+			yield return new WaitForSeconds(0.5f);
+			
+			activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
+			activeEnemy.DealDamage(PickEnemyGems(), out damage, out element);
+			activePlayer.TakeDamage(damage, element);
+			
+			yield return new WaitForSeconds(0.4f);
+			
+			activePlayer.unit.animat = CBKUnit.AnimationType.FLINCH;
+			
+			yield return new WaitForSeconds(0.7f);
+			
+			activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
 		
-		activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
-		activeEnemy.DealDamage(PickEnemyGems(), out damage, out element);
-		activePlayer.TakeDamage(damage, element);
+		}
 		
-		yield return new WaitForSeconds(0.4f);
-		
-		activePlayer.unit.animat = CBKUnit.AnimationType.FLINCH;
-		
-		yield return new WaitForSeconds(0.7f);
-		
-		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
-		
+		//Debug.Log("Unlock: Done Animating");
 		PZPuzzleManager.instance.swapLock -= 1;
 	}
 	

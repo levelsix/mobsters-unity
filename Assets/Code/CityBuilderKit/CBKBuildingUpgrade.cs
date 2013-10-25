@@ -54,7 +54,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			return upgradeCompleteTime - CBKUtil.timeNow;
+			return upgradeCompleteTime - CBKUtil.timeNowMillis;
 		}
 	}
 	
@@ -150,7 +150,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public virtual void StartUpgrade()
 	{
-		building.userStructProto.lastUpgradeTime = CBKUtil.timeNow;
+		building.userStructProto.lastUpgradeTime = CBKUtil.timeNowMillis;
 		
 		building.userStructProto.isComplete = false;
 		
@@ -166,7 +166,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		UpgradeNormStructureRequestProto request = new UpgradeNormStructureRequestProto();
 		request.sender = CBKWhiteboard.localMup;
 		request.userStructId = building.userStructProto.userStructId;
-		request.timeOfUpgrade = CBKUtil.timeNow;
+		request.timeOfUpgrade = CBKUtil.timeNowMillis;
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPGRADE_NORM_STRUCTURE_EVENT, CheckUpgradeResponse);
 	}
 			
@@ -212,8 +212,8 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		Debug.Log("Checking...");
 		while (!building.userStructProto.isComplete)
 		{
-			if (CBKUtil.timeNow > building.userStructProto.purchaseTime + building.structProto.minutesToBuild * 60 * 1000
-				&& CBKUtil.timeNow > upgradeCompleteTime)
+			if (CBKUtil.timeNowMillis > building.userStructProto.purchaseTime + building.structProto.minutesToBuild * 60 * 1000
+				&& CBKUtil.timeNowMillis > upgradeCompleteTime)
 			{
 				FinishWithWait();
 			}
@@ -232,7 +232,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public void FinishWithPremium()
 	{
-		building.userStructProto.lastUpgradeTime = CBKUtil.timeNow;
+		building.userStructProto.lastUpgradeTime = CBKUtil.timeNowMillis;
 		SendPremiumFinishRequest();
 		FinishUpgrade();
 	}
@@ -242,7 +242,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		FinishNormStructWaittimeWithDiamondsRequestProto request = new FinishNormStructWaittimeWithDiamondsRequestProto();
 		request.sender = CBKWhiteboard.localMup;
 		request.userStructId = building.userStructProto.userStructId;
-		request.timeOfSpeedup = CBKUtil.timeNow;
+		request.timeOfSpeedup = CBKUtil.timeNowMillis;
 		UMQNetworkManager.instance.SendRequest(request, 
 			(int)EventProtocolRequest.C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT, LoadPremiumFinishResponse);
 	}
@@ -263,7 +263,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		NormStructWaitCompleteRequestProto request = new NormStructWaitCompleteRequestProto();
 		request.sender = CBKWhiteboard.localMup;
 		request.userStructId.Add(building.userStructProto.userStructId);
-		request.curTime = CBKUtil.timeNow;
+		request.curTime = CBKUtil.timeNowMillis;
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_NORM_STRUCT_WAIT_COMPLETE_EVENT, LoadWaitFinishResponse);
 	}
 	

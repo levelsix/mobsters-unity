@@ -509,10 +509,10 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LevelAndRequiredExpProto")]
-  public partial class LevelAndRequiredExpProto : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StaticLevelInfoProto")]
+  public partial class StaticLevelInfoProto : global::ProtoBuf.IExtensible
   {
-    public LevelAndRequiredExpProto() {}
+    public StaticLevelInfoProto() {}
     
 
     private int _level = default(int);
@@ -531,6 +531,15 @@ namespace com.lvl6.proto
     {
       get { return _requiredExperience; }
       set { _requiredExperience = value; }
+    }
+
+    private int _maxCash = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"maxCash", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxCash
+    {
+      get { return _maxCash; }
+      set { _maxCash = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

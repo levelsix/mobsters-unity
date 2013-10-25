@@ -79,8 +79,8 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_QUEST_ACCEPT_EVENT", Value=12)]
       C_QUEST_ACCEPT_EVENT = 12,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_USER_QUEST_DETAILS_EVENT", Value=13)]
-      C_USER_QUEST_DETAILS_EVENT = 13,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_QUEST_PROGRESS_EVENT", Value=13)]
+      C_QUEST_PROGRESS_EVENT = 13,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_QUEST_REDEEM_EVENT", Value=14)]
       C_QUEST_REDEEM_EVENT = 14,
@@ -199,6 +199,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_BUY_MONSTER_INVENTORY_SLOT_EVENT", Value=52)]
       C_BUY_MONSTER_INVENTORY_SLOT_EVENT = 52,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT", Value=53)]
+      C_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT = 53,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101
     }
@@ -243,8 +246,8 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"S_QUEST_ACCEPT_EVENT", Value=12)]
       S_QUEST_ACCEPT_EVENT = 12,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_USER_QUEST_DETAILS_EVENT", Value=13)]
-      S_USER_QUEST_DETAILS_EVENT = 13,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_QUEST_PROGRESS_EVENT", Value=13)]
+      S_QUEST_PROGRESS_EVENT = 13,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_QUEST_REDEEM_EVENT", Value=14)]
       S_QUEST_REDEEM_EVENT = 14,
@@ -363,29 +366,29 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"S_BUY_MONSTER_INVENTORY_SLOT_EVENT", Value=52)]
       S_BUY_MONSTER_INVENTORY_SLOT_EVENT = 52,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"S_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT", Value=53)]
+      S_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT = 53,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_QUEST_COMPLETE_EVENT", Value=102)]
-      S_QUEST_COMPLETE_EVENT = 102,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_REFERRAL_CODE_USED_EVENT", Value=102)]
+      S_REFERRAL_CODE_USED_EVENT = 102,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_REFERRAL_CODE_USED_EVENT", Value=103)]
-      S_REFERRAL_CODE_USED_EVENT = 103,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_PURGE_STATIC_DATA_EVENT", Value=103)]
+      S_PURGE_STATIC_DATA_EVENT = 103,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_PURGE_STATIC_DATA_EVENT", Value=104)]
-      S_PURGE_STATIC_DATA_EVENT = 104,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RECEIVED_GROUP_CHAT_EVENT", Value=104)]
+      S_RECEIVED_GROUP_CHAT_EVENT = 104,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RECEIVED_GROUP_CHAT_EVENT", Value=105)]
-      S_RECEIVED_GROUP_CHAT_EVENT = 105,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_SEND_ADMIN_MESSAGE_EVENT", Value=105)]
+      S_SEND_ADMIN_MESSAGE_EVENT = 105,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_SEND_ADMIN_MESSAGE_EVENT", Value=106)]
-      S_SEND_ADMIN_MESSAGE_EVENT = 106,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_GENERAL_NOTIFICATION_EVENT", Value=106)]
+      S_GENERAL_NOTIFICATION_EVENT = 106,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_GENERAL_NOTIFICATION_EVENT", Value=107)]
-      S_GENERAL_NOTIFICATION_EVENT = 107,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RECEIVED_RARE_BOOSTER_PURCHASE_EVENT", Value=108)]
-      S_RECEIVED_RARE_BOOSTER_PURCHASE_EVENT = 108
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RECEIVED_RARE_BOOSTER_PURCHASE_EVENT", Value=107)]
+      S_RECEIVED_RARE_BOOSTER_PURCHASE_EVENT = 107
     }
   
 }

@@ -286,7 +286,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		
 		userStructProto = new FullUserStructureProto();
 		
-		long now = CBKUtil.timeNow;
+		long now = CBKUtil.timeNowMillis;
 		userStructProto.lastRetrieved = now;
 		userStructProto.purchaseTime = now;
 		userStructProto.isComplete = false;
@@ -364,12 +364,13 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		Transform spriteTrans = sprite.transform;
 		
 		
+		spriteTrans.localScale = new Vector3(1, (float)sprite.GetAtlasSprite().height / sprite.GetAtlasSprite().width);
 		//spriteTrans.localScale = new Vector3(structProto.xLength * CBKGridManager.instance.gridSpaceHypotenuse,
 			//structProto.xLength * CBKGridManager.instance.gridSpaceHypotenuse * sprite.GetAtlasSprite().height / sprite.GetAtlasSprite().width, 0)
 			//* .8f;
 		//spriteTrans.localScale = new Vector3(4, 4, 1);
 		
-		spriteTrans.localPosition = new Vector3(0, spriteTrans.localScale.y * Mathf.Sin((90-48) * Mathf.Deg2Rad) / 2.2f, 0);
+		spriteTrans.localPosition = new Vector3(0, spriteTrans.localScale.y /* * Mathf.Sin((90-48) * Mathf.Deg2Rad) / 2.2f */, 0);
 		
 	}
 	

@@ -18,8 +18,9 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		}
 		set
 		{
-			_spriteName = value;
-			sprite.atlas = CBKAtlasUtil.instance.LookupGoonAtlas(_spriteName);
+			sprite.atlas = CBKAtlasUtil.instance.LookupGoonAtlas(value);
+			_spriteName = CBKAtlasUtil.instance.StripExtensions(value);
+			sprite.spriteName = _spriteName;
 			SetAnimation(AnimationType.IDLE);
 		}
 	}
@@ -48,7 +49,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		}
 	}
 	
-	CityElementProto ncep;
+	public CityElementProto ncep;
 	
 	public FullTaskProto task;
 	public MinimumUserTaskProto userTask;
@@ -126,7 +127,18 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 	{	
 		name = "Rob";
 		
-		spriteBaseName = "GangsterBrute";
+		//spriteBaseName = "GangsterBrute";
+		
+		Setup();
+	}
+	
+	public void Init(FullUserMonsterProto proto)
+	{
+		MonsterProto monster = CBKDataManager.instance.Get(typeof(MonsterProto), proto.monsterId) as MonsterProto;
+		
+		name = monster.displayName;
+		
+		spriteBaseName = monster.imageName;
 		
 		Setup();
 	}
@@ -139,8 +151,6 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		ncep = proto;
 		
 		spriteBaseName = ncep.imgId;
-		
-		sprite.atlas = CBKAtlasUtil.instance.LookupGoonAtlas(ncep.imgId);
 		
 		Setup();
 	}

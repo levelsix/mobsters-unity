@@ -179,7 +179,6 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 	
 	IEnumerator Fall()
 	{
-		Debug.Log("Fall!: " + id);
 		moving = true;
 		PZPuzzleManager.instance.OnStartMoving(this);
 		float fallSpeed = BASE_FALL_SPEED;
@@ -279,8 +278,11 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 		}
 		if (!PZPuzzleManager.instance.lastSwapSuccessful)
 		{
+			//Debug.Log("Lock");
 			PZPuzzleManager.instance.swapLock += 1;
 			yield return new WaitForSeconds(0.2f);
+			
+			//Debug.Log("Unlock");
 			PZPuzzleManager.instance.swapLock -= 1;
 			swapee.StartCoroutine(swapee.Swap(dir));
 			StartCoroutine(Swap(CBKValues.opp[dir]));

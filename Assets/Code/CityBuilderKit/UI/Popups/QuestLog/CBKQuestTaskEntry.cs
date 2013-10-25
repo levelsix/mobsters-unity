@@ -77,7 +77,7 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKIPoolable
 		SetComplete(amountCollected >= amountToCollect);
 	}
 	
-	public void Init(MinimumUserQuestTaskProto task)
+	public void Init(MinimumUserTaskProto task)
 	{
 		FullTaskProto fullTask = CBKDataManager.instance.Get(typeof(FullTaskProto), task.taskId) as FullTaskProto;
 		

@@ -71,124 +71,96 @@ namespace com.lvl6.proto
       set { _acceptDialogue = value; }
     }
 
-    private int _assetNumWithinCity = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"assetNumWithinCity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int assetNumWithinCity
+    private com.lvl6.proto.FullQuestProto.QuestType _questType = com.lvl6.proto.FullQuestProto.QuestType.KILL_MONSTER;
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"questType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.FullQuestProto.QuestType.KILL_MONSTER)]
+    public com.lvl6.proto.FullQuestProto.QuestType questType
     {
-      get { return _assetNumWithinCity; }
-      set { _assetNumWithinCity = value; }
+      get { return _questType; }
+      set { _questType = value; }
     }
 
-    private int _coinsGained = default(int);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"coinsGained", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int coinsGained
+    private string _jobDescription = "";
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"jobDescription", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string jobDescription
     {
-      get { return _coinsGained; }
-      set { _coinsGained = value; }
+      get { return _jobDescription; }
+      set { _jobDescription = value; }
     }
 
-    private int _diamondsGained = default(int);
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"diamondsGained", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _staticDataId = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"staticDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int diamondsGained
+    public int staticDataId
     {
-      get { return _diamondsGained; }
-      set { _diamondsGained = value; }
+      get { return _staticDataId; }
+      set { _staticDataId = value; }
     }
 
-    private int _expGained = default(int);
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"expGained", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _quantity = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"quantity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int expGained
+    public int quantity
     {
-      get { return _expGained; }
-      set { _expGained = value; }
+      get { return _quantity; }
+      set { _quantity = value; }
     }
 
-    private int _monsterId = default(int);
-    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"monsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _coinReward = default(int);
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"coinReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int monsterId
+    public int coinReward
     {
-      get { return _monsterId; }
-      set { _monsterId = value; }
+      get { return _coinReward; }
+      set { _coinReward = value; }
+    }
+
+    private int _diamondReward = default(int);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"diamondReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int diamondReward
+    {
+      get { return _diamondReward; }
+      set { _diamondReward = value; }
+    }
+
+    private int _expReward = default(int);
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"expReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int expReward
+    {
+      get { return _expReward; }
+      set { _expReward = value; }
+    }
+
+    private int _monsterIdReward = default(int);
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"monsterIdReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int monsterIdReward
+    {
+      get { return _monsterIdReward; }
+      set { _monsterIdReward = value; }
+    }
+
+    private bool _isCompleteMonster = default(bool);
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"isCompleteMonster", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isCompleteMonster
+    {
+      get { return _isCompleteMonster; }
+      set { _isCompleteMonster = value; }
     }
     private readonly global::System.Collections.Generic.List<int> _questsRequiredForThis = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(12, Name=@"questsRequiredForThis", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(16, Name=@"questsRequiredForThis", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public global::System.Collections.Generic.List<int> questsRequiredForThis
     {
       get { return _questsRequiredForThis; }
     }
   
-    private readonly global::System.Collections.Generic.List<int> _taskReqs = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(13, Name=@"taskReqs", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> taskReqs
-    {
-      get { return _taskReqs; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<int> _upgradeStructJobsReqs = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(14, Name=@"upgradeStructJobsReqs", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> upgradeStructJobsReqs
-    {
-      get { return _upgradeStructJobsReqs; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<int> _buildStructJobsReqs = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(15, Name=@"buildStructJobsReqs", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> buildStructJobsReqs
-    {
-      get { return _buildStructJobsReqs; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<int> _monsterJobsReqs = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(16, Name=@"monsterJobsReqs", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> monsterJobsReqs
-    {
-      get { return _monsterJobsReqs; }
-    }
-  
-
-    private int _coinRetrievalReq = default(int);
-    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"coinRetrievalReq", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int coinRetrievalReq
-    {
-      get { return _coinRetrievalReq; }
-      set { _coinRetrievalReq = value; }
-    }
-
-    private com.lvl6.proto.SpecialQuestAction _specialQuestActionReq = com.lvl6.proto.SpecialQuestAction.REQUEST_JOIN_CLAN;
-    [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name=@"specialQuestActionReq", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SpecialQuestAction.REQUEST_JOIN_CLAN)]
-    public com.lvl6.proto.SpecialQuestAction specialQuestActionReq
-    {
-      get { return _specialQuestActionReq; }
-      set { _specialQuestActionReq = value; }
-    }
-
-    private int _numComponentsForGood = default(int);
-    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"numComponentsForGood", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int numComponentsForGood
-    {
-      get { return _numComponentsForGood; }
-      set { _numComponentsForGood = value; }
-    }
-
-    private string _questGiverName = "";
-    [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"questGiverName", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue("")]
-    public string questGiverName
-    {
-      get { return _questGiverName; }
-      set { _questGiverName = value; }
-    }
 
     private string _questGiverImageSuffix = "";
-    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"questGiverImageSuffix", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"questGiverImageSuffix", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string questGiverImageSuffix
     {
@@ -197,13 +169,45 @@ namespace com.lvl6.proto
     }
 
     private int _priority = default(int);
-    [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name=@"priority", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name=@"priority", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int priority
     {
       get { return _priority; }
       set { _priority = value; }
     }
+
+    private string _carrotId = "";
+    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"carrotId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string carrotId
+    {
+      get { return _carrotId; }
+      set { _carrotId = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"QuestType")]
+    public enum QuestType
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"KILL_MONSTER", Value=1)]
+      KILL_MONSTER = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"DONATE_MONSTER", Value=2)]
+      DONATE_MONSTER = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"COMPLETE_TASK", Value=3)]
+      COMPLETE_TASK = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"COLLECT_COINS_FROM_HOME", Value=4)]
+      COLLECT_COINS_FROM_HOME = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"BUILD_STRUCT", Value=5)]
+      BUILD_STRUCT = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"UPGRADE_STRUCT", Value=6)]
+      UPGRADE_STRUCT = 6
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -280,10 +284,10 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FullUserQuestDataLargeProto")]
-  public partial class FullUserQuestDataLargeProto : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FullUserQuestProto")]
+  public partial class FullUserQuestProto : global::ProtoBuf.IExtensible
   {
-    public FullUserQuestDataLargeProto() {}
+    public FullUserQuestProto() {}
     
 
     private int _userId = default(int);
@@ -321,105 +325,18 @@ namespace com.lvl6.proto
       get { return _isComplete; }
       set { _isComplete = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserBuildStructJobProto> _requiredBuildStructJobProgress = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserBuildStructJobProto>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"requiredBuildStructJobProgress", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserBuildStructJobProto> requiredBuildStructJobProgress
-    {
-      get { return _requiredBuildStructJobProgress; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserUpgradeStructJobProto> _requiredUpgradeStructJobProgress = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserUpgradeStructJobProto>();
-    [global::ProtoBuf.ProtoMember(6, Name=@"requiredUpgradeStructJobProgress", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserUpgradeStructJobProto> requiredUpgradeStructJobProgress
-    {
-      get { return _requiredUpgradeStructJobProgress; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserQuestTaskProto> _requiredTasksProgress = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserQuestTaskProto>();
-    [global::ProtoBuf.ProtoMember(7, Name=@"requiredTasksProgress", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserQuestTaskProto> requiredTasksProgress
-    {
-      get { return _requiredTasksProgress; }
-    }
-  
 
-    private int _coinsRetrievedForReq = default(int);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"coinsRetrievedForReq", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _progress = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"progress", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int coinsRetrievedForReq
+    public int progress
     {
-      get { return _coinsRetrievedForReq; }
-      set { _coinsRetrievedForReq = value; }
-    }
-
-    private int _numComponentsComplete = default(int);
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"numComponentsComplete", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int numComponentsComplete
-    {
-      get { return _numComponentsComplete; }
-      set { _numComponentsComplete = value; }
+      get { return _progress; }
+      set { _progress = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MinimumUserQuestTaskProto")]
-  public partial class MinimumUserQuestTaskProto : global::ProtoBuf.IExtensible
-  {
-    public MinimumUserQuestTaskProto() {}
-    
-
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
-    {
-      get { return _userId; }
-      set { _userId = value; }
-    }
-
-    private int _questId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"questId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int questId
-    {
-      get { return _questId; }
-      set { _questId = value; }
-    }
-
-    private int _taskId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"taskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int taskId
-    {
-      get { return _taskId; }
-      set { _taskId = value; }
-    }
-
-    private int _numTimesActed = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"numTimesActed", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int numTimesActed
-    {
-      get { return _numTimesActed; }
-      set { _numTimesActed = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-    [global::ProtoBuf.ProtoContract(Name=@"SpecialQuestAction")]
-    public enum SpecialQuestAction
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"REQUEST_JOIN_CLAN", Value=1)]
-      REQUEST_JOIN_CLAN = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"EVOLVE_A_MONSTER", Value=2)]
-      EVOLVE_A_MONSTER = 2
-    }
   
 }

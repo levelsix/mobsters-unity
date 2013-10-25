@@ -1,60 +1,75 @@
 
-ø
+º
 EventMonster.protocom.lvl6.protoMonsterStuff.proto
-User.proto"™
+User.proto"è
 $SubmitMonsterEnhancementRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-enhancingUserMonsterId (
-feederUserMonsterIds (
+sender (2 .com.lvl6.proto.MinimumUserProto<
 
-clientTime ("Ù
+ueipDelete (2(.com.lvl6.proto.UserEnhancementItemProto<
+
+ueipUpdate (2(.com.lvl6.proto.UserEnhancementItemProto9
+ueipNew (2(.com.lvl6.proto.UserEnhancementItemProto"à
 %SubmitMonsterEnhancementResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoZ
-status (2J.com.lvl6.proto.SubmitMonsterEnhancementResponseProto.EnhanceMonsterStatus"º
-EnhanceMonsterStatus
+sender (2 .com.lvl6.proto.MinimumUserProtod
+status (2T.com.lvl6.proto.SubmitMonsterEnhancementResponseProto.SubmitMonsterEnhancementStatus"∆
+SubmitMonsterEnhancementStatus
 SUCCESS
 
 OTHER_FAIL%
 !CLIENT_TOO_APART_FROM_SERVER_TIME(
 $MAIN_OR_FEEDER_OR_EQUIPS_NONEXISTENT
 TRYING_TO_SURPASS_MAX_LEVEL
-NOT_ENOUGH_SILVER"ú
-UpdateMonsterHealthRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto3
-fumps (2$.com.lvl6.proto.FullUserMonsterProto
+NOT_ENOUGH_SILVER"Ÿ
+'EnhancementWaitTimeCompleteRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto
+	isSpeedup (
+gemsForSpeedup (9
+umcep (2*.com.lvl6.proto.UserMonsterCurrentExpProto
+userMonsterIds ("∆
+(EnhancementWaitTimeCompleteResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoj
+status (2Z.com.lvl6.proto.EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus"|
+!EnhancementWaitTimeCompleteStatus
+SUCCESS
+FAIL_HEALING_NOT_COMPLETE
+FAIL_INSUFFICIENT_FUNDS
 
-clientTime ("º
+FAIL_OTHER"•
+UpdateMonsterHealthRequestProto0
+sender (2 .com.lvl6.proto.MinimumUserProto<
+umchp (2-.com.lvl6.proto.UserMonsterCurrentHealthProto
+
+clientTime ("á
  UpdateMonsterHealthResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProto3
-fumps (2$.com.lvl6.proto.FullUserMonsterProtoZ
-status (2J.com.lvl6.proto.UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus"U
+sender (2 .com.lvl6.proto.MinimumUserProtoZ
+status (2J.com.lvl6.proto.UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus"U
 UpdateMonsterHealthStatus
 SUCCESS
 FAIL_INSUFFICIENT_FUNDS
 
-FAIL_OTHER"ç
+FAIL_OTHER"ü
 HealMonsterRequestProto0
 sender (2 .com.lvl6.proto.MinimumUserProto:
 	umhDelete (2'.com.lvl6.proto.UserMonsterHealingProto:
 	umhUpdate (2'.com.lvl6.proto.UserMonsterHealingProto7
-umhNew (2'.com.lvl6.proto.UserMonsterHealingProto
-gemCost ("È
+umhNew (2'.com.lvl6.proto.UserMonsterHealingProto
+cashCost (
+gemCost ("≤
 HealMonsterResponseProto0
 sender (2 .com.lvl6.proto.MinimumUserProtoJ
-status (2:.com.lvl6.proto.HealMonsterResponseProto.HealMonsterStatus5
-umhp (2'.com.lvl6.proto.UserMonsterHealingProto"ó
+status (2:.com.lvl6.proto.HealMonsterResponseProto.HealMonsterStatus"ó
 HealMonsterStatus
 SUCCESS
 FAIL_INSUFFICIENT_FUNDS%
 !FAIL_ALL_MONSTERS_ALREADY_HEALING!
 FAIL_ALL_MONSTERS_NONEXISTENT
 
-FAIL_OTHER"û
+FAIL_OTHER"ƒ
 'HealMonsterWaitTimeCompleteRequestProto0
 sender (2 .com.lvl6.proto.MinimumUserProto
 	isSpeedup (
-gemsForSpeedup (
-userMonsterIds ("∆
+gemsForSpeedup (<
+umchp (2-.com.lvl6.proto.UserMonsterCurrentHealthProto"∆
 (HealMonsterWaitTimeCompleteResponseProto0
 sender (2 .com.lvl6.proto.MinimumUserProtoj
 status (2Z.com.lvl6.proto.HealMonsterWaitTimeCompleteResponseProto.HealMonsterWaitTimeCompleteStatus"|
@@ -77,11 +92,11 @@ FAIL_OTHER"Ç
 FAIL_OTHER"r
 'RemoveMonsterFromBattleTeamRequestProto0
 sender (2 .com.lvl6.proto.MinimumUserProto
-userMonsterId ("Ä
+userMonsterId ("ä
 (RemoveMonsterFromBattleTeamResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoe
-status (2U.com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.AddMonsterToBattleTeamStatus";
-AddMonsterToBattleTeamStatus
+sender (2 .com.lvl6.proto.MinimumUserProtoj
+status (2Z.com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.RemoveMonsterFromBattleTeamStatus"@
+!RemoveMonsterFromBattleTeamStatus
 SUCCESS
 
 FAIL_OTHER"m

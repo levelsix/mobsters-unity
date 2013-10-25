@@ -121,7 +121,6 @@ public class CBKQuestLog : MonoBehaviour {
 	
 	void LoadQuestDetails(CBKFullQuest fullQ)
 	{
-		questGiverSaysLabel.text = fullQ.quest.questGiverName + " says...";
 		questDescription.text = fullQ.quest.description;
 		
 		BuildTasks(fullQ);
@@ -165,6 +164,7 @@ public class CBKQuestLog : MonoBehaviour {
 		lastTaskOffset = START_TASK_OFFSET - OFFSET_PER_TASK; //Hacky hacky hack hack
 		
 		CBKQuestTaskEntry task;
+		/*
 		if (fullQ.quest.coinRetrievalReq > 0)
 		{
 			task = GetTask();
@@ -185,6 +185,7 @@ public class CBKQuestLog : MonoBehaviour {
 			task = GetTask ();
 			task.Init(item);
 		}
+		*/
 		
 	}
 	
@@ -198,15 +199,15 @@ public class CBKQuestLog : MonoBehaviour {
 		rewards.Clear();
 		
 		CBKQuestRewardBox box;
-		if (fullQ.quest.coinsGained > 0)
+		if (fullQ.quest.coinReward > 0)
 		{
 			box = GetReward();
-			box.Init (CBKQuestRewardBox.RewardType.MONEY, fullQ.quest.coinsGained);
+			box.Init (CBKQuestRewardBox.RewardType.MONEY, fullQ.quest.coinReward);
 		}
-		if (fullQ.quest.expGained > 0)
+		if (fullQ.quest.expReward > 0)
 		{
 			box = GetReward();
-			box.Init (CBKQuestRewardBox.RewardType.EXP, fullQ.quest.expGained);
+			box.Init (CBKQuestRewardBox.RewardType.EXP, fullQ.quest.expReward);
 		}
 		
 		if(rewards.Count == 2)

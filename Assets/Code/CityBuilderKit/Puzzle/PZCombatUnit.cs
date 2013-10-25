@@ -19,12 +19,7 @@ public class PZCombatUnit : MonoBehaviour {
 	/// <summary>
 	/// The monster proto
 	/// </summary>
-	public MonsterProto monster;
-	
-	/// <summary>
-	/// The current running hp of this unit.
-	/// </summary>
-	public int hp = 100;
+	public PZMonster monster;
 	
 	/// <summary>
 	/// The on death event.
@@ -47,24 +42,11 @@ public class PZCombatUnit : MonoBehaviour {
 	/// <param name='proto'>
 	/// The Monster Proto to build the unit from
 	/// </param>
-	public void Init(MonsterProto proto)
+	public void Init(PZMonster monster)
 	{
-		this.monster = proto;
-		
-		hp = proto.baseHp;
-	}
-	
-	/// <summary>
-	/// Init this combat unit that represents the Player's goon or another player's goon
-	/// </summary>
-	/// <param name='fump'>
-	/// The Full User Monster Proto to build the unit from
-	/// </param>
-	public void Init(FullUserMonsterProto fump)
-	{
-		monster = CBKDataManager.instance.Get(typeof(MonsterProto), fump.monsterId) as MonsterProto;
-		
-		hp = fump.currentHealth;
+		this.monster = monster;
+		unit.spriteBaseName = monster.monster.imageName;
+		unit.sprite.alpha = 1;
 	}
 	
 	/// <summary>
@@ -82,13 +64,12 @@ public class PZCombatUnit : MonoBehaviour {
 	public void DealDamage(int[] gems, out int damage, out MonsterProto.MonsterElement element)
 	{
 		damage = 0;
-		damage += gems[0] * monster.elementOneDmg;
-		damage += gems[1] * monster.elementTwoDmg;
-		damage += gems[2] * monster.elementThreeDmg;
-		damage += gems[3] * monster.elementFourDmg;
-		damage += gems[4] * monster.elementFiveDmg;
+		for (int i = 0; i < monster.attackDamages.Length; i++) 
+		{
+			damage += (int)(gems[i] * monster.attackDamages[i]);
+		}
 		
-		element = monster.element;
+		element = monster.monster.element;
 	}
 	
 	/// <summary>
@@ -102,25 +83,69 @@ public class PZCombatUnit : MonoBehaviour {
 	/// </param>
 	public void TakeDamage(int damage, MonsterProto.MonsterElement element)
 	{
-		int fullDamage = (int)(damage * CBKUtil.GetTypeDamageMultiplier(monster.element, element));
+		int fullDamage = (int)(damage * CBKUtil.GetTypeDamageMultiplier(monster.monster.element, element));
 		
 		//TODO: If fullDamage != damage, do some animation or something to reflect super/notvery effective
 		
-		hp -= fullDamage;
+		monster.currHP -= fullDamage;
+		if (monster.userMonster != null)
+		{
+			StartCoroutine(SendHPUpdateToServer());
+		}
 		
-		if (hp <= 0)
+		if (monster.currHP <= 0)
 		{
 			StartCoroutine(Die());
 		}
 	}
 	
+	IEnumerator SendHPUpdateToServer ()
+	{
+		UpdateMonsterHealthRequestProto request = new UpdateMonsterHealthRequestProto();
+		request.sender = CBKWhiteboard.localMup;
+		
+		UserMonsterCurrentHealthProto hpProto = new UserMonsterCurrentHealthProto();
+		hpProto.userMonsterId = monster.userMonster.userMonsterId;
+		hpProto.currentHealth = monster.currHP;
+		
+		request.umchp.Add(hpProto);
+		
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_MONSTER_HEALTH_EVENT, null);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		UpdateMonsterHealthResponseProto response = UMQNetworkManager.responseDict[tagNum] as UpdateMonsterHealthResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus.SUCCESS)
+		{
+			Debug.LogError(response.status.ToString());
+		}
+	}
+	
 	public IEnumerator Die()
 	{
+		//Debug.Log("Lock");
+		PZPuzzleManager.instance.swapLock += 1;
+		
+		unit.animat = CBKUnit.AnimationType.FLINCH;
+		
+		float time = 0;
+		while (time < 3f)
+		{
+			time += Time.deltaTime;
+			unit.sprite.alpha = Mathf.Lerp(1, 0, time/3f);
+			yield return null;
+		}
 		//TODO: Animation?
 		yield return null;
 		Debug.Log("Death!");
 		
-		CBKPoolManager.instance.Pool(unit);
+		//CBKPoolManager.instance.Pool(unit);
+		PZPuzzleManager.instance.swapLock -= 1;
 		
 		if (OnDeath != null)
 		{

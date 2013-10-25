@@ -24,7 +24,7 @@ public class CBKTaskable : MonoBehaviour {
 	{
 		BeginDungeonRequestProto request = new BeginDungeonRequestProto();
 		request.sender = CBKWhiteboard.localMup;
-		request.clientTime = CBKUtil.timeNow;
+		request.clientTime = CBKUtil.timeNowMillis;
 		request.taskId = task.taskId;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, null);
@@ -39,11 +39,13 @@ public class CBKTaskable : MonoBehaviour {
 		
 		if (response.status == BeginDungeonResponseProto.BeginDungeonStatus.SUCCESS)
 		{
+			CBKWhiteboard.currTaskID = response.userTaskId;
+			
 			PZCombatManager.instance.enemies.Clear();
 			
 			foreach (TaskStageProto stage in response.tsp)
 			{
-				PZCombatManager.instance.enemies.Enqueue(stage.stageMonsters[0]);
+				PZCombatManager.instance.enemies.Enqueue(new PZMonster(stage.stageMonsters[0]));
 				Debug.Log("Stage: " + stage.stageId + ": Adding monster " + stage.stageMonsters[0].monsterId);
 			}
 		}

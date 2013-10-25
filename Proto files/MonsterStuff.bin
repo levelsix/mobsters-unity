@@ -1,5 +1,5 @@
 
-º
+ñ
 MonsterStuff.protocom.lvl6.proto"Ö
 MonsterProto
 	monsterId (
@@ -36,18 +36,35 @@
 GRASS	
 WATER
 	LIGHTNING
-DARKNESS"Â
+DARKNESS"Ë
 FullUserMonsterProto
 userMonsterId (
 userId (
-	monsterId (
-enhancementPercentage (
-currentHealth (
-	numPieces (
+	monsterId (
 
-isComplete (
-teamSlotNum ("a
+currentExp (
+
+currentLvl (
+currentHealth (
+	numPieces (
+
+isComplete (
+teamSlotNum	 ("a
 UserMonsterHealingProto
 userId (
 userMonsterId (
-expectedStartTimeMillis (BBMonsterStuffProto
+expectedStartTimeMillis ("M
+UserMonsterCurrentHealthProto
+userMonsterId (
+currentHealth (" 
+UserEnhancementProto
+userId (=
+baseMonster (2(.com.lvl6.proto.UserEnhancementItemProto9
+feeders (2(.com.lvl6.proto.UserEnhancementItemProto"R
+UserEnhancementItemProto
+userMonsterId (
+expectedStartTimeMillis ("f
+UserMonsterCurrentExpProto
+userMonsterId (
+expectedExperience (
+expectedLevel (BBMonsterStuffProto

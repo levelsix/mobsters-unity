@@ -360,6 +360,7 @@ public class CBKGridManager : MonoBehaviour {
 		Vector3 backLeft = transform.position + new Vector3(0,0,worldSize);
 		Vector3 xOff = Vector3.zero;
 		Vector3 zOff = Vector3.zero;
+		float space = worldSize / gridSize;
 		for (int i = 0; i < gridSize; i++) 
 		{
 			if (i % 5 == 0)
@@ -370,8 +371,8 @@ public class CBKGridManager : MonoBehaviour {
 			{
 				Gizmos.color = Color.yellow;
 			}
-			xOff.x = spaceSize * i;
-			zOff.z = spaceSize * i;
+			xOff.x = space * i;
+			zOff.z = space * i;
 			Gizmos.DrawLine(transform.position + xOff, backLeft + xOff);
 			Gizmos.DrawLine(transform.position + zOff, frontRight + zOff);
 		}	

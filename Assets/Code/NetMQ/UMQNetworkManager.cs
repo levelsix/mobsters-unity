@@ -265,9 +265,9 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		Debug.Log("Received Message: " + tagNum + ": " + proto.GetType());
 		
-		if (proto is UpdateClientUserResponseProto || proto is QuestCompleteResponseProto)
+		if (proto is UpdateClientUserResponseProto)
 		{
-			
+			Debug.Log("Update Client User Response");
 		}
 		else
 		{

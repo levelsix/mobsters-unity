@@ -47,7 +47,7 @@ public class CBKQuestManager : MonoBehaviour {
 			StartCoroutine(AcceptQuest(item));
 			CBKDataManager.instance.BuildQuestDataToStaticDataRequest(item, dataRequest);
 		}
-		foreach (var item in proto.inProgressCompleteQuests) 
+		foreach (var item in proto.unredeemedQuests) 
 		{
 			//RedeemQuest(item);
 			tempQuests[item.questId] = item;
@@ -56,7 +56,7 @@ public class CBKQuestManager : MonoBehaviour {
 			Debug.Log ("In Progress, Complete Quest: " + item.questId);
 #endif
 		}
-		foreach (var item in proto.inProgressIncompleteQuests) 
+		foreach (var item in proto.inProgressQuests) 
 		{
 			tempQuests[item.questId] = item;
 			CBKDataManager.instance.BuildQuestDataToStaticDataRequest(item, dataRequest);
@@ -65,12 +65,9 @@ public class CBKQuestManager : MonoBehaviour {
 #endif
 		}
 		
-		if (tempQuests.Count > 0)
+		foreach (KeyValuePair<int, FullQuestProto> item in tempQuests) 
 		{
-			UserQuestDetailsRequestProto request = new UserQuestDetailsRequestProto();
-			request.sender = CBKWhiteboard.localMup;
-			
-			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_USER_QUEST_DETAILS_EVENT, LoadUserQuestDetails);
+			StartCoroutine(LoadUserQuestProgress(item));
 		}
 		
 #if DEBUG1
@@ -83,30 +80,32 @@ public class CBKQuestManager : MonoBehaviour {
 		
 	}
 	
-	void LoadUserQuestDetails(int tagNum)
+	IEnumerator LoadUserQuestProgress(KeyValuePair<int, FullQuestProto> questData)
 	{
-		Debug.Log("Loading User Quest Details");
+		QuestProgressRequestProto request = new QuestProgressRequestProto();
+		request.sender = CBKWhiteboard.localMup;
+		request.questId = questData.Key;
 		
-		UserQuestDetailsResponseProto response = UMQNetworkManager.responseDict[tagNum] as UserQuestDetailsResponseProto;
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_QUEST_PROGRESS_EVENT, null);
+		
+#if DEBUG1
+		Debug.Log("Loading User Quest Details");
+#endif
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		QuestProgressResponseProto response = UMQNetworkManager.responseDict[tagNum] as QuestProgressResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		if (response.status != UserQuestDetailsResponseProto.UserQuestDetailsStatus.SUCCESS)
+		if (response.status != QuestProgressResponseProto.QuestProgressStatus.SUCCESS)
 		{
 			Debug.LogError("Problem loading user quest details: " + response.status.ToString());
-			return;
+			yield break;
 		}
 		
-		CBKFullQuest fullQuest;
-		foreach (FullUserQuestDataLargeProto item in response.inProgressUserQuestData) 
-		{
-			if (tempQuests.ContainsKey(item.questId))
-			{
-				fullQuest = new CBKFullQuest(tempQuests[item.questId], item);
-				questDict.Add(item.questId, fullQuest);
-				tempQuests.Remove(item.questId);
-				CheckQuest(fullQuest);
-			}
-		}
+		
 		
 #if DEBUG1
 		string deb = "Loaded Quest details: ";
@@ -157,12 +156,13 @@ public class CBKQuestManager : MonoBehaviour {
 			Debug.Log("Problem accepting quest: " + response.status.ToString());
 		}
 		
+		/*
 		UserQuestDetailsRequestProto detailRequest = new UserQuestDetailsRequestProto();
 		detailRequest.sender = CBKWhiteboard.localMup;
 		detailRequest.questId = fullQuest.questId;
 		
 		UMQNetworkManager.instance.SendRequest(detailRequest, (int)EventProtocolRequest.C_USER_QUEST_DETAILS_EVENT, LoadUserQuestDetails);
-		
+		*/
 	}
 	
 	void CheckQuest(CBKFullQuest fullQuest)
@@ -176,7 +176,7 @@ public class CBKQuestManager : MonoBehaviour {
 			StartCoroutine(RedeemQuest(fullQuest.quest));
 			return;
 		}
-		if (fullQuest.userQuest.numComponentsComplete == fullQuest.quest.numComponentsForGood)
+		if (fullQuest.userQuest.progress == fullQuest.quest.quantity)
 		{
 			StartCoroutine(RedeemQuest(fullQuest.quest));
 			return;
@@ -213,21 +213,21 @@ public class CBKQuestManager : MonoBehaviour {
 		}
 		else
 		{
-			if (response.monsterId > 0)
+			if (response.fump != null)
 			{
 				//TODO: Get that equip bro
 			}
-			if (quest.coinsGained > 0)
+			if (quest.coinReward > 0)
 			{
-				CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.FREE, quest.coinsGained);
+				CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.FREE, quest.coinReward);
 			}
-			if (quest.diamondsGained > 0)
+			if (quest.diamondReward > 0)
 			{
-				CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.PREMIUM, quest.diamondsGained);
+				CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.PREMIUM, quest.diamondReward);
 			}
-			if (quest.expGained > 0)
+			if (quest.expReward > 0)
 			{
-				CBKResourceManager.instance.GainExp(quest.expGained);
+				CBKResourceManager.instance.GainExp(quest.expReward);
 			}
 			foreach (FullQuestProto item in response.newlyAvailableQuests) 
 			{
@@ -240,6 +240,8 @@ public class CBKQuestManager : MonoBehaviour {
 	{
 		foreach (CBKFullQuest item in questDict.Values) 
 		{
+			//TODO: RE implement build structure quests when that type is re-added
+			/*
 			foreach (MinimumUserBuildStructJobProto job in item.userQuest.requiredBuildStructJobProgress) 
 			{
 				BuildStructJobProto buildJob = CBKDataManager.instance.Get(typeof(BuildStructJobProto), job.buildStructJobId) as BuildStructJobProto;
@@ -252,6 +254,7 @@ public class CBKQuestManager : MonoBehaviour {
 					}
 				}
 			}
+			*/
 		}
 	}
 
@@ -259,6 +262,8 @@ public class CBKQuestManager : MonoBehaviour {
 	{
 		foreach (CBKFullQuest item in questDict.Values)
 		{
+			//TODO: RE implement when type is reinstated
+			/*
 			foreach (MinimumUserUpgradeStructJobProto job in item.userQuest.requiredUpgradeStructJobProgress)
 			{
 				UpgradeStructJobProto upJob = CBKDataManager.instance.Get(typeof(UpgradeStructJobProto), job.upgradeStructJobId) as UpgradeStructJobProto;
@@ -272,6 +277,7 @@ public class CBKQuestManager : MonoBehaviour {
 					}
 				}
 			}
+			*/
 		}
 	}
 	
@@ -279,12 +285,15 @@ public class CBKQuestManager : MonoBehaviour {
 	{
 		foreach (CBKFullQuest item in questDict.Values)
 		{
+			//TODO: Fix this
+			/*
 			foreach (MinimumUserQuestTaskProto job in item.userQuest.requiredTasksProgress)
 			{
 				FullTaskProto task = CBKDataManager.instance.Get(typeof(FullTaskProto), job.taskId) as FullTaskProto;
 				item.userQuest.numComponentsComplete++;
 				CheckQuest(item);
 			}
+			*/
 		}
 	}
 	
@@ -292,6 +301,8 @@ public class CBKQuestManager : MonoBehaviour {
 	{
 		foreach (CBKFullQuest item in questDict.Values)
 		{
+			//TODO: RE-implement money collection quests if necessary
+			/*
 			if (item.userQuest.coinsRetrievedForReq < item.quest.coinRetrievalReq)
 			{
 				item.userQuest.coinsRetrievedForReq += amount;
@@ -301,6 +312,7 @@ public class CBKQuestManager : MonoBehaviour {
 					CheckQuest(item);
 				}
 			}
+			*/
 		}
 	}
 }

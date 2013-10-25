@@ -1,45 +1,48 @@
 
-£
+Ï
+
 EventQuest.protocom.lvl6.proto
-City.protoQuest.proto
+City.protoMonsterStuff.protoQuest.proto
 User.proto"\
 QuestAcceptRequestProto0
 sender (2 .com.lvl6.proto.MinimumUserProto
-questId ("€
+questId (" 
 QuestAcceptResponseProto0
 sender (2 .com.lvl6.proto.MinimumUserProtoJ
 status (2:.com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus
-cityIdOfAcceptedQuest ("G
+cityIdOfAcceptedQuest ("g
 QuestAcceptStatus
-SUCCESS
-NOT_AVAIL_TO_USER
+SUCCESS
+FAIL_NOT_AVAIL_TO_USER
+FAIL_ALREADY_ACCEPTED
 
-OTHER_FAIL"–
-QuestCompleteResponseProto0
+FAIL_OTHER"©
+QuestProgressRequestProto0
 sender (2 .com.lvl6.proto.MinimumUserProto
-questId (5
-CityElement (2 .com.lvl6.proto.CityElementProto"\
+questId (
+currentProgress (
+
+isComplete (
+deleteUserMonsterIds ("ì
+QuestProgressResponseProto0
+sender (2 .com.lvl6.proto.MinimumUserProtoN
+status (2>.com.lvl6.proto.QuestProgressResponseProto.QuestProgressStatus"L
+QuestProgressStatus
+SUCCESS
+FAIL_NO_QUEST_EXISTS
+
+FAIL_OTHER"\
 QuestRedeemRequestProto0
 sender (2 .com.lvl6.proto.MinimumUserProto
-questId ("­
+questId ("ä
 QuestRedeemResponseProto0
 sender (2 .com.lvl6.proto.MinimumUserProto<
 newlyAvailableQuests (2.com.lvl6.proto.FullQuestProtoJ
-status (2:.com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus
-	monsterId ("B
+status (2:.com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus2
+fump (2$.com.lvl6.proto.FullUserMonsterProto
+questId ("G
 QuestRedeemStatus
-SUCCESS
-NOT_COMPLETE
+SUCCESS
+FAIL_NOT_COMPLETE
 
-OTHER_FAIL"a
-UserQuestDetailsRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-questId ("Û
-UserQuestDetailsResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoL
-inProgressUserQuestData (2+.com.lvl6.proto.FullUserQuestDataLargeProtoT
-status (2D.com.lvl6.proto.UserQuestDetailsResponseProto.UserQuestDetailsStatus"d
-UserQuestDetailsStatus
-SUCCESS.
-*SUPPLIED_QUESTID_CURRENTLY_NOT_IN_PROGRESS
-	SOME_FAILBBEventQuestProto
+FAIL_OTHERBBEventQuestProto

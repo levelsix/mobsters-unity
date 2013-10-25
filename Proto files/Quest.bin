@@ -1,30 +1,35 @@
 
-Ë
-Quest.protocom.lvl6.proto	Job.proto"Ú
+’	
+Quest.protocom.lvl6.proto	Job.proto"ü
 FullQuestProto
 questId (
 cityId (
 name (	
 description (	
 doneResponse (	5
-acceptDialogue (2.com.lvl6.proto.DialogueProto
-assetNumWithinCity (
-coinsGained (
-diamondsGained	 (
-	expGained
- (
-	monsterId (
-questsRequiredForThis (
-taskReqs (
-upgradeStructJobsReqs (
-buildStructJobsReqs (
-monsterJobsReqs (
-coinRetrievalReq (A
-specialQuestActionReq (2".com.lvl6.proto.SpecialQuestAction
-numComponentsForGood (
-questGiverName (	
-questGiverImageSuffix (	
-priority ("é
+acceptDialogue (2.com.lvl6.proto.DialogueProto;
+	questType (2(.com.lvl6.proto.FullQuestProto.QuestType
+jobDescription (	
+staticDataId	 (
+quantity
+ (
+
+coinReward (
+diamondReward (
+	expReward (
+monsterIdReward (
+isCompleteMonster (
+questsRequiredForThis (
+questGiverImageSuffix (	
+priority (
+carrotId (	"‡
+	QuestType
+KILL_MONSTER
+DONATE_MONSTER
+COMPLETE_TASK
+COLLECT_COINS_FROM_HOME
+BUILD_STRUCT
+UPGRADE_STRUCT"é
 DialogueProtoG
 speechSegment (20.com.lvl6.proto.DialogueProto.SpeechSegmentProtoŽ
 SpeechSegmentProtoQ
@@ -37,25 +42,13 @@
 QUESTGIVER_2
 QUESTGIVER_3
 QUESTGIVER_4
-QUESTGIVER_5"¡
-FullUserQuestDataLargeProto
+QUESTGIVER_5"o
+FullUserQuestProto
 userId (
 questId (
 
 isRedeemed (
 
-isComplete (V
-requiredBuildStructJobProgress (2..com.lvl6.proto.MinimumUserBuildStructJobProtoZ
- requiredUpgradeStructJobProgress (20.com.lvl6.proto.MinimumUserUpgradeStructJobProtoH
-requiredTasksProgress (2).com.lvl6.proto.MinimumUserQuestTaskProto
-coinsRetrievedForReq (
-numComponentsComplete	 ("c
-MinimumUserQuestTaskProto
-userId (
-questId (
-taskId (
-numTimesActed (*A
-SpecialQuestAction
-REQUEST_JOIN_CLAN
-EVOLVE_A_MONSTERBB
+isComplete (
+progress (BB
 QuestProto

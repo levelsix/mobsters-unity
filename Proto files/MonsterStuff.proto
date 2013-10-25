@@ -49,11 +49,12 @@ message FullUserMonsterProto {
 	optional int64 userMonsterId = 1;
 	optional int32 userId = 2;
 	optional int32 monsterId = 3;
-	optional int32 enhancementPercentage = 4;
-	optional int32 currentHealth = 5;
-	optional int32 numPieces = 6;
-	optional bool isComplete = 7; 
-	optional int32 teamSlotNum = 8;
+	optional int32 currentExp = 4;
+	optional int32 currentLvl = 5;
+	optional int32 currentHealth = 6;
+	optional int32 numPieces = 7;
+	optional bool isComplete = 8; 
+	optional int32 teamSlotNum = 9;
 }
 //------------------------------------------------------------------------------------------
 
@@ -62,6 +63,36 @@ message UserMonsterHealingProto {
 	optional int64 userMonsterId = 2;
 	optional int64 expectedStartTimeMillis = 3;
 	//optional int64 queuedTimeMillis = 4;
+}
+
+//------------------------------------------------------------------------------------------
+
+message UserMonsterCurrentHealthProto {
+	optional int64 userMonsterId = 1;
+	optional int32 currentHealth = 2; //what the health should be
+}
+
+//------------------------------------------------------------------------------------------
+
+message UserEnhancementProto {
+	optional int32 userId = 1;
+	optional UserEnhancementItemProto baseMonster = 2;
+	repeated UserEnhancementItemProto feeders = 3;
+}
+
+message UserEnhancementItemProto {
+	optional int64 userMonsterId = 1;
+	optional int64 expectedStartTimeMillis = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+//when user enhances a monster, it gains "experience" 
+//(before it was termed enhancement or enhancement percentage)
+message UserMonsterCurrentExpProto {
+	optional int64 userMonsterId = 1;
+	optional int32 expectedExperience = 2;
+	optional int32 expectedLevel = 3;
 }
 
 //------------------------------------------------------------------------------------------

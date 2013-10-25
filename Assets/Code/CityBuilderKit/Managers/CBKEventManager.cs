@@ -98,6 +98,11 @@ public static class CBKEventManager
 		public static Action<int> OnMoneyCollected;
 	}
 	
+	public static class Puzzle
+	{
+		public static Action<PZMonster> OnDeploy;
+	}
+	
 	public static class Scene
 	{
 		public static Action OnCity;

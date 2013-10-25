@@ -177,11 +177,11 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _newOrUpdated = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"newOrUpdated", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> newOrUpdated
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _updatedOrNew = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"updatedOrNew", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> updatedOrNew
     {
-      get { return _newOrUpdated; }
+      get { return _updatedOrNew; }
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"EndDungeonStatus")]

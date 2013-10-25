@@ -93,14 +93,25 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 			path = PlanPath(target, ChooseTarget());
 		}
 		SetTarget(path.Pop());
-		unit.animat = CBKUnit.AnimationType.RUN;
 	}
 	
 	public void SetTarget(CBKGridNode node)
 	{
 		//Debug.Log("Setting target to " + node.pos);
 		target = node;
-		unit.direction = node.direction;
+		if (unit.direction != node.direction)
+		{
+			unit.direction = node.direction;
+			unit.animat = CBKUnit.AnimationType.RUN;
+		}
+		if (unit.direction == CBKValues.Direction.NORTH || unit.direction == CBKValues.Direction.SOUTH)
+		{
+			trans.position = new Vector3(node.worldPos.x, trans.position.y, trans.position.z);
+		}
+		else
+		{
+			trans.position = new Vector3(trans.position.x, trans.position.y, node.worldPos.z);
+		}
 		unit.sprite.depth = -(node.x + node.z);
 	}
 	
@@ -167,7 +178,19 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 			
 			open.Sort();
 		}
-		Debug.LogError("Null path...");
+		string str = "Null path: " + start.pos + " to " + end.pos;
+		str += "\nOpen: ";
+		foreach (var item in open)
+		{
+			str += item.pos + ", ";
+		}
+		str += "\nClosed: ";
+		foreach (var item in closed)
+		{
+			str += item.Key + ", ";
+		}
+		
+		Debug.LogError(str);
 		return null;
 		
 	}

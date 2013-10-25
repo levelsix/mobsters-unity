@@ -63,18 +63,23 @@ public class UMQLoader : MonoBehaviour {
 		}
 		else
 		{
+			CBKWhiteboard.constants = response.startupConstants;
 			CBKUtil.LoadLocalUser (response.sender);
 			CBKEventManager.Loading.LoadBuildings();
 			CBKResourceManager.instance.Init(response.sender.level, response.sender.experience,
 				100/*response.experienceRequiredForNextLevel*/, response.sender.coins, response.sender.diamonds);
 			
+			
 			if (CBKEventManager.Scene.OnCity != null)
 			{
 				CBKEventManager.Scene.OnCity();
 			}
+			
 		}
 		
 		CBKQuestManager.instance.Init(response, staticDataRequest);
+		
+		CBKMonsterManager.instance.Init(response.usersMonsters);
 		
 		foreach (FullCityProto city in response.allCities) 
 		{

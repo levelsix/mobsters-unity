@@ -282,17 +282,26 @@ namespace com.lvl6.proto
       set { _monsterId = value; }
     }
 
-    private int _enhancementPercentage = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"enhancementPercentage", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _currentExp = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"currentExp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int enhancementPercentage
+    public int currentExp
     {
-      get { return _enhancementPercentage; }
-      set { _enhancementPercentage = value; }
+      get { return _currentExp; }
+      set { _currentExp = value; }
+    }
+
+    private int _currentLvl = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"currentLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int currentLvl
+    {
+      get { return _currentLvl; }
+      set { _currentLvl = value; }
     }
 
     private int _currentHealth = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"currentHealth", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"currentHealth", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int currentHealth
     {
@@ -301,7 +310,7 @@ namespace com.lvl6.proto
     }
 
     private int _numPieces = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"numPieces", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"numPieces", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int numPieces
     {
@@ -310,7 +319,7 @@ namespace com.lvl6.proto
     }
 
     private bool _isComplete = default(bool);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"isComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"isComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
     public bool isComplete
     {
@@ -319,7 +328,7 @@ namespace com.lvl6.proto
     }
 
     private int _teamSlotNum = default(int);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"teamSlotNum", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"teamSlotNum", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int teamSlotNum
     {
@@ -362,6 +371,134 @@ namespace com.lvl6.proto
     {
       get { return _expectedStartTimeMillis; }
       set { _expectedStartTimeMillis = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserMonsterCurrentHealthProto")]
+  public partial class UserMonsterCurrentHealthProto : global::ProtoBuf.IExtensible
+  {
+    public UserMonsterCurrentHealthProto() {}
+    
+
+    private long _userMonsterId = default(long);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userMonsterId
+    {
+      get { return _userMonsterId; }
+      set { _userMonsterId = value; }
+    }
+
+    private int _currentHealth = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"currentHealth", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int currentHealth
+    {
+      get { return _currentHealth; }
+      set { _currentHealth = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserEnhancementProto")]
+  public partial class UserEnhancementProto : global::ProtoBuf.IExtensible
+  {
+    public UserEnhancementProto() {}
+    
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+
+    private com.lvl6.proto.UserEnhancementItemProto _baseMonster = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"baseMonster", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserEnhancementItemProto baseMonster
+    {
+      get { return _baseMonster; }
+      set { _baseMonster = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto> _feeders = new global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"feeders", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserEnhancementItemProto> feeders
+    {
+      get { return _feeders; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserEnhancementItemProto")]
+  public partial class UserEnhancementItemProto : global::ProtoBuf.IExtensible
+  {
+    public UserEnhancementItemProto() {}
+    
+
+    private long _userMonsterId = default(long);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userMonsterId
+    {
+      get { return _userMonsterId; }
+      set { _userMonsterId = value; }
+    }
+
+    private long _expectedStartTimeMillis = default(long);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"expectedStartTimeMillis", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long expectedStartTimeMillis
+    {
+      get { return _expectedStartTimeMillis; }
+      set { _expectedStartTimeMillis = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserMonsterCurrentExpProto")]
+  public partial class UserMonsterCurrentExpProto : global::ProtoBuf.IExtensible
+  {
+    public UserMonsterCurrentExpProto() {}
+    
+
+    private long _userMonsterId = default(long);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userMonsterId
+    {
+      get { return _userMonsterId; }
+      set { _userMonsterId = value; }
+    }
+
+    private int _expectedExperience = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"expectedExperience", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int expectedExperience
+    {
+      get { return _expectedExperience; }
+      set { _expectedExperience = value; }
+    }
+
+    private int _expectedLevel = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"expectedLevel", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int expectedLevel
+    {
+      get { return _expectedLevel; }
+      set { _expectedLevel = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

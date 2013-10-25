@@ -29,6 +29,8 @@ public class CBKTaskBar : MonoBehaviour {
 	
 	CBKBuilding currBuilding;
 	
+	CBKUnit currUnit;
+	
 	void Start()
 	{
 		SetChatMode();
@@ -44,6 +46,11 @@ public class CBKTaskBar : MonoBehaviour {
 	{
 		CBKEventManager.Town.OnBuildingSelect -= OnBuildingSelect;
 		taskBar.onClick -= OnClickBar;
+	}
+	
+	void OnUnitSelect(CBKUnit unit)
+	{
+		
 	}
 	
 	void OnBuildingSelect(CBKBuilding building)

@@ -128,7 +128,8 @@ public class CBKDataManager : MonoBehaviour {
 	/// </param>
 	public void BuildQuestDataToStaticDataRequest (FullQuestProto quest, RetrieveStaticDataRequestProto request)
 	{
-		foreach (int item in quest.taskReqs) 
+		/*
+		foreach (int item in quest.taskReqs)
 		{
 			if (!Has(typeof(FullTaskProto), item))
 			{
@@ -151,6 +152,7 @@ public class CBKDataManager : MonoBehaviour {
 				request.upgradeStructJobIds.Add(item);
 			}
 		}
+		*/
 	}
 	
 	/// <summary>

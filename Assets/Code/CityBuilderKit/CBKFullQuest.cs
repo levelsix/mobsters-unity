@@ -4,7 +4,7 @@ using com.lvl6.proto;
 
 public class CBKFullQuest {
 
-	public FullUserQuestDataLargeProto userQuest;
+	public FullUserQuestProto userQuest;
 	
 	public FullQuestProto quest;
 	
@@ -13,7 +13,7 @@ public class CBKFullQuest {
 		this.quest = quest;
 	}
 	
-	public CBKFullQuest(FullQuestProto quest, FullUserQuestDataLargeProto userQuest)
+	public CBKFullQuest(FullQuestProto quest, FullUserQuestProto userQuest)
 	{
 		this.quest = quest;
 		this.userQuest = userQuest;
@@ -21,6 +21,6 @@ public class CBKFullQuest {
 	
 	public string GetProgressString()
 	{
-		return userQuest.numComponentsComplete + "/" + quest.numComponentsForGood;
+		return userQuest.progress + "/" + quest.quantity;
 	}
 }

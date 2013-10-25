@@ -81,6 +81,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	void OnPuzzle()
 	{
+		swapLock = 0;
 		StartCoroutine(InitBoard());
 	}
 	
@@ -94,6 +95,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	public IEnumerator InitBoard()
 	{
+		ClearBoard();
 		PZGem gem;
 		for (int i = 0; i < BOARD_HEIGHT; i++) 
 		{
@@ -104,6 +106,21 @@ public class PZPuzzleManager : MonoBehaviour {
 				gem.Init(PickColor(i, j), j);
 			}
 			yield return new WaitForSeconds(WAIT_BETWEEN_LINES);
+		}
+	}
+
+	public void ClearBoard ()
+	{
+		if (board[0,0] != null)
+		{
+			for (int i = 0; i < BOARD_HEIGHT; i++) 
+			{
+				for (int j = 0; j < BOARD_WIDTH; j++) 
+				{
+					board[j,i].Pool();
+					board[j,i] = null;
+				}
+			}
 		}
 	}
 	
@@ -176,6 +193,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	public void OnStartMoving(PZGem gem)
 	{
+		//Debug.Log("Lock");
 		swapLock += 1;
 		movingGems.Add(gem);
 	}
@@ -183,6 +201,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	public void OnStopMoving(PZGem gem)
 	{
 		movingGems.Remove(gem);
+		//Debug.Log("Unlock");
 		swapLock -= 1;
 		if (!gemsToCheck.Contains(gem))
 		{

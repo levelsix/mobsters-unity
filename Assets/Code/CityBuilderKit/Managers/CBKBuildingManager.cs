@@ -60,7 +60,7 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	private Dictionary<int, CBKBuilding> buildings = new Dictionary<int, CBKBuilding>();
 	
-	private Dictionary<int, CBKUnit> units = new Dictionary<int, CBKUnit>();
+	private Dictionary<long, CBKUnit> units = new Dictionary<long, CBKUnit>();
 	
 	/// <summary>
 	/// The current selected building.
@@ -228,12 +228,14 @@ public class CBKBuildingManager : MonoBehaviour
 			//building.userStructProto = response.ownerNormStructs[i];
 		}
 		
-		//Make a bunch of characters
-		for (int i = 0; i < 35; i++) {
-			CBKUnit dude = CBKPoolManager.instance.Get(unitPrefab, Vector3.zero) as CBKUnit;
-			dude.transf.parent = unitParent;
-			dude.Init();
-			units.Add (i, dude);
+		foreach (var item in CBKMonsterManager.instance.userMonsters) {
+			if (item.Value.userMonster.isComplete)
+			{
+				CBKUnit dude = CBKPoolManager.instance.Get(unitPrefab, Vector3.zero) as CBKUnit;
+				dude.transf.parent = unitParent;
+				dude.Init(item.Value.userMonster);
+				units.Add(item.Key, dude);
+			}
 		}
 		
 		if (CBKEventManager.Scene.OnCity != null)
@@ -331,7 +333,7 @@ public class CBKBuildingManager : MonoBehaviour
 			request.structCoordinates.y = coords.pos.y;
 			
 			request.structId = proto.structId;
-			request.timeOfPurchase = CBKUtil.timeNow;
+			request.timeOfPurchase = CBKUtil.timeNowMillis;
 			
 			CBKWhiteboard.tempStructureProto = proto;
 			CBKWhiteboard.tempStructurePos = coords;

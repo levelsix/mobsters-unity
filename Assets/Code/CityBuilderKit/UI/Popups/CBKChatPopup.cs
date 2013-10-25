@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -42,7 +42,7 @@ public class CBKChatPopup : MonoBehaviour {
 			request.sender = CBKWhiteboard.localMup;
 			request.scope = GroupChatScope.GLOBAL;
 			request.chatMessage = inputField.label.text;
-			request.clientTime = CBKUtil.timeNow;
+			request.clientTime = CBKUtil.timeNowMillis;
 			
 			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolResponse.S_SEND_GROUP_CHAT_EVENT, CheckServerChatResponse);
 			
