@@ -12,7 +12,24 @@ public class CBKActionButton : MonoBehaviour {
 	
 	public Action onClick;
 	
+	[HideInInspector]
+	public GameObject gameObj;
+	
+	[HideInInspector]
+	public Transform trans;
+	
+	public UIButton button;
+	
 	public bool able = true;
+	
+	public UILabel label;
+	
+	void Awake()
+	{
+		gameObj = gameObject;
+		trans = transform;
+		button = GetComponent<UIButton>();
+	}
 	
 	void OnClick()
 	{

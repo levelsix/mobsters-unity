@@ -182,8 +182,17 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NO_QUEST_EXISTS", Value=2)]
       FAIL_NO_QUEST_EXISTS = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
-      FAIL_OTHER = 3
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_DELETE_AMOUNT_DOES_NOT_MATCH_QUEST", Value=3)]
+      FAIL_DELETE_AMOUNT_DOES_NOT_MATCH_QUEST = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NONEXISTENT_USER_MONSTERS", Value=4)]
+      FAIL_NONEXISTENT_USER_MONSTERS = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INCOMPLETE_USER_MONSTERS", Value=5)]
+      FAIL_INCOMPLETE_USER_MONSTERS = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=6)]
+      FAIL_OTHER = 6
     }
   
     private global::ProtoBuf.IExtension extensionObject;

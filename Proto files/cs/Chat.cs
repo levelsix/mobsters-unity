@@ -162,11 +162,11 @@ namespace com.lvl6.proto
     public enum GroupChatScope
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"GLOBAL", Value=1)]
-      GLOBAL = 1,
+      [global::ProtoBuf.ProtoEnum(Name=@"CLAN", Value=1)]
+      CLAN = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CLAN", Value=2)]
-      CLAN = 2
+      [global::ProtoBuf.ProtoEnum(Name=@"GLOBAL", Value=2)]
+      GLOBAL = 2
     }
   
 }

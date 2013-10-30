@@ -196,11 +196,17 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT", Value=51)]
       C_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT = 51,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_BUY_MONSTER_INVENTORY_SLOT_EVENT", Value=52)]
-      C_BUY_MONSTER_INVENTORY_SLOT_EVENT = 52,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_INCREASE_MONSTER_INVENTORY_SLOT_EVENT", Value=52)]
+      C_INCREASE_MONSTER_INVENTORY_SLOT_EVENT = 52,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT", Value=53)]
       C_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT = 53,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_COMBINE_USER_MONSTER_PIECES_EVENT", Value=54)]
+      C_COMBINE_USER_MONSTER_PIECES_EVENT = 54,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_SELL_USER_MONSTER_EVENT", Value=55)]
+      C_SELL_USER_MONSTER_EVENT = 55,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101
@@ -363,11 +369,17 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"S_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT", Value=51)]
       S_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT = 51,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_BUY_MONSTER_INVENTORY_SLOT_EVENT", Value=52)]
-      S_BUY_MONSTER_INVENTORY_SLOT_EVENT = 52,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_INCREASE_MONSTER_INVENTORY_SLOT_EVENT", Value=52)]
+      S_INCREASE_MONSTER_INVENTORY_SLOT_EVENT = 52,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT", Value=53)]
       S_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT = 53,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_COMBINE_USER_MONSTER_PIECES_EVENT", Value=54)]
+      S_COMBINE_USER_MONSTER_PIECES_EVENT = 54,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_SELL_USER_MONSTER_EVENT", Value=55)]
+      S_SELL_USER_MONSTER_EVENT = 55,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

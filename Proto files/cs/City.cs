@@ -128,15 +128,6 @@ namespace com.lvl6.proto
       set { _assetId = value; }
     }
 
-    private string _name = "";
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue("")]
-    public string name
-    {
-      get { return _name; }
-      set { _name = value; }
-    }
-
     private com.lvl6.proto.CityElementProto.CityElemType _type = com.lvl6.proto.CityElementProto.CityElemType.BUILDING;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.CityElementProto.CityElemType.BUILDING)]
@@ -189,6 +180,15 @@ namespace com.lvl6.proto
     {
       get { return _orientation; }
       set { _orientation = value; }
+    }
+
+    private com.lvl6.proto.CoordinateProto _spriteCoords = null;
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"spriteCoords", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.CoordinateProto spriteCoords
+    {
+      get { return _spriteCoords; }
+      set { _spriteCoords = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"CityElemType")]
     public enum CityElemType

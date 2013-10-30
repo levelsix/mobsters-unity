@@ -174,6 +174,8 @@ public class CBKResourceCollector : MonoBehaviour {
 		request.structRetrievals[0].userStructId = _building.userStructProto.userStructId;
 		request.structRetrievals[0].timeOfRetrieval = CBKUtil.timeNowMillis;
 		
+		Debug.Log("Collecting from: " + _building.userStructProto.userStructId);
+		
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, LoadCollectResponse);
 	}
 	

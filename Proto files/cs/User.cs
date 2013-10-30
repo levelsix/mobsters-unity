@@ -181,22 +181,22 @@ namespace com.lvl6.proto
       set { _level = value; }
     }
 
-    private int _diamonds = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"diamonds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _gems = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"gems", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int diamonds
+    public int gems
     {
-      get { return _diamonds; }
-      set { _diamonds = value; }
+      get { return _gems; }
+      set { _gems = value; }
     }
 
-    private int _coins = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"coins", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _cash = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"cash", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int coins
+    public int cash
     {
-      get { return _coins; }
-      set { _coins = value; }
+      get { return _cash; }
+      set { _cash = value; }
     }
 
     private int _experience = default(int);

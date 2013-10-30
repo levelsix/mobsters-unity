@@ -1,30 +1,0 @@
-
-‹
-EventBoosterPack.protocom.lvl6.protoBoosterPackStuff.proto
-User.proto"S
-RetrieveBoosterPackRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto"š
- RetrieveBoosterPackResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProto/
-packs (2 .com.lvl6.proto.BoosterPackProtoZ
-status (2J.com.lvl6.proto.RetrieveBoosterPackResponseProto.RetrieveBoosterPackStatus"7
-RetrieveBoosterPackStatus
-SUCCESS
-	SOME_FAIL"~
-PurchaseBoosterPackRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-boosterPackId (
-
-clientTime ("¾
- PurchaseBoosterPackResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoZ
-status (2J.com.lvl6.proto.PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus"‹
-PurchaseBoosterPackStatus
-SUCCESS
-NOT_ENOUGH_GOLD
-NOT_ENOUGH_SILVER
-
-OTHER_FAIL%
-!CLIENT_TOO_APART_FROM_SERVER_TIME"q
-(ReceivedRareBoosterPurchaseResponseProtoE
-rareBoosterPurchase (2(.com.lvl6.proto.RareBoosterPurchaseProtoBBEventBoosterPackProto

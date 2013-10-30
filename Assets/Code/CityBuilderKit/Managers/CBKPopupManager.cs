@@ -1,16 +1,22 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class CBKPopupManager : MonoBehaviour {
 	
 	/// <summary>
-	/// The popup prefab.
+	/// The popup
 	/// </summary>
 	[SerializeField]
-	CBKPopup popupPrefab;
+	CBKPopup popup;
 	
 	[SerializeField]
+	Transform cityPopupParent;
+	
+	[SerializeField]
+	Transform puzzlePopupParent;
+	
 	Transform popupGroup;
 	
 	/// <summary>
@@ -36,7 +42,11 @@ public class CBKPopupManager : MonoBehaviour {
 		CBKEventManager.Popup.OnPopup += OnPopup;
 		CBKEventManager.Popup.CloseAllPopups += CloseAllPopups;
 		CBKEventManager.Popup.ClosePopupLayer += ClosePopupLayer;
+		CBKEventManager.Popup.CloseTopPopupLayer += CloseTopLayer;
 		CBKEventManager.Popup.CreatePopup += CreatePopup;
+		CBKEventManager.Popup.CreateButtonPopup += PopWithButtons;
+		CBKEventManager.Scene.OnCity += OnCity;
+		CBKEventManager.Scene.OnPuzzle += OnPuzzle;
 	}
 	
 	/// <summary>
@@ -48,15 +58,25 @@ public class CBKPopupManager : MonoBehaviour {
 		CBKEventManager.Popup.OnPopup -= OnPopup;
 		CBKEventManager.Popup.CloseAllPopups -= CloseAllPopups;
 		CBKEventManager.Popup.ClosePopupLayer -= ClosePopupLayer;
+		CBKEventManager.Popup.CloseTopPopupLayer -= CloseTopLayer;
 		CBKEventManager.Popup.CreatePopup -= CreatePopup;
+		CBKEventManager.Popup.CreateButtonPopup -= PopWithButtons;
+		CBKEventManager.Scene.OnCity -= OnCity;
+		CBKEventManager.Scene.OnPuzzle -= OnPuzzle;
 	}
 	
-	void CreatePopup(string text)
+	void OnCity()
 	{
-		CBKPopup pop = Instantiate(popupPrefab) as CBKPopup;
-		
-		pop.Init(text);
-		
+		popupGroup = cityPopupParent;
+	}
+	
+	void OnPuzzle()
+	{
+		popupGroup = puzzlePopupParent;
+	}
+	
+	void InitPopup (CBKPopup pop)
+	{
 		Transform popT = pop.transform;
 		
 		popT.parent = popupGroup;
@@ -64,6 +84,20 @@ public class CBKPopupManager : MonoBehaviour {
 		popT.localPosition = Vector3.zero;
 		
 		OnPopup(pop.gameObject);
+	}
+	
+	void CreatePopup(string text)
+	{
+		popup.Init(text);
+		
+		InitPopup (popup);
+	}
+	
+	void PopWithButtons(string text, string[] buttonLabels, Action[] buttonActions)
+	{
+		popup.Init(text, buttonLabels, buttonActions);
+		
+		InitPopup (popup);
 	}
 	
 	/// <summary>
@@ -87,6 +121,14 @@ public class CBKPopupManager : MonoBehaviour {
 		ClosePopupLayer(0);
 	}
 	
+	void CloseTopLayer()
+	{
+		if (_currPops.Count > 0)
+		{
+			_currPops.Pop().SetActive(false);
+		}
+	}
+	
 	/// <summary>
 	/// Closes the popup layer and all layers above it, but not below it
 	/// </summary>
@@ -97,7 +139,7 @@ public class CBKPopupManager : MonoBehaviour {
 	{
 		while(_currPops.Count > stackLayer)
 		{
-			_currPops.Pop().SetActive(false);
+			CloseTopLayer();
 		}
 	}
 	

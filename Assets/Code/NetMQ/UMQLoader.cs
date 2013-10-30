@@ -67,7 +67,7 @@ public class UMQLoader : MonoBehaviour {
 			CBKUtil.LoadLocalUser (response.sender);
 			CBKEventManager.Loading.LoadBuildings();
 			CBKResourceManager.instance.Init(response.sender.level, response.sender.experience,
-				100/*response.experienceRequiredForNextLevel*/, response.sender.coins, response.sender.diamonds);
+				100/*response.experienceRequiredForNextLevel*/, response.sender.cash, response.sender.gems);
 			
 			
 			if (CBKEventManager.Scene.OnCity != null)
@@ -79,7 +79,7 @@ public class UMQLoader : MonoBehaviour {
 		
 		CBKQuestManager.instance.Init(response, staticDataRequest);
 		
-		CBKMonsterManager.instance.Init(response.usersMonsters);
+		CBKMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing);
 		
 		foreach (FullCityProto city in response.allCities) 
 		{

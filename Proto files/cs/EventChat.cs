@@ -192,9 +192,9 @@ namespace com.lvl6.proto
       set { _chatMessage = value; }
     }
 
-    private com.lvl6.proto.GroupChatScope _scope = com.lvl6.proto.GroupChatScope.GLOBAL;
+    private com.lvl6.proto.GroupChatScope _scope = com.lvl6.proto.GroupChatScope.CLAN;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"scope", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GroupChatScope.GLOBAL)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GroupChatScope.CLAN)]
     public com.lvl6.proto.GroupChatScope scope
     {
       get { return _scope; }

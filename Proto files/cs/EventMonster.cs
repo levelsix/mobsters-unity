@@ -47,6 +47,24 @@ namespace com.lvl6.proto
       get { return _ueipNew; }
     }
   
+
+    private int _gemsSpent = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsSpent
+    {
+      get { return _gemsSpent; }
+      set { _gemsSpent = value; }
+    }
+
+    private int _cashChange = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"cashChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int cashChange
+    {
+      get { return _cashChange; }
+      set { _cashChange = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -82,20 +100,14 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=2)]
-      OTHER_FAIL = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=2)]
+      FAIL_INSUFFICIENT_GEMS = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CLIENT_TOO_APART_FROM_SERVER_TIME", Value=3)]
-      CLIENT_TOO_APART_FROM_SERVER_TIME = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_CASH", Value=3)]
+      FAIL_INSUFFICIENT_CASH = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"MAIN_OR_FEEDER_OR_EQUIPS_NONEXISTENT", Value=4)]
-      MAIN_OR_FEEDER_OR_EQUIPS_NONEXISTENT = 4,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"TRYING_TO_SURPASS_MAX_LEVEL", Value=5)]
-      TRYING_TO_SURPASS_MAX_LEVEL = 5,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_ENOUGH_SILVER", Value=6)]
-      NOT_ENOUGH_SILVER = 6
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
+      FAIL_OTHER = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -616,10 +628,10 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BuyMonsterInventorySlotRequestProto")]
-  public partial class BuyMonsterInventorySlotRequestProto : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"IncreaseMonsterInventorySlotRequestProto")]
+  public partial class IncreaseMonsterInventorySlotRequestProto : global::ProtoBuf.IExtensible
   {
-    public BuyMonsterInventorySlotRequestProto() {}
+    public IncreaseMonsterInventorySlotRequestProto() {}
     
 
     private com.lvl6.proto.MinimumUserProto _sender = null;
@@ -644,10 +656,10 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BuyMonsterInventorySlotResponseProto")]
-  public partial class BuyMonsterInventorySlotResponseProto : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"IncreaseMonsterInventorySlotResponseProto")]
+  public partial class IncreaseMonsterInventorySlotResponseProto : global::ProtoBuf.IExtensible
   {
-    public BuyMonsterInventorySlotResponseProto() {}
+    public IncreaseMonsterInventorySlotResponseProto() {}
     
 
     private com.lvl6.proto.MinimumUserProto _sender = null;
@@ -659,16 +671,16 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private com.lvl6.proto.BuyMonsterInventorySlotResponseProto.BuyMonsterInventorySlotStatus _status = com.lvl6.proto.BuyMonsterInventorySlotResponseProto.BuyMonsterInventorySlotStatus.SUCCESS;
+    private com.lvl6.proto.IncreaseMonsterInventorySlotResponseProto.IncreaseMonsterInventorySlotStatus _status = com.lvl6.proto.IncreaseMonsterInventorySlotResponseProto.IncreaseMonsterInventorySlotStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.BuyMonsterInventorySlotResponseProto.BuyMonsterInventorySlotStatus.SUCCESS)]
-    public com.lvl6.proto.BuyMonsterInventorySlotResponseProto.BuyMonsterInventorySlotStatus status
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.IncreaseMonsterInventorySlotResponseProto.IncreaseMonsterInventorySlotStatus.SUCCESS)]
+    public com.lvl6.proto.IncreaseMonsterInventorySlotResponseProto.IncreaseMonsterInventorySlotStatus status
     {
       get { return _status; }
       set { _status = value; }
     }
-    [global::ProtoBuf.ProtoContract(Name=@"BuyMonsterInventorySlotStatus")]
-    public enum BuyMonsterInventorySlotStatus
+    [global::ProtoBuf.ProtoContract(Name=@"IncreaseMonsterInventorySlotStatus")]
+    public enum IncreaseMonsterInventorySlotStatus
     {
             
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
@@ -679,6 +691,136 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
       FAIL_OTHER = 3
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CombineUserMonsterPiecesRequestProto")]
+  public partial class CombineUserMonsterPiecesRequestProto : global::ProtoBuf.IExtensible
+  {
+    public CombineUserMonsterPiecesRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<long> userMonsterIds
+    {
+      get { return _userMonsterIds; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CombineUserMonsterPiecesResponseProto")]
+  public partial class CombineUserMonsterPiecesResponseProto : global::ProtoBuf.IExtensible
+  {
+    public CombineUserMonsterPiecesResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.CombineUserMonsterPiecesResponseProto.CombineUserMonsterPiecesStatus _status = com.lvl6.proto.CombineUserMonsterPiecesResponseProto.CombineUserMonsterPiecesStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.CombineUserMonsterPiecesResponseProto.CombineUserMonsterPiecesStatus.SUCCESS)]
+    public com.lvl6.proto.CombineUserMonsterPiecesResponseProto.CombineUserMonsterPiecesStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"CombineUserMonsterPiecesStatus")]
+    public enum CombineUserMonsterPiecesStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SellUserMonsterRequestProto")]
+  public partial class SellUserMonsterRequestProto : global::ProtoBuf.IExtensible
+  {
+    public SellUserMonsterRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterSellProto> _sales = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterSellProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"sales", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterSellProto> sales
+    {
+      get { return _sales; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SellUserMonsterResponseProto")]
+  public partial class SellUserMonsterResponseProto : global::ProtoBuf.IExtensible
+  {
+    public SellUserMonsterResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.SellUserMonsterResponseProto.SellUserMonsterStatus _status = com.lvl6.proto.SellUserMonsterResponseProto.SellUserMonsterStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SellUserMonsterResponseProto.SellUserMonsterStatus.SUCCESS)]
+    public com.lvl6.proto.SellUserMonsterResponseProto.SellUserMonsterStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"SellUserMonsterStatus")]
+    public enum SellUserMonsterStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
     }
   
     private global::ProtoBuf.IExtension extensionObject;

@@ -1,70 +1,0 @@
-
-ñ
-MonsterStuff.protocom.lvl6.proto"Ö
-MonsterProto
-	monsterId (
-name (	<
-quality (2+.com.lvl6.proto.MonsterProto.MonsterQuality
-evolutionLevel (
-displayName (	<
-element (2+.com.lvl6.proto.MonsterProto.MonsterElement
-baseHp (
-	imageName (	
-numPuzzlePieces	 (
-elementOneDmg
- (
-elementTwoDmg (
-elementThreeDmg (
-elementFourDmg (
-elementFiveDmg (
-hpLevelMultiplier (
-attackLevelMultiplier (
-maxLevel (
-evolutionMonsterId (
-carrotRecruited (	
-carrotDefeated (	
-carrotEvolved (	"J
-MonsterQuality
-
-COMMON
-RARE	
-ULTRA
-EPIC
-	LEGENDARY"M
-MonsterElement
-FIRE	
-GRASS	
-WATER
-	LIGHTNING
-DARKNESS"Ë
-FullUserMonsterProto
-userMonsterId (
-userId (
-	monsterId (
-
-currentExp (
-
-currentLvl (
-currentHealth (
-	numPieces (
-
-isComplete (
-teamSlotNum	 ("a
-UserMonsterHealingProto
-userId (
-userMonsterId (
-expectedStartTimeMillis ("M
-UserMonsterCurrentHealthProto
-userMonsterId (
-currentHealth (" 
-UserEnhancementProto
-userId (=
-baseMonster (2(.com.lvl6.proto.UserEnhancementItemProto9
-feeders (2(.com.lvl6.proto.UserEnhancementItemProto"R
-UserEnhancementItemProto
-userMonsterId (
-expectedStartTimeMillis ("f
-UserMonsterCurrentExpProto
-userMonsterId (
-expectedExperience (
-expectedLevel (BBMonsterStuffProto

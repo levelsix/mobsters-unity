@@ -17,7 +17,7 @@ public class PZMonster {
 	
 	public TaskStageMonsterProto taskMonster;
 	
-	public UserMonsterHealingProto healingMonster;
+	public UserMonsterHealingProto healingMonster = null;
 	
 	public bool isHealing
 	{
@@ -27,11 +27,43 @@ public class PZMonster {
 		}
 	}
 	
-	public int timeToHealMillis
+	public long timeToHealMillis
 	{
 		get
 		{
-			return (maxHP - currHP) * 1000;
+			return (maxHP - currHP) * 10000;
+		}
+	}
+	
+	public long finishHealTimeMillis
+	{
+		get
+		{
+			if (healingMonster == null)
+			{
+				return 0;
+			}
+			return healingMonster.expectedStartTimeMillis + timeToHealMillis; 
+		}
+	}
+	
+	public long healTimeLeft
+	{
+		get
+		{
+			if (healingMonster == null)
+			{
+				return 0;
+			}
+			return finishHealTimeMillis - CBKUtil.timeNowMillis;
+		}
+	}
+	
+	public int healCost
+	{
+		get
+		{
+			return maxHP - currHP;
 		}
 	}
 	

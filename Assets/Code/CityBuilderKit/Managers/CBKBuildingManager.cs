@@ -176,7 +176,7 @@ public class CBKBuildingManager : MonoBehaviour
 
 		for (int i = 0; i < response.cityElements.Count; i++) 
 		{
-			Debug.Log("Making neutral element " + i);
+			//Debug.Log("Making neutral element " + i);
 			switch (response.cityElements[i].type) {
 				case CityElementProto.CityElemType.BUILDING:
 					MakeBuilding(response.cityElements[i]);
@@ -290,7 +290,7 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	CBKBuilding MakeBuilding(CityElementProto proto)
 	{
-		Debug.Log("Neutral building " + proto.name + " at " + proto.coords.x + ", " + proto.coords.y);
+		Debug.Log("Neutral building " + proto.imgId + " at " + proto.coords.x + ", " + proto.coords.y);
 		
 		Vector3 position = new Vector3(CBKGridManager.instance.spaceSize * proto.coords.x, 0, 
     		CBKGridManager.instance.spaceSize * proto.coords.y);

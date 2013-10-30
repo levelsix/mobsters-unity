@@ -137,20 +137,23 @@ public class CBKAtlasUtil : MonoBehaviour {
 	
 	public UISpriteData LookupBuildingSprite(string name)
 	{
-		string withoutSpaces = StripSpaces(name);
+		string cleaned = StripExtensions(StripSpaces(name));
 		
-		if (!buildingAtlasDict.ContainsKey(withoutSpaces))
+		Debug.Log("Building: " + cleaned);
+		
+		if (!buildingAtlasDict.ContainsKey(cleaned))
 		{
-			Debug.Log("Dictionary does not contain key for " + withoutSpaces);
+			Debug.Log("Dictionary does not contain key for " + cleaned);
 			return null;
 		}
 		
-		return buildingAtlasDict[withoutSpaces].GetSprite(withoutSpaces);
+		return buildingAtlasDict[cleaned].GetSprite(cleaned);
 	}
 	
 	public UIAtlas GetBuildingAtlas(string name)
 	{
 		string stripped = StripSpaces(name);
+		stripped = StripExtensions(stripped);
 		if (!buildingAtlasDict.ContainsKey(stripped))
 		{
 			Debug.Log("Dictionary does not contain key for " + stripped);

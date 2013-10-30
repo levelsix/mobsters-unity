@@ -1,113 +1,0 @@
-
-º
-EventMonster.protocom.lvl6.protoMonsterStuff.proto
-User.proto"è
-$SubmitMonsterEnhancementRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto<
-
-ueipDelete (2(.com.lvl6.proto.UserEnhancementItemProto<
-
-ueipUpdate (2(.com.lvl6.proto.UserEnhancementItemProto9
-ueipNew (2(.com.lvl6.proto.UserEnhancementItemProto"à
-%SubmitMonsterEnhancementResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtod
-status (2T.com.lvl6.proto.SubmitMonsterEnhancementResponseProto.SubmitMonsterEnhancementStatus"∆
-SubmitMonsterEnhancementStatus
-SUCCESS
-
-OTHER_FAIL%
-!CLIENT_TOO_APART_FROM_SERVER_TIME(
-$MAIN_OR_FEEDER_OR_EQUIPS_NONEXISTENT
-TRYING_TO_SURPASS_MAX_LEVEL
-NOT_ENOUGH_SILVER"Ÿ
-'EnhancementWaitTimeCompleteRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-	isSpeedup (
-gemsForSpeedup (9
-umcep (2*.com.lvl6.proto.UserMonsterCurrentExpProto
-userMonsterIds ("∆
-(EnhancementWaitTimeCompleteResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoj
-status (2Z.com.lvl6.proto.EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus"|
-!EnhancementWaitTimeCompleteStatus
-SUCCESS
-FAIL_HEALING_NOT_COMPLETE
-FAIL_INSUFFICIENT_FUNDS
-
-FAIL_OTHER"•
-UpdateMonsterHealthRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto<
-umchp (2-.com.lvl6.proto.UserMonsterCurrentHealthProto
-
-clientTime ("á
- UpdateMonsterHealthResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoZ
-status (2J.com.lvl6.proto.UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus"U
-UpdateMonsterHealthStatus
-SUCCESS
-FAIL_INSUFFICIENT_FUNDS
-
-FAIL_OTHER"ü
-HealMonsterRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto:
-	umhDelete (2'.com.lvl6.proto.UserMonsterHealingProto:
-	umhUpdate (2'.com.lvl6.proto.UserMonsterHealingProto7
-umhNew (2'.com.lvl6.proto.UserMonsterHealingProto
-cashCost (
-gemCost ("≤
-HealMonsterResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoJ
-status (2:.com.lvl6.proto.HealMonsterResponseProto.HealMonsterStatus"ó
-HealMonsterStatus
-SUCCESS
-FAIL_INSUFFICIENT_FUNDS%
-!FAIL_ALL_MONSTERS_ALREADY_HEALING!
-FAIL_ALL_MONSTERS_NONEXISTENT
-
-FAIL_OTHER"ƒ
-'HealMonsterWaitTimeCompleteRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-	isSpeedup (
-gemsForSpeedup (<
-umchp (2-.com.lvl6.proto.UserMonsterCurrentHealthProto"∆
-(HealMonsterWaitTimeCompleteResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoj
-status (2Z.com.lvl6.proto.HealMonsterWaitTimeCompleteResponseProto.HealMonsterWaitTimeCompleteStatus"|
-!HealMonsterWaitTimeCompleteStatus
-SUCCESS
-FAIL_HEALING_NOT_COMPLETE
-FAIL_INSUFFICIENT_FUNDS
-
-FAIL_OTHER"Ç
-"AddMonsterToBattleTeamRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-teamSlotNum (
-userMonsterId ("ˆ
-#AddMonsterToBattleTeamResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProto`
-status (2P.com.lvl6.proto.AddMonsterToBattleTeamResponseProto.AddMonsterToBattleTeamStatus";
-AddMonsterToBattleTeamStatus
-SUCCESS
-
-FAIL_OTHER"r
-'RemoveMonsterFromBattleTeamRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-userMonsterId ("ä
-(RemoveMonsterFromBattleTeamResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoj
-status (2Z.com.lvl6.proto.RemoveMonsterFromBattleTeamResponseProto.RemoveMonsterFromBattleTeamStatus"@
-!RemoveMonsterFromBattleTeamStatus
-SUCCESS
-
-FAIL_OTHER"m
-#BuyMonsterInventorySlotRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-numPurchases ("ó
-$BuyMonsterInventorySlotResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtob
-status (2R.com.lvl6.proto.BuyMonsterInventorySlotResponseProto.BuyMonsterInventorySlotStatus"Y
-BuyMonsterInventorySlotStatus
-SUCCESS
-FAIL_INSUFFICIENT_FUNDS
-
-FAIL_OTHERBBEventMonsterProto

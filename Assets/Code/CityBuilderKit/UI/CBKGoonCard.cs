@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
+using System;
 
 public class CBKGoonCard : MonoBehaviour {
 	
@@ -53,10 +54,13 @@ public class CBKGoonCard : MonoBehaviour {
 	UISprite[] stars;
 	
 	[SerializeField]
-	GameObject hasNoGoonElements;
+	UILabel overCardLabel;
 	
 	[SerializeField]
-	UILabel hasNoGoonLabel;
+	UIWidget[] darkenedElements;
+	
+	[SerializeField]
+	Color darkenColor;
 	
 	#endregion
 	
@@ -98,6 +102,9 @@ public class CBKGoonCard : MonoBehaviour {
 	
 	PZMonster goon;
 	
+	const string teamMemberToHealWarning = "Are you sure you want to heal this goon? You won't be able to use them in your team until" +
+		"they are fully healed.";
+	
 	void OnDisable()
 	{
 		addRemoveTeamButton.onClick = null;
@@ -106,30 +113,62 @@ public class CBKGoonCard : MonoBehaviour {
 	
 	public void Init(PZMonster goon)
 	{
+		gameObject.SetActive(true);
+		
 		this.goon = goon;
 		
 		goonElementParent.SetActive(true);
-		hasNoGoonElements.SetActive(false);
 		
 		cardBackground.spriteName = backgroundsForElements[goon.monster.element];
 		cardBorder.spriteName = bordersForElements[goon.monster.element];
-		
 		if (goon.userMonster.teamSlotNum > 0)
 		{
 			addRemoveButtonBackground.spriteName = removeButtonSpriteName;
+			addRemoveButtonBackground.alpha = 1;
 			addRemoveTeamButton.onClick = RemoveFromTeam;
+			addRemoveTeamButton.button.isEnabled = true;
 		}
 		else
 		{
-			//TODO: Only show button if team slots available?
-			addRemoveButtonBackground.spriteName = addButtonSpriteName;
-			addRemoveTeamButton.onClick = AddToTeam;
+			if (CBKMonsterManager.instance.monstersOnTeam < CBKMonsterManager.TEAM_SLOTS && !goon.isHealing && goon.userMonster.isComplete)
+			{
+				addRemoveButtonBackground.spriteName = addButtonSpriteName;
+				addRemoveButtonBackground.alpha = 1;
+				addRemoveTeamButton.onClick = AddToTeam;
+				addRemoveTeamButton.button.isEnabled = true;
+			}
+			else
+			{
+				addRemoveButtonBackground.alpha = 0;
+				addRemoveTeamButton.button.isEnabled = false;
+			}
 		}
 		
 		if (!goon.isHealing && goon.currHP < goon.maxHP)
 		{
 			healButtonParent.SetActive(true);
 			healButton.onClick = AddToHealQueue;
+			healButton.label.text = "$" + goon.healCost;
+		}
+		else
+		{
+			healButtonParent.SetActive(false);
+		}
+		
+		if (!goon.userMonster.isComplete)
+		{
+			overCardLabel.text = goon.userMonster.numPieces + "/" + goon.monster.numPuzzlePieces;  
+			TintElements (true);
+		}
+		else if (goon.isHealing)
+		{
+			overCardLabel.text = "Healing...";
+			TintElements (true);
+		}
+		else
+		{
+			overCardLabel.text = "";
+			TintElements(false);
 		}
 		
 		rarityRibbon.spriteName = ribbonsForRarity[goon.monster.quality];
@@ -146,49 +185,80 @@ public class CBKGoonCard : MonoBehaviour {
 		//TODO: Stars
 	}
 	
+	void TintElements(bool darken)
+	{
+		foreach (UIWidget item in darkenedElements) 
+		{
+			item.color = darken ? darkenColor : Color.white;
+		}
+	}
+	
 	public void InitEmptyTeam()
 	{
-		hasNoGoonElements.SetActive(true);
+		gameObject.SetActive(true);
 		goonElementParent.SetActive(false);
 		
 		cardBackground.spriteName = emptyBackground;
 		
-		hasNoGoonLabel.text = "Team Slot \nEmpty";
+		overCardLabel.text = "Team Slot \nEmpty";
 	}
 	
 	public void InitEmptyReserve()
 	{
-		hasNoGoonElements.SetActive(true);
+		gameObject.SetActive(true);
+		
 		goonElementParent.SetActive(false);
 		
 		cardBackground.spriteName = emptyBackground;
 		
-		hasNoGoonLabel.text = "Reserve Slot \nEmpty";
+		overCardLabel.text = "Reserve Slot \nEmpty";
 	}
 	
 	public void InitSlotForPurchase()
 	{
 		
-		hasNoGoonElements.SetActive(true);
+		gameObject.SetActive(true);
+		
 		goonElementParent.SetActive(false);
 		
 		cardBackground.spriteName = emptyBackground;
 		
-		hasNoGoonLabel.text = "Slot For \nPurchase";
+		overCardLabel.text = "Slot For \nPurchase";
 	}
 	
 	void AddToTeam()
 	{
 		Debug.Log("Add to team");
+		CBKMonsterManager.instance.AddToTeam(goon);
 	}
 	
 	void RemoveFromTeam()
 	{
-		Debug.Log("Remove from team");
+		CBKMonsterManager.instance.RemoveFromTeam(goon);
+		InitEmptyTeam();
 	}
 	
 	void AddToHealQueue()
 	{
-		Debug.Log("Add to heal queue");
+		if (CBKResourceManager.instance.resources[(int)CBKResourceManager.ResourceType.FREE] < goon.healCost)
+		{
+			CBKEventManager.Popup.CreateButtonPopup("Need more mulah", new string[]{"Okay"}, new Action[]{CBKEventManager.Popup.CloseTopPopupLayer});
+		}
+		else if (goon.userMonster.teamSlotNum > 0)
+		{
+			PopupTeamMemberToHealingQueue(goon);
+		}
+		else
+		{
+			CBKMonsterManager.instance.AddToHealQueue(goon);
+		}
+	}
+	
+	void PopupTeamMemberToHealingQueue(PZMonster monster)
+	{
+		CBKEventManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
+			new Action[]{delegate{RemoveFromTeam();CBKMonsterManager.instance.AddToHealQueue(monster); 
+				isHealingParent.SetActive(true);CBKEventManager.Popup.CloseTopPopupLayer();}, 
+			CBKEventManager.Popup.CloseTopPopupLayer});
 	}
 }

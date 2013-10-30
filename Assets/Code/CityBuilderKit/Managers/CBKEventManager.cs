@@ -69,8 +69,10 @@ public static class CBKEventManager
 	{
 		public static Action<GameObject> OnPopup;
 		public static Action<int> ClosePopupLayer;
+		public static Action CloseTopPopupLayer;
 		public static Action CloseAllPopups;
 		public static Action<string> CreatePopup;
+		public static Action<string, string[], Action[]> CreateButtonPopup;
 	}
 	
 	public static class UI
@@ -81,6 +83,15 @@ public static class CBKEventManager
         public static Action OnCameraSnapButton;
 		
 		public static Action<CBKFullQuest> OnQuestEntryClicked;
+		public static Action OnReorganizeHealQueue;
+	}
+	
+	public static class Goon
+	{
+		public static Action<PZMonster> OnMonsterAddTeam;
+		public static Action<PZMonster> OnMonsterRemoveTeam;
+		public static Action OnHealQueueChanged;
+		public static Action<PZMonster> OnMonsterFinishHeal;
 	}
 	
 	public static class Cam

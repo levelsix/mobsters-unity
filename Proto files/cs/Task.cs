@@ -61,8 +61,17 @@ namespace com.lvl6.proto
       set { _name = value; }
     }
 
+    private string _description = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"description", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string description
+    {
+      get { return _description; }
+      set { _description = value; }
+    }
+
     private int _cityId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"cityId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"cityId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int cityId
     {
@@ -71,7 +80,7 @@ namespace com.lvl6.proto
     }
 
     private int _assetNumWithinCity = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"assetNumWithinCity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"assetNumWithinCity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int assetNumWithinCity
     {

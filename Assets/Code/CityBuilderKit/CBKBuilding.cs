@@ -299,12 +299,12 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	
 	public void Init(CityElementProto proto)
 	{
-		name = proto.name;
+		//name = proto.name;
 		
 		width = proto.xLength;
 		length = proto.yLength;
 		
-		SetupSprite(proto.name);
+		SetupSprite(proto.imgId);
 		
 		trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
 		SetGridFromTrans();
@@ -319,7 +319,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	
 	void Setup ()
 	{
-		name = structProto.name;
+		//name = structProto.name;
 		
 		width = structProto.xLength;
 		length = structProto.yLength;
@@ -450,7 +450,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
     /// </summary>
     public void Place()
     {
-        if (CBKGridManager.instance.HasSpaceForBuilding(structProto, _currPos))
+        if (_currPos.pos != groundPos && CBKGridManager.instance.HasSpaceForBuilding(structProto, _currPos))
         {
             CBKGridManager.instance.AddBuilding(this, _currPos.x, _currPos.z, structProto.xLength, structProto.yLength);
 			_originalPos = trans.position;

@@ -6,25 +6,29 @@ option java_outer_classname = "MonsterStuffProto";
 message MonsterProto {
 	optional int32 monsterId = 1;
 	optional string name = 2; //for grouping purposes
-	optional MonsterQuality quality = 3;
-	optional int32 evolutionLevel = 4;
-	optional string displayName = 5;
-	optional MonsterElement element = 6;
-	optional int32 baseHp = 7;
-	optional string imageName = 8;
-	optional int32 numPuzzlePieces = 9;
-	optional int32 elementOneDmg = 10;
-	optional int32 elementTwoDmg = 11;
-	optional int32 elementThreeDmg = 12;
-	optional int32 elementFourDmg = 13;
-	optional int32 elementFiveDmg = 14;
-	optional float hpLevelMultiplier = 15;
-	optional float attackLevelMultiplier = 16;
-	optional int32 maxLevel = 17;
-	optional int32 evolutionMonsterId = 18;
-	optional string carrotRecruited = 19;
-	optional string carrotDefeated = 20;
-	optional string carrotEvolved = 21;
+	optional string monsterGroup = 3;
+	optional MonsterQuality quality = 4;
+	optional int32 evolutionLevel = 5;
+	optional string displayName = 6;
+	optional MonsterElement element = 7;
+	optional int32 baseHp = 8;
+	optional string imagePrefix = 9;
+	optional int32 numPuzzlePieces = 10;
+	optional int32 minutesToCombinePieces = 11;
+	optional int32 elementOneDmg = 12;
+	optional int32 elementTwoDmg = 13;
+	optional int32 elementThreeDmg = 14;
+	optional int32 elementFourDmg = 15;
+	optional int32 elementFiveDmg = 16;
+	optional float hpLevelMultiplier = 17;
+	optional float attackLevelMultiplier = 18;
+	optional int32 maxLevel = 19;
+	optional int32 evolutionMonsterId = 20;
+	optional string carrotRecruited = 21;
+	optional string carrotDefeated = 22;
+	optional string carrotEvolved = 23;
+	optional string description = 24; 
+	
 	
 	enum MonsterQuality {
 		COMMON = 1;
@@ -55,6 +59,7 @@ message FullUserMonsterProto {
 	optional int32 numPieces = 7;
 	optional bool isComplete = 8; 
 	optional int32 teamSlotNum = 9;
+	//optional string sourceOfPieces = 10;	//not needed for client
 }
 //------------------------------------------------------------------------------------------
 
@@ -96,3 +101,8 @@ message UserMonsterCurrentExpProto {
 }
 
 //------------------------------------------------------------------------------------------
+
+message MinimumUserMonsterSellProto {
+	optional int64 userMonsterId = 1;
+	optional int32 cashAmount = 2;
+}

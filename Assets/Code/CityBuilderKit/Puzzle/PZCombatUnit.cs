@@ -45,7 +45,7 @@ public class PZCombatUnit : MonoBehaviour {
 	public void Init(PZMonster monster)
 	{
 		this.monster = monster;
-		unit.spriteBaseName = monster.monster.imageName;
+		unit.spriteBaseName = monster.monster.imagePrefix;
 		unit.sprite.alpha = 1;
 	}
 	

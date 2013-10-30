@@ -1,166 +1,0 @@
-
-˚(
-EventClan.protocom.lvl6.proto
-Clan.proto
-User.proto"ù
-CreateClanRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-name (	
-tag (	!
-requestToJoinClanRequired (
-description (	"›
-CreateClanResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoH
-status (28.com.lvl6.proto.CreateClanResponseProto.CreateClanStatus2
-clanInfo (2 .com.lvl6.proto.MinimumClanProto"ë
-CreateClanStatus
-SUCCESS
-
-OTHER_FAIL
-NOT_ENOUGH_COINS
-
-NAME_TAKEN
-ALREADY_IN_CLAN
-INVALID_TAG_LENGTH
-	TAG_TAKEN"I
-LeaveClanRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto"˚
-LeaveClanResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoF
-status (26.com.lvl6.proto.LeaveClanResponseProto.LeaveClanStatus"g
-LeaveClanStatus
-SUCCESS
-
-OTHER_FAIL
-NOT_IN_CLAN&
-"OWNER_OF_CLAN_WITH_OTHERS_STILL_IN"_
-RequestJoinClanRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-clanId ("Ù
-RequestJoinClanResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoR
-status (2B.com.lvl6.proto.RequestJoinClanResponseProto.RequestJoinClanStatus
-clanId (;
-	requester (2(.com.lvl6.proto.MinimumUserProtoForClans1
-minClan (2 .com.lvl6.proto.MinimumClanProto;
-fullClan (2).com.lvl6.proto.FullClanProtoWithClanSize"ê
-RequestJoinClanStatus
-REQUEST_SUCCESS
-
-OTHER_FAIL
-ALREADY_IN_CLAN
-REQUEST_ALREADY_FILED
-JOIN_SUCCESS
-CLAN_IS_FULL"f
-"RetractRequestJoinClanRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-clanId ("∞
-#RetractRequestJoinClanResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProto`
-status (2P.com.lvl6.proto.RetractRequestJoinClanResponseProto.RetractRequestJoinClanStatus
-clanId ("e
-RetractRequestJoinClanStatus
-SUCCESS
-
-OTHER_FAIL
-ALREADY_IN_CLAN
-DID_NOT_REQUEST"Ö
-,ApproveOrRejectRequestToJoinClanRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-requesterId (
-accept ("Ô
--ApproveOrRejectRequestToJoinClanResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtot
-status (2d.com.lvl6.proto.ApproveOrRejectRequestToJoinClanResponseProto.ApproveOrRejectRequestToJoinClanStatus
-requesterId (
-accept (1
-minClan (2 .com.lvl6.proto.MinimumClanProto;
-fullClan (2).com.lvl6.proto.FullClanProtoWithClanSize"Ä
-&ApproveOrRejectRequestToJoinClanStatus
-SUCCESS
-
-OTHER_FAIL
-	NOT_OWNER
-NOT_A_REQUESTER
-ALREADY_IN_A_CLAN"±
-RetrieveClanInfoRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-clanId (
-clanName (	O
-grabType (2=.com.lvl6.proto.RetrieveClanInfoRequestProto.ClanInfoGrabType
-beforeThisClanId (
-isForBrowsingList ("7
-ClanInfoGrabType
-ALL
-	CLAN_INFO
-MEMBERS"¬
-RetrieveClanInfoResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProto9
-members (2(.com.lvl6.proto.MinimumUserProtoForClans;
-clanInfo (2).com.lvl6.proto.FullClanProtoWithClanSizeT
-status (2D.com.lvl6.proto.RetrieveClanInfoResponseProto.RetrieveClanInfoStatus
-isForSearch (
-isForBrowsingList (
-clanId (
-clanName (	
-beforeThisClanId	 ("5
-RetrieveClanInfoStatus
-SUCCESS
-
-OTHER_FAIL"m
-!TransferClanOwnershipRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-newClanOwnerId ("å
-"TransferClanOwnershipResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProto^
-status (2N.com.lvl6.proto.TransferClanOwnershipResponseProto.TransferClanOwnershipStatus1
-minClan (2 .com.lvl6.proto.MinimumClanProto;
-fullClan (2).com.lvl6.proto.FullClanProtoWithClanSize"d
-TransferClanOwnershipStatus
-SUCCESS
-
-OTHER_FAIL
-	NOT_OWNER
-NEW_OWNER_NOT_IN_CLAN"j
-!ChangeClanDescriptionRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-description (	"ê
-"ChangeClanDescriptionResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProto^
-status (2N.com.lvl6.proto.ChangeClanDescriptionResponseProto.ChangeClanDescriptionStatus1
-minClan (2 .com.lvl6.proto.MinimumClanProto;
-fullClan (2).com.lvl6.proto.FullClanProtoWithClanSize"h
-ChangeClanDescriptionStatus
-SUCCESS
-
-OTHER_FAIL
-TOO_LONG
-NOT_IN_CLAN
-	NOT_OWNER"h
-BootPlayerFromClanRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-playerToBoot ("´
-BootPlayerFromClanResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-playerToBoot (X
-status (2H.com.lvl6.proto.BootPlayerFromClanResponseProto.BootPlayerFromClanStatus"f
-BootPlayerFromClanStatus
-SUCCESS
-
-OTHER_FAIL
-NOT_OWNER_OF_CLAN
-BOOTED_NOT_IN_CLAN"q
-ChangeClanJoinTypeRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-requestToJoinRequired ("ˆ
-ChangeClanJoinTypeResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoX
-status (2H.com.lvl6.proto.ChangeClanJoinTypeResponseProto.ChangeClanJoinTypeStatus1
-minClan (2 .com.lvl6.proto.MinimumClanProto;
-fullClan (2).com.lvl6.proto.FullClanProtoWithClanSize"W
-ChangeClanJoinTypeStatus
-SUCCESS
-
-OTHER_FAIL
-NOT_IN_CLAN
-	NOT_OWNERBBEventClanProto

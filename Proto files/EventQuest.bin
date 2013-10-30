@@ -1,48 +1,0 @@
-
-Ï
-
-EventQuest.protocom.lvl6.proto
-City.protoMonsterStuff.protoQuest.proto
-User.proto"\
-QuestAcceptRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-questId (" 
-QuestAcceptResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoJ
-status (2:.com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus
-cityIdOfAcceptedQuest ("g
-QuestAcceptStatus
-SUCCESS
-FAIL_NOT_AVAIL_TO_USER
-FAIL_ALREADY_ACCEPTED
-
-FAIL_OTHER"©
-QuestProgressRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-questId (
-currentProgress (
-
-isComplete (
-deleteUserMonsterIds ("ì
-QuestProgressResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoN
-status (2>.com.lvl6.proto.QuestProgressResponseProto.QuestProgressStatus"L
-QuestProgressStatus
-SUCCESS
-FAIL_NO_QUEST_EXISTS
-
-FAIL_OTHER"\
-QuestRedeemRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-questId ("ä
-QuestRedeemResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProto<
-newlyAvailableQuests (2.com.lvl6.proto.FullQuestProtoJ
-status (2:.com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus2
-fump (2$.com.lvl6.proto.FullUserMonsterProto
-questId ("G
-QuestRedeemStatus
-SUCCESS
-FAIL_NOT_COMPLETE
-
-FAIL_OTHERBBEventQuestProto

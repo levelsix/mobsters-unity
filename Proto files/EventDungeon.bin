@@ -1,51 +1,0 @@
-
-‡
-
-EventDungeon.protocom.lvl6.protoMonsterStuff.proto
-Task.proto
-User.proto"p
-BeginDungeonRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-
-clientTime (
-taskId ("¯
-BeginDungeonResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProto+
-tsp (2.com.lvl6.proto.TaskStageProto
-
-userTaskId (L
-status (2<.com.lvl6.proto.BeginDungeonResponseProto.BeginDungeonStatus"Q
-BeginDungeonStatus
-SUCCESS
-FAIL_INSUFFICIENT_STAMERGY
-
-FAIL_OTHER"ƒ
-EndDungeonRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-
-userTaskId (
-userWon (
-
-clientTime ("‚
-EndDungeonResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoH
-status (28.com.lvl6.proto.EndDungeonResponseProto.EndDungeonStatus:
-updatedOrNew (2$.com.lvl6.proto.FullUserMonsterProto"/
-EndDungeonStatus
-SUCCESS
-
-FAIL_OTHER"w
-ReviveInDungeonRequestProto0
-sender (2 .com.lvl6.proto.MinimumUserProto
-
-userTaskId (
-
-clientTime ("÷
-ReviveInDungeonResponseProto0
-sender (2 .com.lvl6.proto.MinimumUserProtoR
-status (2B.com.lvl6.proto.ReviveInDungeonResponseProto.ReviveInDungeonStatus"Q
-ReviveInDungeonStatus
-SUCCESS
-FAIL_INSUFFICIENT_FUNDS
-
-FAIL_OTHERBBEventDungeonProto

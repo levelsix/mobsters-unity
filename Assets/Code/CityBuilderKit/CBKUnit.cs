@@ -127,8 +127,6 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 	{	
 		name = "Rob";
 		
-		//spriteBaseName = "GangsterBrute";
-		
 		Setup();
 	}
 	
@@ -138,7 +136,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		
 		name = monster.displayName;
 		
-		spriteBaseName = monster.imageName;
+		spriteBaseName = monster.imagePrefix;
 		
 		Setup();
 	}
@@ -146,7 +144,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 	public void Init (CityElementProto proto)
 	{
 		
-		name = proto.name;
+		name = proto.imgId;
 		
 		ncep = proto;
 		

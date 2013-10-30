@@ -1,114 +1,0 @@
-
-ù!
-EventStartup.protocom.lvl6.protoBoosterPackStuff.proto
-Chat.proto
-City.proto
-Clan.protoInAppPurchase.protoQuest.protoStructure.proto
-User.protoMonsterStuff.proto"
-StartupRequestProto
-udid (	
-
-versionNum (
-	apsalarId (	
-
-macAddress (	
-advertiserId (	
-isForceTutorial ("ž
-StartupResponseProto
-serverTimeMillis (-
-sender (2.com.lvl6.proto.FullUserProtoI
-startupStatus (22.com.lvl6.proto.StartupResponseProto.StartupStatusG
-updateStatus (21.com.lvl6.proto.StartupResponseProto.UpdateStatusO
-startupConstants (25.com.lvl6.proto.StartupResponseProto.StartupConstants0
-	allCities (2.com.lvl6.proto.FullCityProto8
-inProgressQuests (2.com.lvl6.proto.FullQuestProto8
-unredeemedQuests (2.com.lvl6.proto.FullQuestProto7
-availableQuests	 (2.com.lvl6.proto.FullQuestProto6
-
-userQuests
- (2".com.lvl6.proto.FullUserQuestProto7
-userClanInfo (2!.com.lvl6.proto.FullUserClanProto
-appStoreURL (	
-reviewPageURL (	%
-reviewPageConfirmationMessage (	$
-playerHasBoughtInAppPurchase (0
-	goldSales (2.com.lvl6.proto.GoldSaleProto[
-attackNotifications (2>.com.lvl6.proto.StartupResponseProto.AttackedNotificationProto]
-referralNotifications (2>.com.lvl6.proto.StartupResponseProto.ReferralNotificationProto
-noticesToPlayers (	:
-globalChats (2%.com.lvl6.proto.GroupChatMessageProto8
-	clanChats (2%.com.lvl6.proto.GroupChatMessageProto2
-pcpp (2$.com.lvl6.proto.PrivateChatPostProto2
-slip (2$.com.lvl6.proto.StaticLevelInfoProto9
-staticStructs (2".com.lvl6.proto.FullStructureProto>
-expansionCosts (2&.com.lvl6.proto.CityExpansionCostProto4
-staticMonsters (2.com.lvl6.proto.MonsterProto;
-usersMonsters (2$.com.lvl6.proto.FullUserMonsterProto@
-monstersHealing (2'.com.lvl6.proto.UserMonsterHealingProto:
-enhancements (2$.com.lvl6.proto.UserEnhancementProtoF
-rareBoosterPurchases (2(.com.lvl6.proto.RareBoosterPurchaseProto
-	kabamNaid (	€
-AttackedNotificationProto2
-attacker (2 .com.lvl6.proto.MinimumUserProto
-battleCompleteTime (
-coinsStolen (‚
-ReferralNotificationProto2
-referred (2 .com.lvl6.proto.MinimumUserProto
-recruitTime (
-coinsGivenToReferrer (á
-StartupConstantsH
-inAppPurchasePackages (2).com.lvl6.proto.InAppPurchasePackageProto
-maxLevelForUser (
-maxNumOfSingleStruct (f
-normStructConstants (2I.com.lvl6.proto.StartupResponseProto.StartupConstants.NormStructConstantsn
-animatedSpriteOffsets (2O.com.lvl6.proto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto
-minNameLength (
-maxNameLength (
-maxLengthOfChatString (Z
-clanConstants	 (2C.com.lvl6.proto.StartupResponseProto.StartupConstants.ClanConstantsp
-downloadableNibConstants
- (2N.com.lvl6.proto.StartupResponseProto.StartupConstants.DownloadableNibConstants'
-numHoursBeforeReshowingGoldSale (
-levelToShowRateUsPopup (e
-touramentConstants (2I.com.lvl6.proto.StartupResponseProto.StartupConstants.TournamentConstants
-fbConnectRewardDiamonds (
-faqFileName (	<
-adminChatUserProto (2 .com.lvl6.proto.MinimumUserProto
-numBeginnerSalesAllowed (h
-userMonsterConstants (2J.com.lvl6.proto.StartupResponseProto.StartupConstants.UserMonsterConstants÷
-NormStructConstants/
-'minutesToUpgradeForNormStructMultiplier (&
-incomeFromNormStructMultiplier ()
-!upgradeStructCoinCostExponentBase (,
-$upgradeStructDiamondCostExponentBase (.
-&diamondCostForInstantUpgradeMultiplier (_
-AnimatedSpriteOffsetProto
-	imageName (	/
-offSet (2.com.lvl6.proto.CoordinateProtoš
-ClanConstants
-coinPriceToCreateClan ( 
-maxCharLengthForClanName ('
-maxCharLengthForClanDescription (
-maxCharLengthForClanTag (c
-DownloadableNibConstants
-
-mapNibName (	
-expansionNibName (	
-goldShoppeNibName (	y
-TournamentConstants
-
-winsWeight (
-lossesWeight (
-fleesWeight (#
-numHoursToShowAfterEventEnd (R
-UserMonsterConstants
-maxNumTeamSlots (!
-initialMaxNumMonsterLimit ("A
-UpdateStatus
-	NO_UPDATE
-MINOR_UPDATE
-MAJOR_UPDATE"3
-StartupStatus
-
-USER_IN_DB
-USER_NOT_IN_DBBBEventStartupProto
