@@ -91,6 +91,7 @@ public static class CBKEventManager
 		public static Action<PZMonster> OnMonsterAddTeam;
 		public static Action<PZMonster> OnMonsterRemoveTeam;
 		public static Action OnHealQueueChanged;
+		public static Action OnEnhanceQueueChanged;
 		public static Action<PZMonster> OnMonsterFinishHeal;
 	}
 	

@@ -326,17 +326,17 @@ namespace com.lvl6.proto
     }
   
 
-    private int _cashCost = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"cashCost", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    private int _cashChange = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"cashChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int cashCost
+    public int cashChange
     {
-      get { return _cashCost; }
-      set { _cashCost = value; }
+      get { return _cashChange; }
+      set { _cashChange = value; }
     }
 
     private int _gemCost = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"gemCost", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"gemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int gemCost
     {

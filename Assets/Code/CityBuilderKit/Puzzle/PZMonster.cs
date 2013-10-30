@@ -19,6 +19,8 @@ public class PZMonster {
 	
 	public UserMonsterHealingProto healingMonster = null;
 	
+	public UserEnhancementItemProto enhancement = null;
+	
 	public bool isHealing
 	{
 		get
@@ -31,7 +33,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return (maxHP - currHP) * 10000;
+			return (maxHP - currHP) * 1000;
 		}
 	}
 	
@@ -64,6 +66,37 @@ public class PZMonster {
 		get
 		{
 			return maxHP - currHP;
+		}
+	}
+	
+	public int enhanceXP
+	{
+		get
+		{
+			return maxHP;
+		}
+	}
+	
+	public long timeToUseEnhance
+	{
+		get
+		{
+			return enhanceXP * 1000;
+		}
+	}
+	
+	public long finishEnhanceTime
+	{
+		get
+		{
+			if (enhancement == null || enhancement.expectedStartTimeMillis == 0) 
+			{
+				return 0;
+			}
+			else
+			{
+				return enhancement.expectedStartTimeMillis + timeToUseEnhance;
+			}
 		}
 	}
 	
@@ -139,6 +172,35 @@ public class PZMonster {
 		attackDamages[3] = attackMux * monster.elementFourDmg;
 		attackDamages[4] = attackMux * monster.elementFiveDmg;
 	}
-
 	
+	#region Experience
+	
+	int ExpForLevel(int level)
+	{
+		if (level <= 1)
+		{
+			return 0;
+		}
+		return level * 1000 + ExpForLevel(level-1);
+	}
+	
+	public void GainXP(int exp)
+	{
+		userMonster.currentExp += exp;
+		while (userMonster.currentExp > ExpForLevel(userMonster.currentLvl))
+		{
+			userMonster.currentLvl++;
+		}
+	}
+	
+	public UserMonsterCurrentExpProto GetCurrentExpProto()
+	{
+		UserMonsterCurrentExpProto umcep = new UserMonsterCurrentExpProto();
+		umcep.userMonsterId = userMonster.userMonsterId;
+		umcep.expectedExperience = userMonster.currentExp;
+		umcep.expectedLevel = userMonster.currentLvl;
+		return umcep;
+	}
+	
+	#endregion
 }

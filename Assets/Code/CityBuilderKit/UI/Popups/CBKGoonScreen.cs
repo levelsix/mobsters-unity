@@ -5,7 +5,9 @@ using com.lvl6.proto;
 using System;
 
 public class CBKGoonScreen : MonoBehaviour {
-
+	
+	#region UI Elements
+	
 	[SerializeField]
 	CBKGoonCard[] teamCards;
 	
@@ -29,6 +31,10 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	[SerializeField]
 	UILabel healingQueueTotalTime;
+	
+	#endregion
+	
+	#region Properties
 	
 	int playerSlots
 	{
@@ -54,12 +60,18 @@ public class CBKGoonScreen : MonoBehaviour {
 		}
 	}
 	
-	Vector3 cardOffset = new Vector3(240, 0, 0);
+	#endregion
 	
-	Vector3 boxOffset = new Vector3(-142, 0, 0);
+	#region Constants
+	
+	static readonly Vector3 cardOffset = new Vector3(240, 0, 0);
+	
+	static readonly Vector3 boxOffset = new Vector3(-142, 0, 0);
 	
 	const string removeDialogueBeforeCost = "Are you sure you want to remove this goon from the healing queue? You will be refunded $";
 	const string removeDialogueAfterCost = " of the healing cost";
+	
+	#endregion
 	
 	public void Init(PZMonster[] teamGoons, Dictionary<long, PZMonster> playerGoons, List<PZMonster> healings)
 	{
@@ -69,7 +81,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		for (i = 0; i < teamGoons.Length; i++) 
 		{
 			
-			if (teamGoons[i].monster.monsterId <= 0)
+			if (teamGoons[i] == null || teamGoons[i].monster.monsterId <= 0)
 			{
 				Debug.Log("Init empty");
 				teamCards[i].InitEmptyTeam();
