@@ -61,22 +61,22 @@ namespace com.lvl6.proto
       set { _minutesToBuild = value; }
     }
 
-    private int _coinPrice = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"coinPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _cashPrice = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"cashPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int coinPrice
+    public int cashPrice
     {
-      get { return _coinPrice; }
-      set { _coinPrice = value; }
+      get { return _cashPrice; }
+      set { _cashPrice = value; }
     }
 
-    private int _diamondPrice = default(int);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"diamondPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _gemPrice = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"gemPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int diamondPrice
+    public int gemPrice
     {
-      get { return _diamondPrice; }
-      set { _diamondPrice = value; }
+      get { return _gemPrice; }
+      set { _gemPrice = value; }
     }
 
     private int _minLevel = default(int);
@@ -106,13 +106,13 @@ namespace com.lvl6.proto
       set { _yLength = value; }
     }
 
-    private int _instaBuildDiamondCost = default(int);
-    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"instaBuildDiamondCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _instaBuildGemCost = default(int);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"instaBuildGemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int instaBuildDiamondCost
+    public int instaBuildGemCost
     {
-      get { return _instaBuildDiamondCost; }
-      set { _instaBuildDiamondCost = value; }
+      get { return _instaBuildGemCost; }
+      set { _instaBuildGemCost = value; }
     }
 
     private int _imgVerticalPixelOffset = default(int);

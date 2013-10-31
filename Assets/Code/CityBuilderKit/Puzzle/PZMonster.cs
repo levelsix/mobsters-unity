@@ -69,11 +69,39 @@ public class PZMonster {
 		}
 	}
 	
+	public bool isEnhancing
+	{
+		get
+		{
+			return enhancement != null;
+		}
+	}
+	
 	public int enhanceXP
 	{
 		get
 		{
 			return maxHP;
+		}
+	}
+	
+	public int enhanceCost
+	{
+		get
+		{
+			return enhanceXP;
+		}
+	}
+	
+	public long enhanceTimeLeft
+	{
+		get
+		{
+			if (enhancement == null)
+			{
+				return 0;
+			}
+			return finishEnhanceTime - CBKUtil.timeNowMillis;
 		}
 	}
 	

@@ -354,8 +354,17 @@ namespace com.lvl6.proto
       set { _isComplete = value; }
     }
 
+    private long _combineStartTime = default(long);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"combineStartTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long combineStartTime
+    {
+      get { return _combineStartTime; }
+      set { _combineStartTime = value; }
+    }
+
     private int _teamSlotNum = default(int);
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"teamSlotNum", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"teamSlotNum", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int teamSlotNum
     {

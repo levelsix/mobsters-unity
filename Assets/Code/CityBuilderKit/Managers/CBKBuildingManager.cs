@@ -311,13 +311,13 @@ public class CBKBuildingManager : MonoBehaviour
 	private void BuyBuilding(FullStructureProto proto)
 	{
 		bool hasEnoughMoney;
-		if (proto.coinPrice > proto.diamondPrice)
+		if (proto.cashPrice > proto.gemPrice)
 		{
-			hasEnoughMoney = CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.FREE, proto.coinPrice);
+			hasEnoughMoney = CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.FREE, proto.cashPrice);
 		}
 		else
 		{
-			hasEnoughMoney = CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.PREMIUM, proto.diamondPrice);
+			hasEnoughMoney = CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.PREMIUM, proto.gemPrice);
 		}
 		
 		if (hasEnoughMoney)

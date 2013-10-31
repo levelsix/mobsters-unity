@@ -98,23 +98,23 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_ENOUGH_MATERIALS", Value=2)]
-      NOT_ENOUGH_MATERIALS = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_CASH", Value=2)]
+      FAIL_INSUFFICIENT_CASH = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LEVEL_TOO_LOW", Value=3)]
-      LEVEL_TOO_LOW = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=3)]
+      FAIL_INSUFFICIENT_GEMS = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ANOTHER_STRUCT_STILL_BUILDING", Value=4)]
-      ANOTHER_STRUCT_STILL_BUILDING = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_LEVEL_TOO_LOW", Value=4)]
+      FAIL_LEVEL_TOO_LOW = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ALREADY_HAVE_MAX_OF_THIS_STRUCT", Value=5)]
-      ALREADY_HAVE_MAX_OF_THIS_STRUCT = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_ANOTHER_STRUCT_STILL_BUILDING", Value=5)]
+      FAIL_ANOTHER_STRUCT_STILL_BUILDING = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=6)]
-      OTHER_FAIL = 6,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_ALREADY_HAVE_MAX_OF_THIS_STRUCT", Value=6)]
+      FAIL_ALREADY_HAVE_MAX_OF_THIS_STRUCT = 6,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CLIENT_TOO_APART_FROM_SERVER_TIME", Value=7)]
-      CLIENT_TOO_APART_FROM_SERVER_TIME = 7
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=7)]
+      FAIL_OTHER = 7
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -554,14 +554,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_ENOUGH_DIAMONDS", Value=2)]
-      NOT_ENOUGH_DIAMONDS = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_ENOUGH_GEMS", Value=2)]
+      FAIL_NOT_ENOUGH_GEMS = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=3)]
-      OTHER_FAIL = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"CLIENT_TOO_APART_FROM_SERVER_TIME", Value=4)]
-      CLIENT_TOO_APART_FROM_SERVER_TIME = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;

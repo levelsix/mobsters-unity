@@ -18,6 +18,9 @@ public class CBKGoonCard : MonoBehaviour {
 	UISprite cardBorder;
 	
 	[SerializeField]
+	UISprite goonPose;
+	
+	[SerializeField]
 	CBKActionButton addRemoveTeamButton;
 	
 	[SerializeField]
@@ -119,6 +122,8 @@ public class CBKGoonCard : MonoBehaviour {
 		
 		goonElementParent.SetActive(true);
 		
+		goonPose.spriteName = CBKAtlasUtil.instance.StripExtensions(goon.monster.imagePrefix) + "Card";
+		
 		cardBackground.spriteName = backgroundsForElements[goon.monster.element];
 		cardBorder.spriteName = bordersForElements[goon.monster.element];
 		if (goon.userMonster.teamSlotNum > 0)
@@ -155,6 +160,29 @@ public class CBKGoonCard : MonoBehaviour {
 			healButtonParent.SetActive(false);
 		}
 		
+		SetTextOverCard (goon);
+		
+		rarityRibbon.spriteName = ribbonsForRarity[goon.monster.quality];
+		rarityLabel.text = goon.monster.quality.ToString();
+		
+		isHealingParent.SetActive(goon.isHealing);
+		
+		healthBar.fillAmount = ((float)goon.currHP) / goon.maxHP;
+		
+		levelLabel.text = "LVL " + goon.userMonster.currentLvl.ToString();
+		
+		nameLabel.text = goon.monster.displayName;
+		
+		//TODO: Stars
+	}
+	
+	public void InitLab(PZMonster goon)
+	{
+		
+	}
+
+	void SetTextOverCard (PZMonster goon)
+	{
 		if (!goon.userMonster.isComplete)
 		{
 			overCardLabel.text = goon.userMonster.numPieces + "/" + goon.monster.numPuzzlePieces;  
@@ -170,19 +198,6 @@ public class CBKGoonCard : MonoBehaviour {
 			overCardLabel.text = "";
 			TintElements(false);
 		}
-		
-		rarityRibbon.spriteName = ribbonsForRarity[goon.monster.quality];
-		rarityLabel.text = goon.monster.quality.ToString();
-		
-		isHealingParent.SetActive(goon.isHealing);
-		
-		healthBar.fillAmount = ((float)goon.currHP) / goon.maxHP;
-		
-		levelLabel.text = "LVL " + goon.userMonster.currentLvl.ToString();
-		
-		nameLabel.text = goon.monster.displayName;
-		
-		//TODO: Stars
 	}
 	
 	void TintElements(bool darken)

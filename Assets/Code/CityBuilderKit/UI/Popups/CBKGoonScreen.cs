@@ -110,6 +110,8 @@ public class CBKGoonScreen : MonoBehaviour {
 		CBKEventManager.Goon.OnMonsterRemoveTeam += OnRemoveTeamMember;
 		CBKEventManager.Goon.OnHealQueueChanged += OnHealQueueChanged;
 		healingQueueSpeedUpButton.onClick += TrySpeedUpHeal;
+		
+		Init (CBKMonsterManager.instance.userTeam, CBKMonsterManager.instance.userMonsters, CBKMonsterManager.instance.healingMonsters);
 	}
 	
 	void OnDisable()
@@ -182,10 +184,13 @@ public class CBKGoonScreen : MonoBehaviour {
 			AddHealBox();
 		}
 		int i;
-		for (i = 0; i < healingMonsters.Count; i++) {
+		for (i = 0; i < healingMonsters.Count; i++) 
+		{
 			healBoxes[i].Init (healingMonsters[i]);
+			healBoxes[i].SetBar(i==0);
 		}
-		for (; i < healBoxes.Count; i++) {
+		for (; i < healBoxes.Count; i++) 
+		{
 			healBoxes[i].gameObject.SetActive(false);
 		}
 	}

@@ -162,13 +162,13 @@ namespace com.lvl6.proto
       set { _expReward = value; }
     }
 
-    private int _silverReward = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"silverReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _cashReward = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"cashReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int silverReward
+    public int cashReward
     {
-      get { return _silverReward; }
-      set { _silverReward = value; }
+      get { return _cashReward; }
+      set { _cashReward = value; }
     }
 
     private bool _puzzlePieceDropped = default(bool);

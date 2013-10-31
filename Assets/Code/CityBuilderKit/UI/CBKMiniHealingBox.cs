@@ -10,6 +10,9 @@ public class CBKMiniHealingBox : MonoBehaviour {
 	UISprite bar;
 	
 	[SerializeField]
+	UISprite barBG;
+	
+	[SerializeField]
 	UILabel timeLabel;
 	
 	PZMonster monster;
@@ -33,6 +36,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		
 		this.monster = monster;
 		
+		goonPortrait.spriteName = CBKAtlasUtil.instance.StripExtensions(monster.monster.imagePrefix) + "Card";
 	}
 	
 	void Remove()
@@ -42,17 +46,32 @@ public class CBKMiniHealingBox : MonoBehaviour {
 	
 	void Update()
 	{
-		if (CBKMonsterManager.instance.healingMonsters[0] == monster)
+		if (monster.isHealing)
 		{
+			bar.fillAmount = ((float)monster.healTimeLeft) / ((float)monster.timeToHealMillis);
 			timeLabel.text = CBKUtil.TimeStringShort(monster.healTimeLeft);
+		}
+		else if (monster.isEnhancing)
+		{
+			bar.fillAmount = ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
+			timeLabel.text = CBKUtil.TimeStringShort(monster.enhanceTimeLeft);
+		}
+		else bar.fillAmount = 0;
+	}
+	
+	public void SetBar(bool on)
+	{
+		if (on)
+		{
 			timeLabel.alpha = 1;
-			bar.fillAmount = ((float)monster.timeToHealMillis) / ((float)monster.finishHealTimeMillis);
-			bar.alpha = 0;
+			bar.alpha = 1;
+			barBG.alpha = 1;
 		}
 		else
 		{
 			timeLabel.alpha = 0;
 			bar.alpha = 0;
+			barBG.alpha = 0;
 		}
 	}
 }

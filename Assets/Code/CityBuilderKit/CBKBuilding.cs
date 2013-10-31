@@ -221,7 +221,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	public CBKResourceManager.ResourceType baseResource {
 		get
 		{
-			if (structProto.coinPrice > structProto.diamondPrice)
+			if (structProto.cashPrice > structProto.gemPrice)
 			{
 				return CBKResourceManager.ResourceType.FREE;
 			}
@@ -235,7 +235,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	public int basePrice {
 		get
 		{
-			return Mathf.Max(structProto.coinPrice, structProto.diamondPrice);
+			return Mathf.Max(structProto.cashPrice, structProto.gemPrice);
 		}
 	}
 	
