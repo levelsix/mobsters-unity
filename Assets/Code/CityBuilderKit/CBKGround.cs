@@ -6,8 +6,6 @@ using System.Collections;
 /// 
 /// Ground component, which has a sprite.
 /// Also, used as a check for whether a tap/click raycasts to the ground
-/// 
-/// TODO: Make a background system that hooks together multiple background
 /// images
 /// </summary>
 public class CBKGround : MonoBehaviour {

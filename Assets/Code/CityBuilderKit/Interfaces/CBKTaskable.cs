@@ -15,7 +15,18 @@ public class CBKTaskable : MonoBehaviour {
 	
 	public void EngageTask()
 	{
-		//TODO: First, check if there's enough stamina/energy/whatever so we don't waste time loading all this scrote
+		if (CBKMonsterManager.instance.monstersOnTeam == 0)
+		{
+			Debug.Log("No monsters on team!");
+			return;
+		}
+		else
+		{
+			foreach (var item in CBKMonsterManager.instance.userTeam) 
+			{
+				
+			}
+		}
 		
 		StartCoroutine(SendDungeonBeginRequest());
 	}
