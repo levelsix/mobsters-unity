@@ -34,8 +34,17 @@ namespace com.lvl6.proto
       set { _name = value; }
     }
 
+    private int _level = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"level", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int level
+    {
+      get { return _level; }
+      set { _level = value; }
+    }
+
     private int _income = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"income", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"income", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int income
     {
@@ -44,7 +53,7 @@ namespace com.lvl6.proto
     }
 
     private int _minutesToGain = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"minutesToGain", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"minutesToGain", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int minutesToGain
     {
@@ -53,7 +62,7 @@ namespace com.lvl6.proto
     }
 
     private int _minutesToBuild = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"minutesToBuild", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"minutesToBuild", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int minutesToBuild
     {
@@ -188,15 +197,6 @@ namespace com.lvl6.proto
       set { _coordinates = value; }
     }
 
-    private int _level = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"level", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int level
-    {
-      get { return _level; }
-      set { _level = value; }
-    }
-
     private long _purchaseTime = default(long);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"purchaseTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -204,15 +204,6 @@ namespace com.lvl6.proto
     {
       get { return _purchaseTime; }
       set { _purchaseTime = value; }
-    }
-
-    private long _lastUpgradeTime = default(long);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"lastUpgradeTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long lastUpgradeTime
-    {
-      get { return _lastUpgradeTime; }
-      set { _lastUpgradeTime = value; }
     }
 
     private bool _isComplete = default(bool);

@@ -286,13 +286,15 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		
 		userStructProto = new FullUserStructureProto();
 		
+		
+		
 		long now = CBKUtil.timeNowMillis;
 		userStructProto.lastRetrieved = now;
 		userStructProto.purchaseTime = now;
 		userStructProto.isComplete = false;
 		userStructProto.structId = proto.structId;
 		userStructProto.userId = CBKWhiteboard.localMup.userId;
-		userStructProto.level = 1;
+		//userStructProto.level = 1;
 		
 		Setup ();
 	}
@@ -300,6 +302,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	public void Init(CityElementProto proto)
 	{
 		//name = proto.name;
+		userStructProto = null;
 		
 		width = proto.xLength;
 		length = proto.yLength;
@@ -450,7 +453,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
     /// </summary>
     public void Place()
     {
-        if (_currPos.pos != groundPos && CBKGridManager.instance.HasSpaceForBuilding(structProto, _currPos))
+        if (userStructProto != null && _currPos.pos != groundPos && CBKGridManager.instance.HasSpaceForBuilding(structProto, _currPos))
         {
             CBKGridManager.instance.AddBuilding(this, _currPos.x, _currPos.z, structProto.xLength, structProto.yLength);
 			_originalPos = trans.position;
@@ -574,6 +577,10 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	
 	public void Pool ()
 	{
+		if (!_selected)
+		{
+			CBKGridManager.instance.RemoveBuilding(this);
+		}
 		if (taskable != null)
 		{
 			Destroy(taskable);

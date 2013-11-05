@@ -388,105 +388,6 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RetrieveCurrencyFromNormStructureRequestProto")]
-  public partial class RetrieveCurrencyFromNormStructureRequestProto : global::ProtoBuf.IExtensible
-  {
-    public RetrieveCurrencyFromNormStructureRequestProto() {}
-    
-
-    private com.lvl6.proto.MinimumUserProto _sender = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
-    {
-      get { return _sender; }
-      set { _sender = value; }
-    }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval> _structRetrievals = new global::System.Collections.Generic.List<com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"structRetrievals", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval> structRetrievals
-    {
-      get { return _structRetrievals; }
-    }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StructRetrieval")]
-  public partial class StructRetrieval : global::ProtoBuf.IExtensible
-  {
-    public StructRetrieval() {}
-    
-
-    private int _userStructId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userStructId
-    {
-      get { return _userStructId; }
-      set { _userStructId = value; }
-    }
-
-    private long _timeOfRetrieval = default(long);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"timeOfRetrieval", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long timeOfRetrieval
-    {
-      get { return _timeOfRetrieval; }
-      set { _timeOfRetrieval = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RetrieveCurrencyFromNormStructureResponseProto")]
-  public partial class RetrieveCurrencyFromNormStructureResponseProto : global::ProtoBuf.IExtensible
-  {
-    public RetrieveCurrencyFromNormStructureResponseProto() {}
-    
-
-    private com.lvl6.proto.MinimumUserProto _sender = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
-    {
-      get { return _sender; }
-      set { _sender = value; }
-    }
-
-    private com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus _status = com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL)]
-    public com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus status
-    {
-      get { return _status; }
-      set { _status = value; }
-    }
-    [global::ProtoBuf.ProtoContract(Name=@"RetrieveCurrencyFromNormStructureStatus")]
-    public enum RetrieveCurrencyFromNormStructureStatus
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=1)]
-      OTHER_FAIL = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=2)]
-      SUCCESS = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"CLIENT_TOO_APART_FROM_SERVER_TIME", Value=3)]
-      CLIENT_TOO_APART_FROM_SERVER_TIME = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_LONG_ENOUGH", Value=4)]
-      NOT_LONG_ENOUGH = 4
-    }
-  
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FinishNormStructWaittimeWithDiamondsRequestProto")]
   public partial class FinishNormStructWaittimeWithDiamondsRequestProto : global::ProtoBuf.IExtensible
   {
@@ -638,14 +539,110 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_DONE_YET", Value=2)]
-      NOT_DONE_YET = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_DONE_YET", Value=2)]
+      FAIL_NOT_DONE_YET = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=3)]
-      OTHER_FAIL = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RetrieveCurrencyFromNormStructureRequestProto")]
+  public partial class RetrieveCurrencyFromNormStructureRequestProto : global::ProtoBuf.IExtensible
+  {
+    public RetrieveCurrencyFromNormStructureRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval> _structRetrievals = new global::System.Collections.Generic.List<com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"structRetrievals", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval> structRetrievals
+    {
+      get { return _structRetrievals; }
+    }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StructRetrieval")]
+  public partial class StructRetrieval : global::ProtoBuf.IExtensible
+  {
+    public StructRetrieval() {}
+    
+
+    private int _userStructId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userStructId
+    {
+      get { return _userStructId; }
+      set { _userStructId = value; }
+    }
+
+    private long _timeOfRetrieval = default(long);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"timeOfRetrieval", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long timeOfRetrieval
+    {
+      get { return _timeOfRetrieval; }
+      set { _timeOfRetrieval = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RetrieveCurrencyFromNormStructureResponseProto")]
+  public partial class RetrieveCurrencyFromNormStructureResponseProto : global::ProtoBuf.IExtensible
+  {
+    public RetrieveCurrencyFromNormStructureResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus _status = com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.OTHER_FAIL)]
+    public com.lvl6.proto.RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"RetrieveCurrencyFromNormStructureStatus")]
+    public enum RetrieveCurrencyFromNormStructureStatus
+    {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CLIENT_TOO_APART_FROM_SERVER_TIME", Value=4)]
-      CLIENT_TOO_APART_FROM_SERVER_TIME = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=1)]
+      OTHER_FAIL = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=2)]
+      SUCCESS = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"CLIENT_TOO_APART_FROM_SERVER_TIME", Value=3)]
+      CLIENT_TOO_APART_FROM_SERVER_TIME = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NOT_LONG_ENOUGH", Value=4)]
+      NOT_LONG_ENOUGH = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -747,17 +744,17 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"WAS_NOT_EXPANDING", Value=2)]
-      WAS_NOT_EXPANDING = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_WAS_NOT_EXPANDING", Value=2)]
+      FAIL_WAS_NOT_EXPANDING = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_DONE_YET", Value=3)]
-      NOT_DONE_YET = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_DONE_YET", Value=3)]
+      FAIL_NOT_DONE_YET = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=4)]
-      OTHER_FAIL = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=4)]
+      FAIL_INSUFFICIENT_GEMS = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CLIENT_TOO_APART_FROM_SERVER_TIME", Value=5)]
-      CLIENT_TOO_APART_FROM_SERVER_TIME = 5
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=5)]
+      FAIL_OTHER = 5
     }
   
     private global::ProtoBuf.IExtension extensionObject;

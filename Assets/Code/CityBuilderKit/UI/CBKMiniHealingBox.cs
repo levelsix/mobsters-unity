@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CBKMiniHealingBox : MonoBehaviour {
@@ -48,8 +48,8 @@ public class CBKMiniHealingBox : MonoBehaviour {
 	{
 		if (monster.isHealing)
 		{
-			bar.fillAmount = ((float)monster.healTimeLeft) / ((float)monster.timeToHealMillis);
-			timeLabel.text = CBKUtil.TimeStringShort(monster.healTimeLeft);
+			bar.fillAmount = ((float)monster.healTimeLeftMillis) / ((float)monster.timeToHealMillis);
+			timeLabel.text = CBKUtil.TimeStringShort(monster.healTimeLeftMillis);
 		}
 		else if (monster.isEnhancing)
 		{

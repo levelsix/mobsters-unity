@@ -11,6 +11,7 @@ using com.lvl6.proto;
 [RequireComponent (typeof (CBKBuilding))]
 public class CBKBuildingUpgrade : MonoBehaviour {
 	
+	
 	/// <summary>
 	/// Quick getter and setter that wraps the FullUserStructureProto
 	/// in the Building component and makes code here more readable.
@@ -19,11 +20,11 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			return building.userStructProto.level;
+			return building.structProto.level;
 		}
 		set
 		{
-			building.userStructProto.level = value;
+			//building.userStructProto.level = value;
 		}
 	}
 	
@@ -39,9 +40,9 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			if (building.userStructProto.lastUpgradeTime > 0)
+			if (false)//building.userStructProto.lastUpgradeTime > 0)
 			{
-				return building.userStructProto.lastUpgradeTime + CBKMath.TimeToBuildOrUpgradeStruct(building.structProto.minutesToBuild, building.userStructProto.level);
+				return 0;//building.userStructProto.lastUpgradeTime + CBKMath.TimeToBuildOrUpgradeStruct(building.structProto.minutesToBuild, building.userStructProto.level);
 			}
 			else
 			{
@@ -141,7 +142,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	
 	public virtual void StartConstruction()
 	{
-		level = 0;
+		//level = 0;
 		StartUpgrade();
 	}
 	
@@ -150,7 +151,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public virtual void StartUpgrade()
 	{
-		building.userStructProto.lastUpgradeTime = CBKUtil.timeNowMillis;
+		//building.userStructProto.lastUpgradeTime = CBKUtil.timeNowMillis;
 		
 		building.userStructProto.isComplete = false;
 		
@@ -232,7 +233,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public void FinishWithPremium()
 	{
-		building.userStructProto.lastUpgradeTime = CBKUtil.timeNowMillis;
+		//building.userStructProto.lastUpgradeTime = CBKUtil.timeNowMillis;
 		SendPremiumFinishRequest();
 		FinishUpgrade();
 	}
@@ -299,7 +300,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		
 		building.SetupSprite(building.structProto.name);
 		
-		if (building.userStructProto.lastUpgradeTime > 0)
+		if (false)//building.userStructProto.lastUpgradeTime > 0)
 		{
 			level++;
 			CBKEventManager.Quest.OnStructureUpgraded(building.userStructProto.structId, level);

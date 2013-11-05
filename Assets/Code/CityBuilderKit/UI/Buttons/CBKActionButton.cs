@@ -17,6 +17,8 @@ public class CBKActionButton : MonoBehaviour {
 	
 	[HideInInspector]
 	public Transform trans;
+		
+	public UISprite icon;
 	
 	public UIButton button;
 	

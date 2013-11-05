@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -83,12 +83,12 @@ public class CBKGoonScreen : MonoBehaviour {
 			
 			if (teamGoons[i] == null || teamGoons[i].monster.monsterId <= 0)
 			{
-				Debug.Log("Init empty");
+				//Debug.Log("Init empty");
 				teamCards[i].InitEmptyTeam();
 			}
 			else
 			{
-				Debug.Log("Team slot not empty");
+				//Debug.Log("Team slot not empty");
 				teamCards[i].Init(teamGoons[i]);
 			}
 		}
@@ -217,7 +217,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		if (healingQueueParent.activeSelf)
 		{
-			long timeLeft = CBKMonsterManager.instance.healingMonsters[CBKMonsterManager.instance.healingMonsters.Count-1].healTimeLeft;
+			long timeLeft = CBKMonsterManager.instance.healingMonsters[CBKMonsterManager.instance.healingMonsters.Count-1].healTimeLeftMillis;
 			healingQueueTotalTime.text = CBKUtil.TimeStringShort(timeLeft);
 			healingQueueSpeedUpButton.label.text = Mathf.Ceil((float)timeLeft/6000).ToString(); //TODO: Proper formula here
 		}

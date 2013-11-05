@@ -127,7 +127,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		
 		CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
-		deployPopup.Init(playerGoonies);
+		deployPopup.Init(CBKMonsterManager.instance.userTeam);
 		
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
@@ -156,7 +156,7 @@ public class PZCombatManager : MonoBehaviour {
 			if (goon.currHP > 0)
 			{
 				CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
-				deployPopup.Init(playerGoonies);
+				deployPopup.Init(CBKMonsterManager.instance.userTeam);
 				return;
 			}
 		}

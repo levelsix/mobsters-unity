@@ -698,6 +698,149 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"InviteFbFriendsForSlotsRequestProto")]
+  public partial class InviteFbFriendsForSlotsRequestProto : global::ProtoBuf.IExtensible
+  {
+    public InviteFbFriendsForSlotsRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<string> _fbFriendIds = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"fbFriendIds", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> fbFriendIds
+    {
+      get { return _fbFriendIds; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"InviteFbFriendsForSlotsResponseProto")]
+  public partial class InviteFbFriendsForSlotsResponseProto : global::ProtoBuf.IExtensible
+  {
+    public InviteFbFriendsForSlotsResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.InviteFbFriendsForSlotsResponseProto.InviteFbFriendsForSlotsStatus _status = com.lvl6.proto.InviteFbFriendsForSlotsResponseProto.InviteFbFriendsForSlotsStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.InviteFbFriendsForSlotsResponseProto.InviteFbFriendsForSlotsStatus.SUCCESS)]
+    public com.lvl6.proto.InviteFbFriendsForSlotsResponseProto.InviteFbFriendsForSlotsStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"InviteFbFriendsForSlotsStatus")]
+    public enum InviteFbFriendsForSlotsStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AcceptAndRejectFbInviteForSlotsRequestProto")]
+  public partial class AcceptAndRejectFbInviteForSlotsRequestProto : global::ProtoBuf.IExtensible
+  {
+    public AcceptAndRejectFbInviteForSlotsRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<int> _acceptedInviteIds = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"acceptedInviteIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> acceptedInviteIds
+    {
+      get { return _acceptedInviteIds; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<int> _rejectedInviteIds = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"rejectedInviteIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> rejectedInviteIds
+    {
+      get { return _rejectedInviteIds; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AcceptAndRejectFbInviteForSlotsResponseProto")]
+  public partial class AcceptAndRejectFbInviteForSlotsResponseProto : global::ProtoBuf.IExtensible
+  {
+    public AcceptAndRejectFbInviteForSlotsResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.AcceptAndRejectFbInviteForSlotsResponseProto.AcceptAndRejectFbInviteForSlotsStatus _status = com.lvl6.proto.AcceptAndRejectFbInviteForSlotsResponseProto.AcceptAndRejectFbInviteForSlotsStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.AcceptAndRejectFbInviteForSlotsResponseProto.AcceptAndRejectFbInviteForSlotsStatus.SUCCESS)]
+    public com.lvl6.proto.AcceptAndRejectFbInviteForSlotsResponseProto.AcceptAndRejectFbInviteForSlotsStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"AcceptAndRejectFbInviteForSlotsStatus")]
+    public enum AcceptAndRejectFbInviteForSlotsStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_EXPIRED", Value=2)]
+      FAIL_EXPIRED = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_ALREADY_BEEN_USED", Value=3)]
+      FAIL_ALREADY_BEEN_USED = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
+      FAIL_OTHER = 4
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CombineUserMonsterPiecesRequestProto")]
   public partial class CombineUserMonsterPiecesRequestProto : global::ProtoBuf.IExtensible
   {
@@ -719,6 +862,15 @@ namespace com.lvl6.proto
       get { return _userMonsterIds; }
     }
   
+
+    private int _gemCost = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemCost
+    {
+      get { return _gemCost; }
+      set { _gemCost = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -754,8 +906,14 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
-      FAIL_OTHER = 2
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFUCIENT_GEMS", Value=2)]
+      FAIL_INSUFFUCIENT_GEMS = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_MORE_THAN_ONE_MONSTER_FOR_SPEEDUP", Value=3)]
+      FAIL_MORE_THAN_ONE_MONSTER_FOR_SPEEDUP = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
+      FAIL_OTHER = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;

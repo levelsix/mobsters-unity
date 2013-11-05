@@ -114,7 +114,7 @@ public class CBKDataManager : MonoBehaviour {
 		CheckType(typ);
 		dataDict[typ][id] = obj;
 		
-		Debug.Log("Loading " + typ.ToString() + " " + id);
+		//Debug.Log("Loading " + typ.ToString() + " " + id);
 	}
 	
 	/// <summary>

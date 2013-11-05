@@ -27,7 +27,7 @@ public class CBKResourceCollector : MonoBehaviour {
 	{
 		get
 		{
-			return _building.structProto.income * _building.userStructProto.level;
+			return _building.structProto.income;
 		}
 	}
 	
@@ -212,7 +212,7 @@ public class CBKResourceCollector : MonoBehaviour {
 	
 	public void OnFinishUpgrade ()
 	{
-		_building.userStructProto.lastRetrieved = _building.userStructProto.lastUpgradeTime;
+		_building.userStructProto.lastRetrieved = _building.userStructProto.purchaseTime;//_building.userStructProto.lastUpgradeTime;
 	}
 	
 	public int MoneyAtLevel(int level)

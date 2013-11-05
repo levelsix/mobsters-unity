@@ -3,8 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Xml;
 
 public class CBKAtlasUtil : MonoBehaviour {
+	
+	[SerializeField]
+	string[] xmls;
+	
+	#region Atlases
 	
 	[SerializeField]
 	UIAtlas building001;
@@ -12,36 +18,14 @@ public class CBKAtlasUtil : MonoBehaviour {
 	[SerializeField]
 	UIAtlas building002;
 	
-	[SerializeField]
-	UIAtlas gangsterMafia;
+	#endregion
 	
-	[SerializeField]
-	UIAtlas clown001;
-	
-	[SerializeField]
-	UIAtlas cheerleader1;
-	
-	[SerializeField]
-	UIAtlas cheerleader2;
-	
-	[SerializeField]
-	UIAtlas cheerleader3;
-	
-	[SerializeField]
-	UIAtlas rapper1;
-	
-	[SerializeField]
-	UIAtlas rapper2;
-	
-	[SerializeField]
-	UIAtlas rapper3;
+	#region OLD
 	
 	/// <summary>
 	/// Maps building names to the atlas that they're contained in
 	/// </summary>
 	static Dictionary<string, UIAtlas> buildingAtlasDict;
-	
-	static Dictionary<string, UIAtlas> goonAtlasDict;
 	
 	public static CBKAtlasUtil instance;
 	
@@ -52,14 +36,17 @@ public class CBKAtlasUtil : MonoBehaviour {
 		{
 			Setup();
 		}
+		foreach (string item in xmls) 
+		{
+			WarmAtlasDictionaryFromXML(item);
+		}
 	}
 	
 	private void Setup()
 	{
 		//Build the atlas dictionary
-		//HARD-CODED! Try to find a way to soft-code this!!! XML?
+		//TODO: Turn this into XML
 		buildingAtlasDict = new Dictionary<string, UIAtlas>();
-		goonAtlasDict = new Dictionary<string, UIAtlas>();
 		
 		buildingAtlasDict["ArtMuseum"] = building001;
 		buildingAtlasDict["Bakery"] = building001;
@@ -92,47 +79,6 @@ public class CBKAtlasUtil : MonoBehaviour {
 		buildingAtlasDict["SushiBar"] = building001;
 		buildingAtlasDict["TeaShop"] = building001;
 		buildingAtlasDict["TVStation"] = building001;
-		
-		goonAtlasDict["GangsterBrute"] = gangsterMafia;
-		goonAtlasDict["GangsterMan"] = gangsterMafia;
-		goonAtlasDict["GangsterWoman"] = gangsterMafia;
-		goonAtlasDict["MafiaBrute"] = gangsterMafia;
-		goonAtlasDict["MafiaMan"] = gangsterMafia;
-		goonAtlasDict["MafiaWoman"] = gangsterMafia;
-		
-		goonAtlasDict["Clown_Boss"] = clown001;
-		
-		goonAtlasDict["Cheerleader1SMG"] = cheerleader1;
-		goonAtlasDict["Cheerleader1Bazooka"] = cheerleader1;
-		goonAtlasDict["Cheerleader1Uzi"] = cheerleader1;
-		goonAtlasDict["Cheerleader2SMG"] = cheerleader1;
-		goonAtlasDict["Cheerleader2Bazooka"] = cheerleader1;
-		goonAtlasDict["Cheerleader2Uzi"] = cheerleader1;
-		goonAtlasDict["Cheerleader3SMG"] = cheerleader2;
-		goonAtlasDict["Cheerleader3Bazooka"] = cheerleader2;
-		goonAtlasDict["Cheerleader3Uzi"] = cheerleader2;
-		goonAtlasDict["Cheerleader4SMG"] = cheerleader2;
-		goonAtlasDict["Cheerleader4Bazooka"] = cheerleader2;
-		goonAtlasDict["Cheerleader4Uzi"] = cheerleader2;
-		goonAtlasDict["Cheerleader5SMG"] = cheerleader3;
-		goonAtlasDict["Cheerleader5Bazooka"] = cheerleader3;
-		goonAtlasDict["Cheerleader5Uzi"] = cheerleader3;
-		
-		goonAtlasDict["Rapper1AK"] = rapper1;
-		goonAtlasDict["Rapper1Shotgun"] = rapper1;
-		goonAtlasDict["Rapper1Uzi"] = rapper1;
-		goonAtlasDict["Rapper2AK"] = rapper1;
-		goonAtlasDict["Rapper2Shotgun"] = rapper1;
-		goonAtlasDict["Rapper2Uzi"] = rapper1;
-		goonAtlasDict["Rapper3AK"] = rapper2;
-		goonAtlasDict["Rapper3Shotgun"] = rapper2;
-		goonAtlasDict["Rapper3Uzi"] = rapper2;
-		goonAtlasDict["Rapper4AK"] = rapper2;
-		goonAtlasDict["Rapper4Shotgun"] = rapper2;
-		goonAtlasDict["Rapper4Uzi"] = rapper2;
-		goonAtlasDict["Rapper5AK"] = rapper3;
-		goonAtlasDict["Rapper5Shotgun"] = rapper3;
-		goonAtlasDict["Rapper5Uzi"] = rapper3;
 	}
 	
 	public UISpriteData LookupBuildingSprite(string name)
@@ -177,19 +123,86 @@ public class CBKAtlasUtil : MonoBehaviour {
 		return sb.ToString();
 	}
 	
-	public UIAtlas LookupGoonAtlas(string fileName)
-	{
-		string goonName = StripExtensions(fileName);
-		if (!goonAtlasDict.ContainsKey(goonName))
-		{
-			Debug.Log("Did not find Goon: " + goonName + " in atlas references!");
-			return clown001;
-		}
-		return goonAtlasDict[goonName];
-	}
-	
 	public string StripExtensions(string file)
 	{
 		return Path.GetFileNameWithoutExtension(file);
+	}
+
+	#endregion
+	
+	static readonly Dictionary<string, string> imgToAtlas = new Dictionary<string, string>();
+	
+	static readonly Dictionary<string, UIAtlas> atlases = new Dictionary<string, UIAtlas>();
+	
+	public void WarmAtlasDictionaryFromXML(string filename)
+	{
+		//Debug.Log("Warming: " + filename);
+		TextAsset text = Resources.Load(filename) as TextAsset;
+		XmlDocument xmlDoc = new XmlDocument();
+		xmlDoc.LoadXml (text.ToString());
+		XmlNodeList spriteList = xmlDoc.GetElementsByTagName("sprite");
+		
+		string spriteName = "";
+		string atlasName = "";
+		foreach (XmlNode item in spriteList) 
+		{
+			foreach (XmlNode node in item.ChildNodes)
+			{
+				if (node.Name == "name")
+				{
+					spriteName = node.InnerText;
+				}
+				else if (node.Name == "atlas")
+				{
+					atlasName = node.InnerText;
+				}
+			}
+			//Debug.Log(spriteName + ", " + atlasName);
+			imgToAtlas.Add(spriteName, atlasName);
+		}
+	}
+	
+	public void LoadAtlasesForSpriteNames(List<string> sprites)
+	{
+		foreach (string item in sprites) 
+		{
+			if (!imgToAtlas.ContainsKey(item))
+			{
+				Debug.LogError("No atlas known for: " + item);
+			}
+			string atlasName = imgToAtlas[StripExtensions(item)];
+			LoadAtlas(atlasName);
+		}
+	}
+	
+	public void LoadAtlasesForSprites(List<UISprite> sprites)
+	{
+		foreach (UISprite item in sprites) 
+		{
+			SetAtlasForSprite(item);
+		}
+	}
+	
+	public void LoadAtlas(string atlasName)
+	{
+		if (!atlases.ContainsKey(atlasName))
+		{
+			UIAtlas atlas = Resources.Load(atlasName, typeof(UIAtlas)) as UIAtlas;
+			atlases.Add(atlasName, atlas);
+			Debug.Log("Loaded atlas: " + atlasName + ": " + (atlases[atlasName] != null ? "Yes" : "No"));
+		}
+	}
+	
+	public void SetAtlasForSprite(UISprite item)
+	{
+		string atlasName = imgToAtlas[StripExtensions(item.spriteName)];
+		LoadAtlas(atlasName);
+		item.atlas = atlases[atlasName];
+	}
+	
+	public void UnloadAllAtlases()
+	{
+		atlases.Clear();
+		Resources.UnloadUnusedAssets();
 	}
 }

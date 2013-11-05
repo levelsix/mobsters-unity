@@ -327,6 +327,20 @@ namespace com.lvl6.proto
       get { return _kabamNaid; }
       set { _kabamNaid = value; }
     }
+    private readonly global::System.Collections.Generic.List<int> _userIdsUsedForExtraSlots = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(32, Name=@"userIdsUsedForExtraSlots", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> userIdsUsedForExtraSlots
+    {
+      get { return _userIdsUsedForExtraSlots; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<int> _userIdsInvitingMeForExtraSlots = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(33, Name=@"userIdsInvitingMeForExtraSlots", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> userIdsInvitingMeForExtraSlots
+    {
+      get { return _userIdsInvitingMeForExtraSlots; }
+    }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
   public partial class AttackedNotificationProto : global::ProtoBuf.IExtensible
   {
@@ -563,6 +577,24 @@ namespace com.lvl6.proto
     {
       get { return _userMonsterConstants; }
       set { _userMonsterConstants = value; }
+    }
+
+    private com.lvl6.proto.StartupResponseProto.StartupConstants.MonsterConstants _monsterConstants = null;
+    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"monsterConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StartupResponseProto.StartupConstants.MonsterConstants monsterConstants
+    {
+      get { return _monsterConstants; }
+      set { _monsterConstants = value; }
+    }
+
+    private float _minutesPerGem = default(float);
+    [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"minutesPerGem", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float minutesPerGem
+    {
+      get { return _minutesPerGem; }
+      set { _minutesPerGem = value; }
     }
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"NormStructConstants")]
   public partial class NormStructConstants : global::ProtoBuf.IExtensible
@@ -825,6 +857,34 @@ namespace com.lvl6.proto
     {
       get { return _numFriendsToRecruitToIncreaseInventory; }
       set { _numFriendsToRecruitToIncreaseInventory = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MonsterConstants")]
+  public partial class MonsterConstants : global::ProtoBuf.IExtensible
+  {
+    public MonsterConstants() {}
+    
+
+    private float _cashPerHealthPoint = default(float);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"cashPerHealthPoint", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float cashPerHealthPoint
+    {
+      get { return _cashPerHealthPoint; }
+      set { _cashPerHealthPoint = value; }
+    }
+
+    private float _secondsToHealPerHealthPoint = default(float);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"secondsToHealPerHealthPoint", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float secondsToHealPerHealthPoint
+    {
+      get { return _secondsToHealPerHealthPoint; }
+      set { _secondsToHealPerHealthPoint = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

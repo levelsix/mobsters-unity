@@ -106,7 +106,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		
 		gameObject.SetActive(true);
 		
-		int futureLevel = building.userStructProto.level + 1;
+		int futureLevel = 1;//building.userStructProto.level + 1;
 		
 		//If it is complete, use Upgrade prompts, otherwise, Finish prompts
 		if (building.userStructProto.isComplete)
@@ -114,11 +114,11 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 			
 			header.text = "Upgrade to level " + futureLevel + "?";
 			
-			upgradeTime.text = CBKUtil.TimeStringLong(building.upgrade.TimeToUpgrade(building.userStructProto.level+1));
+			upgradeTime.text = CBKUtil.TimeStringLong(building.upgrade.TimeToUpgrade(1));//building.userStructProto.level+1));
 			
 			currResource = building.baseResource;
 			
-			currCost = (int) (building.basePrice * Mathf.Pow(CBKValues.Buildings.UPGRADE_STRUCT_COIN_COST_EXPONENT_BASE, building.userStructProto.level));
+			currCost = (int) (building.basePrice);
 			
 		}
 		else
@@ -143,7 +143,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		string timeString = CBKUtil.TimeStringMed(building.structProto.minutesToGain * 60);
 		
 		currIncome.text = "Current income:\n[" + moneyColorHexString + "]$" 
-			+ building.collector.MoneyAtLevel(building.userStructProto.level) + "[-] every " + timeString;
+			+ building.structProto.income + "[-] every " + timeString;
 		futureIncome.text = "Upgraded income:\n[" + moneyColorHexString + "]$" 
 			+ building.collector.MoneyAtLevel(futureLevel) + "[-] every " + timeString;
 	}

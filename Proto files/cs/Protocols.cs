@@ -208,6 +208,12 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_SELL_USER_MONSTER_EVENT", Value=55)]
       C_SELL_USER_MONSTER_EVENT = 55,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_INVITE_FB_FRIENDS_FOR_SLOTS_EVENT", Value=56)]
+      C_INVITE_FB_FRIENDS_FOR_SLOTS_EVENT = 56,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_ACCEPT_AND_REJECT_FB_INVITE_FOR_SLOTS_EVENT", Value=57)]
+      C_ACCEPT_AND_REJECT_FB_INVITE_FOR_SLOTS_EVENT = 57,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101
     }
@@ -380,6 +386,12 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_SELL_USER_MONSTER_EVENT", Value=55)]
       S_SELL_USER_MONSTER_EVENT = 55,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_INVITE_FB_FRIENDS_FOR_SLOTS_EVENT", Value=56)]
+      S_INVITE_FB_FRIENDS_FOR_SLOTS_EVENT = 56,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_ACCEPT_AND_REJECT_FB_INVITE_FOR_SLOTS_EVENT", Value=57)]
+      S_ACCEPT_AND_REJECT_FB_INVITE_FOR_SLOTS_EVENT = 57,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

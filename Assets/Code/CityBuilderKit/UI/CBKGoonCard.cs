@@ -101,6 +101,9 @@ public class CBKGoonCard : MonoBehaviour {
 	
 	const string emptyBackground = "emptyslot";
 	
+	const string healIcon = "healbutton";
+	const string gemIcon = "diamond";
+	
 	#endregion
 	
 	PZMonster goon;
@@ -154,13 +157,14 @@ public class CBKGoonCard : MonoBehaviour {
 			healButtonParent.SetActive(true);
 			healButton.onClick = AddToHealQueue;
 			healButton.label.text = "$" + goon.healCost;
+			healButton.icon.spriteName = healIcon;
 		}
 		else
 		{
 			healButtonParent.SetActive(false);
 		}
 		
-		SetTextOverCard (goon);
+		SetTextOverCardAndButton (goon);
 		
 		rarityRibbon.spriteName = ribbonsForRarity[goon.monster.quality];
 		rarityLabel.text = goon.monster.quality.ToString();
@@ -181,11 +185,23 @@ public class CBKGoonCard : MonoBehaviour {
 		
 	}
 
-	void SetTextOverCard (PZMonster goon)
+	void SetTextOverCardAndButton (PZMonster goon)
 	{
 		if (!goon.userMonster.isComplete)
 		{
-			overCardLabel.text = goon.userMonster.numPieces + "/" + goon.monster.numPuzzlePieces;  
+			if (goon.userMonster.numPieces < goon.monster.numPuzzlePieces)
+			{
+				overCardLabel.text = goon.userMonster.numPieces + "/" + goon.monster.numPuzzlePieces;  
+			}
+			else
+			{
+				overCardLabel.text = "Completing...";
+				
+				healButtonParent.SetActive(true);
+				healButton.onClick = SpeedUpCombine;
+				healButton.label.text = goon.combineFinishGems.ToString();
+				healButton.icon.spriteName = gemIcon;
+			}
 			TintElements (true);
 		}
 		else if (goon.isHealing)
@@ -241,6 +257,15 @@ public class CBKGoonCard : MonoBehaviour {
 		overCardLabel.text = "Slot For \nPurchase";
 	}
 	
+	void Update()
+	{
+		if (goon != null && goon.userMonster.numPieces >= goon.monster.numPuzzlePieces && !goon.userMonster.isComplete)
+		{
+			overCardLabel.text = "Combining\n" + CBKUtil.TimeStringMed(goon.combineTimeLeft);
+			healButton.label.text = goon.combineFinishGems.ToString();
+		}
+	}
+	
 	void AddToTeam()
 	{
 		Debug.Log("Add to team");
@@ -267,6 +292,11 @@ public class CBKGoonCard : MonoBehaviour {
 		{
 			CBKMonsterManager.instance.AddToHealQueue(goon);
 		}
+	}
+	
+	void SpeedUpCombine()
+	{
+		CBKMonsterManager.instance.SpeedUpCombine(goon);
 	}
 	
 	void PopupTeamMemberToHealingQueue(PZMonster monster)

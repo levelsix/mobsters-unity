@@ -49,7 +49,7 @@ public class PZMonster {
 		}
 	}
 	
-	public long healTimeLeft
+	public long healTimeLeftMillis
 	{
 		get
 		{
@@ -66,6 +66,14 @@ public class PZMonster {
 		get
 		{
 			return maxHP - currHP;
+		}
+	}
+	
+	public int healFinishGems
+	{
+		get
+		{
+			return Mathf.CeilToInt((healTimeLeftMillis/60000) / CBKWhiteboard.constants.minutesPerGem);
 		}
 	}
 	
@@ -128,6 +136,30 @@ public class PZMonster {
 		}
 	}
 	
+	public long finishCombineTime
+	{
+		get
+		{
+			return userMonster.combineStartTime + (monster.minutesToCombinePieces * 60 * 1000);
+		}
+	}
+	
+	public long combineTimeLeft
+	{
+		get
+		{
+			return finishCombineTime - CBKUtil.timeNowMillis;
+		}
+	}
+	
+	public int combineFinishGems
+	{
+		get
+		{
+			return Mathf.CeilToInt((combineTimeLeft/60000) / CBKWhiteboard.constants.minutesPerGem);
+		}
+	}
+	
 	public int maxHP;
 	public int currHP;
 	
@@ -187,7 +219,11 @@ public class PZMonster {
 
 	void SetMaxHP(int baseHP, float hpLevelMux, int level)
 	{
-		maxHP = (int)(baseHP + Mathf.Pow(hpLevelMux, level));
+		maxHP = baseHP;
+		if (level > 1)
+		{
+			maxHP += (int)Mathf.Pow(hpLevelMux, level);
+		}
 	}
 	
 	void SetAttackDamagesFromMonster(int level)

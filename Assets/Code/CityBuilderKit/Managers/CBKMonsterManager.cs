@@ -18,6 +18,8 @@ public class CBKMonsterManager : MonoBehaviour {
 	
 	public List<PZMonster> enhancementFeeders = new List<PZMonster>();
 	
+	public List<PZMonster> combiningMonsters = new List<PZMonster>();
+	
 	public PZMonster currentEnhancementMonster;
 
 	public const int TEAM_SLOTS = 3;
@@ -59,6 +61,10 @@ public class CBKMonsterManager : MonoBehaviour {
 				userTeam[(item.teamSlotNum-1)] = mon; //Fucking off-by-ones.
 				_monstersCount++;
 			}
+			if (!item.isComplete && item.numPieces >= mon.monster.numPuzzlePieces)
+			{
+				combiningMonsters.Add(mon);
+			}
 		}
 		foreach (UserMonsterHealingProto item in healing) 
 		{
@@ -68,6 +74,11 @@ public class CBKMonsterManager : MonoBehaviour {
 		}
 		
 		healingMonsters.Sort(new HealingMonsterSorter());
+		
+		if (CBKEventManager.Goon.OnTeamChanged != null)
+		{
+			CBKEventManager.Goon.OnTeamChanged();
+		}
 	}
 	
 	void OnEnable()
@@ -85,6 +96,8 @@ public class CBKMonsterManager : MonoBehaviour {
 		CheckHealingMonsters();
 		
 		CheckEnhancingMonsters();
+		
+		CheckCombiningMonsters();
 	}
 	
 	void PrepareNewHealRequest()
@@ -210,7 +223,7 @@ public class CBKMonsterManager : MonoBehaviour {
 			request.sender = CBKWhiteboard.localMup;
 			request.isSpeedup = false;
 			UserMonsterCurrentHealthProto health;
-			while (healingMonsters.Count > 0 && healingMonsters[0].healTimeLeft <= 0) 
+			while (healingMonsters.Count > 0 && healingMonsters[0].healTimeLeftMillis <= 0) 
 			{
 				health = new UserMonsterCurrentHealthProto();
 				health.userMonsterId = healingMonsters[0].healingMonster.userMonsterId;
@@ -338,7 +351,11 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			CombineMonster(monster);
 		}
-		//TODO: Combining list
+		else
+		{
+			monster.userMonster.combineStartTime = CBKUtil.timeNowMillis;
+			combiningMonsters.Add(monster);
+		}
 	}
 	
 	void CombineMonster(PZMonster monster)
@@ -352,6 +369,41 @@ public class CBKMonsterManager : MonoBehaviour {
 		
 		combineRequestProto.userMonsterIds.Add(monster.userMonster.userMonsterId);
 		
+		if (combiningMonsters.Contains (monster))
+		{
+			combiningMonsters.Remove(monster);
+		}
+	}
+	
+	void CheckCombiningMonsters()
+	{
+		if (combineRequestProto == null)
+		{
+			for (int i = combiningMonsters.Count - 1; i >= 0; i--){
+				PZMonster item = combiningMonsters[i];
+				if (item.combineTimeLeft <= 0)
+				{
+					CombineMonster(item);
+				}
+			}
+			if (combineRequestProto != null)
+			{
+				SendCombineRequest();
+			}
+		}
+	}
+	
+	public void SpeedUpCombine(PZMonster monster)
+	{
+		combiningMonsters.Remove(monster);
+		
+		PrepareNewCombinePiecesRequest();
+		
+		combineRequestProto.userMonsterIds.Add(monster.userMonster.userMonsterId);
+		
+		combineRequestProto.gemCost = monster.combineFinishGems;
+		
+		SendCombineRequest();
 	}
 	
 	public void AddToHealQueue(PZMonster monster)
@@ -623,6 +675,11 @@ public class CBKMonsterManager : MonoBehaviour {
 			Debug.LogError("Problem combining pieces: " + response.status.ToString());
 		}
 		
+		if (CBKEventManager.Goon.OnHealQueueChanged != null)
+		{
+			CBKEventManager.Goon.OnHealQueueChanged();
+		}
+		
 		combineRequestProto = null;
 	}
 	
@@ -651,6 +708,11 @@ public class CBKMonsterManager : MonoBehaviour {
 				if (CBKEventManager.Goon.OnMonsterAddTeam != null)
 				{
 					CBKEventManager.Goon.OnMonsterAddTeam(monster);
+				}
+				
+				if (CBKEventManager.Goon.OnTeamChanged != null)
+				{
+					CBKEventManager.Goon.OnTeamChanged();
 				}
 				
 				return i;
@@ -686,6 +748,11 @@ public class CBKMonsterManager : MonoBehaviour {
 		if (CBKEventManager.Goon.OnMonsterRemoveTeam != null)
 		{
 			CBKEventManager.Goon.OnMonsterRemoveTeam(monster);
+		}
+		
+		if (CBKEventManager.Goon.OnTeamChanged != null)
+		{
+			CBKEventManager.Goon.OnTeamChanged();
 		}
 	}
 	

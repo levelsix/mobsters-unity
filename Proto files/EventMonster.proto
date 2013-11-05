@@ -194,6 +194,8 @@ message RemoveMonsterFromBattleTeamResponseProto {
 message IncreaseMonsterInventorySlotRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 numPurchases = 2;
+	//EVERY TIME USER BUYS SLOTS RESET user_facebook_invite_for_slot table
+	//no need to update clients that this happened
 }	
 
 message IncreaseMonsterInventorySlotResponseProto {
@@ -207,11 +209,50 @@ message IncreaseMonsterInventorySlotResponseProto {
 	}
 }
 
+//NOTE: NO LOCK IS ACQUIRED FOR FB FRIENDS WHEN INSERTING INTO
+// user_facebook_invite_for_slot TABLE
+message InviteFbFriendsForSlotsRequestProto {
+	optional MinimumUserProto sender = 1;
+	repeated string fbFriendIds = 2;		
+}
+
+message InviteFbFriendsForSlotsResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional InviteFbFriendsForSlotsStatus status = 2;
+	
+	enum InviteFbFriendsForSlotsStatus {
+		SUCCESS = 1;
+		FAIL_OTHER = 2;
+	}
+}
+
+message AcceptAndRejectFbInviteForSlotsRequestProto {
+	optional MinimumUserProto sender = 1;
+	repeated int32 acceptedInviteIds = 2;
+	repeated int32 rejectedInviteIds = 3;
+}
+
+message AcceptAndRejectFbInviteForSlotsResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional AcceptAndRejectFbInviteForSlotsStatus status = 2;
+	
+	enum AcceptAndRejectFbInviteForSlotsStatus {
+		SUCCESS = 1;
+		FAIL_EXPIRED = 2; //3 PEOPLE ALREADY ACCEPTED INVITE
+		FAIL_ALREADY_BEEN_USED = 3;
+		FAIL_OTHER = 4;
+	}
+}
+
 //------------------------------------------------------------------------------------------
 
 message CombineUserMonsterPiecesRequestProto {
 	optional MinimumUserProto sender = 1;
 	repeated int64 userMonsterIds = 2;
+	
+	//(positive amount) if user wants to speed up the process
+	//if this is set, there should only be one userMonsterId
+	optional int32 gemCost = 3;
 }
 
 message CombineUserMonsterPiecesResponseProto {
@@ -220,7 +261,10 @@ message CombineUserMonsterPiecesResponseProto {
 	
 	enum CombineUserMonsterPiecesStatus {
 		SUCCESS = 1;
-		FAIL_OTHER = 2;
+		FAIL_INSUFFUCIENT_GEMS = 2;
+		//user can only speed up combining the pieces of ONE monster
+		FAIL_MORE_THAN_ONE_MONSTER_FOR_SPEEDUP = 3;
+		FAIL_OTHER = 4;
 	}
 }
 

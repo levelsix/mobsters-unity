@@ -94,6 +94,7 @@ public class PZMatch {
 			if (item.colorIndex >= 0)
 			{
 				PZPuzzleManager.instance.currGems[item.colorIndex]++;
+				PZPuzzleManager.instance.gemsOnBoardByType[item.colorIndex]--;
 			}
 		}
 		

@@ -8,19 +8,19 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 	public UISprite sprite;
 	public UISpriteAnimation anim;
 	
-	string _spriteName = "GangsterBrute";
+	string _spriteBaseName;
 	
 	public string spriteBaseName
 	{
 		get
 		{
-			return _spriteName;
+			return _spriteBaseName;
 		}
 		set
 		{
-			sprite.atlas = CBKAtlasUtil.instance.LookupGoonAtlas(value);
-			_spriteName = CBKAtlasUtil.instance.StripExtensions(value);
-			sprite.spriteName = _spriteName;
+			_spriteBaseName = value;
+			sprite.spriteName = value;
+			CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
 			SetAnimation(AnimationType.IDLE);
 		}
 	}

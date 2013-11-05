@@ -13,7 +13,7 @@ public class CBKTaskBar : MonoBehaviour {
 	TaskBarMode mode = TaskBarMode.CHAT;
 	
 	[SerializeField]
-	CBKActionButton taskBar;
+	CBKActionButton[] taskButtons;
 	
 	[SerializeField]
 	UILabel topText;
@@ -39,13 +39,11 @@ public class CBKTaskBar : MonoBehaviour {
 	void OnEnable()
 	{
 		CBKEventManager.Town.OnBuildingSelect += OnBuildingSelect;
-		taskBar.onClick += OnClickBar;
 	}
 	
 	void OnDisable()
 	{
 		CBKEventManager.Town.OnBuildingSelect -= OnBuildingSelect;
-		taskBar.onClick -= OnClickBar;
 	}
 	
 	void OnUnitSelect(CBKUnit unit)
@@ -103,7 +101,11 @@ public class CBKTaskBar : MonoBehaviour {
 	
 	void UpdateBuildingText()
 	{
-		if (currBuilding.userStructProto.isComplete)
+		if (currBuilding.userStructProto == null)
+		{
+			//TODO: Mission map building details
+		}
+		else if (currBuilding.userStructProto.isComplete)
 		{
 			if (currBuilding.collector.secondsUntilComplete > 0)
 			{

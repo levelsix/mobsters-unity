@@ -424,6 +424,15 @@ namespace com.lvl6.proto
       set { _defensesLost = value; }
     }
 
+    private string _facebookId = "";
+    [global::ProtoBuf.ProtoMember(40, IsRequired = false, Name=@"facebookId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string facebookId
+    {
+      get { return _facebookId; }
+      set { _facebookId = value; }
+    }
+
     private string _udid = "";
     [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"udid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -503,6 +512,15 @@ namespace com.lvl6.proto
     {
       get { return _kabamNaid; }
       set { _kabamNaid = value; }
+    }
+
+    private int _nthExtraSlotsViaFb = default(int);
+    [global::ProtoBuf.ProtoMember(41, IsRequired = false, Name=@"nthExtraSlotsViaFb", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int nthExtraSlotsViaFb
+    {
+      get { return _nthExtraSlotsViaFb; }
+      set { _nthExtraSlotsViaFb = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

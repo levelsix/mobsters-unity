@@ -82,13 +82,13 @@ namespace com.lvl6.proto
       set { _expansionNum = value; }
     }
 
-    private int _expansionCost = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"expansionCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _expansionCostCash = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"expansionCostCash", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int expansionCost
+    public int expansionCostCash
     {
-      get { return _expansionCost; }
-      set { _expansionCost = value; }
+      get { return _expansionCostCash; }
+      set { _expansionCostCash = value; }
     }
 
     private int _numMinutesToExpand = default(int);
@@ -98,6 +98,15 @@ namespace com.lvl6.proto
     {
       get { return _numMinutesToExpand; }
       set { _numMinutesToExpand = value; }
+    }
+
+    private int _speedupExpansionGemCost = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"speedupExpansionGemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int speedupExpansionGemCost
+    {
+      get { return _speedupExpansionGemCost; }
+      set { _speedupExpansionGemCost = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

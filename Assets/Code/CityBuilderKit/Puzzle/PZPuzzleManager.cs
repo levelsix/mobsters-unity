@@ -53,8 +53,14 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	public int[] currGems;
 	
+	public int[] gemsOnBoardByType = new int[GEM_TYPES];
+	
+	public int gemsByType;
+	
 	public const int BOARD_WIDTH = 8;
 	public const int BOARD_HEIGHT = 5;
+	
+	public const int GEM_TYPES = 5;
 	
 	public const float WAIT_BETWEEN_LINES = .3f;
 	
@@ -122,6 +128,10 @@ public class PZPuzzleManager : MonoBehaviour {
 				}
 			}
 		}
+		for (int i = 0; i < GEM_TYPES; i++) 
+		{
+			gemsOnBoardByType[i] = 0;
+		}
 	}
 	
 	public void BreakTiles(List<PZGem> match)
@@ -188,6 +198,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				break;
 			}
 		}
+		gemsOnBoardByType[picked]++;
 		return picked;
 	}
 	

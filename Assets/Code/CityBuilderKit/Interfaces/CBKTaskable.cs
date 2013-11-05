@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
+using System.Collections.Generic;
 
 public class CBKTaskable : MonoBehaviour {
 
@@ -54,11 +55,25 @@ public class CBKTaskable : MonoBehaviour {
 			
 			PZCombatManager.instance.enemies.Clear();
 			
+			PZMonster monster;
+			List<string> goonsToLoad = new List<string>();
 			foreach (TaskStageProto stage in response.tsp)
 			{
-				PZCombatManager.instance.enemies.Enqueue(new PZMonster(stage.stageMonsters[0]));
+				monster = new PZMonster(stage.stageMonsters[0]);
+				PZCombatManager.instance.enemies.Enqueue(monster);
+				goonsToLoad.Add(monster.monster.imagePrefix);
 				Debug.Log("Stage: " + stage.stageId + ": Adding monster " + stage.stageMonsters[0].monsterId);
 			}
+			
+			foreach (var item in CBKMonsterManager.instance.userTeam) 
+			{
+				if (item != null && item.monster != null && item.monster.monsterId > 0)
+				{
+					goonsToLoad.Add(item.monster.imagePrefix);
+				}
+			}
+			
+			CBKAtlasUtil.instance.LoadAtlasesForSpriteNames(goonsToLoad);
 		}
 		
 		CBKEventManager.Scene.OnPuzzle();
