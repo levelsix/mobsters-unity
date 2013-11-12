@@ -23,9 +23,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			Debug.Log("Swaplock: " + _swapLock);
 		}
 	}
-	
-	
-	
+
 	public bool processingSwap = false;
 	
 	public bool lastSwapSuccessful = true;
@@ -64,7 +62,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	public PZGem[,] board;
 	
 	[SerializeField]
-	public Color[] colors;
+	public string[] gemTypes;
 	
 	public int[] currGems;
 	
@@ -87,7 +85,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		
 		board = new PZGem[BOARD_WIDTH, BOARD_HEIGHT];
 		
-		currGems = new int[colors.Length];
+		currGems = new int[gemTypes.Length];
 		
 		ResetCombo();
 		
@@ -216,7 +214,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 		while(true)
 		{
-			picked = Random.Range(0,colors.Length);
+			picked = Random.Range(0,gemTypes.Length);
 			if (picked != rowCol && picked != colCol)
 			{
 				break;

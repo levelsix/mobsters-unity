@@ -85,6 +85,10 @@ public class CBKDataManager : MonoBehaviour {
 	public object Get(Type type, int id)
 	{
 		CheckType(type);
+		if (!dataDict[type].ContainsKey(id))
+		{
+			return null;
+		}
 		return dataDict[type][id];
 	}
 	

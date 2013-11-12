@@ -12,12 +12,14 @@ public class UMQLoader : MonoBehaviour {
 	IEnumerator Start () {
 		
 		CBKFacebookManager.instance.Init();
-		
+
+		/*
 		while (!CBKFacebookManager.hasTriedLogin)
 		{
 			yield return null;
 		}
-		
+		*/
+
 		//Hang here while we set up the connetion
 		//TODO: Time out if we've been hanging here for too long
 		while(!UMQNetworkManager.instance.ready)
@@ -46,11 +48,20 @@ public class UMQLoader : MonoBehaviour {
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
 		UMQNetworkManager.instance.WriteDebug("Startup Status: " + response.startupStatus.ToString());
+
+		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
+		{
+			CBKEventManager.Popup.OnPopup(createUserPopup);
+			yield break;
+		}
 		
 		UMQNetworkManager.instance.WriteDebug("Update Status: " + response.updateStatus.ToString());
-		
-		CBKDataManager.instance.LoadStaticData(response.staticDataStuffProto);
-		
+
+		if (response.staticDataStuffProto != null)
+		{
+			CBKDataManager.instance.LoadStaticData(response.staticDataStuffProto);
+		}
+
 		CBKUtil.LoadLocalUser (response.sender);
 		
 		CBKChatManager.instance.Init(response);

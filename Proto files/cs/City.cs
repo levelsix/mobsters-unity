@@ -146,19 +146,19 @@ namespace com.lvl6.proto
       set { _coords = value; }
     }
 
-    private int _xLength = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"xLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int xLength
+    private float _xLength = default(float);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"xLength", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float xLength
     {
       get { return _xLength; }
       set { _xLength = value; }
     }
 
-    private int _yLength = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"yLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int yLength
+    private float _yLength = default(float);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"yLength", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float yLength
     {
       get { return _yLength; }
       set { _yLength = value; }

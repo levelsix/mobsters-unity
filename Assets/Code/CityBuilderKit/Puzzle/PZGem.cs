@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,9 +10,6 @@ using System.Collections.Generic;
 /// Also, turns into special gems when necessary.
 /// </summary>
 public class PZGem : MonoBehaviour, CBKIPoolable {
-	
-	[SerializeField]
-	UILabel specialLabel;
 	
 	PZGem _prefab;
 	public CBKIPoolable prefab {
@@ -38,6 +35,8 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 			return gameObj;
 		}
 	}
+
+	string baseSprite = "";
 	
 	/// <summary>
 	/// The sprite, which we use to change tint and image
@@ -57,24 +56,26 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 		}
 		set
 		{
-			specialLabel.transform.localRotation = Quaternion.identity;
 			switch(value)
 			{
 				case GemType.BOMB:
-					specialLabel.text = "B";
+					sprite.spriteName = baseSprite + "grenade";
 					break;
 				case GemType.MOLOTOV:
-					specialLabel.text = "M";
+					sprite.spriteName = "allcocktail";
 					break;
 				case GemType.ROCKET:
-					specialLabel.text = "R";
-					if (!horizontal)
+					if (horizontal)
 					{
-						specialLabel.transform.localRotation = new Quaternion(0, 0, .707f, .707f);
+						sprite.spriteName = baseSprite + "sideways";
+					}
+					else
+					{
+						sprite.spriteName = baseSprite + "updown";
 					}
 					break;
 				case GemType.NORMAL:
-					specialLabel.text = "";
+					sprite.spriteName = baseSprite + "orb";
 					break;
 			}
 			_gemType = value;
@@ -132,7 +133,7 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 	public void Init(int colr, int column)
 	{
 		colorIndex = colr;
-		sprite.color = PZPuzzleManager.instance.colors[colorIndex];
+		baseSprite = PZPuzzleManager.instance.gemTypes[colorIndex];
 		
 		boardX = column;
 		boardY = PZPuzzleManager.BOARD_HEIGHT;

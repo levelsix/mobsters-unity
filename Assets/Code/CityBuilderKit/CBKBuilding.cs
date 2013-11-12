@@ -297,8 +297,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		//name = proto.name;
 		userStructProto = null;
 		
-		width = proto.xLength;
-		length = proto.yLength;
+		width = (int)proto.xLength;
+		length = (int)proto.yLength;
 		
 		SetupSprite(proto.imgId);
 		
@@ -391,7 +391,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		_currPos = new CBKGridNode(new Vector2(transform.position.x / CBKGridManager.instance.spaceSize - SIZE_OFFSET.x * width,
     	    transform.position.z / CBKGridManager.instance.spaceSize - SIZE_OFFSET.z * length));
 		
-		sprite.depth = (int)(_currPos.pos.x + _currPos.pos.y) * -1;
+		sprite.depth = (int)(_currPos.pos.x + _currPos.pos.y) * -1 - 10;
 		//Debug.Log("Currpos: " + _currPos.pos);
 	}
 	

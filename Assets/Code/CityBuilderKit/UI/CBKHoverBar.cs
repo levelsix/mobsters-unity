@@ -4,7 +4,16 @@ using System.Collections;
 /// CBK hover bar.
 /// </summary>
 public class CBKHoverBar : MonoBehaviour {
-	
+
+	[SerializeField]
+	UISprite[] backArrows;
+
+	[SerializeField]
+	UISprite[] frontArrows;
+
+	[SerializeField]
+	GameObject[] arrows;
+
 	[SerializeField]
 	UILabel label;
 	
@@ -39,19 +48,19 @@ public class CBKHoverBar : MonoBehaviour {
 	
 	public void AttachToUnit(CBKUnit unit)
 	{
-		
+		gameObj.SetActive(false);
 	}
 	
 	public void AttachToPlayerStructure(CBKBuilding building)
 	{
 		if (building != null)
 		{
-			gameObj.SetActive(true);
 			
 			currBuilding = building;
 			
 			if (building.locallyOwned)
 			{
+				gameObj.SetActive(true);
 				building.OnUpdateValues += OnUpdateBuildingValues;
 				barBackground.MarkAsChanged();
 				label.MarkAsChanged();
@@ -60,12 +69,13 @@ public class CBKHoverBar : MonoBehaviour {
 			}
 			else
 			{
-				//
+				gameObj.SetActive(false);
 			}
 			
 			trans.parent = building.trans;
 			trans.localPosition = BUILDING_OFFSET;
 			trans.Translate(0,0,-2,Space.Self);
+
 		}
 		else
 		{
@@ -73,6 +83,22 @@ public class CBKHoverBar : MonoBehaviour {
 		}
 	}
 		
+	void EnableArrows()
+	{
+		foreach (var item in arrows) 
+		{
+			item.SetActive(true);
+		}
+	}
+
+	void DisableArrows()
+	{
+		foreach (var item in arrows) 
+		{
+			item.SetActive(false);
+		}
+	}
+
 	void OnUpdateBuildingValues()
 	{
 		if (currBuilding != null)

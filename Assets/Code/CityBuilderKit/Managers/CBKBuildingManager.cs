@@ -153,6 +153,11 @@ public class CBKBuildingManager : MonoBehaviour
 			CBKWhiteboard.loadedNeutralCity = null;
 			break;
 		}
+		
+		if (CBKEventManager.Scene.OnCity != null)
+		{
+			CBKEventManager.Scene.OnCity();
+		}
 	}
 	
 	public void RequestCity()
@@ -329,7 +334,7 @@ public class CBKBuildingManager : MonoBehaviour
     	building.trans.parent = buildingParent;
     	building.Init(proto);
     	
-	    CBKGridManager.instance.AddBuilding(building, (int)proto.coords.x, (int)proto.coords.y, proto.xLength, proto.yLength);
+	    CBKGridManager.instance.AddBuilding(building, (int)proto.coords.x, (int)proto.coords.y, (int)proto.xLength, (int)proto.yLength);
 	
 		buildings.Add(proto.assetId, building);
 		

@@ -96,6 +96,15 @@ namespace com.lvl6.proto
       get { return _prerequisiteTaskId; }
       set { _prerequisiteTaskId = value; }
     }
+
+    private int _prerequisiteQuestId = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"prerequisiteQuestId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int prerequisiteQuestId
+    {
+      get { return _prerequisiteQuestId; }
+      set { _prerequisiteQuestId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
