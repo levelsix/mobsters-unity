@@ -72,22 +72,22 @@ namespace com.lvl6.proto
       set { _boosterPackId = value; }
     }
 
-    private bool _costsCoins = default(bool);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"costsCoins", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool costsCoins
+    private string _boosterPackName = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"boosterPackName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string boosterPackName
     {
-      get { return _costsCoins; }
-      set { _costsCoins = value; }
+      get { return _boosterPackName; }
+      set { _boosterPackName = value; }
     }
 
-    private string _name = "";
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue("")]
-    public string name
+    private int _gemPrice = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gemPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemPrice
     {
-      get { return _name; }
-      set { _name = value; }
+      get { return _gemPrice; }
+      set { _gemPrice = value; }
     }
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.BoosterItemProto> _boosterItems = new global::System.Collections.Generic.List<com.lvl6.proto.BoosterItemProto>();
     [global::ProtoBuf.ProtoMember(4, Name=@"boosterItems", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -96,15 +96,6 @@ namespace com.lvl6.proto
       get { return _boosterItems; }
     }
   
-
-    private int _price = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"price", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int price
-    {
-      get { return _price; }
-      set { _price = value; }
-    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -125,31 +116,76 @@ namespace com.lvl6.proto
       set { _boosterItemId = value; }
     }
 
-    private int _equipId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"equipId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _boosterPackId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"boosterPackId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int equipId
+    public int boosterPackId
     {
-      get { return _equipId; }
-      set { _equipId = value; }
+      get { return _boosterPackId; }
+      set { _boosterPackId = value; }
     }
 
-    private int _quantity = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"quantity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _monsterId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"monsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int quantity
+    public int monsterId
     {
-      get { return _quantity; }
-      set { _quantity = value; }
+      get { return _monsterId; }
+      set { _monsterId = value; }
+    }
+
+    private int _numPieces = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"numPieces", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numPieces
+    {
+      get { return _numPieces; }
+      set { _numPieces = value; }
+    }
+
+    private bool _isComplete = default(bool);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"isComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isComplete
+    {
+      get { return _isComplete; }
+      set { _isComplete = value; }
     }
 
     private bool _isSpecial = default(bool);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"isSpecial", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"isSpecial", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
     public bool isSpecial
     {
       get { return _isSpecial; }
       set { _isSpecial = value; }
+    }
+
+    private int _gemReward = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"gemReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemReward
+    {
+      get { return _gemReward; }
+      set { _gemReward = value; }
+    }
+
+    private int _cashReward = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"cashReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int cashReward
+    {
+      get { return _cashReward; }
+      set { _cashReward = value; }
+    }
+
+    private float _chanceToAppear = default(float);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"chanceToAppear", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float chanceToAppear
+    {
+      get { return _chanceToAppear; }
+      set { _chanceToAppear = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

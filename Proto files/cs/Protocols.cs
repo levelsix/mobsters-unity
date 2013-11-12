@@ -30,9 +30,9 @@
 // Note: requires additional types generated from: EventTournament.proto
 // Note: requires additional types generated from: EventUser.proto
 // Note: requires additional types generated from: InAppPurchase.proto
-// Note: requires additional types generated from: Job.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
+// Note: requires additional types generated from: StaticData.proto
 // Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: Task.proto
 // Note: requires additional types generated from: TournamentStuff.proto
@@ -72,9 +72,6 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOAD_PLAYER_CITY_EVENT", Value=10)]
       C_LOAD_PLAYER_CITY_EVENT = 10,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_STATIC_DATA_EVENT", Value=11)]
-      C_RETRIEVE_STATIC_DATA_EVENT = 11,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_QUEST_ACCEPT_EVENT", Value=12)]
       C_QUEST_ACCEPT_EVENT = 12,
@@ -153,9 +150,6 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_PURCHASE_BOOSTER_PACK_EVENT", Value=37)]
       C_PURCHASE_BOOSTER_PACK_EVENT = 37,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RESET_BOOSTER_PACK_EVENT", Value=38)]
-      C_RESET_BOOSTER_PACK_EVENT = 38,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_CHANGE_CLAN_JOIN_TYPE_EVENT", Value=39)]
       C_CHANGE_CLAN_JOIN_TYPE_EVENT = 39,
@@ -252,9 +246,6 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"S_LOAD_PLAYER_CITY_EVENT", Value=10)]
       S_LOAD_PLAYER_CITY_EVENT = 10,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_STATIC_DATA_EVENT", Value=11)]
-      S_RETRIEVE_STATIC_DATA_EVENT = 11,
-            
       [global::ProtoBuf.ProtoEnum(Name=@"S_QUEST_ACCEPT_EVENT", Value=12)]
       S_QUEST_ACCEPT_EVENT = 12,
             
@@ -332,9 +323,6 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_PURCHASE_BOOSTER_PACK_EVENT", Value=37)]
       S_PURCHASE_BOOSTER_PACK_EVENT = 37,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RESET_BOOSTER_PACK_EVENT", Value=38)]
-      S_RESET_BOOSTER_PACK_EVENT = 38,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_CHANGE_CLAN_JOIN_TYPE_EVENT", Value=39)]
       S_CHANGE_CLAN_JOIN_TYPE_EVENT = 39,

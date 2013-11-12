@@ -105,7 +105,6 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 	
 	bool dragged = false;
 	
-	int id;
 	static int nextID = 0;
 	
 	static readonly Dictionary<CBKValues.Direction, Vector3> dirVals = new Dictionary<CBKValues.Direction, Vector3>()
@@ -121,7 +120,6 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 		sprite = GetComponent<UISprite>();
 		trans = transform;
 		gameObj = gameObject;
-		id = nextID++;
 	}
 	
 	public CBKIPoolable Make (Vector3 origin)

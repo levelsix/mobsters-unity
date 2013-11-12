@@ -70,26 +70,35 @@ namespace com.lvl6.proto
       set { _minutesToBuild = value; }
     }
 
-    private int _cashPrice = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"cashPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _buildPrice = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"buildPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int cashPrice
+    public int buildPrice
     {
-      get { return _cashPrice; }
-      set { _cashPrice = value; }
+      get { return _buildPrice; }
+      set { _buildPrice = value; }
     }
 
-    private int _gemPrice = default(int);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"gemPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int gemPrice
+    private bool _isPremiumCurrency = default(bool);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"isPremiumCurrency", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isPremiumCurrency
     {
-      get { return _gemPrice; }
-      set { _gemPrice = value; }
+      get { return _isPremiumCurrency; }
+      set { _isPremiumCurrency = value; }
+    }
+
+    private int _sellPrice = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"sellPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int sellPrice
+    {
+      get { return _sellPrice; }
+      set { _sellPrice = value; }
     }
 
     private int _minLevel = default(int);
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"minLevel", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"minLevel", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int minLevel
     {
@@ -98,7 +107,7 @@ namespace com.lvl6.proto
     }
 
     private int _xLength = default(int);
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"xLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"xLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int xLength
     {
@@ -107,21 +116,12 @@ namespace com.lvl6.proto
     }
 
     private int _yLength = default(int);
-    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"yLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"yLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int yLength
     {
       get { return _yLength; }
       set { _yLength = value; }
-    }
-
-    private int _instaBuildGemCost = default(int);
-    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"instaBuildGemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int instaBuildGemCost
-    {
-      get { return _instaBuildGemCost; }
-      set { _instaBuildGemCost = value; }
     }
 
     private int _imgVerticalPixelOffset = default(int);
@@ -140,6 +140,15 @@ namespace com.lvl6.proto
     {
       get { return _successorStructId; }
       set { _successorStructId = value; }
+    }
+
+    private int _predecessorStructId = default(int);
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"predecessorStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int predecessorStructId
+    {
+      get { return _predecessorStructId; }
+      set { _predecessorStructId = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

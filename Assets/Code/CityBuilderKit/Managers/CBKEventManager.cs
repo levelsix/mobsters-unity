@@ -57,6 +57,8 @@ public static class CBKEventManager
 		/// selected building to place itself on the grid.
 		/// </summary>
 		public static Action PlaceBuilding;
+		
+		public static Action<CBKBuilding> OnCollectFromBuilding;
 	}
 	
 	public static class Loading

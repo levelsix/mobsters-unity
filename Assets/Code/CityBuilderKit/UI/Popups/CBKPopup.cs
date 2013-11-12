@@ -32,7 +32,7 @@ public class CBKPopup : MonoBehaviour {
 		label.text = message;
 		for (int i = 0; i < buttons.Length; i++) 
 		{
-			buttons[i].gameObj.SetActive(false);
+			buttons[i].gameObject.SetActive(false);
 		}
 	}
 	

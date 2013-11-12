@@ -87,6 +87,15 @@ namespace com.lvl6.proto
       get { return _assetNumWithinCity; }
       set { _assetNumWithinCity = value; }
     }
+
+    private int _prerequisiteTaskId = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"prerequisiteTaskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int prerequisiteTaskId
+    {
+      get { return _prerequisiteTaskId; }
+      set { _prerequisiteTaskId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

@@ -139,6 +139,22 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	#region Building Generation
 	
+	public void Start()
+	{
+		switch (CBKWhiteboard.currCityType)
+		{
+		case CBKWhiteboard.CityType.PLAYER:
+			BuildPlayerCity(CBKWhiteboard.loadedPlayerCity);
+			CBKWhiteboard.loadedPlayerCity = null;
+			break;
+		case CBKWhiteboard.CityType.NEUTRAL:
+			BuildNeutralCity(CBKWhiteboard.loadedNeutralCity);
+			SyncTasks(CBKWhiteboard.loadedNeutralCity.cityId);
+			CBKWhiteboard.loadedNeutralCity = null;
+			break;
+		}
+	}
+	
 	public void RequestCity()
 	{
 		Debug.Log("Sending city request");
@@ -154,42 +170,9 @@ public class CBKBuildingManager : MonoBehaviour
 			StartCoroutine(LoadNeutralCity(CBKWhiteboard.cityID));
 		}
 	}
-	
-	public IEnumerator LoadNeutralCity(int cityId)
-	{
-		LoadCityRequestProto load = new LoadCityRequestProto();
-		load.sender = CBKWhiteboard.localMup;
-		load.cityId = cityId;
-		int cityTag = UMQNetworkManager.instance.SendRequest(load, (int)EventProtocolRequest.C_LOAD_CITY_EVENT, null);
-		
-		RecycleCity();
-		
-		while(!UMQNetworkManager.responseDict.ContainsKey(cityTag))
-		{
-			yield return null;
-		}
-		
-		LoadCityResponseProto response = UMQNetworkManager.responseDict[cityTag] as LoadCityResponseProto;
-		UMQNetworkManager.responseDict.Remove(cityTag);
-		
-		Debug.Log("Loading neutral city: " + response.cityId);
 
-		for (int i = 0; i < response.cityElements.Count; i++) 
-		{
-			//Debug.Log("Making neutral element " + i);
-			switch (response.cityElements[i].type) {
-				case CityElementProto.CityElemType.BUILDING:
-					MakeBuilding(response.cityElements[i]);
-					break;
-				case CityElementProto.CityElemType.PERSON_NEUTRAL_ENEMY:
-				case CityElementProto.CityElemType.BOSS:
-					MakeNPC(response.cityElements[i]);
-					break;
-				default:
-					break;
-			}
-		}
-		
+	void SyncTasks (int cityId)
+	{
 		foreach (FullTaskProto task in CBKDataManager.instance.GetAll(typeof(FullTaskProto)).Values)
 		{
 			if (task.cityId == cityId)
@@ -204,6 +187,28 @@ public class CBKBuildingManager : MonoBehaviour
 				}
 			}
 		}
+	}
+	
+	public IEnumerator LoadNeutralCity(int cityId)
+	{
+		LoadCityRequestProto load = new LoadCityRequestProto();
+		load.sender = CBKWhiteboard.localMup;
+		load.cityId = cityId;
+		int cityTag = UMQNetworkManager.instance.SendRequest(load, (int)EventProtocolRequest.C_LOAD_CITY_EVENT, null);
+		
+		while(!UMQNetworkManager.responseDict.ContainsKey(cityTag))
+		{
+			yield return null;
+		}
+		
+		LoadCityResponseProto response = UMQNetworkManager.responseDict[cityTag] as LoadCityResponseProto;
+		UMQNetworkManager.responseDict.Remove(cityTag);
+		
+		Debug.Log("Loading neutral city: " + response.cityId);
+
+		BuildNeutralCity (response);
+		
+		SyncTasks (cityId);
 		
 		if (CBKEventManager.Scene.OnCity != null)
 		{
@@ -220,23 +225,7 @@ public class CBKBuildingManager : MonoBehaviour
 		
 		Debug.Log("Loading city for player: " + response.cityOwner.name);
 		
-		for (int i = 0; i < response.ownerNormStructs.Count; i++) 
-		{
-			MakeBuilding(response.ownerNormStructs[i]);
-			//CBKBuilding building = MakeBuildingAt((FullStructureProto) CBKDataManager.instance.Get(typeof(FullStructureProto), response.ownerNormStructs[i].structId), 
-			//	(int)response.ownerNormStructs[i].coordinates.x, (int)response.ownerNormStructs[i].coordinates.y);
-			//building.userStructProto = response.ownerNormStructs[i];
-		}
-		
-		foreach (var item in CBKMonsterManager.instance.userMonsters) {
-			if (item.Value.userMonster.isComplete)
-			{
-				CBKUnit dude = CBKPoolManager.instance.Get(unitPrefab, Vector3.zero) as CBKUnit;
-				dude.transf.parent = unitParent;
-				dude.Init(item.Value.userMonster);
-				units.Add(item.Key, dude);
-			}
-		}
+		BuildPlayerCity (response);
 		
 		if (CBKEventManager.Scene.OnCity != null)
 		{
@@ -250,6 +239,45 @@ public class CBKBuildingManager : MonoBehaviour
 		unit.transf.parent = unitParent;
 		unit.Init(element);
 		units.Add(element.assetId, unit);
+	}
+
+	void BuildNeutralCity (LoadCityResponseProto response)
+	{
+		RecycleCity();
+		
+		for (int i = 0; i < response.cityElements.Count; i++) 
+		{
+			//Debug.Log("Making neutral element " + i);
+			switch (response.cityElements[i].type) {
+				case CityElementProto.CityElemType.BUILDING:
+					MakeBuilding(response.cityElements[i]);
+					break;
+				case CityElementProto.CityElemType.PERSON_NEUTRAL_ENEMY:
+				case CityElementProto.CityElemType.BOSS:
+					MakeNPC(response.cityElements[i]);
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
+	void BuildPlayerCity (LoadPlayerCityResponseProto response)
+	{
+		for (int i = 0; i < response.ownerNormStructs.Count; i++) 
+		{
+			MakeBuilding(response.ownerNormStructs[i]);
+		}
+		
+		foreach (var item in CBKMonsterManager.userMonsters) {
+			if (item.Value.userMonster.isComplete)
+			{
+				CBKUnit dude = CBKPoolManager.instance.Get(unitPrefab, Vector3.zero) as CBKUnit;
+				dude.transf.parent = unitParent;
+				dude.Init(item.Value.userMonster);
+				units.Add(item.Key, dude);
+			}
+		}
 	}
 	
 	CBKBuilding MakeBuildingAt (FullStructureProto proto, int id, int x, int y)
@@ -311,13 +339,13 @@ public class CBKBuildingManager : MonoBehaviour
 	private void BuyBuilding(FullStructureProto proto)
 	{
 		bool hasEnoughMoney;
-		if (proto.cashPrice > proto.gemPrice)
+		if (proto.isPremiumCurrency)
 		{
-			hasEnoughMoney = CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.FREE, proto.cashPrice);
+			hasEnoughMoney = CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.PREMIUM, proto.buildPrice);
 		}
 		else
 		{
-			hasEnoughMoney = CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.PREMIUM, proto.gemPrice);
+			hasEnoughMoney = CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.FREE, proto.buildPrice);
 		}
 		
 		if (hasEnoughMoney)

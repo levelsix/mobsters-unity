@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Quest.proto
-// Note: requires additional types generated from: Job.proto
 namespace com.lvl6.proto
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FullQuestProto")]

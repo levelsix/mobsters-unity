@@ -29,6 +29,10 @@ public class CBKAtlasUtil : MonoBehaviour {
 	
 	public static CBKAtlasUtil instance;
 	
+	static Dictionary<string, string> imgToAtlas = new Dictionary<string, string>();
+	
+	static Dictionary<string, UIAtlas> atlases;
+	
 	public void Awake()
 	{
 		instance = this;
@@ -36,9 +40,13 @@ public class CBKAtlasUtil : MonoBehaviour {
 		{
 			Setup();
 		}
-		foreach (string item in xmls) 
+		if (atlases == null)
 		{
-			WarmAtlasDictionaryFromXML(item);
+			atlases = new Dictionary<string, UIAtlas>();
+			foreach (string item in xmls) 
+			{
+				WarmAtlasDictionaryFromXML(item);
+			}
 		}
 	}
 	
@@ -130,10 +138,6 @@ public class CBKAtlasUtil : MonoBehaviour {
 
 	#endregion
 	
-	static readonly Dictionary<string, string> imgToAtlas = new Dictionary<string, string>();
-	
-	static readonly Dictionary<string, UIAtlas> atlases = new Dictionary<string, UIAtlas>();
-	
 	public void WarmAtlasDictionaryFromXML(string filename)
 	{
 		//Debug.Log("Warming: " + filename);
@@ -169,6 +173,7 @@ public class CBKAtlasUtil : MonoBehaviour {
 			if (!imgToAtlas.ContainsKey(item))
 			{
 				Debug.LogError("No atlas known for: " + item);
+				return;
 			}
 			string atlasName = imgToAtlas[StripExtensions(item)];
 			LoadAtlas(atlasName);

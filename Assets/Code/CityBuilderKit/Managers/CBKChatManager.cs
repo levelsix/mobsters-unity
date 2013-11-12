@@ -24,11 +24,11 @@ public class CBKChatManager : MonoBehaviour {
 	{
 		foreach (GroupChatMessageProto item in startup.globalChats) 
 		{
-			Debug.Log("Global Chat message: From: " + item.sender.name + "\n" + item.content);
+			//Debug.Log("Global Chat message: From: " + item.sender.minUserProto.name + "\n" + item.content);
 			globalChat.Add(item.timeOfChat, item);
 		}
 		
-		SetChatMode(CBKValues.ChatMode.GLOBAL);
+		//SetChatMode(CBKValues.ChatMode.GLOBAL);
 	}
 	
 	public void SetChatMode(CBKValues.ChatMode mode)

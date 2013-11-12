@@ -55,6 +55,12 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 	/// </summary>
 	public Camera cam;
 	
+	const float ZOOM_COEFFICIENT = -1f;
+	const float BASE_CAMERA_OFFSET_MAX = 18f;
+	
+	public float maxY;
+	public float maxX;
+	
 	/// <summary>
 	/// Awake this instance.
 	/// Get the local components that this camera will reference
@@ -67,6 +73,7 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 	
 	void Start()
 	{
+		Zoom (0);
 		if (CBKEventManager.UI.OnCameraResize != null)
 		{
 			CBKEventManager.UI.OnCameraResize(cam);
@@ -106,14 +113,24 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
         movement.x *= DRAG_COEFF * (Camera.main.orthographicSize / Screen.width) * X_DRAG_FUDGE;
 
         //Turn the 2D coordinates into our tilted isometric coordinates
+		/*
         movement.z = movement.y - movement.x;
         movement.x = movement.x + movement.y;
         movement.y = 0;
-		
+		*/
 		movement *= -1;
 
         //Add the difference to the original position, since we only hold original mouse pos
-        trans.position += movement;
+        trans.localPosition += movement;
+		ClampCamera();
+		
+	}
+	
+	public void ClampCamera()
+	{
+		
+		trans.localPosition = new Vector3(Mathf.Clamp(trans.localPosition.x, -maxX, maxX),
+			Mathf.Clamp (trans.localPosition.y, -maxY, maxY), trans.localPosition.z);
 	}
 	
 	/// <summary>
@@ -140,6 +157,11 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 		{
 			CBKEventManager.UI.OnCameraResize(cam);
 		}
+		
+		maxY = cam.orthographicSize * ZOOM_COEFFICIENT + BASE_CAMERA_OFFSET_MAX;
+		maxX = maxY * Screen.height / Screen.width * 2560f / 2048f;
+		
+		ClampCamera ();
 	}
 	
 #if UNITY_EDITOR

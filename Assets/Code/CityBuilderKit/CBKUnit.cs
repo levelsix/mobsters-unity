@@ -91,6 +91,8 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 	
 	const int ANIMATION_FPS = 15;
 	
+	public float unitSize = 1.1f;
+	
 	static readonly Dictionary<CBKValues.Direction, string> dirNameDict = new Dictionary<CBKValues.Direction, string>()
 	{
 		{CBKValues.Direction.NORTH, "F"},
@@ -136,7 +138,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		
 		name = monster.displayName;
 		
-		spriteBaseName = monster.imagePrefix;
+		spriteBaseName = CBKAtlasUtil.instance.StripExtensions(monster.imagePrefix);
 		
 		Setup();
 	}
@@ -148,7 +150,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		
 		ncep = proto;
 		
-		spriteBaseName = ncep.imgId;
+		spriteBaseName = CBKAtlasUtil.instance.StripExtensions(ncep.imgId);
 		
 		Setup();
 	}
@@ -198,11 +200,11 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		
 		if (direction == CBKValues.Direction.SOUTH || direction == CBKValues.Direction.EAST)
 		{
-			sprite.transform.localScale = new Vector3(-1,1,1);
+			sprite.transform.localScale = new Vector3(-1,1,1) * unitSize;
 		}
 		else
 		{
-			sprite.transform.localScale = Vector3.one;
+			sprite.transform.localScale = Vector3.one * unitSize;
 		}
 		
 		anim.namePrefix = animationPrefix;

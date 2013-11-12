@@ -12,11 +12,6 @@ public class CBKPopupManager : MonoBehaviour {
 	CBKPopup popup;
 	
 	[SerializeField]
-	Transform cityPopupParent;
-	
-	[SerializeField]
-	Transform puzzlePopupParent;
-	
 	Transform popupGroup;
 	
 	/// <summary>
@@ -45,8 +40,6 @@ public class CBKPopupManager : MonoBehaviour {
 		CBKEventManager.Popup.CloseTopPopupLayer += CloseTopLayer;
 		CBKEventManager.Popup.CreatePopup += CreatePopup;
 		CBKEventManager.Popup.CreateButtonPopup += PopWithButtons;
-		CBKEventManager.Scene.OnCity += OnCity;
-		CBKEventManager.Scene.OnPuzzle += OnPuzzle;
 	}
 	
 	/// <summary>
@@ -61,18 +54,6 @@ public class CBKPopupManager : MonoBehaviour {
 		CBKEventManager.Popup.CloseTopPopupLayer -= CloseTopLayer;
 		CBKEventManager.Popup.CreatePopup -= CreatePopup;
 		CBKEventManager.Popup.CreateButtonPopup -= PopWithButtons;
-		CBKEventManager.Scene.OnCity -= OnCity;
-		CBKEventManager.Scene.OnPuzzle -= OnPuzzle;
-	}
-	
-	void OnCity()
-	{
-		popupGroup = cityPopupParent;
-	}
-	
-	void OnPuzzle()
-	{
-		popupGroup = puzzlePopupParent;
 	}
 	
 	void InitPopup (CBKPopup pop)

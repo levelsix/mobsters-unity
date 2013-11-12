@@ -11,9 +11,9 @@ public class CBKQuestManager : MonoBehaviour {
 	
 	public static CBKQuestManager instance;
 	
-	Dictionary<int, FullQuestProto> tempQuests;
+	static Dictionary<int, FullQuestProto> tempQuests;
 	
-	public Dictionary<int, CBKFullQuest> questDict = new Dictionary<int, CBKFullQuest>();
+	public static Dictionary<int, CBKFullQuest> questDict = new Dictionary<int, CBKFullQuest>();
 	
 	public void Awake()
 	{
@@ -36,48 +36,36 @@ public class CBKQuestManager : MonoBehaviour {
 		CBKEventManager.Quest.OnMoneyCollected -= OnMoneyCollected;
 	}
 	
-	public void Init(StartupResponseProto proto, RetrieveStaticDataRequestProto dataRequest)
+	public void Init(StartupResponseProto proto)
 	{
 		tempQuests = new Dictionary<int, FullQuestProto>();
-		foreach (FullQuestProto item in proto.availableQuests) 
+		foreach (FullQuestProto item in proto.staticDataStuffProto.availableQuests) 
 		{
 #if DEBUG2
 			Debug.Log("Available Quest: " + item.questId);		
 #endif
 			StartCoroutine(AcceptQuest(item));
-			CBKDataManager.instance.BuildQuestDataToStaticDataRequest(item, dataRequest);
 		}
-		foreach (var item in proto.unredeemedQuests) 
+		foreach (var item in proto.userQuests) 
 		{
-			//RedeemQuest(item);
-			tempQuests[item.questId] = item;
-			CBKDataManager.instance.BuildQuestDataToStaticDataRequest(item, dataRequest);
+			questDict[item.questId] = new CBKFullQuest(CBKDataManager.instance.Get(typeof(FullQuestProto), item.questId) as FullQuestProto, item);
 #if DEBUG2
-			Debug.Log ("In Progress, Complete Quest: " + item.questId);
-#endif
-		}
-		foreach (var item in proto.inProgressQuests) 
-		{
-			tempQuests[item.questId] = item;
-			CBKDataManager.instance.BuildQuestDataToStaticDataRequest(item, dataRequest);
-#if DEBUG2
-			Debug.Log("In Progress, Incomplete Quest: " + item.questId);	
+			Debug.Log ("In Progress Quest: " + item.questId);
 #endif
 		}
 		
-		foreach (KeyValuePair<int, FullQuestProto> item in tempQuests) 
-		{
-			StartCoroutine(LoadUserQuestProgress(item));
+	}
+	
+	FullUserQuestProto FindFromUserQuests(List<FullUserQuestProto> questList, int questId)
+	{
+		foreach (FullUserQuestProto item in questList) {
+			if (item.questId == questId)
+			{
+				questList.Remove(item);
+				return item;
+			}
 		}
-		
-#if DEBUG1
-		string debug = "Sending Quest Load: ";
-		foreach (KeyValuePair<int, FullQuestProto> item in tempQuests) {
-			debug += "\nQuest: " + item.Key + ", " + item.Value.name;
-		}
-		Debug.Log(debug);
-#endif
-		
+		return null;
 	}
 	
 	IEnumerator LoadUserQuestProgress(KeyValuePair<int, FullQuestProto> questData)

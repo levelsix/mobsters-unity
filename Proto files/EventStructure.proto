@@ -34,7 +34,6 @@ message PurchaseNormStructureResponseProto {
 }
 
 //------------------------------------------------------------------------------------------
-																						//DONE
 message MoveOrRotateNormStructureRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 userStructId = 2;
@@ -59,8 +58,6 @@ message MoveOrRotateNormStructureResponseProto {
 }
 
 //------------------------------------------------------------------------------------------
-
-																						//DONE
 message SellNormStructureRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 userStructId = 2;
@@ -78,8 +75,7 @@ message SellNormStructureResponseProto {
 }
 
 //------------------------------------------------------------------------------------------
-//NOT REALLY NEEDED SINCE PURCHASING A STRUCTURE CAN BE CONSTRUED AS UPGRADING
-																						//DONE
+//user initiating a structure upgrade
 message UpgradeNormStructureRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 userStructId = 2;
@@ -93,28 +89,24 @@ message UpgradeNormStructureResponseProto {
 	
 	enum UpgradeNormStructureStatus {
 		SUCCESS = 1;
-		NOT_ENOUGH_MATERIALS = 2;
-		NOT_BUILT_YET = 3;
-		NOT_USERS_STRUCT = 4;
-		ANOTHER_STRUCT_STILL_UPGRADING = 5;
-		OTHER_FAIL = 6;
-		CLIENT_TOO_APART_FROM_SERVER_TIME = 7;
-		AT_MAX_LEVEL_ALREADY = 8;
+		FAIL_NOT_ENOUGH_CASH = 2;
+		FAIL_NOT_ENOUGH_GEMS = 3;
+		FAIL_NOT_BUILT_YET = 4;
+		FAIL_NOT_USERS_STRUCT = 5;
+		FAIL_ANOTHER_STRUCT_STILL_UPGRADING = 6;
+		FAIL_AT_MAX_LEVEL_ALREADY = 7;
+		FAIL_OTHER = 8;
 	}
 }
 
-
 //------------------------------------------------------------------------------------------
-
-					//DONE
 					//rename to speed up norm struct 
 message FinishNormStructWaittimeWithDiamondsRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int32 userStructId = 2;
 	optional int64 timeOfSpeedup = 3;			//lastRetrieved will start with this date
-	//TODO: ACCOUNT FOR HOW MUCH TIME HAS PASSED WHEN DETERMINING SPEEDUP GEM COST
+	optional int32 gemCostToSpeedup = 4;
 }
-
 																						//DONE
 message FinishNormStructWaittimeWithDiamondsResponseProto {
      optional MinimumUserProto sender = 1;
@@ -186,12 +178,14 @@ message RetrieveCurrencyFromNormStructureResponseProto {
 message ExpansionWaitCompleteRequestProto {
 	optional MinimumUserProto sender = 1;
 	optional int64 curTime = 2;						//used for checking
-	optional bool speedUp = 3;
 	
 	//the (x,y) coordinates in relation to the original plot of land
 	//sint32 because it's more efficient when google protocol buffers serializes/encodes the values
-	optional sint32 xPosition = 4; 
-	optional sint32 yPosition = 5;
+	optional sint32 xPosition = 3; 
+	optional sint32 yPosition = 4;
+	
+	optional bool speedUp = 5;
+	optional int32 gemCostToSpeedup = 6;
 }
 
 																						//DONE

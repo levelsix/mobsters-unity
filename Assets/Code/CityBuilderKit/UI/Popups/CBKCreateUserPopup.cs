@@ -45,8 +45,9 @@ public class CBKCreateUserPopup : MonoBehaviour {
 		if (response.status == UserCreateResponseProto.UserCreateStatus.SUCCESS)
 		{
 			CBKUtil.LoadLocalUser(response.sender);
-			CBKEventManager.Loading.LoadBuildings();
-			//CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.TOWN_SCENE);
+			
+			CBKWhiteboard.currSceneType = CBKWhiteboard.SceneType.CITY;
+			CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.LOADING_SCENE);
 		}
 		else
 		{

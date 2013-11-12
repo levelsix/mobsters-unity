@@ -94,7 +94,7 @@ public class CBKChatBubble : MonoBehaviour, CBKIPoolable {
 	/// </returns>
 	public void Init(GroupChatMessageProto proto)
 	{
-		height = Init(proto.timeOfChat, proto.sender.name, proto.content);
+		height = Init(proto.timeOfChat, proto.sender.minUserProto.name, proto.content);
 	}
 	
 	/// <summary>
@@ -106,7 +106,7 @@ public class CBKChatBubble : MonoBehaviour, CBKIPoolable {
 	public void Init(PrivateChatPostProto proto)
 	{
 		//Same shit, different proto
-		height = Init(proto.timeOfPost, proto.poster.name, proto.content);
+		height = Init(proto.timeOfPost, proto.poster.minUserProto.name, proto.content);
 	}
 	
 	/// <summary>

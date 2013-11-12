@@ -26,19 +26,19 @@ namespace com.lvl6.proto
       set { _privateChatPostId = value; }
     }
 
-    private com.lvl6.proto.MinimumUserProto _poster = null;
+    private com.lvl6.proto.MinimumUserProtoWithLevel _poster = null;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"poster", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto poster
+    public com.lvl6.proto.MinimumUserProtoWithLevel poster
     {
       get { return _poster; }
       set { _poster = value; }
     }
 
-    private com.lvl6.proto.MinimumUserProto _recipient = null;
+    private com.lvl6.proto.MinimumUserProtoWithLevel _recipient = null;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"recipient", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto recipient
+    public com.lvl6.proto.MinimumUserProtoWithLevel recipient
     {
       get { return _recipient; }
       set { _recipient = value; }
@@ -109,10 +109,10 @@ namespace com.lvl6.proto
     public GroupChatMessageProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithLevel _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithLevel sender
     {
       get { return _sender; }
       set { _sender = value; }

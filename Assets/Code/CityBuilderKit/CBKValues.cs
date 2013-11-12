@@ -24,14 +24,16 @@ public static class CBKValues
         public enum Scenes
         {
             TOWN_SCENE,
-            COMBAT_TEST_SCENE,
-			DUNGEON_TEST_SCENE
+            PUZZLE_SCENE,
+			LOADING_SCENE,
+			STARTING_SCENE
         }
         public static Dictionary<Scenes, string> sceneDict = new Dictionary<Scenes, string>()
         {
             {Scenes.TOWN_SCENE, "TownScene"},
-            {Scenes.COMBAT_TEST_SCENE, "CombatTestScene"},
-			{Scenes.DUNGEON_TEST_SCENE, "DungeonTestScene"}
+            {Scenes.PUZZLE_SCENE, "PuzzleScene"},
+			{Scenes.LOADING_SCENE, "LoadingScene"},
+			{Scenes.STARTING_SCENE, "StartingScene"}
         };
         
         public static AsyncOperation ChangeScene(Scenes scene)

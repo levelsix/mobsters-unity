@@ -1,4 +1,4 @@
-//ALL REQUEST PROTOS SHOULD INCLUDE A MinimumUserProto AS REQUIRED that represents which client sent it/triggered it 
+//ALL REQUEST PROTOS SHOULD INCLUDE A MinimumUserProto AS optional that represents which client sent it/triggered it 
 //DO NO START PROPERTY METHODS WITH THE WORDS NEW OR COPY
 import "MonsterStuff.proto";
 import "Task.proto";
@@ -18,7 +18,8 @@ message BeginDungeonResponseProto {
 	optional MinimumUserProto sender = 1;
 	repeated TaskStageProto tsp = 2;
 	optional int64 userTaskId = 3;
-	optional BeginDungeonStatus status = 4;
+	optional int32 taskId = 4;
+	optional BeginDungeonStatus status = 5;
 	
 	enum BeginDungeonStatus {
 		SUCCESS = 1;
@@ -34,6 +35,7 @@ message EndDungeonRequestProto {
 	optional int64 userTaskId = 2;
 	optional bool userWon = 3; 
 	optional int64 clientTime = 4;
+	optional bool firstTimeUserWonTask = 5;
 }
 
 message EndDungeonResponseProto {
@@ -41,6 +43,8 @@ message EndDungeonResponseProto {
 	optional EndDungeonStatus status = 2;
 	//repeated FullUserMonsterProto newOrUpdated = 3; //BAD!!! DON'T START NAMES WITH NEW OR COPY
 	repeated FullUserMonsterProto updatedOrNew = 3;
+	optional int32 taskId = 4;
+	optional bool userWon = 5;
 	
 	enum EndDungeonStatus {
 		SUCCESS = 1;

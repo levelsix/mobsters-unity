@@ -643,14 +643,34 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
+    private com.lvl6.proto.IncreaseMonsterInventorySlotRequestProto.IncreaseSlotType _increaseSlotType = com.lvl6.proto.IncreaseMonsterInventorySlotRequestProto.IncreaseSlotType.PURCHASE;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"increaseSlotType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.IncreaseMonsterInventorySlotRequestProto.IncreaseSlotType.PURCHASE)]
+    public com.lvl6.proto.IncreaseMonsterInventorySlotRequestProto.IncreaseSlotType increaseSlotType
+    {
+      get { return _increaseSlotType; }
+      set { _increaseSlotType = value; }
+    }
+
     private int _numPurchases = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"numPurchases", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"numPurchases", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int numPurchases
     {
       get { return _numPurchases; }
       set { _numPurchases = value; }
     }
+    [global::ProtoBuf.ProtoContract(Name=@"IncreaseSlotType")]
+    public enum IncreaseSlotType
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PURCHASE", Value=1)]
+      PURCHASE = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"REDEEM_FACEBOOK_INVITES", Value=2)]
+      REDEEM_FACEBOOK_INVITES = 2
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -689,8 +709,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_FUNDS", Value=2)]
       FAIL_INSUFFICIENT_FUNDS = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
-      FAIL_OTHER = 3
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_FACEBOOK_INVITES", Value=3)]
+      FAIL_INSUFFICIENT_FACEBOOK_INVITES = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
+      FAIL_OTHER = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -704,10 +727,10 @@ namespace com.lvl6.proto
     public InviteFbFriendsForSlotsRequestProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithFacebookId _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithFacebookId sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -730,10 +753,10 @@ namespace com.lvl6.proto
     public InviteFbFriendsForSlotsResponseProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithFacebookId _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithFacebookId sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -769,10 +792,10 @@ namespace com.lvl6.proto
     public AcceptAndRejectFbInviteForSlotsRequestProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithFacebookId _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithFacebookId sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -802,10 +825,10 @@ namespace com.lvl6.proto
     public AcceptAndRejectFbInviteForSlotsResponseProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithFacebookId _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithFacebookId sender
     {
       get { return _sender; }
       set { _sender = value; }

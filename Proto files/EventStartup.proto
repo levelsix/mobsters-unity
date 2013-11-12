@@ -5,7 +5,9 @@ import "City.proto";
 import "Clan.proto";
 import "InAppPurchase.proto";
 import "Quest.proto";
+import "StaticData.proto";
 import "Structure.proto";
+import "Task.proto";
 import "User.proto";
 import "MonsterStuff.proto";
 
@@ -29,49 +31,42 @@ message StartupResponseProto {
     optional StartupStatus startupStatus= 3;
     optional UpdateStatus updateStatus= 4;
     optional StartupConstants startupConstants = 5;
-    repeated FullCityProto allCities = 6;
     
-    repeated FullQuestProto inProgressQuests = 7; //has not been completed
-    repeated FullQuestProto unredeemedQuests = 8; //is complete
-	repeated FullQuestProto availableQuests = 9;   
-	
 	//only send the ones that are not redeemed, (incomplete and complete)
-	repeated FullUserQuestProto userQuests = 10;
-	repeated FullUserClanProto userClanInfo = 11;
+	repeated FullUserQuestProto userQuests = 6;
+	repeated FullUserClanProto userClanInfo = 7;
+	repeated int32 completedTaskIds = 8; 
 	
-	optional string appStoreURL = 12;
-	optional string reviewPageURL = 13;
-	optional string reviewPageConfirmationMessage = 14;
-	optional bool playerHasBoughtInAppPurchase = 15;
-	repeated GoldSaleProto goldSales = 16;
+	optional string appStoreURL = 9;
+	optional string reviewPageURL = 10;
+	optional string reviewPageConfirmationMessage = 11;
+	optional bool playerHasBoughtInAppPurchase = 12;
 	
-	repeated AttackedNotificationProto attackNotifications = 17;
-	repeated ReferralNotificationProto referralNotifications = 18;
-	repeated string noticesToPlayers = 19;
-	repeated GroupChatMessageProto globalChats = 20;
-	repeated GroupChatMessageProto clanChats = 21;
+	repeated AttackedNotificationProto attackNotifications = 13;
+	repeated ReferralNotificationProto referralNotifications = 14;
+	repeated string noticesToPlayers = 15;
+	repeated GroupChatMessageProto globalChats = 16;
+	repeated GroupChatMessageProto clanChats = 17;
 	//repeated most recent private chat posts regarding this user
-	repeated PrivateChatPostProto pcpp = 22;
+	repeated PrivateChatPostProto pcpp = 18;
 	
-	repeated StaticLevelInfoProto slip = 23;
-	repeated FullStructureProto staticStructs = 24;
-	repeated CityExpansionCostProto expansionCosts = 25;
-	repeated MonsterProto staticMonsters = 26;
-	repeated FullUserMonsterProto usersMonsters = 27;
-	repeated UserMonsterHealingProto monstersHealing = 28;
-	optional UserEnhancementProto enhancements = 29;
+	repeated FullUserMonsterProto usersMonsters = 19;
+	repeated UserMonsterHealingProto monstersHealing = 20;
+	optional UserEnhancementProto enhancements = 21;
+	repeated RareBoosterPurchaseProto rareBoosterPurchases = 22;
 	
-	repeated RareBoosterPurchaseProto rareBoosterPurchases = 30;
+	optional string kabamNaid = 23;
 	
-	optional string kabamNaid = 31;
+	//send over all recipients (in user_facebook_invite_for_slot_accepted table)
+	//that have been "redeemed"
+	repeated MinimumUserProtoWithFacebookId usersUsedForExtraSlots = 24;
 	
-	//send over all unique user ids in user_facebook_invite_for_slot_accepted
-	repeated int32 userIdsUsedForExtraSlots = 32;
-	
-	//send over all user ids in fb_invite_for_slot table where this user
+	//send over all invites (in fb_invite_for_slot table) where this user
 	//is the person being invited
-	repeated int32 userIdsInvitingMeForExtraSlots = 33;
+	repeated UserFacebookInviteForSlotProto invitesToMeForSlots = 25;
 	
+	
+	optional StaticDataProto staticDataStuffProto = 26;
 	
 	
 	//repeated LockBoxEventProto lockBoxEvents = ;
@@ -94,35 +89,29 @@ message StartupResponseProto {
     	optional int32 maxLevelForUser = 2;
     	
 		optional int32 maxNumOfSingleStruct = 3;
-		optional NormStructConstants normStructConstants = 4;
 
-		repeated AnimatedSpriteOffsetProto animatedSpriteOffsets = 5;
-		optional int32 minNameLength = 6;
-		optional int32 maxNameLength = 7;
-		optional int32 maxLengthOfChatString = 8;
-		optional ClanConstants clanConstants = 9;
-		optional DownloadableNibConstants downloadableNibConstants = 10;
+		repeated AnimatedSpriteOffsetProto animatedSpriteOffsets = 4;
+		optional int32 minNameLength = 5;
+		optional int32 maxNameLength = 6;
+		optional int32 maxLengthOfChatString = 7;
+		optional ClanConstants clanConstants = 8;
+		optional DownloadableNibConstants downloadableNibConstants = 9;
 		
-		optional int32 numHoursBeforeReshowingGoldSale = 11;
-		optional int32 levelToShowRateUsPopup = 12;
-		optional TournamentConstants touramentConstants = 13;
-		optional int32 fbConnectRewardDiamonds = 14;
-		optional string faqFileName = 15;
-		optional MinimumUserProto adminChatUserProto = 16;
-		optional int32 numBeginnerSalesAllowed = 17;
+		optional int32 numHoursBeforeReshowingGoldSale = 10;
+		optional int32 levelToShowRateUsPopup = 11;
+		optional TournamentConstants touramentConstants = 12;
+		optional int32 fbConnectRewardDiamonds = 13;
+		optional string faqFileName = 14;
+		optional MinimumUserProto adminChatUserProto = 15;
+		optional int32 numBeginnerSalesAllowed = 16;
 		
-		optional UserMonsterConstants userMonsterConstants = 18;
-		optional MonsterConstants monsterConstants = 19;
+		optional UserMonsterConstants userMonsterConstants = 17;
+		optional MonsterConstants monsterConstants = 18;
 		
-		optional float minutesPerGem = 20; 
+		optional float minutesPerGem = 19; 
+		optional int32 pvpRequiredMinLvl = 20;
 		
-		message NormStructConstants {
-			optional double minutesToUpgradeForNormStructMultiplier = 1;
-			optional double incomeFromNormStructMultiplier = 2;
-			optional double upgradeStructCoinCostExponentBase = 3;
-			optional double upgradeStructDiamondCostExponentBase = 4;
-			optional double diamondCostForInstantUpgradeMultiplier = 5;
-		}
+		
 		message AnimatedSpriteOffsetProto {
 			optional string imageName = 1;
 			optional CoordinateProto offSet = 2;

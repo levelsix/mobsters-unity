@@ -17,7 +17,7 @@ using System.IO;
 
 public class UMQNetworkManager : MonoBehaviour {
 	
-	MySerializer ser = new MySerializer();
+	static MySerializer ser = new MySerializer();
 	
 	//Dictionary<string, Type> classDict = new Dictionary<string, Type>();
 	
@@ -49,9 +49,19 @@ public class UMQNetworkManager : MonoBehaviour {
 	
 	public bool ready = false;
 	
+	const float TIME_OUT = 15f;
+	
 	void Awake()
 	{
-		instance = this;
+		if (instance != null)
+		{
+			Destroy(gameObject);
+		}
+		else
+		{
+			DontDestroyOnLoad(gameObject);
+			instance = this;
+		}
 	}
 	
 	// Use this for initialization
@@ -144,6 +154,20 @@ public class UMQNetworkManager : MonoBehaviour {
 	public int SendRequest(System.Object request, int type, Action<int> callback)
 	{
 		MemoryStream body = new MemoryStream();
+		
+		if (request == null)
+		{
+			Debug.LogError("Bad!");
+		}
+		if (ser == null)
+		{
+			Debug.LogError("also bad!");
+		}
+		if (body == null)
+		{
+			Debug.LogError("How does that even...");
+		}
+		
 		ser.Serialize(body, request);
 		
 		int size = (int)body.Length;
@@ -179,6 +203,8 @@ public class UMQNetworkManager : MonoBehaviour {
 		WriteDebug("Message sent: " + tagNum + ": " + request.GetType());
 		
 		actionDict.Add(tagNum, callback);
+		
+		
 		
 		return tagNum++;
 	}
@@ -265,7 +291,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		Debug.Log("Received Message: " + tagNum + ": " + proto.GetType());
 		
-		if (proto is UpdateClientUserResponseProto)
+		if (proto is UpdateClientUserResponseProto || proto is PurgeClientStaticDataResponseProto)
 		{
 			Debug.Log("Update Client User Response");
 		}

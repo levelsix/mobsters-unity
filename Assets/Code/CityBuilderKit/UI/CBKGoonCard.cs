@@ -117,6 +117,22 @@ public class CBKGoonCard : MonoBehaviour {
 		healButton.onClick = null;
 	}
 	
+	public void InitHeal(PZMonster goon)
+	{
+		Init (goon);
+		SetHealButton(goon);
+	}
+	
+	public void InitLab(PZMonster goon)
+	{
+		Init (goon);
+		SetEnhanceButton(goon);
+		
+		addRemoveTeamButton.button.isEnabled = false;
+		addRemoveButtonBackground.alpha = 0;
+		addRemoveTeamButton.onClick = null;
+	}
+	
 	public void Init(PZMonster goon)
 	{
 		gameObject.SetActive(true);
@@ -134,11 +150,13 @@ public class CBKGoonCard : MonoBehaviour {
 			addRemoveButtonBackground.spriteName = removeButtonSpriteName;
 			addRemoveButtonBackground.alpha = 1;
 			addRemoveTeamButton.onClick = RemoveFromTeam;
+			Debug.Log("button: " + ((addRemoveTeamButton.button == null) ? "no" : "yes"));
 			addRemoveTeamButton.button.isEnabled = true;
 		}
 		else
 		{
-			if (CBKMonsterManager.instance.monstersOnTeam < CBKMonsterManager.TEAM_SLOTS && !goon.isHealing && goon.userMonster.isComplete)
+			if (CBKMonsterManager.monstersOnTeam < CBKMonsterManager.TEAM_SLOTS 
+				&& !goon.isHealing && !goon.isEnhancing && goon.userMonster.isComplete)
 			{
 				addRemoveButtonBackground.spriteName = addButtonSpriteName;
 				addRemoveButtonBackground.alpha = 1;
@@ -152,19 +170,7 @@ public class CBKGoonCard : MonoBehaviour {
 			}
 		}
 		
-		if (!goon.isHealing && goon.currHP < goon.maxHP)
-		{
-			healButtonParent.SetActive(true);
-			healButton.onClick = AddToHealQueue;
-			healButton.label.text = "$" + goon.healCost;
-			healButton.icon.spriteName = healIcon;
-		}
-		else
-		{
-			healButtonParent.SetActive(false);
-		}
-		
-		SetTextOverCardAndButton (goon);
+		SetTextOverCard (goon);
 		
 		rarityRibbon.spriteName = ribbonsForRarity[goon.monster.quality];
 		rarityLabel.text = goon.monster.quality.ToString();
@@ -179,13 +185,8 @@ public class CBKGoonCard : MonoBehaviour {
 		
 		//TODO: Stars
 	}
-	
-	public void InitLab(PZMonster goon)
-	{
-		
-	}
 
-	void SetTextOverCardAndButton (PZMonster goon)
+	void SetTextOverCard (PZMonster goon)
 	{
 		if (!goon.userMonster.isComplete)
 		{
@@ -196,23 +197,58 @@ public class CBKGoonCard : MonoBehaviour {
 			else
 			{
 				overCardLabel.text = "Completing...";
-				
-				healButtonParent.SetActive(true);
-				healButton.onClick = SpeedUpCombine;
-				healButton.label.text = goon.combineFinishGems.ToString();
-				healButton.icon.spriteName = gemIcon;
 			}
 			TintElements (true);
 		}
 		else if (goon.isHealing)
 		{
 			overCardLabel.text = "Healing...";
-			TintElements (true);
+			TintElements(true);
+		}
+		else if (goon.isEnhancing)
+		{
+			overCardLabel.text = "Enhancing...";
+			TintElements(true);
 		}
 		else
 		{
 			overCardLabel.text = "";
 			TintElements(false);
+		}
+	}
+	
+	void SetEnhanceButton(PZMonster goon)
+	{
+		if (goon.userMonster.isComplete && !goon.isHealing && !goon.isEnhancing)
+		{
+			healButtonParent.SetActive(true);
+			if (CBKMonsterManager.currentEnhancementMonster == null)
+			{
+				healButton.label.text = "ENHANCE";
+			}
+			else
+			{
+				healButton.label.text = goon.enhanceCost.ToString();
+			}
+			healButton.onClick = AddToEnhanceQueue;
+		}
+		else
+		{
+			healButtonParent.SetActive(false);
+		}
+	}
+	
+	void SetHealButton(PZMonster goon)
+	{
+		if (goon.userMonster.isComplete && !goon.isHealing && !goon.isEnhancing && goon.currHP < goon.maxHP)
+		{
+			healButtonParent.SetActive(true);
+			healButton.label.text = goon.healCost.ToString();
+			healButton.onClick = AddToHealQueue;
+		}
+		else
+		{
+			healButtonParent.SetActive(false);
 		}
 	}
 	
@@ -278,9 +314,29 @@ public class CBKGoonCard : MonoBehaviour {
 		InitEmptyTeam();
 	}
 	
+	void AddToEnhanceQueue()
+	{
+		if (CBKMonsterManager.currentEnhancementMonster != null)
+		{
+			if (CBKResourceManager.resources[(int)CBKResourceManager.ResourceType.FREE] < goon.enhanceCost)
+			{
+				CBKEventManager.Popup.CreateButtonPopup("Need more mulah", new string[]{"Okay"}, new Action[]{CBKEventManager.Popup.CloseTopPopupLayer});
+				return;
+			}
+		}
+		if (goon.userMonster.teamSlotNum > 0)
+		{
+			PopupTeamMemberToEnhanceQueue(goon);
+		}
+		else
+		{
+			CBKMonsterManager.instance.AddToEnhanceQueue(goon);
+		}
+	}
+	
 	void AddToHealQueue()
 	{
-		if (CBKResourceManager.instance.resources[(int)CBKResourceManager.ResourceType.FREE] < goon.healCost)
+		if (CBKResourceManager.resources[(int)CBKResourceManager.ResourceType.FREE] < goon.healCost)
 		{
 			CBKEventManager.Popup.CreateButtonPopup("Need more mulah", new string[]{"Okay"}, new Action[]{CBKEventManager.Popup.CloseTopPopupLayer});
 		}
@@ -297,6 +353,14 @@ public class CBKGoonCard : MonoBehaviour {
 	void SpeedUpCombine()
 	{
 		CBKMonsterManager.instance.SpeedUpCombine(goon);
+	}
+	
+	void PopupTeamMemberToEnhanceQueue(PZMonster monster)
+	{
+		CBKEventManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
+			new Action[]{delegate{RemoveFromTeam(); CBKMonsterManager.instance.AddToEnhanceQueue(monster);
+				CBKEventManager.Popup.CloseTopPopupLayer();}, 
+			CBKEventManager.Popup.CloseTopPopupLayer});
 	}
 	
 	void PopupTeamMemberToHealingQueue(PZMonster monster)

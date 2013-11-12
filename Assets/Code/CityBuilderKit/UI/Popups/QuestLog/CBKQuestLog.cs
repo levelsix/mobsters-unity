@@ -99,7 +99,7 @@ public class CBKQuestLog : MonoBehaviour {
 	{
 		ReturnToList();
 		
-		foreach (CBKFullQuest item in CBKQuestManager.instance.questDict.Values) 
+		foreach (CBKFullQuest item in CBKQuestManager.questDict.Values) 
 		{
 			CBKQuestEntry entry = CBKPoolManager.instance.Get(questEntryPrefab, Vector3.zero) as CBKQuestEntry;
 			entry.trans.parent = questGridParentTrans;

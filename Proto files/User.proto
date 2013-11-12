@@ -1,11 +1,15 @@
+//BAD!!! DON'T START NAMES WITH NEW OR COPY
+
 package com.lvl6.proto;
 
 option java_outer_classname = "UserProto";
 //DO NOT USE ID AS THE NAME OF A PROPERTY IN ANY PROTO
 
+//------------------------------------------------------------------------------------------
+
 //put in here because MinimumUserProto uses it.
 //Was in Clan.proto but that file references this file, so
-//import cycle is creeated, so not allowed.
+//import cycle is created, so not allowed.
 message MinimumClanProto {
 	optional int32 clanId = 1;
 	optional string name = 2;
@@ -29,6 +33,23 @@ message MinimumUserProto {
 message MinimumUserProtoWithLevel {
 	optional MinimumUserProto minUserProto = 1;
 	optional int32 level = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+message MinimumUserProtoWithFacebookId {
+	optional MinimumUserProto minUserProto = 1;
+	optional string facebookId = 2;
+}
+
+//------------------------------------------------------------------------------------------
+
+message UserFacebookInviteForSlotProto {
+	optional int32 inviteId = 1;
+	optional MinimumUserProtoWithFacebookId inviter = 2;
+	optional string recipientFacebookId = 3;
+	optional int64 timeOfInvite = 4;
+	optional int64 timeAccepted = 5;
 }
 
 //------------------------------------------------------------------------------------------
@@ -92,7 +113,7 @@ message FullUserProto {
 
 //------------------------------------------------------------------------------------------
 
-message StaticLevelInfoProto {
+message StaticUserLevelInfoProto {
 	optional int32 level = 1;
 	optional int32 requiredExperience = 2; 
 	optional int32 maxCash = 3;

@@ -99,15 +99,6 @@ namespace com.lvl6.proto
       get { return _numMinutesToExpand; }
       set { _numMinutesToExpand = value; }
     }
-
-    private int _speedupExpansionGemCost = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"speedupExpansionGemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int speedupExpansionGemCost
-    {
-      get { return _speedupExpansionGemCost; }
-      set { _speedupExpansionGemCost = value; }
-    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -262,13 +253,49 @@ namespace com.lvl6.proto
       get { return _center; }
       set { _center = value; }
     }
+
+    private string _roadImgName = "";
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"roadImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string roadImgName
+    {
+      get { return _roadImgName; }
+      set { _roadImgName = value; }
+    }
+
+    private string _mapTmxName = "";
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"mapTmxName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string mapTmxName
+    {
+      get { return _mapTmxName; }
+      set { _mapTmxName = value; }
+    }
+
+    private com.lvl6.proto.CoordinateProto _roadImgCoords = null;
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"roadImgCoords", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.CoordinateProto roadImgCoords
+    {
+      get { return _roadImgCoords; }
+      set { _roadImgCoords = value; }
+    }
     private readonly global::System.Collections.Generic.List<int> _taskIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"taskIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(8, Name=@"taskIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public global::System.Collections.Generic.List<int> taskIds
     {
       get { return _taskIds; }
     }
   
+
+    private string _attackMapLabelImgName = "";
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"attackMapLabelImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string attackMapLabelImgName
+    {
+      get { return _attackMapLabelImgName; }
+      set { _attackMapLabelImgName = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

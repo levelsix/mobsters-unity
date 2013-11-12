@@ -94,16 +94,19 @@ public class PZCombatManager : MonoBehaviour {
 		instance = this;
 	}
 	
+	void Start()
+	{
+		Init ();
+	}
+	
 	void OnEnable()
 	{
-		CBKEventManager.Scene.OnPuzzle += OnPuzzle;
 		CBKEventManager.Puzzle.OnDeploy += OnDeploy;
 		activePlayer.OnDeath += OnPlayerDeath;
 	}
 	
 	void OnDisable()
 	{
-		CBKEventManager.Scene.OnPuzzle -= OnPuzzle;
 		CBKEventManager.Puzzle.OnDeploy -= OnDeploy;
 		activePlayer.OnDeath -= OnPlayerDeath;
 	}
@@ -111,8 +114,21 @@ public class PZCombatManager : MonoBehaviour {
 	/// <summary>
 	/// Start this instance. Gets the combat going.
 	/// </summary>
-	void OnPuzzle()
+	void Init()
 	{
+		enemies.Clear();
+		
+		CBKWhiteboard.currTaskID = CBKWhiteboard.loadedDungeon.userTaskId;
+		
+		PZMonster mon;
+		List<string> goonsToAtlasLoad = new List<string>();
+		foreach (TaskStageProto stage in CBKWhiteboard.loadedDungeon.tsp)
+		{
+			mon = new PZMonster(stage.stageMonsters[0]);
+			enemies.Enqueue(mon);
+			goonsToAtlasLoad.Add(mon.monster.imagePrefix);
+		}
+		
 		winPopup.gameObject.SetActive(false);
 		losePopup.gameObject.SetActive(false);
 		
@@ -121,13 +137,19 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.unit.sprite.alpha = 0;
 		}
 		
-		foreach (PZMonster monster in CBKMonsterManager.instance.userTeam)
+		foreach (PZMonster monster in CBKMonsterManager.userTeam)
 		{
-			playerGoonies.Add(monster);
+			if (monster != null && monster.monster != null && monster.monster.monsterId > 0)
+			{
+				goonsToAtlasLoad.Add(monster.monster.imagePrefix);
+				playerGoonies.Add(monster);
+			}
 		}
 		
+		CBKAtlasUtil.instance.LoadAtlasesForSpriteNames(goonsToAtlasLoad);
+		
 		CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
-		deployPopup.Init(CBKMonsterManager.instance.userTeam);
+		deployPopup.Init(CBKMonsterManager.userTeam);
 		
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
@@ -156,7 +178,7 @@ public class PZCombatManager : MonoBehaviour {
 			if (goon.currHP > 0)
 			{
 				CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
-				deployPopup.Init(CBKMonsterManager.instance.userTeam);
+				deployPopup.Init(CBKMonsterManager.userTeam);
 				return;
 			}
 		}

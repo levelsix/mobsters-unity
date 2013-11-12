@@ -8,15 +8,15 @@ public class UMQLoader : MonoBehaviour {
 	[SerializeField]
 	GameObject createUserPopup;
 	
-	/// <summary>
-	/// The player unit.
-	/// DEBUG until we get a UnitManager
-	/// </summary>
-	[SerializeField]
-	CBKUnit playerUnit;
-	
 	// Use this for initialization
 	IEnumerator Start () {
+		
+		CBKFacebookManager.instance.Init();
+		
+		while (!CBKFacebookManager.hasTriedLogin)
+		{
+			yield return null;
+		}
 		
 		//Hang here while we set up the connetion
 		//TODO: Time out if we've been hanging here for too long
@@ -45,17 +45,19 @@ public class UMQLoader : MonoBehaviour {
 		StartupResponseProto response = (StartupResponseProto) UMQNetworkManager.responseDict[tagNum];
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		UMQNetworkManager.instance.WriteDebug(response.startupStatus.ToString());
+		UMQNetworkManager.instance.WriteDebug("Startup Status: " + response.startupStatus.ToString());
 		
-		UMQNetworkManager.instance.WriteDebug(response.updateStatus.ToString());
+		UMQNetworkManager.instance.WriteDebug("Update Status: " + response.updateStatus.ToString());
 		
-		//Debug.Log("Last Login: " + response.sender.lastLoginTime + ", Current: " + CBKUtil.timeNow);
+		CBKDataManager.instance.LoadStaticData(response.staticDataStuffProto);
 		
-		RetrieveStaticDataRequestProto staticDataRequest = new RetrieveStaticDataRequestProto();
-		
-		LoadStaticData(response);
+		CBKUtil.LoadLocalUser (response.sender);
 		
 		CBKChatManager.instance.Init(response);
+		
+		CBKQuestManager.instance.Init(response);
+		
+		CBKMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
 		
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{
@@ -64,43 +66,12 @@ public class UMQLoader : MonoBehaviour {
 		else
 		{
 			CBKWhiteboard.constants = response.startupConstants;
-			CBKUtil.LoadLocalUser (response.sender);
-			CBKEventManager.Loading.LoadBuildings();
 			CBKResourceManager.instance.Init(response.sender.level, response.sender.experience,
 				100/*response.experienceRequiredForNextLevel*/, response.sender.cash, response.sender.gems);
 			
-			
-			if (CBKEventManager.Scene.OnCity != null)
-			{
-				CBKEventManager.Scene.OnCity();
-			}
-			
-		}
-		
-		CBKQuestManager.instance.Init(response, staticDataRequest);
-		
-		CBKMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing);
-		
-		foreach (FullCityProto city in response.allCities) 
-		{
-			foreach (int item in city.taskIds) 
-			{
-				staticDataRequest.taskIds.Add(item);
-			}
-		}
-		
-		CBKDataManager.instance.RequestStaticData(staticDataRequest);
-	}
-	
-	void LoadStaticData(StartupResponseProto response)
-	{
-		foreach (var item in response.staticStructs) 
-		{
-			CBKDataManager.instance.Load(item, item.structId);
-		}
-		foreach (var item in response.staticMonsters) 
-		{
-			CBKDataManager.instance.Load(item, item.monsterId);
+			CBKWhiteboard.currSceneType = CBKWhiteboard.SceneType.CITY;
+			CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.LOADING_SCENE);
 		}
 	}
+
 }

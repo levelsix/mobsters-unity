@@ -15,7 +15,7 @@ public class CBKResourceManager : MonoBehaviour {
 	/// The resources.
 	/// Indexed using the AOC2Values.Buildings.Resources enum
 	/// </summary>
-	public int[] resources = {0, 0};
+	public static int[] resources = {0, 0};
 	
 	int _level = 0;
 	

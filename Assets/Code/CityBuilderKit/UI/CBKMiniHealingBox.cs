@@ -41,7 +41,22 @@ public class CBKMiniHealingBox : MonoBehaviour {
 	
 	void Remove()
 	{
-		CBKMonsterManager.instance.RemoveFromHealQueue(monster);
+		if (monster.isHealing)
+		{
+			CBKMonsterManager.instance.RemoveFromHealQueue(monster);
+		}
+		else if (monster.isEnhancing)
+		{
+			if (monster == CBKMonsterManager.currentEnhancementMonster)
+			{
+				Debug.Log("Clear enhance queue");
+				CBKMonsterManager.instance.ClearEnhanceQueue();
+			}
+			else
+			{
+				CBKMonsterManager.instance.RemoveFromEnhanceQueue(monster);
+			}
+		}
 	}
 	
 	void Update()

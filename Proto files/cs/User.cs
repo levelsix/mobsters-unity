@@ -148,6 +148,89 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MinimumUserProtoWithFacebookId")]
+  public partial class MinimumUserProtoWithFacebookId : global::ProtoBuf.IExtensible
+  {
+    public MinimumUserProtoWithFacebookId() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _minUserProto = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"minUserProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto minUserProto
+    {
+      get { return _minUserProto; }
+      set { _minUserProto = value; }
+    }
+
+    private string _facebookId = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"facebookId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string facebookId
+    {
+      get { return _facebookId; }
+      set { _facebookId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserFacebookInviteForSlotProto")]
+  public partial class UserFacebookInviteForSlotProto : global::ProtoBuf.IExtensible
+  {
+    public UserFacebookInviteForSlotProto() {}
+    
+
+    private int _inviteId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"inviteId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int inviteId
+    {
+      get { return _inviteId; }
+      set { _inviteId = value; }
+    }
+
+    private com.lvl6.proto.MinimumUserProtoWithFacebookId _inviter = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"inviter", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProtoWithFacebookId inviter
+    {
+      get { return _inviter; }
+      set { _inviter = value; }
+    }
+
+    private string _recipientFacebookId = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"recipientFacebookId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string recipientFacebookId
+    {
+      get { return _recipientFacebookId; }
+      set { _recipientFacebookId = value; }
+    }
+
+    private long _timeOfInvite = default(long);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"timeOfInvite", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long timeOfInvite
+    {
+      get { return _timeOfInvite; }
+      set { _timeOfInvite = value; }
+    }
+
+    private long _timeAccepted = default(long);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"timeAccepted", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long timeAccepted
+    {
+      get { return _timeAccepted; }
+      set { _timeAccepted = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FullUserProto")]
   public partial class FullUserProto : global::ProtoBuf.IExtensible
   {
@@ -527,10 +610,10 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StaticLevelInfoProto")]
-  public partial class StaticLevelInfoProto : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StaticUserLevelInfoProto")]
+  public partial class StaticUserLevelInfoProto : global::ProtoBuf.IExtensible
   {
-    public StaticLevelInfoProto() {}
+    public StaticUserLevelInfoProto() {}
     
 
     private int _level = default(int);

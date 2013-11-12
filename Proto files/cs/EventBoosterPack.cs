@@ -9,6 +9,7 @@
 
 // Generated from: EventBoosterPack.proto
 // Note: requires additional types generated from: BoosterPackStuff.proto
+// Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
@@ -137,6 +138,13 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _updatedOrNew = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"updatedOrNew", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> updatedOrNew
+    {
+      get { return _updatedOrNew; }
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"PurchaseBoosterPackStatus")]
     public enum PurchaseBoosterPackStatus
     {
@@ -144,17 +152,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_ENOUGH_GOLD", Value=2)]
-      NOT_ENOUGH_GOLD = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=2)]
+      FAIL_INSUFFICIENT_GEMS = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_ENOUGH_SILVER", Value=3)]
-      NOT_ENOUGH_SILVER = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=4)]
-      OTHER_FAIL = 4,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"CLIENT_TOO_APART_FROM_SERVER_TIME", Value=5)]
-      CLIENT_TOO_APART_FROM_SERVER_TIME = 5
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;

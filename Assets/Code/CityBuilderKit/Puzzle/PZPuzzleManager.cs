@@ -9,7 +9,22 @@ public class PZPuzzleManager : MonoBehaviour {
 	[SerializeField]
 	UILabel comboLabel;
 	
-	public int swapLock = 0;
+	int _swapLock = 0;
+	
+	public int swapLock
+	{
+		get
+		{
+			return _swapLock;
+		}
+		set
+		{
+			_swapLock = value;
+			Debug.Log("Swaplock: " + _swapLock);
+		}
+	}
+	
+	
 	
 	public bool processingSwap = false;
 	
@@ -64,6 +79,8 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	public const float WAIT_BETWEEN_LINES = .3f;
 	
+	bool setUpBoard = false;
+	
 	public void Awake()
 	{
 		instance = this;
@@ -73,22 +90,29 @@ public class PZPuzzleManager : MonoBehaviour {
 		currGems = new int[colors.Length];
 		
 		ResetCombo();
+		
+		setUpBoard = false;
+		
+		swapLock = 0;
 	}
 	
 	void OnEnable()
 	{
-		CBKEventManager.Scene.OnPuzzle += OnPuzzle;
+		CBKEventManager.Puzzle.OnDeploy += OnDeploy;
 	}
 	
 	void OnDisable()
 	{
-		CBKEventManager.Scene.OnPuzzle -= OnPuzzle;
+		CBKEventManager.Puzzle.OnDeploy -= OnDeploy;
 	}
 	
-	void OnPuzzle()
+	void OnDeploy(PZMonster monster)
 	{
-		swapLock = 0;
-		StartCoroutine(InitBoard());
+		if (!setUpBoard)
+		{
+			StartCoroutine(InitBoard());
+			setUpBoard = true;
+		}
 	}
 	
 	public void ResetCombo()

@@ -11,6 +11,7 @@ public class PZCityModeButton : MonoBehaviour {
 	void OnClick()
 	{
 		Debug.Log("To City");
-		CBKEventManager.Scene.OnCity();
+		CBKWhiteboard.currSceneType = CBKWhiteboard.SceneType.CITY;
+		CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.LOADING_SCENE);
 	}
 }

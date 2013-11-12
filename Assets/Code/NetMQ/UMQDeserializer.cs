@@ -34,7 +34,6 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_LOAD_CITY_EVENT, typeof(LoadCityResponseProto)},
 		{EventProtocolResponse.S_QUEST_PROGRESS_EVENT, typeof(QuestProgressResponseProto)},
 		{EventProtocolResponse.S_QUEST_ACCEPT_EVENT, typeof(QuestAcceptResponseProto)},
-		{EventProtocolResponse.S_RETRIEVE_STATIC_DATA_EVENT, typeof(RetrieveStaticDataResponseProto)},
 		{EventProtocolResponse.S_QUEST_REDEEM_EVENT, typeof(QuestRedeemResponseProto)},
 		{EventProtocolResponse.S_BEGIN_DUNGEON_EVENT, typeof(BeginDungeonResponseProto)},
 		{EventProtocolResponse.S_UPDATE_MONSTER_HEALTH_EVENT, typeof(UpdateMonsterHealthResponseProto)},
@@ -45,7 +44,8 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT, typeof(HealMonsterWaitTimeCompleteResponseProto)},
 		{EventProtocolResponse.S_COMBINE_USER_MONSTER_PIECES_EVENT, typeof(CombineUserMonsterPiecesResponseProto)},
 		{EventProtocolResponse.S_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT, typeof(EnhancementWaitTimeCompleteResponseProto)},
-		{EventProtocolResponse.S_SUBMIT_MONSTER_ENHANCEMENT_EVENT, typeof(SubmitMonsterEnhancementResponseProto)}
+		{EventProtocolResponse.S_SUBMIT_MONSTER_ENHANCEMENT_EVENT, typeof(SubmitMonsterEnhancementResponseProto)},
+		{EventProtocolResponse.S_PURGE_STATIC_DATA_EVENT, typeof(PurgeClientStaticDataResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

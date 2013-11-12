@@ -162,6 +162,11 @@ public class CBKResourceCollector : MonoBehaviour {
 			_building.userStructProto.lastRetrieved = CBKUtil.timeNowMillis;
 			hasResourcesPopup.SetActive(false);
 			
+			if (CBKEventManager.Town.OnCollectFromBuilding != null)
+			{
+				CBKEventManager.Town.OnCollectFromBuilding(_building);
+			}
+			
 			SendCollectRequest();
 		}
 	}

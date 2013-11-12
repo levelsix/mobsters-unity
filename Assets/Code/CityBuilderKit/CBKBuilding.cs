@@ -221,21 +221,14 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	public CBKResourceManager.ResourceType baseResource {
 		get
 		{
-			if (structProto.cashPrice > structProto.gemPrice)
-			{
-				return CBKResourceManager.ResourceType.FREE;
-			}
-			else
-			{
-				return CBKResourceManager.ResourceType.PREMIUM;
-			}
+			return structProto.isPremiumCurrency ? CBKResourceManager.ResourceType.PREMIUM : CBKResourceManager.ResourceType.FREE;
 		}
 	}
 	
 	public int basePrice {
 		get
 		{
-			return Mathf.Max(structProto.cashPrice, structProto.gemPrice);
+			return structProto.buildPrice;
 		}
 	}
 	
@@ -561,6 +554,39 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 			sprite.color = Color.Lerp(baseColor, _currColor, _ppPow);
 			
 			yield return new WaitForEndOfFrame();
+		}
+	}
+	
+	public void Sell()
+	{
+		if (_selected)
+		{
+			Deselect();
+		}
+		
+		CBKGridManager.instance.RemoveBuilding(this);
+		
+		SellNormStructureRequestProto request = new SellNormStructureRequestProto();
+		request.sender = CBKWhiteboard.localMup;
+		request.userStructId = userStructProto.userStructId;
+		
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_SELL_NORM_STRUCTURE_EVENT, DealWithSell);
+		
+		CBKResourceManager.ResourceType resType = structProto.isPremiumCurrency ? CBKResourceManager.ResourceType.PREMIUM : CBKResourceManager.ResourceType.FREE;
+		
+		CBKResourceManager.instance.Collect(resType, structProto.buildPrice / 2);
+		
+		Pool ();
+	}
+	
+	void DealWithSell(int tagNum)
+	{
+		SellNormStructureResponseProto response = UMQNetworkManager.responseDict[tagNum] as SellNormStructureResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != SellNormStructureResponseProto.SellNormStructureStatus.SUCCESS)
+		{
+			Debug.LogError("Problem selling building: " + response.status.ToString());
 		}
 	}
 	

@@ -34,4 +34,16 @@ public static class CBKWhiteboard {
 	
 	public static long currTaskID;
 	
+	public static BeginDungeonRequestProto dungeonToLoad;
+	public static BeginDungeonResponseProto loadedDungeon;
+	
+	public static LoadCityResponseProto loadedNeutralCity;
+	public static LoadPlayerCityResponseProto loadedPlayerCity;
+	
+	public enum SceneType {CITY, PUZZLE};
+	
+	public static SceneType currSceneType = SceneType.CITY;
+	
+	public static StaticUserLevelInfoProto nextLevelInfo;
+	
 }

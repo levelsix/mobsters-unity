@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: EventUser.proto
+// Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
@@ -234,6 +235,15 @@ namespace com.lvl6.proto
       get { return _requestedUserIds; }
     }
   
+
+    private bool _includeCurMonsterTeam = default(bool);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"includeCurMonsterTeam", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool includeCurMonsterTeam
+    {
+      get { return _includeCurMonsterTeam; }
+      set { _includeCurMonsterTeam = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -258,6 +268,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.FullUserProto> requestedUsers
     {
       get { return _requestedUsers; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserCurrentMonsterTeamProto> _curTeam = new global::System.Collections.Generic.List<com.lvl6.proto.UserCurrentMonsterTeamProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"curTeam", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserCurrentMonsterTeamProto> curTeam
+    {
+      get { return _curTeam; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

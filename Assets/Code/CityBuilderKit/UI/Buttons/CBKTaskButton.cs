@@ -1,12 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// @author Rob Giusti
 /// CBK task button, the button on the right-side of the task bar.
 /// When in BUILDING mode, this is the upgrade/finish upgrade button.
 /// </summary>
-public class CBKTaskButton : CBKTriggerPopupButton {
+public class CBKTaskButton : CBKTriggerPopupButton, CBKIPoolable {
+	
+	public GameObject gObj {
+		get {
+			return gameObj;
+		}
+	}
+	
+	CBKTaskButton _prefab;
+	
+	public CBKIPoolable prefab {
+		get {
+			return _prefab;
+		}
+		set {
+			_prefab = value as CBKTaskButton;
+		}
+	}
+	
+	[HideInInspector]
+	public Transform trans;
+	
+	public Transform transf {
+		get {
+			return trans;
+		}
+	}
 	
 	[HideInInspector]
 	public GameObject gameObj;
@@ -19,42 +46,116 @@ public class CBKTaskButton : CBKTriggerPopupButton {
 	
 	CBKBuilding currBuilding;
 	
+	CBKUnit currUnit;
+	
+	public enum Mode {SELL, UPGRADE, FINISH, ENGAGE, HEAL, ENHANCE};
+	
+	Mode currMode;
+	
+	System.Collections.Generic.Dictionary<Mode, string> modeTexts = new System.Collections.Generic.Dictionary<Mode, string>() {
+		{Mode.SELL, "SELL"},
+		{Mode.UPGRADE, "UPGRADE"},
+		{Mode.FINISH, "FINISH"},
+		{Mode.ENGAGE, "ENGAGE"},
+		{Mode.HEAL, "HEAL"},
+		{Mode.ENHANCE, "ENHANCE"}
+	};
+	
+	System.Collections.Generic.Dictionary<Mode, string> modeSprites = new System.Collections.Generic.Dictionary<Mode, string>() {
+		{Mode.UPGRADE, "upgradeicon"},
+		{Mode.SELL, "sellicon"},
+		{Mode.FINISH, "diamond"},
+		{Mode.ENGAGE, "moneystack"}
+	};
+	
 	void Awake()
 	{
 		gameObj = gameObject;
+		trans = transform;
 	}
 	
-	public void SetupBuilding(CBKBuilding building)
+	public CBKIPoolable Make (Vector3 origin)
+	{
+		CBKTaskButton button = Instantiate(this, origin, Quaternion.identity) as CBKTaskButton;
+		button.prefab = this;
+		return button;
+	}
+	
+	public void Setup(Mode mode, CBKBuilding building)
 	{
 		currBuilding = building;
+		currUnit = null;
 		
-		if (currBuilding.locallyOwned)
-		{
-			if (building.userStructProto.isComplete)
-			{
-				text.text = "UPGRADE";
-			}
-			else
-			{
-				text.text = "FINISH";
-			}
-		}
-		else
-		{
-			text.text = "ENGAGE";
-		}
+		SetMode (mode);
+	}
+	
+	public void Setup(Mode mode, CBKUnit unit)
+	{
+		currUnit = unit;
+		currBuilding = null;
+		
+		SetMode(mode);
+	}
+
+	void SetMode (Mode mode)
+	{
+		currMode = mode; 
+		
+		text.text = modeTexts[currMode];
+		icon.spriteName = modeSprites[currMode];
 	}
 	
 	public override void OnClick ()
 	{
-		if (currBuilding.locallyOwned)
+		switch(currMode)
 		{
-			base.OnClick ();
-			popup.GetComponent<CBKBuildingUpgradePopup>().Init(currBuilding);
+		case Mode.FINISH:
+			ClickFinish();
+			break;
+		case Mode.ENGAGE:
+			ClickEngage();
+			break;
+		case Mode.UPGRADE:
+			ClickUpgrade();
+			break;
+		case Mode.SELL:
+			ClickSell();
+			break;
+		default:
+			break;
 		}
-		else
+	}
+	
+	void ClickFinish()
+	{
+		currBuilding.upgrade.FinishWithPremium();
+	}
+	
+	void ClickEngage()
+	{
+		if (currBuilding != null)
 		{
 			currBuilding.GetComponent<CBKTaskable>().EngageTask();
 		}
+		else
+		{
+			currUnit.GetComponent<CBKTaskable>().EngageTask();
+		}
+	}
+	
+	void ClickUpgrade()
+	{
+		base.OnClick();
+		popup.GetComponent<CBKBuildingUpgradePopup>().Init(currBuilding);
+	}
+	
+	void ClickSell()
+	{
+		currBuilding.Sell();
+	}
+	
+	public void Pool ()
+	{
+		CBKPoolManager.instance.Pool(this);
 	}
 }

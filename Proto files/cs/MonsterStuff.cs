@@ -569,4 +569,30 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserCurrentMonsterTeamProto")]
+  public partial class UserCurrentMonsterTeamProto : global::ProtoBuf.IExtensible
+  {
+    public UserCurrentMonsterTeamProto() {}
+    
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _currentTeam = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"currentTeam", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> currentTeam
+    {
+      get { return _currentTeam; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
 }

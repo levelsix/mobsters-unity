@@ -10,23 +10,23 @@ using com.lvl6.proto;
 /// </summary>
 public class CBKMonsterManager : MonoBehaviour {
 	
-	public Dictionary<long, PZMonster> userMonsters = new Dictionary<long, PZMonster>();
+	public static Dictionary<long, PZMonster> userMonsters = new Dictionary<long, PZMonster>();
 	
-	public PZMonster[] userTeam = new PZMonster[TEAM_SLOTS];
+	public static PZMonster[] userTeam = new PZMonster[TEAM_SLOTS];
 	
-	public List<PZMonster> healingMonsters = new List<PZMonster>();
+	public static List<PZMonster> healingMonsters = new List<PZMonster>();
 	
-	public List<PZMonster> enhancementFeeders = new List<PZMonster>();
+	public static List<PZMonster> enhancementFeeders = new List<PZMonster>();
 	
-	public List<PZMonster> combiningMonsters = new List<PZMonster>();
+	public static List<PZMonster> combiningMonsters = new List<PZMonster>();
 	
-	public PZMonster currentEnhancementMonster;
+	public static PZMonster currentEnhancementMonster;
 
 	public const int TEAM_SLOTS = 3;
 	
-	private int _monstersCount;
+	private static int _monstersCount;
 	
-	public int monstersOnTeam
+	public static int monstersOnTeam
 	{
 		get
 		{
@@ -34,11 +34,11 @@ public class CBKMonsterManager : MonoBehaviour {
 		}
 	}
 	
-	SubmitMonsterEnhancementRequestProto enhanceRequestProto;
+	SubmitMonsterEnhancementRequestProto enhanceRequestProto = null;
 	
-	HealMonsterRequestProto healRequestProto;
+	HealMonsterRequestProto healRequestProto = null;
 	
-	CombineUserMonsterPiecesRequestProto combineRequestProto;
+	CombineUserMonsterPiecesRequestProto combineRequestProto = null;
 	
 	public static CBKMonsterManager instance;
 	
@@ -47,14 +47,14 @@ public class CBKMonsterManager : MonoBehaviour {
 		instance = this;
 	}
 	
-	public void Init(List<FullUserMonsterProto> monsters, List<UserMonsterHealingProto> healing)
+	public void Init(List<FullUserMonsterProto> monsters, List<UserMonsterHealingProto> healing, UserEnhancementProto enhancement)
 	{
 		PZMonster mon;
 		_monstersCount = 0;
 		foreach (FullUserMonsterProto item in monsters) 
 		{
 			mon = new PZMonster(item);
-			Debug.Log("Adding monster " + item.monsterId);
+			Debug.Log("Adding monster " + item.userMonsterId);
 			userMonsters.Add(item.userMonsterId, mon);
 			if (item.teamSlotNum > 0)
 			{
@@ -71,6 +71,20 @@ public class CBKMonsterManager : MonoBehaviour {
 			mon = userMonsters[item.userMonsterId];
 			mon.healingMonster = item;
 			healingMonsters.Add(mon);
+		}
+		if (enhancement != null)
+		{
+			currentEnhancementMonster = userMonsters[enhancement.baseMonster.userMonsterId];
+			currentEnhancementMonster.enhancement = enhancement.baseMonster;
+			
+			Debug.Log("Ehancement Base: " + currentEnhancementMonster.enhancement.userMonsterId);
+			
+			foreach (UserEnhancementItemProto item in enhancement.feeders) 
+			{
+				mon = userMonsters[item.userMonsterId];
+				mon.enhancement = item;
+				enhancementFeeders.Add (mon);
+			}
 		}
 		
 		healingMonsters.Sort(new HealingMonsterSorter());
@@ -108,6 +122,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	
 	void PrepareNewEnhanceRequest()
 	{
+		Debug.LogWarning("Preparing Enhance Request");
 		enhanceRequestProto = new SubmitMonsterEnhancementRequestProto();
 		enhanceRequestProto.sender = CBKWhiteboard.localMup;
 	}
@@ -147,6 +162,21 @@ public class CBKMonsterManager : MonoBehaviour {
 				yield return null;
 			}
 		}
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT, null);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		EnhancementWaitTimeCompleteResponseProto response = UMQNetworkManager.responseDict[tagNum] as EnhancementWaitTimeCompleteResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus.SUCCESS)
+		{
+			Debug.LogError("Enhance Wait Complete done messed: " + response.status.ToString());
+		}
+		
 	}
 	
 	void SendStartHealRequest ()
@@ -191,6 +221,8 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		if (enhancementFeeders.Count > 0 && enhancementFeeders[0].finishEnhanceTime <= CBKUtil.timeNowMillis)
 		{
+			Debug.Log("Here...");
+			
 			EnhancementWaitTimeCompleteRequestProto request = new EnhancementWaitTimeCompleteRequestProto();
 			request.sender = CBKWhiteboard.localMup;
 			request.isSpeedup = false;
@@ -208,10 +240,13 @@ public class CBKMonsterManager : MonoBehaviour {
 			
 			StartCoroutine(SendCompleteEnhanceRequest(request));
 			
+			/*
 			if (enhancementFeeders.Count == 0)
 			{
 				currentEnhancementMonster.enhancement = null;
+				currentEnhancementMonster = null;
 			}
+			*/
 		}
 	}
 	
@@ -292,6 +327,11 @@ public class CBKMonsterManager : MonoBehaviour {
 		if (response.status != EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus.SUCCESS)
 		{
 			Debug.LogError("Problem completing enhancement: " + response.status.ToString());
+		}
+		
+		if (CBKEventManager.Goon.OnEnhanceQueueChanged != null)
+		{
+			CBKEventManager.Goon.OnEnhanceQueueChanged();
 		}
 	}
 			
@@ -509,7 +549,7 @@ public class CBKMonsterManager : MonoBehaviour {
 		monster.enhancement.userMonsterId = monster.userMonster.userMonsterId;
 		
 		//If this is the new base monster, set it up as such
-		if (currentEnhancementMonster == null)
+		if (currentEnhancementMonster == null || currentEnhancementMonster.monster == null || currentEnhancementMonster.monster.monsterId == 0)
 		{
 			monster.enhancement.expectedStartTimeMillis = 0;
 			currentEnhancementMonster = monster;

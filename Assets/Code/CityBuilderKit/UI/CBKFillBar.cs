@@ -6,16 +6,16 @@ public class CBKFillBar : MonoBehaviour {
 	UISprite bar;
 	
 	[SerializeField]
-	float maxSize;
+	int maxSize;
 	
 	[SerializeField]
-	float minSize;
+	int minSize;
 	
 	public float fill
 	{
 		set
 		{
-			bar.width = (int)((maxSize - minSize) * value + minSize);
+			bar.width = Mathf.Clamp((int)((maxSize - minSize) * value + minSize), minSize, maxSize);
 		}
 	}
 	
@@ -23,5 +23,4 @@ public class CBKFillBar : MonoBehaviour {
 	{
 		bar = GetComponent<UISprite>();
 	}
-	
 }

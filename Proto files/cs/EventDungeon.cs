@@ -81,8 +81,17 @@ namespace com.lvl6.proto
       set { _userTaskId = value; }
     }
 
+    private int _taskId = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"taskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int taskId
+    {
+      get { return _taskId; }
+      set { _taskId = value; }
+    }
+
     private com.lvl6.proto.BeginDungeonResponseProto.BeginDungeonStatus _status = com.lvl6.proto.BeginDungeonResponseProto.BeginDungeonStatus.SUCCESS;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.BeginDungeonResponseProto.BeginDungeonStatus.SUCCESS)]
     public com.lvl6.proto.BeginDungeonResponseProto.BeginDungeonStatus status
     {
@@ -149,6 +158,15 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
+
+    private bool _firstTimeUserWonTask = default(bool);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"firstTimeUserWonTask", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool firstTimeUserWonTask
+    {
+      get { return _firstTimeUserWonTask; }
+      set { _firstTimeUserWonTask = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -184,6 +202,24 @@ namespace com.lvl6.proto
       get { return _updatedOrNew; }
     }
   
+
+    private int _taskId = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"taskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int taskId
+    {
+      get { return _taskId; }
+      set { _taskId = value; }
+    }
+
+    private bool _userWon = default(bool);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userWon", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool userWon
+    {
+      get { return _userWon; }
+      set { _userWon = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"EndDungeonStatus")]
     public enum EndDungeonStatus
     {

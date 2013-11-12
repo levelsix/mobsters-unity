@@ -25,7 +25,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return (healingMonster != null);
+			return healingMonster != null && healingMonster.userMonsterId > 0;
 		}
 	}
 	
@@ -238,6 +238,16 @@ public class PZMonster {
 	}
 	
 	#region Experience
+	
+	public float PercentageTowardsNextLevel()
+	{
+		return PercentageOfLevelup(userMonster.currentExp);
+	}
+	
+	public float PercentageOfLevelup(float totalExp)
+	{
+		return (totalExp - ExpForLevel(userMonster.currentLvl - 1)) / (userMonster.currentLvl * 1000);
+	}
 	
 	int ExpForLevel(int level)
 	{

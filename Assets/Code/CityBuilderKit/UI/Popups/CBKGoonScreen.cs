@@ -27,12 +27,35 @@ public class CBKGoonScreen : MonoBehaviour {
 	GameObject healingQueueParent;
 	
 	[SerializeField]
-	CBKActionButton healingQueueSpeedUpButton;
+	GameObject enhanceQueueParent;
 	
 	[SerializeField]
-	UILabel healingQueueTotalTime;
+	List<CBKMiniHealingBox> enhanceBoxes;
+	
+	[SerializeField]
+	CBKActionButton speedUpButton;
+	
+	[SerializeField]
+	UILabel totalTimeLabel;
+	
+	[SerializeField]
+	CBKMiniHealingBox enhanceBaseBox;
+	
+	[SerializeField]
+	UILabel enhanceDetails;
+	
+	[SerializeField]
+	UISprite enhanceUnderBar;
+	
+	[SerializeField]
+	UISprite enhanceOverBar;
+	
+	[SerializeField]
+	UIPanel scrollPanel;
 	
 	#endregion
+	
+	bool healMode = true;
 	
 	#region Properties
 	
@@ -73,35 +96,34 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	#endregion
 	
-	public void Init(PZMonster[] teamGoons, Dictionary<long, PZMonster> playerGoons, List<PZMonster> healings)
+	public void OrganizeCards()
 	{
-		#region Set Up Cards
-		
-		int i;
-		for (i = 0; i < teamGoons.Length; i++) 
-		{
-			
-			if (teamGoons[i] == null || teamGoons[i].monster.monsterId <= 0)
-			{
-				//Debug.Log("Init empty");
-				teamCards[i].InitEmptyTeam();
-			}
-			else
-			{
-				//Debug.Log("Team slot not empty");
-				teamCards[i].Init(teamGoons[i]);
-			}
-		}
-		
-		OrganizeReserveCards (teamGoons, playerGoons);
-		
-		#endregion
-		
-		#region Bottom Healing Queue
-		
-		OrganizeHealingQueue (healings);
-		
-		#endregion
+		OrganizeTeamCards();
+		OrganizeReserveCards();
+	}
+	
+	public void InitHeal()
+	{	
+		healMode = true;
+		OrganizeCards();	
+		OrganizeHealingQueue (CBKMonsterManager.healingMonsters);
+		enhanceQueueParent.SetActive(false);
+		speedUpButton.onClick = TrySpeedUpHeal;
+	}
+	
+	public void InitEnhance()
+	{
+		healMode = false;
+		OrganizeCards();
+		OrganizeEnhanceQueue();
+		healingQueueParent.SetActive(false);
+		speedUpButton.onClick = TrySpeedUpEnhance;
+	}
+	
+	void Start()
+	{
+		scrollPanel.clipRange = new Vector4(scrollPanel.clipRange.x, scrollPanel.clipRange.y, 
+			Mathf.Min(scrollPanel.clipRange.z, Screen.width), scrollPanel.clipRange.w);
 	}
 	
 	void OnEnable()
@@ -109,9 +131,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		CBKEventManager.Goon.OnMonsterAddTeam += OnAddTeamMember;
 		CBKEventManager.Goon.OnMonsterRemoveTeam += OnRemoveTeamMember;
 		CBKEventManager.Goon.OnHealQueueChanged += OnHealQueueChanged;
-		healingQueueSpeedUpButton.onClick += TrySpeedUpHeal;
-		
-		Init (CBKMonsterManager.instance.userTeam, CBKMonsterManager.instance.userMonsters, CBKMonsterManager.instance.healingMonsters);
+		CBKEventManager.Goon.OnEnhanceQueueChanged += OnEnhanceQueueChanged;
 	}
 	
 	void OnDisable()
@@ -119,12 +139,37 @@ public class CBKGoonScreen : MonoBehaviour {
 		CBKEventManager.Goon.OnMonsterAddTeam -= OnAddTeamMember;
 		CBKEventManager.Goon.OnMonsterRemoveTeam -= OnRemoveTeamMember;
 		CBKEventManager.Goon.OnHealQueueChanged -= OnHealQueueChanged;
-		healingQueueSpeedUpButton.onClick -= TrySpeedUpHeal;
+		CBKEventManager.Goon.OnEnhanceQueueChanged -= OnEnhanceQueueChanged;
+	}
+
+	void OrganizeTeamCards ()
+	{
+		int i;
+		for (i = 0; i < CBKMonsterManager.userTeam.Length; i++) 
+		{
+			
+			if (CBKMonsterManager.userTeam[i] == null || CBKMonsterManager.userTeam[i].monster.monsterId <= 0)
+			{
+				//Debug.Log("InitHeal empty");
+				teamCards[i].InitEmptyTeam();
+			}
+			else
+			{
+				if (healMode)
+				{
+					teamCards[i].InitHeal(CBKMonsterManager.userTeam[i]);
+				}
+				else
+				{
+					teamCards[i].InitLab(CBKMonsterManager.userTeam[i]);
+				}
+			}
+		}
 	}
 	
 	void OrganizeReserveCards()
 	{
-		OrganizeReserveCards(CBKMonsterManager.instance.userTeam, CBKMonsterManager.instance.userMonsters);
+		OrganizeReserveCards(CBKMonsterManager.userTeam, CBKMonsterManager.userMonsters);
 	}
 	
 	void OrganizeReserveCards (PZMonster[] teamGoons, Dictionary<long, PZMonster> playerGoons)
@@ -140,10 +185,17 @@ public class CBKGoonScreen : MonoBehaviour {
 			{
 				AddReserveCardSlot();
 			}
-			reserveCards[i++].Init (item.Value);
+			if (healMode)
+			{
+				reserveCards[i++].InitHeal(item.Value);
+			}
+			else
+			{
+				reserveCards[i++].InitLab(item.Value);
+			}
 		}
 		
-		for (i = playerGoons.Count - CBKMonsterManager.instance.monstersOnTeam; i < playerSlots - CBKMonsterManager.instance.monstersOnTeam; i++)
+		for (i = playerGoons.Count - CBKMonsterManager.monstersOnTeam; i < playerSlots - CBKMonsterManager.monstersOnTeam; i++)
 		{
 			if (lastIndex < i)
 			{
@@ -166,7 +218,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void OrganizeHealingQueue()
 	{
-		OrganizeHealingQueue(CBKMonsterManager.instance.healingMonsters);
+		OrganizeHealingQueue(CBKMonsterManager.healingMonsters);
 	}
 	
 	void OrganizeHealingQueue(List<PZMonster> healingMonsters)
@@ -195,6 +247,50 @@ public class CBKGoonScreen : MonoBehaviour {
 		}
 	}
 	
+	void OrganizeEnhanceQueue()
+	{
+		if(CBKMonsterManager.currentEnhancementMonster == null)
+		{
+			enhanceQueueParent.SetActive(false);
+			return;
+		}
+		
+		enhanceBaseBox.Init (CBKMonsterManager.currentEnhancementMonster);
+		enhanceBaseBox.SetBar(false);
+		enhanceDetails.text = CBKMonsterManager.currentEnhancementMonster.monster.displayName + "\nLvl: "
+			+ CBKMonsterManager.currentEnhancementMonster.userMonster.currentLvl;
+		Debug.Log(CBKMonsterManager.currentEnhancementMonster.enhancement.userMonsterId);
+		
+		enhanceOverBar.fillAmount = CBKMonsterManager.currentEnhancementMonster.PercentageTowardsNextLevel();
+		
+		int expFromQueue = 0;
+		foreach (var item in CBKMonsterManager.enhancementFeeders) 
+		{
+			expFromQueue += item.enhanceXP;
+		}
+		
+		enhanceUnderBar.fillAmount = CBKMonsterManager.currentEnhancementMonster.PercentageOfLevelup(
+			CBKMonsterManager.currentEnhancementMonster.userMonster.currentExp + expFromQueue);
+		
+		enhanceQueueParent.SetActive(true);
+		
+		while(enhanceBoxes.Count < CBKMonsterManager.enhancementFeeders.Count)
+		{
+			AddEnhanceBox();
+		}
+		
+		int i;
+		for (i = 0; i < CBKMonsterManager.enhancementFeeders.Count;i++)
+		{
+			enhanceBoxes[i].Init(CBKMonsterManager.enhancementFeeders[i]);
+			enhanceBoxes[i].SetBar(i==0);
+		}
+		for (;i < enhanceBoxes.Count;i++)
+		{
+			enhanceBoxes[i].gameObject.SetActive(false);
+		}
+	}
+	
 	void AddReserveCardSlot()
 	{
 		CBKGoonCard card = Instantiate(goonCardPrefab) as CBKGoonCard;
@@ -213,20 +309,35 @@ public class CBKGoonScreen : MonoBehaviour {
 		healBoxes.Add (box);
 	}
 	
+	void AddEnhanceBox()
+	{
+		CBKMiniHealingBox box = Instantiate(healBoxPrefab) as CBKMiniHealingBox;
+		box.transform.parent = enhanceBoxes[enhanceBoxes.Count-1].transform.parent;
+		box.transform.localScale = Vector3.one;
+		box.transform.localPosition = enhanceBoxes[enhanceBoxes.Count-1].transform.localPosition + boxOffset;
+		enhanceBoxes.Add (box);
+	}
+	
 	void Update()
 	{
 		if (healingQueueParent.activeSelf)
 		{
-			long timeLeft = CBKMonsterManager.instance.healingMonsters[CBKMonsterManager.instance.healingMonsters.Count-1].healTimeLeftMillis;
-			healingQueueTotalTime.text = CBKUtil.TimeStringShort(timeLeft);
-			healingQueueSpeedUpButton.label.text = Mathf.Ceil((float)timeLeft/6000).ToString(); //TODO: Proper formula here
+			long timeLeft = CBKMonsterManager.healingMonsters[CBKMonsterManager.healingMonsters.Count-1].healTimeLeftMillis;
+			totalTimeLabel.text = CBKUtil.TimeStringShort(timeLeft);
+			speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString(); //TODO: Proper formula here
+		}
+		else if (enhanceQueueParent.activeSelf && CBKMonsterManager.enhancementFeeders.Count > 0)
+		{
+			long timeLeft = CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].enhanceTimeLeft;
+			totalTimeLabel.text = CBKUtil.TimeStringShort(timeLeft);
+			speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString(); //TODO: Proper formula here
 		}
 	}
 	
 	void TrySpeedUpHeal()
 	{
-		int gemCost = Mathf.CeilToInt((CBKMonsterManager.instance.healingMonsters[CBKMonsterManager.instance.healingMonsters.Count-1].timeToHealMillis) * 1f/6000);
-		if (CBKResourceManager.instance.resources[(int)CBKResourceManager.ResourceType.PREMIUM] >= gemCost)
+		int gemCost = Mathf.CeilToInt((CBKMonsterManager.healingMonsters[CBKMonsterManager.healingMonsters.Count-1].timeToHealMillis) * 1f/60000);
+		if (CBKResourceManager.resources[(int)CBKResourceManager.ResourceType.PREMIUM] >= gemCost)
 		{
 			CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.PREMIUM, gemCost);
 			CBKMonsterManager.instance.SpeedUpHeal(gemCost);
@@ -237,20 +348,40 @@ public class CBKGoonScreen : MonoBehaviour {
 		}
 	}
 	
+	void TrySpeedUpEnhance()
+	{
+		int gemCost = Mathf.CeilToInt((CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].finishCombineTime) * 1f/60000);
+		if (CBKResourceManager.resources[(int)CBKResourceManager.ResourceType.PREMIUM] >= gemCost)
+		{
+			CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.PREMIUM, gemCost);
+			CBKMonsterManager.instance.SpeedUpEnhance(gemCost);
+		}
+		else
+		{
+			CBKEventManager.Popup.CreatePopup("Not enough Gems");
+		}
+	}
+	
 	void OnHealQueueChanged()
 	{
 		OrganizeHealingQueue();
-		OrganizeReserveCards();
+		OrganizeCards();
+	}
+	
+	void OnEnhanceQueueChanged()
+	{
+		OrganizeEnhanceQueue();
+		OrganizeCards();
 	}
 	
 	void OnRemoveTeamMember(PZMonster monster)
 	{
-		OrganizeReserveCards();
+		OrganizeCards();
 	}
 	
 	void OnAddTeamMember(PZMonster monster)
 	{
-		teamCards[monster.userMonster.teamSlotNum-1].Init(monster);
+		teamCards[monster.userMonster.teamSlotNum-1].InitHeal(monster);
 		OrganizeReserveCards();
 	}
 }

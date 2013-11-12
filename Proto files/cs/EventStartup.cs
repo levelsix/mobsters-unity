@@ -14,7 +14,9 @@
 // Note: requires additional types generated from: Clan.proto
 // Note: requires additional types generated from: InAppPurchase.proto
 // Note: requires additional types generated from: Quest.proto
+// Note: requires additional types generated from: StaticData.proto
 // Note: requires additional types generated from: Structure.proto
+// Note: requires additional types generated from: Task.proto
 // Note: requires additional types generated from: User.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 namespace com.lvl6.proto
@@ -133,51 +135,30 @@ namespace com.lvl6.proto
       get { return _startupConstants; }
       set { _startupConstants = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullCityProto> _allCities = new global::System.Collections.Generic.List<com.lvl6.proto.FullCityProto>();
-    [global::ProtoBuf.ProtoMember(6, Name=@"allCities", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullCityProto> allCities
-    {
-      get { return _allCities; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> _inProgressQuests = new global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto>();
-    [global::ProtoBuf.ProtoMember(7, Name=@"inProgressQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> inProgressQuests
-    {
-      get { return _inProgressQuests; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> _unredeemedQuests = new global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto>();
-    [global::ProtoBuf.ProtoMember(8, Name=@"unredeemedQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> unredeemedQuests
-    {
-      get { return _unredeemedQuests; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> _availableQuests = new global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto>();
-    [global::ProtoBuf.ProtoMember(9, Name=@"availableQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> availableQuests
-    {
-      get { return _availableQuests; }
-    }
-  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserQuestProto> _userQuests = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserQuestProto>();
-    [global::ProtoBuf.ProtoMember(10, Name=@"userQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(6, Name=@"userQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullUserQuestProto> userQuests
     {
       get { return _userQuests; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserClanProto> _userClanInfo = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserClanProto>();
-    [global::ProtoBuf.ProtoMember(11, Name=@"userClanInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(7, Name=@"userClanInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullUserClanProto> userClanInfo
     {
       get { return _userClanInfo; }
     }
   
+    private readonly global::System.Collections.Generic.List<int> _completedTaskIds = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(8, Name=@"completedTaskIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> completedTaskIds
+    {
+      get { return _completedTaskIds; }
+    }
+  
 
     private string _appStoreURL = "";
-    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"appStoreURL", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"appStoreURL", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string appStoreURL
     {
@@ -186,7 +167,7 @@ namespace com.lvl6.proto
     }
 
     private string _reviewPageURL = "";
-    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"reviewPageURL", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"reviewPageURL", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string reviewPageURL
     {
@@ -195,7 +176,7 @@ namespace com.lvl6.proto
     }
 
     private string _reviewPageConfirmationMessage = "";
-    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"reviewPageConfirmationMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"reviewPageConfirmationMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string reviewPageConfirmationMessage
     {
@@ -204,99 +185,64 @@ namespace com.lvl6.proto
     }
 
     private bool _playerHasBoughtInAppPurchase = default(bool);
-    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"playerHasBoughtInAppPurchase", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"playerHasBoughtInAppPurchase", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
     public bool playerHasBoughtInAppPurchase
     {
       get { return _playerHasBoughtInAppPurchase; }
       set { _playerHasBoughtInAppPurchase = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.GoldSaleProto> _goldSales = new global::System.Collections.Generic.List<com.lvl6.proto.GoldSaleProto>();
-    [global::ProtoBuf.ProtoMember(16, Name=@"goldSales", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.GoldSaleProto> goldSales
-    {
-      get { return _goldSales; }
-    }
-  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.AttackedNotificationProto> _attackNotifications = new global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.AttackedNotificationProto>();
-    [global::ProtoBuf.ProtoMember(17, Name=@"attackNotifications", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(13, Name=@"attackNotifications", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.AttackedNotificationProto> attackNotifications
     {
       get { return _attackNotifications; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.ReferralNotificationProto> _referralNotifications = new global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.ReferralNotificationProto>();
-    [global::ProtoBuf.ProtoMember(18, Name=@"referralNotifications", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(14, Name=@"referralNotifications", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.ReferralNotificationProto> referralNotifications
     {
       get { return _referralNotifications; }
     }
   
     private readonly global::System.Collections.Generic.List<string> _noticesToPlayers = new global::System.Collections.Generic.List<string>();
-    [global::ProtoBuf.ProtoMember(19, Name=@"noticesToPlayers", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(15, Name=@"noticesToPlayers", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<string> noticesToPlayers
     {
       get { return _noticesToPlayers; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto> _globalChats = new global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto>();
-    [global::ProtoBuf.ProtoMember(20, Name=@"globalChats", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(16, Name=@"globalChats", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto> globalChats
     {
       get { return _globalChats; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto> _clanChats = new global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto>();
-    [global::ProtoBuf.ProtoMember(21, Name=@"clanChats", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(17, Name=@"clanChats", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto> clanChats
     {
       get { return _clanChats; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.PrivateChatPostProto> _pcpp = new global::System.Collections.Generic.List<com.lvl6.proto.PrivateChatPostProto>();
-    [global::ProtoBuf.ProtoMember(22, Name=@"pcpp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(18, Name=@"pcpp", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.PrivateChatPostProto> pcpp
     {
       get { return _pcpp; }
     }
   
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.StaticLevelInfoProto> _slip = new global::System.Collections.Generic.List<com.lvl6.proto.StaticLevelInfoProto>();
-    [global::ProtoBuf.ProtoMember(23, Name=@"slip", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.StaticLevelInfoProto> slip
-    {
-      get { return _slip; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullStructureProto> _staticStructs = new global::System.Collections.Generic.List<com.lvl6.proto.FullStructureProto>();
-    [global::ProtoBuf.ProtoMember(24, Name=@"staticStructs", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullStructureProto> staticStructs
-    {
-      get { return _staticStructs; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.CityExpansionCostProto> _expansionCosts = new global::System.Collections.Generic.List<com.lvl6.proto.CityExpansionCostProto>();
-    [global::ProtoBuf.ProtoMember(25, Name=@"expansionCosts", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.CityExpansionCostProto> expansionCosts
-    {
-      get { return _expansionCosts; }
-    }
-  
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> _staticMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto>();
-    [global::ProtoBuf.ProtoMember(26, Name=@"staticMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> staticMonsters
-    {
-      get { return _staticMonsters; }
-    }
-  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _usersMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
-    [global::ProtoBuf.ProtoMember(27, Name=@"usersMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(19, Name=@"usersMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> usersMonsters
     {
       get { return _usersMonsters; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto> _monstersHealing = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto>();
-    [global::ProtoBuf.ProtoMember(28, Name=@"monstersHealing", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(20, Name=@"monstersHealing", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterHealingProto> monstersHealing
     {
       get { return _monstersHealing; }
@@ -304,7 +250,7 @@ namespace com.lvl6.proto
   
 
     private com.lvl6.proto.UserEnhancementProto _enhancements = null;
-    [global::ProtoBuf.ProtoMember(29, IsRequired = false, Name=@"enhancements", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"enhancements", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
     public com.lvl6.proto.UserEnhancementProto enhancements
     {
@@ -312,7 +258,7 @@ namespace com.lvl6.proto
       set { _enhancements = value; }
     }
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.RareBoosterPurchaseProto> _rareBoosterPurchases = new global::System.Collections.Generic.List<com.lvl6.proto.RareBoosterPurchaseProto>();
-    [global::ProtoBuf.ProtoMember(30, Name=@"rareBoosterPurchases", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(22, Name=@"rareBoosterPurchases", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.RareBoosterPurchaseProto> rareBoosterPurchases
     {
       get { return _rareBoosterPurchases; }
@@ -320,27 +266,36 @@ namespace com.lvl6.proto
   
 
     private string _kabamNaid = "";
-    [global::ProtoBuf.ProtoMember(31, IsRequired = false, Name=@"kabamNaid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(23, IsRequired = false, Name=@"kabamNaid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string kabamNaid
     {
       get { return _kabamNaid; }
       set { _kabamNaid = value; }
     }
-    private readonly global::System.Collections.Generic.List<int> _userIdsUsedForExtraSlots = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(32, Name=@"userIdsUsedForExtraSlots", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> userIdsUsedForExtraSlots
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserProtoWithFacebookId> _usersUsedForExtraSlots = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserProtoWithFacebookId>();
+    [global::ProtoBuf.ProtoMember(24, Name=@"usersUsedForExtraSlots", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserProtoWithFacebookId> usersUsedForExtraSlots
     {
-      get { return _userIdsUsedForExtraSlots; }
+      get { return _usersUsedForExtraSlots; }
     }
   
-    private readonly global::System.Collections.Generic.List<int> _userIdsInvitingMeForExtraSlots = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(33, Name=@"userIdsInvitingMeForExtraSlots", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> userIdsInvitingMeForExtraSlots
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto> _invitesToMeForSlots = new global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto>();
+    [global::ProtoBuf.ProtoMember(25, Name=@"invitesToMeForSlots", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto> invitesToMeForSlots
     {
-      get { return _userIdsInvitingMeForExtraSlots; }
+      get { return _invitesToMeForSlots; }
     }
   
+
+    private com.lvl6.proto.StaticDataProto _staticDataStuffProto = null;
+    [global::ProtoBuf.ProtoMember(26, IsRequired = false, Name=@"staticDataStuffProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StaticDataProto staticDataStuffProto
+    {
+      get { return _staticDataStuffProto; }
+      set { _staticDataStuffProto = value; }
+    }
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
   public partial class AttackedNotificationProto : global::ProtoBuf.IExtensible
   {
@@ -445,17 +400,8 @@ namespace com.lvl6.proto
       get { return _maxNumOfSingleStruct; }
       set { _maxNumOfSingleStruct = value; }
     }
-
-    private com.lvl6.proto.StartupResponseProto.StartupConstants.NormStructConstants _normStructConstants = null;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"normStructConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.StartupResponseProto.StartupConstants.NormStructConstants normStructConstants
-    {
-      get { return _normStructConstants; }
-      set { _normStructConstants = value; }
-    }
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto> _animatedSpriteOffsets = new global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"animatedSpriteOffsets", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(4, Name=@"animatedSpriteOffsets", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.AnimatedSpriteOffsetProto> animatedSpriteOffsets
     {
       get { return _animatedSpriteOffsets; }
@@ -463,7 +409,7 @@ namespace com.lvl6.proto
   
 
     private int _minNameLength = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"minNameLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"minNameLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int minNameLength
     {
@@ -472,7 +418,7 @@ namespace com.lvl6.proto
     }
 
     private int _maxNameLength = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"maxNameLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"maxNameLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int maxNameLength
     {
@@ -481,7 +427,7 @@ namespace com.lvl6.proto
     }
 
     private int _maxLengthOfChatString = default(int);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"maxLengthOfChatString", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"maxLengthOfChatString", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int maxLengthOfChatString
     {
@@ -490,7 +436,7 @@ namespace com.lvl6.proto
     }
 
     private com.lvl6.proto.StartupResponseProto.StartupConstants.ClanConstants _clanConstants = null;
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"clanConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"clanConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
     public com.lvl6.proto.StartupResponseProto.StartupConstants.ClanConstants clanConstants
     {
@@ -499,7 +445,7 @@ namespace com.lvl6.proto
     }
 
     private com.lvl6.proto.StartupResponseProto.StartupConstants.DownloadableNibConstants _downloadableNibConstants = null;
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"downloadableNibConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"downloadableNibConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
     public com.lvl6.proto.StartupResponseProto.StartupConstants.DownloadableNibConstants downloadableNibConstants
     {
@@ -508,7 +454,7 @@ namespace com.lvl6.proto
     }
 
     private int _numHoursBeforeReshowingGoldSale = default(int);
-    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"numHoursBeforeReshowingGoldSale", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"numHoursBeforeReshowingGoldSale", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int numHoursBeforeReshowingGoldSale
     {
@@ -517,7 +463,7 @@ namespace com.lvl6.proto
     }
 
     private int _levelToShowRateUsPopup = default(int);
-    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"levelToShowRateUsPopup", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"levelToShowRateUsPopup", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int levelToShowRateUsPopup
     {
@@ -526,7 +472,7 @@ namespace com.lvl6.proto
     }
 
     private com.lvl6.proto.StartupResponseProto.StartupConstants.TournamentConstants _touramentConstants = null;
-    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"touramentConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"touramentConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
     public com.lvl6.proto.StartupResponseProto.StartupConstants.TournamentConstants touramentConstants
     {
@@ -535,7 +481,7 @@ namespace com.lvl6.proto
     }
 
     private int _fbConnectRewardDiamonds = default(int);
-    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"fbConnectRewardDiamonds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"fbConnectRewardDiamonds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int fbConnectRewardDiamonds
     {
@@ -544,7 +490,7 @@ namespace com.lvl6.proto
     }
 
     private string _faqFileName = "";
-    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"faqFileName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"faqFileName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string faqFileName
     {
@@ -553,7 +499,7 @@ namespace com.lvl6.proto
     }
 
     private com.lvl6.proto.MinimumUserProto _adminChatUserProto = null;
-    [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"adminChatUserProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"adminChatUserProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
     public com.lvl6.proto.MinimumUserProto adminChatUserProto
     {
@@ -562,7 +508,7 @@ namespace com.lvl6.proto
     }
 
     private int _numBeginnerSalesAllowed = default(int);
-    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"numBeginnerSalesAllowed", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"numBeginnerSalesAllowed", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int numBeginnerSalesAllowed
     {
@@ -571,7 +517,7 @@ namespace com.lvl6.proto
     }
 
     private com.lvl6.proto.StartupResponseProto.StartupConstants.UserMonsterConstants _userMonsterConstants = null;
-    [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name=@"userMonsterConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"userMonsterConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
     public com.lvl6.proto.StartupResponseProto.StartupConstants.UserMonsterConstants userMonsterConstants
     {
@@ -580,7 +526,7 @@ namespace com.lvl6.proto
     }
 
     private com.lvl6.proto.StartupResponseProto.StartupConstants.MonsterConstants _monsterConstants = null;
-    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"monsterConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name=@"monsterConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
     public com.lvl6.proto.StartupResponseProto.StartupConstants.MonsterConstants monsterConstants
     {
@@ -589,68 +535,22 @@ namespace com.lvl6.proto
     }
 
     private float _minutesPerGem = default(float);
-    [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"minutesPerGem", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"minutesPerGem", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
     public float minutesPerGem
     {
       get { return _minutesPerGem; }
       set { _minutesPerGem = value; }
     }
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"NormStructConstants")]
-  public partial class NormStructConstants : global::ProtoBuf.IExtensible
-  {
-    public NormStructConstants() {}
-    
 
-    private double _minutesToUpgradeForNormStructMultiplier = default(double);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"minutesToUpgradeForNormStructMultiplier", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(double))]
-    public double minutesToUpgradeForNormStructMultiplier
+    private int _pvpRequiredMinLvl = default(int);
+    [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"pvpRequiredMinLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int pvpRequiredMinLvl
     {
-      get { return _minutesToUpgradeForNormStructMultiplier; }
-      set { _minutesToUpgradeForNormStructMultiplier = value; }
+      get { return _pvpRequiredMinLvl; }
+      set { _pvpRequiredMinLvl = value; }
     }
-
-    private double _incomeFromNormStructMultiplier = default(double);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"incomeFromNormStructMultiplier", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(double))]
-    public double incomeFromNormStructMultiplier
-    {
-      get { return _incomeFromNormStructMultiplier; }
-      set { _incomeFromNormStructMultiplier = value; }
-    }
-
-    private double _upgradeStructCoinCostExponentBase = default(double);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"upgradeStructCoinCostExponentBase", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(double))]
-    public double upgradeStructCoinCostExponentBase
-    {
-      get { return _upgradeStructCoinCostExponentBase; }
-      set { _upgradeStructCoinCostExponentBase = value; }
-    }
-
-    private double _upgradeStructDiamondCostExponentBase = default(double);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"upgradeStructDiamondCostExponentBase", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(double))]
-    public double upgradeStructDiamondCostExponentBase
-    {
-      get { return _upgradeStructDiamondCostExponentBase; }
-      set { _upgradeStructDiamondCostExponentBase = value; }
-    }
-
-    private double _diamondCostForInstantUpgradeMultiplier = default(double);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"diamondCostForInstantUpgradeMultiplier", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(double))]
-    public double diamondCostForInstantUpgradeMultiplier
-    {
-      get { return _diamondCostForInstantUpgradeMultiplier; }
-      set { _diamondCostForInstantUpgradeMultiplier = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnimatedSpriteOffsetProto")]
   public partial class AnimatedSpriteOffsetProto : global::ProtoBuf.IExtensible
   {

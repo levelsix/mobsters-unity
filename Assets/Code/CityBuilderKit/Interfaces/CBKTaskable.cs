@@ -16,66 +16,35 @@ public class CBKTaskable : MonoBehaviour {
 	
 	public void EngageTask()
 	{
-		if (CBKMonsterManager.instance.monstersOnTeam == 0)
+		if (CBKMonsterManager.monstersOnTeam == 0)
 		{
 			Debug.Log("No monsters on team!");
 			return;
 		}
 		else
 		{
-			foreach (var item in CBKMonsterManager.instance.userTeam) 
+			int i;
+			for (i = 0; i < CBKMonsterManager.userTeam.Length; i++) 
 			{
-				
+				if (CBKMonsterManager.userTeam[i] != null && CBKMonsterManager.userTeam[i].currHP > 0)
+				{
+					break;
+				}
+			}
+			if (i == CBKMonsterManager.userTeam.Length)
+			{
+				Debug.Log("No monsters on team have health!");
 			}
 		}
 		
-		StartCoroutine(SendDungeonBeginRequest());
-	}
-	
-	private IEnumerator SendDungeonBeginRequest()
-	{
 		BeginDungeonRequestProto request = new BeginDungeonRequestProto();
 		request.sender = CBKWhiteboard.localMup;
 		request.clientTime = CBKUtil.timeNowMillis;
 		request.taskId = task.taskId;
 		
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, null);
-		
-		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
-		{
-			yield return null;
-		}
-		
-		BeginDungeonResponseProto response = UMQNetworkManager.responseDict[tagNum] as BeginDungeonResponseProto;
-		UMQNetworkManager.responseDict.Remove(tagNum);
-		
-		if (response.status == BeginDungeonResponseProto.BeginDungeonStatus.SUCCESS)
-		{
-			CBKWhiteboard.currTaskID = response.userTaskId;
-			
-			PZCombatManager.instance.enemies.Clear();
-			
-			PZMonster monster;
-			List<string> goonsToLoad = new List<string>();
-			foreach (TaskStageProto stage in response.tsp)
-			{
-				monster = new PZMonster(stage.stageMonsters[0]);
-				PZCombatManager.instance.enemies.Enqueue(monster);
-				goonsToLoad.Add(monster.monster.imagePrefix);
-				Debug.Log("Stage: " + stage.stageId + ": Adding monster " + stage.stageMonsters[0].monsterId);
-			}
-			
-			foreach (var item in CBKMonsterManager.instance.userTeam) 
-			{
-				if (item != null && item.monster != null && item.monster.monsterId > 0)
-				{
-					goonsToLoad.Add(item.monster.imagePrefix);
-				}
-			}
-			
-			CBKAtlasUtil.instance.LoadAtlasesForSpriteNames(goonsToLoad);
-		}
-		
-		CBKEventManager.Scene.OnPuzzle();
+		CBKWhiteboard.currSceneType = CBKWhiteboard.SceneType.PUZZLE;
+		CBKWhiteboard.dungeonToLoad = request;
+		CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.LOADING_SCENE);
+		//StartCoroutine(SendDungeonBeginRequest());
 	}
 }

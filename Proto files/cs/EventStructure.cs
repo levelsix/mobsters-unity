@@ -361,26 +361,26 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_ENOUGH_MATERIALS", Value=2)]
-      NOT_ENOUGH_MATERIALS = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_ENOUGH_CASH", Value=2)]
+      FAIL_NOT_ENOUGH_CASH = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_BUILT_YET", Value=3)]
-      NOT_BUILT_YET = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_ENOUGH_GEMS", Value=3)]
+      FAIL_NOT_ENOUGH_GEMS = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_USERS_STRUCT", Value=4)]
-      NOT_USERS_STRUCT = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_BUILT_YET", Value=4)]
+      FAIL_NOT_BUILT_YET = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ANOTHER_STRUCT_STILL_UPGRADING", Value=5)]
-      ANOTHER_STRUCT_STILL_UPGRADING = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_USERS_STRUCT", Value=5)]
+      FAIL_NOT_USERS_STRUCT = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=6)]
-      OTHER_FAIL = 6,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_ANOTHER_STRUCT_STILL_UPGRADING", Value=6)]
+      FAIL_ANOTHER_STRUCT_STILL_UPGRADING = 6,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CLIENT_TOO_APART_FROM_SERVER_TIME", Value=7)]
-      CLIENT_TOO_APART_FROM_SERVER_TIME = 7,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_AT_MAX_LEVEL_ALREADY", Value=7)]
+      FAIL_AT_MAX_LEVEL_ALREADY = 7,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"AT_MAX_LEVEL_ALREADY", Value=8)]
-      AT_MAX_LEVEL_ALREADY = 8
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=8)]
+      FAIL_OTHER = 8
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -419,6 +419,15 @@ namespace com.lvl6.proto
     {
       get { return _timeOfSpeedup; }
       set { _timeOfSpeedup = value; }
+    }
+
+    private int _gemCostToSpeedup = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"gemCostToSpeedup", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemCostToSpeedup
+    {
+      get { return _gemCostToSpeedup; }
+      set { _gemCostToSpeedup = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -674,17 +683,8 @@ namespace com.lvl6.proto
       set { _curTime = value; }
     }
 
-    private bool _speedUp = default(bool);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"speedUp", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool speedUp
-    {
-      get { return _speedUp; }
-      set { _speedUp = value; }
-    }
-
     private int _xPosition = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"xPosition", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"xPosition", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int xPosition
     {
@@ -693,12 +693,30 @@ namespace com.lvl6.proto
     }
 
     private int _yPosition = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"yPosition", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"yPosition", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int yPosition
     {
       get { return _yPosition; }
       set { _yPosition = value; }
+    }
+
+    private bool _speedUp = default(bool);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"speedUp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool speedUp
+    {
+      get { return _speedUp; }
+      set { _speedUp = value; }
+    }
+
+    private int _gemCostToSpeedup = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"gemCostToSpeedup", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemCostToSpeedup
+    {
+      get { return _gemCostToSpeedup; }
+      set { _gemCostToSpeedup = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

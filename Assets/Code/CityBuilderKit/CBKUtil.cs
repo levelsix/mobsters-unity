@@ -290,13 +290,13 @@ public static class CBKUtil {
 	{
 		CBKWhiteboard.localUser = user;
 		CBKWhiteboard.localMup = new MinimumUserProto();
-		CBKWhiteboard.localMup.name = user.name;
 		CBKWhiteboard.localMup.userId = user.userId;
+		CBKWhiteboard.localMup.name = user.name;
 		CBKWhiteboard.localMup.clan = user.clan;
 		
-		
-		
 		CBKWhiteboard.cityID = CBKWhiteboard.localMup.userId;
+		
+		CBKWhiteboard.nextLevelInfo = CBKDataManager.instance.Get(typeof(StaticUserLevelInfoProto), user.level+1) as StaticUserLevelInfoProto;
 		
 		UMQNetworkManager.instance.CreateUserIDQueue(CBKWhiteboard.localMup);
 	}
