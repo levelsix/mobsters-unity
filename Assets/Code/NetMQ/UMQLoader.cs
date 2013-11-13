@@ -10,7 +10,7 @@ public class UMQLoader : MonoBehaviour {
 	
 	// Use this for initialization
 	IEnumerator Start () {
-		
+
 		CBKFacebookManager.instance.Init();
 
 		/*

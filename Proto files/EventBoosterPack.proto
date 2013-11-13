@@ -10,21 +10,6 @@ option java_outer_classname = "EventBoosterPackProto";
 //DO NOT USE ID AS THE NAME OF A PROPERTY IN ANY PROTO
 
 
-//requesting all booster packs and related booster items
-message RetrieveBoosterPackRequestProto {
-     optional MinimumUserProto sender = 1;
-}
-
-message RetrieveBoosterPackResponseProto {
-	optional MinimumUserProto sender = 1;
-	repeated BoosterPackProto packs = 2;
-	optional RetrieveBoosterPackStatus status = 3;
-	
-	enum RetrieveBoosterPackStatus {
-     	SUCCESS = 1;
-     	SOME_FAIL = 2;
-     }
-}
 
 //------------------------------------------------------------------------------------------
 
@@ -44,6 +29,8 @@ message PurchaseBoosterPackResponseProto {
 	//there would be one monster that would be completed
 	//and another that would be the remaining pieces of the monster
 	repeated FullUserMonsterProto updatedOrNew = 3;
+	
+	optional BoosterItemProto prize = 4;
 	
 	enum PurchaseBoosterPackStatus {
 		SUCCESS = 1;

@@ -36,7 +36,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		
 		this.monster = monster;
 		
-		goonPortrait.spriteName = CBKAtlasUtil.instance.StripExtensions(monster.monster.imagePrefix) + "Card";
+		goonPortrait.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Card";
 	}
 	
 	void Remove()
@@ -61,6 +61,11 @@ public class CBKMiniHealingBox : MonoBehaviour {
 	
 	void Update()
 	{
+		if (monster == null)
+		{
+			bar.fillAmount = 0;
+			return;
+		}
 		if (monster.isHealing)
 		{
 			bar.fillAmount = ((float)monster.healTimeLeftMillis) / ((float)monster.timeToHealMillis);

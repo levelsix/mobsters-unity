@@ -138,7 +138,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		
 		name = monster.displayName;
 		
-		spriteBaseName = CBKAtlasUtil.instance.StripExtensions(monster.imagePrefix);
+		spriteBaseName = CBKUtil.StripExtensions(monster.imagePrefix);
 		
 		Setup();
 	}
@@ -150,7 +150,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		
 		ncep = proto;
 		
-		spriteBaseName = CBKAtlasUtil.instance.StripExtensions(ncep.imgId);
+		spriteBaseName = CBKUtil.StripExtensions(ncep.imgId);
 		
 		Setup();
 	}

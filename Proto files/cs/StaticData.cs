@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: StaticData.proto
+// Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: City.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
@@ -91,6 +92,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> availableQuests
     {
       get { return _availableQuests; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.BoosterPackProto> _boosterPacks = new global::System.Collections.Generic.List<com.lvl6.proto.BoosterPackProto>();
+    [global::ProtoBuf.ProtoMember(12, Name=@"boosterPacks", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.BoosterPackProto> boosterPacks
+    {
+      get { return _boosterPacks; }
     }
   
 

@@ -145,9 +145,6 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_SUBMIT_MONSTER_ENHANCEMENT_EVENT", Value=35)]
       C_SUBMIT_MONSTER_ENHANCEMENT_EVENT = 35,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_BOOSTER_PACK_EVENT", Value=36)]
-      C_RETRIEVE_BOOSTER_PACK_EVENT = 36,
-            
       [global::ProtoBuf.ProtoEnum(Name=@"C_PURCHASE_BOOSTER_PACK_EVENT", Value=37)]
       C_PURCHASE_BOOSTER_PACK_EVENT = 37,
             
@@ -317,9 +314,6 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_SUBMIT_MONSTER_ENHANCEMENT_EVENT", Value=35)]
       S_SUBMIT_MONSTER_ENHANCEMENT_EVENT = 35,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_BOOSTER_PACK_EVENT", Value=36)]
-      S_RETRIEVE_BOOSTER_PACK_EVENT = 36,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_PURCHASE_BOOSTER_PACK_EVENT", Value=37)]
       S_PURCHASE_BOOSTER_PACK_EVENT = 37,

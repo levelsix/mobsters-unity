@@ -91,7 +91,7 @@ public class CBKAtlasUtil : MonoBehaviour {
 	
 	public UISpriteData LookupBuildingSprite(string name)
 	{
-		string cleaned = StripExtensions(StripSpaces(name));
+		string cleaned = CBKUtil.StripExtensions(StripSpaces(name));
 		
 		Debug.Log("Building: " + cleaned);
 		
@@ -107,7 +107,7 @@ public class CBKAtlasUtil : MonoBehaviour {
 	public UIAtlas GetBuildingAtlas(string name)
 	{
 		string stripped = StripSpaces(name);
-		stripped = StripExtensions(stripped);
+		stripped = CBKUtil.StripExtensions(stripped);
 		if (!buildingAtlasDict.ContainsKey(stripped))
 		{
 			Debug.Log("Dictionary does not contain key for " + stripped);
@@ -129,11 +129,6 @@ public class CBKAtlasUtil : MonoBehaviour {
 			}
 		}
 		return sb.ToString();
-	}
-	
-	public string StripExtensions(string file)
-	{
-		return Path.GetFileNameWithoutExtension(file);
 	}
 
 	#endregion
@@ -175,7 +170,7 @@ public class CBKAtlasUtil : MonoBehaviour {
 				Debug.LogError("No atlas known for: " + item);
 				return;
 			}
-			string atlasName = imgToAtlas[StripExtensions(item)];
+			string atlasName = imgToAtlas[CBKUtil.StripExtensions(item)];
 			LoadAtlas(atlasName);
 		}
 	}
@@ -200,7 +195,7 @@ public class CBKAtlasUtil : MonoBehaviour {
 	
 	public void SetAtlasForSprite(UISprite item)
 	{
-		string atlasName = imgToAtlas[StripExtensions(item.spriteName)];
+		string atlasName = imgToAtlas[CBKUtil.StripExtensions(item.spriteName)];
 		LoadAtlas(atlasName);
 		item.atlas = atlases[atlasName];
 	}

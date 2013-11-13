@@ -53,6 +53,9 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	[SerializeField]
 	Transform buildingParent;
+
+	[SerializeField]
+	CBKTownBackground background;
 	
     #endregion
 
@@ -249,6 +252,10 @@ public class CBKBuildingManager : MonoBehaviour
 	void BuildNeutralCity (LoadCityResponseProto response)
 	{
 		RecycleCity();
+
+		FullCityProto city = CBKDataManager.instance.Get(typeof(FullCityProto), response.cityId) as FullCityProto;
+		CBKGridManager.instance.InitMission(city.mapTmxName);
+		background.InitMission(city.mapImgName, city.roadImgName);
 		
 		for (int i = 0; i < response.cityElements.Count; i++) 
 		{
@@ -269,6 +276,11 @@ public class CBKBuildingManager : MonoBehaviour
 
 	void BuildPlayerCity (LoadPlayerCityResponseProto response)
 	{
+		RecycleCity();
+
+		CBKGridManager.instance.InitHome ();
+		background.InitHome();
+
 		for (int i = 0; i < response.ownerNormStructs.Count; i++) 
 		{
 			MakeBuilding(response.ownerNormStructs[i]);

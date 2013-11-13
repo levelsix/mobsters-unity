@@ -13,71 +13,6 @@
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RetrieveBoosterPackRequestProto")]
-  public partial class RetrieveBoosterPackRequestProto : global::ProtoBuf.IExtensible
-  {
-    public RetrieveBoosterPackRequestProto() {}
-    
-
-    private com.lvl6.proto.MinimumUserProto _sender = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
-    {
-      get { return _sender; }
-      set { _sender = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RetrieveBoosterPackResponseProto")]
-  public partial class RetrieveBoosterPackResponseProto : global::ProtoBuf.IExtensible
-  {
-    public RetrieveBoosterPackResponseProto() {}
-    
-
-    private com.lvl6.proto.MinimumUserProto _sender = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
-    {
-      get { return _sender; }
-      set { _sender = value; }
-    }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.BoosterPackProto> _packs = new global::System.Collections.Generic.List<com.lvl6.proto.BoosterPackProto>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"packs", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.BoosterPackProto> packs
-    {
-      get { return _packs; }
-    }
-  
-
-    private com.lvl6.proto.RetrieveBoosterPackResponseProto.RetrieveBoosterPackStatus _status = com.lvl6.proto.RetrieveBoosterPackResponseProto.RetrieveBoosterPackStatus.SUCCESS;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RetrieveBoosterPackResponseProto.RetrieveBoosterPackStatus.SUCCESS)]
-    public com.lvl6.proto.RetrieveBoosterPackResponseProto.RetrieveBoosterPackStatus status
-    {
-      get { return _status; }
-      set { _status = value; }
-    }
-    [global::ProtoBuf.ProtoContract(Name=@"RetrieveBoosterPackStatus")]
-    public enum RetrieveBoosterPackStatus
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
-      SUCCESS = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SOME_FAIL", Value=2)]
-      SOME_FAIL = 2
-    }
-  
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PurchaseBoosterPackRequestProto")]
   public partial class PurchaseBoosterPackRequestProto : global::ProtoBuf.IExtensible
   {
@@ -145,6 +80,15 @@ namespace com.lvl6.proto
       get { return _updatedOrNew; }
     }
   
+
+    private com.lvl6.proto.BoosterItemProto _prize = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"prize", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.BoosterItemProto prize
+    {
+      get { return _prize; }
+      set { _prize = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"PurchaseBoosterPackStatus")]
     public enum PurchaseBoosterPackStatus
     {

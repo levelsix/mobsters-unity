@@ -141,7 +141,7 @@ public class CBKGoonCard : MonoBehaviour {
 		
 		goonElementParent.SetActive(true);
 		
-		goonPose.spriteName = CBKAtlasUtil.instance.StripExtensions(goon.monster.imagePrefix) + "Card";
+		goonPose.spriteName = CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Card";
 		
 		cardBackground.spriteName = backgroundsForElements[goon.monster.element];
 		cardBorder.spriteName = bordersForElements[goon.monster.element];

@@ -39,7 +39,7 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 			background.spriteName = fullBackground;
 			icon.alpha = 1;
 			
-			icon.spriteName = CBKAtlasUtil.instance.StripExtensions(monster.monster.imagePrefix) + "Icon";
+			icon.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Icon";
 			
 			ring.fillAmount = ((float)monster.currHP) / monster.maxHP;
 			ring.spriteName = ringElementDict[monster.monster.element];

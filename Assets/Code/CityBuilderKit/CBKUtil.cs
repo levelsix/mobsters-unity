@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using com.lvl6.proto;
 using System.Collections.Generic;
+using System.IO;
 
 public static class CBKUtil {
 	
@@ -231,7 +232,9 @@ public static class CBKUtil {
 	}
 	
 	#endregion
-	
+
+	#region Monster Type Comparisons
+
 	const float normalDamageRatio = 1f;
 	const float weakDamageRatio = 1.25f;
 	const float resistantDamageRatio = .75f;
@@ -285,13 +288,19 @@ public static class CBKUtil {
 		}
 		return normalDamageRatio;
 	}
-	
+
+	#endregion
+
+	public static string StripExtensions(string file)
+	{
+		return Path.GetFileNameWithoutExtension(file);
+	}
+
 	public static void LoadLocalUser (FullUserProto user)
 	{
 		CBKWhiteboard.localUser = user;
 		CBKWhiteboard.localMup = new MinimumUserProto();
 		CBKWhiteboard.localMup.userId = user.userId;
-		CBKWhiteboard.localMup.name = user.name;
 		CBKWhiteboard.localMup.clan = user.clan;
 		
 		CBKWhiteboard.cityID = CBKWhiteboard.localMup.userId;

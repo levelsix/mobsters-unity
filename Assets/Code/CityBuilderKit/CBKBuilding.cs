@@ -349,7 +349,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		}
 		else
 		{
-			sprite.spriteName = CBKAtlasUtil.instance.StripExtensions(CBKAtlasUtil.instance.StripSpaces(structName));
+			sprite.spriteName = CBKUtil.StripExtensions(CBKAtlasUtil.instance.StripSpaces(structName));
 		}
 		
 		sprite.color = Color.white;

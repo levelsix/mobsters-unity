@@ -142,6 +142,13 @@ namespace com.lvl6.proto
       get { return _userQuests; }
     }
   
+    private readonly global::System.Collections.Generic.List<int> _redeemedQuestIds = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(27, Name=@"redeemedQuestIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> redeemedQuestIds
+    {
+      get { return _redeemedQuestIds; }
+    }
+  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserClanProto> _userClanInfo = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserClanProto>();
     [global::ProtoBuf.ProtoMember(7, Name=@"userClanInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullUserClanProto> userClanInfo

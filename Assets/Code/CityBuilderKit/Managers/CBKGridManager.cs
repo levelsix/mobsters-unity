@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
+using System.IO;
 
 public class CBKGridManager : MonoBehaviour {
 	
@@ -38,6 +39,14 @@ public class CBKGridManager : MonoBehaviour {
     /// Size of the placeable area of the mesh
     /// </summary>
     public float worldSize = 36f;
+
+	const int HOME_GRID_SIZE = 36;
+
+	const int MISSION_GRID_SIZE = 26;
+
+	const float HOME_WORLD_SIZE = 34.14f;
+
+	const float MISSION_WORLD_SIZE = 25.05f;
 	
 	public const float GRID_OFFSET = .5f;
 	
@@ -103,7 +112,6 @@ public class CBKGridManager : MonoBehaviour {
 	#endregion
 	
 	#endregion
-	
 
 	/// <summary>
 	/// Awake this instance.
@@ -111,17 +119,61 @@ public class CBKGridManager : MonoBehaviour {
 	void Awake () 
 	{
 		instance = this;
-	    _grid = new CBKITakesGridSpace[gridSize,gridSize];
+	    Init ();
+	}
+
+	void Init ()
+	{
+		_grid = new CBKITakesGridSpace[gridSize, gridSize];
+		walkableSpaces.Clear();
+	}
+
+	public void InitHome ()
+	{
+		gridSize = HOME_GRID_SIZE;
+		worldSize = HOME_WORLD_SIZE;
+
+		Init ();
+
 		CBKWalkableSpace space;
 		for (int i = 0; i < roadLines.Count; i++) {
 			for (int j = 0; j < gridSize; j++) {
-				space = new CBKWalkableSpace(new Vector2(roadLines[i],j));
-				_grid[roadLines[i], j] = space;
-				walkableSpaces.Add(space);
-				
-				space = new CBKWalkableSpace(new Vector2(j, roadLines[i]));
-				_grid[j, roadLines[i]] = space;
-				walkableSpaces.Add(space);
+				space = new CBKWalkableSpace (new Vector2 (roadLines [i], j));
+				_grid [roadLines [i], j] = space;
+				walkableSpaces.Add (space);
+				space = new CBKWalkableSpace (new Vector2 (j, roadLines [i]));
+				_grid [j, roadLines [i]] = space;
+				walkableSpaces.Add (space);
+			}
+		}
+	}
+
+	public void InitMission (string maptmx)
+	{
+		gridSize = MISSION_GRID_SIZE;
+		worldSize = MISSION_WORLD_SIZE;
+
+		Init ();
+
+		//TODO: Build walkable grid from TMX fileCBKWalkableSpace space
+		TMXReader reader = new TMXReader(maptmx);
+		Stream data = reader.GetWalkableData();
+
+		CBKWalkableSpace space;
+		using (BinaryReader binr = new BinaryReader(data))
+		{
+			for (int x = 0; x < gridSize; x++) 
+			{
+				for (int y = 0; y < gridSize; y++) 
+				{
+					if ((binr.ReadUInt32() & 1) > 0)
+					{
+						space = new CBKWalkableSpace(new Vector2(x,y));
+						_grid[x, y] = space;
+						walkableSpaces.Add (space);
+						//Debug.Log("Walkable: " + x + ", " + y);
+					}
+				}
 			}
 		}
 	}
