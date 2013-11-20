@@ -49,9 +49,8 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 		}
 	}
-	
-	[SerializeField]
-	Transform puzzleParent;
+
+	public Transform puzzleParent;
 	
 	List<PZGem> movingGems = new List<PZGem>();
 	List<PZGem> gemsToCheck = new List<PZGem>();
@@ -71,13 +70,16 @@ public class PZPuzzleManager : MonoBehaviour {
 	public int gemsByType;
 	
 	public const int BOARD_WIDTH = 8;
-	public const int BOARD_HEIGHT = 5;
+	public const int BOARD_HEIGHT = 8;
 	
 	public const int GEM_TYPES = 5;
 	
 	public const float WAIT_BETWEEN_LINES = .3f;
 	
 	bool setUpBoard = false;
+
+	[SerializeField]
+	public PZDamageNumber damageNumberPrefab;
 	
 	public void Awake()
 	{

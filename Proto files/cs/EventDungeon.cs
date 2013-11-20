@@ -45,6 +45,15 @@ namespace com.lvl6.proto
       get { return _taskId; }
       set { _taskId = value; }
     }
+
+    private bool _userBeatAllCityTasks = default(bool);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userBeatAllCityTasks", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool userBeatAllCityTasks
+    {
+      get { return _userBeatAllCityTasks; }
+      set { _userBeatAllCityTasks = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -105,11 +114,8 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_STAMERGY", Value=2)]
-      FAIL_INSUFFICIENT_STAMERGY = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
-      FAIL_OTHER = 3
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -166,6 +172,15 @@ namespace com.lvl6.proto
     {
       get { return _firstTimeUserWonTask; }
       set { _firstTimeUserWonTask = value; }
+    }
+
+    private bool _userBeatAllCityTasks = default(bool);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userBeatAllCityTasks", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool userBeatAllCityTasks
+    {
+      get { return _userBeatAllCityTasks; }
+      set { _userBeatAllCityTasks = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

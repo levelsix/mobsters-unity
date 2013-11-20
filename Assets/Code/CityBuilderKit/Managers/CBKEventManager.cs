@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using com.lvl6.proto;
 
 /// <summary>
 /// Event Manager
@@ -123,5 +124,12 @@ public static class CBKEventManager
 		public static Action OnCity;
 		public static Action OnPuzzle;
 	}
-	
+
+	public static class Clan
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		public static Action<int, UserClanStatus> OnPlayerClanChange;
+	}
 }

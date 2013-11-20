@@ -4,8 +4,15 @@ using com.lvl6.proto;
 
 public class UMQSceneBetweener : MonoBehaviour {
 
-	void Start()
+	IEnumerator Start()
 	{
+		Debug.LogWarning("A");
+		while(UMQNetworkManager.instance.numRequestsOut > 0)
+		{
+			yield return new WaitForSeconds(1);
+			Debug.LogWarning("Waiting...");
+		}
+
 		Resources.UnloadUnusedAssets();
 		switch (CBKWhiteboard.currSceneType) {
 			case CBKWhiteboard.SceneType.PUZZLE:

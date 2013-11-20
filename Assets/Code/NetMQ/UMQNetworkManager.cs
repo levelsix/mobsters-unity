@@ -48,7 +48,17 @@ public class UMQNetworkManager : MonoBehaviour {
 	UILabel debugTextLabel;
 	
 	public bool ready = false;
-	
+
+	public int numRequestsOut
+	{
+		get
+		{
+			return requestsOut.Count;
+		}
+	}
+
+	List<int> requestsOut = new List<int>();
+
 	const float TIME_OUT = 15f;
 	
 	void Awake()
@@ -199,6 +209,8 @@ public class UMQNetworkManager : MonoBehaviour {
 		IBasicProperties properties = channel.CreateBasicProperties();
 		properties.SetPersistent(true);
 		channel.BasicPublish(directExchangeName, "messagesFromPlayers", properties, message);
+
+		StartCoroutine(WaitRequestTimeout(tagNum));
 		
 		WriteDebug("Message sent: " + tagNum + ": " + request.GetType());
 		
@@ -271,6 +283,16 @@ public class UMQNetworkManager : MonoBehaviour {
 		}
 		
 	}
+
+	IEnumerator WaitRequestTimeout(int tagNum)
+	{
+		requestsOut.Add(tagNum);
+		yield return new WaitForSeconds(30);
+		if (requestsOut.Contains(tagNum))
+		{
+			Debug.LogWarning("Response never received for request: " + tagNum);
+		}
+	}
 	
 	void ReceiveResponse(BasicDeliverEventArgs response)
 	{	
@@ -297,12 +319,15 @@ public class UMQNetworkManager : MonoBehaviour {
 		}
 		else
 		{
+
 			responseDict[tagNum] = proto;
 			
 			if (actionDict[tagNum] != null)
 			{
 				actionDict[tagNum](tagNum);
 			}
+
+			requestsOut.Remove(tagNum);
 		}
 	}
 	

@@ -303,6 +303,13 @@ namespace com.lvl6.proto
       get { return _staticDataStuffProto; }
       set { _staticDataStuffProto = value; }
     }
+    private readonly global::System.Collections.Generic.List<int> _taskIdForCurrentCityBoss = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(28, Name=@"taskIdForCurrentCityBoss", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> taskIdForCurrentCityBoss
+    {
+      get { return _taskIdForCurrentCityBoss; }
+    }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
   public partial class AttackedNotificationProto : global::ProtoBuf.IExtensible
   {
@@ -792,6 +799,24 @@ namespace com.lvl6.proto
     {
       get { return _secondsToHealPerHealthPoint; }
       set { _secondsToHealPerHealthPoint = value; }
+    }
+
+    private float _elementalStrength = default(float);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"elementalStrength", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float elementalStrength
+    {
+      get { return _elementalStrength; }
+      set { _elementalStrength = value; }
+    }
+
+    private float _elementalWeakness = default(float);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"elementalWeakness", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float elementalWeakness
+    {
+      get { return _elementalWeakness; }
+      set { _elementalWeakness = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

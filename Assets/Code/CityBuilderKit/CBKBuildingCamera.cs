@@ -57,6 +57,9 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 	
 	const float ZOOM_COEFFICIENT = -1f;
 	const float BASE_CAMERA_OFFSET_MAX = 18f;
+
+	const float CAMERA_BASE_HOME_Y = 26.8f;
+	const float CAMERA_BASE_MISSION_Y = 19.6f;
 	
 	public float maxY;
 	public float maxX;
@@ -87,6 +90,7 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 	virtual protected void OnEnable()
 	{
 		CBKEventManager.Controls.OnPinch += Zoom;
+		CBKEventManager.Scene.OnCity += Reset;
 	}
 	
 	/// <summary>
@@ -96,6 +100,7 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 	virtual protected void OnDisable()
 	{
 		CBKEventManager.Controls.OnPinch -= Zoom;
+		CBKEventManager.Scene.OnCity -= Reset;
 	}
 	
 	/// <summary>
@@ -124,6 +129,12 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
         trans.localPosition += movement;
 		ClampCamera();
 		
+	}
+
+	void SetBounds ()
+	{
+		maxY = CBKTownBackground.mapHeight - cam.orthographicSize;
+		maxX = CBKTownBackground.mapWidth - (cam.orthographicSize * Screen.width / Screen.height);
 	}
 	
 	public void ClampCamera()
@@ -157,13 +168,26 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 		{
 			CBKEventManager.UI.OnCameraResize(cam);
 		}
-		
-		maxY = cam.orthographicSize * ZOOM_COEFFICIENT + BASE_CAMERA_OFFSET_MAX;
-		maxX = maxY * Screen.height / Screen.width * 2560f / 2048f;
+
+		SetBounds ();
 		
 		ClampCamera ();
 	}
-	
+
+	void Reset()
+	{
+		if (CBKWhiteboard.currCityType == CBKWhiteboard.CityType.NEUTRAL)
+		{
+			trans.parent.localPosition = new Vector3(0, CAMERA_BASE_HOME_Y);
+		}
+		else
+		{
+			trans.parent.localPosition = new Vector3(0, CAMERA_BASE_HOME_Y);
+		}
+		trans.localPosition = Vector3.zero;
+		SetBounds();
+	}
+
 #if UNITY_EDITOR
 	/// <summary>
 	/// Update this instance.

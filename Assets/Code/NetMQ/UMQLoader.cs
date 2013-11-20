@@ -67,6 +67,8 @@ public class UMQLoader : MonoBehaviour {
 		CBKChatManager.instance.Init(response);
 		
 		CBKQuestManager.instance.Init(response);
+
+		CBKClanManager.instance.Init(response.userClanInfo);
 		
 		CBKMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
 		

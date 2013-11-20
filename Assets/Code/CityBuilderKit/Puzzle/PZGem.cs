@@ -10,7 +10,7 @@ using System.Collections.Generic;
 /// Also, turns into special gems when necessary.
 /// </summary>
 public class PZGem : MonoBehaviour, CBKIPoolable {
-	
+
 	PZGem _prefab;
 	public CBKIPoolable prefab {
 		get {

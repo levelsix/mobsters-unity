@@ -14,7 +14,7 @@ public class CBKPoolManager : MonoBehaviour {
 	/// <summary>
 	/// A dictionary that maps prefabs to their respective pools
 	/// </summary>
-	public Dictionary<CBKIPoolable, List<CBKIPoolable>> pools;
+	private Dictionary<CBKIPoolable, List<CBKIPoolable>> pools;
 	
 	/// <summary>
 	/// Awake this instance.

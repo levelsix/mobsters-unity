@@ -112,7 +112,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 		{
 			trans.position = new Vector3(trans.position.x, trans.position.y, node.worldPos.z);
 		}
-		unit.sprite.depth = -(node.x + node.z);
+		unit.sprite.depth = -(node.x + node.z) - 10;
 	}
 	
 	public void Select()

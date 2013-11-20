@@ -95,6 +95,9 @@ public class PZMatch {
 			{
 				PZPuzzleManager.instance.currGems[item.colorIndex]++;
 				PZPuzzleManager.instance.gemsOnBoardByType[item.colorIndex]--;
+
+				PZDamageNumber damNum = CBKPoolManager.instance.Get(PZPuzzleManager.instance.damageNumberPrefab, item.transf.position) as PZDamageNumber;
+				damNum.Init(item);
 			}
 		}
 		
@@ -105,6 +108,7 @@ public class PZMatch {
 			{
 				//Make special bomb gem, and save gem
 				gems[i++].gemType = PZGem.GemType.BOMB;
+				PZPuzzleManager.instance.gemsOnBoardByType[gems[i].colorIndex]++;
 			}
 			if (gems.Count - multi * 2 > 3)
 			{
@@ -112,6 +116,7 @@ public class PZMatch {
 				{
 					//Make special rocket gem, and save gem
 					gems[i++].gemType = PZGem.GemType.ROCKET;
+					PZPuzzleManager.instance.gemsOnBoardByType[gems[i].colorIndex]++;
 				}
 				else if (gems.Count >= 5)
 				{

@@ -95,6 +95,7 @@ public class CBKBuildingManager : MonoBehaviour
     /// </summary>
     const int NUM_LARGE_BUILDINGS = 2;
 
+
     #endregion
 	
 	#endregion

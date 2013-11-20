@@ -33,7 +33,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return (maxHP - currHP) * 1000;
+			return (long)((maxHP - currHP) * 1000 * CBKWhiteboard.constants.monsterConstants.secondsToHealPerHealthPoint);
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return maxHP - currHP;
+			return (int)((maxHP - currHP) * CBKWhiteboard.constants.monsterConstants.cashPerHealthPoint);
 		}
 	}
 	

@@ -37,8 +37,8 @@ public class PZDeployCard : MonoBehaviour {
 		monster = goon;
 		
 		background.spriteName = backgroundDict[goon.monster.element];
-		
-		//Get goon sprite from goon
+
+		goonSprite.spriteName = CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Card";
 		
 		bar.fillAmount = (float)goon.currHP / goon.maxHP;
 		
@@ -46,7 +46,7 @@ public class PZDeployCard : MonoBehaviour {
 		
 		background.alpha = 1;
 		bar.alpha = 1;
-		goonSprite.alpha = 0;
+		goonSprite.alpha = 1;
 	}
 	
 	public void InitEmpty()

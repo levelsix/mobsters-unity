@@ -30,8 +30,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// <summary>
 	/// The player's active goonie, who deals and takes damage.
 	/// </summary>
-	[SerializeField]
-	PZCombatUnit activePlayer;
+	public PZCombatUnit activePlayer;
 	
 	/// <summary>
 	/// The active enemy being fought and dealt damage by the player
@@ -160,7 +159,10 @@ public class PZCombatManager : MonoBehaviour {
 		PZPuzzleManager.instance.swapLock -= 1;
 		CBKEventManager.Popup.CloseAllPopups();
 		activePlayer.Init(monster);
-		StartCoroutine(ScrollToNextEnemy());
+		if (activeEnemy == null)
+		{
+			StartCoroutine(ScrollToNextEnemy());
+		}
 	}
 	
 	void OnEnemyDeath()
@@ -229,9 +231,9 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
 			
+			StartCoroutine(SendEndResult(true));
 			winPopup.gameObject.SetActive(true);
 			winPopup.Play();
-			StartCoroutine(SendEndResult(true));
 		}
 		
 		//Debug.Log("Unlock: Done Scrolling");
