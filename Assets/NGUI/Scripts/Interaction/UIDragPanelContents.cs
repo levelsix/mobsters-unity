@@ -36,7 +36,7 @@ public class UIDragPanelContents : MonoBehaviour
 	/// Create a plane on which we will be performing the dragging.
 	/// </summary>
 
-	void OnPress (bool pressed)
+	public void OnPress (bool pressed)
 	{
 		if (enabled && NGUITools.GetActive(gameObject) && draggablePanel != null)
 		{
@@ -48,7 +48,7 @@ public class UIDragPanelContents : MonoBehaviour
 	/// Drag the object along the plane.
 	/// </summary>
 
-	void OnDrag (Vector2 delta)
+	public void OnDrag (Vector2 delta)
 	{
 		if (enabled && NGUITools.GetActive(gameObject) && draggablePanel != null)
 		{

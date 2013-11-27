@@ -9,24 +9,7 @@ public class CBKAtlasUtil : MonoBehaviour {
 	
 	[SerializeField]
 	string[] xmls;
-	
-	#region Atlases
-	
-	[SerializeField]
-	UIAtlas building001;
-	
-	[SerializeField]
-	UIAtlas building002;
-	
-	#endregion
-	
-	#region OLD
-	
-	/// <summary>
-	/// Maps building names to the atlas that they're contained in
-	/// </summary>
-	static Dictionary<string, UIAtlas> buildingAtlasDict;
-	
+
 	public static CBKAtlasUtil instance;
 	
 	static Dictionary<string, string> imgToAtlas = new Dictionary<string, string>();
@@ -36,10 +19,6 @@ public class CBKAtlasUtil : MonoBehaviour {
 	public void Awake()
 	{
 		instance = this;
-		if (buildingAtlasDict == null)
-		{
-			Setup();
-		}
 		if (atlases == null)
 		{
 			atlases = new Dictionary<string, UIAtlas>();
@@ -49,89 +28,6 @@ public class CBKAtlasUtil : MonoBehaviour {
 			}
 		}
 	}
-	
-	private void Setup()
-	{
-		//Build the atlas dictionary
-		//TODO: Turn this into XML
-		buildingAtlasDict = new Dictionary<string, UIAtlas>();
-		
-		buildingAtlasDict["ArtMuseum"] = building001;
-		buildingAtlasDict["Bakery"] = building001;
-		buildingAtlasDict["BarberShop"] = building001;
-		buildingAtlasDict["Casino"] = building001;
-		buildingAtlasDict["ChineseRestaurant"] = building001;
-		buildingAtlasDict["Church"] = building001;
-		buildingAtlasDict["CoffeeShop"] = building001;
-		buildingAtlasDict["ConvenienceStore"] = building001;
-		buildingAtlasDict["Factory"] = building001;
-		buildingAtlasDict["FastFoodRestaurant"] = building001;
-		buildingAtlasDict["FlowerShop"] = building001;
-		buildingAtlasDict["Gym"] = building001;
-		buildingAtlasDict["Hospital"] = building001;
-		buildingAtlasDict["Bakery"] = building001;
-		buildingAtlasDict["House"] = building001;
-		buildingAtlasDict["IndianRestaurant"] = building001;
-		buildingAtlasDict["JewelryStore"] = building001;
-		buildingAtlasDict["Lofts"] = building001;
-		buildingAtlasDict["Motel6"] = building001;
-		buildingAtlasDict["MovieTheater"] = building001;
-		
-		buildingAtlasDict["NightClub"] = building001;
-		buildingAtlasDict["ParkingGarage"] = building001;
-		buildingAtlasDict["pizzeria"] = building001;
-		buildingAtlasDict["PoliceStation"] = building001;
-		buildingAtlasDict["PowerPlant"] = building001;
-		buildingAtlasDict["PublicSchool"] = building001;
-		buildingAtlasDict["Supermarket"] = building001;
-		buildingAtlasDict["SushiBar"] = building001;
-		buildingAtlasDict["TeaShop"] = building001;
-		buildingAtlasDict["TVStation"] = building001;
-	}
-	
-	public UISpriteData LookupBuildingSprite(string name)
-	{
-		string cleaned = CBKUtil.StripExtensions(StripSpaces(name));
-		
-		Debug.Log("Building: " + cleaned);
-		
-		if (!buildingAtlasDict.ContainsKey(cleaned))
-		{
-			Debug.Log("Dictionary does not contain key for " + cleaned);
-			return null;
-		}
-		
-		return buildingAtlasDict[cleaned].GetSprite(cleaned);
-	}
-	
-	public UIAtlas GetBuildingAtlas(string name)
-	{
-		string stripped = StripSpaces(name);
-		stripped = CBKUtil.StripExtensions(stripped);
-		if (!buildingAtlasDict.ContainsKey(stripped))
-		{
-			Debug.Log("Dictionary does not contain key for " + stripped);
-			return building001;
-		}
-		
-		return buildingAtlasDict[stripped];
-	}
-	
-	public string StripSpaces(string word)
-	{
-		StringBuilder sb = new StringBuilder(word.Length);
-		char c;
-		for (int i = 0; i < word.Length; i++) {
-			c = word[i];
-			if (c != ' ')
-			{
-				sb.Append(c);
-			}
-		}
-		return sb.ToString();
-	}
-
-	#endregion
 	
 	public void WarmAtlasDictionaryFromXML(string filename)
 	{
@@ -195,7 +91,16 @@ public class CBKAtlasUtil : MonoBehaviour {
 	
 	public void SetAtlasForSprite(UISprite item)
 	{
-		string atlasName = imgToAtlas[CBKUtil.StripExtensions(item.spriteName)];
+		string atlasName;
+		try{
+			atlasName = imgToAtlas[CBKUtil.StripExtensions(item.spriteName)];
+		}
+		catch (KeyNotFoundException e)
+		{
+			Debug.LogError("Didn't find key for " + item.spriteName + ": " + e.ToString());
+			item.spriteName = "Church";
+			atlasName = imgToAtlas[item.spriteName];
+		}
 		LoadAtlas(atlasName);
 		item.atlas = atlases[atlasName];
 	}

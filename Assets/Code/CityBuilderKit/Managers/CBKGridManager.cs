@@ -168,8 +168,8 @@ public class CBKGridManager : MonoBehaviour {
 				{
 					if ((binr.ReadUInt32() & 1) > 0)
 					{
-						space = new CBKWalkableSpace(new Vector2(x,y));
-						_grid[x, y] = space;
+						space = new CBKWalkableSpace(new Vector2((gridSize-x-1),y));
+						_grid[(gridSize-x-1), y] = space;
 						walkableSpaces.Add (space);
 						//Debug.Log("Walkable: " + x + ", " + y);
 					}
@@ -186,11 +186,11 @@ public class CBKGridManager : MonoBehaviour {
     /// <param name="x">X position to check the grid at</param>
     /// <param name="y">Y position to check the grid at</param>
     /// <returns>Whether the grid has space for this building at the given space</returns>
-    public bool HasSpaceForBuilding(FullStructureProto proto, int x, int y)
+	public bool HasSpaceForBuilding(StructureInfoProto proto, int x, int y)
     {
-        for (int i = 0; i < proto.xLength; i++)
+        for (int i = 0; i < proto.width; i++)
         {
-            for (int j = 0; j < proto.yLength; j++)
+            for (int j = 0; j < proto.height; j++)
             {
 				if (!OnGrid(x+i, y+j))
 				{
@@ -212,7 +212,7 @@ public class CBKGridManager : MonoBehaviour {
     /// <param name="proto">Building to use for checking for space</param>
     /// <param name="coords">Position to check the grid at</param>
     /// <returns>Whether the grid has space for this building at the given space</returns>
-	public bool HasSpaceForBuilding(FullStructureProto proto, CBKGridNode coords)
+	public bool HasSpaceForBuilding(StructureInfoProto proto, CBKGridNode coords)
 	{
 		return HasSpaceForBuilding (proto, coords.x, coords.z);	
 	}

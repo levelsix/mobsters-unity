@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CBKMoneyPickup : MonoBehaviour, CBKIPoolable {
+public class CBKMoneyPickup : MonoBehaviour, CBKPoolable {
 	
 	#region Poolable Variables
 	
@@ -13,7 +13,7 @@ public class CBKMoneyPickup : MonoBehaviour, CBKIPoolable {
 	/// <value>
 	/// The prefab.
 	/// </value>
-	public CBKIPoolable prefab {
+	public CBKPoolable prefab {
 		get {
 			return CBKPrefabList.instance.moneyPrefab;
 		}
@@ -114,7 +114,7 @@ public class CBKMoneyPickup : MonoBehaviour, CBKIPoolable {
 	
 	#endregion
 	
-	public CBKIPoolable Make (Vector3 origin)
+	public CBKPoolable Make (Vector3 origin)
 	{
 		CBKMoneyPickup money = Instantiate(this, origin, Quaternion.identity) as CBKMoneyPickup;
 		return money;

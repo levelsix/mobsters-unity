@@ -20,7 +20,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			return building.structProto.level;
+			return building.combinedProto.structInfo.level;
 		}
 		set
 		{
@@ -46,7 +46,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 			}
 			else
 			{
-				return building.userStructProto.purchaseTime + CBKMath.TimeToBuildOrUpgradeStruct(building.structProto.minutesToBuild, 0);
+				return building.userStructProto.purchaseTime + CBKMath.TimeToBuildOrUpgradeStruct(building.combinedProto.structInfo.minutesToBuild, 0);
 			}
 		}
 	}
@@ -66,14 +66,6 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 			return CBKUtil.TimeStringShort(timeRemaining);
 		}
 	}
-	
-	public bool lookAtMeMom = false;
-	
-	/// <summary>
-	/// The UI Popup
-	/// </summary>
-	[SerializeField]
-	GameObject upgradePopup;
 	
     /// <summary>
     /// The building component.
@@ -112,7 +104,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		building = GetComponent<CBKBuilding>();
 	}
 	
-    public void Init(FullStructureProto sProto, FullUserStructureProto uProto)
+	public void Init(StructureInfoProto sProto, FullUserStructureProto uProto)
     {
 		if (!uProto.isComplete)
 		{
@@ -120,7 +112,6 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 			building.SetupConstructionSprite();
 			StartCoroutine(CheckUpgrade());
 		}
-		lookAtMeMom = uProto.isComplete;
 		
 		Init (true);
     }
@@ -197,11 +188,11 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	{
 		if (level == 1)
 		{
-			return building.structProto.minutesToBuild * 60 * 1000;
+			return building.combinedProto.structInfo.minutesToBuild * 60 * 1000;
 		}
 		else
 		{
-			return CBKMath.TimeToBuildOrUpgradeStruct(building.structProto.minutesToBuild, level);
+			return CBKMath.TimeToBuildOrUpgradeStruct(building.combinedProto.structInfo.minutesToBuild, level);
 		}
 	}
 	
@@ -213,7 +204,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		Debug.Log("Checking...");
 		while (!building.userStructProto.isComplete)
 		{
-			if (CBKUtil.timeNowMillis > building.userStructProto.purchaseTime + building.structProto.minutesToBuild * 60 * 1000
+			if (CBKUtil.timeNowMillis > building.userStructProto.purchaseTime + building.combinedProto.structInfo.minutesToBuild * 60 * 1000
 				&& CBKUtil.timeNowMillis > upgradeCompleteTime)
 			{
 				FinishWithWait();
@@ -296,9 +287,8 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	{
         
 		building.userStructProto.isComplete = true;
-		lookAtMeMom = true;
 		
-		building.SetupSprite(building.structProto.name);
+		building.SetupSprite(building.combinedProto.structInfo.name);
 		
 		if (false)//building.userStructProto.lastUpgradeTime > 0)
 		{

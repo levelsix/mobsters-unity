@@ -9,10 +9,10 @@ using System.Collections.Generic;
 /// Handles its own falling and board checking.
 /// Also, turns into special gems when necessary.
 /// </summary>
-public class PZGem : MonoBehaviour, CBKIPoolable {
+public class PZGem : MonoBehaviour, CBKPoolable {
 
 	PZGem _prefab;
-	public CBKIPoolable prefab {
+	public CBKPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -123,7 +123,7 @@ public class PZGem : MonoBehaviour, CBKIPoolable {
 		gameObj = gameObject;
 	}
 	
-	public CBKIPoolable Make (Vector3 origin)
+	public CBKPoolable Make (Vector3 origin)
 	{
 		PZGem gem = Instantiate(this, origin, Quaternion.identity) as PZGem;
 		gem.prefab = this;

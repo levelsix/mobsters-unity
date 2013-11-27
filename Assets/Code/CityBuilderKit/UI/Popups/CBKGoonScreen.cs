@@ -7,15 +7,18 @@ using System;
 public class CBKGoonScreen : MonoBehaviour {
 	
 	#region UI Elements
-	
+
 	[SerializeField]
-	CBKGoonCard[] teamCards;
+	UIDraggablePanel dragPanel;
+
+	[SerializeField]
+	CBKGoonTeamCard[] teamCards;
 	
 	[SerializeField]
 	List<CBKGoonCard> reserveCards;
 	
 	[SerializeField]
-	List<CBKMiniHealingBox> healBoxes;
+	List<CBKMiniHealingBox> bottomMiniBoxes;
 	
 	[SerializeField]
 	CBKGoonCard goonCardPrefab;
@@ -24,13 +27,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	CBKMiniHealingBox healBoxPrefab;
 	
 	[SerializeField]
-	GameObject healingQueueParent;
-	
-	[SerializeField]
-	GameObject enhanceQueueParent;
-	
-	[SerializeField]
-	List<CBKMiniHealingBox> enhanceBoxes;
+	GameObject queueParent;
 	
 	[SerializeField]
 	CBKActionButton speedUpButton;
@@ -52,6 +49,9 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	[SerializeField]
 	UIPanel scrollPanel;
+
+	[SerializeField]
+	CBKGoonGrid goonGrid;
 	
 	#endregion
 	
@@ -67,7 +67,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		}
 	}
 			
-	int lastIndex
+	int lastReserveCardIndex
 	{
 		get
 		{
@@ -79,7 +79,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		get
 		{
-			return healBoxes.Count - 1;
+			return bottomMiniBoxes.Count - 1;
 		}
 	}
 	
@@ -107,7 +107,6 @@ public class CBKGoonScreen : MonoBehaviour {
 		healMode = true;
 		OrganizeCards();	
 		OrganizeHealingQueue (CBKMonsterManager.healingMonsters);
-		enhanceQueueParent.SetActive(false);
 		speedUpButton.onClick = TrySpeedUpHeal;
 	}
 	
@@ -116,7 +115,6 @@ public class CBKGoonScreen : MonoBehaviour {
 		healMode = false;
 		OrganizeCards();
 		OrganizeEnhanceQueue();
-		healingQueueParent.SetActive(false);
 		speedUpButton.onClick = TrySpeedUpEnhance;
 	}
 	
@@ -147,22 +145,13 @@ public class CBKGoonScreen : MonoBehaviour {
 		int i;
 		for (i = 0; i < CBKMonsterManager.userTeam.Length; i++) 
 		{
-			
-			if (CBKMonsterManager.userTeam[i] == null || CBKMonsterManager.userTeam[i].monster.monsterId <= 0)
+			if (healMode)
 			{
-				//Debug.Log("InitHeal empty");
-				teamCards[i].InitEmptyTeam();
+				teamCards[i].InitHeal(CBKMonsterManager.userTeam[i]);
 			}
 			else
 			{
-				if (healMode)
-				{
-					teamCards[i].InitHeal(CBKMonsterManager.userTeam[i]);
-				}
-				else
-				{
-					teamCards[i].InitLab(CBKMonsterManager.userTeam[i]);
-				}
+				teamCards[i].InitLab(CBKMonsterManager.userTeam[i]);
 			}
 		}
 	}
@@ -174,41 +163,45 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void OrganizeReserveCards (PZMonster[] teamGoons, Dictionary<long, PZMonster> playerGoons)
 	{
+		goonGrid.ClearGrid();
+
 		int i = 0;
 		foreach (KeyValuePair<long, PZMonster> item in playerGoons) 
 		{
-			if (item.Value.userMonster.teamSlotNum > 0)
-			{
-				continue;
-			}
-			if (lastIndex < i)
+			if (lastReserveCardIndex < i)
 			{
 				AddReserveCardSlot();
 			}
 			if (healMode)
 			{
-				reserveCards[i++].InitHeal(item.Value);
+				reserveCards[i].InitHeal(item.Value);
 			}
 			else
 			{
-				reserveCards[i++].InitLab(item.Value);
+				reserveCards[i].InitLab(item.Value);
 			}
+			goonGrid.AddItemToGrid(reserveCards[i].GetComponent<CBKGridItem>());
+
+			i++;
 		}
-		
-		for (i = playerGoons.Count - CBKMonsterManager.monstersOnTeam; i < playerSlots - CBKMonsterManager.monstersOnTeam; i++)
+
+		if (playerGoons.Count < playerSlots)
 		{
-			if (lastIndex < i)
+			if (lastReserveCardIndex < i)
 			{
 				AddReserveCardSlot();
 			}
 			reserveCards[i].InitEmptyReserve();
+			goonGrid.AddItemToGrid(reserveCards[i].GetComponent<CBKGridItem>());
+			i++;
 		}
 		
-		if (lastIndex < i)
+		if (lastReserveCardIndex < i)
 		{
 			AddReserveCardSlot();
 		}
 		reserveCards[i].InitSlotForPurchase();
+		goonGrid.AddItemToGrid(reserveCards[i].GetComponent<CBKGridItem>());
 		
 		while (++i < reserveCards.Count)
 		{
@@ -225,25 +218,25 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		if (healingMonsters.Count == 0)
 		{
-			healingQueueParent.SetActive(false);
+			queueParent.SetActive(false);
 			return;
 		}
 		
-		healingQueueParent.SetActive(true);
+		queueParent.SetActive(true);
 		
-		while(healBoxes.Count < healingMonsters.Count)
+		while(bottomMiniBoxes.Count < healingMonsters.Count)
 		{
 			AddHealBox();
 		}
 		int i;
 		for (i = 0; i < healingMonsters.Count; i++) 
 		{
-			healBoxes[i].Init (healingMonsters[i]);
-			healBoxes[i].SetBar(i==0);
+			bottomMiniBoxes[i].Init (healingMonsters[i]);
+			bottomMiniBoxes[i].SetBar(i==0);
 		}
-		for (; i < healBoxes.Count; i++) 
+		for (; i < bottomMiniBoxes.Count; i++) 
 		{
-			healBoxes[i].gameObject.SetActive(false);
+			bottomMiniBoxes[i].gameObject.SetActive(false);
 		}
 	}
 	
@@ -251,7 +244,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		if(CBKMonsterManager.currentEnhancementMonster == null)
 		{
-			enhanceQueueParent.SetActive(false);
+			queueParent.SetActive(false);
 			return;
 		}
 		
@@ -272,65 +265,58 @@ public class CBKGoonScreen : MonoBehaviour {
 		enhanceUnderBar.fillAmount = CBKMonsterManager.currentEnhancementMonster.PercentageOfLevelup(
 			CBKMonsterManager.currentEnhancementMonster.userMonster.currentExp + expFromQueue);
 		
-		enhanceQueueParent.SetActive(true);
+		queueParent.SetActive(true);
 		
-		while(enhanceBoxes.Count < CBKMonsterManager.enhancementFeeders.Count)
+		while(bottomMiniBoxes.Count < CBKMonsterManager.enhancementFeeders.Count)
 		{
-			AddEnhanceBox();
+			AddHealBox();
 		}
 		
 		int i;
 		for (i = 0; i < CBKMonsterManager.enhancementFeeders.Count;i++)
 		{
-			enhanceBoxes[i].Init(CBKMonsterManager.enhancementFeeders[i]);
-			enhanceBoxes[i].SetBar(i==0);
+			bottomMiniBoxes[i].Init(CBKMonsterManager.enhancementFeeders[i]);
+			bottomMiniBoxes[i].SetBar(i==0);
 		}
-		for (;i < enhanceBoxes.Count;i++)
+		for (;i < bottomMiniBoxes.Count;i++)
 		{
-			enhanceBoxes[i].gameObject.SetActive(false);
+			bottomMiniBoxes[i].gameObject.SetActive(false);
 		}
 	}
 	
 	void AddReserveCardSlot()
 	{
 		CBKGoonCard card = Instantiate(goonCardPrefab) as CBKGoonCard;
-		card.transform.parent = reserveCards[lastIndex].transform.parent;
+		card.transform.parent = reserveCards[lastReserveCardIndex].transform.parent;
 		card.transform.localScale = Vector3.one;
-		card.transform.localPosition = reserveCards[lastIndex].transform.localPosition + cardOffset;
+		card.transform.localPosition = reserveCards[lastReserveCardIndex].transform.localPosition + cardOffset;
+		card.addRemoveTeamButton.dragBehind = reserveCards[lastReserveCardIndex].addRemoveTeamButton.dragBehind;
+		card.healButton.dragBehind = reserveCards[lastReserveCardIndex].healButton.dragBehind;
 		reserveCards.Add (card);
 	}
 	
 	void AddHealBox()
 	{
 		CBKMiniHealingBox box = Instantiate(healBoxPrefab) as CBKMiniHealingBox;
-		box.transform.parent = healBoxes[lastBox].transform.parent;
+		box.transform.parent = bottomMiniBoxes[lastBox].transform.parent;
 		box.transform.localScale = Vector3.one;
-		box.transform.localPosition = healBoxes[lastBox].transform.localPosition + boxOffset;
-		healBoxes.Add (box);
-	}
-	
-	void AddEnhanceBox()
-	{
-		CBKMiniHealingBox box = Instantiate(healBoxPrefab) as CBKMiniHealingBox;
-		box.transform.parent = enhanceBoxes[enhanceBoxes.Count-1].transform.parent;
-		box.transform.localScale = Vector3.one;
-		box.transform.localPosition = enhanceBoxes[enhanceBoxes.Count-1].transform.localPosition + boxOffset;
-		enhanceBoxes.Add (box);
+		box.transform.localPosition = bottomMiniBoxes[lastBox].transform.localPosition + boxOffset;
+		bottomMiniBoxes.Add (box);
 	}
 	
 	void Update()
 	{
-		if (healingQueueParent.activeSelf)
+		if (queueParent.activeSelf)
 		{
 			long timeLeft = CBKMonsterManager.healingMonsters[CBKMonsterManager.healingMonsters.Count-1].healTimeLeftMillis;
 			totalTimeLabel.text = CBKUtil.TimeStringShort(timeLeft);
-			speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString(); //TODO: Proper formula here
+			speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString();
 		}
-		else if (enhanceQueueParent.activeSelf && CBKMonsterManager.enhancementFeeders.Count > 0)
+		else if (queueParent.activeSelf && CBKMonsterManager.enhancementFeeders.Count > 0)
 		{
 			long timeLeft = CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].enhanceTimeLeft;
 			totalTimeLabel.text = CBKUtil.TimeStringShort(timeLeft);
-			speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString(); //TODO: Proper formula here
+			speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString();
 		}
 	}
 	

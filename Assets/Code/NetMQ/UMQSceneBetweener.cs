@@ -6,7 +6,6 @@ public class UMQSceneBetweener : MonoBehaviour {
 
 	IEnumerator Start()
 	{
-		Debug.LogWarning("A");
 		while(UMQNetworkManager.instance.numRequestsOut > 0)
 		{
 			yield return new WaitForSeconds(1);

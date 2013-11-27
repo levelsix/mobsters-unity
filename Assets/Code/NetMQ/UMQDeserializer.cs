@@ -24,7 +24,7 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_LOAD_PLAYER_CITY_EVENT, typeof(LoadPlayerCityResponseProto)},
 		{EventProtocolResponse.S_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT, typeof(MoveOrRotateNormStructureResponseProto)},
 		{EventProtocolResponse.S_PURCHASE_NORM_STRUCTURE_EVENT, typeof(PurchaseNormStructureResponseProto)},
-		{EventProtocolResponse.S_SELL_NORM_STRUCTURE_EVENT, typeof(SellNormStructureResponseProto)},
+		//	{EventProtocolResponse.S_SELL_NORM_STRUCTURE_EVENT, typeof(SellNormStructureResponseProto)},
 		{EventProtocolResponse.S_UPGRADE_NORM_STRUCTURE_EVENT, typeof(UpgradeNormStructureResponseProto)},
 		{EventProtocolResponse.S_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, typeof(RetrieveCurrencyFromNormStructureResponseProto)},
 		{EventProtocolResponse.S_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT, typeof(FinishNormStructWaittimeWithDiamondsResponseProto)},
@@ -45,7 +45,17 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_COMBINE_USER_MONSTER_PIECES_EVENT, typeof(CombineUserMonsterPiecesResponseProto)},
 		{EventProtocolResponse.S_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT, typeof(EnhancementWaitTimeCompleteResponseProto)},
 		{EventProtocolResponse.S_SUBMIT_MONSTER_ENHANCEMENT_EVENT, typeof(SubmitMonsterEnhancementResponseProto)},
-		{EventProtocolResponse.S_PURGE_STATIC_DATA_EVENT, typeof(PurgeClientStaticDataResponseProto)}
+		{EventProtocolResponse.S_PURGE_STATIC_DATA_EVENT, typeof(PurgeClientStaticDataResponseProto)},
+		{EventProtocolResponse.S_CREATE_CLAN_EVENT, typeof(CreateClanResponseProto)},
+		{EventProtocolResponse.S_LEAVE_CLAN_EVENT, typeof(LeaveClanResponseProto)},
+		{EventProtocolResponse.S_REQUEST_JOIN_CLAN_EVENT, typeof(RequestJoinClanResponseProto)},
+		{EventProtocolResponse.S_RETRACT_REQUEST_JOIN_CLAN_EVENT, typeof(RetractRequestJoinClanResponseProto)},
+		{EventProtocolResponse.S_APPROVE_OR_REJECT_REQUEST_TO_JOIN_CLAN_EVENT, typeof(ApproveOrRejectRequestToJoinClanResponseProto)},
+		{EventProtocolResponse.S_RETRIEVE_CLAN_INFO_EVENT, typeof(RetrieveClanInfoResponseProto)},
+		{EventProtocolResponse.S_TRANSFER_CLAN_OWNERSHIP, typeof(TransferClanOwnershipResponseProto)},
+		{EventProtocolResponse.S_CHANGE_CLAN_DESCRIPTION_EVENT, typeof(ChangeClanDescriptionResponseProto)},
+		{EventProtocolResponse.S_BOOT_PLAYER_FROM_CLAN_EVENT, typeof(BootPlayerFromClanResponseProto)},
+		{EventProtocolResponse.S_CHANGE_CLAN_JOIN_TYPE_EVENT, typeof(ChangeClanJoinTypeResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

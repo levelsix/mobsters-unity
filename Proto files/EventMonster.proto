@@ -1,3 +1,5 @@
+//ALL REQUEST PROTOS SHOULD INCLUDE A MinimumUserProto AS optional that represents which client sent it/triggered it 
+//DO NO START PROPERTY METHODS WITH THE WORDS NEW OR COPY
 
 import "MonsterStuff.proto";
 import "User.proto";
@@ -15,7 +17,7 @@ message SubmitMonsterEnhancementRequestProto {
 	repeated UserEnhancementItemProto ueipUpdate = 3;
 	repeated UserEnhancementItemProto ueipNew = 4;
 	
-	//if user needs, say, five more cash then user can spend gems to replace
+	//if user needs, say, five more cash, then user can spend gems to replace
 	//said five cash. (positive number, server will convert it to negative)
 	optional int32 gemsSpent = 5;
 	

@@ -26,6 +26,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// and an enemy is defeated, the dungeon is complete.
 	/// </summary>
 	public Queue<PZMonster> enemies = new Queue<PZMonster>();
+
+	public List<PZMonster> defeatedEnemies = new List<PZMonster>();
 	
 	/// <summary>
 	/// The player's active goonie, who deals and takes damage.
@@ -62,7 +64,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// <summary>
 	/// The Y value at which the enemy needs to be for the scrolling to stop happening
 	/// </summary>
-	const float enemyYThreshold = 250;
+	const float enemyYThreshold = 30;
 	
 	/// <summary>
 	/// Gets the enemy spawn position.
@@ -84,6 +86,12 @@ public class PZCombatManager : MonoBehaviour {
 	
 	[SerializeField]
 	UITweener winPopup;
+
+	int currPlayerDamage = 0;
+
+	public int currTurn = 0;
+
+	public int playerTurns = 3;
 	
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
@@ -116,6 +124,9 @@ public class PZCombatManager : MonoBehaviour {
 	void Init()
 	{
 		enemies.Clear();
+		defeatedEnemies.Clear();
+		currTurn = 0;
+		currPlayerDamage = 0;
 		
 		CBKWhiteboard.currTaskID = CBKWhiteboard.loadedDungeon.userTaskId;
 		
@@ -167,6 +178,7 @@ public class PZCombatManager : MonoBehaviour {
 	
 	void OnEnemyDeath()
 	{
+		defeatedEnemies.Add(activeEnemy.monster);
 		StartCoroutine(ScrollToNextEnemy());
 	}
 	
@@ -232,12 +244,32 @@ public class PZCombatManager : MonoBehaviour {
 			activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
 			
 			StartCoroutine(SendEndResult(true));
+
 			winPopup.gameObject.SetActive(true);
+			GetRewards();
 			winPopup.Play();
 		}
 		
 		//Debug.Log("Unlock: Done Scrolling");
 		PZPuzzleManager.instance.swapLock -= 1;
+	}
+
+	void GetRewards()
+	{
+		int cash = 0;
+		int xp = 0;
+		List<MonsterProto> pieces = new List<MonsterProto>();
+		foreach (var item in defeatedEnemies) 
+		{
+			cash += item.taskMonster.cashReward;
+			xp += item.taskMonster.expReward;
+			if (item.taskMonster.puzzlePieceDropped)
+			{
+				pieces.Add(item.monster);
+			}
+		}
+		CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.FREE, cash);
+		CBKResourceManager.instance.GainExp(xp);
 	}
 	
 	IEnumerator SendEndResult(bool userWon)
@@ -270,7 +302,7 @@ public class PZCombatManager : MonoBehaviour {
 	}
 	
 	/// <summary>
-	/// Attached to the OnBreakGems event.
+	/// Called at the end of every full player turn
 	/// Passes the gems and combo to the player's unit
 	/// </summary>
 	/// <param name='gemsBroken'>
@@ -292,8 +324,24 @@ public class PZCombatManager : MonoBehaviour {
 			damage = (int)(damage * (1 + (combo-1) / 4f));
 			Debug.Log("Combo damage: " + damage);
 		}
+
+		currPlayerDamage += damage;
+
+		if (++currTurn == playerTurns)
+		{
+			Attack();
+			currPlayerDamage = 0;
+		}
 		
-		StartCoroutine(DamageAnimations(damage, element));
+		if (CBKEventManager.Puzzle.OnTurnChange != null)
+		{
+			CBKEventManager.Puzzle.OnTurnChange(playerTurns - currTurn);
+		}
+	}
+
+	public void Attack()
+	{
+		StartCoroutine(DamageAnimations(currPlayerDamage, activePlayer.monster.monster.element));
 	}
 	
 	/// <summary>
@@ -344,6 +392,13 @@ public class PZCombatManager : MonoBehaviour {
 		
 		//Debug.Log("Unlock: Done Animating");
 		PZPuzzleManager.instance.swapLock -= 1;
+		
+		currTurn = 0;
+
+		if (CBKEventManager.Puzzle.OnTurnChange != null)
+		{
+			CBKEventManager.Puzzle.OnTurnChange(playerTurns - currTurn);
+		}
 	}
 	
 	int[] PickEnemyGems()

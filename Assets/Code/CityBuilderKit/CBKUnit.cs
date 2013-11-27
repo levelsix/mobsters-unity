@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
 
-public class CBKUnit : MonoBehaviour, CBKIPoolable {
+public class CBKUnit : MonoBehaviour, CBKPoolable {
 	
 	public UISprite sprite;
 	public UISpriteAnimation anim;
@@ -80,7 +80,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 	public CBKCityUnit cityUnit;
 	
 	CBKUnit _prefab;
-	public CBKIPoolable prefab {
+	public CBKPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -113,7 +113,7 @@ public class CBKUnit : MonoBehaviour, CBKIPoolable {
 		cityUnit = GetComponent<CBKCityUnit>();
 	}
 	
-	public CBKIPoolable Make (Vector3 origin)
+	public CBKPoolable Make (Vector3 origin)
 	{
 		CBKUnit unit = Instantiate(this, origin, Quaternion.identity) as CBKUnit;
 		unit.prefab = this;

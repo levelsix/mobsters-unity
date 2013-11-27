@@ -263,6 +263,7 @@ public class CBKBuildingManager : MonoBehaviour
 			//Debug.Log("Making neutral element " + i);
 			switch (response.cityElements[i].type) {
 				case CityElementProto.CityElemType.BUILDING:
+				case CityElementProto.CityElemType.DECORATION:
 					MakeBuilding(response.cityElements[i]);
 					break;
 				case CityElementProto.CityElemType.PERSON_NEUTRAL_ENEMY:
@@ -298,7 +299,7 @@ public class CBKBuildingManager : MonoBehaviour
 		}
 	}
 	
-	CBKBuilding MakeBuildingAt (FullStructureProto proto, int id, int x, int y)
+	CBKBuilding MakeBuildingAt (StructureInfoProto proto, int id, int x, int y)
 	{
 		Vector3 position = new Vector3(CBKGridManager.instance.spaceSize * x, 0, 
     		CBKGridManager.instance.spaceSize * y);
@@ -308,7 +309,7 @@ public class CBKBuildingManager : MonoBehaviour
     	building.trans.parent = buildingParent;
     	building.Init(proto);
     	
-	    CBKGridManager.instance.AddBuilding(building, x, y, proto.xLength, proto.yLength);
+	    CBKGridManager.instance.AddBuilding(building, x, y, proto.width, proto.height);
 	
 		buildings.Add(id, building);
 		
@@ -326,8 +327,8 @@ public class CBKBuildingManager : MonoBehaviour
     	building.trans.parent = buildingParent;
     	building.Init(proto);
     	
-		FullStructureProto fsp = CBKDataManager.instance.Get(typeof(FullStructureProto), proto.structId) as FullStructureProto;
-	    CBKGridManager.instance.AddBuilding(building, (int)proto.coordinates.x, (int)proto.coordinates.y, fsp.xLength, fsp.yLength);
+		StructureInfoProto fsp = (CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), proto.structId) as CBKCombinedBuildingProto).structInfo;
+	    CBKGridManager.instance.AddBuilding(building, (int)proto.coordinates.x, (int)proto.coordinates.y, fsp.width, fsp.height);
 	
 		buildings.Add(proto.userStructId, building);
 		
@@ -345,28 +346,24 @@ public class CBKBuildingManager : MonoBehaviour
 		
 		building.trans.rotation = buildingParent.rotation;
     	building.trans.parent = buildingParent;
-    	building.Init(proto);
-    	
-	    CBKGridManager.instance.AddBuilding(building, (int)proto.coords.x, (int)proto.coords.y, (int)proto.xLength, (int)proto.yLength);
-	
+		
+		building.Init(proto);
+		/*
+		if (proto.type == CityElementProto.CityElemType.BUILDING)
+		{
+	    	CBKGridManager.instance.AddBuilding(building, (int)proto.coords.x, (int)proto.coords.y, (int)proto.xLength, (int)proto.yLength);
+		}
+		*/
+
 		buildings.Add(proto.assetId, building);
 		
     	return building;
 	}
 	
-	private void BuyBuilding(FullStructureProto proto)
+	private void BuyBuilding(StructureInfoProto proto)
 	{
-		bool hasEnoughMoney;
-		if (proto.isPremiumCurrency)
-		{
-			hasEnoughMoney = CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.PREMIUM, proto.buildPrice);
-		}
-		else
-		{
-			hasEnoughMoney = CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.FREE, proto.buildPrice);
-		}
-		
-		if (hasEnoughMoney)
+		CBKResourceManager.ResourceType costType = (CBKResourceManager.ResourceType)proto.buildResourceType;
+		if (CBKResourceManager.instance.Spend(costType, proto.buildCost))
 		{
 			PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
 			request.sender = CBKWhiteboard.localMup;
@@ -395,7 +392,7 @@ public class CBKBuildingManager : MonoBehaviour
 		PurchaseNormStructureResponseProto response = UMQNetworkManager.responseDict[tagNum] as PurchaseNormStructureResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		FullStructureProto proto = CBKWhiteboard.tempStructureProto;
+		StructureInfoProto proto = CBKWhiteboard.tempStructureProto;
 		
 		if (response.status == PurchaseNormStructureResponseProto.PurchaseNormStructureStatus.SUCCESS)
 		{
@@ -419,7 +416,7 @@ public class CBKBuildingManager : MonoBehaviour
 	/// <param name='proto'>
 	/// The prefab for the building to be made
 	/// </param>
-	private CBKBuilding MakeBuildingCenter(FullStructureProto proto)
+	private CBKBuilding MakeBuildingCenter(StructureInfoProto proto)
 	{
 		CBKGridNode coords = CBKGridManager.instance.ScreenToPoint(new Vector3(Screen.width/2, Screen.height/2));
 		coords = FindSpaceInRange(proto, coords, 0);
@@ -432,7 +429,7 @@ public class CBKBuildingManager : MonoBehaviour
 		building.trans.parent = buildingParent;
 		building.Init(proto);
 		building.upgrade.StartConstruction();
-        CBKGridManager.instance.AddBuilding(building, (int)coords.x, (int)coords.z, proto.xLength, proto.yLength);
+        CBKGridManager.instance.AddBuilding(building, (int)coords.x, (int)coords.z, proto.width, proto.height);
 
         return building;
 	}
@@ -457,7 +454,7 @@ public class CBKBuildingManager : MonoBehaviour
 	/// <param name='range'>
 	/// Range.
 	/// </param>
-	public CBKGridNode FindSpaceInRange(FullStructureProto proto, CBKGridNode startPos, int range)
+	public CBKGridNode FindSpaceInRange(StructureInfoProto proto, CBKGridNode startPos, int range)
 	{
 		if (range > 36)
 		{
@@ -498,7 +495,7 @@ public class CBKBuildingManager : MonoBehaviour
 	/// <param name='y'>
 	/// Y derivation
 	/// </param>
-	public CBKGridNode CheckSpaces(FullStructureProto proto, CBKGridNode basePos, int x, int y)
+	public CBKGridNode CheckSpaces(StructureInfoProto proto, CBKGridNode basePos, int x, int y)
 	{
 		if (CBKGridManager.instance.HasSpaceForBuilding(proto, basePos + new CBKGridNode(x,y)))
 		{
@@ -649,7 +646,7 @@ public class CBKBuildingManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.G))
 		{
 			//MakeBuildingCenter(CBKBuildingList.instance.sevenEleven);	
-			BuyBuilding(CBKDataManager.instance.Get(typeof(FullStructureProto), 2) as FullStructureProto);
+			//BuyBuilding(CBKDataManager.instance.Get(typeof(StructureInfoProto), 2) as StructureInfoProto);
 		}
 	}
 #endif

@@ -5,17 +5,39 @@ using com.lvl6.proto;
 
 public class CBKClanManager : MonoBehaviour 
 {
-	int userClanId = 0;
-	UserClanStatus userClanStatus;
-	bool isLeader = false;
+	public static int userClanId = 0;
+	static UserClanStatus userClanStatus;
+	public static bool isLeader = false;
 
-	List<int> pendingClanInvites;
+	static List<int> pendingClanInvites = new List<int>();
 
 	public bool isInClan
 	{
 		get
 		{
 			return (userClanId > 0);
+		}
+	}
+	
+	List<FullClanProtoWithClanSize> _postedClans;
+	public List<FullClanProtoWithClanSize> postedClans
+	{
+		get
+		{
+			List<FullClanProtoWithClanSize> clans = _postedClans;
+			_postedClans = null;
+			return clans;
+		}
+	}
+	
+	List<MinimumUserProtoForClans> _postedClanMembers;
+	public List<MinimumUserProtoForClans> postedClanMembers
+	{
+		get
+		{
+			List<MinimumUserProtoForClans> members = _postedClanMembers;
+			_postedClanMembers = null;
+			return members;
 		}
 	}
 
@@ -28,6 +50,7 @@ public class CBKClanManager : MonoBehaviour
 
 	public void Init(List<FullUserClanProto> clans)
 	{
+		pendingClanInvites.Clear();
 		if (clans.Count > 0)
 		{
 			if (clans[0].status == UserClanStatus.MEMBER)
@@ -37,7 +60,6 @@ public class CBKClanManager : MonoBehaviour
 			}
 			else
 			{
-				pendingClanInvites = new List<int>();
 				foreach (FullUserClanProto clan in clans)
 				{
 					pendingClanInvites.Add(clan.clanId);
@@ -47,26 +69,9 @@ public class CBKClanManager : MonoBehaviour
 		}
 	}
 
-	List<FullClanProtoWithClanSize> _postedClans;
-	public List<FullClanProtoWithClanSize> postedClans
+	public bool HasRequestedClan(int clanId)
 	{
-		get
-		{
-			List<FullClanProtoWithClanSize> clans = _postedClans;
-			_postedClans = null;
-			return clans;
-		}
-	}
-
-	List<MinimumUserProtoForClans> _postedClanMembers;
-	public List<MinimumUserProtoForClans> postedClanMembers
-	{
-		get
-		{
-			List<MinimumUserProtoForClans> members = _postedClanMembers;
-			_postedClanMembers = null;
-			return members;
-		}
+		return (pendingClanInvites.Contains(clanId));
 	}
 
 	/// <summary>
@@ -199,6 +204,8 @@ public class CBKClanManager : MonoBehaviour
 		switch (response.status) 
 		{
 		case RequestJoinClanResponseProto.RequestJoinClanStatus.REQUEST_SUCCESS:
+			pendingClanInvites.Add (response.clanId);
+			break;
 		case RequestJoinClanResponseProto.RequestJoinClanStatus.JOIN_SUCCESS:
 
 			userClanId = response.clanId;

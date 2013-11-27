@@ -118,7 +118,7 @@ public class CBKDataManager : MonoBehaviour {
 		CheckType(typ);
 		dataDict[typ][id] = obj;
 		
-		Debug.Log("Loading " + typ.ToString() + " " + id);
+		//Debug.Log("Loading " + typ.ToString() + " " + id);
 	}
 	
 	/// <summary>
@@ -147,9 +147,15 @@ public class CBKDataManager : MonoBehaviour {
 		{
 			CBKDataManager.instance.Load(item, item.cityId);
 		}
-		foreach (var item in data.allStructs) 
+		foreach (var item in data.allGenerators)
 		{
-			CBKDataManager.instance.Load(item, item.structId);
+			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
+			CBKDataManager.instance.Load(building, building.id);
+		}
+		foreach (var item in data.allStorages)
+		{
+			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
+			CBKDataManager.instance.Load(building, building.id);
 		}
 		foreach (var item in data.allTasks) 
 		{

@@ -4,7 +4,7 @@ using com.lvl6.proto;
 
 public class CBKBuildStructureButton : MonoBehaviour {
 
-	FullStructureProto structProto;
+	StructureInfoProto structProto;
 	
 	[SerializeField]
 	UILabel nameLabel;
@@ -21,7 +21,7 @@ public class CBKBuildStructureButton : MonoBehaviour {
 	[SerializeField]
 	UILabel timeLabel;
 	
-	public void Init(FullStructureProto proto)
+	public void Init(StructureInfoProto proto)
 	{
 		
 	}

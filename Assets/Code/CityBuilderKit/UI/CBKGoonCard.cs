@@ -15,22 +15,16 @@ public class CBKGoonCard : MonoBehaviour {
 	UISprite cardBackground;
 	
 	[SerializeField]
-	UISprite cardBorder;
-	
-	[SerializeField]
 	UISprite goonPose;
 	
 	[SerializeField]
-	CBKActionButton addRemoveTeamButton;
+	public CBKActionButton addRemoveTeamButton;
 	
 	[SerializeField]
 	UISprite addRemoveButtonBackground;
-	
+
 	[SerializeField]
-	CBKActionButton healButton;
-	
-	[SerializeField]
-	GameObject healButtonParent;
+	public CBKActionButton healButton;
 	
 	[SerializeField]
 	UILabel healCostLabel;
@@ -42,19 +36,10 @@ public class CBKGoonCard : MonoBehaviour {
 	UILabel rarityLabel;
 	
 	[SerializeField]
-	GameObject isHealingParent;
-	
-	[SerializeField]
 	UISprite healthBar;
 	
 	[SerializeField]
-	UILabel levelLabel;
-	
-	[SerializeField]
 	UILabel nameLabel;
-	
-	[SerializeField]
-	UISprite[] stars;
 	
 	[SerializeField]
 	UILabel overCardLabel;
@@ -74,17 +59,17 @@ public class CBKGoonCard : MonoBehaviour {
 		{MonsterProto.MonsterElement.DARKNESS, "nightcard"},
 		{MonsterProto.MonsterElement.FIRE, "firecard"},
 		{MonsterProto.MonsterElement.GRASS, "earthcard"},
-		{MonsterProto.MonsterElement.LIGHTNING, "suncard"},
+		{MonsterProto.MonsterElement.LIGHTNING, "lightcard"},
 		{MonsterProto.MonsterElement.WATER, "watercard"}
 	};
-	
-	static readonly Dictionary<MonsterProto.MonsterElement, string> bordersForElements = new Dictionary<MonsterProto.MonsterElement, string>()
+
+	static readonly Dictionary<MonsterProto.MonsterElement, string> healthBarForElements = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "nightborder"},
-		{MonsterProto.MonsterElement.FIRE, "fireborder"},
-		{MonsterProto.MonsterElement.GRASS, "earthborder"},
-		{MonsterProto.MonsterElement.LIGHTNING, "sunborder"},
-		{MonsterProto.MonsterElement.WATER, "waterborder"}
+		{MonsterProto.MonsterElement.DARKNESS, "nightcardhealthbar"},
+		{MonsterProto.MonsterElement.FIRE, "firecardhealthbar"},
+		{MonsterProto.MonsterElement.GRASS, "earthcardhealthbar"},
+		{MonsterProto.MonsterElement.LIGHTNING, "lightcardhealthbar"},
+		{MonsterProto.MonsterElement.WATER, "watercardhealthbar"}
 	};
 	
 	static readonly Dictionary<MonsterProto.MonsterQuality, string> ribbonsForRarity = new Dictionary<MonsterProto.MonsterQuality, string>()
@@ -97,7 +82,7 @@ public class CBKGoonCard : MonoBehaviour {
 	};
 	
 	const string addButtonSpriteName = "addteam";
-	const string removeButtonSpriteName = "removeteam";
+	const string onTeamButtonSpriteName = "onteam";
 	
 	const string emptyBackground = "emptyslot";
 	
@@ -121,6 +106,7 @@ public class CBKGoonCard : MonoBehaviour {
 	{
 		Init (goon);
 		SetHealButton(goon);
+		healthBar.spriteName = healthBarForElements[goon.monster.element];
 	}
 	
 	public void InitLab(PZMonster goon)
@@ -144,10 +130,9 @@ public class CBKGoonCard : MonoBehaviour {
 		goonPose.spriteName = CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Card";
 		
 		cardBackground.spriteName = backgroundsForElements[goon.monster.element];
-		cardBorder.spriteName = bordersForElements[goon.monster.element];
 		if (goon.userMonster.teamSlotNum > 0)
 		{
-			addRemoveButtonBackground.spriteName = removeButtonSpriteName;
+			addRemoveButtonBackground.spriteName = onTeamButtonSpriteName;
 			addRemoveButtonBackground.alpha = 1;
 			addRemoveTeamButton.onClick = RemoveFromTeam;
 			Debug.Log("button: " + ((addRemoveTeamButton.button == null) ? "no" : "yes"));
@@ -175,11 +160,7 @@ public class CBKGoonCard : MonoBehaviour {
 		rarityRibbon.spriteName = ribbonsForRarity[goon.monster.quality];
 		rarityLabel.text = goon.monster.quality.ToString();
 		
-		isHealingParent.SetActive(goon.isHealing);
-		
 		healthBar.fillAmount = ((float)goon.currHP) / goon.maxHP;
-		
-		levelLabel.text = "LVL " + goon.userMonster.currentLvl.ToString();
 		
 		nameLabel.text = goon.monster.displayName;
 		
@@ -221,20 +202,7 @@ public class CBKGoonCard : MonoBehaviour {
 	{
 		if (goon.userMonster.isComplete && !goon.isHealing && !goon.isEnhancing)
 		{
-			healButtonParent.SetActive(true);
-			if (CBKMonsterManager.currentEnhancementMonster == null)
-			{
-				healButton.label.text = "ENHANCE";
-			}
-			else
-			{
-				healButton.label.text = goon.enhanceCost.ToString();
-			}
 			healButton.onClick = AddToEnhanceQueue;
-		}
-		else
-		{
-			healButtonParent.SetActive(false);
 		}
 	}
 	
@@ -242,13 +210,16 @@ public class CBKGoonCard : MonoBehaviour {
 	{
 		if (goon.userMonster.isComplete && !goon.isHealing && !goon.isEnhancing && goon.currHP < goon.maxHP)
 		{
-			healButtonParent.SetActive(true);
-			healButton.label.text = goon.healCost.ToString();
 			healButton.onClick = AddToHealQueue;
+		}
+
+		if (goon.currHP < goon.maxHP)
+		{
+			healCostLabel.text = "$" + goon.healCost;
 		}
 		else
 		{
-			healButtonParent.SetActive(false);
+			healCostLabel.text = "Healthy";
 		}
 	}
 	
@@ -310,8 +281,7 @@ public class CBKGoonCard : MonoBehaviour {
 	
 	void RemoveFromTeam()
 	{
-		CBKMonsterManager.instance.RemoveFromTeam(goon);
-		InitEmptyTeam();
+		//CBKMonsterManager.instance.RemoveFromTeam(goon);
 	}
 	
 	void AddToEnhanceQueue()
@@ -336,6 +306,10 @@ public class CBKGoonCard : MonoBehaviour {
 	
 	void AddToHealQueue()
 	{
+		if (goon.isHealing)
+		{
+			return;
+		}
 		if (CBKResourceManager.resources[(int)CBKResourceManager.ResourceType.FREE] < goon.healCost)
 		{
 			CBKEventManager.Popup.CreateButtonPopup("Need more mulah", new string[]{"Okay"}, new Action[]{CBKEventManager.Popup.CloseTopPopupLayer});
@@ -367,7 +341,10 @@ public class CBKGoonCard : MonoBehaviour {
 	{
 		CBKEventManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
 			new Action[]{delegate{RemoveFromTeam();CBKMonsterManager.instance.AddToHealQueue(monster); 
-				isHealingParent.SetActive(true);CBKEventManager.Popup.CloseTopPopupLayer();}, 
+				CBKEventManager.Popup.CloseTopPopupLayer();}, 
 			CBKEventManager.Popup.CloseTopPopupLayer});
 	}
+
+
+
 }

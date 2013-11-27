@@ -16,44 +16,42 @@ public class CBKResourceCollector : MonoBehaviour {
 	{
 		get
 		{
-			return enabled && _building.userStructProto.isComplete && secondsUntilComplete <= 0;
+			return currMoney >= MONEY_THRESHOLD;
+		}
+	}
+
+	bool isGenerating
+	{
+		get
+		{
+			return enabled && _building.userStructProto.isComplete;
 		}
 	}
 	
 	/// <summary>
 	/// The capacity.
 	/// </summary>
-	public int income
+	public int currMoney
 	{
 		get
 		{
-			return _building.structProto.income;
+			if (!isGenerating)
+			{ 
+				return 0;
+			}
+			return (int)Mathf.Min(_generator.productionRate * (secsSinceCollect/3600f), _generator.capacity);
 		}
 	}
-	
-	/// <summary>
-	/// The hourly rate at which this collector generates
-	/// its resource.
-	/// </summary>
-	public int timeToGenerate
+
+	int secsSinceCollect
 	{
 		get
 		{
-			return _building.structProto.minutesToGain * 60 * 1000;
-		}
-	}
-	
-	public long secondsUntilComplete
-	{
-		get
-		{
-			//Debug.Log("Seconds:\nLast Retrieved: " + _building.userStructProto.lastRetrieved + "\nNow: " + CBKUtil.timeNow +
-				//"\nTime to gen: " + timeToGenerate);
-			if (_building.userStructProto.lastRetrieved + timeToGenerate < CBKUtil.timeNowMillis)
+			if (!isGenerating)
 			{
 				return 0;
 			}
-			return (_building.userStructProto.lastRetrieved + timeToGenerate) - CBKUtil.timeNowMillis;
+			return (int)((CBKUtil.timeNowMillis - lastTime)/1000f);
 		}
 	}
 	
@@ -69,30 +67,22 @@ public class CBKResourceCollector : MonoBehaviour {
 		}
 	}
 	
-	public string timeLeftString
-	{
-		get
-		{
-			return CBKUtil.TimeStringShort(secondsUntilComplete);
-		}
-	}
-	
 	
 	/// <summary>
 	/// The last collection.
 	/// </summary>
 	protected long lastCollection;
     
+	public ResourceGeneratorProto _generator;
+
     private CBKBuilding _building;
     
     private CBKBuildingUpgrade _upgrade;
-	
+
 	/// <summary>
-	/// The UI Popup that signifies that this collector
-	/// has enough resources to be harvested
+	/// A building needs to have at least this much money to be collected from
 	/// </summary>
-	[SerializeField]
-	GameObject hasResourcesPopup;
+	const int MONEY_THRESHOLD = 1;
 	
     void Awake()
     {
@@ -133,20 +123,11 @@ public class CBKResourceCollector : MonoBehaviour {
 		_building.OnSelect -= Collect;
         _upgrade.OnFinishUpgrade -= OnFinishUpgrade;
 	}
-	
-	public void Init(FullStructureProto proto)
+
+	public void Init(CBKCombinedBuildingProto proto)
 	{
+		_generator = proto.generator;
 		StartCoroutine(CheckMoney());
-		Init (true);
-	}
-	
-	public void Init(bool operational)
-	{
-		enabled = operational;
-		if (!enabled)
-		{
-			hasResourcesPopup.SetActive(false);
-		}
 	}
 	
 	/// <summary>
@@ -157,27 +138,34 @@ public class CBKResourceCollector : MonoBehaviour {
 		if (hasMoney)
 		{
 			CBKMoneyPickup money = CBKPoolManager.instance.Get(CBKPrefabList.instance.moneyPrefab, transform.position) as CBKMoneyPickup;
-			money.Init(_building, income);
+			money.Init(_building, currMoney);
 			
+			SendCollectRequest(currMoney);
+
 			_building.userStructProto.lastRetrieved = CBKUtil.timeNowMillis;
-			hasResourcesPopup.SetActive(false);
+			_building.hasMoneyPopup.SetActive(false);
 			
 			if (CBKEventManager.Town.OnCollectFromBuilding != null)
 			{
 				CBKEventManager.Town.OnCollectFromBuilding(_building);
 			}
-			
-			SendCollectRequest();
+
+		}
+		else
+		{
+			Debug.LogWarning("Current money: " + currMoney + "\nTime since last collected: " + secsSinceCollect 
+			                 + (isGenerating ? "\nIs" : "\nIsn't") + "Generating");
 		}
 	}
 	
-	void SendCollectRequest()
+	void SendCollectRequest(int amount)
 	{
 		RetrieveCurrencyFromNormStructureRequestProto request = new RetrieveCurrencyFromNormStructureRequestProto();
 		request.sender = CBKWhiteboard.localMup;
 		request.structRetrievals.Add(new com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval());
 		request.structRetrievals[0].userStructId = _building.userStructProto.userStructId;
 		request.structRetrievals[0].timeOfRetrieval = CBKUtil.timeNowMillis;
+		request.structRetrievals[0].amountCollected = amount;
 		
 		Debug.Log("Collecting from: " + _building.userStructProto.userStructId);
 		
@@ -192,10 +180,6 @@ public class CBKResourceCollector : MonoBehaviour {
 		if (response.status != RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.SUCCESS)
 		{
 			Debug.LogError("Problem collecting money: " + response.status.ToString());
-			if (response.status == RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.CLIENT_TOO_APART_FROM_SERVER_TIME)
-			{
-				Debug.Log("Client time: " + CBKUtil.timeNowMillis);
-			}
 		}
 	}
 	
@@ -206,7 +190,7 @@ public class CBKResourceCollector : MonoBehaviour {
 	{
 		while(enabled)
 		{
-			hasResourcesPopup.SetActive(hasMoney);
+			_building.hasMoneyPopup.SetActive(hasMoney);
 			if (_building.userStructProto.isComplete && _building.OnUpdateValues != null)
 			{
 				_building.OnUpdateValues();
@@ -218,11 +202,6 @@ public class CBKResourceCollector : MonoBehaviour {
 	public void OnFinishUpgrade ()
 	{
 		_building.userStructProto.lastRetrieved = _building.userStructProto.purchaseTime;//_building.userStructProto.lastUpgradeTime;
-	}
-	
-	public int MoneyAtLevel(int level)
-	{
-		return _building.structProto.income * level;
 	}
 	
 }

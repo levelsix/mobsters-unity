@@ -14,7 +14,7 @@ public class CBKPoolManager : MonoBehaviour {
 	/// <summary>
 	/// A dictionary that maps prefabs to their respective pools
 	/// </summary>
-	private Dictionary<CBKIPoolable, List<CBKIPoolable>> pools;
+	private Dictionary<CBKPoolable, List<CBKPoolable>> pools;
 	
 	/// <summary>
 	/// Awake this instance.
@@ -23,7 +23,7 @@ public class CBKPoolManager : MonoBehaviour {
 	void Awake()
 	{
 		instance = this;
-		pools = new Dictionary<CBKIPoolable, List<CBKIPoolable>>();
+		pools = new Dictionary<CBKPoolable, List<CBKPoolable>>();
 		DontDestroyOnLoad(gameObject);
 	}
 	
@@ -38,9 +38,9 @@ public class CBKPoolManager : MonoBehaviour {
 	/// <param name='pos'>
 	/// Position at which to move the object to
 	/// </param>
-	public CBKIPoolable Get(CBKIPoolable prefab, Vector3 pos)
+	public CBKPoolable Get(CBKPoolable prefab, Vector3 pos)
 	{
-		CBKIPoolable pooled;
+		CBKPoolable pooled;
 		if(pools.ContainsKey(prefab) && pools[prefab].Count > 0)
 		{
 			//Get from existing pool
@@ -69,7 +69,7 @@ public class CBKPoolManager : MonoBehaviour {
 	/// <param name='pooled'>
 	/// Instance of an object to pool
 	/// </param>
-	public void Pool(CBKIPoolable pooled)
+	public void Pool(CBKPoolable pooled)
 	{
 		//Disable the poolable
 		pooled.gObj.SetActive(false);
@@ -84,7 +84,7 @@ public class CBKPoolManager : MonoBehaviour {
 		//If no pool, make a new pool
 		if (!pools.ContainsKey(pooled.prefab))
 		{
-			pools[pooled.prefab] = new List<CBKIPoolable>();
+			pools[pooled.prefab] = new List<CBKPoolable>();
 		}
 		
 		//Add it to the pool
@@ -100,9 +100,9 @@ public class CBKPoolManager : MonoBehaviour {
 	/// <param name='poolable'>
 	/// Poolable.
 	/// </param>
-	public void Warm(CBKIPoolable poolable)
+	public void Warm(CBKPoolable poolable)
 	{
-		CBKIPoolable obj = poolable.Make(Vector3.zero);
+		CBKPoolable obj = poolable.Make(Vector3.zero);
 		Pool(obj);
 	}
 	
@@ -115,7 +115,7 @@ public class CBKPoolManager : MonoBehaviour {
 	/// <param name='count'>
 	/// Count.
 	/// </param>
-	public void Warm(CBKIPoolable poolable, int count)
+	public void Warm(CBKPoolable poolable, int count)
 	{
 		for (int i = 0; i < count; i++) 
 		{
@@ -128,7 +128,7 @@ public class CBKPoolManager : MonoBehaviour {
 	/// </summary>
 	public void Clean()
 	{
-		foreach (CBKIPoolable item in pools.Keys) 
+		foreach (CBKPoolable item in pools.Keys) 
 		{
 			Clean(item);
 		}
@@ -141,9 +141,9 @@ public class CBKPoolManager : MonoBehaviour {
 	/// <param name='prefab'>
 	/// Prefab to clean.
 	/// </param>
-	public void Clean(CBKIPoolable prefab)
+	public void Clean(CBKPoolable prefab)
 	{
-		foreach (CBKIPoolable item in pools[prefab])
+		foreach (CBKPoolable item in pools[prefab])
 		{
 			Destroy(item.gObj);
 		}

@@ -1,3 +1,4 @@
+//BAD!!! DON'T START NAMES WITH NEW OR COPY
 
 import "Chat.proto";
 import "User.proto";
@@ -25,7 +26,7 @@ message GeneralNotificationResponseProto {
 
 message SendGroupChatRequestProto {
 	optional MinimumUserProto sender = 1;
-	optional GroupChatScope scope = 2;
+	optional GroupChatScope scope = 2 [default = CLAN];
 	optional string chatMessage = 3;
 	optional int64 clientTime = 4;
 }

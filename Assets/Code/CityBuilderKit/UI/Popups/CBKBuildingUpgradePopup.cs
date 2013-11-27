@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using com.lvl6.proto;
 
 /// <summary>
 /// @author Rob Giusti
@@ -107,45 +108,55 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		gameObject.SetActive(true);
 		
 		int futureLevel = 1;//building.userStructProto.level + 1;
-		
+
+		StructureInfoProto nextBuilding = null;
+		if (building.combinedProto.structInfo.successorStructId > 0)
+		{
+			nextBuilding = CBKDataManager.instance.Get(typeof(StructureInfoProto), building.combinedProto.structInfo.successorStructId) as StructureInfoProto;
+		}
+
+		if (nextBuilding != null)
+		{
 		//If it is complete, use Upgrade prompts, otherwise, Finish prompts
-		if (building.userStructProto.isComplete)
-		{
+			if (building.userStructProto.isComplete)
+			{
+				
+				header.text = "Upgrade to level " + futureLevel + "?";
+				
+				upgradeTime.text = CBKUtil.TimeStringLong(building.upgrade.TimeToUpgrade(1));//building.userStructProto.level+1));
+				
+				currResource = building.baseResource;
+				
+				currCost = (int) (building.basePrice);
+				
+			}
+			else
+			{
+				header.text = "Finish upgrade?";
+				
+				currResource = CBKResourceManager.ResourceType.PREMIUM;
+				currCost = building.upgrade.gemsToFinish;
+				
+			}
+		
+			upgradeCurrency.type = currResource;
+			upgradeCostLabel.text = currCost.ToString();
 			
-			header.text = "Upgrade to level " + futureLevel + "?";
+			//buildingIcon.SetAtlasSprite(CBKAtlasUtil.instance.LookupBuildingSprite(building.structProto.name));
+			buildingIcon.spriteName = CBKUtil.StripExtensions(building.combinedProto.structInfo.name);
+			CBKAtlasUtil.instance.SetAtlasForSprite(buildingIcon);
+			buildingName.text = building.combinedProto.structInfo.name;
 			
-			upgradeTime.text = CBKUtil.TimeStringLong(building.upgrade.TimeToUpgrade(1));//building.userStructProto.level+1));
+			//Takes the color from the editor and turns it into hex values so that NGUI can interpret
+			string moneyColorHexString = CBKMath.ColorToInt(moneyColor).ToString("X"); 
+			//string timeString = CBKUtil.TimeStringMed(building.structProto.minutesToGain * 60);
 			
-			currResource = building.baseResource;
-			
-			currCost = (int) (building.basePrice);
-			
+			currIncome.text = "Current income:\n[" + moneyColorHexString + "]$" 
+				+ building.collector._generator.productionRate + "[-] every hour";
+			//TODO: Get this
+			//futureIncome.text = "Upgraded income:\n[" + moneyColorHexString + "]$" 
+					//+ building.collector.MoneyAtLevel(futureLevel) + "[-] every " + timeString;
 		}
-		else
-		{
-			header.text = "Finish upgrade?";
-			
-			currResource = CBKResourceManager.ResourceType.PREMIUM;
-			currCost = building.upgrade.gemsToFinish;
-			
-		}
-		
-		upgradeCurrency.type = currResource;
-		upgradeCostLabel.text = currCost.ToString();
-		
-		//buildingIcon.SetAtlasSprite(CBKAtlasUtil.instance.LookupBuildingSprite(building.structProto.name));
-		buildingIcon.atlas = CBKAtlasUtil.instance.GetBuildingAtlas(building.structProto.name);
-		buildingIcon.spriteName = CBKAtlasUtil.instance.StripSpaces(building.structProto.name);
-		buildingName.text = building.structProto.name;
-		
-		//Takes the color from the editor and turns it into hex values so that NGUI can interpret
-		string moneyColorHexString = CBKMath.ColorToInt(moneyColor).ToString("X"); 
-		string timeString = CBKUtil.TimeStringMed(building.structProto.minutesToGain * 60);
-		
-		currIncome.text = "Current income:\n[" + moneyColorHexString + "]$" 
-			+ building.structProto.income + "[-] every " + timeString;
-		futureIncome.text = "Upgraded income:\n[" + moneyColorHexString + "]$" 
-			+ building.collector.MoneyAtLevel(futureLevel) + "[-] every " + timeString;
 	}
 	
 	

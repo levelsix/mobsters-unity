@@ -55,9 +55,6 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT", Value=4)]
       C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_SELL_NORM_STRUCTURE_EVENT", Value=5)]
-      C_SELL_NORM_STRUCTURE_EVENT = 5,
-            
       [global::ProtoBuf.ProtoEnum(Name=@"C_UPGRADE_NORM_STRUCTURE_EVENT", Value=6)]
       C_UPGRADE_NORM_STRUCTURE_EVENT = 6,
             
@@ -224,9 +221,6 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT", Value=4)]
       S_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT = 4,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_SELL_NORM_STRUCTURE_EVENT", Value=5)]
-      S_SELL_NORM_STRUCTURE_EVENT = 5,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPGRADE_NORM_STRUCTURE_EVENT", Value=6)]
       S_UPGRADE_NORM_STRUCTURE_EVENT = 6,

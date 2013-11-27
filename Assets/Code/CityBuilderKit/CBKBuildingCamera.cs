@@ -176,9 +176,10 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 
 	void Reset()
 	{
+		Debug.Log("Camera reset: " + CBKWhiteboard.currCityType.ToString());
 		if (CBKWhiteboard.currCityType == CBKWhiteboard.CityType.NEUTRAL)
 		{
-			trans.parent.localPosition = new Vector3(0, CAMERA_BASE_HOME_Y);
+			trans.parent.localPosition = new Vector3(0, CAMERA_BASE_MISSION_Y);
 		}
 		else
 		{

@@ -29,7 +29,9 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 	/// </summary>
 	private const float COLOR_SPEED = 1.5f;
 	
-	const float SQUARES_PER_SECOND = 1;
+	public float speed = 1;
+
+	public bool rushing = false;
 	
 	void Awake()
 	{
@@ -59,7 +61,11 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 		if (moving)
 		{
 			Vector3 move = Vector3.zero;
-			float dist = Time.deltaTime * SQUARES_PER_SECOND * CBKGridManager.instance.spaceSize;
+			float dist = Time.deltaTime * speed * CBKGridManager.instance.spaceSize;
+			if (rushing)
+			{
+				dist *= 4;
+			}
 			switch (unit.direction) 
 			{
 				case CBKValues.Direction.NORTH:
@@ -83,6 +89,23 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 		{
 			//trans.position = target.worldPos;
 			MoveNext();
+		}
+	}
+
+	bool IsPastTarget()
+	{
+		switch (unit.direction)
+		{
+		case CBKValues.Direction.NORTH:
+			return trans.position.z > target.worldPos.z - MIN_DIST;
+		case CBKValues.Direction.SOUTH:
+			return trans.position.z < target.worldPos.z + MIN_DIST;
+		case CBKValues.Direction.WEST:
+			return trans.position.x < target.worldPos.x + MIN_DIST;
+		case CBKValues.Direction.EAST:
+			return trans.position.x > target.worldPos.x - MIN_DIST;
+		default:
+			return false;
 		}
 	}
 	
@@ -136,6 +159,8 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 	
 	Stack<CBKGridNode> PlanPath(CBKGridNode start, CBKGridNode end)
 	{
+		rushing = false;
+
 		if (start == null)
 		{
 			start = new CBKGridNode(CBKGridManager.instance.PointToGridCoords(trans.position));
@@ -218,7 +243,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 		Gizmos.color = Color.red;
 		foreach (CBKGridNode item in path) 
 		{
-			Gizmos.DrawCube(item.worldPos, new Vector3(.2f, .2f, .2f));
+			Gizmos.DrawCube(item.worldPos + new Vector3(CBKGridManager.instance.spaceSize/2, 0, CBKGridManager.instance.spaceSize/2), new Vector3(.2f, .2f, .2f));
 		}
 	}
 	

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// CBK task button, the button on the right-side of the task bar.
 /// When in BUILDING mode, this is the upgrade/finish upgrade button.
 /// </summary>
-public class CBKTaskButton : CBKTriggerPopupButton, CBKIPoolable {
+public class CBKTaskButton : CBKTriggerPopupButton, CBKPoolable {
 	
 	public GameObject gObj {
 		get {
@@ -17,7 +17,7 @@ public class CBKTaskButton : CBKTriggerPopupButton, CBKIPoolable {
 	
 	CBKTaskButton _prefab;
 	
-	public CBKIPoolable prefab {
+	public CBKPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -74,7 +74,7 @@ public class CBKTaskButton : CBKTriggerPopupButton, CBKIPoolable {
 		trans = transform;
 	}
 	
-	public CBKIPoolable Make (Vector3 origin)
+	public CBKPoolable Make (Vector3 origin)
 	{
 		CBKTaskButton button = Instantiate(this, origin, Quaternion.identity) as CBKTaskButton;
 		button.prefab = this;

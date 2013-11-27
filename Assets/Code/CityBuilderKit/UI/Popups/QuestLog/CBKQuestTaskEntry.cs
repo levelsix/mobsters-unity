@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
@@ -6,7 +6,7 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// CBK quest task entry.
 /// </summary>
-public class CBKQuestTaskEntry : MonoBehaviour, CBKIPoolable
+public class CBKQuestTaskEntry : MonoBehaviour, CBKPoolable
 {
 	
 	GameObject gameObj;
@@ -25,7 +25,7 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKIPoolable
 		}
 	}
 	
-	public CBKIPoolable prefab {
+	public CBKPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -56,7 +56,7 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKIPoolable
 		gameObj = gameObject;
 	}
 	
-	public CBKIPoolable Make (Vector3 origin)
+	public CBKPoolable Make (Vector3 origin)
 	{
 		CBKQuestTaskEntry entry = Instantiate(this, origin, Quaternion.identity) as CBKQuestTaskEntry;
 		entry.prefab = this;
@@ -92,7 +92,7 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKIPoolable
 	{
 		BuildStructJobProto buildJob = CBKDataManager.instance.Get (typeof(BuildStructJobProto), job.buildStructJobId) as BuildStructJobProto;
 		
-		FullStructureProto structure = CBKDataManager.instance.Get(typeof(FullStructureProto), buildJob.structId) as FullStructureProto;
+		StructureInfoProto structure = CBKDataManager.instance.Get(typeof(StructureInfoProto), buildJob.structId) as StructureInfoProto;
 		
 		taskNameLabel.text = "Build " + buildJob.quantityRequired + " " + structure.name + "s";
 		
@@ -105,7 +105,7 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKIPoolable
 	{
 		UpgradeStructJobProto upgradeJob = CBKDataManager.instance.Get(typeof(UpgradeStructJobProto), job.upgradeStructJobId) as UpgradeStructJobProto;
 		
-		FullStructureProto structure = CBKDataManager.instance.Get(typeof(FullStructureProto), upgradeJob.structId) as FullStructureProto;
+		StructureInfoProto structure = CBKDataManager.instance.Get(typeof(StructureInfoProto), upgradeJob.structId) as StructureInfoProto;
 		
 		taskNameLabel.text = "Upgrade " + structure.name + " to level " + upgradeJob.levelReq;
 		

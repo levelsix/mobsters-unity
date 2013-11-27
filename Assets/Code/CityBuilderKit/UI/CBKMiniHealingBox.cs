@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using com.lvl6.proto;
 
 public class CBKMiniHealingBox : MonoBehaviour {
 
 	[SerializeField]
-	UISprite goonPortrait;
+	public UISprite goonPortrait;
 	
 	[SerializeField]
 	UISprite bar;
@@ -14,32 +16,59 @@ public class CBKMiniHealingBox : MonoBehaviour {
 	
 	[SerializeField]
 	UILabel timeLabel;
+
+	[SerializeField]
+	public UISprite background;
 	
 	PZMonster monster;
 	
 	[SerializeField]
-	CBKActionButton removeButton;
-	
-	void OnEnable()
+	public CBKActionButton removeButton;
+
+	Dictionary<MonsterProto.MonsterElement, string> elementBackgrounds = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		removeButton.onClick += Remove;
-	}
-	
-	void OnDisable()
+		{MonsterProto.MonsterElement.DARKNESS, "nightteam"},
+		{MonsterProto.MonsterElement.FIRE, "fireteam"},
+		{MonsterProto.MonsterElement.GRASS, "earthteam"},
+		{MonsterProto.MonsterElement.LIGHTNING, "lightteam"},
+		{MonsterProto.MonsterElement.WATER, "waterteam"}
+	};
+
+	public void Init(PZMonster monster, bool forTeam = false)
 	{
-		removeButton.onClick -= Remove;
-	}
-	
-	public void Init(PZMonster monster)
-	{
+		if (monster == null)
+		{
+			goonPortrait.alpha = 0;
+			removeButton.gameObj.SetActive(false);
+		}
+		else
+		{
+			goonPortrait.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Card";	
+			background.spriteName = elementBackgrounds[monster.monster.element];
+			removeButton.gameObj.SetActive(true);
+		}
+
 		gameObject.SetActive(true);
 		
 		this.monster = monster;
 		
-		goonPortrait.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Card";
+
+		if (forTeam)
+		{
+			removeButton.onClick = RemoveTeam;
+		}
+		else if (monster != null)
+		{
+			removeButton.onClick = RemoveQueue;
+		}
 	}
-	
-	void Remove()
+
+	void RemoveTeam()
+	{
+		CBKMonsterManager.instance.RemoveFromTeam(monster);
+	}
+
+	void RemoveQueue()
 	{
 		if (monster.isHealing)
 		{

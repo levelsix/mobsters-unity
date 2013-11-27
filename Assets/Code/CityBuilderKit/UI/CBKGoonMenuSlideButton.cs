@@ -11,6 +11,7 @@ public class CBKGoonMenuSlideButton : CBKMenuSlideButton {
 	
 	public override void OnClick ()
 	{
+		base.OnClick ();
 		if (healMode)
 		{
 			goonScreen.InitHeal();
@@ -19,7 +20,6 @@ public class CBKGoonMenuSlideButton : CBKMenuSlideButton {
 		{
 			goonScreen.InitEnhance();
 		}
-		base.OnClick ();
 	}
 	
 }

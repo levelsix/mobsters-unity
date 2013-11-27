@@ -10,10 +10,10 @@
 // Generated from: Structure.proto
 namespace com.lvl6.proto
 {
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FullStructureProto")]
-  public partial class FullStructureProto : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StructureInfoProto")]
+  public partial class StructureInfoProto : global::ProtoBuf.IExtensible
   {
-    public FullStructureProto() {}
+    public StructureInfoProto() {}
     
 
     private int _structId = default(int);
@@ -43,26 +43,35 @@ namespace com.lvl6.proto
       set { _level = value; }
     }
 
-    private int _income = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"income", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int income
+    private com.lvl6.proto.StructureInfoProto.StructType _structType = com.lvl6.proto.StructureInfoProto.StructType.RESOURCE_GENERATOR;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"structType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructureInfoProto.StructType.RESOURCE_GENERATOR)]
+    public com.lvl6.proto.StructureInfoProto.StructType structType
     {
-      get { return _income; }
-      set { _income = value; }
+      get { return _structType; }
+      set { _structType = value; }
     }
 
-    private int _minutesToGain = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"minutesToGain", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int minutesToGain
+    private com.lvl6.proto.ResourceType _buildResourceType = com.lvl6.proto.ResourceType.CASH;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"buildResourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    public com.lvl6.proto.ResourceType buildResourceType
     {
-      get { return _minutesToGain; }
-      set { _minutesToGain = value; }
+      get { return _buildResourceType; }
+      set { _buildResourceType = value; }
+    }
+
+    private int _buildCost = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"buildCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int buildCost
+    {
+      get { return _buildCost; }
+      set { _buildCost = value; }
     }
 
     private int _minutesToBuild = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"minutesToBuild", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"minutesToBuild", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int minutesToBuild
     {
@@ -70,71 +79,44 @@ namespace com.lvl6.proto
       set { _minutesToBuild = value; }
     }
 
-    private int _buildPrice = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"buildPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _prerequisiteTownHallLvl = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"prerequisiteTownHallLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int buildPrice
+    public int prerequisiteTownHallLvl
     {
-      get { return _buildPrice; }
-      set { _buildPrice = value; }
+      get { return _prerequisiteTownHallLvl; }
+      set { _prerequisiteTownHallLvl = value; }
     }
 
-    private bool _isPremiumCurrency = default(bool);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"isPremiumCurrency", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool isPremiumCurrency
+    private int _width = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"width", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int width
     {
-      get { return _isPremiumCurrency; }
-      set { _isPremiumCurrency = value; }
+      get { return _width; }
+      set { _width = value; }
     }
 
-    private int _sellPrice = default(int);
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"sellPrice", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _height = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"height", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int sellPrice
+    public int height
     {
-      get { return _sellPrice; }
-      set { _sellPrice = value; }
+      get { return _height; }
+      set { _height = value; }
     }
 
-    private int _minLevel = default(int);
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"minLevel", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _predecessorStructId = default(int);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"predecessorStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int minLevel
+    public int predecessorStructId
     {
-      get { return _minLevel; }
-      set { _minLevel = value; }
-    }
-
-    private int _xLength = default(int);
-    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"xLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int xLength
-    {
-      get { return _xLength; }
-      set { _xLength = value; }
-    }
-
-    private int _yLength = default(int);
-    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"yLength", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int yLength
-    {
-      get { return _yLength; }
-      set { _yLength = value; }
-    }
-
-    private int _imgVerticalPixelOffset = default(int);
-    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"imgVerticalPixelOffset", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int imgVerticalPixelOffset
-    {
-      get { return _imgVerticalPixelOffset; }
-      set { _imgVerticalPixelOffset = value; }
+      get { return _predecessorStructId; }
+      set { _predecessorStructId = value; }
     }
 
     private int _successorStructId = default(int);
-    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"successorStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"successorStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int successorStructId
     {
@@ -142,13 +124,366 @@ namespace com.lvl6.proto
       set { _successorStructId = value; }
     }
 
-    private int _predecessorStructId = default(int);
-    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"predecessorStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int predecessorStructId
+    private string _imgName = "";
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"imgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string imgName
     {
-      get { return _predecessorStructId; }
-      set { _predecessorStructId = value; }
+      get { return _imgName; }
+      set { _imgName = value; }
+    }
+
+    private float _imgVerticalPixelOffset = default(float);
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"imgVerticalPixelOffset", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float imgVerticalPixelOffset
+    {
+      get { return _imgVerticalPixelOffset; }
+      set { _imgVerticalPixelOffset = value; }
+    }
+
+    private string _description = "";
+    [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"description", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string description
+    {
+      get { return _description; }
+      set { _description = value; }
+    }
+
+    private string _shortDescription = "";
+    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"shortDescription", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string shortDescription
+    {
+      get { return _shortDescription; }
+      set { _shortDescription = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"StructType")]
+    public enum StructType
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RESOURCE_GENERATOR", Value=1)]
+      RESOURCE_GENERATOR = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RESOURCE_STORAGE", Value=2)]
+      RESOURCE_STORAGE = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"HOSPITAL", Value=3)]
+      HOSPITAL = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RESIDENCE", Value=4)]
+      RESIDENCE = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"TOWN_HALL", Value=5)]
+      TOWN_HALL = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"LAB", Value=6)]
+      LAB = 6
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ResourceGeneratorProto")]
+  public partial class ResourceGeneratorProto : global::ProtoBuf.IExtensible
+  {
+    public ResourceGeneratorProto() {}
+    
+
+    private com.lvl6.proto.StructureInfoProto _structInfo = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"structInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StructureInfoProto structInfo
+    {
+      get { return _structInfo; }
+      set { _structInfo = value; }
+    }
+
+    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.CASH;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"resourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    public com.lvl6.proto.ResourceType resourceType
+    {
+      get { return _resourceType; }
+      set { _resourceType = value; }
+    }
+
+    private float _productionRate = default(float);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"productionRate", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float productionRate
+    {
+      get { return _productionRate; }
+      set { _productionRate = value; }
+    }
+
+    private int _capacity = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"capacity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int capacity
+    {
+      get { return _capacity; }
+      set { _capacity = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ResourceStorageProto")]
+  public partial class ResourceStorageProto : global::ProtoBuf.IExtensible
+  {
+    public ResourceStorageProto() {}
+    
+
+    private com.lvl6.proto.StructureInfoProto _structInfo = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"structInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StructureInfoProto structInfo
+    {
+      get { return _structInfo; }
+      set { _structInfo = value; }
+    }
+
+    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.CASH;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"resourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    public com.lvl6.proto.ResourceType resourceType
+    {
+      get { return _resourceType; }
+      set { _resourceType = value; }
+    }
+
+    private int _capacity = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"capacity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int capacity
+    {
+      get { return _capacity; }
+      set { _capacity = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"HospitalProto")]
+  public partial class HospitalProto : global::ProtoBuf.IExtensible
+  {
+    public HospitalProto() {}
+    
+
+    private com.lvl6.proto.StructureInfoProto _structInfo = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"structInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StructureInfoProto structInfo
+    {
+      get { return _structInfo; }
+      set { _structInfo = value; }
+    }
+
+    private int _queueSize = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"queueSize", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int queueSize
+    {
+      get { return _queueSize; }
+      set { _queueSize = value; }
+    }
+
+    private float _healthPerSecond = default(float);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"healthPerSecond", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float healthPerSecond
+    {
+      get { return _healthPerSecond; }
+      set { _healthPerSecond = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"LabProto")]
+  public partial class LabProto : global::ProtoBuf.IExtensible
+  {
+    public LabProto() {}
+    
+
+    private com.lvl6.proto.StructureInfoProto _structInfo = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"structInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StructureInfoProto structInfo
+    {
+      get { return _structInfo; }
+      set { _structInfo = value; }
+    }
+
+    private int _queueSize = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"queueSize", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int queueSize
+    {
+      get { return _queueSize; }
+      set { _queueSize = value; }
+    }
+
+    private float _pointsPerSecond = default(float);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"pointsPerSecond", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float pointsPerSecond
+    {
+      get { return _pointsPerSecond; }
+      set { _pointsPerSecond = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ResidenceProto")]
+  public partial class ResidenceProto : global::ProtoBuf.IExtensible
+  {
+    public ResidenceProto() {}
+    
+
+    private com.lvl6.proto.StructureInfoProto _structInfo = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"structInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StructureInfoProto structInfo
+    {
+      get { return _structInfo; }
+      set { _structInfo = value; }
+    }
+
+    private int _numMonsterSlots = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"numMonsterSlots", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numMonsterSlots
+    {
+      get { return _numMonsterSlots; }
+      set { _numMonsterSlots = value; }
+    }
+
+    private int _numBonusMonsterSlots = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"numBonusMonsterSlots", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numBonusMonsterSlots
+    {
+      get { return _numBonusMonsterSlots; }
+      set { _numBonusMonsterSlots = value; }
+    }
+
+    private int _numGemsRequired = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"numGemsRequired", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numGemsRequired
+    {
+      get { return _numGemsRequired; }
+      set { _numGemsRequired = value; }
+    }
+
+    private int _numAcceptedFbInvites = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"numAcceptedFbInvites", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numAcceptedFbInvites
+    {
+      get { return _numAcceptedFbInvites; }
+      set { _numAcceptedFbInvites = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TownHallProto")]
+  public partial class TownHallProto : global::ProtoBuf.IExtensible
+  {
+    public TownHallProto() {}
+    
+
+    private com.lvl6.proto.StructureInfoProto _structInfo = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"structInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StructureInfoProto structInfo
+    {
+      get { return _structInfo; }
+      set { _structInfo = value; }
+    }
+
+    private int _numResourceOneGenerators = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"numResourceOneGenerators", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numResourceOneGenerators
+    {
+      get { return _numResourceOneGenerators; }
+      set { _numResourceOneGenerators = value; }
+    }
+
+    private int _numResourceOneStorages = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"numResourceOneStorages", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numResourceOneStorages
+    {
+      get { return _numResourceOneStorages; }
+      set { _numResourceOneStorages = value; }
+    }
+
+    private int _numResourceTwoGenerators = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"numResourceTwoGenerators", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numResourceTwoGenerators
+    {
+      get { return _numResourceTwoGenerators; }
+      set { _numResourceTwoGenerators = value; }
+    }
+
+    private int _numResourceTwoStorages = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"numResourceTwoStorages", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numResourceTwoStorages
+    {
+      get { return _numResourceTwoStorages; }
+      set { _numResourceTwoStorages = value; }
+    }
+
+    private int _numHospitals = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"numHospitals", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numHospitals
+    {
+      get { return _numHospitals; }
+      set { _numHospitals = value; }
+    }
+
+    private int _numResidences = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"numResidences", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numResidences
+    {
+      get { return _numResidences; }
+      set { _numResidences = value; }
+    }
+
+    private int _numMonsterSlots = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"numMonsterSlots", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numMonsterSlots
+    {
+      get { return _numMonsterSlots; }
+      set { _numMonsterSlots = value; }
+    }
+
+    private int _numLabs = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"numLabs", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numLabs
+    {
+      get { return _numLabs; }
+      set { _numLabs = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -197,17 +532,8 @@ namespace com.lvl6.proto
       set { _lastRetrieved = value; }
     }
 
-    private com.lvl6.proto.CoordinateProto _coordinates = null;
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"coordinates", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.CoordinateProto coordinates
-    {
-      get { return _coordinates; }
-      set { _coordinates = value; }
-    }
-
     private long _purchaseTime = default(long);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"purchaseTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"purchaseTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
     public long purchaseTime
     {
@@ -216,7 +542,7 @@ namespace com.lvl6.proto
     }
 
     private bool _isComplete = default(bool);
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"isComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"isComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
     public bool isComplete
     {
@@ -224,8 +550,17 @@ namespace com.lvl6.proto
       set { _isComplete = value; }
     }
 
+    private com.lvl6.proto.CoordinateProto _coordinates = null;
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"coordinates", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.CoordinateProto coordinates
+    {
+      get { return _coordinates; }
+      set { _coordinates = value; }
+    }
+
     private com.lvl6.proto.StructOrientation _orientation = com.lvl6.proto.StructOrientation.POSITION_1;
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"orientation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"orientation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.POSITION_1)]
     public com.lvl6.proto.StructOrientation orientation
     {
@@ -264,6 +599,17 @@ namespace com.lvl6.proto
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"ResourceType")]
+    public enum ResourceType
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"CASH", Value=1)]
+      CASH = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"OIL", Value=2)]
+      OIL = 2
+    }
   
     [global::ProtoBuf.ProtoContract(Name=@"StructOrientation")]
     public enum StructOrientation

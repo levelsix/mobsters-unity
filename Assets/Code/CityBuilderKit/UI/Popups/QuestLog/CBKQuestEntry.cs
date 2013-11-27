@@ -1,14 +1,14 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class CBKQuestEntry : MonoBehaviour, CBKIPoolable {
+public class CBKQuestEntry : MonoBehaviour, CBKPoolable {
 	
 	#region Poolable Members & Properties
 	
 	[HideInInspector]
 	public CBKQuestEntry _prefab;
 	
-	public CBKIPoolable prefab {
+	public CBKPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -73,7 +73,7 @@ public class CBKQuestEntry : MonoBehaviour, CBKIPoolable {
 		CBKEventManager.UI.OnQuestEntryClicked(fullQuest);
 	}
 	
-	public CBKIPoolable Make (Vector3 origin)
+	public CBKPoolable Make (Vector3 origin)
 	{
 		CBKQuestEntry entry = Instantiate(this, origin, Quaternion.identity) as CBKQuestEntry;
 		entry.prefab = this;

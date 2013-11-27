@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class CBKSimplePoolable : MonoBehaviour, CBKIPoolable {
+public class CBKSimplePoolable : MonoBehaviour, CBKPoolable {
 	
 	GameObject gameObj;
 	Transform trans;
@@ -17,7 +17,7 @@ public class CBKSimplePoolable : MonoBehaviour, CBKIPoolable {
 			return trans;
 		}
 	}
-	public CBKIPoolable prefab {
+	public CBKPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -32,7 +32,7 @@ public class CBKSimplePoolable : MonoBehaviour, CBKIPoolable {
 		gameObj = gameObject;
 	}
 	
-	public CBKIPoolable Make (Vector3 origin)
+	public CBKPoolable Make (Vector3 origin)
 	{
 		CBKSimplePoolable chunk = Instantiate(this, origin, Quaternion.identity) as CBKSimplePoolable;
 		chunk.prefab = this;

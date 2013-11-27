@@ -4,6 +4,7 @@ using System;
 using com.lvl6.proto;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 public static class CBKUtil {
 	
@@ -293,7 +294,21 @@ public static class CBKUtil {
 
 	public static string StripExtensions(string file)
 	{
-		return Path.GetFileNameWithoutExtension(file);
+		return StripSpaces(Path.GetFileNameWithoutExtension(file));
+	}
+
+	public static string StripSpaces(string word)
+	{
+		StringBuilder sb = new StringBuilder(word.Length);
+		char c;
+		for (int i = 0; i < word.Length; i++) {
+			c = word[i];
+			if (c != ' ')
+			{
+				sb.Append(c);
+			}
+		}
+		return sb.ToString();
 	}
 
 	public static void LoadLocalUser (FullUserProto user)

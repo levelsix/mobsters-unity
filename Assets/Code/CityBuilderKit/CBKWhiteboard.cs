@@ -29,7 +29,7 @@ public static class CBKWhiteboard {
 	/// </summary>
 	public static int cityID = 1;
 	
-	public static FullStructureProto tempStructureProto;
+	public static StructureInfoProto tempStructureProto;
 	public static CBKGridNode tempStructurePos;
 	
 	public static long currTaskID;

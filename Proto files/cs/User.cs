@@ -282,6 +282,15 @@ namespace com.lvl6.proto
       set { _cash = value; }
     }
 
+    private int _oil = default(int);
+    [global::ProtoBuf.ProtoMember(42, IsRequired = false, Name=@"oil", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int oil
+    {
+      get { return _oil; }
+      set { _oil = value; }
+    }
+
     private int _experience = default(int);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"experience", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -388,6 +397,15 @@ namespace com.lvl6.proto
     {
       get { return _numCoinsRetrievedFromStructs; }
       set { _numCoinsRetrievedFromStructs = value; }
+    }
+
+    private int _numOilRetrievedFromStructs = default(int);
+    [global::ProtoBuf.ProtoMember(43, IsRequired = false, Name=@"numOilRetrievedFromStructs", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numOilRetrievedFromStructs
+    {
+      get { return _numOilRetrievedFromStructs; }
+      set { _numOilRetrievedFromStructs = value; }
     }
 
     private com.lvl6.proto.MinimumClanProto _clan = null;

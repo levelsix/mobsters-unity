@@ -9,7 +9,7 @@ public class CBKPopupManager : MonoBehaviour {
 	/// The popup
 	/// </summary>
 	[SerializeField]
-	CBKPopup popup;
+	CBKGenericPopup popup;
 	
 	[SerializeField]
 	Transform popupGroup;
@@ -56,7 +56,7 @@ public class CBKPopupManager : MonoBehaviour {
 		CBKEventManager.Popup.CreateButtonPopup -= PopWithButtons;
 	}
 	
-	void InitPopup (CBKPopup pop)
+	void InitPopup (CBKGenericPopup pop)
 	{
 		Transform popT = pop.transform;
 		

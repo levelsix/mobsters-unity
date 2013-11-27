@@ -117,6 +117,7 @@ public static class CBKEventManager
 	public static class Puzzle
 	{
 		public static Action<PZMonster> OnDeploy;
+		public static Action<int> OnTurnChange;
 	}
 	
 	public static class Scene
@@ -127,9 +128,14 @@ public static class CBKEventManager
 
 	public static class Clan
 	{
-		/// <summary>
-		/// 
-		/// </summary>
 		public static Action<int, UserClanStatus> OnPlayerClanChange;
+
+		/// <summary>
+		/// The on create clan event.
+		/// Integer passed through is the int for the player's clan.
+		/// If int is zero, then a create request failed.
+		/// </summary>
+		public static Action<int> OnCreateClan;
+
 	}
 }

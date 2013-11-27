@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
-public class CBKChatBubble : MonoBehaviour, CBKIPoolable {
+public class CBKChatBubble : MonoBehaviour, CBKPoolable {
 	
 	#region Size Constants
 	
@@ -30,7 +30,7 @@ public class CBKChatBubble : MonoBehaviour, CBKIPoolable {
 	
 	Transform trans;
 	
-	public CBKIPoolable prefab {
+	public CBKPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -53,7 +53,7 @@ public class CBKChatBubble : MonoBehaviour, CBKIPoolable {
 	
 	public int height;
 	
-	public CBKIPoolable Make (Vector3 origin)
+	public CBKPoolable Make (Vector3 origin)
 	{
 		CBKChatBubble bubble = Instantiate(this, origin, Quaternion.identity) as CBKChatBubble;
 		bubble.prefab = this;

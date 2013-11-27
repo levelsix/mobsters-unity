@@ -19,12 +19,15 @@ public class CBKActionButton : MonoBehaviour {
 	public Transform trans;
 		
 	public UISprite icon;
-	
+
+	[HideInInspector]
 	public UIButton button;
 	
 	public bool able = true;
 	
 	public UILabel label;
+
+	public UIDragPanelContents dragBehind;
 	
 	void Awake()
 	{
@@ -32,12 +35,28 @@ public class CBKActionButton : MonoBehaviour {
 		trans = transform;
 		button = GetComponent<UIButton>();
 	}
-	
-	void OnClick()
+
+	public void OnClick()
 	{
 		if (able && onClick != null)
 		{
 			onClick();
+		}
+	}
+
+	public void OnPress(bool pressed)
+	{
+		if (dragBehind != null)
+		{
+			dragBehind.OnPress(pressed);
+		}
+	}
+
+	public void OnDrag(Vector2 delta)
+	{
+		if (dragBehind != null)
+		{
+			dragBehind.OnDrag(delta);
 		}
 	}
 }

@@ -101,7 +101,7 @@ public class CBKHoverBar : MonoBehaviour {
 
 	void OnUpdateBuildingValues()
 	{
-		if (currBuilding != null)
+		if (currBuilding != null && currBuilding.userStructProto != null)
 		{
 			if (currBuilding.underConstruction)
 			{
@@ -110,8 +110,8 @@ public class CBKHoverBar : MonoBehaviour {
 			}
 			else
 			{
-				bar.fillAmount = 1 - ((float)currBuilding.collector.secondsUntilComplete) / currBuilding.collector.timeToGenerate;
-				label.text = currBuilding.collector.timeLeftString;
+				//bar.fillAmount = 1 - ((float)currBuilding.collector.secondsUntilComplete) / currBuilding.collector.timeToGenerate;
+				//label.text = currBuilding.collector.timeLeftString;
 			}
 		}
 	}

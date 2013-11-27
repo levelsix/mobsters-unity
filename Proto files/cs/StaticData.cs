@@ -45,80 +45,95 @@ namespace com.lvl6.proto
       get { return _allCities; }
     }
   
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullStructureProto> _allStructs = new global::System.Collections.Generic.List<com.lvl6.proto.FullStructureProto>();
-    [global::ProtoBuf.ProtoMember(4, Name=@"allStructs", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullStructureProto> allStructs
-    {
-      get { return _allStructs; }
-    }
-  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullTaskProto> _allTasks = new global::System.Collections.Generic.List<com.lvl6.proto.FullTaskProto>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"allTasks", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(4, Name=@"allTasks", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullTaskProto> allTasks
     {
       get { return _allTasks; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> _allMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto>();
-    [global::ProtoBuf.ProtoMember(6, Name=@"allMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(5, Name=@"allMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> allMonsters
     {
       get { return _allMonsters; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.StaticUserLevelInfoProto> _slip = new global::System.Collections.Generic.List<com.lvl6.proto.StaticUserLevelInfoProto>();
-    [global::ProtoBuf.ProtoMember(7, Name=@"slip", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(6, Name=@"slip", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.StaticUserLevelInfoProto> slip
     {
       get { return _slip; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> _inProgressQuests = new global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto>();
-    [global::ProtoBuf.ProtoMember(8, Name=@"inProgressQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(7, Name=@"inProgressQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> inProgressQuests
     {
       get { return _inProgressQuests; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> _unredeemedQuests = new global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto>();
-    [global::ProtoBuf.ProtoMember(9, Name=@"unredeemedQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(8, Name=@"unredeemedQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> unredeemedQuests
     {
       get { return _unredeemedQuests; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> _availableQuests = new global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto>();
-    [global::ProtoBuf.ProtoMember(10, Name=@"availableQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(9, Name=@"availableQuests", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.FullQuestProto> availableQuests
     {
       get { return _availableQuests; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.BoosterPackProto> _boosterPacks = new global::System.Collections.Generic.List<com.lvl6.proto.BoosterPackProto>();
-    [global::ProtoBuf.ProtoMember(12, Name=@"boosterPacks", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(11, Name=@"boosterPacks", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.BoosterPackProto> boosterPacks
     {
       get { return _boosterPacks; }
     }
   
-
-    private com.lvl6.proto.StaticDataProto.RetrieveStaticDataStatus _status = com.lvl6.proto.StaticDataProto.RetrieveStaticDataStatus.SUCCESS;
-    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StaticDataProto.RetrieveStaticDataStatus.SUCCESS)]
-    public com.lvl6.proto.StaticDataProto.RetrieveStaticDataStatus status
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ResourceGeneratorProto> _allGenerators = new global::System.Collections.Generic.List<com.lvl6.proto.ResourceGeneratorProto>();
+    [global::ProtoBuf.ProtoMember(12, Name=@"allGenerators", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ResourceGeneratorProto> allGenerators
     {
-      get { return _status; }
-      set { _status = value; }
+      get { return _allGenerators; }
     }
-    [global::ProtoBuf.ProtoContract(Name=@"RetrieveStaticDataStatus")]
-    public enum RetrieveStaticDataStatus
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ResourceStorageProto> _allStorages = new global::System.Collections.Generic.List<com.lvl6.proto.ResourceStorageProto>();
+    [global::ProtoBuf.ProtoMember(13, Name=@"allStorages", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ResourceStorageProto> allStorages
     {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
-      SUCCESS = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SOME_FAIL", Value=2)]
-      SOME_FAIL = 2
+      get { return _allStorages; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.HospitalProto> _allHospitals = new global::System.Collections.Generic.List<com.lvl6.proto.HospitalProto>();
+    [global::ProtoBuf.ProtoMember(14, Name=@"allHospitals", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.HospitalProto> allHospitals
+    {
+      get { return _allHospitals; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ResidenceProto> _allResidences = new global::System.Collections.Generic.List<com.lvl6.proto.ResidenceProto>();
+    [global::ProtoBuf.ProtoMember(15, Name=@"allResidences", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ResidenceProto> allResidences
+    {
+      get { return _allResidences; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.LabProto> _allLabs = new global::System.Collections.Generic.List<com.lvl6.proto.LabProto>();
+    [global::ProtoBuf.ProtoMember(17, Name=@"allLabs", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.LabProto> allLabs
+    {
+      get { return _allLabs; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.TownHallProto> _allTownHalls = new global::System.Collections.Generic.List<com.lvl6.proto.TownHallProto>();
+    [global::ProtoBuf.ProtoMember(16, Name=@"allTownHalls", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.TownHallProto> allTownHalls
+    {
+      get { return _allTownHalls; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

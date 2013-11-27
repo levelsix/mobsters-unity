@@ -20,7 +20,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		set
 		{
 			_swapLock = value;
-			Debug.Log("Swaplock: " + _swapLock);
+			//Debug.Log("Swaplock: " + _swapLock);
 		}
 	}
 
@@ -80,6 +80,10 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	[SerializeField]
 	public PZDamageNumber damageNumberPrefab;
+
+	int currTurn = 0;
+
+	int playerTurns = 3;
 	
 	public void Awake()
 	{

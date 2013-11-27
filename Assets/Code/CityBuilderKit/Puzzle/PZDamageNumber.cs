@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
 
-public class PZDamageNumber : MonoBehaviour, CBKIPoolable {
+public class PZDamageNumber : MonoBehaviour, CBKPoolable {
 
 	GameObject gameObj;
 	Transform trans;
@@ -25,7 +25,7 @@ public class PZDamageNumber : MonoBehaviour, CBKIPoolable {
 	}
 
 	PZDamageNumber _prefab;
-	public CBKIPoolable prefab
+	public CBKPoolable prefab
 	{
 		get
 		{
@@ -52,7 +52,7 @@ public class PZDamageNumber : MonoBehaviour, CBKIPoolable {
 
 	static readonly Vector3 TWEEN_SHIFT = new Vector3(0, 27, 0);
 
-	public CBKIPoolable Make (Vector3 origin)
+	public CBKPoolable Make (Vector3 origin)
 	{
 		PZDamageNumber number = Instantiate(this, origin, Quaternion.identity) as PZDamageNumber;
 		number.prefab = this;

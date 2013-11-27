@@ -157,7 +157,7 @@ public class CBKTaskBar : MonoBehaviour {
 			{
 				AddButton(CBKTaskButton.Mode.FINISH);
 			}
-			else if (currBuilding.structProto.predecessorStructId > 0)
+			else if (currBuilding.combinedProto.structInfo.predecessorStructId > 0)
 			{
 				AddButton(CBKTaskButton.Mode.UPGRADE);
 			}
@@ -184,18 +184,7 @@ public class CBKTaskBar : MonoBehaviour {
 		{
 			//TODO: Mission map building details
 		}
-		else if (currBuilding.userStructProto.isComplete)
-		{
-			if (currBuilding.collector.secondsUntilComplete > 0)
-			{
-				bottomText.text = "Collects in " + currBuilding.collector.timeLeftString;
-			}
-			else
-			{
-				bottomText.text = "Resources Available!";
-			}
-		}
-		else
+		else if (!currBuilding.userStructProto.isComplete)
 		{
 			bottomText.text = "Upgrade completes in " + currBuilding.upgrade.timeLeftString;
 		}

@@ -8,7 +8,7 @@ using com.lvl6.proto;
 /// Component for a single building
 /// </summary>
 [RequireComponent (typeof(BoxCollider))]
-public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakesGridSpace, CBKISelectable
+public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesGridSpace, CBKISelectable
 {
 	#region Members
 	
@@ -16,7 +16,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	
 	private CBKBuilding _prefab;
 	
-	public CBKIPoolable prefab {
+	public CBKPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -30,7 +30,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 			return trans;
 		}
 	}
-	
+
+	[HideInInspector]
 	public GameObject gameObj;
 	
 	public GameObject gObj {
@@ -44,12 +45,16 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 			return false;
 		}
 	}
+
+	public GameObject hasMoneyPopup;
+
+
 	
 	#endregion
 	
     #region Public
 	
-	public FullStructureProto structProto;
+	public CBKCombinedBuildingProto combinedProto;
 	
 	public FullUserStructureProto userStructProto;
 	
@@ -108,7 +113,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	public int id;
 	
 	public CBKTaskable taskable;
-	
+
     #endregion
 
     #region Private
@@ -173,6 +178,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	/// is meant to be a resource collector.
 	/// </summary>
 	public CBKResourceCollector collector;
+
+	[SerializeField]
+	GameObject shadow;
 	
 	public bool locallyOwned = true;
 	
@@ -221,14 +229,14 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	public CBKResourceManager.ResourceType baseResource {
 		get
 		{
-			return structProto.isPremiumCurrency ? CBKResourceManager.ResourceType.PREMIUM : CBKResourceManager.ResourceType.FREE;
+			return (CBKResourceManager.ResourceType)combinedProto.structInfo.buildResourceType;
 		}
 	}
 	
 	public int basePrice {
 		get
 		{
-			return structProto.buildPrice;
+			return combinedProto.structInfo.buildCost;
 		}
 	}
 	
@@ -246,8 +254,6 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
     void Awake()
     {
 		_box = GetComponent<BoxCollider>();
-		collector = GetComponent<CBKResourceCollector>();
-		upgrade = GetComponent<CBKBuildingUpgrade>();
         trans = transform;
 		gameObj = gameObject;
     }
@@ -260,7 +266,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	/// </param>
 	public void Init(FullUserStructureProto proto)
 	{
-		structProto = CBKDataManager.instance.Get(typeof(FullStructureProto), proto.structId) as FullStructureProto;
+		combinedProto = CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), proto.structId) as CBKCombinedBuildingProto;
 		
 		userStructProto = proto;
 		
@@ -273,9 +279,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	/// <param name='structProto'>
 	/// Struct proto to initialize from.
 	/// </param>
-	public void Init(FullStructureProto proto)
+	public void Init(StructureInfoProto proto)
 	{
-		structProto = proto;
+		proto = proto;
 		
 		userStructProto = new FullUserStructureProto();
 		
@@ -294,6 +300,10 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	
 	public void Init(CityElementProto proto)
 	{
+		id = proto.assetId;
+
+		name = proto.imgId;
+
 		//name = proto.name;
 		userStructProto = null;
 		
@@ -302,25 +312,39 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		
 		SetupSprite(proto.imgId);
 		
-		trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
+		//trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
 		SetGridFromTrans();
 		
 		locallyOwned = false;
-		
-		upgrade.Init(false);
-		collector.Init(false);
-		
-		taskable = gameObj.AddComponent(typeof(CBKTaskable)) as CBKTaskable;
+
+		sprite.transform.localPosition = Vector3.zero;
+
+		if (proto.type == CityElementProto.CityElemType.BUILDING)
+		{
+			taskable = gameObj.AddComponent(typeof(CBKTaskable)) as CBKTaskable;
+			_box.enabled = true;
+			float hypot = Mathf.Max(width, length) * CBKGridManager.instance.gridSpaceHypotenuse / 2 *2/3;
+			_box.center = new Vector3(hypot, 0, hypot);
+			_box.size = new Vector3(width * CBKGridManager.instance.spaceSize, 1, length * CBKGridManager.instance.spaceSize);
+			shadow.SetActive(true);
+		}
+		else
+		{
+			_box.enabled = false;
+			shadow.SetActive(false);
+		}
 	}
 	
 	void Setup ()
 	{
 		//name = structProto.name;
+		_box.enabled = true;
+		shadow.SetActive(true);
 		
-		width = structProto.xLength;
-		length = structProto.yLength;
+		width = combinedProto.structInfo.width;
+		length = combinedProto.structInfo.height;
 		      
-		SetupSprite(structProto.name);
+		SetupSprite(combinedProto.structInfo.name);
 		
 		_box.size = new Vector3(width * CBKGridManager.instance.spaceSize, 1, 
 			length * CBKGridManager.instance.spaceSize);
@@ -328,9 +352,24 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		SetGridFromTrans();
 		
 		locallyOwned = (CBKWhiteboard.currCityType == CBKWhiteboard.CityType.PLAYER && CBKWhiteboard.cityID == CBKWhiteboard.localMup.userId);
-		
-		upgrade.Init(structProto, userStructProto);
-		collector.Init(structProto);
+
+		upgrade = gameObj.AddComponent<CBKBuildingUpgrade>();
+		upgrade.Init(combinedProto.structInfo, userStructProto);
+
+		float hypot = Mathf.Max(width, length) * CBKGridManager.instance.gridSpaceHypotenuse / 2 *2/3;
+		sprite.transform.localPosition = new Vector3(-hypot, 0, -hypot);
+
+		_box.center = Vector3.zero;
+
+		//Add and init the component for whatever struct type this building is. Unless it's a decoration. Then it does nothing.
+		switch (combinedProto.structInfo.structType) {
+		case StructureInfoProto.StructType.RESOURCE_GENERATOR:
+			collector = gameObj.AddComponent<CBKResourceCollector>();
+			collector.Init(combinedProto);
+			break;
+		default:
+			break;
+		}
 	}
 	
 	public void SetupConstructionSprite()
@@ -342,6 +381,10 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	
 	public void SetupSprite(string structName)
 	{
+		sprite.spriteName = CBKUtil.StripExtensions(structName);
+		CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
+
+		/*
 		sprite.atlas = CBKAtlasUtil.instance.GetBuildingAtlas(structName);
 		if (CBKAtlasUtil.instance.LookupBuildingSprite(structName) == null)
 		{
@@ -351,22 +394,21 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		{
 			sprite.spriteName = CBKUtil.StripExtensions(CBKAtlasUtil.instance.StripSpaces(structName));
 		}
+		*/
 		
 		sprite.color = Color.white;
 		baseColor = Color.white;
 		
 //		sprite.localSize = new Vector2(4, 4);
+		sprite.width = sprite.GetAtlasSprite().width;
+		sprite.height = sprite.GetAtlasSprite().height;
+
 		
 		Transform spriteTrans = sprite.transform;
 		
+		spriteTrans.localScale = new Vector3(1f/50, 1f/50, 1);
 		
-		spriteTrans.localScale = new Vector3(1, (float)sprite.GetAtlasSprite().height / sprite.GetAtlasSprite().width);
-		//spriteTrans.localScale = new Vector3(structProto.xLength * CBKGridManager.instance.gridSpaceHypotenuse,
-			//structProto.xLength * CBKGridManager.instance.gridSpaceHypotenuse * sprite.GetAtlasSprite().height / sprite.GetAtlasSprite().width, 0)
-			//* .8f;
-		//spriteTrans.localScale = new Vector3(4, 4, 1);
-		
-		spriteTrans.localPosition = new Vector3(0, spriteTrans.localScale.y /* * Mathf.Sin((90-48) * Mathf.Deg2Rad) / 2.2f */, 0);
+		//spriteTrans.localPosition = new Vector3(0, sprite.height / 100f * (1/Mathf.Sin((90 - Camera.main.transform.parent.localRotation.x) * Mathf.Deg2Rad)), 0);
 		
 	}
 	
@@ -391,7 +433,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		_currPos = new CBKGridNode(new Vector2(transform.position.x / CBKGridManager.instance.spaceSize - SIZE_OFFSET.x * width,
     	    transform.position.z / CBKGridManager.instance.spaceSize - SIZE_OFFSET.z * length));
 		
-		sprite.depth = (int)(_currPos.pos.x + _currPos.pos.y) * -1 - 10;
+		sprite.depth = (int)(_currPos.pos.x + _currPos.pos.y + width/2 + length/2) * -1 - 10;
 		//Debug.Log("Currpos: " + _currPos.pos);
 	}
 	
@@ -420,7 +462,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		SetGridFromTrans ();
 		
 		
-		if (CBKGridManager.instance.HasSpaceForBuilding(structProto, _currPos))
+		if (CBKGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 		{
 			_currColor = selectColor;
 		}
@@ -446,18 +488,21 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
     /// </summary>
     public void Place()
     {
-        if (userStructProto != null && _currPos.pos != groundPos && CBKGridManager.instance.HasSpaceForBuilding(structProto, _currPos))
-        {
-            CBKGridManager.instance.AddBuilding(this, _currPos.x, _currPos.z, structProto.xLength, structProto.yLength);
-			_originalPos = trans.position;
-			
-			SendBuildingMovedRequest();
-        }
-        else
-        {
-            CBKGridManager.instance.AddBuilding(this, (int)groundPos.x, (int)groundPos.y, structProto.xLength, structProto.yLength);
-            trans.position = _originalPos;
-        }
+		if (userStructProto != null)
+		{
+	        if (_currPos.pos != groundPos && CBKGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
+	        {
+	            CBKGridManager.instance.AddBuilding(this, _currPos.x, _currPos.z, combinedProto.structInfo.width, combinedProto.structInfo.height);
+				_originalPos = trans.position;
+				
+				SendBuildingMovedRequest();
+	        }
+	        else
+	        {
+	            CBKGridManager.instance.AddBuilding(this, (int)groundPos.x, (int)groundPos.y, combinedProto.structInfo.width, combinedProto.structInfo.height);
+	            trans.position = _originalPos;
+	        }
+		}
 		CBKEventManager.Town.PlaceBuilding -= Place;
 		Deselect();
     }
@@ -495,7 +540,10 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		{
 			_originalPos = trans.position;
 			_tempPos = trans.position;
-	        CBKGridManager.instance.RemoveBuilding(this);
+			if (userStructProto != null)
+			{
+	        	CBKGridManager.instance.RemoveBuilding(this);
+			}
 			CBKEventManager.Town.PlaceBuilding += Place;
 			_selected = true;
 			_currColor = selectColor;
@@ -559,28 +607,29 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	
 	public void Sell()
 	{
+		/*
 		if (_selected)
 		{
 			Deselect();
 		}
 		
 		CBKGridManager.instance.RemoveBuilding(this);
-		
+
 		SellNormStructureRequestProto request = new SellNormStructureRequestProto();
 		request.sender = CBKWhiteboard.localMup;
 		request.userStructId = userStructProto.userStructId;
 		
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_SELL_NORM_STRUCTURE_EVENT, DealWithSell);
 		
-		CBKResourceManager.ResourceType resType = structProto.isPremiumCurrency ? CBKResourceManager.ResourceType.PREMIUM : CBKResourceManager.ResourceType.FREE;
-		
-		CBKResourceManager.instance.Collect(resType, structProto.buildPrice / 2);
+		CBKResourceManager.instance.Collect(baseResource, structProto.buildCost / 2);
 		
 		Pool ();
+		*/
 	}
 	
 	void DealWithSell(int tagNum)
 	{
+		/*
 		SellNormStructureResponseProto response = UMQNetworkManager.responseDict[tagNum] as SellNormStructureResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
@@ -588,13 +637,14 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 		{
 			Debug.LogError("Problem selling building: " + response.status.ToString());
 		}
+		*/
 	}
 	
 	#endregion
 	
 	#region Poolable Functions
 	
-	public CBKIPoolable Make (Vector3 origin)
+	public CBKPoolable Make (Vector3 origin)
 	{
 		CBKBuilding building = Instantiate(this, origin, Quaternion.identity) as CBKBuilding;
 		building.prefab = this;
@@ -603,6 +653,18 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKIPoolable, CBKITakes
 	
 	public void Pool ()
 	{
+		if (upgrade != null)
+		{
+			Destroy (upgrade);
+			upgrade = null;
+		}
+		if (collector != null)
+		{
+			Destroy(collector);
+			collector = null;
+			hasMoneyPopup.SetActive(false);
+		}
+
 		if (!_selected)
 		{
 			CBKGridManager.instance.RemoveBuilding(this);
