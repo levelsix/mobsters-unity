@@ -84,11 +84,14 @@ public class CBKDataManager : MonoBehaviour {
 	/// </param>
 	public object Get(Type type, int id)
 	{
+		//Debug.Log("Getting: " + type.ToString() + " #" + id);
 		CheckType(type);
 		if (!dataDict[type].ContainsKey(id))
 		{
+			Debug.LogWarning("Failed to find " + type.ToString() + " #" + id);
 			return null;
 		}
+		//Debug.Log("Returning " + dataDict[type][id]);
 		return dataDict[type][id];
 	}
 	
@@ -169,6 +172,7 @@ public class CBKDataManager : MonoBehaviour {
 		{
 			CBKDataManager.instance.Load(item, item.level);
 		}
+
 		foreach (var item in data.inProgressQuests) 
 		{
 			CBKDataManager.instance.Load(item, item.questId);

@@ -81,10 +81,6 @@ public class PZPuzzleManager : MonoBehaviour {
 	[SerializeField]
 	public PZDamageNumber damageNumberPrefab;
 
-	int currTurn = 0;
-
-	int playerTurns = 3;
-	
 	public void Awake()
 	{
 		instance = this;
@@ -114,7 +110,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		if (!setUpBoard)
 		{
-			StartCoroutine(InitBoard());
+			InitBoard();
 			setUpBoard = true;
 		}
 	}
@@ -125,22 +121,28 @@ public class PZPuzzleManager : MonoBehaviour {
 		for (int i = 0; i < currGems.Length; i++) {
 			currGems[i] = 0;
 		}
+		if (CBKEventManager.Puzzle.OnComboChange != null)
+		{
+			CBKEventManager.Puzzle.OnComboChange(combo);
+		}
 	}
 	
-	public IEnumerator InitBoard()
+	public void InitBoard()
 	{
 		ClearBoard();
 		PZGem gem;
-		for (int i = 0; i < BOARD_HEIGHT; i++) 
+		do
 		{
-			for (int j = 0; j < BOARD_WIDTH; j++) 
+			for (int i = 0; i < BOARD_HEIGHT; i++) 
 			{
-				gem = CBKPoolManager.instance.Get(gemPrefab, Vector3.zero) as PZGem;
-				gem.transf.parent = puzzleParent;
-				gem.Init(PickColor(i, j), j);
+				for (int j = 0; j < BOARD_WIDTH; j++) 
+				{
+					gem = CBKPoolManager.instance.Get(gemPrefab, Vector3.zero) as PZGem;
+					gem.transf.parent = puzzleParent;
+					gem.Init(PickColor(i, j), j);
+				}
 			}
-			yield return new WaitForSeconds(WAIT_BETWEEN_LINES);
-		}
+		}while(!CheckForMatchMoves());
 	}
 
 	public void ClearBoard ()
@@ -161,35 +163,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			gemsOnBoardByType[i] = 0;
 		}
 	}
-	
-	public void BreakTiles(List<PZGem> match)
-	{
-		List<int> columns = new List<int>();
-		foreach (PZGem item in match) 
-		{
-			board[item.boardX, item.boardY] = null;
-			if (!columns.Contains(item.boardX))
-			{
-				columns.Add(item.boardX);
-			}
-		}
-		foreach (int item in columns)
-		{
-			for (int i = 0; i < BOARD_HEIGHT; i++) 
-			{
-				if (board[item,i] != null)
-				{
-					board[item,i].CheckFall();
-				}
-			}
-		}
-		foreach (PZGem item in match) 
-		{
-			item.Init(PickColor(), item.boardX);
-		}
-		
-	}
-	
+
 	/// <summary>
 	/// Picks a color.
 	/// If coordiantes are suppiled, this uses the space two to the
@@ -266,7 +240,11 @@ public class PZPuzzleManager : MonoBehaviour {
 				processingSwap = false;
 				
 				ResetCombo();
-				
+
+				if (!CheckForMatchMoves())
+				{
+					InitBoard();
+				}
 				Debug.Log("Board has matches: " + CheckForMatchMoves());
 			}
 			processingSwap = false;
@@ -437,6 +415,10 @@ public class PZPuzzleManager : MonoBehaviour {
 			if (item.gems.Count > 0)
 			{
 				combo++;
+				if (CBKEventManager.Puzzle.OnComboChange != null)
+				{
+					CBKEventManager.Puzzle.OnComboChange(combo);
+				}
 			}
 		}
 	}
@@ -701,5 +683,17 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 		
 		return false;
+	}
+
+	public float HighestGemInColumn(int col)
+	{
+		for (int i = BOARD_HEIGHT-1; i >= 0; i--) 
+		{
+			if (board[col,i] != null)
+			{
+				return board[col, i].transf.localPosition.y;
+			}
+		}
+		return 0;
 	}
 }

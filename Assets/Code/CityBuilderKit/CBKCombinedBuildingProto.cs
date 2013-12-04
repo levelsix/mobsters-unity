@@ -2,7 +2,7 @@
 using System.Collections;
 using com.lvl6.proto;
 
-public class CBKCombinedBuildingProto : MonoBehaviour {
+public class CBKCombinedBuildingProto {
 
 	public int id;
 	public StructureInfoProto structInfo;

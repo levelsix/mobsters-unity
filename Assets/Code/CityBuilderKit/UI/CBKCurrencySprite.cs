@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using com.lvl6.proto;
 
 [RequireComponent (typeof (UISprite))]
 public class CBKCurrencySprite : MonoBehaviour {
 	
 	[SerializeField]
-	CBKResourceManager.ResourceType _type = CBKResourceManager.ResourceType.FREE;
+	ResourceType _type = ResourceType.CASH;
 	
 	[SerializeField]
 	string freeCurrencySpriteName = "moneystack";
@@ -15,7 +16,7 @@ public class CBKCurrencySprite : MonoBehaviour {
 
 	UISprite sprite;
 	
-	public CBKResourceManager.ResourceType type
+	public ResourceType type
 	{
 		get
 		{
@@ -23,7 +24,7 @@ public class CBKCurrencySprite : MonoBehaviour {
 		}
 		set
 		{
-			if (value == CBKResourceManager.ResourceType.FREE)
+			if (value == ResourceType.CASH)
 			{
 				sprite.spriteName = freeCurrencySpriteName;
 			}
@@ -31,6 +32,9 @@ public class CBKCurrencySprite : MonoBehaviour {
 			{
 				sprite.spriteName = premiumCurrencySpriteName;
 			}
+			UISpriteData data = sprite.GetAtlasSprite();
+			sprite.width = data.width;
+			sprite.height = data.height;
 			_type = value;
 		}
 	}

@@ -80,7 +80,7 @@ public class UMQLoader : MonoBehaviour {
 		{
 			CBKWhiteboard.constants = response.startupConstants;
 			CBKResourceManager.instance.Init(response.sender.level, response.sender.experience,
-				100/*response.experienceRequiredForNextLevel*/, response.sender.cash, response.sender.gems);
+				100/*response.experienceRequiredForNextLevel*/, response.sender.cash, response.sender.oil, response.sender.gems);
 			
 			CBKWhiteboard.currSceneType = CBKWhiteboard.SceneType.CITY;
 			CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.LOADING_SCENE);

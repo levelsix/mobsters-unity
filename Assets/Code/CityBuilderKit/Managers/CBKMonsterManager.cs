@@ -479,7 +479,7 @@ public class CBKMonsterManager : MonoBehaviour {
 		
 		healRequestProto.cashChange += monster.healCost;
 		
-		CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.FREE, monster.healCost);
+		CBKResourceManager.instance.Spend(ResourceType.CASH, monster.healCost);
 		
 		if (CBKEventManager.Goon.OnHealQueueChanged != null)
 		{
@@ -530,7 +530,7 @@ public class CBKMonsterManager : MonoBehaviour {
 			healRequestProto.umhUpdate.Add (healingMonsters[i].healingMonster);
 		}
 		
-		CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.FREE, monster.healCost);
+		CBKResourceManager.instance.Collect(ResourceType.CASH, monster.healCost);
 		
 		if (CBKEventManager.Goon.OnHealQueueChanged != null)
 		{
@@ -567,7 +567,7 @@ public class CBKMonsterManager : MonoBehaviour {
 			enhancementFeeders.Add(monster);
 			enhanceRequestProto.cashChange -= monster.enhanceXP;
 			
-			CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.FREE, monster.enhanceXP);
+			CBKResourceManager.instance.Spend(ResourceType.CASH, monster.enhanceXP);
 		}
 		
 		if (enhanceRequestProto.ueipDelete.Contains(monster.enhancement))
@@ -633,7 +633,7 @@ public class CBKMonsterManager : MonoBehaviour {
 		
 		enhanceRequestProto.cashChange += monster.enhanceXP;
 		
-		CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.FREE, monster.enhanceXP);
+		CBKResourceManager.instance.Collect(ResourceType.CASH, monster.enhanceXP);
 		
 		if (CBKEventManager.Goon.OnEnhanceQueueChanged != null)
 		{

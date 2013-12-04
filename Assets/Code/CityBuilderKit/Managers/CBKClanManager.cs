@@ -322,7 +322,7 @@ public class CBKClanManager : MonoBehaviour
 		}
 		else
 		{
-			CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.FREE, CBKWhiteboard.constants.clanConstants.coinPriceToCreateClan);
+			CBKResourceManager.instance.Spend(ResourceType.CASH, CBKWhiteboard.constants.clanConstants.coinPriceToCreateClan);
 
 			userClanId = response.clanInfo.clanId;
 			userClanStatus = UserClanStatus.MEMBER;

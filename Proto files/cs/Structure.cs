@@ -608,7 +608,10 @@ namespace com.lvl6.proto
       CASH = 1,
             
       [global::ProtoBuf.ProtoEnum(Name=@"OIL", Value=2)]
-      OIL = 2
+      OIL = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"GEMS", Value=3)]
+      GEMS = 3
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"StructOrientation")]

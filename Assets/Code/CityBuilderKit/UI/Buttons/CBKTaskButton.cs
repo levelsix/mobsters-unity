@@ -81,18 +81,20 @@ public class CBKTaskButton : CBKTriggerPopupButton, CBKPoolable {
 		return button;
 	}
 	
-	public void Setup(Mode mode, CBKBuilding building)
+	public void Setup(Mode mode, CBKBuilding building, GameObject popup = null)
 	{
 		currBuilding = building;
 		currUnit = null;
+		this.popup = popup;
 		
 		SetMode (mode);
 	}
 	
-	public void Setup(Mode mode, CBKUnit unit)
+	public void Setup(Mode mode, CBKUnit unit, GameObject popup = null)
 	{
 		currUnit = unit;
 		currBuilding = null;
+		this.popup = popup;
 		
 		SetMode(mode);
 	}
@@ -102,7 +104,11 @@ public class CBKTaskButton : CBKTriggerPopupButton, CBKPoolable {
 		currMode = mode; 
 		
 		text.text = modeTexts[currMode];
+
 		icon.spriteName = modeSprites[currMode];
+		UISpriteData data = icon.GetAtlasSprite();
+		icon.height = data.height;
+		icon.width = data.width;
 	}
 	
 	public override void OnClick ()
@@ -128,7 +134,11 @@ public class CBKTaskButton : CBKTriggerPopupButton, CBKPoolable {
 	
 	void ClickFinish()
 	{
-		currBuilding.upgrade.FinishWithPremium();
+		
+		base.OnClick();
+		popup.GetComponent<CBKBuildingUpgradePopup>().Init(currBuilding);
+
+		//currBuilding.upgrade.FinishWithPremium();
 	}
 	
 	void ClickEngage()

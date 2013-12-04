@@ -85,7 +85,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 			}
 			trans.Translate(move);
 		}
-		if ((trans.position - target.worldPos).sqrMagnitude < MIN_DIST)
+		if (IsPastTarget())
 		{
 			//trans.position = target.worldPos;
 			MoveNext();
@@ -105,7 +105,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 		case CBKValues.Direction.EAST:
 			return trans.position.x > target.worldPos.x - MIN_DIST;
 		default:
-			return false;
+			return true;
 		}
 	}
 	

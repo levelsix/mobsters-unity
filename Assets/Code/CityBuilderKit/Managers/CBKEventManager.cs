@@ -108,7 +108,8 @@ public static class CBKEventManager
 	{
 		public static Action<int> OnStructureBuilt;
 		public static Action<int, int> OnStructureUpgraded;
-		public static Action OnOpponentDefeated;
+		public static Action<int> OnMonsterDefeated;
+		public static Action<int> OnMonsterDonated;
 		public static Action<int> OnEquipObtained;
 		public static Action<int> OnTaskCompleted;
 		public static Action<int> OnMoneyCollected;
@@ -118,6 +119,7 @@ public static class CBKEventManager
 	{
 		public static Action<PZMonster> OnDeploy;
 		public static Action<int> OnTurnChange;
+		public static Action<int> OnComboChange;
 	}
 	
 	public static class Scene

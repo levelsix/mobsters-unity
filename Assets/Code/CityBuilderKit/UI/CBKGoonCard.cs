@@ -288,7 +288,7 @@ public class CBKGoonCard : MonoBehaviour {
 	{
 		if (CBKMonsterManager.currentEnhancementMonster != null)
 		{
-			if (CBKResourceManager.resources[(int)CBKResourceManager.ResourceType.FREE] < goon.enhanceCost)
+			if (CBKResourceManager.resources[(int)ResourceType.CASH-1] < goon.enhanceCost)
 			{
 				CBKEventManager.Popup.CreateButtonPopup("Need more mulah", new string[]{"Okay"}, new Action[]{CBKEventManager.Popup.CloseTopPopupLayer});
 				return;
@@ -310,7 +310,7 @@ public class CBKGoonCard : MonoBehaviour {
 		{
 			return;
 		}
-		if (CBKResourceManager.resources[(int)CBKResourceManager.ResourceType.FREE] < goon.healCost)
+		if (CBKResourceManager.resources[(int)ResourceType.CASH-1] < goon.healCost)
 		{
 			CBKEventManager.Popup.CreateButtonPopup("Need more mulah", new string[]{"Okay"}, new Action[]{CBKEventManager.Popup.CloseTopPopupLayer});
 		}

@@ -114,6 +114,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	public CBKTaskable taskable;
 
+	const float HOME_BUILDING_SCALE = 0.66f;
+
     #endregion
 
     #region Private
@@ -226,10 +228,10 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		}
 	}
 	
-	public CBKResourceManager.ResourceType baseResource {
+	public ResourceType baseResource {
 		get
 		{
-			return (CBKResourceManager.ResourceType)combinedProto.structInfo.buildResourceType;
+			return combinedProto.structInfo.buildResourceType;
 		}
 	}
 	
@@ -281,25 +283,24 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// </param>
 	public void Init(StructureInfoProto proto)
 	{
-		proto = proto;
+		combinedProto = CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), proto.structId) as CBKCombinedBuildingProto;
 		
 		userStructProto = new FullUserStructureProto();
-		
-		
-		
+
 		long now = CBKUtil.timeNowMillis;
 		userStructProto.lastRetrieved = now;
 		userStructProto.purchaseTime = now;
 		userStructProto.isComplete = false;
-		userStructProto.structId = proto.structId;
+		userStructProto.structId = combinedProto.structInfo.structId;
 		userStructProto.userId = CBKWhiteboard.localMup.userId;
-		//userStructProto.level = 1;
 		
 		Setup ();
 	}
 	
 	public void Init(CityElementProto proto)
 	{
+		trans.localScale = Vector3.one;
+
 		id = proto.assetId;
 
 		name = proto.imgId;
@@ -337,6 +338,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	void Setup ()
 	{
+		trans.localScale = new Vector3(HOME_BUILDING_SCALE, HOME_BUILDING_SCALE, HOME_BUILDING_SCALE);
+
 		//name = structProto.name;
 		_box.enabled = true;
 		shadow.SetActive(true);
@@ -344,7 +347,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		width = combinedProto.structInfo.width;
 		length = combinedProto.structInfo.height;
 		      
-		SetupSprite(combinedProto.structInfo.name);
+		SetupSprite(combinedProto.structInfo.imgName);
 		
 		_box.size = new Vector3(width * CBKGridManager.instance.spaceSize, 1, 
 			length * CBKGridManager.instance.spaceSize);
@@ -356,7 +359,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		upgrade = gameObj.AddComponent<CBKBuildingUpgrade>();
 		upgrade.Init(combinedProto.structInfo, userStructProto);
 
-		float hypot = Mathf.Max(width, length) * CBKGridManager.instance.gridSpaceHypotenuse / 2 *2/3;
+		float hypot = Mathf.Max(width, length) * CBKGridManager.instance.gridSpaceHypotenuse / 2;
 		sprite.transform.localPosition = new Vector3(-hypot, 0, -hypot);
 
 		_box.center = Vector3.zero;

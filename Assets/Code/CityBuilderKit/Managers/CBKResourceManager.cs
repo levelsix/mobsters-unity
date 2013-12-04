@@ -15,7 +15,7 @@ public class CBKResourceManager : MonoBehaviour {
 	/// The resources.
 	/// Indexed using the AOC2Values.Buildings.Resources enum
 	/// </summary>
-	public static int[] resources = {0, 0};
+	public static int[] resources = {0, 0, 0};
 	
 	int _level = 0;
 	
@@ -28,32 +28,71 @@ public class CBKResourceManager : MonoBehaviour {
 	int _expForNextLevel = 0;
 	
 	int expForNextLevel{get{return _expForNextLevel;}}
-	
-	public enum ResourceType { FREE, PREMIUM };
-	
+
+	RetrieveCurrencyFromNormStructureRequestProto retrieveRequest = null;
+
+	/// <summary>
+	/// If this much time has passed without a building having money collected from it, the request will be sent
+	/// </summary>
+	const float COLLECT_TIME_OUT = 15f;
+
+	int currCollectRequests = 0;
+
 	void Awake()
 	{
 		instance = this;
 	}
 	
-	public void Init(int lev, int xp, int xpNext, int free, int premium)
+	public void Init(int lev, int xp, int xpNext, int cash, int oil, int premium)
 	{
 		_level = lev;
 		_exp = xp;
 		_expForNextLevel = xpNext;
 		
-		resources[0] = free;
-		resources[1] = premium;
-		if (CBKEventManager.UI.OnChangeResource[(int)ResourceType.FREE] != null)
+		resources[0] = cash;
+		resources[1] = oil;
+		resources[2] = premium;
+
+		for (int i = 0; i < resources.Length; i++) 
 		{
-			CBKEventManager.UI.OnChangeResource[(int)ResourceType.FREE](resources[(int)ResourceType.FREE]);
-		}
-		if (CBKEventManager.UI.OnChangeResource[(int)ResourceType.PREMIUM] != null)
-		{
-			CBKEventManager.UI.OnChangeResource[(int)ResourceType.PREMIUM](resources[(int)ResourceType.PREMIUM]);
+			if (CBKEventManager.UI.OnChangeResource[i] != null)
+			{
+				CBKEventManager.UI.OnChangeResource[i](resources[i]);
+			}
 		}
 	}
-	
+
+	public void CollectFromBuilding(ResourceType resource, int amount, int userStructId)
+	{
+		Collect(resource, amount);
+
+		if (retrieveRequest == null)
+		{
+			retrieveRequest = new RetrieveCurrencyFromNormStructureRequestProto();
+			retrieveRequest.sender = CBKWhiteboard.localMup;
+		}
+
+		RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval structRetrieval = new RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval();
+		structRetrieval.amountCollected = amount;
+		structRetrieval.userStructId = userStructId;
+		structRetrieval.timeOfRetrieval = CBKUtil.timeNowMillis;
+
+		retrieveRequest.structRetrievals.Add(structRetrieval);
+
+		StartCoroutine(WaitForMoreCollects());
+	}
+
+	IEnumerator WaitForMoreCollects()
+	{
+		currCollectRequests++;
+		yield return new WaitForSeconds(COLLECT_TIME_OUT);
+		if (--currCollectRequests == 0)
+		{
+			UMQNetworkManager.instance.SendRequest(retrieveRequest, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, HandleRetrieveResponse);
+			retrieveRequest = null;
+		}
+	}
+
 	/// <summary>
 	/// Collect the specified resource and amount.
 	/// On success, returns 0
@@ -68,11 +107,11 @@ public class CBKResourceManager : MonoBehaviour {
 	/// </param>
 	public void Collect(ResourceType resource, int amount)
 	{
-		resources[(int)resource] += amount;
+		resources[(int)resource-1] += amount;
 		
-		if (CBKEventManager.UI.OnChangeResource[(int)resource] != null)
+		if (CBKEventManager.UI.OnChangeResource[(int)resource-1] != null)
 		{
-			CBKEventManager.UI.OnChangeResource[(int)resource](resources[(int)resource]);
+			CBKEventManager.UI.OnChangeResource[(int)resource-1](resources[(int)resource-1]);
 		}
 	}
 	
@@ -90,15 +129,16 @@ public class CBKResourceManager : MonoBehaviour {
 	/// </param>
 	public bool Spend(ResourceType resource, int amount)
 	{
-		if (resources[(int)resource] > amount)
+		if (resources[(int)resource-1] > amount)
 		{
-			resources[(int)resource] -= amount;
-			if (CBKEventManager.UI.OnChangeResource[(int)resource] != null)
+			resources[(int)resource-1] -= amount;
+			if (CBKEventManager.UI.OnChangeResource[(int)resource-1] != null)
 			{
-				CBKEventManager.UI.OnChangeResource[(int)resource](resources[(int)resource]);
+				CBKEventManager.UI.OnChangeResource[(int)resource-1](resources[(int)resource-1]);
 			}
 			return true;
 		}
+		Debug.LogWarning("Tried to spend " + amount + " " + resource.ToString() + ", only have " + resources[(int)resource-1].ToString());
 		return false;
 	}
 	
@@ -107,7 +147,7 @@ public class CBKResourceManager : MonoBehaviour {
 		_exp += amount;
 		if (_exp > _expForNextLevel)
 		{
-			
+			StartCoroutine(LevelUp());
 		}
 	}
 	
@@ -128,7 +168,11 @@ public class CBKResourceManager : MonoBehaviour {
 		if (response.status == LevelUpResponseProto.LevelUpStatus.SUCCESS)
 		{
 			_level++;
-			//_expForNextLevel = response.experienceRequiredForNewNextLevel;
+			StaticUserLevelInfoProto nextLevelData = CBKDataManager.instance.Get(typeof(StaticUserLevelInfoProto), _level + 1) as StaticUserLevelInfoProto;
+			if (nextLevelData != null)
+			{
+				_expForNextLevel = nextLevelData.requiredExperience;
+			}
 		}
 		else
 		{
@@ -136,6 +180,29 @@ public class CBKResourceManager : MonoBehaviour {
 		}
 		
 		
+	}
+
+	void HandleRetrieveResponse(int tagNum)
+	{
+
+	}
+
+	void OnApplicationPause(bool pauseStatus)
+	{
+		if (retrieveRequest != null)
+		{
+			UMQNetworkManager.instance.SendRequest(retrieveRequest, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, HandleRetrieveResponse);
+			retrieveRequest = null;
+		}
+	}
+
+	void OnDestroy()
+	{
+		if (retrieveRequest != null)
+		{
+			UMQNetworkManager.instance.SendRequest(retrieveRequest, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, HandleRetrieveResponse);
+			retrieveRequest = null;
+		}
 	}
 	
 }

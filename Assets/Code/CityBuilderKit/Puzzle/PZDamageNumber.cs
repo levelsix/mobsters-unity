@@ -73,8 +73,8 @@ public class PZDamageNumber : MonoBehaviour, CBKPoolable {
 
 	public void Init(PZGem gem)
 	{
-		label.font = fonts[gem.colorIndex];
-		label.text = "+" + ((int)PZCombatManager.instance.activePlayer.monster.attackDamages[gem.colorIndex]).ToString();
+		label.font = fonts[(gem.colorIndex>4 ? gem.colorIndex-5 : gem.colorIndex)];
+		label.text = "+" + ((int)PZCombatManager.instance.activePlayer.monster.attackDamages[(gem.colorIndex>4 ? gem.colorIndex-5 : gem.colorIndex)]).ToString();
 		label.alpha = 1;
 
 		trans.parent = gem.transf.parent;

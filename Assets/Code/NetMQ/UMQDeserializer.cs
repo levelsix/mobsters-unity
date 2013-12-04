@@ -55,7 +55,8 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_TRANSFER_CLAN_OWNERSHIP, typeof(TransferClanOwnershipResponseProto)},
 		{EventProtocolResponse.S_CHANGE_CLAN_DESCRIPTION_EVENT, typeof(ChangeClanDescriptionResponseProto)},
 		{EventProtocolResponse.S_BOOT_PLAYER_FROM_CLAN_EVENT, typeof(BootPlayerFromClanResponseProto)},
-		{EventProtocolResponse.S_CHANGE_CLAN_JOIN_TYPE_EVENT, typeof(ChangeClanJoinTypeResponseProto)}
+		{EventProtocolResponse.S_CHANGE_CLAN_JOIN_TYPE_EVENT, typeof(ChangeClanJoinTypeResponseProto)},
+		{EventProtocolResponse.S_LEVEL_UP_EVENT, typeof(LevelUpResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

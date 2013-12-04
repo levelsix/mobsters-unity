@@ -651,15 +651,6 @@ namespace com.lvl6.proto
       get { return _requiredExperience; }
       set { _requiredExperience = value; }
     }
-
-    private int _maxCash = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"maxCash", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int maxCash
-    {
-      get { return _maxCash; }
-      set { _maxCash = value; }
-    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

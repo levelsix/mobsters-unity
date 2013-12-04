@@ -163,8 +163,8 @@ public class CBKQuestLog : MonoBehaviour {
 		
 		lastTaskOffset = START_TASK_OFFSET - OFFSET_PER_TASK; //Hacky hacky hack hack
 		
-		CBKQuestTaskEntry task;
 		/*
+		CBKQuestTaskEntry task;
 		if (fullQ.quest.coinRetrievalReq > 0)
 		{
 			task = GetTask();

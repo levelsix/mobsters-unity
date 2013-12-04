@@ -26,6 +26,8 @@ public class CBKQuestManager : MonoBehaviour {
 		CBKEventManager.Quest.OnStructureUpgraded += OnStructureUpgraded;
 		CBKEventManager.Quest.OnTaskCompleted += OnTaskCompleted;
 		CBKEventManager.Quest.OnMoneyCollected += OnMoneyCollected;
+		CBKEventManager.Quest.OnMonsterDefeated += OnEnemyDefeated;
+		CBKEventManager.Quest.OnMonsterDonated += OnMonsterDonated;
 	}
 	
 	public void Disable()
@@ -34,6 +36,8 @@ public class CBKQuestManager : MonoBehaviour {
 		CBKEventManager.Quest.OnStructureUpgraded -= OnStructureUpgraded;
 		CBKEventManager.Quest.OnTaskCompleted -= OnTaskCompleted;
 		CBKEventManager.Quest.OnMoneyCollected -= OnMoneyCollected;
+		CBKEventManager.Quest.OnMonsterDefeated -= OnEnemyDefeated;
+		CBKEventManager.Quest.OnMonsterDonated -= OnMonsterDonated;
 	}
 	
 	public void Init(StartupResponseProto proto)
@@ -143,6 +147,25 @@ public class CBKQuestManager : MonoBehaviour {
 		{
 			Debug.Log("Problem accepting quest: " + response.status.ToString());
 		}
+		else
+		{
+			FullUserQuestProto userQuest = new FullUserQuestProto();
+			userQuest.userId = CBKWhiteboard.localMup.userId;
+			userQuest.questId = fullQuest.questId;
+			userQuest.isRedeemed = false;
+			switch(fullQuest.questType)
+			{
+			case FullQuestProto.QuestType.BUILD_STRUCT:
+
+				break;
+			case FullQuestProto.QuestType.UPGRADE_STRUCT:
+
+				break;
+			default:
+
+				break;
+			}
+		}
 		
 		/*
 		UserQuestDetailsRequestProto detailRequest = new UserQuestDetailsRequestProto();
@@ -207,11 +230,11 @@ public class CBKQuestManager : MonoBehaviour {
 			}
 			if (quest.coinReward > 0)
 			{
-				CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.FREE, quest.coinReward);
+				CBKResourceManager.instance.Collect(ResourceType.CASH, quest.coinReward);
 			}
 			if (quest.diamondReward > 0)
 			{
-				CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.PREMIUM, quest.diamondReward);
+				CBKResourceManager.instance.Collect(ResourceType.GEMS, quest.diamondReward);
 			}
 			if (quest.expReward > 0)
 			{
@@ -219,7 +242,7 @@ public class CBKQuestManager : MonoBehaviour {
 			}
 			foreach (FullQuestProto item in response.newlyAvailableQuests) 
 			{
-				AcceptQuest(item);
+				StartCoroutine(AcceptQuest(item));
 			}
 		}
 	}
@@ -228,21 +251,15 @@ public class CBKQuestManager : MonoBehaviour {
 	{
 		foreach (CBKFullQuest item in questDict.Values) 
 		{
-			//TODO: RE implement build structure quests when that type is re-added
-			/*
-			foreach (MinimumUserBuildStructJobProto job in item.userQuest.requiredBuildStructJobProgress) 
+			if (item.userQuest.isComplete)
 			{
-				BuildStructJobProto buildJob = CBKDataManager.instance.Get(typeof(BuildStructJobProto), job.buildStructJobId) as BuildStructJobProto;
-				if (buildJob.structId == structID && job.numOfStructUserHas < buildJob.quantityRequired)
-				{
-					if (++job.numOfStructUserHas == buildJob.quantityRequired) 
-					{
-						item.userQuest.numComponentsComplete++;
-						CheckQuest(item);
-					}
-				}
+				continue;
 			}
-			*/
+			if (item.quest.questType == FullQuestProto.QuestType.BUILD_STRUCT && item.quest.staticDataId == structID) 
+			{
+				item.userQuest.progress++;
+				CheckQuest(item);
+			}
 		}
 	}
 
@@ -250,22 +267,18 @@ public class CBKQuestManager : MonoBehaviour {
 	{
 		foreach (CBKFullQuest item in questDict.Values)
 		{
-			//TODO: RE implement when type is reinstated
-			/*
-			foreach (MinimumUserUpgradeStructJobProto job in item.userQuest.requiredUpgradeStructJobProgress)
+			if (item.userQuest.isComplete)
 			{
-				UpgradeStructJobProto upJob = CBKDataManager.instance.Get(typeof(UpgradeStructJobProto), job.upgradeStructJobId) as UpgradeStructJobProto;
-				if (upJob.structId == structID && job.currentLevel < upJob.levelReq && level > job.currentLevel)
+				continue;
+			}
+			if (item.quest.questType == FullQuestProto.QuestType.UPGRADE_STRUCT && item.quest.staticDataId == structID)
+			{
+				if (item.userQuest.progress < level)
 				{
-					job.currentLevel = level;
-					if (job.currentLevel == upJob.levelReq)
-					{
-						item.userQuest.numComponentsComplete++;
-						CheckQuest(item);
-					}
+					item.userQuest.progress = level;
+					CheckQuest(item);
 				}
 			}
-			*/
 		}
 	}
 	
@@ -273,15 +286,15 @@ public class CBKQuestManager : MonoBehaviour {
 	{
 		foreach (CBKFullQuest item in questDict.Values)
 		{
-			//TODO: Fix this
-			/*
-			foreach (MinimumUserQuestTaskProto job in item.userQuest.requiredTasksProgress)
+			if (item.userQuest.isComplete)
 			{
-				FullTaskProto task = CBKDataManager.instance.Get(typeof(FullTaskProto), job.taskId) as FullTaskProto;
-				item.userQuest.numComponentsComplete++;
+				continue;
+			}
+			if (item.quest.questType == FullQuestProto.QuestType.COMPLETE_TASK && item.quest.staticDataId == taskID)
+			{
+				item.userQuest.progress++;
 				CheckQuest(item);
 			}
-			*/
 		}
 	}
 	
@@ -289,18 +302,45 @@ public class CBKQuestManager : MonoBehaviour {
 	{
 		foreach (CBKFullQuest item in questDict.Values)
 		{
-			//TODO: RE-implement money collection quests if necessary
-			/*
-			if (item.userQuest.coinsRetrievedForReq < item.quest.coinRetrievalReq)
+			if (item.userQuest.isComplete)
 			{
-				item.userQuest.coinsRetrievedForReq += amount;
-				if (item.userQuest.coinsRetrievedForReq >= item.quest.coinRetrievalReq)
-				{
-					item.userQuest.numComponentsComplete++;
-					CheckQuest(item);
-				}
+				continue;
 			}
-			*/
+			if (item.quest.questType == FullQuestProto.QuestType.COLLECT_COINS_FROM_HOME)
+			{
+				item.userQuest.progress += amount;
+				CheckQuest(item);
+			}
+		}
+	}
+
+	void OnEnemyDefeated(int monsterId)
+	{
+		foreach (CBKFullQuest item in questDict.Values) {
+			if (item.userQuest.isComplete)
+			{
+				continue;
+			}
+			if (item.quest.questType == FullQuestProto.QuestType.KILL_MONSTER && item.quest.staticDataId == monsterId)
+			{
+				item.userQuest.progress++;
+				CheckQuest(item);
+			}
+		}
+	}
+
+	void OnMonsterDonated(int monsterId)
+	{
+		foreach (CBKFullQuest item in questDict.Values) {
+			if (item.userQuest.isComplete)
+			{
+				continue;
+			}
+			if (item.quest.questType == FullQuestProto.QuestType.DONATE_MONSTER && item.quest.staticDataId == monsterId)
+			{
+				item.userQuest.progress++;
+				CheckQuest(item);
+			}
 		}
 	}
 }

@@ -29,7 +29,7 @@ public class CBKTaskBar : MonoBehaviour {
 	Transform taskButtonParent;
 	
 	[SerializeField]
-	GameObject bigChatPopup;
+	GameObject upgradePopup;
 	
 	CBKBuilding currBuilding;
 	
@@ -81,14 +81,6 @@ public class CBKTaskBar : MonoBehaviour {
 		}
 	}
 	
-	void OnClickBar()
-	{
-		if (mode == TaskBarMode.CHAT)
-		{
-			CBKEventManager.Popup.OnPopup(bigChatPopup);
-		}
-	}
-	
 	void SetChatMode()
 	{
 		mode = TaskBarMode.CHAT;
@@ -112,7 +104,14 @@ public class CBKTaskBar : MonoBehaviour {
 		CBKTaskButton button = CBKPoolManager.instance.Get(taskButtonPrefab, Vector3.zero) as CBKTaskButton;
 		if (currBuilding != null)
 		{
-			button.Setup(mode, currBuilding);
+			if (mode == CBKTaskButton.Mode.UPGRADE || mode == CBKTaskButton.Mode.FINISH)
+			{
+				button.Setup(mode, currBuilding, upgradePopup);
+			}
+			else
+			{
+				button.Setup(mode, currBuilding);
+			}
 		}
 		else
 		{
@@ -153,11 +152,11 @@ public class CBKTaskBar : MonoBehaviour {
 		
 		if (currBuilding.locallyOwned)
 		{
-			if (currBuilding.upgrade.timeRemaining <= 0)
+			if (!currBuilding.userStructProto.isComplete)
 			{
 				AddButton(CBKTaskButton.Mode.FINISH);
 			}
-			else if (currBuilding.combinedProto.structInfo.predecessorStructId > 0)
+			else if (currBuilding.combinedProto.structInfo.successorStructId > 0)
 			{
 				AddButton(CBKTaskButton.Mode.UPGRADE);
 			}

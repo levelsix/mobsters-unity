@@ -78,6 +78,10 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 					sprite.spriteName = baseSprite + "orb";
 					break;
 			}
+			
+			sprite.width = sprite.GetAtlasSprite().width;
+			sprite.height = sprite.GetAtlasSprite().height;
+
 			_gemType = value;
 		}
 	}
@@ -91,8 +95,10 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	const float SPACE_SIZE = 72;
 	
 	const float BASE_FALL_SPEED = -150;
+
+	const float BASE_BOUNCE_SPEED = 75;
 	
-	const float GRAVITY = -150.1f;
+	const float GRAVITY = -400f;
 	
 	const float SWAP_TIME = .2f;
 	
@@ -105,8 +111,6 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	public bool moving = false;
 	
 	bool dragged = false;
-	
-	static int nextID = 0;
 	
 	static readonly Dictionary<CBKValues.Direction, Vector3> dirVals = new Dictionary<CBKValues.Direction, Vector3>()
 	{
@@ -134,12 +138,21 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	{
 		colorIndex = colr;
 		baseSprite = PZPuzzleManager.instance.gemTypes[colorIndex];
+
+		if (colr > 4)
+		{
+			sprite.color = Color.black;
+		}
+		else
+		{
+			sprite.color = Color.white;
+		}
 		
 		boardX = column;
 		boardY = PZPuzzleManager.BOARD_HEIGHT;
 		
 		trans.localScale = Vector3.one;
-		trans.localPosition = new Vector3(boardX * SPACE_SIZE, boardY * SPACE_SIZE);
+		trans.localPosition = new Vector3(boardX * SPACE_SIZE, Mathf.Max(boardY * SPACE_SIZE, PZPuzzleManager.instance.HighestGemInColumn(boardX) + SPACE_SIZE));
 		
 		gemType = GemType.NORMAL;
 		
@@ -188,7 +201,28 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			trans.localPosition = new Vector3(trans.localPosition.x,
 				trans.localPosition.y + fallSpeed * Time.deltaTime);
 		}
+		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1);
+
+		fallSpeed = BASE_BOUNCE_SPEED;
+		while(trans.localPosition.y > boardY * SPACE_SIZE)
+		{
+			yield return null;
+			fallSpeed += GRAVITY * Time.deltaTime;
+			trans.localPosition = new Vector3(trans.localPosition.x,
+			                                  trans.localPosition.y + fallSpeed * Time.deltaTime);
+		}
+		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1);
+
+		fallSpeed = BASE_BOUNCE_SPEED / 2;
+		while(trans.localPosition.y > boardY * SPACE_SIZE)
+		{
+			yield return null;
+			fallSpeed += GRAVITY * Time.deltaTime;
+			trans.localPosition = new Vector3(trans.localPosition.x,
+			                                  trans.localPosition.y + fallSpeed * Time.deltaTime);
+		}
 		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY);
+
 		moving = false;
 		PZPuzzleManager.instance.OnStopMoving(this);
 	}

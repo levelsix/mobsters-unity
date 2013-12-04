@@ -323,9 +323,8 @@ public class CBKGoonScreen : MonoBehaviour {
 	void TrySpeedUpHeal()
 	{
 		int gemCost = Mathf.CeilToInt((CBKMonsterManager.healingMonsters[CBKMonsterManager.healingMonsters.Count-1].timeToHealMillis) * 1f/60000);
-		if (CBKResourceManager.resources[(int)CBKResourceManager.ResourceType.PREMIUM] >= gemCost)
+		if (CBKResourceManager.instance.Spend(ResourceType.OIL, gemCost))
 		{
-			CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.PREMIUM, gemCost);
 			CBKMonsterManager.instance.SpeedUpHeal(gemCost);
 		}
 		else
@@ -337,9 +336,8 @@ public class CBKGoonScreen : MonoBehaviour {
 	void TrySpeedUpEnhance()
 	{
 		int gemCost = Mathf.CeilToInt((CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].finishCombineTime) * 1f/60000);
-		if (CBKResourceManager.resources[(int)CBKResourceManager.ResourceType.PREMIUM] >= gemCost)
+		if (CBKResourceManager.instance.Spend(ResourceType.OIL, gemCost))
 		{
-			CBKResourceManager.instance.Spend(CBKResourceManager.ResourceType.PREMIUM, gemCost);
 			CBKMonsterManager.instance.SpeedUpEnhance(gemCost);
 		}
 		else

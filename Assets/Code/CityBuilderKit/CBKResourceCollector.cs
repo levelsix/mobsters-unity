@@ -137,10 +137,13 @@ public class CBKResourceCollector : MonoBehaviour {
 	{
 		if (hasMoney)
 		{
-			CBKMoneyPickup money = CBKPoolManager.instance.Get(CBKPrefabList.instance.moneyPrefab, transform.position) as CBKMoneyPickup;
-			money.Init(_building, currMoney);
-			
-			SendCollectRequest(currMoney);
+			CBKResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructId);
+			if (CBKEventManager.Quest.OnMoneyCollected != null)
+			{
+				CBKEventManager.Quest.OnMoneyCollected(currMoney);
+			}
+
+			//SendCollectRequest(currMoney);
 
 			_building.userStructProto.lastRetrieved = CBKUtil.timeNowMillis;
 			_building.hasMoneyPopup.SetActive(false);

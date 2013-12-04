@@ -22,15 +22,10 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		{
 			return building.combinedProto.structInfo.level;
 		}
-		set
-		{
-			//building.userStructProto.level = value;
-		}
 	}
 	
 	/// <summary>
-	/// Gets or sets the upgrade complete time in the FullUserStructureProto
-	/// in the Building component
+	/// Gets the time at which this building will be completed building or upgrading
 	/// </summary>
 	/// <value>
 	/// The timestamp for when this building will be or was
@@ -40,14 +35,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			if (false)//building.userStructProto.lastUpgradeTime > 0)
-			{
-				return 0;//building.userStructProto.lastUpgradeTime + CBKMath.TimeToBuildOrUpgradeStruct(building.structProto.minutesToBuild, building.userStructProto.level);
-			}
-			else
-			{
-				return building.userStructProto.purchaseTime + CBKMath.TimeToBuildOrUpgradeStruct(building.combinedProto.structInfo.minutesToBuild, 0);
-			}
+			return building.userStructProto.purchaseTime + building.combinedProto.structInfo.minutesToBuild * 60000;
 		}
 	}
 	
@@ -88,10 +76,11 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// <value>
 	/// The gems to finish.
 	/// </value>
-	public int gemsToFinish{
+	public int gemsToFinish
+	{
 		get
 		{
-			return 10;//AOC2Math.GemsForTime(finishUpgradeTime - AOC2Math.UnixTimeStamp(DateTime.UtcNow));
+			return Mathf.CeilToInt((timeRemaining / 60000f / CBKWhiteboard.constants.minutesPerGem));
 		}
 	}
 	
@@ -133,8 +122,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	
 	public virtual void StartConstruction()
 	{
-		//level = 0;
-		StartUpgrade();
+		StartBuild();
 	}
 	
 	/// <summary>
@@ -142,13 +130,18 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public virtual void StartUpgrade()
 	{
-		//building.userStructProto.lastUpgradeTime = CBKUtil.timeNowMillis;
-		
-		building.userStructProto.isComplete = false;
-		
-		building.SetupConstructionSprite();
-		
 		SendUpgradeRequest();
+
+		building.combinedProto = CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), building.combinedProto.structInfo.successorStructId) as CBKCombinedBuildingProto;
+
+		StartBuild();
+	}
+
+	public virtual void StartBuild()
+	{
+		building.userStructProto.isComplete = false;
+		building.userStructProto.purchaseTime = CBKUtil.timeNowMillis;
+		building.SetupConstructionSprite();
 		
 		StartCoroutine(CheckUpgrade());
 	}
@@ -224,7 +217,6 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public void FinishWithPremium()
 	{
-		//building.userStructProto.lastUpgradeTime = CBKUtil.timeNowMillis;
 		SendPremiumFinishRequest();
 		FinishUpgrade();
 	}
@@ -235,6 +227,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		request.sender = CBKWhiteboard.localMup;
 		request.userStructId = building.userStructProto.userStructId;
 		request.timeOfSpeedup = CBKUtil.timeNowMillis;
+		request.gemCostToSpeedup = gemsToFinish;
 		UMQNetworkManager.instance.SendRequest(request, 
 			(int)EventProtocolRequest.C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT, LoadPremiumFinishResponse);
 	}
@@ -288,8 +281,9 @@ public class CBKBuildingUpgrade : MonoBehaviour {
         
 		building.userStructProto.isComplete = true;
 		
-		building.SetupSprite(building.combinedProto.structInfo.name);
-		
+		building.SetupSprite(building.combinedProto.structInfo.imgName);
+
+		/*
 		if (false)//building.userStructProto.lastUpgradeTime > 0)
 		{
 			level++;
@@ -299,6 +293,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		{
 			CBKEventManager.Quest.OnStructureBuilt(building.userStructProto.structId);
 		}
+		*/
 			
         if (OnFinishUpgrade != null)
         {

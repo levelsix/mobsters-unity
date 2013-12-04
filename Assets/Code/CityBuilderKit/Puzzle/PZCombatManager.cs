@@ -64,7 +64,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// <summary>
 	/// The Y value at which the enemy needs to be for the scrolling to stop happening
 	/// </summary>
-	const float enemyYThreshold = 30;
+	public float enemyYThreshold = 30;
 	
 	/// <summary>
 	/// Gets the enemy spawn position.
@@ -268,7 +268,7 @@ public class PZCombatManager : MonoBehaviour {
 				pieces.Add(item.monster);
 			}
 		}
-		CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.FREE, cash);
+		CBKResourceManager.instance.Collect(ResourceType.CASH, cash);
 		CBKResourceManager.instance.GainExp(xp);
 	}
 	
@@ -317,12 +317,12 @@ public class PZCombatManager : MonoBehaviour {
 		MonsterProto.MonsterElement element;
 		activePlayer.DealDamage(gemsBroken, out damage, out element);
 		
-		Debug.Log("Damage: " + damage + ", Combo: " + combo);
+		//Debug.Log("Damage: " + damage + ", Combo: " + combo);
 		
 		if (combo > 1)
 		{
 			damage = (int)(damage * (1 + (combo-1) / 4f));
-			Debug.Log("Combo damage: " + damage);
+			//Debug.Log("Combo damage: " + damage);
 		}
 
 		currPlayerDamage += damage;

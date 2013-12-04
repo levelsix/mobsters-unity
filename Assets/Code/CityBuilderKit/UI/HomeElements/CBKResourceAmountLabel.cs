@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using com.lvl6.proto;
 
 public class CBKResourceAmountLabel : MonoBehaviour {
 	
 	UILabel label;
 	
 	[SerializeField]
-	CBKResourceManager.ResourceType resource;
+	ResourceType resource;
 	
 	void Awake()
 	{
@@ -33,7 +34,7 @@ public class CBKResourceAmountLabel : MonoBehaviour {
 	{
 		string formatted = String.Format("{0:#,##0}", amount);
 		label.text = formatted;
-		if (resource == CBKResourceManager.ResourceType.FREE)
+		if (resource == ResourceType.CASH)
 		{
 			label.text = "$" + label.text;
 		}

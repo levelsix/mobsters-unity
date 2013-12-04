@@ -362,7 +362,7 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	private void BuyBuilding(StructureInfoProto proto)
 	{
-		CBKResourceManager.ResourceType costType = (CBKResourceManager.ResourceType)proto.buildResourceType;
+		ResourceType costType = proto.buildResourceType;
 		if (CBKResourceManager.instance.Spend(costType, proto.buildCost))
 		{
 			PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
@@ -377,6 +377,11 @@ public class CBKBuildingManager : MonoBehaviour
 			
 			request.structId = proto.structId;
 			request.timeOfPurchase = CBKUtil.timeNowMillis;
+
+			request.gemsSpent = 0;
+			request.resourceChange = -proto.buildCost;
+
+			request.resourceType = proto.buildResourceType;
 			
 			CBKWhiteboard.tempStructureProto = proto;
 			CBKWhiteboard.tempStructurePos = coords;
@@ -622,7 +627,7 @@ public class CBKBuildingManager : MonoBehaviour
 	}
 	
 	#endregion
-	
+
 	#region Debug
 	
 #if UNITY_EDITOR
@@ -646,7 +651,7 @@ public class CBKBuildingManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.G))
 		{
 			//MakeBuildingCenter(CBKBuildingList.instance.sevenEleven);	
-			//BuyBuilding(CBKDataManager.instance.Get(typeof(StructureInfoProto), 2) as StructureInfoProto);
+			BuyBuilding((CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), 40) as CBKCombinedBuildingProto).structInfo);
 		}
 	}
 #endif

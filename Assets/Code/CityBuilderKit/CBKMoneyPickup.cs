@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using com.lvl6.proto;
 
 public class CBKMoneyPickup : MonoBehaviour, CBKPoolable {
 	
@@ -184,7 +185,7 @@ public class CBKMoneyPickup : MonoBehaviour, CBKPoolable {
 	{
 		trans.parent = Camera.main.transform;
 		yield return null;
-		CBKResourceManager.instance.Collect(CBKResourceManager.ResourceType.FREE, amount);
+		CBKResourceManager.instance.Collect(ResourceType.CASH, amount);
 		if (CBKEventManager.Quest.OnMoneyCollected != null)
 		{
 			CBKEventManager.Quest.OnMoneyCollected(amount);

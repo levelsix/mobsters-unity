@@ -10,10 +10,11 @@ using System;
 /// </summary>
 [RequireComponent (typeof(CBKUnit))]
 public class PZCombatUnit : MonoBehaviour {
-	
+
 	/// <summary>
 	/// The unit component
 	/// </summary>
+	[HideInInspector]
 	public CBKUnit unit;
 	
 	/// <summary>
@@ -27,6 +28,9 @@ public class PZCombatUnit : MonoBehaviour {
 	/// unit death.
 	/// </summary>
 	public Action OnDeath;
+
+	[SerializeField]
+	UISprite shadow;
 	
 	/// <summary>
 	/// Awake this instance and set up component references
@@ -47,6 +51,7 @@ public class PZCombatUnit : MonoBehaviour {
 		this.monster = monster;
 		unit.spriteBaseName = monster.monster.imagePrefix;
 		unit.sprite.alpha = 1;
+		shadow.alpha = 1;
 	}
 	
 	/// <summary>
@@ -66,7 +71,7 @@ public class PZCombatUnit : MonoBehaviour {
 		damage = 0;
 		for (int i = 0; i < monster.attackDamages.Length; i++) 
 		{
-			damage += (int)(gems[i] * monster.attackDamages[i]);
+			damage += (int)(gems[i] * monster.attackDamages[(i>4 ? i-5 : i)]);
 		}
 		
 		element = monster.monster.element;
@@ -138,6 +143,7 @@ public class PZCombatUnit : MonoBehaviour {
 		{
 			time += Time.deltaTime;
 			unit.sprite.alpha = Mathf.Lerp(1, 0, time/3f);
+			shadow.alpha = unit.sprite.alpha;
 			yield return null;
 		}
 		//TODO: Animation?
