@@ -185,6 +185,7 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 		{
 			trans.parent.localPosition = new Vector3(0, CAMERA_BASE_HOME_Y);
 		}
+		cam.orthographicSize = 8;
 		trans.localPosition = Vector3.zero;
 		SetBounds();
 	}

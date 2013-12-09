@@ -39,13 +39,13 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		if (monster == null)
 		{
 			goonPortrait.alpha = 0;
-			removeButton.gameObj.SetActive(false);
+			removeButton.gameObject.SetActive(false);
 		}
 		else
 		{
 			goonPortrait.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Card";	
 			background.spriteName = elementBackgrounds[monster.monster.element];
-			removeButton.gameObj.SetActive(true);
+			removeButton.gameObject.SetActive(true);
 		}
 
 		gameObject.SetActive(true);

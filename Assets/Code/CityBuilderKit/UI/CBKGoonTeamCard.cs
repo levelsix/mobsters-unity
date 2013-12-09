@@ -71,7 +71,7 @@ public class CBKGoonTeamCard : MonoBehaviour {
 
 		Init (goon);
 
-		bottomLabel.text = "";
+		bottomLabel.text = " ";
 	}
 
 	public void Init(PZMonster goon)
@@ -97,7 +97,7 @@ public class CBKGoonTeamCard : MonoBehaviour {
 				barBG.alpha = 1;
 				bar.spriteName = healthBarForElements[goon.monster.element];
 				fillBar.fill = ((float)goon.currHP) / goon.maxHP;
-				bottomLabel.text = "";
+				bottomLabel.text = " ";
 				dottedBorder.alpha = 0;
 				portrait.background.alpha = 1;
 				portrait.background.color = Color.white;

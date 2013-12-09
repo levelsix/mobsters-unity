@@ -226,6 +226,33 @@ namespace com.lvl6.proto
       get { return _timeAccepted; }
       set { _timeAccepted = value; }
     }
+
+    private int _userStructId = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userStructId
+    {
+      get { return _userStructId; }
+      set { _userStructId = value; }
+    }
+
+    private int _structFbLvl = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"structFbLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int structFbLvl
+    {
+      get { return _structFbLvl; }
+      set { _structFbLvl = value; }
+    }
+
+    private long _redeemedTime = default(long);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"redeemedTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long redeemedTime
+    {
+      get { return _redeemedTime; }
+      set { _redeemedTime = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -426,15 +453,6 @@ namespace com.lvl6.proto
       set { _hasReceivedfbReward = value; }
     }
 
-    private int _numAdditionalMonsterSlots = default(int);
-    [global::ProtoBuf.ProtoMember(29, IsRequired = false, Name=@"numAdditionalMonsterSlots", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int numAdditionalMonsterSlots
-    {
-      get { return _numAdditionalMonsterSlots; }
-      set { _numAdditionalMonsterSlots = value; }
-    }
-
     private int _numBeginnerSalesPurchased = default(int);
     [global::ProtoBuf.ProtoMember(30, IsRequired = false, Name=@"numBeginnerSalesPurchased", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -613,15 +631,6 @@ namespace com.lvl6.proto
     {
       get { return _kabamNaid; }
       set { _kabamNaid = value; }
-    }
-
-    private int _nthExtraSlotsViaFb = default(int);
-    [global::ProtoBuf.ProtoMember(41, IsRequired = false, Name=@"nthExtraSlotsViaFb", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int nthExtraSlotsViaFb
-    {
-      get { return _nthExtraSlotsViaFb; }
-      set { _nthExtraSlotsViaFb = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

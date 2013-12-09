@@ -25,6 +25,11 @@ message StartupRequestProto {				//client will also send ChangeUserLocationReque
      optional string macAddress = 4;
      optional string advertiserId = 5;
      optional bool isForceTutorial = 6;
+     
+     //check fb then udid
+     //if this exists, then send facebook user first,
+     //then send udid, 
+     optional string fbId = 7;
 }
 
 message StartupResponseProto {
@@ -60,21 +65,20 @@ message StartupResponseProto {
 	
 	optional string kabamNaid = 23;
 	
-	//send over all recipients (in user_facebook_invite_for_slot_accepted table)
-	//that have been "redeemed"
-	repeated MinimumUserProtoWithFacebookId usersUsedForExtraSlots = 24;
-	
 	//send over all invites (in fb_invite_for_slot table) where this user
-	//is the person being invited
-	repeated UserFacebookInviteForSlotProto invitesToMeForSlots = 25;
+	//is the recipient, get unaccepted, hence, unredeemed invites
+	repeated UserFacebookInviteForSlotProto invitesToMeForSlots = 24;
+	
+	//send over all invites where this user is the inviter and the invite is accepted
+	//isRedeemed does not matter
+	repeated UserFacebookInviteForSlotProto invitesFromMeForSlots = 25;
+	
 	
 	optional StaticDataProto staticDataStuffProto = 26;
 	//repeated int32 redeemedQuestIds = 27; //above, after "userQuests = 6"
 	
 	//for each city, the city's boss is hiding in the specified taskId
 	repeated int32 taskIdForCurrentCityBoss = 28;
-	
-	
 	
 	
 	//repeated LockBoxEventProto lockBoxEvents = ;
@@ -147,9 +151,9 @@ message StartupResponseProto {
 			
 			//how much the monster inventory limit is increased by
 			//whenever the user acquires more slots 
-			optional int32 monsterInventoryIncrementAmount = 3;
-			optional int32 gemPricePerSlot = 4;
-			optional int32 numFriendsToRecruitToIncreaseInventory = 5;
+			//optional int32 monsterInventoryIncrementAmount = 3;
+			//optional int32 gemPricePerSlot = 4;
+			//optional int32 numFriendsToRecruitToIncreaseInventory = 5;
 		}
 		message MonsterConstants {
 			optional float cashPerHealthPoint = 1;

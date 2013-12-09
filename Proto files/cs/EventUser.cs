@@ -90,6 +90,15 @@ namespace com.lvl6.proto
       get { return _usedDiamondsToBuilt; }
       set { _usedDiamondsToBuilt = value; }
     }
+
+    private string _facebookId = "";
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"facebookId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string facebookId
+    {
+      get { return _facebookId; }
+      set { _facebookId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -125,17 +134,20 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"INVALID_NAME", Value=2)]
-      INVALID_NAME = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INVALID_NAME", Value=2)]
+      FAIL_INVALID_NAME = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"USER_WITH_UDID_ALREADY_EXISTS", Value=3)]
-      USER_WITH_UDID_ALREADY_EXISTS = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_USER_WITH_UDID_ALREADY_EXISTS", Value=3)]
+      FAIL_USER_WITH_UDID_ALREADY_EXISTS = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"INVALID_REFER_CODE", Value=4)]
-      INVALID_REFER_CODE = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INVALID_REFER_CODE", Value=4)]
+      FAIL_INVALID_REFER_CODE = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=5)]
-      OTHER_FAIL = 5
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_USER_WITH_FACEBOOK_ID_EXISTS", Value=5)]
+      FAIL_USER_WITH_FACEBOOK_ID_EXISTS = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=6)]
+      FAIL_OTHER = 6
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -317,6 +329,73 @@ namespace com.lvl6.proto
       get { return _timeOfUserUpdate; }
       set { _timeOfUserUpdate = value; }
     }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SetFacebookIdRequestProto")]
+  public partial class SetFacebookIdRequestProto : global::ProtoBuf.IExtensible
+  {
+    public SetFacebookIdRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private string _fbId = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"fbId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string fbId
+    {
+      get { return _fbId; }
+      set { _fbId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SetFacebookIdResponseProto")]
+  public partial class SetFacebookIdResponseProto : global::ProtoBuf.IExtensible
+  {
+    public SetFacebookIdResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.SetFacebookIdResponseProto.SetFacebookIdStatus _status = com.lvl6.proto.SetFacebookIdResponseProto.SetFacebookIdStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SetFacebookIdResponseProto.SetFacebookIdStatus.SUCCESS)]
+    public com.lvl6.proto.SetFacebookIdResponseProto.SetFacebookIdStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"SetFacebookIdStatus")]
+    public enum SetFacebookIdStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

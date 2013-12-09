@@ -20,7 +20,7 @@ public static class CBKUtil {
 	{
 		get
 		{
-			return CBKMath.UnixTimeStamp(DateTime.UtcNow) * 1000;
+			return CBKMath.UnixTimeStamp(DateTime.UtcNow);
 		}
 	}
 	

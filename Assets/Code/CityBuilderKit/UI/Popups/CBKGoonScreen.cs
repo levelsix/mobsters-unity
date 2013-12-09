@@ -36,26 +36,31 @@ public class CBKGoonScreen : MonoBehaviour {
 	UILabel totalTimeLabel;
 	
 	[SerializeField]
-	CBKMiniHealingBox enhanceBaseBox;
-	
+	CBKGoonCard enhanceBaseBox;
+
 	[SerializeField]
-	UILabel enhanceDetails;
-	
+	UITweener enhanceLeftSideElements;
+
 	[SerializeField]
-	UISprite enhanceUnderBar;
-	
-	[SerializeField]
-	UISprite enhanceOverBar;
-	
+	UIWidget[] bottomFadeInElements;
+
 	[SerializeField]
 	UIPanel scrollPanel;
 
 	[SerializeField]
 	CBKGoonGrid goonGrid;
+
+	[SerializeField]
+	UILabel bottomBarLabel;
 	
 	#endregion
 	
 	bool healMode = true;
+
+	bool goonIn = false;
+
+	[SerializeField]
+	bool bringGoonIn = false;
 	
 	#region Properties
 	
@@ -63,7 +68,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		get
 		{
-			return CBKWhiteboard.constants.userMonsterConstants.maxNumTeamSlots + CBKWhiteboard.localUser.numAdditionalMonsterSlots;
+			return CBKWhiteboard.constants.userMonsterConstants.maxNumTeamSlots;
 		}
 	}
 			
@@ -93,6 +98,13 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	const string removeDialogueBeforeCost = "Are you sure you want to remove this goon from the healing queue? You will be refunded $";
 	const string removeDialogueAfterCost = " of the healing cost";
+
+	const string bottomHealDialogue = "Tap an injured mobster to begin healing";
+	const string bottomEnhanceDialogue = "Select a mobster to enhance";
+	const string bottomSacrificeDialogue = "Select a mobster to sacrifice";
+
+	const int rightShiftOnMobsterEnhance = 130;
+	const float timeForShift = 0.6f;
 	
 	#endregion
 	
@@ -104,6 +116,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	public void InitHeal()
 	{	
+		bringGoonIn = false;
 		healMode = true;
 		OrganizeCards();	
 		OrganizeHealingQueue (CBKMonsterManager.healingMonsters);
@@ -116,12 +129,18 @@ public class CBKGoonScreen : MonoBehaviour {
 		OrganizeCards();
 		OrganizeEnhanceQueue();
 		speedUpButton.onClick = TrySpeedUpEnhance;
+
+		if (CBKMonsterManager.currentEnhancementMonster != null)
+		{
+			enhanceBaseBox.InitLab(CBKMonsterManager.currentEnhancementMonster);
+			bringGoonIn = true;
+		}
 	}
 	
 	void Start()
 	{
 		scrollPanel.clipRange = new Vector4(scrollPanel.clipRange.x, scrollPanel.clipRange.y, 
-			Mathf.Min(scrollPanel.clipRange.z, Screen.width), scrollPanel.clipRange.w);
+			640f * Screen.width / Screen.height, scrollPanel.clipRange.w);
 	}
 	
 	void OnEnable()
@@ -245,25 +264,20 @@ public class CBKGoonScreen : MonoBehaviour {
 		if(CBKMonsterManager.currentEnhancementMonster == null)
 		{
 			queueParent.SetActive(false);
+			bottomBarLabel.text = bottomEnhanceDialogue;
+			bringGoonIn = false;
 			return;
 		}
+
+		bringGoonIn = true;
 		
-		enhanceBaseBox.Init (CBKMonsterManager.currentEnhancementMonster);
-		enhanceBaseBox.SetBar(false);
-		enhanceDetails.text = CBKMonsterManager.currentEnhancementMonster.monster.displayName + "\nLvl: "
-			+ CBKMonsterManager.currentEnhancementMonster.userMonster.currentLvl;
-		Debug.Log(CBKMonsterManager.currentEnhancementMonster.enhancement.userMonsterId);
-		
-		enhanceOverBar.fillAmount = CBKMonsterManager.currentEnhancementMonster.PercentageTowardsNextLevel();
+		enhanceBaseBox.InitLab(CBKMonsterManager.currentEnhancementMonster);
 		
 		int expFromQueue = 0;
 		foreach (var item in CBKMonsterManager.enhancementFeeders) 
 		{
 			expFromQueue += item.enhanceXP;
 		}
-		
-		enhanceUnderBar.fillAmount = CBKMonsterManager.currentEnhancementMonster.PercentageOfLevelup(
-			CBKMonsterManager.currentEnhancementMonster.userMonster.currentExp + expFromQueue);
 		
 		queueParent.SetActive(true);
 		
@@ -306,7 +320,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void Update()
 	{
-		if (queueParent.activeSelf)
+		if (queueParent.activeSelf && healMode)
 		{
 			long timeLeft = CBKMonsterManager.healingMonsters[CBKMonsterManager.healingMonsters.Count-1].healTimeLeftMillis;
 			totalTimeLabel.text = CBKUtil.TimeStringShort(timeLeft);
@@ -317,6 +331,65 @@ public class CBKGoonScreen : MonoBehaviour {
 			long timeLeft = CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].enhanceTimeLeft;
 			totalTimeLabel.text = CBKUtil.TimeStringShort(timeLeft);
 			speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString();
+		}
+
+		if (!goonIn && bringGoonIn)
+		{
+			goonIn = true;
+			StartCoroutine(BringInEnhanceGoon());
+		}
+		if (goonIn && !bringGoonIn)
+		{
+			goonIn = false;
+			StartCoroutine(TakeOutEnhanceGoon());
+		}
+	}
+
+	IEnumerator BringInEnhanceGoon()
+	{
+		enhanceLeftSideElements.Reset();
+		enhanceLeftSideElements.Play();
+
+		Vector4 startingClipRange = dragPanel.panel.clipRange;
+		Vector4 endingClipRange = new Vector4(dragPanel.panel.clipRange.x - rightShiftOnMobsterEnhance, dragPanel.panel.clipRange.y, dragPanel.panel.clipRange.z - rightShiftOnMobsterEnhance * 2, dragPanel.panel.clipRange.w);
+
+		Vector3 startPos = dragPanel.transform.localPosition;
+		Vector3 endPos = new Vector3(startPos.x + rightShiftOnMobsterEnhance * 2, startPos.y, startPos.z);
+
+		float time = 0;
+		float amount = 0;
+		while (time < timeForShift)
+		{
+			time += Time.deltaTime;
+			amount = time/timeForShift;
+			dragPanel.panel.clipRange = Vector4.Lerp(startingClipRange, endingClipRange, amount);
+			dragPanel.transform.localPosition = Vector3.Lerp(startPos, endPos, amount);
+			goonGrid.Reposition();
+			yield return null;
+		}
+
+	}
+
+	IEnumerator TakeOutEnhanceGoon()
+	{
+		enhanceLeftSideElements.Toggle();
+		
+		Vector4 startingClipRange = dragPanel.panel.clipRange;
+		Vector4 endingClipRange = new Vector4(dragPanel.panel.clipRange.x + rightShiftOnMobsterEnhance, dragPanel.panel.clipRange.y, dragPanel.panel.clipRange.z + rightShiftOnMobsterEnhance * 2, dragPanel.panel.clipRange.w);
+		
+		Vector3 startPos = dragPanel.transform.localPosition;
+		Vector3 endPos = new Vector3(startPos.x - rightShiftOnMobsterEnhance * 2, startPos.y, startPos.z);
+		
+		float time = 0;
+		float amount = 0;
+		while (time < timeForShift)
+		{
+			time += Time.deltaTime;
+			amount = time/timeForShift;
+			dragPanel.panel.clipRange = Vector4.Lerp(startingClipRange, endingClipRange, amount);
+			dragPanel.transform.localPosition = Vector3.Lerp(startPos, endPos, amount);
+			goonGrid.Reposition();
+			yield return null;
 		}
 	}
 	

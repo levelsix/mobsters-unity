@@ -75,7 +75,7 @@ GameObject:
   - 4: {fileID: 400008}
   - 114: {fileID: 11400006}
   m_Layer: 8
-  m_Name: HealthBar
+  m_Name: UnderHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,6 +108,38 @@ GameObject:
   - 114: {fileID: 11400014}
   m_Layer: 8
   m_Name: CardBottomOverlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100014
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400014}
+  - 114: {fileID: 11400018}
+  m_Layer: 8
+  m_Name: EnhancePercentage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100016
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400016}
+  - 114: {fileID: 11400020}
+  m_Layer: 8
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -188,7 +220,7 @@ GameObject:
   - 4: {fileID: 400036}
   - 114: {fileID: 11400032}
   m_Layer: 8
-  m_Name: OverCardLabel
+  m_Name: BottomCardLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,10 +325,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40.8899994, y: -4.72000122, z: 0}
+  m_LocalPosition: {x: -87, y: -1.25999999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400008}
+  - {fileID: 400016}
   m_Father: {fileID: 400012}
 --- !u!4 &400008
 Transform:
@@ -305,10 +337,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -.000108957291, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 400006}
+  m_Father: {fileID: 400016}
 --- !u!4 &400010
 Transform:
   m_ObjectHideFlags: 1
@@ -316,7 +348,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: -3, z: 0}
+  m_LocalPosition: {x: 50, y: 0, z: 0}
   m_LocalScale: {x: .484318763, y: .484318763, z: .484318763}
   m_Children: []
   m_Father: {fileID: 400012}
@@ -332,7 +364,31 @@ Transform:
   m_Children:
   - {fileID: 400006}
   - {fileID: 400010}
+  - {fileID: 400014}
   m_Father: {fileID: 400000}
+--- !u!4 &400014
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 20.4579086, z: 0}
+  m_LocalScale: {x: .547225595, y: .547225595, z: .547225595}
+  m_Children: []
+  m_Father: {fileID: 400012}
+--- !u!4 &400016
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 400008}
+  m_Father: {fileID: 400006}
 --- !u!4 &400026
 Transform:
   m_ObjectHideFlags: 1
@@ -362,7 +418,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -355, y: -0, z: 0}
+  m_LocalPosition: {x: -325, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -385,8 +441,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -9.91821289e-05, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -97, z: 0}
+  m_LocalScale: {x: .595517755, y: .595517755, z: .595517755}
   m_Children: []
   m_Father: {fileID: 400002}
 --- !u!4 &400040
@@ -506,14 +562,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 4
-  mWidth: 92
+  mPivot: 3
+  mWidth: 169
   mHeight: 18
   mDepth: 31
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: ea56325946a8c471aaae7c58b93f87cc, type: 2}
   mSpriteName: cardhealthbg
   mFillCenter: 1
-  mType: 0
+  mType: 1
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
@@ -529,8 +585,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 4
-  mWidth: 88
+  mPivot: 3
+  mWidth: 165
   mHeight: 14
   mDepth: 32
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
@@ -658,6 +714,61 @@ MonoBehaviour:
   able: 1
   label: {fileID: 0}
   dragBehind: {fileID: 0}
+--- !u!114 &11400018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 85
+  mHeight: 63
+  mDepth: 37
+  mFont: {fileID: 11400000, guid: 204d7fd1bc7224fa0ad5813a9168c749, type: 2}
+  mText: 66%
+  mEncoding: 1
+  mMaxLineCount: 0
+  mPassword: 0
+  mShowLastChar: 0
+  mEffectStyle: 0
+  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mSymbols: 1
+  mEffectDistance: {x: 1, y: 1}
+  mOverflow: 2
+  mShrinkToFit: 0
+  mMaxLineWidth: 0
+  mMaxLineHeight: 0
+  mLineWidth: 0
+  mMultiline: 1
+--- !u!114 &11400020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 3
+  mWidth: 165
+  mHeight: 14
+  mDepth: 32
+  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mSpriteName: firecardhealthbar
+  mFillCenter: 1
+  mType: 3
+  mFillDirection: 0
+  mFillAmount: 1
+  mInvert: 0
 --- !u!114 &11400024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -749,11 +860,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 87
+  mWidth: 284
   mHeight: 63
   mDepth: 35
   mFont: {fileID: 11400000, guid: 204d7fd1bc7224fa0ad5813a9168c749, type: 2}
-  mText: Test
+  mText: 666% for $100
   mEncoding: 1
   mMaxLineCount: 0
   mPassword: 0
@@ -861,9 +972,12 @@ MonoBehaviour:
   healCostLabel: {fileID: 11400012}
   rarityRibbon: {fileID: 11400030}
   rarityLabel: {fileID: 11400008}
-  healthBar: {fileID: 11400006}
+  healthBar: {fileID: 11400020}
+  underHealthBar: {fileID: 11400006}
+  healthBarBackground: {fileID: 11400004}
   nameLabel: {fileID: 11400024}
-  overCardLabel: {fileID: 11400032}
+  bottomCardLabel: {fileID: 11400032}
+  enhancePercentageLabel: {fileID: 11400018}
   darkenedElements:
   - {fileID: 11400000}
   - {fileID: 11400002}
@@ -871,7 +985,7 @@ MonoBehaviour:
   - {fileID: 11400008}
   - {fileID: 11400028}
   - {fileID: 11400004}
-  - {fileID: 11400006}
+  - {fileID: 11400020}
   - {fileID: 11400024}
   - {fileID: 11400028}
   darkenColor: {r: .345588207, g: .345588207, b: .345588207, a: 1}

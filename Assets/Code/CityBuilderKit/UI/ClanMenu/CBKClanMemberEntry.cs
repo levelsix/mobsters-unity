@@ -79,7 +79,7 @@ public class CBKClanMemberEntry : MonoBehaviour, CBKPoolable {
 	{
 		nameLabel.text = user.minUserProto.minUserProtoWithLevel.minUserProto.name;
 		levelLabel.text = user.minUserProto.minUserProtoWithLevel.level.ToString();
-		leaderLabel.text = isLeader ? LEADER_TEXT : "";
+		leaderLabel.text = isLeader ? LEADER_TEXT : " ";
 
 		//TODO: Team members
 	}

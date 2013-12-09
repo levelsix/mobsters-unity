@@ -46,7 +46,7 @@ public class CBKChatPopup : MonoBehaviour {
 			
 			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolResponse.S_SEND_GROUP_CHAT_EVENT, CheckServerChatResponse);
 			
-			inputField.label.text = "";
+			inputField.label.text = " ";
 		}
 	}
 	

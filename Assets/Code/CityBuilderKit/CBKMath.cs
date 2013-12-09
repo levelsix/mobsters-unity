@@ -58,7 +58,7 @@ public static class CBKMath {
     /// </param>
     public static long UnixTimeStamp(DateTime time)
     {
-        return (long) (time - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds;
+        return (long) (time - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds;
     }
 	
 	public static int TimeToBuildOrUpgradeStruct(int baseMin, int level)

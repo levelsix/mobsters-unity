@@ -37,13 +37,13 @@ public class CBKClanCreateScreen : MonoBehaviour {
 
 	public void Init()
 	{
-		clanNameBox.label.text = "";
+		clanNameBox.label.text = " ";
 		clanNameBox.maxChars = CBKWhiteboard.constants.clanConstants.maxCharLengthForClanName;
 
-		clanTagBox.label.text = "";
+		clanTagBox.label.text = " ";
 		clanTagBox.maxChars = CBKWhiteboard.constants.clanConstants.maxCharLengthForClanTag;
 
-		descriptionBox.label.text = "";
+		descriptionBox.label.text = " ";
 		descriptionBox.maxChars = CBKWhiteboard.constants.clanConstants.maxCharLengthForClanDescription;
 
 		changeClanTypeButton.label.text = OPEN_CLAN_BUTTON_LABEL;

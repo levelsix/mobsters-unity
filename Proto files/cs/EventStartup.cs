@@ -80,6 +80,15 @@ namespace com.lvl6.proto
       get { return _isForceTutorial; }
       set { _isForceTutorial = value; }
     }
+
+    private string _fbId = "";
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"fbId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string fbId
+    {
+      get { return _fbId; }
+      set { _fbId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -280,18 +289,18 @@ namespace com.lvl6.proto
       get { return _kabamNaid; }
       set { _kabamNaid = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserProtoWithFacebookId> _usersUsedForExtraSlots = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserProtoWithFacebookId>();
-    [global::ProtoBuf.ProtoMember(24, Name=@"usersUsedForExtraSlots", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserProtoWithFacebookId> usersUsedForExtraSlots
-    {
-      get { return _usersUsedForExtraSlots; }
-    }
-  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto> _invitesToMeForSlots = new global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto>();
-    [global::ProtoBuf.ProtoMember(25, Name=@"invitesToMeForSlots", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(24, Name=@"invitesToMeForSlots", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto> invitesToMeForSlots
     {
       get { return _invitesToMeForSlots; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto> _invitesFromMeForSlots = new global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto>();
+    [global::ProtoBuf.ProtoMember(25, Name=@"invitesFromMeForSlots", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto> invitesFromMeForSlots
+    {
+      get { return _invitesFromMeForSlots; }
     }
   
 
@@ -744,33 +753,6 @@ namespace com.lvl6.proto
     {
       get { return _initialMaxNumMonsterLimit; }
       set { _initialMaxNumMonsterLimit = value; }
-    }
-
-    private int _monsterInventoryIncrementAmount = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"monsterInventoryIncrementAmount", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int monsterInventoryIncrementAmount
-    {
-      get { return _monsterInventoryIncrementAmount; }
-      set { _monsterInventoryIncrementAmount = value; }
-    }
-
-    private int _gemPricePerSlot = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"gemPricePerSlot", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int gemPricePerSlot
-    {
-      get { return _gemPricePerSlot; }
-      set { _gemPricePerSlot = value; }
-    }
-
-    private int _numFriendsToRecruitToIncreaseInventory = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"numFriendsToRecruitToIncreaseInventory", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int numFriendsToRecruitToIncreaseInventory
-    {
-      get { return _numFriendsToRecruitToIncreaseInventory; }
-      set { _numFriendsToRecruitToIncreaseInventory = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

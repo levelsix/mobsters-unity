@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CBKGoonMenuSlideButton : CBKMenuSlideButton {
+public class CBKTriggerGoonPopup : CBKTriggerPopupButton {
 	
 	[SerializeField]
 	CBKGoonScreen goonScreen;

@@ -45,7 +45,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 			else
 			{
-				comboLabel.text = "";
+				comboLabel.text = " ";
 			}
 		}
 	}

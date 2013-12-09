@@ -51,8 +51,10 @@ public class CBKMenuSlideButton : MonoBehaviour {
 			
 			slidingIn.duration = SLIDE_TIME;
 			slidingOut.duration = SLIDE_TIME;
-			
+
+			slidingIn.Reset();
 			slidingIn.Play();
+			slidingOut.Reset();
 			slidingOut.Play();
 			
 			StartCoroutine(WaitForFinish());

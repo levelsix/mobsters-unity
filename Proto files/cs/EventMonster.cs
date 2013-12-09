@@ -652,14 +652,21 @@ namespace com.lvl6.proto
       set { _increaseSlotType = value; }
     }
 
-    private int _numPurchases = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"numPurchases", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _userStructId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int numPurchases
+    public int userStructId
     {
-      get { return _numPurchases; }
-      set { _numPurchases = value; }
+      get { return _userStructId; }
+      set { _userStructId = value; }
     }
+    private readonly global::System.Collections.Generic.List<int> _userFbInviteForSlotIds = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(4, Name=@"userFbInviteForSlotIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> userFbInviteForSlotIds
+    {
+      get { return _userFbInviteForSlotIds; }
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"IncreaseSlotType")]
     public enum IncreaseSlotType
     {
@@ -713,7 +720,10 @@ namespace com.lvl6.proto
       FAIL_INSUFFICIENT_FACEBOOK_INVITES = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
-      FAIL_OTHER = 4
+      FAIL_OTHER = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INCONSISTENT_INVITE_DATA", Value=5)]
+      FAIL_INCONSISTENT_INVITE_DATA = 5
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -735,12 +745,49 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<string> _fbFriendIds = new global::System.Collections.Generic.List<string>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"fbFriendIds", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<string> fbFriendIds
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.InviteFbFriendsForSlotsRequestProto.FacebookInviteStructure> _invites = new global::System.Collections.Generic.List<com.lvl6.proto.InviteFbFriendsForSlotsRequestProto.FacebookInviteStructure>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"invites", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.InviteFbFriendsForSlotsRequestProto.FacebookInviteStructure> invites
     {
-      get { return _fbFriendIds; }
+      get { return _invites; }
     }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FacebookInviteStructure")]
+  public partial class FacebookInviteStructure : global::ProtoBuf.IExtensible
+  {
+    public FacebookInviteStructure() {}
+    
+
+    private string _fbFriendId = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"fbFriendId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string fbFriendId
+    {
+      get { return _fbFriendId; }
+      set { _fbFriendId = value; }
+    }
+
+    private int _userStructId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userStructId
+    {
+      get { return _userStructId; }
+      set { _userStructId = value; }
+    }
+
+    private int _userStructFbLvl = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userStructFbLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userStructFbLvl
+    {
+      get { return _userStructFbLvl; }
+      set { _userStructFbLvl = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
   
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -770,6 +817,13 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto> _invitesNew = new global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"invitesNew", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto> invitesNew
+    {
+      get { return _invitesNew; }
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"InviteFbFriendsForSlotsStatus")]
     public enum InviteFbFriendsForSlotsStatus
     {
@@ -842,6 +896,13 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto> _acceptedInvites = new global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"acceptedInvites", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserFacebookInviteForSlotProto> acceptedInvites
+    {
+      get { return _acceptedInvites; }
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"AcceptAndRejectFbInviteForSlotsStatus")]
     public enum AcceptAndRejectFbInviteForSlotsStatus
     {

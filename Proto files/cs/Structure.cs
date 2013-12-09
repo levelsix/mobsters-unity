@@ -394,6 +394,15 @@ namespace com.lvl6.proto
       get { return _numAcceptedFbInvites; }
       set { _numAcceptedFbInvites = value; }
     }
+
+    private string _occupationName = "";
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"occupationName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string occupationName
+    {
+      get { return _occupationName; }
+      set { _occupationName = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -566,6 +575,15 @@ namespace com.lvl6.proto
     {
       get { return _orientation; }
       set { _orientation = value; }
+    }
+
+    private int _fbInviteStructLvl = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"fbInviteStructLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int fbInviteStructLvl
+    {
+      get { return _fbInviteStructLvl; }
+      set { _fbInviteStructLvl = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

@@ -89,7 +89,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return maxHP;
+			return 666;
 		}
 	}
 	
@@ -97,7 +97,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return enhanceXP;
+			return 100;
 		}
 	}
 	
@@ -117,7 +117,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return enhanceXP * 1000;
+			return 30000;
 		}
 	}
 	
@@ -157,6 +157,14 @@ public class PZMonster {
 		get
 		{
 			return Mathf.CeilToInt((combineTimeLeft/60000) / CBKWhiteboard.constants.minutesPerGem);
+		}
+	}
+
+	public float percentageTowardsNextLevel
+	{
+		get
+		{
+			return PercentageOfLevelup(userMonster.currentExp);
 		}
 	}
 	
@@ -239,29 +247,63 @@ public class PZMonster {
 	
 	#region Experience
 	
-	public float PercentageTowardsNextLevel()
-	{
-		return PercentageOfLevelup(userMonster.currentExp);
-	}
-	
 	public float PercentageOfLevelup(float totalExp)
 	{
-		return (totalExp - ExpForLevel(userMonster.currentLvl - 1)) / (userMonster.currentLvl * 1000);
+		return (totalExp - ExpForLevel(userMonster.currentLvl)) / (ExpForLevel(userMonster.currentLvl + 1) - ExpForLevel(userMonster.currentLvl));
+	}
+
+	/// <summary>
+	/// Calculates the exp percentage if the added exp were to be added to this monster's current amount of exp
+	/// </summary>
+	/// <returns>Exp percentage gained by adding this much exp</returns>
+	/// <param name="withAddedExp">Exp being added to this monster</param>
+	public float PercentageOfAddedLevelup(float withAddedExp)
+	{
+		if (userMonster.currentLvl == monster.maxLevel)
+		{
+			return 0;
+		}
+		if (userMonster.currentExp + withAddedExp > ExpForLevel(userMonster.currentLvl + 1))
+		{
+			float total = 1 - percentageTowardsNextLevel; //Because we know this finishes the current level
+			int levelsUp = 1;
+			while(userMonster.currentExp + withAddedExp > ExpForLevel(userMonster.currentLvl + levelsUp + 1) && userMonster.currentLvl + levelsUp < monster.maxLevel)
+	 	    {
+				levelsUp++;
+			}
+			total += levelsUp - 1; //One less, because the first level is the partial level that we already added
+			if (levelsUp + userMonster.currentLvl == monster.maxLevel)
+			{
+				return total;
+			}
+			//Now get that level beyond the last level
+			total += (float)(userMonster.currentExp + withAddedExp - ExpForLevel(userMonster.currentLvl + levelsUp)) / (ExpForLevel(userMonster.currentLvl + 1 + levelsUp) - ExpForLevel(userMonster.currentLvl + levelsUp));
+			return total;
+		}
+		else
+		{
+			return ((float)(userMonster.currentExp + withAddedExp - ExpForLevel(userMonster.currentLvl)) / (ExpForLevel(userMonster.currentLvl + 1) - ExpForLevel(userMonster.currentLvl)));
+		}
 	}
 	
 	int ExpForLevel(int level)
 	{
+		if (level > monster.maxLevel)
+		{
+			Debug.LogWarning("Attempting to get exp for a higher level than this monster can go");
+			return ExpForLevel(monster.maxLevel);
+		}
 		if (level <= 1)
 		{
 			return 0;
 		}
-		return level * 1000 + ExpForLevel(level-1);
+		return level * 100 + ExpForLevel(level-1);
 	}
 	
 	public void GainXP(int exp)
 	{
 		userMonster.currentExp += exp;
-		while (userMonster.currentExp > ExpForLevel(userMonster.currentLvl))
+		while (userMonster.currentLvl < monster.maxLevel && userMonster.currentExp > ExpForLevel(userMonster.currentLvl + 1))
 		{
 			userMonster.currentLvl++;
 		}
@@ -275,6 +317,6 @@ public class PZMonster {
 		umcep.expectedLevel = userMonster.currentLvl;
 		return umcep;
 	}
-	
+
 	#endregion
 }
