@@ -74,8 +74,7 @@ public class UIPlayAnimation : MonoBehaviour
 	[HideInInspector][SerializeField] string callWhenFinished;
 
 	bool mStarted = false;
-	bool mHighlighted = false;
-	int mActive = 0;
+	bool mActivated = false;
 
 	void Awake ()
 	{
@@ -108,8 +107,7 @@ public class UIPlayAnimation : MonoBehaviour
 #if UNITY_EDITOR
 		if (!Application.isPlaying) return;
 #endif
-		if (mStarted && mHighlighted)
-			OnHover(UICamera.IsHighlighted(gameObject));
+		if (mStarted) OnHover(UICamera.IsHighlighted(gameObject));
 	}
 
 	void OnHover (bool isOver)
@@ -120,9 +118,18 @@ public class UIPlayAnimation : MonoBehaviour
 				(trigger == Trigger.OnHoverTrue && isOver) ||
 				(trigger == Trigger.OnHoverFalse && !isOver))
 			{
+				mActivated = isOver && (trigger == Trigger.OnHover);
 				Play(isOver);
 			}
-			mHighlighted = isOver;
+		}
+	}
+
+	void OnDragOut ()
+	{
+		if (enabled && mActivated)
+		{
+			mActivated = false;
+			Play(false);
 		}
 	}
 
@@ -134,6 +141,7 @@ public class UIPlayAnimation : MonoBehaviour
 				(trigger == Trigger.OnPressTrue && isPressed) ||
 				(trigger == Trigger.OnPressFalse && !isPressed))
 			{
+				mActivated = isPressed && (trigger == Trigger.OnPress);
 				Play(isPressed);
 			}
 		}
@@ -163,7 +171,8 @@ public class UIPlayAnimation : MonoBehaviour
 				(trigger == Trigger.OnSelectTrue && isSelected) ||
 				(trigger == Trigger.OnSelectFalse && !isSelected))
 			{
-				Play(true);
+				mActivated = isSelected && (trigger == Trigger.OnSelect);
+				Play(isSelected);
 			}
 		}
 	}
@@ -187,10 +196,8 @@ public class UIPlayAnimation : MonoBehaviour
 
 	public void Play (bool forward)
 	{
-		if (target != null)
+		if (target)
 		{
-			mActive = 0;
-
 			if (clearSelection && UICamera.selectedObject == gameObject)
 				UICamera.selectedObject = null;
 
@@ -204,7 +211,6 @@ public class UIPlayAnimation : MonoBehaviour
 
 				for (int i = 0; i < onFinished.Count; ++i)
 				{
-					++mActive;
 					EventDelegate.Add(anim.onFinished, OnFinished, true);
 				}
 			}
@@ -217,15 +223,12 @@ public class UIPlayAnimation : MonoBehaviour
 
 	void OnFinished ()
 	{
-		if (--mActive == 0)
-		{
-			EventDelegate.Execute(onFinished);
+		EventDelegate.Execute(onFinished);
 
-			// Legacy functionality
-			if (eventReceiver != null && !string.IsNullOrEmpty(callWhenFinished))
-				eventReceiver.SendMessage(callWhenFinished, SendMessageOptions.DontRequireReceiver);
+		// Legacy functionality
+		if (eventReceiver != null && !string.IsNullOrEmpty(callWhenFinished))
+			eventReceiver.SendMessage(callWhenFinished, SendMessageOptions.DontRequireReceiver);
 
-			eventReceiver = null;
-		}
+		eventReceiver = null;
 	}
 }

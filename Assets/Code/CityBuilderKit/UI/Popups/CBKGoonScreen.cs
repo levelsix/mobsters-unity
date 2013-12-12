@@ -9,7 +9,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	#region UI Elements
 
 	[SerializeField]
-	UIDraggablePanel dragPanel;
+	UIDragScrollView dragPanel;
 
 	[SerializeField]
 	CBKGoonTeamCard[] teamCards;
@@ -36,7 +36,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	UILabel totalTimeLabel;
 	
 	[SerializeField]
-	CBKGoonCard enhanceBaseBox;
+	CBKGoonCard enhanceBaseBox; 
 
 	[SerializeField]
 	UITweener enhanceLeftSideElements;
@@ -139,8 +139,8 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void Start()
 	{
-		scrollPanel.clipRange = new Vector4(scrollPanel.clipRange.x, scrollPanel.clipRange.y, 
-			640f * Screen.width / Screen.height, scrollPanel.clipRange.w);
+		scrollPanel.baseClipRegion = new Vector4(scrollPanel.baseClipRegion.x, scrollPanel.baseClipRegion.y, 
+        	640f * Screen.width / Screen.height, scrollPanel.baseClipRegion.w);
 	}
 	
 	void OnEnable()
@@ -278,8 +278,17 @@ public class CBKGoonScreen : MonoBehaviour {
 		{
 			expFromQueue += item.enhanceXP;
 		}
-		
-		queueParent.SetActive(true);
+
+		if (CBKMonsterManager.enhancementFeeders.Count > 0)
+		{
+			queueParent.SetActive(true);
+			bottomBarLabel.text = " ";
+		}
+		else
+		{
+			queueParent.SetActive(false);
+			bottomBarLabel.text = bottomSacrificeDialogue;
+		}
 		
 		while(bottomMiniBoxes.Count < CBKMonsterManager.enhancementFeeders.Count)
 		{
@@ -348,10 +357,10 @@ public class CBKGoonScreen : MonoBehaviour {
 	IEnumerator BringInEnhanceGoon()
 	{
 		enhanceLeftSideElements.Reset();
-		enhanceLeftSideElements.Play();
+		enhanceLeftSideElements.PlayForward();
 
-		Vector4 startingClipRange = dragPanel.panel.clipRange;
-		Vector4 endingClipRange = new Vector4(dragPanel.panel.clipRange.x - rightShiftOnMobsterEnhance, dragPanel.panel.clipRange.y, dragPanel.panel.clipRange.z - rightShiftOnMobsterEnhance * 2, dragPanel.panel.clipRange.w);
+		Vector4 startingClipRange = dragPanel.scrollView.panel.baseClipRegion;
+		Vector4 endingClipRange = new Vector4(dragPanel.scrollView.panel.baseClipRegion.x - rightShiftOnMobsterEnhance, dragPanel.scrollView.panel.baseClipRegion.y, dragPanel.scrollView.panel.baseClipRegion.z - rightShiftOnMobsterEnhance * 2, dragPanel.scrollView.panel.baseClipRegion.w);
 
 		Vector3 startPos = dragPanel.transform.localPosition;
 		Vector3 endPos = new Vector3(startPos.x + rightShiftOnMobsterEnhance * 2, startPos.y, startPos.z);
@@ -362,7 +371,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		{
 			time += Time.deltaTime;
 			amount = time/timeForShift;
-			dragPanel.panel.clipRange = Vector4.Lerp(startingClipRange, endingClipRange, amount);
+			dragPanel.scrollView.panel.baseClipRegion = Vector4.Lerp(startingClipRange, endingClipRange, amount);
 			dragPanel.transform.localPosition = Vector3.Lerp(startPos, endPos, amount);
 			goonGrid.Reposition();
 			yield return null;
@@ -374,8 +383,8 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		enhanceLeftSideElements.Toggle();
 		
-		Vector4 startingClipRange = dragPanel.panel.clipRange;
-		Vector4 endingClipRange = new Vector4(dragPanel.panel.clipRange.x + rightShiftOnMobsterEnhance, dragPanel.panel.clipRange.y, dragPanel.panel.clipRange.z + rightShiftOnMobsterEnhance * 2, dragPanel.panel.clipRange.w);
+		Vector4 startingClipRange = dragPanel.scrollView.panel.baseClipRegion;
+		Vector4 endingClipRange = new Vector4(dragPanel.scrollView.panel.baseClipRegion.x + rightShiftOnMobsterEnhance, dragPanel.scrollView.panel.baseClipRegion.y, dragPanel.scrollView.panel.baseClipRegion.z + rightShiftOnMobsterEnhance * 2, dragPanel.scrollView.panel.baseClipRegion.w);
 		
 		Vector3 startPos = dragPanel.transform.localPosition;
 		Vector3 endPos = new Vector3(startPos.x - rightShiftOnMobsterEnhance * 2, startPos.y, startPos.z);
@@ -386,7 +395,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		{
 			time += Time.deltaTime;
 			amount = time/timeForShift;
-			dragPanel.panel.clipRange = Vector4.Lerp(startingClipRange, endingClipRange, amount);
+			dragPanel.scrollView.panel.baseClipRegion = Vector4.Lerp(startingClipRange, endingClipRange, amount);
 			dragPanel.transform.localPosition = Vector3.Lerp(startPos, endPos, amount);
 			goonGrid.Reposition();
 			yield return null;

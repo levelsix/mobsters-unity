@@ -1,37 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/CityBuilderKit/UI/CBKGoonCard.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../RobartRian/Assets/Code/Util/PriorityFunction.cs">
     <Files>
-      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZMonster.cs" Line="306" Column="54" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKBuildingUpgrade.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/Popups/CBKBuildingUpgradePopup.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKTaskButton.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/HomeElements/CBKTaskBar.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKAtlasUtil.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKResourceCollector.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKMoneyPickup.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKResourceManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/HomeElements/CBKResourceAmountLabel.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/CBKHoverBar.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKClanManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKMonsterManager.cs" Line="586" Column="36" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/CBKCurrencySprite.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/Popups/CBKGoonScreen.cs" Line="272" Column="22" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKDataManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKBuildingManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKBuilding.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/NetMQ/UMQDeserializer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/CBKMiniHealingBox.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/CBKTriggerGoonPopup.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/CBKMenuSlideButton.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKBuildingCamera.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/CBKGoonGrid.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/HomeElements/CBKExpBar.cs" Line="1" Column="1" />
-      <File FileName="Assets/NGUI/Scripts/Interaction/UIDragPanelContents.cs" Line="1" Column="1" />
-      <File FileName="Assets/NGUI/Scripts/Interaction/UIDraggablePanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/CBKGoonCard.cs" Line="351" Column="129" />
-      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZPuzzleManager.cs" Line="48" Column="25" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/CBKGoonTeamCard.cs" Line="100" Column="26" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKUnit.cs" Line="23" Column="87" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZCombatUnit.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZComboCounter.cs" Line="49" Column="20" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZDamageNumber.cs" Line="91" Column="26" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKQuestManager.cs" Line="229" Column="5" />
+      <File FileName="../RobartRian/Assets/Code/Util/PriorityFunction.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -39,15 +15,23 @@
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Code" expanded="True">
               <Node name="CityBuilderKit" expanded="True">
+                <Node name="Managers" expanded="True" />
                 <Node name="Puzzle" expanded="True" />
                 <Node name="UI" expanded="True">
+                  <Node name="Buttons" expanded="True" />
                   <Node name="ClanMenu" expanded="True" />
                   <Node name="Popups" expanded="True" />
-                  <Node name="CBKGoonCard.cs" selected="True" />
                 </Node>
+                <Node name="CBKAtlasUtil.cs" selected="True" />
               </Node>
-              <Node name="NetMQ" expanded="True" />
             </Node>
+            <Node name="NGUI" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Interaction" expanded="True" />
+                <Node name="UI" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="Resources" expanded="True" />
           </Node>
         </State>
       </Pad>

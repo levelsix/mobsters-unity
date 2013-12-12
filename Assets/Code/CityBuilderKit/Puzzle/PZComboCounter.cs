@@ -46,7 +46,7 @@ public class PZComboCounter : MonoBehaviour {
 		foreach (var item in alphaTweens) 
 		{
 			item.Reset();
-			item.Play();
+			item.PlayForward();
 		}
 	}
 

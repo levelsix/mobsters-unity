@@ -1,4 +1,4 @@
-Shader "GUI/Text Shader (SoftClip)" 
+Shader "Unlit/Text (SoftClip)" 
 {
 	Properties
 	{
@@ -77,33 +77,5 @@ Shader "GUI/Text Shader (SoftClip)"
 			ENDCG
 		}
 	}
-	
-	SubShader
-	{
-		LOD 100
-
-		Tags
-		{
-			"Queue" = "Transparent"
-			"IgnoreProjector" = "True"
-			"RenderType" = "Transparent"
-		}
-		
-		Pass
-		{
-			Cull Off
-			Lighting Off
-			ZWrite Off
-			Fog { Mode Off }
-			ColorMask RGB
-			AlphaTest Greater .01
-			Blend SrcAlpha OneMinusSrcAlpha
-			ColorMaterial AmbientAndDiffuse
-			
-			SetTexture [_MainTex]
-			{
-				Combine Texture * Primary
-			}
-		}
-	}
+	Fallback "Unlit/Text"
 }

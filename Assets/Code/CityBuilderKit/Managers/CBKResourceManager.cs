@@ -147,7 +147,7 @@ public class CBKResourceManager : MonoBehaviour {
 		_exp += amount;
 		if (_exp > _expForNextLevel)
 		{
-			StartCoroutine(LevelUp());
+			//StartCoroutine(LevelUp());
 		}
 	}
 	

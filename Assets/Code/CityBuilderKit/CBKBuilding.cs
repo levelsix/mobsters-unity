@@ -167,7 +167,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// <summary>
 	/// The sprite for this building.
 	/// </summary>
-	public UISprite sprite;
+	public SpriteRenderer sprite;
 	
 	/// <summary>
 	/// The upgrade component
@@ -314,11 +314,20 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		SetupSprite(proto.imgId);
 		
 		//trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
-		SetGridFromTrans();
-		
+		//SetGridFromTrans();
+		//sprite.depth = (int)(proto.coords.x + proto.coords.y + Mathf.Min(proto.xLength, proto.yLength)/2) * -1 - 10;
+
 		locallyOwned = false;
 
 		sprite.transform.localPosition = Vector3.zero;
+		if (width > length)
+		{
+			//sprite.transform.localPosition = new Vector3(sprite.GetAtlasSprite().width/200f, 0, -sprite.GetAtlasSprite().width/200f);
+		}
+		else if (width < length)
+		{
+			//sprite.transform.localPosition = new Vector3(-sprite.GetAtlasSprite().width/200f, 0, sprite.GetAtlasSprite().width/200f);
+		}
 
 		if (proto.type == CityElementProto.CityElemType.BUILDING)
 		{
@@ -384,8 +393,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	public void SetupSprite(string structName)
 	{
-		sprite.spriteName = CBKUtil.StripExtensions(structName);
-		CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
+		//sprite.spriteName = CBKUtil.StripExtensions(structName);
+		//CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
+		sprite.sprite = CBKAtlasUtil.instance.GetBuildingSprite(CBKUtil.StripExtensions(structName));
 
 		/*
 		sprite.atlas = CBKAtlasUtil.instance.GetBuildingAtlas(structName);
@@ -403,13 +413,15 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		baseColor = Color.white;
 		
 //		sprite.localSize = new Vector2(4, 4);
-		sprite.width = sprite.GetAtlasSprite().width;
-		sprite.height = sprite.GetAtlasSprite().height;
+//		sprite.width = sprite.GetAtlasSprite().width;
+//		sprite.height = sprite.GetAtlasSprite().height;
 
 		
 		Transform spriteTrans = sprite.transform;
 		
-		spriteTrans.localScale = new Vector3(1f/50, 1f/50, 1);
+		spriteTrans.localScale = Vector3.one;
+
+
 		
 		//spriteTrans.localPosition = new Vector3(0, sprite.height / 100f * (1/Mathf.Sin((90 - Camera.main.transform.parent.localRotation.x) * Mathf.Deg2Rad)), 0);
 		
@@ -436,7 +448,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		_currPos = new CBKGridNode(new Vector2(transform.position.x / CBKGridManager.instance.spaceSize - SIZE_OFFSET.x * width,
     	    transform.position.z / CBKGridManager.instance.spaceSize - SIZE_OFFSET.z * length));
 		
-		sprite.depth = (int)(_currPos.pos.x + _currPos.pos.y + width/2 + length/2) * -1 - 10;
+		//sprite.depth = (int)(_currPos.pos.x + _currPos.pos.y + Mathf.Min(width, length)/2) * -1 - 10;
 		//Debug.Log("Currpos: " + _currPos.pos);
 	}
 	

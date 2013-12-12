@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 400000}
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400008}
-  - 114: {fileID: 11400006}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -43,7 +42,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400014}
-  - 114: {fileID: 11400002}
+  - 212: {fileID: 21200000}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -97,9 +96,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_LocalRotation: {x: .375775695, y: .349598765, z: -.155651405, w: .844005942}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.39999998, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.08999991, y: 2.23000002, z: 0}
+  m_LocalScale: {x: 1, y: .714285731, z: 1}
   m_Children:
   - {fileID: 400006}
   m_Father: {fileID: 400000}
@@ -110,7 +109,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.479999989, y: -.379999995, z: 0}
+  m_LocalPosition: {x: -2.08999991, y: 2.23000002, z: 0}
   m_LocalScale: {x: 1, y: .714285731, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
@@ -149,40 +148,6 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 7
-  mWidth: 4
-  mHeight: 4
-  mDepth: 0
-  mAtlas: {fileID: 11400000, guid: a246bf537a4d24ad2812a34235a33cd9, type: 2}
-  mSpriteName: ArtMuseum
-  mFillCenter: 1
-  mType: 0
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
---- !u!114 &11400006
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b16d696d13aea471dbddceb88b99773c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -196,7 +161,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObj: {fileID: 0}
   hasMoneyPopup: {fileID: 100002}
-  combinedProto: {fileID: 0}
   groundPos: {x: 12, y: 19}
   width: 2
   length: 2
@@ -206,7 +170,7 @@ MonoBehaviour:
   badColor: {r: 1, g: .5, b: .5, a: 1}
   id: 0
   taskable: {fileID: 0}
-  sprite: {fileID: 11400002}
+  sprite: {fileID: 21200000}
   upgrade: {fileID: 0}
   collector: {fileID: 0}
   shadow: {fileID: 100006}
@@ -246,6 +210,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496df436d6e244d61ba960bf3499a5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &21200000
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

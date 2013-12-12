@@ -82,13 +82,13 @@ public class PZDamageNumber : MonoBehaviour, CBKPoolable {
 		trans.localPosition = gem.transf.localPosition;
 
 		alphaTween.Reset();
-		alphaTween.Play();
+		alphaTween.PlayForward();
 
 		heightTween.from = trans.localPosition + START_OFFSET;
 		heightTween.to = trans.localPosition + START_OFFSET + TWEEN_SHIFT;
 
 		heightTween.Reset();
-		heightTween.Play();
+		heightTween.PlayForward();
 	}
 
 

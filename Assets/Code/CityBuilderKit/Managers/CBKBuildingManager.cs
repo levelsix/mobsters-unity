@@ -344,8 +344,8 @@ public class CBKBuildingManager : MonoBehaviour
     	
 	    CBKBuilding building = CBKPoolManager.instance.Get(buildingPrefab, position) as CBKBuilding;
 		
-		building.trans.rotation = buildingParent.rotation;
-    	building.trans.parent = buildingParent;
+		building.trans.parent = buildingParent;
+		building.trans.localRotation = Quaternion.identity;
 		
 		building.Init(proto);
 		/*

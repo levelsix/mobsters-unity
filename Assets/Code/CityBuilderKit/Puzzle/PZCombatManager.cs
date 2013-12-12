@@ -134,6 +134,7 @@ public class PZCombatManager : MonoBehaviour {
 		List<string> goonsToAtlasLoad = new List<string>();
 		foreach (TaskStageProto stage in CBKWhiteboard.loadedDungeon.tsp)
 		{
+			Debug.Log("Stage " + stage.stageId + ", Monster: " + stage.stageMonsters[0].monsterId);
 			mon = new PZMonster(stage.stageMonsters[0]);
 			enemies.Enqueue(mon);
 			goonsToAtlasLoad.Add(mon.monster.imagePrefix);
@@ -144,7 +145,8 @@ public class PZCombatManager : MonoBehaviour {
 		
 		if (activeEnemy != null)
 		{
-			activeEnemy.unit.sprite.alpha = 0;
+			Color temp = activeEnemy.unit.sprite.color;
+			activeEnemy.unit.sprite.color = new Color(temp.r, temp.g, temp.b, 0);
 		}
 		
 		foreach (PZMonster monster in CBKMonsterManager.userTeam)
@@ -198,7 +200,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		
 		losePopup.gameObject.SetActive(true);
-		losePopup.Play();
+		losePopup.PlayForward();
 		
 		StartCoroutine(SendEndResult(false));
 	}
@@ -247,7 +249,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			winPopup.gameObject.SetActive(true);
 			GetRewards();
-			winPopup.Play();
+			winPopup.PlayForward();
 		}
 		
 		//Debug.Log("Unlock: Done Scrolling");

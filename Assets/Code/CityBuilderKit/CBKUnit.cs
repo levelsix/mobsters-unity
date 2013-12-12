@@ -5,8 +5,9 @@ using com.lvl6.proto;
 
 public class CBKUnit : MonoBehaviour, CBKPoolable {
 	
-	public UISprite sprite;
-	public UISpriteAnimation anim;
+	public SpriteRenderer sprite;
+
+	public Animator anim;
 	
 	string _spriteBaseName;
 	
@@ -19,8 +20,10 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 		set
 		{
 			_spriteBaseName = value;
-			sprite.spriteName = value;
-			CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
+			anim.runtimeAnimatorController = CBKAtlasUtil.instance.GetCharacterAnimator(value);
+			//_spriteBaseName = value;
+			//sprite.spriteName = value;
+			//CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
 			SetAnimation(AnimationType.IDLE);
 		}
 	}
@@ -178,25 +181,22 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 		switch(animate)
 		{
 			case AnimationType.ATTACK:
-				animationPrefix += "Attack";
-				anim.framesPerSecond = ANIMATION_FPS;
+				anim.SetTrigger("Attack");
 				break;
 			case AnimationType.FLINCH:
-				animationPrefix += "Flinch";
-				anim.framesPerSecond = 3;
+				anim.SetTrigger("Flinch");
 				break;
 			case AnimationType.IDLE:
-				animationPrefix += "Attack";
-				anim.framesPerSecond = 0;
+				anim.SetBool("Running", false);
 				break;
 			case AnimationType.RUN:
-				animationPrefix += "Run";
-				anim.framesPerSecond = ANIMATION_FPS;
+				anim.SetBool("Running", true);
 				break;
 			default:
 				break;
 		}
-		animationPrefix += dirNameDict[direction];
+
+		anim.SetBool("Far", (direction == CBKValues.Direction.NORTH || direction == CBKValues.Direction.EAST));
 		
 		if (direction == CBKValues.Direction.SOUTH || direction == CBKValues.Direction.EAST)
 		{
@@ -207,10 +207,7 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 			sprite.transform.localScale = Vector3.one * unitSize;
 		}
 		
-		anim.namePrefix = animationPrefix;
-		anim.loop = (animate == AnimationType.RUN); //Loop run
-		
-		anim.Reset();
+		//anim.Reset();
 	}
 	
 	

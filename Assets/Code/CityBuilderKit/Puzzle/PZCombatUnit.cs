@@ -50,7 +50,7 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		this.monster = monster;
 		unit.spriteBaseName = monster.monster.imagePrefix;
-		unit.sprite.alpha = 1;
+		unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, 1);
 		shadow.alpha = 1;
 	}
 	
@@ -142,8 +142,8 @@ public class PZCombatUnit : MonoBehaviour {
 		while (time < 3f)
 		{
 			time += Time.deltaTime;
-			unit.sprite.alpha = Mathf.Lerp(1, 0, time/3f);
-			shadow.alpha = unit.sprite.alpha;
+			unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, Mathf.Lerp(1, 0, time/3f));
+			shadow.alpha = unit.sprite.color.a;
 			yield return null;
 		}
 		//TODO: Animation?

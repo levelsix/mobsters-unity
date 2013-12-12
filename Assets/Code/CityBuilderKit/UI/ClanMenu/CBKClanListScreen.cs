@@ -35,9 +35,9 @@ public class CBKClanListScreen : MonoBehaviour {
 		RecycleEntries();
 
 		string search = searchBox.label.text;
-		if (searchBox.label.color != searchBox.activeColor)
+		if (searchBox.label.color != searchBox.activeTextColor)
 		{
-			search = "";
+			search = " ";
 		}
 		IEnumerator searcher = CBKClanManager.instance.SearchClanListing(search, beforeId);
 		while(searcher.MoveNext())

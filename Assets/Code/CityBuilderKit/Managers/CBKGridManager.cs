@@ -44,9 +44,9 @@ public class CBKGridManager : MonoBehaviour {
 
 	const int MISSION_GRID_SIZE = 26;
 
-	const float HOME_WORLD_SIZE = 34.14f;
+	const float HOME_WORLD_SIZE = 34.36f;
 
-	const float MISSION_WORLD_SIZE = 25.05f;
+	const float MISSION_WORLD_SIZE = 25.23f;
 	
 	public const float GRID_OFFSET = .5f;
 	

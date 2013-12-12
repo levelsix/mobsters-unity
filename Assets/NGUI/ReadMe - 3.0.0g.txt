@@ -1,12 +1,14 @@
 ----------------------------------------------
             NGUI: Next-Gen UI kit
  Copyright © 2011-2013 Tasharen Entertainment
-                Version 3.0.0g
+            Version 3.0.7 f1
     http://www.tasharen.com/?page_id=197
             support@tasharen.com
 ----------------------------------------------
 
 Thank you for buying NGUI!
+
+Documentation can be found here: http://www.tasharen.com/forum/index.php?topic=6754.0
 
 If you have any questions, suggestions, comments or feature requests, please
 drop by the NGUI forum, found here: http://www.tasharen.com/forum/index.php?board=1.0
@@ -27,13 +29,190 @@ If you have a Standard Edition:
  Support, documentation, and tutorials
 ---------------------------------------
 
-All can be found here: http://www.tasharen.com/?page_id=197
+All can be found here: http://www.tasharen.com/forum/index.php?topic=6754.0
 
 Using NGUI with JavaScript (UnityScript)? Read this first: http://www.tasharen.com/forum/index.php?topic=6
 
 -----------------
  Version History
 -----------------
+
+3.0.7 f1
+- NEW: Further improved the layout system's presentation, making it less daunting.
+- NEW: Enabling anchoring will automatically anchor to the first parent by default.
+- NEW: It's now possible to automatically anchor to the mid-points (sides, center).
+- NEW: Made it possible to move and scale anchored widgets.
+- FIX: Rotating a widget should no longer hide its side handles.
+- FIX: Mobile keyboard will now have the multi-line option.
+- FIX: Re-added support for packed fonts.
+
+3.0.7 rc1 & 2
+- NEW: Created a new layout system. All widgets and panels can now anchor to each other, the screen, and even 3D game objects.
+- NEW: You can now create resizable scroll views and anchor them to UI elements.
+- NEW: Re-created the Anchor Example to use the new anchoring system.
+- NEW: Updated all controls to use the new anchoring system.
+- NEW: You can now specify an explicit Render Queue on each panel.
+- NEW: Improved the Text List's functionality, adding support for touch interaction and having a scroll bar.
+- NEW: Recreated the Chat Window example -- it now features a resizable chat window.
+- NEW: Recreated the Drag & Drop example, adding two scroll views resized with screen height, and the ability to move items from one to the other.
+- NEW: Holding CTRL will now show the dimensions of the selected widget in the scene view.
+- NEW: Resizing the widget now automatically displays width and height guides in the scene view.
+- NEW: Selected anchored widgets and panels now show the calculated distance in the scene view.
+- NEW: Widget alpha is now fully cumulative (parents affect children).
+- NEW: UIDragObject script now ensures that the dragged object remains pixel-perfect.
+- NEW: UIDragObject script now can restrict the widget from being dragged off-screen.
+- NEW: Added a script that makes it possible to resize a widget by dragging on its corner or side.
+- NEW: UICamera.currentScheme tells you the current control scheme -- mouse, touch, or controller.
+- NEW: Button scripts have been modified to use the new OnDragOver/Out events
+- NEW: Added an option to the widget anchor to hide itself if it's off-screen.
+- NEW: Drag Object script now lets you specify an explicit bounds rectangle and has an improved inspector.
+- NEW: Added a button to UIButtonColor that can automatically replace it with a UIButton.
+- NEW: Added the ability to copy/paste all values of the sprites and labels via right-click on the component.
+- NEW: Added a "next page threshold" value to UICenterOnChild for when you want to swipe to move to the next page.
+- NEW: If the mouse events are off and touch events are on, NGUI will now fake touches using the mouse in the editor.
+- FIX: Changing panel depth in inspector will now reflect the change correctly.
+- FIX: Atlas/font selection dialog will now make searching of the entire project optional.
+- FIX: UICamera events will once again work independently of time scale.
+- FIX: Fixed the glitch that was causing widgets to jump into the middle of nowhere sometimes when resizing them.
+- FIX: UIDragScrollView will no longer try to find the scroll view if you set it manually.
+- FIX: Enabling and disabling textures and Unity 2D sprites will now again set the correct texture.
+- FIX: Adjusting depths via shortcut keys should now work consistently.
+- FIX: Draw call viewer will now display the correct triangle count.
+- FIX: NGUITools.SetActive will now automatically call CreatePanel on widgets, ensuring that there is no frame delay (read: blinking).
+- FIX: UICamera selected object change should now work multiple times per frame.
+- FIX: Added a new clause to panel depth comparison that uses panel instance IDs if the panel depth matches (to avoid depth collisions).
+- FIX: Max line count on labels should now work again.
+- FIX: Fixed the Drag Objects script on mobile devices. It was not applying momentum properly.
+- DEL: OnHover is no longer sent via selection changes. Listen to OnSelect and check (UICamera.currentScheme == ControlScheme.Controller).
+- DEL: "PMA Shader" option is now going to be permanently hidden once the atlas has been created.
+- DEL: Eliminated the half-pixel offset setting from anchors.
+- DEL: Removed anchor and stretch scripts from the menus.
+
+3.0.6
+- NEW: NGUI now has new written documentation.
+- NEW: NGUI now has an abundance of context-sensitive help. Just right click on an NGUI component and choose the Help option.
+- NEW: NGUI now has robust context menus letting you add, create and modify widgets by right-clicking on stuff in the Scene View.
+- NEW: Added snapping support for widget placement. Edge selection restricted to siblings and parent.
+- NEW: You can now find an assortment of ready-made controls ready to be drag & dropped into your scenes (search for "Wooden").
+- NEW: You can now drag & drop GUI prefabs from your Project Folder right into the Scene View. No need to create the UI beforehand.
+- NEW: You can now copy/paste label styles by right-clicking the UILabel script in Inspector.
+- NEW: Redesigned the draggable panel class a bit, and renamed it to UIScrollView. UIDragPanelContents is now UIDragScrollView.
+- NEW: Labels can now have gradients.
+- NEW: Clipped panels now have handles you can drag around instead of adjusting clipping in inspector.
+- NEW: Added a new widget type capable of drawing Unity 4.3 sprites.
+- NEW: Added UIToggle.GetActiveToggle.
+- NEW: You can now specify a material on dynamic font-using UILabels.
+- NEW: You can now specify character spacing on labels, and it works with both bitmap and dynamic fonts.
+- NEW: Labels set to maintain their crispness will now take UIRoot's size into account, resulting in crisp labels with fixed size UIs.
+- NEW: Added a simple script that makes it possible to center a scrollable panel on a child when clicked on.
+- NEW: Redesigned the scroll bar and the slider components. They now also derive from a new common class (Progress Bar).
+- NEW: UIButtonKeyBinding has been replaced with UIKeyBinding and its functionality has been enhanced.
+- NEW: Added the ability to extract sprites from the atlas.
+- NEW: Added a progress bar to the atlas maker when it's updating the atlas.
+- NEW: You can edit and delete sprites within the sprite selector window via right-click.
+- NEW: Created a separate Draw Call Tool window instead of displaying draw calls on the panels.
+- FIX: Sprite selection is now cohesive and updates the atlas maker, sprite selector, and inspector.
+- FIX: Sprite selection window should now handle large lists of sprites better.
+- FIX: Panels will now add rigidbodies to themselves since Unity 4.3 mentions it should improve performance.
+- FIX: UIScrollView's movement restriction now makes sense (no more weird 'scale')
+- FIX: Draggable panels should no longer move on Play.
+- FIX: Improved performance by reducing GC allocations and mesh assignments.
+- FIX: Typewriter and text list scripts can now be used with dynamic fonts.
+- FIX: Reference atlas references should no longer get broken when modifying sprites.
+- FIX: Popup list now offers a way to change the font's size even for fixed size fonts.
+- FIX: Popup list was not enveloping the content correctly.
+- FIX: Atlas and font selector will now show all existing assets, not just recently used ones.
+- FIX: Atlas maker should no longer throw an exception when trying to edit old atlases (SciFi etc).
+- FIX: Enabling and disabling widgets will no longer cause the draw call list to be rebuilt unless it's necessary.
+- FIX: Improving the process of NGUI remembering the last used values.
+- FIX: Drag handles will now hide if there is not enough space to draw them.
+- FIX: Anchors and stretch scripts set to "run only once" will still respond to screen size changes.
+- FIX: Switching panel to clipped mode then back should refresh the shader correctly.
+- FIX: Moving widgets around no longer causes their buffers to get rebuilt. Just re-transformed.
+- FIX: Added extra code to ensure that draw calls won't get orphaned.
+- FIX: Panel alpha is now cumulative (parents affect children).
+- FIX: Got rid of old double-buffering code that was causing issues.
+- FIX: More Win8 tweaks.
+- DEL: UIPopupList no longer has a 'textLabel' option. Instead use label's SetCurrentSelection for OnValueChanged.
+- DEL: UIGrid and UITable no longer have 'repositionNow' member variable. Right-click it to execute it instead.
+
+3.0.5
+- NEW: Added a way to set Localization's language using specified name and dictionary combo
+- NEW: Added UIInput.onChange that gets called whenever the input field's text changes for any reason.
+- NEW: Right-clicking in the scene view with a UI element selected now presents the hierarchy list underneath.
+- FIX: Widget selection logic had a bug in it that would select the wrong widget in some cases.
+- FIX: Label "Max Lines" setting now works correctly with the "Shrink Content" overflow setting.
+- FIX: Draggable panel now uses whole numbers, keeping itself pixel-perfect.
+- FIX: UIPlayAnimation will now work fine with multiple OnFinished calls.
+- FIX: Made UITextList work with dynamic font-using labels.
+- FIX: Popup list was not serializing dynamic fonts correctly.
+- FIX: UILabel will no longer use minimum size of zero.
+- FIX: Color symbols were not recognized quite right.
+- FIX: BetterList.Sort now uses Array.Sort.
+- FIX: Removed warnings in Unity 4.5.
+- FIX: Null check on UIInput.Append.
+- FIX: Flash platform compile fixes.
+
+3.0.4 (merged 3.0.3 letter updates)
+- NEW: UIPanel will now show the render queue number used to draw the geometry.
+- NEW: You can now specify a bitmap font in the widget wizard.
+- NEW: Added the ability to auto-resize the widget's box collider.
+- FIX: Draggable panel's scroll bars will now hide correctly when they should be hidden.
+- FIX: Scroll bar will no longer force the sprite to be pixel perfect.
+- FIX: UIInput was not hiding the password characters on deselect.
+- FIX: Additional checks to ensure the UILabel cleans up texture rebuild callbacks.
+- FIX: Adjusting the depth of a panel via NGUITools.AdjustDepth will now affect child panels.
+- FIX: UILabel.ProcessAndRequest was not calling ProcessText for labels using bitmap fonts.
+- FIX: Labels with encoded colors will now wrap properly.
+- FIX: It's no longer possible to set the sprite width and height to zero before assigning a sprite.
+- FIX: Raycasts that hit no widgets will now be ignored.
+- FIX: Fixed out of bounds exception when labels ended with [-].
+- FIX: UIWidget.ResizeCollider no longer does anything if the widget is disabled.
+- FIX: UIInput will no longer clear the text of multiple labels on mobile platforms.
+- FIX: UIInput.Submit() now sets the UIInput.current correctly.
+- FIX: Backwards compatibility additions.
+- FIX: Event delegate setting fix.
+- FIX: Unity 3.5 fixes.
+- FIX: WP8 fixes.
+
+3.0.3:
+- NEW: You no longer need to create UIFonts for dynamic fonts and can now specify font size and style directly on your labels.
+- NEW: As dynamic font-using label shrinks, it can automatically print with lower font size, maintaining its crispness.
+- NEW: You can now multi-edit sprites and labels.
+- NEW: UIInput has been redone, and now supports moving the caret as well as copy/paste keys in the editor.
+- NEW: UIInputValidator script's functionality is now a part of UIInput.
+- NEW: You can now create invisible widgets in case you want a simple way of intercepting events.
+- NEW: You can now use anonymous delegates with the EventDelegate.
+- FIX: UICamera.selectedObject changes are now delayed until end of frame.
+- FIX: GUI/Text shader is no longer used, replaced with an Unlit/Text shader instead.
+- FIX: Added a by-material sorting clause to widgets with conflicting depth, automatically reducing draw calls.
+- FIX: Some UITextures were still mistakenly referencing the Unlit/Texture shader.
+- FIX: Mouse events will no longer be processed if there are active touch events.
+- FIX: Popup list was not respecting the text scale correctly.
+- FIX: CalculateRaycastDepth will now ignore disabled widgets.
+- FIX: WP8 compile fix.
+- EDT: UILabel.font is now UILabel.bitmapFont, for clarity.
+- DEL: UILabel no longer has the 'password' option since it never made sense to have it there to begin with.
+- DEL: Got rid of the UpdateManager. It really should have been killed 2 years ago.
+
+3.0.2:
+- NEW: Added a "depth" property to the panels to make it possible to easily order panels.
+- NEW: UICamera now has "world" and "UI" event types that affect how raycasts are processed.
+- NEW: Collider's Z position no longer needs to be adjusted for widgets if the UICamera is set to the "UI" event type.
+- NEW: UICamera's raycasts now go by widget and panel depth rather than by distance to the colliders.
+- NEW: UIPanels now can show all draw calls instead of just their own.
+- NEW: UIStretch can now stretch clipped panels.
+- FIX: UITable was bugged with the "Up" direction.
+- FIX: Labels will process their text before returning the corners.
+- FIX: UIAnchor was not calculating widget-related anchoring properly.
+
+3.0.1:
+- FIX: Variety of regression fixes from NGUI 3.0.0 that culminated into alphabetic (bug-fix) micro-updates.
+- FIX: MakePixelPerfect on selection no longer stops if it finds a UIWidget. It continues on to children.
+- FIX: Atlas Maker will keep the border setting of sprites being replaced.
+- FIX: UILabels will no longer MakePixelPerfect when their text is assigned.
+- FIX: Marking widgets as changed will now mark them as edited in Unity.
+- FIX: Sliced sprite border will again take pixel size into consideration.
 
 *** WARNING ***
 PLEASE BACK UP YOUR PROJECT BEFORE UPDATING!
@@ -44,12 +223,6 @@ You can also expect compile errors related to delegate usage. The following link
 
 http://www.youtube.com/watch?v=uNSZsMnhS1o&list=UUQGZdUwzE8gmvgjomZSNFJg
 http://www.tasharen.com/forum/index.php?topic=11.msg27296#msg27296
-
-3.0.0g:
-- FIX: MakePixelPerfect on selection no longer stops if it finds a UIWidget. It continues on to children.
-- FIX: Atlas Maker will keep the border setting of sprites being replaced.
-- FIX: UILabels will no longer MakePixelPerfect when their text is assigned.
-- FIX: Marking widgets as changed will now mark them as edited in Unity.
 
 3.0.0:
 - NEW: Changed the way widgets get batched, properly fixing all remaining Z/depth issues.

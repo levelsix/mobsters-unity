@@ -135,12 +135,12 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 		{
 			trans.position = new Vector3(trans.position.x, trans.position.y, node.worldPos.z);
 		}
-		unit.sprite.depth = -(node.x + node.z) - 10;
+		//unit.sprite.depth = -(node.x + node.z) - 10;
 	}
 	
 	public void Select()
 	{
-		unit.anim.framesPerSecond = 0;
+		//unit.anim.framesPerSecond = 0;
 		moving = false;
 		_selected = true;
 		
@@ -150,7 +150,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 	
 	public void Deselect ()
 	{
-		unit.anim.framesPerSecond = 15;
+		//unit.anim.framesPerSecond = 15;
 		moving = true;
 		_selected = false;
 	}

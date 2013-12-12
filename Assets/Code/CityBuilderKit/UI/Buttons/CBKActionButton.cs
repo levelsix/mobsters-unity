@@ -27,7 +27,7 @@ public class CBKActionButton : MonoBehaviour {
 	
 	public UILabel label;
 
-	public UIDragPanelContents dragBehind;
+	public UIDragScrollView dragBehind;
 	
 	void Awake()
 	{

@@ -104,6 +104,17 @@ public class CBKAtlasUtil : MonoBehaviour {
 		LoadAtlas(atlasName);
 		item.atlas = atlases[atlasName];
 	}
+
+	public RuntimeAnimatorController GetCharacterAnimator(string characterName)
+	{
+
+		return (Resources.Load("CharacterControllers/" + characterName)) as RuntimeAnimatorController;
+	}
+
+	public Sprite GetBuildingSprite(string spriteName)
+	{
+		return Resources.Load("Sprites/Buildings/" + spriteName, typeof(Sprite)) as Sprite;
+	}
 	
 	public void UnloadAllAtlases()
 	{
