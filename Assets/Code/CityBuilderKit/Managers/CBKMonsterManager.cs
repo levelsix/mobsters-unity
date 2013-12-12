@@ -54,7 +54,7 @@ public class CBKMonsterManager : MonoBehaviour {
 		foreach (FullUserMonsterProto item in monsters) 
 		{
 			mon = new PZMonster(item);
-			Debug.Log("Adding monster " + item.userMonsterId);
+			//Debug.Log("Adding monster " + item.userMonsterId);
 			userMonsters.Add(item.userMonsterId, mon);
 			if (item.teamSlotNum > 0)
 			{

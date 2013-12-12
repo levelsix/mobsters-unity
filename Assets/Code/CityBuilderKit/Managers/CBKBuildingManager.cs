@@ -179,7 +179,7 @@ public class CBKBuildingManager : MonoBehaviour
 			StartCoroutine(LoadNeutralCity(CBKWhiteboard.cityID));
 		}
 	}
-
+	
 	void SyncTasks (int cityId)
 	{
 		foreach (FullTaskProto task in CBKDataManager.instance.GetAll(typeof(FullTaskProto)).Values)
@@ -188,7 +188,7 @@ public class CBKBuildingManager : MonoBehaviour
 			{
 				if(buildings.ContainsKey(task.assetNumWithinCity))
 				{
-					buildings[task.assetNumWithinCity].taskable.task = task;
+					buildings[task.assetNumWithinCity].taskable.Init(task);
 				}
 				else if(units.ContainsKey(task.assetNumWithinCity))
 				{
@@ -337,7 +337,7 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	CBKBuilding MakeBuilding(CityElementProto proto)
 	{
-		Debug.Log("Neutral building " + proto.imgId + " at " + proto.coords.x + ", " + proto.coords.y);
+		//Debug.Log("Neutral building " + proto.imgId + " at " + proto.coords.x + ", " + proto.coords.y);
 		
 		Vector3 position = new Vector3(CBKGridManager.instance.spaceSize * proto.coords.x, 0, 
     		CBKGridManager.instance.spaceSize * proto.coords.y);
@@ -348,12 +348,6 @@ public class CBKBuildingManager : MonoBehaviour
 		building.trans.localRotation = Quaternion.identity;
 		
 		building.Init(proto);
-		/*
-		if (proto.type == CityElementProto.CityElemType.BUILDING)
-		{
-	    	CBKGridManager.instance.AddBuilding(building, (int)proto.coords.x, (int)proto.coords.y, (int)proto.xLength, (int)proto.yLength);
-		}
-		*/
 
 		buildings.Add(proto.assetId, building);
 		
@@ -603,7 +597,7 @@ public class CBKBuildingManager : MonoBehaviour
 	/// <summary>
 	/// Deselect the current building and change to having no building selected
 	/// </summary>
-	private void FullDeselect()
+	public void FullDeselect()
 	{
 		Deselect();
 		if (CBKEventManager.Town.OnBuildingSelect != null)

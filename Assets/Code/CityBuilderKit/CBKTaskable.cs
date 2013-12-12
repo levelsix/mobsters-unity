@@ -12,6 +12,15 @@ public class CBKTaskable : MonoBehaviour {
 	public void Init(FullTaskProto proto)
 	{
 		task = proto;
+
+		if (proto.prerequisiteTaskId > 0 && !CBKQuestManager.taskDict.ContainsKey(proto.prerequisiteTaskId))
+		{
+			CBKBuilding building = GetComponent<CBKBuilding>();
+			if (building != null)
+			{
+				building.SetLocked();
+			}
+		}
 	}
 	
 	public void EngageTask()

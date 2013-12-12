@@ -14,6 +14,8 @@ public class CBKQuestManager : MonoBehaviour {
 	static Dictionary<int, FullQuestProto> tempQuests;
 	
 	public static Dictionary<int, CBKFullQuest> questDict = new Dictionary<int, CBKFullQuest>();
+
+	public static Dictionary<int, bool> taskDict = new Dictionary<int, bool>();
 	
 	public void Awake()
 	{
@@ -56,6 +58,11 @@ public class CBKQuestManager : MonoBehaviour {
 #if DEBUG2
 			Debug.Log ("In Progress Quest: " + item.questId);
 #endif
+		}
+
+		foreach (var item in proto.completedTaskIds) 
+		{
+			taskDict.Add(item, true);
 		}
 		
 	}

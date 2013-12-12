@@ -31,8 +31,8 @@ public static class CBKWhiteboard {
 	
 	public static StructureInfoProto tempStructureProto;
 	public static CBKGridNode tempStructurePos;
-	
-	public static long currTaskID;
+
+	public static long currUserTaskId;
 	
 	public static BeginDungeonRequestProto dungeonToLoad;
 	public static BeginDungeonResponseProto loadedDungeon;

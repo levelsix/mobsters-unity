@@ -63,8 +63,9 @@ public class CBKTaskBar : MonoBehaviour {
 	
 	void OnBuildingSelect(CBKBuilding building)
 	{
-		
 		ClearButtons();
+
+
 		
 		if (currBuilding != null)
 		{

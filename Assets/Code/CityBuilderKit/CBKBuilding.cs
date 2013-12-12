@@ -98,6 +98,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// The color of the building when placed in an improper place
 	/// </summary>
 	public Color badColor = new Color(1f, .5f, .5f);
+
+	public Color lockColor = new Color(.66f, .66f, .66f);
 	
 	public Action OnSelect;
 	
@@ -142,7 +144,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// <summary>
 	/// If the building is currently selected
 	/// </summary>
-	private bool _selected;
+	public bool selected;
 	
 	/// <summary>
 	/// Current color.
@@ -183,6 +185,12 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 
 	[SerializeField]
 	GameObject shadow;
+
+	[SerializeField]
+	GameObject lockIcon;
+
+	[SerializeField]
+	UITweener lockTween;
 	
 	public bool locallyOwned = true;
 	
@@ -299,6 +307,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	public void Init(CityElementProto proto)
 	{
+		lockIcon.SetActive(false);
+		sprite.color = Color.white;
+
 		trans.localScale = Vector3.one;
 
 		id = proto.assetId;
@@ -312,6 +323,11 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		length = (int)proto.yLength;
 		
 		SetupSprite(proto.imgId);
+
+		if (proto.orientation == StructOrientation.POSITION_2)
+		{
+			sprite.transform.localScale = new Vector3(-1, 1, 1);
+		}
 		
 		//trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
 		//SetGridFromTrans();
@@ -347,6 +363,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	void Setup ()
 	{
+		lockIcon.SetActive(false);
+		sprite.color = Color.white;
+
 		trans.localScale = new Vector3(HOME_BUILDING_SCALE, HOME_BUILDING_SCALE, HOME_BUILDING_SCALE);
 
 		//name = structProto.name;
@@ -433,7 +452,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// </summary>
 	void OnDisable()
 	{
-		if (_selected)
+		if (selected)
 		{
 			CBKEventManager.Town.PlaceBuilding -= Place;
 		}
@@ -551,7 +570,13 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
     /// </summary>
     public void Select()
     {
-		if (!_selected)
+		if (lockIcon.activeSelf)
+		{
+			lockTween.Reset();
+			lockTween.PlayForward();
+			CBKBuildingManager.instance.FullDeselect();
+		}
+		else if (!selected)
 		{
 			_originalPos = trans.position;
 			_tempPos = trans.position;
@@ -560,7 +585,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	        	CBKGridManager.instance.RemoveBuilding(this);
 			}
 			CBKEventManager.Town.PlaceBuilding += Place;
-			_selected = true;
+			selected = true;
 			_currColor = selectColor;
 			
 			if (OnSelect != null)
@@ -577,9 +602,10 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// </summary>
     public void Deselect()
     {
-		_selected = false;
+		selected = false;
 		//Reset color to untinted
-		sprite.color = baseColor;
+
+		sprite.color = (lockIcon.activeSelf) ? lockColor : baseColor;
 		if (OnDeselect != null)
 		{
 			OnDeselect();
@@ -589,6 +615,12 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	#endregion
 	
 	#region Utility
+
+	public void SetLocked()
+	{
+		sprite.color = lockColor;
+		lockIcon.SetActive(true);
+	}
 	
 	/// <summary>
 	/// Coroutine that lerps the color back and forth between
@@ -598,7 +630,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	{
 		_ppDir = 1;
 		_ppPow = 0;
-		while(_selected)
+		while(selected)
 		{
 			_ppPow += _ppDir * Time.deltaTime * COLOR_SPEED;
 			
@@ -680,7 +712,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 			hasMoneyPopup.SetActive(false);
 		}
 
-		if (!_selected)
+		if (!selected)
 		{
 			CBKGridManager.instance.RemoveBuilding(this);
 		}

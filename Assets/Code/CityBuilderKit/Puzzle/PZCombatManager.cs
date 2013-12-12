@@ -127,8 +127,8 @@ public class PZCombatManager : MonoBehaviour {
 		defeatedEnemies.Clear();
 		currTurn = 0;
 		currPlayerDamage = 0;
-		
-		CBKWhiteboard.currTaskID = CBKWhiteboard.loadedDungeon.userTaskId;
+
+		CBKWhiteboard.currUserTaskId = CBKWhiteboard.loadedDungeon.userTaskId;
 		
 		PZMonster mon;
 		List<string> goonsToAtlasLoad = new List<string>();
@@ -180,6 +180,11 @@ public class PZCombatManager : MonoBehaviour {
 	
 	void OnEnemyDeath()
 	{
+		if (CBKEventManager.Quest.OnMonsterDefeated != null)
+		{
+			CBKEventManager.Quest.OnMonsterDefeated(activeEnemy.monster.monster.monsterId);
+		}
+
 		defeatedEnemies.Add(activeEnemy.monster);
 		StartCoroutine(ScrollToNextEnemy());
 	}
@@ -247,6 +252,13 @@ public class PZCombatManager : MonoBehaviour {
 			
 			StartCoroutine(SendEndResult(true));
 
+			if (CBKEventManager.Quest.OnTaskCompleted != null)
+			{
+				CBKEventManager.Quest.OnTaskCompleted(CBKWhiteboard.loadedDungeon.taskId);
+			}
+
+			CBKQuestManager.taskDict[CBKWhiteboard.loadedDungeon.taskId] = true;
+
 			winPopup.gameObject.SetActive(true);
 			GetRewards();
 			winPopup.PlayForward();
@@ -278,7 +290,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		EndDungeonRequestProto request = new EndDungeonRequestProto();
 		request.sender = CBKWhiteboard.localMup;
-		request.userTaskId = CBKWhiteboard.currTaskID;
+		request.userTaskId = CBKWhiteboard.currUserTaskId;
 		request.userWon = userWon;
 		request.clientTime = CBKUtil.timeNowMillis;
 		
