@@ -576,11 +576,19 @@ public class CBKBuildingManager : MonoBehaviour
 		{
 			Deselect();
 		}
-		_selected = building;
+		//_selected = building;
 		building.Select();
-		if (CBKEventManager.Town.OnBuildingSelect != null)
+		if (!building.selected)
 		{
-			CBKEventManager.Town.OnBuildingSelect(building);
+			_selected = null;
+		}
+		else
+		{
+			_selected = building;
+			if (CBKEventManager.Town.OnBuildingSelect != null)
+			{
+				CBKEventManager.Town.OnBuildingSelect(building);
+			}
 		}
 	}
 	
