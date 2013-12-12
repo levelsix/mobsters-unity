@@ -132,7 +132,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	{
 		SendUpgradeRequest();
 
-		building.combinedProto = CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), building.combinedProto.structInfo.successorStructId) as CBKCombinedBuildingProto;
+		building.combinedProto = building.combinedProto.successor;
 
 		StartBuild();
 	}
@@ -278,22 +278,18 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public virtual void FinishUpgrade()
 	{
-        
 		building.userStructProto.isComplete = true;
 		
 		building.SetupSprite(building.combinedProto.structInfo.imgName);
 
-		/*
-		if (false)//building.userStructProto.lastUpgradeTime > 0)
+		if (level > 1)
 		{
-			level++;
 			CBKEventManager.Quest.OnStructureUpgraded(building.userStructProto.structId, level);
 		}
 		else
 		{
 			CBKEventManager.Quest.OnStructureBuilt(building.userStructProto.structId);
 		}
-		*/
 			
         if (OnFinishUpgrade != null)
         {

@@ -393,7 +393,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		upgrade.Init(combinedProto.structInfo, userStructProto);
 
 		float hypot = Mathf.Max(width, length) * CBKGridManager.instance.gridSpaceHypotenuse / 2;
-		sprite.transform.localPosition = new Vector3(-hypot, 0, -hypot);
+		//sprite.transform.localPosition = new Vector3(-hypot, 0, -hypot);
+		sprite.transform.localPosition = new Vector3(-2.8f, 1.63f, -2.8f);
 
 		_box.center = Vector3.zero;
 
@@ -717,6 +718,11 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 			Destroy(collector);
 			collector = null;
 			hasMoneyPopup.SetActive(false);
+		}
+		if (storage != null)
+		{
+			Destroy (storage);
+			storage = null;
 		}
 
 		if (!selected)

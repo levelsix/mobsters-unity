@@ -12,6 +12,30 @@ public class CBKCombinedBuildingProto {
 	public ResidenceProto residence;
 	public TownHallProto townHall;
 
+	public CBKCombinedBuildingProto predecessor
+	{
+		get
+		{
+			if (structInfo.predecessorStructId == 0)
+			{
+				return null;
+			}
+			return CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), structInfo.predecessorStructId) as CBKCombinedBuildingProto;
+		}
+	}
+
+	public CBKCombinedBuildingProto successor
+	{
+		get
+		{
+			if (structInfo.successorStructId == 0)
+			{
+				return null;
+			}
+			return CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), structInfo.successorStructId) as CBKCombinedBuildingProto;
+		}
+	}
+
 	public CBKCombinedBuildingProto(ResourceGeneratorProto generator)
 	{
 		this.generator = generator;

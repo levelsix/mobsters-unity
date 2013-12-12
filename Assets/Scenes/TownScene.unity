@@ -1534,12 +1534,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 41.5092773, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 372827579}
-  - {fileID: 281738626}
-  - {fileID: 834749361}
   - {fileID: 794350061}
   - {fileID: 940312303}
+  - {fileID: 834749361}
   - {fileID: 4550458}
+  - {fileID: 372827579}
+  - {fileID: 281738626}
   m_Father: {fileID: 1528484187}
 --- !u!65 &80602066
 BoxCollider:
@@ -1992,6 +1992,43 @@ Prefab:
     - target: {fileID: 400034, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100034, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400046, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
+      propertyPath: mDepth
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400036, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
+      propertyPath: mDepth
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400046, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
+      propertyPath: mAtlas
+      value: 
+      objectReference: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa,
+        type: 2}
+    - target: {fileID: 11400046, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
+      propertyPath: mSpriteName
+      value: closex
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400046, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
+      propertyPath: mWidth
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400046, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
+      propertyPath: mHeight
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500002, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
+      propertyPath: m_Size.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500002, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
+      propertyPath: m_Size.y
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7133d7f1d245844979c2273af8b4a2ff, type: 2}
@@ -7725,6 +7762,10 @@ Prefab:
       propertyPath: mText
       value: $9,999,999
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
+      propertyPath: resource
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
   m_RootGameObject: {fileID: 1133062695}
@@ -9084,13 +9125,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 44
-  mHeight: 70
-  mDepth: 6
+  mWidth: 58
+  mHeight: 58
+  mDepth: 7
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
-  mAtlas: {fileID: 11400000, guid: 76e1ccab28a754491987a5f2480ace17, type: 2}
-  mSpriteName: energy
+  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mSpriteName: closex
   mFillCenter: 1
   mType: 0
   mFillDirection: 4
@@ -14399,6 +14440,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 837465029}
   - 114: {fileID: 837465030}
+  - 114: {fileID: 837465031}
   m_Layer: 8
   m_Name: MaxCashLabel
   m_TagString: Untagged
@@ -14476,6 +14518,18 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &837465031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 837465028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ffecd832442b4b93a3d76219465bfa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resource: 0
 --- !u!1 &839519009
 GameObject:
   m_ObjectHideFlags: 0
@@ -15615,7 +15669,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 80, y: 80, z: 0}
+  m_Size: {x: 60, y: 60, z: 0}
   m_Center: {x: 0, y: 0, z: -2}
 --- !u!1 &909369626
 GameObject:
@@ -16147,7 +16201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9164a0dbc458d4390ad34773a6224dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: 0
+  resource: 1
 --- !u!1 &934346429
 GameObject:
   m_ObjectHideFlags: 0

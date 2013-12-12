@@ -1,25 +1,32 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/CityBuilderKit/UI/Popups/CBKBuildingUpgradePopup.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/CityBuilderKit/Managers/CBKResourceManager.cs">
     <Files>
       <File FileName="Assets/Code/CityBuilderKit/CBKUnit.cs" Line="10" Column="23" />
       <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZCombatUnit.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZComboCounter.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZDamageNumber.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKQuestManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKBuilding.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZCombatManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKQuestManager.cs" Line="70" Column="39" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKBuilding.cs" Line="57" Column="28" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZCombatManager.cs" Line="300" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/CBKWhiteboard.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/CBKTaskable.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKBuildingManager.cs" Line="648" Column="80" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKBuildingManager.cs" Line="244" Column="57" />
       <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKTaskButton.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Managers/CBKMonsterManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/UI/HomeElements/CBKTaskBar.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/CBKCityUnit.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/TouchControlKit/TCKControlManager.cs" Line="129" Column="19" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKResourceManager.cs" Line="112" Column="51" />
+      <File FileName="Assets/Code/TouchControlKit/TCKControlManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKResourceManager.cs" Line="79" Column="63" />
       <File FileName="Assets/Code/CityBuilderKit/CBKResourceCollector.cs" Line="138" Column="141" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/Popups/CBKBuildingUpgradePopup.cs" Line="170" Column="20" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/Popups/CBKBuildingUpgradePopup.cs" Line="171" Column="11" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKResourceStorage.cs" Line="27" Column="57" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKDataManager.cs" Line="20" Column="2" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZMonster.cs" Line="223" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKClosePopupButton.cs" Line="10" Column="2" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKBuildingUpgrade.cs" Line="135" Column="60" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKCombinedBuildingProto.cs" Line="23" Column="132" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKEventManager.cs" Line="85" Column="33" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,13 +34,14 @@
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Code" expanded="True">
               <Node name="CityBuilderKit" expanded="True">
-                <Node name="Managers" expanded="True" />
+                <Node name="Managers" expanded="True">
+                  <Node name="CBKResourceManager.cs" selected="True" />
+                </Node>
                 <Node name="Puzzle" expanded="True" />
                 <Node name="UI" expanded="True">
+                  <Node name="Buttons" expanded="True" />
                   <Node name="HomeElements" expanded="True" />
-                  <Node name="Popups" expanded="True">
-                    <Node name="CBKBuildingUpgradePopup.cs" selected="True" />
-                  </Node>
+                  <Node name="Popups" expanded="True" />
                 </Node>
               </Node>
               <Node name="TouchControlKit" expanded="True" />

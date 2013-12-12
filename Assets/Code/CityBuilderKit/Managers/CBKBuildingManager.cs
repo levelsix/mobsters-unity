@@ -240,6 +240,7 @@ public class CBKBuildingManager : MonoBehaviour
 		{
 			CBKEventManager.Scene.OnCity();
 		}
+
 	}
 	
 	void MakeNPC(CityElementProto element)
@@ -297,6 +298,8 @@ public class CBKBuildingManager : MonoBehaviour
 				units.Add(item.Key, dude);
 			}
 		}
+		
+		CBKResourceManager.instance.DetermineResourceMaxima();
 	}
 	
 	CBKBuilding MakeBuildingAt (StructureInfoProto proto, int id, int x, int y)
@@ -629,6 +632,19 @@ public class CBKBuildingManager : MonoBehaviour
 	}
 	
 	#endregion
+
+	public List<ResourceStorageProto> GetAllStorages()
+	{
+		List<ResourceStorageProto> storages = new List<ResourceStorageProto>();
+		foreach (var item in buildings.Values) 
+		{
+			if (item.storage != null)
+			{
+				storages.Add(item.combinedProto.storage);
+			}
+		}
+		return storages;
+	}
 
 	#region Debug
 	

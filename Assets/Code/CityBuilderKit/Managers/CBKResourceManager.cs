@@ -38,6 +38,8 @@ public class CBKResourceManager : MonoBehaviour {
 	/// </summary>
 	const float COLLECT_TIME_OUT = 15f;
 
+	const int BASE_RESOURCE_AMOUNT = 1000;
+
 	int currCollectRequests = 0;
 
 	void Awake()
@@ -61,6 +63,20 @@ public class CBKResourceManager : MonoBehaviour {
 			{
 				CBKEventManager.UI.OnChangeResource[i](resources[i]);
 			}
+		}
+	}
+
+	public void DetermineResourceMaxima()
+	{
+		maxes[0] = maxes[1] = BASE_RESOURCE_AMOUNT;
+		foreach (ResourceStorageProto item in CBKBuildingManager.instance.GetAllStorages()) 
+		{
+			maxes[(int)item.resourceType-1] += item.capacity;
+		}
+
+		if (CBKEventManager.UI.OnSetResourceMaxima != null)
+		{
+			CBKEventManager.UI.OnSetResourceMaxima(maxes[0], maxes[1]);
 		}
 	}
 

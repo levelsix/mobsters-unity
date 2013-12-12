@@ -82,6 +82,7 @@ public static class CBKEventManager
 	{
 		public static Action<Camera> OnCameraResize;
 		public static Action<int>[] OnChangeResource = new Action<int>[3];
+		public static Action<int, int> OnSetResourceMaxima;
         public static Action OnCameraLockButton;
         public static Action OnCameraSnapButton;
 		

@@ -3,13 +3,27 @@ using System.Collections;
 
 public class CBKResourceStorage : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+	CBKBuilding building;
+
+	CBKBuildingUpgrade buildingUpgrade;
+
+	void Awake()
+	{
+		buildingUpgrade = GetComponent<CBKBuildingUpgrade>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void OnEnable()
+	{
+		buildingUpgrade.OnFinishUpgrade += OnFinishUpgrade;
+	}
+
+	void OnDisable()
+	{
+		buildingUpgrade.OnFinishUpgrade -= OnFinishUpgrade;
+	}
+
+	void OnFinishUpgrade()
+	{
+		CBKResourceManager.instance.DetermineResourceMaxima();
 	}
 }
