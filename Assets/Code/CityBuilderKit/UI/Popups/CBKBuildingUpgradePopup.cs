@@ -155,10 +155,21 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 			buildingName.text = nextBuilding.structInfo.name;
 			
 			//TODO: Change this to be specific to the building type!
-			currIncome.text = "Current income:\n[" + moneyColorHexString + "]$" 
-				+ oldBuilding.generator.productionRate + "[-] every hour";
-			futureIncome.text = "Upgraded income:\n[" + moneyColorHexString + "]$" 
-				+ nextBuilding.generator.productionRate + "[-] every hour";
+			switch(building.combinedProto.structInfo.structType)
+			{
+			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
+				currIncome.text = "Current income:\n[" + moneyColorHexString + "]$" 
+					+ oldBuilding.generator.productionRate + "[-] every hour";
+				futureIncome.text = "Upgraded income:\n[" + moneyColorHexString + "]$" 
+					+ nextBuilding.generator.productionRate + "[-] every hour";
+				break;
+			case StructureInfoProto.StructType.RESOURCE_STORAGE:
+				currIncome.text = "Current capacity:\n[" + moneyColorHexString + "]$"
+					+ oldBuilding.storage.capacity;
+				futureIncome.text = "Upgraded capacity:\n[" + moneyColorHexString + "]$"
+					+ nextBuilding.storage.capacity;
+				break;
+			}
 
 			upgradeButton.onClick = TryToBuy;
 			upgradeButton.button.enabled = true;

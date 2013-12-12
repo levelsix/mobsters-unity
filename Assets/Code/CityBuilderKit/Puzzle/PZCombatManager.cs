@@ -257,8 +257,6 @@ public class PZCombatManager : MonoBehaviour {
 				CBKEventManager.Quest.OnTaskCompleted(CBKWhiteboard.loadedDungeon.taskId);
 			}
 
-			CBKQuestManager.taskDict[CBKWhiteboard.loadedDungeon.taskId] = true;
-
 			winPopup.gameObject.SetActive(true);
 			GetRewards();
 			winPopup.PlayForward();
@@ -293,6 +291,14 @@ public class PZCombatManager : MonoBehaviour {
 		request.userTaskId = CBKWhiteboard.currUserTaskId;
 		request.userWon = userWon;
 		request.clientTime = CBKUtil.timeNowMillis;
+
+		if (!CBKQuestManager.taskDict.ContainsKey(CBKWhiteboard.loadedDungeon.taskId))
+		{
+			int task = CBKWhiteboard.loadedDungeon.taskId;
+			CBKQuestManager.taskDict[task] = true;
+			request.firstTimeUserWonTask = true;
+			request.userBeatAllCityTasks = CBKQuestManager.instance.HasFinishedAllTasksInCity(CBKWhiteboard.cityID);
+		}
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_END_DUNGEON_EVENT, null);
 		

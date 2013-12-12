@@ -66,6 +66,18 @@ public class CBKQuestManager : MonoBehaviour {
 		}
 		
 	}
+
+	public bool HasFinishedAllTasksInCity(int cityID)
+	{
+		foreach (FullTaskProto item in CBKDataManager.instance.GetAll(typeof(FullTaskProto)).Values)
+		{
+			if (item.cityId == cityID && !taskDict.ContainsKey(item.taskId))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	FullUserQuestProto FindFromUserQuests(List<FullUserQuestProto> questList, int questId)
 	{

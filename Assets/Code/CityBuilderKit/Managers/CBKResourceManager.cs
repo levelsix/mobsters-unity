@@ -16,6 +16,8 @@ public class CBKResourceManager : MonoBehaviour {
 	/// Indexed using the AOC2Values.Buildings.Resources enum
 	/// </summary>
 	public static int[] resources = {0, 0, 0};
+
+	public static int[] maxes = {0, 0, int.MaxValue};
 	
 	int _level = 0;
 	
@@ -107,7 +109,7 @@ public class CBKResourceManager : MonoBehaviour {
 	/// </param>
 	public void Collect(ResourceType resource, int amount)
 	{
-		resources[(int)resource-1] += amount;
+		resources[(int)resource-1] = Mathf.Min(resources[(int)resource-1] + amount, maxes[(int)resource-1]);
 		
 		if (CBKEventManager.UI.OnChangeResource[(int)resource-1] != null)
 		{

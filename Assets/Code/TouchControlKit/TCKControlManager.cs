@@ -10,6 +10,8 @@ using System.Collections.Generic;
 /// </summary>
 public class TCKControlManager : MonoBehaviour 
 {
+	public static TCKControlManager instance;
+
 	[SerializeField]
 	UILabel DebugLabel;
 	
@@ -123,8 +125,8 @@ public class TCKControlManager : MonoBehaviour
 		touches = new Dictionary<int, TCKTouchData>();
 		mouseData = new TCKTouchData(Vector2.zero);
 		touchPile = new List<TCKTouchData>();
-		
-		CBKManagerReferences.controlManager = this;
+
+		instance = this;
 		
 		if (uiCamera == null)
 		{

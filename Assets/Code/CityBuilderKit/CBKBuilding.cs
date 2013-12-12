@@ -183,6 +183,11 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// </summary>
 	public CBKResourceCollector collector;
 
+	/// <summary>
+	/// The resource storage component.
+	/// </summary>
+	public CBKResourceStorage storage;
+
 	[SerializeField]
 	GameObject shadow;
 
@@ -399,6 +404,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 			collector.Init(combinedProto);
 			break;
 		default:
+			storage = gameObj.AddComponent<CBKResourceStorage>();
+
 			break;
 		}
 	}

@@ -645,7 +645,7 @@ public class CBKBuildingManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.G))
 		{
 			//MakeBuildingCenter(CBKBuildingList.instance.sevenEleven);	
-			BuyBuilding((CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), 40) as CBKCombinedBuildingProto).structInfo);
+			BuyBuilding((CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), 20) as CBKCombinedBuildingProto).structInfo);
 		}
 	}
 #endif
