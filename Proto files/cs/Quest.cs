@@ -184,6 +184,15 @@ namespace com.lvl6.proto
       get { return _carrotId; }
       set { _carrotId = value; }
     }
+
+    private bool _isAchievement = default(bool);
+    [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"isAchievement", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isAchievement
+    {
+      get { return _isAchievement; }
+      set { _isAchievement = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"QuestType")]
     public enum QuestType
     {

@@ -226,6 +226,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// </summary>
 	public float X_DRAG_FUDGE = 1.1f;
 
+	public static readonly Vector3 SHADOW_POS = new Vector3(-1.29f, 2.24f, 3.8f);
+	public static readonly Vector3 FLIP_SHADOW_POS = new Vector3(1.29f, 2.24f, 3.8f);
+
     #endregion
 	
 	#region Properties
@@ -332,6 +335,11 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		if (proto.orientation == StructOrientation.POSITION_2)
 		{
 			sprite.transform.localScale = new Vector3(-1, 1, 1);
+			shadow.transform.localPosition = FLIP_SHADOW_POS;
+		}
+		else
+		{
+			shadow.transform.localPosition = SHADOW_POS;
 		}
 		
 		//trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
@@ -368,6 +376,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	void Setup ()
 	{
+		shadow.transform.localPosition = SHADOW_POS;
+
 		lockIcon.SetActive(false);
 		sprite.color = Color.white;
 

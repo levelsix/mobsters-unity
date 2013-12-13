@@ -64,7 +64,15 @@ public class CBKBuildingManager : MonoBehaviour
 	private Dictionary<int, CBKBuilding> buildings = new Dictionary<int, CBKBuilding>();
 	
 	private Dictionary<long, CBKUnit> units = new Dictionary<long, CBKUnit>();
-	
+
+	public static List<CBKBuilding> hospitals = new List<CBKBuilding>();
+
+	public static List<CBKBuilding> labs = new List<CBKBuilding>();
+
+	public static List<CBKBuilding> residences = new List<CBKBuilding>();
+
+	public static CBKBuilding townHall;
+
 	/// <summary>
 	/// The current selected building.
 	/// </summary>
@@ -281,12 +289,37 @@ public class CBKBuildingManager : MonoBehaviour
 	{
 		RecycleCity();
 
+		hospitals.Clear();
+		labs.Clear();
+		residences.Clear();
+
 		CBKGridManager.instance.InitHome ();
 		background.InitHome();
 
+		CBKBuilding building;
 		for (int i = 0; i < response.ownerNormStructs.Count; i++) 
 		{
-			MakeBuilding(response.ownerNormStructs[i]);
+			building = MakeBuilding(response.ownerNormStructs[i]);
+
+			if (building.userStructProto.isComplete)
+			{
+				if (building.combinedProto.hospital != null)
+				{
+					hospitals.Add(building);
+				}
+				else if (building.combinedProto.residence != null)
+				{
+					residences.Add (building);
+				}
+				else if (building.combinedProto.lab != null)
+				{
+					labs.Add (building);
+				}
+				else if (building.combinedProto.townHall != null)
+				{
+					townHall = building;
+				}
+			}
 		}
 		
 		foreach (var item in CBKMonsterManager.userMonsters) {
@@ -638,7 +671,7 @@ public class CBKBuildingManager : MonoBehaviour
 		List<ResourceStorageProto> storages = new List<ResourceStorageProto>();
 		foreach (var item in buildings.Values) 
 		{
-			if (item.storage != null)
+			if (item.combinedProto.storage != null && item.combinedProto.storage.structInfo.structId > 0)
 			{
 				storages.Add(item.combinedProto.storage);
 			}
@@ -646,6 +679,32 @@ public class CBKBuildingManager : MonoBehaviour
 		return storages;
 	}
 
+	public void RemoveFromFunctionalityLists(CBKBuilding building)
+	{
+		switch(building.combinedProto.structInfo.structType)
+		{
+			case StructureInfoProto.StructType.HOSPITAL:
+				hospitals.Remove(building);
+				break;
+			case StructureInfoProto.StructType.LAB:
+				labs.Remove(building);
+				break;
+		}
+	}
+
+	public void AddToFunctionalityLists(CBKBuilding building)
+	{
+		switch(building.combinedProto.structInfo.structType)
+		{
+		case StructureInfoProto.StructType.HOSPITAL:
+			hospitals.Add(building);
+			break;
+		case StructureInfoProto.StructType.LAB:
+			labs.Add(building);
+			break;
+		}
+	}
+	
 	#region Debug
 	
 #if UNITY_EDITOR

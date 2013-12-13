@@ -134,6 +134,8 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 
 		building.combinedProto = building.combinedProto.successor;
 
+		CBKBuildingManager.instance.RemoveFromFunctionalityLists(building);
+
 		StartBuild();
 	}
 
@@ -290,6 +292,8 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 		{
 			CBKEventManager.Quest.OnStructureBuilt(building.userStructProto.structId);
 		}
+
+		CBKBuildingManager.instance.AddToFunctionalityLists(building);
 			
         if (OnFinishUpgrade != null)
         {

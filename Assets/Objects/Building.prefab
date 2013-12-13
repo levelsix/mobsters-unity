@@ -53,7 +53,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &100006
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -94,7 +94,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400008}
-  - {fileID: 400006}
   - {fileID: 400004}
   - {fileID: 400002}
   m_Father: {fileID: 0}
@@ -118,7 +117,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.08999991, y: 2.23000002, z: 0}
   m_LocalScale: {x: 1, y: .714285731, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 400006}
   m_Father: {fileID: 400000}
 --- !u!4 &400006
 Transform:
@@ -126,11 +126,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
-  m_LocalRotation: {x: .375775695, y: .349598736, z: -.155651405, w: .844005883}
-  m_LocalPosition: {x: 1.16999996, y: 0, z: 3.79999995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.28999996, y: 2.24000001, z: 3.79999995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 400000}
+  m_Father: {fileID: 400004}
 --- !u!4 &400008
 Transform:
   m_ObjectHideFlags: 1
@@ -341,6 +341,7 @@ MonoBehaviour:
   sprite: {fileID: 21200000}
   upgrade: {fileID: 0}
   collector: {fileID: 0}
+  storage: {fileID: 0}
   shadow: {fileID: 100006}
   lockIcon: {fileID: 100002}
   lockTween: {fileID: 11400002}

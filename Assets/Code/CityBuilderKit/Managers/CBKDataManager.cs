@@ -121,7 +121,7 @@ public class CBKDataManager : MonoBehaviour {
 		CheckType(typ);
 		dataDict[typ][id] = obj;
 		
-		//Debug.Log("Loading " + typ.ToString() + " " + id);
+		Debug.Log("Loading " + typ.ToString() + " " + id);
 	}
 	
 	/// <summary>
@@ -156,6 +156,26 @@ public class CBKDataManager : MonoBehaviour {
 			CBKDataManager.instance.Load(building, building.id);
 		}
 		foreach (var item in data.allStorages)
+		{
+			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
+			CBKDataManager.instance.Load(building, building.id);
+		}
+		foreach (var item in data.allHospitals) 
+		{
+			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
+			CBKDataManager.instance.Load(building, building.id);
+		}
+		foreach (var item in data.allLabs) 
+		{
+			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
+			CBKDataManager.instance.Load(building, building.id);
+		}
+		foreach (var item in data.allResidences) 
+		{
+			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
+			CBKDataManager.instance.Load(building, building.id);
+		}
+		foreach (var item in data.allTownHalls) 
 		{
 			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
 			CBKDataManager.instance.Load(building, building.id);

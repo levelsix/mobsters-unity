@@ -20,6 +20,8 @@ public class PZMonster {
 	public UserMonsterHealingProto healingMonster = null;
 	
 	public UserEnhancementItemProto enhancement = null;
+
+	public int userHospitalID = 0;
 	
 	public bool isHealing
 	{

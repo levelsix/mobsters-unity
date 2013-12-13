@@ -11,6 +11,9 @@ public class CBKCombinedBuildingProto {
 	public HospitalProto hospital;
 	public ResidenceProto residence;
 	public TownHallProto townHall;
+	public LabProto lab;
+
+	public long completeTime = 0;
 
 	public CBKCombinedBuildingProto predecessor
 	{
@@ -64,6 +67,12 @@ public class CBKCombinedBuildingProto {
 	{
 		this.townHall = townHall;
 		structInfo = townHall.structInfo;
+		id = structInfo.structId;
+	}
+	public CBKCombinedBuildingProto(LabProto lab)
+	{
+		this.lab = lab;
+		structInfo = lab.structInfo;
 		id = structInfo.structId;
 	}
 

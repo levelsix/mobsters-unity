@@ -73,6 +73,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOAD_PLAYER_CITY_EVENT", Value=10)]
       C_LOAD_PLAYER_CITY_EVENT = 10,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_EXCHANGE_GEMS_FOR_RESOURCES_EVENT", Value=11)]
+      C_EXCHANGE_GEMS_FOR_RESOURCES_EVENT = 11,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_QUEST_ACCEPT_EVENT", Value=12)]
       C_QUEST_ACCEPT_EVENT = 12,
             
@@ -242,6 +245,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_LOAD_PLAYER_CITY_EVENT", Value=10)]
       S_LOAD_PLAYER_CITY_EVENT = 10,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_EXCHANGE_GEMS_FOR_RESOURCES_EVENT", Value=11)]
+      S_EXCHANGE_GEMS_FOR_RESOURCES_EVENT = 11,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_QUEST_ACCEPT_EVENT", Value=12)]
       S_QUEST_ACCEPT_EVENT = 12,

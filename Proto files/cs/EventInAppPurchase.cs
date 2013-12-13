@@ -9,6 +9,7 @@
 
 // Generated from: EventInAppPurchase.proto
 // Note: requires additional types generated from: InAppPurchase.proto
+// Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
@@ -247,6 +248,100 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=4)]
       OTHER_FAIL = 4
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ExchangeGemsForResourcesRequestProto")]
+  public partial class ExchangeGemsForResourcesRequestProto : global::ProtoBuf.IExtensible
+  {
+    public ExchangeGemsForResourcesRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private int _numGems = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"numGems", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numGems
+    {
+      get { return _numGems; }
+      set { _numGems = value; }
+    }
+
+    private int _numResources = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"numResources", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numResources
+    {
+      get { return _numResources; }
+      set { _numResources = value; }
+    }
+
+    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.CASH;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"resourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    public com.lvl6.proto.ResourceType resourceType
+    {
+      get { return _resourceType; }
+      set { _resourceType = value; }
+    }
+
+    private long _clientTime = default(long);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long clientTime
+    {
+      get { return _clientTime; }
+      set { _clientTime = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ExchangeGemsForResourcesResponseProto")]
+  public partial class ExchangeGemsForResourcesResponseProto : global::ProtoBuf.IExtensible
+  {
+    public ExchangeGemsForResourcesResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.ExchangeGemsForResourcesResponseProto.ExchangeGemsForResourcesStatus _status = com.lvl6.proto.ExchangeGemsForResourcesResponseProto.ExchangeGemsForResourcesStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ExchangeGemsForResourcesResponseProto.ExchangeGemsForResourcesStatus.SUCCESS)]
+    public com.lvl6.proto.ExchangeGemsForResourcesResponseProto.ExchangeGemsForResourcesStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"ExchangeGemsForResourcesStatus")]
+    public enum ExchangeGemsForResourcesStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
     }
   
     private global::ProtoBuf.IExtension extensionObject;

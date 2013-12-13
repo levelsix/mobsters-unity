@@ -8,6 +8,9 @@ using com.lvl6.proto;
 /// CBK monster manager.
 /// Keeps track of what monsters are healing, what monsters are 
 /// </summary>
+using System;
+
+
 public class CBKMonsterManager : MonoBehaviour {
 	
 	public static Dictionary<long, PZMonster> userMonsters = new Dictionary<long, PZMonster>();
@@ -448,6 +451,11 @@ public class CBKMonsterManager : MonoBehaviour {
 	
 	public void AddToHealQueue(PZMonster monster)
 	{
+		if (CBKBuildingManager.hospitals.Count == 0)
+		{
+			return;
+		}
+
 		if (healRequestProto == null)
 		{
 			PrepareNewHealRequest();
@@ -456,16 +464,10 @@ public class CBKMonsterManager : MonoBehaviour {
 		monster.healingMonster = new UserMonsterHealingProto();
 		monster.healingMonster.userId = CBKWhiteboard.localMup.userId;
 		monster.healingMonster.userMonsterId = monster.userMonster.userMonsterId;
-		if (healingMonsters.Count == 0)
-		{
-			monster.healingMonster.expectedStartTimeMillis = CBKUtil.timeNowMillis;
-		}
-		else
-		{
-			monster.healingMonster.expectedStartTimeMillis = healingMonsters[healingMonsters.Count-1].finishHealTimeMillis;
-		}
-		
+
 		healingMonsters.Add (monster);
+		
+		RearrangeHealingQueue();
 		
 		if (healRequestProto.umhDelete.Contains(monster.healingMonster))
 		{
@@ -484,6 +486,30 @@ public class CBKMonsterManager : MonoBehaviour {
 		if (CBKEventManager.Goon.OnHealQueueChanged != null)
 		{
 			CBKEventManager.Goon.OnHealQueueChanged();
+		}
+	}
+
+	public void RearrangeHealingQueue()
+	{
+		CBKBuilding chosenHospital;
+		long completeTimeAtChosen;
+		foreach (PZMonster monster in healingMonsters) 
+		{
+			chosenHospital = null;
+			completeTimeAtChosen = long.MaxValue;
+			foreach (CBKBuilding hospital in CBKBuildingManager.hospitals) 
+			{
+				long timeToCompleteHere = (long)((monster.maxHP - monster.currHP) / hospital.combinedProto.hospital.healthPerSecond)
+					+ Math.Max(hospital.combinedProto.completeTime, CBKUtil.timeNowMillis);
+				if (timeToCompleteHere < completeTimeAtChosen)
+				{
+					chosenHospital = hospital;
+					completeTimeAtChosen = timeToCompleteHere;
+				}
+			}
+			monster.healingMonster.expectedStartTimeMillis = Math.Max(chosenHospital.combinedProto.completeTime, CBKUtil.timeNowMillis);
+			chosenHospital.combinedProto.completeTime = completeTimeAtChosen;
+			monster.userHospitalID = chosenHospital.userStructProto.userStructId;
 		}
 	}
 	
@@ -516,7 +542,8 @@ public class CBKMonsterManager : MonoBehaviour {
 		healRequestProto.cashChange -= monster.healCost;
 		
 		monster.healingMonster = null;
-		
+
+		/*
 		for (; i < healingMonsters.Count; i++) 
 		{
 			if (i==0)
@@ -529,6 +556,8 @@ public class CBKMonsterManager : MonoBehaviour {
 			}
 			healRequestProto.umhUpdate.Add (healingMonsters[i].healingMonster);
 		}
+		*/
+		RearrangeHealingQueue();
 		
 		CBKResourceManager.instance.Collect(ResourceType.CASH, monster.healCost);
 		

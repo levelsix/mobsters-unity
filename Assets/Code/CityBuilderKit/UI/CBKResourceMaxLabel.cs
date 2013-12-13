@@ -26,7 +26,6 @@ public class CBKResourceMaxLabel : MonoBehaviour {
 
 	void OnSetResourceMaxima(int cash, int oil)
 	{
-		Debug.LogWarning("Setting maxima");
 		maxLabel.text = "Max: " + String.Format("{0:#,###,###,##0}", (resource==0) ? cash : oil);
 	}
 }
