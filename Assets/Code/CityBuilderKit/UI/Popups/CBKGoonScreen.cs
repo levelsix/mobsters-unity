@@ -52,6 +52,9 @@ public class CBKGoonScreen : MonoBehaviour {
 
 	[SerializeField]
 	UILabel bottomBarLabel;
+
+	[SerializeField]
+	Transform goonPanelParent;
 	
 	#endregion
 	
@@ -226,6 +229,9 @@ public class CBKGoonScreen : MonoBehaviour {
 		{
 			reserveCards[i].gameObject.SetActive(false);
 		}
+
+		dragPanel.collider.enabled = false;
+		dragPanel.collider.enabled = true;
 	}
 	
 	void OrganizeHealingQueue()
@@ -362,7 +368,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		Vector4 startingClipRange = dragPanel.scrollView.panel.baseClipRegion;
 		Vector4 endingClipRange = new Vector4(dragPanel.scrollView.panel.baseClipRegion.x - rightShiftOnMobsterEnhance, dragPanel.scrollView.panel.baseClipRegion.y, dragPanel.scrollView.panel.baseClipRegion.z - rightShiftOnMobsterEnhance * 2, dragPanel.scrollView.panel.baseClipRegion.w);
 
-		Vector3 startPos = dragPanel.transform.localPosition;
+		Vector3 startPos = goonPanelParent.localPosition;
 		Vector3 endPos = new Vector3(startPos.x + rightShiftOnMobsterEnhance * 2, startPos.y, startPos.z);
 
 		float time = 0;
@@ -372,7 +378,7 @@ public class CBKGoonScreen : MonoBehaviour {
 			time += Time.deltaTime;
 			amount = time/timeForShift;
 			dragPanel.scrollView.panel.baseClipRegion = Vector4.Lerp(startingClipRange, endingClipRange, amount);
-			dragPanel.transform.localPosition = Vector3.Lerp(startPos, endPos, amount);
+			goonPanelParent.localPosition = Vector3.Lerp(startPos, endPos, amount);
 			goonGrid.Reposition();
 			yield return null;
 		}
@@ -386,7 +392,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		Vector4 startingClipRange = dragPanel.scrollView.panel.baseClipRegion;
 		Vector4 endingClipRange = new Vector4(dragPanel.scrollView.panel.baseClipRegion.x + rightShiftOnMobsterEnhance, dragPanel.scrollView.panel.baseClipRegion.y, dragPanel.scrollView.panel.baseClipRegion.z + rightShiftOnMobsterEnhance * 2, dragPanel.scrollView.panel.baseClipRegion.w);
 		
-		Vector3 startPos = dragPanel.transform.localPosition;
+		Vector3 startPos = goonPanelParent.localPosition;
 		Vector3 endPos = new Vector3(startPos.x - rightShiftOnMobsterEnhance * 2, startPos.y, startPos.z);
 		
 		float time = 0;
@@ -396,7 +402,7 @@ public class CBKGoonScreen : MonoBehaviour {
 			time += Time.deltaTime;
 			amount = time/timeForShift;
 			dragPanel.scrollView.panel.baseClipRegion = Vector4.Lerp(startingClipRange, endingClipRange, amount);
-			dragPanel.transform.localPosition = Vector3.Lerp(startPos, endPos, amount);
+			goonPanelParent.localPosition = Vector3.Lerp(startPos, endPos, amount);
 			goonGrid.Reposition();
 			yield return null;
 		}

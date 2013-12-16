@@ -1534,12 +1534,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 41.5092773, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 940312303}
   - {fileID: 834749361}
-  - {fileID: 794350061}
   - {fileID: 4550458}
-  - {fileID: 372827579}
   - {fileID: 281738626}
+  - {fileID: 372827579}
+  - {fileID: 794350061}
+  - {fileID: 940312303}
   m_Father: {fileID: 1528484187}
 --- !u!65 &80602066
 BoxCollider:
@@ -18121,7 +18121,7 @@ MonoBehaviour:
   mWidth: 190
   mHeight: 240
   mDepth: 27
-  autoResizeBoxCollider: 1
+  autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: firecard
@@ -18161,7 +18161,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 190, y: 240, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -2}
 --- !u!1 &1024841064
 GameObject:
   m_ObjectHideFlags: 0
@@ -23772,7 +23772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c8ea621efbe4f81b32331520bcb1a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dragPanel: {fileID: 0}
+  dragPanel: {fileID: 161025427}
   teamCards:
   - {fileID: 1891438870}
   - {fileID: 305425551}
@@ -23792,6 +23792,7 @@ MonoBehaviour:
   scrollPanel: {fileID: 1672417239}
   goonGrid: {fileID: 161025428}
   bottomBarLabel: {fileID: 1891671787}
+  goonPanelParent: {fileID: 1465942832}
   bringGoonIn: 0
 --- !u!114 &1371620050
 MonoBehaviour:
@@ -25120,7 +25121,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1465942832}
   m_Layer: 8
-  m_Name: Child
+  m_Name: GoonPanelParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25321,8 +25322,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -32.5999985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1915508944}
   - {fileID: 1465942832}
+  - {fileID: 1915508944}
   - {fileID: 1169361309}
   - {fileID: 1891671786}
   - {fileID: 384117508}
@@ -35621,7 +35622,7 @@ MonoBehaviour:
   mWidth: 190
   mHeight: 240
   mDepth: 27
-  autoResizeBoxCollider: 1
+  autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: firecard
@@ -35642,7 +35643,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 190, y: 240, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -2}
 --- !u!1 &2076303410
 GameObject:
   m_ObjectHideFlags: 0
