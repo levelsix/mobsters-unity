@@ -176,7 +176,6 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 	
 	void SetAnimation(AnimationType animate)
 	{
-		string animationPrefix = spriteBaseName;
 		
 		switch(animate)
 		{
@@ -206,8 +205,7 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 		{
 			sprite.transform.localScale = Vector3.one * unitSize;
 		}
-		
-		//anim.Reset();
+
 	}
 	
 	

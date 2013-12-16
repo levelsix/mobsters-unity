@@ -4,7 +4,7 @@ using System.Collections;
 public class PZComboCounter : MonoBehaviour {
 
 	[SerializeField]
-	TweenAlpha[] alphaTweens;
+	TweenAlpha alphaTween;
 
 	[SerializeField]
 	UILabel comboLabel;
@@ -24,7 +24,7 @@ public class PZComboCounter : MonoBehaviour {
 	void OnComboChange(int combo)
 	{
 		Debug.Log("Combo: " + combo + ", Last combo: " + lastCombo);
-		if (combo == 0 && comboLabel.alpha > 0)
+		if (combo == 0 && alphaTween.alpha > 0)
 		{
 			FadeOut();
 		}
@@ -43,21 +43,13 @@ public class PZComboCounter : MonoBehaviour {
 	void FadeIn()
 	{
 		Debug.Log("Fade In");
-		foreach (var item in alphaTweens) 
-		{
-			item.Reset();
-			item.PlayForward();
-		}
+		alphaTween.PlayForward();
 	}
 
 	void FadeOut()
 	{
 		Debug.Log("Fade out");
-		foreach (var item in alphaTweens) 
-		{
-			item.Toggle();
-			//item.Play();
-		}
+		alphaTween.PlayReverse();
 	}
 
 }

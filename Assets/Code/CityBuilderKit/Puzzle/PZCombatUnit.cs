@@ -30,7 +30,15 @@ public class PZCombatUnit : MonoBehaviour {
 	public Action OnDeath;
 
 	[SerializeField]
+	CBKFillBar hpBar;
+
+	[SerializeField]
+	UILabel hpLabel;
+
+	[SerializeField]
 	UISprite shadow;
+
+	const float HP_LERP_TIME = 1.5f;
 	
 	/// <summary>
 	/// Awake this instance and set up component references
@@ -52,6 +60,9 @@ public class PZCombatUnit : MonoBehaviour {
 		unit.spriteBaseName = monster.monster.imagePrefix;
 		unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 1);
 		shadow.alpha = 1;
+
+		hpBar.fill = ((float)monster.currHP) / monster.maxHP;
+		hpLabel.text = monster.currHP + "/" + monster.maxHP;
 	}
 	
 	/// <summary>
@@ -91,6 +102,8 @@ public class PZCombatUnit : MonoBehaviour {
 		int fullDamage = (int)(damage * CBKUtil.GetTypeDamageMultiplier(monster.monster.element, element));
 		
 		//TODO: If fullDamage != damage, do some animation or something to reflect super/notvery effective
+
+		StartCoroutine(LerpHealth(monster.currHP, Mathf.Max(monster.currHP - fullDamage, 0), monster.maxHP));
 		
 		monster.currHP -= fullDamage;
 		if (monster.userMonster != null)
@@ -103,7 +116,19 @@ public class PZCombatUnit : MonoBehaviour {
 			StartCoroutine(Die());
 		}
 	}
-	
+
+	IEnumerator LerpHealth(float hpBeforeDamage, float hpAfterDamage, int maxHP)
+	{
+		float currTime = 0;
+		while (currTime < HP_LERP_TIME)
+		{
+			currTime += Time.deltaTime;
+			hpBar.fill = Mathf.Lerp(hpBeforeDamage/maxHP, hpAfterDamage/maxHP, currTime/HP_LERP_TIME);
+			hpLabel.text = ((int)Mathf.Lerp(hpBeforeDamage, hpAfterDamage, currTime/HP_LERP_TIME)) + "/" + maxHP;
+			yield return null;
+		}
+	}
+
 	IEnumerator SendHPUpdateToServer ()
 	{
 		UpdateMonsterHealthRequestProto request = new UpdateMonsterHealthRequestProto();
