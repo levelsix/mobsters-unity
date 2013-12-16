@@ -341,7 +341,10 @@ namespace com.lvl6.proto
       SUCCESS = 1,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
-      FAIL_OTHER = 2
+      FAIL_OTHER = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=3)]
+      FAIL_INSUFFICIENT_GEMS = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;

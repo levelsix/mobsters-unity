@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/CityBuilderKit/CBKCombinedBuildingProto.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/CityBuilderKit/Managers/CBKMonsterManager.cs">
     <Files>
       <File FileName="Assets/Code/CityBuilderKit/UI/CBKResourceMaxLabel.cs" Line="28" Column="3" />
       <File FileName="Assets/Code/CityBuilderKit/CBKUnit.cs" Line="1" Column="1" />
@@ -8,27 +8,31 @@
       <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZComboCounter.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZDamageNumber.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Managers/CBKQuestManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKBuilding.cs" Line="338" Column="52" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKBuilding.cs" Line="390" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZCombatManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/CBKWhiteboard.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/CBKTaskable.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKBuildingManager.cs" Line="85" Column="32" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKBuildingManager.cs" Line="64" Column="73" />
       <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKTaskButton.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKMonsterManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKMonsterManager.cs" Line="563" Column="3" />
       <File FileName="Assets/Code/CityBuilderKit/UI/HomeElements/CBKTaskBar.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/CBKCityUnit.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/TouchControlKit/TCKControlManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKResourceManager.cs" Line="76" Column="3" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKResourceManager.cs" Line="72" Column="74" />
       <File FileName="Assets/Code/CityBuilderKit/CBKResourceCollector.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/UI/Popups/CBKBuildingUpgradePopup.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/CBKResourceStorage.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKDataManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZMonster.cs" Line="223" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKDataManager.cs" Line="181" Column="56" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZMonster.cs" Line="54" Column="2" />
       <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKClosePopupButton.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKBuildingUpgrade.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKCombinedBuildingProto.cs" Line="72" Column="17" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKBuildingUpgrade.cs" Line="296" Column="65" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKCombinedBuildingProto.cs" Line="16" Column="31" />
       <File FileName="Assets/Code/CityBuilderKit/Managers/CBKEventManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKMapButton.cs" Line="33" Column="26" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKActionButton.cs" Line="44" Column="14" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/CBKGoonCard.cs" Line="427" Column="31" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/CBKMiniHealingBox.cs" Line="111" Column="17" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/Popups/CBKGoonScreen.cs" Line="256" Column="40" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -36,12 +40,14 @@
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Code" expanded="True">
               <Node name="CityBuilderKit" expanded="True">
-                <Node name="Managers" expanded="True" />
+                <Node name="Managers" expanded="True">
+                  <Node name="CBKMonsterManager.cs" selected="True" />
+                </Node>
                 <Node name="Puzzle" expanded="True" />
                 <Node name="UI" expanded="True">
                   <Node name="Buttons" expanded="True" />
+                  <Node name="Popups" expanded="True" />
                 </Node>
-                <Node name="CBKCombinedBuildingProto.cs" selected="True" />
               </Node>
             </Node>
           </Node>

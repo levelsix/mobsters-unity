@@ -408,6 +408,33 @@ namespace com.lvl6.proto
       get { return _expectedStartTimeMillis; }
       set { _expectedStartTimeMillis = value; }
     }
+
+    private int _userHospitalStructId = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userHospitalStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userHospitalStructId
+    {
+      get { return _userHospitalStructId; }
+      set { _userHospitalStructId = value; }
+    }
+
+    private int _healthProgress = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"healthProgress", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int healthProgress
+    {
+      get { return _healthProgress; }
+      set { _healthProgress = value; }
+    }
+
+    private int _priority = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"priority", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int priority
+    {
+      get { return _priority; }
+      set { _priority = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
