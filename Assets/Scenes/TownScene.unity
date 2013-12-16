@@ -1534,12 +1534,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 41.5092773, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 834749361}
-  - {fileID: 4550458}
+  - {fileID: 794350061}
   - {fileID: 281738626}
   - {fileID: 372827579}
-  - {fileID: 794350061}
   - {fileID: 940312303}
+  - {fileID: 4550458}
+  - {fileID: 834749361}
   m_Father: {fileID: 1528484187}
 --- !u!65 &80602066
 BoxCollider:
@@ -6358,8 +6358,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 305425550}
-  - {fileID: 1891438869}
   - {fileID: 1997645755}
+  - {fileID: 1891438869}
   m_Father: {fileID: 1480108071}
 --- !u!1 &387050606
 GameObject:
@@ -21663,7 +21663,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1225204310}
-  - 114: {fileID: 1225204311}
   m_Layer: 8
   m_Name: Items
   m_TagString: Untagged
@@ -21688,44 +21687,6 @@ Transform:
   - {fileID: 1633644325}
   - {fileID: 570115687}
   m_Father: {fileID: 1169361309}
---- !u!114 &1225204311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1225204309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d166255cacf07b4292b8402b3ddefc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  method: 0
-  style: 0
-  animationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  ignoreTimeScale: 1
-  delay: 0
-  duration: 1
-  steeperCurves: 0
-  tweenGroup: 0
-  onFinished: []
-  eventReceiver: {fileID: 0}
-  callWhenFinished: 
-  from: {x: 0, y: -120, z: 0}
-  to: {x: 0, y: 0, z: 0}
 --- !u!1 &1227043907
 GameObject:
   m_ObjectHideFlags: 0
@@ -23788,7 +23749,14 @@ MonoBehaviour:
   totalTimeLabel: {fileID: 570115688}
   enhanceBaseBox: {fileID: 857171367}
   enhanceLeftSideElements: {fileID: 158249982}
-  bottomFadeInElements: []
+  bottomFadeInElements:
+  - {fileID: 39998362}
+  - {fileID: 570115688}
+  - {fileID: 691794704}
+  - {fileID: 947343374}
+  - {fileID: 1536713254}
+  - {fileID: 2021574552}
+  - {fileID: 1810477823}
   scrollPanel: {fileID: 1672417239}
   goonGrid: {fileID: 161025428}
   bottomBarLabel: {fileID: 1891671787}
@@ -25774,6 +25742,7 @@ GameObject:
   - 4: {fileID: 1517558272}
   - 114: {fileID: 1517558273}
   - 114: {fileID: 1517558274}
+  - 114: {fileID: 1517558275}
   m_Layer: 8
   m_Name: HealBox
   m_TagString: Untagged
@@ -25855,6 +25824,44 @@ MonoBehaviour:
   timeLabel: {fileID: 23572771}
   background: {fileID: 1517558273}
   removeButton: {fileID: 2104974569}
+--- !u!114 &1517558275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 174152260}
+  m_GameObject: {fileID: 1517558271}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d166255cacf07b4292b8402b3ddefc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  method: 0
+  style: 0
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  ignoreTimeScale: 1
+  delay: 0
+  duration: .300000012
+  steeperCurves: 0
+  tweenGroup: 0
+  onFinished: []
+  eventReceiver: {fileID: 0}
+  callWhenFinished: 
+  from: {x: 0, y: 0, z: 0}
+  to: {x: 0, y: 0, z: 0}
 --- !u!1 &1519841325
 GameObject:
   m_ObjectHideFlags: 0

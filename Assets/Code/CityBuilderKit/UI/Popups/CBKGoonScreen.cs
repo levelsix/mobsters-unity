@@ -107,7 +107,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	const string bottomSacrificeDialogue = "Select a mobster to sacrifice";
 
 	const int rightShiftOnMobsterEnhance = 130;
-	const float timeForShift = 0.6f;
+	const float TWEEN_TIME = 0.5f;
 	
 	#endregion
 	
@@ -373,10 +373,10 @@ public class CBKGoonScreen : MonoBehaviour {
 
 		float time = 0;
 		float amount = 0;
-		while (time < timeForShift)
+		while (time < TWEEN_TIME)
 		{
 			time += Time.deltaTime;
-			amount = time/timeForShift;
+			amount = time/TWEEN_TIME;
 			dragPanel.scrollView.panel.baseClipRegion = Vector4.Lerp(startingClipRange, endingClipRange, amount);
 			goonPanelParent.localPosition = Vector3.Lerp(startPos, endPos, amount);
 			goonGrid.Reposition();
@@ -397,10 +397,10 @@ public class CBKGoonScreen : MonoBehaviour {
 		
 		float time = 0;
 		float amount = 0;
-		while (time < timeForShift)
+		while (time < TWEEN_TIME)
 		{
 			time += Time.deltaTime;
-			amount = time/timeForShift;
+			amount = time/TWEEN_TIME;
 			dragPanel.scrollView.panel.baseClipRegion = Vector4.Lerp(startingClipRange, endingClipRange, amount);
 			goonPanelParent.localPosition = Vector3.Lerp(startPos, endPos, amount);
 			goonGrid.Reposition();

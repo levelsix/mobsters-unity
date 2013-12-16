@@ -25,6 +25,10 @@ public class CBKMiniHealingBox : MonoBehaviour {
 	[SerializeField]
 	public CBKActionButton removeButton;
 
+	TweenPosition tweenPos;
+
+	static readonly Vector3 BOTTOM_Y_OFFSET = new Vector3(0, -100, 0);
+
 	Dictionary<MonsterProto.MonsterElement, string> elementBackgrounds = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
 		{MonsterProto.MonsterElement.DARKNESS, "nightteam"},
@@ -33,6 +37,11 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		{MonsterProto.MonsterElement.LIGHTNING, "lightteam"},
 		{MonsterProto.MonsterElement.WATER, "waterteam"}
 	};
+
+	void Awake()
+	{
+		tweenPos = GetComponent<TweenPosition>();
+	}
 
 	public void Init(PZMonster monster, bool forTeam = false)
 	{
@@ -51,15 +60,19 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		gameObject.SetActive(true);
 		
 		this.monster = monster;
-		
 
 		if (forTeam)
 		{
 			removeButton.onClick = RemoveTeam;
+
 		}
 		else if (monster != null)
 		{
 			removeButton.onClick = RemoveQueue;
+			
+			tweenPos.to = transform.localPosition;
+			tweenPos.from = transform.localPosition + BOTTOM_Y_OFFSET;
+			tweenPos.PlayForward();
 		}
 	}
 
