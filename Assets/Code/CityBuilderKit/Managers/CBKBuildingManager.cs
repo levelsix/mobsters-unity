@@ -333,7 +333,7 @@ public class CBKBuildingManager : MonoBehaviour
 		}
 		
 		CBKResourceManager.instance.DetermineResourceMaxima();
-
+		CBKMonsterManager.totalResidenceSlots = GetMonsterSlotCount();
 	}
 	
 	CBKBuilding MakeBuildingAt (StructureInfoProto proto, int id, int x, int y)
@@ -667,7 +667,7 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	#endregion
 
-	public void SetMonsterSlotsFromResidences()
+	public int GetMonsterSlotCount()
 	{
 		int monsterSlots = 0;
 		foreach (var item in residences) {
@@ -675,6 +675,7 @@ public class CBKBuildingManager : MonoBehaviour
 
 			//TODO: Add functionality for FB slots
 		}
+		return monsterSlots;
 	}
 
 	public HospitalProto GetHospital(int userStructId)

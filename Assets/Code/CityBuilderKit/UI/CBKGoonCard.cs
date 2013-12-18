@@ -336,7 +336,7 @@ public class CBKGoonCard : MonoBehaviour {
 		if (goon != null && goon.userMonster.numPieces >= goon.monster.numPuzzlePieces && !goon.userMonster.isComplete)
 		{
 			bottomCardLabel.text = "Combining\n" + CBKUtil.TimeStringMed(goon.combineTimeLeft);
-			healButton.label.text = goon.combineFinishGems.ToString();
+			//healButton.label.text = goon.combineFinishGems.ToString();
 		}
 
 		if (isBaseEnhanceMonster)
