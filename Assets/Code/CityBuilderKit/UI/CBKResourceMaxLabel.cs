@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using com.lvl6.proto;
 
 public class CBKResourceMaxLabel : MonoBehaviour {
 
 	[SerializeField]
-	int resource = 0;
+	ResourceType resourceType;
 
 	UILabel maxLabel;
 
@@ -24,8 +25,8 @@ public class CBKResourceMaxLabel : MonoBehaviour {
 		CBKEventManager.UI.OnSetResourceMaxima -= OnSetResourceMaxima;
 	}
 
-	void OnSetResourceMaxima(int cash, int oil)
+	void OnSetResourceMaxima(int[] maxes)
 	{
-		maxLabel.text = "Max: " + String.Format("{0:#,###,###,##0}", (resource==0) ? cash : oil);
+		maxLabel.text = "Max: " + String.Format("{0:#,###,###,##0}", maxes[(int)resourceType-1]);
 	}
 }

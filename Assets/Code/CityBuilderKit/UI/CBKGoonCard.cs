@@ -355,7 +355,7 @@ public class CBKGoonCard : MonoBehaviour {
 						
 				int currentPercentage = Mathf.FloorToInt((goon.percentageTowardsNextLevel +
 					progress * goon.PercentageOfAddedLevelup(CBKMonsterManager.enhancementFeeders[0].enhanceXP)) * 100);
-				Debug.Log ("Final: " + finalPercentage + ", Current: " + currentPercentage);
+				//Debug.Log ("Final: " + finalPercentage + ", Current: " + currentPercentage);
 
 				healthBar.fillAmount = (currentPercentage % 1);
 				enhancePercentageLabel.text = (currentPercentage%100) + "% + " + (finalPercentage - currentPercentage) + "%";

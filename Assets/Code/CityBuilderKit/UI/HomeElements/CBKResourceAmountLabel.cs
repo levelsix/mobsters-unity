@@ -17,17 +17,17 @@ public class CBKResourceAmountLabel : MonoBehaviour {
 	
 	void Start()
 	{
-		OnChangeResource(CBKResourceManager.resources[(int)resource]);
+		OnChangeResource(CBKResourceManager.resources[(int)resource-1]);
 	}
 	
 	void OnEnable()
 	{
-		CBKEventManager.UI.OnChangeResource[(int)resource] += OnChangeResource;
+		CBKEventManager.UI.OnChangeResource[(int)resource-1] += OnChangeResource;
 	}
 	
 	void OnDisable()
 	{
-		CBKEventManager.UI.OnChangeResource[(int)resource] -= OnChangeResource;
+		CBKEventManager.UI.OnChangeResource[(int)resource-1] -= OnChangeResource;
 	}
 	
 	void OnChangeResource(int amount)

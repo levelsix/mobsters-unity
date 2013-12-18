@@ -76,7 +76,7 @@ public class CBKResourceManager : MonoBehaviour {
 
 		if (CBKEventManager.UI.OnSetResourceMaxima != null)
 		{
-			CBKEventManager.UI.OnSetResourceMaxima(maxes[0], maxes[1]);
+			CBKEventManager.UI.OnSetResourceMaxima(maxes);
 		}
 	}
 

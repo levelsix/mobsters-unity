@@ -144,7 +144,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	/// </summary>
 	void PrepareNewEnhanceRequest()
 	{
-		Debug.LogWarning("Preparing Enhance Request");
+		Debug.Log("Preparing Enhance Request");
 		enhanceRequestProto = new SubmitMonsterEnhancementRequestProto();
 		enhanceRequestProto.sender = CBKWhiteboard.localMup;
 	}
@@ -267,7 +267,6 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		if (enhancementFeeders.Count > 0 && enhancementFeeders[0].finishEnhanceTime <= CBKUtil.timeNowMillis)
 		{
-			Debug.Log("Here...");
 			
 			EnhancementWaitTimeCompleteRequestProto request = new EnhancementWaitTimeCompleteRequestProto();
 			request.sender = CBKWhiteboard.localMup;
