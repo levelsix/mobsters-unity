@@ -13,8 +13,6 @@ public class CBKCombinedBuildingProto {
 	public TownHallProto townHall;
 	public LabProto lab;
 
-	public long completeTime = 0;
-
 	public CBKCombinedBuildingProto predecessor
 	{
 		get

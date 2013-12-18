@@ -2,6 +2,7 @@
 using System.Collections;
 using com.lvl6.proto;
 using System.Collections.Generic;
+using System;
 
 public class CBKTaskable : MonoBehaviour {
 
@@ -27,7 +28,20 @@ public class CBKTaskable : MonoBehaviour {
 	{
 		if (CBKMonsterManager.monstersOnTeam == 0)
 		{
-			Debug.Log("No monsters on team!");
+			CBKEventManager.Popup.CreateButtonPopup("Uh oh, you have no mobsters on your team. Manage your team?",
+                new string[]{"Later", "Manage"},
+                new Action[]{delegate{CBKEventManager.Popup.CloseTopPopupLayer();},
+					delegate{CBKEventManager.Popup.CloseAllPopups(); CBKEventManager.Popup.OnPopup(CBKPopupManager.instance.goonManagePopup);
+						CBKPopupManager.instance.goonManagePopup.GetComponent<CBKGoonScreen>().InitHeal();}});
+			return;
+		}
+		else if (CBKMonsterManager.userMonsters.Count > CBKMonsterManager.totalResidenceSlots)
+		{
+			CBKEventManager.Popup.CreateButtonPopup("Uh oh, you have recruited too many mobsters. Manage your team?",
+			                                        new string[]{"Later", "Manage"},
+			new Action[]{delegate{CBKEventManager.Popup.CloseTopPopupLayer();},
+				delegate{CBKEventManager.Popup.CloseAllPopups(); CBKEventManager.Popup.OnPopup(CBKPopupManager.instance.goonManagePopup);
+					CBKPopupManager.instance.goonManagePopup.GetComponent<CBKGoonScreen>().InitHeal();}});
 			return;
 		}
 		else

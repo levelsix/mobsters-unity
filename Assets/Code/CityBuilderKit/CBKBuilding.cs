@@ -118,6 +118,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 
 	const float HOME_BUILDING_SCALE = 0.66f;
 
+	public long completeTime = 0;
+
     #endregion
 
     #region Private

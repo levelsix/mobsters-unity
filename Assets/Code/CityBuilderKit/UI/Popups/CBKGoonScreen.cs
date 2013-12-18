@@ -257,7 +257,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		for (i = 0; i < healingMonsters.Count; i++) 
 		{
 			bottomMiniBoxes[i].Init (healingMonsters[i]);
-			bottomMiniBoxes[i].SetBar(healingMonsters[i].healingMonster.expectedStartTimeMillis < CBKUtil.timeNowMillis);
+			bottomMiniBoxes[i].SetBar(healingMonsters[i].healingMonster.expectedStartTimeMillis <= CBKUtil.timeNowMillis);
 		}
 		for (; i < bottomMiniBoxes.Count; i++) 
 		{
@@ -337,9 +337,16 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		if (queueParent.activeSelf && healMode)
 		{
-			long timeLeft = CBKMonsterManager.healingMonsters[CBKMonsterManager.healingMonsters.Count-1].healTimeLeftMillis;
-			totalTimeLabel.text = CBKUtil.TimeStringShort(timeLeft);
-			speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString();
+			long totalHealTimeLeft = 0;
+			foreach (var item in CBKMonsterManager.healingMonsters) {
+				if (item.finishHealTimeMillis > totalHealTimeLeft)
+				{
+					totalHealTimeLeft = item.finishHealTimeMillis;
+				}
+			}
+			totalHealTimeLeft -= CBKUtil.timeNowMillis;
+			totalTimeLabel.text = CBKUtil.TimeStringShort(totalHealTimeLeft);
+			speedUpButton.label.text = Mathf.Ceil((float)totalHealTimeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString();
 		}
 		else if (queueParent.activeSelf && CBKMonsterManager.enhancementFeeders.Count > 0)
 		{

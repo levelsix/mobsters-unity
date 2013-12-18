@@ -34,17 +34,8 @@ namespace com.lvl6.proto
       set { _currencyAmount = value; }
     }
 
-    private bool _isGold = default(bool);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"isGold", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool isGold
-    {
-      get { return _isGold; }
-      set { _isGold = value; }
-    }
-
     private string _imageName = "";
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"imageName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"imageName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string imageName
     {

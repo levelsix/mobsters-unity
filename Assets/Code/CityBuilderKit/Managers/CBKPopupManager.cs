@@ -4,7 +4,15 @@ using System.Collections.Generic;
 using System;
 
 public class CBKPopupManager : MonoBehaviour {
-	
+
+	public static CBKPopupManager instance;
+
+	#region Popups
+
+	public GameObject goonManagePopup;
+
+	#endregion
+
 	/// <summary>
 	/// The popup
 	/// </summary>
@@ -26,6 +34,7 @@ public class CBKPopupManager : MonoBehaviour {
 	void Awake()
 	{
 		_currPops = new Stack<GameObject>();
+		instance = this;
 	}
 	
 	/// <summary>

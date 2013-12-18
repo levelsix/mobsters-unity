@@ -25,8 +25,10 @@ public class CBKMonsterManager : MonoBehaviour {
 	
 	public static PZMonster currentEnhancementMonster;
 
+	public static int totalResidenceSlots;
+
 	public const int TEAM_SLOTS = 3;
-	
+
 	private static int _monstersCount;
 	
 	public static int monstersOnTeam
@@ -49,7 +51,13 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		instance = this;
 	}
-	
+
+	/// <summary>
+	/// Sets up the monster lists according to data from the StartupResponse
+	/// </summary>
+	/// <param name="monsters">All user monsters</param>
+	/// <param name="healing">List of monsters currently healing</param>
+	/// <param name="enhancement">List of monsters enhancing and being used for enhancements</param>
 	public void Init(List<FullUserMonsterProto> monsters, List<UserMonsterHealingProto> healing, UserEnhancementProto enhancement)
 	{
 		PZMonster mon;
@@ -107,7 +115,12 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		CBKEventManager.Popup.CloseAllPopups -= SendRequests;
 	}
-	
+
+	/// <summary>
+	/// Update this instance.
+	/// TODO: Change this to a method that only gets called every second.
+	/// We don't need to check all of these things every step, since they run on a second-to-second basis anyways.
+	/// </summary>
 	void Update()
 	{
 		CheckHealingMonsters();
@@ -116,26 +129,40 @@ public class CBKMonsterManager : MonoBehaviour {
 		
 		CheckCombiningMonsters();
 	}
-	
+
+	/// <summary>
+	/// Prepares a new heal request.
+	/// </summary>
 	void PrepareNewHealRequest()
 	{
 		healRequestProto = new HealMonsterRequestProto();
 		healRequestProto.sender = CBKWhiteboard.localMup;
 	}
-	
+
+	/// <summary>
+	/// Prepares a new enhance request.
+	/// </summary>
 	void PrepareNewEnhanceRequest()
 	{
 		Debug.LogWarning("Preparing Enhance Request");
 		enhanceRequestProto = new SubmitMonsterEnhancementRequestProto();
 		enhanceRequestProto.sender = CBKWhiteboard.localMup;
 	}
-	
+
+	/// <summary>
+	/// Prepares a new combine pieces request.
+	/// </summary>
 	void PrepareNewCombinePiecesRequest()
 	{
 		combineRequestProto = new CombineUserMonsterPiecesRequestProto();
 		combineRequestProto.sender = CBKWhiteboard.localMup;
 	}
-	
+
+	/// <summary>
+	/// Sends the complete heal request.
+	/// </summary>
+	/// <returns>The complete heal request.</returns>
+	/// <param name="request">Request.</param>
 	IEnumerator SendCompleteHealRequest(HealMonsterWaitTimeCompleteRequestProto request)
 	{
 		if (healRequestProto != null)
@@ -188,6 +215,22 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			return;
 		}
+
+		string str = "Sending Heal Request: ";
+		foreach (var item in healRequestProto.umhNew) 
+		{
+			//str += "\nNew Monster: " + item.userMonsterId + "," + item.priority + ", " + item.userHospitalStructId + ", " + item.healthProgress + ", " + userMonsters[item.userMonsterId].healingMonster.expectedStartTimeMillis + ", " + userMonsters[item.userMonsterId].finishHealTimeMillis;  
+		}
+		foreach (var item in healRequestProto.umhUpdate) 
+		{
+			//str += "\nUpdate Monster: " + item.userMonsterId + ", " + item.priority + ", " + item.userHospitalStructId + ", " + item.healthProgress;  
+		}
+		foreach (var item in healRequestProto.umhDelete) 
+		{
+			//str += "\nDelete Monster: " + item.userMonsterId;
+		}
+
+		//Debug.LogWarning(str);
 		
 		UMQNetworkManager.instance.SendRequest(healRequestProto, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT, DealWithHealStartResponse);
 		
@@ -252,22 +295,41 @@ public class CBKMonsterManager : MonoBehaviour {
 			*/
 		}
 	}
+
+	bool SomeMonsterFinishedHealing()
+	{
+		foreach (var item in healingMonsters) 
+		{
+			if (item.finishHealTimeMillis <= CBKUtil.timeNowMillis)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	void CheckHealingMonsters()
 	{
-		if (healingMonsters.Count > 0 && healingMonsters[0].finishHealTimeMillis <= CBKUtil.timeNowMillis)
+		if (SomeMonsterFinishedHealing())
 		{
 			HealMonsterWaitTimeCompleteRequestProto request = new HealMonsterWaitTimeCompleteRequestProto();
 			request.sender = CBKWhiteboard.localMup;
 			request.isSpeedup = false;
 			UserMonsterCurrentHealthProto health;
-			while (healingMonsters.Count > 0 && healingMonsters[0].healTimeLeftMillis <= 0) 
+			for (int i = 0; i < healingMonsters.Count;) 
 			{
-				health = new UserMonsterCurrentHealthProto();
-				health.userMonsterId = healingMonsters[0].healingMonster.userMonsterId;
-				health.currentHealth = healingMonsters[0].maxHP;
-				request.umchp.Add(health);
-				CompleteHeal(healingMonsters[0]);
+				if (healingMonsters[i].finishHealTimeMillis <= CBKUtil.timeNowMillis)
+				{
+					health = new UserMonsterCurrentHealthProto();
+					health.userMonsterId = healingMonsters[i].healingMonster.userMonsterId;
+					health.currentHealth = healingMonsters[i].maxHP;
+					request.umchp.Add(health);
+					CompleteHeal(healingMonsters[i]);
+				}
+				else
+				{
+					i++;
+				}
 			}
 			StartCoroutine(SendCompleteHealRequest (request));
 		}
@@ -348,7 +410,12 @@ public class CBKMonsterManager : MonoBehaviour {
 			Debug.LogError("Problem completing heal: " + response.status.ToString());
 		}
 	}
-	
+
+	/// <summary>
+	/// Called during Dugeon Complete, uses the list of monsters sent in EndDungeonResponse
+	/// to add new monsters and update incomplete monsters with new pieces
+	/// </summary>
+	/// <param name="monsters">Monsters.</param>
 	public void UpdateOrAddAll(List<FullUserMonsterProto> monsters)
 	{
 		foreach (FullUserMonsterProto item in monsters) 
@@ -365,7 +432,14 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		UMQNetworkManager.instance.SendRequest(combineRequestProto, (int)EventProtocolRequest.C_COMBINE_USER_MONSTER_PIECES_EVENT, DealWithCombineResponse);
 	}
-	
+
+	/// <summary>
+	/// Updates or adds the specified monster.
+	/// Monsters are updated with new pieces when the player collects monster pieces
+	/// New monsters have just had their first piece collected, so they need a new entry
+	/// in userMonsters
+	/// </summary>
+	/// <param name="monster">Monster.</param>
 	void UpdateOrAdd(FullUserMonsterProto monster)
 	{
 		PZMonster mon;
@@ -387,7 +461,12 @@ public class CBKMonsterManager : MonoBehaviour {
 			StartMonsterCombine(mon);
 		}
 	}
-	
+
+	/// <summary>
+	/// Starts the monster combine, given that enough pieces
+	/// are present.
+	/// </summary>
+	/// <param name="monster">Monster.</param>
 	void StartMonsterCombine(PZMonster monster)
 	{
 		if (monster.monster.minutesToCombinePieces == 0)
@@ -400,7 +479,12 @@ public class CBKMonsterManager : MonoBehaviour {
 			combiningMonsters.Add(monster);
 		}
 	}
-	
+
+	/// <summary>
+	/// Turns an incomplete monster into a complete monster.
+	/// Called after the combination time has passed.
+	/// </summary>
+	/// <param name="monster">Monster.</param>
 	void CombineMonster(PZMonster monster)
 	{
 		if (combineRequestProto == null)
@@ -417,7 +501,11 @@ public class CBKMonsterManager : MonoBehaviour {
 			combiningMonsters.Remove(monster);
 		}
 	}
-	
+
+	/// <summary>
+	/// Checks through the list of monsters that have enough pieces to see if we
+	/// need to complete any of them.
+	/// </summary>
 	void CheckCombiningMonsters()
 	{
 		if (combineRequestProto == null)
@@ -448,7 +536,13 @@ public class CBKMonsterManager : MonoBehaviour {
 		
 		SendCombineRequest();
 	}
-	
+
+
+	/// <summary>
+	/// Adds a monster to the healing queue.
+	/// Function shorts if there are no available hospitals.
+	/// </summary>
+	/// <param name="monster">Monster.</param>
 	public void AddToHealQueue(PZMonster monster)
 	{
 		if (CBKBuildingManager.hospitals.Count == 0)
@@ -464,6 +558,8 @@ public class CBKMonsterManager : MonoBehaviour {
 		monster.healingMonster = new UserMonsterHealingProto();
 		monster.healingMonster.userId = CBKWhiteboard.localMup.userId;
 		monster.healingMonster.userMonsterId = monster.userMonster.userMonsterId;
+		monster.healingMonster.userHospitalStructId = 0;
+		monster.healingMonster.healthProgress = 0;
 
 		healingMonsters.Add (monster);
 		
@@ -489,27 +585,49 @@ public class CBKMonsterManager : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Called whenever we add new monsters to the healing queue or the number of monsters
+	/// in the healing queue changes. This will take into account multiple hospitals. 
+	/// When deciding which hospital to assign to which monster, it will choose the 
+	/// hospital which will finish the monster's healing the earliest.
+	/// </summary>
 	public void RearrangeHealingQueue()
 	{
 		CBKBuilding chosenHospital;
 		long completeTimeAtChosen;
+		foreach (CBKBuilding hospital in CBKBuildingManager.hospitals) 
+		{
+			hospital.completeTime = CBKUtil.timeNowMillis;
+		}
+		int priority = 1;
 		foreach (PZMonster monster in healingMonsters) 
 		{
+			monster.healingMonster.priority = priority++;
+			//If it already had a hospital assigned, find that hospital and adjust its health progress appropriately
+			if (monster.healingMonster.userHospitalStructId > 0) 
+			{
+				if (CBKUtil.timeNowMillis > monster.healingMonster.expectedStartTimeMillis)
+				{
+					monster.healingMonster.healthProgress += (int)((CBKUtil.timeNowMillis - monster.healingMonster.expectedStartTimeMillis) / 1000 
+						* CBKBuildingManager.instance.GetHospital(monster.healingMonster.userHospitalStructId).healthPerSecond);
+				}
+			}
 			chosenHospital = null;
 			completeTimeAtChosen = long.MaxValue;
 			foreach (CBKBuilding hospital in CBKBuildingManager.hospitals) 
 			{
-				long timeToCompleteHere = (long)((monster.maxHP - monster.currHP) / hospital.combinedProto.hospital.healthPerSecond)
-					+ Math.Max(hospital.combinedProto.completeTime, CBKUtil.timeNowMillis);
+				long timeToCompleteHere = (long)((monster.maxHP - (monster.currHP + monster.healingMonster.healthProgress)) 
+				                                / hospital.combinedProto.hospital.healthPerSecond) * 1000
+												+ hospital.completeTime;
 				if (timeToCompleteHere < completeTimeAtChosen)
 				{
 					chosenHospital = hospital;
 					completeTimeAtChosen = timeToCompleteHere;
 				}
 			}
-			monster.healingMonster.expectedStartTimeMillis = Math.Max(chosenHospital.combinedProto.completeTime, CBKUtil.timeNowMillis);
-			chosenHospital.combinedProto.completeTime = completeTimeAtChosen;
-			monster.userHospitalID = chosenHospital.userStructProto.userStructId;
+			monster.healingMonster.expectedStartTimeMillis = chosenHospital.completeTime;
+			chosenHospital.completeTime = completeTimeAtChosen;
+			monster.healingMonster.userHospitalStructId = chosenHospital.userStructProto.userStructId;
 		}
 	}
 	
@@ -537,26 +655,25 @@ public class CBKMonsterManager : MonoBehaviour {
 		else
 		{
 			healRequestProto.umhDelete.Add(monster.healingMonster);
+			if (healRequestProto.umhUpdate.Contains(monster.healingMonster))
+			{
+				healRequestProto.umhUpdate.Remove(monster.healingMonster);
+			}
 		}
 		
 		healRequestProto.cashChange -= monster.healCost;
 		
 		monster.healingMonster = null;
 
-		/*
+		//Set the hospital ID's of all the rest of the monsters in the queue to 0 so that they get rearranged properly
 		for (; i < healingMonsters.Count; i++) 
 		{
-			if (i==0)
+			if (!healRequestProto.umhNew.Contains(healingMonsters[i].healingMonster))
 			{
-				healingMonsters[i].healingMonster.expectedStartTimeMillis = CBKUtil.timeNowMillis;
+				healRequestProto.umhUpdate.Add (healingMonsters[i].healingMonster);
 			}
-			else
-			{
-				healingMonsters[i].healingMonster.expectedStartTimeMillis = healingMonsters[i-1].finishHealTimeMillis;
-			}
-			healRequestProto.umhUpdate.Add (healingMonsters[i].healingMonster);
 		}
-		*/
+
 		RearrangeHealingQueue();
 		
 		CBKResourceManager.instance.Collect(ResourceType.CASH, monster.healCost);

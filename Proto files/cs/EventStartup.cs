@@ -574,6 +574,15 @@ namespace com.lvl6.proto
       get { return _pvpRequiredMinLvl; }
       set { _pvpRequiredMinLvl = value; }
     }
+
+    private float _gemsPerResource = default(float);
+    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"gemsPerResource", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float gemsPerResource
+    {
+      get { return _gemsPerResource; }
+      set { _gemsPerResource = value; }
+    }
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnimatedSpriteOffsetProto")]
   public partial class AnimatedSpriteOffsetProto : global::ProtoBuf.IExtensible
   {

@@ -333,6 +333,7 @@ public class CBKBuildingManager : MonoBehaviour
 		}
 		
 		CBKResourceManager.instance.DetermineResourceMaxima();
+
 	}
 	
 	CBKBuilding MakeBuildingAt (StructureInfoProto proto, int id, int x, int y)
@@ -666,6 +667,21 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	#endregion
 
+	public void SetMonsterSlotsFromResidences()
+	{
+		int monsterSlots = 0;
+		foreach (var item in residences) {
+			monsterSlots += item.combinedProto.residence.numMonsterSlots;
+
+			//TODO: Add functionality for FB slots
+		}
+	}
+
+	public HospitalProto GetHospital(int userStructId)
+	{
+		return buildings[userStructId].combinedProto.hospital;
+	}
+
 	public List<ResourceStorageProto> GetAllStorages()
 	{
 		List<ResourceStorageProto> storages = new List<ResourceStorageProto>();
@@ -696,12 +712,15 @@ public class CBKBuildingManager : MonoBehaviour
 	{
 		switch(building.combinedProto.structInfo.structType)
 		{
-		case StructureInfoProto.StructType.HOSPITAL:
-			hospitals.Add(building);
-			break;
-		case StructureInfoProto.StructType.LAB:
-			labs.Add(building);
-			break;
+			case StructureInfoProto.StructType.HOSPITAL:
+				hospitals.Add(building);
+				break;
+			case StructureInfoProto.StructType.LAB:
+				labs.Add(building);
+				break;
+			case StructureInfoProto.StructType.TOWN_HALL:
+				townHall = building;
+				break;
 		}
 	}
 	

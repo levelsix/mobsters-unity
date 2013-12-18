@@ -72,6 +72,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 			
 			tweenPos.to = transform.localPosition;
 			tweenPos.from = transform.localPosition + BOTTOM_Y_OFFSET;
+			tweenPos.Reset();
 			tweenPos.PlayForward();
 		}
 	}
@@ -110,12 +111,12 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		}
 		if (monster.isHealing)
 		{
-			bar.fillAmount = ((float)monster.healTimeLeftMillis) / ((float)monster.timeToHealMillis);
+			bar.fillAmount = 1 - ((float)monster.healTimeLeftMillis) / ((float)monster.timeToHealMillis);
 			timeLabel.text = CBKUtil.TimeStringShort(monster.healTimeLeftMillis);
 		}
 		else if (monster.isEnhancing)
 		{
-			bar.fillAmount = ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
+			bar.fillAmount = 1 - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
 			timeLabel.text = CBKUtil.TimeStringShort(monster.enhanceTimeLeft);
 		}
 		else bar.fillAmount = 0;
