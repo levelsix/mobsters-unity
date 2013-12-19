@@ -160,8 +160,16 @@ public class CBKGoonCard : MonoBehaviour {
 		}
 		else if (CBKMonsterManager.currentEnhancementMonster == null)
 		{
-			healthBar.fillAmount = goon.percentageTowardsNextLevel;
-			enhancePercentageLabel.text = ((int)(goon.percentageTowardsNextLevel * 100)) + "%";
+			if (goon.userMonster.currentLvl >= goon.monster.maxLevel)
+			{
+				healthBar.fillAmount = 1;
+				enhancePercentageLabel.text = "MAX LEVEL";
+			}
+			else
+			{
+				healthBar.fillAmount = goon.percentageTowardsNextLevel;
+				enhancePercentageLabel.text = ((int)(goon.percentageTowardsNextLevel * 100)) + "%";
+			}
 		}
 		else
 		{
@@ -190,7 +198,7 @@ public class CBKGoonCard : MonoBehaviour {
 			addRemoveButtonBackground.spriteName = onTeamButtonSpriteName;
 			addRemoveButtonBackground.alpha = 1;
 			addRemoveTeamButton.onClick = RemoveFromTeam;
-			Debug.Log("button: " + ((addRemoveTeamButton.button == null) ? "no" : "yes"));
+			//Debug.Log("button: " + ((addRemoveTeamButton.button == null) ? "no" : "yes"));
 			addRemoveTeamButton.button.isEnabled = true;
 		}
 		else

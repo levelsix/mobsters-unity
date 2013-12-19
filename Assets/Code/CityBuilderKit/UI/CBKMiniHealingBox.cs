@@ -25,6 +25,8 @@ public class CBKMiniHealingBox : MonoBehaviour {
 	[SerializeField]
 	public CBKActionButton removeButton;
 
+	public bool on = false;
+
 	TweenPosition tweenPos;
 
 	static readonly Vector3 BOTTOM_Y_OFFSET = new Vector3(0, -100, 0);
@@ -64,22 +66,28 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		if (forTeam)
 		{
 			removeButton.onClick = RemoveTeam;
-
 		}
 		else if (monster != null)
 		{
 			removeButton.onClick = RemoveQueue;
-			
-			tweenPos.to = transform.localPosition;
-			tweenPos.from = transform.localPosition + BOTTOM_Y_OFFSET;
-			tweenPos.Reset();
-			tweenPos.PlayForward();
+			if (!on)
+			{
+				if (tweenPos != null)
+				{
+					tweenPos.to = transform.localPosition;
+					tweenPos.from = transform.localPosition + BOTTOM_Y_OFFSET;
+					tweenPos.Reset();
+					tweenPos.PlayForward();
+				}
+				on = true;
+			}
 		}
 	}
 
 	void RemoveTeam()
 	{
 		CBKMonsterManager.instance.RemoveFromTeam(monster);
+		on = false;
 	}
 
 	void RemoveQueue()
@@ -100,6 +108,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 				CBKMonsterManager.instance.RemoveFromEnhanceQueue(monster);
 			}
 		}
+		on = false;
 	}
 	
 	void Update()

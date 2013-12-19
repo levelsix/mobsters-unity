@@ -330,6 +330,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		box.transform.parent = bottomMiniBoxes[lastBox].transform.parent;
 		box.transform.localScale = Vector3.one;
 		box.transform.localPosition = bottomMiniBoxes[lastBox].transform.localPosition + boxOffset;
+		box.on = false;
 		bottomMiniBoxes.Add (box);
 	}
 	
