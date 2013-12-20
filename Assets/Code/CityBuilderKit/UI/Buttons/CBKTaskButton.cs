@@ -106,9 +106,9 @@ public class CBKTaskButton : CBKTriggerPopupButton, CBKPoolable {
 		text.text = modeTexts[currMode];
 
 		icon.spriteName = modeSprites[currMode];
-		UISpriteData data = icon.GetAtlasSprite();
-		icon.height = data.height;
-		icon.width = data.width;
+		//UISpriteData data = icon.GetAtlasSprite();
+		//icon.height = data.height;
+		//icon.width = data.width;
 	}
 	
 	public override void OnClick ()

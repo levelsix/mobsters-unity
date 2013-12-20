@@ -38,7 +38,7 @@ public class PZCombatUnit : MonoBehaviour {
 	[SerializeField]
 	UISprite shadow;
 
-	const float HP_LERP_TIME = 1.5f;
+	const float HP_LERP_FRAME = 1f;
 	
 	/// <summary>
 	/// Awake this instance and set up component references
@@ -119,12 +119,13 @@ public class PZCombatUnit : MonoBehaviour {
 
 	IEnumerator LerpHealth(float hpBeforeDamage, float hpAfterDamage, int maxHP)
 	{
-		float currTime = 0;
-		while (currTime < HP_LERP_TIME)
+		int frames = (int) (hpBeforeDamage - hpAfterDamage);
+		float currFrame = 0;
+		while (currFrame < frames)
 		{
-			currTime += Time.deltaTime;
-			hpBar.fill = Mathf.Lerp(hpBeforeDamage/maxHP, hpAfterDamage/maxHP, currTime/HP_LERP_TIME);
-			hpLabel.text = ((int)Mathf.Lerp(hpBeforeDamage, hpAfterDamage, currTime/HP_LERP_TIME)) + "/" + maxHP;
+			currFrame++;
+			hpBar.fill = Mathf.Lerp(hpBeforeDamage/maxHP, hpAfterDamage/maxHP, currFrame/frames);
+			hpLabel.text = ((int)Mathf.Lerp(hpBeforeDamage, hpAfterDamage, currFrame/frames)) + "/" + maxHP;
 			yield return null;
 		}
 	}

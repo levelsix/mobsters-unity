@@ -6,7 +6,16 @@ using com.lvl6.proto;
 public class CBKGoonCircleIcon : MonoBehaviour {
 
 	[SerializeField]
-	UISprite ring;
+	UILabel name;
+
+	[SerializeField]
+	UISprite barBg;
+
+	[SerializeField]
+	CBKFillBar hpbar;
+
+	[SerializeField]
+	UISprite bar;
 	
 	[SerializeField]
 	UISprite icon;
@@ -16,33 +25,44 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 	
 	static readonly Dictionary<MonsterProto.MonsterElement, string> ringElementDict = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "nightring"},
-		{MonsterProto.MonsterElement.FIRE, "firering"},
-		{MonsterProto.MonsterElement.GRASS, "earthring"},
-		{MonsterProto.MonsterElement.LIGHTNING, "lightring"},
-		{MonsterProto.MonsterElement.WATER, "waterring"}
+		{MonsterProto.MonsterElement.DARKNESS, "nightcardhealthbar"},
+		{MonsterProto.MonsterElement.FIRE, "firecardhealthbar"},
+		{MonsterProto.MonsterElement.GRASS, "earthcardhealthbar"},
+		{MonsterProto.MonsterElement.LIGHTNING, "lightcardhealthbar"},
+		{MonsterProto.MonsterElement.WATER, "watercardhealthbar"}
 	};
-	
-	const string emptyBackground = "emptyring";
+
+	static readonly Dictionary<MonsterProto.MonsterElement, string> backgroundElementDict = new Dictionary<MonsterProto.MonsterElement, string>()
+	{
+		{MonsterProto.MonsterElement.DARKNESS, "nightteam"},
+		{MonsterProto.MonsterElement.FIRE, "fireteam"},
+		{MonsterProto.MonsterElement.GRASS, "earthteam"},
+		{MonsterProto.MonsterElement.LIGHTNING, "lightteam"},
+		{MonsterProto.MonsterElement.WATER, "waterteam"}
+	};
+
+	const string emptyBackground = "teamempty";
 	const string fullBackground = "memberbg";
 	
 	public void Init(PZMonster monster)
 	{
 		if (monster == null || monster.monster == null || monster.monster.monsterId == 0)
 		{
+			name.text = "Slot Empty";
 			background.spriteName = emptyBackground;
-			ring.fillAmount = 0;
+			barBg.alpha = 0;
 			icon.alpha = 0;
 		}
 		else
 		{
-			background.spriteName = fullBackground;
+			name.text = monster.monster.displayName;
+			background.spriteName = backgroundElementDict[monster.monster.element];
 			icon.alpha = 1;
 			
-			icon.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Icon";
+			icon.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Card";
 			
-			ring.fillAmount = ((float)monster.currHP) / monster.maxHP;
-			ring.spriteName = ringElementDict[monster.monster.element];
+			hpbar.fill = ((float)monster.currHP) / monster.maxHP;
+			bar.spriteName = ringElementDict[monster.monster.element];
 		}
 	}
 }

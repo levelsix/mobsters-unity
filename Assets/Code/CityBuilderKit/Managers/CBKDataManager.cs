@@ -144,66 +144,68 @@ public class CBKDataManager : MonoBehaviour {
 	{
 		foreach (var item in data.expansionCosts) 
 		{
-			CBKDataManager.instance.Load(item, item.expansionNum);
+			Load(item, item.expansionNum);
 		}
 		foreach (var item in data.allCities) 
 		{
-			CBKDataManager.instance.Load(item, item.cityId);
+			Load(item, item.cityId);
 		}
 		foreach (var item in data.allGenerators)
 		{
 			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
-			CBKDataManager.instance.Load(building, building.id);
+			Load(building, building.id);
 		}
 		foreach (var item in data.allStorages)
 		{
 			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
-			CBKDataManager.instance.Load(building, building.id);
+			Load(building, building.id);
 		}
 		foreach (var item in data.allHospitals) 
 		{
 			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
-			CBKDataManager.instance.Load(building, building.id);
+			Load(building, building.id);
 		}
 		foreach (var item in data.allLabs) 
 		{
 			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
-			CBKDataManager.instance.Load(building, building.id);
+			Load(building, building.id);
 		}
 		foreach (var item in data.allResidences) 
 		{
 			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
-			CBKDataManager.instance.Load(building, building.id);
+			Load(building, building.id);
 		}
 		foreach (var item in data.allTownHalls) 
 		{
 			CBKCombinedBuildingProto building = new CBKCombinedBuildingProto(item);
-			CBKDataManager.instance.Load(building, building.id);
+			Load(building, building.id);
 		}
 		foreach (var item in data.allTasks) 
 		{
-			CBKDataManager.instance.Load(item, item.taskId);
+			Load(item, item.taskId);
 		}
 		foreach (var item in data.allMonsters) 
 		{
-			CBKDataManager.instance.Load(item, item.monsterId);
+			Load(item, item.monsterId);
 		}
 		foreach (var item in data.slip) 
 		{
-			CBKDataManager.instance.Load(item, item.level);
+			Load(item, item.level);
 		}
-
+		foreach (var item in data.boosterPacks) {
+			Load(item, item.boosterPackId);
+		}
 		foreach (var item in data.inProgressQuests) 
 		{
-			CBKDataManager.instance.Load(item, item.questId);
+			Load(item, item.questId);
 		}
 		foreach (var item in data.unredeemedQuests) 
 		{
-			CBKDataManager.instance.Load(item, item.questId);
+			Load(item, item.questId);
 		}
 		foreach (var item in data.availableQuests) 
 		{
-			CBKDataManager.instance.Load(item, item.questId);
+			Load(item, item.questId);
 		}
 	}
 }
