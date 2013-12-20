@@ -113,7 +113,7 @@ public class CBKAtlasUtil : MonoBehaviour {
 
 	public Sprite GetBuildingSprite(string spriteName)
 	{
-		return Resources.Load("Sprites/Buildings/" + spriteName, typeof(Sprite)) as Sprite;
+		return Resources.Load("Sprites/Buildings/" + CBKUtil.StripExtensions(spriteName), typeof(Sprite)) as Sprite;
 	}
 	
 	public void UnloadAllAtlases()

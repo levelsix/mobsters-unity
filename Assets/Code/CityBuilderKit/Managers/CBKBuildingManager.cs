@@ -391,7 +391,7 @@ public class CBKBuildingManager : MonoBehaviour
     	return building;
 	}
 	
-	private void BuyBuilding(StructureInfoProto proto)
+	public bool BuyBuilding(StructureInfoProto proto)
 	{
 		ResourceType costType = proto.buildResourceType;
 		if (CBKResourceManager.instance.Spend(costType, proto.buildCost))
@@ -419,8 +419,11 @@ public class CBKBuildingManager : MonoBehaviour
 			
 			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_NORM_STRUCTURE_EVENT, PurchaseBuildingResponse);
 			
-			//TODO: Make Game hang on response
+			//TODO: Make Game hang on response?
+
+			return true;
 		}
+		return false;
 	}
 	
 	private void PurchaseBuildingResponse(int tagNum)
@@ -666,6 +669,19 @@ public class CBKBuildingManager : MonoBehaviour
 	}
 	
 	#endregion
+
+	public int GetBuildingTypeCount(StructureInfoProto.StructType structType, ResourceType buildResourceType = ResourceType.CASH)
+	{
+		int count = 0;
+		foreach (var item in buildings.Values) 
+		{
+			if (item.combinedProto.structInfo.structType == structType && item.combinedProto.structInfo.buildResourceType == buildResourceType)
+			{
+				count++;
+			}
+		}
+		return count;
+	}
 
 	public int GetMonsterSlotCount()
 	{

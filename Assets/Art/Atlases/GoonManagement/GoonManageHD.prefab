@@ -41,8 +41,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 3300e5af79caa401a8483f5336cf8d60, type: 2}
   mSprites:
   - name: addteam
-    x: 217
-    y: 366
+    x: 1430
+    y: 1478
     width: 34
     height: 34
     borderLeft: 0
@@ -66,9 +66,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 1
+  - name: buildingbg
+    x: 0
+    y: 477
+    width: 294
+    height: 384
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 4
+    paddingRight: 4
+    paddingTop: 4
+    paddingBottom: 4
   - name: cancel
-    x: 485
-    y: 45
+    x: 729
+    y: 227
     width: 168
     height: 80
     borderLeft: 0
@@ -80,8 +93,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cardbottomoverlay
-    x: 702
-    y: 10
+    x: 0
+    y: 14
     width: 190
     height: 44
     borderLeft: 0
@@ -93,8 +106,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cardhealthbg
-    x: 387
-    y: 12
+    x: 631
+    y: 18
     width: 92
     height: 18
     borderLeft: 4
@@ -106,8 +119,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cardshadow
-    x: 702
-    y: 136
+    x: 1773
+    y: 972
     width: 202
     height: 252
     borderLeft: 0
@@ -158,8 +171,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: closex
-    x: 824
-    y: 633
+    x: 1987
+    y: 1413
     width: 58
     height: 58
     borderLeft: 0
@@ -171,8 +184,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: commontag
-    x: 909
-    y: 93
+    x: 414
+    y: 37
     width: 88
     height: 88
     borderLeft: 0
@@ -184,8 +197,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: confirm
-    x: 702
-    y: 55
+    x: 729
+    y: 308
     width: 168
     height: 80
     borderLeft: 0
@@ -210,8 +223,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: darkstars
-    x: 1100
-    y: 586
+    x: 1840
+    y: 1385
     width: 116
     height: 35
     borderLeft: 0
@@ -249,8 +262,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: detailhp
-    x: 1291
-    y: 460
+    x: 1534
+    y: 799
     width: 192
     height: 20
     borderLeft: 0
@@ -275,7 +288,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: DirtyHeadline
-    x: 268
+    x: 295
     y: 389
     width: 508
     height: 183
@@ -288,7 +301,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 328
   - name: earthborder
-    x: 607
+    x: 634
     y: 599
     width: 216
     height: 262
@@ -301,8 +314,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthcard
-    x: 1556
-    y: 984
+    x: 909
+    y: 239
     width: 190
     height: 240
     borderLeft: 0
@@ -314,8 +327,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthcardhealthbar
-    x: 1938
-    y: 1032
+    x: 1840
+    y: 1300
     width: 88
     height: 14
     borderLeft: 0
@@ -327,8 +340,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthstars
-    x: 1100
-    y: 478
+    x: 909
+    y: 70
     width: 116
     height: 35
     borderLeft: 0
@@ -340,8 +353,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: earthteam
-    x: 824
-    y: 692
+    x: 1960
+    y: 1699
     width: 84
     height: 84
     borderLeft: 0
@@ -353,8 +366,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthteamhealthbar
-    x: 1556
-    y: 967
+    x: 1100
+    y: 59
     width: 168
     height: 16
     borderLeft: 0
@@ -366,8 +379,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: emptyslot
-    x: 1747
-    y: 984
+    x: 1100
+    y: 239
     width: 190
     height: 240
     borderLeft: 0
@@ -379,8 +392,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: emptystar
-    x: 228
-    y: 284
+    x: 268
+    y: 216
     width: 24
     height: 22
     borderLeft: 0
@@ -392,8 +405,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: enhancediver
-    x: 243
-    y: 39
+    x: 268
+    y: 263
     width: 4
     height: 141
     borderLeft: 0
@@ -405,8 +418,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: enhancepercentbg
-    x: 1230
-    y: 1480
+    x: 1840
+    y: 1347
     width: 188
     height: 32
     borderLeft: 0
@@ -418,7 +431,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: enhanceslot
-    x: 268
+    x: 295
     y: 7
     width: 118
     height: 118
@@ -431,8 +444,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: epictag
-    x: 1938
-    y: 1047
+    x: 631
+    y: 37
     width: 88
     height: 88
     borderLeft: 0
@@ -444,8 +457,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: finishheal
-    x: 1840
-    y: 1315
+    x: 729
+    y: 90
     width: 162
     height: 64
     borderLeft: 0
@@ -457,7 +470,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: fireborder
-    x: 909
+    x: 1126
     y: 962
     width: 216
     height: 262
@@ -471,7 +484,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: firecard
     x: 909
-    y: 480
+    y: 721
     width: 190
     height: 240
     borderLeft: 0
@@ -483,8 +496,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: firecardhealthbar
-    x: 1938
-    y: 1017
+    x: 729
+    y: 3
     width: 88
     height: 14
     borderLeft: 5
@@ -497,7 +510,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: firestars
     x: 1100
-    y: 514
+    y: 203
     width: 116
     height: 35
     borderLeft: 0
@@ -510,7 +523,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: fireteam
     x: 1960
-    y: 1699
+    y: 1529
     width: 84
     height: 84
     borderLeft: 0
@@ -523,7 +536,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: fireteamhealthbar
     x: 1100
-    y: 421
+    y: 76
     width: 168
     height: 16
     borderLeft: 0
@@ -535,8 +548,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: fixarrow
-    x: 1538
-    y: 697
+    x: 1291
+    y: 531
     width: 370
     height: 77
     borderLeft: 0
@@ -548,8 +561,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: fullstar
-    x: 228
-    y: 261
+    x: 268
+    y: 193
     width: 24
     height: 22
     borderLeft: 0
@@ -561,8 +574,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: funds
-    x: 1291
-    y: 633
+    x: 1534
+    y: 820
     width: 246
     height: 141
     borderLeft: 0
@@ -574,8 +587,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: gemsbutton
-    x: 1840
-    y: 1400
+    x: 729
+    y: 155
     width: 149
     height: 71
     borderLeft: 0
@@ -587,8 +600,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: heal
-    x: 1100
-    y: 670
+    x: 1840
+    y: 1421
     width: 146
     height: 50
     borderLeft: 0
@@ -600,8 +613,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healbar
-    x: 905
-    y: 226
+    x: 851
+    y: 592
     width: 2
     height: 162
     borderLeft: 0
@@ -613,8 +626,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healbutton
-    x: 824
-    y: 575
+    x: 191
+    y: 1
     width: 57
     height: 57
     borderLeft: 0
@@ -626,8 +639,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: healingarrow
-    x: 1487
-    y: 559
+    x: 1662
+    y: 535
     width: 366
     height: 73
     borderLeft: 0
@@ -639,8 +652,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: healingheart
-    x: 217
-    y: 401
+    x: 851
+    y: 755
     width: 48
     height: 42
     borderLeft: 0
@@ -652,8 +665,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healingminibox
-    x: 777
-    y: 454
+    x: 512
+    y: 7
     width: 118
     height: 118
     borderLeft: 0
@@ -665,7 +678,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healingoverlay
-    x: 1126
+    x: 1343
     y: 965
     width: 214
     height: 259
@@ -704,8 +717,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: legendarytag
-    x: 1958
-    y: 1960
+    x: 804
+    y: 389
     width: 88
     height: 88
     borderLeft: 0
@@ -717,8 +730,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: legendtag
-    x: 387
-    y: 31
+    x: 804
+    y: 478
     width: 94
     height: 94
     borderLeft: 0
@@ -731,7 +744,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: lightcard
     x: 909
-    y: 721
+    y: 480
     width: 190
     height: 240
     borderLeft: 0
@@ -743,8 +756,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightcardhealthbar
-    x: 1840
-    y: 1300
+    x: 631
+    y: 3
     width: 88
     height: 14
     borderLeft: 0
@@ -756,8 +769,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightteam
-    x: 1960
-    y: 1784
+    x: 909
+    y: 154
     width: 84
     height: 84
     borderLeft: 0
@@ -769,8 +782,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightteamhealthbar
-    x: 1747
-    y: 967
+    x: 1100
+    y: 93
     width: 168
     height: 16
     borderLeft: 0
@@ -821,7 +834,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: menubluebox
-    x: 268
+    x: 295
     y: 573
     width: 338
     height: 288
@@ -835,7 +848,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: menubrute
     x: 1706
-    y: 785
+    y: 619
     width: 198
     height: 176
     borderLeft: 0
@@ -848,7 +861,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: menubuildings
     x: 1291
-    y: 775
+    y: 609
     width: 207
     height: 186
     borderLeft: 0
@@ -860,8 +873,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: menuclans
-    x: 0
-    y: 15
+    x: 1291
+    y: 796
     width: 242
     height: 165
     borderLeft: 0
@@ -873,8 +886,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: menucrates
-    x: 1291
-    y: 481
+    x: 1781
+    y: 810
     width: 195
     height: 151
     borderLeft: 0
@@ -900,9 +913,22 @@ MonoBehaviour:
     paddingBottom: 0
   - name: menulab
     x: 1499
-    y: 791
+    y: 625
     width: 206
     height: 170
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: menuresourcebg
+    x: 1230
+    y: 1474
+    width: 164
+    height: 38
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -938,8 +964,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minitimebg
-    x: 777
-    y: 395
+    x: 414
+    y: 14
     width: 88
     height: 22
     borderLeft: 0
@@ -964,8 +990,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: myteamdivider
-    x: 217
-    y: 259
+    x: 268
+    y: 405
     width: 10
     height: 71
     borderLeft: 4
@@ -977,7 +1003,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: nightborder
-    x: 485
+    x: 512
     y: 126
     width: 216
     height: 262
@@ -1003,8 +1029,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightcardhealthbar
-    x: 1840
-    y: 1385
+    x: 909
+    y: 19
     width: 88
     height: 14
     borderLeft: 0
@@ -1016,8 +1042,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightteam
-    x: 824
-    y: 777
+    x: 1960
+    y: 1784
     width: 84
     height: 84
     borderLeft: 0
@@ -1030,7 +1056,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: nightteamhealthbar
     x: 1100
-    y: 404
+    y: 127
     width: 168
     height: 16
     borderLeft: 0
@@ -1042,8 +1068,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: onteam
-    x: 1419
-    y: 1478
+    x: 249
+    y: 24
     width: 34
     height: 34
     borderLeft: 0
@@ -1055,8 +1081,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: orangebar
-    x: 1100
-    y: 645
+    x: 634
+    y: 574
     width: 180
     height: 24
     borderLeft: 0
@@ -1068,8 +1094,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: profilebutton
-    x: 909
-    y: 182
+    x: 729
+    y: 33
     width: 142
     height: 56
     borderLeft: 0
@@ -1082,7 +1108,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: raretag
     x: 1958
-    y: 1871
+    y: 1960
     width: 88
     height: 88
     borderLeft: 0
@@ -1094,8 +1120,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: removeteam
-    x: 217
-    y: 331
+    x: 1395
+    y: 1478
     width: 34
     height: 34
     borderLeft: 0
@@ -1107,8 +1133,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: settingshelp
-    x: 1538
-    y: 638
+    x: 1291
+    y: 472
     width: 218
     height: 58
     borderLeft: 0
@@ -1134,7 +1160,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: spotlight
     x: 0
-    y: 444
+    y: 59
     width: 267
     height: 417
     borderLeft: 0
@@ -1146,8 +1172,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: star
-    x: 228
-    y: 307
+    x: 268
+    y: 239
     width: 24
     height: 23
     borderLeft: 0
@@ -1159,8 +1185,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: sunborder
-    x: 268
-    y: 126
+    x: 909
+    y: 962
     width: 216
     height: 262
     borderLeft: 0
@@ -1172,7 +1198,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: suncard
-    x: 1341
+    x: 1558
     y: 965
     width: 214
     height: 259
@@ -1185,8 +1211,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: sunstars
-    x: 1100
-    y: 550
+    x: 909
+    y: 34
     width: 116
     height: 35
     borderLeft: 0
@@ -1199,7 +1225,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: teamempty
     x: 1960
-    y: 1529
+    y: 1614
     width: 84
     height: 84
     borderLeft: 0
@@ -1224,8 +1250,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: teamhealthbarbg
-    x: 1100
-    y: 622
+    x: 909
+    y: 106
     width: 188
     height: 22
     borderLeft: 0
@@ -1238,7 +1264,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: teamhealthbg
     x: 1100
-    y: 455
+    y: 144
     width: 174
     height: 22
     borderLeft: 0
@@ -1250,8 +1276,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: ultratag
-    x: 1938
-    y: 1136
+    x: 1958
+    y: 1871
     width: 88
     height: 88
     borderLeft: 0
@@ -1263,8 +1289,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: uncommontag
-    x: 485
-    y: 13
+    x: 1840
+    y: 1315
     width: 161
     height: 31
     borderLeft: 0
@@ -1276,8 +1302,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: waterborder
-    x: 0
-    y: 181
+    x: 295
+    y: 126
     width: 216
     height: 262
     borderLeft: 0
@@ -1289,8 +1315,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: watercard
-    x: 909
-    y: 239
+    x: 1100
+    y: 480
     width: 190
     height: 240
     borderLeft: 0
@@ -1302,8 +1328,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: watercardhealthbar
-    x: 1938
-    y: 1002
+    x: 729
+    y: 18
     width: 88
     height: 14
     borderLeft: 0
@@ -1315,8 +1341,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: waterstars
-    x: 777
-    y: 418
+    x: 1100
+    y: 167
     width: 116
     height: 35
     borderLeft: 0
@@ -1328,8 +1354,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: waterteam
-    x: 1960
-    y: 1614
+    x: 994
+    y: 154
     width: 84
     height: 84
     borderLeft: 0
@@ -1342,7 +1368,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: waterteamhealthbar
     x: 1100
-    y: 438
+    y: 110
     width: 168
     height: 16
     borderLeft: 0
@@ -1354,8 +1380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellowbar
-    x: 607
-    y: 574
+    x: 909
+    y: 129
     width: 180
     height: 24
     borderLeft: 0
@@ -1378,6 +1404,19 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 1
     paddingTop: 0
+    paddingBottom: 0
+  - name: oilicon
+    x: 851
+    y: 798
+    width: 51
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 0
+    paddingTop: 1
     paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}

@@ -39,7 +39,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	CBKGoonCard enhanceBaseBox; 
 
 	[SerializeField]
-	UITweener enhanceLeftSideElements;
+	TweenPosition enhanceLeftSideElements;
 
 	[SerializeField]
 	UIWidget[] bottomFadeInElements;
@@ -137,13 +137,8 @@ public class CBKGoonScreen : MonoBehaviour {
 		{
 			enhanceBaseBox.InitLab(CBKMonsterManager.currentEnhancementMonster);
 			bringGoonIn = true;
+			FinishGoonInNow();
 		}
-	}
-	
-	void Start()
-	{
-		scrollPanel.baseClipRegion = new Vector4(scrollPanel.baseClipRegion.x, scrollPanel.baseClipRegion.y, 
-        	640f * Screen.width / Screen.height, scrollPanel.baseClipRegion.w);
 	}
 	
 	void OnEnable()
@@ -393,9 +388,19 @@ public class CBKGoonScreen : MonoBehaviour {
 
 	}
 
+	void FinishGoonInNow()
+	{
+		enhanceLeftSideElements.transform.localPosition = enhanceLeftSideElements.to;
+
+		goonIn = true;
+		dragPanel.scrollView.panel.baseClipRegion = new Vector4(dragPanel.scrollView.panel.baseClipRegion.x - rightShiftOnMobsterEnhance, dragPanel.scrollView.panel.baseClipRegion.y, dragPanel.scrollView.panel.baseClipRegion.z - rightShiftOnMobsterEnhance * 2, dragPanel.scrollView.panel.baseClipRegion.w);
+		goonPanelParent.localPosition = new Vector3(goonPanelParent.localPosition.x + rightShiftOnMobsterEnhance * 2, goonPanelParent.localPosition.y, goonPanelParent.localPosition.z);
+		goonGrid.Reposition();
+	}
+
 	IEnumerator TakeOutEnhanceGoon()
 	{
-		enhanceLeftSideElements.Toggle();
+		enhanceLeftSideElements.PlayReverse();
 		
 		Vector4 startingClipRange = dragPanel.scrollView.panel.baseClipRegion;
 		Vector4 endingClipRange = new Vector4(dragPanel.scrollView.panel.baseClipRegion.x + rightShiftOnMobsterEnhance, dragPanel.scrollView.panel.baseClipRegion.y, dragPanel.scrollView.panel.baseClipRegion.z + rightShiftOnMobsterEnhance * 2, dragPanel.scrollView.panel.baseClipRegion.w);
