@@ -34,6 +34,8 @@ public class UMQNetworkManager : MonoBehaviour {
 	static int tagNum = 1;
 	
 	IModel channel = null;
+
+	IConnection connection = null;
 	
 	const int HEADER_SIZE = 12;
 	
@@ -91,8 +93,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		factory.Password = "devclient";
 		factory.VirtualHost = "devmobsters";
 		
-		
-		IConnection connection = null;
+
 		try{
 			connection = factory.CreateConnection();
 			gameObject.SetActive(true);
@@ -149,14 +150,16 @@ public class UMQNetworkManager : MonoBehaviour {
 		StartCoroutine(Consume(consumer));
 		
 		chatQueueName = udidKey + "_" + sessionID + "_chat_queue";
+
+		IModel chatChannel = connection.CreateModel();
+
+		chatChannel.QueueDeclare(chatQueueName, true, false, true, null);
+		chatChannel.QueueBind(chatQueueName, chatExchangeName, chatKey);
 		
-		channel.QueueDeclare(chatQueueName, true, false, true, null);
-		channel.QueueBind(chatQueueName, chatExchangeName, chatKey);
+		QueueingBasicConsumer chatConsumer = new QueueingBasicConsumer(chatChannel);
+		chatChannel.BasicConsume(chatQueueName, false, chatConsumer);
 		
-		QueueingBasicConsumer chatConsumer = new QueueingBasicConsumer(channel);
-		channel.BasicConsume(chatQueueName, false, chatConsumer);
-		
-		StartCoroutine(Consume(consumer));
+		StartCoroutine(ConsumeChat(chatConsumer));
 		
 		WriteDebug("Set up userID Queue");
 	}
@@ -252,7 +255,7 @@ public class UMQNetworkManager : MonoBehaviour {
 			response = consumer.Queue.DequeueNoWait(null);
 			if (response != null)
 			{
-				
+				ReceiveChatResponse((BasicDeliverEventArgs)response);
 			}
 			yield return new WaitForSeconds(.5f);
 		}
@@ -273,13 +276,13 @@ public class UMQNetworkManager : MonoBehaviour {
 		int size = ((reader.ReadByte()) + (reader.ReadByte() << 8) + (reader.ReadByte() << 16) + (reader.ReadByte() << 24));
 #pragma warning restore 0219
 		
-		WriteDebug("Received Message: " + tagNum);
+		WriteDebug("Received Chat Message: " + tagNum);
 		
 		object proto = UMQDeserializer.Deserialize(reader, type);
 		
-		if (proto is GroupChatMessageProto)
+		if (proto is ReceivedGroupChatResponseProto)
 		{
-			CBKChatManager.instance.ReceiveGroupChatMessage(proto as GroupChatMessageProto);
+			CBKChatManager.instance.ReceiveGroupChatMessage(proto as ReceivedGroupChatResponseProto);
 		}
 		
 	}

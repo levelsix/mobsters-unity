@@ -120,8 +120,6 @@ public class CBKDataManager : MonoBehaviour {
 		Type typ = obj.GetType();
 		CheckType(typ);
 		dataDict[typ][id] = obj;
-		
-		Debug.Log("Loading " + typ.ToString() + " " + id);
 	}
 	
 	/// <summary>

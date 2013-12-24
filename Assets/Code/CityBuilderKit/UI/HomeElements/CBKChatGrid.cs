@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
 
-public class CBKChatGrid : UIGrid {
+public class CBKChatGrid : MonoBehaviour {
 	
 	public SortedList<long, CBKChatBubble> bubbles = new SortedList<long, CBKChatBubble>();
 	
@@ -11,10 +11,22 @@ public class CBKChatGrid : UIGrid {
 	
 	[SerializeField]
 	CBKChatBubble bubblePrefab;
+
+	UITable table;
 	
 	void Awake()
 	{
-		myTrans = transform;
+		table = GetComponent<UITable>();
+	}
+
+	void OnEnable()
+	{
+		CBKEventManager.UI.OnGroupChatReceived += SpawnBubbleFromNewMessage;
+	}
+
+	void OnDisable()
+	{
+		CBKEventManager.UI.OnGroupChatReceived -= SpawnBubbleFromNewMessage;
 	}
 	
 	public void SpawnBubbles(SortedList<long, GroupChatMessageProto> messages)
@@ -23,7 +35,7 @@ public class CBKChatGrid : UIGrid {
 		{
 			item.Pool();
 		}
-		
+
 		foreach (KeyValuePair<long, GroupChatMessageProto> item in messages) 
 		{
 			CBKChatBubble bub = CBKPoolManager.instance.Get(bubblePrefab, Vector3.zero) as CBKChatBubble;
@@ -32,19 +44,19 @@ public class CBKChatGrid : UIGrid {
 			bub.Init(item.Value);
 			bubbles.Add(-item.Key, bub);
 		}
+
+		table.Reposition();
 	}
-	
-	protected override void Position (ref int x, ref int y)
+
+	public void SpawnBubbleFromNewMessage(ReceivedGroupChatResponseProto proto)
 	{
-		float runningHeight = startingHeight;
-		foreach (CBKChatBubble bub in bubbles.Values) 
-		{
-			if (!NGUITools.GetActive(bub.gObj) && hideInactive) continue;
-			
-			bub.transf.localPosition = new Vector3(0, runningHeight + bub.height);
-			
-			runningHeight += bub.height + SPACE_BETWEEN_MESSAGES;
-		}
+		CBKChatBubble bub = CBKPoolManager.instance.Get(bubblePrefab, Vector3.zero) as CBKChatBubble;
+		bub.transf.parent = transform;
+		bub.transf.localScale = Vector3.one;
+		bub.Init (proto);
+		bubbles.Add(-CBKUtil.timeNowMillis, bub);
+
+		table.Reposition();
 	}
 	
 }

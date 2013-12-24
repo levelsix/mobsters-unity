@@ -167,7 +167,7 @@ public static class CBKUtil {
 	/// <param name='time'>
 	/// Amount of time to be written to a string
 	/// </param>
-	public static string TimeStringLong(/*me love you*/ long time)
+	public static string TimeStringLong(/*me love you*/ long time, bool onlyOne = false)
 	{
 		time /= 1000;
 		if (time > SECS_PER_DAY)
@@ -178,6 +178,10 @@ public static class CBKUtil {
 			if (days > 1)
 			{
 				str += "s";
+			}
+			if (onlyOne)
+			{
+				return str;
 			}
 			long hours = ((time % SECS_PER_DAY) / SECS_PER_HOUR);
 			if (hours > 0)
@@ -199,10 +203,18 @@ public static class CBKUtil {
 			{
 				str += "s";
 			}
+			if (onlyOne)
+			{
+				return str;
+			}
 			long min = ((time % SECS_PER_HOUR) / SECS_PER_MIN);
 			if (min > 0)
 			{
 				str += " " + min + " minute";
+				if (min > 1)
+				{
+					str += "s";
+				}
 			}
 			return str;
 		}
@@ -211,6 +223,14 @@ public static class CBKUtil {
 			string str = "";
 			long min = (time / SECS_PER_MIN);
 			str += min + " minute";
+			if (min > 1)
+			{
+				str += "s";
+			}
+			if (onlyOne)
+			{
+				return str;
+			}
 			long sec = (time % SECS_PER_MIN);
 			if (sec > 0)
 			{

@@ -28,9 +28,6 @@ public class CBKChatPopup : MonoBehaviour {
 	[SerializeField]
 	CBKChatBubble leftPrefab;
 	
-	[SerializeField]
-	CBKChatBubble rightPrefab;
-	
 	#endregion
 	
 	public void SendChatMessage()
@@ -64,9 +61,9 @@ public class CBKChatPopup : MonoBehaviour {
 		}
 	}
 	
-	void Init(List<GroupChatMessageProto> messages)
+	void Start()
 	{
-		
+		CBKChatManager.instance.SetChatMode(CBKValues.ChatMode.GLOBAL);
 	}
 	
 }

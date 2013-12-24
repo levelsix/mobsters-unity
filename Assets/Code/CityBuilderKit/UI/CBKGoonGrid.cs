@@ -33,6 +33,11 @@ public class CBKGoonGrid : UIGrid {
 
 	protected override void Position (ref int x, ref int y)
 	{
+		if (trans == null)
+		{
+			trans = transform;
+		}
+
 		trans.localPosition = Vector3.zero;
 		float runningX = startingX + spaceBetween;
 		foreach (CBKGridItem item in items) 

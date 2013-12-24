@@ -12,8 +12,8 @@ public class CBKChatManager : MonoBehaviour {
 	
 	CBKValues.ChatMode currMode = CBKValues.ChatMode.GLOBAL;
 	
-	SortedList<long, GroupChatMessageProto> globalChat = new SortedList<long, GroupChatMessageProto>();
-	SortedList<long, GroupChatMessageProto> clanChat = new SortedList<long, GroupChatMessageProto>();
+	static SortedList<long, GroupChatMessageProto> globalChat = new SortedList<long, GroupChatMessageProto>();
+	static SortedList<long, GroupChatMessageProto> clanChat = new SortedList<long, GroupChatMessageProto>();
 	
 	void Awake()
 	{
@@ -44,9 +44,25 @@ public class CBKChatManager : MonoBehaviour {
 			break;
 		}
 	}
+
+	public void ReceiveGroupChatMessage(ReceivedGroupChatResponseProto proto)
+	{
+		GroupChatMessageProto groupMessage = new GroupChatMessageProto();
+		groupMessage.sender = proto.sender;
+		groupMessage.content = proto.chatMessage;
+		groupMessage.timeOfChat = CBKUtil.timeNowMillis;
+		groupMessage.isAdmin = proto.isAdmin;
+
+		globalChat.Add(CBKUtil.timeNowMillis, groupMessage);
+
+		if (CBKEventManager.UI.OnGroupChatReceived != null)
+		{
+			CBKEventManager.UI.OnGroupChatReceived(proto);
+		}
+	}
 	
 	public void ReceiveGroupChatMessage(GroupChatMessageProto message)
 	{
-		
+		globalChat.Add(message.timeOfChat, message);
 	}
 }

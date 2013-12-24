@@ -88,6 +88,8 @@ public static class CBKEventManager
 		
 		public static Action<CBKFullQuest> OnQuestEntryClicked;
 		public static Action OnReorganizeHealQueue;
+
+		public static Action<ReceivedGroupChatResponseProto> OnGroupChatReceived;
 	}
 	
 	public static class Goon
