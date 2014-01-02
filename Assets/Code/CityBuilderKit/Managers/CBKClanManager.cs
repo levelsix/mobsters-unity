@@ -57,6 +57,7 @@ public class CBKClanManager : MonoBehaviour
 			{
 				userClanId = clans[0].clanId;
 				userClanStatus = clans[0].status;
+				UMQNetworkManager.instance.CreateClanChatQueue(CBKWhiteboard.localMup, clans[0].clanId);
 			}
 			else
 			{

@@ -36,12 +36,15 @@ public class CBKChatGrid : MonoBehaviour {
 			item.Pool();
 		}
 
+		bubbles.Clear();
+
 		foreach (KeyValuePair<long, GroupChatMessageProto> item in messages) 
 		{
 			CBKChatBubble bub = CBKPoolManager.instance.Get(bubblePrefab, Vector3.zero) as CBKChatBubble;
 			bub.transf.parent = transform;
 			bub.transf.localScale = Vector3.one;
 			bub.Init(item.Value);
+			bub.name = (long.MaxValue - item.Key).ToString();
 			bubbles.Add(-item.Key, bub);
 		}
 
@@ -54,6 +57,7 @@ public class CBKChatGrid : MonoBehaviour {
 		bub.transf.parent = transform;
 		bub.transf.localScale = Vector3.one;
 		bub.Init (proto);
+		bub.name = (long.MaxValue - CBKUtil.timeNowMillis).ToString();
 		bubbles.Add(-CBKUtil.timeNowMillis, bub);
 
 		table.Reposition();

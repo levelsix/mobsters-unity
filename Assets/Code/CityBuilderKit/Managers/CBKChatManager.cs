@@ -10,7 +10,7 @@ public class CBKChatManager : MonoBehaviour {
 	[SerializeField]
 	CBKChatGrid chatGrid;
 	
-	CBKValues.ChatMode currMode = CBKValues.ChatMode.GLOBAL;
+	public CBKValues.ChatMode currMode = CBKValues.ChatMode.GLOBAL;
 	
 	static SortedList<long, GroupChatMessageProto> globalChat = new SortedList<long, GroupChatMessageProto>();
 	static SortedList<long, GroupChatMessageProto> clanChat = new SortedList<long, GroupChatMessageProto>();
@@ -27,12 +27,18 @@ public class CBKChatManager : MonoBehaviour {
 			//Debug.Log("Global Chat message: From: " + item.sender.minUserProto.name + "\n" + item.content);
 			globalChat.Add(item.timeOfChat, item);
 		}
+
+		foreach (GroupChatMessageProto item in startup.clanChats)
+		{
+			clanChat.Add(item.timeOfChat, item);
+		}
 		
 		//SetChatMode(CBKValues.ChatMode.GLOBAL);
 	}
 	
 	public void SetChatMode(CBKValues.ChatMode mode)
 	{
+		currMode = mode;
 		switch (mode) {
 		case CBKValues.ChatMode.GLOBAL:
 			chatGrid.SpawnBubbles(globalChat);

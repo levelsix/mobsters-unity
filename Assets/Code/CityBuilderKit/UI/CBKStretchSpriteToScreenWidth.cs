@@ -4,17 +4,36 @@ using System.Collections;
 public class CBKStretchSpriteToScreenWidth : MonoBehaviour {
 
 	[SerializeField]
-	bool width = true;
+	bool wide = true;
 
 	void Start()
 	{
-		if (width)
+		UISprite uiSprite = GetComponent<UISprite>();
+		UI2DSprite sprite2d = GetComponent<UI2DSprite>();
+
+		int width = Mathf.CeilToInt(Screen.width * 640f / Screen.height);
+
+		if (wide)
 		{
-			GetComponent<UISprite>().width = Mathf.CeilToInt(Screen.width * 640f / Screen.height);
+			if (uiSprite != null)
+			{
+				uiSprite.width = width;
+			}
+			if (sprite2d != null)
+			{
+				sprite2d.width = width;
+			}
 		}
 		else
 		{
-			GetComponent<UISprite>().height = Mathf.CeilToInt(Screen.width * 640f / Screen.height);
+			if (uiSprite != null)
+			{
+				uiSprite.height = width;
+			}
+			if (sprite2d != null)
+			{
+				sprite2d.height = width;
+			}
 		}
 	}
 }

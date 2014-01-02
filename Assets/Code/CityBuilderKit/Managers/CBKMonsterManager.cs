@@ -215,22 +215,6 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			return;
 		}
-
-		string str = "Sending Heal Request: ";
-		foreach (var item in healRequestProto.umhNew) 
-		{
-			//str += "\nNew Monster: " + item.userMonsterId + "," + item.priority + ", " + item.userHospitalStructId + ", " + item.healthProgress + ", " + userMonsters[item.userMonsterId].healingMonster.expectedStartTimeMillis + ", " + userMonsters[item.userMonsterId].finishHealTimeMillis;  
-		}
-		foreach (var item in healRequestProto.umhUpdate) 
-		{
-			//str += "\nUpdate Monster: " + item.userMonsterId + ", " + item.priority + ", " + item.userHospitalStructId + ", " + item.healthProgress;  
-		}
-		foreach (var item in healRequestProto.umhDelete) 
-		{
-			//str += "\nDelete Monster: " + item.userMonsterId;
-		}
-
-		//Debug.LogWarning(str);
 		
 		UMQNetworkManager.instance.SendRequest(healRequestProto, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT, DealWithHealStartResponse);
 		

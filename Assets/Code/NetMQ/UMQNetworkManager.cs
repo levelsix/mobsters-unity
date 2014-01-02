@@ -22,7 +22,7 @@ public class UMQNetworkManager : MonoBehaviour {
 	//Dictionary<string, Type> classDict = new Dictionary<string, Type>();
 	
 	string directExchangeName = "gamemessages";
-	string chatExchangeName = "chatmessages";
+	string topicExchangeName = "chatmessages";
 	string chatKey = "chat_global";
 	
 	string udidQueueName;
@@ -120,7 +120,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		//Declare our exchanges
 		channel.ExchangeDeclare(directExchangeName, ExchangeType.Direct, true);
-		channel.ExchangeDeclare(chatExchangeName, ExchangeType.Topic, true);
+		channel.ExchangeDeclare(topicExchangeName, ExchangeType.Topic, true);
 		
 		channel.QueueDeclare(udidQueueName, true, false, false, null);
 		channel.QueueBind(udidQueueName, directExchangeName, udidKey);
@@ -154,7 +154,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		IModel chatChannel = connection.CreateModel();
 
 		chatChannel.QueueDeclare(chatQueueName, true, false, true, null);
-		chatChannel.QueueBind(chatQueueName, chatExchangeName, chatKey);
+		chatChannel.QueueBind(chatQueueName, topicExchangeName, chatKey);
 		
 		QueueingBasicConsumer chatConsumer = new QueueingBasicConsumer(chatChannel);
 		chatChannel.BasicConsume(chatQueueName, false, chatConsumer);
@@ -162,6 +162,25 @@ public class UMQNetworkManager : MonoBehaviour {
 		StartCoroutine(ConsumeChat(chatConsumer));
 		
 		WriteDebug("Set up userID Queue");
+	}
+
+	public void CreateClanChatQueue(MinimumUserProto user, int clanId)
+	{
+		Debug.LogWarning("Creating clan chat queue for clanID: " + clanId);
+
+		string userId = "client_userid_" + user.userId;
+
+		string clanQueueName = userId + "_" + sessionID + " _clan_queue";
+
+		IModel clanChatChannel = connection.CreateModel();
+
+		clanChatChannel.QueueDeclare(clanQueueName, true, false, true, null);
+		clanChatChannel.QueueBind(clanQueueName, topicExchangeName, "clan_" + clanId.ToString());
+		
+		QueueingBasicConsumer clanConsumer = new QueueingBasicConsumer(clanChatChannel);
+		clanChatChannel.BasicConsume(clanQueueName, false, clanConsumer);
+
+		StartCoroutine(ConsumeChat(clanConsumer));	
 	}
 	
 	public int SendRequest(System.Object request, int type, Action<int> callback)

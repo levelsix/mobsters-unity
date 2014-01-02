@@ -137,7 +137,7 @@ public class CBKChatBubble : MonoBehaviour, CBKPoolable {
 
 #if VERBOSE
 		
-		Debug.Log("Message: " + textLabel.processedText + "\nLines: " + lines);
+		//Debug.Log("Message: " + textLabel.processedText + "\nLines: " + lines);
 		
 #endif
 

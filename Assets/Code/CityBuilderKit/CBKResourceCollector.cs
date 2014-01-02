@@ -137,15 +137,11 @@ public class CBKResourceCollector : MonoBehaviour {
 	{
 		if (hasMoney && CBKResourceManager.resources[(int)_generator.resourceType - 1] < CBKResourceManager.maxes[(int)_generator.resourceType - 1])
 		{
-			int amountToCollect = currMoney;
-
 			CBKResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructId);
 			if (CBKEventManager.Quest.OnMoneyCollected != null)
 			{
 				CBKEventManager.Quest.OnMoneyCollected(currMoney);
 			}
-
-			//SendCollectRequest(currMoney);
 
 			_building.userStructProto.lastRetrieved = CBKUtil.timeNowMillis;
 			_building.hasMoneyPopup.SetActive(false);
