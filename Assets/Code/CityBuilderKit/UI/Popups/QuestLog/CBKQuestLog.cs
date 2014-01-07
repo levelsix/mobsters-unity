@@ -34,10 +34,19 @@ public class CBKQuestLog : MonoBehaviour {
 	
 	[SerializeField]
 	GameObject detailsParent;
-	
+
 	[SerializeField]
-	Transform taskHeader;
-	
+	UILabel taskDescription;
+
+	[SerializeField]
+	UILabel taskProgress;
+
+	[SerializeField]
+	CBKVisitCityButton visitButton;
+
+	[SerializeField]
+	UILabel completeLabel;
+
 	[SerializeField]
 	Transform rewardHeader;
 	
@@ -49,20 +58,22 @@ public class CBKQuestLog : MonoBehaviour {
 	
 	[SerializeField]
 	UIButton backButton;
-	
-	
-	List<CBKQuestTaskEntry> tasks = new List<CBKQuestTaskEntry>();
-	
+
+	[SerializeField]
+	UILabel header;
+
 	List<CBKQuestRewardBox> rewards = new List<CBKQuestRewardBox>();
 	
 	List<CBKQuestEntry> quests = new List<CBKQuestEntry>();
 	
 	#endregion
+
+	const string QUEST_LIST_HEADER = "Quests";
 	
-	const float TWEEN_TIME = 0.8f;
+	const float TWEEN_TIME = 0.4f;
 	
-	static readonly Vector3 LEFT_POS = new Vector3(-720, 0);
-	static readonly Vector3 RIGHT_POS = new Vector3(720, 0);
+	static readonly Vector3 LEFT_POS = new Vector3(-760, 0);
+	static readonly Vector3 RIGHT_POS = new Vector3(760, 0);
 	
 	const float START_TASK_OFFSET = -75;
 	
@@ -70,7 +81,7 @@ public class CBKQuestLog : MonoBehaviour {
 	
 	const float BASE_REWARD_OFFSET = -22;
 	
-	const float REWARD_BOX_Y_OFFSET = -100;
+	const float REWARD_BOX_Y_OFFSET = -90;
 	
 	const float REWARD_BOX_X_OFFSET = 120;
 	
@@ -85,9 +96,6 @@ public class CBKQuestLog : MonoBehaviour {
 	void OnDisable()
 	{
 		CBKEventManager.UI.OnQuestEntryClicked -= OnQuestEntryClicked;
-		foreach (CBKQuestEntry item in quests) {
-			item.Pool();
-		}
 	}
 	
 	void Init()
@@ -97,7 +105,15 @@ public class CBKQuestLog : MonoBehaviour {
 	
 	public void SetupQuestList()
 	{
-		ReturnToList();
+		header.text = QUEST_LIST_HEADER;
+
+		questGridParentTrans.localPosition = Vector3.zero;
+		detailsParent.transform.localPosition = RIGHT_POS;
+		
+		foreach (CBKQuestEntry item in quests) 
+		{
+			item.Pool();
+		}
 		
 		foreach (CBKFullQuest item in CBKQuestManager.questDict.Values) 
 		{
@@ -106,14 +122,14 @@ public class CBKQuestLog : MonoBehaviour {
 			entry.Init(item);
 			quests.Add(entry);
 		}
+
+		questGridParentTrans.GetComponent<UIGrid>().Reposition();
 		
 		backButton.enabled = false;
 	}
 	
 	public void ReturnToList()
-	{
-		questGridParentGob.SetActive(true);
-		
+	{	
 		TweenPosition.Begin(questGridParentGob, TWEEN_TIME, Vector3.zero);
 		TweenPosition.Begin(detailsParent, TWEEN_TIME, RIGHT_POS);
 	}
@@ -121,25 +137,13 @@ public class CBKQuestLog : MonoBehaviour {
 	
 	void LoadQuestDetails(CBKFullQuest fullQ)
 	{
+		header.text = fullQ.quest.name;
+
 		questDescription.text = fullQ.quest.description;
 		
-		BuildTasks(fullQ);
-		
-		rewardHeader.transform.localPosition = new Vector3(0, BASE_REWARD_OFFSET + lastTaskOffset);
-		
+		WriteTask(fullQ);
+
 		BuildRewards(fullQ);
-	}
-	
-	CBKQuestTaskEntry GetTask()
-	{
-		CBKQuestTaskEntry entry = CBKPoolManager.instance.Get(questTaskEntryPrefab, Vector3.zero) as CBKQuestTaskEntry;
-		tasks.Add (entry);
-		entry.transf.parent = taskHeader;
-		entry.transf.localScale = Vector3.one;
-		lastTaskOffset += OFFSET_PER_TASK;
-		entry.transf.localPosition = new Vector3(0, lastTaskOffset, 0);
-		
-		return entry;
 	}
 	
 	CBKQuestRewardBox GetReward()
@@ -153,40 +157,24 @@ public class CBKQuestLog : MonoBehaviour {
 		return reward;
 	}
 	
-	void BuildTasks(CBKFullQuest fullQ)
+	void WriteTask(CBKFullQuest fullQ)
 	{
-		foreach (CBKQuestTaskEntry item in tasks) {
-			item.Pool();
-		}
-		
-		tasks.Clear();
-		
-		lastTaskOffset = START_TASK_OFFSET - OFFSET_PER_TASK; //Hacky hacky hack hack
-		
-		/*
-		CBKQuestTaskEntry task;
-		if (fullQ.quest.coinRetrievalReq > 0)
+		taskDescription.text = fullQ.quest.jobDescription;
+
+		taskProgress.text = fullQ.progressString;
+
+		if (fullQ.userQuest.progress < fullQ.quest.quantity)
 		{
-			task = GetTask();
-			task.InitMoneyCollect(fullQ.userQuest.coinsRetrievedForReq, fullQ.quest.coinRetrievalReq);
+			visitButton.button.enabled = true;
+			visitButton.cityID = fullQ.quest.cityId;
+			completeLabel.text = " ";
 		}
-		foreach (var item in fullQ.userQuest.requiredTasksProgress) 
+		else
 		{
-			task = GetTask ();
-			task.Init(item);
+			visitButton.button.enabled = false;
+			completeLabel.text = "Complete!";
 		}
-		foreach (var item in fullQ.userQuest.requiredBuildStructJobProgress) 
-		{
-			task = GetTask ();
-			task.Init(item);
-		}
-		foreach (var item in fullQ.userQuest.requiredUpgradeStructJobProgress) 
-		{
-			task = GetTask ();
-			task.Init(item);
-		}
-		*/
-		
+
 	}
 	
 	void BuildRewards(CBKFullQuest fullQ)
@@ -212,13 +200,13 @@ public class CBKQuestLog : MonoBehaviour {
 		
 		if(rewards.Count == 2)
 		{
-			rewards[0].transf.localPosition = new Vector3(-REWARD_BOX_X_OFFSET, REWARD_BOX_Y_OFFSET, 0);
-			rewards[1].transf.localPosition = new Vector3( REWARD_BOX_X_OFFSET, REWARD_BOX_Y_OFFSET, 0);
+			rewards[0].transf.localPosition = new Vector3(-REWARD_BOX_X_OFFSET/2, REWARD_BOX_Y_OFFSET, 0);
+			rewards[1].transf.localPosition = new Vector3( REWARD_BOX_X_OFFSET/2, REWARD_BOX_Y_OFFSET, 0);
 		}
 		else if (rewards.Count == 3)
 		{
-			rewards[0].transf.localPosition = new Vector3(-REWARD_BOX_X_OFFSET*2, REWARD_BOX_Y_OFFSET, 0);
-			rewards[2].transf.localPosition = new Vector3( REWARD_BOX_X_OFFSET*2, REWARD_BOX_Y_OFFSET, 0);
+			rewards[0].transf.localPosition = new Vector3(-REWARD_BOX_X_OFFSET, REWARD_BOX_Y_OFFSET, 0);
+			rewards[2].transf.localPosition = new Vector3( REWARD_BOX_X_OFFSET, REWARD_BOX_Y_OFFSET, 0);
 		}
 	}
 	
@@ -230,8 +218,6 @@ public class CBKQuestLog : MonoBehaviour {
 		TweenPosition.Begin(detailsParent, TWEEN_TIME, Vector3.zero);
 		
 		backButton.enabled = true;
-		
-		//LoadQuestDetails(quest);
 	}
 	
 }

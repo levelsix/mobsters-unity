@@ -95,11 +95,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NO_SUCH_PLAYER", Value=2)]
-      NO_SUCH_PLAYER = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NO_SUCH_PLAYER", Value=2)]
+      FAIL_NO_SUCH_PLAYER = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=3)]
-      OTHER_FAIL = 3
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;

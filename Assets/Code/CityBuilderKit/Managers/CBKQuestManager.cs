@@ -201,16 +201,13 @@ public class CBKQuestManager : MonoBehaviour {
 #if DEBUG3
 		Debug.Log("Checking quest: " + fullQuest.quest.name);
 #endif
-		if (fullQuest.userQuest.isComplete && !fullQuest.userQuest.isRedeemed)
-		{
-			StartCoroutine(RedeemQuest(fullQuest.quest));
-			return;
-		}
-		if (fullQuest.userQuest.progress == fullQuest.quest.quantity)
-		{
-			StartCoroutine(RedeemQuest(fullQuest.quest));
-			return;
-		}
+		fullQuest.userQuest.isComplete = (fullQuest.userQuest.progress >= fullQuest.quest.quantity);
+		
+	}
+
+	public void CompleteQuest(CBKFullQuest quest)
+	{
+		StartCoroutine(RedeemQuest(quest.quest));
 	}
 	
 	//TODO
@@ -238,7 +235,7 @@ public class CBKQuestManager : MonoBehaviour {
 		
 		if (response.status != QuestRedeemResponseProto.QuestRedeemStatus.SUCCESS)
 		{
-			//TODO: Reload
+			//TODO: Reload?
 			Debug.LogError("Problem redeeming quest: " + response.status.ToString());
 		}
 		else

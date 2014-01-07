@@ -335,13 +335,47 @@ namespace com.lvl6.proto
       set { _cashChange = value; }
     }
 
-    private int _gemCost = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"gemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _gemCostForHealing = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"gemCostForHealing", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int gemCost
+    public int gemCostForHealing
     {
-      get { return _gemCost; }
-      set { _gemCost = value; }
+      get { return _gemCostForHealing; }
+      set { _gemCostForHealing = value; }
+    }
+
+    private bool _isSpeedup = default(bool);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"isSpeedup", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isSpeedup
+    {
+      get { return _isSpeedup; }
+      set { _isSpeedup = value; }
+    }
+
+    private int _gemsForSpeedup = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"gemsForSpeedup", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsForSpeedup
+    {
+      get { return _gemsForSpeedup; }
+      set { _gemsForSpeedup = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> _umchp = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto>();
+    [global::ProtoBuf.ProtoMember(9, Name=@"umchp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> umchp
+    {
+      get { return _umchp; }
+    }
+  
+
+    private int _totalGemCost = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"totalGemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int totalGemCost
+    {
+      get { return _totalGemCost; }
+      set { _totalGemCost = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -388,96 +422,10 @@ namespace com.lvl6.proto
       FAIL_ALL_MONSTERS_NONEXISTENT = 4,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=5)]
-      FAIL_OTHER = 5
-    }
-  
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"HealMonsterWaitTimeCompleteRequestProto")]
-  public partial class HealMonsterWaitTimeCompleteRequestProto : global::ProtoBuf.IExtensible
-  {
-    public HealMonsterWaitTimeCompleteRequestProto() {}
-    
-
-    private com.lvl6.proto.MinimumUserProto _sender = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
-    {
-      get { return _sender; }
-      set { _sender = value; }
-    }
-
-    private bool _isSpeedup = default(bool);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"isSpeedup", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool isSpeedup
-    {
-      get { return _isSpeedup; }
-      set { _isSpeedup = value; }
-    }
-
-    private int _gemsForSpeedup = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gemsForSpeedup", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int gemsForSpeedup
-    {
-      get { return _gemsForSpeedup; }
-      set { _gemsForSpeedup = value; }
-    }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> _umchp = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto>();
-    [global::ProtoBuf.ProtoMember(4, Name=@"umchp", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> umchp
-    {
-      get { return _umchp; }
-    }
-  
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"HealMonsterWaitTimeCompleteResponseProto")]
-  public partial class HealMonsterWaitTimeCompleteResponseProto : global::ProtoBuf.IExtensible
-  {
-    public HealMonsterWaitTimeCompleteResponseProto() {}
-    
-
-    private com.lvl6.proto.MinimumUserProto _sender = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
-    {
-      get { return _sender; }
-      set { _sender = value; }
-    }
-
-    private com.lvl6.proto.HealMonsterWaitTimeCompleteResponseProto.HealMonsterWaitTimeCompleteStatus _status = com.lvl6.proto.HealMonsterWaitTimeCompleteResponseProto.HealMonsterWaitTimeCompleteStatus.SUCCESS;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.HealMonsterWaitTimeCompleteResponseProto.HealMonsterWaitTimeCompleteStatus.SUCCESS)]
-    public com.lvl6.proto.HealMonsterWaitTimeCompleteResponseProto.HealMonsterWaitTimeCompleteStatus status
-    {
-      get { return _status; }
-      set { _status = value; }
-    }
-    [global::ProtoBuf.ProtoContract(Name=@"HealMonsterWaitTimeCompleteStatus")]
-    public enum HealMonsterWaitTimeCompleteStatus
-    {
+      FAIL_OTHER = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
-      SUCCESS = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_HEALING_NOT_COMPLETE", Value=2)]
-      FAIL_HEALING_NOT_COMPLETE = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_FUNDS", Value=3)]
-      FAIL_INSUFFICIENT_FUNDS = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
-      FAIL_OTHER = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_HEALING_NOT_COMPLETE", Value=6)]
+      FAIL_HEALING_NOT_COMPLETE = 6
     }
   
     private global::ProtoBuf.IExtension extensionObject;

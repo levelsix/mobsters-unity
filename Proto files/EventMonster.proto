@@ -114,8 +114,17 @@ message HealMonsterRequestProto {
 	//The user should get refunded for the monster that was dequeued 
 	optional sint32 cashChange = 5; 
 	
-	//positive amount
-	optional int32 gemCost = 6;
+	//positive amount if charging user, negative if refunding user
+	optional int32 gemCostForHealing = 6; //(for history purposes)
+	
+	
+	//smushing HealMonsterWaitTimeCompleteRequestProto logic into this event
+	optional bool isSpeedup = 7;
+	optional int32 gemsForSpeedup = 8; //pos amount if charging user, (for history purposes) 
+	repeated UserMonsterCurrentHealthProto umchp = 9;
+	
+	//pos amount if charging user, negative if user gains gems
+	optional int32 totalGemCost = 10;
 }
 
 message HealMonsterResponseProto {
@@ -128,11 +137,13 @@ message HealMonsterResponseProto {
 		FAIL_ALL_MONSTERS_ALREADY_HEALING = 3;
 		FAIL_ALL_MONSTERS_NONEXISTENT = 4;
 		FAIL_OTHER = 5;
+		
+		FAIL_HEALING_NOT_COMPLETE = 6;
 	}
 }
 
 //------------------------------------------------------------------------------------------
-
+/*
 message HealMonsterWaitTimeCompleteRequestProto {
 	optional MinimumUserProto sender = 1;
 	
@@ -155,7 +166,7 @@ message HealMonsterWaitTimeCompleteResponseProto {
 		FAIL_OTHER = 4;
 	}
 }
-
+*/
 //------------------------------------------------------------------------------------------
 
 message AddMonsterToBattleTeamRequestProto {

@@ -7,6 +7,14 @@ public class CBKFullQuest {
 	public FullUserQuestProto userQuest;
 	
 	public FullQuestProto quest;
+
+	public string progressString
+	{
+		get
+		{
+			return userQuest.progress + "/" + quest.quantity;
+		}
+	}
 	
 	public CBKFullQuest(FullQuestProto quest)
 	{

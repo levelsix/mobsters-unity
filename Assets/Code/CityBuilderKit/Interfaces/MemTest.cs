@@ -3,15 +3,15 @@ using System.Collections;
 
 public class MemTest : MonoBehaviour {
 
-	[SerializeField]
-	string[] xmls;
-	
+	string characterSpriteName;
+
 	int index;
 	
-	void Start()
+	void Update()
 	{
-		foreach (string item in xmls) {
-			CBKAtlasUtil.instance.WarmAtlasDictionaryFromXML(item);
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+
 		}
 	}
 	

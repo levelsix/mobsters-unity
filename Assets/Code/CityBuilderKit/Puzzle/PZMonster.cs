@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using com.lvl6.proto;
 using System;
 
@@ -22,6 +23,8 @@ public class PZMonster {
 	public UserEnhancementItemProto enhancement = null;
 
 	public int userHospitalID = 0;
+
+	public List<HospitalTime> hospitalTimes = new List<HospitalTime>();
 	
 	public bool isHealing
 	{
@@ -30,7 +33,15 @@ public class PZMonster {
 			return healingMonster != null && healingMonster.userMonsterId > 0;
 		}
 	}
-	
+
+	public long healStartTime
+	{
+		get
+		{
+			return healingMonster.expectedStartTimeMillis;
+		}
+	}
+
 	public long timeToHealMillis
 	{
 		get
@@ -38,18 +49,31 @@ public class PZMonster {
 			return (long)((maxHP - (currHP + healingMonster.healthProgress)) * 1000 * CBKWhiteboard.constants.monsterConstants.secondsToHealPerHealthPoint);
 		}
 	}
-	
-	public long finishHealTimeMillis
+
+	public float healProgressPercentage
 	{
 		get
 		{
-			if (healingMonster == null)
-			{
-				return 0;
+			float progress = (float)healingMonster.healthProgress / (maxHP - currHP);
+			for (int i = 0; i < hospitalTimes.Count; i++) {
+				HospitalTime hosTime = hospitalTimes[i];
+				if (hosTime.startTime < CBKUtil.timeNowMillis)
+				{
+					if (i < hospitalTimes.Count-1 && hospitalTimes[i].startTime < CBKUtil.timeNowMillis)
+					{
+						progress += ((hospitalTimes[i].startTime - hosTime.startTime) * hosTime.hospital.combinedProto.hospital.healthPerSecond) / (maxHP - currHP);
+					}
+					else
+					{
+						progress += ((CBKUtil.timeNowMillis - hosTime.startTime) * hosTime.hospital.combinedProto.hospital.healthPerSecond) / (maxHP - currHP);
+					}
+				}
 			}
-			return healingMonster.expectedStartTimeMillis + timeToHealMillis; 
+			return progress;
 		}
 	}
+	
+	public long finishHealTimeMillis;
 	
 	public long healTimeLeftMillis
 	{
@@ -229,11 +253,7 @@ public class PZMonster {
 
 	void SetMaxHP(int baseHP, float hpLevelMux, int level)
 	{
-		maxHP = baseHP;
-		if (level > 1)
-		{
-			maxHP += (int)Mathf.Pow(hpLevelMux, level);
-		}
+		maxHP = (int)(baseHP * Mathf.Pow(hpLevelMux, level-1));
 	}
 	
 	void SetAttackDamagesFromMonster(int level)
@@ -321,4 +341,15 @@ public class PZMonster {
 	}
 
 	#endregion
+}
+
+public struct HospitalTime
+{
+	public CBKBuilding hospital;
+	public long startTime;
+	public HospitalTime(CBKBuilding hospital, long startTime)
+	{
+		this.hospital = hospital;
+		this.startTime = startTime;
+	}
 }

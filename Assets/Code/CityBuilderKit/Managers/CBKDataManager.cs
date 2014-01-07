@@ -94,6 +94,11 @@ public class CBKDataManager : MonoBehaviour {
 		//Debug.Log("Returning " + dataDict[type][id]);
 		return dataDict[type][id];
 	}
+
+	public T Get<T>(int id)
+	{
+		return (T)Get(typeof(T), id);
+	}
 	
 	public bool Has(Type type, int id)
 	{

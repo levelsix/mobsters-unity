@@ -289,6 +289,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		combinedProto = CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), proto.structId) as CBKCombinedBuildingProto;
 		
 		userStructProto = proto;
+
+		id = proto.userStructId;
 		
 		Setup();
 	}

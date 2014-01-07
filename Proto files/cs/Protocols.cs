@@ -181,9 +181,6 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_HEAL_MONSTER_EVENT", Value=48)]
       C_HEAL_MONSTER_EVENT = 48,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT", Value=49)]
-      C_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT = 49,
-            
       [global::ProtoBuf.ProtoEnum(Name=@"C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT", Value=50)]
       C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT = 50,
             
@@ -353,9 +350,6 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_HEAL_MONSTER_EVENT", Value=48)]
       S_HEAL_MONSTER_EVENT = 48,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT", Value=49)]
-      S_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT = 49,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_ADD_MONSTER_TO_BATTLE_TEAM_EVENT", Value=50)]
       S_ADD_MONSTER_TO_BATTLE_TEAM_EVENT = 50,

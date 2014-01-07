@@ -41,7 +41,6 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_ADD_MONSTER_TO_BATTLE_TEAM_EVENT, typeof(AddMonsterToBattleTeamResponseProto)},
 		{EventProtocolResponse.S_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT, typeof(RemoveMonsterFromBattleTeamResponseProto)},
 		{EventProtocolResponse.S_HEAL_MONSTER_EVENT, typeof(HealMonsterResponseProto)},
-		{EventProtocolResponse.S_HEAL_MONSTER_WAIT_TIME_COMPLETE_EVENT, typeof(HealMonsterWaitTimeCompleteResponseProto)},
 		{EventProtocolResponse.S_COMBINE_USER_MONSTER_PIECES_EVENT, typeof(CombineUserMonsterPiecesResponseProto)},
 		{EventProtocolResponse.S_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT, typeof(EnhancementWaitTimeCompleteResponseProto)},
 		{EventProtocolResponse.S_SUBMIT_MONSTER_ENHANCEMENT_EVENT, typeof(SubmitMonsterEnhancementResponseProto)},

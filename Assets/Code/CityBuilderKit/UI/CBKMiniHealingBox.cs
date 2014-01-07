@@ -120,7 +120,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		}
 		if (monster.isHealing)
 		{
-			bar.fillAmount = 1 - ((float)monster.healTimeLeftMillis) / ((float)monster.timeToHealMillis);
+			bar.fillAmount = 1 - monster.healProgressPercentage;
 			timeLabel.text = CBKUtil.TimeStringShort(monster.healTimeLeftMillis);
 		}
 		else if (monster.isEnhancing)
