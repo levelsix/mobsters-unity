@@ -196,7 +196,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public IEnumerator CheckUpgrade()
 	{
-		Debug.Log("Checking...");
+		yield return null;
 		while (!building.userStructProto.isComplete)
 		{
 			if (CBKUtil.timeNowMillis > building.userStructProto.purchaseTime + building.combinedProto.structInfo.minutesToBuild * 60 * 1000

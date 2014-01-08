@@ -38,6 +38,8 @@ public class CBKMonsterManager : MonoBehaviour {
 			return _monstersCount;
 		}
 	}
+
+	public static bool healingMonstersInitiated = false;
 	
 	SubmitMonsterEnhancementRequestProto enhanceRequestProto = null;
 	
@@ -83,6 +85,7 @@ public class CBKMonsterManager : MonoBehaviour {
 			mon.healingMonster = item;
 			healingMonsters.Add(mon);
 		}
+		healingMonsters.Sort(new HealingMonsterSorter());
 
 
 		if (enhancement != null)
@@ -99,12 +102,21 @@ public class CBKMonsterManager : MonoBehaviour {
 				enhancementFeeders.Add (mon);
 			}
 		}
-		
-		healingMonsters.Sort(new HealingMonsterSorter());
+
 		
 		if (CBKEventManager.Goon.OnTeamChanged != null)
 		{
 			CBKEventManager.Goon.OnTeamChanged();
+		}
+	}
+
+	public void InitHealers()
+	{
+		healingMonstersInitiated = true;
+		foreach (var monster in healingMonsters) 
+		{
+			DetermineHealTime(monster);
+				
 		}
 	}
 	
@@ -363,7 +375,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		public override int Compare (PZMonster x, PZMonster y)
 		{
-			return x.healingMonster.expectedStartTimeMillis.CompareTo(y.healingMonster.expectedStartTimeMillis);
+			return x.healingMonster.priority.CompareTo(y.healingMonster.priority);
 		}
 	}
 	

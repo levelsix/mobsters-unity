@@ -572,7 +572,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 7b684e1c2026e41b29f50637772bef7d, type: 2}
+  mFont: {fileID: 11400000, guid: 8a2e4fb7e2b464759aa30a0aca13ace3, type: 2}
   mText: 12m 33s
   mFontSize: 40
   mFontStyle: 0
@@ -1553,9 +1553,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 794350061}
-  - {fileID: 281738626}
   - {fileID: 940312303}
   - {fileID: 4550458}
+  - {fileID: 281738626}
   - {fileID: 834749361}
   - {fileID: 372827579}
   m_Father: {fileID: 1528484187}
@@ -6132,43 +6132,6 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 15af9e9be92f249099d11808ff7bacfa, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 15af9e9be92f249099d11808ff7bacfa, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400002, guid: 15af9e9be92f249099d11808ff7bacfa, type: 2}
-      propertyPath: mWidth
-      value: 91
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400002, guid: 15af9e9be92f249099d11808ff7bacfa, type: 2}
-      propertyPath: mHeight
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400002, guid: 15af9e9be92f249099d11808ff7bacfa, type: 2}
-      propertyPath: mFont
-      value: 
-      objectReference: {fileID: 11400000, guid: 7b684e1c2026e41b29f50637772bef7d,
-        type: 2}
-    - target: {fileID: 11400002, guid: 15af9e9be92f249099d11808ff7bacfa, type: 2}
-      propertyPath: mFontSize
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400002, guid: 15af9e9be92f249099d11808ff7bacfa, type: 2}
-      propertyPath: mColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400002, guid: 15af9e9be92f249099d11808ff7bacfa, type: 2}
-      propertyPath: mColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400002, guid: 15af9e9be92f249099d11808ff7bacfa, type: 2}
-      propertyPath: mColor.b
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 15af9e9be92f249099d11808ff7bacfa, type: 2}
   m_RootGameObject: {fileID: 1517558271}
@@ -6856,9 +6819,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 305425550}
   - {fileID: 1997645755}
   - {fileID: 1891438869}
+  - {fileID: 305425550}
   m_Father: {fileID: 1480108071}
 --- !u!1 &387050606
 GameObject:
@@ -13570,7 +13533,7 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 10
-  mHeight: 36
+  mHeight: 33
   mDepth: 3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0

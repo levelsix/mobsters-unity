@@ -321,6 +321,11 @@ public class CBKBuildingManager : MonoBehaviour
 				}
 			}
 		}
+
+		if (!CBKMonsterManager.healingMonstersInitiated)
+		{
+			CBKMonsterManager.instance.InitHealers();
+		}
 		
 		foreach (var item in CBKMonsterManager.userMonsters) {
 			if (item.Value.userMonster.isComplete)
