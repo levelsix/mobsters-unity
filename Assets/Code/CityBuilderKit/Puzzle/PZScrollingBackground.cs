@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PZScrollingBackground : MonoBehaviour {
-	
+
+	public static PZScrollingBackground instance;
+
 	[SerializeField]
 	List<CBKSimplePoolable> backgrounds = new List<CBKSimplePoolable>();
-	
+
+	public SpriteRenderer[] sprites;
+
 	public Vector3 direction;
 	
 	[SerializeField]
@@ -24,7 +28,12 @@ public class PZScrollingBackground : MonoBehaviour {
 	public float scrollSpeed = 60f;
 	
 	public static readonly Vector3 spawningOffset = new Vector3(513, 359.5f);
-	
+
+	void Awake()
+	{
+		instance = this;
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -32,6 +41,7 @@ public class PZScrollingBackground : MonoBehaviour {
 		{
 			Debug.LogError("Assign the first pair of backgrounds before starting!");
 		}
+		sprites = GetComponentsInChildren<SpriteRenderer>(true);
 		
 		direction = (backgrounds[0].transf.localPosition - backgrounds[1].transf.localPosition).normalized;
 	}
@@ -86,12 +96,14 @@ public class PZScrollingBackground : MonoBehaviour {
 			backgrounds.Add (back);
 			
 			wasLastTop = !wasLastTop;
+			sprites = GetComponentsInChildren<SpriteRenderer>(true);
 		}
 		CBKSimplePoolable first = backgrounds[0];
 		if (first.transform.localPosition.y < bottomThreshold)
 		{
 			backgrounds.Remove(first);
 			first.Pool();
+			sprites = GetComponentsInChildren<SpriteRenderer>(true);
 		}
 	}
 	

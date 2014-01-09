@@ -17,6 +17,7 @@ public static class CBKValues
 		public static int IGNORE_RAYCAST = 2;
 		public static int WATER = 4;
 		public static int UI = 8;
+		public static int PUZZLE = 10;
 	}
     
     public static class Scene

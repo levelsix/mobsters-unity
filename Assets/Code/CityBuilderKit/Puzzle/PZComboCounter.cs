@@ -23,7 +23,6 @@ public class PZComboCounter : MonoBehaviour {
 
 	void OnComboChange(int combo)
 	{
-		Debug.Log("Combo: " + combo + ", Last combo: " + lastCombo);
 		if (combo == 0 && alphaTween.alpha > 0)
 		{
 			FadeOut();

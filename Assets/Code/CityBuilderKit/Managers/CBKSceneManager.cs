@@ -34,6 +34,7 @@ public class CBKSceneManager : MonoBehaviour {
 		if (!cityState)
 		{
 			StartCoroutine(Fade(puzzlePanel, cityPanel));
+			StartCoroutine(FadePuzzleBackground(false));
 			cityState = true;
 		}
 	}
@@ -43,7 +44,22 @@ public class CBKSceneManager : MonoBehaviour {
 		if (cityState)
 		{
 			StartCoroutine(Fade(cityPanel, puzzlePanel));
+			StartCoroutine(FadePuzzleBackground(true));
 			cityState = false;
+		}
+	}
+
+	IEnumerator FadePuzzleBackground(bool fadeIn)
+	{
+		float t = 0;
+		while (t < fadeTime)
+		{
+			t += Time.deltaTime;
+			foreach(SpriteRenderer sprite in PZScrollingBackground.instance.sprites)
+			{
+				sprite.color = Color.Lerp(new Color(1,1,1,0), Color.white, (fadeIn) ? t/fadeTime : 1 - t/fadeTime);
+			}
+			yield return null;
 		}
 	}
 

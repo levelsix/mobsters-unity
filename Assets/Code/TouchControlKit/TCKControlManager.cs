@@ -501,7 +501,7 @@ public class TCKControlManager : MonoBehaviour
 	bool HitsUI(Vector2 screenPos)
 	{
 		Ray ray = uiCamera.ScreenPointToRay(screenPos);
-		return Physics.Raycast(ray, uiCamera.farClipPlane - uiCamera.nearClipPlane, 1 << CBKValues.Layers.UI);
+		return Physics.Raycast(ray, uiCamera.farClipPlane - uiCamera.nearClipPlane, 1 << CBKValues.Layers.UI | 1 << CBKValues.Layers.PUZZLE);
 	}
 	
 }

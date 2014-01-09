@@ -20,12 +20,14 @@ public class PZDeployCard : MonoBehaviour {
 	
 	static readonly Dictionary<MonsterProto.MonsterElement, string> backgroundDict = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "mininight"},
-		{MonsterProto.MonsterElement.FIRE, "minifire"},
-		{MonsterProto.MonsterElement.GRASS, "miniearth"},
-		{MonsterProto.MonsterElement.LIGHTNING, "minisun"},
-		{MonsterProto.MonsterElement.WATER, "miniwater"}
+		{MonsterProto.MonsterElement.DARKNESS, "nightteam"},
+		{MonsterProto.MonsterElement.FIRE, "fireteam"},
+		{MonsterProto.MonsterElement.GRASS, "earthteam"},
+		{MonsterProto.MonsterElement.LIGHTNING, "lightteam"},
+		{MonsterProto.MonsterElement.WATER, "waterteam"}
 	};
+
+	const string EMPTY_BOX = "teamempty";
 	
 	void Awake()
 	{
@@ -38,7 +40,14 @@ public class PZDeployCard : MonoBehaviour {
 		
 		background.spriteName = backgroundDict[goon.monster.element];
 
-		goonSprite.spriteName = CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Card";
+		goonSprite.spriteName = CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Thumbnail";
+
+		UISpriteData spriteData = goonSprite.GetAtlasSprite();
+		if (spriteData != null)
+		{
+			goonSprite.width = spriteData.width;
+			goonSprite.height = spriteData.height;
+		}
 		
 		bar.fillAmount = (float)goon.currHP / goon.maxHP;
 		
@@ -52,7 +61,7 @@ public class PZDeployCard : MonoBehaviour {
 	public void InitEmpty()
 	{
 		monster = null;
-		background.alpha = 0;
+		background.spriteName = EMPTY_BOX;
 		bar.alpha = 0;
 		goonSprite.alpha = 0;
 	}

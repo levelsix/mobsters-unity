@@ -10,11 +10,14 @@ using com.lvl6.proto;
 /// </summary>
 public class PZCombatManager : MonoBehaviour {
 	
+
 	/// <summary>
 	/// The static instance of this combat
 	/// </summary>
 	public static PZCombatManager instance;
-	
+
+	public UIPanel combatPanel;
+
 	/// <summary>
 	/// The player goonies that they brought into combat with them.
 	/// </summary>
@@ -76,7 +79,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// </value>
 	public static readonly Vector3 enemySpawnPosition = new Vector3(464, 511);
 
-	const float playerYThreshold = -78;
+	const float playerXFromSideThreshold = 78;
 	
 	[SerializeField]
 	PZDeployPopup deployPopup;
@@ -226,7 +229,7 @@ public class PZCombatManager : MonoBehaviour {
 			
 			activeEnemy.Init(enemies.Dequeue());
 
-			while(activePlayer.unit.transf.localPosition.y < playerYThreshold)
+			while(activePlayer.unit.transf.localPosition.x < -(Screen.width*640f/Screen.height/2) + playerXFromSideThreshold)
 			{
 				activePlayer.unit.transf.localPosition += Time.deltaTime * -background.direction * background.scrollSpeed;
 				Debug.Log("Player moving...");
