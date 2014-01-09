@@ -407,6 +407,14 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			return;
 		}
+
+		if (healRequestProto.umhNew.Count == 0
+		    && healRequestProto.umhUpdate.Count == 0
+		    && healRequestProto.umhDelete.Count == 0
+		    && healRequestProto.umchp.Count == 0)
+		{
+			return;
+		}
 		
 		UMQNetworkManager.instance.SendRequest(healRequestProto, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT, DealWithHealStartResponse);
 		

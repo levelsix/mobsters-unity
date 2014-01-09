@@ -38,8 +38,22 @@ public class PZCombatUnit : MonoBehaviour {
 	[SerializeField]
 	UISprite shadow;
 
+	[SerializeField]
+	Vector3 startingPos;
+
 	const float HP_LERP_FRAME = 1f;
-	
+
+	[ContextMenu("SetStartPos")]
+	void SetStartingPos()
+	{
+		startingPos = transform.localPosition;
+	}
+
+	public void GoToStartPos()
+	{
+		transform.localPosition = startingPos;
+	}
+
 	/// <summary>
 	/// Awake this instance and set up component references
 	/// </summary>

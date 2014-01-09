@@ -59,7 +59,12 @@ public class CBKTaskable : MonoBehaviour {
 				Debug.Log("No monsters on team have health!");
 			}
 		}
-		
+
+		StartCoroutine(BeginDungeonRequest());
+	}
+
+	IEnumerator BeginDungeonRequest()
+	{
 		BeginDungeonRequestProto request = new BeginDungeonRequestProto();
 		request.sender = CBKWhiteboard.localMup;
 		request.clientTime = CBKUtil.timeNowMillis;
@@ -67,7 +72,20 @@ public class CBKTaskable : MonoBehaviour {
 		
 		CBKWhiteboard.currSceneType = CBKWhiteboard.SceneType.PUZZLE;
 		CBKWhiteboard.dungeonToLoad = request;
-		CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.LOADING_SCENE);
-		//StartCoroutine(SendDungeonBeginRequest());
+		
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, null);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		CBKWhiteboard.loadedDungeon = UMQNetworkManager.responseDict[tagNum] as BeginDungeonResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		PZCombatManager.instance.Init();
+		PZPuzzleManager.instance.InitBoard();
+
+		CBKEventManager.Scene.OnPuzzle();
 	}
 }

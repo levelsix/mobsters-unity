@@ -37,6 +37,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// <summary>
 	/// The active enemy being fought and dealt damage by the player
 	/// </summary>
+	[SerializeField]
 	PZCombatUnit activeEnemy;
 	
 	/// <summary>
@@ -74,6 +75,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// The enemy spawn position.
 	/// </value>
 	public static readonly Vector3 enemySpawnPosition = new Vector3(464, 511);
+
+	const float playerYThreshold = -78;
 	
 	[SerializeField]
 	PZDeployPopup deployPopup;
@@ -101,28 +104,28 @@ public class PZCombatManager : MonoBehaviour {
 		instance = this;
 	}
 	
-	void Start()
-	{
-		Init ();
-	}
-	
 	void OnEnable()
 	{
 		CBKEventManager.Puzzle.OnDeploy += OnDeploy;
 		activePlayer.OnDeath += OnPlayerDeath;
+		activeEnemy.OnDeath += OnEnemyDeath;
 	}
 	
 	void OnDisable()
 	{
 		CBKEventManager.Puzzle.OnDeploy -= OnDeploy;
 		activePlayer.OnDeath -= OnPlayerDeath;
+		activeEnemy.OnDeath -= OnEnemyDeath;
 	}
 	
 	/// <summary>
 	/// Start this instance. Gets the combat going.
 	/// </summary>
-	void Init()
+	public void Init()
 	{
+		activeEnemy.GoToStartPos();
+		activePlayer.GoToStartPos();
+
 		enemies.Clear();
 		defeatedEnemies.Clear();
 		currTurn = 0;
@@ -131,13 +134,11 @@ public class PZCombatManager : MonoBehaviour {
 		CBKWhiteboard.currUserTaskId = CBKWhiteboard.loadedDungeon.userTaskId;
 		
 		PZMonster mon;
-		List<string> goonsToAtlasLoad = new List<string>();
 		foreach (TaskStageProto stage in CBKWhiteboard.loadedDungeon.tsp)
 		{
 			Debug.Log("Stage " + stage.stageId + ", Monster: " + stage.stageMonsters[0].monsterId);
 			mon = new PZMonster(stage.stageMonsters[0]);
 			enemies.Enqueue(mon);
-			goonsToAtlasLoad.Add(mon.monster.imagePrefix);
 		}
 		
 		winPopup.gameObject.SetActive(false);
@@ -153,12 +154,9 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			if (monster != null && monster.monster != null && monster.monster.monsterId > 0)
 			{
-				goonsToAtlasLoad.Add(monster.monster.imagePrefix);
 				playerGoonies.Add(monster);
 			}
 		}
-		
-		CBKAtlasUtil.instance.LoadAtlasesForSpriteNames(goonsToAtlasLoad);
 		
 		CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
 		deployPopup.Init(CBKMonsterManager.userTeam);
@@ -172,10 +170,7 @@ public class PZCombatManager : MonoBehaviour {
 		PZPuzzleManager.instance.swapLock -= 1;
 		CBKEventManager.Popup.CloseAllPopups();
 		activePlayer.Init(monster);
-		if (activeEnemy == null)
-		{
-			StartCoroutine(ScrollToNextEnemy());
-		}
+		StartCoroutine(ScrollToNextEnemy());
 	}
 	
 	void OnEnemyDeath()
@@ -219,16 +214,10 @@ public class PZCombatManager : MonoBehaviour {
 		//Debug.Log("Lock: Scrolling");
 		PZPuzzleManager.instance.swapLock += 1;
 		
-		
 		if (enemies.Count > 0)
 		{
 			activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
-			
-			if (activeEnemy == null)
-			{
-				activeEnemy = (CBKPoolManager.instance.Get(unitPrefab, Vector3.zero) as CBKUnit).GetComponent<PZCombatUnit>();
-				activeEnemy.OnDeath += OnEnemyDeath;
-			}
+
 			activeEnemy.unit.transf.parent = combatParent;
 			activeEnemy.unit.transf.localScale = Vector3.one;
 			activeEnemy.unit.transf.localPosition = enemySpawnPosition;
@@ -236,11 +225,18 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
 			
 			activeEnemy.Init(enemies.Dequeue());
-			
+
+			while(activePlayer.unit.transf.localPosition.y < playerYThreshold)
+			{
+				activePlayer.unit.transf.localPosition += Time.deltaTime * -background.direction * background.scrollSpeed;
+				Debug.Log("Player moving...");
+				yield return null;
+			}
 			
 			while(activeEnemy.unit.transf.localPosition.y > enemyYThreshold)
 			{
 				background.Scroll(activeEnemy.unit);
+				Debug.Log("Map moving...");
 				yield return null;
 			}
 			

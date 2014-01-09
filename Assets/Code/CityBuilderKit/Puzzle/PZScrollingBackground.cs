@@ -7,7 +7,7 @@ public class PZScrollingBackground : MonoBehaviour {
 	[SerializeField]
 	List<CBKSimplePoolable> backgrounds = new List<CBKSimplePoolable>();
 	
-	Vector3 direction;
+	public Vector3 direction;
 	
 	[SerializeField]
 	CBKSimplePoolable topPrefab;
@@ -41,12 +41,30 @@ public class PZScrollingBackground : MonoBehaviour {
 		withUnit.transf.localPosition += direction * scrollSpeed * Time.deltaTime;
 		Scroll(scrollSpeed);
 	}
+
+	public bool scrolling = false;
+
+	[ContextMenu("StartScroll")]
+	public void StartScroll()
+	{
+		scrolling = true;
+		StartCoroutine(KeepScroll());
+	}
+
+	IEnumerator KeepScroll()
+	{
+		while (scrolling)
+		{
+			Scroll(scrollSpeed);
+			yield return null;
+		}
+	}
 	
 	public void Scroll(float speed)
 	{
 		foreach (CBKSimplePoolable item in backgrounds) 
 		{
-			item.transf.localPosition += direction * speed * Time.deltaTime;
+			item.transform.localPosition += direction * speed * Time.deltaTime;
 		}
 		if (backgrounds[backgrounds.Count-1].transf.localPosition.y < topThreshold)
 		{
@@ -61,16 +79,16 @@ public class PZScrollingBackground : MonoBehaviour {
 			{
 				back = CBKPoolManager.instance.Get(topPrefab, Vector3.zero) as CBKSimplePoolable;
 			}
-			back.transf.parent = transform;
-			back.transf.localScale = Vector3.one;
-			back.transf.localPosition = backgrounds[backgrounds.Count-1].transf.localPosition + spawningOffset;
+			back.transform.parent = transform;
+			back.transform.localScale = Vector3.one;
+			back.transform.localPosition = backgrounds[backgrounds.Count-1].transform.localPosition + spawningOffset;
 			
 			backgrounds.Add (back);
 			
 			wasLastTop = !wasLastTop;
 		}
 		CBKSimplePoolable first = backgrounds[0];
-		if (first.transf.localPosition.y < bottomThreshold)
+		if (first.transform.localPosition.y < bottomThreshold)
 		{
 			backgrounds.Remove(first);
 			first.Pool();

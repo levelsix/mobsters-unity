@@ -133,8 +133,35 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		gem.prefab = this;
 		return gem;
 	}
-	
-	public void Init(int colr, int column)
+
+	public void SpawnOnMap(int colr, int column)
+	{
+		Init (colr, column);
+
+		while (boardY > 0)
+		{
+			if (PZPuzzleManager.instance.board[boardX, boardY-1] != null)
+			{
+				break;
+			}
+			boardY--;
+		}
+
+		trans.localPosition = new Vector3(boardX, boardY) * SPACE_SIZE;
+
+		PZPuzzleManager.instance.board[boardX, boardY] = this;
+	}
+
+	public void SpawnAbove(int colr, int column)
+	{
+		Init (colr, column);
+
+		trans.localPosition = new Vector3(boardX * SPACE_SIZE, Mathf.Max(boardY * SPACE_SIZE, PZPuzzleManager.instance.HighestGemInColumn(boardX) + SPACE_SIZE));
+
+		CheckFall();
+	}
+
+	void Init(int colr, int column)
 	{
 		colorIndex = colr;
 		baseSprite = PZPuzzleManager.instance.gemTypes[colorIndex];
@@ -150,13 +177,9 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		
 		boardX = column;
 		boardY = PZPuzzleManager.BOARD_HEIGHT;
-		
+
 		trans.localScale = Vector3.one;
-		trans.localPosition = new Vector3(boardX * SPACE_SIZE, Mathf.Max(boardY * SPACE_SIZE, PZPuzzleManager.instance.HighestGemInColumn(boardX) + SPACE_SIZE));
-		
 		gemType = GemType.NORMAL;
-		
-		CheckFall();
 	}
 	
 	public void CheckFall()

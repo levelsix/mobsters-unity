@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -141,7 +141,7 @@ public class PZMatch {
 					PZPuzzleManager.instance.board[gem.boardX, j].CheckFall();
 				}
 			}
-			gem.Init(PZPuzzleManager.instance.PickColor(), gem.boardX);
+			gem.SpawnAbove(PZPuzzleManager.instance.PickColor(), gem.boardX);
 		}
 	}
 	

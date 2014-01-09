@@ -7,13 +7,15 @@ using System.Collections;
 public class CBKSceneManager : MonoBehaviour {
 	
 	[SerializeField]
-	GameObject cityParent;
+	UIPanel cityPanel;
 	
 	[SerializeField]
-	GameObject puzzleParent;
-	
+	UIPanel puzzlePanel;
+
+	bool cityState = true;
+
 	[SerializeField]
-	GameObject loaderParent;
+	float fadeTime = .6f;
 	
 	void OnEnable()
 	{
@@ -29,13 +31,33 @@ public class CBKSceneManager : MonoBehaviour {
 	
 	void OnCity()
 	{
-		cityParent.SetActive(true);
-		puzzleParent.SetActive(false);
+		if (!cityState)
+		{
+			StartCoroutine(Fade(puzzlePanel, cityPanel));
+			cityState = true;
+		}
 	}
 	
 	void OnPuzzle()
 	{
-		cityParent.SetActive(false);
-		puzzleParent.SetActive(true);
+		if (cityState)
+		{
+			StartCoroutine(Fade(cityPanel, puzzlePanel));
+			cityState = false;
+		}
+	}
+
+	IEnumerator Fade (UIPanel from, UIPanel to)
+	{
+		to.gameObject.SetActive(true);
+		float t = 0;
+		while (t < fadeTime)
+		{
+			t += Time.deltaTime;
+			to.alpha = t/fadeTime;
+			from.alpha = 1 - to.alpha;
+			yield return null;
+		}
+		from.gameObject.SetActive(false);
 	}
 }

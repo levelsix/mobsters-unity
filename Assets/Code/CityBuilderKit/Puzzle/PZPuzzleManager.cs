@@ -131,6 +131,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		ClearBoard();
 		PZGem gem;
+
 		do
 		{
 			for (int i = 0; i < BOARD_HEIGHT; i++) 
@@ -139,15 +140,17 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					gem = CBKPoolManager.instance.Get(gemPrefab, Vector3.zero) as PZGem;
 					gem.transf.parent = puzzleParent;
-					gem.Init(PickColor(i, j), j);
+					gem.SpawnOnMap(PickColor(i, j), j);
 				}
 			}
 		}while(!CheckForMatchMoves());
+		
+		setUpBoard = true;
 	}
 
 	public void ClearBoard ()
 	{
-		if (board[0,0] != null)
+		if (setUpBoard)
 		{
 			for (int i = 0; i < BOARD_HEIGHT; i++) 
 			{
