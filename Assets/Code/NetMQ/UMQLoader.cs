@@ -83,7 +83,25 @@ public class UMQLoader : MonoBehaviour {
 				100/*response.experienceRequiredForNextLevel*/, response.sender.cash, response.sender.oil, response.sender.gems);
 			
 			CBKWhiteboard.currSceneType = CBKWhiteboard.SceneType.CITY;
-			CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.LOADING_SCENE);
+
+			LoadPlayerCityRequestProto request = new LoadPlayerCityRequestProto();
+			request.sender = CBKWhiteboard.localMup;
+			request.cityOwnerId = CBKWhiteboard.cityID;
+			
+			tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LOAD_PLAYER_CITY_EVENT, null);
+			
+			while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+			{
+				Debug.Log("Waiting on response: " + tagNum);
+				yield return new WaitForSeconds(1);
+			}
+			
+			Debug.Log("Got response");
+			
+			CBKWhiteboard.loadedPlayerCity = UMQNetworkManager.responseDict[tagNum] as LoadPlayerCityResponseProto;
+			UMQNetworkManager.responseDict.Remove(tagNum);
+
+			CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.TOWN_SCENE);
 		}
 	}
 
