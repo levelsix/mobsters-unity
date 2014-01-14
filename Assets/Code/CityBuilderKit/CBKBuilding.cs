@@ -380,6 +380,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	void Setup ()
 	{
+		name = combinedProto.structInfo.name;
+
 		shadow.transform.localPosition = SHADOW_POS;
 
 		lockIcon.SetActive(false);
@@ -437,6 +439,20 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		//sprite.spriteName = CBKUtil.StripExtensions(structName);
 		//CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
 		sprite.sprite = CBKAtlasUtil.instance.GetBuildingSprite(CBKUtil.StripExtensions(structName));
+
+		RuntimeAnimatorController animator = CBKAtlasUtil.instance.GetAnimator(CBKUtil.StripExtensions(structName));
+		Animator spriteAnimator = sprite.GetComponent<Animator>();
+		if (spriteAnimator != null)
+		{
+			if (animator != null)
+			{
+				spriteAnimator.runtimeAnimatorController = CBKAtlasUtil.instance.GetAnimator(combinedProto.structInfo.imgName);
+			}
+			else
+			{
+				spriteAnimator.runtimeAnimatorController = null;
+			}
+		}
 
 		/*
 		sprite.atlas = CBKAtlasUtil.instance.GetBuildingAtlas(structName);

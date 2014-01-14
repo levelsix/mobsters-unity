@@ -20,7 +20,7 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 		set
 		{
 			_spriteBaseName = value;
-			anim.runtimeAnimatorController = CBKAtlasUtil.instance.GetCharacterAnimator(value);
+			anim.runtimeAnimatorController = CBKAtlasUtil.instance.GetAnimator(value);
 			//_spriteBaseName = value;
 			//sprite.spriteName = value;
 			//CBKAtlasUtil.instance.SetAtlasForSprite(sprite);

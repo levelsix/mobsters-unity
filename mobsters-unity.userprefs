@@ -1,35 +1,57 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/CityBuilderKit/Managers/CBKMonsterManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/CityBuilderKit/CBKSnapshot.cs">
     <Files>
       <File FileName="Assets/NGUI/Scripts/UI/UI2DSprite.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKSceneManager.cs" Line="57" Column="24" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKSceneManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Managers/CBKEventManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Managers/CBKBuildingManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKValues.cs" Line="20" Column="33" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKValues.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/CBKTaskable.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZCityModeButton.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/UI/Popups/CBKCreateUserPopup.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/NetMQ/UMQLoader.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/NetMQ/UMQSceneBetweener.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKChangeSceneButton.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZCombatManager.cs" Line="82" Column="41" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZCombatManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZCombatUnit.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZScrollingBackground.cs" Line="11" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZGem.cs" Line="152" Column="57" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKMonsterManager.cs" Line="284" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZDeployCard.cs" Line="49" Column="42" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKPoolManager.cs" Line="12" Column="40" />
-      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZDeployPopup.cs" Line="24" Column="20" />
-      <File FileName="Assets/NGUI/Scripts/Interaction/UIButtonColor.cs" Line="133" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKUnit.cs" Line="8" Column="19" />
-      <File FileName="Assets/Code/TouchControlKit/TCKControlManager.cs" Line="504" Column="105" />
-      <File FileName="Assets/NGUI/Scripts/Internal/UIWidget.cs" Line="755" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZComboCounter.cs" Line="25" Column="3" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZScrollingBackground.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZGem.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKMonsterManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZDeployCard.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKPoolManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZDeployPopup.cs" Line="1" Column="1" />
+      <File FileName="Assets/NGUI/Scripts/Interaction/UIButtonColor.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKUnit.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/TouchControlKit/TCKControlManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/NGUI/Scripts/Internal/UIWidget.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZComboCounter.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/CBKFitToScreen.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKUtil.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Puzzle/PZMonster.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKAtlasUtil.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKBuilding.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/BuildingMenu/CBKBuildingCard.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKBuildingUpgrade.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKMaterialFader.cs" Line="12" Column="27" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKSnapshot.cs" Line="20" Column="30" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Code" expanded="True">
+              <Node name="CityBuilderKit" expanded="True">
+                <Node name="Managers" expanded="True" />
+                <Node name="UI" expanded="True">
+                  <Node name="BuildingMenu" expanded="True" />
+                </Node>
+                <Node name="CBKSnapshot.cs" selected="True" />
+              </Node>
+              <Node name="NetMQ" expanded="True" />
+            </Node>
+          </Node>
+        </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State />

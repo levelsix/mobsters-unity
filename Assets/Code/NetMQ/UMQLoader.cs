@@ -7,7 +7,10 @@ public class UMQLoader : MonoBehaviour {
 	
 	[SerializeField]
 	GameObject createUserPopup;
-	
+
+	[SerializeField]
+	CBKFillBar fillBar;
+
 	// Use this for initialization
 	IEnumerator Start () {
 
@@ -26,6 +29,8 @@ public class UMQLoader : MonoBehaviour {
 		{
 			yield return null;
 		}
+
+		fillBar.fill = .2f;
 		
 		UMQNetworkManager.instance.WriteDebug("Sending StartupRequest");
 		
@@ -41,6 +46,8 @@ public class UMQLoader : MonoBehaviour {
 		{
 			yield return null;
 		}
+
+		fillBar.fill = .75f;
 		
 		UMQNetworkManager.instance.WriteDebug(tagNum + ": Received StartupResponse");
 		
@@ -54,6 +61,8 @@ public class UMQLoader : MonoBehaviour {
 			CBKEventManager.Popup.OnPopup(createUserPopup);
 			yield break;
 		}
+
+		fillBar.fill = .9f;
 		
 		UMQNetworkManager.instance.WriteDebug("Update Status: " + response.updateStatus.ToString());
 

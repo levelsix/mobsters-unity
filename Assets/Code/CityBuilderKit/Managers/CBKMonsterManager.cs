@@ -810,6 +810,9 @@ public class CBKMonsterManager : MonoBehaviour {
 				yield return null;
 			}
 		}
+
+		Debug.Log("UMCEP: EXP: " + request.umcep.expectedExperience + ", LVL: " + request.umcep.expectedLevel);
+
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT, null);
 		
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
@@ -833,6 +836,21 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			return;
 		}
+
+		string str = "Start enhance request:";
+		foreach (var item in enhanceRequestProto.ueipNew) 
+		{
+			str += "\nNew: " + item.userMonsterId;
+		}
+		foreach (var item in enhanceRequestProto.ueipUpdate) 
+		{
+			str += "\nUpdate: " + item.userMonsterId;
+		}
+		foreach (var item in enhanceRequestProto.ueipDelete) 
+		{
+			str += "\nDelete: " + item.userMonsterId;
+		}
+		Debug.LogWarning(str);
 		
 		UMQNetworkManager.instance.SendRequest(enhanceRequestProto, (int)EventProtocolRequest.C_SUBMIT_MONSTER_ENHANCEMENT_EVENT, DealWithEnhanceStartResponse);
 		

@@ -105,10 +105,9 @@ public class CBKAtlasUtil : MonoBehaviour {
 		item.atlas = atlases[atlasName];
 	}
 
-	public RuntimeAnimatorController GetCharacterAnimator(string characterName)
+	public RuntimeAnimatorController GetAnimator(string imageName)
 	{
-
-		return (Resources.Load("CharacterControllers/" + characterName)) as RuntimeAnimatorController;
+		return (Resources.Load("Controllers/" + CBKUtil.StripExtensions(imageName))) as RuntimeAnimatorController;
 	}
 
 	public Sprite GetBuildingSprite(string spriteName)

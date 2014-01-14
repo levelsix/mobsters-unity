@@ -62,6 +62,8 @@ public class CBKBuildingManager : MonoBehaviour
     #region Private
 	
 	private Dictionary<int, CBKBuilding> buildings = new Dictionary<int, CBKBuilding>();
+
+	private List<FullUserStructureProto> userBuildings = new List<FullUserStructureProto>();
 	
 	private Dictionary<long, CBKUnit> units = new Dictionary<long, CBKUnit>();
 
@@ -130,6 +132,8 @@ public class CBKBuildingManager : MonoBehaviour
 		CBKEventManager.Controls.OnReleaseDrag[0] += OnReleaseDrag;
 		CBKEventManager.Controls.OnStartDrag[0] += OnStartDrag;
 		CBKEventManager.Town.PlaceBuilding += OnPlace;
+		CBKEventManager.UI.OnChangeResource[0] += DistributeCash;
+		CBKEventManager.UI.OnChangeResource[1] += DistributeOil;
 	}
 	
 	/// <summary>
@@ -145,6 +149,8 @@ public class CBKBuildingManager : MonoBehaviour
 		CBKEventManager.Controls.OnStartDrag[0] -= OnStartDrag;
 		CBKEventManager.Controls.OnReleaseDrag[0] -= OnReleaseDrag;
 		CBKEventManager.Town.PlaceBuilding -= OnPlace;
+		CBKEventManager.UI.OnChangeResource[0] -= DistributeCash;
+		CBKEventManager.UI.OnChangeResource[1] -= DistributeOil;
 	}
 	
 	#endregion
@@ -153,23 +159,13 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	public void Start()
 	{
-		switch (CBKWhiteboard.currCityType)
-		{
-		case CBKWhiteboard.CityType.PLAYER:
-			BuildPlayerCity(CBKWhiteboard.loadedPlayerCity);
-			CBKWhiteboard.loadedPlayerCity = null;
-			break;
-		case CBKWhiteboard.CityType.NEUTRAL:
-			BuildNeutralCity(CBKWhiteboard.loadedNeutralCity);
-			SyncTasks(CBKWhiteboard.loadedNeutralCity.cityId);
-			CBKWhiteboard.loadedNeutralCity = null;
-			break;
-		}
-		
 		if (CBKEventManager.Scene.OnCity != null)
 		{
 			CBKEventManager.Scene.OnCity();
 		}
+
+		BuildPlayerCity(CBKWhiteboard.loadedPlayerCity);
+
 	}
 	
 	public void RequestCity()
@@ -177,10 +173,11 @@ public class CBKBuildingManager : MonoBehaviour
 		Debug.Log("Sending city request");
 		if (CBKWhiteboard.currCityType == CBKWhiteboard.CityType.PLAYER)
 		{
-			LoadPlayerCityRequestProto load = new LoadPlayerCityRequestProto();
-			load.sender = CBKWhiteboard.localMup;
-			load.cityOwnerId = CBKWhiteboard.cityID;
-			UMQNetworkManager.instance.SendRequest(load, (int)EventProtocolRequest.C_LOAD_PLAYER_CITY_EVENT, LoadPlayerCity);
+			LoadPlayerCity();
+			//LoadPlayerCityRequestProto load = new LoadPlayerCityRequestProto();
+			//load.sender = CBKWhiteboard.localMup;
+			//load.cityOwnerId = CBKWhiteboard.cityID;
+			//UMQNetworkManager.instance.SendRequest(load, (int)EventProtocolRequest.C_LOAD_PLAYER_CITY_EVENT, LoadPlayerCity);
 		}
 		else
 		{
@@ -218,6 +215,11 @@ public class CBKBuildingManager : MonoBehaviour
 			yield return null;
 		}
 		
+		if (CBKEventManager.Scene.OnCity != null)
+		{
+			CBKEventManager.Scene.OnCity();
+		}
+		
 		LoadCityResponseProto response = UMQNetworkManager.responseDict[cityTag] as LoadCityResponseProto;
 		UMQNetworkManager.responseDict.Remove(cityTag);
 		
@@ -226,28 +228,27 @@ public class CBKBuildingManager : MonoBehaviour
 		BuildNeutralCity (response);
 		
 		SyncTasks (cityId);
-		
-		if (CBKEventManager.Scene.OnCity != null)
-		{
-			CBKEventManager.Scene.OnCity();
-		}
+
 	}
 	
-	public void LoadPlayerCity(int tagNum)
+	public void LoadPlayerCity()
 	{
-		RecycleCity();
-		
-		LoadPlayerCityResponseProto response = (LoadPlayerCityResponseProto) UMQNetworkManager.responseDict[tagNum];
-		UMQNetworkManager.responseDict.Remove(tagNum);
-		
-		Debug.Log("Loading city for player: " + response.cityOwner.name);
-		
-		BuildPlayerCity (response);
+		Debug.LogWarning("Load Player City");
 		
 		if (CBKEventManager.Scene.OnCity != null)
 		{
 			CBKEventManager.Scene.OnCity();
 		}
+
+		RecycleCity();
+		
+		//LoadPlayerCityResponseProto response = (LoadPlayerCityResponseProto) UMQNetworkManager.responseDict[tagNum];
+		//UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		//Debug.Log("Loading city for player: " + response.cityOwner.name);
+		
+		BuildPlayerCity (CBKWhiteboard.loadedPlayerCity);
+
 
 	}
 	
@@ -287,6 +288,7 @@ public class CBKBuildingManager : MonoBehaviour
 
 	void BuildPlayerCity (LoadPlayerCityResponseProto response)
 	{
+
 		RecycleCity();
 
 		hospitals.Clear();
@@ -321,6 +323,9 @@ public class CBKBuildingManager : MonoBehaviour
 				}
 			}
 		}
+
+		DistributeCash(CBKResourceManager.resources[0]);
+		DistributeOil(CBKResourceManager.resources[1]);
 
 		if (!CBKMonsterManager.healingMonstersInitiated)
 		{
@@ -704,6 +709,20 @@ public class CBKBuildingManager : MonoBehaviour
 		return buildings[userStructId].combinedProto.hospital;
 	}
 
+	public List<CBKBuilding> GetStorages(ResourceType resource)
+	{
+		List<CBKBuilding> storages = new List<CBKBuilding>();
+		foreach (var item in buildings.Values) 
+		{
+			if (item.combinedProto.storage != null && item.combinedProto.storage.structInfo.structId > 0
+			    && item.combinedProto.storage.resourceType == resource)
+			{
+				storages.Add(item);
+			}
+		}
+		return storages;
+	}
+
 	public List<ResourceStorageProto> GetAllStorages()
 	{
 		List<ResourceStorageProto> storages = new List<ResourceStorageProto>();
@@ -743,6 +762,48 @@ public class CBKBuildingManager : MonoBehaviour
 			case StructureInfoProto.StructType.TOWN_HALL:
 				townHall = building;
 				break;
+		}
+	}
+
+	void DistributeCash(int amount)
+	{
+		DistributeResource(ResourceType.CASH, amount);
+	}
+
+	void DistributeOil(int amount)
+	{
+		DistributeResource(ResourceType.OIL, amount);
+	}
+
+	void DistributeResource(ResourceType resource, float total)
+	{
+		Debug.LogWarning("Distributing resource: " + resource.ToString());
+		List<CBKBuilding> storages = GetStorages(resource);
+		storages.Sort( (x,y)=>x.combinedProto.storage.capacity.CompareTo(y.combinedProto.storage.capacity));
+		float avgAmnt = total / storages.Count;
+		float overflow = 0;
+		for (int i = 0; i < storages.Count; i++) 
+		{
+			float cap = storages[i].combinedProto.storage.capacity;
+			if (cap < avgAmnt)
+			{
+				storages[i].storage.SetAmount(cap);
+				overflow += avgAmnt - cap;
+			}
+			else
+			{
+				float potentialFlow = overflow * 1/(((float)storages.Count)-i); //Amount of overflow currently left for this storage
+				if (potentialFlow + avgAmnt > cap)
+				{
+					overflow -= cap - avgAmnt;
+					storages[i].storage.SetAmount(cap);
+				}
+				else
+				{
+					overflow -= potentialFlow;
+					storages[i].storage.SetAmount(avgAmnt + potentialFlow);
+				}
+			}
 		}
 	}
 	

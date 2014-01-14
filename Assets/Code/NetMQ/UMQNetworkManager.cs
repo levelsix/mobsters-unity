@@ -166,7 +166,7 @@ public class UMQNetworkManager : MonoBehaviour {
 
 	public void CreateClanChatQueue(MinimumUserProto user, int clanId)
 	{
-		Debug.LogWarning("Creating clan chat queue for clanID: " + clanId);
+		Debug.Log("Creating clan chat queue for clanID: " + clanId);
 
 		string userId = "client_userid_" + user.userId;
 

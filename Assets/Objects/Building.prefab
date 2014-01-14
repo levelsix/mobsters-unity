@@ -44,6 +44,7 @@ GameObject:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400014}
   - 212: {fileID: 21200000}
+  - 95: {fileID: 9500000}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -154,6 +155,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.47222221, y: 1, z: 1.47222221}
   m_Center: {x: 0, y: .5, z: 0}
+--- !u!95 &9500000
+Animator:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100004}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_ApplyRootMotion: 1
+  m_AnimatePhysics: 0
+  m_HasTransformHierarchy: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -188,7 +203,7 @@ MonoBehaviour:
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
-  mAtlas: {fileID: 11400000, guid: caad45bb11f424e66a8f4f6da8b8f36f, type: 2}
+  mAtlas: {fileID: 0}
   mSpriteName: cashready
   mFillCenter: 1
   mType: 0
@@ -307,7 +322,7 @@ MonoBehaviour:
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
-  mAtlas: {fileID: 11400000, guid: caad45bb11f424e66a8f4f6da8b8f36f, type: 2}
+  mAtlas: {fileID: 0}
   mSpriteName: cashready
   mFillCenter: 1
   mType: 0

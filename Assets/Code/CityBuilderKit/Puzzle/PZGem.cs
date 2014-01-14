@@ -94,11 +94,13 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	
 	const float SPACE_SIZE = 72;
 	
-	const float BASE_FALL_SPEED = -150;
+	const float BASE_FALL_SPEED = -250;
 
-	const float BASE_BOUNCE_SPEED = 75;
+	const float BASE_BOUNCE_SPEED = 80;
+
+	const float SECOND_BOUNCE_MODIFIER = .25f;
 	
-	const float GRAVITY = -400f;
+	const float GRAVITY = -600f;
 	
 	const float SWAP_TIME = .2f;
 	
@@ -236,7 +238,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		}
 		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1);
 
-		fallSpeed = BASE_BOUNCE_SPEED / 2;
+		fallSpeed = BASE_BOUNCE_SPEED * SECOND_BOUNCE_MODIFIER;
 		while(trans.localPosition.y > boardY * SPACE_SIZE)
 		{
 			yield return null;

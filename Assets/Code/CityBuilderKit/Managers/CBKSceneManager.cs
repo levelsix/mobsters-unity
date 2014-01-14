@@ -16,6 +16,9 @@ public class CBKSceneManager : MonoBehaviour {
 
 	[SerializeField]
 	float fadeTime = .6f;
+
+	[SerializeField]
+	CBKSnapshot snapShot;
 	
 	void OnEnable()
 	{
@@ -36,6 +39,10 @@ public class CBKSceneManager : MonoBehaviour {
 			StartCoroutine(Fade(puzzlePanel, cityPanel));
 			StartCoroutine(FadePuzzleBackground(false));
 			cityState = true;
+		}
+		else
+		{
+			snapShot.Snap();
 		}
 	}
 	
