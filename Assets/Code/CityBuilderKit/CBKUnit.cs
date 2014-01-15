@@ -96,15 +96,6 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 	
 	public float unitSize = 1.1f;
 	
-	static readonly Dictionary<CBKValues.Direction, string> dirNameDict = new Dictionary<CBKValues.Direction, string>()
-	{
-		{CBKValues.Direction.NORTH, "F"},
-		{CBKValues.Direction.SOUTH, "N"},
-		{CBKValues.Direction.WEST, "N"},
-		{CBKValues.Direction.EAST, "F"},
-		{CBKValues.Direction.NONE, "N"}
-	};
-	
 	/// <summary>
 	/// Awake this instance.
 	/// Set up internal component references

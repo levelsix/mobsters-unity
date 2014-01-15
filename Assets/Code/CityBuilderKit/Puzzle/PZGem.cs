@@ -87,6 +87,8 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	}
 	
 	public bool horizontal = true;
+
+	public bool enqueued = false;
 	
 	public int boardX, boardY;
 	
@@ -105,6 +107,8 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	const float SWAP_TIME = .2f;
 	
 	public int colorIndex = 0;
+
+	public bool lockedBySpecial = false;
 	
 	[SerializeField]
 	Vector2 currDrag = Vector2.zero;
@@ -113,6 +117,9 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	public bool moving = false;
 	
 	bool dragged = false;
+
+	int id = 0;
+	static int nextId = 0;
 	
 	static readonly Dictionary<CBKValues.Direction, Vector3> dirVals = new Dictionary<CBKValues.Direction, Vector3>()
 	{
@@ -127,6 +134,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		sprite = GetComponent<UISprite>();
 		trans = transform;
 		gameObj = gameObject;
+		id = nextId++;
 	}
 	
 	public CBKPoolable Make (Vector3 origin)
@@ -158,6 +166,8 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	{
 		Init (colr, column);
 
+		PZPuzzleManager.instance.OnStartMoving(this);
+
 		trans.localPosition = new Vector3(boardX * SPACE_SIZE, Mathf.Max(boardY * SPACE_SIZE, PZPuzzleManager.instance.HighestGemInColumn(boardX) + SPACE_SIZE));
 
 		CheckFall();
@@ -183,9 +193,37 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		trans.localScale = Vector3.one;
 		gemType = GemType.NORMAL;
 	}
-	
-	public void CheckFall()
+
+	public void Destroy()
 	{
+		if (!lockedBySpecial)
+		{
+			PZPuzzleManager.instance.board[boardX, boardY] = null; //Remove from board
+			for (int j = boardY; j < PZPuzzleManager.BOARD_HEIGHT; j++) //Tell everything that was above this to fall
+			{
+				if (PZPuzzleManager.instance.board[boardX, j] != null)
+				{
+					PZPuzzleManager.instance.board[boardX, j].CheckFall();
+				}
+			}
+			while(PZPuzzleManager.instance.columnQueues[boardX].Count > 0)
+			{
+				if (!PZPuzzleManager.instance.columnQueues[boardX].Peek().CheckFall())
+				{
+					break;
+				}
+			}
+			SpawnAbove(PZPuzzleManager.instance.PickColor(), boardX); //Respawn at top of board
+		}
+	}
+	
+	public bool CheckFall()
+	{
+		if (lockedBySpecial)
+		{
+			return false;
+		}
+
 		int targetY = boardY;
 		while(targetY > 0)
 		{
@@ -198,6 +236,12 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		
 		if (boardY != targetY)
 		{
+			if (enqueued)
+			{
+				PZPuzzleManager.instance.columnQueues[boardX].Dequeue();
+				enqueued = false;
+			}
+
 			//If this gem is above the board, it is new and doesn't need to be removed.
 			//Otherwise, it's falling from within the board, so we need to mark its old
 			//space as empty
@@ -211,6 +255,16 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			{
 				StartCoroutine(Fall());
 			}
+			return true;
+		}
+		else
+		{
+			if (!enqueued)
+			{
+				PZPuzzleManager.instance.columnQueues[boardX].Enqueue(this);
+				enqueued = true;
+			}
+			return false;
 		}
 	}
 	
@@ -368,110 +422,6 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		moving = false;
 		PZPuzzleManager.instance.OnStopMoving(this);
 	}
-	
-	public List<List<PZGem>> CheckMatches()
-	{
-		List<List<PZGem>> matchList = new List<List<PZGem>>();
-		List<PZGem> matchUD = CheckUpDown();
-		
-		List<PZGem> matchLR = CheckLeftRight();
-		
-		if (matchLR != null)
-		{
-			matchList.Add(matchLR);
-		}
-		if (matchUD != null)
-		{
-			matchList.Add(matchUD);
-		}
-		
-		return matchList;
-	}
-	
-	List<PZGem> CheckUpDown()
-	{
-		List<PZGem> match = new List<PZGem>();
-		match.Add(this);
-		PZGem check;
-		for (int i = boardY+1; i < PZPuzzleManager.BOARD_HEIGHT; i++) 
-		{
-			check = PZPuzzleManager.instance.board[boardX,i];
-			if (check != null && !check.moving && check != this &&
-				check.colorIndex == colorIndex)
-			{
-				match.Add(check);
-			}
-			else
-			{
-				break;
-			}
-		}
-		for (int i = boardY-1; i >= 0; i--) 
-		{
-			check = PZPuzzleManager.instance.board[boardX,i];
-			if (check != null && !check.moving && check != this &&
-				check.colorIndex == colorIndex)
-			{
-				match.Add(check);
-			}
-			else
-			{
-				break;
-			}
-		}
-		if (match.Count >= 3)
-		{
-			Debug.Log("Up-down match");
-			foreach (PZGem item in match) 
-			{
-				Debug.Log(item.ToString());
-			}
-			return match;
-		}
-		return null;
-	}
-	
-	List<PZGem> CheckLeftRight()
-	{
-		List<PZGem> match = new List<PZGem>();
-		match.Add(this);
-		PZGem check;
-		for (int i = boardX+1; i < PZPuzzleManager.BOARD_WIDTH; i++) 
-		{
-			check = PZPuzzleManager.instance.board[i, boardY];
-			if (check != null && !check.moving && check != this &&
-				check.colorIndex == colorIndex)
-			{
-				match.Add(check);
-			}
-			else
-			{
-				break;
-			}
-		}
-		for (int i = boardX-1; i >= 0; i--) 
-		{
-			check = PZPuzzleManager.instance.board[i, boardY];
-			if (check != null && !check.moving && check != this &&
-				check.colorIndex == colorIndex)
-			{
-				match.Add(check);
-			}
-			else
-			{
-				break;
-			}
-		}
-		if (match.Count >= 3)
-		{
-			Debug.Log("Left-right match");
-			foreach (PZGem item in match) {
-				Debug.Log(item.ToString());
-			}
-			return match;
-		}
-		return null;
-	}
 		
 	public void Pool()
 	{
@@ -480,6 +430,30 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	
 	public override string ToString()
 	{
-		return "Gem: " + boardX + "-" + boardY;
+		return "Gem " + id + ": " + boardX + "-" + boardY;
 	}
+
+	#region Debug
+
+#if UNITY_EDITOR
+	[ContextMenu ("Make Rocket")]
+	void MakeRocket()
+	{
+		gemType = GemType.ROCKET;
+	}
+
+	[ContextMenu ("Make Grenade")]
+	void MakeGrenade()
+	{
+		gemType = GemType.BOMB;
+	}
+
+	[ContextMenu ("Make Molotov")]
+	void MakeMolotov()
+	{
+		gemType = GemType.MOLOTOV;
+	}
+#endif
+
+	#endregion
 }

@@ -18,9 +18,7 @@ public class CBKResourceStorage : MonoBehaviour {
 
 	public void SetAmount(float resource)
 	{
-		Debug.LogWarning(building.userStructProto.userStructId + ": " + resource + " " + building.combinedProto.storage.capacity + ", " + 
-		                 (resource/building.combinedProto.storage.capacity));
-		if (animator != null)
+		if (animator != null && animator.runtimeAnimatorController != null)
 		{
 			animator.SetFloat("Amount", resource/building.combinedProto.storage.capacity);
 		}

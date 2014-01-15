@@ -8,7 +8,8 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	[SerializeField]
 	UILabel comboLabel;
-	
+
+	[SerializeField]
 	int _swapLock = 0;
 	
 	public int swapLock
@@ -66,6 +67,8 @@ public class PZPuzzleManager : MonoBehaviour {
 	public int[] currGems;
 	
 	public int[] gemsOnBoardByType = new int[GEM_TYPES];
+
+	public Queue<PZGem>[] columnQueues = new Queue<PZGem>[BOARD_WIDTH];
 	
 	public int gemsByType;
 	
@@ -81,6 +84,12 @@ public class PZPuzzleManager : MonoBehaviour {
 	[SerializeField]
 	public PZDamageNumber damageNumberPrefab;
 
+	[SerializeField]
+	PZRocket rocketPrefab;
+
+	[SerializeField]
+	PZMolotovPart molotovPartPrefab;
+
 	public void Awake()
 	{
 		instance = this;
@@ -94,6 +103,11 @@ public class PZPuzzleManager : MonoBehaviour {
 		setUpBoard = false;
 		
 		swapLock = 0;
+
+		for (int i = 0; i < columnQueues.Length; i++) 
+		{
+			columnQueues[i] = new Queue<PZGem>();
+		}
 	}
 	
 	void OnEnable()
@@ -210,8 +224,11 @@ public class PZPuzzleManager : MonoBehaviour {
 	public void OnStartMoving(PZGem gem)
 	{
 		//Debug.Log("Lock");
-		swapLock += 1;
-		movingGems.Add(gem);
+		if (!movingGems.Contains(gem))
+		{
+			swapLock += 1;
+			movingGems.Add(gem);
+		}
 	}
 	
 	public void OnStopMoving(PZGem gem)
@@ -223,38 +240,35 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			gemsToCheck.Add(gem);
 		}
-		
-		//Debug.Log(movingGems.Count);
-		if (movingGems.Count == 0)
-		{
-			CheckWholeBoard();
-			gemsToCheck.Clear();
-			if (movingGems.Count == 0)
-			{
-				if (combo == 0)
-				{
-					lastSwapSuccessful = false;
-				}
-				else
-				{
-					lastSwapSuccessful = true;
-					PZCombatManager.instance.OnBreakGems(currGems, combo);
-				}
-				processingSwap = false;
-				
-				ResetCombo();
 
-				if (!CheckForMatchMoves())
-				{
-					InitBoard();
-				}
-				Debug.Log("Board has matches: " + CheckForMatchMoves());
-			}
-			processingSwap = false;
-		}
+		CheckIfTurnFinished();
 		
 		//After the board is checked, if nothing is falling, unlock the board
 		
+	}
+
+	void CheckIfTurnFinished ()
+	{
+		if (movingGems.Count == 0) {
+			CheckWholeBoard ();
+			gemsToCheck.Clear ();
+			if (movingGems.Count == 0) {
+				if (combo == 0) {
+					lastSwapSuccessful = false;
+				}
+				else {
+					lastSwapSuccessful = true;
+					PZCombatManager.instance.OnBreakGems (currGems, combo);
+				}
+				processingSwap = false;
+				ResetCombo ();
+				if (!CheckForMatchMoves ()) {
+					InitBoard ();
+				}
+				Debug.Log ("Board has matches: " + CheckForMatchMoves ());
+			}
+			processingSwap = false;
+		}
 	}
 
 	void GetMatchesOnBoard (List<PZMatch> matchList)
@@ -386,10 +400,10 @@ public class PZPuzzleManager : MonoBehaviour {
 						match = GetMolotovGroup(gem, gem.colorIndex);
 						break;
 					case PZGem.GemType.ROCKET:
-						match = GetRocketMatch(gem);
+						match = DetonateRocket(gem);
 						break;
 					default:
-						match = null; //Fuck fuck fuck fuck fuck
+						match = null;
 						break;
 					}
 					RemoveRepeats(match, matchList);
@@ -488,10 +502,19 @@ public class PZPuzzleManager : MonoBehaviour {
 	PZMatch GetMolotovGroup(PZGem molly, int colorIndex)
 	{
 		List<PZGem> gems = new List<PZGem>();
+		PZGem gem;
+		gems.Add(molly);
 		for (int i = 0; i < BOARD_WIDTH; i++) {
 			for (int j = 0; j < BOARD_HEIGHT; j++) {
-				if (board[i,j] != null && (board[i,j] == molly || board[i,j].colorIndex == colorIndex))
+				gem = board[i,j];
+				if (gem != null && gem.colorIndex == colorIndex && gem != molly)
 				{
+					PZMolotovPart mp = (CBKPoolManager.instance.Get(molotovPartPrefab.GetComponent<CBKSimplePoolable>(), molly.transf.localPosition) as MonoBehaviour).GetComponent<PZMolotovPart>();
+					mp.trans.parent = puzzleParent;
+					mp.trans.localScale = Vector3.one;
+					mp.Init(molly.transf.localPosition, gem.transf.localPosition);
+					gem.lockedBySpecial = true;
+
 					gems.Add(board[i,j]);
 				}
 			}
@@ -540,22 +563,50 @@ public class PZPuzzleManager : MonoBehaviour {
 		return new PZMatch(gems, true);
 	}
 	
-	PZMatch GetRocketMatch(PZGem rocket)
+	PZMatch DetonateRocket(PZGem gem)
 	{
 		List<PZGem> gems = new List<PZGem>();
-		if (rocket.horizontal)
+		if (gem.horizontal)
 		{
+			PZRocket rocket = (CBKPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
+			rocket.Init(CBKValues.Direction.EAST);
+			rocket.trans.parent = puzzleParent;
+			rocket.trans.localRotation = Quaternion.identity;
+			rocket.trans.localScale = Vector3.one;
+
+			rocket = (CBKPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
+			rocket.Init(CBKValues.Direction.WEST);
+			rocket.trans.parent = puzzleParent;
+			rocket.trans.localRotation = Quaternion.identity;
+			rocket.trans.localScale = new Vector3(-1,1,1);
+
 			for (int i = 0; i < BOARD_WIDTH; i++) 
 			{
-				gems.Add(board[i, rocket.boardY]);
-				CheckIfMolly(board[i, rocket.boardY], rocket.colorIndex);
+				PZGem target = board[i, gem.boardY];
+				target.lockedBySpecial = true;
+				gems.Add(target);
+				CheckIfMolly(target, gem.colorIndex);
 			}
 		}
 		else
 		{
+			PZRocket rocket = (CBKPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
+			rocket.Init(CBKValues.Direction.NORTH);
+			rocket.trans.parent = puzzleParent;
+			rocket.trans.localRotation = new Quaternion(0,0,.707f,.707f);
+			rocket.trans.localScale = Vector3.one;
+
+			rocket = (CBKPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
+			rocket.Init(CBKValues.Direction.SOUTH);
+			rocket.trans.parent = puzzleParent;
+			rocket.trans.localRotation = new Quaternion(0,0,.707f,.707f);
+			rocket.trans.localScale = new Vector3(-1,1,1);
+
 			for (int i = 0; i < BOARD_HEIGHT; i++) {
-				gems.Add (board[rocket.boardX, i]);
-				CheckIfMolly(board[rocket.boardX,i], rocket.colorIndex);
+				PZGem target = board[gem.boardX, i];
+				target.lockedBySpecial = true;
+				gems.Add (target);
+				CheckIfMolly(target, gem.colorIndex);
 			}	
 		}
 		return new PZMatch(gems, true);

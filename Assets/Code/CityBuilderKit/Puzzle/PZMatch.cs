@@ -132,16 +132,7 @@ public class PZMatch {
 		PZGem gem;
 		for (; i < gems.Count; i++) 
 		{
-			gem = gems[i];
-			PZPuzzleManager.instance.board[gem.boardX, gem.boardY] = null; //Remove from board
-			for (int j = gem.boardY; j < PZPuzzleManager.BOARD_HEIGHT; j++) 
-			{
-				if (PZPuzzleManager.instance.board[gem.boardX, j] != null)
-				{
-					PZPuzzleManager.instance.board[gem.boardX, j].CheckFall();
-				}
-			}
-			gem.SpawnAbove(PZPuzzleManager.instance.PickColor(), gem.boardX);
+			gems[i].Destroy();
 		}
 	}
 	

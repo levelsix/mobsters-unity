@@ -72,6 +72,14 @@ public static class CBKValues
 		{Direction.EAST, Direction.WEST},
 		{Direction.WEST, Direction.EAST}
 	};
+
+	public static readonly Dictionary<Direction, Vector3> dirVectors = new Dictionary<Direction, Vector3>()
+	{
+		{Direction.NORTH, new Vector3(0, 1)},
+		{Direction.SOUTH, new Vector3(0, -1)},
+		{Direction.EAST, new Vector3(1, 0)},
+		{Direction.WEST, new Vector3(-1, 0)}
+	};
 	
 	public static class Colors
 	{

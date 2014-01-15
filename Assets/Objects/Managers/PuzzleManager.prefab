@@ -23,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.06875002, y: -1.88750005, z: -1.6875}
+  m_LocalPosition: {x: -.787500024, y: -1, z: 0}
   m_LocalScale: {x: .00312500005, y: .00312500005, z: .00312500005}
   m_Children: []
   m_Father: {fileID: 0}
@@ -39,6 +39,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboLabel: {fileID: 0}
+  _swapLock: 0
   processingSwap: 0
   lastSwapSuccessful: 1
   puzzleParent: {fileID: 0}
@@ -53,6 +54,8 @@ MonoBehaviour:
   gemsOnBoardByType: 0000000000000000000000000000000000000000
   gemsByType: 0
   damageNumberPrefab: {fileID: 11400004, guid: 0bde78446e90b4023a26e133a756d3cc, type: 2}
+  rocketPrefab: {fileID: 11400000, guid: ac52f9ee03f3e4a2687ddb81918e52e4, type: 2}
+  molotovPartPrefab: {fileID: 11400004, guid: 21b4370dac4cf4cfe99d801abf9a2245, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

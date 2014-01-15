@@ -262,7 +262,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		
 		//Debug.Log("Unlock: Done Scrolling");
-		PZPuzzleManager.instance.swapLock -= 1;
+		PZPuzzleManager.instance.swapLock = 0;
 	}
 
 	void GetRewards()
