@@ -504,6 +504,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		List<PZGem> gems = new List<PZGem>();
 		PZGem gem;
 		gems.Add(molly);
+		int index = 0;
 		for (int i = 0; i < BOARD_WIDTH; i++) {
 			for (int j = 0; j < BOARD_HEIGHT; j++) {
 				gem = board[i,j];
@@ -512,9 +513,9 @@ public class PZPuzzleManager : MonoBehaviour {
 					PZMolotovPart mp = (CBKPoolManager.instance.Get(molotovPartPrefab.GetComponent<CBKSimplePoolable>(), molly.transf.localPosition) as MonoBehaviour).GetComponent<PZMolotovPart>();
 					mp.trans.parent = puzzleParent;
 					mp.trans.localScale = Vector3.one;
-					mp.Init(molly.transf.localPosition, gem.transf.localPosition);
+					mp.Init(molly.transf.localPosition, gem.transf.localPosition, gem, index++);
 					gem.lockedBySpecial = true;
-
+					OnStartMoving(gem);
 					gems.Add(board[i,j]);
 				}
 			}
@@ -585,6 +586,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				PZGem target = board[i, gem.boardY];
 				target.lockedBySpecial = true;
 				gems.Add(target);
+				OnStartMoving(target);
 				CheckIfMolly(target, gem.colorIndex);
 			}
 		}
@@ -606,6 +608,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				PZGem target = board[gem.boardX, i];
 				target.lockedBySpecial = true;
 				gems.Add (target);
+				OnStartMoving(target);
 				CheckIfMolly(target, gem.colorIndex);
 			}	
 		}

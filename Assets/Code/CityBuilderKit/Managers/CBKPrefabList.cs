@@ -11,5 +11,12 @@ public class CBKPrefabList : MonoBehaviour {
 	}
 	
 	public CBKMoneyPickup moneyPrefab;
-	
+
+	public ParticleSystem gemMatchSparkle;
+
+	/// <summary>
+	/// Match particles for each color.
+	/// MANUALLY COORDINATED with the Gem Types array in PuzzleManager
+	/// </summary>
+	public PZMatchParticle[] matchParticle;
 }

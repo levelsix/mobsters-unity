@@ -8,12 +8,13 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
-  - 114: {fileID: 11400002}
+  - 114: {fileID: 11400004}
   - 114: {fileID: 11400000}
-  - 65: {fileID: 6500000}
-  - 54: {fileID: 5400000}
-  m_Layer: 8
-  m_Name: Gem
+  - 114: {fileID: 11400002}
+  - 96: {fileID: 9600000}
+  - 114: {fileID: 11400006}
+  m_Layer: 10
+  m_Name: BlueMatchParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,33 +31,48 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!54 &5400000
-Rigidbody:
+--- !u!96 &9600000
+TrailRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &6500000
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 72, y: 72, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_Time: .300000012
+  m_StartWidth: 10
+  m_EndWidth: 5
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 4294901760
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 2952724480
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 2113863680
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 1275002880
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 436142080
+  m_MinVertexDistance: .100000001
+  m_Autodestruct: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,19 +81,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d15bea07104e4b968e22d9a1135bdd3, type: 3}
+  m_Script: {fileID: 11500000, guid: a3517d9235cc14d418aa7b719aa908d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  horizontal: 1
-  enqueued: 0
-  boardX: 0
-  boardY: 0
-  colorIndex: 0
-  lockedBySpecial: 0
-  currDrag: {x: 0, y: 0}
-  moving: 0
+  startForce: 750
+  lerpTime: .400000006
+  totalTime: 1
+  trans: {fileID: 0}
 --- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e45d618fcbbc4b5eb65be17cfad1b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -104,20 +126,32 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
-  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mColor: {r: 0, g: 0, b: 1, a: 1}
   mPivot: 4
-  mWidth: 74
-  mHeight: 72
-  mDepth: 5
-  autoResizeBoxCollider: 0
+  mWidth: 50
+  mHeight: 50
+  mDepth: 6
+  autoResizeBoxCollider: 1
   hideIfOffScreen: 0
-  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
-  mSpriteName: puzzleImage
+  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mSpriteName: bombdrop
   mFillCenter: 1
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cdfe927ad9c46aaaa02af89b248b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderQueue: 3010
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

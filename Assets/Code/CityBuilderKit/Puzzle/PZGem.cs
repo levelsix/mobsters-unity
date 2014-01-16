@@ -157,7 +157,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			boardY--;
 		}
 
-		trans.localPosition = new Vector3(boardX, boardY) * SPACE_SIZE;
+		trans.localPosition = new Vector3(boardX * SPACE_SIZE, boardY * SPACE_SIZE, -1) ;
 
 		PZPuzzleManager.instance.board[boardX, boardY] = this;
 	}
@@ -168,7 +168,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 
 		PZPuzzleManager.instance.OnStartMoving(this);
 
-		trans.localPosition = new Vector3(boardX * SPACE_SIZE, Mathf.Max(boardY * SPACE_SIZE, PZPuzzleManager.instance.HighestGemInColumn(boardX) + SPACE_SIZE));
+		trans.localPosition = new Vector3(boardX * SPACE_SIZE, Mathf.Max(boardY * SPACE_SIZE, PZPuzzleManager.instance.HighestGemInColumn(boardX) + SPACE_SIZE), -1);
 
 		CheckFall();
 	}
@@ -194,10 +194,21 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		gemType = GemType.NORMAL;
 	}
 
+	void CreateMatchParticle()
+	{
+		PZMatchParticle part = (CBKPoolManager.instance.Get(CBKPrefabList.instance.matchParticle[colorIndex].GetComponent<CBKSimplePoolable>(), trans.localPosition)
+		                        as MonoBehaviour).GetComponent<PZMatchParticle>();
+		part.trans.parent = trans.parent;
+		part.trans.localPosition = new Vector3(trans.localPosition.x, trans.localPosition.y, -2);
+		part.Init();
+	}
+
 	public void Destroy()
 	{
 		if (!lockedBySpecial)
 		{
+			CreateMatchParticle();
+
 			PZPuzzleManager.instance.board[boardX, boardY] = null; //Remove from board
 			for (int j = boardY; j < PZPuzzleManager.BOARD_HEIGHT; j++) //Tell everything that was above this to fall
 			{
@@ -278,9 +289,9 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			yield return null;
 			fallSpeed += GRAVITY * Time.deltaTime;
 			trans.localPosition = new Vector3(trans.localPosition.x,
-				trans.localPosition.y + fallSpeed * Time.deltaTime);
+				trans.localPosition.y + fallSpeed * Time.deltaTime, -1);
 		}
-		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1);
+		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1, -1);
 
 		fallSpeed = BASE_BOUNCE_SPEED;
 		while(trans.localPosition.y > boardY * SPACE_SIZE)
@@ -288,9 +299,10 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			yield return null;
 			fallSpeed += GRAVITY * Time.deltaTime;
 			trans.localPosition = new Vector3(trans.localPosition.x,
-			                                  trans.localPosition.y + fallSpeed * Time.deltaTime);
+			                                  trans.localPosition.y + fallSpeed * Time.deltaTime,
+			                                  -1);
 		}
-		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1);
+		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1, -1);
 
 		fallSpeed = BASE_BOUNCE_SPEED * SECOND_BOUNCE_MODIFIER;
 		while(trans.localPosition.y > boardY * SPACE_SIZE)
@@ -298,9 +310,10 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			yield return null;
 			fallSpeed += GRAVITY * Time.deltaTime;
 			trans.localPosition = new Vector3(trans.localPosition.x,
-			                                  trans.localPosition.y + fallSpeed * Time.deltaTime);
+			                                  trans.localPosition.y + fallSpeed * Time.deltaTime,
+			                                  -1);
 		}
-		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY);
+		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY, -1);
 
 		moving = false;
 		PZPuzzleManager.instance.OnStopMoving(this);

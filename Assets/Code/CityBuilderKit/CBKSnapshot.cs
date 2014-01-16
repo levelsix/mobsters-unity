@@ -19,7 +19,6 @@ public class CBKSnapshot : MonoBehaviour {
 
 		//Render the texture
 		cam.targetTexture = rendTex;
-		Debug.Log(Screen.width + "/" + Screen.height + ": " + ((float)Screen.width / Screen.height));
 		cam.orthographicSize *= ((float)Screen.width / Screen.height);
 		cam.Render();
 

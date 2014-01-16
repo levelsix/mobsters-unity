@@ -232,14 +232,12 @@ public class PZCombatManager : MonoBehaviour {
 			while(activePlayer.unit.transf.localPosition.x < -(Screen.width*640f/Screen.height/2) + playerXFromSideThreshold)
 			{
 				activePlayer.unit.transf.localPosition += Time.deltaTime * -background.direction * background.scrollSpeed;
-				Debug.Log("Player moving...");
 				yield return null;
 			}
 			
 			while(activeEnemy.unit.transf.localPosition.y > enemyYThreshold)
 			{
 				background.Scroll(activeEnemy.unit);
-				Debug.Log("Map moving...");
 				yield return null;
 			}
 			

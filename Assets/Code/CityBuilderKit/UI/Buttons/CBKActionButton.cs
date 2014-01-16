@@ -38,7 +38,6 @@ public class CBKActionButton : MonoBehaviour {
 
 	public void OnClick()
 	{
-		Debug.Log("Clicked: " + name);
 		if (able && onClick != null)
 		{
 			onClick();

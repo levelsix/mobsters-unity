@@ -2560,6 +2560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboLabel: {fileID: 11400126}
+  _swapLock: 0
   processingSwap: 0
   lastSwapSuccessful: 1
   puzzleParent: {fileID: 400126}
@@ -2574,6 +2575,8 @@ MonoBehaviour:
   gemsOnBoardByType: 0000000000000000000000000000000000000000
   gemsByType: 0
   damageNumberPrefab: {fileID: 11400004, guid: 0bde78446e90b4023a26e133a756d3cc, type: 2}
+  rocketPrefab: {fileID: 0}
+  molotovPartPrefab: {fileID: 0}
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
