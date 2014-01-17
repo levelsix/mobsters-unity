@@ -183,13 +183,15 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 		switch(animate)
 		{
 			case AnimationType.ATTACK:
-				anim.SetTrigger("Attack");
+				anim.SetBool("Attack", true);
 				break;
 			case AnimationType.FLINCH:
-				anim.SetTrigger("Flinch");
+				anim.SetBool("Flinch", true);
 				break;
 			case AnimationType.IDLE:
 				anim.SetBool("Running", false);
+				anim.SetBool("Flinch", false);
+				anim.SetBool("Attack", false);
 				break;
 			case AnimationType.RUN:
 				anim.SetBool("Running", true);

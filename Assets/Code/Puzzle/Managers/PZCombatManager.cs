@@ -106,6 +106,10 @@ public class PZCombatManager : MonoBehaviour {
 	public int currTurn = 0;
 
 	public int playerTurns = 3;
+
+	public float recoilDistance = 20;
+
+	public float recoilTime = .2f;
 	
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
@@ -432,17 +436,37 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator PlayerShoot(int times)
 	{
+		Vector3 enemyPos = activeEnemy.unit.transf.localPosition;
+
 		for (int i = 0; i < times; i++) {
 
 			activePlayer.unit.animat = CBKUnit.AnimationType.ATTACK;
-			
-			yield return new WaitForSeconds(0.4f);
+
+			yield return new WaitForSeconds(0.2f);
 
 			activeEnemy.unit.animat = CBKUnit.AnimationType.FLINCH;
-			
-			yield return new WaitForSeconds(0.7f);
+
+			//TODO: Hit particles
+			while (activeEnemy.unit.transf.localPosition.x < enemyPos.x + recoilDistance * (i+1))
+			{
+				activeEnemy.unit.transf.localPosition += Time.deltaTime * recoilDistance / recoilTime * -background.direction;
+				yield return null;
+			}
+
+			yield return new WaitForSeconds(0.2f);
 
 		}
+
+		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
+		activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
+
+		while(activeEnemy.unit.transf.localPosition.x > enemyPos.x)
+		{
+			activeEnemy.unit.transf.localPosition -= Time.deltaTime * recoilDistance / recoilTime * -background.direction * 3;
+			yield return null;
+		}
+
+		activeEnemy.unit.transf.localPosition = enemyPos;
 	}
 
 	/// <summary>
@@ -471,22 +495,13 @@ public class PZCombatManager : MonoBehaviour {
 		//Enemy attack back if not dead
 		if (activeEnemy.monster.currHP > 0)
 		{
-		
-			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
-			
-			yield return new WaitForSeconds(0.5f);
 			
 			activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
-			activeEnemy.DealDamage(PickEnemyGems(), out damage, out element);
-			activePlayer.TakeDamage(damage, element);
+			activePlayer.TakeDamage(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f), element);
 			
-			yield return new WaitForSeconds(0.4f);
+			yield return new WaitForSeconds(1f);
 			
-			activePlayer.unit.animat = CBKUnit.AnimationType.FLINCH;
-			
-			yield return new WaitForSeconds(0.7f);
-			
-			activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
+			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
 		
 		}
 		

@@ -198,6 +198,8 @@ public class PZMonster {
 	public int currHP;
 	
 	public float[] attackDamages = new float[5];
+
+	public int totalDamage = 0;
 	
 	public PZMonster(FullUserMonsterProto userMonster)
 	{
@@ -265,6 +267,12 @@ public class PZMonster {
 		attackDamages[2] = attackMux * monster.elementThreeDmg;
 		attackDamages[3] = attackMux * monster.elementFourDmg;
 		attackDamages[4] = attackMux * monster.elementFiveDmg;
+
+		totalDamage = 0;
+		foreach (var damage in attackDamages) 
+		{
+			totalDamage += damage;
+		}
 	}
 	
 	#region Experience
