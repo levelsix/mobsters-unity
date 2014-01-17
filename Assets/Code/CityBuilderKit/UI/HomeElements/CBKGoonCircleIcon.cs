@@ -59,7 +59,14 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 			background.spriteName = backgroundElementDict[monster.monster.element];
 			icon.alpha = 1;
 			
-			icon.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Card";
+			icon.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Thumbnail";
+
+			UISpriteData spDat = icon.GetAtlasSprite();
+			if (spDat != null)
+			{
+				icon.width = spDat.width;
+				icon.height = spDat.height;
+			}
 			
 			hpbar.fill = ((float)monster.currHP) / monster.maxHP;
 			bar.spriteName = ringElementDict[monster.monster.element];

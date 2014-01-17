@@ -74,8 +74,8 @@ public static class CBKEventManager
 		public static Action<int> ClosePopupLayer;
 		public static Action CloseTopPopupLayer;
 		public static Action CloseAllPopups;
-		public static Action<string> CreatePopup;
-		public static Action<string, string[], Action[]> CreateButtonPopup;
+		public static Action<string, bool> CreatePopup;
+		public static Action<string, string[], Action[], bool> CreateButtonPopup;
 	}
 	
 	public static class UI
@@ -123,6 +123,11 @@ public static class CBKEventManager
 		public static Action<PZMonster> OnDeploy;
 		public static Action<int> OnTurnChange;
 		public static Action<int> OnComboChange;
+		public static Action OnNewPlayerTurn;
+		public static Action OnGemMatch;
+
+		public static Action ForceHideSwap;
+		public static Action ForceShowSwap;
 	}
 	
 	public static class Scene

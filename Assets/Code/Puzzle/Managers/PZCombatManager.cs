@@ -80,6 +80,14 @@ public class PZCombatManager : MonoBehaviour {
 	public static readonly Vector3 enemySpawnPosition = new Vector3(464, 511);
 
 	const float playerXFromSideThreshold = 78;
+
+	float playerXPos
+	{
+		get
+		{
+			return -(Screen.width * 640f / Screen.height / 2) + playerXFromSideThreshold;
+		}
+	}
 	
 	[SerializeField]
 	PZDeployPopup deployPopup;
@@ -127,7 +135,10 @@ public class PZCombatManager : MonoBehaviour {
 	public void Init()
 	{
 		activeEnemy.GoToStartPos();
+		activeEnemy.alive = false;
 		activePlayer.GoToStartPos();
+		activePlayer.alive = false;
+		activePlayer.monster = null;
 
 		enemies.Clear();
 		defeatedEnemies.Clear();
@@ -161,7 +172,7 @@ public class PZCombatManager : MonoBehaviour {
 			}
 		}
 		
-		CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
+		//CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
 		deployPopup.Init(CBKMonsterManager.userTeam);
 		
 		//Lock swap until deploy
@@ -170,10 +181,29 @@ public class PZCombatManager : MonoBehaviour {
 	
 	void OnDeploy(PZMonster monster)
 	{
-		PZPuzzleManager.instance.swapLock -= 1;
-		CBKEventManager.Popup.CloseAllPopups();
-		activePlayer.Init(monster);
-		StartCoroutine(ScrollToNextEnemy());
+		//CBKEventManager.Popup.CloseAllPopups();
+		Debug.Log("Deploying " + monster.userMonster.userId);
+
+		if (monster != activePlayer.monster)
+		{
+			Debug.Log ("Actually deploying");
+			if (activePlayer.alive)
+			{
+				StartCoroutine(SwapCharacters(monster));
+			}
+			else
+			{
+				activePlayer.Init(monster);
+				StartCoroutine(ScrollToNextEnemy());
+			}
+		}
+		else
+		{
+			if (CBKEventManager.Puzzle.ForceShowSwap != null)
+			{
+				CBKEventManager.Puzzle.ForceShowSwap();
+			}
+		}
 	}
 	
 	void OnEnemyDeath()
@@ -196,7 +226,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			if (goon.currHP > 0)
 			{
-				CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
+				//CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
 				deployPopup.Init(CBKMonsterManager.userTeam);
 				return;
 			}
@@ -207,7 +237,41 @@ public class PZCombatManager : MonoBehaviour {
 		
 		StartCoroutine(SendEndResult(false));
 	}
-	
+
+	/// <summary>
+	/// Moves the current player character back to the start position, re-inits the character 
+	/// as the new monster, and then moves it back into place. 
+	/// </summary>
+	/// <returns>The characters.</returns>
+	IEnumerator SwapCharacters(PZMonster swapTo)
+	{
+		PZPuzzleManager.instance.swapLock += 1;
+		
+		activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
+		activePlayer.unit.direction = CBKValues.Direction.WEST;
+
+		while (activePlayer.unit.transf.localPosition.x > activePlayer.startingPos.x)
+		{
+			activePlayer.unit.transf.localPosition += Time.deltaTime * background.direction * background.scrollSpeed * 3.5f;
+			yield return null;
+		}
+		activePlayer.Init(swapTo);
+		activePlayer.unit.animat = CBKUnit.AnimationType.RUN; //Animation gets reset during init, we have to set it again here
+		activePlayer.unit.direction = CBKValues.Direction.EAST;
+		while(activePlayer.unit.transf.localPosition.x < playerXPos)
+		{
+			activePlayer.unit.transf.localPosition += Time.deltaTime * -background.direction * background.scrollSpeed * 3.5f;
+			yield return null;
+		}
+		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
+		PZPuzzleManager.instance.swapLock = 0;
+		
+		if (CBKEventManager.Puzzle.ForceShowSwap != null)
+		{
+			CBKEventManager.Puzzle.ForceShowSwap();
+		}
+	}
+
 	/// <summary>
 	/// Spawns a new enemy and scrolls the background until
 	/// that enemy is in its place.
@@ -229,7 +293,7 @@ public class PZCombatManager : MonoBehaviour {
 			
 			activeEnemy.Init(enemies.Dequeue());
 
-			while(activePlayer.unit.transf.localPosition.x < -(Screen.width*640f/Screen.height/2) + playerXFromSideThreshold)
+			while(activePlayer.unit.transf.localPosition.x < playerXPos)
 			{
 				activePlayer.unit.transf.localPosition += Time.deltaTime * -background.direction * background.scrollSpeed;
 				yield return null;
@@ -258,7 +322,12 @@ public class PZCombatManager : MonoBehaviour {
 			GetRewards();
 			winPopup.PlayForward();
 		}
-		
+
+		if (CBKEventManager.Puzzle.ForceShowSwap != null)
+		{
+			CBKEventManager.Puzzle.ForceShowSwap();
+		}
+
 		//Debug.Log("Unlock: Done Scrolling");
 		PZPuzzleManager.instance.swapLock = 0;
 	}
@@ -360,7 +429,22 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		StartCoroutine(DamageAnimations(currPlayerDamage, activePlayer.monster.monster.element));
 	}
-	
+
+	IEnumerator PlayerShoot(int times)
+	{
+		for (int i = 0; i < times; i++) {
+
+			activePlayer.unit.animat = CBKUnit.AnimationType.ATTACK;
+			
+			yield return new WaitForSeconds(0.4f);
+
+			activeEnemy.unit.animat = CBKUnit.AnimationType.FLINCH;
+			
+			yield return new WaitForSeconds(0.7f);
+
+		}
+	}
+
 	/// <summary>
 	/// Runs through the sequence of animations that follow the player dealing
 	/// damage
@@ -375,15 +459,14 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		//Debug.Log("Lock: Animating");
 		PZPuzzleManager.instance.swapLock += 1;
-		
-		activePlayer.unit.animat = CBKUnit.AnimationType.ATTACK;
-		
-		yield return new WaitForSeconds(0.4f);
+
+		//TODO: Words?
+
+		yield return StartCoroutine(PlayerShoot(4));
+
 		
 		activeEnemy.TakeDamage(damage, element);
-		activeEnemy.unit.animat = CBKUnit.AnimationType.FLINCH;
-		
-		yield return new WaitForSeconds(0.7f);
+
 		
 		//Enemy attack back if not dead
 		if (activeEnemy.monster.currHP > 0)
@@ -414,8 +497,17 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (CBKEventManager.Puzzle.OnTurnChange != null)
 		{
-			CBKEventManager.Puzzle.OnTurnChange(playerTurns - currTurn);
+			CBKEventManager.Puzzle.OnTurnChange(playerTurns);
 		}
+
+		if (activeEnemy.alive)
+		{
+			if (CBKEventManager.Puzzle.OnNewPlayerTurn != null)
+			{
+				CBKEventManager.Puzzle.OnNewPlayerTurn();
+			}
+		}
+
 	}
 	
 	int[] PickEnemyGems()

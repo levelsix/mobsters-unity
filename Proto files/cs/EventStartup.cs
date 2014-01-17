@@ -273,6 +273,15 @@ namespace com.lvl6.proto
       get { return _enhancements; }
       set { _enhancements = value; }
     }
+
+    private com.lvl6.proto.UserEvolutionProto _evolution = null;
+    [global::ProtoBuf.ProtoMember(29, IsRequired = false, Name=@"evolution", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserEvolutionProto evolution
+    {
+      get { return _evolution; }
+      set { _evolution = value; }
+    }
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.RareBoosterPurchaseProto> _rareBoosterPurchases = new global::System.Collections.Generic.List<com.lvl6.proto.RareBoosterPurchaseProto>();
     [global::ProtoBuf.ProtoMember(22, Name=@"rareBoosterPurchases", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.RareBoosterPurchaseProto> rareBoosterPurchases

@@ -398,7 +398,7 @@ public class CBKGoonCard : MonoBehaviour {
 		{
 			if (CBKResourceManager.resources[(int)ResourceType.CASH-1] < goon.enhanceCost)
 			{
-				CBKEventManager.Popup.CreateButtonPopup("Need more mulah", new string[]{"Okay"}, new Action[]{CBKEventManager.Popup.CloseTopPopupLayer});
+				CBKEventManager.Popup.CreateButtonPopup("Need more mulah", new string[]{"Okay"}, new Action[]{CBKEventManager.Popup.CloseTopPopupLayer}, true);
 				return;
 			}
 			if (goon.userMonster.teamSlotNum > 0)
@@ -424,7 +424,7 @@ public class CBKGoonCard : MonoBehaviour {
 		}
 		if (CBKResourceManager.resources[(int)ResourceType.CASH-1] < goon.healCost)
 		{
-			CBKEventManager.Popup.CreateButtonPopup("Need more mulah", new string[]{"Okay"}, new Action[]{CBKEventManager.Popup.CloseTopPopupLayer});
+			CBKEventManager.Popup.CreateButtonPopup("Need more mulah", new string[]{"Okay"}, new Action[]{CBKEventManager.Popup.CloseTopPopupLayer}, true);
 		}
 		else if (goon.userMonster.teamSlotNum > 0)
 		{
@@ -446,7 +446,7 @@ public class CBKGoonCard : MonoBehaviour {
 		CBKEventManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
 			new Action[]{delegate{RemoveFromTeam(); CBKMonsterManager.instance.AddToEnhanceQueue(monster);
 				CBKEventManager.Popup.CloseTopPopupLayer();}, 
-			CBKEventManager.Popup.CloseTopPopupLayer});
+				CBKEventManager.Popup.CloseTopPopupLayer}, true);
 	}
 	
 	void PopupTeamMemberToHealingQueue(PZMonster monster)
@@ -454,7 +454,7 @@ public class CBKGoonCard : MonoBehaviour {
 		CBKEventManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
 			new Action[]{delegate{RemoveFromTeam();CBKMonsterManager.instance.AddToHealQueue(monster); 
 				CBKEventManager.Popup.CloseTopPopupLayer();}, 
-			CBKEventManager.Popup.CloseTopPopupLayer});
+				CBKEventManager.Popup.CloseTopPopupLayer}, true);
 	}
 
 

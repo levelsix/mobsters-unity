@@ -430,7 +430,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		}
 		else
 		{
-			CBKEventManager.Popup.CreatePopup("Not enough Gems");
+			CBKEventManager.Popup.CreatePopup("Not enough Gems", true);
 		}
 	}
 	
@@ -443,7 +443,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		}
 		else
 		{
-			CBKEventManager.Popup.CreatePopup("Not enough Gems");
+			CBKEventManager.Popup.CreatePopup("Not enough Gems", true);
 		}
 	}
 	

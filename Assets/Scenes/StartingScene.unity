@@ -273,17 +273,17 @@ MonoBehaviour:
   renderQueue: 0
   startingRenderQueue: 3000
   worldToLocal:
-    e00: .956337988
+    e00: 1.08169007
     e01: 0
     e02: 0
     e03: 0
     e10: 0
-    e11: .956337988
+    e11: 1.08169007
     e12: 0
-    e13: -.499985546
+    e13: 0
     e20: 0
     e21: 0
-    e22: .956337988
+    e22: 1.08169007
     e23: 0
     e30: 0
     e31: 0
@@ -1934,7 +1934,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goonManagePopup: {fileID: 0}
   popup: {fileID: 0}
-  popupGroup: {fileID: 0}
+  townPopupParent: {fileID: 0}
+  puzzlePopupParent: {fileID: 0}
 --- !u!1 &1172254210
 GameObject:
   m_ObjectHideFlags: 0
@@ -3089,7 +3090,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1330470603}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .499985546, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 187997275}
@@ -3193,7 +3194,7 @@ Transform:
   m_GameObject: {fileID: 1490847412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00294550811, y: .00294550811, z: .00294550811}
+  m_LocalScale: {x: .00260416674, y: .00260416674, z: .00260416674}
   m_Children:
   - {fileID: 506292759}
   m_Father: {fileID: 0}
@@ -3232,17 +3233,17 @@ MonoBehaviour:
   renderQueue: 0
   startingRenderQueue: 3000
   worldToLocal:
-    e00: 339.5
+    e00: 384
     e01: 0
     e02: 0
     e03: 0
     e10: 0
-    e11: 339.5
+    e11: 384
     e12: 0
     e13: 0
     e20: 0
     e21: 0
-    e22: 339.5
+    e22: 384
     e23: 0
     e30: 0
     e31: 0

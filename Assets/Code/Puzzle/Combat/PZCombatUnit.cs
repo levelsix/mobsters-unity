@@ -39,7 +39,9 @@ public class PZCombatUnit : MonoBehaviour {
 	UISprite shadow;
 
 	[SerializeField]
-	Vector3 startingPos;
+	public Vector3 startingPos;
+
+	public bool alive = false;
 
 	const float HP_LERP_FRAME = 1f;
 
@@ -70,6 +72,8 @@ public class PZCombatUnit : MonoBehaviour {
 	/// </param>
 	public void Init(PZMonster monster)
 	{
+		alive = true;
+
 		this.monster = monster;
 		unit.spriteBaseName = monster.monster.imagePrefix;
 		unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 1);
@@ -186,6 +190,9 @@ public class PZCombatUnit : MonoBehaviour {
 			shadow.alpha = unit.sprite.color.a;
 			yield return null;
 		}
+
+		alive = false;
+
 		//TODO: Animation?
 		yield return null;
 		Debug.Log("Death!");
@@ -197,5 +204,7 @@ public class PZCombatUnit : MonoBehaviour {
 		{
 			OnDeath();
 		}
+
+		monster = null;
 	}
 }

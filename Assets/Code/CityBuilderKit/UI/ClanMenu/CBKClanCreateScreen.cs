@@ -75,7 +75,7 @@ public class CBKClanCreateScreen : MonoBehaviour {
 		}
 		else
 		{
-			CBKEventManager.Popup.CreatePopup("Invalid Name");
+			CBKEventManager.Popup.CreatePopup("Invalid Name", true);
 		}
 	}
 }

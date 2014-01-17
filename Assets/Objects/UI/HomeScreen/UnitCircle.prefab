@@ -100,8 +100,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .200000003, y: -0, z: 0}
-  m_LocalScale: {x: .200269133, y: .200269133, z: .200269133}
+  m_LocalPosition: {x: 0, y: -21.1100006, z: 0}
+  m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 400004}
 --- !u!4 &400004
@@ -111,7 +111,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -199, y: -30.6399994, z: 0}
+  m_LocalPosition: {x: -44.7900009, y: -30.2199993, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -199,14 +199,14 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 4
-  mWidth: 206
-  mHeight: 210
+  mPivot: 7
+  mWidth: 60
+  mHeight: 82
   mDepth: 5
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
-  mAtlas: {fileID: 11400000, guid: 835d0525ee2954c3baa73ca0d66ddfb5, type: 2}
-  mSpriteName: Cheerleader4BazookaCard
+  mAtlas: {fileID: 11400000, guid: b8f1b56c62ab44f1e976df66a70e30dc, type: 2}
+  mSpriteName: Cheerleader2UziThumbnail
   mFillCenter: 1
   mType: 0
   mFillDirection: 4

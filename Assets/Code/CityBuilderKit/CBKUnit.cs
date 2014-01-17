@@ -47,7 +47,7 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 			if (value != _direction)
 			{
 				_direction = value;
-				//SetAnimation();
+				SetDirection();
 			}
 		}
 	}
@@ -164,6 +164,18 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 			nameLabel.text = name;
 		}
 	}
+
+	void SetDirection ()
+	{
+		anim.SetBool("Far", (direction == CBKValues.Direction.NORTH || direction == CBKValues.Direction.EAST));
+
+		if (direction == CBKValues.Direction.SOUTH || direction == CBKValues.Direction.EAST) {
+			sprite.transform.localScale = new Vector3 (-1, 1, 1) * unitSize;
+		}
+		else {
+			sprite.transform.localScale = Vector3.one * unitSize;
+		}
+	}
 	
 	void SetAnimation(AnimationType animate)
 	{
@@ -186,16 +198,8 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 				break;
 		}
 
-		anim.SetBool("Far", (direction == CBKValues.Direction.NORTH || direction == CBKValues.Direction.EAST));
 		
-		if (direction == CBKValues.Direction.SOUTH || direction == CBKValues.Direction.EAST)
-		{
-			sprite.transform.localScale = new Vector3(-1,1,1) * unitSize;
-		}
-		else
-		{
-			sprite.transform.localScale = Vector3.one * unitSize;
-		}
+		SetDirection ();
 
 	}
 	

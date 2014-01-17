@@ -196,6 +196,33 @@ namespace com.lvl6.proto
       set { _evolutionMonsterId = value; }
     }
 
+    private int _evolutionCatalystMonsterId = default(int);
+    [global::ProtoBuf.ProtoMember(25, IsRequired = false, Name=@"evolutionCatalystMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int evolutionCatalystMonsterId
+    {
+      get { return _evolutionCatalystMonsterId; }
+      set { _evolutionCatalystMonsterId = value; }
+    }
+
+    private int _minutesToEvolve = default(int);
+    [global::ProtoBuf.ProtoMember(26, IsRequired = false, Name=@"minutesToEvolve", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int minutesToEvolve
+    {
+      get { return _minutesToEvolve; }
+      set { _minutesToEvolve = value; }
+    }
+
+    private int _numCatalystMonstersRequired = default(int);
+    [global::ProtoBuf.ProtoMember(27, IsRequired = false, Name=@"numCatalystMonstersRequired", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numCatalystMonstersRequired
+    {
+      get { return _numCatalystMonstersRequired; }
+      set { _numCatalystMonstersRequired = value; }
+    }
+
     private string _carrotRecruited = "";
     [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"carrotRecruited", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -617,6 +644,41 @@ namespace com.lvl6.proto
       get { return _currentTeam; }
     }
   
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserEvolutionProto")]
+  public partial class UserEvolutionProto : global::ProtoBuf.IExtensible
+  {
+    public UserEvolutionProto() {}
+    
+
+    private long _catalystUserMonsterId = default(long);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"catalystUserMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long catalystUserMonsterId
+    {
+      get { return _catalystUserMonsterId; }
+      set { _catalystUserMonsterId = value; }
+    }
+    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<long> userMonsterIds
+    {
+      get { return _userMonsterIds; }
+    }
+  
+
+    private long _startTime = default(long);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"startTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long startTime
+    {
+      get { return _startTime; }
+      set { _startTime = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

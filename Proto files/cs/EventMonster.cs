@@ -12,6 +12,106 @@
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EvolveMonsterRequestProto")]
+  public partial class EvolveMonsterRequestProto : global::ProtoBuf.IExtensible
+  {
+    public EvolveMonsterRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.UserEvolutionProto _evolution = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"evolution", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserEvolutionProto evolution
+    {
+      get { return _evolution; }
+      set { _evolution = value; }
+    }
+
+    private int _gemsSpent = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsSpent
+    {
+      get { return _gemsSpent; }
+      set { _gemsSpent = value; }
+    }
+
+    private int _oilChange = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"oilChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int oilChange
+    {
+      get { return _oilChange; }
+      set { _oilChange = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EvolveMonsterResponseProto")]
+  public partial class EvolveMonsterResponseProto : global::ProtoBuf.IExtensible
+  {
+    public EvolveMonsterResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.EvolveMonsterResponseProto.EvolveMonsterStatus _status = com.lvl6.proto.EvolveMonsterResponseProto.EvolveMonsterStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.EvolveMonsterResponseProto.EvolveMonsterStatus.SUCCESS)]
+    public com.lvl6.proto.EvolveMonsterResponseProto.EvolveMonsterStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"EvolveMonsterStatus")]
+    public enum EvolveMonsterStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=2)]
+      FAIL_INSUFFICIENT_GEMS = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_RESOURCES", Value=3)]
+      FAIL_INSUFFICIENT_RESOURCES = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_MONSTER_REACHED_EVOLVING_LIMIT", Value=4)]
+      FAIL_MONSTER_REACHED_EVOLVING_LIMIT = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_MAX_NUM_EVOLUTIONS_REACHED", Value=5)]
+      FAIL_MAX_NUM_EVOLUTIONS_REACHED = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NONEXISTENT_MONSTERS", Value=6)]
+      FAIL_NONEXISTENT_MONSTERS = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=7)]
+      FAIL_OTHER = 7
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SubmitMonsterEnhancementRequestProto")]
   public partial class SubmitMonsterEnhancementRequestProto : global::ProtoBuf.IExtensible
   {

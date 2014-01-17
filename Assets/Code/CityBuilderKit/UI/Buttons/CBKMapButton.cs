@@ -10,11 +10,11 @@ public class CBKMapButton : MonoBehaviour {
 	{
 		if (cityID >= 1)
 		{
-			CBKEventManager.Popup.CreateButtonPopup("Go to Town " + cityID + "?", new string[]{"Yes", "No"}, new Action[]{GoToTown, CBKEventManager.Popup.CloseAllPopups});
+			CBKEventManager.Popup.CreateButtonPopup("Go to Town " + cityID + "?", new string[]{"Yes", "No"}, new Action[]{GoToTown, CBKEventManager.Popup.CloseAllPopups}, true);
 		}
 		else
 		{
-			CBKEventManager.Popup.CreateButtonPopup("Go Home?", new string[]{"Yes", "No"}, new Action[]{GoHome, CBKEventManager.Popup.CloseAllPopups});
+			CBKEventManager.Popup.CreateButtonPopup("Go Home?", new string[]{"Yes", "No"}, new Action[]{GoHome, CBKEventManager.Popup.CloseAllPopups}, true);
 		}
 	}
 	

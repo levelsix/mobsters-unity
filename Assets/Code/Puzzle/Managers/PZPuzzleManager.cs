@@ -110,25 +110,6 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 	}
 	
-	void OnEnable()
-	{
-		CBKEventManager.Puzzle.OnDeploy += OnDeploy;
-	}
-	
-	void OnDisable()
-	{
-		CBKEventManager.Puzzle.OnDeploy -= OnDeploy;
-	}
-	
-	void OnDeploy(PZMonster monster)
-	{
-		if (!setUpBoard)
-		{
-			InitBoard();
-			setUpBoard = true;
-		}
-	}
-	
 	public void ResetCombo()
 	{
 		combo = 0;
@@ -452,6 +433,14 @@ public class PZPuzzleManager : MonoBehaviour {
 		List<PZMatch> matchList = new List<PZMatch>();
 		
 		GetMatchesOnBoard (matchList);
+
+		if (matchList.Count > 0)
+		{
+			if (CBKEventManager.Puzzle.OnGemMatch != null)
+			{
+				CBKEventManager.Puzzle.OnGemMatch();
+			}
+		}
 		
 		CombineMultiMatches (matchList);
 		

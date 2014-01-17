@@ -20,7 +20,10 @@ public class CBKPopupManager : MonoBehaviour {
 	CBKGenericPopup popup;
 	
 	[SerializeField]
-	Transform popupGroup;
+	Transform townPopupParent;
+
+	[SerializeField]
+	Transform puzzlePopupParent;
 	
 	/// <summary>
 	/// The stack of current popup menus.
@@ -65,29 +68,36 @@ public class CBKPopupManager : MonoBehaviour {
 		CBKEventManager.Popup.CreateButtonPopup -= PopWithButtons;
 	}
 	
-	void InitPopup (CBKGenericPopup pop)
+	void InitPopup (CBKGenericPopup pop, bool townMode)
 	{
 		Transform popT = pop.transform;
-		
-		popT.parent = popupGroup;
+
+		if (townMode)
+		{
+			popT.parent = townPopupParent;
+		}
+		else
+		{
+			popT.parent = puzzlePopupParent;
+		}
 		popT.localScale = Vector3.one;
 		popT.localPosition = Vector3.zero;
 		
 		OnPopup(pop.gameObject);
 	}
 	
-	void CreatePopup(string text)
+	void CreatePopup(string text, bool townMode)
 	{
 		popup.Init(text);
 		
-		InitPopup (popup);
+		InitPopup (popup, townMode);
 	}
 	
-	void PopWithButtons(string text, string[] buttonLabels, Action[] buttonActions)
+	void PopWithButtons(string text, string[] buttonLabels, Action[] buttonActions, bool townMode)
 	{
 		popup.Init(text, buttonLabels, buttonActions);
 		
-		InitPopup (popup);
+		InitPopup (popup, townMode);
 	}
 	
 	/// <summary>

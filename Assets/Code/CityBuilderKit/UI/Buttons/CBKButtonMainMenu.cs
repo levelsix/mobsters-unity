@@ -5,6 +5,6 @@ public class CBKButtonMainMenu : MonoBehaviour
 {
 	void OnClick()
 	{
-		CBKEventManager.Popup.CreatePopup("Not Implemented");
+		CBKEventManager.Popup.CreatePopup("Not Implemented", true);
 	}
 }
