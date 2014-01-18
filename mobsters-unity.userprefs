@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/Puzzle/Managers/PZCombatManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/Puzzle/Combat/PZCombatUnit.cs">
     <Files>
       <File FileName="Assets/Code/CityBuilderKit/CBKSimplePoolable.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Managers/CBKPoolable.cs" Line="1" Column="1" />
@@ -13,20 +13,34 @@
       <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKActionButton.cs" Line="1" Column="1" />
       <File FileName="Assets/IcoParticles/Code/IcoParticles.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Managers/CBKPrefabList.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKUnit.cs" Line="168" Column="2" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKUnit.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/UI/CBKSetRenderQueue.cs" Line="1" Column="1" />
       <File FileName="Assets/NGUI/Scripts/UI/UIPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKEventManager.cs" Line="126" Column="30" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKEventManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/CBKTaskable.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/Puzzle/UI/PZSwapButton.cs" Line="15" Column="26" />
-      <File FileName="Assets/Code/Puzzle/Managers/PZCombatManager.cs" Line="263" Column="116" />
-      <File FileName="Assets/Code/Puzzle/UI/PZDeployPopup.cs" Line="29" Column="35" />
-      <File FileName="Assets/Code/Puzzle/UI/PZDeployCard.cs" Line="74" Column="33" />
-      <File FileName="Assets/Code/Puzzle/Combat/PZCombatUnit.cs" Line="78" Column="10" />
-      <File FileName="Assets/Code/Puzzle/Managers/PZPuzzleManager.cs" Line="441" Column="41" />
-      <File FileName="Assets/Code/Puzzle/Board/PZGem.cs" Line="107" Column="28" />
-      <File FileName="Assets/NGUI/Scripts/Internal/UIWidget.cs" Line="755" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/HomeElements/CBKGoonCircleIcon.cs" Line="57" Column="4" />
+      <File FileName="Assets/Code/Puzzle/UI/PZSwapButton.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Puzzle/Managers/PZCombatManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Puzzle/UI/PZDeployPopup.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Puzzle/UI/PZDeployCard.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Puzzle/Combat/PZCombatUnit.cs" Line="186" Column="20" />
+      <File FileName="Assets/Code/Puzzle/Managers/PZPuzzleManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Puzzle/Board/PZGem.cs" Line="1" Column="1" />
+      <File FileName="Assets/NGUI/Scripts/Internal/UIWidget.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/HomeElements/CBKGoonCircleIcon.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Puzzle/UI/PZRetreatButton.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Puzzle/UI/PZCityModeButton.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKPopupManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKMapButton.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/CBKGoonCard.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKButtonFight.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/Buttons/CBKButtonMainMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/ClanMenu/CBKClanCreateScreen.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/Popups/CBKGoonScreen.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/Popups/CBKGenericPopup.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Puzzle/Combat/PZMonster.cs" Line="1" Column="1" />
+      <File FileName="Assets/Art/Particles/ParticleController.cs" Line="23" Column="24" />
+      <File FileName="Assets/IcoParticles/Code/IcoParticlesManagerExample.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Puzzle/Board/PZMatchParticle.cs" Line="74" Column="38" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -39,17 +53,23 @@
               <Node name="CityBuilderKit" expanded="True">
                 <Node name="Managers" expanded="True" />
                 <Node name="UI" expanded="True">
+                  <Node name="Buttons" expanded="True" />
+                  <Node name="ClanMenu" expanded="True" />
                   <Node name="HomeElements" expanded="True" />
+                  <Node name="Popups" expanded="True" />
                 </Node>
               </Node>
               <Node name="Puzzle" expanded="True">
                 <Node name="Board" expanded="True" />
-                <Node name="Combat" expanded="True" />
-                <Node name="Managers" expanded="True">
-                  <Node name="PZCombatManager.cs" selected="True" />
+                <Node name="Combat" expanded="True">
+                  <Node name="PZCombatUnit.cs" selected="True" />
                 </Node>
+                <Node name="Managers" expanded="True" />
                 <Node name="UI" expanded="True" />
               </Node>
+            </Node>
+            <Node name="IcoParticles" expanded="True">
+              <Node name="Code" expanded="True" />
             </Node>
             <Node name="NGUI" expanded="True">
               <Node name="Scripts" expanded="True">

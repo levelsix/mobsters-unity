@@ -777,6 +777,8 @@ public class CBKBuildingManager : MonoBehaviour
 
 	void DistributeResource(ResourceType resource, float total)
 	{
+		if (CBKWhiteboard.currCityType == CBKWhiteboard.CityType.NEUTRAL) return;
+
 		List<CBKBuilding> storages = GetStorages(resource);
 		storages.Sort( (x,y)=>x.combinedProto.storage.capacity.CompareTo(y.combinedProto.storage.capacity));
 		float avgAmnt = total / storages.Count;

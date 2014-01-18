@@ -268,11 +268,12 @@ public class PZMonster {
 		attackDamages[3] = attackMux * monster.elementFourDmg;
 		attackDamages[4] = attackMux * monster.elementFiveDmg;
 
-		totalDamage = 0;
+		float total = 0;
 		foreach (var damage in attackDamages) 
 		{
-			totalDamage += damage;
+			total += damage;
 		}
+		totalDamage = (int)total;
 	}
 	
 	#region Experience

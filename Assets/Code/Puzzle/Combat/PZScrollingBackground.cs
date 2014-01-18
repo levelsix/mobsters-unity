@@ -76,6 +76,11 @@ public class PZScrollingBackground : MonoBehaviour {
 		{
 			item.transform.localPosition += direction * speed * Time.deltaTime;
 		}
+		if (PZCombatManager.instance.crate != null)
+		{
+			PZCombatManager.instance.crate.transform.localPosition += direction * speed * Time.deltaTime;
+		}
+
 		if (backgrounds[backgrounds.Count-1].transf.localPosition.y < topThreshold)
 		{
 			//Make new background

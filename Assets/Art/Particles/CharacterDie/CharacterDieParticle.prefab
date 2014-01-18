@@ -11,8 +11,10 @@ GameObject:
   - 198: {fileID: 19800000}
   - 199: {fileID: 19900000}
   - 114: {fileID: 11400000}
-  m_Layer: 0
-  m_Name: SparklesParticle
+  - 114: {fileID: 11400002}
+  - 114: {fileID: 11400004}
+  m_Layer: 10
+  m_Name: CharacterDieParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,11 +42,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37f2437c68c8a43b1bf52efeca416266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  source: {fileID: 4900000, guid: a20aa1429aec34990a032c416ac749e3, type: 3}
-  loop: 1
-  loopDelay: 1000
-  sys: {fileID: 0}
-  pool: {fileID: 0}
+  source: {fileID: 4900000, guid: a4db3ff00d3624b2891fc1cf51cd25a4, type: 3}
+  loop: 0
+  loopDelay: 0
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e45d618fcbbc4b5eb65be17cfad1b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cdfe927ad9c46aaaa02af89b248b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderQueue: 3015
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1109,7 +1132,7 @@ ParticleSystemRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: e53cfecc632ec49799a159c1c22ad9cd, type: 2}
+  - {fileID: 2100000, guid: 99507c3cbe7674c9281ac0df35cb985f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

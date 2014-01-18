@@ -19,4 +19,8 @@ public class CBKPrefabList : MonoBehaviour {
 	/// MANUALLY COORDINATED with the Gem Types array in PuzzleManager
 	/// </summary>
 	public PZMatchParticle[] matchParticle;
+
+	public CBKSimplePoolable characterDieParticle;
+
+	public CBKSimplePoolable cratePrefab;
 }

@@ -33,7 +33,7 @@ public class CBKTaskable : MonoBehaviour {
                 new Action[]{delegate{CBKEventManager.Popup.CloseTopPopupLayer();},
 					delegate{CBKEventManager.Popup.CloseAllPopups(); CBKEventManager.Popup.OnPopup(CBKPopupManager.instance.goonManagePopup);
 						CBKPopupManager.instance.goonManagePopup.GetComponent<CBKGoonScreen>().InitHeal();}},
-					true);
+				true);
 			return;
 		}
 		else if (CBKMonsterManager.userMonsters.Count > CBKMonsterManager.totalResidenceSlots)

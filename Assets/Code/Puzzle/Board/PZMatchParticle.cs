@@ -71,16 +71,7 @@ public class PZMatchParticle : MonoBehaviour {
 			trans.localPosition = Vector3.Lerp(midPos, dest, (curr-lerpTime)/(totalTime-lerpTime));
 			yield return null;
 		}
-		yield return new WaitForSeconds(.1f);
+		yield return new WaitForSeconds(.15f);
 		pool.Pool();
-	}
-
-	void Update()
-	{
-
-		if ((trans.localPosition - dest).sqrMagnitude < 300)
-		{
-			pool.Pool();
-		}
 	}
 }

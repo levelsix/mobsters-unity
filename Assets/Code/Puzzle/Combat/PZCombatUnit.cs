@@ -180,24 +180,23 @@ public class PZCombatUnit : MonoBehaviour {
 		//Debug.Log("Lock");
 		PZPuzzleManager.instance.swapLock += 1;
 		
-		unit.animat = CBKUnit.AnimationType.FLINCH;
+		alive = false;
 		
-		float time = 0;
-		while (time < 3f)
+		unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 0);
+		shadow.alpha = 0;
+
+		CBKPoolManager.instance.Get(CBKPrefabList.instance.characterDieParticle, unit.transf.position);
+
+		if (monster.taskMonster != null && monster.taskMonster.monsterId > 0 && monster.taskMonster.puzzlePieceDropped)
 		{
-			time += Time.deltaTime;
-			unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, Mathf.Lerp(1, 0, time/3f));
-			shadow.alpha = unit.sprite.color.a;
-			yield return null;
+			Transform crate = (CBKPoolManager.instance.Get(CBKPrefabList.instance.cratePrefab, unit.transf.position) as MonoBehaviour).transform;
+			PZCombatManager.instance.crate = crate.GetComponent<PZCrate>();
+			crate.parent = unit.transf.parent;
+			crate.localScale = new Vector3(50,50,1);
 		}
 
-		alive = false;
+		yield return new WaitForSeconds(1);
 
-		//TODO: Animation?
-		yield return null;
-		Debug.Log("Death!");
-		
-		//CBKPoolManager.instance.Pool(unit);
 		PZPuzzleManager.instance.swapLock -= 1;
 		
 		if (OnDeath != null)

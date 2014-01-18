@@ -55,7 +55,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// as the player's unit moves from enemy to enemy
 	/// </summary>
 	[SerializeField]
-	PZScrollingBackground background;
+	public PZScrollingBackground background;
 	
 	/// <summary>
 	/// The combat parent. Generated units will use this as their parent
@@ -64,6 +64,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	[SerializeField]
 	Transform combatParent;
+
+	public PZCrate crate;
 	
 	/// <summary>
 	/// The Y value at which the enemy needs to be for the scrolling to stop happening
@@ -285,35 +287,17 @@ public class PZCombatManager : MonoBehaviour {
 		//Debug.Log("Lock: Scrolling");
 		PZPuzzleManager.instance.swapLock += 1;
 		
+		activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
+		activeEnemy.GoToStartPos();
+
 		if (enemies.Count > 0)
 		{
-			activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
-
-			activeEnemy.unit.transf.parent = combatParent;
-			activeEnemy.unit.transf.localScale = Vector3.one;
-			activeEnemy.unit.transf.localPosition = enemySpawnPosition;
+			activeEnemy.Init(enemies.Dequeue());
 			activeEnemy.unit.direction = CBKValues.Direction.WEST;
 			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
-			
-			activeEnemy.Init(enemies.Dequeue());
-
-			while(activePlayer.unit.transf.localPosition.x < playerXPos)
-			{
-				activePlayer.unit.transf.localPosition += Time.deltaTime * -background.direction * background.scrollSpeed;
-				yield return null;
-			}
-			
-			while(activeEnemy.unit.transf.localPosition.y > enemyYThreshold)
-			{
-				background.Scroll(activeEnemy.unit);
-				yield return null;
-			}
-			
-			activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
 		}
 		else
 		{
-			activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
 			
 			StartCoroutine(SendEndResult(true));
 
@@ -324,16 +308,36 @@ public class PZCombatManager : MonoBehaviour {
 
 			winPopup.gameObject.SetActive(true);
 			GetRewards();
+			winPopup.Reset();
 			winPopup.PlayForward();
 		}
+
+		Debug.LogWarning("Player running");
+
+		while(activePlayer.unit.transf.localPosition.x < playerXPos)
+		{
+			activePlayer.unit.transf.localPosition += Time.deltaTime * -background.direction * background.scrollSpeed;
+			yield return null;
+		}
+		
+		Debug.LogWarning("Background Scrolling");
+
+		while(activeEnemy.unit.transf.localPosition.y > enemyYThreshold)
+		{
+			background.Scroll(activeEnemy.unit);
+			yield return null;
+		}
+
+		Debug.LogWarning("Done scrolling!");
+
+		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
 
 		if (CBKEventManager.Puzzle.ForceShowSwap != null)
 		{
 			CBKEventManager.Puzzle.ForceShowSwap();
 		}
 
-		//Debug.Log("Unlock: Done Scrolling");
-		PZPuzzleManager.instance.swapLock = 0;
+		PZPuzzleManager.instance.swapLock = activeEnemy.alive ? 0 : 1;
 	}
 
 	void GetRewards()
@@ -442,7 +446,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			activePlayer.unit.animat = CBKUnit.AnimationType.ATTACK;
 
-			yield return new WaitForSeconds(0.2f);
+			yield return new WaitForSeconds(0.1f);
 
 			activeEnemy.unit.animat = CBKUnit.AnimationType.FLINCH;
 
@@ -453,7 +457,7 @@ public class PZCombatManager : MonoBehaviour {
 				yield return null;
 			}
 
-			yield return new WaitForSeconds(0.2f);
+			yield return new WaitForSeconds(recoilTime-.2f);
 
 		}
 
@@ -497,7 +501,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			
 			activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
-			activePlayer.TakeDamage(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f), element);
+			activePlayer.TakeDamage(Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f)), element);
 			
 			yield return new WaitForSeconds(1f);
 			

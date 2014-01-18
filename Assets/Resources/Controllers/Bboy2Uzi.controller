@@ -91,8 +91,8 @@ Transition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 2
+    m_ConditionEvent: Attack
     m_EventTreshold: 0
     m_ExitTime: 1
   m_Atomic: 1
@@ -145,8 +145,8 @@ Transition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 2
+    m_ConditionEvent: Flinch
     m_EventTreshold: 0
     m_ExitTime: 1
   m_Atomic: 1
@@ -271,8 +271,8 @@ Transition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 2
+    m_ConditionEvent: Flinch
     m_EventTreshold: 0
     m_ExitTime: 1
   m_Atomic: 1
@@ -289,8 +289,8 @@ Transition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 5
-    m_ConditionEvent: 
+  - m_ConditionMode: 2
+    m_ConditionEvent: Attack
     m_EventTreshold: 0
     m_ExitTime: 1
   m_Atomic: 1
@@ -337,8 +337,8 @@ State:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: AttackFarLeft
-  m_Speed: 1
+  m_Name: Attack.*
+  m_Speed: .5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 9beefdb98addc48ed96ea81f3cc7caf5, type: 2}
@@ -382,8 +382,8 @@ State:
   m_ObjectHideFlags: 3
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: AttackNearLeft
-  m_Speed: 1
+  m_Name: Attack.*
+  m_Speed: .5
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: 1b8799ebfbcc24542ae7f48d90123eed, type: 2}
