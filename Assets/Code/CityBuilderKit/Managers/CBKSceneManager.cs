@@ -62,10 +62,7 @@ public class CBKSceneManager : MonoBehaviour {
 		while (t < fadeTime)
 		{
 			t += Time.deltaTime;
-			foreach(SpriteRenderer sprite in PZScrollingBackground.instance.sprites)
-			{
-				sprite.color = Color.Lerp(new Color(1,1,1,0), Color.white, (fadeIn) ? t/fadeTime : 1 - t/fadeTime);
-			}
+			PZScrollingBackground.instance.SetAlpha((fadeIn) ? t/fadeTime : 1 - t/fadeTime);
 			yield return null;
 		}
 	}

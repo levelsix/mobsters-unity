@@ -4377,12 +4377,15 @@ MonoBehaviour:
   unitPrefab: {fileID: 11400004, guid: 0fc6f22a58d5a4a0d89761dfc134f94b, type: 2}
   background: {fileID: 134640396}
   combatParent: {fileID: 1365344304}
+  crate: {fileID: 0}
   enemyYThreshold: 30
   deployPopup: {fileID: 1701929864}
   losePopup: {fileID: 338954808}
   winPopup: {fileID: 831664901}
   currTurn: 0
   playerTurns: 3
+  recoilDistance: 20
+  recoilTime: .200000003
 --- !u!1 &222816507
 GameObject:
   m_ObjectHideFlags: 0
@@ -9036,7 +9039,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 445606449}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .388832092, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 338954807}
@@ -11770,7 +11773,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 577407517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 533.333313, y: 3846.24219, z: -540}
+  m_LocalPosition: {x: 568, y: 3846.24219, z: -540}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1964391247}
@@ -14953,7 +14956,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 734895126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -533.333313, y: 4486.24219, z: -540}
+  m_LocalPosition: {x: -568, y: 4486.24219, z: -540}
   m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
   m_Children:
   - {fileID: 1042238542}
@@ -15905,7 +15908,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 786991997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -533.333313, y: 4166.63086, z: 0}
+  m_LocalPosition: {x: -568, y: 4166.24219, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 825590544}
@@ -17848,7 +17851,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 849576945}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 533.333313, y: 4486.24219, z: -540}
+  m_LocalPosition: {x: 568, y: 4486.24219, z: -540}
   m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
   m_Children:
   - {fileID: 738601971}
@@ -21067,7 +21070,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967039
+    m_Bits: 4294966015
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
@@ -30555,7 +30558,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1402411370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -533.333313, y: -320, z: 0}
+  m_LocalPosition: {x: -568, y: -320, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1701929863}
@@ -34151,6 +34154,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7489a4ea608a24dc8869495c0f67b98c, type: 2}
   - {fileID: 11400000, guid: c9cea36ed36b34f42b2fd1794cbe4d71, type: 2}
   - {fileID: 11400000, guid: e3e7aa97dfd2d404fb80716f4d65d2b1, type: 2}
+  characterDieParticle: {fileID: 11400002, guid: d8d3c535ed3d040ab95d1ea974f2015a,
+    type: 2}
+  cratePrefab: {fileID: 11400002, guid: fea7dbd1368fc406aae46a40b929dfb1, type: 2}
 --- !u!1 &1564810988
 GameObject:
   m_ObjectHideFlags: 0
@@ -34759,7 +34765,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1578297204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -533.333313, y: 3846.24219, z: -540}
+  m_LocalPosition: {x: -568, y: 3846.24219, z: -540}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1504304740}
@@ -36705,7 +36711,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1643965669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4166.63086, z: -540}
+  m_LocalPosition: {x: 0, y: 4166.24219, z: -540}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 79389480}
@@ -40553,7 +40559,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1834694727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 533.333313, y: .388832092, z: 0}
+  m_LocalPosition: {x: 568, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 79053626}
@@ -40899,6 +40905,7 @@ GameObject:
   - 4: {fileID: 1858042179}
   - 114: {fileID: 1858042181}
   - 114: {fileID: 1858042180}
+  - 65: {fileID: 1858042182}
   m_Layer: 10
   m_Name: EnemyGoon
   m_TagString: Untagged
@@ -40955,11 +40962,25 @@ MonoBehaviour:
     maxHP: 0
     currHP: 0
     attackDamages: []
+    totalDamage: 0
   hpBar: {fileID: 336527858}
   hpLabel: {fileID: 1498602014}
   shadow: {fileID: 1713189785}
   startingPos: {x: 859, y: 770, z: 0}
   alive: 0
+--- !u!65 &1858042182
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6500000, guid: 0fc6f22a58d5a4a0d89761dfc134f94b,
+    type: 2}
+  m_PrefabInternal: {fileID: 2144165231}
+  m_GameObject: {fileID: 1858042178}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 86.3499985, y: 130.589996, z: 1}
+  m_Center: {x: 0, y: -9.72999954, z: 0}
 --- !u!1 &1860788832
 GameObject:
   m_ObjectHideFlags: 0
@@ -42754,11 +42775,11 @@ MonoBehaviour:
     e00: 320
     e01: 0
     e02: 0
-    e03: 974.133301
+    e03: 1008.79999
     e10: 0
     e11: 320
     e12: 0
-    e13: 3.1844635
+    e13: 3.57313538
     e20: 0
     e21: 0
     e22: 320
@@ -44733,7 +44754,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2003082298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -533.333313, y: 3846.24219, z: -540}
+  m_LocalPosition: {x: -568, y: 3846.24219, z: -540}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1643415490}
@@ -45019,7 +45040,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2021132106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -533.333313, y: 320, z: 0}
+  m_LocalPosition: {x: -568, y: 320, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 155436653}
@@ -45323,6 +45344,7 @@ GameObject:
   - 4: {fileID: 2032641518}
   - 114: {fileID: 2032641520}
   - 114: {fileID: 2032641519}
+  - 65: {fileID: 2032641521}
   m_Layer: 10
   m_Name: PlayerGoon
   m_TagString: Untagged
@@ -45379,11 +45401,25 @@ MonoBehaviour:
     maxHP: 0
     currHP: 0
     attackDamages: []
+    totalDamage: 0
   hpBar: {fileID: 1019830146}
   hpLabel: {fileID: 243310386}
   shadow: {fileID: 2068087701}
   startingPos: {x: -680, y: -310, z: 0}
   alive: 0
+--- !u!65 &2032641521
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6500000, guid: 0fc6f22a58d5a4a0d89761dfc134f94b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1632451834}
+  m_GameObject: {fileID: 2032641517}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 86.3499985, y: 130.589996, z: 1}
+  m_Center: {x: 0, y: -9.72999954, z: 0}
 --- !u!1 &2033025023
 GameObject:
   m_ObjectHideFlags: 0
@@ -47089,7 +47125,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2084608084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 533.333313, y: 3846.24219, z: -540}
+  m_LocalPosition: {x: 568, y: 3846.24219, z: -540}
   m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
   m_Children:
   - {fileID: 1578596300}

@@ -97,11 +97,12 @@ public class PZScrollingBackground : MonoBehaviour {
 			back.transform.parent = transform;
 			back.transform.localScale = Vector3.one;
 			back.transform.localPosition = backgrounds[backgrounds.Count-1].transform.localPosition + spawningOffset;
-			
+
 			backgrounds.Add (back);
 			
 			wasLastTop = !wasLastTop;
 			sprites = GetComponentsInChildren<SpriteRenderer>(true);
+			SetAlpha(1);
 		}
 		CBKSimplePoolable first = backgrounds[0];
 		if (first.transform.localPosition.y < bottomThreshold)
@@ -111,7 +112,14 @@ public class PZScrollingBackground : MonoBehaviour {
 			sprites = GetComponentsInChildren<SpriteRenderer>(true);
 		}
 	}
-	
+
+	public void SetAlpha(float alpha)
+	{
+		foreach(SpriteRenderer sprite in sprites)
+		{
+			sprite.color = Color.Lerp(new Color(1,1,1,0), Color.white, alpha);
+		}
+	}
 	
 	
 }
