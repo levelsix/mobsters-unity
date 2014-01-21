@@ -361,7 +361,7 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator SendEndResult(bool userWon)
 	{
 		EndDungeonRequestProto request = new EndDungeonRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = CBKWhiteboard.localMupWithResources;
 		request.userTaskId = CBKWhiteboard.currUserTaskId;
 		request.userWon = userWon;
 		request.clientTime = CBKUtil.timeNowMillis;
@@ -450,7 +450,8 @@ public class PZCombatManager : MonoBehaviour {
 
 			activeEnemy.unit.animat = CBKUnit.AnimationType.FLINCH;
 
-			//TODO: Hit particles
+			CBKPoolManager.instance.Get(CBKPrefabList.instance.flinchParticle, activeEnemy.unit.transf.position);
+
 			while (activeEnemy.unit.transf.localPosition.x < enemyPos.x + recoilDistance * (i+1))
 			{
 				activeEnemy.unit.transf.localPosition += Time.deltaTime * recoilDistance / recoilTime * -background.direction;

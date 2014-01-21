@@ -179,7 +179,10 @@ namespace com.lvl6.proto
       TOWN_HALL = 5,
             
       [global::ProtoBuf.ProtoEnum(Name=@"LAB", Value=6)]
-      LAB = 6
+      LAB = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"EVO", Value=7)]
+      EVO = 7
     }
   
     private global::ProtoBuf.IExtension extensionObject;

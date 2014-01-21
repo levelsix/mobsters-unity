@@ -162,7 +162,7 @@ public class CBKResourceCollector : MonoBehaviour {
 	void SendCollectRequest(int amount)
 	{
 		RetrieveCurrencyFromNormStructureRequestProto request = new RetrieveCurrencyFromNormStructureRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = CBKWhiteboard.localMupWithResources;
 		request.structRetrievals.Add(new com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval());
 		request.structRetrievals[0].userStructId = _building.userStructProto.userStructId;
 		request.structRetrievals[0].timeOfRetrieval = CBKUtil.timeNowMillis;

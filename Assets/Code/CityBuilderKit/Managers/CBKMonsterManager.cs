@@ -397,7 +397,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	void PrepareNewHealRequest()
 	{
 		healRequestProto = new HealMonsterRequestProto();
-		healRequestProto.sender = CBKWhiteboard.localMup;
+		healRequestProto.sender = CBKWhiteboard.localMupWithResources;
 		healRequestProto.isSpeedup = false;
 	}
 
@@ -516,9 +516,8 @@ public class CBKMonsterManager : MonoBehaviour {
 		monster.healingMonster = new UserMonsterHealingProto();
 		monster.healingMonster.userId = CBKWhiteboard.localMup.userId;
 		monster.healingMonster.userMonsterId = monster.userMonster.userMonsterId;
-		monster.healingMonster.userHospitalStructId = 0;
 		monster.healingMonster.healthProgress = 0;
-		monster.healingMonster.expectedStartTimeMillis = CBKUtil.timeNowMillis;
+		monster.healingMonster.queuedTimeMillis = CBKUtil.timeNowMillis;
 		
 		healingMonsters.Add (monster);
 
@@ -556,7 +555,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		monster.hospitalTimes.Clear();
 
-		int progress = monster.healingMonster.healthProgress;
+		int progress = Mathf.FloorToInt((monster.maxHP - monster.currHP) * monster.healingMonster.healthProgress);
 
 		#region Debug
 
@@ -570,8 +569,8 @@ public class CBKMonsterManager : MonoBehaviour {
 		#endregion
 
 		CBKBuilding lastHospital = GetSoonestHospital();
-		long lastStartTime = Math.Max(monster.healingMonster.expectedStartTimeMillis, lastHospital.completeTime);
-		monster.healingMonster.expectedStartTimeMillis = lastStartTime;
+		long lastStartTime = Math.Max(monster.healingMonster.queuedTimeMillis, lastHospital.completeTime);
+		monster.healingMonster.queuedTimeMillis = lastStartTime;
 		lastHospital.completeTime = CalculateFinishTime(monster, lastHospital, progress, lastStartTime);
 		monster.finishHealTimeMillis = lastHospital.completeTime;
 
@@ -617,7 +616,7 @@ public class CBKMonsterManager : MonoBehaviour {
 			PrepareNewHealRequest();
 		}
 
-		int progress = monster.healingMonster.healthProgress;
+		int progress = Mathf.FloorToInt((monster.maxHP - monster.currHP) * monster.healingMonster.healthProgress);
 		for (int i = 0; i < monster.hospitalTimes.Count && monster.hospitalTimes[i].startTime < CBKUtil.timeNowMillis; i++) 
 		{
 			if (i < monster.hospitalTimes.Count - 1 && CBKUtil.timeNowMillis > monster.hospitalTimes[i+1].startTime)
@@ -638,7 +637,7 @@ public class CBKMonsterManager : MonoBehaviour {
 			}
 			Debug.Log("Updated progress for " + monster.monster.name + ", Progress: " + monster.healingMonster.healthProgress);
 		}
-		monster.healingMonster.expectedStartTimeMillis = CBKUtil.timeNowMillis;
+		monster.healingMonster.queuedTimeMillis = CBKUtil.timeNowMillis;
 
 	}
 
@@ -797,7 +796,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		Debug.Log("Preparing Enhance Request");
 		enhanceRequestProto = new SubmitMonsterEnhancementRequestProto();
-		enhanceRequestProto.sender = CBKWhiteboard.localMup;
+		enhanceRequestProto.sender = CBKWhiteboard.localMupWithResources;
 	}
 	
 	IEnumerator SendCompleteEnhanceRequest(EnhancementWaitTimeCompleteRequestProto request)
@@ -962,9 +961,9 @@ public class CBKMonsterManager : MonoBehaviour {
 				monster.enhancement.expectedStartTimeMillis = enhancementFeeders[enhancementFeeders.Count-1].finishEnhanceTime;
 			}
 			enhancementFeeders.Add(monster);
-			enhanceRequestProto.cashChange -= monster.enhanceXP;
+			enhanceRequestProto.oilChange -= monster.enhanceXP;
 			
-			CBKResourceManager.instance.Spend(ResourceType.CASH, monster.enhanceXP);
+			CBKResourceManager.instance.Spend(ResourceType.OIL, monster.enhanceXP);
 		}
 		
 		if (enhanceRequestProto.ueipDelete.Contains(monster.enhancement))
@@ -1028,9 +1027,9 @@ public class CBKMonsterManager : MonoBehaviour {
 		
 		monster.enhancement = null;
 		
-		enhanceRequestProto.cashChange += monster.enhanceXP;
+		enhanceRequestProto.oilChange += monster.enhanceXP;
 		
-		CBKResourceManager.instance.Collect(ResourceType.CASH, monster.enhanceXP);
+		CBKResourceManager.instance.Collect(ResourceType.OIL, monster.enhanceXP);
 		
 		if (CBKEventManager.Goon.OnEnhanceQueueChanged != null)
 		{

@@ -176,6 +176,43 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MinimumUserProtoWithMaxResources")]
+  public partial class MinimumUserProtoWithMaxResources : global::ProtoBuf.IExtensible
+  {
+    public MinimumUserProtoWithMaxResources() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _minUserProto = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"minUserProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto minUserProto
+    {
+      get { return _minUserProto; }
+      set { _minUserProto = value; }
+    }
+
+    private int _maxCash = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"maxCash", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxCash
+    {
+      get { return _maxCash; }
+      set { _maxCash = value; }
+    }
+
+    private int _maxOil = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"maxOil", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxOil
+    {
+      get { return _maxOil; }
+      set { _maxOil = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserFacebookInviteForSlotProto")]
   public partial class UserFacebookInviteForSlotProto : global::ProtoBuf.IExtensible
   {

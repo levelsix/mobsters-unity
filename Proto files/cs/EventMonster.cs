@@ -27,10 +27,10 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private com.lvl6.proto.UserEvolutionProto _evolution = null;
+    private com.lvl6.proto.UserMonsterEvolutionProto _evolution = null;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"evolution", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.UserEvolutionProto evolution
+    public com.lvl6.proto.UserMonsterEvolutionProto evolution
     {
       get { return _evolution; }
       set { _evolution = value; }
@@ -112,16 +112,95 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SubmitMonsterEnhancementRequestProto")]
-  public partial class SubmitMonsterEnhancementRequestProto : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EvolutionFinishedRequestProto")]
+  public partial class EvolutionFinishedRequestProto : global::ProtoBuf.IExtensible
   {
-    public SubmitMonsterEnhancementRequestProto() {}
+    public EvolutionFinishedRequestProto() {}
     
 
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
     public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private int _gemsSpent = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsSpent
+    {
+      get { return _gemsSpent; }
+      set { _gemsSpent = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EvolutionFinishedResponseProto")]
+  public partial class EvolutionFinishedResponseProto : global::ProtoBuf.IExtensible
+  {
+    public EvolutionFinishedResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.FullUserMonsterProto _evolvedMonster = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"evolvedMonster", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.FullUserMonsterProto evolvedMonster
+    {
+      get { return _evolvedMonster; }
+      set { _evolvedMonster = value; }
+    }
+
+    private com.lvl6.proto.EvolutionFinishedResponseProto.EvolutionFinishedStatus _status = com.lvl6.proto.EvolutionFinishedResponseProto.EvolutionFinishedStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.EvolutionFinishedResponseProto.EvolutionFinishedStatus.SUCCESS)]
+    public com.lvl6.proto.EvolutionFinishedResponseProto.EvolutionFinishedStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"EvolutionFinishedStatus")]
+    public enum EvolutionFinishedStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=2)]
+      FAIL_INSUFFICIENT_GEMS = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SubmitMonsterEnhancementRequestProto")]
+  public partial class SubmitMonsterEnhancementRequestProto : global::ProtoBuf.IExtensible
+  {
+    public SubmitMonsterEnhancementRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProtoWithMaxResources sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -157,13 +236,13 @@ namespace com.lvl6.proto
       set { _gemsSpent = value; }
     }
 
-    private int _cashChange = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"cashChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    private int _oilChange = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"oilChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int cashChange
+    public int oilChange
     {
-      get { return _cashChange; }
-      set { _cashChange = value; }
+      get { return _oilChange; }
+      set { _oilChange = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -176,10 +255,10 @@ namespace com.lvl6.proto
     public SubmitMonsterEnhancementResponseProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithMaxResources sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -203,8 +282,8 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=2)]
       FAIL_INSUFFICIENT_GEMS = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_CASH", Value=3)]
-      FAIL_INSUFFICIENT_CASH = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_OIL", Value=3)]
+      FAIL_INSUFFICIENT_OIL = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
       FAIL_OTHER = 4
@@ -396,10 +475,10 @@ namespace com.lvl6.proto
     public HealMonsterRequestProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithMaxResources sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -468,15 +547,6 @@ namespace com.lvl6.proto
       get { return _umchp; }
     }
   
-
-    private int _totalGemCost = default(int);
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"totalGemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int totalGemCost
-    {
-      get { return _totalGemCost; }
-      set { _totalGemCost = value; }
-    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -488,10 +558,10 @@ namespace com.lvl6.proto
     public HealMonsterResponseProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithMaxResources sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -1059,10 +1129,10 @@ namespace com.lvl6.proto
     public SellUserMonsterRequestProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithMaxResources sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -1085,10 +1155,10 @@ namespace com.lvl6.proto
     public SellUserMonsterResponseProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithMaxResources sender
     {
       get { return _sender; }
       set { _sender = value; }

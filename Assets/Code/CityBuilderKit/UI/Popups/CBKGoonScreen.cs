@@ -252,7 +252,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		for (i = 0; i < healingMonsters.Count; i++) 
 		{
 			bottomMiniBoxes[i].Init (healingMonsters[i]);
-			bottomMiniBoxes[i].SetBar(healingMonsters[i].healingMonster.expectedStartTimeMillis <= CBKUtil.timeNowMillis);
+			bottomMiniBoxes[i].SetBar(healingMonsters[i].healingMonster.queuedTimeMillis <= CBKUtil.timeNowMillis);
 		}
 		for (; i < bottomMiniBoxes.Count; i++) 
 		{

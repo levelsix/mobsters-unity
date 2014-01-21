@@ -154,6 +154,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_PURCHASE_BOOSTER_PACK_EVENT", Value=37)]
       C_PURCHASE_BOOSTER_PACK_EVENT = 37,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_EVOLUTION_FINISHED_EVENT", Value=38)]
+      C_EVOLUTION_FINISHED_EVENT = 38,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_CHANGE_CLAN_JOIN_TYPE_EVENT", Value=39)]
       C_CHANGE_CLAN_JOIN_TYPE_EVENT = 39,
             
@@ -326,6 +329,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_PURCHASE_BOOSTER_PACK_EVENT", Value=37)]
       S_PURCHASE_BOOSTER_PACK_EVENT = 37,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_EVOLUTION_FINISHED_EVENT", Value=38)]
+      S_EVOLUTION_FINISHED_EVENT = 38,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_CHANGE_CLAN_JOIN_TYPE_EVENT", Value=39)]
       S_CHANGE_CLAN_JOIN_TYPE_EVENT = 39,

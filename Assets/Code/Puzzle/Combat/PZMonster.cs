@@ -38,7 +38,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return healingMonster.expectedStartTimeMillis;
+			return healingMonster.queuedTimeMillis;
 		}
 	}
 

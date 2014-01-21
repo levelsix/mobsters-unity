@@ -83,6 +83,14 @@ public static class CBKValues
 	
 	public static class Colors
 	{
+		public static Color[] gemColors = {
+			Color.green,
+			Color.red,
+			Color.yellow,
+			Color.magenta,
+			Color.blue
+		};
+
 		public const int moneyRed = 213;
 		public const int moneyGreen = 231;
 		public const int moneyBlue = 73;

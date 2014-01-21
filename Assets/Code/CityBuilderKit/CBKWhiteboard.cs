@@ -18,6 +18,18 @@ public static class CBKWhiteboard {
 	/// The local user's MUP
 	/// </summary>
 	public static MinimumUserProto localMup;
+
+	public static MinimumUserProtoWithMaxResources localMupWithResources
+	{
+		get
+		{
+			MinimumUserProtoWithMaxResources mup = new MinimumUserProtoWithMaxResources();
+			mup.minUserProto = localMup;
+			mup.maxCash = CBKResourceManager.maxes[0];
+			mup.maxOil = CBKResourceManager.maxes[1];
+			return mup;
+		}
+	}
 	
 	public static StartupResponseProto.StartupConstants constants;
 	

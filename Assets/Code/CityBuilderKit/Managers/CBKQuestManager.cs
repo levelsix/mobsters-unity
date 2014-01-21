@@ -221,7 +221,7 @@ public class CBKQuestManager : MonoBehaviour {
 		questDict.Remove(quest.questId);
 		
 		QuestRedeemRequestProto request = new QuestRedeemRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = CBKWhiteboard.localMupWithResources;
 		request.questId = quest.questId;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_QUEST_REDEEM_EVENT, null);

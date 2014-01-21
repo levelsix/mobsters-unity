@@ -87,7 +87,7 @@ public class CBKResourceManager : MonoBehaviour {
 		if (retrieveRequest == null)
 		{
 			retrieveRequest = new RetrieveCurrencyFromNormStructureRequestProto();
-			retrieveRequest.sender = CBKWhiteboard.localMup;
+			retrieveRequest.sender = CBKWhiteboard.localMupWithResources;
 		}
 
 		RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval structRetrieval = new RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval();

@@ -274,10 +274,10 @@ namespace com.lvl6.proto
       set { _enhancements = value; }
     }
 
-    private com.lvl6.proto.UserEvolutionProto _evolution = null;
+    private com.lvl6.proto.UserMonsterEvolutionProto _evolution = null;
     [global::ProtoBuf.ProtoMember(29, IsRequired = false, Name=@"evolution", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.UserEvolutionProto evolution
+    public com.lvl6.proto.UserMonsterEvolutionProto evolution
     {
       get { return _evolution; }
       set { _evolution = value; }

@@ -203,11 +203,19 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		part.Init();
 	}
 
+	void CreateSparkle()
+	{
+		ParticleSystem sys = (CBKPoolManager.instance.Get(CBKPrefabList.instance.sparkleParticle, trans.position) as MonoBehaviour).particleSystem;
+		sys.startColor = CBKValues.Colors.gemColors[colorIndex];
+	}
+
 	public void Destroy()
 	{
 		if (!lockedBySpecial)
 		{
 			CreateMatchParticle();
+
+			CreateSparkle();
 
 			PZPuzzleManager.instance.board[boardX, boardY] = null; //Remove from board
 			for (int j = boardY; j < PZPuzzleManager.BOARD_HEIGHT; j++) //Tell everything that was above this to fall

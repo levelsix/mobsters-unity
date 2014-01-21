@@ -51,6 +51,12 @@ public class PZMolotovPart : MonoBehaviour {
 		speed = 0;
 		yield return new WaitForSeconds(index * delayPerPart);
 		speed = storeSpeed;
+
+		/*
+		Transform particle = (CBKPoolManager.instance.Get(CBKPrefabList.instance.molotovParticle, trans.position) as MonoBehaviour).transform;
+		particle.parent = trans;
+		particle.localPosition = Vector3.zero;
+		*/
 	}
 
 	void Update()

@@ -22,5 +22,15 @@ public class CBKPrefabList : MonoBehaviour {
 
 	public CBKSimplePoolable characterDieParticle;
 
+	public CBKSimplePoolable flinchParticle;
+
+	public CBKSimplePoolable grenadeParticle;
+
+	public CBKSimplePoolable molotovParticle;
+
+	public CBKSimplePoolable orbBlowUpParticle;
+
+	public CBKSimplePoolable sparkleParticle;
+
 	public CBKSimplePoolable cratePrefab;
 }

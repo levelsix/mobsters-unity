@@ -514,6 +514,8 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	PZMatch GetBombMatch(PZGem bomb)
 	{
+		CBKPoolManager.instance.Get(CBKPrefabList.instance.grenadeParticle, bomb.transf.position);
+
 		List<PZGem> gems = new List<PZGem>();
 		if (bomb.boardX > 0)
 		{

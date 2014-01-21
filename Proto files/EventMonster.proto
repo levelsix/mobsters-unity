@@ -16,7 +16,7 @@ message EvolveMonsterRequestProto {
 	//into an evolved form. If in the future more catalysts are required then
 	//the userMonsterIds property in UserEvolutionProto would be duplicates
 	//while the catalystUserMonsterId would change
-	optional UserEvolutionProto evolution = 2;
+	optional UserMonsterEvolutionProto evolution = 2;
 	
 	//if user needs, say, five more cash, then user can spend gems to replace
 	//said five cash. (positive number, server will convert it to negative)
@@ -46,8 +46,30 @@ message EvolveMonsterResponseProto {
 
 //------------------------------------------------------------------------------------------
 
-message SubmitMonsterEnhancementRequestProto {
+message EvolutionFinishedRequestProto {
 	optional MinimumUserProto sender = 1;
+	
+	//if the user is going to speed up the evolution process
+	//(positive number, server will convert it to negative)
+	optional int32 gemsSpent = 2; 
+}
+
+message EvolutionFinishedResponseProto {
+	optional MinimumUserProto sender = 1;
+	optional FullUserMonsterProto evolvedMonster = 2;
+	optional EvolutionFinishedStatus status = 3;
+	
+	enum EvolutionFinishedStatus {
+		SUCCESS = 1;
+		FAIL_INSUFFICIENT_GEMS = 2;
+		FAIL_OTHER = 3;
+	}
+} 
+
+//------------------------------------------------------------------------------------------
+
+message SubmitMonsterEnhancementRequestProto {
+	optional MinimumUserProtoWithMaxResources sender = 1;
 	
 	//MONSTER BEING ENHANCED WILL HAVE NULL FOR expectedStartTime
 	repeated UserEnhancementItemProto ueipDelete = 2;
@@ -62,19 +84,19 @@ message SubmitMonsterEnhancementRequestProto {
 	//Refund in this case: user has two feeders but deletes one of them,
 	//so now it's just base monster and one feeder. The user should get refunded
 	//for the feeder that was dequeued 
-	optional sint32 cashChange = 6; 
+	optional sint32 oilChange = 6; 
 	
 }
 
 message SubmitMonsterEnhancementResponseProto {
-	optional MinimumUserProto sender = 1;
+	optional MinimumUserProtoWithMaxResources sender = 1;
 	optional SubmitMonsterEnhancementStatus status = 2;
 	
 
 	enum SubmitMonsterEnhancementStatus {
 		SUCCESS = 1;
 		FAIL_INSUFFICIENT_GEMS = 2;
-		FAIL_INSUFFICIENT_CASH = 3;
+		FAIL_INSUFFICIENT_OIL = 3;
 		FAIL_OTHER = 4;
 		//TRYING_TO_SURPASS_MAX_LEVEL = 5;
 	}
@@ -133,7 +155,7 @@ message UpdateMonsterHealthResponseProto {
 //------------------------------------------------------------------------------------------
 
 message HealMonsterRequestProto {
-	optional MinimumUserProto sender = 1;
+	optional MinimumUserProtoWithMaxResources sender = 1;
 	
 	//what user deleted from the queue, the ones the server already knows about
 	repeated UserMonsterHealingProto umhDelete = 2; 
@@ -152,20 +174,18 @@ message HealMonsterRequestProto {
 	optional sint32 cashChange = 5; 
 	
 	//positive amount if charging user, negative if refunding user
-	optional int32 gemCostForHealing = 6; //(for history purposes)
+	optional int32 gemCostForHealing = 6; 
 	
 	
 	//smushing HealMonsterWaitTimeCompleteRequestProto logic into this event
 	optional bool isSpeedup = 7;
-	optional int32 gemsForSpeedup = 8; //pos amount if charging user, (for history purposes) 
+	optional int32 gemsForSpeedup = 8; //pos amount if charging user 
 	repeated UserMonsterCurrentHealthProto umchp = 9;
 	
-	//pos amount if charging user, negative if user gains gems
-	optional int32 totalGemCost = 10;
 }
 
 message HealMonsterResponseProto {
-	optional MinimumUserProto sender = 1;
+	optional MinimumUserProtoWithMaxResources sender = 1;
 	optional HealMonsterStatus status = 2;
 	
 	enum HealMonsterStatus {
@@ -358,12 +378,12 @@ message CombineUserMonsterPiecesResponseProto {
 //------------------------------------------------------------------------------------------
 
 message SellUserMonsterRequestProto {
-	optional MinimumUserProto sender = 1;
+	optional MinimumUserProtoWithMaxResources sender = 1;
 	repeated MinimumUserMonsterSellProto sales = 2;
 }
 
 message SellUserMonsterResponseProto {
-	optional MinimumUserProto sender = 1;
+	optional MinimumUserProtoWithMaxResources sender = 1;
 	optional SellUserMonsterStatus status = 2;
 	
 	enum SellUserMonsterStatus {
