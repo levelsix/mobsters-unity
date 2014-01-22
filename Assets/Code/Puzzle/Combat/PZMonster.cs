@@ -199,7 +199,7 @@ public class PZMonster {
 	
 	public float[] attackDamages = new float[5];
 
-	public int totalDamage = 0;
+	public float totalDamage = 0;
 	
 	public PZMonster(FullUserMonsterProto userMonster)
 	{
@@ -273,7 +273,7 @@ public class PZMonster {
 		{
 			total += damage;
 		}
-		totalDamage = (int)total;
+		totalDamage = total;
 	}
 	
 	#region Experience

@@ -103,6 +103,20 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	UITweener winPopup;
 
+	[SerializeField]
+	UISprite attackWords;
+
+	[SerializeField]
+	UITweener attackWordsTweenPos;
+
+	[SerializeField]
+	TweenAlpha boardTint;
+
+	[SerializeField]
+	UITweener screenTint;
+
+	bool wordsMoving = false;
+
 	int currPlayerDamage = 0;
 
 	public int currTurn = 0;
@@ -112,6 +126,19 @@ public class PZCombatManager : MonoBehaviour {
 	public float recoilDistance = 20;
 
 	public float recoilTime = .2f;
+
+	const float BALLIN_SCORE = 2.30f;
+	const float CANT_TOUCH_THIS_SCORE = 3.00f;
+	const float HAMMERTIME_SCORE = 4.20f;
+	const float MAKE_IT_RAIN_SCORE = 6.00f;
+
+	const string BALLIN_SPRITE_NAME = "ballin";
+	const string CANT_TOUCH_THIS_SPRITE_NAME = "canttouchthis";
+	const string HAMMERTIME_SPRITE_NAME = "hammertime";
+
+	const string MAKE_IT_RAIN_PREFIX = "mir";
+
+	const int MAX_SHOTS = 5;
 	
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
@@ -140,6 +167,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	public void Init()
 	{
+		boardTint.PlayForward();
+
 		activeEnemy.GoToStartPos();
 		activeEnemy.alive = false;
 		activePlayer.GoToStartPos();
@@ -227,6 +256,8 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		//Debug.Log("Lock: Player death");
 		PZPuzzleManager.instance.swapLock += 1;
+
+		boardTint.PlayForward();
 		
 		foreach (var goon in playerGoonies)
 		{
@@ -284,6 +315,11 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	IEnumerator ScrollToNextEnemy()
 	{
+		if (boardTint.alpha <= .01f)
+		{
+			boardTint.PlayForward();
+		}
+
 		//Debug.Log("Lock: Scrolling");
 		PZPuzzleManager.instance.swapLock += 1;
 		
@@ -312,15 +348,13 @@ public class PZCombatManager : MonoBehaviour {
 			winPopup.PlayForward();
 		}
 
-		Debug.LogWarning("Player running");
 
 		while(activePlayer.unit.transf.localPosition.x < playerXPos)
 		{
 			activePlayer.unit.transf.localPosition += Time.deltaTime * -background.direction * background.scrollSpeed;
 			yield return null;
 		}
-		
-		Debug.LogWarning("Background Scrolling");
+
 
 		while(activeEnemy.unit.transf.localPosition.y > enemyYThreshold)
 		{
@@ -328,13 +362,17 @@ public class PZCombatManager : MonoBehaviour {
 			yield return null;
 		}
 
-		Debug.LogWarning("Done scrolling!");
 
 		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
 
 		if (CBKEventManager.Puzzle.ForceShowSwap != null)
 		{
 			CBKEventManager.Puzzle.ForceShowSwap();
+		}
+
+		if (activeEnemy.alive)
+		{
+			boardTint.PlayReverse();
 		}
 
 		PZPuzzleManager.instance.swapLock = activeEnemy.alive ? 0 : 1;
@@ -438,11 +476,62 @@ public class PZCombatManager : MonoBehaviour {
 		StartCoroutine(DamageAnimations(currPlayerDamage, activePlayer.monster.monster.element));
 	}
 
-	IEnumerator PlayerShoot(int times)
+	IEnumerator ShowAttackWords(float score)
 	{
+		screenTint.PlayForward();
+
+		if (score > MAKE_IT_RAIN_SCORE)
+		{
+			attackWords.spriteName = MAKE_IT_RAIN_PREFIX + "2";
+			attackWords.GetComponent<PZRainbow>().Play();
+		}
+		else
+		{
+			if (score > HAMMERTIME_SCORE)
+			{
+				attackWords.spriteName = HAMMERTIME_SPRITE_NAME;
+			}
+			else if (score > CANT_TOUCH_THIS_SCORE)
+			{
+				attackWords.spriteName = CANT_TOUCH_THIS_SPRITE_NAME;
+			}
+			else if (score > BALLIN_SCORE)
+			{
+				attackWords.spriteName = BALLIN_SPRITE_NAME;
+			}
+		}
+
+		attackWordsTweenPos.Reset();
+		attackWords.gameObject.SetActive(true);
+		attackWordsTweenPos.enabled = true;
+
+		wordsMoving = true;
+		while(wordsMoving)
+		{
+			yield return null;
+		}
+
+		attackWords.gameObject.SetActive(false);
+
+		screenTint.PlayReverse();
+
+
+	}
+
+	public void OnWordsFinishMoving()
+	{
+		wordsMoving = false;
+	}
+
+	IEnumerator PlayerShoot(float score)
+	{
+		float strength = Mathf.Min(1, score/MAKE_IT_RAIN_SCORE);
+
+		int shots = Mathf.RoundToInt(strength * MAX_SHOTS);
+
 		Vector3 enemyPos = activeEnemy.unit.transf.localPosition;
 
-		for (int i = 0; i < times; i++) {
+		for (int i = 0; i < shots; i++) {
 
 			activePlayer.unit.animat = CBKUnit.AnimationType.ATTACK;
 
@@ -486,12 +575,18 @@ public class PZCombatManager : MonoBehaviour {
 	/// </param>
 	IEnumerator DamageAnimations(int damage, MonsterProto.MonsterElement element)
 	{
+		boardTint.PlayForward();
+
 		//Debug.Log("Lock: Animating");
 		PZPuzzleManager.instance.swapLock += 1;
 
 		//TODO: Words?
 
-		yield return StartCoroutine(PlayerShoot(4));
+		float score = damage/activePlayer.monster.totalDamage;
+
+		yield return StartCoroutine(ShowAttackWords(score));
+
+		yield return StartCoroutine(PlayerShoot(score));
 
 		
 		activeEnemy.TakeDamage(damage, element);
@@ -527,6 +622,8 @@ public class PZCombatManager : MonoBehaviour {
 				CBKEventManager.Puzzle.OnNewPlayerTurn();
 			}
 		}
+
+		boardTint.PlayReverse();
 
 	}
 	
