@@ -13,7 +13,7 @@ message MonsterProto {
 	optional MonsterQuality quality = 4;
 	optional int32 evolutionLevel = 5;
 	optional string displayName = 6;
-	optional MonsterElement element = 7;
+	optional MonsterElement monsterElement = 7;
 	optional int32 baseHp = 8;
 	optional string imagePrefix = 9;
 	optional int32 numPuzzlePieces = 10;
@@ -47,12 +47,17 @@ message MonsterProto {
 	optional int32 enhancingFeederExp = 29;
 	
 	
+	//stores lvl determined hp, attack, exp,  among other things
+	repeated MonsterLevelInfoProto lvlInfo = 30;
+	
 	enum MonsterQuality {
 		COMMON = 1;
 		RARE = 2;
 		ULTRA = 3;
 		EPIC = 4;
 		LEGENDARY = 5;
+		
+		EVO = 6; //MONSTERS USED FOR EVOLVING
 	}
 	
 	enum MonsterElement {
@@ -65,6 +70,17 @@ message MonsterProto {
 		
 		ROCK = 6; //damages everything
 	}
+}
+
+message MonsterLevelInfoProto {
+	optional int32 lvl = 1;
+	optional int32 hp = 2;
+	optional int32 attack = 3;
+	
+	//exp required to get to current level
+	optional int32 curLvlRequiredExp = 4;
+	
+	optional int32 feederExp = 5;
 }
 
 //------------------------------------------------------------------------------------------

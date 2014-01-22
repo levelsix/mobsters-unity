@@ -54,6 +54,33 @@ namespace com.lvl6.proto
       get { return _userBeatAllCityTasks; }
       set { _userBeatAllCityTasks = value; }
     }
+
+    private bool _isEvent = default(bool);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"isEvent", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isEvent
+    {
+      get { return _isEvent; }
+      set { _isEvent = value; }
+    }
+
+    private int _persistentEventId = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"persistentEventId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int persistentEventId
+    {
+      get { return _persistentEventId; }
+      set { _persistentEventId = value; }
+    }
+
+    private int _gemsSpent = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsSpent
+    {
+      get { return _gemsSpent; }
+      set { _gemsSpent = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

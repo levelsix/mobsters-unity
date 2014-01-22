@@ -136,6 +136,13 @@ namespace com.lvl6.proto
       get { return _allTownHalls; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> _events = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto>();
+    [global::ProtoBuf.ProtoMember(18, Name=@"events", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> events
+    {
+      get { return _events; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

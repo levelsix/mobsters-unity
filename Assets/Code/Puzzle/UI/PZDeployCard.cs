@@ -38,7 +38,7 @@ public class PZDeployCard : MonoBehaviour {
 	{
 		monster = goon;
 		
-		background.spriteName = backgroundDict[goon.monster.element];
+		background.spriteName = backgroundDict[goon.monster.monsterElement];
 
 		goonSprite.spriteName = CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Thumbnail";
 

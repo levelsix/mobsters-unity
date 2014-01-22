@@ -70,13 +70,13 @@ namespace com.lvl6.proto
       set { _displayName = value; }
     }
 
-    private com.lvl6.proto.MonsterProto.MonsterElement _element = com.lvl6.proto.MonsterProto.MonsterElement.FIRE;
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"element", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private com.lvl6.proto.MonsterProto.MonsterElement _monsterElement = com.lvl6.proto.MonsterProto.MonsterElement.FIRE;
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"monsterElement", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.MonsterElement.FIRE)]
-    public com.lvl6.proto.MonsterProto.MonsterElement element
+    public com.lvl6.proto.MonsterProto.MonsterElement monsterElement
     {
-      get { return _element; }
-      set { _element = value; }
+      get { return _monsterElement; }
+      set { _monsterElement = value; }
     }
 
     private int _baseHp = default(int);
@@ -276,6 +276,13 @@ namespace com.lvl6.proto
       get { return _enhancingFeederExp; }
       set { _enhancingFeederExp = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MonsterLevelInfoProto> _lvlInfo = new global::System.Collections.Generic.List<com.lvl6.proto.MonsterLevelInfoProto>();
+    [global::ProtoBuf.ProtoMember(30, Name=@"lvlInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.MonsterLevelInfoProto> lvlInfo
+    {
+      get { return _lvlInfo; }
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"MonsterQuality")]
     public enum MonsterQuality
     {
@@ -293,7 +300,10 @@ namespace com.lvl6.proto
       EPIC = 4,
             
       [global::ProtoBuf.ProtoEnum(Name=@"LEGENDARY", Value=5)]
-      LEGENDARY = 5
+      LEGENDARY = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"EVO", Value=6)]
+      EVO = 6
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"MonsterElement")]
@@ -319,6 +329,61 @@ namespace com.lvl6.proto
       ROCK = 6
     }
   
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MonsterLevelInfoProto")]
+  public partial class MonsterLevelInfoProto : global::ProtoBuf.IExtensible
+  {
+    public MonsterLevelInfoProto() {}
+    
+
+    private int _lvl = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"lvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int lvl
+    {
+      get { return _lvl; }
+      set { _lvl = value; }
+    }
+
+    private int _hp = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"hp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int hp
+    {
+      get { return _hp; }
+      set { _hp = value; }
+    }
+
+    private int _attack = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"attack", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int attack
+    {
+      get { return _attack; }
+      set { _attack = value; }
+    }
+
+    private int _curLvlRequiredExp = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"curLvlRequiredExp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int curLvlRequiredExp
+    {
+      get { return _curLvlRequiredExp; }
+      set { _curLvlRequiredExp = value; }
+    }
+
+    private int _feederExp = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"feederExp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int feederExp
+    {
+      get { return _feederExp; }
+      set { _feederExp = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

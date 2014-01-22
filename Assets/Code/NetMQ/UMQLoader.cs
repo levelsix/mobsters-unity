@@ -101,7 +101,7 @@ public class UMQLoader : MonoBehaviour {
 			
 			while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 			{
-				Debug.Log("Waiting on response: " + tagNum);
+				//Debug.Log("Waiting on response: " + tagNum);
 				yield return new WaitForSeconds(1);
 			}
 			

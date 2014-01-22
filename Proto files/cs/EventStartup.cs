@@ -328,6 +328,13 @@ namespace com.lvl6.proto
       get { return _taskIdForCurrentCityBoss; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserPersistentEventProto> _userEvents = new global::System.Collections.Generic.List<com.lvl6.proto.UserPersistentEventProto>();
+    [global::ProtoBuf.ProtoMember(30, Name=@"userEvents", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserPersistentEventProto> userEvents
+    {
+      get { return _userEvents; }
+    }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
   public partial class AttackedNotificationProto : global::ProtoBuf.IExtensible
   {

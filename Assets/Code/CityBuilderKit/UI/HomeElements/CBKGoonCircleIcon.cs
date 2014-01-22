@@ -56,7 +56,7 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 		else
 		{
 			name.text = monster.monster.displayName;
-			background.spriteName = backgroundElementDict[monster.monster.element];
+			background.spriteName = backgroundElementDict[monster.monster.monsterElement];
 			icon.alpha = 1;
 			
 			icon.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Thumbnail";
@@ -69,7 +69,7 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 			}
 			
 			hpbar.fill = ((float)monster.currHP) / monster.maxHP;
-			bar.spriteName = ringElementDict[monster.monster.element];
+			bar.spriteName = ringElementDict[monster.monster.monsterElement];
 		}
 	}
 }

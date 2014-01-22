@@ -95,7 +95,7 @@ public class CBKGoonTeamCard : MonoBehaviour {
 			{
 				bar.alpha = 1;
 				barBG.alpha = 1;
-				bar.spriteName = healthBarForElements[goon.monster.element];
+				bar.spriteName = healthBarForElements[goon.monster.monsterElement];
 				fillBar.fill = ((float)goon.currHP) / goon.maxHP;
 				bottomLabel.text = " ";
 				dottedBorder.alpha = 0;

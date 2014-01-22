@@ -84,7 +84,6 @@ public class PZScrollingBackground : MonoBehaviour {
 		if (backgrounds[backgrounds.Count-1].transf.localPosition.y < topThreshold)
 		{
 			//Make new background
-			Debug.Log("Add new background");
 			CBKSimplePoolable back;
 			if (wasLastTop)
 			{

@@ -213,9 +213,11 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	{
 		if (!lockedBySpecial)
 		{
-			CreateMatchParticle();
-
-			CreateSparkle();
+			if (colorIndex >= 0)
+			{
+				CreateMatchParticle();
+				CreateSparkle();
+			}
 
 			PZPuzzleManager.instance.board[boardX, boardY] = null; //Remove from board
 			for (int j = boardY; j < PZPuzzleManager.BOARD_HEIGHT; j++) //Tell everything that was above this to fall

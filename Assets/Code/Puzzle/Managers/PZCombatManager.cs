@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -115,6 +115,11 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	UITweener screenTint;
 
+	[SerializeField]
+	TweenAlpha bloodSplatter;
+
+	bool bleeding = false;
+
 	bool wordsMoving = false;
 
 	int currPlayerDamage = 0;
@@ -126,6 +131,9 @@ public class PZCombatManager : MonoBehaviour {
 	public float recoilDistance = 20;
 
 	public float recoilTime = .2f;
+
+	const float BLEED_ONCE_THRESH = 0.5f;
+	const float BLEED_CONT_THRESH = 0.3f;
 
 	const float BALLIN_SCORE = 2.30f;
 	const float CANT_TOUCH_THIS_SCORE = 3.00f;
@@ -168,6 +176,8 @@ public class PZCombatManager : MonoBehaviour {
 	public void Init()
 	{
 		boardTint.PlayForward();
+
+		StopBleeding();
 
 		activeEnemy.GoToStartPos();
 		activeEnemy.alive = false;
@@ -229,7 +239,11 @@ public class PZCombatManager : MonoBehaviour {
 			else
 			{
 				activePlayer.Init(monster);
-				StartCoroutine(ScrollToNextEnemy());
+				CheckBleed(activePlayer);
+				if (!activeEnemy.alive)
+				{
+					StartCoroutine(ScrollToNextEnemy());
+				}
 			}
 		}
 		else
@@ -473,12 +487,14 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void Attack()
 	{
-		StartCoroutine(DamageAnimations(currPlayerDamage, activePlayer.monster.monster.element));
+		StartCoroutine(DamageAnimations(currPlayerDamage, activePlayer.monster.monster.monsterElement));
 	}
 
 	IEnumerator ShowAttackWords(float score)
 	{
 		screenTint.PlayForward();
+		
+		attackWords.gameObject.SetActive(true);
 
 		if (score > MAKE_IT_RAIN_SCORE)
 		{
@@ -501,8 +517,11 @@ public class PZCombatManager : MonoBehaviour {
 			}
 		}
 
+		UISpriteData data = attackWords.GetAtlasSprite();
+		attackWords.width = data.width;
+		attackWords.height = data.height;
+
 		attackWordsTweenPos.Reset();
-		attackWords.gameObject.SetActive(true);
 		attackWordsTweenPos.enabled = true;
 
 		wordsMoving = true;
@@ -521,6 +540,58 @@ public class PZCombatManager : MonoBehaviour {
 	public void OnWordsFinishMoving()
 	{
 		wordsMoving = false;
+	}
+
+	void CheckBleed(PZCombatUnit player)
+	{
+		float perc = ((float)player.monster.currHP) / player.monster.maxHP;
+		if (perc < BLEED_CONT_THRESH)
+		{
+			Bleed();
+		}
+		else if (perc < BLEED_ONCE_THRESH)
+		{
+			StartCoroutine(BleedOnce());
+		}
+		else
+		{
+			StopBleeding();
+		}
+	}
+
+	IEnumerator BleedOnce()
+	{
+		bloodSplatter.from = 0;
+		bloodSplatter.to = 1;
+		bloodSplatter.duration = .5f;
+		bloodSplatter.style = UITweener.Style.Once;
+		bloodSplatter.Reset();
+		bloodSplatter.PlayForward();
+		while (bloodSplatter.alpha < 1)
+		{
+			yield return null;
+		}
+		bloodSplatter.PlayReverse();
+	}
+
+	[ContextMenu ("Bleed")]
+	void Bleed()
+	{
+		bloodSplatter.from = .5f;
+		bloodSplatter.to = 1;
+		bloodSplatter.duration = 1;
+		bloodSplatter.style = UITweener.Style.PingPong;
+		bloodSplatter.Reset();
+		bloodSplatter.PlayForward();
+	}
+
+	[ContextMenu ("StopBleed")]
+	void StopBleeding()
+	{
+		bloodSplatter.Reset();
+		bloodSplatter.from = 0;
+		bloodSplatter.to = 0;
+		bloodSplatter.alpha = 0;
 	}
 
 	IEnumerator PlayerShoot(float score)
@@ -591,15 +662,19 @@ public class PZCombatManager : MonoBehaviour {
 		
 		activeEnemy.TakeDamage(damage, element);
 
+		yield return new WaitForSeconds(.5f);
 		
 		//Enemy attack back if not dead
 		if (activeEnemy.monster.currHP > 0)
 		{
 			
 			activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
+			yield return new WaitForSeconds(.5f);
 			activePlayer.TakeDamage(Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f)), element);
-			
-			yield return new WaitForSeconds(1f);
+
+			CheckBleed(activePlayer);
+
+			yield return new WaitForSeconds(.5f);
 			
 			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
 		

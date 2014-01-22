@@ -39,6 +39,12 @@ public class PZCombatUnit : MonoBehaviour {
 	UISprite shadow;
 
 	[SerializeField]
+	UILabel damageLabel;
+
+	[SerializeField]
+	UITweener[] damageLabelTweens;
+
+	[SerializeField]
 	public Vector3 startingPos;
 
 	public bool alive = false;
@@ -103,7 +109,7 @@ public class PZCombatUnit : MonoBehaviour {
 			damage += (int)(gems[i] * monster.attackDamages[(i>4 ? i-5 : i)]);
 		}
 		
-		element = monster.monster.element;
+		element = monster.monster.monsterElement;
 	}
 	
 	/// <summary>
@@ -117,13 +123,16 @@ public class PZCombatUnit : MonoBehaviour {
 	/// </param>
 	public void TakeDamage(int damage, MonsterProto.MonsterElement element)
 	{
-		int fullDamage = (int)(damage * CBKUtil.GetTypeDamageMultiplier(monster.monster.element, element));
+		int fullDamage = (int)(damage * CBKUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
 		
 		//TODO: If fullDamage != damage, do some animation or something to reflect super/notvery effective
 
 		StartCoroutine(LerpHealth(monster.currHP, Mathf.Max(monster.currHP - fullDamage, 0), monster.maxHP));
 		
 		monster.currHP -= fullDamage;
+
+		RunDamageLabel(fullDamage);
+
 		if (monster.userMonster != null)
 		{
 			StartCoroutine(SendHPUpdateToServer());
@@ -198,12 +207,21 @@ public class PZCombatUnit : MonoBehaviour {
 		yield return new WaitForSeconds(1);
 
 		PZPuzzleManager.instance.swapLock -= 1;
-		
+
 		if (OnDeath != null)
 		{
 			OnDeath();
 		}
 
-		monster = null;
+	}
+
+	void RunDamageLabel(int damage)
+	{
+		damageLabel.text = "-" + damage;
+		foreach (var item in damageLabelTweens) 
+		{
+			item.Reset();
+			item.PlayForward();
+		}
 	}
 }

@@ -31,20 +31,36 @@ public sealed class FB : ScriptableObject
         }
     }
 
-    public static string AppId { get { return FBSettings.AppId; } }
-    public static string UserId 
-    { 
-        get 
-        {
-            return (facebook != null) ? facebook.UserId : ""; 
-        } 
-    }
-    public static string AccessToken 
+    public static string AppId 
     {
         get 
-        { 
-            return (facebook != null) ? facebook.AccessToken : ""; 
+        {
+            // appId might be different from FBSettings.AppId
+            // if using the programmatic version of FB.Init()
+            return appId;
         } 
+    }
+    public static string UserId
+    {
+        get
+        {
+            return (facebook != null) ? facebook.UserId : "";
+        }
+    }
+    public static string AccessToken
+    {
+        get
+        {
+            return (facebook != null) ? facebook.AccessToken : "";
+        }
+    }
+
+    public static DateTime AccessTokenExpiresAt
+    {
+        get
+        {
+            return (facebook != null) ? facebook.AccessTokenExpiresAt : DateTime.MinValue;
+        }
     }
 
     public static bool IsLoggedIn
@@ -59,7 +75,7 @@ public sealed class FB : ScriptableObject
     /**
      * This is the preferred way to call FB.Init().  It will take the facebook app id specified in your
      * "Facebook" => "Edit Settings" menu when it is called.
-     * 
+     *
      * onInitComplete - Delegate is called when FB.Init() finished initializing everything.
      *                  By passing in a delegate you can find out when you can safely call the other methods.
      */
@@ -82,14 +98,14 @@ public sealed class FB : ScriptableObject
      * Useful for a build pipeline that requires no human input.
      */
     public static void Init(
-        InitDelegate onInitComplete, 
+        InitDelegate onInitComplete,
         string appId,
         bool cookie = true,
         bool logging = true,
         bool status = true,
         bool xfbml = false,
         bool frictionlessRequests = true,
-        HideUnityDelegate onHideUnity = null, 
+        HideUnityDelegate onHideUnity = null,
         string authResponse = null)
     {
         FB.appId = appId;
@@ -104,8 +120,16 @@ public sealed class FB : ScriptableObject
 
         if (!isInitCalled)
         {
+            var versionInfo = FBBuildVersionAttribute.GetVersionAttributeOfType(typeof (IFacebook));
 
-            FbDebug.Info(String.Format("Using SDK {0}, Build {1}", FBBuildVersionAttribute.SDKVersion, FBBuildVersionAttribute.GetBuildVersionOfType(typeof(IFacebook))));
+            if (versionInfo == null)
+            {
+                FbDebug.Warn("Cannot find Facebook SDK Version");
+            }
+            else
+            {
+                FbDebug.Info(String.Format("Using SDK {0}, Build {1}", versionInfo.SdkVersion, versionInfo.BuildVersion));
+            }
 
 #if UNITY_EDITOR
             FBComponentFactory.GetComponent<EditorFacebookLoader>();
@@ -133,7 +157,15 @@ public sealed class FB : ScriptableObject
 
     private static void OnDllLoaded()
     {
-        FbDebug.Log("Finished loading Facebook dll. Build " + FBBuildVersionAttribute.GetBuildVersionOfType(FacebookImpl.GetType()));
+        var versionInfo = FBBuildVersionAttribute.GetVersionAttributeOfType(FacebookImpl.GetType());
+        if (versionInfo == null)
+        {
+            FbDebug.Warn("Finished loading Facebook dll, but could not find version info");
+        }
+        else
+        {
+            FbDebug.Log(string.Format("Finished loading Facebook dll. Version {0} Build {1}", versionInfo.SdkVersion, versionInfo.BuildVersion));
+        }
         FacebookImpl.Init(
             OnInitComplete,
             appId,
@@ -213,10 +245,10 @@ public sealed class FB : ScriptableObject
     public sealed class AppEvents
     {
 
-        // If the player has set the limitEventUsage flag to YES, your app will continue 
-        // to send this data to Facebook, but Facebook will not use the data to serve 
-        // targeted ads. Facebook may continue to use the information for other purposes, 
-        // including frequency capping, conversion events, estimating the number of unique 
+        // If the player has set the limitEventUsage flag to YES, your app will continue
+        // to send this data to Facebook, but Facebook will not use the data to serve
+        // targeted ads. Facebook may continue to use the information for other purposes,
+        // including frequency capping, conversion events, estimating the number of unique
         // users, security and fraud detection, and debugging.
 
         public static bool LimitEventUsage
@@ -254,7 +286,7 @@ public sealed class FB : ScriptableObject
     {
         public static void Pay(
             string product,
-            string action = "purchaseitem", 
+            string action = "purchaseitem",
             int quantity = 1,
             int? quantityMin = null,
             int? quantityMax = null,
@@ -266,15 +298,29 @@ public sealed class FB : ScriptableObject
             FacebookImpl.Pay(product, action, quantity, quantityMin, quantityMax, requestId, pricepointId, testCurrency, callback);
         }
 
-        public static void SetResolution(int width, int height, bool fullscreen, int preferredRefreshRate = 0)
+        public static void SetResolution(int width, int height, bool fullscreen, int preferredRefreshRate = 0, params FBScreen.Layout[] layoutParams)
         {
-            FBScreen.SetResolution(width, height, fullscreen, preferredRefreshRate);
+            FBScreen.SetResolution(width, height, fullscreen, preferredRefreshRate, layoutParams);
         }
 
-        public static void SetAspectRatio(int width, int height)
+        public static void SetAspectRatio(int width, int height, params FBScreen.Layout[] layoutParams)
         {
-            FBScreen.SetAspectRatio(width, height);
+            FBScreen.SetAspectRatio(width, height, layoutParams);
         }
+    }
+    #endregion
+
+    #region Android-Only Implemented Methods
+    public sealed class Android
+    {
+         public static string KeyHash
+         {
+             get
+             {
+                var androidFacebook = facebook as AndroidFacebook;
+                return (androidFacebook != null) ? androidFacebook.KeyHash : "";
+             }
+         }
     }
     #endregion
 
@@ -292,6 +338,7 @@ public sealed class FB : ScriptableObject
         {
             var url = string.Format(IntegratedPluginCanvasLocation.DllUrl, className);
             var www = new WWW(url);
+            FbDebug.Log("loading dll: " + url);
             yield return www;
 
             if (www.error != null)
@@ -337,7 +384,7 @@ public sealed class FB : ScriptableObject
                 www.Dispose();
                 yield break;
             }
-            
+
             callback(fb);
             www.Dispose();
         }

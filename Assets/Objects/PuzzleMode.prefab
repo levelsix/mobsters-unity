@@ -3452,6 +3452,8 @@ MonoBehaviour:
   hpBar: {fileID: 11400132}
   hpLabel: {fileID: 11400160}
   shadow: {fileID: 11400018}
+  damageLabel: {fileID: 0}
+  damageLabelTweens: []
   startingPos: {x: 0, y: 0, z: 0}
   alive: 0
 --- !u!114 &11400066
@@ -4626,6 +4628,7 @@ MonoBehaviour:
   attackWordsTweenPos: {fileID: 0}
   boardTint: {fileID: 0}
   screenTint: {fileID: 0}
+  bloodSplatter: {fileID: 0}
   currTurn: 0
   playerTurns: 3
   recoilDistance: 20

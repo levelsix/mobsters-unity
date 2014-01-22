@@ -49,3 +49,39 @@ message TaskStageMonsterProto {
 		BOSS = 3;
 	}
 }
+
+//------------------------------------------------------------------------------------------
+
+message PersistentEventProto {
+	optional int32 eventId = 1;
+	optional DayOfWeek dayOfWeek = 2;
+	optional int32 startHour = 3;
+	optional int32 eventDurationMinutes = 4;
+	optional int32 taskId = 5;
+	optional int32 cooldownMinutes = 6;
+	optional EventType type = 7;
+	optional MonsterProto.MonsterElement monsterElement = 8 [default = FIRE];
+	
+	enum DayOfWeek {
+		SUNDAY = 1;
+		MONDAY = 2;
+		TUESDAY = 3;
+		WEDNESDAY = 4;
+		THURSDAY = 5;
+		FRIDAY = 6;
+		SATURDAY = 7;
+	}
+	
+	enum EventType {
+		ENHANCE = 1;
+		EVOLUTION = 2;
+	}
+}
+
+//------------------------------------------------------------------------------------------
+
+message UserPersistentEventProto {
+	optional int32 userId = 1;
+	optional int32 eventId = 2;
+	optional int64 coolDownStartTime = 3;
+}

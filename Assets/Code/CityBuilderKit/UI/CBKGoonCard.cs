@@ -142,7 +142,6 @@ public class CBKGoonCard : MonoBehaviour {
 		if (goon.userMonster.teamSlotNum == 0)
 		{
 			addRemoveTeamButton.button.isEnabled = false;
-			addRemoveButtonBackground.alpha = 0;
 			addRemoveTeamButton.onClick = null;
 		}
 
@@ -154,7 +153,6 @@ public class CBKGoonCard : MonoBehaviour {
 		{
 			isBaseEnhanceMonster = true;
 			addRemoveTeamButton.button.isEnabled = true;
-			addRemoveButtonBackground.alpha = 1;
 			addRemoveButtonBackground.spriteName = removeButtonSpriteName;
 			addRemoveTeamButton.onClick = ClearEnhanceQueue;
 		}
@@ -192,13 +190,11 @@ public class CBKGoonCard : MonoBehaviour {
 		
 		goonPose.spriteName = CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Card";
 		
-		cardBackground.spriteName = backgroundsForElements[goon.monster.element];
+		cardBackground.spriteName = backgroundsForElements[goon.monster.monsterElement];
 		if (goon.userMonster.teamSlotNum > 0)
 		{
 			addRemoveButtonBackground.spriteName = onTeamButtonSpriteName;
-			addRemoveButtonBackground.alpha = 1;
 			addRemoveTeamButton.onClick = RemoveFromTeam;
-			//Debug.Log("button: " + ((addRemoveTeamButton.button == null) ? "no" : "yes"));
 			addRemoveTeamButton.button.isEnabled = true;
 		}
 		else
@@ -207,18 +203,16 @@ public class CBKGoonCard : MonoBehaviour {
 				&& !goon.isHealing && !goon.isEnhancing && goon.userMonster.isComplete)
 			{
 				addRemoveButtonBackground.spriteName = addButtonSpriteName;
-				addRemoveButtonBackground.alpha = 1;
 				addRemoveTeamButton.onClick = AddToTeam;
 				addRemoveTeamButton.button.isEnabled = true;
 			}
 			else
 			{
-				addRemoveButtonBackground.alpha = 0;
 				addRemoveTeamButton.button.isEnabled = false;
 			}
 		}
 		
-		healthBar.spriteName = healthBarForElements[goon.monster.element];
+		healthBar.spriteName = healthBarForElements[goon.monster.monsterElement];
 
 		SetTextOverCard (goon);
 		

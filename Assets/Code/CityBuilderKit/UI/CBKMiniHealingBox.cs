@@ -55,7 +55,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		else
 		{
 			goonPortrait.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Card";	
-			background.spriteName = elementBackgrounds[monster.monster.element];
+			background.spriteName = elementBackgrounds[monster.monster.monsterElement];
 			removeButton.gameObject.SetActive(true);
 		}
 

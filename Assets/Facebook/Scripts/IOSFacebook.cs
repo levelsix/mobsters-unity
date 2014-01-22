@@ -10,7 +10,7 @@ namespace Facebook
     class IOSFacebook : AbstractFacebook, IFacebook
     {
 #if UNITY_IOS
-        [DllImport ("__Internal")] private static extern void iosInit(bool cookie, bool logging, bool status, bool frictionlessRequests);
+        [DllImport ("__Internal")] private static extern void iosInit(bool cookie, bool logging, bool status, bool frictionlessRequests, string urlSuffix);
         [DllImport ("__Internal")] private static extern void iosLogin(string scope);
         [DllImport ("__Internal")] private static extern void iosLogout();
 
@@ -69,7 +69,7 @@ namespace Facebook
         [DllImport ("__Internal")] 
         private static extern void iosGetDeepLink();
 #else
-        void iosInit(bool cookie, bool logging, bool status, bool frictionlessRequests) { }
+        void iosInit(bool cookie, bool logging, bool status, bool frictionlessRequests, string urlSuffix) { }
         void iosLogin(string scope) { }
         void iosLogout() { }
 
@@ -166,10 +166,11 @@ namespace Facebook
         }
 
         private FacebookDelegate deepLinkDelegate;
-        
+
         #region Init
         protected override void OnAwake()
         {
+            accessToken = "NOT_USED_ON_IOS_FACEBOOK";
         }
 
         public override void Init(
@@ -184,7 +185,7 @@ namespace Facebook
             bool frictionlessRequests = false,
             Facebook.HideUnityDelegate hideUnityDelegate = null)
         {
-            iosInit(cookie, logging, status, frictionlessRequests);
+            iosInit(cookie, logging, status, frictionlessRequests, FBSettings.IosURLSuffix);
             externalInitDelegate = onInitComplete;
         }
         #endregion
@@ -352,16 +353,47 @@ namespace Facebook
 
         public void OnLogin(string msg)
         {
-            int delimIdx = msg.IndexOf(":");
-
-            if (delimIdx > 0)
+            var parameters = (Dictionary<string, object>)MiniJSON.Json.Deserialize(msg);
+            if (parameters.ContainsKey ("user_id"))
             {
                 isLoggedIn = true;
-                userId = msg.Substring(0, delimIdx);
-                accessToken = msg.Substring(delimIdx + 1);
             }
 
+            //pull userId, access token and expiration time out of the response
+            ParseLoginDict (parameters);
+
             OnAuthResponse(new FBResult(msg));
+        }
+
+        public void ParseLoginDict(Dictionary<string, object>parameters)
+        {
+            if (parameters.ContainsKey ("user_id"))
+            {
+                userId = (string)parameters ["user_id"];
+            }
+
+            if (parameters.ContainsKey ("access_token"))
+            {
+                accessToken = (string)parameters ["access_token"];
+            }
+
+            if(parameters.ContainsKey ("expiration_timestamp"))
+            {
+                accessTokenExpiresAt = FromTimestamp(int.Parse((string)parameters["expiration_timestamp"]));
+            }
+        }
+
+        //TODO: move into AbstractFacebook
+        public void OnAccessTokenRefresh(string message)
+        {
+            var parameters = (Dictionary<string, object>)MiniJSON.Json.Deserialize(message);
+            ParseLoginDict (parameters);
+        }
+
+        //TODO: move into AbstractFacebook
+        private DateTime FromTimestamp(int timestamp)
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(timestamp);
         }
 
         public void OnLogout(string msg)
