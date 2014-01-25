@@ -148,6 +148,10 @@ public class PZCombatManager : MonoBehaviour {
 
 	const int MAX_SHOTS = 5;
 	
+	const float BOMB_SPACING = 50;
+	
+	const int NUM_BOMBS = 5;
+
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
 	/// </summary>
@@ -362,6 +366,7 @@ public class PZCombatManager : MonoBehaviour {
 			winPopup.PlayForward();
 		}
 
+		CBKSoundManager.instance.Loop(CBKSoundManager.instance.walking);
 
 		while(activePlayer.unit.transf.localPosition.x < playerXPos)
 		{
@@ -378,6 +383,8 @@ public class PZCombatManager : MonoBehaviour {
 
 
 		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
+
+		CBKSoundManager.instance.StopLoop();
 
 		if (CBKEventManager.Puzzle.ForceShowSwap != null)
 		{
@@ -533,13 +540,38 @@ public class PZCombatManager : MonoBehaviour {
 		attackWords.gameObject.SetActive(false);
 
 		screenTint.PlayReverse();
-
+		
+		if (score > MAKE_IT_RAIN_SCORE)
+		{
+			MakeItRain();
+		}
 
 	}
 
 	public void OnWordsFinishMoving()
 	{
 		wordsMoving = false;
+	}
+	
+	void MakeItRain()
+	{
+		Transform plane = (CBKPoolManager.instance.Get(CBKPrefabList.instance.planePrefab, Vector3.zero) as MonoBehaviour).transform;
+		plane.parent = combatParent;
+		plane.localPosition = activePlayer.startingPos;
+
+		for (int i = 0; i < NUM_BOMBS; i++) 
+		{
+			BombAt(activeEnemy.unit.transf.localPosition.x - BOMB_SPACING * NUM_BOMBS / 2f + BOMB_SPACING * i);
+		}
+	}
+
+	void BombAt(float x)
+	{
+		Transform bomb = (CBKPoolManager.instance.Get(CBKPrefabList.instance.bombPrefab, Vector3.zero) as MonoBehaviour).transform;
+		bomb.parent = combatParent;
+		bomb.localPosition = new Vector3(x, Screen.height/2 + BOMB_SPACING);
+		bomb.GetComponent<PZBomb>().targetHeight = activeEnemy.unit.transf.localPosition.y + 
+			(background.direction.y / background.direction.x) * (x - activeEnemy.unit.transf.localPosition.x);
 	}
 
 	void CheckBleed(PZCombatUnit player)
@@ -574,7 +606,6 @@ public class PZCombatManager : MonoBehaviour {
 		bloodSplatter.PlayReverse();
 	}
 
-	[ContextMenu ("Bleed")]
 	void Bleed()
 	{
 		bloodSplatter.from = .5f;
@@ -585,7 +616,6 @@ public class PZCombatManager : MonoBehaviour {
 		bloodSplatter.PlayForward();
 	}
 
-	[ContextMenu ("StopBleed")]
 	void StopBleeding()
 	{
 		bloodSplatter.Reset();
@@ -612,6 +642,8 @@ public class PZCombatManager : MonoBehaviour {
 
 			CBKPoolManager.instance.Get(CBKPrefabList.instance.flinchParticle, activeEnemy.unit.transf.position);
 
+			CBKSoundManager.instance.PlayOneShot(CBKSoundManager.instance.pistol);
+
 			while (activeEnemy.unit.transf.localPosition.x < enemyPos.x + recoilDistance * (i+1))
 			{
 				activeEnemy.unit.transf.localPosition += Time.deltaTime * recoilDistance / recoilTime * -background.direction;
@@ -633,6 +665,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		activeEnemy.unit.transf.localPosition = enemyPos;
 	}
+
 
 	/// <summary>
 	/// Runs through the sequence of animations that follow the player dealing
@@ -669,7 +702,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			
 			activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
-			yield return new WaitForSeconds(.5f);
+			yield return new WaitForSeconds(.7f);
 			activePlayer.TakeDamage(Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f)), element);
 
 			CheckBleed(activePlayer);

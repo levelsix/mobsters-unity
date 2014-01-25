@@ -43,6 +43,8 @@ public class PZPuzzleManager : MonoBehaviour {
 			if (_combo > 0)
 			{
 				comboLabel.text = _combo.ToString();
+
+				CBKSoundManager.instance.PlayOneShot(CBKSoundManager.instance.combos[Mathf.Min(_combo,CBKSoundManager.instance.combos.Length)-1]);
 			}
 			else
 			{
@@ -65,17 +67,17 @@ public class PZPuzzleManager : MonoBehaviour {
 	public string[] gemTypes;
 	
 	public int[] currGems;
-	
+
 	public int[] gemsOnBoardByType = new int[GEM_TYPES];
 
-	public Queue<PZGem>[] columnQueues = new Queue<PZGem>[BOARD_WIDTH];
+	public List<PZGem>[] columnQueues = new List<PZGem>[BOARD_WIDTH];
 	
 	public int gemsByType;
 	
 	public const int BOARD_WIDTH = 8;
 	public const int BOARD_HEIGHT = 8;
 	
-	public const int GEM_TYPES = 5;
+	public const int GEM_TYPES = 6;
 	
 	public const float WAIT_BETWEEN_LINES = .3f;
 	
@@ -96,7 +98,9 @@ public class PZPuzzleManager : MonoBehaviour {
 		
 		board = new PZGem[BOARD_WIDTH, BOARD_HEIGHT];
 		
-		currGems = new int[gemTypes.Length];
+		currGems = new int[GEM_TYPES];
+
+		gemsOnBoardByType = new int[GEM_TYPES];
 		
 		ResetCombo();
 		
@@ -106,7 +110,7 @@ public class PZPuzzleManager : MonoBehaviour {
 
 		for (int i = 0; i < columnQueues.Length; i++) 
 		{
-			columnQueues[i] = new Queue<PZGem>();
+			columnQueues[i] = new List<PZGem>();
 		}
 	}
 	
@@ -231,6 +235,14 @@ public class PZPuzzleManager : MonoBehaviour {
 	void CheckIfTurnFinished ()
 	{
 		if (movingGems.Count == 0) {
+			foreach (var item in columnQueues) 
+			{
+				if (item.Count > 0)
+				{
+
+				}
+			}
+
 			CheckWholeBoard ();
 			gemsToCheck.Clear ();
 			if (movingGems.Count == 0) {
@@ -339,13 +351,15 @@ public class PZPuzzleManager : MonoBehaviour {
 		//Combine all matches that are connected (T's and L's)
 		foreach (PZMatch match in matchList)
 		{
+			/*
 			if (match.special)
 			{
 				continue;
 			}
+			*/
 			foreach (PZMatch other in matchList)
 			{
-				if (match != other && !other.special)
+				if (match != other)// && !other.special)
 				{
 					match.CheckAgainst(other);
 				}
@@ -735,6 +749,10 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	public float HighestGemInColumn(int col)
 	{
+		if (columnQueues[col].Count > 0)
+		{
+			return columnQueues[col][columnQueues[col].Count-1].transf.localPosition.y;
+		}
 		for (int i = BOARD_HEIGHT-1; i >= 0; i--) 
 		{
 			if (board[col,i] != null)
@@ -743,5 +761,31 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 		}
 		return 0;
+	}
+
+	[ContextMenu ("Print board")]
+	public void PrintBoard()
+	{
+		string str = "Board";
+		for (int i = BOARD_HEIGHT-1; i >= 0; i--) 
+		{
+			str += "\n";
+			for (int j = 0; j < BOARD_WIDTH; j++) 
+			{
+				if (board[j,i] == null)
+				{
+					str += "e ";
+				}
+				else if (board[j,i].colorIndex < 0)
+				{
+					str += "n ";
+				}
+				else
+				{
+					str += board[j,i].colorIndex + " ";
+				}
+			}
+		}
+		Debug.Log(str);
 	}
 }

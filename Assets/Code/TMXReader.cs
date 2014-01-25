@@ -13,7 +13,7 @@ public class TMXReader {
 
 	public TMXReader(string filename)
 	{
-		Debug.Log("Loading reader for tmx: " + filename);
+		//Debug.Log("Loading reader for tmx: " + filename);
 		TextAsset text = Resources.Load(CBKUtil.StripExtensions(filename)) as TextAsset;
 		xmlDoc = new XmlDocument();
 		xmlDoc.LoadXml (text.ToString());

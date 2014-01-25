@@ -41,13 +41,13 @@ public class PZComboCounter : MonoBehaviour {
 
 	void FadeIn()
 	{
-		Debug.Log("Fade In");
+		//Debug.Log("Fade In");
 		alphaTween.PlayForward();
 	}
 
 	void FadeOut()
 	{
-		Debug.Log("Fade out");
+		//Debug.Log("Fade out");
 		alphaTween.PlayReverse();
 	}
 

@@ -146,7 +146,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 	IEnumerator LerpHealth(float hpBeforeDamage, float hpAfterDamage, int maxHP)
 	{
-		int frames = (int) (hpBeforeDamage - hpAfterDamage);
+		int frames = Mathf.Min((int)(hpBeforeDamage - hpAfterDamage), Application.targetFrameRate * 2);
 		float currFrame = 0;
 		while (currFrame < frames)
 		{

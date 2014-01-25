@@ -310,6 +310,22 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> _reviveMe = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto>();
+    [global::ProtoBuf.ProtoMember(4, Name=@"reviveMe", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> reviveMe
+    {
+      get { return _reviveMe; }
+    }
+  
+
+    private int _gemsSpent = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsSpent
+    {
+      get { return _gemsSpent; }
+      set { _gemsSpent = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

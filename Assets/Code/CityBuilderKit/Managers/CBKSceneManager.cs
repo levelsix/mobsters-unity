@@ -5,7 +5,13 @@ using System.Collections;
 /// Manages the swap between City mode and Puzzle mode
 /// </summary>
 public class CBKSceneManager : MonoBehaviour {
-	
+
+	[SerializeField]
+	GameObject cityParent;
+
+	[SerializeField]
+	GameObject puzzleParent;
+
 	[SerializeField]
 	UIPanel cityPanel;
 	
@@ -36,8 +42,7 @@ public class CBKSceneManager : MonoBehaviour {
 	{
 		if (!cityState)
 		{
-			StartCoroutine(Fade(puzzlePanel, cityPanel));
-			StartCoroutine(FadePuzzleBackground(false));
+			StartCoroutine(FadeToCity());
 			cityState = true;
 		}
 		else
@@ -50,8 +55,7 @@ public class CBKSceneManager : MonoBehaviour {
 	{
 		if (cityState)
 		{
-			StartCoroutine(Fade(cityPanel, puzzlePanel));
-			StartCoroutine(FadePuzzleBackground(true));
+			StartCoroutine(FadeToPuzzle());
 			cityState = false;
 		}
 	}
@@ -65,6 +69,22 @@ public class CBKSceneManager : MonoBehaviour {
 			PZScrollingBackground.instance.SetAlpha((fadeIn) ? t/fadeTime : 1 - t/fadeTime);
 			yield return null;
 		}
+	}
+
+	IEnumerator FadeToCity()
+	{
+		cityParent.SetActive(true);
+		StartCoroutine(FadePuzzleBackground(false));
+		yield return StartCoroutine(Fade(puzzlePanel, cityPanel));
+		puzzleParent.SetActive(false);
+	}
+
+	IEnumerator FadeToPuzzle()
+	{
+		puzzleParent.SetActive(true);
+		StartCoroutine(FadePuzzleBackground(true));
+		yield return StartCoroutine(Fade(cityPanel, puzzlePanel));
+		cityParent.SetActive(false);
 	}
 
 	IEnumerator Fade (UIPanel from, UIPanel to)

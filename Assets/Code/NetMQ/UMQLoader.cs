@@ -14,6 +14,8 @@ public class UMQLoader : MonoBehaviour {
 	// Use this for initialization
 	IEnumerator Start () {
 
+		Application.targetFrameRate = 60;
+
 		CBKFacebookManager.instance.Init();
 
 		/*
@@ -71,6 +73,10 @@ public class UMQLoader : MonoBehaviour {
 			CBKDataManager.instance.LoadStaticData(response.staticDataStuffProto);
 		}
 
+		//IMPORTANT: Initialize the constants before ANYTHING with CBKUtil is called
+		//Otherwise, the constructor on CBKUtil will fail and throw errors
+		CBKWhiteboard.constants = response.startupConstants;
+
 		CBKUtil.LoadLocalUser (response.sender);
 		
 		CBKChatManager.instance.Init(response);
@@ -87,7 +93,6 @@ public class UMQLoader : MonoBehaviour {
 		}
 		else
 		{
-			CBKWhiteboard.constants = response.startupConstants;
 			CBKResourceManager.instance.Init(response.sender.level, response.sender.experience,
 				100/*response.experienceRequiredForNextLevel*/, response.sender.cash, response.sender.oil, response.sender.gems);
 			

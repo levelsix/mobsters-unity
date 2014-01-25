@@ -33,4 +33,8 @@ public class CBKPrefabList : MonoBehaviour {
 	public CBKSimplePoolable sparkleParticle;
 
 	public CBKSimplePoolable cratePrefab;
+
+	public CBKSimplePoolable planePrefab;
+
+	public CBKSimplePoolable bombPrefab;
 }

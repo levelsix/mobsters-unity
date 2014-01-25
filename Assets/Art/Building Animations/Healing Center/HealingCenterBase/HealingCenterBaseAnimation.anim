@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: HealingCenterBaseAnimation
+  serializedVersion: 4
+  m_AnimationType: 2
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.r
+    path: Overlay
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.g
+    path: Overlay
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.b
+    path: Overlay
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: Overlay
+    classID: 212
+    script: {fileID: 0}
+  m_PPtrCurves:
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 8e5adc71713b24825886cf7afc81d196, type: 3}
+    - time: .0833333358
+      value: {fileID: 21300000, guid: e79c8b5c74eb64a76955b14079839ca0, type: 3}
+    - time: .166666672
+      value: {fileID: 21300000, guid: 6e2765d9a6fc64c9badaf25d7659941f, type: 3}
+    - time: .25
+      value: {fileID: 21300000, guid: fdbc94141f81c40aea790a4adc48f658, type: 3}
+    - time: .333333343
+      value: {fileID: 21300000, guid: 604bc6e18fb9c48c8991015178180c1a, type: 3}
+    - time: .416666657
+      value: {fileID: 21300000, guid: 4fea0ea21c6984e238e7c8bf29db1f4d, type: 3}
+    - time: .5
+      value: {fileID: 21300000, guid: 83956a8ffacf24392bc8ecac93272506, type: 3}
+    - time: .583333313
+      value: {fileID: 21300000, guid: 172a73a2796c7408d9ec47dd8abf3eb5, type: 3}
+    - time: .666666687
+      value: {fileID: 21300000, guid: 8fbe2048012704577b2e57e17180c8b9, type: 3}
+    - time: .75
+      value: {fileID: 21300000, guid: 22ab9cfa4b9364402a4501d15f4e907c, type: 3}
+    - time: .833333313
+      value: {fileID: 21300000, guid: 2b451307331c74eedbddee2f8490e74c, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: b9e0b4fad75914134af961129fa697aa, type: 3}
+    - time: .0833333358
+      value: {fileID: 21300000, guid: c010123835db7425e8852c9276f0f632, type: 3}
+    - time: .166666672
+      value: {fileID: 21300000, guid: 71545897a2e29458a8c7a7d8a0bc9818, type: 3}
+    - time: .25
+      value: {fileID: 21300000, guid: b61235f6b24604cc5ba6de6c406be18a, type: 3}
+    - time: .333333343
+      value: {fileID: 21300000, guid: 701eea667b2714782ae8c9bc642f74a6, type: 3}
+    - time: .416666657
+      value: {fileID: 21300000, guid: 770503e625cc14538812d954d1cf527f, type: 3}
+    - time: .5
+      value: {fileID: 21300000, guid: 4649951bb5d8b41b1aa3b2d1bbfc4408, type: 3}
+    - time: .583333313
+      value: {fileID: 21300000, guid: 3d8d94c3e3eb648c98412dc0e958a027, type: 3}
+    - time: .666666687
+      value: {fileID: 21300000, guid: 80331c6d7b7d64a99bf76313c99ac473, type: 3}
+    - time: .75
+      value: {fileID: 21300000, guid: ee66e55f522764fa4ad37fb43d40fd90, type: 3}
+    - time: .833333313
+      value: {fileID: 21300000, guid: 5439499d6f53843fd88500e3d347a38b, type: 3}
+    attribute: m_Sprite
+    path: Overlay
+    classID: 212
+    script: {fileID: 0}
+  m_SampleRate: 12
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_StartTime: 0
+    m_StopTime: .916666627
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_LoopTime: 1
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.r
+    path: Overlay
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.g
+    path: Overlay
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.b
+    path: Overlay
+    classID: 212
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    attribute: m_Color.a
+    path: Overlay
+    classID: 212
+    script: {fileID: 0}
+  m_EulerEditorCurves: []
+  m_Events: []

@@ -255,10 +255,6 @@ public static class CBKUtil {
 	#endregion
 
 	#region Monster Type Comparisons
-
-	const float normalDamageRatio = 1f;
-	const float weakDamageRatio = 1.25f;
-	const float resistantDamageRatio = .75f;
 	
 	//Maps Monster Type -> Type of the damage it is taking -> damage multiplier
 	public static readonly Dictionary<MonsterProto.MonsterElement, Dictionary<MonsterProto.MonsterElement, float>> elementStrengths = 
@@ -267,47 +263,47 @@ public static class CBKUtil {
 		{
 			MonsterProto.MonsterElement.FIRE, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.GRASS, resistantDamageRatio},
-				{MonsterProto.MonsterElement.WATER, weakDamageRatio}
+				{MonsterProto.MonsterElement.GRASS, CBKWhiteboard.constants.monsterConstants.elementalStrength},
+				{MonsterProto.MonsterElement.WATER, CBKWhiteboard.constants.monsterConstants.elementalWeakness}
 			}
 		},
 		{
 			MonsterProto.MonsterElement.WATER, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.GRASS, weakDamageRatio},
-				{MonsterProto.MonsterElement.FIRE, resistantDamageRatio}
+				{MonsterProto.MonsterElement.GRASS, CBKWhiteboard.constants.monsterConstants.elementalWeakness},
+				{MonsterProto.MonsterElement.FIRE, CBKWhiteboard.constants.monsterConstants.elementalStrength}
 			}
 		},
 		{
 			MonsterProto.MonsterElement.GRASS, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.FIRE, weakDamageRatio},
-				{MonsterProto.MonsterElement.WATER, resistantDamageRatio}
+				{MonsterProto.MonsterElement.FIRE, CBKWhiteboard.constants.monsterConstants.elementalWeakness},
+				{MonsterProto.MonsterElement.WATER, CBKWhiteboard.constants.monsterConstants.elementalStrength}
 			}
 		},
 		{
 			MonsterProto.MonsterElement.DARKNESS, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.DARKNESS, resistantDamageRatio},
-				{MonsterProto.MonsterElement.LIGHTNING, weakDamageRatio}
+				{MonsterProto.MonsterElement.DARKNESS, CBKWhiteboard.constants.monsterConstants.elementalStrength},
+				{MonsterProto.MonsterElement.LIGHTNING, CBKWhiteboard.constants.monsterConstants.elementalWeakness}
 			}
 		},
 		{
 			MonsterProto.MonsterElement.LIGHTNING, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.DARKNESS, weakDamageRatio},
-				{MonsterProto.MonsterElement.LIGHTNING, resistantDamageRatio}
+				{MonsterProto.MonsterElement.DARKNESS, CBKWhiteboard.constants.monsterConstants.elementalWeakness},
+				{MonsterProto.MonsterElement.LIGHTNING, CBKWhiteboard.constants.monsterConstants.elementalStrength}
 			}
 		}
 	};
 	
 	public static float GetTypeDamageMultiplier(MonsterProto.MonsterElement monsterType, MonsterProto.MonsterElement attackType)
 	{
-		if (elementStrengths[monsterType].ContainsKey(attackType))
+		if (elementStrengths.ContainsKey(monsterType) && elementStrengths[monsterType].ContainsKey(attackType))
 		{
 			return elementStrengths[monsterType][attackType];
 		}
-		return normalDamageRatio;
+		return 1;
 	}
 
 	#endregion
@@ -354,4 +350,6 @@ public static class CBKUtil {
 		}
 		return copy;
 	}
+
+
 }

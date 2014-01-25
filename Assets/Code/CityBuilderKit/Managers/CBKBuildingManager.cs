@@ -170,7 +170,7 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	public void RequestCity()
 	{
-		Debug.Log("Sending city request");
+		//Debug.Log("Sending city request");
 		if (CBKWhiteboard.currCityType == CBKWhiteboard.CityType.PLAYER)
 		{
 			LoadPlayerCity();
@@ -240,7 +240,7 @@ public class CBKBuildingManager : MonoBehaviour
 			CBKEventManager.Scene.OnCity();
 		}
 
-		RecycleCity();
+		//RecycleCity();
 		
 		//LoadPlayerCityResponseProto response = (LoadPlayerCityResponseProto) UMQNetworkManager.responseDict[tagNum];
 		//UMQNetworkManager.responseDict.Remove(tagNum);

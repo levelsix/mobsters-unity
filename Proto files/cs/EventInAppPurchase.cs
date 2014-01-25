@@ -261,10 +261,10 @@ namespace com.lvl6.proto
     public ExchangeGemsForResourcesRequestProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithMaxResources sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -316,10 +316,10 @@ namespace com.lvl6.proto
     public ExchangeGemsForResourcesResponseProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _sender = null;
+    private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto sender
+    public com.lvl6.proto.MinimumUserProtoWithMaxResources sender
     {
       get { return _sender; }
       set { _sender = value; }

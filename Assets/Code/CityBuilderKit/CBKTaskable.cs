@@ -57,7 +57,12 @@ public class CBKTaskable : MonoBehaviour {
 			}
 			if (i == CBKMonsterManager.userTeam.Length)
 			{
-				Debug.Log("No monsters on team have health!");
+				CBKEventManager.Popup.CreateButtonPopup("No monsters on team have health! Manage your team?",
+				                                        new string[]{"Later", "Manage"},
+				new Action[]{delegate{CBKEventManager.Popup.CloseTopPopupLayer();},
+					delegate{CBKEventManager.Popup.CloseAllPopups(); CBKEventManager.Popup.OnPopup(CBKPopupManager.instance.goonManagePopup);
+						CBKPopupManager.instance.goonManagePopup.GetComponent<CBKGoonScreen>().InitHeal();}}, true);
+				return;
 			}
 		}
 

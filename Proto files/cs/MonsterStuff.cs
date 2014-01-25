@@ -358,17 +358,8 @@ namespace com.lvl6.proto
       set { _hp = value; }
     }
 
-    private int _attack = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"attack", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int attack
-    {
-      get { return _attack; }
-      set { _attack = value; }
-    }
-
     private int _curLvlRequiredExp = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"curLvlRequiredExp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"curLvlRequiredExp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int curLvlRequiredExp
     {
@@ -377,12 +368,66 @@ namespace com.lvl6.proto
     }
 
     private int _feederExp = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"feederExp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"feederExp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int feederExp
     {
       get { return _feederExp; }
       set { _feederExp = value; }
+    }
+
+    private int _fireDmg = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"fireDmg", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int fireDmg
+    {
+      get { return _fireDmg; }
+      set { _fireDmg = value; }
+    }
+
+    private int _grassDmg = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"grassDmg", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int grassDmg
+    {
+      get { return _grassDmg; }
+      set { _grassDmg = value; }
+    }
+
+    private int _waterDmg = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"waterDmg", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int waterDmg
+    {
+      get { return _waterDmg; }
+      set { _waterDmg = value; }
+    }
+
+    private int _lightningDmg = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"lightningDmg", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int lightningDmg
+    {
+      get { return _lightningDmg; }
+      set { _lightningDmg = value; }
+    }
+
+    private int _darknessDmg = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"darknessDmg", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int darknessDmg
+    {
+      get { return _darknessDmg; }
+      set { _darknessDmg = value; }
+    }
+
+    private int _rockDmg = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"rockDmg", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int rockDmg
+    {
+      get { return _rockDmg; }
+      set { _rockDmg = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

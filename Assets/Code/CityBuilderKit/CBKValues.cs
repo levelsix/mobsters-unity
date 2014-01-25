@@ -88,7 +88,8 @@ public static class CBKValues
 			Color.red,
 			Color.yellow,
 			Color.magenta,
-			Color.blue
+			Color.blue,
+			Color.grey
 		};
 
 		public const int moneyRed = 213;
@@ -102,14 +103,4 @@ public static class CBKValues
 		}
 		public const string moneyText = "D5E749";
 	}
-	
-	public static string[] CharacterNames = 
-	{
-		"johnny",
-		"franky",
-		"tiffany",
-		"starla",
-		"maurice",
-		"sean"
-	};
 }

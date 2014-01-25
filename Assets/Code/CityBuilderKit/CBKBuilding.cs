@@ -172,6 +172,12 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// The sprite for this building.
 	/// </summary>
 	public SpriteRenderer sprite;
+
+	/// <summary>
+	/// An sprite, used only by specific buildings (i.e. hospital) which
+	/// need to put Units 'inside' of them
+	/// </summary>
+	public SpriteRenderer overlay;
 	
 	/// <summary>
 	/// The upgrade component
@@ -228,8 +234,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// </summary>
 	public float X_DRAG_FUDGE = 1.1f;
 
-	public static readonly Vector3 SHADOW_POS = new Vector3(-1.29f, 2.24f, 3.8f);
-	public static readonly Vector3 FLIP_SHADOW_POS = new Vector3(1.29f, 2.24f, 3.8f);
+	public static readonly Vector3 SHADOW_POS = new Vector3(-0.36f, 2.28f, 3.8f);
+	public static readonly Vector3 FLIP_SHADOW_POS = new Vector3(0.36f, 2.28f, 3.8f);
 
     #endregion
 	
@@ -319,6 +325,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	public void Init(CityElementProto proto)
 	{
+		groundPos = new Vector2(proto.coords.x, proto.coords.y);
+
 		lockIcon.SetActive(false);
 		sprite.color = Color.white;
 
@@ -387,7 +395,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		lockIcon.SetActive(false);
 		sprite.color = Color.white;
 
-		trans.localScale = new Vector3(HOME_BUILDING_SCALE, HOME_BUILDING_SCALE, HOME_BUILDING_SCALE);
+		//trans.localScale = new Vector3(HOME_BUILDING_SCALE, HOME_BUILDING_SCALE, HOME_BUILDING_SCALE);
 
 		//name = structProto.name;
 		_box.enabled = true;
@@ -436,6 +444,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	public void SetupSprite(string structName)
 	{
+		overlay.color = new Color(1,1,1,0);
+
 		//sprite.spriteName = CBKUtil.StripExtensions(structName);
 		//CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
 		sprite.sprite = CBKAtlasUtil.instance.GetBuildingSprite(CBKUtil.StripExtensions(structName));
@@ -668,6 +678,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	{
 		_ppDir = 1;
 		_ppPow = 0;
+		Color curr;
 		while(selected)
 		{
 			_ppPow += _ppDir * Time.deltaTime * COLOR_SPEED;
@@ -683,8 +694,13 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 				_ppPow = 0;
 				_ppDir = 1;
 			}
-			
-			sprite.color = Color.Lerp(baseColor, _currColor, _ppPow);
+
+			curr = Color.Lerp(baseColor, _currColor, _ppPow);
+			sprite.color = curr;
+			if (overlay.color.a > 0)
+			{
+				overlay.color = curr;
+			}
 			
 			yield return new WaitForEndOfFrame();
 		}

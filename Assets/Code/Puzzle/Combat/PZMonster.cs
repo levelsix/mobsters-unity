@@ -196,8 +196,8 @@ public class PZMonster {
 	
 	public int maxHP;
 	public int currHP;
-	
-	public float[] attackDamages = new float[5];
+
+	public float[] attackDamages = new float[PZPuzzleManager.GEM_TYPES];
 
 	public float totalDamage = 0;
 	
@@ -267,6 +267,7 @@ public class PZMonster {
 		attackDamages[2] = attackMux * monster.elementThreeDmg;
 		attackDamages[3] = attackMux * monster.elementFourDmg;
 		attackDamages[4] = attackMux * monster.elementFiveDmg;
+		attackDamages[5] = attackMux * monster.elementSixDmg;
 
 		float total = 0;
 		foreach (var damage in attackDamages) 

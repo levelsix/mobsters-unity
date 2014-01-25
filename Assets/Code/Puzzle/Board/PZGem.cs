@@ -118,7 +118,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	
 	bool dragged = false;
 
-	int id = 0;
+	public int id = 0;
 	static int nextId = 0;
 	
 	static readonly Dictionary<CBKValues.Direction, Vector3> dirVals = new Dictionary<CBKValues.Direction, Vector3>()
@@ -177,15 +177,6 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	{
 		colorIndex = colr;
 		baseSprite = PZPuzzleManager.instance.gemTypes[colorIndex];
-
-		if (colr > 4)
-		{
-			sprite.color = Color.black;
-		}
-		else
-		{
-			sprite.color = Color.white;
-		}
 		
 		boardX = column;
 		boardY = PZPuzzleManager.BOARD_HEIGHT;
@@ -213,6 +204,8 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	{
 		if (!lockedBySpecial)
 		{
+			Debug.LogWarning("Destroying: " + id);
+
 			if (colorIndex >= 0)
 			{
 				CreateMatchParticle();
@@ -229,7 +222,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			}
 			while(PZPuzzleManager.instance.columnQueues[boardX].Count > 0)
 			{
-				if (!PZPuzzleManager.instance.columnQueues[boardX].Peek().CheckFall())
+				if (!PZPuzzleManager.instance.columnQueues[boardX][0].CheckFall())
 				{
 					break;
 				}
@@ -259,7 +252,8 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		{
 			if (enqueued)
 			{
-				PZPuzzleManager.instance.columnQueues[boardX].Dequeue();
+				Debug.LogWarning("Dropping from queue: " + id);
+				PZPuzzleManager.instance.columnQueues[boardX].RemoveAt(0);
 				enqueued = false;
 			}
 
@@ -280,9 +274,10 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		}
 		else
 		{
-			if (!enqueued)
+			if (!enqueued && boardY >= PZPuzzleManager.BOARD_HEIGHT)
 			{
-				PZPuzzleManager.instance.columnQueues[boardX].Enqueue(this);
+				Debug.LogWarning("Queuing: " + id);
+				PZPuzzleManager.instance.columnQueues[boardX].Add(this);
 				enqueued = true;
 			}
 			return false;
@@ -421,6 +416,8 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			PZPuzzleManager.instance.swapLock -= 1;
 			swapee.StartCoroutine(swapee.Swap(dir));
 			StartCoroutine(Swap(CBKValues.opp[dir]));
+
+			CBKSoundManager.instance.PlayOneShot(CBKSoundManager.instance.wrongMove);
 		}
 	}
 	
