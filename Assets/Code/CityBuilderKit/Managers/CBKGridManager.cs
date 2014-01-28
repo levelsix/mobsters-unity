@@ -325,7 +325,7 @@ public class CBKGridManager : MonoBehaviour {
     /// <param name="building">The building being removed from the grid</param>
     public void RemoveBuilding(CBKBuilding building)
     {
-		Debug.LogWarning("Removing " + building.name + ", id: " + building.id);
+		//Debug.LogWarning("Removing " + building.name + ", id: " + building.id);
         for (int i = 0; i < building.width; i++)
         {
             for (int j = 0; j < building.length; j++)

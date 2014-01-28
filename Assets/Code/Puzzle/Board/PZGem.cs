@@ -206,6 +206,8 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		{
 			Debug.LogWarning("Destroying: " + id);
 
+			CBKSoundManager.instance.PlayOneShot(CBKSoundManager.instance.gemPop);
+
 			if (colorIndex >= 0)
 			{
 				CreateMatchParticle();
