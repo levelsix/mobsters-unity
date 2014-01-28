@@ -5,7 +5,7 @@ using com.lvl6.proto;
 public class CBKBuildingCard : MonoBehaviour {
 
 	[SerializeField]
-	UILabel name;
+	UILabel nameLabel;
 
 	[SerializeField]
 	UILabel timeToBuild;
@@ -42,7 +42,7 @@ public class CBKBuildingCard : MonoBehaviour {
 	{
 		building = proto;
 
-		name.text = proto.structInfo.name;
+		nameLabel.text = proto.structInfo.name;
 		timeToBuild.text = "TIME " + proto.structInfo.minutesToBuild + "m";
 
 		buildingSprite.sprite2D = CBKAtlasUtil.instance.GetBuildingSprite(proto.structInfo.imgName);

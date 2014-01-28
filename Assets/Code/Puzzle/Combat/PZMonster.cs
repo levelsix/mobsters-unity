@@ -115,7 +115,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return 666;
+			return monster.lvlInfo[userMonster.currentLvl].feederExp;
 		}
 	}
 	
@@ -182,7 +182,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return Mathf.CeilToInt((combineTimeLeft/60000) / CBKWhiteboard.constants.minutesPerGem);
+			return Mathf.CeilToInt((combineTimeLeft/60000f) / CBKWhiteboard.constants.minutesPerGem);
 		}
 	}
 
@@ -318,11 +318,7 @@ public class PZMonster {
 			Debug.LogWarning("Attempting to get exp for a higher level than this monster can go");
 			return ExpForLevel(monster.maxLevel);
 		}
-		if (level <= 1)
-		{
-			return 0;
-		}
-		return level * 100 + ExpForLevel(level-1);
+		return monster.lvlInfo[level-1].curLvlRequiredExp;
 	}
 	
 	public void GainXP(int exp)
