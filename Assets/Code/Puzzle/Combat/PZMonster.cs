@@ -241,33 +241,26 @@ public class PZMonster {
 	
 	void SetupWithUser()
 	{
-		SetMaxHP(monster.baseHp, monster.hpLevelMultiplier, userMonster.currentLvl);
+		maxHP = monster.lvlInfo[userMonster.currentLvl-1].hp;
 		SetAttackDamagesFromMonster(userMonster.currentLvl);
 		currHP = userMonster.currentHealth;
 	}
 	
 	void SetupWithTask()
 	{
-		SetMaxHP(monster.baseHp, monster.hpLevelMultiplier, taskMonster.level);
+		maxHP = monster.lvlInfo[taskMonster.level-1].hp;
 		SetAttackDamagesFromMonster(taskMonster.level);
 		currHP = maxHP;
 	}
 
-	void SetMaxHP(int baseHP, float hpLevelMux, int level)
-	{
-		maxHP = (int)(baseHP * Mathf.Pow(hpLevelMux, level-1));
-	}
-	
 	void SetAttackDamagesFromMonster(int level)
 	{
-		float attackMux = Mathf.Pow(monster.attackLevelMultiplier, level);
-		
-		attackDamages[0] = attackMux * monster.elementOneDmg;
-		attackDamages[1] = attackMux * monster.elementTwoDmg;
-		attackDamages[2] = attackMux * monster.elementThreeDmg;
-		attackDamages[3] = attackMux * monster.elementFourDmg;
-		attackDamages[4] = attackMux * monster.elementFiveDmg;
-		attackDamages[5] = attackMux * monster.elementSixDmg;
+		attackDamages[0] = monster.lvlInfo[level-1].fireDmg;
+		attackDamages[1] = monster.lvlInfo[level-1].grassDmg;
+		attackDamages[2] = monster.lvlInfo[level-1].waterDmg;
+		attackDamages[3] = monster.lvlInfo[level-1].lightningDmg;
+		attackDamages[4] = monster.lvlInfo[level-1].darknessDmg;
+		attackDamages[5] = monster.lvlInfo[level-1].rockDmg;
 
 		float total = 0;
 		foreach (var damage in attackDamages) 
