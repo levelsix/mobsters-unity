@@ -241,6 +241,7 @@ public class PZMonster {
 	
 	void SetupWithUser()
 	{
+		userMonster.currentLvl = Math.Min(userMonster.currentLvl, monster.maxLevel);
 		maxHP = monster.lvlInfo[userMonster.currentLvl-1].hp;
 		SetAttackDamagesFromMonster(userMonster.currentLvl);
 		currHP = userMonster.currentHealth;
