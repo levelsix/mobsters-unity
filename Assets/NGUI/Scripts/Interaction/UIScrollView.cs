@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2013 Tasharen Entertainment
+// Copyright © 2011-2014 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -158,6 +158,7 @@ public class UIScrollView : MonoBehaviour
 			if (!mCalculatedBounds)
 			{
 				mCalculatedBounds = true;
+				mTrans = transform;
 				mBounds = NGUIMath.CalculateRelativeWidgetBounds(mTrans, mTrans);
 			}
 			return mBounds;
@@ -458,6 +459,8 @@ public class UIScrollView : MonoBehaviour
 
 	public virtual void SetDragAmount (float x, float y, bool updateScrollbars)
 	{
+		if (mPanel == null) mPanel = GetComponent<UIPanel>();
+
 		DisableSpring();
 
 		Bounds b = bounds;
@@ -508,7 +511,7 @@ public class UIScrollView : MonoBehaviour
 		mPanel.clipOffset = new Vector2(clip.x - cr.x, clip.y - cr.y);
 
 		// Update the scrollbars, reflecting this change
-		if (updateScrollbars) UpdateScrollbars(false);
+		if (updateScrollbars) UpdateScrollbars(mDragID == -10);
 	}
 
 	/// <summary>
@@ -520,14 +523,17 @@ public class UIScrollView : MonoBehaviour
 	[ContextMenu("Reset Clipping Position")]
 	public void ResetPosition()
 	{
-		// Invalidate the bounds
-		mCalculatedBounds = false;
+		if (NGUITools.GetActive(this))
+		{
+			// Invalidate the bounds
+			mCalculatedBounds = false;
 
-		// First move the position back to where it would be if the scroll bars got reset to zero
-		SetDragAmount(relativePositionOnReset.x, relativePositionOnReset.y, false);
+			// First move the position back to where it would be if the scroll bars got reset to zero
+			SetDragAmount(relativePositionOnReset.x, relativePositionOnReset.y, false);
 
-		// Next move the clipping area back and update the scroll bars
-		SetDragAmount(relativePositionOnReset.x, relativePositionOnReset.y, true);
+			// Next move the clipping area back and update the scroll bars
+			SetDragAmount(relativePositionOnReset.x, relativePositionOnReset.y, true);
+		}
 	}
 
 	/// <summary>
@@ -635,11 +641,8 @@ public class UIScrollView : MonoBehaviour
 				if (restrictWithinPanel && mPanel.clipping != UIDrawCall.Clipping.None && dragEffect == DragEffect.MomentumAndSpring)
 					RestrictWithinBounds(false, canMoveHorizontally, canMoveVertically);
 
-				if (!smoothDragStart || mDragStarted)
-				{
-					if (onDragFinished != null)
-						onDragFinished();
-				}
+				if (onDragFinished != null)
+					onDragFinished();
 			}
 		}
 	}
@@ -789,17 +792,23 @@ public class UIScrollView : MonoBehaviour
 		// Apply momentum
 		if (mShouldMove && !mPressed)
 		{
-			if (movement == Movement.Horizontal || movement == Movement.Unrestricted)
+			if (movement == Movement.Horizontal)
 			{
-				mMomentum.x -= mScroll * 0.05f;
+				mMomentum -= mTrans.TransformDirection(new Vector3(mScroll * 0.05f, 0f, 0f));
 			}
 			else if (movement == Movement.Vertical)
 			{
-				mMomentum.y -= mScroll * 0.05f;
+				mMomentum -= mTrans.TransformDirection(new Vector3(0f, mScroll * 0.05f, 0f));
+			}
+			else if (movement == Movement.Unrestricted)
+			{
+				mMomentum -= mTrans.TransformDirection(new Vector3(mScroll * 0.05f, mScroll * 0.05f, 0f));
 			}
 			else
 			{
-				mMomentum -= (Vector3)(customMovement * (mScroll * 0.05f));
+				mMomentum -= mTrans.TransformDirection(new Vector3(
+					mScroll * customMovement.x * 0.05f,
+					mScroll * customMovement.y * 0.05f, 0f));
 			}
 
 			if (mMomentum.magnitude > 0.0001f)
@@ -841,6 +850,7 @@ public class UIScrollView : MonoBehaviour
 	{
 		if (mPanel != null)
 		{
+			if (!Application.isPlaying) mCalculatedBounds = false;
 			Bounds b = bounds;
 			Gizmos.matrix = transform.localToWorldMatrix;
 			Gizmos.color = new Color(1f, 0.4f, 0f);

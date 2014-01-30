@@ -24,7 +24,7 @@ public class CBKMenuSlideButton : MonoBehaviour {
 	
 	const float SLIDE_TIME = 0.5f;
 	
-	public virtual void OnClick()
+	public virtual void Slide()
 	{
 		if (!isTweening)
 		{
@@ -52,9 +52,9 @@ public class CBKMenuSlideButton : MonoBehaviour {
 			slidingIn.duration = SLIDE_TIME;
 			slidingOut.duration = SLIDE_TIME;
 
-			slidingIn.Reset();
+			slidingIn.ResetToBeginning();
 			slidingIn.PlayForward();
-			slidingOut.Reset();
+			slidingOut.ResetToBeginning();
 			slidingOut.PlayForward();
 			
 			StartCoroutine(WaitForFinish());

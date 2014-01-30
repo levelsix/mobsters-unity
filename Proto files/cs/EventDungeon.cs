@@ -81,6 +81,13 @@ namespace com.lvl6.proto
       get { return _gemsSpent; }
       set { _gemsSpent = value; }
     }
+    private readonly global::System.Collections.Generic.List<int> _questIds = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(8, Name=@"questIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> questIds
+    {
+      get { return _questIds; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

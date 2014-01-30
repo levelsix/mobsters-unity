@@ -25,6 +25,11 @@ public class CBKGachaSpinner : MonoBehaviour {
 	[SerializeField]
 	float timeToLand;
 
+	int lastPack = 0;
+
+	[SerializeField]
+	CBKGachaReveal reveal;
+
 	public CBKGachaItem lastToLoop = null;
 
 	public void Init(BoosterPackProto pack)
@@ -70,8 +75,15 @@ public class CBKGachaSpinner : MonoBehaviour {
 		Move (drag);
 	}
 
+	public void Spin()
+	{
+		StartCoroutine(Spin(lastPack));
+	}
+
 	public IEnumerator Spin(int packId)
 	{
+		lastPack = packId;
+
 		spinning = true;
 
 		PurchaseBoosterPackRequestProto request = new PurchaseBoosterPackRequestProto();
@@ -93,8 +105,8 @@ public class CBKGachaSpinner : MonoBehaviour {
 		if (response.status == PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus.SUCCESS)
 		{
 			CBKMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
-			
-			//TODO: Send response.prize to the UI for display
+
+			reveal.Init(response.prize);
 			Debug.Log("Prize: " + response.prize.monsterId);
 		}
 		else
@@ -129,13 +141,15 @@ public class CBKGachaSpinner : MonoBehaviour {
 			posToBe = lerp * startX;
 			posAt = theOne.trans.localPosition.x;
 
-			Debug.Log("Moving from " + posAt + " to " + posToBe);
+			//Debug.Log("Moving from " + posAt + " to " + posToBe);
 
 			Move (posToBe - posAt);
 
 			yield return null;
 
 		}
+
+		CBKEventManager.Popup.OnPopup(reveal.gameObject);
 
 		spinning = false;
 	}

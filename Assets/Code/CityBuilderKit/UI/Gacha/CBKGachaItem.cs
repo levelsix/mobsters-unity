@@ -59,7 +59,7 @@ public class CBKGachaItem : MonoBehaviour {
 			chances[i] = pack.displayItems[i].quantity;
 		}
 
-		Debug.Log (chances);
+		//Debug.Log (chances);
 
 		PickItem();
 	}

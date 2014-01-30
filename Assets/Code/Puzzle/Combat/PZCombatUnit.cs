@@ -220,7 +220,7 @@ public class PZCombatUnit : MonoBehaviour {
 		damageLabel.text = "-" + damage;
 		foreach (var item in damageLabelTweens) 
 		{
-			item.Reset();
+			item.ResetToBeginning();
 			item.PlayForward();
 		}
 	}

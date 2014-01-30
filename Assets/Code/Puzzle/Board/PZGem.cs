@@ -78,9 +78,12 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 					sprite.spriteName = baseSprite + "orb";
 					break;
 			}
-			
-			sprite.width = sprite.GetAtlasSprite().width;
-			sprite.height = sprite.GetAtlasSprite().height;
+
+			if (sprite.GetAtlasSprite() != null)
+			{
+				sprite.width = sprite.GetAtlasSprite().width;
+				sprite.height = sprite.GetAtlasSprite().height;
+			}
 
 			_gemType = value;
 		}

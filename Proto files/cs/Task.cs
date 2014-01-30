@@ -206,6 +206,15 @@ namespace com.lvl6.proto
       get { return _level; }
       set { _level = value; }
     }
+
+    private int _itemId = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"itemId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int itemId
+    {
+      get { return _itemId; }
+      set { _itemId = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"MonsterType")]
     public enum MonsterType
     {

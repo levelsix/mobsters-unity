@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2013 Tasharen Entertainment
+// Copyright © 2011-2014 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -14,6 +14,8 @@ using System.Collections.Generic;
 [AddComponentMenu("NGUI/Interaction/Grid")]
 public class UIGrid : UIWidgetContainer
 {
+	public delegate void OnReposition ();
+
 	public enum Arrangement
 	{
 		Horizontal,
@@ -65,21 +67,36 @@ public class UIGrid : UIWidgetContainer
 	public bool hideInactive = true;
 
 	/// <summary>
+	/// Whether the parent container will be notified of the grid's changes.
+	/// </summary>
+
+	public bool keepWithinPanel = false;
+
+	/// <summary>
+	/// Callback triggered when the grid repositions its contents.
+	/// </summary>
+
+	public OnReposition onReposition;
+
+	/// <summary>
 	/// Reposition the children on the next Update().
 	/// </summary>
 
 	public bool repositionNow { set { if (value) { mReposition = true; enabled = true; } } }
 
-	public float startingHeight = 0;
+	protected bool mReposition = false;
+	protected UIPanel mPanel;
+	protected bool mInitDone = false;
 
-	bool mStarted = false;
-	bool mReposition = false;
-
-	protected Transform myTrans;
-
-	void Start ()
+	protected virtual void Init ()
 	{
-		mStarted = true;
+		mInitDone = true;
+		mPanel = NGUITools.FindInParents<UIPanel>(gameObject);
+	}
+
+	protected virtual void Start ()
+	{
+		if (!mInitDone) Init();
 		bool smooth = animateSmoothly;
 		animateSmoothly = false;
 		Reposition();
@@ -87,13 +104,19 @@ public class UIGrid : UIWidgetContainer
 		enabled = false;
 	}
 
-	void Update ()
+	protected virtual void Update ()
 	{
 		if (mReposition) Reposition();
 		enabled = false;
 	}
 
-	static public int SortByName (Transform a, Transform b) { return string.Compare(a.name, b.name); }
+	static protected int SortByName (Transform a, Transform b) { return string.Compare(a.name, b.name); }
+
+	/// <summary>
+	/// Want your own custom sorting logic? Override this function.
+	/// </summary>
+
+	protected virtual void Sort (List<Transform> list) { list.Sort(SortByName); }
 
 	/// <summary>
 	/// Recalculate the position of all elements within the grid, sorting them alphabetically if necessary.
@@ -102,52 +125,48 @@ public class UIGrid : UIWidgetContainer
 	[ContextMenu("Execute")]
 	public virtual void Reposition ()
 	{
-		if (Application.isPlaying && !mStarted)
+		if (Application.isPlaying && !mInitDone && NGUITools.GetActive(this))
 		{
 			mReposition = true;
 			return;
 		}
 
-		mReposition = false;
+		if (!mInitDone) Init();
 
-		if (myTrans == null)
-		{
-			myTrans = transform;
-		}
+		mReposition = false;
+		Transform myTrans = transform;
 
 		int x = 0;
 		int y = 0;
 
-		Position(ref x, ref y);
-
-		UIScrollView drag = NGUITools.FindInParents<UIScrollView>(gameObject);
-		if (drag != null) drag.UpdateScrollbars(true);
-	}
-
-	protected virtual void Position (ref int x, ref int y)
-	{
 		if (sorted)
 		{
 			List<Transform> list = new List<Transform>();
-			
+
 			for (int i = 0; i < myTrans.childCount; ++i)
 			{
 				Transform t = myTrans.GetChild(i);
 				if (t && (!hideInactive || NGUITools.GetActive(t.gameObject))) list.Add(t);
 			}
-			list.Sort(SortByName);
-			
+			Sort(list);
+
 			for (int i = 0, imax = list.Count; i < imax; ++i)
 			{
 				Transform t = list[i];
-				
+
 				if (!NGUITools.GetActive(t.gameObject) && hideInactive) continue;
-				
+
 				float depth = t.localPosition.z;
-				t.localPosition = (arrangement == Arrangement.Horizontal) ?
-					new Vector3(cellWidth * x, startingHeight + -cellHeight * y, depth) :
-						new Vector3(cellWidth * y, startingHeight + -cellHeight * x, depth);
-				
+				Vector3 pos = (arrangement == Arrangement.Horizontal) ?
+					new Vector3(cellWidth * x, -cellHeight * y, depth) :
+					new Vector3(cellWidth * y, -cellHeight * x, depth);
+
+				if (animateSmoothly && Application.isPlaying)
+				{
+					SpringPosition.Begin(t.gameObject, pos, 15f);
+				}
+				else t.localPosition = pos;
+
 				if (++x >= maxPerLine && maxPerLine > 0)
 				{
 					x = 0;
@@ -160,14 +179,20 @@ public class UIGrid : UIWidgetContainer
 			for (int i = 0; i < myTrans.childCount; ++i)
 			{
 				Transform t = myTrans.GetChild(i);
-				
+
 				if (!NGUITools.GetActive(t.gameObject) && hideInactive) continue;
-				
+
 				float depth = t.localPosition.z;
-				t.localPosition = (arrangement == Arrangement.Horizontal) ?
-					new Vector3(cellWidth * x, startingHeight + -cellHeight * y, depth) :
-						new Vector3(cellWidth * y, startingHeight + -cellHeight * x, depth);
-				
+				Vector3 pos = (arrangement == Arrangement.Horizontal) ?
+					new Vector3(cellWidth * x, -cellHeight * y, depth) :
+					new Vector3(cellWidth * y, -cellHeight * x, depth);
+
+				if (animateSmoothly && Application.isPlaying)
+				{
+					SpringPosition.Begin(t.gameObject, pos, 15f);
+				}
+				else t.localPosition = pos;
+
 				if (++x >= maxPerLine && maxPerLine > 0)
 				{
 					x = 0;
@@ -175,5 +200,11 @@ public class UIGrid : UIWidgetContainer
 				}
 			}
 		}
+
+		if (keepWithinPanel && mPanel != null)
+			mPanel.ConstrainTargetToBounds(myTrans, true);
+
+		if (onReposition != null)
+			onReposition();
 	}
 }

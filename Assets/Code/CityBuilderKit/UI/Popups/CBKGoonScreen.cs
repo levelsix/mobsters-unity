@@ -365,7 +365,7 @@ public class CBKGoonScreen : MonoBehaviour {
 
 	IEnumerator BringInEnhanceGoon()
 	{
-		enhanceLeftSideElements.Reset();
+		enhanceLeftSideElements.ResetToBeginning();
 		enhanceLeftSideElements.PlayForward();
 
 		Vector4 startingClipRange = dragPanel.scrollView.panel.baseClipRegion;

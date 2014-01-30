@@ -37,6 +37,18 @@ public class CBKCombinedBuildingProto {
 		}
 	}
 
+	public CBKCombinedBuildingProto maxLevel
+	{
+		get
+		{
+			if (structInfo.successorStructId == 0)
+			{
+				return this;
+			}
+			return successor.maxLevel;
+		}
+	}
+
 	public CBKCombinedBuildingProto(ResourceGeneratorProto generator)
 	{
 		this.generator = generator;
@@ -73,6 +85,7 @@ public class CBKCombinedBuildingProto {
 		structInfo = lab.structInfo;
 		id = structInfo.structId;
 	}
+
 
 
 }

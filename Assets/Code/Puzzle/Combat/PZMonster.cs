@@ -269,6 +269,17 @@ public class PZMonster {
 		}
 		totalDamage = total;
 	}
+
+	public int TotalAttackAtLevel(int level)
+	{
+		return monster.lvlInfo[level-1].fireDmg + monster.lvlInfo[level-1].grassDmg + monster.lvlInfo[level-1].waterDmg
+			+ monster.lvlInfo[level-1].lightningDmg + monster.lvlInfo[level-1].darknessDmg + monster.lvlInfo[level-1].rockDmg;
+	}
+
+	public int MaxHPAtLevel(int level)
+	{
+		return monster.lvlInfo[level-1].hp;
+	}
 	
 	#region Experience
 	

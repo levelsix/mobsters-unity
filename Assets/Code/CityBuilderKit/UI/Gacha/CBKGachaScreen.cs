@@ -12,23 +12,24 @@ public class CBKGachaScreen : MonoBehaviour {
 	UISprite machine;
 
 	[SerializeField]
-	CBKActionButton spinButton;
+	CBKActionButton[] spinButtons;
 
-	#region DEBUG
-	void Start()
-	{
-		Init (CBKDataManager.instance.Get<BoosterPackProto>(1));
-	}
-	#endregion
+	[SerializeField]
+	CBKGachaFeatureMover featureController;
 
-	void Init(BoosterPackProto pack)
+	public void Init(BoosterPackProto pack)
 	{
 		spinner.Init(pack);
 
 		machine.spriteName = CBKUtil.StripExtensions(pack.machineImgName);
 
-		spinButton.label.text = pack.gemPrice + " (G) SPIN";
+		foreach (CBKActionButton spinButton in spinButtons)
+		{
+			spinButton.label.text = pack.gemPrice + " (G) SPIN";
 
-		spinButton.onClick = delegate { StartCoroutine(spinner.Spin(pack.boosterPackId)); };
+			spinButton.onClick = delegate { StartCoroutine(spinner.Spin(pack.boosterPackId)); };
+		}
+
+		featureController.Init(pack.specialItems);
 	}
 }

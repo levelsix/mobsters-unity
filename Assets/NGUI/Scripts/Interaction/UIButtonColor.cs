@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2013 Tasharen Entertainment
+// Copyright © 2011-2014 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -80,6 +80,12 @@ public class UIButtonColor : UIWidgetContainer
 		if (!Application.isPlaying) return;
 #endif
 		if (mStarted) OnHover(UICamera.IsHighlighted(gameObject));
+		
+		if (UICamera.currentTouch != null)
+		{
+			if (UICamera.currentTouch.pressed == gameObject) OnPress(true);
+			else if (UICamera.currentTouch.current == gameObject) OnHover(true);
+		}
 	}
 
 	protected virtual void OnDisable ()
@@ -93,7 +99,7 @@ public class UIButtonColor : UIWidgetContainer
 
 			if (tc != null)
 			{
-				tc.color = mColor;
+				tc.value = mColor;
 				tc.enabled = false;
 			}
 		}
@@ -114,7 +120,7 @@ public class UIButtonColor : UIWidgetContainer
 
 			if (ren != null)
 			{
-				mColor = ren.material.color;
+				mColor = Application.isPlaying ? ren.material.color : ren.sharedMaterial.color;
 			}
 			else
 			{
@@ -144,7 +150,16 @@ public class UIButtonColor : UIWidgetContainer
 		if (enabled)
 		{
 			if (!mStarted) Start();
-			TweenColor.Begin(tweenTarget, duration, isPressed ? pressed : mColor);
+			
+			if (isPressed)
+			{
+				TweenColor.Begin(tweenTarget, duration, pressed);
+			}
+			else if (UICamera.currentTouch.current == gameObject && UICamera.currentScheme == UICamera.ControlScheme.Controller)
+			{
+				TweenColor.Begin(tweenTarget, duration, hover);
+			}
+			else TweenColor.Begin(tweenTarget, duration, mColor);
 		}
 	}
 

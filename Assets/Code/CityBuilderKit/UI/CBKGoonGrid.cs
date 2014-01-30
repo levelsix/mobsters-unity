@@ -31,7 +31,7 @@ public class CBKGoonGrid : UIGrid {
 		items.Clear();
 	}
 
-	protected override void Position (ref int x, ref int y)
+	protected void Position (ref int x, ref int y)
 	{
 		if (trans == null)
 		{

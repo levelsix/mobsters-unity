@@ -362,7 +362,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			winPopup.gameObject.SetActive(true);
 			GetRewards();
-			winPopup.Reset();
+			winPopup.ResetToBeginning();
 			winPopup.PlayForward();
 		}
 
@@ -528,7 +528,7 @@ public class PZCombatManager : MonoBehaviour {
 		attackWords.width = data.width;
 		attackWords.height = data.height;
 
-		attackWordsTweenPos.Reset();
+		attackWordsTweenPos.ResetToBeginning();
 		attackWordsTweenPos.enabled = true;
 
 		wordsMoving = true;
@@ -597,7 +597,7 @@ public class PZCombatManager : MonoBehaviour {
 		bloodSplatter.to = 1;
 		bloodSplatter.duration = .5f;
 		bloodSplatter.style = UITweener.Style.Once;
-		bloodSplatter.Reset();
+		bloodSplatter.ResetToBeginning();
 		bloodSplatter.PlayForward();
 		while (bloodSplatter.alpha < 1)
 		{
@@ -612,13 +612,13 @@ public class PZCombatManager : MonoBehaviour {
 		bloodSplatter.to = 1;
 		bloodSplatter.duration = 1;
 		bloodSplatter.style = UITweener.Style.PingPong;
-		bloodSplatter.Reset();
+		bloodSplatter.ResetToBeginning();
 		bloodSplatter.PlayForward();
 	}
 
 	void StopBleeding()
 	{
-		bloodSplatter.Reset();
+		bloodSplatter.ResetToBeginning();
 		bloodSplatter.from = 0;
 		bloodSplatter.to = 0;
 		bloodSplatter.alpha = 0;

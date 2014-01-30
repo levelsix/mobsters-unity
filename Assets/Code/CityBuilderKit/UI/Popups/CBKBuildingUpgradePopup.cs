@@ -25,46 +25,49 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	/// The current income information.
 	/// </summary>
 	[SerializeField]
-	UILabel currIncome;
-	
-	/// <summary>
-	/// The future income information.
-	/// </summary>
-	[SerializeField]
-	UILabel futureIncome;
+	UILabel qualities;
 	
 	/// <summary>
 	/// The upgrade time information.
 	/// </summary>
 	[SerializeField]
 	UILabel upgradeTime;
-	
-	/// <summary>
-	/// The upgrade cost label.
-	/// </summary>
+
 	[SerializeField]
-	UILabel upgradeCostLabel;
-	
-	/// <summary>
-	/// The building icon.
-	/// </summary>
-	[SerializeField]
-	UISprite buildingIcon;
-	
-	/// <summary>
-	/// The upgrade currency.
-	/// </summary>
-	[SerializeField]
-	CBKCurrencySprite upgradeCurrency;
+	UI2DSprite buildingSprite;
 	
 	/// <summary>
 	/// The upgrade button.
 	/// </summary>
 	[SerializeField]
 	CBKActionButton upgradeButton;
-	
+
+	[SerializeField]
+	CBKFillBar topBarCurrent;
+
+	[SerializeField]
+	CBKFillBar topBarFuture;
+
+	[SerializeField]
+	UILabel topBarText;
+
+	[SerializeField]
+	GameObject bottomBar;
+
+	[SerializeField]
+	CBKFillBar botBarCurrent;
+
+	[SerializeField]
+	CBKFillBar botBarFuture;
+
+	[SerializeField]
+	UILabel botBarText;
+
 	[SerializeField]
 	Color moneyColor = new Color(.2f, 1f, .2f);
+
+	const string cashButtonName = "confirm";
+	const string oilButtonName = "oilupgradebutton";
 	
 	CBKBuilding currBuilding;
 	
@@ -97,9 +100,6 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		
 		gameObject.SetActive(true);
 
-
-
-
 		//Takes the color from the editor and turns it into hex values so that NGUI can interpret
 		string moneyColorHexString = CBKMath.ColorToInt(moneyColor).ToString("X"); 
 
@@ -107,15 +107,16 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		CBKCombinedBuildingProto oldBuilding = null;
 		if (!building.userStructProto.isComplete && building.combinedProto.structInfo.predecessorStructId > 0)
 		{
-			oldBuilding = CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), building.combinedProto.structInfo.predecessorStructId) as CBKCombinedBuildingProto;
+			oldBuilding = building.combinedProto.predecessor;
 			nextBuilding = building.combinedProto;
 		}
 		else if (building.combinedProto.structInfo.successorStructId > 0)
 		{
 			oldBuilding = building.combinedProto;
-			nextBuilding = CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), building.combinedProto.structInfo.successorStructId) as CBKCombinedBuildingProto;
+			nextBuilding = building.combinedProto.successor;
 		}
 
+		CBKCombinedBuildingProto max = nextBuilding.maxLevel;
 
 		if (nextBuilding != null)
 		{
@@ -143,58 +144,126 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 				currCost = building.upgrade.gemsToFinish;
 			}
 		
-			upgradeCurrency.type = currResource;
-			upgradeCostLabel.text = currCost.ToString();
+			upgradeButton.label.text = currCost.ToString();
 
-			buildingIcon.spriteName = CBKUtil.StripExtensions(nextBuilding.structInfo.imgName);
-			UISpriteData buildingSprite = buildingIcon.GetAtlasSprite();
-			buildingIcon.width = buildingSprite.width;
-			buildingIcon.height = buildingSprite.height;
+			Sprite sprite = CBKAtlasUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
+			buildingSprite.sprite2D = sprite;
+			if (sprite != null)
+			{
+				buildingSprite.width = (int)sprite.rect.width;
+				buildingSprite.height = (int)sprite.rect.height;
+			}
 
-			CBKAtlasUtil.instance.SetAtlasForSprite(buildingIcon);
 			buildingName.text = nextBuilding.structInfo.name;
-			
-			//TODO: Change this to be specific to the building type!
+
+
 			switch(building.combinedProto.structInfo.structType)
 			{
 			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
-				currIncome.text = "Current income:\n[" + moneyColorHexString + "]$" 
-					+ oldBuilding.generator.productionRate + "[-] every hour";
-				futureIncome.text = "Upgraded income:\n[" + moneyColorHexString + "]$" 
-					+ nextBuilding.generator.productionRate + "[-] every hour";
+				qualities.text = "Rate:\n\nCapacity:";
+				bottomBar.SetActive(true);
+				SetBar(topBarCurrent, topBarFuture, oldBuilding.generator.productionRate, nextBuilding.generator.productionRate, max.generator.productionRate);
+				SetBar(botBarCurrent, botBarFuture, oldBuilding.generator.capacity, nextBuilding.generator.capacity, max.generator.capacity);
+				if (oldBuilding.generator.resourceType == ResourceType.CASH)
+				{
+					topBarText.text = "$" + oldBuilding.generator.productionRate + 
+						" + $" + (nextBuilding.generator.productionRate - oldBuilding.generator.productionRate) + " Per Hour";
+					botBarText.text = "$" + oldBuilding.generator.capacity + 
+						" + $" + (nextBuilding.generator.capacity - oldBuilding.generator.capacity);
+				}
+				else
+				{
+					topBarText.text = oldBuilding.generator.productionRate + 
+						" + " + (nextBuilding.generator.productionRate - oldBuilding.generator.productionRate) + " Per Hour"; 
+					botBarText.text = oldBuilding.generator.capacity + 
+						" + " + (nextBuilding.generator.capacity - oldBuilding.generator.capacity);
+				}
 				break;
 			case StructureInfoProto.StructType.RESOURCE_STORAGE:
-				currIncome.text = "Current capacity:\n[" + moneyColorHexString + "]$"
-					+ oldBuilding.storage.capacity;
-				futureIncome.text = "Upgraded capacity:\n[" + moneyColorHexString + "]$"
-					+ nextBuilding.storage.capacity;
+				qualities.text = "Capacity:";
+				bottomBar.SetActive(false);
+				SetBar (topBarCurrent, topBarFuture, oldBuilding.storage.capacity, nextBuilding.storage.capacity, max.storage.capacity);
+				if (oldBuilding.generator.resourceType == ResourceType.CASH)
+				{
+					topBarText.text = "$" + oldBuilding.storage.capacity + 
+						" + $" + (nextBuilding.storage.capacity - oldBuilding.storage.capacity);
+				}
+				else
+				{
+					topBarText.text = oldBuilding.storage.capacity + 
+						" + " + (nextBuilding.storage.capacity - oldBuilding.storage.capacity);
+				}
+				break;
+			case StructureInfoProto.StructType.HOSPITAL:
+				qualities.text = "Queue Size:\n\nRate:";
+				bottomBar.SetActive(true);
+				SetBar(topBarCurrent, topBarFuture, oldBuilding.hospital.queueSize, nextBuilding.hospital.queueSize, max.hospital.queueSize);
+				SetBar(botBarCurrent, botBarFuture, oldBuilding.hospital.healthPerSecond, nextBuilding.hospital.healthPerSecond, max.hospital.healthPerSecond);
+				if (nextBuilding.hospital.queueSize > oldBuilding.hospital.queueSize)
+				{
+					topBarText.text = oldBuilding.hospital.queueSize + " + " 
+						+ (nextBuilding.hospital.queueSize - oldBuilding.hospital.queueSize);
+				}
+				else
+				{
+					topBarText.text = nextBuilding.hospital.queueSize.ToString();
+				}
+				if (nextBuilding.hospital.healthPerSecond > oldBuilding.hospital.healthPerSecond)
+				{
+					topBarText.text = oldBuilding.hospital.healthPerSecond + " + " 
+						+ (nextBuilding.hospital.healthPerSecond - oldBuilding.hospital.healthPerSecond) + " Health Per Sec";
+				}
+				else
+				{
+					topBarText.text = oldBuilding.hospital.healthPerSecond + " Health Per Sec";
+				}
+				break;
+			case StructureInfoProto.StructType.LAB:
+				qualities.text = "Queue Size:\n\nRate:";
+				bottomBar.SetActive(true);SetBar(topBarCurrent, topBarFuture, oldBuilding.lab.queueSize, nextBuilding.lab.queueSize, max.lab.queueSize);
+				SetBar(botBarCurrent, botBarFuture, oldBuilding.lab.pointsPerSecond, nextBuilding.lab.pointsPerSecond, max.lab.pointsPerSecond);
+				if (nextBuilding.lab.queueSize > oldBuilding.lab.queueSize)
+				{
+					topBarText.text = oldBuilding.lab.queueSize + " + " 
+						+ (nextBuilding.lab.queueSize - oldBuilding.lab.queueSize);
+				}
+				else
+				{
+					topBarText.text = nextBuilding.lab.queueSize.ToString ();
+				}
+				if (nextBuilding.lab.pointsPerSecond > oldBuilding.lab.pointsPerSecond)
+				{
+					topBarText.text = oldBuilding.lab.pointsPerSecond + " + " 
+						+ (nextBuilding.lab.pointsPerSecond - oldBuilding.lab.pointsPerSecond) + " Points Per Sec";
+				}
+				else
+				{
+					topBarText.text = oldBuilding.lab.pointsPerSecond + " Points Per Sec";
+				}
+				break;
+			case StructureInfoProto.StructType.RESIDENCE:
+				qualities.text = "Slots:";
+				bottomBar.SetActive(false);
+				SetBar(topBarCurrent, topBarFuture, oldBuilding.residence.numMonsterSlots, nextBuilding.residence.numMonsterSlots, max.residence.numMonsterSlots);
+				topBarText.text = oldBuilding.residence.numMonsterSlots + " + " + nextBuilding.residence.numMonsterSlots;
+				break;
+			case StructureInfoProto.StructType.TOWN_HALL:
+				qualities.text = "City Level:";
+				bottomBar.SetActive(false);
+				SetBar (topBarCurrent, topBarFuture, oldBuilding.structInfo.level, nextBuilding.structInfo.level, max.structInfo.level);
+				topBarText.text = oldBuilding.structInfo.level + " + " + nextBuilding.structInfo.level;
 				break;
 			}
 
 			upgradeButton.onClick = TryToBuy;
 			upgradeButton.button.enabled = true;
 		}
-		else //Assume building is fully upgraded
-		{
-			header.text = "Building at Max Level";
+	}
 
-			futureIncome.text = " ";
-			upgradeCurrency.type = ResourceType.GEMS;
-			upgradeCostLabel.text = " ";
-
-			buildingIcon.spriteName = CBKUtil.StripExtensions(building.combinedProto.structInfo.imgName);
-			UISpriteData buildingSprite = buildingIcon.GetAtlasSprite();
-			buildingIcon.width = buildingSprite.width;
-			buildingIcon.height = buildingSprite.height;
-
-			upgradeButton.onClick = null;
-			upgradeButton.button.enabled = false;
-
-			upgradeTime.text = " ";
-
-			currIncome.text = "Current income:\n[" + moneyColorHexString + "]$" 
-				+ building.collector._generator.productionRate + "[-] every hour";
-		}
+	void SetBar(CBKFillBar currBar, CBKFillBar nextBar, float curr, float next, float max)
+	{
+		currBar.fill = curr/max;
+		nextBar.fill = next/max;
 	}
 	
 	IEnumerator UpdateRemainingTime()
@@ -203,7 +272,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		{
 			upgradeTime.text = CBKUtil.TimeStringMed(currBuilding.upgrade.timeRemaining);
 			currCost = currBuilding.upgrade.gemsToFinish;
-			upgradeCostLabel.text = currCost.ToString();
+			upgradeButton.label.text = currCost.ToString();
 			yield return new WaitForSeconds(1);
 		}
 		Init(currBuilding);

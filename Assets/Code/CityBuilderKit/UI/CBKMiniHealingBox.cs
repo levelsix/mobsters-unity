@@ -76,7 +76,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 				{
 					tweenPos.to = transform.localPosition;
 					tweenPos.from = transform.localPosition + BOTTOM_Y_OFFSET;
-					tweenPos.Reset();
+					tweenPos.ResetToBeginning();
 					tweenPos.PlayForward();
 				}
 				on = true;

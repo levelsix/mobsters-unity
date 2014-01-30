@@ -620,7 +620,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
     {
 		if (lockIcon.activeSelf)
 		{
-			lockTween.Reset();
+			lockTween.ResetToBeginning();
 			lockTween.PlayForward();
 			CBKBuildingManager.instance.FullDeselect();
 		}

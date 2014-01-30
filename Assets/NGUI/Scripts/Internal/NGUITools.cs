@@ -1,6 +1,6 @@
 //----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2013 Tasharen Entertainment
+// Copyright © 2011-2014 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -189,18 +189,23 @@ static public class NGUITools
 	{
 		int layerMask = 1 << layer;
 
+		Camera cam;
+
 		for (int i = 0; i < UICamera.list.size; ++i)
 		{
-			Camera uc = UICamera.list.buffer[i].cachedCamera;
-			if ((uc != null) && (uc.cullingMask & layerMask) != 0)
-				return uc;
+			cam = UICamera.list.buffer[i].cachedCamera;
+			if ((cam != null) && (cam.cullingMask & layerMask) != 0)
+				return cam;
 		}
+
+		cam = Camera.main;
+		if (cam != null && (cam.cullingMask & layerMask) != 0) return cam;
 
 		Camera[] cameras = NGUITools.FindActive<Camera>();
 
 		for (int i = 0, imax = cameras.Length; i < imax; ++i)
 		{
-			Camera cam = cameras[i];
+			cam = cameras[i];
 			if ((cam.cullingMask & layerMask) != 0)
 				return cam;
 		}
@@ -539,7 +544,7 @@ static public class NGUITools
 
 		if (size > 0)
 		{
-			Array.Sort(list, UIWidget.CompareFunc);
+			Array.Sort(list, UIWidget.FullCompareFunc);
 
 			int start = 0;
 			int current = list[0].depth;
@@ -704,11 +709,22 @@ static public class NGUITools
 
 		if (trans != null)
 		{
+			// Find the root object
 			while (trans.parent != null) trans = trans.parent;
-			trans.parent = panel.transform;
-			trans.localScale = Vector3.one;
-			trans.localPosition = Vector3.zero;
-			SetChildLayer(panel.cachedTransform, panel.cachedGameObject.layer);
+
+			if (NGUITools.IsChild(trans, panel.transform))
+			{
+				// Odd hierarchy -- can't reparent
+				panel = trans.gameObject.AddComponent<UIPanel>();
+			}
+			else
+			{
+				// Reparent this root object to be a child of the panel
+				trans.parent = panel.transform;
+				trans.localScale = Vector3.one;
+				trans.localPosition = Vector3.zero;
+				SetChildLayer(panel.cachedTransform, panel.cachedGameObject.layer);
+			}
 		}
 		return panel;
 	}
@@ -805,8 +821,11 @@ static public class NGUITools
 	static public T FindInParents<T> (GameObject go) where T : Component
 	{
 		if (go == null) return null;
+#if UNITY_FLASH
 		object comp = go.GetComponent<T>();
-
+#else
+		T comp = go.GetComponent<T>();
+#endif
 		if (comp == null)
 		{
 			Transform t = go.transform.parent;
@@ -817,7 +836,11 @@ static public class NGUITools
 				t = t.parent;
 			}
 		}
+#if UNITY_FLASH
 		return (T)comp;
+#else
+		return comp;
+#endif
 	}
 
 	/// <summary>
@@ -827,8 +850,11 @@ static public class NGUITools
 	static public T FindInParents<T> (Transform trans) where T : Component
 	{
 		if (trans == null) return null;
+#if UNITY_FLASH
 		object comp = trans.GetComponent<T>();
-
+#else
+		T comp = trans.GetComponent<T>();
+#endif
 		if (comp == null)
 		{
 			Transform t = trans.transform.parent;
@@ -839,7 +865,11 @@ static public class NGUITools
 				t = t.parent;
 			}
 		}
+#if UNITY_FLASH
 		return (T)comp;
+#else
+		return comp;
+#endif
 	}
 
 	/// <summary>
@@ -1259,5 +1289,100 @@ static public class NGUITools
 			comp = go.AddComponent<T>();
 		}
 		return comp;
+	}
+
+	// Temporary variable to avoid GC allocation
+	static Vector3[] mSides = new Vector3[4];
+
+	/// <summary>
+	/// Get sides relative to the specified camera. The order is left, top, right, bottom.
+	/// </summary>
+
+	static public Vector3[] GetSides (this Camera cam)
+	{
+		return cam.GetSides(Mathf.Lerp(cam.nearClipPlane, cam.farClipPlane, 0.5f), null);
+	}
+
+	/// <summary>
+	/// Get sides relative to the specified camera. The order is left, top, right, bottom.
+	/// </summary>
+
+	static public Vector3[] GetSides (this Camera cam, float depth)
+	{
+		return cam.GetSides(depth, null);
+	}
+
+	/// <summary>
+	/// Get sides relative to the specified camera. The order is left, top, right, bottom.
+	/// </summary>
+
+	static public Vector3[] GetSides (this Camera cam, Transform relativeTo)
+	{
+		return cam.GetSides(Mathf.Lerp(cam.nearClipPlane, cam.farClipPlane, 0.5f), relativeTo);
+	}
+
+	/// <summary>
+	/// Get sides relative to the specified camera. The order is left, top, right, bottom.
+	/// </summary>
+
+	static public Vector3[] GetSides (this Camera cam, float depth, Transform relativeTo)
+	{
+		mSides[0] = cam.ViewportToWorldPoint(new Vector3(0f, 0.5f, depth));
+		mSides[1] = cam.ViewportToWorldPoint(new Vector3(0.5f, 1f, depth));
+		mSides[2] = cam.ViewportToWorldPoint(new Vector3(1f, 0.5f, depth));
+		mSides[3] = cam.ViewportToWorldPoint(new Vector3(0.5f, 0f, depth));
+
+		if (relativeTo != null)
+		{
+			for (int i = 0; i < 4; ++i)
+				mSides[i] = relativeTo.InverseTransformPoint(mSides[i]);
+		}
+		return mSides;
+	}
+
+	/// <summary>
+	/// Get the camera's world-space corners. The order is bottom-left, top-left, top-right, bottom-right.
+	/// </summary>
+
+	static public Vector3[] GetWorldCorners (this Camera cam)
+	{
+		return cam.GetWorldCorners(Mathf.Lerp(cam.nearClipPlane, cam.farClipPlane, 0.5f), null);
+	}
+
+	/// <summary>
+	/// Get the camera's world-space corners. The order is bottom-left, top-left, top-right, bottom-right.
+	/// </summary>
+
+	static public Vector3[] GetWorldCorners (this Camera cam, float depth)
+	{
+		return cam.GetWorldCorners(depth, null);
+	}
+
+	/// <summary>
+	/// Get the camera's world-space corners. The order is bottom-left, top-left, top-right, bottom-right.
+	/// </summary>
+
+	static public Vector3[] GetWorldCorners (this Camera cam, Transform relativeTo)
+	{
+		return cam.GetWorldCorners(Mathf.Lerp(cam.nearClipPlane, cam.farClipPlane, 0.5f), relativeTo);
+	}
+
+	/// <summary>
+	/// Get the camera's world-space corners. The order is bottom-left, top-left, top-right, bottom-right.
+	/// </summary>
+
+	static public Vector3[] GetWorldCorners (this Camera cam, float depth, Transform relativeTo)
+	{
+		mSides[0] = cam.ViewportToWorldPoint(new Vector3(0f, 0f, depth));
+		mSides[1] = cam.ViewportToWorldPoint(new Vector3(0f, 1f, depth));
+		mSides[2] = cam.ViewportToWorldPoint(new Vector3(1f, 1f, depth));
+		mSides[3] = cam.ViewportToWorldPoint(new Vector3(1f, 0f, depth));
+
+		if (relativeTo != null)
+		{
+			for (int i = 0; i < 4; ++i)
+				mSides[i] = relativeTo.InverseTransformPoint(mSides[i]);
+		}
+		return mSides;
 	}
 }

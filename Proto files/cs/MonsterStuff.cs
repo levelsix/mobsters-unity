@@ -193,6 +193,15 @@ namespace com.lvl6.proto
       get { return _lvlInfo; }
     }
   
+
+    private int _evolutionCost = default(int);
+    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"evolutionCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int evolutionCost
+    {
+      get { return _evolutionCost; }
+      set { _evolutionCost = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"MonsterQuality")]
     public enum MonsterQuality
     {
