@@ -23,7 +23,7 @@ public class PZComboCounter : MonoBehaviour {
 
 	void OnComboChange(int combo)
 	{
-		if (combo == 0 && alphaTween.alpha > 0)
+		if (combo == 0 && alphaTween.value > 0)
 		{
 			FadeOut();
 		}

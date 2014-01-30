@@ -39,11 +39,6 @@ public class CBKTaskBar : MonoBehaviour {
 	
 	const int BUTTON_HEIGHT = 75;
 	
-	void Start()
-	{
-		SetChatMode();
-	}
-	
 	void OnEnable()
 	{
 		CBKEventManager.Town.OnBuildingSelect += OnBuildingSelect;
@@ -78,17 +73,8 @@ public class CBKTaskBar : MonoBehaviour {
 		}
 		else
 		{
-			SetChatMode();
+			//Close
 		}
-	}
-	
-	void SetChatMode()
-	{
-		mode = TaskBarMode.CHAT;
-		
-		topText.text = "One message goes here";
-		bottomText.text = "Another message goes here";
-		
 	}
 	
 	void ClearButtons()
@@ -169,8 +155,6 @@ public class CBKTaskBar : MonoBehaviour {
 		}
 		
 		SortButtons();
-		
-		mode = TaskBarMode.BUILDING;
 		
 		UpdateBuildingText();
 		currBuilding.OnUpdateValues += UpdateBuildingText;

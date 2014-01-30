@@ -62,8 +62,6 @@ public class CBKBuildingManager : MonoBehaviour
     #region Private
 	
 	private Dictionary<int, CBKBuilding> buildings = new Dictionary<int, CBKBuilding>();
-
-	private List<FullUserStructureProto> userBuildings = new List<FullUserStructureProto>();
 	
 	private Dictionary<long, CBKUnit> units = new Dictionary<long, CBKUnit>();
 

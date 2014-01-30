@@ -37,6 +37,7 @@ public class CBKCombinedBuildingProto {
 		}
 	}
 
+	//I recurse now. Recursion is cool now. Isn't it?
 	public CBKCombinedBuildingProto maxLevel
 	{
 		get
@@ -46,6 +47,18 @@ public class CBKCombinedBuildingProto {
 				return this;
 			}
 			return successor.maxLevel;
+		}
+	}
+
+	public CBKCombinedBuildingProto baseLevel
+	{
+		get
+		{
+			if (structInfo.predecessorStructId == 0)
+			{
+				return this;
+			}
+			return predecessor.baseLevel;
 		}
 	}
 

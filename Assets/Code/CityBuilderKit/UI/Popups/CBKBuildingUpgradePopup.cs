@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using com.lvl6.proto;
 
 /// <summary>
@@ -64,7 +65,24 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	UILabel botBarText;
 
 	[SerializeField]
-	Color moneyColor = new Color(.2f, 1f, .2f);
+	GameObject insides;
+
+	[SerializeField]
+	GameObject hireHeader;
+
+	[SerializeField]
+	CBKActionButton upgradeViewButton;
+
+	[SerializeField]
+	CBKActionButton hireViewButton;
+
+	[SerializeField]
+	CBKHireEntry hireEntryPrefab;
+
+	[SerializeField]
+	Transform grid;
+
+	List<CBKHireEntry> hireEntries = new List<CBKHireEntry>();
 
 	const string cashButtonName = "confirm";
 	const string oilButtonName = "oilupgradebutton";
@@ -100,9 +118,6 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		
 		gameObject.SetActive(true);
 
-		//Takes the color from the editor and turns it into hex values so that NGUI can interpret
-		string moneyColorHexString = CBKMath.ColorToInt(moneyColor).ToString("X"); 
-
 		CBKCombinedBuildingProto nextBuilding = null;
 		CBKCombinedBuildingProto oldBuilding = null;
 		if (!building.userStructProto.isComplete && building.combinedProto.structInfo.predecessorStructId > 0)
@@ -116,11 +131,10 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 			nextBuilding = building.combinedProto.successor;
 		}
 
-		CBKCombinedBuildingProto max = nextBuilding.maxLevel;
 
 		if (nextBuilding != null)
 		{
-		//If it is complete, use Upgrade prompts, otherwise, Finish prompts
+			//If it is complete, use Upgrade prompts, otherwise, Finish prompts
 			if (building.userStructProto.isComplete)
 			{
 				
@@ -133,7 +147,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 				currCost = (int) (nextBuilding.structInfo.buildCost);
 				
 			}
-			else
+			else //Note: This is getting removed, soon the outerworld finish button will just finish the building
 			{
 				header.text = "Finish upgrade?";
 
@@ -159,106 +173,91 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 			buildingName.text = nextBuilding.structInfo.name;
 
 
-			switch(building.combinedProto.structInfo.structType)
-			{
-			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
-				qualities.text = "Rate:\n\nCapacity:";
-				bottomBar.SetActive(true);
-				SetBar(topBarCurrent, topBarFuture, oldBuilding.generator.productionRate, nextBuilding.generator.productionRate, max.generator.productionRate);
-				SetBar(botBarCurrent, botBarFuture, oldBuilding.generator.capacity, nextBuilding.generator.capacity, max.generator.capacity);
-				if (oldBuilding.generator.resourceType == ResourceType.CASH)
-				{
-					topBarText.text = "$" + oldBuilding.generator.productionRate + 
-						" + $" + (nextBuilding.generator.productionRate - oldBuilding.generator.productionRate) + " Per Hour";
-					botBarText.text = "$" + oldBuilding.generator.capacity + 
-						" + $" + (nextBuilding.generator.capacity - oldBuilding.generator.capacity);
-				}
-				else
-				{
-					topBarText.text = oldBuilding.generator.productionRate + 
-						" + " + (nextBuilding.generator.productionRate - oldBuilding.generator.productionRate) + " Per Hour"; 
-					botBarText.text = oldBuilding.generator.capacity + 
-						" + " + (nextBuilding.generator.capacity - oldBuilding.generator.capacity);
-				}
-				break;
-			case StructureInfoProto.StructType.RESOURCE_STORAGE:
-				qualities.text = "Capacity:";
-				bottomBar.SetActive(false);
-				SetBar (topBarCurrent, topBarFuture, oldBuilding.storage.capacity, nextBuilding.storage.capacity, max.storage.capacity);
-				if (oldBuilding.storage.resourceType == ResourceType.CASH)
-				{
-					topBarText.text = "$" + oldBuilding.storage.capacity + 
-						" + $" + (nextBuilding.storage.capacity - oldBuilding.storage.capacity);
-				}
-				else
-				{
-					topBarText.text = oldBuilding.storage.capacity + 
-						" + " + (nextBuilding.storage.capacity - oldBuilding.storage.capacity);
-				}
-				break;
-			case StructureInfoProto.StructType.HOSPITAL:
-				qualities.text = "Queue Size:\n\nRate:";
-				bottomBar.SetActive(true);
-				SetBar(topBarCurrent, topBarFuture, oldBuilding.hospital.queueSize, nextBuilding.hospital.queueSize, max.hospital.queueSize);
-				SetBar(botBarCurrent, botBarFuture, oldBuilding.hospital.healthPerSecond, nextBuilding.hospital.healthPerSecond, max.hospital.healthPerSecond);
-				if (nextBuilding.hospital.queueSize > oldBuilding.hospital.queueSize)
-				{
-					topBarText.text = oldBuilding.hospital.queueSize + " + " 
-						+ (nextBuilding.hospital.queueSize - oldBuilding.hospital.queueSize);
-				}
-				else
-				{
-					topBarText.text = nextBuilding.hospital.queueSize.ToString();
-				}
-				if (nextBuilding.hospital.healthPerSecond > oldBuilding.hospital.healthPerSecond)
-				{
-					topBarText.text = oldBuilding.hospital.healthPerSecond + " + " 
-						+ (nextBuilding.hospital.healthPerSecond - oldBuilding.hospital.healthPerSecond) + " Health Per Sec";
-				}
-				else
-				{
-					topBarText.text = oldBuilding.hospital.healthPerSecond + " Health Per Sec";
-				}
-				break;
-			case StructureInfoProto.StructType.LAB:
-				qualities.text = "Queue Size:\n\nRate:";
-				bottomBar.SetActive(true);SetBar(topBarCurrent, topBarFuture, oldBuilding.lab.queueSize, nextBuilding.lab.queueSize, max.lab.queueSize);
-				SetBar(botBarCurrent, botBarFuture, oldBuilding.lab.pointsPerSecond, nextBuilding.lab.pointsPerSecond, max.lab.pointsPerSecond);
-				if (nextBuilding.lab.queueSize > oldBuilding.lab.queueSize)
-				{
-					topBarText.text = oldBuilding.lab.queueSize + " + " 
-						+ (nextBuilding.lab.queueSize - oldBuilding.lab.queueSize);
-				}
-				else
-				{
-					topBarText.text = nextBuilding.lab.queueSize.ToString ();
-				}
-				if (nextBuilding.lab.pointsPerSecond > oldBuilding.lab.pointsPerSecond)
-				{
-					topBarText.text = oldBuilding.lab.pointsPerSecond + " + " 
-						+ (nextBuilding.lab.pointsPerSecond - oldBuilding.lab.pointsPerSecond) + " Points Per Sec";
-				}
-				else
-				{
-					topBarText.text = oldBuilding.lab.pointsPerSecond + " Points Per Sec";
-				}
-				break;
-			case StructureInfoProto.StructType.RESIDENCE:
-				qualities.text = "Slots:";
-				bottomBar.SetActive(false);
-				SetBar(topBarCurrent, topBarFuture, oldBuilding.residence.numMonsterSlots, nextBuilding.residence.numMonsterSlots, max.residence.numMonsterSlots);
-				topBarText.text = oldBuilding.residence.numMonsterSlots + " + " + nextBuilding.residence.numMonsterSlots;
-				break;
-			case StructureInfoProto.StructType.TOWN_HALL:
-				qualities.text = "City Level:";
-				bottomBar.SetActive(false);
-				SetBar (topBarCurrent, topBarFuture, oldBuilding.structInfo.level, nextBuilding.structInfo.level, max.structInfo.level);
-				topBarText.text = oldBuilding.structInfo.level + " + " + nextBuilding.structInfo.level;
-				break;
-			}
+			SetBuildingBarInfo (building, oldBuilding, nextBuilding);
 
 			upgradeButton.onClick = TryToBuy;
 			upgradeButton.button.enabled = true;
+		}
+	}
+
+	void SetBuildingBarInfo (CBKBuilding building, CBKCombinedBuildingProto oldBuilding, CBKCombinedBuildingProto nextBuilding)
+	{
+		CBKCombinedBuildingProto max = nextBuilding.maxLevel;
+
+		switch (building.combinedProto.structInfo.structType) {
+		case StructureInfoProto.StructType.RESOURCE_GENERATOR:
+			qualities.text = "Rate:\n\nCapacity:";
+			bottomBar.SetActive (true);
+			SetBar (topBarCurrent, topBarFuture, oldBuilding.generator.productionRate, nextBuilding.generator.productionRate, max.generator.productionRate);
+			SetBar (botBarCurrent, botBarFuture, oldBuilding.generator.capacity, nextBuilding.generator.capacity, max.generator.capacity);
+			if (oldBuilding.generator.resourceType == ResourceType.CASH) {
+				topBarText.text = "$" + oldBuilding.generator.productionRate + " + $" + (nextBuilding.generator.productionRate - oldBuilding.generator.productionRate) + " Per Hour";
+				botBarText.text = "$" + oldBuilding.generator.capacity + " + $" + (nextBuilding.generator.capacity - oldBuilding.generator.capacity);
+			}
+			else {
+				topBarText.text = oldBuilding.generator.productionRate + " + " + (nextBuilding.generator.productionRate - oldBuilding.generator.productionRate) + " Per Hour";
+				botBarText.text = oldBuilding.generator.capacity + " + " + (nextBuilding.generator.capacity - oldBuilding.generator.capacity);
+			}
+			break;
+		case StructureInfoProto.StructType.RESOURCE_STORAGE:
+			qualities.text = "Capacity:";
+			bottomBar.SetActive (false);
+			SetBar (topBarCurrent, topBarFuture, oldBuilding.storage.capacity, nextBuilding.storage.capacity, max.storage.capacity);
+			if (oldBuilding.storage.resourceType == ResourceType.CASH) {
+				topBarText.text = "$" + oldBuilding.storage.capacity + " + $" + (nextBuilding.storage.capacity - oldBuilding.storage.capacity);
+			}
+			else {
+				topBarText.text = oldBuilding.storage.capacity + " + " + (nextBuilding.storage.capacity - oldBuilding.storage.capacity);
+			}
+			break;
+		case StructureInfoProto.StructType.HOSPITAL:
+			qualities.text = "Queue Size:\n\nRate:";
+			bottomBar.SetActive (true);
+			SetBar (topBarCurrent, topBarFuture, oldBuilding.hospital.queueSize, nextBuilding.hospital.queueSize, max.hospital.queueSize);
+			SetBar (botBarCurrent, botBarFuture, oldBuilding.hospital.healthPerSecond, nextBuilding.hospital.healthPerSecond, max.hospital.healthPerSecond);
+			if (nextBuilding.hospital.queueSize > oldBuilding.hospital.queueSize) {
+				topBarText.text = oldBuilding.hospital.queueSize + " + " + (nextBuilding.hospital.queueSize - oldBuilding.hospital.queueSize);
+			}
+			else {
+				topBarText.text = nextBuilding.hospital.queueSize.ToString ();
+			}
+			if (nextBuilding.hospital.healthPerSecond > oldBuilding.hospital.healthPerSecond) {
+				topBarText.text = oldBuilding.hospital.healthPerSecond + " + " + (nextBuilding.hospital.healthPerSecond - oldBuilding.hospital.healthPerSecond) + " Health Per Sec";
+			}
+			else {
+				topBarText.text = oldBuilding.hospital.healthPerSecond + " Health Per Sec";
+			}
+			break;
+		case StructureInfoProto.StructType.LAB:
+			qualities.text = "Queue Size:\n\nRate:";
+			bottomBar.SetActive (true);
+			SetBar (topBarCurrent, topBarFuture, oldBuilding.lab.queueSize, nextBuilding.lab.queueSize, max.lab.queueSize);
+			SetBar (botBarCurrent, botBarFuture, oldBuilding.lab.pointsPerSecond, nextBuilding.lab.pointsPerSecond, max.lab.pointsPerSecond);
+			if (nextBuilding.lab.queueSize > oldBuilding.lab.queueSize) {
+				topBarText.text = oldBuilding.lab.queueSize + " + " + (nextBuilding.lab.queueSize - oldBuilding.lab.queueSize);
+			}
+			else {
+				topBarText.text = nextBuilding.lab.queueSize.ToString ();
+			}
+			if (nextBuilding.lab.pointsPerSecond > oldBuilding.lab.pointsPerSecond) {
+				topBarText.text = oldBuilding.lab.pointsPerSecond + " + " + (nextBuilding.lab.pointsPerSecond - oldBuilding.lab.pointsPerSecond) + " Points Per Sec";
+			}
+			else {
+				topBarText.text = oldBuilding.lab.pointsPerSecond + " Points Per Sec";
+			}
+			break;
+		case StructureInfoProto.StructType.RESIDENCE:
+			qualities.text = "Slots:";
+			bottomBar.SetActive (false);
+			SetBar (topBarCurrent, topBarFuture, oldBuilding.residence.numMonsterSlots, nextBuilding.residence.numMonsterSlots, max.residence.numMonsterSlots);
+			topBarText.text = oldBuilding.residence.numMonsterSlots + " + " + nextBuilding.residence.numMonsterSlots;
+			break;
+		case StructureInfoProto.StructType.TOWN_HALL:
+			qualities.text = "City Level:";
+			bottomBar.SetActive (false);
+			SetBar (topBarCurrent, topBarFuture, oldBuilding.structInfo.level, nextBuilding.structInfo.level, max.structInfo.level);
+			topBarText.text = oldBuilding.structInfo.level + " + " + nextBuilding.structInfo.level;
+			break;
 		}
 	}
 
@@ -266,6 +265,40 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	{
 		currBar.fill = curr/max;
 		nextBar.fill = next/max;
+	}
+
+	void SetupHireUI(CBKBuilding currBuilding)
+	{
+		CBKCombinedBuildingProto thisLevel = currBuilding.combinedProto.baseLevel;
+		int i = 0;
+		while (thisLevel != null)
+		{
+			while (hireEntries.Count <= i)
+			{
+				AddHireEntry();
+			}
+
+			if (thisLevel.structInfo.level > currBuilding.combinedProto.structInfo.level)
+			{
+				hireEntries[i].Init(thisLevel.residence, "Requires Lvl " + thisLevel.structInfo.level + " Residence");
+			}
+			else if (thisLevel.structInfo.level > currBuilding.userStructProto.fbInviteStructLvl + 1)
+			{
+				hireEntries[i].Init(thisLevel.residence, "Requires " + thisLevel.predecessor.residence.occupationName);
+			}
+			else
+			{
+				hireEntries[i].Init(thisLevel.residence, thisLevel.structInfo.level <= currBuilding.userStructProto.fbInviteStructLvl);
+			}
+		}
+	}
+
+	void AddHireEntry()
+	{
+		CBKHireEntry entry = Instantiate(hireEntryPrefab) as CBKHireEntry;
+		entry.transform.parent = grid;
+		entry.transform.localScale = Vector3.one;
+		hireEntries.Add(entry);
 	}
 	
 	IEnumerator UpdateRemainingTime()

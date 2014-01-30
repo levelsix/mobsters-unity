@@ -10,7 +10,7 @@ public class CBKNavButton : CBKActionButton {
 	[SerializeField]
 	CBKValues.ChatMode chatMode = CBKValues.ChatMode.GLOBAL;
 	
-	void OnClick()
+	public override void OnClick()
 	{
 		CBKChatManager.instance.SetChatMode(chatMode);
 	}

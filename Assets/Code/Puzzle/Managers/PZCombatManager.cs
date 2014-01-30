@@ -118,8 +118,6 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	TweenAlpha bloodSplatter;
 
-	bool bleeding = false;
-
 	bool wordsMoving = false;
 
 	int currPlayerDamage = 0;
@@ -333,7 +331,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	IEnumerator ScrollToNextEnemy()
 	{
-		if (boardTint.alpha <= .01f)
+		if (boardTint.value <= .01f)
 		{
 			boardTint.PlayForward();
 		}
@@ -599,7 +597,7 @@ public class PZCombatManager : MonoBehaviour {
 		bloodSplatter.style = UITweener.Style.Once;
 		bloodSplatter.ResetToBeginning();
 		bloodSplatter.PlayForward();
-		while (bloodSplatter.alpha < 1)
+		while (bloodSplatter.value < 1)
 		{
 			yield return null;
 		}
@@ -621,7 +619,7 @@ public class PZCombatManager : MonoBehaviour {
 		bloodSplatter.ResetToBeginning();
 		bloodSplatter.from = 0;
 		bloodSplatter.to = 0;
-		bloodSplatter.alpha = 0;
+		bloodSplatter.value = 0;
 	}
 
 	IEnumerator PlayerShoot(float score)

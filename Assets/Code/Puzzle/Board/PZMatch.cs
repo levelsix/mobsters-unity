@@ -129,7 +129,6 @@ public class PZMatch {
 			}
 		}
 		
-		PZGem gem;
 		for (; i < gems.Count; i++) 
 		{
 			gems[i].Destroy();

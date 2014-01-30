@@ -713,8 +713,6 @@ public class CBKMonsterManager : MonoBehaviour {
 	/// </summary>
 	public void RearrangeHealingQueue()
 	{
-		CBKBuilding chosenHospital;
-		long completeTimeAtChosen;
 		UpdateAllProgress();
 		foreach (CBKBuilding hospital in CBKBuildingManager.hospitals) 
 		{

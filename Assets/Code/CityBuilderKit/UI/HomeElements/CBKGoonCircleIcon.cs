@@ -6,7 +6,7 @@ using com.lvl6.proto;
 public class CBKGoonCircleIcon : MonoBehaviour {
 
 	[SerializeField]
-	UILabel name;
+	UILabel goonName;
 
 	[SerializeField]
 	UISprite barBg;
@@ -48,14 +48,14 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 	{
 		if (monster == null || monster.monster == null || monster.monster.monsterId == 0)
 		{
-			name.text = "Slot Empty";
+			goonName.text = "Slot Empty";
 			background.spriteName = emptyBackground;
 			barBg.alpha = 0;
 			icon.alpha = 0;
 		}
 		else
 		{
-			name.text = monster.monster.displayName;
+			goonName.text = monster.monster.displayName;
 			background.spriteName = backgroundElementDict[monster.monster.monsterElement];
 			icon.alpha = 1;
 			

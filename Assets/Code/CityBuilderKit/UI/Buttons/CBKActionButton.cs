@@ -36,7 +36,7 @@ public class CBKActionButton : MonoBehaviour {
 		button = GetComponent<UIButton>();
 	}
 
-	public void OnClick()
+	public virtual void OnClick()
 	{
 		if (able && onClick != null)
 		{

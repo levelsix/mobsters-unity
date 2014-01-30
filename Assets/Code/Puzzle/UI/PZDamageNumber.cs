@@ -78,7 +78,7 @@ public class PZDamageNumber : MonoBehaviour, CBKPoolable {
 			Pool();
 			return;
 		}
-		label.font = fonts[gem.colorIndex];
+		label.bitmapFont = fonts[gem.colorIndex];
 		label.text = ((int)PZCombatManager.instance.activePlayer.monster.attackDamages[gem.colorIndex]).ToString();
 		label.alpha = 1;
 
