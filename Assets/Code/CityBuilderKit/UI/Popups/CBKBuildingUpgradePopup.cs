@@ -144,14 +144,16 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 				currCost = building.upgrade.gemsToFinish;
 			}
 		
-			upgradeButton.label.text = currCost.ToString();
+
+			upgradeButton.icon.spriteName = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? cashButtonName : oilButtonName);
+			upgradeButton.label.text = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? "$" : "(O) ") + currCost.ToString();
 
 			Sprite sprite = CBKAtlasUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
 			buildingSprite.sprite2D = sprite;
 			if (sprite != null)
 			{
-				buildingSprite.width = (int)sprite.rect.width;
-				buildingSprite.height = (int)sprite.rect.height;
+				buildingSprite.width = (int)sprite.textureRect.width;
+				buildingSprite.height = (int)sprite.textureRect.height;
 			}
 
 			buildingName.text = nextBuilding.structInfo.name;
@@ -183,7 +185,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 				qualities.text = "Capacity:";
 				bottomBar.SetActive(false);
 				SetBar (topBarCurrent, topBarFuture, oldBuilding.storage.capacity, nextBuilding.storage.capacity, max.storage.capacity);
-				if (oldBuilding.generator.resourceType == ResourceType.CASH)
+				if (oldBuilding.storage.resourceType == ResourceType.CASH)
 				{
 					topBarText.text = "$" + oldBuilding.storage.capacity + 
 						" + $" + (nextBuilding.storage.capacity - oldBuilding.storage.capacity);
