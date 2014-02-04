@@ -152,11 +152,6 @@ public class CBKResourceCollector : MonoBehaviour {
 			}
 
 		}
-		else
-		{
-			Debug.LogWarning("Current money: " + currMoney + "\nTime since last collected: " + secsSinceCollect 
-			                 + (isGenerating ? "\nIs" : "\nIsn't") + "Generating");
-		}
 	}
 	
 	void SendCollectRequest(int amount)

@@ -9,7 +9,7 @@ public class CBKFacebookManager : MonoBehaviour {
 	
 	public static bool isLoggedIn = false;
 	
-	const string permissions = "";
+	const string permissions = "email,read_friendlists,publish_actions,publish_stream";
 	
 	const string COLLECT_FROM_BUILDING_DESCRIPTION_FRONT = "I just collected money from my ";
 	const string COLLECT_FROM_BUILDING_DESCRIPTION_BACK = "!";
@@ -32,7 +32,7 @@ public class CBKFacebookManager : MonoBehaviour {
 	
 	void ShareCollectFromBuildingToFeed(CBKBuilding building)
 	{
-		if (!FB.IsLoggedIn)
+		if (FB.IsLoggedIn)
 		{
 			Debug.Log("Sharing?");
 			FB.Feed(

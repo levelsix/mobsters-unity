@@ -33,10 +33,14 @@ public class UMQNetworkManager : MonoBehaviour {
 	
 	static int tagNum = 1;
 	
-	IModel channel = null;
-
+#if UNITY_ANDROID
+	AndroidJavaObject javaConnection = null;
+	AndroidJavaObject javaChannel = null;
+#else
 	IConnection connection = null;
-	
+	IModel channel = null;
+#endif
+
 	const int HEADER_SIZE = 12;
 	
 	public static UMQNetworkManager instance;
@@ -85,39 +89,66 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		udidKey = "client_udid_" + udid;
 		udidQueueName = udidKey + "_" + sessionID + "_queue";
-		
+
+#if UNITY_ANDROID
+		AndroidJavaObject factoryJava = new AndroidJavaObject("com.rabbitmq.client.ConnectionFactory");
+		factoryJava.Call("setHost", "robot.lvl6.com");
+		factoryJava.Call("setUsername", "lvl6client");
+		factoryJava.Call("setPassword", "devclient");
+		factoryJava.Call("setVirtualHost", "devmobsters");
+#else
 		ConnectionFactory factory = new ConnectionFactory();
-		
 		factory.HostName = "robot.lvl6.com";
 		factory.UserName = "lvl6client";
 		factory.Password = "devclient";
 		factory.VirtualHost = "devmobsters";
-		
+#endif
 
 		try{
+#if UNITY_ANDROID
+			javaConnection = factoryJava.Call<AndroidJavaObject>("newConnection");
+#else
 			connection = factory.CreateConnection();
+#endif
 			gameObject.SetActive(true);
 		}
 		catch (Exception e)
 		{
 			Debug.LogError("Connection exception: " + e);
 			gameObject.SetActive(false);
+			return;
 		}
 
 		
 		try
 		{
+#if UNITY_ANDROID
+			javaChannel = javaConnection.Call<AndroidJavaObject>("createChannel");
+#else
 			channel = connection.CreateModel();
+#endif
 			gameObject.SetActive(true);
 		}
 		catch (Exception e)
 		{
 			Debug.LogError("Channel error: " + e);
 			gameObject.SetActive(false);
+			return;
 		}
 		
 		WriteDebug("Connected");
-		
+
+#if UNITY_ANDROID
+		javaChannel.Call<AndroidJavaObject>("exchangeDeclare", directExchangeName, "direct", true);
+		javaChannel.Call<AndroidJavaObject>("exchangeDeclare", topicExchangeName, "topic", true);
+
+		javaChannel.Call("queueDeclare", udidQueueName, true, false, false, null);
+		javaChannel.Call("queueBind", udidQueueName, directExchangeName, udidKey);
+
+		AndroidJavaObject consumer = new AndroidJavaObject("com.rabbitmq.client.QueueingConsumer", javaChannel);
+		javaChannel.Call("basicConsume", udidQueueName, false, consumer);
+
+#else
 		//Declare our exchanges
 		channel.ExchangeDeclare(directExchangeName, ExchangeType.Direct, true);
 		channel.ExchangeDeclare(topicExchangeName, ExchangeType.Topic, true);
@@ -129,7 +160,8 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		QueueingBasicConsumer consumer = new QueueingBasicConsumer(channel);
 		channel.BasicConsume(udidQueueName, false, consumer);
-		
+
+#endif
 		StartCoroutine(Consume(consumer));
 		
 		ready = true;
@@ -139,18 +171,30 @@ public class UMQNetworkManager : MonoBehaviour {
 	{
 		string userIdKey = "client_userid_" + user.userId;
 		string userIdKeyQueueName = userIdKey + "_" + sessionID + "_queue";
+
+#if UNITY_ANDROID
+		javaChannel.Call("queueDeclare", userIdKeyQueueName, true, false, false, null);
+		javaChannel.Call("queueBind", userIdKeyQueueName, directExchangeName, userIdKey);
 		
+		AndroidJavaObject consumer = new AndroidJavaObject("QueueingConsumer", javaChannel);
+		javaChannel.Call("basicConsume", userIdKeyQueueName, false, consumer);
+
+#else
 		channel.QueueDeclare(userIdKeyQueueName, true, false, false, null);
 		channel.QueueBind(userIdKeyQueueName, directExchangeName, userIdKey);
-		
-		
+
 		QueueingBasicConsumer consumer = new QueueingBasicConsumer(channel);
 		channel.BasicConsume (userIdKeyQueueName, false, consumer);
-		
+#endif	
 		StartCoroutine(Consume(consumer));
 		
 		chatQueueName = udidKey + "_" + sessionID + "_chat_queue";
 
+#if UNITY_ANDROID
+		//AndroidJavaObject chatChannel = javaConnection.Call<AndroidJavaObject>("createModel");
+
+		Debug.LogWarning("Chat channel not implemented for Android yet");
+#else
 		IModel chatChannel = connection.CreateModel();
 
 		chatChannel.QueueDeclare(chatQueueName, true, false, true, null);
@@ -160,7 +204,8 @@ public class UMQNetworkManager : MonoBehaviour {
 		chatChannel.BasicConsume(chatQueueName, false, chatConsumer);
 		
 		StartCoroutine(ConsumeChat(chatConsumer));
-		
+#endif
+
 		WriteDebug("Set up userID Queue");
 	}
 
@@ -172,6 +217,9 @@ public class UMQNetworkManager : MonoBehaviour {
 
 		string clanQueueName = userId + "_" + sessionID + " _clan_queue";
 
+#if UNITY_ANDROID
+
+#else
 		IModel clanChatChannel = connection.CreateModel();
 
 		clanChatChannel.QueueDeclare(clanQueueName, true, false, true, null);
@@ -181,6 +229,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		clanChatChannel.BasicConsume(clanQueueName, false, clanConsumer);
 
 		StartCoroutine(ConsumeChat(clanConsumer));	
+#endif
 	}
 	
 	public int SendRequest(System.Object request, int type, Action<int> callback)
@@ -227,10 +276,15 @@ public class UMQNetworkManager : MonoBehaviour {
 		}
 		
 		//PrintByteStream(message);
-		
+
+#if UNITY_ANDROID
+		javaChannel.Call("basicPublish", directExchangeName, "messagesFromPlayers", null, message);
+#else
 		IBasicProperties properties = channel.CreateBasicProperties();
 		properties.SetPersistent(true);
 		channel.BasicPublish(directExchangeName, "messagesFromPlayers", properties, message);
+#endif
+
 
 		StartCoroutine(WaitRequestTimeout(tagNum));
 		
@@ -250,6 +304,20 @@ public class UMQNetworkManager : MonoBehaviour {
 			str += msg[i] + " ";
 		}
 		Debug.Log(str);
+	}
+
+	IEnumerator Consume(AndroidJavaObject consumer)
+	{
+		AndroidJavaObject response;
+		while(true)
+		{
+			response = consumer.Call<AndroidJavaObject>("nextDelivery");
+			if (response != null)
+			{
+				ReceiveResponse(response);
+			}
+			yield return new WaitForSeconds(.5f);
+		}
 	}
 	
 	IEnumerator Consume(QueueingBasicConsumer consumer)
@@ -315,10 +383,20 @@ public class UMQNetworkManager : MonoBehaviour {
 			Debug.LogWarning("Response never received for request: " + tagNum);
 		}
 	}
-	
+
+	void ReceiveResponse(AndroidJavaObject response)
+	{
+		ReceiveResponse(response.Call<byte[]>("getBody"));
+	}
+
 	void ReceiveResponse(BasicDeliverEventArgs response)
+	{
+		ReceiveResponse(response.Body);
+	}
+	
+	void ReceiveResponse(byte[] response)
 	{	
-		MemoryStream reader = new MemoryStream(response.Body);
+		MemoryStream reader = new MemoryStream(response);
 		
 		EventProtocolResponse type = (EventProtocolResponse) ((reader.ReadByte()) + (reader.ReadByte() << 8) + (reader.ReadByte() << 16) + (reader.ReadByte() << 24));
 		

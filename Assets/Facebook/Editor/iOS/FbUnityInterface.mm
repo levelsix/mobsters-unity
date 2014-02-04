@@ -153,7 +153,7 @@ frictionlessRequests:(bool)_frictionlessRequests
          if(user && session != nil && session.accessTokenData != nil && session.accessTokenData.accessToken != nil) {
            [msgData setObject:[user objectForKey:@"id"] forKey:@"user_id"];
            [msgData setObject:session.accessTokenData.accessToken forKey:@"access_token"];
-           [msgData setObject:[NSString stringWithFormat:@"%ld", (long)(session.accessTokenData.expirationDate.timeIntervalSince1970 / 1000)] forKey:@"expiration_timestamp"];
+           [msgData setObject:[NSString stringWithFormat:@"%ld", (long)session.accessTokenData.expirationDate.timeIntervalSince1970] forKey:@"expiration_timestamp"];
          }
          
          const char *msgType = nil;
@@ -170,7 +170,7 @@ frictionlessRequests:(bool)_frictionlessRequests
       
     case FBSessionStateOpenTokenExtended: {
       [msgData setObject:session.accessTokenData.accessToken forKey:@"access_token"];
-      [msgData setObject:[NSString stringWithFormat:@"%ld", (long)(session.accessTokenData.expirationDate.timeIntervalSince1970 / 1000)] forKey:@"expiration_timestamp"];
+      [msgData setObject:[NSString stringWithFormat:@"%ld", (long)session.accessTokenData.expirationDate.timeIntervalSince1970] forKey:@"expiration_timestamp"];
       [FbUnityInterface sendMessageToUnity:"OnAccessTokenRefresh" userData:msgData];
     }
       break;

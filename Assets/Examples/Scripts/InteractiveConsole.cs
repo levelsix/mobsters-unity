@@ -530,7 +530,8 @@ public sealed class InteractiveConsole : MonoBehaviour
     void Callback(FBResult result)
     {
         lastResponseTexture = null;
-        if (result.Error != null)
+        // Some platforms return the empty string instead of null.
+        if (!String.IsNullOrEmpty(result.Error))
             lastResponse = "Error Response:\n" + result.Error;
         else if (!ApiQuery.Contains("/picture"))
             lastResponse = "Success Response:\n" + result.Text;

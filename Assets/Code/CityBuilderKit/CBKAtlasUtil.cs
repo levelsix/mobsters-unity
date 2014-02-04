@@ -24,7 +24,7 @@ public class CBKAtlasUtil : MonoBehaviour {
 			atlases = new Dictionary<string, UIAtlas>();
 			foreach (string item in xmls) 
 			{
-				WarmAtlasDictionaryFromXML(item);
+				//WarmAtlasDictionaryFromXML(item);
 			}
 		}
 	}
