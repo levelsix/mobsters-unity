@@ -213,7 +213,13 @@ namespace com.lvl6.proto
       BUILD_STRUCT = 5,
             
       [global::ProtoBuf.ProtoEnum(Name=@"UPGRADE_STRUCT", Value=6)]
-      UPGRADE_STRUCT = 6
+      UPGRADE_STRUCT = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"MONSTER_APPEAR", Value=7)]
+      MONSTER_APPEAR = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"COLLECT_SPECIAL_ITEM", Value=8)]
+      COLLECT_SPECIAL_ITEM = 8
     }
   
     private global::ProtoBuf.IExtension extensionObject;

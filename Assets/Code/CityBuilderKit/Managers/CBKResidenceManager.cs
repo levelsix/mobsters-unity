@@ -58,7 +58,11 @@ public class CBKResidenceManager : MonoBehaviour {
 
 	void CheckBuilding(int userBuildingId)
 	{
-
+		CBKBuilding building = residences[userBuildingId];
+		if (fbInviteAccepted[userBuildingId].Count >= GetResidenceLevelBelowCurrent(building.userStructProto.fbInviteStructLvl+1, building.combinedProto).residence.numAcceptedFbInvites)
+		{
+			UpgradeResidenceFacebookLevelFromInvites(userBuildingId);
+		}
 	}
 
 	CBKCombinedBuildingProto GetResidenceLevelBelowCurrent(int level, CBKCombinedBuildingProto residence)
@@ -72,7 +76,7 @@ public class CBKResidenceManager : MonoBehaviour {
 
 	void AddInvite(UserFacebookInviteForSlotProto addInvite)
 	{
-		if (!fbInviteAccepted.ContainsKey(addInvite.userStructId))
+		if (!fbInviteAccepted.ContainsKey(addInvite.userStructId) && addInvite.structFbLvl == residences[addInvite.userStructId].userStructProto.fbInviteStructLvl + 1)
 		{
 			fbInviteAccepted.Add(addInvite.userStructId, new List<UserFacebookInviteForSlotProto>());
 		}
@@ -85,10 +89,36 @@ public class CBKResidenceManager : MonoBehaviour {
 		{
 			AddInvite(item);
 		}
+		foreach (var item in fbInviteAccepted) 
+		{
+			CheckBuilding(item.Key);
+		}
 	}
 
-	void UpgradeResidenceFacebookLevel(int userStructureId, int fbLevel)
+	IEnumerator SendFBRequests()
 	{
+		yield return null;
+	}
 
+	IEnumerator UpgradeResidenceFacebookLevelFromInvites(int userStructureId)
+	{
+		IncreaseMonsterInventorySlotRequestProto request = new IncreaseMonsterInventorySlotRequestProto();
+		request.sender = CBKWhiteboard.localMup;
+		request.increaseSlotType = IncreaseMonsterInventorySlotRequestProto.IncreaseSlotType.REDEEM_FACEBOOK_INVITES;
+		request.userStructId = userStructureId;
+		foreach (var item in fbInviteAccepted[userStructureId]) 
+		{
+			request.userFbInviteForSlotIds.Add(item.inviteId);
+		}
+
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_INCREASE_MONSTER_INVENTORY_SLOT_EVENT, null);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		IncreaseMonsterInventorySlotResponseProto response = UMQNetworkManager.responseDict[tagNum] as IncreaseMonsterInventorySlotResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
 	}
 }

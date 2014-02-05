@@ -14,9 +14,7 @@ public class UMQLoader : MonoBehaviour {
 	// Use this for initialization
 	IEnumerator Start () {
 
-		Application.targetFrameRate = 60;
-
-		CBKFacebookManager.instance.Init();
+		//CBKFacebookManager.instance.Init();
 
 		/*
 		while (!CBKFacebookManager.hasTriedLogin)
@@ -25,16 +23,19 @@ public class UMQLoader : MonoBehaviour {
 		}
 		*/
 
+		Debug.Log("Loader hanging out");
+
 		//Hang here while we set up the connetion
 		//TODO: Time out if we've been hanging here for too long
 		while(!UMQNetworkManager.instance.ready)
 		{
-			yield return null;
+			yield return new WaitForSeconds(1);
+			Debug.Log("Loader still waiting");
 		}
 
 		fillBar.fill = .2f;
 		
-		UMQNetworkManager.instance.WriteDebug("Sending StartupRequest");
+		Debug.Log("Sending StartupRequest");
 		
 		StartupRequestProto startup = new StartupRequestProto();
 		
@@ -51,12 +52,12 @@ public class UMQLoader : MonoBehaviour {
 
 		fillBar.fill = .75f;
 		
-		UMQNetworkManager.instance.WriteDebug(tagNum + ": Received StartupResponse");
+		Debug.Log(tagNum + ": Received StartupResponse");
 		
 		StartupResponseProto response = (StartupResponseProto) UMQNetworkManager.responseDict[tagNum];
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		UMQNetworkManager.instance.WriteDebug("Startup Status: " + response.startupStatus.ToString());
+		Debug.Log("Startup Status: " + response.startupStatus.ToString());
 
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{
@@ -66,7 +67,7 @@ public class UMQLoader : MonoBehaviour {
 
 		fillBar.fill = .9f;
 		
-		UMQNetworkManager.instance.WriteDebug("Update Status: " + response.updateStatus.ToString());
+		Debug.Log("Update Status: " + response.updateStatus.ToString());
 
 		if (response.staticDataStuffProto != null)
 		{

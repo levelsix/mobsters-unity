@@ -33,7 +33,7 @@ public class UMQNetworkManager : MonoBehaviour {
 	
 	static int tagNum = 1;
 	
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 	AndroidJavaObject javaConnection = null;
 	AndroidJavaObject javaChannel = null;
 #else
@@ -81,8 +81,10 @@ public class UMQNetworkManager : MonoBehaviour {
 	}
 	
 	// Use this for initialization
-	void Start () {
+	IEnumerator Start () {
 	
+		yield return new WaitForSeconds(.5f);
+
 		udid = SystemInfo.deviceUniqueIdentifier;
 		
 		sessionID = UnityEngine.Random.Range(0, int.MaxValue);
@@ -90,7 +92,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		udidKey = "client_udid_" + udid;
 		udidQueueName = udidKey + "_" + sessionID + "_queue";
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 		AndroidJavaObject factoryJava = new AndroidJavaObject("com.rabbitmq.client.ConnectionFactory");
 		factoryJava.Call("setHost", "robot.lvl6.com");
 		factoryJava.Call("setUsername", "lvl6client");
@@ -105,7 +107,7 @@ public class UMQNetworkManager : MonoBehaviour {
 #endif
 
 		try{
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 			javaConnection = factoryJava.Call<AndroidJavaObject>("newConnection");
 #else
 			connection = factory.CreateConnection();
@@ -116,14 +118,16 @@ public class UMQNetworkManager : MonoBehaviour {
 		{
 			Debug.LogError("Connection exception: " + e);
 			gameObject.SetActive(false);
-			return;
+			yield break;
 		}
 
+		Debug.Log("Created connection");
 		
 		try
 		{
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 			javaChannel = javaConnection.Call<AndroidJavaObject>("createChannel");
+			Debug.Log("Created Channel");
 #else
 			channel = connection.CreateModel();
 #endif
@@ -133,37 +137,44 @@ public class UMQNetworkManager : MonoBehaviour {
 		{
 			Debug.LogError("Channel error: " + e);
 			gameObject.SetActive(false);
-			return;
+			yield break;
 		}
 		
-		WriteDebug("Connected");
+		Debug.Log("Connected");
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 		javaChannel.Call<AndroidJavaObject>("exchangeDeclare", directExchangeName, "direct", true);
 		javaChannel.Call<AndroidJavaObject>("exchangeDeclare", topicExchangeName, "topic", true);
 
-		javaChannel.Call("queueDeclare", udidQueueName, true, false, false, null);
-		javaChannel.Call("queueBind", udidQueueName, directExchangeName, udidKey);
+		Debug.Log("Declared Exchanges");
+
+		javaChannel.Call<AndroidJavaObject>("queueDeclare", udidQueueName, true, false, false, null);
+		javaChannel.Call<AndroidJavaObject>("queueBind", udidQueueName, directExchangeName, udidKey);
+
+		Debug.Log("Bounded with routing key: " + udidKey);
 
 		AndroidJavaObject consumer = new AndroidJavaObject("com.rabbitmq.client.QueueingConsumer", javaChannel);
-		javaChannel.Call("basicConsume", udidQueueName, false, consumer);
+		javaChannel.Call<AndroidJavaObject>("basicConsume", udidQueueName, false, consumer);
 
+		StartCoroutine(ConsumeJava(consumer));
 #else
 		//Declare our exchanges
 		channel.ExchangeDeclare(directExchangeName, ExchangeType.Direct, true);
 		channel.ExchangeDeclare(topicExchangeName, ExchangeType.Topic, true);
-		
+
 		channel.QueueDeclare(udidQueueName, true, false, false, null);
 		channel.QueueBind(udidQueueName, directExchangeName, udidKey);
 		
-		WriteDebug("Bounded with routing key: " + udidKey);
+		Debug.Log("Bounded with routing key: " + udidKey);
 		
 		QueueingBasicConsumer consumer = new QueueingBasicConsumer(channel);
 		channel.BasicConsume(udidQueueName, false, consumer);
-
-#endif
-		StartCoroutine(Consume(consumer));
 		
+		StartCoroutine(Consume(consumer));
+#endif
+
+		Debug.Log("Ready");
+
 		ready = true;
 	}
 	
@@ -172,25 +183,27 @@ public class UMQNetworkManager : MonoBehaviour {
 		string userIdKey = "client_userid_" + user.userId;
 		string userIdKeyQueueName = userIdKey + "_" + sessionID + "_queue";
 
-#if UNITY_ANDROID
-		javaChannel.Call("queueDeclare", userIdKeyQueueName, true, false, false, null);
-		javaChannel.Call("queueBind", userIdKeyQueueName, directExchangeName, userIdKey);
+#if UNITY_ANDROID && !UNITY_EDITOR
+		javaChannel.Call<AndroidJavaObject>("queueDeclare", userIdKeyQueueName, true, false, false, null);
+		javaChannel.Call<AndroidJavaObject>("queueBind", userIdKeyQueueName, directExchangeName, userIdKey);
 		
-		AndroidJavaObject consumer = new AndroidJavaObject("QueueingConsumer", javaChannel);
-		javaChannel.Call("basicConsume", userIdKeyQueueName, false, consumer);
-
+		AndroidJavaObject consumer = new AndroidJavaObject("com.rabbitmq.client.QueueingConsumer", javaChannel);
+		javaChannel.Call<AndroidJavaObject>("basicConsume", userIdKeyQueueName, false, consumer);
+		
+		StartCoroutine(ConsumeJava(consumer));
 #else
 		channel.QueueDeclare(userIdKeyQueueName, true, false, false, null);
 		channel.QueueBind(userIdKeyQueueName, directExchangeName, userIdKey);
 
 		QueueingBasicConsumer consumer = new QueueingBasicConsumer(channel);
 		channel.BasicConsume (userIdKeyQueueName, false, consumer);
-#endif	
+
 		StartCoroutine(Consume(consumer));
+#endif	
 		
 		chatQueueName = udidKey + "_" + sessionID + "_chat_queue";
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 		//AndroidJavaObject chatChannel = javaConnection.Call<AndroidJavaObject>("createModel");
 
 		Debug.LogWarning("Chat channel not implemented for Android yet");
@@ -205,8 +218,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		StartCoroutine(ConsumeChat(chatConsumer));
 #endif
-
-		WriteDebug("Set up userID Queue");
+		Debug.Log("Set up userID Queue");
 	}
 
 	public void CreateClanChatQueue(MinimumUserProto user, int clanId)
@@ -217,7 +229,7 @@ public class UMQNetworkManager : MonoBehaviour {
 
 		string clanQueueName = userId + "_" + sessionID + " _clan_queue";
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 
 #else
 		IModel clanChatChannel = connection.CreateModel();
@@ -277,7 +289,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		//PrintByteStream(message);
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 		javaChannel.Call("basicPublish", directExchangeName, "messagesFromPlayers", null, message);
 #else
 		IBasicProperties properties = channel.CreateBasicProperties();
@@ -288,7 +300,7 @@ public class UMQNetworkManager : MonoBehaviour {
 
 		StartCoroutine(WaitRequestTimeout(tagNum));
 		
-		WriteDebug("Message sent: " + tagNum + ": " + request.GetType());
+		Debug.Log("Message sent: " + tagNum + ": " + request.GetType());
 		
 		actionDict.Add(tagNum, callback);
 		
@@ -306,15 +318,26 @@ public class UMQNetworkManager : MonoBehaviour {
 		Debug.Log(str);
 	}
 
-	IEnumerator Consume(AndroidJavaObject consumer)
+	IEnumerator ConsumeJava(AndroidJavaObject consumer)
 	{
+		Debug.Log("Starting java consume for consumer");
+
+		if (consumer.GetRawObject().ToInt32() == 0) Debug.Log("Problem with consumer");
+
 		AndroidJavaObject response;
 		while(true)
 		{
-			response = consumer.Call<AndroidJavaObject>("nextDelivery");
-			if (response != null)
+			try
 			{
-				ReceiveResponse(response);
+				response = consumer.Call<AndroidJavaObject>("nextDelivery", 0L);
+				if (response.GetRawObject().ToInt32() != 0)
+				{
+					ReceiveResponse(response);
+				}
+			}
+			catch (Exception e)
+			{
+				string test = e.ToString();
 			}
 			yield return new WaitForSeconds(.5f);
 		}
@@ -363,7 +386,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		int size = ((reader.ReadByte()) + (reader.ReadByte() << 8) + (reader.ReadByte() << 16) + (reader.ReadByte() << 24));
 #pragma warning restore 0219
 		
-		WriteDebug("Received Chat Message: " + tagNum);
+		Debug.Log("Received Chat Message: " + tagNum);
 		
 		object proto = UMQDeserializer.Deserialize(reader, type);
 		
@@ -429,13 +452,5 @@ public class UMQNetworkManager : MonoBehaviour {
 
 			requestsOut.Remove(tagNum);
 		}
-	}
-	
-	public void WriteDebug(string str)
-	{
-#if DEBUG
-		//debugTextLabel.text += "\n" + str;
-		Debug.Log(str);
-#endif
 	}
 }
