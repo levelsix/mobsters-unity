@@ -453,6 +453,34 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MinimumUserMonsterProto")]
+  public partial class MinimumUserMonsterProto : global::ProtoBuf.IExtensible
+  {
+    public MinimumUserMonsterProto() {}
+    
+
+    private int _monsterId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"monsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int monsterId
+    {
+      get { return _monsterId; }
+      set { _monsterId = value; }
+    }
+
+    private int _monsterLvl = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"monsterLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int monsterLvl
+    {
+      get { return _monsterLvl; }
+      set { _monsterLvl = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserMonsterHealingProto")]
   public partial class UserMonsterHealingProto : global::ProtoBuf.IExtensible
   {

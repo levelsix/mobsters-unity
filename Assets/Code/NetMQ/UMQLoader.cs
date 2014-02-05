@@ -14,7 +14,7 @@ public class UMQLoader : MonoBehaviour {
 	// Use this for initialization
 	IEnumerator Start () {
 
-		//CBKFacebookManager.instance.Init();
+		CBKFacebookManager.instance.Init();
 
 		/*
 		while (!CBKFacebookManager.hasTriedLogin)

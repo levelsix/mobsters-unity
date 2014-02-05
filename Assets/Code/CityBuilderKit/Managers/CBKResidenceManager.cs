@@ -17,43 +17,86 @@ public class CBKResidenceManager : MonoBehaviour {
 	Dictionary<int, List<UserFacebookInviteForSlotProto>> fbInviteAccepted = 
 		new Dictionary<int, List<UserFacebookInviteForSlotProto>>();
 
-	Dictionary<int, CBKBuilding> residences = new Dictionary<int, CBKBuilding>();
+	public Dictionary<int, CBKBuilding> residences = new Dictionary<int, CBKBuilding>();
+
+	int currBuildingId;
 
 	void Awake()
 	{
 		instance = this;
 	}
 
-	[ContextMenu ("Open Request")]
-	void OpenRequestDialogue()
+	public void OpenRequestDialogue(int forBuilding)
 	{
 		if (FB.IsLoggedIn)
 		{
+			currBuildingId = forBuilding;
 			FB.AppRequest(
 				message: "Please respond to my request!",
-				title: "A request from " + CBKWhiteboard.localMup.name
+				title: "A request from " + CBKWhiteboard.localMup.name,
+				callback: RequestCallback
 				);
 		}
 	}
 
+	/// <summary>
+	/// Callback from sending the FB request.
+	/// Determines if the result is a successful request
+	/// If so, reports the list of friends to our own server for bookkeeping
+	/// </summary>
+	/// <param name="result">Result.</param>
 	void RequestCallback(FBResult result)
 	{
-		Debug.Log("Request callback");
+		//Debug.Log("Request callback");
 		if (result != null)
 		{
 			Dictionary<string, object> responseObject = 
 				Json.Deserialize(result.Text) as Dictionary<string, object>;
 			object obj = 0;
-			if (responseObject.TryGetValue("request", out obj))
+			if (responseObject.TryGetValue("request", out obj)) //If the user cancelled the request, this will return false
 		    {
-				Debug.Log("Request made");
+				//Debug.Log("Request made");
+				foreach (var item in (IList)(responseObject["to"])) 
+				{
+					  Debug.Log("Response part: " + item.GetType().ToString() + ", " + item);
+				}
+
+				StartCoroutine(ReportFBRequests((IList)responseObject["to"]));
 			}
 
-			foreach (var item in responseObject) 
-			{
-				Debug.Log("Response part: " + item.Key + ": " + item.Value);
-			}
 		}
+	}
+
+	/// <summary>
+	/// If we've sent FB requests, we need to report them to our own server so that we can keep
+	/// track of who's sent requests to whom, and for what building.
+	/// </summary>
+	/// <returns>The FB requests.</returns>
+	/// <param name="fbIds">Fb identifiers.</param>
+	IEnumerator ReportFBRequests(IList fbIds)
+	{
+		InviteFbFriendsForSlotsRequestProto request = new InviteFbFriendsForSlotsRequestProto();
+		request.sender = CBKWhiteboard.localMupWithFacebook;
+		InviteFbFriendsForSlotsRequestProto.FacebookInviteStructure fish;
+		foreach (var item in fbIds) 
+		{
+			fish = new InviteFbFriendsForSlotsRequestProto.FacebookInviteStructure();
+			fish.fbFriendId = item.ToString();
+			fish.userStructId = currBuildingId;
+			fish.userStructFbLvl = residences[currBuildingId].userStructProto.fbInviteStructLvl;
+			request.invites.Add(fish);
+		}
+
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_INVITE_FB_FRIENDS_FOR_SLOTS_EVENT, null);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		InviteFbFriendsForSlotsResponseProto response = UMQNetworkManager.responseDict[tagNum] as InviteFbFriendsForSlotsResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
 	}
 
 	void CheckBuilding(int userBuildingId)
@@ -76,11 +119,14 @@ public class CBKResidenceManager : MonoBehaviour {
 
 	void AddInvite(UserFacebookInviteForSlotProto addInvite)
 	{
-		if (!fbInviteAccepted.ContainsKey(addInvite.userStructId) && addInvite.structFbLvl == residences[addInvite.userStructId].userStructProto.fbInviteStructLvl + 1)
+		if (!fbInviteAccepted.ContainsKey(addInvite.userStructId))
 		{
 			fbInviteAccepted.Add(addInvite.userStructId, new List<UserFacebookInviteForSlotProto>());
 		}
-		fbInviteAccepted[addInvite.userStructId].Add(addInvite);
+		if (addInvite.structFbLvl == residences[addInvite.userStructId].userStructProto.fbInviteStructLvl + 1)
+		{
+			fbInviteAccepted[addInvite.userStructId].Add(addInvite);
+		}
 	}
 
 	void AddInvites(List<UserFacebookInviteForSlotProto> addInvites)
@@ -93,11 +139,6 @@ public class CBKResidenceManager : MonoBehaviour {
 		{
 			CheckBuilding(item.Key);
 		}
-	}
-
-	IEnumerator SendFBRequests()
-	{
-		yield return null;
 	}
 
 	IEnumerator UpgradeResidenceFacebookLevelFromInvites(int userStructureId)
@@ -120,5 +161,15 @@ public class CBKResidenceManager : MonoBehaviour {
 
 		IncreaseMonsterInventorySlotResponseProto response = UMQNetworkManager.responseDict[tagNum] as IncreaseMonsterInventorySlotResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
+	}
+
+	public void JustReceivedFriendAccept(AcceptAndRejectFbInviteForSlotsResponseProto response)
+	{
+
+	}
+
+	public void JustReceivedFriendInvite(InviteFbFriendsForSlotsResponseProto response)
+	{
+
 	}
 }

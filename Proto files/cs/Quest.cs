@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Quest.proto
+// Note: requires additional types generated from: Structure.proto
 namespace com.lvl6.proto
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"FullQuestProto")]
@@ -192,6 +193,15 @@ namespace com.lvl6.proto
     {
       get { return _isAchievement; }
       set { _isAchievement = value; }
+    }
+
+    private com.lvl6.proto.CoordinateProto _questGiverImgOffset = null;
+    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"questGiverImgOffset", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.CoordinateProto questGiverImgOffset
+    {
+      get { return _questGiverImgOffset; }
+      set { _questGiverImgOffset = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"QuestType")]
     public enum QuestType

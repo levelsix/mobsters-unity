@@ -30,6 +30,20 @@ public static class CBKWhiteboard {
 			return mup;
 		}
 	}
+
+	public static MinimumUserProtoWithFacebookId localMupWithFacebook
+	{
+		get
+		{
+			MinimumUserProtoWithFacebookId mup = new MinimumUserProtoWithFacebookId();
+			mup.minUserProto = localMup;
+			if (FB.IsLoggedIn)
+			{
+				mup.facebookId = FB.UserId;
+			}
+			return mup;
+		}
+	}
 	
 	public static StartupResponseProto.StartupConstants constants;
 	

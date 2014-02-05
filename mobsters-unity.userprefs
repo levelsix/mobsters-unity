@@ -1,18 +1,26 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/NetMQ/UMQNetworkManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/CityBuilderKit/UI/Popups/CBKBuildingUpgradePopup.cs">
     <Files>
-      <File FileName="../../Downloads/rabbitmq-dotnet-client-3.2.3/projects/client/RabbitMQ.Client/src/client/api/ConnectionFactory.cs" Line="183" Column="31" />
-      <File FileName="../../Downloads/rabbitmq-dotnet-client-3.2.3/projects/client/RabbitMQ.Client/src/client/api/AmqpTcpEndpoint.cs" Line="116" Column="25" />
+      <File FileName="../../Downloads/rabbitmq-dotnet-client-3.2.3/projects/client/RabbitMQ.Client/src/client/api/ConnectionFactory.cs" Line="1" Column="1" />
+      <File FileName="../../Downloads/rabbitmq-dotnet-client-3.2.3/projects/client/RabbitMQ.Client/src/client/api/AmqpTcpEndpoint.cs" Line="1" Column="1" />
       <File FileName="Assets/Facebook/Scripts/FB.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/Managers/CBKFacebookManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Facebook/Scripts/EditorFacebook.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/CityBuilderKit/CBKResourceCollector.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/NetMQ/UMQNetworkManager.cs" Line="328" Column="65" />
-      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKResidenceManager.cs" Line="113" Column="49" />
-      <File FileName="Assets/Code/NetMQ/UMQLoader.cs" Line="32" Column="38" />
-      <File FileName="Assets/Code/CityBuilderKit/UI/HomeElements/CBKTaskBar.cs" Line="36" Column="1" />
-      <File FileName="Assets/Code/CityBuilderKit/CBKAtlasUtil.cs" Line="27" Column="40" />
+      <File FileName="Assets/Code/NetMQ/UMQNetworkManager.cs" Line="301" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKResidenceManager.cs" Line="64" Column="49" />
+      <File FileName="Assets/Code/NetMQ/UMQLoader.cs" Line="17" Column="3" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/HomeElements/CBKTaskBar.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKAtlasUtil.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKBuildingCamera.cs" Line="93" Column="28" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKEventManager.cs" Line="83" Column="32" />
+      <File FileName="Assets/Code/CityBuilderKit/Managers/CBKBuildingManager.cs" Line="312" Column="89" />
+      <File FileName="Assets/Code/TouchControlKit/TCKControlManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/CityBuilderKit/CBKWhiteboard.cs" Line="44" Column="15" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/CBKHireEntry.cs" Line="59" Column="69" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/Popups/CBKBuildingUpgradePopup.cs" Line="310" Column="36" />
+      <File FileName="Assets/Code/CityBuilderKit/UI/CBKFillBar.cs" Line="20" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,11 +31,13 @@
                 <Node name="Managers" expanded="True" />
                 <Node name="UI" expanded="True">
                   <Node name="HomeElements" expanded="True" />
+                  <Node name="Popups" expanded="True">
+                    <Node name="CBKBuildingUpgradePopup.cs" selected="True" />
+                  </Node>
                 </Node>
               </Node>
-              <Node name="NetMQ" expanded="True">
-                <Node name="UMQNetworkManager.cs" selected="True" />
-              </Node>
+              <Node name="NetMQ" expanded="True" />
+              <Node name="TouchControlKit" expanded="True" />
             </Node>
           </Node>
           <Node name="Assembly-CSharp-Editor" expanded="True">

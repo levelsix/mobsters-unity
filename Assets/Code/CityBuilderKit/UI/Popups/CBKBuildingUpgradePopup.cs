@@ -71,10 +71,10 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	GameObject hireHeader;
 
 	[SerializeField]
-	CBKActionButton upgradeViewButton;
+	GameObject upgradeViewButton;
 
 	[SerializeField]
-	CBKActionButton hireViewButton;
+	GameObject hireViewButton;
 
 	[SerializeField]
 	CBKHireEntry hireEntryPrefab;
@@ -177,6 +177,21 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 
 			upgradeButton.onClick = TryToBuy;
 			upgradeButton.button.enabled = true;
+
+			UpgradeView();
+
+			if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESIDENCE)
+			{
+				SetupHireUI(building);
+				upgradeViewButton.SetActive(true);
+				hireViewButton.SetActive(true);
+				header.text = " ";
+			}
+			else
+			{
+				upgradeViewButton.SetActive(false);
+				hireViewButton.SetActive(false);
+			}
 		}
 	}
 
@@ -269,6 +284,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 
 	void SetupHireUI(CBKBuilding currBuilding)
 	{
+
 		CBKCombinedBuildingProto thisLevel = currBuilding.combinedProto.baseLevel;
 		int i = 0;
 		while (thisLevel != null)
@@ -288,8 +304,11 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 			}
 			else
 			{
-				hireEntries[i].Init(thisLevel.residence, thisLevel.structInfo.level <= currBuilding.userStructProto.fbInviteStructLvl);
+				hireEntries[i].Init(thisLevel.residence, thisLevel.structInfo.level <= currBuilding.userStructProto.fbInviteStructLvl, currBuilding.userStructProto.userStructId);
 			}
+
+			thisLevel = thisLevel.successor;
+			i++;
 		}
 	}
 
@@ -311,6 +330,18 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 			yield return new WaitForSeconds(1);
 		}
 		Init(currBuilding);
+	}
+
+	public void UpgradeView()
+	{
+		insides.SetActive(true);
+		hireHeader.SetActive(false);
+	}
+
+	public void HireView()
+	{
+		insides.SetActive(false);
+		hireHeader.SetActive(true);
 	}
 	
 }

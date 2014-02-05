@@ -449,6 +449,13 @@ public class UMQNetworkManager : MonoBehaviour {
 			{
 				actionDict[tagNum](tagNum);
 			}
+			else 
+			{
+				if (proto is AcceptAndRejectFbInviteForSlotsResponseProto && CBKResidenceManager.instance != null)
+				{
+
+				}
+			}
 
 			requestsOut.Remove(tagNum);
 		}

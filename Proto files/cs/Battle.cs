@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Battle.proto
+// Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
@@ -51,6 +52,59 @@ namespace com.lvl6.proto
     {
       get { return _battlesFled; }
       set { _battlesFled = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PvpProto")]
+  public partial class PvpProto : global::ProtoBuf.IExtensible
+  {
+    public PvpProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProtoWithLevel _defender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"defender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProtoWithLevel defender
+    {
+      get { return _defender; }
+      set { _defender = value; }
+    }
+
+    private int _curElo = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"curElo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int curElo
+    {
+      get { return _curElo; }
+      set { _curElo = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto> _defenderMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"defenderMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto> defenderMonsters
+    {
+      get { return _defenderMonsters; }
+    }
+  
+
+    private int _prospectiveCashWinnings = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"prospectiveCashWinnings", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int prospectiveCashWinnings
+    {
+      get { return _prospectiveCashWinnings; }
+      set { _prospectiveCashWinnings = value; }
+    }
+
+    private int _prospectiveOilWinnings = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"prospectiveOilWinnings", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int prospectiveOilWinnings
+    {
+      get { return _prospectiveOilWinnings; }
+      set { _prospectiveOilWinnings = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

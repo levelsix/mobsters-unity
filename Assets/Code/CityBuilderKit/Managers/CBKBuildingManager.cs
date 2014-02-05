@@ -291,7 +291,7 @@ public class CBKBuildingManager : MonoBehaviour
 
 		hospitals.Clear();
 		labs.Clear();
-		residences.Clear();
+		CBKResidenceManager.instance.residences.Clear();
 
 		CBKGridManager.instance.InitHome ();
 		background.InitHome();
@@ -309,7 +309,7 @@ public class CBKBuildingManager : MonoBehaviour
 				}
 				else if (building.combinedProto.residence != null)
 				{
-					residences.Add (building);
+					CBKResidenceManager.instance.residences.Add(building.userStructProto.userStructId, building);
 				}
 				else if (building.combinedProto.lab != null)
 				{
@@ -693,7 +693,8 @@ public class CBKBuildingManager : MonoBehaviour
 
 	public int GetMonsterSlotCount()
 	{
-		int monsterSlots = 0;
+		int monsterSlots = CBKWhiteboard.constants.userMonsterConstants.initialMaxNumMonsterLimit;
+
 		foreach (var item in residences) {
 			monsterSlots += item.combinedProto.residence.numMonsterSlots;
 

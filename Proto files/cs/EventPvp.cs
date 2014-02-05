@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: EventPvp.proto
+// Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
@@ -25,8 +26,35 @@ namespace com.lvl6.proto
       get { return _attacker; }
       set { _attacker = value; }
     }
+
+    private int _attackerElo = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"attackerElo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int attackerElo
+    {
+      get { return _attackerElo; }
+      set { _attackerElo = value; }
+    }
+
+    private int _gemsSpent = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsSpent
+    {
+      get { return _gemsSpent; }
+      set { _gemsSpent = value; }
+    }
+
+    private int _cashChange = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"cashChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int cashChange
+    {
+      get { return _cashChange; }
+      set { _cashChange = value; }
+    }
     private readonly global::System.Collections.Generic.List<int> _seenUserIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"seenUserIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(5, Name=@"seenUserIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public global::System.Collections.Generic.List<int> seenUserIds
     {
       get { return _seenUserIds; }
@@ -34,7 +62,7 @@ namespace com.lvl6.proto
   
 
     private long _clientTime = default(long);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
     public long clientTime
     {
@@ -61,13 +89,13 @@ namespace com.lvl6.proto
       set { _attacker = value; }
     }
 
-    private com.lvl6.proto.MinimumUserProto _defender = null;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"defender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private com.lvl6.proto.PvpProto _defenderInfo = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"defenderInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto defender
+    public com.lvl6.proto.PvpProto defenderInfo
     {
-      get { return _defender; }
-      set { _defender = value; }
+      get { return _defenderInfo; }
+      set { _defenderInfo = value; }
     }
 
     private com.lvl6.proto.QueueUpResponseProto.QueueUpStatus _status = com.lvl6.proto.QueueUpResponseProto.QueueUpStatus.SUCCESS;
@@ -78,15 +106,6 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-
-    private int _possibleCoinReward = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"possibleCoinReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int possibleCoinReward
-    {
-      get { return _possibleCoinReward; }
-      set { _possibleCoinReward = value; }
-    }
     [global::ProtoBuf.ProtoContract(Name=@"QueueUpStatus")]
     public enum QueueUpStatus
     {
@@ -94,14 +113,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=2)]
-      OTHER_FAIL = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_ENOUGH_CASH", Value=2)]
+      FAIL_NOT_ENOUGH_CASH = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_ENOUGH_SILVER", Value=3)]
-      FAIL_NOT_ENOUGH_SILVER = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_CANT_FIND_ANYONE", Value=4)]
-      FAIL_CANT_FIND_ANYONE = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;

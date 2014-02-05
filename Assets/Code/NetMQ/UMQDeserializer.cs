@@ -57,7 +57,9 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_CHANGE_CLAN_JOIN_TYPE_EVENT, typeof(ChangeClanJoinTypeResponseProto)},
 		{EventProtocolResponse.S_LEVEL_UP_EVENT, typeof(LevelUpResponseProto)},
 		{EventProtocolResponse.S_RECEIVED_GROUP_CHAT_EVENT, typeof(ReceivedGroupChatResponseProto)},
-		{EventProtocolResponse.S_PURCHASE_BOOSTER_PACK_EVENT, typeof(PurchaseBoosterPackResponseProto)}
+		{EventProtocolResponse.S_PURCHASE_BOOSTER_PACK_EVENT, typeof(PurchaseBoosterPackResponseProto)},
+		{EventProtocolResponse.S_INVITE_FB_FRIENDS_FOR_SLOTS_EVENT, typeof(InviteFbFriendsForSlotsResponseProto)},
+		{EventProtocolResponse.S_ACCEPT_AND_REJECT_FB_INVITE_FOR_SLOTS_EVENT, typeof(AcceptAndRejectFbInviteForSlotsResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

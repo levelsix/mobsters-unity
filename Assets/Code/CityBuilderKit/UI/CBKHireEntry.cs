@@ -25,12 +25,18 @@ public class CBKHireEntry : MonoBehaviour {
 	[SerializeField]
 	GameObject claim;
 
-	public void Init(ResidenceProto proto, bool claimed)
+	bool activatesRequest;
+
+	int currBuilding;
+
+	public void Init(ResidenceProto proto, bool claimed, int userBuildingId)
 	{
 		Init (proto);
 		claim.SetActive(claimed);
 		arrow.SetActive(!claimed);
 		requirement.text = " ";
+		activatesRequest = !claimed;
+		currBuilding = userBuildingId;
 	}
 
 	public void Init(ResidenceProto proto, string needs)
@@ -39,11 +45,24 @@ public class CBKHireEntry : MonoBehaviour {
 		claim.SetActive(false);
 		arrow.SetActive(false);
 		requirement.text = needs;
+		activatesRequest = false;
 	}
 
 	public void Init(ResidenceProto proto)
 	{
 		occupationName.text = proto.occupationName;
 		slots.text = proto.numBonusMonsterSlots + " Bonus Slots";
+	}
+
+	/// <summary>
+	/// When this is clicked, if this is the level that's not claimed but has no needs,
+	/// then it's the one that's going to trigger the request dialogue.
+	/// </summary>
+	void OnClick()
+	{
+		if (activatesRequest)
+		{
+			CBKResidenceManager.instance.OpenRequestDialogue(currBuilding);
+		}
 	}
 }

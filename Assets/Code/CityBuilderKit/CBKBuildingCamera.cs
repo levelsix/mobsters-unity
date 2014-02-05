@@ -186,6 +186,7 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 			trans.parent.localPosition = new Vector3(0, CAMERA_BASE_HOME_Y);
 		}
 		cam.orthographicSize = 8;
+		cam.aspect = ((float)Screen.width)/Screen.height;
 		trans.localPosition = Vector3.zero;
 		SetBounds();
 	}
