@@ -83,7 +83,7 @@ public class CBKResidenceManager : MonoBehaviour {
 			fish = new InviteFbFriendsForSlotsRequestProto.FacebookInviteStructure();
 			fish.fbFriendId = item.ToString();
 			fish.userStructId = currBuildingId;
-			fish.userStructFbLvl = residences[currBuildingId].userStructProto.fbInviteStructLvl;
+			fish.userStructFbLvl = residences[currBuildingId].userStructProto.fbInviteStructLvl + 1;
 			request.invites.Add(fish);
 		}
 
@@ -164,11 +164,6 @@ public class CBKResidenceManager : MonoBehaviour {
 	}
 
 	public void JustReceivedFriendAccept(AcceptAndRejectFbInviteForSlotsResponseProto response)
-	{
-
-	}
-
-	public void JustReceivedFriendInvite(InviteFbFriendsForSlotsResponseProto response)
 	{
 
 	}

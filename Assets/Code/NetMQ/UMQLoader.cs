@@ -85,6 +85,11 @@ public class UMQLoader : MonoBehaviour {
 		CBKQuestManager.instance.Init(response);
 
 		CBKClanManager.instance.Init(response.userClanInfo);
+
+		CBKRequestManager.instance.Init(response.invitesToMeForSlots);
+
+		Debug.Log("Invites to me: " + response.invitesToMeForSlots.Count
+		          + "\nInvites from me: " + response.invitesFromMeForSlots.Count);
 		
 		CBKMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
 		
