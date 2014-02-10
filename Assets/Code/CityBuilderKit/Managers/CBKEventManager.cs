@@ -100,6 +100,8 @@ public static class CBKEventManager
 		public static Action OnHealQueueChanged;
 		public static Action OnEnhanceQueueChanged;
 		public static Action<PZMonster> OnMonsterFinishHeal;
+
+		public static Action OnMonsterListChanged;
 	}
 	
 	public static class Cam

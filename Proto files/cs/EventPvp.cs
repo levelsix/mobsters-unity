@@ -88,15 +88,13 @@ namespace com.lvl6.proto
       get { return _attacker; }
       set { _attacker = value; }
     }
-
-    private com.lvl6.proto.PvpProto _defenderInfo = null;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"defenderInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.PvpProto defenderInfo
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PvpProto> _defenderInfoList = new global::System.Collections.Generic.List<com.lvl6.proto.PvpProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"defenderInfoList", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PvpProto> defenderInfoList
     {
-      get { return _defenderInfo; }
-      set { _defenderInfo = value; }
+      get { return _defenderInfoList; }
     }
+  
 
     private com.lvl6.proto.QueueUpResponseProto.QueueUpStatus _status = com.lvl6.proto.QueueUpResponseProto.QueueUpStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
@@ -117,7 +115,10 @@ namespace com.lvl6.proto
       FAIL_NOT_ENOUGH_CASH = 2,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
-      FAIL_OTHER = 3
+      FAIL_OTHER = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_ENOUGH_GEMS", Value=4)]
+      FAIL_NOT_ENOUGH_GEMS = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;

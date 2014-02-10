@@ -55,6 +55,9 @@ public class CBKGoonScreen : MonoBehaviour {
 
 	[SerializeField]
 	Transform goonPanelParent;
+
+	[SerializeField]
+	CBKGoonInfoPopup infoPopup;
 	
 	#endregion
 	
@@ -147,6 +150,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		CBKEventManager.Goon.OnMonsterRemoveTeam += OnRemoveTeamMember;
 		CBKEventManager.Goon.OnHealQueueChanged += OnHealQueueChanged;
 		CBKEventManager.Goon.OnEnhanceQueueChanged += OnEnhanceQueueChanged;
+		CBKEventManager.Goon.OnMonsterListChanged += OrganizeReserveCards;
 	}
 	
 	void OnDisable()
@@ -155,6 +159,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		CBKEventManager.Goon.OnMonsterRemoveTeam -= OnRemoveTeamMember;
 		CBKEventManager.Goon.OnHealQueueChanged -= OnHealQueueChanged;
 		CBKEventManager.Goon.OnEnhanceQueueChanged -= OnEnhanceQueueChanged;
+		CBKEventManager.Goon.OnMonsterListChanged -= OrganizeReserveCards;
 	}
 
 	void OrganizeTeamCards ()
@@ -316,6 +321,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		card.transform.localPosition = reserveCards[lastReserveCardIndex].transform.localPosition + cardOffset;
 		card.addRemoveTeamButton.dragBehind = reserveCards[lastReserveCardIndex].addRemoveTeamButton.dragBehind;
 		card.healButton.dragBehind = reserveCards[lastReserveCardIndex].healButton.dragBehind;
+		card.infoPopup = infoPopup;
 		reserveCards.Add (card);
 	}
 	

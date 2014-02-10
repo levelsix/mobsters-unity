@@ -59,6 +59,11 @@ public class CBKGoonCard : MonoBehaviour {
 	[SerializeField]
 	Color darkenColor;
 
+	[SerializeField]
+	CBKActionButton infoButton;
+	
+	public CBKGoonInfoPopup infoPopup;
+
 	bool isBaseEnhanceMonster = false;
 	
 	#endregion
@@ -222,6 +227,12 @@ public class CBKGoonCard : MonoBehaviour {
 		healthBar.fillAmount = ((float)goon.currHP) / goon.maxHP;
 		
 		nameLabel.text = goon.monster.displayName + "(LVL " + goon.userMonster.currentLvl + ")";
+
+		infoButton.onClick = delegate 
+			{
+				infoPopup.Init(goon);
+				CBKEventManager.Popup.OnPopup(infoPopup.gameObject);
+			};
 	}
 
 	void SetTextOverCard (PZMonster goon)

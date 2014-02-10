@@ -143,7 +143,35 @@ public class CBKMonsterManager : MonoBehaviour {
 		
 		CheckCombiningMonsters();
 	}
-	
+
+	public List<PZMonster> GetMonstersByMonsterId(long monsterId, long notMonster = 0)
+	{
+		List<PZMonster> list = new List<PZMonster>();
+		foreach (var item in userMonsters.Values) 
+		{
+			if (item.monster.monsterId == monsterId && item.userMonster.userMonsterId != notMonster)
+			{
+				list.Add(item);
+			}
+		}
+		return list;
+	}
+
+	public void RemoveMonster(long userMonsterId)
+	{
+		userMonsters.Remove(userMonsterId);
+		if (CBKEventManager.Goon.OnMonsterListChanged != null)
+		{
+			CBKEventManager.Goon.OnMonsterListChanged();
+		}
+	}
+
+	public void SellMonster(PZMonster monster)
+	{
+		CBKResourceManager.instance.Collect(ResourceType.CASH, monster.sellValue);
+		RemoveMonster(monster.userMonster.userMonsterId);
+	}
+
 	#region Team Management
 	
 	public int AddToTeam(PZMonster monster)
@@ -861,7 +889,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		currentEnhancementMonster.GainXP(feeder.enhanceXP);
 		enhancementFeeders.Remove(feeder);
-		userMonsters.Remove(feeder.userMonster.userMonsterId);
+		RemoveMonster(feeder.userMonster.userMonsterId);
 	}
 	
 	void CheckEnhancingMonsters()

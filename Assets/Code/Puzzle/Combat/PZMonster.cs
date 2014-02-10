@@ -193,7 +193,15 @@ public class PZMonster {
 			return PercentageOfLevelup(userMonster.currentExp);
 		}
 	}
-	
+
+	public int sellValue
+	{
+		get
+		{
+			return userMonster.currentLvl + userMonster.currentExp;
+		}
+	}
+
 	public int maxHP;
 	public int currHP;
 

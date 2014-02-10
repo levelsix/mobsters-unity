@@ -48,21 +48,15 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 
 	public GameObject hasMoneyPopup;
 
-
-	
 	#endregion
 	
     #region Public
+
+	public CBKUserBuildingData data;
 	
 	public CBKCombinedBuildingProto combinedProto;
 	
 	public FullUserStructureProto userStructProto;
-	
-	public FullTaskProto task;
-	
-	public MinimumUserTaskProto userTask;
-	
-	//public UserStructProto userStructProto;
 
     /// <summary>
     /// The position within ground that this building is located
@@ -238,35 +232,6 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	public static readonly Vector3 FLIP_SHADOW_POS = new Vector3(0.36f, 2.28f, 3.8f);
 
     #endregion
-	
-	#region Properties
-	
-	public bool underConstruction {
-		get
-		{
-			return !userStructProto.isComplete;
-		}
-		set
-		{
-			userStructProto.isComplete = !value;
-		}
-	}
-	
-	public ResourceType baseResource {
-		get
-		{
-			return combinedProto.structInfo.buildResourceType;
-		}
-	}
-	
-	public int basePrice {
-		get
-		{
-			return combinedProto.structInfo.buildCost;
-		}
-	}
-	
-	#endregion
 	
 	#endregion
 	

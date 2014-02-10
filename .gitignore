@@ -8,6 +8,8 @@ ipad/
 *.csproj
 *.unityproj
 *.sln
+*.pidb
+*.userprefs
 
 # We want to ignore our own executable too
 mobSquad.apk
@@ -15,4 +17,6 @@ mobSquad.apk
 # OSX nonesense
 .DS_Store
 */.DS_Store
+*.swp
+*.Trashes
 

@@ -103,7 +103,7 @@ public class CBKHoverBar : MonoBehaviour {
 	{
 		if (currBuilding != null && currBuilding.userStructProto != null)
 		{
-			if (currBuilding.underConstruction)
+			if (!currBuilding.userStructProto.isComplete)
 			{
 				bar.fillAmount = 1 - ((float)currBuilding.upgrade.timeRemaining) / currBuilding.upgrade.TimeToUpgrade(1);//currBuilding.userStructProto.level - 1);
 				label.text = CBKUtil.TimeStringShort(currBuilding.upgrade.timeRemaining);
