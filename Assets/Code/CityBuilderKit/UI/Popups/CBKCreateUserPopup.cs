@@ -30,6 +30,11 @@ public class CBKCreateUserPopup : MonoBehaviour {
 			UserCreateRequestProto create = new UserCreateRequestProto();
 			create.udid = UMQNetworkManager.udid;
 			create.name = inputLabel.text;
+
+			if (FB.IsLoggedIn)
+			{
+				create.facebookId = FB.UserId;
+			}
 			
 			UMQNetworkManager.instance.SendRequest(create, (int)EventProtocolRequest.C_USER_CREATE_EVENT, OnUserCreateResponse);
 			

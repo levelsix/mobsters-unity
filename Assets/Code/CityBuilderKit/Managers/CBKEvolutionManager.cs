@@ -14,6 +14,18 @@ public class CBKEvolutionManager : MonoBehaviour {
 
 	static bool active = false;
 
+	int oilCost
+	{
+		get
+		{
+			if (currEvolution == null)
+			{
+				return 0;
+			}
+			return CBKMonsterManager.userMonsters[currEvolution.userMonsterIds[0]].monster.evolutionCost;
+		}
+	}
+
 	long timeLeftMillis
 	{
 		get
@@ -53,7 +65,16 @@ public class CBKEvolutionManager : MonoBehaviour {
 		}
 
 		List<PZMonster> copiesOfThisMonster = CBKMonsterManager.instance.GetMonstersByMonsterId(monster.monster.monsterId, monster.userMonster.userMonsterId);
-		if (copiesOfThisMonster.Count == 0)
+		long partnerId = 0;
+		foreach (var item in copiesOfThisMonster) 
+		{
+			if (item.userMonster.currentLvl >= item.monster.maxLevel)
+			{
+				partnerId = item.userMonster.userMonsterId;
+				break;
+			}
+		}
+		if (partnerId == 0)
 		{
 			failString = "You need another " + monster.monster.displayName + " to begin the evolution.";
 			return false;
@@ -74,6 +95,27 @@ public class CBKEvolutionManager : MonoBehaviour {
 		{
 			Debug.LogError("ERROR: No evolution to start");
 		}
+
+		currEvolution.startTime = CBKUtil.timeNowMillis;
+
+		EvolveMonsterRequestProto request = new EvolveMonsterRequestProto();
+		request.sender = CBKWhiteboard.localMup;
+		request.evolution = currEvolution;
+		request.oilChange = oilCost;
+
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLVE_MONSTER_EVENT, ReceiveEvolutionStartResponse);
+
+	}
+
+	void ReceiveEvolutionStartResponse(int tagNum)
+	{
+		EvolveMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as EvolveMonsterResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != EvolveMonsterResponseProto.EvolveMonsterStatus.SUCCESS)
+		{
+			Debug.LogError("Problem evolving monster: " + response.status.ToString());
+		}
 	}
 
 	void Update()
@@ -91,8 +133,37 @@ public class CBKEvolutionManager : MonoBehaviour {
 
 	IEnumerator CompleteEvolution(int gems = 0)
 	{
-		yield return null;
-	}
+		EvolutionFinishedRequestProto request = new EvolutionFinishedRequestProto();
+		request.sender = CBKWhiteboard.localMup;
+		request.gemsSpent = gems;
 
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLUTION_FINISHED_EVENT, null);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		EvolutionFinishedResponseProto response = UMQNetworkManager.responseDict[tagNum] as EvolutionFinishedResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status == EvolutionFinishedResponseProto.EvolutionFinishedStatus.SUCCESS)
+		{
+			//TODO: Update monster
+
+			foreach (var item in currEvolution.userMonsterIds) {
+				CBKMonsterManager.instance.RemoveMonster(item);
+			}
+			CBKMonsterManager.instance.RemoveMonster(currEvolution.catalystUserMonsterId);
+
+			CBKMonsterManager.instance.UpdateOrAdd(response.evolvedMonster);
+
+			currEvolution = null;
+		}
+		else
+		{
+			Debug.LogError("Problem completing evolution: " + response.status.ToString());
+		}
+	}
 
 }

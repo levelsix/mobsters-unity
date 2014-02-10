@@ -16,12 +16,10 @@ public class UMQLoader : MonoBehaviour {
 
 		CBKFacebookManager.instance.Init();
 
-		/*
 		while (!CBKFacebookManager.hasTriedLogin)
 		{
 			yield return null;
 		}
-		*/
 
 		Debug.Log("Loader hanging out");
 
@@ -42,6 +40,11 @@ public class UMQLoader : MonoBehaviour {
 		startup.udid = UMQNetworkManager.udid;
 		startup.versionNum = 1.0f;
 		startup.isForceTutorial = false;
+
+		if (FB.IsLoggedIn)
+		{
+			startup.fbId = FB.UserId;
+		}
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(startup, (int) EventProtocolRequest.C_STARTUP_EVENT, null);
 

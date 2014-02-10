@@ -318,6 +318,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		Debug.Log(str);
 	}
 
+#if UNITY_ANDROID && !UNITY_EDITOR
 	IEnumerator ConsumeJava(AndroidJavaObject consumer)
 	{
 		Debug.Log("Starting java consume for consumer");
@@ -342,6 +343,7 @@ public class UMQNetworkManager : MonoBehaviour {
 			yield return new WaitForSeconds(.5f);
 		}
 	}
+#endif
 	
 	IEnumerator Consume(QueueingBasicConsumer consumer)
 	{
@@ -407,10 +409,12 @@ public class UMQNetworkManager : MonoBehaviour {
 		}
 	}
 
+#if UNITY_ANDROID && !UNITY_EDITOR
 	void ReceiveResponse(AndroidJavaObject response)
 	{
 		ReceiveResponse(response.Call<byte[]>("getBody"));
 	}
+#endif
 
 	void ReceiveResponse(BasicDeliverEventArgs response)
 	{

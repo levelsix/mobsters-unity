@@ -298,7 +298,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	/// in userMonsters
 	/// </summary>
 	/// <param name="monster">Monster.</param>
-	void UpdateOrAdd(FullUserMonsterProto monster)
+	public void UpdateOrAdd(FullUserMonsterProto monster)
 	{
 		PZMonster mon;
 		if (userMonsters.ContainsKey(monster.userMonsterId))
