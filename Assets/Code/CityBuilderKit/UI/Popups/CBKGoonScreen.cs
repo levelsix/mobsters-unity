@@ -206,26 +206,6 @@ public class CBKGoonScreen : MonoBehaviour {
 
 			i++;
 		}
-
-		/*
-		if (playerGoons.Count < playerSlots)
-		{
-			if (lastReserveCardIndex < i)
-			{
-				AddReserveCardSlot();
-			}
-			reserveCards[i].InitEmptyReserve();
-			goonGrid.AddItemToGrid(reserveCards[i].GetComponent<CBKGridItem>());
-			i++;
-		}
-		
-		if (lastReserveCardIndex < i)
-		{
-			AddReserveCardSlot();
-		}
-		reserveCards[i].InitSlotForPurchase();
-		goonGrid.AddItemToGrid(reserveCards[i].GetComponent<CBKGridItem>());
-		*/
 		
 		while (++i < reserveCards.Count)
 		{

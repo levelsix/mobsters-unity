@@ -27,24 +27,41 @@ public class CBKTaskable : MonoBehaviour {
 	/// </summary>
 	void DetermineHoverIcon ()
 	{
-		if (task.prerequisiteTaskId > 0) 
+		if (task != null && task.prerequisiteTaskId > 0) 
 		{
 			CBKBuilding building = GetComponent<CBKBuilding> ();
+			CBKCityUnit unit = GetComponent<CBKCityUnit>();
+			Debug.LogWarning("Building: " + (building!=null) + ", Unit: " + (unit!=null));
 			if (!CBKQuestManager.taskDict.ContainsKey (task.prerequisiteTaskId)) 
 			{
 				if (building != null) 
 				{
 					building.SetLocked();
 				}
+				if (unit != null)
+				{
+					unit.SetLocked();
+				}
 			}
 			else
 			{
-				building.SetUnlocked();
+				if (building != null)
+				{
+					building.SetUnlocked();
+				}
+				if (unit != null)
+				{
+					unit.SetUnlocked();
+				}
 				if (!CBKQuestManager.taskDict.ContainsKey (task.taskId)) 
 				{
 					if (building != null) 
 					{
 						building.SetArrow();
+					}
+					if (unit != null)
+					{
+						unit.SetArrow();
 					}
 				}
 			}

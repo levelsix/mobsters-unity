@@ -14,6 +14,8 @@ public class UMQLoader : MonoBehaviour {
 	// Use this for initialization
 	IEnumerator Start () {
 
+		Application.targetFrameRate = 30;
+
 		CBKFacebookManager.instance.Init();
 
 		while (!CBKFacebookManager.hasTriedLogin)

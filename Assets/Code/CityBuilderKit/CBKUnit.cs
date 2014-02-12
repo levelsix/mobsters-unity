@@ -10,7 +10,9 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 	public Animator anim;
 	
 	string _spriteBaseName;
-	
+
+	public CBKTaskable taskable;
+
 	public string spriteBaseName
 	{
 		get
@@ -117,6 +119,11 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 	public void Pool ()
 	{
 		CBKPoolManager.instance.Pool(this);
+		if (taskable != null)
+		{
+			Destroy(taskable);
+			taskable = null;
+		}
 	}
 	
 	public void Init ()

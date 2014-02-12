@@ -22,12 +22,12 @@ public class CBKFacebookManager : MonoBehaviour {
 	
 	public void OnEnable()
 	{
-		CBKEventManager.Town.OnCollectFromBuilding += ShareCollectFromBuildingToFeed;
+		//CBKEventManager.Town.OnCollectFromBuilding += ShareCollectFromBuildingToFeed;
 	}
 	
 	public void OnDisable()
 	{
-		CBKEventManager.Town.OnCollectFromBuilding -= ShareCollectFromBuildingToFeed;
+		//CBKEventManager.Town.OnCollectFromBuilding -= ShareCollectFromBuildingToFeed;
 	}
 	
 	void ShareCollectFromBuildingToFeed(CBKBuilding building)

@@ -60,9 +60,15 @@ public class CBKBuildingManager : MonoBehaviour
     #endregion
 
     #region Private
-	
+
+	/// <summary>
+	/// Dictionary of the buildings currently in the scene
+	/// </summary>
 	private Dictionary<int, CBKBuilding> buildings = new Dictionary<int, CBKBuilding>();
-	
+
+	/// <summary>
+	/// Dictionary of the units currently in the scene
+	/// </summary>
 	private Dictionary<long, CBKUnit> units = new Dictionary<long, CBKUnit>();
 
 	public static List<CBKBuilding> hospitals = new List<CBKBuilding>();
@@ -195,7 +201,7 @@ public class CBKBuildingManager : MonoBehaviour
 				}
 				else if(units.ContainsKey(task.assetNumWithinCity))
 				{
-					units[task.assetNumWithinCity].task = task;
+					units[task.assetNumWithinCity].taskable.Init(task);
 				}
 			}
 		}
@@ -256,6 +262,7 @@ public class CBKBuildingManager : MonoBehaviour
 		unit.transf.parent = unitParent;
 		unit.Init(element);
 		units.Add(element.assetId, unit);
+		unit.taskable = unit.gameObject.AddComponent<CBKTaskable>();
 	}
 
 	void BuildNeutralCity (LoadCityResponseProto response)

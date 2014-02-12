@@ -32,7 +32,21 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 	public float speed = 1;
 
 	public bool rushing = false;
+
+	public UISprite hoverIcon;
+
+	bool locked = false;
+
+	[SerializeField]
+	TweenRotation lockRotateTween;
+	[SerializeField]
+	TweenPosition arrowPosTween;
+	[SerializeField]
+	TweenPosition arrowScaleTween;
 	
+	const string LOCK_SPRITE_NAME = "lockedup";
+	const string ARROW_SPRITE_NAME = "arrow";
+
 	void Awake()
 	{
 		unit = GetComponent<CBKUnit>();
@@ -41,6 +55,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 	
 	public void Init()
 	{
+		hoverIcon.gameObject.SetActive(false);
 		//Put on a random walkable square
 		CBKGridNode node = CBKGridManager.instance.randomWalkable;
 		trans.position = node.worldPos;
@@ -137,15 +152,45 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 		}
 		//unit.sprite.depth = -(node.x + node.z) - 10;
 	}
+
+	public void SetLocked()
+	{
+		locked = true;
+		unit.sprite.color = selectColor;
+		hoverIcon.gameObject.SetActive(true);
+		hoverIcon.spriteName = LOCK_SPRITE_NAME;
+	}
+
+	public void SetUnlocked()
+	{
+		locked = false;
+		unit.sprite.color = baseColor;
+		hoverIcon.gameObject.SetActive(false);
+	}
+
+	public void SetArrow()
+	{
+		hoverIcon.spriteName = ARROW_SPRITE_NAME;
+		arrowPosTween.PlayForward();
+		arrowScaleTween.PlayForward();
+	}
 	
 	public void Select()
 	{
-		//unit.anim.framesPerSecond = 0;
-		moving = false;
-		_selected = true;
-		
-		_currColor = selectColor;
-		StartCoroutine(ColorPingPong());
+		if (locked)
+		{
+			lockRotateTween.ResetToBeginning();
+			lockRotateTween.PlayForward();
+		}
+		else
+		{
+			//unit.anim.framesPerSecond = 0;
+			moving = false;
+			_selected = true;
+			
+			_currColor = selectColor;
+			StartCoroutine(ColorPingPong());
+		}
 	}
 	
 	public void Deselect ()
