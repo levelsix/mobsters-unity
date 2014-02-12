@@ -16,7 +16,7 @@ public class CBKQuestManager : MonoBehaviour {
 	public static Dictionary<int, CBKFullQuest> questDict = new Dictionary<int, CBKFullQuest>();
 
 	public static Dictionary<int, bool> taskDict = new Dictionary<int, bool>();
-	
+
 	public void Awake()
 	{
 		instance = this;

@@ -14,12 +14,39 @@ public class CBKTaskable : MonoBehaviour {
 	{
 		task = proto;
 
-		if (proto.prerequisiteTaskId > 0 && !CBKQuestManager.taskDict.ContainsKey(proto.prerequisiteTaskId))
+		DetermineHoverIcon ();
+	}
+
+	void OnEnable()
+	{
+		DetermineHoverIcon();
+	}
+
+	/// <summary>
+	/// Determines whether Hover Icon should be set up as a lock or arrow, if at all.
+	/// </summary>
+	void DetermineHoverIcon ()
+	{
+		if (task.prerequisiteTaskId > 0) 
 		{
-			CBKBuilding building = GetComponent<CBKBuilding>();
-			if (building != null)
+			CBKBuilding building = GetComponent<CBKBuilding> ();
+			if (!CBKQuestManager.taskDict.ContainsKey (task.prerequisiteTaskId)) 
 			{
-				building.SetLocked();
+				if (building != null) 
+				{
+					building.SetLocked();
+				}
+			}
+			else
+			{
+				building.SetUnlocked();
+				if (!CBKQuestManager.taskDict.ContainsKey (task.taskId)) 
+				{
+					if (building != null) 
+					{
+						building.SetArrow();
+					}
+				}
 			}
 		}
 	}

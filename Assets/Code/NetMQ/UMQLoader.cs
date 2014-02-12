@@ -93,7 +93,9 @@ public class UMQLoader : MonoBehaviour {
 
 		Debug.Log("Invites to me: " + response.invitesToMeForSlots.Count
 		          + "\nInvites from me: " + response.invitesFromMeForSlots.Count);
-		
+
+		CBKResidenceManager.instance.AddInvites(response.invitesFromMeForSlots);
+
 		CBKMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
 		
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)

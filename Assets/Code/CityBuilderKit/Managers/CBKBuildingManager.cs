@@ -291,7 +291,7 @@ public class CBKBuildingManager : MonoBehaviour
 
 		hospitals.Clear();
 		labs.Clear();
-		CBKResidenceManager.instance.residences.Clear();
+		CBKResidenceManager.residences.Clear();
 
 		CBKGridManager.instance.InitHome ();
 		background.InitHome();
@@ -309,7 +309,8 @@ public class CBKBuildingManager : MonoBehaviour
 				}
 				else if (building.combinedProto.residence != null)
 				{
-					CBKResidenceManager.instance.residences.Add(building.userStructProto.userStructId, building);
+					CBKResidenceManager.residences[building.userStructProto.userStructId] = building;
+					CBKResidenceManager.instance.CheckBuilding(building.userStructProto.userStructId);
 				}
 				else if (building.combinedProto.lab != null)
 				{

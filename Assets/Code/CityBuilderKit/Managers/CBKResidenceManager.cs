@@ -14,10 +14,10 @@ public class CBKResidenceManager : MonoBehaviour {
 
 	public static CBKResidenceManager instance;
 
-	Dictionary<int, List<UserFacebookInviteForSlotProto>> fbInviteAccepted = 
+	static Dictionary<int, List<UserFacebookInviteForSlotProto>> fbInviteAccepted = 
 		new Dictionary<int, List<UserFacebookInviteForSlotProto>>();
 
-	public Dictionary<int, CBKBuilding> residences = new Dictionary<int, CBKBuilding>();
+	public static Dictionary<int, CBKBuilding> residences = new Dictionary<int, CBKBuilding>();
 
 	int currBuildingId;
 
@@ -99,12 +99,39 @@ public class CBKResidenceManager : MonoBehaviour {
 
 	}
 
-	void CheckBuilding(int userBuildingId)
+	public void CheckBuilding(int userBuildingId)
 	{
-		CBKBuilding building = residences[userBuildingId];
-		if (fbInviteAccepted[userBuildingId].Count >= GetResidenceLevelBelowCurrent(building.userStructProto.fbInviteStructLvl+1, building.combinedProto).residence.numAcceptedFbInvites)
+		if (!residences.ContainsKey(userBuildingId))
 		{
-			UpgradeResidenceFacebookLevelFromInvites(userBuildingId);
+			return;
+		}
+
+		//We know if there's no list, there's no requests
+		if (!fbInviteAccepted.ContainsKey(userBuildingId)) 
+		{
+			return;
+		}
+
+		for (int i = 0; i < fbInviteAccepted[userBuildingId].Count; ) 
+		{
+			if (fbInviteAccepted[userBuildingId][i].structFbLvl <= residences[userBuildingId].userStructProto.fbInviteStructLvl)
+			{
+				fbInviteAccepted[userBuildingId].RemoveAt(i);
+			}
+			else
+			{
+				i++;
+			}
+		}
+
+		int invites = fbInviteAccepted[userBuildingId].Count;
+		int invitesNeeded = GetResidenceLevelBelowCurrent(residences[userBuildingId].userStructProto.fbInviteStructLvl+1, residences[userBuildingId].combinedProto).residence.numAcceptedFbInvites;
+
+		Debug.LogWarning("Checking invites for building " + userBuildingId + "--Invites: " + invites + " / " + invitesNeeded);
+
+		if (invites >= invitesNeeded)
+		{
+			StartCoroutine(UpgradeResidenceFacebookLevelFromInvites(userBuildingId));
 		}
 	}
 
@@ -117,19 +144,19 @@ public class CBKResidenceManager : MonoBehaviour {
 		return residence;
 	}
 
-	void AddInvite(UserFacebookInviteForSlotProto addInvite)
+	public void AddInvite(UserFacebookInviteForSlotProto addInvite)
 	{
 		if (!fbInviteAccepted.ContainsKey(addInvite.userStructId))
 		{
 			fbInviteAccepted.Add(addInvite.userStructId, new List<UserFacebookInviteForSlotProto>());
 		}
-		if (addInvite.structFbLvl == residences[addInvite.userStructId].userStructProto.fbInviteStructLvl + 1)
-		{
+		//if (addInvite.structFbLvl == residences[addInvite.userStructId].userStructProto.fbInviteStructLvl + 1)
+		//{
 			fbInviteAccepted[addInvite.userStructId].Add(addInvite);
-		}
+		//}
 	}
 
-	void AddInvites(List<UserFacebookInviteForSlotProto> addInvites)
+	public void AddInvites(List<UserFacebookInviteForSlotProto> addInvites)
 	{
 		foreach (var item in addInvites) 
 		{
@@ -161,10 +188,15 @@ public class CBKResidenceManager : MonoBehaviour {
 
 		IncreaseMonsterInventorySlotResponseProto response = UMQNetworkManager.responseDict[tagNum] as IncreaseMonsterInventorySlotResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != IncreaseMonsterInventorySlotResponseProto.IncreaseMonsterInventorySlotStatus.SUCCESS)
+		{
+			Debug.LogError("Problem increasing residence slots: " + response.status.ToString());
+		}
 	}
 
 	public void JustReceivedFriendAccept(AcceptAndRejectFbInviteForSlotsResponseProto response)
 	{
-
+		AddInvites(response.acceptedInvites);
 	}
 }

@@ -457,7 +457,11 @@ public class UMQNetworkManager : MonoBehaviour {
 			{
 				if (proto is AcceptAndRejectFbInviteForSlotsResponseProto && CBKResidenceManager.instance != null)
 				{
-
+					CBKResidenceManager.instance.JustReceivedFriendAccept(proto as AcceptAndRejectFbInviteForSlotsResponseProto);
+				}
+				if (proto is InviteFbFriendsForSlotsResponseProto && CBKRequestManager.instance != null)
+				{
+					CBKRequestManager.instance.JustReceivedFriendInvite(proto as InviteFbFriendsForSlotsResponseProto);
 				}
 			}
 

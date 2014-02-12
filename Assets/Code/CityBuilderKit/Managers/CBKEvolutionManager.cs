@@ -12,8 +12,6 @@ public class CBKEvolutionManager : MonoBehaviour {
 
 	static UserMonsterEvolutionProto currEvolution = null;
 
-	static bool active = false;
-
 	int oilCost
 	{
 		get

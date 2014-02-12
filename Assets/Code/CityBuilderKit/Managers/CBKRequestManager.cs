@@ -29,14 +29,6 @@ public class CBKRequestManager : MonoBehaviour {
 		}
 	}
 
-	int currMessages = 0;
-
-	/// <summary>
-	/// If we haven't made any changes to the Request in this amount of time, then it's time to send it
-	/// if it hasn't been sent already. 
-	/// </summary>
-	float sendRequestTime = 10f;
-
 	void Awake()
 	{
 		instance = this;

@@ -72,7 +72,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// The length, in grid spaces, of this building
 	/// </summary>
 	public int length = 1;
-	
+
+	public bool locked = false;
+
     /// <summary>
     /// This building's transform, 
     /// </summary>
@@ -194,16 +196,25 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	GameObject shadow;
 
 	[SerializeField]
-	GameObject lockIcon;
+	public UISprite hoverIcon;
 
 	[SerializeField]
 	UITweener lockTween;
-	
+
+	[SerializeField]
+	TweenPosition arrowPosTween;
+
+	[SerializeField]
+	TweenPosition arrowScaleTween;
+
 	public bool locallyOwned = true;
 	
     #endregion
 
     #region Constants
+
+	const float FLOAT_ICON_HOME_HEIGHT = 4f;
+	const float FLOAT_ICON_MISSION_HEIGHT = 12f;
 	
 	/// <summary>
 	/// The amount of time it takes the tint to ping-pong
@@ -230,6 +241,12 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 
 	public static readonly Vector3 SHADOW_POS = new Vector3(-0.36f, 2.28f, 3.8f);
 	public static readonly Vector3 FLIP_SHADOW_POS = new Vector3(0.36f, 2.28f, 3.8f);
+
+	const string LOCK_SPRITE_NAME = "lockedup";
+	const string ARROW_SPRITE_NAME = "arrow";
+
+	const string CASH_READY_SPRITE_NAME = "cashready";
+	const string OIL_READY_SPRITE_NAME = "oilready";
 
     #endregion
 	
@@ -290,9 +307,12 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	public void Init(CityElementProto proto)
 	{
+		hoverIcon.transform.localPosition = new Vector3(0, FLOAT_ICON_MISSION_HEIGHT);
+
 		groundPos = new Vector2(proto.coords.x, proto.coords.y);
 
-		lockIcon.SetActive(false);
+		locked = false;
+		hoverIcon.gameObject.SetActive(false);
 		sprite.color = Color.white;
 
 		trans.localScale = Vector3.one;
@@ -353,11 +373,16 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	void Setup ()
 	{
+
+		hoverIcon.transform.localPosition = new Vector3(0, FLOAT_ICON_HOME_HEIGHT);
+
+		locked = false;
+
 		name = combinedProto.structInfo.name;
 
 		shadow.transform.localPosition = SHADOW_POS;
 
-		lockIcon.SetActive(false);
+		hoverIcon.gameObject.SetActive(false);
 		sprite.color = Color.white;
 
 		//trans.localScale = new Vector3(HOME_BUILDING_SCALE, HOME_BUILDING_SCALE, HOME_BUILDING_SCALE);
@@ -584,7 +609,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
     /// </summary>
     public void Select()
     {
-		if (lockIcon.activeSelf)
+		if (locked)
 		{
 			lockTween.ResetToBeginning();
 			lockTween.PlayForward();
@@ -619,7 +644,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		selected = false;
 		//Reset color to untinted
 
-		sprite.color = (lockIcon.activeSelf) ? lockColor : baseColor;
+		sprite.color = (locked) ? lockColor : baseColor;
 		if (OnDeselect != null)
 		{
 			OnDeselect();
@@ -632,8 +657,26 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 
 	public void SetLocked()
 	{
+		locked = true;
 		sprite.color = lockColor;
-		lockIcon.SetActive(true);
+		hoverIcon.gameObject.SetActive(true);
+		hoverIcon.spriteName = LOCK_SPRITE_NAME;
+	}
+
+	public void SetUnlocked()
+	{
+		locked = false;
+		sprite.color = Color.white;
+		hoverIcon.gameObject.SetActive(false);
+	}
+
+	public void SetArrow()
+	{
+		Debug.LogWarning("Setting arrow on building: " + id);
+		hoverIcon.gameObject.SetActive(true);
+		hoverIcon.spriteName = ARROW_SPRITE_NAME;
+		arrowPosTween.PlayForward();
+		arrowScaleTween.PlayForward();
 	}
 	
 	/// <summary>
@@ -729,7 +772,6 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		{
 			Destroy(collector);
 			collector = null;
-			hasMoneyPopup.SetActive(false);
 		}
 		if (storage != null)
 		{

@@ -144,7 +144,7 @@ public class CBKResourceCollector : MonoBehaviour {
 			}
 
 			_building.userStructProto.lastRetrieved = CBKUtil.timeNowMillis;
-			_building.hasMoneyPopup.SetActive(false);
+			_building.hoverIcon.gameObject.SetActive(false);
 			
 			if (CBKEventManager.Town.OnCollectFromBuilding != null)
 			{
@@ -186,7 +186,11 @@ public class CBKResourceCollector : MonoBehaviour {
 	{
 		while(enabled)
 		{
-			_building.hasMoneyPopup.SetActive(hasMoney);
+			if (hasMoney)
+			{
+				_building.hoverIcon.gameObject.SetActive(true);
+				_building.hoverIcon.spriteName = (_generator.resourceType == ResourceType.CASH) ? "cashready" : "oilready";
+			}
 			if (_building.userStructProto.isComplete && _building.OnUpdateValues != null)
 			{
 				_building.OnUpdateValues();

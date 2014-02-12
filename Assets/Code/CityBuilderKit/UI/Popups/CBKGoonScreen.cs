@@ -110,7 +110,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	const string bottomSacrificeDialogue = "Select a mobster to sacrifice";
 
 	const int rightShiftOnMobsterEnhance = 130;
-	const float TWEEN_TIME = 0.5f;
+	const float TWEEN_TIME = 0.6f;
 	
 	#endregion
 	
@@ -373,26 +373,15 @@ public class CBKGoonScreen : MonoBehaviour {
 
 	IEnumerator BringInEnhanceGoon()
 	{
-		enhanceLeftSideElements.ResetToBeginning();
 		enhanceLeftSideElements.PlayForward();
+		enhanceLeftSideElements.ResetToBeginning();
 
-		Vector4 startingClipRange = dragPanel.scrollView.panel.baseClipRegion;
-		Vector4 endingClipRange = new Vector4(dragPanel.scrollView.panel.baseClipRegion.x - rightShiftOnMobsterEnhance, dragPanel.scrollView.panel.baseClipRegion.y, dragPanel.scrollView.panel.baseClipRegion.z - rightShiftOnMobsterEnhance * 2, dragPanel.scrollView.panel.baseClipRegion.w);
-
-		Vector3 startPos = goonPanelParent.localPosition;
-		Vector3 endPos = new Vector3(startPos.x + rightShiftOnMobsterEnhance * 2, startPos.y, startPos.z);
-
-		float time = 0;
-		float amount = 0;
-		while (time < TWEEN_TIME)
+		while (enhanceLeftSideElements.tweenFactor < 1)
 		{
-			time += Time.deltaTime;
-			amount = time/TWEEN_TIME;
-			dragPanel.scrollView.panel.baseClipRegion = Vector4.Lerp(startingClipRange, endingClipRange, amount);
-			goonPanelParent.localPosition = Vector3.Lerp(startPos, endPos, amount);
-			goonGrid.Reposition();
+			dragPanel.scrollView.RestrictWithinBounds(false);
 			yield return null;
 		}
+		dragPanel.scrollView.RestrictWithinBounds(false);
 
 	}
 
@@ -400,33 +389,18 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		enhanceLeftSideElements.transform.localPosition = enhanceLeftSideElements.to;
 
-		goonIn = true;
-		dragPanel.scrollView.panel.baseClipRegion = new Vector4(dragPanel.scrollView.panel.baseClipRegion.x - rightShiftOnMobsterEnhance, dragPanel.scrollView.panel.baseClipRegion.y, dragPanel.scrollView.panel.baseClipRegion.z - rightShiftOnMobsterEnhance * 2, dragPanel.scrollView.panel.baseClipRegion.w);
-		goonPanelParent.localPosition = new Vector3(goonPanelParent.localPosition.x + rightShiftOnMobsterEnhance * 2, goonPanelParent.localPosition.y, goonPanelParent.localPosition.z);
 		goonGrid.Reposition();
 	}
 
 	IEnumerator TakeOutEnhanceGoon()
 	{
 		enhanceLeftSideElements.PlayReverse();
-		
-		Vector4 startingClipRange = dragPanel.scrollView.panel.baseClipRegion;
-		Vector4 endingClipRange = new Vector4(dragPanel.scrollView.panel.baseClipRegion.x + rightShiftOnMobsterEnhance, dragPanel.scrollView.panel.baseClipRegion.y, dragPanel.scrollView.panel.baseClipRegion.z + rightShiftOnMobsterEnhance * 2, dragPanel.scrollView.panel.baseClipRegion.w);
-		
-		Vector3 startPos = goonPanelParent.localPosition;
-		Vector3 endPos = new Vector3(startPos.x - rightShiftOnMobsterEnhance * 2, startPos.y, startPos.z);
-		
-		float time = 0;
-		float amount = 0;
-		while (time < TWEEN_TIME)
+		while (enhanceLeftSideElements.tweenFactor > 0)
 		{
-			time += Time.deltaTime;
-			amount = time/TWEEN_TIME;
-			dragPanel.scrollView.panel.baseClipRegion = Vector4.Lerp(startingClipRange, endingClipRange, amount);
-			goonPanelParent.localPosition = Vector3.Lerp(startPos, endPos, amount);
-			goonGrid.Reposition();
+			dragPanel.scrollView.RestrictWithinBounds(false);
 			yield return null;
 		}
+		dragPanel.scrollView.RestrictWithinBounds(false);
 	}
 	
 	void TrySpeedUpHeal()

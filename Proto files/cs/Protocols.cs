@@ -211,6 +211,12 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_ACCEPT_AND_REJECT_FB_INVITE_FOR_SLOTS_EVENT", Value=57)]
       C_ACCEPT_AND_REJECT_FB_INVITE_FOR_SLOTS_EVENT = 57,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_UPDATE_USER_CURRENCY_EVENT", Value=59)]
+      C_UPDATE_USER_CURRENCY_EVENT = 59,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_BEGIN_PVP_BATTLE_EVENT", Value=60)]
+      C_BEGIN_PVP_BATTLE_EVENT = 60,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101
     }
@@ -386,6 +392,12 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_ACCEPT_AND_REJECT_FB_INVITE_FOR_SLOTS_EVENT", Value=57)]
       S_ACCEPT_AND_REJECT_FB_INVITE_FOR_SLOTS_EVENT = 57,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_USER_CURRENCY_EVENT", Value=59)]
+      S_UPDATE_USER_CURRENCY_EVENT = 59,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_BEGIN_PVP_BATTLE_EVENT", Value=60)]
+      S_BEGIN_PVP_BATTLE_EVENT = 60,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,
