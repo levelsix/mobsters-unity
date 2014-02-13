@@ -672,7 +672,6 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 
 	public void SetArrow()
 	{
-		Debug.LogWarning("Setting arrow on building: " + id);
 		hoverIcon.gameObject.SetActive(true);
 		hoverIcon.spriteName = ARROW_SPRITE_NAME;
 		arrowPosTween.PlayForward();

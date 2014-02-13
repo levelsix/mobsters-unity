@@ -841,7 +841,10 @@ namespace com.lvl6.proto
       FAIL_OTHER = 4,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INCONSISTENT_INVITE_DATA", Value=5)]
-      FAIL_INCONSISTENT_INVITE_DATA = 5
+      FAIL_INCONSISTENT_INVITE_DATA = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_STRUCTURE_AT_MAX_FB_INVITE_LVL", Value=6)]
+      FAIL_STRUCTURE_AT_MAX_FB_INVITE_LVL = 6
     }
   
     private global::ProtoBuf.IExtension extensionObject;

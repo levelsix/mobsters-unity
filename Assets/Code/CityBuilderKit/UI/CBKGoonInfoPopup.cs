@@ -92,5 +92,6 @@ public class CBKGoonInfoPopup : MonoBehaviour {
 	public void Sell()
 	{
 		CBKMonsterManager.instance.SellMonster(currMonster);
+		CBKEventManager.Popup.CloseTopPopupLayer();
 	}
 }

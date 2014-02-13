@@ -217,6 +217,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_BEGIN_PVP_BATTLE_EVENT", Value=60)]
       C_BEGIN_PVP_BATTLE_EVENT = 60,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_END_PVP_BATTLE_EVENT", Value=61)]
+      C_END_PVP_BATTLE_EVENT = 61,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101
     }
@@ -398,6 +401,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_BEGIN_PVP_BATTLE_EVENT", Value=60)]
       S_BEGIN_PVP_BATTLE_EVENT = 60,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_END_PVP_BATTLE_EVENT", Value=61)]
+      S_END_PVP_BATTLE_EVENT = 61,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

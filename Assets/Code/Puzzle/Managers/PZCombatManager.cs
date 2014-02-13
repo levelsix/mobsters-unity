@@ -9,7 +9,6 @@ using com.lvl6.proto;
 /// and manages the progression of individual combats
 /// </summary>
 public class PZCombatManager : MonoBehaviour {
-	
 
 	/// <summary>
 	/// The static instance of this combat
@@ -98,10 +97,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// The popup that displays when the player fails a mission
 	/// </summary>
 	[SerializeField]
-	UITweener losePopup;
-	
-	[SerializeField]
-	UITweener winPopup;
+	PZWinLosePopup winLosePopup;
 
 	[SerializeField]
 	UISprite attackWords;
@@ -201,11 +197,10 @@ public class PZCombatManager : MonoBehaviour {
 			mon = new PZMonster(stage.stageMonsters[0]);
 			enemies.Enqueue(mon);
 		}
+
+		winLosePopup.gameObject.SetActive(false);
 		
-		winPopup.gameObject.SetActive(false);
-		losePopup.gameObject.SetActive(false);
-		
-		if (activeEnemy != null)
+		if (activeEnemy != null && activeEnemy.unit != null)
 		{
 			Color temp = activeEnemy.unit.sprite.color;
 			activeEnemy.unit.sprite.color = new Color(temp.r, temp.g, temp.b, 0);
@@ -285,8 +280,10 @@ public class PZCombatManager : MonoBehaviour {
 			}
 		}
 		
-		losePopup.gameObject.SetActive(true);
-		losePopup.PlayForward();
+		winLosePopup.gameObject.SetActive(true);
+		winLosePopup.tweener.ResetToBeginning();
+		winLosePopup.tweener.GetComponent<UITweener>().PlayForward();
+		winLosePopup.InitLose();
 		
 		StartCoroutine(SendEndResult(false));
 	}
@@ -358,10 +355,11 @@ public class PZCombatManager : MonoBehaviour {
 				CBKEventManager.Quest.OnTaskCompleted(CBKWhiteboard.loadedDungeon.taskId);
 			}
 
-			winPopup.gameObject.SetActive(true);
+			winLosePopup.gameObject.SetActive(true);
+
 			GetRewards();
-			winPopup.ResetToBeginning();
-			winPopup.PlayForward();
+			winLosePopup.tweener.ResetToBeginning();
+			winLosePopup.tweener.PlayForward();
 		}
 
 		CBKSoundManager.instance.Loop(CBKSoundManager.instance.walking);
@@ -411,6 +409,7 @@ public class PZCombatManager : MonoBehaviour {
 				pieces.Add(item.monster);
 			}
 		}
+		winLosePopup.InitWin(xp, cash, pieces);
 		CBKResourceManager.instance.Collect(ResourceType.CASH, cash);
 		CBKResourceManager.instance.GainExp(xp);
 	}
@@ -525,9 +524,9 @@ public class PZCombatManager : MonoBehaviour {
 		UISpriteData data = attackWords.GetAtlasSprite();
 		attackWords.width = data.width;
 		attackWords.height = data.height;
-
+		
 		attackWordsTweenPos.ResetToBeginning();
-		attackWordsTweenPos.enabled = true;
+		attackWordsTweenPos.PlayForward();
 
 		wordsMoving = true;
 		while(wordsMoving)
@@ -575,7 +574,7 @@ public class PZCombatManager : MonoBehaviour {
 	void CheckBleed(PZCombatUnit player)
 	{
 		float perc = ((float)player.monster.currHP) / player.monster.maxHP;
-		if (perc < BLEED_CONT_THRESH)
+		if (perc < BLEED_CONT_THRESH && perc > 0)
 		{
 			Bleed();
 		}
@@ -691,17 +690,17 @@ public class PZCombatManager : MonoBehaviour {
 		yield return StartCoroutine(PlayerShoot(score));
 
 		
-		activeEnemy.TakeDamage(damage, element);
-
-		yield return new WaitForSeconds(.5f);
+		yield return StartCoroutine(activeEnemy.TakeDamage(damage, element));
 		
 		//Enemy attack back if not dead
 		if (activeEnemy.monster.currHP > 0)
 		{
 			
 			activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
-			yield return new WaitForSeconds(.7f);
-			activePlayer.TakeDamage(Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f)), element);
+			yield return new WaitForSeconds(.5f);
+
+			Debug.Log("Dealing Player Damage");
+			StartCoroutine(activePlayer.TakeDamage(Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f)), element));
 
 			CheckBleed(activePlayer);
 

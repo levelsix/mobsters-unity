@@ -599,6 +599,15 @@ namespace com.lvl6.proto
       get { return _gemsPerResource; }
       set { _gemsPerResource = value; }
     }
+
+    private float _continueBattleGemCostMultiplier = default(float);
+    [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name=@"continueBattleGemCostMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float continueBattleGemCostMultiplier
+    {
+      get { return _continueBattleGemCostMultiplier; }
+      set { _continueBattleGemCostMultiplier = value; }
+    }
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnimatedSpriteOffsetProto")]
   public partial class AnimatedSpriteOffsetProto : global::ProtoBuf.IExtensible
   {

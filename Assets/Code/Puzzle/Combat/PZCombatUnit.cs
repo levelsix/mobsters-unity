@@ -13,8 +13,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 	/// <summary>
 	/// The unit component
-	/// </summary>
-	[HideInInspector]
+               	/// </summary>
 	public CBKUnit unit;
 	
 	/// <summary>
@@ -121,17 +120,18 @@ public class PZCombatUnit : MonoBehaviour {
 	/// <param name='element'>
 	/// Damage element.
 	/// </param>
-	public void TakeDamage(int damage, MonsterProto.MonsterElement element)
+	public IEnumerator TakeDamage(int damage, MonsterProto.MonsterElement element)
 	{
 		int fullDamage = (int)(damage * CBKUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
 		
 		//TODO: If fullDamage != damage, do some animation or something to reflect super/notvery effective
+		
+		RunDamageLabel(fullDamage);
 
-		StartCoroutine(LerpHealth(monster.currHP, Mathf.Max(monster.currHP - fullDamage, 0), monster.maxHP));
+		yield return StartCoroutine(LerpHealth(monster.currHP, Mathf.Max(monster.currHP - fullDamage, 0), monster.maxHP));
 		
 		monster.currHP -= fullDamage;
 
-		RunDamageLabel(fullDamage);
 
 		if (monster.userMonster != null)
 		{
@@ -140,7 +140,7 @@ public class PZCombatUnit : MonoBehaviour {
 		
 		if (monster.currHP <= 0)
 		{
-			StartCoroutine(Die());
+			yield return StartCoroutine(Die());
 		}
 	}
 

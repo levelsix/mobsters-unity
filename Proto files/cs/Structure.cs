@@ -497,6 +497,15 @@ namespace com.lvl6.proto
       get { return _numLabs; }
       set { _numLabs = value; }
     }
+
+    private int _pvpQueueCashCost = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"pvpQueueCashCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int pvpQueueCashCost
+    {
+      get { return _pvpQueueCashCost; }
+      set { _pvpQueueCashCost = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

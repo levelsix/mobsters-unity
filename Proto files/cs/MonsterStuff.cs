@@ -348,6 +348,15 @@ namespace com.lvl6.proto
       get { return _rockDmg; }
       set { _rockDmg = value; }
     }
+
+    private int _speed = default(int);
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"speed", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int speed
+    {
+      get { return _speed; }
+      set { _speed = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

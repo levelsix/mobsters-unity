@@ -451,6 +451,24 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
+
+    private string _reason = "";
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"reason", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string reason
+    {
+      get { return _reason; }
+      set { _reason = value; }
+    }
+
+    private string _details = "";
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"details", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string details
+    {
+      get { return _details; }
+      set { _details = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

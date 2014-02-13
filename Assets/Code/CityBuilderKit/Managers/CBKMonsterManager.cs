@@ -46,7 +46,9 @@ public class CBKMonsterManager : MonoBehaviour {
 	HealMonsterRequestProto healRequestProto = null;
 	
 	CombineUserMonsterPiecesRequestProto combineRequestProto = null;
-	
+
+	SellUserMonsterRequestProto sellRequest = null;
+
 	public static CBKMonsterManager instance;
 	
 	void Awake()
@@ -166,11 +168,54 @@ public class CBKMonsterManager : MonoBehaviour {
 		}
 	}
 
+	#region Selling
+
+	void PrepareNewSellRequest()
+	{
+		sellRequest = new SellUserMonsterRequestProto();
+		sellRequest.sender = CBKWhiteboard.localMupWithResources;
+	}
+
 	public void SellMonster(PZMonster monster)
 	{
 		CBKResourceManager.instance.Collect(ResourceType.CASH, monster.sellValue);
+
+		if (sellRequest == null)
+		{
+			PrepareNewSellRequest();
+		}
+
+		MinimumUserMonsterSellProto sell = new MinimumUserMonsterSellProto();
+		sell.userMonsterId = monster.userMonster.userMonsterId;
+		sell.cashAmount = monster.sellValue;
+
+		sellRequest.sales.Add(sell);
+
 		RemoveMonster(monster.userMonster.userMonsterId);
 	}
+
+	void SendSellRequest()
+	{
+		if (sellRequest==null)
+		{
+			return;
+		}
+		UMQNetworkManager.instance.SendRequest(sellRequest, (int)EventProtocolRequest.C_SELL_USER_MONSTER_EVENT, DealWithSellResponse);
+		sellRequest = null;
+	}
+
+	void DealWithSellResponse(int tagNum)
+	{
+		SellUserMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as SellUserMonsterResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != SellUserMonsterResponseProto.SellUserMonsterStatus.SUCCESS)
+		{
+			Debug.LogError("Problem selling monsters: " + response.status.ToString());
+		}
+	}
+
+	#endregion
 
 	#region Team Management
 	
@@ -289,6 +334,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	void SendCombineRequest()
 	{
 		UMQNetworkManager.instance.SendRequest(combineRequestProto, (int)EventProtocolRequest.C_COMBINE_USER_MONSTER_PIECES_EVENT, DealWithCombineResponse);
+		combineRequestProto = null;
 	}
 	
 	/// <summary>
@@ -1128,8 +1174,6 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			CBKEventManager.Goon.OnHealQueueChanged();
 		}
-		
-		combineRequestProto = null;
 	}
 
 	#endregion
@@ -1143,6 +1187,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		SendHealRequest();
 		SendStartEnhanceRequest();
+		SendSellRequest();
 	}
 	
 	void OnApplicationQuit()

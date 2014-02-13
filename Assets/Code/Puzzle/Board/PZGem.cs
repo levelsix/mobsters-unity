@@ -207,7 +207,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	{
 		if (!lockedBySpecial)
 		{
-			Debug.LogWarning("Destroying: " + id);
+			//Debug.LogWarning("Destroying: " + id);
 
 			CBKSoundManager.instance.PlayOneShot(CBKSoundManager.instance.gemPop);
 

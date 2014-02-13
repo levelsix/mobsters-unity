@@ -535,15 +535,6 @@ namespace com.lvl6.proto
       set { _rank = value; }
     }
 
-    private long _lastTimeQueued = default(long);
-    [global::ProtoBuf.ProtoMember(35, IsRequired = false, Name=@"lastTimeQueued", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long lastTimeQueued
-    {
-      get { return _lastTimeQueued; }
-      set { _lastTimeQueued = value; }
-    }
-
     private int _attacksWon = default(int);
     [global::ProtoBuf.ProtoMember(36, IsRequired = false, Name=@"attacksWon", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -668,6 +659,15 @@ namespace com.lvl6.proto
     {
       get { return _kabamNaid; }
       set { _kabamNaid = value; }
+    }
+
+    private long _inBattleShieldEndTime = default(long);
+    [global::ProtoBuf.ProtoMember(35, IsRequired = false, Name=@"inBattleShieldEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long inBattleShieldEndTime
+    {
+      get { return _inBattleShieldEndTime; }
+      set { _inBattleShieldEndTime = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
