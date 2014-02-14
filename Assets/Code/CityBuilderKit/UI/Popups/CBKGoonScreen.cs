@@ -48,7 +48,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	UIPanel scrollPanel;
 
 	[SerializeField]
-	CBKGoonGrid goonGrid;
+	UITable table;
 
 	[SerializeField]
 	UILabel bottomBarLabel;
@@ -180,15 +180,13 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void OrganizeReserveCards()
 	{
-		OrganizeReserveCards(CBKMonsterManager.userTeam, CBKMonsterManager.userMonsters);
+		OrganizeReserveCards(CBKMonsterManager.userTeam, CBKMonsterManager.instance.userMonsters);
 	}
 	
-	void OrganizeReserveCards (PZMonster[] teamGoons, Dictionary<long, PZMonster> playerGoons)
+	void OrganizeReserveCards (PZMonster[] teamGoons, List<PZMonster> playerGoons)
 	{
-		goonGrid.ClearGrid();
-
 		int i = 0;
-		foreach (KeyValuePair<long, PZMonster> item in playerGoons) 
+		foreach (var item in playerGoons) 
 		{
 			if (lastReserveCardIndex < i)
 			{
@@ -196,14 +194,12 @@ public class CBKGoonScreen : MonoBehaviour {
 			}
 			if (healMode)
 			{
-				reserveCards[i].InitHeal(item.Value);
+				reserveCards[i].InitHeal(item);
 			}
 			else
 			{
-				reserveCards[i].InitLab(item.Value);
+				reserveCards[i].InitLab(item);
 			}
-			goonGrid.AddItemToGrid(reserveCards[i].GetComponent<CBKGridItem>());
-
 			i++;
 		}
 		
@@ -214,6 +210,8 @@ public class CBKGoonScreen : MonoBehaviour {
 
 		dragPanel.collider.enabled = false;
 		dragPanel.collider.enabled = true;
+
+		table.Reposition();
 	}
 	
 	void OrganizeHealingQueue()
@@ -300,7 +298,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		CBKGoonCard card = Instantiate(goonCardPrefab) as CBKGoonCard;
 		card.transform.parent = reserveCards[lastReserveCardIndex].transform.parent;
 		card.transform.localScale = Vector3.one;
-		card.transform.localPosition = reserveCards[lastReserveCardIndex].transform.localPosition + cardOffset;
+		//card.transform.localPosition = reserveCards[lastReserveCardIndex].transform.localPosition + cardOffset;
 		card.addRemoveTeamButton.dragBehind = reserveCards[lastReserveCardIndex].addRemoveTeamButton.dragBehind;
 		card.healButton.dragBehind = reserveCards[lastReserveCardIndex].healButton.dragBehind;
 		card.infoPopup = infoPopup;
@@ -369,7 +367,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		enhanceLeftSideElements.transform.localPosition = enhanceLeftSideElements.to;
 
-		goonGrid.Reposition();
+		table.Reposition();
 	}
 
 	IEnumerator TakeOutEnhanceGoon()

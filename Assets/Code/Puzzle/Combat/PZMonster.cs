@@ -107,7 +107,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return enhancement != null;
+			return enhancement != null && enhancement.userMonsterId > 0;
 		}
 	}
 	

@@ -116,9 +116,15 @@ public class CBKGoonCard : MonoBehaviour {
 	
 	const string teamMemberToHealWarning = "Are you sure you want to heal this goon? You won't be able to use them in your team until" +
 		"they are fully healed.";
-	
+
+	void OnEnable()
+	{
+		CBKEventManager.Goon.OnMonsterRemoved += CheckRemovedMonster;
+	}
+
 	void OnDisable()
 	{
+		CBKEventManager.Goon.OnMonsterRemoved -= CheckRemovedMonster;
 		addRemoveTeamButton.onClick = null;
 		healButton.onClick = null;
 	}
@@ -135,6 +141,36 @@ public class CBKGoonCard : MonoBehaviour {
 		healthBarBackground.width = HEALTH_BAR_WIDTH + BAR_BG_WIDTH;
 
 		isBaseEnhanceMonster = false;
+
+		SetName();
+	}
+
+	void SetName()
+	{
+		if (goon.userMonster.numPieces < goon.monster.numPuzzlePieces)
+		{
+			name = "4 Unavailable 5 Piece";
+		}
+		else if (goon.combineTimeLeft > 0)
+		{
+			name = "4 Unavailable 4 Combining";
+		}
+		else if (goon.isEnhancing)
+		{
+			name = "4 Unavailalbe 3 Enhancing";
+		}
+		else if (goon.isHealing)
+		{
+			name = "4 Unavailable 2 Healing";
+		}
+		else if (goon.currHP < goon.maxHP)
+		{
+			name = "1 Injured 2 Card";
+		}
+		else
+		{
+			name = "3 Healthy 2 Card";
+		}
 	}
 	
 	public void InitLab(PZMonster goon)
@@ -462,6 +498,12 @@ public class CBKGoonCard : MonoBehaviour {
 				CBKEventManager.Popup.CloseTopPopupLayer}, true);
 	}
 
-
+	void CheckRemovedMonster(long userMonsterId)
+	{
+		if (goon != null && goon.userMonster != null && goon.userMonster.userMonsterId == userMonsterId)
+		{
+			gameObject.SetActive(false);
+		}
+	}
 
 }

@@ -13,7 +13,7 @@ using System;
 
 public class CBKMonsterManager : MonoBehaviour {
 	
-	public static Dictionary<long, PZMonster> userMonsters = new Dictionary<long, PZMonster>();
+	public List<PZMonster> userMonsters = new List<PZMonster>();
 	
 	public static PZMonster[] userTeam = new PZMonster[TEAM_SLOTS];
 	
@@ -53,7 +53,15 @@ public class CBKMonsterManager : MonoBehaviour {
 	
 	void Awake()
 	{
-		instance = this;
+		if (instance != null)
+		{
+			Destroy (gameObject);
+		}
+		else
+		{
+			instance = this;
+			DontDestroyOnLoad(this);
+		}
 	}
 
 	/// <summary>
@@ -70,7 +78,7 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			mon = new PZMonster(item);
 			//Debug.Log("Adding monster " + item.userMonsterId);
-			userMonsters.Add(item.userMonsterId, mon);
+			userMonsters.Add(mon);
 			if (item.teamSlotNum > 0)
 			{
 				userTeam[(item.teamSlotNum-1)] = mon; //Fucking off-by-ones.
@@ -83,7 +91,7 @@ public class CBKMonsterManager : MonoBehaviour {
 		}
 		foreach (UserMonsterHealingProto item in healing) 
 		{
-			mon = userMonsters[item.userMonsterId];
+			mon = userMonsters.Find(x => x.userMonster.userMonsterId == item.userMonsterId);
 			mon.healingMonster = item;
 			healingMonsters.Add(mon);
 		}
@@ -92,14 +100,14 @@ public class CBKMonsterManager : MonoBehaviour {
 
 		if (enhancement != null)
 		{
-			currentEnhancementMonster = userMonsters[enhancement.baseMonster.userMonsterId];
+			currentEnhancementMonster = userMonsters.Find(x=> x.userMonster.userMonsterId == enhancement.baseMonster.userMonsterId);
 			currentEnhancementMonster.enhancement = enhancement.baseMonster;
 			
 			Debug.Log("Ehancement Base: " + currentEnhancementMonster.enhancement.userMonsterId);
 			
 			foreach (UserEnhancementItemProto item in enhancement.feeders) 
 			{
-				mon = userMonsters[item.userMonsterId];
+				mon = userMonsters.Find(x=>x.userMonster.userMonsterId==item.userMonsterId);
 				mon.enhancement = item;
 				enhancementFeeders.Add (mon);
 			}
@@ -149,7 +157,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	public List<PZMonster> GetMonstersByMonsterId(long monsterId, long notMonster = 0)
 	{
 		List<PZMonster> list = new List<PZMonster>();
-		foreach (var item in userMonsters.Values) 
+		foreach (var item in userMonsters) 
 		{
 			if (item.monster.monsterId == monsterId && item.userMonster.userMonsterId != notMonster)
 			{
@@ -161,7 +169,11 @@ public class CBKMonsterManager : MonoBehaviour {
 
 	public void RemoveMonster(long userMonsterId)
 	{
-		userMonsters.Remove(userMonsterId);
+		userMonsters.RemoveAll(x=>x.userMonster.userMonsterId==userMonsterId);
+		if (CBKEventManager.Goon.OnMonsterRemoved != null)
+		{
+			CBKEventManager.Goon.OnMonsterRemoved(userMonsterId);
+		}
 		if (CBKEventManager.Goon.OnMonsterListChanged != null)
 		{
 			CBKEventManager.Goon.OnMonsterListChanged();
@@ -347,17 +359,17 @@ public class CBKMonsterManager : MonoBehaviour {
 	public void UpdateOrAdd(FullUserMonsterProto monster)
 	{
 		PZMonster mon;
-		if (userMonsters.ContainsKey(monster.userMonsterId))
+		if (userMonsters.Find(x=>x.userMonster.userMonsterId == monster.userMonsterId) != null)
 		{
 			Debug.Log("Updating monster: " + monster.userMonsterId);
-			userMonsters[monster.userMonsterId].UpdateUserMonster(monster);
-			mon = userMonsters[monster.userMonsterId];
+			mon = userMonsters.Find(x=>x.userMonster.userMonsterId==monster.userMonsterId);
+			mon.UpdateUserMonster(monster);
 		}
 		else
 		{
 			Debug.Log("Adding monster: " + monster.monsterId);
 			mon = new PZMonster(monster);
-			userMonsters.Add(monster.userMonsterId, new PZMonster(monster));
+			userMonsters.Add(new PZMonster(monster));
 		}
 		
 		if (!mon.userMonster.isComplete && mon.userMonster.numPieces == mon.monster.numPuzzlePieces)

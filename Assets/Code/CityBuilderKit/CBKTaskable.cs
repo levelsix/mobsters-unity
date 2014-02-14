@@ -79,7 +79,7 @@ public class CBKTaskable : MonoBehaviour {
 				true);
 			return;
 		}
-		else if (CBKMonsterManager.userMonsters.Count > CBKMonsterManager.totalResidenceSlots)
+		else if (CBKMonsterManager.instance.userMonsters.Count > CBKMonsterManager.totalResidenceSlots)
 		{
 			CBKEventManager.Popup.CreateButtonPopup("Uh oh, you have recruited too many mobsters. Manage your team?",
 			                                        new string[]{"Later", "Manage"},

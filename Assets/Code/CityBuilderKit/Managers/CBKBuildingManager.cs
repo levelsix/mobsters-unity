@@ -338,13 +338,13 @@ public class CBKBuildingManager : MonoBehaviour
 			CBKMonsterManager.instance.InitHealers();
 		}
 		
-		foreach (var item in CBKMonsterManager.userMonsters) {
-			if (item.Value.userMonster.isComplete)
+		foreach (var item in CBKMonsterManager.instance.userMonsters) {
+			if (item.userMonster.isComplete)
 			{
 				CBKUnit dude = CBKPoolManager.instance.Get(unitPrefab, Vector3.zero) as CBKUnit;
 				dude.transf.parent = unitParent;
-				dude.Init(item.Value.userMonster);
-				units.Add(item.Key, dude);
+				dude.Init(item.userMonster);
+				units.Add(item.userMonster.userMonsterId, dude);
 			}
 		}
 		

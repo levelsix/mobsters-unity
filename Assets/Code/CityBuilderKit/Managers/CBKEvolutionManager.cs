@@ -20,7 +20,7 @@ public class CBKEvolutionManager : MonoBehaviour {
 			{
 				return 0;
 			}
-			return CBKMonsterManager.userMonsters[currEvolution.userMonsterIds[0]].monster.evolutionCost;
+			return CBKMonsterManager.instance.userMonsters.Find(x => x.userMonster.userMonsterId == currEvolution.userMonsterIds[0]).monster.evolutionCost;
 		}
 	}
 
