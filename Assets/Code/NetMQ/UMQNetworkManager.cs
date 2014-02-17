@@ -440,9 +440,14 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		Debug.Log("Received Message: " + tagNum + ": " + proto.GetType());
 		
-		if (proto is UpdateClientUserResponseProto || proto is PurgeClientStaticDataResponseProto)
+		if (proto is UpdateClientUserResponseProto)
 		{
 			Debug.Log("Update Client User Response");
+		}
+		else if (proto is PurgeClientStaticDataResponseProto)
+		{
+			Debug.Log("Purging static data");
+			CBKDataManager.instance.LoadStaticData(proto as PurgeClientStaticDataResponseProto);
 		}
 		else
 		{
