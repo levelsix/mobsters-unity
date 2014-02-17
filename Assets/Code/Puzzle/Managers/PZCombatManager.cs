@@ -229,6 +229,7 @@ public class PZCombatManager : MonoBehaviour {
 		if (monster != activePlayer.monster)
 		{
 			Debug.Log ("Actually deploying");
+
 			if (activePlayer.alive)
 			{
 				StartCoroutine(SwapCharacters(monster));
@@ -236,11 +237,12 @@ public class PZCombatManager : MonoBehaviour {
 			else
 			{
 				activePlayer.Init(monster);
+				activePlayer.GoToStartPos();
 				CheckBleed(activePlayer);
-				if (!activeEnemy.alive)
-				{
+				//if (!activeEnemy.alive)
+				//{
 					StartCoroutine(ScrollToNextEnemy());
-				}
+				//}
 			}
 		}
 		else
@@ -337,17 +339,17 @@ public class PZCombatManager : MonoBehaviour {
 		PZPuzzleManager.instance.swapLock += 1;
 		
 		activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
-		activeEnemy.GoToStartPos();
 
 		if (enemies.Count > 0)
 		{
+			activeEnemy.GoToStartPos();
 			activeEnemy.Init(enemies.Dequeue());
 			activeEnemy.unit.direction = CBKValues.Direction.WEST;
 			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
 		}
-		else
+		else if (!activeEnemy.alive)
 		{
-			
+			activeEnemy.GoToStartPos();
 			StartCoroutine(SendEndResult(true));
 
 			if (CBKEventManager.Quest.OnTaskCompleted != null)
@@ -382,13 +384,12 @@ public class PZCombatManager : MonoBehaviour {
 
 		CBKSoundManager.instance.StopLoop();
 
-		if (CBKEventManager.Puzzle.ForceShowSwap != null)
+		if (activeEnemy.alive && activePlayer.alive)
 		{
-			CBKEventManager.Puzzle.ForceShowSwap();
-		}
-
-		if (activeEnemy.alive)
-		{
+			if (CBKEventManager.Puzzle.ForceShowSwap != null)
+			{
+				CBKEventManager.Puzzle.ForceShowSwap();
+			}
 			boardTint.PlayReverse();
 		}
 
@@ -693,7 +694,7 @@ public class PZCombatManager : MonoBehaviour {
 		yield return StartCoroutine(activeEnemy.TakeDamage(damage, element));
 		
 		//Enemy attack back if not dead
-		if (activeEnemy.monster.currHP > 0)
+		if (activeEnemy.monster.currHP > 0 && activeEnemy.monster.currHP < activeEnemy.monster.maxHP)
 		{
 			
 			activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
@@ -704,7 +705,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			CheckBleed(activePlayer);
 
-			yield return new WaitForSeconds(.5f);
+			yield return new WaitForSeconds(.3f);
 			
 			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
 		

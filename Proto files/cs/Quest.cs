@@ -255,10 +255,10 @@ namespace com.lvl6.proto
     public SpeechSegmentProto() {}
     
 
-    private com.lvl6.proto.DialogueProto.SpeechSegmentProto.DialogueSpeaker _speaker = com.lvl6.proto.DialogueProto.SpeechSegmentProto.DialogueSpeaker.PLAYER_TYPE;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"speaker", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DialogueProto.SpeechSegmentProto.DialogueSpeaker.PLAYER_TYPE)]
-    public com.lvl6.proto.DialogueProto.SpeechSegmentProto.DialogueSpeaker speaker
+    private string _speaker = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"speaker", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string speaker
     {
       get { return _speaker; }
       set { _speaker = value; }
@@ -272,32 +272,15 @@ namespace com.lvl6.proto
       get { return _speakerText; }
       set { _speakerText = value; }
     }
-    [global::ProtoBuf.ProtoContract(Name=@"DialogueSpeaker")]
-    public enum DialogueSpeaker
+
+    private bool _isLeftSide = default(bool);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"isLeftSide", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isLeftSide
     {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_TYPE", Value=1)]
-      PLAYER_TYPE = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"TUTORIAL_GIRL", Value=2)]
-      TUTORIAL_GIRL = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"QUESTGIVER_1", Value=3)]
-      QUESTGIVER_1 = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"QUESTGIVER_2", Value=4)]
-      QUESTGIVER_2 = 4,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"QUESTGIVER_3", Value=5)]
-      QUESTGIVER_3 = 5,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"QUESTGIVER_4", Value=6)]
-      QUESTGIVER_4 = 6,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"QUESTGIVER_5", Value=7)]
-      QUESTGIVER_5 = 7
+      get { return _isLeftSide; }
+      set { _isLeftSide = value; }
     }
-  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

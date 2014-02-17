@@ -70,7 +70,7 @@ public class PZCombatUnit : MonoBehaviour {
 	}
 	
 	/// <summary>
-	/// Init this combat unit that represents an unowned goon
+	/// Init this combat unit that represents an goon
 	/// </summary>
 	/// <param name='proto'>
 	/// The Monster Proto to build the unit from
@@ -124,20 +124,23 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		int fullDamage = (int)(damage * CBKUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
 		
-		//TODO: If fullDamage != damage, do some animation or something to reflect super/notvery effective
+		Debug.Log(name + " taking " + fullDamage + " damage");
+
+		//TODO: If fullDamage != damage, do some animation or something to reflect super/not very effective
 		
 		RunDamageLabel(fullDamage);
 
-		yield return StartCoroutine(LerpHealth(monster.currHP, Mathf.Max(monster.currHP - fullDamage, 0), monster.maxHP));
-		
 		monster.currHP -= fullDamage;
 
+		alive = monster.currHP > 0;
 
 		if (monster.userMonster != null)
 		{
 			StartCoroutine(SendHPUpdateToServer());
 		}
-		
+
+		yield return StartCoroutine(LerpHealth(monster.currHP + fullDamage, Mathf.Max(monster.currHP, 0), monster.maxHP));
+
 		if (monster.currHP <= 0)
 		{
 			yield return StartCoroutine(Die());

@@ -89,6 +89,15 @@ namespace com.lvl6.proto
       get { return _fbId; }
       set { _fbId = value; }
     }
+
+    private bool _isFreshRestart = default(bool);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"isFreshRestart", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isFreshRestart
+    {
+      get { return _isFreshRestart; }
+      set { _isFreshRestart = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

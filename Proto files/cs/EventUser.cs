@@ -417,7 +417,7 @@ namespace com.lvl6.proto
     }
 
     private int _cashSpent = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"cashSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"cashSpent", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int cashSpent
     {
@@ -426,7 +426,7 @@ namespace com.lvl6.proto
     }
 
     private int _oilSpent = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"oilSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"oilSpent", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int oilSpent
     {
@@ -435,7 +435,7 @@ namespace com.lvl6.proto
     }
 
     private int _gemsSpent = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int gemsSpent
     {

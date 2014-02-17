@@ -143,6 +143,13 @@ namespace com.lvl6.proto
       get { return _events; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MonsterBattleDialogueProto> _mbds = new global::System.Collections.Generic.List<com.lvl6.proto.MonsterBattleDialogueProto>();
+    [global::ProtoBuf.ProtoMember(19, Name=@"mbds", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.MonsterBattleDialogueProto> mbds
+    {
+      get { return _mbds; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

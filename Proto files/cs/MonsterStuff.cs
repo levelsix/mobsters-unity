@@ -771,4 +771,58 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MonsterBattleDialogueProto")]
+  public partial class MonsterBattleDialogueProto : global::ProtoBuf.IExtensible
+  {
+    public MonsterBattleDialogueProto() {}
+    
+
+    private int _monsterId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"monsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int monsterId
+    {
+      get { return _monsterId; }
+      set { _monsterId = value; }
+    }
+
+    private com.lvl6.proto.MonsterBattleDialogueProto.DialogueType _dialogueType = com.lvl6.proto.MonsterBattleDialogueProto.DialogueType.ENTER_BATTLE;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"dialogueType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterBattleDialogueProto.DialogueType.ENTER_BATTLE)]
+    public com.lvl6.proto.MonsterBattleDialogueProto.DialogueType dialogueType
+    {
+      get { return _dialogueType; }
+      set { _dialogueType = value; }
+    }
+
+    private string _dialogue = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"dialogue", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string dialogue
+    {
+      get { return _dialogue; }
+      set { _dialogue = value; }
+    }
+
+    private float _probabilityUttered = default(float);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"probabilityUttered", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float probabilityUttered
+    {
+      get { return _probabilityUttered; }
+      set { _probabilityUttered = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"DialogueType")]
+    public enum DialogueType
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_BATTLE", Value=1)]
+      ENTER_BATTLE = 1
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
 }
