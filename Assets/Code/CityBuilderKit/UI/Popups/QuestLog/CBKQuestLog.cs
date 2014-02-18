@@ -96,6 +96,7 @@ public class CBKQuestLog : MonoBehaviour {
 	void OnDisable()
 	{
 		CBKEventManager.UI.OnQuestEntryClicked -= OnQuestEntryClicked;
+
 	}
 	
 	void Init()
@@ -107,31 +108,40 @@ public class CBKQuestLog : MonoBehaviour {
 	{
 		header.text = QUEST_LIST_HEADER;
 
-		questGridParentTrans.localPosition = Vector3.zero;
+		questGridParentTrans.localPosition = new Vector3(0, questGridParentTrans.localPosition.y);
+		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = true;
 		detailsParent.transform.localPosition = RIGHT_POS;
-		
-		foreach (CBKQuestEntry item in quests) 
-		{
-			item.Pool();
-		}
-		
-		foreach (CBKFullQuest item in CBKQuestManager.questDict.Values) 
+
+		while(quests.Count < CBKQuestManager.questDict.Count)
 		{
 			CBKQuestEntry entry = CBKPoolManager.instance.Get(questEntryPrefab, Vector3.zero) as CBKQuestEntry;
 			entry.trans.parent = questGridParentTrans;
-			entry.Init(item);
+			entry.GetComponent<UIDragObject>().target = questGridParentTrans;
 			quests.Add(entry);
 		}
 
-		questGridParentTrans.GetComponent<UIGrid>().Reposition();
+		int i = 0;
+		foreach (CBKFullQuest item in CBKQuestManager.questDict.Values) 
+		{
+			quests[i].Init(item);
+			i++;
+		}
+
+		for (; i < quests.Count; i++) 
+		{
+			quests[i].gameObj.SetActive(false);
+		}
+
+		questGridParentTrans.GetComponentInChildren<UIGrid>().Reposition();
 		
 		backButton.enabled = false;
 	}
 	
 	public void ReturnToList()
 	{	
-		TweenPosition.Begin(questGridParentGob, TWEEN_TIME, Vector3.zero);
+		TweenPosition.Begin(questGridParentGob, TWEEN_TIME, new Vector3(0, questGridParentTrans.localPosition.y));
 		TweenPosition.Begin(detailsParent, TWEEN_TIME, RIGHT_POS);
+		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = true;
 	}
 	
 	
@@ -213,8 +223,9 @@ public class CBKQuestLog : MonoBehaviour {
 	public void OnQuestEntryClicked(CBKFullQuest quest)
 	{
 		LoadQuestDetails(quest);
-		TweenPosition.Begin(questGridParentGob, TWEEN_TIME, LEFT_POS);
-		
+		TweenPosition.Begin(questGridParentGob, TWEEN_TIME, LEFT_POS + new Vector3(0, questGridParentTrans.localPosition.y));
+		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = false;
+
 		TweenPosition.Begin(detailsParent, TWEEN_TIME, Vector3.zero);
 		
 		backButton.enabled = true;

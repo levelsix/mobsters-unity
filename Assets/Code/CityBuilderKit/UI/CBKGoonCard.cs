@@ -54,9 +54,6 @@ public class CBKGoonCard : MonoBehaviour {
 	UILabel enhancePercentageLabel;
 	
 	[SerializeField]
-	UIWidget[] darkenedElements;
-	
-	[SerializeField]
 	Color darkenColor;
 
 	[SerializeField]
@@ -114,7 +111,7 @@ public class CBKGoonCard : MonoBehaviour {
 	
 	PZMonster goon;
 	
-	const string teamMemberToHealWarning = "Are you sure you want to heal this goon? You won't be able to use them in your team until" +
+	const string teamMemberToHealWarning = "Are you sure you want to heal this goon? You won't be able to use them in your team until " +
 		"they are fully healed.";
 
 	void OnEnable()
@@ -145,7 +142,7 @@ public class CBKGoonCard : MonoBehaviour {
 		SetName();
 	}
 
-	void SetName()
+	void SetName(bool healMode = true)
 	{
 		if (goon.userMonster.numPieces < goon.monster.numPuzzlePieces)
 		{
@@ -220,7 +217,12 @@ public class CBKGoonCard : MonoBehaviour {
 		}
 
 	}
-	
+
+	public void InitEvolve(PZMonster goon)
+	{
+
+	}
+
 	public void Init(PZMonster goon)
 	{
 		gameObject.SetActive(true);
@@ -280,7 +282,7 @@ public class CBKGoonCard : MonoBehaviour {
 			underHealthBar.alpha = 0;
 			if (goon.userMonster.numPieces < goon.monster.numPuzzlePieces)
 			{
-				bottomCardLabel.text = goon.userMonster.numPieces + "/" + goon.monster.numPuzzlePieces;  
+				bottomCardLabel.text = "Pieces: " + goon.userMonster.numPieces + "/" + goon.monster.numPuzzlePieces;  
 			}
 			else
 			{
@@ -341,10 +343,7 @@ public class CBKGoonCard : MonoBehaviour {
 	
 	void TintElements(bool darken)
 	{
-		foreach (UIWidget item in darkenedElements) 
-		{
-			item.color = darken ? darkenColor : Color.white;
-		}
+		goonPose.color = darken ? darkenColor : Color.white;
 	}
 	
 	public void InitEmptyTeam()

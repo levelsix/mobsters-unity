@@ -46,8 +46,6 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		}
 	}
 
-	public GameObject hasMoneyPopup;
-
 	#endregion
 	
     #region Public
@@ -762,6 +760,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	public void Pool ()
 	{
+		hoverIcon.gameObject.SetActive(false);
+
 		if (upgrade != null)
 		{
 			Destroy (upgrade);

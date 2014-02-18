@@ -322,7 +322,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
-  - {fileID: 400036}
   m_Father: {fileID: 400032}
 --- !u!4 &400004
 Transform:
@@ -381,6 +380,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -98, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 400036}
   - {fileID: 400006}
   - {fileID: 400010}
   - {fileID: 400014}
@@ -448,7 +448,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 167, y: -280.250183, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -471,10 +471,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -103.099998, z: 0}
+  m_LocalPosition: {x: -4.57763672e-05, y: -5.10009766, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 400002}
+  m_Father: {fileID: 400012}
 --- !u!4 &400040
 Transform:
   m_ObjectHideFlags: 1
@@ -577,7 +577,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 190
   mHeight: 240
-  mDepth: 27
+  mDepth: 37
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -625,7 +625,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 202
   mHeight: 252
-  mDepth: 28
+  mDepth: 38
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -673,7 +673,7 @@ MonoBehaviour:
   mPivot: 3
   mWidth: 169
   mHeight: 18
-  mDepth: 30
+  mDepth: 41
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -721,7 +721,7 @@ MonoBehaviour:
   mPivot: 3
   mWidth: 165
   mHeight: 14
-  mDepth: 32
+  mDepth: 42
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -769,7 +769,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 104
   mHeight: 40
-  mDepth: 30
+  mDepth: 44
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -842,7 +842,7 @@ MonoBehaviour:
   mPivot: 5
   mWidth: 72
   mHeight: 40
-  mDepth: 30
+  mDepth: 46
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -902,7 +902,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 190
   mHeight: 44
-  mDepth: 29
+  mDepth: 40
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -968,7 +968,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 56
   mHeight: 40
-  mDepth: 32
+  mDepth: 47
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   mPivot: 3
   mWidth: 165
   mHeight: 14
-  mDepth: 31
+  mDepth: 43
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -1092,13 +1092,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 189
-  mHeight: 43
-  mDepth: 27
+  mWidth: 200
+  mHeight: 42
+  mDepth: 42
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.39534903
+  aspectRatio: 4.76190472
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 8b255364756fd499a95751ae6f020698, type: 2}
@@ -1202,7 +1202,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 206
   mHeight: 210
-  mDepth: 28
+  mDepth: 39
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -1250,7 +1250,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 94
   mHeight: 94
-  mDepth: 29
+  mDepth: 43
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -1298,14 +1298,14 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 186
   mHeight: 40
-  mDepth: 32
+  mDepth: 45
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 4.6500001
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 8a2e4fb7e2b464759aa30a0aca13ace3, type: 2}
+  mFont: {fileID: 11400000, guid: 8b255364756fd499a95751ae6f020698, type: 2}
   mText: 666% for $100
   mFontSize: 40
   mFontStyle: 0
@@ -1391,7 +1391,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 34
   mHeight: 34
-  mDepth: 30
+  mDepth: 40
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -1452,17 +1452,7 @@ MonoBehaviour:
   nameLabel: {fileID: 11400024}
   bottomCardLabel: {fileID: 11400032}
   enhancePercentageLabel: {fileID: 11400018}
-  darkenedElements:
-  - {fileID: 11400000}
-  - {fileID: 11400002}
-  - {fileID: 11400030}
-  - {fileID: 11400008}
-  - {fileID: 11400028}
-  - {fileID: 11400004}
-  - {fileID: 11400020}
-  - {fileID: 11400024}
-  - {fileID: 11400028}
-  darkenColor: {r: .345588207, g: .345588207, b: .345588207, a: 1}
+  darkenColor: {r: 1, g: 1, b: 1, a: .58431375}
   infoButton: {fileID: 11400022}
   infoPopup: {fileID: 0}
 --- !u!1001 &100100000
