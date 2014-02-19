@@ -18,7 +18,7 @@ public class CBKQuestLog : MonoBehaviour {
 	CBKQuestTaskEntry questTaskEntryPrefab;
 	
 	[SerializeField]
-	CBKQuestRewardBox rewardBoxPrefab;
+	PZPrize rewardBoxPrefab;
 	
 	#region List Mode Members
 	
@@ -62,7 +62,16 @@ public class CBKQuestLog : MonoBehaviour {
 	[SerializeField]
 	UILabel header;
 
-	List<CBKQuestRewardBox> rewards = new List<CBKQuestRewardBox>();
+	[SerializeField]
+	UIToggle shareCheck;
+
+	[SerializeField]
+	GameObject completeItems;
+
+	[SerializeField]
+	UI2DSprite questGiver;
+
+	List<PZPrize> rewards = new List<PZPrize>();
 	
 	List<CBKQuestEntry> quests = new List<CBKQuestEntry>();
 	
@@ -74,6 +83,9 @@ public class CBKQuestLog : MonoBehaviour {
 	
 	static readonly Vector3 LEFT_POS = new Vector3(-760, 0);
 	static readonly Vector3 RIGHT_POS = new Vector3(760, 0);
+
+	public Vector3 REWARD_HEADER_CENTER;
+	public Vector3 REWARD_HEADER_COMPLETE_OFFSET;
 	
 	const float START_TASK_OFFSET = -75;
 	
@@ -81,11 +93,11 @@ public class CBKQuestLog : MonoBehaviour {
 	
 	const float BASE_REWARD_OFFSET = -22;
 	
-	const float REWARD_BOX_Y_OFFSET = -90;
-	
 	const float REWARD_BOX_X_OFFSET = 120;
 	
 	float lastTaskOffset;
+
+	CBKFullQuest currQuest;
 	
 	void OnEnable()
 	{
@@ -108,6 +120,7 @@ public class CBKQuestLog : MonoBehaviour {
 	{
 		header.text = QUEST_LIST_HEADER;
 
+		GetComponent<TweenPosition>().value = Vector3.zero;
 		questGridParentTrans.localPosition = new Vector3(0, questGridParentTrans.localPosition.y);
 		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = true;
 		detailsParent.transform.localPosition = RIGHT_POS;
@@ -139,9 +152,12 @@ public class CBKQuestLog : MonoBehaviour {
 	
 	public void ReturnToList()
 	{	
+		GetComponent<TweenPosition>().PlayReverse();
 		TweenPosition.Begin(questGridParentGob, TWEEN_TIME, new Vector3(0, questGridParentTrans.localPosition.y));
 		TweenPosition.Begin(detailsParent, TWEEN_TIME, RIGHT_POS);
 		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = true;
+		questGiver.GetComponent<TweenPosition>().PlayReverse();
+		questGiver.GetComponent<CBKUIHelper>().FadeOut();
 	}
 	
 	
@@ -156,15 +172,13 @@ public class CBKQuestLog : MonoBehaviour {
 		BuildRewards(fullQ);
 	}
 	
-	CBKQuestRewardBox GetReward()
+	void AddReward()
 	{
-		CBKQuestRewardBox reward = CBKPoolManager.instance.Get(rewardBoxPrefab, Vector3.zero) as CBKQuestRewardBox;
+		PZPrize reward = Instantiate(rewardBoxPrefab) as PZPrize;
 		rewards.Add (reward);
-		reward.transf.parent = rewardHeader;
-		reward.transf.localScale = Vector3.one;
-		reward.transf.localPosition = new Vector3(0, REWARD_BOX_Y_OFFSET);
-		
-		return reward;
+		reward.transform.parent = rewardHeader;
+		reward.transform.localScale = Vector3.one;
+		reward.transform.localPosition = new Vector3(0, 0);
 	}
 	
 	void WriteTask(CBKFullQuest fullQ)
@@ -186,43 +200,101 @@ public class CBKQuestLog : MonoBehaviour {
 		}
 
 	}
+
+	int prizeSize = 110;
+	int buffer = 5;
 	
 	void BuildRewards(CBKFullQuest fullQ)
 	{
-		foreach (CBKQuestRewardBox item in rewards) 
+		int numPrizes = 0;
+		
+		if (fullQ.quest.diamondReward > 0)
 		{
-			item.Pool();
+			if (rewards.Count < numPrizes+1)
+			{
+				AddReward();
+			}
+			rewards[numPrizes].InitDiamond(fullQ.quest.diamondReward);
+			numPrizes++;
 		}
-		
-		rewards.Clear();
-		
-		CBKQuestRewardBox box;
+
 		if (fullQ.quest.coinReward > 0)
 		{
-			box = GetReward();
-			box.Init (CBKQuestRewardBox.RewardType.MONEY, fullQ.quest.coinReward);
+			if (rewards.Count < numPrizes+1)
+			{
+				AddReward();
+			}
+			rewards[numPrizes].InitCash (fullQ.quest.coinReward);
+			numPrizes++;
 		}
+
 		if (fullQ.quest.expReward > 0)
 		{
-			box = GetReward();
-			box.Init (CBKQuestRewardBox.RewardType.EXP, fullQ.quest.expReward);
+			if (rewards.Count < numPrizes+1)
+			{
+				AddReward();
+			}
+			rewards[numPrizes].InitXP (fullQ.quest.expReward);
+			numPrizes++;
 		}
-		
-		if(rewards.Count == 2)
+
+		if (fullQ.quest.monsterIdReward > 0)
 		{
-			rewards[0].transf.localPosition = new Vector3(-REWARD_BOX_X_OFFSET/2, REWARD_BOX_Y_OFFSET, 0);
-			rewards[1].transf.localPosition = new Vector3( REWARD_BOX_X_OFFSET/2, REWARD_BOX_Y_OFFSET, 0);
+			if (rewards.Count < numPrizes+1)
+			{
+				AddReward();
+			}
+			rewards[numPrizes].InitEnemy (fullQ.quest.monsterIdReward);
+			numPrizes++;
 		}
-		else if (rewards.Count == 3)
+
+		float spaceNeeded = numPrizes * prizeSize + (numPrizes-1) * buffer;
+		for (int i = 0; i < numPrizes; i++) 
 		{
-			rewards[0].transf.localPosition = new Vector3(-REWARD_BOX_X_OFFSET, REWARD_BOX_Y_OFFSET, 0);
-			rewards[2].transf.localPosition = new Vector3( REWARD_BOX_X_OFFSET, REWARD_BOX_Y_OFFSET, 0);
+			rewards[i].gameObject.SetActive(true);
+			rewards[i].transform.localPosition = new Vector3(i * (prizeSize + buffer) - spaceNeeded/2, 0, 0);
 		}
+
+		for (int i = numPrizes; i < rewards.Count; i++) 
+		{
+			rewards[i].gameObject.SetActive(false);
+		}
+
+		if (fullQ.userQuest.isComplete)
+		{
+			completeItems.SetActive(true);
+			shareCheck.value = true;
+			rewardHeader.transform.localPosition = REWARD_HEADER_COMPLETE_OFFSET;
+		}
+		else
+		{
+			completeItems.SetActive(false);
+			rewardHeader.transform.localPosition = REWARD_HEADER_CENTER;
+		}
+	}
+
+	public void CollectQuest()
+	{
+		CBKQuestManager.instance.CompleteQuest(currQuest);
+		if (shareCheck.value)
+		{
+			//TODO: Share quest
+		}
+		ReturnToList();
 	}
 	
 	public void OnQuestEntryClicked(CBKFullQuest quest)
 	{
+		currQuest = quest;
+
 		LoadQuestDetails(quest);
+		
+		questGiver.GetComponent<TweenPosition>().PlayForward();
+		questGiver.GetComponent<CBKUIHelper>().FadeIn();
+		questGiver.sprite2D = CBKAtlasUtil.instance.GetSprite("Quest/HD/" + CBKUtil.StripExtensions(quest.quest.questGiverImageSuffix) + "Big");
+
+		GetComponent<TweenPosition>().PlayForward();
+
 		TweenPosition.Begin(questGridParentGob, TWEEN_TIME, LEFT_POS + new Vector3(0, questGridParentTrans.localPosition.y));
 		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = false;
 

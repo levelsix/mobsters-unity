@@ -97,8 +97,6 @@ public class UMQLoader : MonoBehaviour {
 		          + "\nInvites from me: " + response.invitesFromMeForSlots.Count);
 
 		CBKResidenceManager.instance.AddInvites(response.invitesFromMeForSlots);
-
-		CBKMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
 		
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{
@@ -128,8 +126,13 @@ public class UMQLoader : MonoBehaviour {
 			CBKWhiteboard.loadedPlayerCity = UMQNetworkManager.responseDict[tagNum] as LoadPlayerCityResponseProto;
 			UMQNetworkManager.responseDict.Remove(tagNum);
 
-			CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.TOWN_SCENE);
+			CBKBuildingManager.instance.LoadPlayerCity();
+
+			CBKEventManager.Scene.OnCity();
 		}
+		
+		
+		CBKMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
 	}
 
 }

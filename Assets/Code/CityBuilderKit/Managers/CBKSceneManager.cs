@@ -13,12 +13,20 @@ public class CBKSceneManager : MonoBehaviour {
 	GameObject puzzleParent;
 
 	[SerializeField]
+	GameObject loadingParent;
+
+	[SerializeField]
 	UIPanel cityPanel;
 	
 	[SerializeField]
 	UIPanel puzzlePanel;
 
+	[SerializeField]
+	UIPanel loadingPanel;
+
 	bool cityState = true;
+
+	bool loadingState = true;
 
 	[SerializeField]
 	float fadeTime = .6f;
@@ -40,6 +48,10 @@ public class CBKSceneManager : MonoBehaviour {
 	
 	void OnCity()
 	{
+		if (loadingState)
+		{
+			StartCoroutine(FadeFromLoading());
+		}
 		if (!cityState)
 		{
 			StartCoroutine(FadeToCity());
@@ -69,6 +81,13 @@ public class CBKSceneManager : MonoBehaviour {
 			PZScrollingBackground.instance.SetAlpha((fadeIn) ? t/fadeTime : 1 - t/fadeTime);
 			yield return null;
 		}
+	}
+
+	IEnumerator FadeFromLoading()
+	{
+		cityParent.SetActive(true);
+		yield return StartCoroutine(Fade (loadingPanel, cityPanel));
+		loadingParent.SetActive(false);
 	}
 
 	IEnumerator FadeToCity()

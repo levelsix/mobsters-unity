@@ -160,7 +160,8 @@ public class CBKBuildingManager : MonoBehaviour
 	#endregion
 	
 	#region Building Generation
-	
+
+	/*
 	public void Start()
 	{
 		if (CBKEventManager.Scene.OnCity != null)
@@ -171,7 +172,8 @@ public class CBKBuildingManager : MonoBehaviour
 		BuildPlayerCity(CBKWhiteboard.loadedPlayerCity);
 
 	}
-	
+	*/
+
 	public void RequestCity()
 	{
 		//Debug.Log("Sending city request");

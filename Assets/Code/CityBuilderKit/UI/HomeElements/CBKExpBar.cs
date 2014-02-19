@@ -11,10 +11,15 @@ public class CBKExpBar : MonoBehaviour {
 	
 	[SerializeField]
 	CBKFillBar expBar;
-	
-	void Start()
+
+	void OnEnable()
 	{
-		UpdateBar();
+		CBKEventManager.Scene.OnCity += UpdateBar;
+	}
+
+	void OnDisable()
+	{
+		CBKEventManager.Scene.OnCity -= UpdateBar;
 	}
 	
 	void UpdateBar()

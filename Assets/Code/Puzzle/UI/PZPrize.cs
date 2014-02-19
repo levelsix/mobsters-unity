@@ -53,6 +53,20 @@ public class PZPrize : MonoBehaviour {
 		FixIcon();
 	}
 
+	public void InitDiamond(int amount)
+	{
+		label.text = amount.ToString();
+		label.color = new Color(.4f, .2f, .6f);
+		border.spriteName = "";
+		icon.spriteName = "diamond";
+		FixIcon();
+	}
+
+	public void InitEnemy(int monsterId)
+	{
+		InitEnemy(CBKDataManager.instance.Get<MonsterProto>(monsterId));
+	}
+
 	public void InitEnemy(MonsterProto monster)
 	{
 		label.text = monster.quality.ToString();

@@ -502,6 +502,8 @@ public class CBKMonsterManager : MonoBehaviour {
 			return;
 		}
 		
+		healRequestProto.sender = CBKWhiteboard.localMupWithResources;
+
 		UMQNetworkManager.instance.SendRequest(healRequestProto, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT, DealWithHealStartResponse);
 		
 		if (CBKEventManager.Goon.OnHealQueueChanged != null)

@@ -12,6 +12,18 @@ using com.lvl6.proto;
 /// </summary>
 public class CBKUIHelper : MonoBehaviour {
 
+	public float fadeTime = .6f;
+
+	public void FadeIn()
+	{
+		TweenAlpha.Begin(gameObject, fadeTime, 1);
+	}
+
+	public void FadeOut()
+	{
+		TweenAlpha.Begin(gameObject, fadeTime, 0);
+	}
+
 	public void TurnOn()
 	{
 		gameObject.SetActive(true);
