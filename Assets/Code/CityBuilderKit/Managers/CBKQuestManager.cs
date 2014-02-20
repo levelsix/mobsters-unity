@@ -195,18 +195,27 @@ public class CBKQuestManager : MonoBehaviour {
 		*/
 	}
 	
-	void CheckQuest(CBKFullQuest fullQuest)
+	void UpdateQuestProgress(CBKFullQuest fullQuest)
 	{
 		
 #if DEBUG3
 		Debug.Log("Checking quest: " + fullQuest.quest.name);
 #endif
 		fullQuest.userQuest.isComplete = (fullQuest.userQuest.progress >= fullQuest.quest.quantity);
+
+		QuestProgressRequestProto request = new QuestProgressRequestProto();
+		request.sender = CBKWhiteboard.localMup;
+		request.questId = fullQuest.quest.questId;
+		request.currentProgress = fullQuest.userQuest.progress;
+		request.isComplete = fullQuest.userQuest.isComplete;
+
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_QUEST_PROGRESS_EVENT, null);
 		
 	}
 
 	public void CompleteQuest(CBKFullQuest quest)
 	{
+		questDict.Remove(quest.quest.questId);
 		StartCoroutine(RedeemQuest(quest.quest));
 	}
 	
@@ -274,7 +283,7 @@ public class CBKQuestManager : MonoBehaviour {
 			if (item.quest.questType == FullQuestProto.QuestType.BUILD_STRUCT && item.quest.staticDataId == structID) 
 			{
 				item.userQuest.progress++;
-				CheckQuest(item);
+				UpdateQuestProgress(item);
 			}
 		}
 	}
@@ -292,7 +301,7 @@ public class CBKQuestManager : MonoBehaviour {
 				if (item.userQuest.progress < level)
 				{
 					item.userQuest.progress = level;
-					CheckQuest(item);
+					UpdateQuestProgress(item);
 				}
 			}
 		}
@@ -309,7 +318,7 @@ public class CBKQuestManager : MonoBehaviour {
 			if (item.quest.questType == FullQuestProto.QuestType.COMPLETE_TASK && item.quest.staticDataId == taskID)
 			{
 				item.userQuest.progress++;
-				CheckQuest(item);
+				UpdateQuestProgress(item);
 			}
 		}
 	}
@@ -325,7 +334,7 @@ public class CBKQuestManager : MonoBehaviour {
 			if (item.quest.questType == FullQuestProto.QuestType.COLLECT_COINS_FROM_HOME)
 			{
 				item.userQuest.progress += amount;
-				CheckQuest(item);
+				UpdateQuestProgress(item);
 			}
 		}
 	}
@@ -340,7 +349,7 @@ public class CBKQuestManager : MonoBehaviour {
 			if (item.quest.questType == FullQuestProto.QuestType.KILL_MONSTER && item.quest.staticDataId == monsterId)
 			{
 				item.userQuest.progress++;
-				CheckQuest(item);
+				UpdateQuestProgress(item);
 			}
 		}
 	}
@@ -355,7 +364,7 @@ public class CBKQuestManager : MonoBehaviour {
 			if (item.quest.questType == FullQuestProto.QuestType.DONATE_MONSTER && item.quest.staticDataId == monsterId)
 			{
 				item.userQuest.progress++;
-				CheckQuest(item);
+				UpdateQuestProgress(item);
 			}
 		}
 	}

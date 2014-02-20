@@ -510,6 +510,8 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			CBKEventManager.Goon.OnHealQueueChanged();
 		}
+
+		healRequestProto = null;
 		
 	}
 
@@ -867,8 +869,7 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			Debug.LogError("Problem sending heal request: " + response.status.ToString());
 		}
-		
-		healRequestProto = null;
+
 	}
 	
 	#endregion

@@ -144,6 +144,10 @@ public class CBKQuestLog : MonoBehaviour {
 		{
 			quests[i].gameObj.SetActive(false);
 		}
+		foreach (var item in quests) 
+		{
+			item.GetComponent<UIDragObject>().restrictWithinPanel = true;
+		}
 
 		questGridParentTrans.GetComponentInChildren<UIGrid>().Reposition();
 		
@@ -158,6 +162,10 @@ public class CBKQuestLog : MonoBehaviour {
 		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = true;
 		questGiver.GetComponent<TweenPosition>().PlayReverse();
 		questGiver.GetComponent<CBKUIHelper>().FadeOut();
+		foreach (var item in quests) 
+		{
+			item.GetComponent<UIDragObject>().restrictWithinPanel = true;
+		}
 	}
 	
 	
@@ -280,6 +288,7 @@ public class CBKQuestLog : MonoBehaviour {
 		{
 			//TODO: Share quest
 		}
+		SetupQuestList();
 		ReturnToList();
 	}
 	
@@ -296,7 +305,12 @@ public class CBKQuestLog : MonoBehaviour {
 		GetComponent<TweenPosition>().PlayForward();
 
 		TweenPosition.Begin(questGridParentGob, TWEEN_TIME, LEFT_POS + new Vector3(0, questGridParentTrans.localPosition.y));
+
 		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = false;
+		foreach (var item in quests) 
+		{
+			item.GetComponent<UIDragObject>().restrictWithinPanel = false;
+		}
 
 		TweenPosition.Begin(detailsParent, TWEEN_TIME, Vector3.zero);
 		

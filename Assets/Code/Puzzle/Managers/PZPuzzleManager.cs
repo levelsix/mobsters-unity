@@ -579,12 +579,14 @@ public class PZPuzzleManager : MonoBehaviour {
 			rocket.trans.parent = puzzleParent;
 			rocket.trans.localRotation = Quaternion.identity;
 			rocket.trans.localScale = Vector3.one;
+			rocket.trans.localPosition = gem.transf.localPosition;
 
 			rocket = (CBKPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
 			rocket.Init(CBKValues.Direction.WEST);
 			rocket.trans.parent = puzzleParent;
 			rocket.trans.localRotation = Quaternion.identity;
 			rocket.trans.localScale = new Vector3(-1,1,1);
+			rocket.trans.localPosition = gem.transf.localPosition;
 
 			for (int i = 0; i < BOARD_WIDTH; i++) 
 			{
@@ -602,12 +604,14 @@ public class PZPuzzleManager : MonoBehaviour {
 			rocket.trans.parent = puzzleParent;
 			rocket.trans.localRotation = new Quaternion(0,0,.707f,.707f);
 			rocket.trans.localScale = Vector3.one;
+			rocket.trans.localPosition = gem.transf.localPosition;
 
 			rocket = (CBKPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
 			rocket.Init(CBKValues.Direction.SOUTH);
 			rocket.trans.parent = puzzleParent;
 			rocket.trans.localRotation = new Quaternion(0,0,.707f,.707f);
 			rocket.trans.localScale = new Vector3(-1,1,1);
+			rocket.trans.localPosition = gem.transf.localPosition;
 
 			for (int i = 0; i < BOARD_HEIGHT; i++) {
 				PZGem target = board[gem.boardX, i];

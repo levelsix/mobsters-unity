@@ -59,6 +59,8 @@ public class CBKQuestEntry : MonoBehaviour, CBKPoolable {
 	
 	public void Init(CBKFullQuest quest)
 	{
+
+
 		questName.text = quest.quest.name;
 		
 		questProgress.text = quest.GetProgressString();
