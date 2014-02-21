@@ -202,6 +202,15 @@ namespace com.lvl6.proto
       get { return _evolutionCost; }
       set { _evolutionCost = value; }
     }
+
+    private com.lvl6.proto.MonsterProto.AnimationType _attackAnimationType = com.lvl6.proto.MonsterProto.AnimationType.MELEE;
+    [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name=@"attackAnimationType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.AnimationType.MELEE)]
+    public com.lvl6.proto.MonsterProto.AnimationType attackAnimationType
+    {
+      get { return _attackAnimationType; }
+      set { _attackAnimationType = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"MonsterQuality")]
     public enum MonsterQuality
     {
@@ -246,6 +255,17 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"ROCK", Value=6)]
       ROCK = 6
+    }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"AnimationType")]
+    public enum AnimationType
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"MELEE", Value=1)]
+      MELEE = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RANGED", Value=2)]
+      RANGED = 2
     }
   
     private global::ProtoBuf.IExtension extensionObject;

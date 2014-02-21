@@ -17,7 +17,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	
 	public static PZMonster[] userTeam = new PZMonster[TEAM_SLOTS];
 	
-	public static List<PZMonster> healingMonsters = new List<PZMonster>();
+	public List<PZMonster> healingMonsters = new List<PZMonster>();
 	
 	public static List<PZMonster> enhancementFeeders = new List<PZMonster>();
 	
@@ -648,7 +648,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		monster.hospitalTimes.Clear();
 
-		int progress = Mathf.FloorToInt((monster.maxHP - monster.currHP) * monster.healingMonster.healthProgress);
+		float progress = monster.healingMonster.healthProgress;
 
 		#region Debug
 
@@ -674,7 +674,7 @@ public class CBKMonsterManager : MonoBehaviour {
 		     nextHospital = GetSoonestFasterHospital(lastHospital))
 		{
 			lastHospital.completeTime = nextHospital.completeTime;
-			progress += Mathf.FloorToInt((lastHospital.completeTime - lastStartTime) / 1000 * lastHospital.combinedProto.hospital.healthPerSecond);
+			progress += (lastHospital.completeTime - lastStartTime) / 1000 * lastHospital.combinedProto.hospital.healthPerSecond;
 			lastStartTime = nextHospital.completeTime;
 			nextHospital.completeTime = CalculateFinishTime(monster, nextHospital, progress, lastStartTime);
 			monster.finishHealTimeMillis = nextHospital.completeTime;
@@ -684,6 +684,7 @@ public class CBKMonsterManager : MonoBehaviour {
 
 		#region Debug2
 		str = "Scheduled heal for " + monster.monster.displayName;
+		str += "\nNow: " + CBKUtil.timeNowMillis;
 		str += "\nHealth to heal: " + (monster.maxHP - monster.currHP) + ", Progress: " + monster.healingMonster.healthProgress;
 		str += "\n"  + monster.healStartTime + " Start";
 		foreach (var hospitalTime in monster.hospitalTimes) {
@@ -695,9 +696,9 @@ public class CBKMonsterManager : MonoBehaviour {
 
 	}
 	
-	long CalculateFinishTime(PZMonster monster, CBKBuilding hospital, int progress, long startTime)
+	long CalculateFinishTime(PZMonster monster, CBKBuilding hospital, float progress, long startTime)
 	{
-		int healthLeftToHeal = monster.maxHP - progress - monster.currHP;
+		float healthLeftToHeal = monster.maxHP - progress - monster.currHP;
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.combinedProto.hospital.healthPerSecond * 1000);
 		return startTime + millis;
 	}
@@ -709,16 +710,16 @@ public class CBKMonsterManager : MonoBehaviour {
 			PrepareNewHealRequest();
 		}
 
-		int progress = Mathf.FloorToInt((monster.maxHP - monster.currHP) * monster.healingMonster.healthProgress);
+		float progress = (monster.maxHP - monster.currHP) * monster.healingMonster.healthProgress;
 		for (int i = 0; i < monster.hospitalTimes.Count && monster.hospitalTimes[i].startTime < CBKUtil.timeNowMillis; i++) 
 		{
 			if (i < monster.hospitalTimes.Count - 1 && CBKUtil.timeNowMillis > monster.hospitalTimes[i+1].startTime)
 			{
-				progress += Mathf.FloorToInt((monster.hospitalTimes[i+1].startTime - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.combinedProto.hospital.healthPerSecond);
+				progress += (monster.hospitalTimes[i+1].startTime - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.combinedProto.hospital.healthPerSecond;
 			}
 			else
 			{
-				progress += Mathf.FloorToInt((CBKUtil.timeNowMillis - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.combinedProto.hospital.healthPerSecond);
+				progress += (CBKUtil.timeNowMillis - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.combinedProto.hospital.healthPerSecond;
 			}
 		}
 		if (progress > 0)
@@ -825,7 +826,8 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			PrepareNewHealRequest();
 		}
-		
+
+		/*
 		int i;
 		for (i = 0; i < healingMonsters.Count; i++) 
 		{
@@ -835,7 +837,10 @@ public class CBKMonsterManager : MonoBehaviour {
 			}
 		}
 		healingMonsters.RemoveAt(i);
-		
+		*/
+
+		healingMonsters.Remove(monster);
+
 		if (healRequestProto.umhNew.Contains(monster.healingMonster))
 		{
 			healRequestProto.umhNew.Remove(monster.healingMonster);

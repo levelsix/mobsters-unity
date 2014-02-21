@@ -34,15 +34,6 @@ namespace com.lvl6.proto
       set { _name = value; }
     }
 
-    private int _ownerId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"ownerId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int ownerId
-    {
-      get { return _ownerId; }
-      set { _ownerId = value; }
-    }
-
     private long _createTime = default(long);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"createTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]

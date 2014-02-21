@@ -10,6 +10,7 @@
 // Generated from: StaticData.proto
 // Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: City.proto
+// Note: requires additional types generated from: Clan.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
 // Note: requires additional types generated from: Structure.proto
@@ -136,11 +137,11 @@ namespace com.lvl6.proto
       get { return _allTownHalls; }
     }
   
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> _events = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto>();
-    [global::ProtoBuf.ProtoMember(18, Name=@"events", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> events
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> _persistentEvents = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto>();
+    [global::ProtoBuf.ProtoMember(18, Name=@"persistentEvents", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> persistentEvents
     {
-      get { return _events; }
+      get { return _persistentEvents; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.MonsterBattleDialogueProto> _mbds = new global::System.Collections.Generic.List<com.lvl6.proto.MonsterBattleDialogueProto>();
@@ -148,6 +149,20 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.MonsterBattleDialogueProto> mbds
     {
       get { return _mbds; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanRaidProto> _raids = new global::System.Collections.Generic.List<com.lvl6.proto.ClanRaidProto>();
+    [global::ProtoBuf.ProtoMember(20, Name=@"raids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ClanRaidProto> raids
+    {
+      get { return _raids; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventProto> _persistentClanEvents = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventProto>();
+    [global::ProtoBuf.ProtoMember(21, Name=@"persistentClanEvents", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventProto> persistentClanEvents
+    {
+      get { return _persistentClanEvents; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

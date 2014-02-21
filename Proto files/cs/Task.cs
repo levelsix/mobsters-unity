@@ -249,10 +249,10 @@ namespace com.lvl6.proto
       set { _eventId = value; }
     }
 
-    private com.lvl6.proto.PersistentEventProto.DayOfWeek _dayOfWeek = com.lvl6.proto.PersistentEventProto.DayOfWeek.SUNDAY;
+    private com.lvl6.proto.DayOfWeek _dayOfWeek = com.lvl6.proto.DayOfWeek.SUNDAY;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"dayOfWeek", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.PersistentEventProto.DayOfWeek.SUNDAY)]
-    public com.lvl6.proto.PersistentEventProto.DayOfWeek dayOfWeek
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DayOfWeek.SUNDAY)]
+    public com.lvl6.proto.DayOfWeek dayOfWeek
     {
       get { return _dayOfWeek; }
       set { _dayOfWeek = value; }
@@ -311,32 +311,6 @@ namespace com.lvl6.proto
       get { return _monsterElement; }
       set { _monsterElement = value; }
     }
-    [global::ProtoBuf.ProtoContract(Name=@"DayOfWeek")]
-    public enum DayOfWeek
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SUNDAY", Value=1)]
-      SUNDAY = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"MONDAY", Value=2)]
-      MONDAY = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"TUESDAY", Value=3)]
-      TUESDAY = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"WEDNESDAY", Value=4)]
-      WEDNESDAY = 4,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"THURSDAY", Value=5)]
-      THURSDAY = 5,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"FRIDAY", Value=6)]
-      FRIDAY = 6,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SATURDAY", Value=7)]
-      SATURDAY = 7
-    }
-  
     [global::ProtoBuf.ProtoContract(Name=@"EventType")]
     public enum EventType
     {
@@ -389,5 +363,31 @@ namespace com.lvl6.proto
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"DayOfWeek")]
+    public enum DayOfWeek
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUNDAY", Value=1)]
+      SUNDAY = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"MONDAY", Value=2)]
+      MONDAY = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"TUESDAY", Value=3)]
+      TUESDAY = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"WEDNESDAY", Value=4)]
+      WEDNESDAY = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"THURSDAY", Value=5)]
+      THURSDAY = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FRIDAY", Value=6)]
+      FRIDAY = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SATURDAY", Value=7)]
+      SATURDAY = 7
+    }
   
 }

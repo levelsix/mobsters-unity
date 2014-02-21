@@ -54,7 +54,7 @@ public class PZMonster {
 	{
 		get
 		{
-			float progress = (float)healingMonster.healthProgress / (maxHP - currHP);
+			float progress = healingMonster.healthProgress;
 			for (int i = 0; i < hospitalTimes.Count; i++) {
 				HospitalTime hosTime = hospitalTimes[i];
 				if (hosTime.startTime < CBKUtil.timeNowMillis)

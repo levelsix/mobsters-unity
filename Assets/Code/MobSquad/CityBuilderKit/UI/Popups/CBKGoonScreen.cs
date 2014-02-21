@@ -29,9 +29,6 @@ public class CBKGoonScreen : MonoBehaviour {
 	CBKMiniHealingBox healBoxPrefab;
 	
 	[SerializeField]
-	GameObject queueParent;
-	
-	[SerializeField]
 	CBKActionButton speedUpButton;
 	
 	[SerializeField]
@@ -44,7 +41,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	TweenPosition enhanceLeftSideElements;
 
 	[SerializeField]
-	UIWidget[] bottomFadeInElements;
+	CBKUIHelper bottomFadeInElements;
 
 	[SerializeField]
 	UIPanel scrollPanel;
@@ -132,7 +129,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		bringGoonIn = false;
 		healMode = true;
 		OrganizeCards();	
-		OrganizeHealingQueue (CBKMonsterManager.healingMonsters);
+		OrganizeHealingQueue (CBKMonsterManager.instance.healingMonsters);
 		speedUpButton.onClick = TrySpeedUpHeal;
 	}
 	
@@ -223,18 +220,11 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void OrganizeHealingQueue()
 	{
-		OrganizeHealingQueue(CBKMonsterManager.healingMonsters);
+		OrganizeHealingQueue(CBKMonsterManager.instance.healingMonsters);
 	}
 	
 	void OrganizeHealingQueue(List<PZMonster> healingMonsters)
 	{
-		if (healingMonsters.Count == 0)
-		{
-			queueParent.SetActive(false);
-			return;
-		}
-		
-		queueParent.SetActive(true);
 		
 		while(bottomMiniBoxes.Count < healingMonsters.Count)
 		{
@@ -256,7 +246,6 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		if(CBKMonsterManager.currentEnhancementMonster == null)
 		{
-			queueParent.SetActive(false);
 			bottomBarLabel.text = bottomEnhanceDialogue;
 			bringGoonIn = false;
 			return;
@@ -272,16 +261,7 @@ public class CBKGoonScreen : MonoBehaviour {
 			expFromQueue += item.enhanceXP;
 		}
 
-		if (CBKMonsterManager.enhancementFeeders.Count > 0)
-		{
-			queueParent.SetActive(true);
-			bottomBarLabel.text = " ";
-		}
-		else
-		{
-			queueParent.SetActive(false);
-			bottomBarLabel.text = bottomSacrificeDialogue;
-		}
+		bottomBarLabel.text = bottomSacrificeDialogue;
 		
 		while(bottomMiniBoxes.Count < CBKMonsterManager.enhancementFeeders.Count)
 		{
@@ -324,10 +304,10 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void Update()
 	{
-		if (queueParent.activeSelf && healMode)
+		if (healMode && CBKMonsterManager.instance.healingMonsters.Count > 0)
 		{
 			long totalHealTimeLeft = 0;
-			foreach (var item in CBKMonsterManager.healingMonsters) {
+			foreach (var item in CBKMonsterManager.instance.healingMonsters) {
 				if (item.finishHealTimeMillis > totalHealTimeLeft)
 				{
 					totalHealTimeLeft = item.finishHealTimeMillis;
@@ -337,7 +317,7 @@ public class CBKGoonScreen : MonoBehaviour {
 			totalTimeLabel.text = CBKUtil.TimeStringShort(totalHealTimeLeft);
 			speedUpButton.label.text = Mathf.Ceil((float)totalHealTimeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString();
 		}
-		else if (queueParent.activeSelf && CBKMonsterManager.enhancementFeeders.Count > 0)
+		else if (CBKMonsterManager.enhancementFeeders.Count > 0)
 		{
 			long timeLeft = CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].enhanceTimeLeft;
 			totalTimeLabel.text = CBKUtil.TimeStringShort(timeLeft);
@@ -390,7 +370,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void TrySpeedUpHeal()
 	{
-		int gemCost = Mathf.CeilToInt((CBKMonsterManager.healingMonsters[CBKMonsterManager.healingMonsters.Count-1].timeToHealMillis) * 1f/60000);
+		int gemCost = Mathf.CeilToInt((CBKMonsterManager.instance.healingMonsters[CBKMonsterManager.instance.healingMonsters.Count-1].timeToHealMillis) * 1f/60000);
 		if (CBKResourceManager.instance.Spend(ResourceType.GEMS, gemCost, TrySpeedUpHeal))
 		{
 			CBKMonsterManager.instance.SpeedUpHeal(gemCost);
@@ -408,12 +388,32 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void OnHealQueueChanged()
 	{
+		if (CBKMonsterManager.instance.healingMonsters.Count > 0)
+		{
+			bottomFadeInElements.FadeIn();
+			bottomBarLabel.GetComponent<CBKUIHelper>().FadeOut();
+		}
+		else
+		{
+			bottomFadeInElements.FadeOut();
+			bottomBarLabel.GetComponent<CBKUIHelper>().FadeIn();
+		}
 		OrganizeHealingQueue();
 		OrganizeCards();
 	}
 	
 	void OnEnhanceQueueChanged()
 	{
+		if (CBKMonsterManager.enhancementFeeders.Count > 0)
+		{
+			bottomFadeInElements.FadeIn();
+			bottomBarLabel.GetComponent<CBKUIHelper>().FadeOut();
+		}
+		else
+		{
+			bottomFadeInElements.FadeOut();
+			bottomBarLabel.GetComponent<CBKUIHelper>().FadeIn();
+		}
 		OrganizeEnhanceQueue();
 		OrganizeCards();
 	}

@@ -145,10 +145,10 @@ public class CBKClanManager : MonoBehaviour
 
 			//If we happen to be loading the user's clan, check if the user is the leader of the clan so that we can adjust
 			//UI interaction options appropriately
-			if (_postedClans[0].clan.clanId == userClanId && _postedClans[0].clan.owner.userId == CBKWhiteboard.localMup.userId)
-			{
-				isLeader = true;
-			}
+			////if (_postedClans[0].clan.clanId == userClanId && _postedClans[0].clan.owner.userId == CBKWhiteboard.localMup.userId)
+			//{
+			//	isLeader = true;
+			//}
 		}
 	}
 

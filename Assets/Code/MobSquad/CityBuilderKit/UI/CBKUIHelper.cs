@@ -14,6 +14,11 @@ public class CBKUIHelper : MonoBehaviour {
 
 	public float fadeTime = .6f;
 
+	public void ResetAlpha(bool on)
+	{
+		TweenAlpha.Begin(gameObject, 0, on ? 1 : 0); 
+	}
+
 	public void FadeIn()
 	{
 		TweenAlpha.Begin(gameObject, fadeTime, 1);

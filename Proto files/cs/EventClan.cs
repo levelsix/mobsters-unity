@@ -9,6 +9,7 @@
 
 // Generated from: EventClan.proto
 // Note: requires additional types generated from: Clan.proto
+// Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
@@ -672,6 +673,13 @@ namespace com.lvl6.proto
       get { return _beforeThisClanId; }
       set { _beforeThisClanId = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserCurrentMonsterTeamProto> _monsterTeams = new global::System.Collections.Generic.List<com.lvl6.proto.UserCurrentMonsterTeamProto>();
+    [global::ProtoBuf.ProtoMember(10, Name=@"monsterTeams", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserCurrentMonsterTeamProto> monsterTeams
+    {
+      get { return _monsterTeams; }
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"RetrieveClanInfoStatus")]
     public enum RetrieveClanInfoStatus
     {
@@ -1039,6 +1047,88 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"NOT_OWNER", Value=4)]
       NOT_OWNER = 4
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BeginClanRaidRequestProto")]
+  public partial class BeginClanRaidRequestProto : global::ProtoBuf.IExtensible
+  {
+    public BeginClanRaidRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProtoForClans _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProtoForClans sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private long _curTime = default(long);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"curTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long curTime
+    {
+      get { return _curTime; }
+      set { _curTime = value; }
+    }
+
+    private int _raidId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"raidId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int raidId
+    {
+      get { return _raidId; }
+      set { _raidId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BeginClanRaidResponseProto")]
+  public partial class BeginClanRaidResponseProto : global::ProtoBuf.IExtensible
+  {
+    public BeginClanRaidResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProtoForClans _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProtoForClans sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private int _raidId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"raidId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int raidId
+    {
+      get { return _raidId; }
+      set { _raidId = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"BeginClanRaidStatus")]
+    public enum BeginClanRaidStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_ALREADY_STARTED", Value=2)]
+      FAIL_ALREADY_STARTED = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_AUTHORIZED", Value=3)]
+      FAIL_NOT_AUTHORIZED = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
+      FAIL_OTHER = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;

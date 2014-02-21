@@ -86,7 +86,7 @@ public class CBKClanDetailScreen : MonoBehaviour {
 		CBKClanMemberEntry entry = CBKPoolManager.instance.Get(clanMemberEntryPrefab, Vector3.zero) as CBKClanMemberEntry;
 		entry.transf.parent = memberGrid;
 		entry.transf.localScale = Vector3.one;
-		entry.Init(member, member.minUserProto.minUserProtoWithLevel.minUserProto.userId == clan.clan.owner.userId);
+		entry.Init(member, member.clanStatus == UserClanStatus.LEADER);
 
 		memberList.Add(entry);
 	}
