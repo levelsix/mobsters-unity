@@ -124,7 +124,7 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		int fullDamage = (int)(damage * CBKUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
 		
-		Debug.Log(name + " taking " + fullDamage + " damage");
+		//Debug.Log(name + " taking " + fullDamage + " damage");
 
 		//TODO: If fullDamage != damage, do some animation or something to reflect super/not very effective
 		

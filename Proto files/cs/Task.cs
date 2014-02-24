@@ -249,9 +249,9 @@ namespace com.lvl6.proto
       set { _eventId = value; }
     }
 
-    private com.lvl6.proto.DayOfWeek _dayOfWeek = com.lvl6.proto.DayOfWeek.SUNDAY;
+    private com.lvl6.proto.DayOfWeek _dayOfWeek = com.lvl6.proto.DayOfWeek.MONDAY;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"dayOfWeek", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DayOfWeek.SUNDAY)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DayOfWeek.MONDAY)]
     public com.lvl6.proto.DayOfWeek dayOfWeek
     {
       get { return _dayOfWeek; }
@@ -368,26 +368,26 @@ namespace com.lvl6.proto
     public enum DayOfWeek
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SUNDAY", Value=1)]
-      SUNDAY = 1,
+      [global::ProtoBuf.ProtoEnum(Name=@"MONDAY", Value=1)]
+      MONDAY = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"MONDAY", Value=2)]
-      MONDAY = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"TUESDAY", Value=2)]
+      TUESDAY = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"TUESDAY", Value=3)]
-      TUESDAY = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"WEDNESDAY", Value=3)]
+      WEDNESDAY = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"WEDNESDAY", Value=4)]
-      WEDNESDAY = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"THURSDAY", Value=4)]
+      THURSDAY = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"THURSDAY", Value=5)]
-      THURSDAY = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"FRIDAY", Value=5)]
+      FRIDAY = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FRIDAY", Value=6)]
-      FRIDAY = 6,
+      [global::ProtoBuf.ProtoEnum(Name=@"SATURDAY", Value=6)]
+      SATURDAY = 6,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SATURDAY", Value=7)]
-      SATURDAY = 7
+      [global::ProtoBuf.ProtoEnum(Name=@"SUNDAY", Value=7)]
+      SUNDAY = 7
     }
   
 }

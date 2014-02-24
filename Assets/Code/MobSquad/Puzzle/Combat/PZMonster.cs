@@ -302,32 +302,44 @@ public class PZMonster {
 	/// </summary>
 	/// <returns>Exp percentage gained by adding this much exp</returns>
 	/// <param name="withAddedExp">Exp being added to this monster</param>
-	public float PercentageOfAddedLevelup(float withAddedExp)
+	public float PercentageOfAddedLevelup(float withAddedExp, bool checkFeeders = true)
 	{
+		int currExp = 0;
+		float currPerc = 0;
+		if (checkFeeders)
+		{
+			foreach (var item in CBKMonsterManager.enhancementFeeders) 
+			{
+				currExp += item.enhanceXP;
+			}
+			currPerc = PercentageOfAddedLevelup(currExp, false);
+		}
+		currExp += userMonster.currentExp;
+
 		if (userMonster.currentLvl == monster.maxLevel)
 		{
 			return 0;
 		}
-		if (userMonster.currentExp + withAddedExp > ExpForLevel(userMonster.currentLvl + 1))
+		if (currExp + withAddedExp > ExpForLevel(userMonster.currentLvl + 1))
 		{
 			float total = 1 - percentageTowardsNextLevel; //Because we know this finishes the current level
 			int levelsUp = 1;
-			while(userMonster.currentExp + withAddedExp > ExpForLevel(userMonster.currentLvl + levelsUp + 1) && userMonster.currentLvl + levelsUp < monster.maxLevel)
+			while(currExp + withAddedExp > ExpForLevel(userMonster.currentLvl + levelsUp + 1) && userMonster.currentLvl + levelsUp < monster.maxLevel)
 	 	    {
 				levelsUp++;
 			}
 			total += levelsUp - 1; //One less, because the first level is the partial level that we already added
 			if (levelsUp + userMonster.currentLvl == monster.maxLevel)
 			{
-				return total;
+				return total - currPerc;
 			}
 			//Now get that level beyond the last level
-			total += (float)(userMonster.currentExp + withAddedExp - ExpForLevel(userMonster.currentLvl + levelsUp)) / (ExpForLevel(userMonster.currentLvl + 1 + levelsUp) - ExpForLevel(userMonster.currentLvl + levelsUp));
-			return total;
+			total += (float)(currExp + withAddedExp - ExpForLevel(userMonster.currentLvl + levelsUp)) / (ExpForLevel(userMonster.currentLvl + 1 + levelsUp) - ExpForLevel(userMonster.currentLvl + levelsUp));
+			return total - currPerc;
 		}
 		else
 		{
-			return ((float)(userMonster.currentExp + withAddedExp - ExpForLevel(userMonster.currentLvl)) / (ExpForLevel(userMonster.currentLvl + 1) - ExpForLevel(userMonster.currentLvl)));
+			return ((float)(currExp + withAddedExp - ExpForLevel(userMonster.currentLvl)) / (ExpForLevel(userMonster.currentLvl + 1) - ExpForLevel(userMonster.currentLvl))) - currPerc;
 		}
 	}
 	

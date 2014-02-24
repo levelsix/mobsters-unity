@@ -117,11 +117,13 @@ public class CBKGoonCard : MonoBehaviour {
 	void OnEnable()
 	{
 		CBKEventManager.Goon.OnMonsterRemoved += CheckRemovedMonster;
+		CBKEventManager.Goon.OnEnhanceQueueChanged += OnEnhancementQueueChanged;
 	}
 
 	void OnDisable()
 	{
 		CBKEventManager.Goon.OnMonsterRemoved -= CheckRemovedMonster;
+		CBKEventManager.Goon.OnEnhanceQueueChanged -= OnEnhancementQueueChanged;
 		addRemoveTeamButton.onClick = null;
 		healButton.onClick = null;
 	}
@@ -144,37 +146,48 @@ public class CBKGoonCard : MonoBehaviour {
 
 	void SetName(bool healMode = true)
 	{
-		if (goon.userMonster.numPieces < goon.monster.numPuzzlePieces)
+		if (healMode)
 		{
-			name = "4 Unavailable 5 Piece";
-		}
-		else if (goon.combineTimeLeft > 0)
-		{
-			name = "4 Unavailable 4 Combining";
-		}
-		else if (goon.isEnhancing)
-		{
-			name = "4 Unavailalbe 3 Enhancing";
-		}
-		else if (goon.isHealing)
-		{
-			name = "4 Unavailable 2 Healing";
-		}
-		else if (goon.currHP < goon.maxHP)
-		{
-			name = "1 Injured 2 Card";
+			if (goon.userMonster.numPieces < goon.monster.numPuzzlePieces)
+			{
+				name = "4 Unavailable 5 Piece";
+			}
+			else if (goon.combineTimeLeft > 0)
+			{
+				name = "4 Unavailable 4 Combining";
+			}
+			else if (goon.isEnhancing)
+			{
+				name = "4 Unavailalbe 3 Enhancing";
+			}
+			else if (goon.isHealing)
+			{
+				name = "4 Unavailable 2 Healing";
+			}
+			else if (goon.currHP < goon.maxHP)
+			{
+				name = "1 Injured 2 Card";
+			}
+			else
+			{
+				name = "3 Healthy 2 Card";
+			}
 		}
 		else
 		{
 			name = "3 Healthy 2 Card";
 		}
+		name += " " + goon.monster.monsterId + " " + goon.userMonster.currentLvl + " " + goon.userMonster.userMonsterId;
 	}
 	
 	public void InitLab(PZMonster goon)
 	{
+
 		Init (goon);
 		SetEnhanceButton(goon);
 		
+		SetName (false);
+
 		healCostLabel.text = " ";
 
 		if (goon.userMonster.teamSlotNum == 0)
@@ -193,9 +206,15 @@ public class CBKGoonCard : MonoBehaviour {
 			addRemoveTeamButton.button.isEnabled = true;
 			addRemoveButtonBackground.spriteName = removeButtonSpriteName;
 			addRemoveTeamButton.onClick = ClearEnhanceQueue;
+			bottomCardLabel.text = " ";
+			healthBarBackground.alpha = 1;
+			healthBar.alpha = 1;
+			underHealthBar.alpha = 1;
+
 		}
 		else if (CBKMonsterManager.currentEnhancementMonster == null)
 		{
+			enhancePercentageLabel.alpha = 1;
 			if (goon.userMonster.currentLvl >= goon.monster.maxLevel)
 			{
 				healthBar.fillAmount = 1;
@@ -212,10 +231,22 @@ public class CBKGoonCard : MonoBehaviour {
 			healthBar.alpha = 0;
 			healthBarBackground.alpha = 0;
 			underHealthBar.alpha = 0;
-			enhancePercentageLabel.alpha = 0;
-			bottomCardLabel.text = (CBKMonsterManager.currentEnhancementMonster.PercentageOfAddedLevelup(goon.enhanceXP) * 100).ToString("N0") + "% for $" + goon.enhanceCost;
+			enhancePercentageLabel.text = " ";
+			SetEnhancementBonusText();
 		}
 
+	}
+
+	void SetEnhancementBonusText()
+	{
+		if (goon == CBKMonsterManager.currentEnhancementMonster)
+		{
+			bottomCardLabel.text = " ";
+		}
+		else
+		{
+			bottomCardLabel.text = (CBKMonsterManager.currentEnhancementMonster.PercentageOfAddedLevelup(goon.enhanceXP) * 100).ToString("N0") + "% for $" + goon.enhanceCost;
+		}
 	}
 
 	public void InitEvolve(PZMonster goon)
@@ -401,15 +432,26 @@ public class CBKGoonCard : MonoBehaviour {
 				float progress = ((float)(CBKMonsterManager.enhancementFeeders[0].timeToUseEnhance - CBKMonsterManager.enhancementFeeders[0].enhanceTimeLeft)) 
 					/ CBKMonsterManager.enhancementFeeders[0].timeToUseEnhance;
 						
-				int currentPercentage = Mathf.FloorToInt((goon.percentageTowardsNextLevel +
-					progress * goon.PercentageOfAddedLevelup(CBKMonsterManager.enhancementFeeders[0].enhanceXP)) * 100);
+				float currentPercentage = (goon.percentageTowardsNextLevel + progress * goon.PercentageOfAddedLevelup(CBKMonsterManager.enhancementFeeders[0].enhanceXP)) * 100;
 				//Debug.Log ("Final: " + finalPercentage + ", Current: " + currentPercentage);
 
-				healthBar.fillAmount = (currentPercentage % 1);
-				enhancePercentageLabel.text = (currentPercentage%100) + "% + " + (finalPercentage - currentPercentage) + "%";
+				Debug.LogWarning("Final perc: " + finalPercentage + ", progress: " + progress + ", currPerc: " + currentPercentage);
+
+				if (currentPercentage > 100)
+				{
+					healthBar.fillAmount = 0;
+				}
+				else
+				{
+					healthBar.fillAmount = goon.percentageTowardsNextLevel;
+				}
+
+				underHealthBar.fillAmount = (currentPercentage / 100f) % 1;
+				enhancePercentageLabel.text = (Mathf.FloorToInt(currentPercentage)%100) + "% + " + (finalPercentage - Mathf.FloorToInt(currentPercentage)) + "%";
 			}
 			else
 			{
+				underHealthBar.fillAmount = 0;
 				healthBar.fillAmount = goon.percentageTowardsNextLevel;
 				enhancePercentageLabel.text = ((int)(goon.percentageTowardsNextLevel * 100)) + "%";
 			}
@@ -494,6 +536,11 @@ public class CBKGoonCard : MonoBehaviour {
 		{
 			gameObject.SetActive(false);
 		}
+	}
+
+	void OnEnhancementQueueChanged()
+	{
+		SetEnhancementBonusText();
 	}
 
 }

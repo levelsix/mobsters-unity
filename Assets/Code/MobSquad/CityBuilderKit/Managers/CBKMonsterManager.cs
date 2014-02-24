@@ -100,7 +100,7 @@ public class CBKMonsterManager : MonoBehaviour {
 
 		if (enhancement != null)
 		{
-			currentEnhancementMonster = userMonsters.Find(x=> x.userMonster.userMonsterId == enhancement.baseMonster.userMonsterId);
+			currentEnhancementMonster = userMonsters.Find(x => x.userMonster.userMonsterId == enhancement.baseMonster.userMonsterId);
 			currentEnhancementMonster.enhancement = enhancement.baseMonster;
 			
 			Debug.Log("Ehancement Base: " + currentEnhancementMonster.enhancement.userMonsterId);

@@ -484,6 +484,168 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PersistentClanEventClanInfoProto")]
+  public partial class PersistentClanEventClanInfoProto : global::ProtoBuf.IExtensible
+  {
+    public PersistentClanEventClanInfoProto() {}
+    
+
+    private int _clanId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanId
+    {
+      get { return _clanId; }
+      set { _clanId = value; }
+    }
+
+    private int _clanEventId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanEventId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanEventId
+    {
+      get { return _clanEventId; }
+      set { _clanEventId = value; }
+    }
+
+    private int _clanRaidId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clanRaidId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanRaidId
+    {
+      get { return _clanRaidId; }
+      set { _clanRaidId = value; }
+    }
+
+    private int _clanRaidStageId = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"clanRaidStageId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanRaidStageId
+    {
+      get { return _clanRaidStageId; }
+      set { _clanRaidStageId = value; }
+    }
+
+    private long _stageStartTime = default(long);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"stageStartTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long stageStartTime
+    {
+      get { return _stageStartTime; }
+      set { _stageStartTime = value; }
+    }
+
+    private int _crsmId = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"crsmId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int crsmId
+    {
+      get { return _crsmId; }
+      set { _crsmId = value; }
+    }
+
+    private long _stageMonsterStartTime = default(long);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"stageMonsterStartTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long stageMonsterStartTime
+    {
+      get { return _stageMonsterStartTime; }
+      set { _stageMonsterStartTime = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PersistentClanEventUserInfoProto")]
+  public partial class PersistentClanEventUserInfoProto : global::ProtoBuf.IExtensible
+  {
+    public PersistentClanEventUserInfoProto() {}
+    
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+
+    private int _clanId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanId
+    {
+      get { return _clanId; }
+      set { _clanId = value; }
+    }
+
+    private int _crId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"crId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int crId
+    {
+      get { return _crId; }
+      set { _crId = value; }
+    }
+
+    private int _crDmgDone = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"crDmgDone", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int crDmgDone
+    {
+      get { return _crDmgDone; }
+      set { _crDmgDone = value; }
+    }
+
+    private int _crsId = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"crsId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int crsId
+    {
+      get { return _crsId; }
+      set { _crsId = value; }
+    }
+
+    private int _crsDmgDone = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"crsDmgDone", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int crsDmgDone
+    {
+      get { return _crsDmgDone; }
+      set { _crsDmgDone = value; }
+    }
+
+    private int _crsmId = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"crsmId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int crsmId
+    {
+      get { return _crsmId; }
+      set { _crsmId = value; }
+    }
+
+    private int _crsmDmgDone = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"crsmDmgDone", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int crsmDmgDone
+    {
+      get { return _crsmDmgDone; }
+      set { _crsmDmgDone = value; }
+    }
+    private readonly global::System.Collections.Generic.List<int> _userMonsterIds = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(9, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> userMonsterIds
+    {
+      get { return _userMonsterIds; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     [global::ProtoBuf.ProtoContract(Name=@"UserClanStatus")]
     public enum UserClanStatus
     {

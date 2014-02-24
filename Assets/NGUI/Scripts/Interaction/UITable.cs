@@ -60,6 +60,14 @@ public class UITable : UIWidgetContainer
 	public Vector2 padding = Vector2.zero;
 
 	/// <summary>
+	/// Whether this will animate smoothly
+	/// </summary>
+
+	public bool animateSmoothly = true;
+
+	public float springStrength = 15f;
+
+	/// <summary>
 	/// Delegate function that will be called when the table repositions its content.
 	/// </summary>
 
@@ -179,7 +187,11 @@ public class UITable : UIWidgetContainer
 
 			xOffset += br.max.x - br.min.x + padding.x * 2f;
 
-			t.localPosition = pos;
+			if (animateSmoothly && Application.isPlaying)
+			{
+				SpringPosition.Begin(t.gameObject, pos, springStrength);
+			}
+			else t.localPosition = pos;
 
 			if (++x >= columns && columns > 0)
 			{

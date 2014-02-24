@@ -192,6 +192,11 @@ public class CBKGoonScreen : MonoBehaviour {
 		int i = 0;
 		foreach (var item in playerGoons) 
 		{
+			if (!healMode && (!item.userMonster.isComplete || item.isEnhancing || item.isHealing))
+			{
+				continue;
+			}
+
 			if (lastReserveCardIndex < i)
 			{
 				AddReserveCardSlot();

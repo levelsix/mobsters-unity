@@ -153,7 +153,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: -1.86264515e-08, y: 3.91155481e-07, z: 4.17232513e-07, w: 1}
   m_LocalPosition: {x: -70, y: -200, z: 199.999985}
-  m_LocalScale: {x: 1, y: -1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
 --- !u!4 &400002
@@ -175,7 +175,7 @@ Transform:
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: -1.86264515e-08, y: 3.91155481e-07, z: 4.17232513e-07, w: 1}
   m_LocalPosition: {x: 70, y: -200, z: 200}
-  m_LocalScale: {x: -1, y: -1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
 --- !u!4 &400006
@@ -244,8 +244,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.21579027, y: 84.3279037, z: -112.118919}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.21578026, y: -1.10407758, z: -17.2370415}
+  m_LocalScale: {x: .471322536, y: .471322536, z: .471322536}
   m_Children:
   - {fileID: 400004}
   - {fileID: 400000}
@@ -303,8 +303,8 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.16666663
-  mAtlas: {fileID: 0}
-  mSpriteName: arrowup
+  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mSpriteName: arrowdown
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -351,7 +351,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.16666663
-  mAtlas: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: arrowup
   mType: 0
   mFillDirection: 4
@@ -399,8 +399,8 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.16666663
-  mAtlas: {fileID: 0}
-  mSpriteName: arrowup
+  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mSpriteName: arrowdown
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -495,7 +495,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.16666663
-  mAtlas: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: arrowup
   mType: 0
   mFillDirection: 4

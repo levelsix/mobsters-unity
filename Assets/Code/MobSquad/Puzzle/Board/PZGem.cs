@@ -257,7 +257,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		{
 			if (enqueued)
 			{
-				Debug.LogWarning("Dropping from queue: " + id);
+				//Debug.LogWarning("Dropping from queue: " + id);
 				PZPuzzleManager.instance.columnQueues[boardX].RemoveAt(0);
 				enqueued = false;
 			}
@@ -281,7 +281,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		{
 			if (!enqueued && boardY >= PZPuzzleManager.BOARD_HEIGHT)
 			{
-				Debug.LogWarning("Queuing: " + id);
+				//Debug.LogWarning("Queuing: " + id);
 				PZPuzzleManager.instance.columnQueues[boardX].Add(this);
 				enqueued = true;
 			}
