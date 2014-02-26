@@ -264,26 +264,49 @@ public class PZMonster {
 	void SetupWithUser()
 	{
 		userMonster.currentLvl = Math.Min(userMonster.currentLvl, monster.maxLevel);
-		maxHP = monster.lvlInfo.Find(x=>x.lvl==userMonster.currentLvl).hp;
-		SetAttackDamagesFromMonster(userMonster.currentLvl);
+
+		MonsterLevelInfoProto lvlInfo = monster.lvlInfo.Find(x=>x.lvl==userMonster.currentLvl);
+		if (lvlInfo != null)
+		{
+			maxHP = lvlInfo.hp;
+		}
+		else
+		{
+			maxHP = 1;
+		}
+
+		SetAttackDamagesFromMonsterLevelInfo(lvlInfo);
 		currHP = userMonster.currentHealth;
 	}
 	
 	void SetupWithTask()
 	{
-		maxHP = monster.lvlInfo.Find(x=>x.lvl==taskMonster.level).hp;
-		SetAttackDamagesFromMonster(taskMonster.level);
+		MonsterLevelInfoProto levelInfo = monster.lvlInfo.Find(x=>x.lvl==taskMonster.level);
+		maxHP = levelInfo.hp;
+		SetAttackDamagesFromMonsterLevelInfo(levelInfo);
 		currHP = maxHP;
 	}
 
-	void SetAttackDamagesFromMonster(int level)
+	void SetAttackDamagesFromMonsterLevelInfo(MonsterLevelInfoProto lvlInfo)
 	{
-		attackDamages[0] = monster.lvlInfo.Find(x=>x.lvl==level).fireDmg;
-		attackDamages[1] = monster.lvlInfo.Find(x=>x.lvl==level).grassDmg;
-		attackDamages[2] = monster.lvlInfo.Find(x=>x.lvl==level).waterDmg;
-		attackDamages[3] = monster.lvlInfo.Find(x=>x.lvl==level).lightningDmg;
-		attackDamages[4] = monster.lvlInfo.Find(x=>x.lvl==level).darknessDmg;
-		attackDamages[5] = monster.lvlInfo.Find(x=>x.lvl==level).rockDmg;
+		if (lvlInfo != null)
+		{
+			attackDamages[0] = lvlInfo.fireDmg;
+			attackDamages[1] = lvlInfo.grassDmg;
+			attackDamages[2] = lvlInfo.waterDmg;
+			attackDamages[3] = lvlInfo.lightningDmg;
+			attackDamages[4] = lvlInfo.darknessDmg;
+			attackDamages[5] = lvlInfo.rockDmg;
+		}
+		else
+		{
+			attackDamages[0] = 1;
+			attackDamages[1] = 1;
+			attackDamages[2] = 1;
+			attackDamages[3] = 1;
+			attackDamages[4] = 1;
+			attackDamages[5] = 1;
+		}
 
 		float total = 0;
 		foreach (var damage in attackDamages) 

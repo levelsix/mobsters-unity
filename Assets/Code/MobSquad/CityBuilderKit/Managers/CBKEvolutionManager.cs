@@ -82,7 +82,7 @@ public class CBKEvolutionManager : MonoBehaviour {
 		}
 
 		List<PZMonster> catalysts = CBKMonsterManager.instance.GetMonstersByMonsterId(monster.monster.evolutionCatalystMonsterId);
-		if (catalysts.Count > monster.monster.numCatalystMonstersRequired)
+		if (catalysts.Count >= monster.monster.numCatalystMonstersRequired)
 		{
 			currEvolution.catalystUserMonsterId = catalysts[0].userMonster.userMonsterId;
 		}
