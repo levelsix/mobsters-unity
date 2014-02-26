@@ -53,10 +53,26 @@ public class CBKGoonScreen : MonoBehaviour {
 	UILabel bottomBarLabel;
 
 	[SerializeField]
-	Transform goonPanelParent;
+	Transform goonCardParent;
 
 	[SerializeField]
 	CBKGoonInfoPopup infoPopup;
+
+	[SerializeField]
+	GameObject labButtons;
+
+	[SerializeField]
+	CBKUIHelper goonPanelElements;
+
+	[SerializeField]
+	CBKUIHelper evolveElements;
+
+	#region Evolution Elements
+
+	[SerializeField]
+	MSEvolutionElements evolutionElements;
+
+	#endregion
 	
 	#endregion
 	
@@ -126,19 +142,26 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	public void InitHeal()
 	{	
+		goonPanelElements.ResetAlpha(true);
+		evolveElements.ResetAlpha(false);
+
 		bringGoonIn = false;
 		healMode = true;
 		OrganizeCards();	
 		OrganizeHealingQueue (CBKMonsterManager.instance.healingMonsters);
 		speedUpButton.onClick = TrySpeedUpHeal;
+		labButtons.SetActive(false);
 	}
 	
 	public void InitEnhance()
 	{
+		goonPanelElements.ResetAlpha(true);
+		evolveElements.ResetAlpha(false);
 		healMode = false;
 		OrganizeCards();
 		OrganizeEnhanceQueue();
 		speedUpButton.onClick = TrySpeedUpEnhance;
+		labButtons.SetActive(true);
 
 		if (CBKMonsterManager.currentEnhancementMonster != null)
 		{
@@ -146,6 +169,25 @@ public class CBKGoonScreen : MonoBehaviour {
 			bringGoonIn = true;
 			FinishGoonInNow();
 		}
+	}
+
+	public void InitEvolve()
+	{
+		evolveElements.ResetAlpha(false);
+		goonPanelElements.ResetAlpha(true);
+		
+		OrganizeEvolveCards();
+
+		if (CBKEvolutionManager.instance.currEvolution != null && CBKEvolutionManager.instance.currEvolution.userMonsterIds.Count > 0)
+		{
+			CBKGoonCard card = reserveCards.Find(x=>x.goon.userMonster.userMonsterId == CBKEvolutionManager.instance.currEvolution.userMonsterIds[0]);
+			OrganizeEvolution(card);
+		}
+
+
+		bringGoonIn = false;
+
+		//OrganizeScientists
 	}
 	
 	void OnEnable()
@@ -164,6 +206,11 @@ public class CBKGoonScreen : MonoBehaviour {
 		CBKEventManager.Goon.OnHealQueueChanged -= OnHealQueueChanged;
 		CBKEventManager.Goon.OnEnhanceQueueChanged -= OnEnhanceQueueChanged;
 		CBKEventManager.Goon.OnMonsterListChanged -= OrganizeReserveCards;
+
+		if (!CBKEvolutionManager.instance.active)
+		{
+			CBKEvolutionManager.instance.currEvolution = null;
+		}
 	}
 
 	void OrganizeTeamCards ()
@@ -209,6 +256,14 @@ public class CBKGoonScreen : MonoBehaviour {
 			{
 				reserveCards[i].InitLab(item);
 			}
+			reserveCards[i].transform.parent = goonCardParent;
+
+			if (reserveCards[i] == evolutionElements.evolvingCard)
+			{
+				reserveCards[i].gameObject.SetActive(false);
+				reserveCards[i].gameObject.SetActive(true);
+			}
+
 			i++;
 		}
 		
@@ -220,6 +275,47 @@ public class CBKGoonScreen : MonoBehaviour {
 		dragPanel.collider.enabled = false;
 		dragPanel.collider.enabled = true;
 
+		table.Reposition();
+	}
+
+	/// <summary>
+	/// If we've got any sort of UserMonsterEvolutionProto going, even if
+	/// it's missing parts (buddies or scientists), we call this
+	/// </summary>
+	/// <param name="currEvolution">Curr evolution.</param>
+	public void OrganizeEvolution(CBKGoonCard card)
+	{
+		evolutionElements.Init(card);
+		evolveElements.FadeIn();
+		goonPanelElements.FadeOut();
+	}
+
+	/// <summary>
+	/// Like organizing the reserve cards for other things, except the cards are all already on the
+	/// table and we're going to try to stack them, then reorder, rename, and rearrange
+	/// </summary>
+	void OrganizeEvolveCards()
+	{
+		foreach (var item in reserveCards) 
+		{
+			if (item.buddy == null)
+			{
+				PZMonster buddy = CBKMonsterManager.instance.FindEvolutionBuddy(item.goon);
+				item.InitEvolve(GetCardForMonster(buddy));
+			}
+		}
+		StartCoroutine(RepositionAfterMove(.25f));
+	}
+
+	IEnumerator RepositionAfterMove(float moveTime)
+	{
+		float currTime = 0;
+		while (currTime < moveTime)
+		{
+			currTime += Time.deltaTime;
+			table.Reposition();
+			yield return null;
+		}
 		table.Reposition();
 	}
 	
@@ -306,7 +402,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		box.on = false;
 		bottomMiniBoxes.Add (box);
 	}
-	
+
 	void Update()
 	{
 		if (healMode && CBKMonsterManager.instance.healingMonsters.Count > 0)
@@ -372,6 +468,11 @@ public class CBKGoonScreen : MonoBehaviour {
 		}
 		dragPanel.scrollView.RestrictWithinBounds(false);
 	}
+
+	CBKGoonCard GetCardForMonster(PZMonster monster)
+	{
+		return reserveCards.Find(x=>x.goon == monster);
+	}
 	
 	void TrySpeedUpHeal()
 	{
@@ -384,7 +485,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void TrySpeedUpEnhance()
 	{
-		int gemCost = Mathf.CeilToInt((CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].finishCombineTime) * 1f/60000);
+		int gemCost = Mathf.CeilToInt((CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].combineTimeLeft) * 1f/60000 / CBKWhiteboard.constants.minutesPerGem);
 		if (CBKResourceManager.instance.Spend(ResourceType.GEMS, gemCost, TrySpeedUpEnhance))
 		{
 			CBKMonsterManager.instance.SpeedUpEnhance(gemCost);

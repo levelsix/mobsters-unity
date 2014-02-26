@@ -11,7 +11,8 @@ public sealed class FB : ScriptableObject
 
     private static IFacebook facebook;
     private static string authResponse;
-    private static bool isInitCalled = false;
+    public static bool isInitCalled = false;
+	public static bool hasFailed = false;
     private static string appId;
     private static bool cookie;
     private static bool logging;
@@ -352,6 +353,7 @@ public sealed class FB : ScriptableObject
 #endif
                 }
                 www.Dispose();
+				hasFailed = true;
                 yield break;
             }
 

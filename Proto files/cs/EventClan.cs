@@ -1060,10 +1060,10 @@ namespace com.lvl6.proto
     public BeginClanRaidRequestProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProtoForClans _sender = null;
+    private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProtoForClans sender
+    public com.lvl6.proto.MinimumUserProto sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -1087,13 +1087,29 @@ namespace com.lvl6.proto
       set { _raidId = value; }
     }
 
-    private bool _onlySettingMonsterTeamForRaid = default(bool);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"onlySettingMonsterTeamForRaid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private bool _setMonsterTeamForRaid = default(bool);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"setMonsterTeamForRaid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool onlySettingMonsterTeamForRaid
+    public bool setMonsterTeamForRaid
     {
-      get { return _onlySettingMonsterTeamForRaid; }
-      set { _onlySettingMonsterTeamForRaid = value; }
+      get { return _setMonsterTeamForRaid; }
+      set { _setMonsterTeamForRaid = value; }
+    }
+    private readonly global::System.Collections.Generic.List<int> _userMonsterIds = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> userMonsterIds
+    {
+      get { return _userMonsterIds; }
+    }
+  
+
+    private bool _isFirstStage = default(bool);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"isFirstStage", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isFirstStage
+    {
+      get { return _isFirstStage; }
+      set { _isFirstStage = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -1106,10 +1122,10 @@ namespace com.lvl6.proto
     public BeginClanRaidResponseProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProtoForClans _sender = null;
+    private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProtoForClans sender
+    public com.lvl6.proto.MinimumUserProto sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -1163,10 +1179,10 @@ namespace com.lvl6.proto
     public AttackClanRaidMonsterRequestProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProtoForClans _sender = null;
+    private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProtoForClans sender
+    public com.lvl6.proto.MinimumUserProto sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -1181,8 +1197,17 @@ namespace com.lvl6.proto
       set { _eventDetails = value; }
     }
 
+    private long _clientTime = default(long);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long clientTime
+    {
+      get { return _clientTime; }
+      set { _clientTime = value; }
+    }
+
     private int _damageDealt = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"damageDealt", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"damageDealt", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int damageDealt
     {
@@ -1190,12 +1215,39 @@ namespace com.lvl6.proto
       set { _damageDealt = value; }
     }
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> _monsterHealths = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto>();
-    [global::ProtoBuf.ProtoMember(4, Name=@"monsterHealths", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(5, Name=@"monsterHealths", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> monsterHealths
     {
       get { return _monsterHealths; }
     }
   
+
+    private bool _checkIfMonsterDied = default(bool);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"checkIfMonsterDied", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool checkIfMonsterDied
+    {
+      get { return _checkIfMonsterDied; }
+      set { _checkIfMonsterDied = value; }
+    }
+
+    private bool _monsterIsLastInStage = default(bool);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"monsterIsLastInStage", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool monsterIsLastInStage
+    {
+      get { return _monsterIsLastInStage; }
+      set { _monsterIsLastInStage = value; }
+    }
+
+    private bool _stageIsLastInRaid = default(bool);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"stageIsLastInRaid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool stageIsLastInRaid
+    {
+      get { return _stageIsLastInRaid; }
+      set { _stageIsLastInRaid = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1207,10 +1259,10 @@ namespace com.lvl6.proto
     public AttackClanRaidMonsterResponseProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProtoForClans _sender = null;
+    private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProtoForClans sender
+    public com.lvl6.proto.MinimumUserProto sender
     {
       get { return _sender; }
       set { _sender = value; }
@@ -1225,8 +1277,17 @@ namespace com.lvl6.proto
       set { _monsterRemainingHp = value; }
     }
 
+    private com.lvl6.proto.PersistentClanEventClanInfoProto _eventDetails = null;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"eventDetails", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.PersistentClanEventClanInfoProto eventDetails
+    {
+      get { return _eventDetails; }
+      set { _eventDetails = value; }
+    }
+
     private com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus _status = com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus.SUCCESS;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus.SUCCESS)]
     public com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus status
     {
@@ -1240,14 +1301,96 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_MONSTER_ALREADY_DEAD", Value=2)]
-      FAIL_MONSTER_ALREADY_DEAD = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_USER_NOT_IN_CLAN", Value=2)]
+      FAIL_USER_NOT_IN_CLAN = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_TIME_EXPIRED", Value=3)]
-      FAIL_TIME_EXPIRED = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_MONSTER_ALREADY_DEAD", Value=3)]
+      FAIL_MONSTER_ALREADY_DEAD = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
-      FAIL_OTHER = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_TIME_EXPIRED", Value=4)]
+      FAIL_TIME_EXPIRED = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NO_ACTIVE_CLAN_RAID", Value=5)]
+      FAIL_NO_ACTIVE_CLAN_RAID = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=6)]
+      FAIL_OTHER = 6
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RecordClanRaidStatsRequestProto")]
+  public partial class RecordClanRaidStatsRequestProto : global::ProtoBuf.IExtensible
+  {
+    public RecordClanRaidStatsRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private int _clanId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanId
+    {
+      get { return _clanId; }
+      set { _clanId = value; }
+    }
+
+    private long _clientTime = default(long);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long clientTime
+    {
+      get { return _clientTime; }
+      set { _clientTime = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RecordClanRaidStatsResponseProto")]
+  public partial class RecordClanRaidStatsResponseProto : global::ProtoBuf.IExtensible
+  {
+    public RecordClanRaidStatsResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.RecordClanRaidStatsResponseProto.RecordClanRaidStatsStatus _status = com.lvl6.proto.RecordClanRaidStatsResponseProto.RecordClanRaidStatsStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RecordClanRaidStatsResponseProto.RecordClanRaidStatsStatus.SUCCESS)]
+    public com.lvl6.proto.RecordClanRaidStatsResponseProto.RecordClanRaidStatsStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"RecordClanRaidStatsStatus")]
+    public enum RecordClanRaidStatsStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
     }
   
     private global::ProtoBuf.IExtension extensionObject;

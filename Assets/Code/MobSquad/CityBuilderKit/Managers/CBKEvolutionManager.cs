@@ -10,7 +10,9 @@ using com.lvl6.proto;
 /// </summary>
 public class CBKEvolutionManager : MonoBehaviour {
 
-	static UserMonsterEvolutionProto currEvolution = null;
+	public static CBKEvolutionManager instance;
+
+	public UserMonsterEvolutionProto currEvolution = null;
 
 	int oilCost
 	{
@@ -24,7 +26,7 @@ public class CBKEvolutionManager : MonoBehaviour {
 		}
 	}
 
-	long timeLeftMillis
+	public long timeLeftMillis
 	{
 		get
 		{
@@ -39,6 +41,28 @@ public class CBKEvolutionManager : MonoBehaviour {
 		}
 	}
 
+	public bool ready
+	{
+		get
+		{
+			return currEvolution != null && currEvolution.catalystUserMonsterId != 0 && currEvolution.userMonsterIds.Count >= 2;
+		}
+	}
+
+	public bool active
+	{
+		get
+		{
+			return currEvolution != null && currEvolution.startTime > 0;
+		}
+	}
+
+	void Awake()
+	{
+		instance = this;
+		currEvolution = null;
+	}
+
 	public bool IsMonsterEvolving(long userMonsterId)
 	{
 		return currEvolution != null && 
@@ -46,45 +70,24 @@ public class CBKEvolutionManager : MonoBehaviour {
 			 || currEvolution.userMonsterIds.Contains(userMonsterId));
 	}
 
-	public bool TryEvolveMonster(PZMonster monster, out string failString)
+	public UserMonsterEvolutionProto TryEvolveMonster(PZMonster monster, PZMonster buddy)
 	{
-		if (monster.userMonster.currentLvl < monster.monster.maxLevel)
+		currEvolution = new UserMonsterEvolutionProto();
+		
+		currEvolution.userMonsterIds.Add (monster.userMonster.userMonsterId);
+
+		if (buddy != null)
 		{
-			failString = monster.monster.displayName + " needs to be max level " + monster.monster.maxLevel + " to begin the evolution";
-			return false;
+			currEvolution.userMonsterIds.Add(buddy.userMonster.userMonsterId);
 		}
 
 		List<PZMonster> catalysts = CBKMonsterManager.instance.GetMonstersByMonsterId(monster.monster.evolutionCatalystMonsterId);
-		if (catalysts.Count < monster.monster.numCatalystMonstersRequired)
+		if (catalysts.Count > monster.monster.numCatalystMonstersRequired)
 		{
-			MonsterProto catalyst = CBKDataManager.instance.Get<MonsterProto>(monster.monster.evolutionCatalystMonsterId);
-			failString = "You must find a " + catalyst.displayName + " to begin the evolution.";
-			return false;
+			currEvolution.catalystUserMonsterId = catalysts[0].userMonster.userMonsterId;
 		}
 
-		List<PZMonster> copiesOfThisMonster = CBKMonsterManager.instance.GetMonstersByMonsterId(monster.monster.monsterId, monster.userMonster.userMonsterId);
-		long partnerId = 0;
-		foreach (var item in copiesOfThisMonster) 
-		{
-			if (item.userMonster.currentLvl >= item.monster.maxLevel)
-			{
-				partnerId = item.userMonster.userMonsterId;
-				break;
-			}
-		}
-		if (partnerId == 0)
-		{
-			failString = "You need another " + monster.monster.displayName + " to begin the evolution.";
-			return false;
-		}
-
-		currEvolution = new UserMonsterEvolutionProto();
-		currEvolution.userMonsterIds.Add (monster.userMonster.userMonsterId);
-		currEvolution.userMonsterIds.Add (copiesOfThisMonster[0].userMonster.userMonsterId);
-		currEvolution.catalystUserMonsterId = catalysts[0].userMonster.userMonsterId;
-
-		failString = "";
-		return true;
+		return currEvolution;
 	}
 
 	public void StartEvolution()
@@ -92,6 +95,13 @@ public class CBKEvolutionManager : MonoBehaviour {
 		if (currEvolution == null)
 		{
 			Debug.LogError("ERROR: No evolution to start");
+			return;
+		}
+
+		if (!ready)
+		{
+			Debug.LogError("ERROR: Not enough stuff for evolution");
+			return;
 		}
 
 		currEvolution.startTime = CBKUtil.timeNowMillis;
@@ -118,15 +128,19 @@ public class CBKEvolutionManager : MonoBehaviour {
 
 	void Update()
 	{
-		if (currEvolution != null && timeLeftMillis <= 0)
+		if (!CBKSceneManager.instance.loadingState && currEvolution != null && timeLeftMillis <= 0)
 		{
 			StartCoroutine(CompleteEvolution());
 		}
 	}
 
-	void FinishWithGems()
+	public void FinishWithGems()
 	{
-		StartCoroutine(CompleteEvolution(Mathf.CeilToInt((timeLeftMillis / 60000f) / CBKWhiteboard.constants.minutesPerGem)));
+		int gems = Mathf.CeilToInt((timeLeftMillis / 60000f) / CBKWhiteboard.constants.minutesPerGem);
+		if (CBKResourceManager.instance.Spend(ResourceType.GEMS, gems))
+		{
+			StartCoroutine(CompleteEvolution(gems));
+		}
 	}
 
 	IEnumerator CompleteEvolution(int gems = 0)

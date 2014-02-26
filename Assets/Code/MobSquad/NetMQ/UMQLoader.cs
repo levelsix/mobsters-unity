@@ -18,7 +18,7 @@ public class UMQLoader : MonoBehaviour {
 
 		CBKFacebookManager.instance.Init();
 
-		while (!CBKFacebookManager.hasTriedLogin)
+		while (!FB.isInitCalled || (!FB.hasFailed && !CBKFacebookManager.hasTriedLogin))
 		{
 			yield return null;
 		}

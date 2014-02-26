@@ -33,18 +33,18 @@ public class CBKGridManager : MonoBehaviour {
     /// <summary>
     /// Size of the ground grid, in squares
     /// </summary>
-    public int gridSize = 36;
+    public int gridSize = 26;
 
     /// <summary>
     /// Size of the placeable area of the mesh
     /// </summary>
-    public float worldSize = 36f;
+	public float worldSize = 25.23f;
 
-	const int HOME_GRID_SIZE = 36;
+	const int HOME_GRID_SIZE = 26;
 
 	const int MISSION_GRID_SIZE = 26;
 
-	const float HOME_WORLD_SIZE = 34.36f;
+	const float HOME_WORLD_SIZE = 25.23f;
 
 	const float MISSION_WORLD_SIZE = 25.23f;
 	

@@ -226,6 +226,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_ATTACK_CLAN_RAID_MONSTER_EVENT", Value=63)]
       C_ATTACK_CLAN_RAID_MONSTER_EVENT = 63,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_RECORD_CLAN_RAID_STATS_EVENT", Value=64)]
+      C_RECORD_CLAN_RAID_STATS_EVENT = 64,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101
     }
@@ -416,6 +419,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_ATTACK_CLAN_RAID_MONSTER_EVENT", Value=63)]
       S_ATTACK_CLAN_RAID_MONSTER_EVENT = 63,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RECORD_CLAN_RAID_STATS_EVENT", Value=64)]
+      S_RECORD_CLAN_RAID_STATS_EVENT = 64,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

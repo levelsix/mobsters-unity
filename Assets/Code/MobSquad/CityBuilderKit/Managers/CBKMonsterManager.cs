@@ -1199,6 +1199,27 @@ public class CBKMonsterManager : MonoBehaviour {
 
 	#endregion
 
+	#region Evolution
+
+	public PZMonster FindEvolutionBuddy(PZMonster monster)
+	{
+		if (monster.userMonster.currentLvl < monster.monster.maxLevel)
+		{
+			return null;
+		}
+		foreach (var item in GetMonstersByMonsterId(monster.monster.monsterId)) 
+		{
+			if (item.userMonster.currentLvl >= monster.monster.maxLevel 
+			    && item.userMonster.userMonsterId > monster.userMonster.userMonsterId)
+			{
+				return item;
+			}
+		}
+		return null;
+	}
+
+	#endregion
+
 	void OnPopupClosed()
 	{
 		SendRequests();

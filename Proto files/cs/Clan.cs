@@ -318,6 +318,15 @@ namespace com.lvl6.proto
       get { return _stageNum; }
       set { _stageNum = value; }
     }
+
+    private string _name = "";
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string name
+    {
+      get { return _name; }
+      set { _name = value; }
+    }
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanRaidStageMonsterProto> _monsters = new global::System.Collections.Generic.List<com.lvl6.proto.ClanRaidStageMonsterProto>();
     [global::ProtoBuf.ProtoMember(11, Name=@"monsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.ClanRaidStageMonsterProto> monsters
@@ -359,6 +368,33 @@ namespace com.lvl6.proto
     {
       get { return _monsterId; }
       set { _monsterId = value; }
+    }
+
+    private int _monsterHp = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"monsterHp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int monsterHp
+    {
+      get { return _monsterHp; }
+      set { _monsterHp = value; }
+    }
+
+    private int _minDmg = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"minDmg", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int minDmg
+    {
+      get { return _minDmg; }
+      set { _minDmg = value; }
+    }
+
+    private int _maxDmg = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"maxDmg", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxDmg
+    {
+      get { return _maxDmg; }
+      set { _maxDmg = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

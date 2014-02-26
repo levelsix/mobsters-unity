@@ -48,15 +48,16 @@ public class CBKGachaFeaturedMobster : MonoBehaviour {
 		elementSprite.spriteName = monster.monsterElement.ToString().ToLower() + "orb";
 
 
-		maxHp.text = monster.lvlInfo[monster.maxLevel-1].hp.ToString();
+		maxHp.text = monster.lvlInfo.Find(x=>x.lvl == monster.maxLevel).hp.ToString();
 
 		maxAttack.text = GetMaxDamage(monster).ToString();
 	}
 
 	int GetMaxDamage(MonsterProto monster)
 	{
-		return monster.lvlInfo[monster.maxLevel-1].fireDmg + monster.lvlInfo[monster.maxLevel-1].grassDmg + monster.lvlInfo[monster.maxLevel-1].lightningDmg
-			+ monster.lvlInfo[monster.maxLevel-1].darknessDmg + monster.lvlInfo[monster.maxLevel-1].waterDmg + monster.lvlInfo[monster.maxLevel-1].rockDmg;
+		MonsterLevelInfoProto levelInfo = monster.lvlInfo.Find(x=>x.lvl == monster.maxLevel);
+		return levelInfo.fireDmg + levelInfo.grassDmg + levelInfo.lightningDmg
+			+ levelInfo.darknessDmg + levelInfo.waterDmg + levelInfo.rockDmg;
 	}
 
 	// Use this for initialization

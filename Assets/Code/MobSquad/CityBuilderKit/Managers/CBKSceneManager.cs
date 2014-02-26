@@ -28,7 +28,7 @@ public class CBKSceneManager : MonoBehaviour {
 
 	public bool cityState = true;
 
-	bool loadingState = true;
+	public bool loadingState = true;
 
 	[SerializeField]
 	float fadeTime = .6f;

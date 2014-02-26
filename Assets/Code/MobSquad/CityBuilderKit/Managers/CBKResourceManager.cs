@@ -174,7 +174,7 @@ public class CBKResourceManager : MonoBehaviour {
 			int gemsNeeded = Mathf.CeilToInt(resourceNeeded * CBKWhiteboard.constants.gemsPerResource);
 
 			CBKEventManager.Popup.CreateButtonPopup(
-				"Spend (g)" + gemsNeeded + " to buy the remaining " + ((resource== ResourceType.CASH)?"$":"(o)") + resourceNeeded,
+				"Spend (G)" + gemsNeeded + " to buy the remaining " + ((resource== ResourceType.CASH)?"$":"(O)") + resourceNeeded,
                 new string[] {"No", "Yes"},
 				new Action[] { 
 					CBKEventManager.Popup.CloseTopPopupLayer,

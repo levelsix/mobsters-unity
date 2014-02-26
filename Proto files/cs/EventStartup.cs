@@ -344,6 +344,22 @@ namespace com.lvl6.proto
       get { return _userEvents; }
     }
   
+
+    private com.lvl6.proto.PersistentClanEventClanInfoProto _curRaidClanInfo = null;
+    [global::ProtoBuf.ProtoMember(31, IsRequired = false, Name=@"curRaidClanInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.PersistentClanEventClanInfoProto curRaidClanInfo
+    {
+      get { return _curRaidClanInfo; }
+      set { _curRaidClanInfo = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserInfoProto> _curRaidClanUserInfo = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserInfoProto>();
+    [global::ProtoBuf.ProtoMember(32, Name=@"curRaidClanUserInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserInfoProto> curRaidClanUserInfo
+    {
+      get { return _curRaidClanUserInfo; }
+    }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
   public partial class AttackedNotificationProto : global::ProtoBuf.IExtensible
   {

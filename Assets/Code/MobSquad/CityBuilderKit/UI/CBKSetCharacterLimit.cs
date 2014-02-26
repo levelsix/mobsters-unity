@@ -21,10 +21,10 @@ public class CBKSetCharacterLimit : MonoBehaviour {
 		switch(inputType)
 		{
 		case InputType.PLAYER_NAME:
-			input.characterLimit = CBKWhiteboard.constants.maxNameLength;
+			//input.characterLimit = CBKWhiteboard.constants.maxNameLength;
 			break;
 		case InputType.CHAT:
-			input.characterLimit = CBKWhiteboard.constants.maxLengthOfChatString;
+			//input.characterLimit = CBKWhiteboard.constants.maxLengthOfChatString;
 			break;
 		}
 	}

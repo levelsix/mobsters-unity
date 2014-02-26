@@ -104,6 +104,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		factory.UserName = "lvl6client";
 		factory.Password = "devclient";
 		factory.VirtualHost = "devmobsters";
+		factory.Port = 5672;
 #endif
 
 		try{
@@ -117,7 +118,8 @@ public class UMQNetworkManager : MonoBehaviour {
 		catch (Exception e)
 		{
 			Debug.LogError("Connection exception: " + e);
-			gameObject.SetActive(false);
+			//gameObject.SetActive(false);
+			StartCoroutine(Start ());
 			yield break;
 		}
 

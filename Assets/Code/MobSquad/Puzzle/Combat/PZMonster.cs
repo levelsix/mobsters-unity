@@ -115,7 +115,13 @@ public class PZMonster {
 	{
 		get
 		{
-			return monster.lvlInfo[userMonster.currentLvl].feederExp;
+			MonsterLevelInfoProto lvlInfo = monster.lvlInfo.Find(x=>x.lvl==userMonster.currentLvl);
+			if (lvlInfo == null)
+			{
+				Debug.LogError("Probleming finding xp for mobster " + monster.monsterId + " for level " + userMonster.currentLvl);
+				return 0;
+			}
+			return lvlInfo.feederExp;
 		}
 	}
 	
@@ -202,6 +208,14 @@ public class PZMonster {
 		}
 	}
 
+	public bool isEvoloving
+	{
+		get
+		{
+			return CBKEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterId);
+		}
+	}
+
 	public int maxHP;
 	public int currHP;
 
@@ -250,26 +264,26 @@ public class PZMonster {
 	void SetupWithUser()
 	{
 		userMonster.currentLvl = Math.Min(userMonster.currentLvl, monster.maxLevel);
-		maxHP = monster.lvlInfo[userMonster.currentLvl-1].hp;
+		maxHP = monster.lvlInfo.Find(x=>x.lvl==userMonster.currentLvl).hp;
 		SetAttackDamagesFromMonster(userMonster.currentLvl);
 		currHP = userMonster.currentHealth;
 	}
 	
 	void SetupWithTask()
 	{
-		maxHP = monster.lvlInfo[taskMonster.level-1].hp;
+		maxHP = monster.lvlInfo.Find(x=>x.lvl==taskMonster.level).hp;
 		SetAttackDamagesFromMonster(taskMonster.level);
 		currHP = maxHP;
 	}
 
 	void SetAttackDamagesFromMonster(int level)
 	{
-		attackDamages[0] = monster.lvlInfo[level-1].fireDmg;
-		attackDamages[1] = monster.lvlInfo[level-1].grassDmg;
-		attackDamages[2] = monster.lvlInfo[level-1].waterDmg;
-		attackDamages[3] = monster.lvlInfo[level-1].lightningDmg;
-		attackDamages[4] = monster.lvlInfo[level-1].darknessDmg;
-		attackDamages[5] = monster.lvlInfo[level-1].rockDmg;
+		attackDamages[0] = monster.lvlInfo.Find(x=>x.lvl==level).fireDmg;
+		attackDamages[1] = monster.lvlInfo.Find(x=>x.lvl==level).grassDmg;
+		attackDamages[2] = monster.lvlInfo.Find(x=>x.lvl==level).waterDmg;
+		attackDamages[3] = monster.lvlInfo.Find(x=>x.lvl==level).lightningDmg;
+		attackDamages[4] = monster.lvlInfo.Find(x=>x.lvl==level).darknessDmg;
+		attackDamages[5] = monster.lvlInfo.Find(x=>x.lvl==level).rockDmg;
 
 		float total = 0;
 		foreach (var damage in attackDamages) 
@@ -281,13 +295,14 @@ public class PZMonster {
 
 	public int TotalAttackAtLevel(int level)
 	{
-		return monster.lvlInfo[level-1].fireDmg + monster.lvlInfo[level-1].grassDmg + monster.lvlInfo[level-1].waterDmg
-			+ monster.lvlInfo[level-1].lightningDmg + monster.lvlInfo[level-1].darknessDmg + monster.lvlInfo[level-1].rockDmg;
+		MonsterLevelInfoProto levelInfo = monster.lvlInfo.Find(x=>x.lvl==level);
+		return levelInfo.fireDmg + levelInfo.grassDmg + levelInfo.waterDmg
+				+ levelInfo.lightningDmg + levelInfo.darknessDmg + levelInfo.rockDmg;
 	}
 
 	public int MaxHPAtLevel(int level)
 	{
-		return monster.lvlInfo[level-1].hp;
+		return monster.lvlInfo.Find(x=>x.lvl==level).hp;
 	}
 	
 	#region Experience
@@ -350,7 +365,7 @@ public class PZMonster {
 			Debug.LogWarning("Attempting to get exp for a higher level than this monster can go");
 			return ExpForLevel(monster.maxLevel);
 		}
-		return monster.lvlInfo[level-1].curLvlRequiredExp;
+		return monster.lvlInfo.Find(x=>x.lvl==level).curLvlRequiredExp;
 	}
 	
 	public void GainXP(int exp)
