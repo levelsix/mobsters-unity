@@ -93,6 +93,7 @@ public class UMQLoader : MonoBehaviour {
 
 		CBKRequestManager.instance.Init(response.invitesToMeForSlots);
 
+
 		Debug.Log("Invites to me: " + response.invitesToMeForSlots.Count
 		          + "\nInvites from me: " + response.invitesFromMeForSlots.Count);
 
@@ -130,9 +131,9 @@ public class UMQLoader : MonoBehaviour {
 
 			CBKEventManager.Scene.OnCity();
 		}
-		
-		
+
 		CBKMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
+		CBKEvolutionManager.instance.Init(response.evolution);
 	}
 
 }

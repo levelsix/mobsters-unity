@@ -15,7 +15,7 @@ public class CBKGoonCard : MonoBehaviour {
 	UISprite cardBackground;
 	
 	[SerializeField]
-	UISprite goonPose;
+	UI2DSprite goonPose;
 	
 	[SerializeField]
 	public CBKActionButton addRemoveTeamButton;
@@ -352,7 +352,12 @@ public class CBKGoonCard : MonoBehaviour {
 		
 		goonElementParent.SetActive(true);
 		
-		goonPose.spriteName = CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Card";
+		goonPose.sprite2D = CBKAtlasUtil.instance.GetSprite("Cards/HD/" + CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Card");
+		if (goonPose.sprite2D != null)
+		{
+			goonPose.width = (int)goonPose.sprite2D.rect.width;
+			goonPose.height = (int)goonPose.sprite2D.rect.height;
+		}
 		
 		cardBackground.spriteName = backgroundsForElements[goon.monster.monsterElement];
 		if (goon.userMonster.teamSlotNum > 0)

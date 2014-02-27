@@ -62,7 +62,9 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_ACCEPT_AND_REJECT_FB_INVITE_FOR_SLOTS_EVENT, typeof(AcceptAndRejectFbInviteForSlotsResponseProto)},
 		{EventProtocolResponse.S_INCREASE_MONSTER_INVENTORY_SLOT_EVENT, typeof(IncreaseMonsterInventorySlotResponseProto)},
 		{EventProtocolResponse.S_SELL_USER_MONSTER_EVENT, typeof(SellUserMonsterResponseProto)},
-		{EventProtocolResponse.S_EXCHANGE_GEMS_FOR_RESOURCES_EVENT, typeof(ExchangeGemsForResourcesResponseProto)}
+		{EventProtocolResponse.S_EXCHANGE_GEMS_FOR_RESOURCES_EVENT, typeof(ExchangeGemsForResourcesResponseProto)},
+		{EventProtocolResponse.S_EVOLVE_MONSTER_EVENT, typeof(EvolveMonsterResponseProto)},
+		{EventProtocolResponse.S_EVOLUTION_FINISHED_EVENT, typeof(EvolutionFinishedResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

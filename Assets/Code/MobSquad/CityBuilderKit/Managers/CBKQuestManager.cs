@@ -195,7 +195,7 @@ public class CBKQuestManager : MonoBehaviour {
 		*/
 	}
 	
-	void UpdateQuestProgress(CBKFullQuest fullQuest)
+	void UpdateQuestProgress(CBKFullQuest fullQuest, List<PZMonster> donateMonsters = null)
 	{
 		
 #if DEBUG3
@@ -208,6 +208,14 @@ public class CBKQuestManager : MonoBehaviour {
 		request.questId = fullQuest.quest.questId;
 		request.currentProgress = fullQuest.userQuest.progress;
 		request.isComplete = fullQuest.userQuest.isComplete;
+
+		if (donateMonsters != null)
+		{
+			foreach (var item in donateMonsters) 
+			{
+				request.deleteUserMonsterIds.Add(item.userMonster.userMonsterId);
+			}
+		}
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_QUEST_PROGRESS_EVENT, null);
 		
@@ -352,6 +360,40 @@ public class CBKQuestManager : MonoBehaviour {
 				UpdateQuestProgress(item);
 			}
 		}
+	}
+
+	public bool AttemptDonation(CBKFullQuest quest)
+	{
+		List<PZMonster> matchingMonsters = CBKMonsterManager.instance.GetMonstersByMonsterId(quest.quest.staticDataId);
+		if (matchingMonsters.Count >= quest.quest.quantity)
+		{
+			List<PZMonster> donateMonsters = new List<PZMonster>();
+			PZMonster curr;
+			while (donateMonsters.Count < quest.quest.quantity)
+			{
+				curr = null;
+				foreach (var item in matchingMonsters) 
+				{
+					if (!donateMonsters.Contains(item) && (curr == null || item.userMonster.currentLvl < curr.userMonster.currentLvl))
+					{
+						curr = item;
+					}
+				}
+				donateMonsters.Add(curr);
+			}
+
+			quest.userQuest.progress = quest.quest.quantity;
+			quest.userQuest.isComplete = true;
+
+			UpdateQuestProgress(quest, donateMonsters);
+
+			foreach (var item in donateMonsters) 
+			{
+				CBKMonsterManager.instance.RemoveMonster(item.userMonster.userMonsterId);
+			}
+			return true;
+		}
+		return false;
 	}
 
 	void OnMonsterDonated(int monsterId)

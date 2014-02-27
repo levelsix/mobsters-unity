@@ -9,6 +9,7 @@
 
 // Generated from: Clan.proto
 // Note: requires additional types generated from: Battle.proto
+// Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Task.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
@@ -635,15 +636,6 @@ namespace com.lvl6.proto
       set { _crDmgDone = value; }
     }
 
-    private int _crsId = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"crsId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int crsId
-    {
-      get { return _crsId; }
-      set { _crsId = value; }
-    }
-
     private int _crsDmgDone = default(int);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"crsDmgDone", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -651,15 +643,6 @@ namespace com.lvl6.proto
     {
       get { return _crsDmgDone; }
       set { _crsDmgDone = value; }
-    }
-
-    private int _crsmId = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"crsmId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int crsmId
-    {
-      get { return _crsmId; }
-      set { _crsmId = value; }
     }
 
     private int _crsmDmgDone = default(int);
@@ -670,11 +653,11 @@ namespace com.lvl6.proto
       get { return _crsmDmgDone; }
       set { _crsmDmgDone = value; }
     }
-    private readonly global::System.Collections.Generic.List<int> _userMonsterIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(9, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> userMonsterIds
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _userMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(9, Name=@"userMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> userMonsters
     {
-      get { return _userMonsterIds; }
+      get { return _userMonsters; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

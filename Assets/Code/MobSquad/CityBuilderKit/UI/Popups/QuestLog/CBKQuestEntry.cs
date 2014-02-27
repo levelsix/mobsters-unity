@@ -49,7 +49,7 @@ public class CBKQuestEntry : MonoBehaviour, CBKPoolable {
 	[SerializeField]
 	UISprite newQuestLabel;
 	
-	CBKFullQuest fullQuest;
+	public CBKFullQuest fullQuest;
 	
 	void Awake()
 	{

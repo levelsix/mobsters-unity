@@ -60,7 +60,7 @@ public class MSEvolutionElements : MonoBehaviour {
 
 		finalNameLabel.text = evoMonster.displayName;
 
-		finalTimeLabel.text = CBKUtil.TimeStringShort(monsterCard.goon.monster.minutesToEvolve);
+		finalTimeLabel.text = CBKUtil.TimeStringShort(monsterCard.goon.monster.minutesToEvolve * 60000);
 
 		if (CBKEvolutionManager.instance.ready)
 		{
@@ -84,6 +84,7 @@ public class MSEvolutionElements : MonoBehaviour {
 		if (CBKEvolutionManager.instance.active)
 		{
 			finalTimeLabel.text = CBKUtil.TimeStringShort(CBKEvolutionManager.instance.timeLeftMillis);
+			button.label.text = "(G)" + Mathf.CeilToInt((CBKEvolutionManager.instance.timeLeftMillis/6000f) / CBKWhiteboard.constants.minutesPerGem);
 		}
 	}
 
@@ -122,6 +123,7 @@ public class MSEvolutionElements : MonoBehaviour {
 			else
 			{
 				CBKEvolutionManager.instance.StartEvolution();
+				SetGemButton();
 			}
 		}
 	}

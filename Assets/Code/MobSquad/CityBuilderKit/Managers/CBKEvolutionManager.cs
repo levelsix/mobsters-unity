@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -13,6 +13,8 @@ public class CBKEvolutionManager : MonoBehaviour {
 	public static CBKEvolutionManager instance;
 
 	public UserMonsterEvolutionProto currEvolution = null;
+
+	long finishTime;
 
 	int oilCost
 	{
@@ -36,7 +38,7 @@ public class CBKEvolutionManager : MonoBehaviour {
 			}
 			else
 			{
-				return CBKUtil.timeNowMillis - currEvolution.startTime;
+				return finishTime - CBKUtil.timeNowMillis ;
 			}
 		}
 	}
@@ -61,6 +63,20 @@ public class CBKEvolutionManager : MonoBehaviour {
 	{
 		instance = this;
 		currEvolution = null;
+	}
+
+	public void Init(UserMonsterEvolutionProto evo)
+	{
+		currEvolution = evo;
+		if (evo != null)
+		{
+			string str = "Evo monsters:";
+			foreach (var item in evo.userMonsterIds) {
+				str += " " + item;
+			}
+			Debug.LogWarning(str);
+			finishTime = evo.startTime + CBKMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==evo.userMonsterIds[0]).monster.minutesToEvolve * 60000;
+		}
 	}
 
 	public bool IsMonsterEvolving(long userMonsterId)
@@ -113,6 +129,8 @@ public class CBKEvolutionManager : MonoBehaviour {
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLVE_MONSTER_EVENT, ReceiveEvolutionStartResponse);
 
+		finishTime = currEvolution.startTime + 
+			CBKMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==currEvolution.userMonsterIds[0]).monster.minutesToEvolve * 60000;
 	}
 
 	void ReceiveEvolutionStartResponse(int tagNum)

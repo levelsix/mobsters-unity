@@ -1087,6 +1087,15 @@ namespace com.lvl6.proto
       set { _raidId = value; }
     }
 
+    private int _clanEventId = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"clanEventId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanEventId
+    {
+      get { return _clanEventId; }
+      set { _clanEventId = value; }
+    }
+
     private bool _setMonsterTeamForRaid = default(bool);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"setMonsterTeamForRaid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -1095,11 +1104,11 @@ namespace com.lvl6.proto
       get { return _setMonsterTeamForRaid; }
       set { _setMonsterTeamForRaid = value; }
     }
-    private readonly global::System.Collections.Generic.List<int> _userMonsterIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> userMonsterIds
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _userMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"userMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> userMonsters
     {
-      get { return _userMonsterIds; }
+      get { return _userMonsters; }
     }
   
 
@@ -1148,6 +1157,15 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
+
+    private com.lvl6.proto.PersistentClanEventUserInfoProto _userDetails = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userDetails", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.PersistentClanEventUserInfoProto userDetails
+    {
+      get { return _userDetails; }
+      set { _userDetails = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"BeginClanRaidStatus")]
     public enum BeginClanRaidStatus
     {
@@ -1164,8 +1182,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NO_ACTIVE_CLAN_RAID", Value=4)]
       FAIL_NO_ACTIVE_CLAN_RAID = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=5)]
-      FAIL_OTHER = 5
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NO_MONSTERS_SENT", Value=5)]
+      FAIL_NO_MONSTERS_SENT = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=6)]
+      FAIL_OTHER = 6
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1248,6 +1269,15 @@ namespace com.lvl6.proto
       get { return _stageIsLastInRaid; }
       set { _stageIsLastInRaid = value; }
     }
+
+    private com.lvl6.proto.FullUserMonsterProto _userMonsterThatAttacked = null;
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"userMonsterThatAttacked", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.FullUserMonsterProto userMonsterThatAttacked
+    {
+      get { return _userMonsterThatAttacked; }
+      set { _userMonsterThatAttacked = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1286,6 +1316,15 @@ namespace com.lvl6.proto
       set { _eventDetails = value; }
     }
 
+    private com.lvl6.proto.FullUserMonsterProto _userMonsterThatAttacked = null;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userMonsterThatAttacked", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.FullUserMonsterProto userMonsterThatAttacked
+    {
+      get { return _userMonsterThatAttacked; }
+      set { _userMonsterThatAttacked = value; }
+    }
+
     private com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus _status = com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus.SUCCESS)]
@@ -1301,20 +1340,17 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_USER_NOT_IN_CLAN", Value=2)]
-      FAIL_USER_NOT_IN_CLAN = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS_MONSTER_JUST_DIED", Value=2)]
+      SUCCESS_MONSTER_JUST_DIED = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_MONSTER_ALREADY_DEAD", Value=3)]
-      FAIL_MONSTER_ALREADY_DEAD = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_USER_NOT_IN_CLAN", Value=3)]
+      FAIL_USER_NOT_IN_CLAN = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_TIME_EXPIRED", Value=4)]
-      FAIL_TIME_EXPIRED = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NO_RAID_IN_PROGRESS", Value=4)]
+      FAIL_NO_RAID_IN_PROGRESS = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NO_ACTIVE_CLAN_RAID", Value=5)]
-      FAIL_NO_ACTIVE_CLAN_RAID = 5,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=6)]
-      FAIL_OTHER = 6
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=5)]
+      FAIL_OTHER = 5
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1389,8 +1425,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
-      FAIL_OTHER = 2
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_MONSTER_ALREADY_DEAD", Value=2)]
+      FAIL_MONSTER_ALREADY_DEAD = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;

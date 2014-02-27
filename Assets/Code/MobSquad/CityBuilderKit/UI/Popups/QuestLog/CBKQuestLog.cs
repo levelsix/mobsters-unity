@@ -42,7 +42,7 @@ public class CBKQuestLog : MonoBehaviour {
 	UILabel taskProgress;
 
 	[SerializeField]
-	CBKVisitCityButton visitButton;
+	CBKActionButton visitButton;
 
 	[SerializeField]
 	UILabel completeLabel;
@@ -76,6 +76,9 @@ public class CBKQuestLog : MonoBehaviour {
 	List<CBKQuestEntry> quests = new List<CBKQuestEntry>();
 	
 	#endregion
+	
+	int prizeSize = 110;
+	int buffer = 5;
 
 	const string QUEST_LIST_HEADER = "Quests";
 	
@@ -198,19 +201,68 @@ public class CBKQuestLog : MonoBehaviour {
 		if (fullQ.userQuest.progress < fullQ.quest.quantity)
 		{
 			visitButton.button.enabled = true;
-			visitButton.cityID = fullQ.quest.cityId;
-			completeLabel.text = " ";
+			if (fullQ.quest.questType == FullQuestProto.QuestType.DONATE_MONSTER)
+			{
+				completeLabel.text = "Donate";
+			}
+			else
+			{
+				completeLabel.text = "Visit";
+			}
+			visitButton.icon.spriteName = "confirm";
 		}
 		else
 		{
 			visitButton.button.enabled = false;
-			completeLabel.text = "Complete!";
+			completeLabel.text = "[90E200]Complete![-]";
+			visitButton.icon.spriteName = "complete";
 		}
 
 	}
 
-	int prizeSize = 110;
-	int buffer = 5;
+	public void OnClickTaskButton()
+	{
+		if (currQuest.quest.questType == FullQuestProto.QuestType.DONATE_MONSTER)
+		{
+			if (CBKQuestManager.instance.AttemptDonation(currQuest))
+			{
+				WriteTask(currQuest);
+				BuildRewards(currQuest);
+				quests.Find(x=>x.fullQuest == currQuest).Init(currQuest);
+			}
+
+		}
+		else
+		{
+			if (currQuest.quest.cityId >= 1)
+			{
+				GoToTown();
+			}
+			else
+			{
+				GoHome();
+			}
+		}
+	}
+
+	void GoToTown()
+	{
+		CBKWhiteboard.currCityType = CBKWhiteboard.CityType.NEUTRAL;
+		CBKWhiteboard.cityID = currQuest.quest.cityId;
+		CBKEventManager.Loading.LoadBuildings();
+		CBKEventManager.Popup.CloseAllPopups();
+	}
+	
+	void GoHome()
+	{	
+		CBKWhiteboard.currCityType = CBKWhiteboard.CityType.PLAYER;
+		CBKWhiteboard.cityID = CBKWhiteboard.localMup.userId;
+		CBKEventManager.Loading.LoadBuildings();	
+		CBKEventManager.Popup.CloseAllPopups();
+	}
+
+
+
 	
 	void BuildRewards(CBKFullQuest fullQ)
 	{
