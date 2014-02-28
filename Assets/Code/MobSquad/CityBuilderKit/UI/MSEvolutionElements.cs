@@ -50,7 +50,7 @@ public class MSEvolutionElements : MonoBehaviour {
 		monsterCard.gameObject.SetActive(false);
 		monsterCard.gameObject.SetActive(true);
 
-		TweenPosition.Begin(monsterCard.gameObject, .4f, Vector3.zero);
+		SpringPosition.Begin(monsterCard.gameObject, Vector3.zero, 5);
 
 		scientistCard.InitScientist(CBKEvolutionManager.instance.currEvolution.catalystUserMonsterId);
 

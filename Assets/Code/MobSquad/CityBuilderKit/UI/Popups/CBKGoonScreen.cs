@@ -67,6 +67,12 @@ public class CBKGoonScreen : MonoBehaviour {
 	[SerializeField]
 	CBKUIHelper evolveElements;
 
+	[SerializeField]
+	CBKActionButton backButton;
+
+	[SerializeField]
+	CBKUIHelper scientistIcons;
+
 	#region Evolution Elements
 
 	[SerializeField]
@@ -144,6 +150,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	{	
 		goonPanelElements.ResetAlpha(true);
 		evolveElements.ResetAlpha(false);
+		scientistIcons.ResetAlpha(false);
 
 		bringGoonIn = false;
 		healMode = true;
@@ -152,11 +159,28 @@ public class CBKGoonScreen : MonoBehaviour {
 		speedUpButton.onClick = TrySpeedUpHeal;
 		labButtons.SetActive(false);
 	}
+
+	/// <summary>
+	/// Hacky little way for the logic to be sliiiightly different if we're coming
+	/// from evolve mode rather than coming straight from another menu
+	/// </summary>
+	public void InitEnhanceFromButton()
+	{
+		InitEnhance(true);
+	}
 	
-	public void InitEnhance()
+	public void InitEnhance(bool fromEvolve = false)
 	{
 		goonPanelElements.ResetAlpha(true);
 		evolveElements.ResetAlpha(false);
+		if (fromEvolve)
+		{
+			scientistIcons.FadeOut();
+		}
+		else
+		{
+			scientistIcons.ResetAlpha(false);
+		}
 		healMode = false;
 		OrganizeCards();
 		OrganizeEnhanceQueue();
@@ -182,6 +206,11 @@ public class CBKGoonScreen : MonoBehaviour {
 		{
 			CBKGoonCard card = reserveCards.Find(x=>x.goon.userMonster.userMonsterId == CBKEvolutionManager.instance.currEvolution.userMonsterIds[0]);
 			OrganizeEvolution(card);
+		}
+		else
+		{
+			scientistIcons.FadeIn();
+			bottomBarLabel.GetComponent<CBKUIHelper>().FadeOut();
 		}
 
 
@@ -256,10 +285,10 @@ public class CBKGoonScreen : MonoBehaviour {
 			{
 				reserveCards[i].InitLab(item);
 			}
-			reserveCards[i].transform.parent = goonCardParent;
 
-			if (reserveCards[i] == evolutionElements.evolvingCard)
+			if (reserveCards[i].transform.parent != goonCardParent)
 			{
+				reserveCards[i].transform.parent = goonCardParent;
 				reserveCards[i].gameObject.SetActive(false);
 				reserveCards[i].gameObject.SetActive(true);
 			}
@@ -288,6 +317,28 @@ public class CBKGoonScreen : MonoBehaviour {
 		evolutionElements.Init(card);
 		evolveElements.FadeIn();
 		goonPanelElements.FadeOut();
+		scientistIcons.FadeOut();
+
+		bottomBarLabel.GetComponent<CBKUIHelper>().FadeIn();
+
+		string catalystColorString = "[ff0000]";
+		if (CBKEvolutionManager.instance.currEvolution.catalystUserMonsterId > 0)
+		{
+			catalystColorString = "[00ff00]";
+		}
+
+		string mobsterColorString = "[ff0000]";
+		if (CBKEvolutionManager.instance.currEvolution.userMonsterIds.Count > 1)
+		{
+			mobsterColorString = "[00ff00]";
+		}
+
+		MonsterProto catalyst = CBKDataManager.instance.Get<MonsterProto>(card.goon.monster.evolutionCatalystMonsterId);
+		MonsterProto evoMonster = CBKDataManager.instance.Get<MonsterProto>(card.goon.monster.evolutionMonsterId);
+
+		bottomBarLabel.text = "You need " + mobsterColorString + "2 Lvl " + card.goon.monster.maxLevel + " " + card.goon.monster.displayName + "s[-] and "
+			+ catalystColorString + card.goon.monster.numCatalystMonstersRequired + " " + catalyst.displayName + "(Evo " + catalyst.evolutionLevel + ")[-]" 
+				+ "\nto evolve to " + evoMonster.displayName;
 	}
 
 	/// <summary>

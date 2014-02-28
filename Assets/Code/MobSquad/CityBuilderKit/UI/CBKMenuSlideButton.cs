@@ -36,16 +36,18 @@ public class CBKMenuSlideButton : MonoBehaviour {
 			
 			slidingOut.from = Vector3.zero;
 			slidingIn.to = Vector3.zero;
-			
+
+			float screenWidth = Screen.width * Mathf.Max(1, 640f/Screen.height);
+
 			switch(slideDirection)
 			{
 			case Direction.LEFT:
-				slidingOut.to = new Vector3(-Screen.width, 0, 0);
-				slidingIn.from = new Vector3(Screen.width, 0, 0);
+				slidingOut.to = new Vector3(-screenWidth, 0, 0);
+				slidingIn.from = new Vector3(screenWidth, 0, 0);
 				break;
 			case Direction.RIGHT:
-				slidingOut.to = new Vector3(Screen.width, 0, 0);
-				slidingIn.from = new Vector3(-Screen.width, 0, 0);
+				slidingOut.to = new Vector3(screenWidth, 0, 0);
+				slidingIn.from = new Vector3(-screenWidth, 0, 0);
 				break;
 			}
 			
