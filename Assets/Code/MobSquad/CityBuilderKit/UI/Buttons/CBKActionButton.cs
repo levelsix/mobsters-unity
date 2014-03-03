@@ -28,12 +28,39 @@ public class CBKActionButton : MonoBehaviour {
 	public UILabel label;
 
 	public UIDragScrollView dragBehind;
+
+	CBKUIHelper helper;
 	
 	void Awake()
 	{
 		gameObj = gameObject;
 		trans = transform;
 		button = GetComponent<UIButton>();
+		helper = GetComponent<CBKUIHelper>();
+	}
+
+	public void Enable()
+	{
+		if (button != null)
+		{
+			button.enabled = true;
+		}
+		if (helper != null)
+		{
+			helper.FadeIn();
+		}
+	}
+
+	public void Disable()
+	{
+		if (button != null)
+		{
+			button.enabled = false;
+		}
+		if (helper != null)
+		{
+			helper.FadeOut();
+		}
 	}
 
 	public virtual void OnClick()

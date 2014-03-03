@@ -1278,6 +1278,15 @@ namespace com.lvl6.proto
       get { return _userMonsterThatAttacked; }
       set { _userMonsterThatAttacked = value; }
     }
+
+    private com.lvl6.proto.UserCurrentMonsterTeamProto _userMonsterTeam = null;
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"userMonsterTeam", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserCurrentMonsterTeamProto userMonsterTeam
+    {
+      get { return _userMonsterTeam; }
+      set { _userMonsterTeam = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1298,13 +1307,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _monsterRemainingHp = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"monsterRemainingHp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _dmgDealt = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"dmgDealt", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int monsterRemainingHp
+    public int dmgDealt
     {
-      get { return _monsterRemainingHp; }
-      set { _monsterRemainingHp = value; }
+      get { return _dmgDealt; }
+      set { _dmgDealt = value; }
     }
 
     private com.lvl6.proto.PersistentClanEventClanInfoProto _eventDetails = null;
@@ -1315,6 +1324,13 @@ namespace com.lvl6.proto
       get { return _eventDetails; }
       set { _eventDetails = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserInfoProto> _clanUsersDetails = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserInfoProto>();
+    [global::ProtoBuf.ProtoMember(4, Name=@"clanUsersDetails", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserInfoProto> clanUsersDetails
+    {
+      get { return _clanUsersDetails; }
+    }
+  
 
     private com.lvl6.proto.FullUserMonsterProto _userMonsterThatAttacked = null;
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userMonsterThatAttacked", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -1326,7 +1342,7 @@ namespace com.lvl6.proto
     }
 
     private com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus _status = com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus.SUCCESS;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus.SUCCESS)]
     public com.lvl6.proto.AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus status
     {
@@ -1346,11 +1362,14 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_USER_NOT_IN_CLAN", Value=3)]
       FAIL_USER_NOT_IN_CLAN = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NO_RAID_IN_PROGRESS", Value=4)]
-      FAIL_NO_RAID_IN_PROGRESS = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NO_STAGE_RAID_IN_PROGRESS", Value=4)]
+      FAIL_NO_STAGE_RAID_IN_PROGRESS = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=5)]
-      FAIL_OTHER = 5
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_MONSTER_ALREADY_DEAD", Value=5)]
+      FAIL_MONSTER_ALREADY_DEAD = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=6)]
+      FAIL_OTHER = 6
     }
   
     private global::ProtoBuf.IExtension extensionObject;

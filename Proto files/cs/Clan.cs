@@ -175,6 +175,15 @@ namespace com.lvl6.proto
       get { return _clanStatus; }
       set { _clanStatus = value; }
     }
+
+    private float _raidContribution = default(float);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"raidContribution", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float raidContribution
+    {
+      get { return _raidContribution; }
+      set { _raidContribution = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -653,13 +662,15 @@ namespace com.lvl6.proto
       get { return _crsmDmgDone; }
       set { _crsmDmgDone = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _userMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
-    [global::ProtoBuf.ProtoMember(9, Name=@"userMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> userMonsters
+
+    private com.lvl6.proto.UserCurrentMonsterTeamProto _userMonsters = null;
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"userMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserCurrentMonsterTeamProto userMonsters
     {
       get { return _userMonsters; }
+      set { _userMonsters = value; }
     }
-  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

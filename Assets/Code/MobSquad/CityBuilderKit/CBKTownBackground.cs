@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using com.lvl6.proto;
 
 public class CBKTownBackground : MonoBehaviour {
 
@@ -20,6 +21,12 @@ public class CBKTownBackground : MonoBehaviour {
 	public void InitHome()
 	{
 		InitMission(homeBackgroundSpriteName, "");
+	}
+
+	public void InitMission(FullCityProto city)
+	{
+		InitMission(city.mapImgName, city.roadImgName);
+		missionRoad.transform.localPosition = new Vector3(city.center.x/25f, city.center.y/25f);
 	}
 
 	public void InitMission(string background, string road)

@@ -273,7 +273,7 @@ public class CBKBuildingManager : MonoBehaviour
 
 		FullCityProto city = CBKDataManager.instance.Get(typeof(FullCityProto), response.cityId) as FullCityProto;
 		CBKGridManager.instance.InitMission(city.mapTmxName);
-		background.InitMission(city.mapImgName, city.roadImgName);
+		background.InitMission(city);
 		
 		for (int i = 0; i < response.cityElements.Count; i++) 
 		{

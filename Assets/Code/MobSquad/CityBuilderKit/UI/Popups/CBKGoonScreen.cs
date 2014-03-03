@@ -73,12 +73,11 @@ public class CBKGoonScreen : MonoBehaviour {
 	[SerializeField]
 	CBKUIHelper scientistIcons;
 
-	#region Evolution Elements
+	[SerializeField]
+	UILabel errorLabel;
 
 	[SerializeField]
 	MSEvolutionElements evolutionElements;
-
-	#endregion
 	
 	#endregion
 	
@@ -146,11 +145,12 @@ public class CBKGoonScreen : MonoBehaviour {
 		OrganizeReserveCards();
 	}
 	
-	public void InitHeal()
+	public void InitHeal(bool fromMenu = false)
 	{	
 		goonPanelElements.ResetAlpha(true);
 		evolveElements.ResetAlpha(false);
 		scientistIcons.ResetAlpha(false);
+		backButton.Disable();
 
 		bringGoonIn = false;
 		healMode = true;
@@ -171,6 +171,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	public void InitEnhance(bool fromEvolve = false)
 	{
+		backButton.Disable();
 		goonPanelElements.ResetAlpha(true);
 		evolveElements.ResetAlpha(false);
 		if (fromEvolve)
@@ -211,12 +212,33 @@ public class CBKGoonScreen : MonoBehaviour {
 		{
 			scientistIcons.FadeIn();
 			bottomBarLabel.GetComponent<CBKUIHelper>().FadeOut();
+			backButton.Disable();
 		}
 
 
 		bringGoonIn = false;
 
 		//OrganizeScientists
+	}
+
+	public void CancelEvolve()
+	{
+		CBKEvolutionManager.instance.currEvolution = null;
+		evolutionElements.evolvingCard.transform.parent = goonCardParent;
+		evolutionElements.evolvingCard.gameObject.SetActive(false);
+		evolutionElements.evolvingCard.gameObject.SetActive(true);
+		if (evolutionElements.evolvingCard.buddy != null)
+		{
+			evolutionElements.evolvingCard.buddy.transform.parent = goonCardParent;
+			evolutionElements.evolvingCard.buddy.buddy = null;
+			evolutionElements.evolvingCard.buddy = null;
+		}
+		InitEvolve();
+	}
+
+	public void OnStartEvolve()
+	{
+		backButton.Disable();
 	}
 	
 	void OnEnable()
@@ -315,9 +337,17 @@ public class CBKGoonScreen : MonoBehaviour {
 	public void OrganizeEvolution(CBKGoonCard card)
 	{
 		evolutionElements.Init(card);
+
 		evolveElements.FadeIn();
 		goonPanelElements.FadeOut();
 		scientistIcons.FadeOut();
+
+		if (!CBKEvolutionManager.instance.active)
+		{
+			backButton.Enable();
+			backButton.label.text = "Back";
+			backButton.onClick = CancelEvolve;
+		}
 
 		bottomBarLabel.GetComponent<CBKUIHelper>().FadeIn();
 
@@ -353,6 +383,12 @@ public class CBKGoonScreen : MonoBehaviour {
 			{
 				PZMonster buddy = CBKMonsterManager.instance.FindEvolutionBuddy(item.goon);
 				item.InitEvolve(GetCardForMonster(buddy));
+				if (item.transform.parent != goonCardParent)
+				{
+					item.transform.parent = goonCardParent;
+					item.gameObject.SetActive(false);
+					item.gameObject.SetActive(true);
+				}
 			}
 		}
 		StartCoroutine(RepositionAfterMove(.25f));
@@ -541,6 +577,13 @@ public class CBKGoonScreen : MonoBehaviour {
 		{
 			CBKMonsterManager.instance.SpeedUpEnhance(gemCost);
 		}
+	}
+
+	public void DisplayErrorMessage(string error)
+	{
+		errorLabel.text = error;
+		errorLabel.alpha = 1;
+		errorLabel.GetComponent<CBKUIHelper>().FadeOut();
 	}
 	
 	void OnHealQueueChanged()

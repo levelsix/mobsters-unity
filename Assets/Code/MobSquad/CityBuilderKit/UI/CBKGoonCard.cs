@@ -605,8 +605,15 @@ public class CBKGoonCard : MonoBehaviour {
 
 	void AddToEvolveScreen()
 	{
-		CBKEvolutionManager.instance.TryEvolveMonster(goon, (buddy!=null) ? buddy.goon : null);
-		CBKGoonScreen.instance.OrganizeEvolution(this);
+		if (goon.monster.evolutionMonsterId > 0)
+		{
+			CBKEvolutionManager.instance.TryEvolveMonster(goon, (buddy!=null) ? buddy.goon : null);
+			CBKGoonScreen.instance.OrganizeEvolution(this);
+		}
+		else
+		{
+			CBKGoonScreen.instance.DisplayErrorMessage(goon.monster.displayName + " is already at maximum evolution level");
+		}
 	}
 	
 	void SpeedUpCombine()
