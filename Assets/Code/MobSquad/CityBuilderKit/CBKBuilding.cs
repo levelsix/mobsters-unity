@@ -298,7 +298,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		userStructProto.purchaseTime = now;
 		userStructProto.isComplete = false;
 		userStructProto.structId = combinedProto.structInfo.structId;
-		userStructProto.userId = CBKWhiteboard.localMup.userId;
+		userStructProto.userId = MSWhiteboard.localMup.userId;
 		
 		Setup ();
 	}
@@ -399,7 +399,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
 		SetGridFromTrans();
 		
-		locallyOwned = (CBKWhiteboard.currCityType == CBKWhiteboard.CityType.PLAYER && CBKWhiteboard.cityID == CBKWhiteboard.localMup.userId);
+		locallyOwned = (MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER && MSWhiteboard.cityID == MSWhiteboard.localMup.userId);
 
 		upgrade = gameObj.AddComponent<CBKBuildingUpgrade>();
 		upgrade.Init(combinedProto.structInfo, userStructProto);
@@ -581,7 +581,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	void SendBuildingMovedRequest()
 	{
 		MoveOrRotateNormStructureRequestProto request = new MoveOrRotateNormStructureRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.userStructId = userStructProto.userStructId;
 		request.type = MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
 		request.curStructCoordinates = new CoordinateProto();

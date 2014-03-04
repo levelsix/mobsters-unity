@@ -94,7 +94,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		get
 		{
-			return CBKWhiteboard.constants.userMonsterConstants.maxNumTeamSlots;
+			return MSWhiteboard.constants.userMonsterConstants.maxNumTeamSlots;
 		}
 	}
 			
@@ -503,13 +503,13 @@ public class CBKGoonScreen : MonoBehaviour {
 			}
 			totalHealTimeLeft -= CBKUtil.timeNowMillis;
 			totalTimeLabel.text = CBKUtil.TimeStringShort(totalHealTimeLeft);
-			speedUpButton.label.text = Mathf.Ceil((float)totalHealTimeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString();
+			speedUpButton.label.text = Mathf.Ceil((float)totalHealTimeLeft / (MSWhiteboard.constants.minutesPerGem * 60000)).ToString();
 		}
 		else if (CBKMonsterManager.enhancementFeeders.Count > 0)
 		{
 			long timeLeft = CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].enhanceTimeLeft;
 			totalTimeLabel.text = CBKUtil.TimeStringShort(timeLeft);
-			speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (CBKWhiteboard.constants.minutesPerGem * 60000)).ToString();
+			speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (MSWhiteboard.constants.minutesPerGem * 60000)).ToString();
 		}
 
 		if (!goonIn && bringGoonIn)
@@ -572,7 +572,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void TrySpeedUpEnhance()
 	{
-		int gemCost = Mathf.CeilToInt((CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].combineTimeLeft) * 1f/60000 / CBKWhiteboard.constants.minutesPerGem);
+		int gemCost = Mathf.CeilToInt((CBKMonsterManager.enhancementFeeders[CBKMonsterManager.enhancementFeeders.Count-1].combineTimeLeft) * 1f/60000 / MSWhiteboard.constants.minutesPerGem);
 		if (CBKResourceManager.instance.Spend(ResourceType.GEMS, gemCost, TrySpeedUpEnhance))
 		{
 			CBKMonsterManager.instance.SpeedUpEnhance(gemCost);

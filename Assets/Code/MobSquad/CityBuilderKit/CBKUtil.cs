@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using com.lvl6.proto;
@@ -263,36 +263,36 @@ public static class CBKUtil {
 		{
 			MonsterProto.MonsterElement.FIRE, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.GRASS, CBKWhiteboard.constants.monsterConstants.elementalStrength},
-				{MonsterProto.MonsterElement.WATER, CBKWhiteboard.constants.monsterConstants.elementalWeakness}
+				{MonsterProto.MonsterElement.GRASS, MSWhiteboard.constants.monsterConstants.elementalStrength},
+				{MonsterProto.MonsterElement.WATER, MSWhiteboard.constants.monsterConstants.elementalWeakness}
 			}
 		},
 		{
 			MonsterProto.MonsterElement.WATER, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.GRASS, CBKWhiteboard.constants.monsterConstants.elementalWeakness},
-				{MonsterProto.MonsterElement.FIRE, CBKWhiteboard.constants.monsterConstants.elementalStrength}
+				{MonsterProto.MonsterElement.GRASS, MSWhiteboard.constants.monsterConstants.elementalWeakness},
+				{MonsterProto.MonsterElement.FIRE, MSWhiteboard.constants.monsterConstants.elementalStrength}
 			}
 		},
 		{
 			MonsterProto.MonsterElement.GRASS, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.FIRE, CBKWhiteboard.constants.monsterConstants.elementalWeakness},
-				{MonsterProto.MonsterElement.WATER, CBKWhiteboard.constants.monsterConstants.elementalStrength}
+				{MonsterProto.MonsterElement.FIRE, MSWhiteboard.constants.monsterConstants.elementalWeakness},
+				{MonsterProto.MonsterElement.WATER, MSWhiteboard.constants.monsterConstants.elementalStrength}
 			}
 		},
 		{
 			MonsterProto.MonsterElement.DARKNESS, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.DARKNESS, CBKWhiteboard.constants.monsterConstants.elementalStrength},
-				{MonsterProto.MonsterElement.LIGHTNING, CBKWhiteboard.constants.monsterConstants.elementalWeakness}
+				{MonsterProto.MonsterElement.DARKNESS, MSWhiteboard.constants.monsterConstants.elementalStrength},
+				{MonsterProto.MonsterElement.LIGHTNING, MSWhiteboard.constants.monsterConstants.elementalWeakness}
 			}
 		},
 		{
 			MonsterProto.MonsterElement.LIGHTNING, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.DARKNESS, CBKWhiteboard.constants.monsterConstants.elementalWeakness},
-				{MonsterProto.MonsterElement.LIGHTNING, CBKWhiteboard.constants.monsterConstants.elementalStrength}
+				{MonsterProto.MonsterElement.DARKNESS, MSWhiteboard.constants.monsterConstants.elementalWeakness},
+				{MonsterProto.MonsterElement.LIGHTNING, MSWhiteboard.constants.monsterConstants.elementalStrength}
 			}
 		}
 	};
@@ -329,16 +329,16 @@ public static class CBKUtil {
 
 	public static void LoadLocalUser (FullUserProto user)
 	{
-		CBKWhiteboard.localUser = user;
-		CBKWhiteboard.localMup = new MinimumUserProto();
-		CBKWhiteboard.localMup.userId = user.userId;
-		CBKWhiteboard.localMup.clan = user.clan;
+		MSWhiteboard.localUser = user;
+		MSWhiteboard.localMup = new MinimumUserProto();
+		MSWhiteboard.localMup.userId = user.userId;
+		MSWhiteboard.localMup.clan = user.clan;
 		
-		CBKWhiteboard.cityID = CBKWhiteboard.localMup.userId;
+		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
 		
-		CBKWhiteboard.nextLevelInfo = CBKDataManager.instance.Get(typeof(StaticUserLevelInfoProto), user.level+1) as StaticUserLevelInfoProto;
+		MSWhiteboard.nextLevelInfo = CBKDataManager.instance.Get(typeof(StaticUserLevelInfoProto), user.level+1) as StaticUserLevelInfoProto;
 		
-		UMQNetworkManager.instance.CreateUserIDQueue(CBKWhiteboard.localMup);
+		UMQNetworkManager.instance.CreateUserIDQueue(MSWhiteboard.localMup);
 	}
 	
 	public static List<T> CopyList<T>(List<T> original)

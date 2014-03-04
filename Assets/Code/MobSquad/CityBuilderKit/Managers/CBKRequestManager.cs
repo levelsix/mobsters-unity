@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -23,7 +23,7 @@ public class CBKRequestManager : MonoBehaviour {
 			if (_inviteResponseRequest == null)
 			{
 				_inviteResponseRequest = new AcceptAndRejectFbInviteForSlotsRequestProto();
-				_inviteResponseRequest.sender = CBKWhiteboard.localMupWithFacebook;
+				_inviteResponseRequest.sender = MSWhiteboard.localMupWithFacebook;
 			}
 			return _inviteResponseRequest;
 		}

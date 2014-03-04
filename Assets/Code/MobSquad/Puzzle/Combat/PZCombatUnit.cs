@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -80,10 +80,38 @@ public class PZCombatUnit : MonoBehaviour {
 		alive = true;
 
 		this.monster = monster;
-		unit.spriteBaseName = monster.monster.imagePrefix;
-		unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 1);
-		shadow.alpha = 1;
+		Init();
 
+	}
+
+	public void Init(MinimumUserMonsterProto pvpMonster)
+	{
+		if (pvpMonster != null)
+		{
+			alive = true;
+			this.monster = new PZMonster(pvpMonster);
+			Init ();
+		}
+		else
+		{
+			this.monster = null;
+			alive = false;
+			unit.sprite.color = new Color (unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 0);
+		}
+	}
+
+	public void DeInit()
+	{
+		this.monster = null;
+		alive = false;
+		unit.sprite.color = new Color (unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 0);
+	}
+
+	void Init()
+	{
+		unit.spriteBaseName = monster.monster.imagePrefix;
+		unit.sprite.color = new Color (unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 1);
+		shadow.alpha = 1;
 		hpBar.fill = ((float)monster.currHP) / monster.maxHP;
 		hpLabel.text = monster.currHP + "/" + monster.maxHP;
 	}
@@ -163,7 +191,7 @@ public class PZCombatUnit : MonoBehaviour {
 	IEnumerator SendHPUpdateToServer ()
 	{
 		UpdateMonsterHealthRequestProto request = new UpdateMonsterHealthRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		
 		UserMonsterCurrentHealthProto hpProto = new UserMonsterCurrentHealthProto();
 		hpProto.userMonsterId = monster.userMonster.userMonsterId;
@@ -216,6 +244,35 @@ public class PZCombatUnit : MonoBehaviour {
 			OnDeath();
 		}
 
+	}
+
+	public IEnumerator AdvanceTo(float x, Vector3 direction, float speed)
+	{
+		unit.animat = CBKUnit.AnimationType.RUN;
+		if (transform.localPosition.x < x)
+		{
+			unit.direction = CBKValues.Direction.EAST;
+			while (transform.localPosition.x < x)
+			{
+				transform.localPosition += direction * speed * Time.deltaTime;
+				yield return null;
+			}
+		}
+		else
+		{
+			unit.direction = CBKValues.Direction.WEST;
+			while (transform.localPosition.x > x)
+			{
+				transform.localPosition -= direction * speed * Time.deltaTime;
+				yield return null;
+			}
+		}
+		unit.animat = CBKUnit.AnimationType.IDLE;
+	}
+
+	public IEnumerator Retreat(Vector3 direction, float speed)
+	{
+		yield return StartCoroutine(AdvanceTo(startingPos.x, direction, speed));
 	}
 
 	void RunDamageLabel(int damage)

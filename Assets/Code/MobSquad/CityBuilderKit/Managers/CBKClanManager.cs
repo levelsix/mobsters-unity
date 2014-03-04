@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -57,7 +57,7 @@ public class CBKClanManager : MonoBehaviour
 			{
 				userClanId = clans[0].clanId;
 				userClanStatus = clans[0].status;
-				UMQNetworkManager.instance.CreateClanChatQueue(CBKWhiteboard.localMup, clans[0].clanId);
+				UMQNetworkManager.instance.CreateClanChatQueue(MSWhiteboard.localMup, clans[0].clanId);
 			}
 			else
 			{
@@ -84,7 +84,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator SearchClanListing(string search = "", int beforeID = 0)
 	{
 		RetrieveClanInfoRequestProto request = new RetrieveClanInfoRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.clanId = 0;
 		request.clanName = search;
 		request.grabType = RetrieveClanInfoRequestProto.ClanInfoGrabType.CLAN_INFO;
@@ -119,7 +119,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator GetClanDetails(int clanId)
 	{
 		RetrieveClanInfoRequestProto request = new RetrieveClanInfoRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.clanId = clanId;
 		request.grabType = RetrieveClanInfoRequestProto.ClanInfoGrabType.ALL;
 		request.isForBrowsingList = false;
@@ -155,7 +155,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator GetClanMembers(int clanId)
 	{
 		RetrieveClanInfoRequestProto request = new RetrieveClanInfoRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.clanId = clanId;;
 		request.grabType = RetrieveClanInfoRequestProto.ClanInfoGrabType.MEMBERS;
 		request.isForBrowsingList = false;
@@ -189,7 +189,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator JoinOrApplyToClan(int clanId)
 	{
 		RequestJoinClanRequestProto request = new RequestJoinClanRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.clanId = clanId;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REQUEST_JOIN_CLAN_EVENT, null);
@@ -232,7 +232,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator RetractJoinRequest(int clanId)
 	{
 		RetractRequestJoinClanRequestProto request = new RetractRequestJoinClanRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.clanId = clanId;
 
 		int tagNum= UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RETRACT_REQUEST_JOIN_CLAN_EVENT, null);
@@ -264,7 +264,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator LeaveClan()
 	{
 		LeaveClanRequestProto request = new LeaveClanRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LEAVE_CLAN_EVENT, null);
 
@@ -301,7 +301,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator CreateClan(string name, string tag, bool requestRequired, string description)
 	{
 		CreateClanRequestProto request = new CreateClanRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.name = name;
 		request.tag = tag;
 		request.requestToJoinClanRequired = requestRequired;
@@ -332,7 +332,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator TransferClanOwnership(int newClanOwnerId)
 	{
 		TransferClanOwnershipRequestProto request = new TransferClanOwnershipRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.newClanOwnerId = newClanOwnerId;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_TRANSFER_CLAN_OWNERSHIP, null);
@@ -358,7 +358,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator ChangeClanDescription(string description)
 	{
 		ChangeClanDescriptionRequestProto request = new ChangeClanDescriptionRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.description = description;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_DESCRIPTION_EVENT, null);
@@ -380,7 +380,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator ChangeClanJoinType(bool joinType)
 	{
 		ChangeClanJoinTypeRequestProto request = new ChangeClanJoinTypeRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.requestToJoinRequired = joinType;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_JOIN_TYPE_EVENT, null);
@@ -402,7 +402,7 @@ public class CBKClanManager : MonoBehaviour
 	public IEnumerator BootPlayerFromClan(int playerId)
 	{
 		BootPlayerFromClanRequestProto request = new BootPlayerFromClanRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.playerToBoot = playerId;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BOOT_PLAYER_FROM_CLAN_EVENT, null);

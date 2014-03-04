@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,7 +33,7 @@ public class CBKResidenceManager : MonoBehaviour {
 			currBuildingId = forBuilding;
 			FB.AppRequest(
 				message: "Please respond to my request!",
-				title: "A request from " + CBKWhiteboard.localMup.name,
+				title: "A request from " + MSWhiteboard.localMup.name,
 				callback: RequestCallback
 				);
 		}
@@ -76,7 +76,7 @@ public class CBKResidenceManager : MonoBehaviour {
 	IEnumerator ReportFBRequests(IList fbIds)
 	{
 		InviteFbFriendsForSlotsRequestProto request = new InviteFbFriendsForSlotsRequestProto();
-		request.sender = CBKWhiteboard.localMupWithFacebook;
+		request.sender = MSWhiteboard.localMupWithFacebook;
 		InviteFbFriendsForSlotsRequestProto.FacebookInviteStructure fish;
 		foreach (var item in fbIds) 
 		{
@@ -171,7 +171,7 @@ public class CBKResidenceManager : MonoBehaviour {
 	IEnumerator UpgradeResidenceFacebookLevelFromInvites(int userStructureId)
 	{
 		IncreaseMonsterInventorySlotRequestProto request = new IncreaseMonsterInventorySlotRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.increaseSlotType = IncreaseMonsterInventorySlotRequestProto.IncreaseSlotType.REDEEM_FACEBOOK_INVITES;
 		request.userStructId = userStructureId;
 		foreach (var item in fbInviteAccepted[userStructureId]) 

@@ -61,6 +61,11 @@ public class PZScrollingBackground : MonoBehaviour {
 		StartCoroutine(KeepScroll());
 	}
 
+	public void StopScroll()
+	{
+		scrolling = false;
+	}
+
 	IEnumerator KeepScroll()
 	{
 		while (scrolling)

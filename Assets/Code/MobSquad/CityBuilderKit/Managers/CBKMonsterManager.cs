@@ -185,7 +185,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	void PrepareNewSellRequest()
 	{
 		sellRequest = new SellUserMonsterRequestProto();
-		sellRequest.sender = CBKWhiteboard.localMupWithResources;
+		sellRequest.sender = MSWhiteboard.localMupWithResources;
 	}
 
 	public void SellMonster(PZMonster monster)
@@ -246,7 +246,7 @@ public class CBKMonsterManager : MonoBehaviour {
 				_monstersCount++;
 				
 				AddMonsterToBattleTeamRequestProto request = new AddMonsterToBattleTeamRequestProto();
-				request.sender = CBKWhiteboard.localMup;
+				request.sender = MSWhiteboard.localMup;
 				request.userMonsterId = monster.userMonster.userMonsterId;
 				request.teamSlotNum = (i+1);
 				UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT, DealWithAddResponse);
@@ -283,7 +283,7 @@ public class CBKMonsterManager : MonoBehaviour {
 		userTeam[(monster.userMonster.teamSlotNum-1)] = null;
 		
 		RemoveMonsterFromBattleTeamRequestProto request = new RemoveMonsterFromBattleTeamRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.userMonsterId = monster.userMonster.userMonsterId;
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT, DealWithRemoveResponse);
 		
@@ -323,7 +323,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	void PrepareNewCombinePiecesRequest()
 	{
 		combineRequestProto = new CombineUserMonsterPiecesRequestProto();
-		combineRequestProto.sender = CBKWhiteboard.localMup;
+		combineRequestProto.sender = MSWhiteboard.localMup;
 	}
 	
 	/// <summary>
@@ -483,7 +483,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	void PrepareNewHealRequest()
 	{
 		healRequestProto = new HealMonsterRequestProto();
-		healRequestProto.sender = CBKWhiteboard.localMupWithResources;
+		healRequestProto.sender = MSWhiteboard.localMupWithResources;
 		healRequestProto.isSpeedup = false;
 	}
 
@@ -502,7 +502,7 @@ public class CBKMonsterManager : MonoBehaviour {
 			return;
 		}
 		
-		healRequestProto.sender = CBKWhiteboard.localMupWithResources;
+		healRequestProto.sender = MSWhiteboard.localMupWithResources;
 
 		UMQNetworkManager.instance.SendRequest(healRequestProto, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT, DealWithHealStartResponse);
 		
@@ -607,7 +607,7 @@ public class CBKMonsterManager : MonoBehaviour {
 			}
 			
 			monster.healingMonster = new UserMonsterHealingProto();
-			monster.healingMonster.userId = CBKWhiteboard.localMup.userId;
+			monster.healingMonster.userId = MSWhiteboard.localMup.userId;
 			monster.healingMonster.userMonsterId = monster.userMonster.userMonsterId;
 			monster.healingMonster.healthProgress = 0;
 			monster.healingMonster.queuedTimeMillis = CBKUtil.timeNowMillis;
@@ -891,7 +891,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	{
 		Debug.Log("Preparing Enhance Request");
 		enhanceRequestProto = new SubmitMonsterEnhancementRequestProto();
-		enhanceRequestProto.sender = CBKWhiteboard.localMupWithResources;
+		enhanceRequestProto.sender = MSWhiteboard.localMupWithResources;
 	}
 	
 	IEnumerator SendCompleteEnhanceRequest(EnhancementWaitTimeCompleteRequestProto request)
@@ -967,7 +967,7 @@ public class CBKMonsterManager : MonoBehaviour {
 		{
 			
 			EnhancementWaitTimeCompleteRequestProto request = new EnhancementWaitTimeCompleteRequestProto();
-			request.sender = CBKWhiteboard.localMup;
+			request.sender = MSWhiteboard.localMup;
 			request.isSpeedup = false;
 			
 			PZMonster feeder;
@@ -996,7 +996,7 @@ public class CBKMonsterManager : MonoBehaviour {
 	public void SpeedUpEnhance(int cost)
 	{
 		EnhancementWaitTimeCompleteRequestProto request = new EnhancementWaitTimeCompleteRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.isSpeedup = true;
 		request.gemsForSpeedup = cost;
 		

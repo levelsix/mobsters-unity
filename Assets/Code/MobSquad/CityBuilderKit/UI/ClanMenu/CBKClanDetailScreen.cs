@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -41,7 +41,7 @@ public class CBKClanDetailScreen : MonoBehaviour {
 	IEnumerator RetrieveClanValues(int clanId)
 	{
 		RetrieveClanInfoRequestProto request = new RetrieveClanInfoRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.clanId = clanId;
 		request.grabType = RetrieveClanInfoRequestProto.ClanInfoGrabType.ALL;
 		request.isForBrowsingList = false;

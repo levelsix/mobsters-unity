@@ -18,16 +18,19 @@ public class CBKMapButton : MonoBehaviour {
 
 	void OnEnable()
 	{
-		FullCityProto city = CBKDataManager.instance.Get<FullCityProto>(cityID);
-		if (city != null)
+		if (cityID > 0)
 		{
-			sprite.spriteName = OPEN_CITY;
-			label.text = city.name;
-		}
-		else
-		{
-			sprite.spriteName = CLOSED_CITY;
-			label.text = " ";
+			FullCityProto city = CBKDataManager.instance.Get<FullCityProto>(cityID);
+			if (city != null)
+			{
+				sprite.spriteName = OPEN_CITY;
+				label.text = city.name;
+			}
+			else
+			{
+				sprite.spriteName = CLOSED_CITY;
+				label.text = " ";
+			}
 		}
 	}
 
@@ -47,16 +50,16 @@ public class CBKMapButton : MonoBehaviour {
 	
 	void GoToTown()
 	{
-		CBKWhiteboard.currCityType = CBKWhiteboard.CityType.NEUTRAL;
-		CBKWhiteboard.cityID = cityID;
+		MSWhiteboard.currCityType = MSWhiteboard.CityType.NEUTRAL;
+		MSWhiteboard.cityID = cityID;
 		CBKEventManager.Loading.LoadBuildings();
 		CBKEventManager.Popup.CloseAllPopups();
 	}
 	
 	void GoHome()
 	{	
-		CBKWhiteboard.currCityType = CBKWhiteboard.CityType.PLAYER;
-		CBKWhiteboard.cityID = CBKWhiteboard.localMup.userId;
+		MSWhiteboard.currCityType = MSWhiteboard.CityType.PLAYER;
+		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
 		CBKEventManager.Loading.LoadBuildings();	
 		CBKEventManager.Popup.CloseAllPopups();
 	}

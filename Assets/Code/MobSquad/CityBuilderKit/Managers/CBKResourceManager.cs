@@ -91,7 +91,7 @@ public class CBKResourceManager : MonoBehaviour {
 		if (retrieveRequest == null)
 		{
 			retrieveRequest = new RetrieveCurrencyFromNormStructureRequestProto();
-			retrieveRequest.sender = CBKWhiteboard.localMupWithResources;
+			retrieveRequest.sender = MSWhiteboard.localMupWithResources;
 		}
 
 		RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval structRetrieval = new RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval();
@@ -171,7 +171,7 @@ public class CBKResourceManager : MonoBehaviour {
 		{
 			//Prompt to convert gems to currency
 			int resourceNeeded = amount - resources[(int)resource - 1];
-			int gemsNeeded = Mathf.CeilToInt(resourceNeeded * CBKWhiteboard.constants.gemsPerResource);
+			int gemsNeeded = Mathf.CeilToInt(resourceNeeded * MSWhiteboard.constants.gemsPerResource);
 
 			CBKEventManager.Popup.CreateButtonPopup(
 				"Spend (G)" + gemsNeeded + " to buy the remaining " + ((resource== ResourceType.CASH)?"$":"(O)") + resourceNeeded,
@@ -194,7 +194,7 @@ public class CBKResourceManager : MonoBehaviour {
 	public void FillByPercentage(ResourceType resource, float percent)
 	{
 		int resources = Mathf.CeilToInt(maxes[(int)resource-1] * percent);
-		int gems = Mathf.CeilToInt(resources * CBKWhiteboard.constants.gemsPerResource);
+		int gems = Mathf.CeilToInt(resources * MSWhiteboard.constants.gemsPerResource);
 
 		if (Spend(ResourceType.GEMS, gems))
 		{
@@ -210,15 +210,15 @@ public class CBKResourceManager : MonoBehaviour {
 	/// <param name="amountToSpend">Amount to spend.</param>
 	public int SpendGemsForOtherResource(ResourceType otherResource, int amountToSpend, Action action = null)
 	{
-		int gems = Mathf.CeilToInt(CBKWhiteboard.constants.gemsPerResource * amountToSpend);
-		int resources = Mathf.CeilToInt(gems / CBKWhiteboard.constants.gemsPerResource); //We do this because it might be slightly more that the amount we were asking for
+		int gems = Mathf.CeilToInt(MSWhiteboard.constants.gemsPerResource * amountToSpend);
+		int resources = Mathf.CeilToInt(gems / MSWhiteboard.constants.gemsPerResource); //We do this because it might be slightly more that the amount we were asking for
 
 		if (Spend(ResourceType.GEMS, gems))
 		{
 			Collect(otherResource, resources);
 
 			ExchangeGemsForResourcesRequestProto request = new ExchangeGemsForResourcesRequestProto();
-			request.sender = CBKWhiteboard.localMupWithResources;
+			request.sender = MSWhiteboard.localMupWithResources;
 			request.numGems = gems;
 			request.numResources = resources;
 			request.resourceType = otherResource;
@@ -263,7 +263,7 @@ public class CBKResourceManager : MonoBehaviour {
 	IEnumerator LevelUp()
 	{
 		LevelUpRequestProto request = new LevelUpRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LEVEL_UP_EVENT, null);
 		
 		while(!UMQNetworkManager.responseDict.ContainsKey(tagNum))

@@ -31,7 +31,10 @@ public class PZDeployPopup : MonoBehaviour {
 
 	void OnPuzzle()
 	{
-		tween.PlayForward();
+		if (!PZCombatManager.instance.pvpMode)
+		{
+			tween.PlayForward();
+		}
 	}
 
 	void OnDeploy(PZMonster monster)

@@ -177,7 +177,7 @@ public class CBKBuildingManager : MonoBehaviour
 	public void RequestCity()
 	{
 		//Debug.Log("Sending city request");
-		if (CBKWhiteboard.currCityType == CBKWhiteboard.CityType.PLAYER)
+		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER)
 		{
 			LoadPlayerCity();
 			//LoadPlayerCityRequestProto load = new LoadPlayerCityRequestProto();
@@ -187,7 +187,7 @@ public class CBKBuildingManager : MonoBehaviour
 		}
 		else
 		{
-			StartCoroutine(LoadNeutralCity(CBKWhiteboard.cityID));
+			StartCoroutine(LoadNeutralCity(MSWhiteboard.cityID));
 		}
 	}
 	
@@ -212,7 +212,7 @@ public class CBKBuildingManager : MonoBehaviour
 	public IEnumerator LoadNeutralCity(int cityId)
 	{
 		LoadCityRequestProto load = new LoadCityRequestProto();
-		load.sender = CBKWhiteboard.localMup;
+		load.sender = MSWhiteboard.localMup;
 		load.cityId = cityId;
 		int cityTag = UMQNetworkManager.instance.SendRequest(load, (int)EventProtocolRequest.C_LOAD_CITY_EVENT, null);
 		
@@ -253,7 +253,7 @@ public class CBKBuildingManager : MonoBehaviour
 		
 		//Debug.Log("Loading city for player: " + response.cityOwner.name);
 		
-		BuildPlayerCity (CBKWhiteboard.loadedPlayerCity);
+		BuildPlayerCity (MSWhiteboard.loadedPlayerCity);
 
 
 	}
@@ -415,7 +415,7 @@ public class CBKBuildingManager : MonoBehaviour
 		if (CBKResourceManager.instance.Spend(costType, proto.buildCost, delegate {BuyBuilding(proto);}))
 		{
 			PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
-			request.sender = CBKWhiteboard.localMup;
+			request.sender = MSWhiteboard.localMup;
 			
 			CBKGridNode coords = CBKGridManager.instance.ScreenToPoint(new Vector3(Screen.width/2, Screen.height/2));
 			coords = FindSpaceInRange(proto, coords, 0);
@@ -432,8 +432,8 @@ public class CBKBuildingManager : MonoBehaviour
 
 			request.resourceType = proto.buildResourceType;
 			
-			CBKWhiteboard.tempStructureProto = proto;
-			CBKWhiteboard.tempStructurePos = coords;
+			MSWhiteboard.tempStructureProto = proto;
+			MSWhiteboard.tempStructurePos = coords;
 			
 			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_NORM_STRUCTURE_EVENT, PurchaseBuildingResponse);
 
@@ -449,12 +449,12 @@ public class CBKBuildingManager : MonoBehaviour
 		PurchaseNormStructureResponseProto response = UMQNetworkManager.responseDict[tagNum] as PurchaseNormStructureResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		StructureInfoProto proto = CBKWhiteboard.tempStructureProto;
+		StructureInfoProto proto = MSWhiteboard.tempStructureProto;
 		
 		if (response.status == PurchaseNormStructureResponseProto.PurchaseNormStructureStatus.SUCCESS)
 		{
 	        CBKBuilding building = MakeBuildingAt(proto, response.userStructId,
-				(int)CBKWhiteboard.tempStructurePos.pos.x, (int)CBKWhiteboard.tempStructurePos.pos.y);
+				(int)MSWhiteboard.tempStructurePos.pos.x, (int)MSWhiteboard.tempStructurePos.pos.y);
 			
 			building.userStructProto.userStructId = response.userStructId;
 		}
@@ -581,18 +581,22 @@ public class CBKBuildingManager : MonoBehaviour
 	
 	public Collider SelectSomethingFromScreen(Vector2 point)
 	{
-		//Cast a ray using the mouse position
-        Ray ray = Camera.main.ScreenPointToRay(point);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            //If our ray hits, select that building
-            return hit.collider;
-        }
-        else
-        {
-            return null;
-        }
+		if (Camera.main != null)
+		{
+			//Cast a ray using the mouse position
+	        Ray ray = Camera.main.ScreenPointToRay(point);
+	        RaycastHit hit;
+	        if (Physics.Raycast(ray, out hit))
+	        {
+	            //If our ray hits, select that building
+	            return hit.collider;
+	        }
+	        else
+	        {
+	            return null;
+	        }
+		}
+		return null;
 	}
 	
 	/// <summary>
@@ -703,7 +707,7 @@ public class CBKBuildingManager : MonoBehaviour
 
 	public int GetMonsterSlotCount()
 	{
-		int monsterSlots = CBKWhiteboard.constants.userMonsterConstants.initialMaxNumMonsterLimit;
+		int monsterSlots = MSWhiteboard.constants.userMonsterConstants.initialMaxNumMonsterLimit;
 
 		foreach (var item in residences) {
 			monsterSlots += item.combinedProto.residence.numMonsterSlots;
@@ -786,7 +790,7 @@ public class CBKBuildingManager : MonoBehaviour
 
 	void DistributeResource(ResourceType resource, float total)
 	{
-		if (CBKWhiteboard.currCityType == CBKWhiteboard.CityType.NEUTRAL) return;
+		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) return;
 
 		List<CBKBuilding> storages = GetStorages(resource);
 		storages.Sort( (x,y)=>x.combinedProto.storage.capacity.CompareTo(y.combinedProto.storage.capacity));

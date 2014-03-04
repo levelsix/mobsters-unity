@@ -59,7 +59,7 @@ public class CBKChatPopup : MonoBehaviour {
 
 			SendGroupChatRequestProto request = new SendGroupChatRequestProto();
 			
-			request.sender = CBKWhiteboard.localMup;
+			request.sender = MSWhiteboard.localMup;
 			if(CBKChatManager.instance.currMode == CBKValues.ChatMode.CLAN)
 			{
 				Debug.Log("Sending Clan Message");

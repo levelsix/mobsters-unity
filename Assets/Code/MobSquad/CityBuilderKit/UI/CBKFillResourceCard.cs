@@ -46,7 +46,7 @@ public class CBKFillResourceCard : MonoBehaviour {
 		}
 
 		
-		cost = Mathf.CeilToInt(amount * CBKWhiteboard.constants.gemsPerResource);
+		cost = Mathf.CeilToInt(amount * MSWhiteboard.constants.gemsPerResource);
 		costLabel.text = "(G)" + cost;
 		amountLabel.text = ((resourceToFill==ResourceType.CASH) ? "$" : "(O)") + amount;
 	}

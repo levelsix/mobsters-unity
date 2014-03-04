@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CBKHideOnHome : MonoBehaviour {
@@ -18,7 +18,7 @@ public class CBKHideOnHome : MonoBehaviour {
 
 	void OnCity()
 	{
-		if (CBKWhiteboard.currCityType == CBKWhiteboard.CityType.NEUTRAL)
+		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL)
 		{
 			OnMission();
 		}

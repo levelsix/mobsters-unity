@@ -46,7 +46,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return (long)((maxHP - (currHP + healingMonster.healthProgress)) * 1000 * CBKWhiteboard.constants.monsterConstants.secondsToHealPerHealthPoint);
+			return (long)((maxHP - (currHP + healingMonster.healthProgress)) * 1000 * MSWhiteboard.constants.monsterConstants.secondsToHealPerHealthPoint);
 		}
 	}
 
@@ -91,7 +91,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return (int)((maxHP - currHP) * CBKWhiteboard.constants.monsterConstants.cashPerHealthPoint);
+			return (int)((maxHP - currHP) * MSWhiteboard.constants.monsterConstants.cashPerHealthPoint);
 		}
 	}
 	
@@ -99,7 +99,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return Mathf.CeilToInt((healTimeLeftMillis/60000) / CBKWhiteboard.constants.minutesPerGem);
+			return Mathf.CeilToInt((healTimeLeftMillis/60000) / MSWhiteboard.constants.minutesPerGem);
 		}
 	}
 	
@@ -188,7 +188,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return Mathf.CeilToInt((combineTimeLeft/60000f) / CBKWhiteboard.constants.minutesPerGem);
+			return Mathf.CeilToInt((combineTimeLeft/60000f) / MSWhiteboard.constants.minutesPerGem);
 		}
 	}
 
@@ -229,6 +229,15 @@ public class PZMonster {
 		this.monster = CBKDataManager.instance.Get(typeof(MonsterProto), userMonster.monsterId) as MonsterProto;
 		
 		SetupWithUser();
+	}
+
+	public PZMonster (MinimumUserMonsterProto pvpMonster)
+	{
+		this.monster = CBKDataManager.instance.Get<MonsterProto>(pvpMonster.monsterId);
+
+		MonsterLevelInfoProto lvlInfo = monster.lvlInfo.Find(x=>x.lvl==pvpMonster.monsterLvl);
+		currHP = maxHP = lvlInfo.hp;
+		SetAttackDamagesFromMonsterLevelInfo(lvlInfo);
 	}
 	
 	public PZMonster(MonsterProto monster, FullUserMonsterProto userMonster)

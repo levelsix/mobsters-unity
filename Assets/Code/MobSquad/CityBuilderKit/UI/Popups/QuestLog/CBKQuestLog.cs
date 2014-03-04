@@ -247,16 +247,16 @@ public class CBKQuestLog : MonoBehaviour {
 
 	void GoToTown()
 	{
-		CBKWhiteboard.currCityType = CBKWhiteboard.CityType.NEUTRAL;
-		CBKWhiteboard.cityID = currQuest.quest.cityId;
+		MSWhiteboard.currCityType = MSWhiteboard.CityType.NEUTRAL;
+		MSWhiteboard.cityID = currQuest.quest.cityId;
 		CBKEventManager.Loading.LoadBuildings();
 		CBKEventManager.Popup.CloseAllPopups();
 	}
 	
 	void GoHome()
 	{	
-		CBKWhiteboard.currCityType = CBKWhiteboard.CityType.PLAYER;
-		CBKWhiteboard.cityID = CBKWhiteboard.localMup.userId;
+		MSWhiteboard.currCityType = MSWhiteboard.CityType.PLAYER;
+		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
 		CBKEventManager.Loading.LoadBuildings();	
 		CBKEventManager.Popup.CloseAllPopups();
 	}

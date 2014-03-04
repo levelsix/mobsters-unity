@@ -27,16 +27,16 @@ public class CBKVisitCityButton : MonoBehaviour {
 	
 	void GoToTown()
 	{
-		CBKWhiteboard.currCityType = CBKWhiteboard.CityType.NEUTRAL;
-		CBKWhiteboard.cityID = cityID;
+		MSWhiteboard.currCityType = MSWhiteboard.CityType.NEUTRAL;
+		MSWhiteboard.cityID = cityID;
 		CBKEventManager.Loading.LoadBuildings();
 		CBKEventManager.Popup.CloseAllPopups();
 	}
 	
 	void GoHome()
 	{	
-		CBKWhiteboard.currCityType = CBKWhiteboard.CityType.PLAYER;
-		CBKWhiteboard.cityID = CBKWhiteboard.localMup.userId;
+		MSWhiteboard.currCityType = MSWhiteboard.CityType.PLAYER;
+		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
 		CBKEventManager.Loading.LoadBuildings();	
 		CBKEventManager.Popup.CloseAllPopups();
 	}

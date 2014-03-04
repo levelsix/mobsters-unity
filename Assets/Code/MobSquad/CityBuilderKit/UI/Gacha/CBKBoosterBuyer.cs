@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
@@ -10,7 +10,7 @@ public class CBKBoosterBuyer : MonoBehaviour {
 	IEnumerator BuyBooster(int packId)
 	{
 		PurchaseBoosterPackRequestProto request = new PurchaseBoosterPackRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.boosterPackId = packId;
 		request.clientTime = CBKUtil.timeNowMillis;
 

@@ -94,7 +94,7 @@ public class CBKQuestManager : MonoBehaviour {
 	IEnumerator LoadUserQuestProgress(KeyValuePair<int, FullQuestProto> questData)
 	{
 		QuestProgressRequestProto request = new QuestProgressRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.questId = questData.Key;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_QUEST_PROGRESS_EVENT, null);
@@ -145,7 +145,7 @@ public class CBKQuestManager : MonoBehaviour {
 		tempQuests.Add(fullQuest.questId, fullQuest);
 		
 		QuestAcceptRequestProto request = new QuestAcceptRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.questId = fullQuest.questId;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_QUEST_ACCEPT_EVENT, null);
@@ -169,7 +169,7 @@ public class CBKQuestManager : MonoBehaviour {
 		else
 		{
 			FullUserQuestProto userQuest = new FullUserQuestProto();
-			userQuest.userId = CBKWhiteboard.localMup.userId;
+			userQuest.userId = MSWhiteboard.localMup.userId;
 			userQuest.questId = fullQuest.questId;
 			userQuest.isRedeemed = false;
 			switch(fullQuest.questType)
@@ -204,7 +204,7 @@ public class CBKQuestManager : MonoBehaviour {
 		fullQuest.userQuest.isComplete = (fullQuest.userQuest.progress >= fullQuest.quest.quantity);
 
 		QuestProgressRequestProto request = new QuestProgressRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.questId = fullQuest.quest.questId;
 		request.currentProgress = fullQuest.userQuest.progress;
 		request.isComplete = fullQuest.userQuest.isComplete;
@@ -238,7 +238,7 @@ public class CBKQuestManager : MonoBehaviour {
 		questDict.Remove(quest.questId);
 		
 		QuestRedeemRequestProto request = new QuestRedeemRequestProto();
-		request.sender = CBKWhiteboard.localMupWithResources;
+		request.sender = MSWhiteboard.localMupWithResources;
 		request.questId = quest.questId;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_QUEST_REDEEM_EVENT, null);

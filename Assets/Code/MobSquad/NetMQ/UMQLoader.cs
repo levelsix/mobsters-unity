@@ -81,7 +81,7 @@ public class UMQLoader : MonoBehaviour {
 
 		//IMPORTANT: Initialize the constants before ANYTHING with CBKUtil is called
 		//Otherwise, the constructor on CBKUtil will fail and throw errors
-		CBKWhiteboard.constants = response.startupConstants;
+		MSWhiteboard.constants = response.startupConstants;
 
 		CBKUtil.LoadLocalUser (response.sender);
 		
@@ -108,11 +108,11 @@ public class UMQLoader : MonoBehaviour {
 			CBKResourceManager.instance.Init(response.sender.level, response.sender.experience,
 				100/*response.experienceRequiredForNextLevel*/, response.sender.cash, response.sender.oil, response.sender.gems);
 			
-			CBKWhiteboard.currSceneType = CBKWhiteboard.SceneType.CITY;
+			MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 
 			LoadPlayerCityRequestProto request = new LoadPlayerCityRequestProto();
-			request.sender = CBKWhiteboard.localMup;
-			request.cityOwnerId = CBKWhiteboard.cityID;
+			request.sender = MSWhiteboard.localMup;
+			request.cityOwnerId = MSWhiteboard.cityID;
 			
 			tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LOAD_PLAYER_CITY_EVENT, null);
 			
@@ -124,7 +124,7 @@ public class UMQLoader : MonoBehaviour {
 			
 			Debug.Log("Got response");
 			
-			CBKWhiteboard.loadedPlayerCity = UMQNetworkManager.responseDict[tagNum] as LoadPlayerCityResponseProto;
+			MSWhiteboard.loadedPlayerCity = UMQNetworkManager.responseDict[tagNum] as LoadPlayerCityResponseProto;
 			UMQNetworkManager.responseDict.Remove(tagNum);
 
 			CBKBuildingManager.instance.LoadPlayerCity();

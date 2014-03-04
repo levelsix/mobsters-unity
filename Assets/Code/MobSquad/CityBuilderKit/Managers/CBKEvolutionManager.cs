@@ -123,7 +123,7 @@ public class CBKEvolutionManager : MonoBehaviour {
 		currEvolution.startTime = CBKUtil.timeNowMillis;
 
 		EvolveMonsterRequestProto request = new EvolveMonsterRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.evolution = currEvolution;
 		request.oilChange = oilCost;
 
@@ -154,7 +154,7 @@ public class CBKEvolutionManager : MonoBehaviour {
 
 	public void FinishWithGems()
 	{
-		int gems = Mathf.CeilToInt((timeLeftMillis / 60000f) / CBKWhiteboard.constants.minutesPerGem);
+		int gems = Mathf.CeilToInt((timeLeftMillis / 60000f) / MSWhiteboard.constants.minutesPerGem);
 		if (CBKResourceManager.instance.Spend(ResourceType.GEMS, gems))
 		{
 			StartCoroutine(CompleteEvolution(gems));
@@ -164,7 +164,7 @@ public class CBKEvolutionManager : MonoBehaviour {
 	IEnumerator CompleteEvolution(int gems = 0)
 	{
 		EvolutionFinishedRequestProto request = new EvolutionFinishedRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.gemsSpent = gems;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLUTION_FINISHED_EVENT, null);

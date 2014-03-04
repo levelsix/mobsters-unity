@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CBKExpBar : MonoBehaviour {
@@ -24,8 +24,8 @@ public class CBKExpBar : MonoBehaviour {
 	
 	void UpdateBar()
 	{
-		levelLabel.text = CBKWhiteboard.localUser.level.ToString();
-		expLabel.text = CBKWhiteboard.localUser.experience + "/" + CBKWhiteboard.nextLevelInfo.requiredExperience;
-		expBar.fill = ((float)CBKWhiteboard.localUser.experience) / CBKWhiteboard.nextLevelInfo.requiredExperience;
+		levelLabel.text = MSWhiteboard.localUser.level.ToString();
+		expLabel.text = MSWhiteboard.localUser.experience + "/" + MSWhiteboard.nextLevelInfo.requiredExperience;
+		expBar.fill = ((float)MSWhiteboard.localUser.experience) / MSWhiteboard.nextLevelInfo.requiredExperience;
 	}
 }

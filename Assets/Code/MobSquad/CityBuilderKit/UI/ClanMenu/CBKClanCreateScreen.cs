@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
@@ -66,7 +66,7 @@ public class CBKClanCreateScreen : MonoBehaviour {
 
 	void SubmitClan()
 	{
-		if (clanNameBox.label.text.Length > 0 && CBKResourceManager.instance.Spend(ResourceType.CASH, CBKWhiteboard.constants.clanConstants.coinPriceToCreateClan, SubmitClan))
+		if (clanNameBox.label.text.Length > 0 && CBKResourceManager.instance.Spend(ResourceType.CASH, MSWhiteboard.constants.clanConstants.coinPriceToCreateClan, SubmitClan))
 		{
 			CBKClanManager.instance.CreateClan(
 				clanNameBox.label.text,

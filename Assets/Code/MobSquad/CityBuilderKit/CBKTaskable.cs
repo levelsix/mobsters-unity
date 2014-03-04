@@ -115,12 +115,12 @@ public class CBKTaskable : MonoBehaviour {
 	IEnumerator BeginDungeonRequest()
 	{
 		BeginDungeonRequestProto request = new BeginDungeonRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.clientTime = CBKUtil.timeNowMillis;
 		request.taskId = task.taskId;
 		
-		CBKWhiteboard.currSceneType = CBKWhiteboard.SceneType.PUZZLE;
-		CBKWhiteboard.dungeonToLoad = request;
+		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.PUZZLE;
+		MSWhiteboard.dungeonToLoad = request;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, null);
 		
@@ -129,10 +129,10 @@ public class CBKTaskable : MonoBehaviour {
 			yield return null;
 		}
 		
-		CBKWhiteboard.loadedDungeon = UMQNetworkManager.responseDict[tagNum] as BeginDungeonResponseProto;
+		MSWhiteboard.loadedDungeon = UMQNetworkManager.responseDict[tagNum] as BeginDungeonResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
-		PZCombatManager.instance.Init();
+		PZCombatManager.instance.InitTask();
 		PZPuzzleManager.instance.InitBoard();
 
 		CBKEventManager.Scene.OnPuzzle();

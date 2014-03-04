@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -87,7 +87,7 @@ public class CBKGachaSpinner : MonoBehaviour {
 		spinning = true;
 
 		PurchaseBoosterPackRequestProto request = new PurchaseBoosterPackRequestProto();
-		request.sender = CBKWhiteboard.localMup;
+		request.sender = MSWhiteboard.localMup;
 		request.boosterPackId = packId;
 		request.clientTime = CBKUtil.timeNowMillis;
 		

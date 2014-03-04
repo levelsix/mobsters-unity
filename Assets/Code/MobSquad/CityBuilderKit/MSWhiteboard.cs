@@ -7,7 +7,7 @@ using com.lvl6.proto;
 /// A static container for data, particularly that data which needs
 /// to persist between scenes
 /// </summary>
-public static class CBKWhiteboard {
+public static class MSWhiteboard {
 	
 	/// <summary>
 	/// The local user.
@@ -62,6 +62,8 @@ public static class CBKWhiteboard {
 	
 	public static BeginDungeonRequestProto dungeonToLoad;
 	public static BeginDungeonResponseProto loadedDungeon;
+
+	public static QueueUpResponseProto loadedPvps;
 	
 	public static LoadCityResponseProto loadedNeutralCity;
 	public static LoadPlayerCityResponseProto loadedPlayerCity;

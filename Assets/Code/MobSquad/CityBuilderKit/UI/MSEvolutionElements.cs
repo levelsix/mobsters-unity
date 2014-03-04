@@ -84,7 +84,7 @@ public class MSEvolutionElements : MonoBehaviour {
 		if (CBKEvolutionManager.instance.active)
 		{
 			finalTimeLabel.text = CBKUtil.TimeStringShort(CBKEvolutionManager.instance.timeLeftMillis);
-			button.label.text = "(G)" + Mathf.CeilToInt((CBKEvolutionManager.instance.timeLeftMillis/6000f) / CBKWhiteboard.constants.minutesPerGem);
+			button.label.text = "(G)" + Mathf.CeilToInt((CBKEvolutionManager.instance.timeLeftMillis/6000f) / MSWhiteboard.constants.minutesPerGem);
 		}
 	}
 
@@ -109,7 +109,7 @@ public class MSEvolutionElements : MonoBehaviour {
 		button.button.enabled = true;
 		button.icon.spriteName = gemButton;
 		aboveButtonLabel.text = "Finish Now";
-		button.label.text = "(G)" + Mathf.CeilToInt((CBKEvolutionManager.instance.timeLeftMillis/6000f) / CBKWhiteboard.constants.minutesPerGem);
+		button.label.text = "(G)" + Mathf.CeilToInt((CBKEvolutionManager.instance.timeLeftMillis/6000f) / MSWhiteboard.constants.minutesPerGem);
 	}
 
 	public void OnButtonClick()

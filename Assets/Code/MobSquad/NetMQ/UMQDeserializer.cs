@@ -64,7 +64,11 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_SELL_USER_MONSTER_EVENT, typeof(SellUserMonsterResponseProto)},
 		{EventProtocolResponse.S_EXCHANGE_GEMS_FOR_RESOURCES_EVENT, typeof(ExchangeGemsForResourcesResponseProto)},
 		{EventProtocolResponse.S_EVOLVE_MONSTER_EVENT, typeof(EvolveMonsterResponseProto)},
-		{EventProtocolResponse.S_EVOLUTION_FINISHED_EVENT, typeof(EvolutionFinishedResponseProto)}
+		{EventProtocolResponse.S_EVOLUTION_FINISHED_EVENT, typeof(EvolutionFinishedResponseProto)},
+		{EventProtocolResponse.S_QUEUE_UP_EVENT, typeof(QueueUpResponseProto)},
+		{EventProtocolResponse.S_BEGIN_PVP_BATTLE_EVENT, typeof(BeginPvpBattleResponseProto)},
+		{EventProtocolResponse.S_END_PVP_BATTLE_EVENT, typeof(EndPvpBattleResponseProto)},
+		{EventProtocolResponse.S_UPDATE_USER_CURRENCY_EVENT, typeof(UpdateUserCurrencyResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

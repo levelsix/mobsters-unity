@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
@@ -51,7 +51,7 @@ public class CBKCreateUserPopup : MonoBehaviour {
 		{
 			CBKUtil.LoadLocalUser(response.sender);
 			
-			CBKWhiteboard.currSceneType = CBKWhiteboard.SceneType.CITY;
+			MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 			CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.STARTING_SCENE);
 		}
 		else
