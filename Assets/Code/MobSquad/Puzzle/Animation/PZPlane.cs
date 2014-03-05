@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PZPlane : MonoBehaviour {
@@ -28,7 +28,7 @@ public class PZPlane : MonoBehaviour {
 
 	void OnEnable()
 	{
-		CBKSoundManager.instance.PlayOneShot(CBKSoundManager.instance.plane);
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.plane);
 	}
 
 	void Update () 

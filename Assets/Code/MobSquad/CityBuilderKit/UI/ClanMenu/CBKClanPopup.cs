@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CBKClanPopup : MonoBehaviour {
@@ -14,10 +14,10 @@ public class CBKClanPopup : MonoBehaviour {
 
 	void OnEnable()
 	{
-		if (CBKClanManager.userClanId > 0)
+		if (MSClanManager.userClanId > 0)
 		{
 			clanDetailScreen.gameObject.SetActive(true);
-			clanDetailScreen.Init(CBKClanManager.userClanId);
+			clanDetailScreen.Init(MSClanManager.userClanId);
 		}
 		else
 		{

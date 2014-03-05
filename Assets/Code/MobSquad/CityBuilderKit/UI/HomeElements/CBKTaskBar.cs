@@ -41,14 +41,14 @@ public class CBKTaskBar : MonoBehaviour {
 	
 	void OnEnable()
 	{
-		CBKEventManager.Town.OnBuildingSelect += OnBuildingSelect;
-		CBKEventManager.Town.OnUnitSelect += OnUnitSelect;
+		MSActionManager.Town.OnBuildingSelect += OnBuildingSelect;
+		MSActionManager.Town.OnUnitSelect += OnUnitSelect;
 	}
 	
 	void OnDisable()
 	{
-		CBKEventManager.Town.OnBuildingSelect -= OnBuildingSelect;
-		CBKEventManager.Town.OnUnitSelect -= OnUnitSelect;
+		MSActionManager.Town.OnBuildingSelect -= OnBuildingSelect;
+		MSActionManager.Town.OnUnitSelect -= OnUnitSelect;
 	}
 	
 	void OnUnitSelect(CBKUnit unit)
@@ -88,7 +88,7 @@ public class CBKTaskBar : MonoBehaviour {
 	
 	void AddButton(CBKTaskButton.Mode mode)
 	{
-		CBKTaskButton button = CBKPoolManager.instance.Get(taskButtonPrefab, Vector3.zero) as CBKTaskButton;
+		CBKTaskButton button = MSPoolManager.instance.Get(taskButtonPrefab, Vector3.zero) as CBKTaskButton;
 		if (currBuilding != null)
 		{
 			if (mode == CBKTaskButton.Mode.UPGRADE || mode == CBKTaskButton.Mode.FINISH)

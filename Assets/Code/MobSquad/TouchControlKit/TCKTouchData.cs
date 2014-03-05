@@ -197,12 +197,12 @@ public class TCKTouchData
 			//If nothing is detecting flicks, turn this into a hold
 			//so that a drag will be detected immediately
 			
-			if (CBKEventManager.Controls.OnFlick[countIndex] == null)
+			if (MSActionManager.Controls.OnFlick[countIndex] == null)
 			{
 				phase = Phase.HOLD;
-				if (CBKEventManager.Controls.OnStartDrag[countIndex] != null)
+				if (MSActionManager.Controls.OnStartDrag[countIndex] != null)
 				{
-					CBKEventManager.Controls.OnStartDrag[countIndex](this);
+					MSActionManager.Controls.OnStartDrag[countIndex](this);
 				}
 			}
 		}

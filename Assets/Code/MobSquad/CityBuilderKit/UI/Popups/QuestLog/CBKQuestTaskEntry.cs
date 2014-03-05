@@ -6,7 +6,7 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// CBK quest task entry.
 /// </summary>
-public class CBKQuestTaskEntry : MonoBehaviour, CBKPoolable
+public class CBKQuestTaskEntry : MonoBehaviour, MSPoolable
 {
 	
 	GameObject gameObj;
@@ -25,7 +25,7 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKPoolable
 		}
 	}
 	
-	public CBKPoolable prefab {
+	public MSPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -56,7 +56,7 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKPoolable
 		gameObj = gameObject;
 	}
 	
-	public CBKPoolable Make (Vector3 origin)
+	public MSPoolable Make (Vector3 origin)
 	{
 		CBKQuestTaskEntry entry = Instantiate(this, origin, Quaternion.identity) as CBKQuestTaskEntry;
 		entry.prefab = this;
@@ -65,12 +65,12 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKPoolable
 	
 	public void Pool ()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 	
 	public void InitMoneyCollect(int amountCollected, int amountToCollect)
 	{
-		taskNameLabel.text = "Collect [" + CBKValues.Colors.moneyText +"]$" + amountToCollect + "[-] from buildings";
+		taskNameLabel.text = "Collect [" + MSValues.Colors.moneyText +"]$" + amountToCollect + "[-] from buildings";
 		
 		numLeftLabel.text = amountCollected + "/" + amountToCollect;
 		
@@ -79,7 +79,7 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKPoolable
 	
 	public void Init(MinimumUserTaskProto task)
 	{
-		FullTaskProto fullTask = CBKDataManager.instance.Get(typeof(FullTaskProto), task.taskId) as FullTaskProto;
+		FullTaskProto fullTask = MSDataManager.instance.Get(typeof(FullTaskProto), task.taskId) as FullTaskProto;
 		
 		taskNameLabel.text = fullTask.name;
 		
@@ -90,9 +90,9 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKPoolable
 	
 	public void Init(MinimumUserBuildStructJobProto job)
 	{
-		BuildStructJobProto buildJob = CBKDataManager.instance.Get (typeof(BuildStructJobProto), job.buildStructJobId) as BuildStructJobProto;
+		BuildStructJobProto buildJob = MSDataManager.instance.Get (typeof(BuildStructJobProto), job.buildStructJobId) as BuildStructJobProto;
 		
-		StructureInfoProto structure = CBKDataManager.instance.Get(typeof(StructureInfoProto), buildJob.structId) as StructureInfoProto;
+		StructureInfoProto structure = MSDataManager.instance.Get(typeof(StructureInfoProto), buildJob.structId) as StructureInfoProto;
 		
 		taskNameLabel.text = "Build " + buildJob.quantityRequired + " " + structure.name + "s";
 		
@@ -103,9 +103,9 @@ public class CBKQuestTaskEntry : MonoBehaviour, CBKPoolable
 	
 	public void Init(MinimumUserUpgradeStructJobProto job)
 	{
-		UpgradeStructJobProto upgradeJob = CBKDataManager.instance.Get(typeof(UpgradeStructJobProto), job.upgradeStructJobId) as UpgradeStructJobProto;
+		UpgradeStructJobProto upgradeJob = MSDataManager.instance.Get(typeof(UpgradeStructJobProto), job.upgradeStructJobId) as UpgradeStructJobProto;
 		
-		StructureInfoProto structure = CBKDataManager.instance.Get(typeof(StructureInfoProto), upgradeJob.structId) as StructureInfoProto;
+		StructureInfoProto structure = MSDataManager.instance.Get(typeof(StructureInfoProto), upgradeJob.structId) as StructureInfoProto;
 		
 		taskNameLabel.text = "Upgrade " + structure.name + " to level " + upgradeJob.levelReq;
 		

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
@@ -16,14 +16,14 @@ public class CBKResourceBar : MonoBehaviour {
 	
 	void OnEnable()
 	{
-		CBKEventManager.UI.OnSetResourceMaxima += OnSetResourceMaxima;
-		CBKEventManager.UI.OnChangeResource[(int)resourceType-1] += OnChangeResource;
+		MSActionManager.UI.OnSetResourceMaxima += OnSetResourceMaxima;
+		MSActionManager.UI.OnChangeResource[(int)resourceType-1] += OnChangeResource;
 	}
 	
 	void OnDisable()
 	{
-		CBKEventManager.UI.OnSetResourceMaxima -= OnSetResourceMaxima;
-		CBKEventManager.UI.OnChangeResource[(int)resourceType-1] -= OnChangeResource;
+		MSActionManager.UI.OnSetResourceMaxima -= OnSetResourceMaxima;
+		MSActionManager.UI.OnChangeResource[(int)resourceType-1] -= OnChangeResource;
 	}
 	
 	void OnSetResourceMaxima(int[] maxes)
@@ -38,6 +38,6 @@ public class CBKResourceBar : MonoBehaviour {
 
 	void Reset()
 	{
-		fillBar.fill = ((float)CBKResourceManager.resources[(int)resourceType - 1]) / CBKResourceManager.maxes[(int)resourceType - 1];
+		fillBar.fill = ((float)MSResourceManager.resources[(int)resourceType - 1]) / MSResourceManager.maxes[(int)resourceType - 1];
 	}
 }

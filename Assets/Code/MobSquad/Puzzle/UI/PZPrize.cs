@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -64,7 +64,7 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitEnemy(int monsterId)
 	{
-		InitEnemy(CBKDataManager.instance.Get<MonsterProto>(monsterId));
+		InitEnemy(MSDataManager.instance.Get<MonsterProto>(monsterId));
 	}
 
 	public void InitEnemy(MonsterProto monster)

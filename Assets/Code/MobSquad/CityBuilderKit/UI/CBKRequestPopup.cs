@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -27,16 +27,16 @@ public class CBKRequestPopup : MonoBehaviour {
 	{
 		//Debug.Log("Initting request popup...");
 
-		while (entries.Count < CBKRequestManager.invitesForMe.Count)
+		while (entries.Count < MSRequestManager.invitesForMe.Count)
 		{
 			AddEntry();
 		}
 
 		int i = 0;
-		for (; i < CBKRequestManager.invitesForMe.Count; i++) 
+		for (; i < MSRequestManager.invitesForMe.Count; i++) 
 		{
 			entries[i].gameObject.SetActive(true);
-			entries[i].Init(CBKRequestManager.invitesForMe[i]);
+			entries[i].Init(MSRequestManager.invitesForMe[i]);
 		}
 		for (; i < entries.Count; i++)  //Deactivate the rest of the entries that exist
 		{
@@ -56,7 +56,7 @@ public class CBKRequestPopup : MonoBehaviour {
 			item.TryAccept();
 		}
 
-		CBKRequestManager.instance.SendAcceptRejectRequest();
+		MSRequestManager.instance.SendAcceptRejectRequest();
 	}
 
 	void AddEntry()

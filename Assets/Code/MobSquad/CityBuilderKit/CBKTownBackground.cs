@@ -31,8 +31,8 @@ public class CBKTownBackground : MonoBehaviour {
 
 	public void InitMission(string background, string road)
 	{
-		missionGround.sprite = backgroundSprites.GetSprite(CBKUtil.StripExtensions(background));
-		missionRoad.sprite = backgroundSprites.GetSprite(CBKUtil.StripExtensions(road));
+		missionGround.sprite = backgroundSprites.GetSprite(MSUtil.StripExtensions(background));
+		missionRoad.sprite = backgroundSprites.GetSprite(MSUtil.StripExtensions(road));
 
 		mapWidth = missionGround.sprite.bounds.extents.x;
 		mapHeight = missionGround.sprite.bounds.extents.y;

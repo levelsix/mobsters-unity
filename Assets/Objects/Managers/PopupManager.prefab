@@ -35,11 +35,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca50dbca1e2794c5ca813f388da92b6e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f3e430fe15a94e868df41c511afe7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 0}
-  popupGroup: {fileID: 0}
+  townPopupParent: {fileID: 0}
+  puzzlePopupParent: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

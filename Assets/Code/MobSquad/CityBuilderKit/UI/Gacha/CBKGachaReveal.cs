@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
@@ -28,7 +28,7 @@ public class CBKGachaReveal : MonoBehaviour {
 	{
 		if (prize.monsterId > 0)
 		{
-			MonsterProto monster = CBKDataManager.instance.Get<MonsterProto>(prize.monsterId);
+			MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(prize.monsterId);
 			goonSprite.sprite2D = CBKAtlasUtil.instance.GetMobsterSprite(monster.imagePrefix);
 			description.text = monster.description;
 			rarityTag.spriteName = monster.quality.ToString().ToLower() + "gtag";

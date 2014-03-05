@@ -14,12 +14,12 @@ public class CBKExpBar : MonoBehaviour {
 
 	void OnEnable()
 	{
-		CBKEventManager.Scene.OnCity += UpdateBar;
+		MSActionManager.Scene.OnCity += UpdateBar;
 	}
 
 	void OnDisable()
 	{
-		CBKEventManager.Scene.OnCity -= UpdateBar;
+		MSActionManager.Scene.OnCity -= UpdateBar;
 	}
 	
 	void UpdateBar()

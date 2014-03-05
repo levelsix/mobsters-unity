@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 /// <summary>
 /// CBK hover bar.
@@ -36,14 +36,14 @@ public class CBKHoverBar : MonoBehaviour {
 	
 	void Awake()
 	{
-		CBKEventManager.Town.OnBuildingSelect += AttachToPlayerStructure;
+		MSActionManager.Town.OnBuildingSelect += AttachToPlayerStructure;
 		trans = transform;
 		gameObj = gameObject;
 	}
 	
 	void OnDestroy()
 	{
-		CBKEventManager.Town.OnBuildingSelect -= AttachToPlayerStructure;
+		MSActionManager.Town.OnBuildingSelect -= AttachToPlayerStructure;
 	}
 	
 	public void AttachToUnit(CBKUnit unit)
@@ -106,7 +106,7 @@ public class CBKHoverBar : MonoBehaviour {
 			if (!currBuilding.userStructProto.isComplete)
 			{
 				bar.fillAmount = 1 - ((float)currBuilding.upgrade.timeRemaining) / currBuilding.upgrade.TimeToUpgrade(1);//currBuilding.userStructProto.level - 1);
-				label.text = CBKUtil.TimeStringShort(currBuilding.upgrade.timeRemaining);
+				label.text = MSUtil.TimeStringShort(currBuilding.upgrade.timeRemaining);
 			}
 			else
 			{

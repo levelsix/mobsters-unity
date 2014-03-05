@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
@@ -25,8 +25,8 @@ public static class MSWhiteboard {
 		{
 			MinimumUserProtoWithMaxResources mup = new MinimumUserProtoWithMaxResources();
 			mup.minUserProto = localMup;
-			mup.maxCash = CBKResourceManager.maxes[0];
-			mup.maxOil = CBKResourceManager.maxes[1];
+			mup.maxCash = MSResourceManager.maxes[0];
+			mup.maxOil = MSResourceManager.maxes[1];
 			return mup;
 		}
 	}

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using com.lvl6.proto;
@@ -17,12 +17,12 @@ public class CBKResourceMaxLabel : MonoBehaviour {
 
 	void OnEnable()
 	{
-		CBKEventManager.UI.OnSetResourceMaxima += OnSetResourceMaxima;
+		MSActionManager.UI.OnSetResourceMaxima += OnSetResourceMaxima;
 	}
 
 	void OnDisable()
 	{
-		CBKEventManager.UI.OnSetResourceMaxima -= OnSetResourceMaxima;
+		MSActionManager.UI.OnSetResourceMaxima -= OnSetResourceMaxima;
 	}
 
 	void OnSetResourceMaxima(int[] maxes)

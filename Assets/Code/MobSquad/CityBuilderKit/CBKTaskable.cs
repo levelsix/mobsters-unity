@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ public class CBKTaskable : MonoBehaviour {
 		{
 			CBKBuilding building = GetComponent<CBKBuilding> ();
 			CBKCityUnit unit = GetComponent<CBKCityUnit>();
-			if (!CBKQuestManager.taskDict.ContainsKey (task.prerequisiteTaskId)) 
+			if (!MSQuestManager.taskDict.ContainsKey (task.prerequisiteTaskId)) 
 			{
 				if (building != null) 
 				{
@@ -52,7 +52,7 @@ public class CBKTaskable : MonoBehaviour {
 				{
 					unit.SetUnlocked();
 				}
-				if (!CBKQuestManager.taskDict.ContainsKey (task.taskId)) 
+				if (!MSQuestManager.taskDict.ContainsKey (task.taskId)) 
 				{
 					if (building != null) 
 					{
@@ -69,41 +69,41 @@ public class CBKTaskable : MonoBehaviour {
 	
 	public void EngageTask()
 	{
-		if (CBKMonsterManager.monstersOnTeam == 0)
+		if (MSMonsterManager.monstersOnTeam == 0)
 		{
-			CBKEventManager.Popup.CreateButtonPopup("Uh oh, you have no mobsters on your team. Manage your team?",
+			MSActionManager.Popup.CreateButtonPopup("Uh oh, you have no mobsters on your team. Manage your team?",
                 new string[]{"Later", "Manage"},
-                new Action[]{delegate{CBKEventManager.Popup.CloseTopPopupLayer();},
-					delegate{CBKEventManager.Popup.CloseAllPopups(); CBKEventManager.Popup.OnPopup(CBKGoonScreen.instance.gameObject);
+                new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
+					delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(CBKGoonScreen.instance.gameObject);
 						CBKGoonScreen.instance.InitHeal();}}
 				);
 			return;
 		}
-		else if (CBKMonsterManager.instance.userMonsters.Count > CBKMonsterManager.totalResidenceSlots)
+		else if (MSMonsterManager.instance.userMonsters.Count > MSMonsterManager.totalResidenceSlots)
 		{
-			CBKEventManager.Popup.CreateButtonPopup("Uh oh, you have recruited too many mobsters. Manage your team?",
+			MSActionManager.Popup.CreateButtonPopup("Uh oh, you have recruited too many mobsters. Manage your team?",
 			                                        new string[]{"Later", "Manage"},
-			new Action[]{delegate{CBKEventManager.Popup.CloseTopPopupLayer();},
-				delegate{CBKEventManager.Popup.CloseAllPopups(); CBKEventManager.Popup.OnPopup(CBKGoonScreen.instance.gameObject);
+			new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
+				delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(CBKGoonScreen.instance.gameObject);
 					CBKGoonScreen.instance.InitHeal();}});
 			return;
 		}
 		else
 		{
 			int i;
-			for (i = 0; i < CBKMonsterManager.userTeam.Length; i++) 
+			for (i = 0; i < MSMonsterManager.userTeam.Length; i++) 
 			{
-				if (CBKMonsterManager.userTeam[i] != null && CBKMonsterManager.userTeam[i].currHP > 0)
+				if (MSMonsterManager.userTeam[i] != null && MSMonsterManager.userTeam[i].currHP > 0)
 				{
 					break;
 				}
 			}
-			if (i == CBKMonsterManager.userTeam.Length)
+			if (i == MSMonsterManager.userTeam.Length)
 			{
-				CBKEventManager.Popup.CreateButtonPopup("No monsters on team have health! Manage your team?",
+				MSActionManager.Popup.CreateButtonPopup("No monsters on team have health! Manage your team?",
 				                                        new string[]{"Later", "Manage"},
-				new Action[]{delegate{CBKEventManager.Popup.CloseTopPopupLayer();},
-					delegate{CBKEventManager.Popup.CloseAllPopups(); CBKEventManager.Popup.OnPopup(CBKGoonScreen.instance.gameObject);
+				new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
+					delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(CBKGoonScreen.instance.gameObject);
 						CBKGoonScreen.instance.InitHeal();}});
 				return;
 			}
@@ -116,7 +116,7 @@ public class CBKTaskable : MonoBehaviour {
 	{
 		BeginDungeonRequestProto request = new BeginDungeonRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.clientTime = CBKUtil.timeNowMillis;
+		request.clientTime = MSUtil.timeNowMillis;
 		request.taskId = task.taskId;
 		
 		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.PUZZLE;
@@ -135,6 +135,6 @@ public class CBKTaskable : MonoBehaviour {
 		PZCombatManager.instance.InitTask();
 		PZPuzzleManager.instance.InitBoard();
 
-		CBKEventManager.Scene.OnPuzzle();
+		MSActionManager.Scene.OnPuzzle();
 	}
 }

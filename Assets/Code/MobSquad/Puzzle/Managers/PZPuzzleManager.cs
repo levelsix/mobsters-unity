@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -44,7 +44,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			{
 				comboLabel.text = _combo.ToString();
 
-				CBKSoundManager.instance.PlayOneShot(CBKSoundManager.instance.combos[Mathf.Min(_combo,CBKSoundManager.instance.combos.Length)-1]);
+				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.combos[Mathf.Min(_combo,MSSoundManager.instance.combos.Length)-1]);
 			}
 			else
 			{
@@ -120,9 +120,9 @@ public class PZPuzzleManager : MonoBehaviour {
 		for (int i = 0; i < currGems.Length; i++) {
 			currGems[i] = 0;
 		}
-		if (CBKEventManager.Puzzle.OnComboChange != null)
+		if (MSActionManager.Puzzle.OnComboChange != null)
 		{
-			CBKEventManager.Puzzle.OnComboChange(combo);
+			MSActionManager.Puzzle.OnComboChange(combo);
 		}
 	}
 	
@@ -137,7 +137,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			{
 				for (int j = 0; j < BOARD_WIDTH; j++) 
 				{
-					gem = CBKPoolManager.instance.Get(gemPrefab, Vector3.zero) as PZGem;
+					gem = MSPoolManager.instance.Get(gemPrefab, Vector3.zero) as PZGem;
 					gem.transf.parent = puzzleParent;
 					gem.SpawnOnMap(PickColor(i, j), j);
 				}
@@ -427,9 +427,9 @@ public class PZPuzzleManager : MonoBehaviour {
 			if (item.gems.Count > 0)
 			{
 				combo++;
-				if (CBKEventManager.Puzzle.OnComboChange != null)
+				if (MSActionManager.Puzzle.OnComboChange != null)
 				{
-					CBKEventManager.Puzzle.OnComboChange(combo);
+					MSActionManager.Puzzle.OnComboChange(combo);
 				}
 			}
 		}
@@ -450,9 +450,9 @@ public class PZPuzzleManager : MonoBehaviour {
 
 		if (matchList.Count > 0)
 		{
-			if (CBKEventManager.Puzzle.OnGemMatch != null)
+			if (MSActionManager.Puzzle.OnGemMatch != null)
 			{
-				CBKEventManager.Puzzle.OnGemMatch();
+				MSActionManager.Puzzle.OnGemMatch();
 			}
 		}
 		
@@ -513,7 +513,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				gem = board[i,j];
 				if (gem != null && gem.colorIndex == colorIndex && gem != molly)
 				{
-					PZMolotovPart mp = (CBKPoolManager.instance.Get(molotovPartPrefab.GetComponent<CBKSimplePoolable>(), molly.transf.localPosition) as MonoBehaviour).GetComponent<PZMolotovPart>();
+					PZMolotovPart mp = (MSPoolManager.instance.Get(molotovPartPrefab.GetComponent<CBKSimplePoolable>(), molly.transf.localPosition) as MonoBehaviour).GetComponent<PZMolotovPart>();
 					mp.trans.parent = puzzleParent;
 					mp.trans.localScale = Vector3.one;
 					mp.Init(molly.transf.localPosition, gem.transf.localPosition, gem, index++);
@@ -528,7 +528,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	PZMatch GetBombMatch(PZGem bomb)
 	{
-		CBKPoolManager.instance.Get(CBKPrefabList.instance.grenadeParticle, bomb.transf.position);
+		MSPoolManager.instance.Get(MSPrefabList.instance.grenadeParticle, bomb.transf.position);
 
 		List<PZGem> gems = new List<PZGem>();
 		if (bomb.boardX > 0)
@@ -574,15 +574,15 @@ public class PZPuzzleManager : MonoBehaviour {
 		List<PZGem> gems = new List<PZGem>();
 		if (gem.horizontal)
 		{
-			PZRocket rocket = (CBKPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
-			rocket.Init(CBKValues.Direction.EAST);
+			PZRocket rocket = (MSPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
+			rocket.Init(MSValues.Direction.EAST);
 			rocket.trans.parent = puzzleParent;
 			rocket.trans.localRotation = Quaternion.identity;
 			rocket.trans.localScale = Vector3.one;
 			rocket.trans.localPosition = gem.transf.localPosition;
 
-			rocket = (CBKPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
-			rocket.Init(CBKValues.Direction.WEST);
+			rocket = (MSPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
+			rocket.Init(MSValues.Direction.WEST);
 			rocket.trans.parent = puzzleParent;
 			rocket.trans.localRotation = Quaternion.identity;
 			rocket.trans.localScale = new Vector3(-1,1,1);
@@ -599,15 +599,15 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 		else
 		{
-			PZRocket rocket = (CBKPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
-			rocket.Init(CBKValues.Direction.NORTH);
+			PZRocket rocket = (MSPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
+			rocket.Init(MSValues.Direction.NORTH);
 			rocket.trans.parent = puzzleParent;
 			rocket.trans.localRotation = new Quaternion(0,0,.707f,.707f);
 			rocket.trans.localScale = Vector3.one;
 			rocket.trans.localPosition = gem.transf.localPosition;
 
-			rocket = (CBKPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
-			rocket.Init(CBKValues.Direction.SOUTH);
+			rocket = (MSPoolManager.instance.Get(rocketPrefab.GetComponent<CBKSimplePoolable>(), gem.transf.position) as MonoBehaviour).GetComponent<PZRocket>();
+			rocket.Init(MSValues.Direction.SOUTH);
 			rocket.trans.parent = puzzleParent;
 			rocket.trans.localRotation = new Quaternion(0,0,.707f,.707f);
 			rocket.trans.localScale = new Vector3(-1,1,1);

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -23,7 +23,7 @@ public class MSEvoScientistNumbers : MonoBehaviour {
 			}
 			else
 			{
-				numbers[i].text = CBKMonsterManager.instance.GetMonstersByMonsterId(scientists[i]).Count.ToString();
+				numbers[i].text = MSMonsterManager.instance.GetMonstersByMonsterId(scientists[i]).Count.ToString();
 			}
 		}
 	}

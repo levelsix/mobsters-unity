@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ public class CBKGachaBanner : MonoBehaviour {
 		gameObject.SetActive(true);
 		this.pack = pack;
 
-		background.sprite2D = CBKAtlasUtil.instance.GetSprite( "Gacha/" + CBKUtil.StripExtensions(pack.listBackgroundImgName) );
+		background.sprite2D = CBKAtlasUtil.instance.GetSprite( "Gacha/" + MSUtil.StripExtensions(pack.listBackgroundImgName) );
 
 		details.text = pack.listDescription;
 	}

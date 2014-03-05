@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CBKMenuSlideButton : MonoBehaviour {
@@ -31,7 +31,7 @@ public class CBKMenuSlideButton : MonoBehaviour {
 			isTweening = true;
 			if (popup != null && !popup.activeSelf)
 			{
-				CBKEventManager.Popup.OnPopup(popup);
+				MSActionManager.Popup.OnPopup(popup);
 			}
 			
 			slidingOut.from = Vector3.zero;
@@ -69,7 +69,7 @@ public class CBKMenuSlideButton : MonoBehaviour {
 		yield return new WaitForSeconds(SLIDE_TIME);
 		if (closeOut)
 		{
-			CBKEventManager.Popup.CloseTopPopupLayer();
+			MSActionManager.Popup.CloseTopPopupLayer();
 		}
 		isTweening = false;
 	}

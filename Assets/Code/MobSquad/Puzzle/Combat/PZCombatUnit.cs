@@ -150,7 +150,7 @@ public class PZCombatUnit : MonoBehaviour {
 	/// </param>
 	public IEnumerator TakeDamage(int damage, MonsterProto.MonsterElement element)
 	{
-		int fullDamage = (int)(damage * CBKUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
+		int fullDamage = (int)(damage * MSUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
 		
 		//Debug.Log(name + " taking " + fullDamage + " damage");
 
@@ -225,11 +225,11 @@ public class PZCombatUnit : MonoBehaviour {
 		unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 0);
 		shadow.alpha = 0;
 
-		CBKPoolManager.instance.Get(CBKPrefabList.instance.characterDieParticle, unit.transf.position);
+		MSPoolManager.instance.Get(MSPrefabList.instance.characterDieParticle, unit.transf.position);
 
 		if (monster.taskMonster != null && monster.taskMonster.monsterId > 0 && monster.taskMonster.puzzlePieceDropped)
 		{
-			Transform crate = (CBKPoolManager.instance.Get(CBKPrefabList.instance.cratePrefab, unit.transf.position) as MonoBehaviour).transform;
+			Transform crate = (MSPoolManager.instance.Get(MSPrefabList.instance.cratePrefab, unit.transf.position) as MonoBehaviour).transform;
 			PZCombatManager.instance.crate = crate.GetComponent<PZCrate>();
 			crate.parent = unit.transf.parent;
 			crate.localScale = new Vector3(50,50,1);
@@ -251,7 +251,7 @@ public class PZCombatUnit : MonoBehaviour {
 		unit.animat = CBKUnit.AnimationType.RUN;
 		if (transform.localPosition.x < x)
 		{
-			unit.direction = CBKValues.Direction.EAST;
+			unit.direction = MSValues.Direction.EAST;
 			while (transform.localPosition.x < x)
 			{
 				transform.localPosition += direction * speed * Time.deltaTime;
@@ -260,7 +260,7 @@ public class PZCombatUnit : MonoBehaviour {
 		}
 		else
 		{
-			unit.direction = CBKValues.Direction.WEST;
+			unit.direction = MSValues.Direction.WEST;
 			while (transform.localPosition.x > x)
 			{
 				transform.localPosition -= direction * speed * Time.deltaTime;

@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
-public class CBKChatBubble : MonoBehaviour, CBKPoolable {
+public class CBKChatBubble : MonoBehaviour, MSPoolable {
 	
 	#region Size Constants
 	
@@ -30,7 +30,7 @@ public class CBKChatBubble : MonoBehaviour, CBKPoolable {
 	
 	Transform trans;
 	
-	public CBKPoolable prefab {
+	public MSPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -53,7 +53,7 @@ public class CBKChatBubble : MonoBehaviour, CBKPoolable {
 	
 	public int height;
 	
-	public CBKPoolable Make (Vector3 origin)
+	public MSPoolable Make (Vector3 origin)
 	{
 		CBKChatBubble bubble = Instantiate(this, origin, Quaternion.identity) as CBKChatBubble;
 		bubble.prefab = this;
@@ -62,7 +62,7 @@ public class CBKChatBubble : MonoBehaviour, CBKPoolable {
 	
 	public void Pool ()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 	
 	[SerializeField]
@@ -111,7 +111,7 @@ public class CBKChatBubble : MonoBehaviour, CBKPoolable {
 
 	public void Init(ReceivedGroupChatResponseProto proto)
 	{
-		height = Init(CBKUtil.timeNowMillis, proto.sender.minUserProto.name, proto.chatMessage, proto.sender.level, proto.isAdmin);
+		height = Init(MSUtil.timeNowMillis, proto.sender.minUserProto.name, proto.chatMessage, proto.sender.level, proto.isAdmin);
 	}
 	
 	/// <summary>
@@ -150,14 +150,14 @@ public class CBKChatBubble : MonoBehaviour, CBKPoolable {
 	{
 		while(true)
 		{
-			long timePassed = CBKUtil.timeNowMillis - timeSent;
+			long timePassed = MSUtil.timeNowMillis - timeSent;
 			if (timePassed < 60000)
 			{
 				timeLabel.text = "just recently";
 			}
 			else
 			{
-				timeLabel.text = (CBKUtil.TimeStringLong(timePassed, true)) + " ago";
+				timeLabel.text = (MSUtil.TimeStringLong(timePassed, true)) + " ago";
 			}
 			yield return new WaitForSeconds(1);
 		}

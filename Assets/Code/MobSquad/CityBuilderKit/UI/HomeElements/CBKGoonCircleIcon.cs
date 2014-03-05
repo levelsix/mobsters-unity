@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -59,7 +59,7 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 			background.spriteName = backgroundElementDict[monster.monster.monsterElement];
 			icon.alpha = 1;
 			
-			icon.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Thumbnail";
+			icon.spriteName = MSUtil.StripExtensions(monster.monster.imagePrefix) + "Thumbnail";
 
 			UISpriteData spDat = icon.GetAtlasSprite();
 			if (spDat != null)

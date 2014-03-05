@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -30,7 +30,7 @@ public class MSEvoScientistButton : MonoBehaviour {
 		int sciCount = 0;
 		foreach (var item in scientistIds)
 		{
-			sciCount += CBKMonsterManager.instance.GetMonstersByMonsterId(item).Count;
+			sciCount += MSMonsterManager.instance.GetMonstersByMonsterId(item).Count;
 		}
 		numLabel.text = "x" + sciCount;
 

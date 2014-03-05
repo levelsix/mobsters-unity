@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CBKHomeTopBar : MonoBehaviour {
@@ -13,19 +13,19 @@ public class CBKHomeTopBar : MonoBehaviour {
 	
 	void OnEnable()
 	{
-		CBKEventManager.Goon.OnTeamChanged += UpdateIconsFromTeam;
+		MSActionManager.Goon.OnTeamChanged += UpdateIconsFromTeam;
 	}
 	
 	void OnDisable()
 	{
-		CBKEventManager.Goon.OnTeamChanged -= UpdateIconsFromTeam;
+		MSActionManager.Goon.OnTeamChanged -= UpdateIconsFromTeam;
 	}
 	
 	void UpdateIconsFromTeam()
 	{
 		for (int i = 0; i < icons.Length; i++) 
 		{
-			icons[i].Init(CBKMonsterManager.userTeam[i]);
+			icons[i].Init(MSMonsterManager.userTeam[i]);
 		}
 	}
 }

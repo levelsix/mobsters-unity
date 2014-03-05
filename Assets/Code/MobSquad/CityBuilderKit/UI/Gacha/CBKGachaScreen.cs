@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -21,7 +21,7 @@ public class CBKGachaScreen : MonoBehaviour {
 	{
 		spinner.Init(pack);
 
-		machine.spriteName = CBKUtil.StripExtensions(pack.machineImgName);
+		machine.spriteName = MSUtil.StripExtensions(pack.machineImgName);
 
 		foreach (CBKActionButton spinButton in spinButtons)
 		{

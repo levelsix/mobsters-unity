@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -26,7 +26,7 @@ public class CBKPickGachaScreen : MonoBehaviour {
 
 	void Init()
 	{
-		Dictionary<int, object> boosters = CBKDataManager.instance.GetAll(typeof(BoosterPackProto)) as Dictionary<int, object>;
+		Dictionary<int, object> boosters = MSDataManager.instance.GetAll(typeof(BoosterPackProto)) as Dictionary<int, object>;
 
 		int i = 0;
 		foreach (var item in boosters.Values) 

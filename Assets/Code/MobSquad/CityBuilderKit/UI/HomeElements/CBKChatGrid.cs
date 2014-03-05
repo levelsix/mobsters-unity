@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -21,12 +21,12 @@ public class CBKChatGrid : MonoBehaviour {
 
 	void OnEnable()
 	{
-		CBKEventManager.UI.OnGroupChatReceived += SpawnBubbleFromNewMessage;
+		MSActionManager.UI.OnGroupChatReceived += SpawnBubbleFromNewMessage;
 	}
 
 	void OnDisable()
 	{
-		CBKEventManager.UI.OnGroupChatReceived -= SpawnBubbleFromNewMessage;
+		MSActionManager.UI.OnGroupChatReceived -= SpawnBubbleFromNewMessage;
 	}
 	
 	public void SpawnBubbles(SortedList<long, GroupChatMessageProto> messages)
@@ -40,7 +40,7 @@ public class CBKChatGrid : MonoBehaviour {
 
 		foreach (KeyValuePair<long, GroupChatMessageProto> item in messages) 
 		{
-			CBKChatBubble bub = CBKPoolManager.instance.Get(bubblePrefab, Vector3.zero) as CBKChatBubble;
+			CBKChatBubble bub = MSPoolManager.instance.Get(bubblePrefab, Vector3.zero) as CBKChatBubble;
 			bub.transf.parent = transform;
 			bub.transf.localScale = Vector3.one;
 			bub.Init(item.Value);
@@ -53,12 +53,12 @@ public class CBKChatGrid : MonoBehaviour {
 
 	public void SpawnBubbleFromNewMessage(ReceivedGroupChatResponseProto proto)
 	{
-		CBKChatBubble bub = CBKPoolManager.instance.Get(bubblePrefab, Vector3.zero) as CBKChatBubble;
+		CBKChatBubble bub = MSPoolManager.instance.Get(bubblePrefab, Vector3.zero) as CBKChatBubble;
 		bub.transf.parent = transform;
 		bub.transf.localScale = Vector3.one;
 		bub.Init (proto);
-		bub.name = (long.MaxValue - CBKUtil.timeNowMillis).ToString();
-		bubbles.Add(-CBKUtil.timeNowMillis, bub);
+		bub.name = (long.MaxValue - MSUtil.timeNowMillis).ToString();
+		bubbles.Add(-MSUtil.timeNowMillis, bub);
 
 		table.Reposition();
 	}

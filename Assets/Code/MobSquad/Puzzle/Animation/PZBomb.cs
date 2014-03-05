@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -51,7 +51,7 @@ public class PZBomb : MonoBehaviour {
 			trans.localPosition += new Vector3(0, velocity, 0) * Time.deltaTime;
 			yield return null;
 		}
-		CBKPoolManager.instance.Get(CBKPrefabList.instance.grenadeParticle, trans.position);
+		MSPoolManager.instance.Get(MSPrefabList.instance.grenadeParticle, trans.position);
 		pool.Pool();
 	}
 }

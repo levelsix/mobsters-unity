@@ -71,11 +71,11 @@ public class CBKClanDetailScreen : MonoBehaviour {
 		}
 		memberGrid.GetComponent<UIGrid>().Reposition();
 
-		if (CBKClanManager.userClanId == 0)
+		if (MSClanManager.userClanId == 0)
 		{
 			//TODO: Set join button up
 		}
-		else if (CBKClanManager.userClanId == clan.clan.clanId && CBKClanManager.isLeader)
+		else if (MSClanManager.userClanId == clan.clan.clanId && MSClanManager.isLeader)
 		{
 			//TODO: Set edit button up
 		}
@@ -83,7 +83,7 @@ public class CBKClanDetailScreen : MonoBehaviour {
 
 	void AddMemberEntryToGrid(MinimumUserProtoForClans member)
 	{
-		CBKClanMemberEntry entry = CBKPoolManager.instance.Get(clanMemberEntryPrefab, Vector3.zero) as CBKClanMemberEntry;
+		CBKClanMemberEntry entry = MSPoolManager.instance.Get(clanMemberEntryPrefab, Vector3.zero) as CBKClanMemberEntry;
 		entry.transf.parent = memberGrid;
 		entry.transf.localScale = Vector3.one;
 		entry.Init(member, member.clanStatus == UserClanStatus.LEADER);

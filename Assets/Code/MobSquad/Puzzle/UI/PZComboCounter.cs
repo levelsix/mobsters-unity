@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PZComboCounter : MonoBehaviour {
@@ -13,12 +13,12 @@ public class PZComboCounter : MonoBehaviour {
 
 	void OnEnable()
 	{
-		CBKEventManager.Puzzle.OnComboChange += OnComboChange;
+		MSActionManager.Puzzle.OnComboChange += OnComboChange;
 	}
 
 	void OnDisable()
 	{
-		CBKEventManager.Puzzle.OnComboChange -= OnComboChange;
+		MSActionManager.Puzzle.OnComboChange -= OnComboChange;
 	}
 
 	void OnComboChange(int combo)

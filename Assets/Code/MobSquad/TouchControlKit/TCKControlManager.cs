@@ -280,16 +280,16 @@ public class TCKControlManager : MonoBehaviour
 	{
 		if (!touch.stationary)
 		{
-			if (CBKEventManager.Controls.OnKeepDrag[touch.countIndex] != null)
+			if (MSActionManager.Controls.OnKeepDrag[touch.countIndex] != null)
 			{
-				CBKEventManager.Controls.OnKeepDrag[touch.countIndex](touch);
+				MSActionManager.Controls.OnKeepDrag[touch.countIndex](touch);
 			}
 		}
 		else
 		{
-			if (CBKEventManager.Controls.OnKeepHold[touch.countIndex] != null)
+			if (MSActionManager.Controls.OnKeepHold[touch.countIndex] != null)
 			{
-				CBKEventManager.Controls.OnKeepHold[touch.countIndex](touch);
+				MSActionManager.Controls.OnKeepHold[touch.countIndex](touch);
 			}
 		}
 	}
@@ -311,23 +311,23 @@ public class TCKControlManager : MonoBehaviour
 		{
 			if (!touch.stationary)
 			{
-				if (CBKEventManager.Controls.OnFlick[touch.countIndex] != null)
+				if (MSActionManager.Controls.OnFlick[touch.countIndex] != null)
 				{
-					CBKEventManager.Controls.OnFlick[touch.countIndex](touch);
+					MSActionManager.Controls.OnFlick[touch.countIndex](touch);
 				}
 			}
 			else
 			{
 				
 				//Try to double-tap
-				if (CheckDoubleTap(touch) && CBKEventManager.Controls.OnDoubleTap[touch.countIndex] != null)
+				if (CheckDoubleTap(touch) && MSActionManager.Controls.OnDoubleTap[touch.countIndex] != null)
 				{
-					CBKEventManager.Controls.OnDoubleTap[touch.countIndex](touch);
+					MSActionManager.Controls.OnDoubleTap[touch.countIndex](touch);
 				}
 				//Tap
-				else if (CBKEventManager.Controls.OnTap[touch.countIndex] != null)
+				else if (MSActionManager.Controls.OnTap[touch.countIndex] != null)
 				{
-					CBKEventManager.Controls.OnTap[touch.countIndex](touch);
+					MSActionManager.Controls.OnTap[touch.countIndex](touch);
 				}
 				StartCoroutine(HoldTap(touch));
 			}
@@ -336,16 +336,16 @@ public class TCKControlManager : MonoBehaviour
 		{
 			if (!touch.stationary)
 			{
-				if (CBKEventManager.Controls.OnReleaseDrag[touch.countIndex] != null)
+				if (MSActionManager.Controls.OnReleaseDrag[touch.countIndex] != null)
 				{
-					CBKEventManager.Controls.OnReleaseDrag[touch.countIndex](touch);
+					MSActionManager.Controls.OnReleaseDrag[touch.countIndex](touch);
 				}
 			}
 			else
 			{
-				if (CBKEventManager.Controls.OnReleaseHold[touch.countIndex] != null)
+				if (MSActionManager.Controls.OnReleaseHold[touch.countIndex] != null)
 				{
-					CBKEventManager.Controls.OnReleaseHold[touch.countIndex](touch);
+					MSActionManager.Controls.OnReleaseHold[touch.countIndex](touch);
 				}
 			}
 		}		
@@ -371,9 +371,9 @@ public class TCKControlManager : MonoBehaviour
 				if (touch.stationary)
 				{
 					//Separate 'if' for clarity
-					if (CBKEventManager.Controls.OnStartHold[touch.countIndex] != null)
+					if (MSActionManager.Controls.OnStartHold[touch.countIndex] != null)
 					{
-						CBKEventManager.Controls.OnStartHold[touch.countIndex](touch);
+						MSActionManager.Controls.OnStartHold[touch.countIndex](touch);
 					}
 				}
 				ProcessHold(touch);
@@ -452,7 +452,7 @@ public class TCKControlManager : MonoBehaviour
 			
 			//Use delta size for pinch magnitude
 			float size = GetSize();
-			CBKEventManager.Controls.OnPinch(multiData.size - size);
+			MSActionManager.Controls.OnPinch(multiData.size - size);
 			multiData.size = size;
 			
 			UpdateTouch(multiData);
@@ -501,7 +501,7 @@ public class TCKControlManager : MonoBehaviour
 	bool HitsUI(Vector2 screenPos)
 	{
 		Ray ray = uiCamera.ScreenPointToRay(screenPos);
-		return Physics.Raycast(ray, uiCamera.farClipPlane - uiCamera.nearClipPlane, 1 << CBKValues.Layers.UI | 1 << CBKValues.Layers.PUZZLE);
+		return Physics.Raycast(ray, uiCamera.farClipPlane - uiCamera.nearClipPlane, 1 << MSValues.Layers.UI | 1 << MSValues.Layers.PUZZLE);
 	}
 	
 }

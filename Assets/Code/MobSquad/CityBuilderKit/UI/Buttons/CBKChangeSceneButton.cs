@@ -3,11 +3,11 @@ using System.Collections;
 
 public class CBKChangeSceneButton : MonoBehaviour {
  
-    public CBKValues.Scene.Scenes scene;
+    public MSValues.Scene.Scenes scene;
     
     void OnClick()
     {
-        CBKValues.Scene.ChangeScene(scene);  
+        MSValues.Scene.ChangeScene(scene);  
     }
     
 }

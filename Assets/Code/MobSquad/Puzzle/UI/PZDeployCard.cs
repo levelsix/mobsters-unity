@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 using System.Collections.Generic;
@@ -40,7 +40,7 @@ public class PZDeployCard : MonoBehaviour {
 		
 		background.spriteName = backgroundDict[goon.monster.monsterElement];
 
-		goonSprite.spriteName = CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Thumbnail";
+		goonSprite.spriteName = MSUtil.StripExtensions(goon.monster.imagePrefix) + "Thumbnail";
 
 		UISpriteData spriteData = goonSprite.GetAtlasSprite();
 		if (spriteData != null)
@@ -71,7 +71,7 @@ public class PZDeployCard : MonoBehaviour {
 		if (monster != null)
 		{
 			Debug.Log("Deploy!");
-			CBKEventManager.Puzzle.OnDeploy(monster);
+			MSActionManager.Puzzle.OnDeploy(monster);
 		}
 	}
 }

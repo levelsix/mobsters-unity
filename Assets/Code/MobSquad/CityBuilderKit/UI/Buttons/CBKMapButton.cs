@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using com.lvl6.proto;
@@ -20,7 +20,7 @@ public class CBKMapButton : MonoBehaviour {
 	{
 		if (cityID > 0)
 		{
-			FullCityProto city = CBKDataManager.instance.Get<FullCityProto>(cityID);
+			FullCityProto city = MSDataManager.instance.Get<FullCityProto>(cityID);
 			if (city != null)
 			{
 				sprite.spriteName = OPEN_CITY;
@@ -52,16 +52,16 @@ public class CBKMapButton : MonoBehaviour {
 	{
 		MSWhiteboard.currCityType = MSWhiteboard.CityType.NEUTRAL;
 		MSWhiteboard.cityID = cityID;
-		CBKEventManager.Loading.LoadBuildings();
-		CBKEventManager.Popup.CloseAllPopups();
+		MSActionManager.Loading.LoadBuildings();
+		MSActionManager.Popup.CloseAllPopups();
 	}
 	
 	void GoHome()
 	{	
 		MSWhiteboard.currCityType = MSWhiteboard.CityType.PLAYER;
 		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
-		CBKEventManager.Loading.LoadBuildings();	
-		CBKEventManager.Popup.CloseAllPopups();
+		MSActionManager.Loading.LoadBuildings();	
+		MSActionManager.Popup.CloseAllPopups();
 	}
 	
 }

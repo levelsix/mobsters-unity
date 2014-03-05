@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CBKResourceStorage : MonoBehaviour {
@@ -36,6 +36,6 @@ public class CBKResourceStorage : MonoBehaviour {
 
 	void OnFinishUpgrade()
 	{
-		CBKResourceManager.instance.DetermineResourceMaxima();
+		MSResourceManager.instance.DetermineResourceMaxima();
 	}
 }

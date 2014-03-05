@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PZSwapButton : MonoBehaviour {
@@ -11,16 +11,16 @@ public class PZSwapButton : MonoBehaviour {
 
 	void OnEnable()
 	{
-		CBKEventManager.Puzzle.OnGemMatch += Hide;
-		CBKEventManager.Puzzle.OnNewPlayerTurn += Show;
-		CBKEventManager.Puzzle.ForceHideSwap += Hide;
-		CBKEventManager.Puzzle.ForceShowSwap += Show;
+		MSActionManager.Puzzle.OnGemMatch += Hide;
+		MSActionManager.Puzzle.OnNewPlayerTurn += Show;
+		MSActionManager.Puzzle.ForceHideSwap += Hide;
+		MSActionManager.Puzzle.ForceShowSwap += Show;
 	}
 
 	void OnDisable()
 	{
-		CBKEventManager.Puzzle.OnGemMatch -= Hide;
-		CBKEventManager.Puzzle.OnNewPlayerTurn -= Show;
+		MSActionManager.Puzzle.OnGemMatch -= Hide;
+		MSActionManager.Puzzle.OnNewPlayerTurn -= Show;
 	}
 
 	void OnClick()

@@ -12,7 +12,7 @@ public class CBKBoosterBuyer : MonoBehaviour {
 		PurchaseBoosterPackRequestProto request = new PurchaseBoosterPackRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.boosterPackId = packId;
-		request.clientTime = CBKUtil.timeNowMillis;
+		request.clientTime = MSUtil.timeNowMillis;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_BOOSTER_PACK_EVENT, null);
 
@@ -26,7 +26,7 @@ public class CBKBoosterBuyer : MonoBehaviour {
 
 		if (response.status == PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus.SUCCESS)
 		{
-			CBKMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
+			MSMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
 
 			//TODO: Send response.prize to the UI for display
 		}

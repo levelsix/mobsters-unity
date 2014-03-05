@@ -96,7 +96,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	{
 		Debug.LogWarning("Trying to buy");
 		//Spend Money Here
-		if (CBKResourceManager.instance.Spend(currResource, currCost, TryToBuy))
+		if (MSResourceManager.instance.Spend(currResource, currCost, TryToBuy))
 		{
 			if(currBuilding.userStructProto.isComplete)
 			{
@@ -106,9 +106,9 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 			{
 				currBuilding.upgrade.FinishWithPremium();
 			}
-			if (CBKEventManager.Popup.CloseAllPopups != null)
+			if (MSActionManager.Popup.CloseAllPopups != null)
 			{
-				CBKEventManager.Popup.CloseAllPopups();
+				MSActionManager.Popup.CloseAllPopups();
 			}
 		}
 	}
@@ -141,7 +141,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 				
 				header.text = "Upgrade to level " + nextBuilding.structInfo.level + "?";
 				
-				upgradeTime.text = CBKUtil.TimeStringLong(nextBuilding.structInfo.minutesToBuild * 60000);
+				upgradeTime.text = MSUtil.TimeStringLong(nextBuilding.structInfo.minutesToBuild * 60000);
 				
 				currResource = nextBuilding.structInfo.buildResourceType;
 				
@@ -152,7 +152,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 			{
 				header.text = "Finish upgrade?";
 
-				upgradeTime.text = CBKUtil.TimeStringMed(building.upgrade.timeRemaining);
+				upgradeTime.text = MSUtil.TimeStringMed(building.upgrade.timeRemaining);
 				StartCoroutine(UpdateRemainingTime());
 
 				currResource = ResourceType.GEMS;
@@ -325,7 +325,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	{
 		while(!currBuilding.userStructProto.isComplete)
 		{
-			upgradeTime.text = CBKUtil.TimeStringMed(currBuilding.upgrade.timeRemaining);
+			upgradeTime.text = MSUtil.TimeStringMed(currBuilding.upgrade.timeRemaining);
 			currCost = currBuilding.upgrade.gemsToFinish;
 			upgradeButton.label.text = currCost.ToString();
 			yield return new WaitForSeconds(1);

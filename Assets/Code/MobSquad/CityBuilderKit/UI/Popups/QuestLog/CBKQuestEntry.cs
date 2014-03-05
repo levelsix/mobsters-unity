@@ -1,14 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class CBKQuestEntry : MonoBehaviour, CBKPoolable {
+public class CBKQuestEntry : MonoBehaviour, MSPoolable {
 	
 	#region Poolable Members & Properties
 	
 	[HideInInspector]
 	public CBKQuestEntry _prefab;
 	
-	public CBKPoolable prefab {
+	public MSPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -72,10 +72,10 @@ public class CBKQuestEntry : MonoBehaviour, CBKPoolable {
 	
 	void OnClick()
 	{
-		CBKEventManager.UI.OnQuestEntryClicked(fullQuest);
+		MSActionManager.UI.OnQuestEntryClicked(fullQuest);
 	}
 	
-	public CBKPoolable Make (Vector3 origin)
+	public MSPoolable Make (Vector3 origin)
 	{
 		CBKQuestEntry entry = Instantiate(this, origin, Quaternion.identity) as CBKQuestEntry;
 		entry.prefab = this;
@@ -84,6 +84,6 @@ public class CBKQuestEntry : MonoBehaviour, CBKPoolable {
 	
 	public void Pool ()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 }

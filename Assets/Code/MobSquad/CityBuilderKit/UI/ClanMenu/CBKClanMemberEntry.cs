@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
-public class CBKClanMemberEntry : MonoBehaviour, CBKPoolable {
+public class CBKClanMemberEntry : MonoBehaviour, MSPoolable {
 
 	#region Poolable
 
@@ -26,7 +26,7 @@ public class CBKClanMemberEntry : MonoBehaviour, CBKPoolable {
 	}
 
 	CBKClanMemberEntry _prefab;
-	public CBKPoolable prefab
+	public MSPoolable prefab
 	{
 		get
 		{
@@ -38,7 +38,7 @@ public class CBKClanMemberEntry : MonoBehaviour, CBKPoolable {
 		}
 	}
 
-	public CBKPoolable Make(Vector3 origin)
+	public MSPoolable Make(Vector3 origin)
 	{
 		CBKClanMemberEntry entry = Instantiate(this, origin, Quaternion.identity) as CBKClanMemberEntry;
 		entry.prefab = this;
@@ -47,7 +47,7 @@ public class CBKClanMemberEntry : MonoBehaviour, CBKPoolable {
 
 	public void Pool()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 
 	void Awake()

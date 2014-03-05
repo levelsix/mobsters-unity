@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -50,7 +50,7 @@ public class CBKFacebookRequestEntry : MonoBehaviour {
 	{
 		if (accepted)
 		{
-			CBKRequestManager.instance.AcceptInvite(invite);
+			MSRequestManager.instance.AcceptInvite(invite);
 		}
 	}
 

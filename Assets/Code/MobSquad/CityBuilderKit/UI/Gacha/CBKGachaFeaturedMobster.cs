@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -35,7 +35,7 @@ public class CBKGachaFeaturedMobster : MonoBehaviour {
 
 	public void Init(BoosterItemProto mobster)
 	{
-		MonsterProto monster = CBKDataManager.instance.Get<MonsterProto>(mobster.monsterId);
+		MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(mobster.monsterId);
 
 		mobsterSprite.sprite2D = CBKAtlasUtil.instance.GetMobsterSprite(monster.imagePrefix);
 		mobsterName.text = monster.displayName;

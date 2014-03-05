@@ -14,12 +14,12 @@ public class CBKGround : MonoBehaviour {
 	
 	void OnEnable()
 	{
-		CBKEventManager.Cam.OnCameraChangeOrientation += Start;	
+		MSActionManager.Cam.OnCameraChangeOrientation += Start;	
 	}
 	
 	void OnDisable()
 	{
-		CBKEventManager.Cam.OnCameraChangeOrientation -= Start;
+		MSActionManager.Cam.OnCameraChangeOrientation -= Start;
 	}
 	
 	/// <summary>

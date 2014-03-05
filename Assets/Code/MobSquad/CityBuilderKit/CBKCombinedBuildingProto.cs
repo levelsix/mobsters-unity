@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
@@ -21,7 +21,7 @@ public class CBKCombinedBuildingProto {
 			{
 				return null;
 			}
-			return CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), structInfo.predecessorStructId) as CBKCombinedBuildingProto;
+			return MSDataManager.instance.Get(typeof(CBKCombinedBuildingProto), structInfo.predecessorStructId) as CBKCombinedBuildingProto;
 		}
 	}
 
@@ -33,7 +33,7 @@ public class CBKCombinedBuildingProto {
 			{
 				return null;
 			}
-			return CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), structInfo.successorStructId) as CBKCombinedBuildingProto;
+			return MSDataManager.instance.Get(typeof(CBKCombinedBuildingProto), structInfo.successorStructId) as CBKCombinedBuildingProto;
 		}
 	}
 

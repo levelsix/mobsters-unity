@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -104,13 +104,13 @@ public class CBKQuestLog : MonoBehaviour {
 	
 	void OnEnable()
 	{
-		CBKEventManager.UI.OnQuestEntryClicked += OnQuestEntryClicked;
+		MSActionManager.UI.OnQuestEntryClicked += OnQuestEntryClicked;
 		Init ();
 	}
 	
 	void OnDisable()
 	{
-		CBKEventManager.UI.OnQuestEntryClicked -= OnQuestEntryClicked;
+		MSActionManager.UI.OnQuestEntryClicked -= OnQuestEntryClicked;
 
 	}
 	
@@ -128,16 +128,16 @@ public class CBKQuestLog : MonoBehaviour {
 		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = true;
 		detailsParent.transform.localPosition = RIGHT_POS;
 
-		while(quests.Count < CBKQuestManager.questDict.Count)
+		while(quests.Count < MSQuestManager.questDict.Count)
 		{
-			CBKQuestEntry entry = CBKPoolManager.instance.Get(questEntryPrefab, Vector3.zero) as CBKQuestEntry;
+			CBKQuestEntry entry = MSPoolManager.instance.Get(questEntryPrefab, Vector3.zero) as CBKQuestEntry;
 			entry.trans.parent = questGridParentTrans;
 			entry.GetComponent<UIDragObject>().target = questGridParentTrans;
 			quests.Add(entry);
 		}
 
 		int i = 0;
-		foreach (CBKFullQuest item in CBKQuestManager.questDict.Values) 
+		foreach (CBKFullQuest item in MSQuestManager.questDict.Values) 
 		{
 			quests[i].Init(item);
 			i++;
@@ -224,7 +224,7 @@ public class CBKQuestLog : MonoBehaviour {
 	{
 		if (currQuest.quest.questType == FullQuestProto.QuestType.DONATE_MONSTER)
 		{
-			if (CBKQuestManager.instance.AttemptDonation(currQuest))
+			if (MSQuestManager.instance.AttemptDonation(currQuest))
 			{
 				WriteTask(currQuest);
 				BuildRewards(currQuest);
@@ -249,16 +249,16 @@ public class CBKQuestLog : MonoBehaviour {
 	{
 		MSWhiteboard.currCityType = MSWhiteboard.CityType.NEUTRAL;
 		MSWhiteboard.cityID = currQuest.quest.cityId;
-		CBKEventManager.Loading.LoadBuildings();
-		CBKEventManager.Popup.CloseAllPopups();
+		MSActionManager.Loading.LoadBuildings();
+		MSActionManager.Popup.CloseAllPopups();
 	}
 	
 	void GoHome()
 	{	
 		MSWhiteboard.currCityType = MSWhiteboard.CityType.PLAYER;
 		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
-		CBKEventManager.Loading.LoadBuildings();	
-		CBKEventManager.Popup.CloseAllPopups();
+		MSActionManager.Loading.LoadBuildings();	
+		MSActionManager.Popup.CloseAllPopups();
 	}
 
 
@@ -335,7 +335,7 @@ public class CBKQuestLog : MonoBehaviour {
 
 	public void CollectQuest()
 	{
-		CBKQuestManager.instance.CompleteQuest(currQuest);
+		MSQuestManager.instance.CompleteQuest(currQuest);
 		if (shareCheck.value)
 		{
 			//TODO: Share quest
@@ -352,7 +352,7 @@ public class CBKQuestLog : MonoBehaviour {
 		
 		questGiver.GetComponent<TweenPosition>().PlayForward();
 		questGiver.GetComponent<CBKUIHelper>().FadeIn();
-		questGiver.sprite2D = CBKAtlasUtil.instance.GetSprite("Quest/HD/" + CBKUtil.StripExtensions(quest.quest.questGiverImageSuffix) + "Big");
+		questGiver.sprite2D = CBKAtlasUtil.instance.GetSprite("Quest/HD/" + MSUtil.StripExtensions(quest.quest.questGiverImageSuffix) + "Big");
 
 		GetComponent<TweenPosition>().PlayForward();
 

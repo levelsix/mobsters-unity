@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -39,13 +39,13 @@ public class CBKClanListScreen : MonoBehaviour {
 		{
 			search = " ";
 		}
-		IEnumerator searcher = CBKClanManager.instance.SearchClanListing(search, beforeId);
+		IEnumerator searcher = MSClanManager.instance.SearchClanListing(search, beforeId);
 		while(searcher.MoveNext())
 		{
 
 			yield return searcher.Current;
 		}
-		List<FullClanProtoWithClanSize> clans = CBKClanManager.instance.postedClans;
+		List<FullClanProtoWithClanSize> clans = MSClanManager.instance.postedClans;
 		foreach (var item in clans){
 			AddEntry (item);
 		}
@@ -54,7 +54,7 @@ public class CBKClanListScreen : MonoBehaviour {
 
 	void AddEntry(FullClanProtoWithClanSize clan)
 	{
-		CBKClanListEntry entry = CBKPoolManager.instance.Get(entryPrefab, Vector3.zero) as CBKClanListEntry;
+		CBKClanListEntry entry = MSPoolManager.instance.Get(entryPrefab, Vector3.zero) as CBKClanListEntry;
 		entry.Init(clan);
 		entry.transf.parent = clanListParent;
 		entry.transf.localScale = Vector3.one;

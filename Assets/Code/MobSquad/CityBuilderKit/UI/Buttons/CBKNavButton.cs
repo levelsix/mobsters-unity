@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -8,11 +8,11 @@ using System.Collections;
 public class CBKNavButton : CBKActionButton {
 	
 	[SerializeField]
-	CBKValues.ChatMode chatMode = CBKValues.ChatMode.GLOBAL;
+	MSValues.ChatMode chatMode = MSValues.ChatMode.GLOBAL;
 	
 	public override void OnClick()
 	{
-		CBKChatManager.instance.SetChatMode(chatMode);
+		MSChatManager.instance.SetChatMode(chatMode);
 	}
 	
 }

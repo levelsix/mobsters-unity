@@ -8,7 +8,7 @@ public class CBKGoonMenuButton : MonoBehaviour {
 	
 	void OnClick()
 	{
-		CBKEventManager.Popup.OnPopup(goonScreen.gameObject);
+		MSActionManager.Popup.OnPopup(goonScreen.gameObject);
 		goonScreen.InitHeal();
 	}
 }

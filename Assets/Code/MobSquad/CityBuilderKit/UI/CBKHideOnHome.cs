@@ -8,12 +8,12 @@ public class CBKHideOnHome : MonoBehaviour {
 	void Awake ()
 	{
 		gameObj = gameObject;
-		CBKEventManager.Scene.OnCity += OnCity;
+		MSActionManager.Scene.OnCity += OnCity;
 	}
 
 	void OnDestroy()
 	{
-		CBKEventManager.Scene.OnCity -= OnCity;
+		MSActionManager.Scene.OnCity -= OnCity;
 	}
 
 	void OnCity()

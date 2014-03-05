@@ -10,11 +10,11 @@ public class CBKClosePopupButton : MonoBehaviour {
 	{
 		if (all)
 		{
-			CBKEventManager.Popup.CloseAllPopups();
+			MSActionManager.Popup.CloseAllPopups();
 		}
 		else
 		{
-			CBKEventManager.Popup.CloseTopPopupLayer();
+			MSActionManager.Popup.CloseTopPopupLayer();
 		}
 	}
 	

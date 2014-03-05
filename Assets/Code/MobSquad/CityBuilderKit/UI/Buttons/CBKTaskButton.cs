@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// CBK task button, the button on the right-side of the task bar.
 /// When in BUILDING mode, this is the upgrade/finish upgrade button.
 /// </summary>
-public class CBKTaskButton : CBKTriggerPopupButton, CBKPoolable {
+public class CBKTaskButton : CBKTriggerPopupButton, MSPoolable {
 	
 	public GameObject gObj {
 		get {
@@ -17,7 +17,7 @@ public class CBKTaskButton : CBKTriggerPopupButton, CBKPoolable {
 	
 	CBKTaskButton _prefab;
 	
-	public CBKPoolable prefab {
+	public MSPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -74,7 +74,7 @@ public class CBKTaskButton : CBKTriggerPopupButton, CBKPoolable {
 		trans = transform;
 	}
 	
-	public CBKPoolable Make (Vector3 origin)
+	public MSPoolable Make (Vector3 origin)
 	{
 		CBKTaskButton button = Instantiate(this, origin, Quaternion.identity) as CBKTaskButton;
 		button.prefab = this;
@@ -166,6 +166,6 @@ public class CBKTaskButton : CBKTriggerPopupButton, CBKPoolable {
 	
 	public void Pool ()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 }

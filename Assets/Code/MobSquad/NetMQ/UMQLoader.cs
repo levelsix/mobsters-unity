@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using com.lvl6.proto;
@@ -16,9 +16,9 @@ public class UMQLoader : MonoBehaviour {
 
 		Application.targetFrameRate = 30;
 
-		CBKFacebookManager.instance.Init();
+		MSFacebookManager.instance.Init();
 
-		while (!FB.isInitCalled || (!FB.hasFailed && !CBKFacebookManager.hasTriedLogin))
+		while (!FB.isInitCalled || (!FB.hasFailed && !MSFacebookManager.hasTriedLogin))
 		{
 			yield return null;
 		}
@@ -66,7 +66,7 @@ public class UMQLoader : MonoBehaviour {
 
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{
-			CBKEventManager.Popup.OnPopup(createUserPopup);
+			MSActionManager.Popup.OnPopup(createUserPopup);
 			yield break;
 		}
 
@@ -76,36 +76,36 @@ public class UMQLoader : MonoBehaviour {
 
 		if (response.staticDataStuffProto != null)
 		{
-			CBKDataManager.instance.LoadStaticData(response.staticDataStuffProto);
+			MSDataManager.instance.LoadStaticData(response.staticDataStuffProto);
 		}
 
 		//IMPORTANT: Initialize the constants before ANYTHING with CBKUtil is called
 		//Otherwise, the constructor on CBKUtil will fail and throw errors
 		MSWhiteboard.constants = response.startupConstants;
 
-		CBKUtil.LoadLocalUser (response.sender);
+		MSUtil.LoadLocalUser (response.sender);
 		
-		CBKChatManager.instance.Init(response);
+		MSChatManager.instance.Init(response);
 		
-		CBKQuestManager.instance.Init(response);
+		MSQuestManager.instance.Init(response);
 
-		CBKClanManager.instance.Init(response.userClanInfo);
+		MSClanManager.instance.Init(response.userClanInfo);
 
-		CBKRequestManager.instance.Init(response.invitesToMeForSlots);
+		MSRequestManager.instance.Init(response.invitesToMeForSlots);
 
 
 		Debug.Log("Invites to me: " + response.invitesToMeForSlots.Count
 		          + "\nInvites from me: " + response.invitesFromMeForSlots.Count);
 
-		CBKResidenceManager.instance.AddInvites(response.invitesFromMeForSlots);
+		MSResidenceManager.instance.AddInvites(response.invitesFromMeForSlots);
 		
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{
-			CBKEventManager.Popup.OnPopup(createUserPopup);
+			MSActionManager.Popup.OnPopup(createUserPopup);
 		}
 		else
 		{
-			CBKResourceManager.instance.Init(response.sender.level, response.sender.experience,
+			MSResourceManager.instance.Init(response.sender.level, response.sender.experience,
 				100/*response.experienceRequiredForNextLevel*/, response.sender.cash, response.sender.oil, response.sender.gems);
 			
 			MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
@@ -127,13 +127,13 @@ public class UMQLoader : MonoBehaviour {
 			MSWhiteboard.loadedPlayerCity = UMQNetworkManager.responseDict[tagNum] as LoadPlayerCityResponseProto;
 			UMQNetworkManager.responseDict.Remove(tagNum);
 
-			CBKBuildingManager.instance.LoadPlayerCity();
+			MSBuildingManager.instance.LoadPlayerCity();
 
-			CBKEventManager.Scene.OnCity();
+			MSActionManager.Scene.OnCity();
 		}
 
-		CBKMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
-		CBKEvolutionManager.instance.Init(response.evolution);
+		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
+		MSEvolutionManager.instance.Init(response.evolution);
 	}
 
 }

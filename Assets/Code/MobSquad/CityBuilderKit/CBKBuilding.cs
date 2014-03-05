@@ -8,7 +8,7 @@ using com.lvl6.proto;
 /// Component for a single building
 /// </summary>
 [RequireComponent (typeof(BoxCollider))]
-public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesGridSpace, CBKISelectable
+public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGridSpace, CBKISelectable
 {
 	#region Members
 	
@@ -16,7 +16,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	private CBKBuilding _prefab;
 	
-	public CBKPoolable prefab {
+	public MSPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -226,8 +226,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
     private static Vector3 SIZE_OFFSET{
 		get
 		{
-			return new Vector3(CBKGridManager.instance.spaceSize * .5f, 0, 
-				CBKGridManager.instance.spaceSize * .5f);
+			return new Vector3(MSGridManager.instance.spaceSize * .5f, 0, 
+				MSGridManager.instance.spaceSize * .5f);
 		}
 	}
 	
@@ -272,7 +272,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// </param>
 	public void Init(FullUserStructureProto proto)
 	{
-		combinedProto = CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), proto.structId) as CBKCombinedBuildingProto;
+		combinedProto = MSDataManager.instance.Get(typeof(CBKCombinedBuildingProto), proto.structId) as CBKCombinedBuildingProto;
 		
 		userStructProto = proto;
 
@@ -289,11 +289,11 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	/// </param>
 	public void Init(StructureInfoProto proto)
 	{
-		combinedProto = CBKDataManager.instance.Get(typeof(CBKCombinedBuildingProto), proto.structId) as CBKCombinedBuildingProto;
+		combinedProto = MSDataManager.instance.Get(typeof(CBKCombinedBuildingProto), proto.structId) as CBKCombinedBuildingProto;
 		
 		userStructProto = new FullUserStructureProto();
 
-		long now = CBKUtil.timeNowMillis;
+		long now = MSUtil.timeNowMillis;
 		userStructProto.lastRetrieved = now;
 		userStructProto.purchaseTime = now;
 		userStructProto.isComplete = false;
@@ -357,9 +357,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		{
 			taskable = gameObj.AddComponent(typeof(CBKTaskable)) as CBKTaskable;
 			_box.enabled = true;
-			float hypot = Mathf.Max(width, length) * CBKGridManager.instance.gridSpaceHypotenuse / 2 *2/3;
+			float hypot = Mathf.Max(width, length) * MSGridManager.instance.gridSpaceHypotenuse / 2 *2/3;
 			_box.center = new Vector3(hypot, 0, hypot);
-			_box.size = new Vector3(width * CBKGridManager.instance.spaceSize, 1, length * CBKGridManager.instance.spaceSize);
+			_box.size = new Vector3(width * MSGridManager.instance.spaceSize, 1, length * MSGridManager.instance.spaceSize);
 			shadow.SetActive(true);
 		}
 		else
@@ -394,8 +394,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		      
 		SetupSprite(combinedProto.structInfo.imgName);
 		
-		_box.size = new Vector3(width * CBKGridManager.instance.spaceSize, 1, 
-			length * CBKGridManager.instance.spaceSize);
+		_box.size = new Vector3(width * MSGridManager.instance.spaceSize, 1, 
+			length * MSGridManager.instance.spaceSize);
 		trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
 		SetGridFromTrans();
 		
@@ -437,9 +437,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 
 		//sprite.spriteName = CBKUtil.StripExtensions(structName);
 		//CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
-		sprite.sprite = CBKAtlasUtil.instance.GetBuildingSprite(CBKUtil.StripExtensions(structName));
+		sprite.sprite = CBKAtlasUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
 
-		RuntimeAnimatorController animator = CBKAtlasUtil.instance.GetAnimator(CBKUtil.StripExtensions(structName));
+		RuntimeAnimatorController animator = CBKAtlasUtil.instance.GetAnimator(MSUtil.StripExtensions(structName));
 		Animator spriteAnimator = sprite.GetComponent<Animator>();
 		if (spriteAnimator != null)
 		{
@@ -491,7 +491,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	{
 		if (selected)
 		{
-			CBKEventManager.Town.PlaceBuilding -= Place;
+			MSActionManager.Town.PlaceBuilding -= Place;
 		}
 	}
 	
@@ -501,8 +501,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 
 	void SetGridFromTrans ()
 	{
-		_currPos = new CBKGridNode(new Vector2(transform.position.x / CBKGridManager.instance.spaceSize - SIZE_OFFSET.x * width,
-    	    transform.position.z / CBKGridManager.instance.spaceSize - SIZE_OFFSET.z * length));
+		_currPos = new CBKGridNode(new Vector2(transform.position.x / MSGridManager.instance.spaceSize - SIZE_OFFSET.x * width,
+    	    transform.position.z / MSGridManager.instance.spaceSize - SIZE_OFFSET.z * length));
 		
 		//sprite.depth = (int)(_currPos.pos.x + _currPos.pos.y + Mathf.Min(width, length)/2) * -1 - 10;
 		//Debug.Log("Currpos: " + _currPos.pos);
@@ -528,12 +528,12 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
         //Add the difference to the original position, since we only hold original mouse pos
         trans.position = _tempPos + movement;
 
-        trans.position = CBKGridManager.instance.SnapPointToGrid(transform.position, width, length);
+        trans.position = MSGridManager.instance.SnapPointToGrid(transform.position, width, length);
 
 		SetGridFromTrans ();
 		
 		
-		if (CBKGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
+		if (MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 		{
 			_currColor = selectColor;
 		}
@@ -561,20 +561,20 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
     {
 		if (userStructProto != null)
 		{
-	        if (_currPos.pos != groundPos && CBKGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
+	        if (_currPos.pos != groundPos && MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 	        {
-	            CBKGridManager.instance.AddBuilding(this, _currPos.x, _currPos.z, combinedProto.structInfo.width, combinedProto.structInfo.height);
+	            MSGridManager.instance.AddBuilding(this, _currPos.x, _currPos.z, combinedProto.structInfo.width, combinedProto.structInfo.height);
 				_originalPos = trans.position;
 				
 				SendBuildingMovedRequest();
 	        }
 	        else
 	        {
-	            CBKGridManager.instance.AddBuilding(this, (int)groundPos.x, (int)groundPos.y, combinedProto.structInfo.width, combinedProto.structInfo.height);
+	            MSGridManager.instance.AddBuilding(this, (int)groundPos.x, (int)groundPos.y, combinedProto.structInfo.width, combinedProto.structInfo.height);
 	            trans.position = _originalPos;
 	        }
 		}
-		CBKEventManager.Town.PlaceBuilding -= Place;
+		MSActionManager.Town.PlaceBuilding -= Place;
 		Deselect();
     }
 	
@@ -611,7 +611,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 		{
 			lockTween.ResetToBeginning();
 			lockTween.PlayForward();
-			CBKBuildingManager.instance.FullDeselect();
+			MSBuildingManager.instance.FullDeselect();
 		}
 		else if (!selected)
 		{
@@ -619,9 +619,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 			_tempPos = trans.position;
 			if (userStructProto != null)
 			{
-	        	CBKGridManager.instance.RemoveBuilding(this);
+	        	MSGridManager.instance.RemoveBuilding(this);
 			}
-			CBKEventManager.Town.PlaceBuilding += Place;
+			MSActionManager.Town.PlaceBuilding += Place;
 			selected = true;
 			_currColor = selectColor;
 			
@@ -751,7 +751,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 	
 	#region Poolable Functions
 	
-	public CBKPoolable Make (Vector3 origin)
+	public MSPoolable Make (Vector3 origin)
 	{
 		CBKBuilding building = Instantiate(this, origin, Quaternion.identity) as CBKBuilding;
 		building.prefab = this;
@@ -780,14 +780,14 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, CBKPoolable, CBKITakesG
 
 		if (!selected)
 		{
-			CBKGridManager.instance.RemoveBuilding(this);
+			MSGridManager.instance.RemoveBuilding(this);
 		}
 		if (taskable != null)
 		{
 			Destroy(taskable);
 			taskable = null;
 		}
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 	
 	#endregion

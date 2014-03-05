@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -57,15 +57,15 @@ public class PZMonster {
 			float progress = healingMonster.healthProgress;
 			for (int i = 0; i < hospitalTimes.Count; i++) {
 				HospitalTime hosTime = hospitalTimes[i];
-				if (hosTime.startTime < CBKUtil.timeNowMillis)
+				if (hosTime.startTime < MSUtil.timeNowMillis)
 				{
-					if (i < hospitalTimes.Count-1 && hospitalTimes[i].startTime < CBKUtil.timeNowMillis)
+					if (i < hospitalTimes.Count-1 && hospitalTimes[i].startTime < MSUtil.timeNowMillis)
 					{
 						progress += ((hospitalTimes[i].startTime - hosTime.startTime) * hosTime.hospital.combinedProto.hospital.healthPerSecond) / (maxHP - currHP);
 					}
 					else
 					{
-						progress += ((CBKUtil.timeNowMillis - hosTime.startTime) * hosTime.hospital.combinedProto.hospital.healthPerSecond) / (maxHP - currHP);
+						progress += ((MSUtil.timeNowMillis - hosTime.startTime) * hosTime.hospital.combinedProto.hospital.healthPerSecond) / (maxHP - currHP);
 					}
 				}
 			}
@@ -83,7 +83,7 @@ public class PZMonster {
 			{
 				return 0;
 			}
-			return finishHealTimeMillis - CBKUtil.timeNowMillis;
+			return finishHealTimeMillis - MSUtil.timeNowMillis;
 		}
 	}
 	
@@ -141,7 +141,7 @@ public class PZMonster {
 			{
 				return 0;
 			}
-			return finishEnhanceTime - CBKUtil.timeNowMillis;
+			return finishEnhanceTime - MSUtil.timeNowMillis;
 		}
 	}
 	
@@ -180,7 +180,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return finishCombineTime - CBKUtil.timeNowMillis;
+			return finishCombineTime - MSUtil.timeNowMillis;
 		}
 	}
 	
@@ -212,7 +212,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return CBKEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterId);
+			return MSEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterId);
 		}
 	}
 
@@ -226,14 +226,14 @@ public class PZMonster {
 	public PZMonster(FullUserMonsterProto userMonster)
 	{
 		this.userMonster = userMonster;
-		this.monster = CBKDataManager.instance.Get(typeof(MonsterProto), userMonster.monsterId) as MonsterProto;
+		this.monster = MSDataManager.instance.Get(typeof(MonsterProto), userMonster.monsterId) as MonsterProto;
 		
 		SetupWithUser();
 	}
 
 	public PZMonster (MinimumUserMonsterProto pvpMonster)
 	{
-		this.monster = CBKDataManager.instance.Get<MonsterProto>(pvpMonster.monsterId);
+		this.monster = MSDataManager.instance.Get<MonsterProto>(pvpMonster.monsterId);
 
 		MonsterLevelInfoProto lvlInfo = monster.lvlInfo.Find(x=>x.lvl==pvpMonster.monsterLvl);
 		currHP = maxHP = lvlInfo.hp;
@@ -251,7 +251,7 @@ public class PZMonster {
 	public PZMonster(TaskStageMonsterProto taskMonster)
 	{
 		this.taskMonster = taskMonster;
-		this.monster = CBKDataManager.instance.Get(typeof(MonsterProto), taskMonster.monsterId) as MonsterProto;
+		this.monster = MSDataManager.instance.Get(typeof(MonsterProto), taskMonster.monsterId) as MonsterProto;
 		
 		SetupWithTask();
 	}
@@ -355,7 +355,7 @@ public class PZMonster {
 		float currPerc = 0;
 		if (checkFeeders)
 		{
-			foreach (var item in CBKMonsterManager.enhancementFeeders) 
+			foreach (var item in MSMonsterManager.enhancementFeeders) 
 			{
 				currExp += item.enhanceXP;
 			}

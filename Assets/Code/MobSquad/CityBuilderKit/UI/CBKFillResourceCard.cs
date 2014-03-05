@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -36,13 +36,13 @@ public class CBKFillResourceCard : MonoBehaviour {
 	{
 		if (fill)
 		{
-			amount = CBKResourceManager.maxes[(int)resourceToFill-1] - CBKResourceManager.resources[(int)resourceToFill-1];
+			amount = MSResourceManager.maxes[(int)resourceToFill-1] - MSResourceManager.resources[(int)resourceToFill-1];
 			button.enabled = amount < 0;
 		}
 		else
 		{
-			amount = Mathf.CeilToInt(CBKResourceManager.maxes[(int)resourceToFill-1] * percent);
-			button.enabled = CBKResourceManager.resources[(int)resourceToFill-1] + amount < CBKResourceManager.maxes[(int)resourceToFill-1];
+			amount = Mathf.CeilToInt(MSResourceManager.maxes[(int)resourceToFill-1] * percent);
+			button.enabled = MSResourceManager.resources[(int)resourceToFill-1] + amount < MSResourceManager.maxes[(int)resourceToFill-1];
 		}
 
 		
@@ -55,9 +55,9 @@ public class CBKFillResourceCard : MonoBehaviour {
 	{
 		if (button.enabled)
 		{
-			if (CBKResourceManager.instance.Spend(ResourceType.GEMS, cost))
+			if (MSResourceManager.instance.Spend(ResourceType.GEMS, cost))
 			{
-				CBKResourceManager.instance.Collect(resourceToFill, amount);
+				MSResourceManager.instance.Collect(resourceToFill, amount);
 			}
 		}
 	}

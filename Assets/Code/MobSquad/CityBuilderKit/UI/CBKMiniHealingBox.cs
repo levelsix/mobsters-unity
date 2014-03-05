@@ -54,7 +54,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		}
 		else
 		{
-			goonPortrait.spriteName = CBKUtil.StripExtensions(monster.monster.imagePrefix) + "Card";	
+			goonPortrait.spriteName = MSUtil.StripExtensions(monster.monster.imagePrefix) + "Card";	
 			background.spriteName = elementBackgrounds[monster.monster.monsterElement];
 			removeButton.gameObject.SetActive(true);
 		}
@@ -86,7 +86,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 
 	void RemoveTeam()
 	{
-		CBKMonsterManager.instance.RemoveFromTeam(monster);
+		MSMonsterManager.instance.RemoveFromTeam(monster);
 		on = false;
 	}
 
@@ -95,18 +95,18 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		Debug.LogWarning("Removing " + monster.userMonster.userMonsterId);
 		if (monster.isHealing)
 		{
-			CBKMonsterManager.instance.RemoveFromHealQueue(monster);
+			MSMonsterManager.instance.RemoveFromHealQueue(monster);
 		}
 		else if (monster.isEnhancing)
 		{
-			if (monster == CBKMonsterManager.currentEnhancementMonster)
+			if (monster == MSMonsterManager.currentEnhancementMonster)
 			{
 				Debug.Log("Clear enhance queue");
-				CBKMonsterManager.instance.ClearEnhanceQueue();
+				MSMonsterManager.instance.ClearEnhanceQueue();
 			}
 			else
 			{
-				CBKMonsterManager.instance.RemoveFromEnhanceQueue(monster);
+				MSMonsterManager.instance.RemoveFromEnhanceQueue(monster);
 			}
 		}
 		on = false;
@@ -122,12 +122,12 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		if (monster.isHealing)
 		{
 			bar.fillAmount = 1 - monster.healProgressPercentage;
-			timeLabel.text = CBKUtil.TimeStringShort(monster.healTimeLeftMillis);
+			timeLabel.text = MSUtil.TimeStringShort(monster.healTimeLeftMillis);
 		}
 		else if (monster.isEnhancing)
 		{
 			bar.fillAmount = 1 - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
-			timeLabel.text = CBKUtil.TimeStringShort(monster.enhanceTimeLeft);
+			timeLabel.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
 		}
 		else bar.fillAmount = 0;
 	}

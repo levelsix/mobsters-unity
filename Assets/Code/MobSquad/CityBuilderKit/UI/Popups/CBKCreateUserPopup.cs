@@ -49,10 +49,10 @@ public class CBKCreateUserPopup : MonoBehaviour {
 		
 		if (response.status == UserCreateResponseProto.UserCreateStatus.SUCCESS)
 		{
-			CBKUtil.LoadLocalUser(response.sender);
+			MSUtil.LoadLocalUser(response.sender);
 			
 			MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
-			CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.STARTING_SCENE);
+			MSValues.Scene.ChangeScene(MSValues.Scene.Scenes.STARTING_SCENE);
 		}
 		else
 		{

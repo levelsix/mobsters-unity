@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
 
-public class PZDamageNumber : MonoBehaviour, CBKPoolable {
+public class PZDamageNumber : MonoBehaviour, MSPoolable {
 
 	GameObject gameObj;
 	Transform trans;
@@ -25,7 +25,7 @@ public class PZDamageNumber : MonoBehaviour, CBKPoolable {
 	}
 
 	PZDamageNumber _prefab;
-	public CBKPoolable prefab
+	public MSPoolable prefab
 	{
 		get
 		{
@@ -52,7 +52,7 @@ public class PZDamageNumber : MonoBehaviour, CBKPoolable {
 
 	static readonly Vector3 TWEEN_SHIFT = new Vector3(0, 27, 0);
 
-	public CBKPoolable Make (Vector3 origin)
+	public MSPoolable Make (Vector3 origin)
 	{
 		PZDamageNumber number = Instantiate(this, origin, Quaternion.identity) as PZDamageNumber;
 		number.prefab = this;
@@ -61,7 +61,7 @@ public class PZDamageNumber : MonoBehaviour, CBKPoolable {
 
 	public void Pool()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 
 	void Awake()

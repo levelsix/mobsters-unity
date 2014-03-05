@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -22,6 +22,6 @@ public class PZCityModeButton : MonoBehaviour {
 	void OnClick()
 	{
 		Debug.Log("To City");
-		CBKEventManager.Scene.OnCity();
+		MSActionManager.Scene.OnCity();
 	}
 }

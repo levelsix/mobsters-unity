@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
@@ -72,23 +72,23 @@ public class CBKBuildingCard : MonoBehaviour {
 
 	void DetermineCount()
 	{
-		int count = CBKBuildingManager.instance.GetBuildingTypeCount(building.structInfo.structType, building.structInfo.buildResourceType);
+		int count = MSBuildingManager.instance.GetBuildingTypeCount(building.structInfo.structType, building.structInfo.buildResourceType);
 		int max = 0;
-		if (CBKBuildingManager.townHall != null)
+		if (MSBuildingManager.townHall != null)
 		{
 			switch(building.structInfo.structType)
 			{
 			case StructureInfoProto.StructType.HOSPITAL:
-				max = CBKBuildingManager.townHall.combinedProto.townHall.numHospitals;
+				max = MSBuildingManager.townHall.combinedProto.townHall.numHospitals;
 				break;
 			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
 				switch(building.generator.resourceType)
 				{
 				case ResourceType.CASH:
-					max = CBKBuildingManager.townHall.combinedProto.townHall.numResourceOneGenerators;
+					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceOneGenerators;
 					break;
 				case ResourceType.OIL:
-					max = CBKBuildingManager.townHall.combinedProto.townHall.numResourceTwoGenerators;
+					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceTwoGenerators;
 					break;
 				}
 				break;
@@ -96,15 +96,15 @@ public class CBKBuildingCard : MonoBehaviour {
 				switch(building.storage.resourceType)
 				{
 				case ResourceType.CASH:
-					max = CBKBuildingManager.townHall.combinedProto.townHall.numResourceOneStorages;
+					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceOneStorages;
 					break;
 				case ResourceType.OIL:
-					max = CBKBuildingManager.townHall.combinedProto.townHall.numResourceTwoGenerators;
+					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceTwoGenerators;
 					break;
 				}
 				break;
 			case StructureInfoProto.StructType.RESIDENCE:
-				max = CBKBuildingManager.townHall.combinedProto.townHall.numResidences;
+				max = MSBuildingManager.townHall.combinedProto.townHall.numResidences;
 				break;
 			}
 		}
@@ -132,6 +132,6 @@ public class CBKBuildingCard : MonoBehaviour {
 
 	void BuyBuilding()
 	{
-		CBKBuildingManager.instance.BuyBuilding(building.structInfo);
+		MSBuildingManager.instance.BuyBuilding(building.structInfo);
 	}
 }

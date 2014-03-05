@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -110,7 +110,7 @@ public class PZWinLosePopup : MonoBehaviour {
 
 	PZPrize GetPrize()
 	{
-		PZPrize prize = (CBKPoolManager.instance.Get(prizePrefab.GetComponent<CBKSimplePoolable>(), Vector3.zero) as MonoBehaviour).GetComponent<PZPrize>();
+		PZPrize prize = (MSPoolManager.instance.Get(prizePrefab.GetComponent<CBKSimplePoolable>(), Vector3.zero) as MonoBehaviour).GetComponent<PZPrize>();
 		prize.transform.parent = prizeParent;
 		prize.transform.localScale = Vector3.one;
 		return prize;
@@ -118,12 +118,12 @@ public class PZWinLosePopup : MonoBehaviour {
 
 	public void OnDoneButton()
 	{
-		CBKEventManager.Scene.OnCity();
+		MSActionManager.Scene.OnCity();
 	}
 
 	public void OnManageButton()
 	{
-		CBKEventManager.Scene.OnCity();
+		MSActionManager.Scene.OnCity();
 		//Then do managerial bullshit
 	}
 }

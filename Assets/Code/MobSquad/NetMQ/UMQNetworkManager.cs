@@ -396,7 +396,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		if (proto is ReceivedGroupChatResponseProto)
 		{
-			CBKChatManager.instance.ReceiveGroupChatMessage(proto as ReceivedGroupChatResponseProto);
+			MSChatManager.instance.ReceiveGroupChatMessage(proto as ReceivedGroupChatResponseProto);
 		}
 		
 	}
@@ -449,7 +449,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		else if (proto is PurgeClientStaticDataResponseProto)
 		{
 			Debug.Log("Purging static data");
-			CBKDataManager.instance.LoadStaticData(proto as PurgeClientStaticDataResponseProto);
+			MSDataManager.instance.LoadStaticData(proto as PurgeClientStaticDataResponseProto);
 		}
 		else
 		{
@@ -462,13 +462,13 @@ public class UMQNetworkManager : MonoBehaviour {
 			}
 			else 
 			{
-				if (proto is AcceptAndRejectFbInviteForSlotsResponseProto && CBKResidenceManager.instance != null)
+				if (proto is AcceptAndRejectFbInviteForSlotsResponseProto && MSResidenceManager.instance != null)
 				{
-					CBKResidenceManager.instance.JustReceivedFriendAccept(proto as AcceptAndRejectFbInviteForSlotsResponseProto);
+					MSResidenceManager.instance.JustReceivedFriendAccept(proto as AcceptAndRejectFbInviteForSlotsResponseProto);
 				}
-				if (proto is InviteFbFriendsForSlotsResponseProto && CBKRequestManager.instance != null)
+				if (proto is InviteFbFriendsForSlotsResponseProto && MSRequestManager.instance != null)
 				{
-					CBKRequestManager.instance.JustReceivedFriendInvite(proto as InviteFbFriendsForSlotsResponseProto);
+					MSRequestManager.instance.JustReceivedFriendInvite(proto as InviteFbFriendsForSlotsResponseProto);
 				}
 			}
 

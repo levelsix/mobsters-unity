@@ -13,9 +13,9 @@ public class CBKTriggerPopupButton : MonoBehaviour {
 	{
 		if (closeTop)
 		{
-			CBKEventManager.Popup.CloseTopPopupLayer();
+			MSActionManager.Popup.CloseTopPopupLayer();
 		}
-		CBKEventManager.Popup.OnPopup(popup);
+		MSActionManager.Popup.OnPopup(popup);
 	}
 	
 }

@@ -60,7 +60,7 @@ public class CBKChatPopup : MonoBehaviour {
 			SendGroupChatRequestProto request = new SendGroupChatRequestProto();
 			
 			request.sender = MSWhiteboard.localMup;
-			if(CBKChatManager.instance.currMode == CBKValues.ChatMode.CLAN)
+			if(MSChatManager.instance.currMode == MSValues.ChatMode.CLAN)
 			{
 				Debug.Log("Sending Clan Message");
 				request.scope = GroupChatScope.CLAN;
@@ -70,7 +70,7 @@ public class CBKChatPopup : MonoBehaviour {
 				request.scope = GroupChatScope.GLOBAL;
 			}
 			request.chatMessage = inputField.label.text;
-			request.clientTime = CBKUtil.timeNowMillis;
+			request.clientTime = MSUtil.timeNowMillis;
 			
 			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolResponse.S_SEND_GROUP_CHAT_EVENT, CheckServerChatResponse);
 		}
@@ -103,7 +103,7 @@ public class CBKChatPopup : MonoBehaviour {
 
 	void SetGlobalChat()
 	{
-		CBKChatManager.instance.SetChatMode(CBKValues.ChatMode.GLOBAL);
+		MSChatManager.instance.SetChatMode(MSValues.ChatMode.GLOBAL);
 
 		globalChatButton.icon.spriteName = ACTIVE_BUTTON_SPRITE;
 		clanChatButton.icon.spriteName = INACTIVE_BUTTON_SPRITE;
@@ -123,7 +123,7 @@ public class CBKChatPopup : MonoBehaviour {
 
 	void SetClanChat()
 	{
-		CBKChatManager.instance.SetChatMode(CBKValues.ChatMode.CLAN);
+		MSChatManager.instance.SetChatMode(MSValues.ChatMode.CLAN);
 		
 		globalChatButton.icon.spriteName = INACTIVE_BUTTON_SPRITE;
 		clanChatButton.icon.spriteName = ACTIVE_BUTTON_SPRITE;
@@ -143,7 +143,7 @@ public class CBKChatPopup : MonoBehaviour {
 
 	void SetPrivateChat()
 	{
-		CBKChatManager.instance.SetChatMode(CBKValues.ChatMode.PRIVATE);
+		MSChatManager.instance.SetChatMode(MSValues.ChatMode.PRIVATE);
 		
 		globalChatButton.icon.spriteName = INACTIVE_BUTTON_SPRITE;
 		clanChatButton.icon.spriteName = INACTIVE_BUTTON_SPRITE;

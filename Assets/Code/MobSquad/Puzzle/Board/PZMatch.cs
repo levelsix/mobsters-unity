@@ -35,7 +35,7 @@ public class PZMatch {
 	/// </param>
 	public PZMatch (List<PZGem> gems, bool special = false)
 	{
-		this.gems = CBKUtil.CopyList<PZGem>(gems);
+		this.gems = MSUtil.CopyList<PZGem>(gems);
 		this.special = special;
 		this.multi = 0;
 	}
@@ -96,7 +96,7 @@ public class PZMatch {
 				PZPuzzleManager.instance.currGems[item.colorIndex]++;
 				PZPuzzleManager.instance.gemsOnBoardByType[item.colorIndex]--;
 
-				PZDamageNumber damNum = CBKPoolManager.instance.Get(PZPuzzleManager.instance.damageNumberPrefab, item.transf.position) as PZDamageNumber;
+				PZDamageNumber damNum = MSPoolManager.instance.Get(PZPuzzleManager.instance.damageNumberPrefab, item.transf.position) as PZDamageNumber;
 				damNum.Init(item);
 			}
 		}

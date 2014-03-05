@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -92,11 +92,11 @@ public class PZScrollingBackground : MonoBehaviour {
 			CBKSimplePoolable back;
 			if (wasLastTop)
 			{
-				back = CBKPoolManager.instance.Get(bottomPrefab, Vector3.zero) as CBKSimplePoolable;
+				back = MSPoolManager.instance.Get(bottomPrefab, Vector3.zero) as CBKSimplePoolable;
 			}
 			else
 			{
-				back = CBKPoolManager.instance.Get(topPrefab, Vector3.zero) as CBKSimplePoolable;
+				back = MSPoolManager.instance.Get(topPrefab, Vector3.zero) as CBKSimplePoolable;
 			}
 			back.transform.parent = transform;
 			back.transform.localScale = Vector3.one;

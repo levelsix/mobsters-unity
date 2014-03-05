@@ -66,7 +66,7 @@ public class CBKAtlasUtil : MonoBehaviour {
 				Debug.LogError("No atlas known for: " + item);
 				return;
 			}
-			string atlasName = imgToAtlas[CBKUtil.StripExtensions(item)];
+			string atlasName = imgToAtlas[MSUtil.StripExtensions(item)];
 			LoadAtlas(atlasName);
 		}
 	}
@@ -93,7 +93,7 @@ public class CBKAtlasUtil : MonoBehaviour {
 	{
 		string atlasName;
 		try{
-			atlasName = imgToAtlas[CBKUtil.StripExtensions(item.spriteName)];
+			atlasName = imgToAtlas[MSUtil.StripExtensions(item.spriteName)];
 		}
 		catch (KeyNotFoundException e)
 		{
@@ -127,12 +127,12 @@ public class CBKAtlasUtil : MonoBehaviour {
 
 	public RuntimeAnimatorController GetAnimator(string imageName)
 	{
-		return (Resources.Load("Controllers/" + CBKUtil.StripExtensions(imageName))) as RuntimeAnimatorController;
+		return (Resources.Load("Controllers/" + MSUtil.StripExtensions(imageName))) as RuntimeAnimatorController;
 	}
 
 	public Sprite GetBuildingSprite(string spriteName)
 	{
-		return Resources.Load("Sprites/Buildings/" + CBKUtil.StripExtensions(spriteName), typeof(Sprite)) as Sprite;
+		return Resources.Load("Sprites/Buildings/" + MSUtil.StripExtensions(spriteName), typeof(Sprite)) as Sprite;
 	}
 	
 	public void UnloadAllAtlases()

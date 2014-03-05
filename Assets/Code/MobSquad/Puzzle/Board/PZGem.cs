@@ -9,10 +9,10 @@ using System.Collections.Generic;
 /// Handles its own falling and board checking.
 /// Also, turns into special gems when necessary.
 /// </summary>
-public class PZGem : MonoBehaviour, CBKPoolable {
+public class PZGem : MonoBehaviour, MSPoolable {
 
 	PZGem _prefab;
-	public CBKPoolable prefab {
+	public MSPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -124,12 +124,12 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 	public int id = 0;
 	static int nextId = 0;
 	
-	static readonly Dictionary<CBKValues.Direction, Vector3> dirVals = new Dictionary<CBKValues.Direction, Vector3>()
+	static readonly Dictionary<MSValues.Direction, Vector3> dirVals = new Dictionary<MSValues.Direction, Vector3>()
 	{
-		{CBKValues.Direction.NORTH, new Vector3(0,1)},
-		{CBKValues.Direction.SOUTH, new Vector3(0,-1)},
-		{CBKValues.Direction.EAST, new Vector3(1,0)},
-		{CBKValues.Direction.WEST, new Vector3(-1,0)}
+		{MSValues.Direction.NORTH, new Vector3(0,1)},
+		{MSValues.Direction.SOUTH, new Vector3(0,-1)},
+		{MSValues.Direction.EAST, new Vector3(1,0)},
+		{MSValues.Direction.WEST, new Vector3(-1,0)}
 	};
 	
 	void Awake()
@@ -140,7 +140,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		id = nextId++;
 	}
 	
-	public CBKPoolable Make (Vector3 origin)
+	public MSPoolable Make (Vector3 origin)
 	{
 		PZGem gem = Instantiate(this, origin, Quaternion.identity) as PZGem;
 		gem.prefab = this;
@@ -190,7 +190,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 
 	void CreateMatchParticle()
 	{
-		PZMatchParticle part = (CBKPoolManager.instance.Get(CBKPrefabList.instance.matchParticle[colorIndex].GetComponent<CBKSimplePoolable>(), trans.localPosition)
+		PZMatchParticle part = (MSPoolManager.instance.Get(MSPrefabList.instance.matchParticle[colorIndex].GetComponent<CBKSimplePoolable>(), trans.localPosition)
 		                        as MonoBehaviour).GetComponent<PZMatchParticle>();
 		part.trans.parent = trans.parent;
 		part.trans.localPosition = new Vector3(trans.localPosition.x, trans.localPosition.y, -2);
@@ -199,8 +199,8 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 
 	void CreateSparkle()
 	{
-		ParticleSystem sys = (CBKPoolManager.instance.Get(CBKPrefabList.instance.sparkleParticle, trans.position) as MonoBehaviour).particleSystem;
-		sys.startColor = CBKValues.Colors.gemColors[colorIndex];
+		ParticleSystem sys = (MSPoolManager.instance.Get(MSPrefabList.instance.sparkleParticle, trans.position) as MonoBehaviour).particleSystem;
+		sys.startColor = MSValues.Colors.gemColors[colorIndex];
 	}
 
 	public void Destroy()
@@ -209,7 +209,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		{
 			//Debug.LogWarning("Destroying: " + id);
 
-			CBKSoundManager.instance.PlayOneShot(CBKSoundManager.instance.gemPop);
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.gemPop);
 
 			if (colorIndex >= 0)
 			{
@@ -348,37 +348,37 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			currDrag += delta;
 			if (currDrag.x > DRAG_THRESHOLD && boardX < PZPuzzleManager.BOARD_WIDTH-1)
 			{
-				StartCoroutine(Shift(CBKValues.Direction.EAST));
+				StartCoroutine(Shift(MSValues.Direction.EAST));
 			}
 			else if (currDrag.x < -DRAG_THRESHOLD && boardX > 0)
 			{
-				StartCoroutine(Shift(CBKValues.Direction.WEST));
+				StartCoroutine(Shift(MSValues.Direction.WEST));
 			}
 			else if (currDrag.y > DRAG_THRESHOLD && boardY < PZPuzzleManager.BOARD_HEIGHT-1)
 			{
-				StartCoroutine(Shift(CBKValues.Direction.NORTH));
+				StartCoroutine(Shift(MSValues.Direction.NORTH));
 			}
 			else if (currDrag.y < -DRAG_THRESHOLD && boardY > 0)
 			{
-				StartCoroutine(Shift(CBKValues.Direction.SOUTH));
+				StartCoroutine(Shift(MSValues.Direction.SOUTH));
 			}
 		}
 	}
 	
-	IEnumerator Shift(CBKValues.Direction dir)
+	IEnumerator Shift(MSValues.Direction dir)
 	{
 		PZGem swapee;
 		switch (dir) {
-			case CBKValues.Direction.NORTH:
+			case MSValues.Direction.NORTH:
 				swapee = PZPuzzleManager.instance.board[boardX, boardY+1];
 				break;
-			case CBKValues.Direction.SOUTH:
+			case MSValues.Direction.SOUTH:
 				swapee = PZPuzzleManager.instance.board[boardX, boardY-1];
 				break;
-			case CBKValues.Direction.EAST:
+			case MSValues.Direction.EAST:
 				swapee = PZPuzzleManager.instance.board[boardX+1, boardY];
 				break;
-			case CBKValues.Direction.WEST:
+			case MSValues.Direction.WEST:
 				swapee = PZPuzzleManager.instance.board[boardX-1, boardY];
 				break;
 			default:
@@ -397,7 +397,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			}
 			else
 			{
-				swapee.StartCoroutine(swapee.Swap(CBKValues.opp[dir]));
+				swapee.StartCoroutine(swapee.Swap(MSValues.opp[dir]));
 				StartCoroutine(Swap(dir));
 				//Debug.Log("Swapping: " + ToString() + " with " + swapee.ToString());
 				dragged = true;
@@ -420,13 +420,13 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 			//Debug.Log("Unlock");
 			PZPuzzleManager.instance.swapLock -= 1;
 			swapee.StartCoroutine(swapee.Swap(dir));
-			StartCoroutine(Swap(CBKValues.opp[dir]));
+			StartCoroutine(Swap(MSValues.opp[dir]));
 
-			CBKSoundManager.instance.PlayOneShot(CBKSoundManager.instance.wrongMove);
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.wrongMove);
 		}
 	}
 	
-	IEnumerator Swap(CBKValues.Direction dir)
+	IEnumerator Swap(MSValues.Direction dir)
 	{
 		moving = true;
 		PZPuzzleManager.instance.OnStartMoving(this);
@@ -450,7 +450,7 @@ public class PZGem : MonoBehaviour, CBKPoolable {
 		
 	public void Pool()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 	
 	public override string ToString()

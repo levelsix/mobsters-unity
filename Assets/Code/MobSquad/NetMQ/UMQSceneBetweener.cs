@@ -49,7 +49,7 @@ public class UMQSceneBetweener : MonoBehaviour {
 		MSWhiteboard.loadedNeutralCity = UMQNetworkManager.responseDict[tagNum] as LoadCityResponseProto;
 		UMQNetworkManager.responseDict.Remove (tagNum);
 		
-		CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.TOWN_SCENE);
+		MSValues.Scene.ChangeScene(MSValues.Scene.Scenes.TOWN_SCENE);
 	}
 	
 	IEnumerator LoadPlayerCity()
@@ -71,7 +71,7 @@ public class UMQSceneBetweener : MonoBehaviour {
 		MSWhiteboard.loadedPlayerCity = UMQNetworkManager.responseDict[tagNum] as LoadPlayerCityResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.TOWN_SCENE);
+		MSValues.Scene.ChangeScene(MSValues.Scene.Scenes.TOWN_SCENE);
 	}
 	
 	IEnumerator LoadTask()
@@ -86,6 +86,6 @@ public class UMQSceneBetweener : MonoBehaviour {
 		MSWhiteboard.loadedDungeon = UMQNetworkManager.responseDict[tagNum] as BeginDungeonResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		CBKValues.Scene.ChangeScene(CBKValues.Scene.Scenes.PUZZLE_SCENE);
+		MSValues.Scene.ChangeScene(MSValues.Scene.Scenes.PUZZLE_SCENE);
 	}
 }

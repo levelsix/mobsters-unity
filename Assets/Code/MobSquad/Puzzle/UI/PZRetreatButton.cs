@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -18,8 +18,8 @@ public class PZRetreatButton : MonoBehaviour {
 	{
 		if (button.enabled)
 		{
-			CBKEventManager.Popup.CreateButtonPopup("You will lose everything - are you sure you want to forfeit?", new string[]{"Cancel", "Forfeit"},
-			new Action[]{CBKEventManager.Popup.CloseAllPopups, delegate {CBKEventManager.Puzzle.ForceHideSwap(); CBKEventManager.Popup.CloseAllPopups(); CBKEventManager.Scene.OnCity(); }  });
+			MSActionManager.Popup.CreateButtonPopup("You will lose everything - are you sure you want to forfeit?", new string[]{"Cancel", "Forfeit"},
+			new Action[]{MSActionManager.Popup.CloseAllPopups, delegate {MSActionManager.Puzzle.ForceHideSwap(); MSActionManager.Popup.CloseAllPopups(); MSActionManager.Scene.OnCity(); }  });
 		}
 	}
 

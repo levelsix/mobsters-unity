@@ -72,20 +72,6 @@ public class PZCombatManager : MonoBehaviour {
 	public PZCrate crate;
 
 	List<int> playersSeen = new List<int>();
-	
-	/// <summary>
-	/// The Y value at which the enemy needs to be for the scrolling to stop happening
-	/// </summary>
-	public float enemyYThreshold = 30;
-	
-	/// <summary>
-	/// Gets the enemy spawn position.
-	/// Offset from the player using the same values as the background
-	/// </summary>
-	/// <value>
-	/// The enemy spawn position.
-	/// </value>
-	public static readonly Vector3 enemySpawnPosition = new Vector3(464, 511);
 
 	const float playerXFromSideThreshold = 78;
 
@@ -103,7 +89,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		get
 		{
-			return -playerXFromSideThreshold - 100;
+			return -playerXFromSideThreshold - 150;
 		}
 	}
 	
@@ -185,14 +171,14 @@ public class PZCombatManager : MonoBehaviour {
 	
 	void OnEnable()
 	{
-		CBKEventManager.Puzzle.OnDeploy += OnDeploy;
+		MSActionManager.Puzzle.OnDeploy += OnDeploy;
 		activePlayer.OnDeath += OnPlayerDeath;
 		activeEnemy.OnDeath += OnEnemyDeath;
 	}
 	
 	void OnDisable()
 	{
-		CBKEventManager.Puzzle.OnDeploy -= OnDeploy;
+		MSActionManager.Puzzle.OnDeploy -= OnDeploy;
 		activePlayer.OnDeath -= OnPlayerDeath;
 		activeEnemy.OnDeath -= OnEnemyDeath;
 	}
@@ -224,7 +210,7 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.unit.sprite.color = new Color(temp.r, temp.g, temp.b, 0);
 		}
 		
-		foreach (PZMonster monster in CBKMonsterManager.userTeam)
+		foreach (PZMonster monster in MSMonsterManager.userTeam)
 		{
 			if (monster != null && monster.monster != null && monster.monster.monsterId > 0 && monster.currHP > 0)
 			{
@@ -256,7 +242,7 @@ public class PZCombatManager : MonoBehaviour {
 			enemies.Enqueue(mon);
 		}
 		//CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
-		deployPopup.Init(CBKMonsterManager.userTeam);
+		deployPopup.Init(MSMonsterManager.userTeam);
 		
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
@@ -285,7 +271,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void SpawnNextPvp()
 	{
-		if (CBKResourceManager.instance.Spend(ResourceType.CASH, MATCH_MONEY, SpawnNextPvp))
+		if (MSResourceManager.instance.Spend(ResourceType.CASH, MATCH_MONEY, SpawnNextPvp))
 	    {
 			StartCoroutine(SpawnPvps());
 		}
@@ -301,7 +287,7 @@ public class PZCombatManager : MonoBehaviour {
 		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed));
 		Debug.Log("Finished player run");
 		activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
-		activePlayer.unit.direction = CBKValues.Direction.EAST;
+		activePlayer.unit.direction = MSValues.Direction.EAST;
 		background.StartScroll();
 
 		int tagNum = 0;
@@ -389,7 +375,7 @@ public class PZCombatManager : MonoBehaviour {
 		BeginPvpBattleRequestProto request = new BeginPvpBattleRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.senderElo = MSWhiteboard.localUser.elo;
-		request.attackStartTime = CBKUtil.timeNowMillis;
+		request.attackStartTime = MSUtil.timeNowMillis;
 		request.enemy = defender;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_PVP_BATTLE_EVENT, null);
@@ -458,18 +444,18 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		else
 		{
-			if (CBKEventManager.Puzzle.ForceShowSwap != null)
+			if (MSActionManager.Puzzle.ForceShowSwap != null)
 			{
-				CBKEventManager.Puzzle.ForceShowSwap();
+				MSActionManager.Puzzle.ForceShowSwap();
 			}
 		}
 	}
 	
 	void OnEnemyDeath()
 	{
-		if (CBKEventManager.Quest.OnMonsterDefeated != null)
+		if (MSActionManager.Quest.OnMonsterDefeated != null)
 		{
-			CBKEventManager.Quest.OnMonsterDefeated(activeEnemy.monster.monster.monsterId);
+			MSActionManager.Quest.OnMonsterDefeated(activeEnemy.monster.monster.monsterId);
 		}
 
 		defeatedEnemies.Add(activeEnemy.monster);
@@ -488,7 +474,7 @@ public class PZCombatManager : MonoBehaviour {
 			if (goon.currHP > 0)
 			{
 				//CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
-				deployPopup.Init(CBKMonsterManager.userTeam);
+				deployPopup.Init(MSMonsterManager.userTeam);
 				return;
 			}
 		}
@@ -518,9 +504,9 @@ public class PZCombatManager : MonoBehaviour {
 
 		PZPuzzleManager.instance.swapLock = 0;
 		
-		if (CBKEventManager.Puzzle.ForceShowSwap != null)
+		if (MSActionManager.Puzzle.ForceShowSwap != null)
 		{
-			CBKEventManager.Puzzle.ForceShowSwap();
+			MSActionManager.Puzzle.ForceShowSwap();
 		}
 	}
 
@@ -544,7 +530,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			activeEnemy.GoToStartPos();
 			activeEnemy.Init(enemies.Dequeue());
-			activeEnemy.unit.direction = CBKValues.Direction.WEST;
+			activeEnemy.unit.direction = MSValues.Direction.WEST;
 			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
 		}
 		else if (!activeEnemy.alive)
@@ -556,9 +542,9 @@ public class PZCombatManager : MonoBehaviour {
 
 			if (!pvpMode)
 			{
-				if (CBKEventManager.Quest.OnTaskCompleted != null)
+				if (MSActionManager.Quest.OnTaskCompleted != null)
 				{
-					CBKEventManager.Quest.OnTaskCompleted(MSWhiteboard.loadedDungeon.taskId);
+					MSActionManager.Quest.OnTaskCompleted(MSWhiteboard.loadedDungeon.taskId);
 				}
 			}
 
@@ -569,7 +555,7 @@ public class PZCombatManager : MonoBehaviour {
 			winLosePopup.tweener.PlayForward();
 		}
 
-		CBKSoundManager.instance.Loop(CBKSoundManager.instance.walking);
+		MSSoundManager.instance.Loop(MSSoundManager.instance.walking);
 
 		while(activePlayer.unit.transf.localPosition.x < playerXPos)
 		{
@@ -586,13 +572,13 @@ public class PZCombatManager : MonoBehaviour {
 
 		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
 
-		CBKSoundManager.instance.StopLoop();
+		MSSoundManager.instance.StopLoop();
 
 		if (activeEnemy.alive && activePlayer.alive)
 		{
-			if (CBKEventManager.Puzzle.ForceShowSwap != null)
+			if (MSActionManager.Puzzle.ForceShowSwap != null)
 			{
-				CBKEventManager.Puzzle.ForceShowSwap();
+				MSActionManager.Puzzle.ForceShowSwap();
 			}
 			boardTint.PlayReverse();
 		}
@@ -622,8 +608,8 @@ public class PZCombatManager : MonoBehaviour {
 			}
 		}
 		winLosePopup.InitWin(xp, cash, pieces);
-		CBKResourceManager.instance.Collect(ResourceType.CASH, cash);
-		CBKResourceManager.instance.GainExp(xp);
+		MSResourceManager.instance.Collect(ResourceType.CASH, cash);
+		MSResourceManager.instance.GainExp(xp);
 	}
 	
 	IEnumerator SendEndResult(bool userWon)
@@ -641,10 +627,10 @@ public class PZCombatManager : MonoBehaviour {
 				request.oilChange = defender.prospectiveOilWinnings;
 				request.cashChange = defender.prospectiveCashWinnings;
 
-				CBKResourceManager.instance.Collect(ResourceType.CASH, defender.prospectiveCashWinnings);
-				CBKResourceManager.instance.Collect (ResourceType.OIL, defender.prospectiveOilWinnings);
+				MSResourceManager.instance.Collect(ResourceType.CASH, defender.prospectiveCashWinnings);
+				MSResourceManager.instance.Collect (ResourceType.OIL, defender.prospectiveOilWinnings);
 			}
-			request.clientTime = CBKUtil.timeNowMillis;
+			request.clientTime = MSUtil.timeNowMillis;
 
 			int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_END_PVP_BATTLE_EVENT, null);
 
@@ -668,14 +654,14 @@ public class PZCombatManager : MonoBehaviour {
 			request.sender = MSWhiteboard.localMupWithResources;
 			request.userTaskId = MSWhiteboard.currUserTaskId;
 			request.userWon = userWon;
-			request.clientTime = CBKUtil.timeNowMillis;
+			request.clientTime = MSUtil.timeNowMillis;
 
-			if (!CBKQuestManager.taskDict.ContainsKey(MSWhiteboard.loadedDungeon.taskId))
+			if (!MSQuestManager.taskDict.ContainsKey(MSWhiteboard.loadedDungeon.taskId))
 			{
 				int task = MSWhiteboard.loadedDungeon.taskId;
-				CBKQuestManager.taskDict[task] = true;
+				MSQuestManager.taskDict[task] = true;
 				request.firstTimeUserWonTask = true;
-				request.userBeatAllCityTasks = CBKQuestManager.instance.HasFinishedAllTasksInCity(MSWhiteboard.cityID);
+				request.userBeatAllCityTasks = MSQuestManager.instance.HasFinishedAllTasksInCity(MSWhiteboard.cityID);
 			}
 			
 			int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_END_DUNGEON_EVENT, null);
@@ -690,7 +676,7 @@ public class PZCombatManager : MonoBehaviour {
 			
 			if (response.status == EndDungeonResponseProto.EndDungeonStatus.SUCCESS)
 			{
-				CBKMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
+				MSMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
 			}
 			else
 			{
@@ -731,9 +717,9 @@ public class PZCombatManager : MonoBehaviour {
 			currPlayerDamage = 0;
 		}
 		
-		if (CBKEventManager.Puzzle.OnTurnChange != null)
+		if (MSActionManager.Puzzle.OnTurnChange != null)
 		{
-			CBKEventManager.Puzzle.OnTurnChange(playerTurns - currTurn);
+			MSActionManager.Puzzle.OnTurnChange(playerTurns - currTurn);
 		}
 	}
 
@@ -773,7 +759,7 @@ public class PZCombatManager : MonoBehaviour {
 		attackWords.width = data.width;
 		attackWords.height = data.height;
 		
-		attackWordsTweenPos.ResetToBeginning();
+		attackWordsTweenPos.Sample(0, false);
 		attackWordsTweenPos.PlayForward();
 
 		wordsMoving = true;
@@ -800,7 +786,7 @@ public class PZCombatManager : MonoBehaviour {
 	
 	void MakeItRain()
 	{
-		Transform plane = (CBKPoolManager.instance.Get(CBKPrefabList.instance.planePrefab, Vector3.zero) as MonoBehaviour).transform;
+		Transform plane = (MSPoolManager.instance.Get(MSPrefabList.instance.planePrefab, Vector3.zero) as MonoBehaviour).transform;
 		plane.parent = combatParent;
 		plane.localPosition = activePlayer.startingPos;
 
@@ -812,7 +798,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	void BombAt(float x)
 	{
-		Transform bomb = (CBKPoolManager.instance.Get(CBKPrefabList.instance.bombPrefab, Vector3.zero) as MonoBehaviour).transform;
+		Transform bomb = (MSPoolManager.instance.Get(MSPrefabList.instance.bombPrefab, Vector3.zero) as MonoBehaviour).transform;
 		bomb.parent = combatParent;
 		bomb.localPosition = new Vector3(x, Screen.height/2 + BOMB_SPACING);
 		bomb.GetComponent<PZBomb>().targetHeight = activeEnemy.unit.transf.localPosition.y + 
@@ -885,9 +871,9 @@ public class PZCombatManager : MonoBehaviour {
 
 			activeEnemy.unit.animat = CBKUnit.AnimationType.FLINCH;
 
-			CBKPoolManager.instance.Get(CBKPrefabList.instance.flinchParticle, activeEnemy.unit.transf.position);
+			MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, activeEnemy.unit.transf.position);
 
-			CBKSoundManager.instance.PlayOneShot(CBKSoundManager.instance.pistol);
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
 
 			while (activeEnemy.unit.transf.localPosition.x < enemyPos.x + recoilDistance * (i+1))
 			{
@@ -963,16 +949,16 @@ public class PZCombatManager : MonoBehaviour {
 		
 		currTurn = 0;
 
-		if (CBKEventManager.Puzzle.OnTurnChange != null)
+		if (MSActionManager.Puzzle.OnTurnChange != null)
 		{
-			CBKEventManager.Puzzle.OnTurnChange(playerTurns);
+			MSActionManager.Puzzle.OnTurnChange(playerTurns);
 		}
 
 		if (activeEnemy.alive)
 		{
-			if (CBKEventManager.Puzzle.OnNewPlayerTurn != null)
+			if (MSActionManager.Puzzle.OnNewPlayerTurn != null)
 			{
-				CBKEventManager.Puzzle.OnNewPlayerTurn();
+				MSActionManager.Puzzle.OnNewPlayerTurn();
 			}
 		}
 
@@ -993,7 +979,7 @@ public class PZCombatManager : MonoBehaviour {
 		QueueUpRequestProto request = new QueueUpRequestProto();
 		request.attacker = MSWhiteboard.localMup;
 		request.attackerElo = MSWhiteboard.localUser.elo;
-		request.clientTime = CBKUtil.timeNowMillis;
+		request.clientTime = MSUtil.timeNowMillis;
 
 		//We seenUserIds is read-only, so we can't just do seenUserIds = playersSeen. Laaame.
 		foreach (var item in playersSeen) 

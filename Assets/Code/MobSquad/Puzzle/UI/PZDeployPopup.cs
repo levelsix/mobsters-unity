@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -19,14 +19,14 @@ public class PZDeployPopup : MonoBehaviour {
 
 	void OnEnable()
 	{
-		CBKEventManager.Puzzle.OnDeploy += OnDeploy;
-		CBKEventManager.Scene.OnPuzzle += OnPuzzle;
+		MSActionManager.Puzzle.OnDeploy += OnDeploy;
+		MSActionManager.Scene.OnPuzzle += OnPuzzle;
 	}
 	
 	void OnDisable()
 	{
-		CBKEventManager.Puzzle.OnDeploy -= OnDeploy;
-		CBKEventManager.Scene.OnPuzzle -= OnPuzzle;
+		MSActionManager.Puzzle.OnDeploy -= OnDeploy;
+		MSActionManager.Scene.OnPuzzle -= OnPuzzle;
 	}
 
 	void OnPuzzle()

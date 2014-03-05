@@ -129,14 +129,14 @@ public class CBKGoonCard : MonoBehaviour {
 
 	void OnEnable()
 	{
-		CBKEventManager.Goon.OnMonsterRemoved += CheckRemovedMonster;
-		CBKEventManager.Goon.OnEnhanceQueueChanged += OnEnhancementQueueChanged;
+		MSActionManager.Goon.OnMonsterRemoved += CheckRemovedMonster;
+		MSActionManager.Goon.OnEnhanceQueueChanged += OnEnhancementQueueChanged;
 	}
 
 	void OnDisable()
 	{
-		CBKEventManager.Goon.OnMonsterRemoved -= CheckRemovedMonster;
-		CBKEventManager.Goon.OnEnhanceQueueChanged -= OnEnhancementQueueChanged;
+		MSActionManager.Goon.OnMonsterRemoved -= CheckRemovedMonster;
+		MSActionManager.Goon.OnEnhanceQueueChanged -= OnEnhancementQueueChanged;
 		addRemoveTeamButton.onClick = null;
 		healButton.onClick = null;
 	}
@@ -213,7 +213,7 @@ public class CBKGoonCard : MonoBehaviour {
 		healthBarBackground.width = ENHANCE_BAR_WIDTH + BAR_BG_WIDTH;
 
 		isBaseEnhanceMonster = false;
-		if (CBKMonsterManager.currentEnhancementMonster == goon)
+		if (MSMonsterManager.currentEnhancementMonster == goon)
 		{
 			isBaseEnhanceMonster = true;
 			addRemoveTeamButton.button.isEnabled = true;
@@ -225,7 +225,7 @@ public class CBKGoonCard : MonoBehaviour {
 			underHealthBar.alpha = 1;
 
 		}
-		else if (CBKMonsterManager.currentEnhancementMonster == null)
+		else if (MSMonsterManager.currentEnhancementMonster == null)
 		{
 			enhancePercentageLabel.alpha = 1;
 			if (goon.userMonster.currentLvl >= goon.monster.maxLevel)
@@ -276,7 +276,7 @@ public class CBKGoonCard : MonoBehaviour {
 
 			nameLabel.text = " ";
 
-			if (CBKMonsterManager.instance.GetMonstersByMonsterId(goon.monster.evolutionCatalystMonsterId).Count > 0)
+			if (MSMonsterManager.instance.GetMonstersByMonsterId(goon.monster.evolutionCatalystMonsterId).Count > 0)
 			{
 				name = "1 2 Card " + goon.monster.monsterId + " " + goon.userMonster.userMonsterId;
 			}
@@ -299,7 +299,7 @@ public class CBKGoonCard : MonoBehaviour {
 	{
 		if (userMonsterId > 0)
 		{
-			goon = CBKMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==userMonsterId);
+			goon = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==userMonsterId);
 			Init (goon);
 			bottomHolder.SetActive(false);
 			infoButton.icon.alpha = 1;
@@ -316,13 +316,13 @@ public class CBKGoonCard : MonoBehaviour {
 
 	void SetEnhancementBonusText()
 	{
-		if (goon == CBKMonsterManager.currentEnhancementMonster)
+		if (goon == MSMonsterManager.currentEnhancementMonster)
 		{
 			bottomCardLabel.text = " ";
 		}
 		else
 		{
-			bottomCardLabel.text = (CBKMonsterManager.currentEnhancementMonster.PercentageOfAddedLevelup(goon.enhanceXP) * 100).ToString("N0") + "% for $" + goon.enhanceCost;
+			bottomCardLabel.text = (MSMonsterManager.currentEnhancementMonster.PercentageOfAddedLevelup(goon.enhanceXP) * 100).ToString("N0") + "% for $" + goon.enhanceCost;
 		}
 	}
 
@@ -352,7 +352,7 @@ public class CBKGoonCard : MonoBehaviour {
 		
 		goonElementParent.SetActive(true);
 		
-		goonPose.sprite2D = CBKAtlasUtil.instance.GetSprite("Cards/HD/" + CBKUtil.StripExtensions(goon.monster.imagePrefix) + "Card");
+		goonPose.sprite2D = CBKAtlasUtil.instance.GetSprite("Cards/HD/" + MSUtil.StripExtensions(goon.monster.imagePrefix) + "Card");
 		if (goonPose.sprite2D != null)
 		{
 			goonPose.width = (int)goonPose.sprite2D.rect.width;
@@ -367,7 +367,7 @@ public class CBKGoonCard : MonoBehaviour {
 		}
 		else
 		{
-			if (CBKMonsterManager.monstersOnTeam < CBKMonsterManager.TEAM_SLOTS 
+			if (MSMonsterManager.monstersOnTeam < MSMonsterManager.TEAM_SLOTS 
 				&& !goon.isHealing && !goon.isEnhancing && goon.userMonster.isComplete)
 			{
 				addRemoveButtonBackground.spriteName = addButtonSpriteName;
@@ -394,7 +394,7 @@ public class CBKGoonCard : MonoBehaviour {
 		infoButton.onClick = delegate 
 			{
 				infoPopup.Init(goon);
-				CBKEventManager.Popup.OnPopup(infoPopup.gameObject);
+				MSActionManager.Popup.OnPopup(infoPopup.gameObject);
 			};
 	}
 
@@ -411,7 +411,7 @@ public class CBKGoonCard : MonoBehaviour {
 			}
 			else
 			{
-				bottomCardLabel.text = "Completing in " + CBKUtil.TimeStringShort(goon.combineTimeLeft);
+				bottomCardLabel.text = "Completing in " + MSUtil.TimeStringShort(goon.combineTimeLeft);
 			}
 			TintElements (true);
 		}
@@ -508,25 +508,25 @@ public class CBKGoonCard : MonoBehaviour {
 	{
 		if (goon != null && goon.userMonster.numPieces >= goon.monster.numPuzzlePieces && !goon.userMonster.isComplete)
 		{
-			bottomCardLabel.text = "Combining\n" + CBKUtil.TimeStringMed(goon.combineTimeLeft);
+			bottomCardLabel.text = "Combining\n" + MSUtil.TimeStringMed(goon.combineTimeLeft);
 			//healButton.label.text = goon.combineFinishGems.ToString();
 		}
 
 		if (isBaseEnhanceMonster)
 		{
-			if (CBKMonsterManager.enhancementFeeders.Count > 0)
+			if (MSMonsterManager.enhancementFeeders.Count > 0)
 			{
 				float totalExpToAdd = 0;
-				foreach (var item in CBKMonsterManager.enhancementFeeders) 
+				foreach (var item in MSMonsterManager.enhancementFeeders) 
 				{
 					totalExpToAdd += item.enhanceXP;
 				}
 				int finalPercentage = Mathf.FloorToInt((goon.percentageTowardsNextLevel + goon.PercentageOfAddedLevelup(totalExpToAdd)) * 100);
 
-				float progress = ((float)(CBKMonsterManager.enhancementFeeders[0].timeToUseEnhance - CBKMonsterManager.enhancementFeeders[0].enhanceTimeLeft)) 
-					/ CBKMonsterManager.enhancementFeeders[0].timeToUseEnhance;
+				float progress = ((float)(MSMonsterManager.enhancementFeeders[0].timeToUseEnhance - MSMonsterManager.enhancementFeeders[0].enhanceTimeLeft)) 
+					/ MSMonsterManager.enhancementFeeders[0].timeToUseEnhance;
 						
-				float currentPercentage = (goon.percentageTowardsNextLevel + progress * goon.PercentageOfAddedLevelup(CBKMonsterManager.enhancementFeeders[0].enhanceXP)) * 100;
+				float currentPercentage = (goon.percentageTowardsNextLevel + progress * goon.PercentageOfAddedLevelup(MSMonsterManager.enhancementFeeders[0].enhanceXP)) * 100;
 				//Debug.Log ("Final: " + finalPercentage + ", Current: " + currentPercentage);
 
 				//Debug.LogWarning("Final perc: " + finalPercentage + ", progress: " + progress + ", currPerc: " + currentPercentage);
@@ -555,7 +555,7 @@ public class CBKGoonCard : MonoBehaviour {
 	void AddToTeam()
 	{
 		Debug.Log("Add to team");
-		CBKMonsterManager.instance.AddToTeam(goon);
+		MSMonsterManager.instance.AddToTeam(goon);
 	}
 	
 	void RemoveFromTeam()
@@ -565,12 +565,12 @@ public class CBKGoonCard : MonoBehaviour {
 
 	void ClearEnhanceQueue()
 	{
-		CBKMonsterManager.instance.ClearEnhanceQueue();
+		MSMonsterManager.instance.ClearEnhanceQueue();
 	}
 	
 	void AddToEnhanceQueue()
 	{
-		if (CBKMonsterManager.currentEnhancementMonster != null)
+		if (MSMonsterManager.currentEnhancementMonster != null)
 		{
 			if (goon.userMonster.teamSlotNum > 0)
 			{
@@ -578,12 +578,12 @@ public class CBKGoonCard : MonoBehaviour {
 			}
 			else
 			{
-				CBKMonsterManager.instance.AddToEnhanceQueue(goon);
+				MSMonsterManager.instance.AddToEnhanceQueue(goon);
 			}
 		}
 		else
 		{
-			CBKMonsterManager.instance.AddToEnhanceQueue(goon);
+			MSMonsterManager.instance.AddToEnhanceQueue(goon);
 		}
 	}
 	
@@ -599,7 +599,7 @@ public class CBKGoonCard : MonoBehaviour {
 		}
 		else
 		{
-			CBKMonsterManager.instance.AddToHealQueue(goon);
+			MSMonsterManager.instance.AddToHealQueue(goon);
 		}
 	}
 
@@ -607,7 +607,7 @@ public class CBKGoonCard : MonoBehaviour {
 	{
 		if (goon.monster.evolutionMonsterId > 0)
 		{
-			CBKEvolutionManager.instance.TryEvolveMonster(goon, (buddy!=null) ? buddy.goon : null);
+			MSEvolutionManager.instance.TryEvolveMonster(goon, (buddy!=null) ? buddy.goon : null);
 			CBKGoonScreen.instance.OrganizeEvolution(this);
 		}
 		else
@@ -618,23 +618,23 @@ public class CBKGoonCard : MonoBehaviour {
 	
 	void SpeedUpCombine()
 	{
-		CBKMonsterManager.instance.SpeedUpCombine(goon);
+		MSMonsterManager.instance.SpeedUpCombine(goon);
 	}
 	
 	void PopupTeamMemberToEnhanceQueue(PZMonster monster)
 	{
-		CBKEventManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
-			new Action[]{delegate{CBKMonsterManager.instance.AddToEnhanceQueue(monster);
-				CBKEventManager.Popup.CloseTopPopupLayer();}, 
-				CBKEventManager.Popup.CloseTopPopupLayer});
+		MSActionManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
+			new Action[]{delegate{MSMonsterManager.instance.AddToEnhanceQueue(monster);
+				MSActionManager.Popup.CloseTopPopupLayer();}, 
+				MSActionManager.Popup.CloseTopPopupLayer});
 	}
 	
 	void PopupTeamMemberToHealingQueue(PZMonster monster)
 	{
-		CBKEventManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
-			new Action[]{delegate{CBKMonsterManager.instance.AddToHealQueue(monster); 
-				CBKEventManager.Popup.CloseTopPopupLayer();}, 
-				CBKEventManager.Popup.CloseTopPopupLayer});
+		MSActionManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
+			new Action[]{delegate{MSMonsterManager.instance.AddToHealQueue(monster); 
+				MSActionManager.Popup.CloseTopPopupLayer();}, 
+				MSActionManager.Popup.CloseTopPopupLayer});
 	}
 
 	void CheckRemovedMonster(long userMonsterId)
@@ -647,7 +647,7 @@ public class CBKGoonCard : MonoBehaviour {
 
 	void OnEnhancementQueueChanged()
 	{
-		if (CBKMonsterManager.currentEnhancementMonster != null 
+		if (MSMonsterManager.currentEnhancementMonster != null 
 		    && goon != null && goon.monster != null && goon.monster.monsterId > 0)
 		{
 			SetEnhancementBonusText();

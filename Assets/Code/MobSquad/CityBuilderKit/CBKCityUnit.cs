@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -57,7 +57,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 	{
 		hoverIcon.gameObject.SetActive(false);
 		//Put on a random walkable square
-		CBKGridNode node = CBKGridManager.instance.randomWalkable;
+		CBKGridNode node = MSGridManager.instance.randomWalkable;
 		trans.position = node.worldPos;
 		
 		path = PlanPath(null, ChooseTarget());
@@ -67,7 +67,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 	
 	CBKGridNode ChooseTarget()
 	{
-		CBKGridNode node = CBKGridManager.instance.randomWalkable;
+		CBKGridNode node = MSGridManager.instance.randomWalkable;
 		return node;
 	}
 	
@@ -76,23 +76,23 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 		if (moving)
 		{
 			Vector3 move = Vector3.zero;
-			float dist = Time.deltaTime * speed * CBKGridManager.instance.spaceSize;
+			float dist = Time.deltaTime * speed * MSGridManager.instance.spaceSize;
 			if (rushing)
 			{
 				dist *= 4;
 			}
 			switch (unit.direction) 
 			{
-				case CBKValues.Direction.NORTH:
+				case MSValues.Direction.NORTH:
 					move.z = dist;
 					break;
-				case CBKValues.Direction.SOUTH:
+				case MSValues.Direction.SOUTH:
 					move.z = -dist;
 					break;
-				case CBKValues.Direction.EAST:
+				case MSValues.Direction.EAST:
 					move.x = dist;
 					break;
-				case CBKValues.Direction.WEST:
+				case MSValues.Direction.WEST:
 					move.x = -dist;
 					break;
 				default:
@@ -111,13 +111,13 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 	{
 		switch (unit.direction)
 		{
-		case CBKValues.Direction.NORTH:
+		case MSValues.Direction.NORTH:
 			return trans.position.z > target.worldPos.z - MIN_DIST;
-		case CBKValues.Direction.SOUTH:
+		case MSValues.Direction.SOUTH:
 			return trans.position.z < target.worldPos.z + MIN_DIST;
-		case CBKValues.Direction.WEST:
+		case MSValues.Direction.WEST:
 			return trans.position.x < target.worldPos.x + MIN_DIST;
-		case CBKValues.Direction.EAST:
+		case MSValues.Direction.EAST:
 			return trans.position.x > target.worldPos.x - MIN_DIST;
 		default:
 			return true;
@@ -142,7 +142,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 			unit.direction = node.direction;
 			unit.animat = CBKUnit.AnimationType.RUN;
 		}
-		if (unit.direction == CBKValues.Direction.NORTH || unit.direction == CBKValues.Direction.SOUTH)
+		if (unit.direction == MSValues.Direction.NORTH || unit.direction == MSValues.Direction.SOUTH)
 		{
 			trans.position = new Vector3(node.worldPos.x, trans.position.y, trans.position.z);
 		}
@@ -208,7 +208,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 
 		if (start == null)
 		{
-			start = new CBKGridNode(CBKGridManager.instance.PointToGridCoords(trans.position));
+			start = new CBKGridNode(MSGridManager.instance.PointToGridCoords(trans.position));
 		}
 		
 		//Debug.Log("Path from " + start.pos + " to " + end.pos);
@@ -234,7 +234,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 			
 			closed[current.pos] = current;
 			
-			foreach (KeyValuePair<CBKValues.Direction,CBKGridNode> item in current.GetNeighs())
+			foreach (KeyValuePair<MSValues.Direction,CBKGridNode> item in current.GetNeighs())
 			{
 				item.Value.SetHeur(end);
 				if (closed.ContainsKey(item.Value.pos) && closed[item.Value.pos].cost <= item.Value.cost)
@@ -288,7 +288,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 		Gizmos.color = Color.red;
 		foreach (CBKGridNode item in path) 
 		{
-			Gizmos.DrawCube(item.worldPos + new Vector3(CBKGridManager.instance.spaceSize/2, 0, CBKGridManager.instance.spaceSize/2), new Vector3(.2f, .2f, .2f));
+			Gizmos.DrawCube(item.worldPos + new Vector3(MSGridManager.instance.spaceSize/2, 0, MSGridManager.instance.spaceSize/2), new Vector3(.2f, .2f, .2f));
 		}
 	}
 	

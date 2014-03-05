@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PZDestroySpecial : MonoBehaviour {
@@ -11,7 +11,7 @@ public class PZDestroySpecial : MonoBehaviour {
 		if (gem != null && gem.lockedBySpecial && (target == null || gem == target))
 		{
 			gem.lockedBySpecial = false;
-			CBKPoolManager.instance.Get(CBKPrefabList.instance.orbBlowUpParticle, gem.transf.position);
+			MSPoolManager.instance.Get(MSPrefabList.instance.orbBlowUpParticle, gem.transf.position);
 			gem.Destroy();
 
 		}

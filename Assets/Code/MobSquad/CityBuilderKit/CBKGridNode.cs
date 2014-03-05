@@ -31,14 +31,14 @@ public class CBKGridNode : IComparable {
 	/// <summary>
 	/// The direction that this node was entered from
 	/// </summary>
-	public CBKValues.Direction direction = CBKValues.Direction.NONE;
+	public MSValues.Direction direction = MSValues.Direction.NONE;
 	
-	private static readonly Dictionary<CBKValues.Direction, Vector2> dirDict = new Dictionary<CBKValues.Direction, Vector2>()
+	private static readonly Dictionary<MSValues.Direction, Vector2> dirDict = new Dictionary<MSValues.Direction, Vector2>()
 	{
-		{CBKValues.Direction.NORTH, new Vector2(0,1)},
-		{CBKValues.Direction.SOUTH, new Vector2(0,-1)},
-		{CBKValues.Direction.EAST, new Vector2(1,0)},
-		{CBKValues.Direction.WEST, new Vector2(-1,0)}
+		{MSValues.Direction.NORTH, new Vector2(0,1)},
+		{MSValues.Direction.SOUTH, new Vector2(0,-1)},
+		{MSValues.Direction.EAST, new Vector2(1,0)},
+		{MSValues.Direction.WEST, new Vector2(-1,0)}
 	};
 	
 	private static readonly Vector2[] moveDirs =
@@ -77,8 +77,8 @@ public class CBKGridNode : IComparable {
 	public Vector3 worldPos{
 		get
 		{
-			return new Vector3(x * CBKGridManager.instance.spaceSize, 0,
-				z * CBKGridManager.instance.spaceSize);
+			return new Vector3(x * MSGridManager.instance.spaceSize, 0,
+				z * MSGridManager.instance.spaceSize);
 		}
 	}
 	
@@ -126,13 +126,13 @@ public class CBKGridNode : IComparable {
 		heur = Mathf.Abs(destination.x - x) + Mathf.Abs (destination.z - z);
 	}
 	
-	public Dictionary<CBKValues.Direction, CBKGridNode> GetNeighs()
+	public Dictionary<MSValues.Direction, CBKGridNode> GetNeighs()
 	{
-		Dictionary<CBKValues.Direction, CBKGridNode> neighs = new Dictionary<CBKValues.Direction, CBKGridNode>();
+		Dictionary<MSValues.Direction, CBKGridNode> neighs = new Dictionary<MSValues.Direction, CBKGridNode>();
 		
-		foreach (KeyValuePair<CBKValues.Direction, Vector2> item in dirDict) 
+		foreach (KeyValuePair<MSValues.Direction, Vector2> item in dirDict) 
 		{
-			if (CBKGridManager.instance.CanWalkInDir(this, item.Value)) 
+			if (MSGridManager.instance.CanWalkInDir(this, item.Value)) 
 			{
 				CBKGridNode node = new CBKGridNode(pos + item.Value);
 				node.dist = dist + 1;
@@ -157,7 +157,7 @@ public class CBKGridNode : IComparable {
 		
 		for (int i = 0; i < moveDirs.Length; i++) 
 		{
-			if (CBKGridManager.instance.CanWalkInDir(this, moveDirs[i])) //This is never working!!!
+			if (MSGridManager.instance.CanWalkInDir(this, moveDirs[i])) //This is never working!!!
 			{
 				CBKGridNode node = new CBKGridNode(pos + moveDirs[i]);
 				node.dist = dist + 1;

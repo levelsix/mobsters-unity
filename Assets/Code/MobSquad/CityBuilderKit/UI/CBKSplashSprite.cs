@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -37,7 +37,7 @@ public class CBKSplashSprite : MonoBehaviour {
 	/// </summary>
 	void OnEnable()
 	{
-		CBKEventManager.Loading.OnBuildingsLoaded += OnBuildingsLoaded;
+		MSActionManager.Loading.OnBuildingsLoaded += OnBuildingsLoaded;
 	}
 	
 	/// <summary>
@@ -45,7 +45,7 @@ public class CBKSplashSprite : MonoBehaviour {
 	/// </summary>
 	void OnDisable()
 	{
-		CBKEventManager.Loading.OnBuildingsLoaded -= OnBuildingsLoaded;
+		MSActionManager.Loading.OnBuildingsLoaded -= OnBuildingsLoaded;
 	}
 	
 	/// <summary>

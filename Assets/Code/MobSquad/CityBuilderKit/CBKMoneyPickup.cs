@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
-public class CBKMoneyPickup : MonoBehaviour, CBKPoolable {
+public class CBKMoneyPickup : MonoBehaviour, MSPoolable {
 	
 	#region Poolable Variables
 	
@@ -14,12 +14,12 @@ public class CBKMoneyPickup : MonoBehaviour, CBKPoolable {
 	/// <value>
 	/// The prefab.
 	/// </value>
-	public CBKPoolable prefab {
+	public MSPoolable prefab {
 		get {
-			return CBKPrefabList.instance.moneyPrefab;
+			return MSPrefabList.instance.moneyPrefab;
 		}
 		set {
-			CBKPrefabList.instance.moneyPrefab = value as CBKMoneyPickup;
+			MSPrefabList.instance.moneyPrefab = value as CBKMoneyPickup;
 		}
 	}
 	
@@ -115,7 +115,7 @@ public class CBKMoneyPickup : MonoBehaviour, CBKPoolable {
 	
 	#endregion
 	
-	public CBKPoolable Make (Vector3 origin)
+	public MSPoolable Make (Vector3 origin)
 	{
 		CBKMoneyPickup money = Instantiate(this, origin, Quaternion.identity) as CBKMoneyPickup;
 		return money;
@@ -185,10 +185,10 @@ public class CBKMoneyPickup : MonoBehaviour, CBKPoolable {
 	{
 		trans.parent = Camera.main.transform;
 		yield return null;
-		CBKResourceManager.instance.Collect(ResourceType.CASH, amount);
-		if (CBKEventManager.Quest.OnMoneyCollected != null)
+		MSResourceManager.instance.Collect(ResourceType.CASH, amount);
+		if (MSActionManager.Quest.OnMoneyCollected != null)
 		{
-			CBKEventManager.Quest.OnMoneyCollected(amount);
+			MSActionManager.Quest.OnMoneyCollected(amount);
 		}
 		Pool();
 	}
@@ -200,6 +200,6 @@ public class CBKMoneyPickup : MonoBehaviour, CBKPoolable {
 	
 	public void Pool ()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 }

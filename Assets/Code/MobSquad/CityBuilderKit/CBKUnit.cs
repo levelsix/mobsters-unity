@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
 
-public class CBKUnit : MonoBehaviour, CBKPoolable {
+public class CBKUnit : MonoBehaviour, MSPoolable {
 	
 	public SpriteRenderer sprite;
 
@@ -34,11 +34,11 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 	UILabel nameLabel;
 	
 	[SerializeField]
-	private CBKValues.Direction _direction = CBKValues.Direction.NORTH;
+	private MSValues.Direction _direction = MSValues.Direction.NORTH;
 	
 	private bool _selected;
 	
-	public CBKValues.Direction direction
+	public MSValues.Direction direction
 	{
 		get
 		{
@@ -85,7 +85,7 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 	public CBKCityUnit cityUnit;
 	
 	CBKUnit _prefab;
-	public CBKPoolable prefab {
+	public MSPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -109,7 +109,7 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 		cityUnit = GetComponent<CBKCityUnit>();
 	}
 	
-	public CBKPoolable Make (Vector3 origin)
+	public MSPoolable Make (Vector3 origin)
 	{
 		CBKUnit unit = Instantiate(this, origin, Quaternion.identity) as CBKUnit;
 		unit.prefab = this;
@@ -118,7 +118,7 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 	
 	public void Pool ()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 		if (taskable != null)
 		{
 			Destroy(taskable);
@@ -135,11 +135,11 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 	
 	public void Init(FullUserMonsterProto proto)
 	{
-		MonsterProto monster = CBKDataManager.instance.Get(typeof(MonsterProto), proto.monsterId) as MonsterProto;
+		MonsterProto monster = MSDataManager.instance.Get(typeof(MonsterProto), proto.monsterId) as MonsterProto;
 		
 		name = monster.displayName;
 		
-		spriteBaseName = CBKUtil.StripExtensions(monster.imagePrefix);
+		spriteBaseName = MSUtil.StripExtensions(monster.imagePrefix);
 		
 		Setup();
 	}
@@ -151,7 +151,7 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 		
 		ncep = proto;
 		
-		spriteBaseName = CBKUtil.StripExtensions(ncep.imgId);
+		spriteBaseName = MSUtil.StripExtensions(ncep.imgId);
 		
 		Setup();
 	}
@@ -174,9 +174,9 @@ public class CBKUnit : MonoBehaviour, CBKPoolable {
 
 	void SetDirection ()
 	{
-		anim.SetBool("Far", (direction == CBKValues.Direction.NORTH || direction == CBKValues.Direction.EAST));
+		anim.SetBool("Far", (direction == MSValues.Direction.NORTH || direction == MSValues.Direction.EAST));
 
-		if (direction == CBKValues.Direction.SOUTH || direction == CBKValues.Direction.EAST) {
+		if (direction == MSValues.Direction.SOUTH || direction == MSValues.Direction.EAST) {
 			sprite.transform.localScale = new Vector3 (-1, 1, 1) * unitSize;
 		}
 		else {

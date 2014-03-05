@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ public class CBKBuildingMenu : MonoBehaviour {
 	void Init()
 	{
 		int index = 0;
-		foreach (CBKCombinedBuildingProto proto in CBKDataManager.instance.GetAll(typeof(CBKCombinedBuildingProto)).Values) 
+		foreach (CBKCombinedBuildingProto proto in MSDataManager.instance.GetAll(typeof(CBKCombinedBuildingProto)).Values) 
 		{
 			if (proto.structInfo.level == 1 && proto.structInfo.structType != StructureInfoProto.StructType.TOWN_HALL)
 			{

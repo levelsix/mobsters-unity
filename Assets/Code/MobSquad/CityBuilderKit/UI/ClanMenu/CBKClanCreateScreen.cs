@@ -66,9 +66,9 @@ public class CBKClanCreateScreen : MonoBehaviour {
 
 	void SubmitClan()
 	{
-		if (clanNameBox.label.text.Length > 0 && CBKResourceManager.instance.Spend(ResourceType.CASH, MSWhiteboard.constants.clanConstants.coinPriceToCreateClan, SubmitClan))
+		if (clanNameBox.label.text.Length > 0 && MSResourceManager.instance.Spend(ResourceType.CASH, MSWhiteboard.constants.clanConstants.coinPriceToCreateClan, SubmitClan))
 		{
-			CBKClanManager.instance.CreateClan(
+			MSClanManager.instance.CreateClan(
 				clanNameBox.label.text,
 				clanTagBox.label.text,
 				openClan,
@@ -76,7 +76,7 @@ public class CBKClanCreateScreen : MonoBehaviour {
 		}
 		else
 		{
-			CBKEventManager.Popup.CreatePopup("Invalid Name");
+			MSActionManager.Popup.CreatePopup("Invalid Name");
 		}
 	}
 }

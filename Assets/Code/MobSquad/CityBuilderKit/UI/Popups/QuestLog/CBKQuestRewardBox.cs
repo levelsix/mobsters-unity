@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
-public class CBKQuestRewardBox : MonoBehaviour, CBKPoolable {
+public class CBKQuestRewardBox : MonoBehaviour, MSPoolable {
 	
 	GameObject gameObj;
 	Transform trans;
@@ -20,7 +20,7 @@ public class CBKQuestRewardBox : MonoBehaviour, CBKPoolable {
 		}
 	}
 	
-	public CBKPoolable prefab {
+	public MSPoolable prefab {
 		get {
 			return _prefab;
 		}
@@ -43,7 +43,7 @@ public class CBKQuestRewardBox : MonoBehaviour, CBKPoolable {
 		gameObj = gameObject;
 	}
 	
-	public CBKPoolable Make (Vector3 origin)
+	public MSPoolable Make (Vector3 origin)
 	{
 		CBKQuestRewardBox reward = Instantiate(this, origin, Quaternion.identity) as CBKQuestRewardBox;
 		reward.prefab = this;
@@ -52,7 +52,7 @@ public class CBKQuestRewardBox : MonoBehaviour, CBKPoolable {
 	
 	public void Pool ()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 	
 	public void Init(RewardType type, int amount)

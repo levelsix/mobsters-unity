@@ -51,7 +51,7 @@ public class CBKResourceCollector : MonoBehaviour {
 			{
 				return 0;
 			}
-			return (int)((CBKUtil.timeNowMillis - lastTime)/1000f);
+			return (int)((MSUtil.timeNowMillis - lastTime)/1000f);
 		}
 	}
 	
@@ -135,20 +135,20 @@ public class CBKResourceCollector : MonoBehaviour {
 	/// </summary>
 	void Collect()
 	{
-		if (hasMoney && CBKResourceManager.resources[(int)_generator.resourceType - 1] < CBKResourceManager.maxes[(int)_generator.resourceType - 1])
+		if (hasMoney && MSResourceManager.resources[(int)_generator.resourceType - 1] < MSResourceManager.maxes[(int)_generator.resourceType - 1])
 		{
-			CBKResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructId);
-			if (CBKEventManager.Quest.OnMoneyCollected != null)
+			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructId);
+			if (MSActionManager.Quest.OnMoneyCollected != null)
 			{
-				CBKEventManager.Quest.OnMoneyCollected(currMoney);
+				MSActionManager.Quest.OnMoneyCollected(currMoney);
 			}
 
-			_building.userStructProto.lastRetrieved = CBKUtil.timeNowMillis;
+			_building.userStructProto.lastRetrieved = MSUtil.timeNowMillis;
 			_building.hoverIcon.gameObject.SetActive(false);
 			
-			if (CBKEventManager.Town.OnCollectFromBuilding != null)
+			if (MSActionManager.Town.OnCollectFromBuilding != null)
 			{
-				CBKEventManager.Town.OnCollectFromBuilding(_building);
+				MSActionManager.Town.OnCollectFromBuilding(_building);
 			}
 
 		}
@@ -160,7 +160,7 @@ public class CBKResourceCollector : MonoBehaviour {
 		request.sender = MSWhiteboard.localMupWithResources;
 		request.structRetrievals.Add(new com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval());
 		request.structRetrievals[0].userStructId = _building.userStructProto.userStructId;
-		request.structRetrievals[0].timeOfRetrieval = CBKUtil.timeNowMillis;
+		request.structRetrievals[0].timeOfRetrieval = MSUtil.timeNowMillis;
 		request.structRetrievals[0].amountCollected = amount;
 		
 		Debug.Log("Collecting from: " + _building.userStructProto.userStructId);

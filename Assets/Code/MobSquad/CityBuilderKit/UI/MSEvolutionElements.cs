@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -52,19 +52,19 @@ public class MSEvolutionElements : MonoBehaviour {
 
 		SpringPosition.Begin(monsterCard.gameObject, Vector3.zero, 5);
 
-		scientistCard.InitScientist(CBKEvolutionManager.instance.currEvolution.catalystUserMonsterId);
+		scientistCard.InitScientist(MSEvolutionManager.instance.currEvolution.catalystUserMonsterId);
 
-		MonsterProto evoMonster = CBKDataManager.instance.Get<MonsterProto>(monsterCard.goon.monster.evolutionMonsterId);
+		MonsterProto evoMonster = MSDataManager.instance.Get<MonsterProto>(monsterCard.goon.monster.evolutionMonsterId);
 
 		goonOutline.sprite2D = CBKAtlasUtil.instance.GetMobsterSprite(evoMonster.imagePrefix);
 
 		finalNameLabel.text = evoMonster.displayName;
 
-		finalTimeLabel.text = CBKUtil.TimeStringShort(monsterCard.goon.monster.minutesToEvolve * 60000);
+		finalTimeLabel.text = MSUtil.TimeStringShort(monsterCard.goon.monster.minutesToEvolve * 60000);
 
-		if (CBKEvolutionManager.instance.ready)
+		if (MSEvolutionManager.instance.ready)
 		{
-			if (CBKEvolutionManager.instance.active)
+			if (MSEvolutionManager.instance.active)
 			{
 				SetGemButton();
 			}
@@ -81,10 +81,10 @@ public class MSEvolutionElements : MonoBehaviour {
 
 	void Update()
 	{
-		if (CBKEvolutionManager.instance.active)
+		if (MSEvolutionManager.instance.active)
 		{
-			finalTimeLabel.text = CBKUtil.TimeStringShort(CBKEvolutionManager.instance.timeLeftMillis);
-			button.label.text = "(G)" + Mathf.CeilToInt((CBKEvolutionManager.instance.timeLeftMillis/6000f) / MSWhiteboard.constants.minutesPerGem);
+			finalTimeLabel.text = MSUtil.TimeStringShort(MSEvolutionManager.instance.timeLeftMillis);
+			button.label.text = "(G)" + Mathf.CeilToInt((MSEvolutionManager.instance.timeLeftMillis/6000f) / MSWhiteboard.constants.minutesPerGem);
 		}
 	}
 
@@ -109,20 +109,20 @@ public class MSEvolutionElements : MonoBehaviour {
 		button.button.enabled = true;
 		button.icon.spriteName = gemButton;
 		aboveButtonLabel.text = "Finish Now";
-		button.label.text = "(G)" + Mathf.CeilToInt((CBKEvolutionManager.instance.timeLeftMillis/6000f) / MSWhiteboard.constants.minutesPerGem);
+		button.label.text = "(G)" + Mathf.CeilToInt((MSEvolutionManager.instance.timeLeftMillis/6000f) / MSWhiteboard.constants.minutesPerGem);
 	}
 
 	public void OnButtonClick()
 	{
-		if (CBKEvolutionManager.instance.ready)
+		if (MSEvolutionManager.instance.ready)
 		{
-			if (CBKEvolutionManager.instance.active)
+			if (MSEvolutionManager.instance.active)
 			{
-				CBKEvolutionManager.instance.FinishWithGems();
+				MSEvolutionManager.instance.FinishWithGems();
 			}
 			else
 			{
-				CBKEvolutionManager.instance.StartEvolution();
+				MSEvolutionManager.instance.StartEvolution();
 				SetGemButton();
 			}
 		}

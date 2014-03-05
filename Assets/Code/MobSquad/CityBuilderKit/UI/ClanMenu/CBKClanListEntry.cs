@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
 
-public class CBKClanListEntry : MonoBehaviour, CBKPoolable {
+public class CBKClanListEntry : MonoBehaviour, MSPoolable {
 
 	GameObject gameObj;
 	Transform trans;
@@ -26,7 +26,7 @@ public class CBKClanListEntry : MonoBehaviour, CBKPoolable {
 
 	CBKClanListEntry _prefab;
 
-	public CBKPoolable prefab
+	public MSPoolable prefab
 	{
 		get
 		{
@@ -67,7 +67,7 @@ public class CBKClanListEntry : MonoBehaviour, CBKPoolable {
 	const string REQUEST_BUTTON_LABEL = "REQUEST";
 	const string CANCEL_BUTTON_LABEL = "CANCEL";
 
-	public CBKPoolable Make(Vector3 origin)
+	public MSPoolable Make(Vector3 origin)
 	{
 		CBKClanListEntry entry = Instantiate(this, origin, Quaternion.identity) as CBKClanListEntry;
 		entry.prefab = this;
@@ -76,7 +76,7 @@ public class CBKClanListEntry : MonoBehaviour, CBKPoolable {
 
 	public void Pool()
 	{
-		CBKPoolManager.instance.Pool(this);
+		MSPoolManager.instance.Pool(this);
 	}
 
 	void Awake()
@@ -114,7 +114,7 @@ public class CBKClanListEntry : MonoBehaviour, CBKPoolable {
 			joinButton.label.text = JOIN_BUTTON_LABEL;
 		}
 
-		if (CBKClanManager.instance.HasRequestedClan (clan.clan.clanId)) {
+		if (MSClanManager.instance.HasRequestedClan (clan.clan.clanId)) {
 			joinButton.label.text = CANCEL_BUTTON_LABEL;
 			joinButton.onClick = CancelJoinRequest;
 		}
@@ -130,7 +130,7 @@ public class CBKClanListEntry : MonoBehaviour, CBKPoolable {
 
 	IEnumerator CancelRequest()
 	{
-		IEnumerator applier = CBKClanManager.instance.RetractJoinRequest(clan.clan.clanId);
+		IEnumerator applier = MSClanManager.instance.RetractJoinRequest(clan.clan.clanId);
 		while(applier.MoveNext())
 		{
 			yield return applier.Current;
@@ -145,7 +145,7 @@ public class CBKClanListEntry : MonoBehaviour, CBKPoolable {
 
 	IEnumerator JoinRequest()
 	{
-		IEnumerator applier = CBKClanManager.instance.JoinOrApplyToClan(clan.clan.clanId);
+		IEnumerator applier = MSClanManager.instance.JoinOrApplyToClan(clan.clan.clanId);
 		while(applier.MoveNext())
 		{
 			yield return applier.Current;

@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent (typeof(CBKSimplePoolable))]
 public class PZRocket : MonoBehaviour {
 
-	CBKValues.Direction dir;
+	MSValues.Direction dir;
 
 	[SerializeField]
 	float speed;
@@ -21,15 +21,15 @@ public class PZRocket : MonoBehaviour {
 		pool = GetComponent<CBKSimplePoolable>();
 	}
 
-	public void Init(CBKValues.Direction dir)
+	public void Init(MSValues.Direction dir)
 	{
 		this.dir = dir;
-		CBKSoundManager.instance.PlayOneShot (CBKSoundManager.instance.rocket);
+		MSSoundManager.instance.PlayOneShot (MSSoundManager.instance.rocket);
 	}
 
 	void Update()
 	{
-		trans.localPosition += CBKValues.dirVectors[dir] * speed * Time.deltaTime;
+		trans.localPosition += MSValues.dirVectors[dir] * speed * Time.deltaTime;
 		if (Mathf.Abs (trans.localPosition.x) > Screen.width || Mathf.Abs(trans.localPosition.y) > Screen.height + 300)
 		{
 			pool.Pool();

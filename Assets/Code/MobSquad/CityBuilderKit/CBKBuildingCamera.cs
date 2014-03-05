@@ -77,9 +77,9 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 	void Start()
 	{
 		Zoom (0);
-		if (CBKEventManager.UI.OnCameraResize != null)
+		if (MSActionManager.UI.OnCameraResize != null)
 		{
-			CBKEventManager.UI.OnCameraResize(cam);
+			MSActionManager.UI.OnCameraResize(cam);
 		}
 	}
 	
@@ -89,8 +89,8 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 	/// </summary>
 	virtual protected void OnEnable()
 	{
-		CBKEventManager.Controls.OnPinch += Zoom;
-		CBKEventManager.Scene.OnCity += Reset;
+		MSActionManager.Controls.OnPinch += Zoom;
+		MSActionManager.Scene.OnCity += Reset;
 	}
 	
 	/// <summary>
@@ -99,8 +99,8 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 	/// </summary>
 	virtual protected void OnDisable()
 	{
-		CBKEventManager.Controls.OnPinch -= Zoom;
-		CBKEventManager.Scene.OnCity -= Reset;
+		MSActionManager.Controls.OnPinch -= Zoom;
+		MSActionManager.Scene.OnCity -= Reset;
 	}
 	
 	/// <summary>
@@ -164,9 +164,9 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 			cam.orthographicSize = MIN_SIZE;
 		}
 		
-		if (CBKEventManager.UI.OnCameraResize != null)
+		if (MSActionManager.UI.OnCameraResize != null)
 		{
-			CBKEventManager.UI.OnCameraResize(cam);
+			MSActionManager.UI.OnCameraResize(cam);
 		}
 
 		SetBounds ();

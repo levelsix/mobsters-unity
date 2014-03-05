@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -62,7 +62,7 @@ public class CBKHireEntry : MonoBehaviour {
 	{
 		if (activatesRequest)
 		{
-			CBKResidenceManager.instance.OpenRequestDialogue(currBuilding);
+			MSResidenceManager.instance.OpenRequestDialogue(currBuilding);
 		}
 	}
 }

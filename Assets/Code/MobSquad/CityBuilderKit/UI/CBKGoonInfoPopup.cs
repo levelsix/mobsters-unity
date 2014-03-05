@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -91,7 +91,7 @@ public class CBKGoonInfoPopup : MonoBehaviour {
 
 	public void Sell()
 	{
-		CBKMonsterManager.instance.SellMonster(currMonster);
-		CBKEventManager.Popup.CloseTopPopupLayer();
+		MSMonsterManager.instance.SellMonster(currMonster);
+		MSActionManager.Popup.CloseTopPopupLayer();
 	}
 }
