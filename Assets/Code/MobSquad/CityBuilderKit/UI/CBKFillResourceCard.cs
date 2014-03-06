@@ -50,13 +50,15 @@ public class CBKFillResourceCard : MonoBehaviour {
 
 	void Init ()
 	{
-		if (fill) {
-			amount = MSResourceManager.maxes [(int)resourceToFill - 1] - MSResourceManager.resources [(int)resourceToFill - 1];
-			button.isEnabled = amount < 0;
+		if (fill) 
+		{
+			amount = Mathf.Max(0, MSResourceManager.maxes [(int)resourceToFill - 1] - MSResourceManager.resources [(int)resourceToFill - 1]);
+			button.isEnabled = amount > 0;
 		}
-		else {
+		else 
+		{
 			amount = Mathf.CeilToInt (MSResourceManager.maxes [(int)resourceToFill - 1] * percent);
-			button.isEnabled = MSResourceManager.resources [(int)resourceToFill - 1] < MSResourceManager.maxes [(int)resourceToFill - 1];
+			button.isEnabled = MSResourceManager.resources [(int)resourceToFill - 1] + amount < MSResourceManager.maxes [(int)resourceToFill - 1];
 		}
 		cost = Mathf.CeilToInt (amount * MSWhiteboard.constants.gemsPerResource);
 		costLabel.text = "(G)" + cost;
