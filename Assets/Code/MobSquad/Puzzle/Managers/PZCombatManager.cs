@@ -79,7 +79,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		get
 		{
-			return -(Screen.width * Mathf.Max(1, 640f / Screen.height) / 2) + playerXFromSideThreshold;
+			return -(Screen.width * 640f / 2) + playerXFromSideThreshold;
 		}
 	}
 
@@ -762,8 +762,7 @@ public class PZCombatManager : MonoBehaviour {
 		attackWordsTweenPos.Sample(0, false);
 		attackWordsTweenPos.PlayForward();
 
-		wordsMoving = true;
-		while(wordsMoving)
+		while(attackWordsTweenPos.tweenFactor < 1)
 		{
 			yield return null;
 		}

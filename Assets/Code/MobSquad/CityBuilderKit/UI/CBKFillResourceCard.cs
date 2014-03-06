@@ -34,30 +34,42 @@ public class CBKFillResourceCard : MonoBehaviour {
 
 	void OnEnable()
 	{
-		if (fill)
-		{
-			amount = MSResourceManager.maxes[(int)resourceToFill-1] - MSResourceManager.resources[(int)resourceToFill-1];
-			button.enabled = amount < 0;
-		}
-		else
-		{
-			amount = Mathf.CeilToInt(MSResourceManager.maxes[(int)resourceToFill-1] * percent);
-			button.enabled = MSResourceManager.resources[(int)resourceToFill-1] + amount < MSResourceManager.maxes[(int)resourceToFill-1];
-		}
+		Init ();
+		MSActionManager.UI.OnChangeResource[(int)resourceToFill-1] += Init;
+	}
 
-		
-		cost = Mathf.CeilToInt(amount * MSWhiteboard.constants.gemsPerResource);
+	void OnDisable()
+	{
+		MSActionManager.UI.OnChangeResource[(int)resourceToFill-1] -= Init;
+	}
+
+	void Init(int currAmount)
+	{
+		Init();
+	}
+
+	void Init ()
+	{
+		if (fill) {
+			amount = MSResourceManager.maxes [(int)resourceToFill - 1] - MSResourceManager.resources [(int)resourceToFill - 1];
+			button.isEnabled = amount < 0;
+		}
+		else {
+			amount = Mathf.CeilToInt (MSResourceManager.maxes [(int)resourceToFill - 1] * percent);
+			button.isEnabled = MSResourceManager.resources [(int)resourceToFill - 1] < MSResourceManager.maxes [(int)resourceToFill - 1];
+		}
+		cost = Mathf.CeilToInt (amount * MSWhiteboard.constants.gemsPerResource);
 		costLabel.text = "(G)" + cost;
-		amountLabel.text = ((resourceToFill==ResourceType.CASH) ? "$" : "(O)") + amount;
+		amountLabel.text = ((resourceToFill == ResourceType.CASH) ? "$" : "(O)") + amount;
 	}
 
 	void OnClick()
 	{
 		if (button.enabled)
 		{
-			if (MSResourceManager.instance.Spend(ResourceType.GEMS, cost))
+			if (MSResourceManager.resources[(int)ResourceType.GEMS-1] >= cost)
 			{
-				MSResourceManager.instance.Collect(resourceToFill, amount);
+				MSResourceManager.instance.SpendGemsForOtherResource(resourceToFill, amount);
 			}
 		}
 	}

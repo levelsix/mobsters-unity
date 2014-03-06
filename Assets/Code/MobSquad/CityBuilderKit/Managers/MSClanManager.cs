@@ -5,6 +5,8 @@ using com.lvl6.proto;
 
 public class MSClanManager : MonoBehaviour 
 {
+	public FullUserClanProto playerClan;
+
 	public static int userClanId = 0;
 	static UserClanStatus userClanStatus;
 	public static bool isLeader = false;

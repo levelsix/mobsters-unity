@@ -208,10 +208,11 @@ public class MSResourceManager : MonoBehaviour {
 	/// <returns>The gems for other resource.</returns>
 	/// <param name="otherResource">Other resource.</param>
 	/// <param name="amountToSpend">Amount to spend.</param>
-	public int SpendGemsForOtherResource(ResourceType otherResource, int amountToSpend, Action action = null)
+	public int SpendGemsForOtherResource(ResourceType otherResource, int amountNeeded, Action action = null)
 	{
-		int gems = Mathf.CeilToInt(MSWhiteboard.constants.gemsPerResource * amountToSpend);
-		int resources = Mathf.CeilToInt(gems / MSWhiteboard.constants.gemsPerResource); //We do this because it might be slightly more that the amount we were asking for
+		int gems = Mathf.CeilToInt(MSWhiteboard.constants.gemsPerResource * amountNeeded);
+
+		int resources = Mathf.CeilToInt(gems / MSWhiteboard.constants.gemsPerResource);
 
 		if (Spend(ResourceType.GEMS, gems))
 		{
