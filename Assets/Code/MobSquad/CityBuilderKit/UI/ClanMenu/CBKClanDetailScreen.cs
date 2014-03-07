@@ -27,6 +27,9 @@ public class CBKClanDetailScreen : MonoBehaviour {
 	[SerializeField]
 	CBKClanMemberEntry clanMemberEntryPrefab;
 
+	[SerializeField]
+	GameObject loadingObjects;
+
 
 	List<CBKClanMemberEntry> memberList = new List<CBKClanMemberEntry>();
 
@@ -40,6 +43,11 @@ public class CBKClanDetailScreen : MonoBehaviour {
 
 	IEnumerator RetrieveClanValues(int clanId)
 	{
+		loadingObjects.SetActive(true);
+
+		clanName.text = "Loading...";
+		clanDescription.text = " ";
+
 		RetrieveClanInfoRequestProto request = new RetrieveClanInfoRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.clanId = clanId;
@@ -79,6 +87,8 @@ public class CBKClanDetailScreen : MonoBehaviour {
 		{
 			//TODO: Set edit button up
 		}
+
+		loadingObjects.SetActive(false);
 	}
 
 	void AddMemberEntryToGrid(MinimumUserProtoForClans member)

@@ -155,7 +155,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		bringGoonIn = false;
 		healMode = true;
 		OrganizeCards();	
-		OrganizeHealingQueue (MSMonsterManager.instance.healingMonsters);
+		OrganizeHealingQueue (MSHospitalManager.instance.healingMonsters);
 		speedUpButton.onClick = TrySpeedUpHeal;
 		labButtons.SetActive(false);
 	}
@@ -408,7 +408,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void OrganizeHealingQueue()
 	{
-		OrganizeHealingQueue(MSMonsterManager.instance.healingMonsters);
+		OrganizeHealingQueue(MSHospitalManager.instance.healingMonsters);
 	}
 	
 	void OrganizeHealingQueue(List<PZMonster> healingMonsters)
@@ -492,10 +492,10 @@ public class CBKGoonScreen : MonoBehaviour {
 
 	void Update()
 	{
-		if (healMode && MSMonsterManager.instance.healingMonsters.Count > 0)
+		if (healMode && MSHospitalManager.instance.healingMonsters.Count > 0)
 		{
 			long totalHealTimeLeft = 0;
-			foreach (var item in MSMonsterManager.instance.healingMonsters) {
+			foreach (var item in MSHospitalManager.instance.healingMonsters) {
 				if (item.finishHealTimeMillis > totalHealTimeLeft)
 				{
 					totalHealTimeLeft = item.finishHealTimeMillis;
@@ -563,10 +563,10 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void TrySpeedUpHeal()
 	{
-		int gemCost = Mathf.CeilToInt((MSMonsterManager.instance.healingMonsters[MSMonsterManager.instance.healingMonsters.Count-1].timeToHealMillis) * 1f/60000);
+		int gemCost = Mathf.CeilToInt((MSHospitalManager.instance.healingMonsters[MSHospitalManager.instance.healingMonsters.Count-1].timeToHealMillis) * 1f/60000);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost, TrySpeedUpHeal))
 		{
-			MSMonsterManager.instance.SpeedUpHeal(gemCost);
+			MSHospitalManager.instance.SpeedUpHeal(gemCost);
 		}
 	}
 	
@@ -588,7 +588,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void OnHealQueueChanged()
 	{
-		if (MSMonsterManager.instance.healingMonsters.Count > 0)
+		if (MSHospitalManager.instance.healingMonsters.Count > 0)
 		{
 			bottomFadeInElements.FadeIn();
 			bottomBarLabel.GetComponent<CBKUIHelper>().FadeOut();

@@ -9,10 +9,17 @@ public class CBKTaskable : MonoBehaviour {
 	public FullTaskProto task;
 	
 	public MinimumUserTaskProto userTask;
+
+	[SerializeField]
+	bool isEvent = false;
+
+	int persistentEventId = 0;
 	
-	public void Init(FullTaskProto proto)
+	public void Init(FullTaskProto proto, int eventId = 0)
 	{
 		task = proto;
+
+		persistentEventId = eventId;
 
 		DetermineHoverIcon ();
 	}
@@ -118,6 +125,9 @@ public class CBKTaskable : MonoBehaviour {
 		request.sender = MSWhiteboard.localMup;
 		request.clientTime = MSUtil.timeNowMillis;
 		request.taskId = task.taskId;
+
+		request.isEvent = isEvent;
+		request.persistentEventId = persistentEventId;
 		
 		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.PUZZLE;
 		MSWhiteboard.dungeonToLoad = request;

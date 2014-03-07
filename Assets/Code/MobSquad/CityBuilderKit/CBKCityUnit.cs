@@ -126,7 +126,7 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 	
 	void MoveNext()
 	{
-		if (path == null || path.Count == 0)
+		while (path == null || path.Count == 0)
 		{
 			path = PlanPath(target, ChooseTarget());
 		}

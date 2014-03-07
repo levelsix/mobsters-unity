@@ -99,6 +99,9 @@ public class UMQLoader : MonoBehaviour {
 
 		MSResidenceManager.instance.AddInvites(response.invitesFromMeForSlots);
 		
+		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
+		MSEvolutionManager.instance.Init(response.evolution);
+
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{
 			MSActionManager.Popup.OnPopup(createUserPopup);
@@ -132,8 +135,6 @@ public class UMQLoader : MonoBehaviour {
 			MSActionManager.Scene.OnCity();
 		}
 
-		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
-		MSEvolutionManager.instance.Init(response.evolution);
 	}
 
 }

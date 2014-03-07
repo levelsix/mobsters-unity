@@ -55,7 +55,7 @@ public class MSClanManager : MonoBehaviour
 		pendingClanInvites.Clear();
 		if (clans.Count > 0)
 		{
-			if (clans[0].status == UserClanStatus.MEMBER)
+			if (clans[0].status != UserClanStatus.REQUESTING)
 			{
 				userClanId = clans[0].clanId;
 				userClanStatus = clans[0].status;

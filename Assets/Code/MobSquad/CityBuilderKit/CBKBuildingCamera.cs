@@ -56,9 +56,9 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 	public Camera cam;
 	
 	const float ZOOM_COEFFICIENT = -1f;
-	const float BASE_CAMERA_OFFSET_MAX = 18f;
+	const float BASE_CAMERA_OFFSET_MAX = 17.5f;
 
-	const float CAMERA_BASE_HOME_Y = 26.8f;
+	const float CAMERA_BASE_HOME_Y = 18.2f;
 	const float CAMERA_BASE_MISSION_Y = 19.6f;
 	
 	public float maxY;
@@ -133,7 +133,7 @@ public class CBKBuildingCamera : MonoBehaviour, CBKIPlaceable
 
 	void SetBounds ()
 	{
-		maxY = CBKTownBackground.mapHeight - cam.orthographicSize;
+		maxY = CBKTownBackground.mapHeight - cam.orthographicSize - .5f;
 		maxX = CBKTownBackground.mapWidth - (cam.orthographicSize * Screen.width / Screen.height);
 	}
 	

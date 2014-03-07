@@ -335,12 +335,13 @@ public class MSBuildingManager : MonoBehaviour
 		DistributeCash(MSResourceManager.resources[0]);
 		DistributeOil(MSResourceManager.resources[1]);
 
-		if (!MSMonsterManager.healingMonstersInitiated)
+		if (!MSHospitalManager.instance.initalized)
 		{
-			MSMonsterManager.instance.InitHealers();
+			MSHospitalManager.instance.InitHealers();
 		}
 		
-		foreach (var item in MSMonsterManager.instance.userMonsters) {
+		foreach (var item in MSMonsterManager.instance.userMonsters) 
+		{
 			if (item.userMonster.isComplete)
 			{
 				CBKUnit dude = MSPoolManager.instance.Get(unitPrefab, Vector3.zero) as CBKUnit;

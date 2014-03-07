@@ -10,6 +10,7 @@
 // Generated from: Clan.proto
 // Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: MonsterStuff.proto
+// Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: Task.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
@@ -670,6 +671,187 @@ namespace com.lvl6.proto
     {
       get { return _userMonsters; }
       set { _userMonsters = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PersistentClanEventUserRewardProto")]
+  public partial class PersistentClanEventUserRewardProto : global::ProtoBuf.IExtensible
+  {
+    public PersistentClanEventUserRewardProto() {}
+    
+
+    private int _rewardId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"rewardId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int rewardId
+    {
+      get { return _rewardId; }
+      set { _rewardId = value; }
+    }
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+
+    private long _crsEndTime = default(long);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"crsEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long crsEndTime
+    {
+      get { return _crsEndTime; }
+      set { _crsEndTime = value; }
+    }
+
+    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.CASH;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"resourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    public com.lvl6.proto.ResourceType resourceType
+    {
+      get { return _resourceType; }
+      set { _resourceType = value; }
+    }
+
+    private int _staticDataId = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"staticDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int staticDataId
+    {
+      get { return _staticDataId; }
+      set { _staticDataId = value; }
+    }
+
+    private int _quantity = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"quantity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int quantity
+    {
+      get { return _quantity; }
+      set { _quantity = value; }
+    }
+
+    private long _timeRedeemed = default(long);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"timeRedeemed", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long timeRedeemed
+    {
+      get { return _timeRedeemed; }
+      set { _timeRedeemed = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PersistentClanEventRaidStageHistoryProto")]
+  public partial class PersistentClanEventRaidStageHistoryProto : global::ProtoBuf.IExtensible
+  {
+    public PersistentClanEventRaidStageHistoryProto() {}
+    
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserRewardProto> _rewards = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserRewardProto>();
+    [global::ProtoBuf.ProtoMember(1, Name=@"rewards", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserRewardProto> rewards
+    {
+      get { return _rewards; }
+    }
+  
+
+    private int _eventId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"eventId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int eventId
+    {
+      get { return _eventId; }
+      set { _eventId = value; }
+    }
+
+    private int _clanRaidId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clanRaidId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanRaidId
+    {
+      get { return _clanRaidId; }
+      set { _clanRaidId = value; }
+    }
+
+    private int _clanRaidStageId = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"clanRaidStageId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanRaidStageId
+    {
+      get { return _clanRaidStageId; }
+      set { _clanRaidStageId = value; }
+    }
+
+    private long _crsEndTime = default(long);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"crsEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long crsEndTime
+    {
+      get { return _crsEndTime; }
+      set { _crsEndTime = value; }
+    }
+
+    private int _crsDmgDone = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"crsDmgDone", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int crsDmgDone
+    {
+      get { return _crsDmgDone; }
+      set { _crsDmgDone = value; }
+    }
+
+    private int _stageHp = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"stageHp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int stageHp
+    {
+      get { return _stageHp; }
+      set { _stageHp = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PersistentClanEventRaidHistoryProto")]
+  public partial class PersistentClanEventRaidHistoryProto : global::ProtoBuf.IExtensible
+  {
+    public PersistentClanEventRaidHistoryProto() {}
+    
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+
+    private int _crDmg = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"crDmg", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int crDmg
+    {
+      get { return _crDmg; }
+      set { _crDmg = value; }
+    }
+
+    private int _clanCrDmg = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clanCrDmg", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanCrDmg
+    {
+      get { return _clanCrDmg; }
+      set { _clanCrDmg = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

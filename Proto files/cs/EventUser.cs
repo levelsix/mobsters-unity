@@ -99,6 +99,33 @@ namespace com.lvl6.proto
       get { return _facebookId; }
       set { _facebookId = value; }
     }
+
+    private int _cash = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"cash", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int cash
+    {
+      get { return _cash; }
+      set { _cash = value; }
+    }
+
+    private int _oil = default(int);
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"oil", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int oil
+    {
+      get { return _oil; }
+      set { _oil = value; }
+    }
+
+    private int _gems = default(int);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"gems", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gems
+    {
+      get { return _gems; }
+      set { _gems = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

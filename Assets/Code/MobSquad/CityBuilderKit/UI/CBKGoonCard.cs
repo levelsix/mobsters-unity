@@ -599,7 +599,7 @@ public class CBKGoonCard : MonoBehaviour {
 		}
 		else
 		{
-			MSMonsterManager.instance.AddToHealQueue(goon);
+			MSHospitalManager.instance.AddToHealQueue(goon);
 		}
 	}
 
@@ -632,7 +632,7 @@ public class CBKGoonCard : MonoBehaviour {
 	void PopupTeamMemberToHealingQueue(PZMonster monster)
 	{
 		MSActionManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
-			new Action[]{delegate{MSMonsterManager.instance.AddToHealQueue(monster); 
+			new Action[]{delegate{MSHospitalManager.instance.AddToHealQueue(monster); 
 				MSActionManager.Popup.CloseTopPopupLayer();}, 
 				MSActionManager.Popup.CloseTopPopupLayer});
 	}

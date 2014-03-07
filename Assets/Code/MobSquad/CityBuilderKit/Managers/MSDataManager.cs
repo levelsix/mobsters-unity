@@ -105,6 +105,11 @@ public class MSDataManager : MonoBehaviour {
 		CheckType(type);
 		return dataDict[type].ContainsKey(id);
 	}
+
+	public IDictionary GetAll<T>()
+	{
+		return GetAll(typeof(T));
+	}
 	
 	public IDictionary GetAll(Type type)
 	{
@@ -145,6 +150,14 @@ public class MSDataManager : MonoBehaviour {
 	
 	public void LoadStaticData(StaticDataProto data)
 	{
+		foreach (var item in data.persistentEvents) 
+		{
+			Load (item, item.eventId);
+		}
+		foreach (var item in data.persistentClanEvents) 
+		{
+			Load (item, item.clanEventId);
+		}
 		foreach (var item in data.expansionCosts) 
 		{
 			Load(item, item.expansionNum);

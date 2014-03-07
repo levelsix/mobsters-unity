@@ -136,6 +136,16 @@ public class MSGridManager : MonoBehaviour {
 		Init ();
 
 		CBKWalkableSpace space;
+		for (int i = 0; i < HOME_GRID_SIZE; i++) 
+		{
+			for (int j = 0; j < HOME_GRID_SIZE; j++) 
+			{
+				space = new CBKWalkableSpace(new Vector2(i, j));
+				walkableSpaces.Add(space);
+			}
+		}
+		/*
+		CBKWalkableSpace space;
 		for (int i = 0; i < roadLines.Count; i++) {
 			for (int j = 0; j < gridSize; j++) {
 				space = new CBKWalkableSpace (new Vector2 (roadLines [i], j));
@@ -146,6 +156,7 @@ public class MSGridManager : MonoBehaviour {
 				walkableSpaces.Add (space);
 			}
 		}
+		*/
 	}
 
 	public void InitMission (string maptmx)
@@ -313,6 +324,7 @@ public class MSGridManager : MonoBehaviour {
             for (int j = 0; j < yLength; j++)
             {
                 _grid[x + i, y + j] = building;
+				walkableSpaces.RemoveAll(sp=>sp.pos.x == x+i && sp.pos.y == y+j);
             }
         }
     }
@@ -331,6 +343,7 @@ public class MSGridManager : MonoBehaviour {
             for (int j = 0; j < building.length; j++)
             {
                 _grid[(int)building.groundPos.x + i, (int)building.groundPos.y + j] = null;
+				walkableSpaces.Add(new CBKWalkableSpace(new Vector2(building.groundPos.x + i, building.groundPos.y + j)));
             }
         }
     }
@@ -449,7 +462,7 @@ public class MSGridManager : MonoBehaviour {
 	
 	public bool IsWalkable(int x, int y)
 	{
-		return x >= 0 && y >= 0 && x < gridSize && y < gridSize && _grid[x,y] != null && _grid[x,y].walkable;
+		return x >= 0 && y >= 0 && x < gridSize && y < gridSize && (_grid[x,y] == null || _grid[x,y].walkable);
 	}
 	
 	public bool CanWalkInDir(CBKGridNode start, Vector2 dir)

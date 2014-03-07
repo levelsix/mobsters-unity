@@ -180,14 +180,14 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=2)]
-      OTHER_FAIL = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_IN_CLAN", Value=3)]
-      NOT_IN_CLAN = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_IN_CLAN", Value=3)]
+      FAIL_NOT_IN_CLAN = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OWNER_OF_CLAN_WITH_OTHERS_STILL_IN", Value=4)]
-      OWNER_OF_CLAN_WITH_OTHERS_STILL_IN = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OWNER_OF_CLAN_WITH_OTHERS_STILL_IN", Value=4)]
+      FAIL_OWNER_OF_CLAN_WITH_OTHERS_STILL_IN = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -282,6 +282,22 @@ namespace com.lvl6.proto
       get { return _fullClan; }
       set { _fullClan = value; }
     }
+
+    private com.lvl6.proto.PersistentClanEventClanInfoProto _eventDetails = null;
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"eventDetails", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.PersistentClanEventClanInfoProto eventDetails
+    {
+      get { return _eventDetails; }
+      set { _eventDetails = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserInfoProto> _clanUsersDetails = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserInfoProto>();
+    [global::ProtoBuf.ProtoMember(8, Name=@"clanUsersDetails", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserInfoProto> clanUsersDetails
+    {
+      get { return _clanUsersDetails; }
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"RequestJoinClanStatus")]
     public enum RequestJoinClanStatus
     {
@@ -377,14 +393,14 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=2)]
-      OTHER_FAIL = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ALREADY_IN_CLAN", Value=3)]
-      ALREADY_IN_CLAN = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_ALREADY_IN_CLAN", Value=3)]
+      FAIL_ALREADY_IN_CLAN = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"DID_NOT_REQUEST", Value=4)]
-      DID_NOT_REQUEST = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_DID_NOT_REQUEST", Value=4)]
+      FAIL_DID_NOT_REQUEST = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -495,17 +511,17 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=2)]
-      OTHER_FAIL = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_OWNER", Value=3)]
-      NOT_OWNER = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_AUTHORIZED", Value=3)]
+      FAIL_NOT_AUTHORIZED = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_A_REQUESTER", Value=4)]
-      NOT_A_REQUESTER = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_A_REQUESTER", Value=4)]
+      FAIL_NOT_A_REQUESTER = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ALREADY_IN_A_CLAN", Value=5)]
-      ALREADY_IN_A_CLAN = 5
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_ALREADY_IN_A_CLAN", Value=5)]
+      FAIL_ALREADY_IN_A_CLAN = 5
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -772,14 +788,14 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=2)]
-      OTHER_FAIL = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_OWNER", Value=3)]
-      NOT_OWNER = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_AUTHORIZED", Value=3)]
+      FAIL_NOT_AUTHORIZED = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NEW_OWNER_NOT_IN_CLAN", Value=4)]
-      NEW_OWNER_NOT_IN_CLAN = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NEW_OWNER_NOT_IN_CLAN", Value=4)]
+      FAIL_NEW_OWNER_NOT_IN_CLAN = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -863,17 +879,17 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=2)]
-      OTHER_FAIL = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"TOO_LONG", Value=3)]
-      TOO_LONG = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_TOO_LONG", Value=3)]
+      FAIL_TOO_LONG = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_IN_CLAN", Value=4)]
-      NOT_IN_CLAN = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_IN_CLAN", Value=4)]
+      FAIL_NOT_IN_CLAN = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_OWNER", Value=5)]
-      NOT_OWNER = 5
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_AUTHORIZED", Value=5)]
+      FAIL_NOT_AUTHORIZED = 5
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -948,14 +964,14 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=2)]
-      OTHER_FAIL = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_OWNER_OF_CLAN", Value=3)]
-      NOT_OWNER_OF_CLAN = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_AUTHORIZED", Value=3)]
+      FAIL_NOT_AUTHORIZED = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"BOOTED_NOT_IN_CLAN", Value=4)]
-      BOOTED_NOT_IN_CLAN = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_BOOTED_NOT_IN_CLAN", Value=4)]
+      FAIL_BOOTED_NOT_IN_CLAN = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1039,14 +1055,14 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=2)]
-      OTHER_FAIL = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_IN_CLAN", Value=3)]
-      NOT_IN_CLAN = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_IN_CLAN", Value=3)]
+      FAIL_NOT_IN_CLAN = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_OWNER", Value=4)]
-      NOT_OWNER = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_OWNER", Value=4)]
+      FAIL_NOT_OWNER = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1243,33 +1259,6 @@ namespace com.lvl6.proto
     }
   
 
-    private bool _checkIfMonsterDied = default(bool);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"checkIfMonsterDied", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool checkIfMonsterDied
-    {
-      get { return _checkIfMonsterDied; }
-      set { _checkIfMonsterDied = value; }
-    }
-
-    private bool _monsterIsLastInStage = default(bool);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"monsterIsLastInStage", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool monsterIsLastInStage
-    {
-      get { return _monsterIsLastInStage; }
-      set { _monsterIsLastInStage = value; }
-    }
-
-    private bool _stageIsLastInRaid = default(bool);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"stageIsLastInRaid", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool stageIsLastInRaid
-    {
-      get { return _stageIsLastInRaid; }
-      set { _stageIsLastInRaid = value; }
-    }
-
     private com.lvl6.proto.FullUserMonsterProto _userMonsterThatAttacked = null;
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"userMonsterThatAttacked", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -1377,6 +1366,32 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AwardClanRaidStageRewardResponseProto")]
+  public partial class AwardClanRaidStageRewardResponseProto : global::ProtoBuf.IExtensible
+  {
+    public AwardClanRaidStageRewardResponseProto() {}
+    
+
+    private int _crsId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"crsId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int crsId
+    {
+      get { return _crsId; }
+      set { _crsId = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserRewardProto> _allRewards = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserRewardProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"allRewards", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventUserRewardProto> allRewards
+    {
+      get { return _allRewards; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RecordClanRaidStatsRequestProto")]
   public partial class RecordClanRaidStatsRequestProto : global::ProtoBuf.IExtensible
   {
@@ -1449,6 +1464,106 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
       FAIL_OTHER = 3
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PromoteDemoteClanMemberRequestProto")]
+  public partial class PromoteDemoteClanMemberRequestProto : global::ProtoBuf.IExtensible
+  {
+    public PromoteDemoteClanMemberRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private int _victim = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"victim", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int victim
+    {
+      get { return _victim; }
+      set { _victim = value; }
+    }
+
+    private com.lvl6.proto.UserClanStatus _userClanStatus = com.lvl6.proto.UserClanStatus.MEMBER;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userClanStatus", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.UserClanStatus.MEMBER)]
+    public com.lvl6.proto.UserClanStatus userClanStatus
+    {
+      get { return _userClanStatus; }
+      set { _userClanStatus = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PromoteDemoteClanMemberResponseProto")]
+  public partial class PromoteDemoteClanMemberResponseProto : global::ProtoBuf.IExtensible
+  {
+    public PromoteDemoteClanMemberResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private int _victim = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"victim", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int victim
+    {
+      get { return _victim; }
+      set { _victim = value; }
+    }
+
+    private com.lvl6.proto.UserClanStatus _userClanStatus = com.lvl6.proto.UserClanStatus.MEMBER;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userClanStatus", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.UserClanStatus.MEMBER)]
+    public com.lvl6.proto.UserClanStatus userClanStatus
+    {
+      get { return _userClanStatus; }
+      set { _userClanStatus = value; }
+    }
+
+    private com.lvl6.proto.PromoteDemoteClanMemberResponseProto.PromoteDemoteClanMemberStatus _status = com.lvl6.proto.PromoteDemoteClanMemberResponseProto.PromoteDemoteClanMemberStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.PromoteDemoteClanMemberResponseProto.PromoteDemoteClanMemberStatus.SUCCESS)]
+    public com.lvl6.proto.PromoteDemoteClanMemberResponseProto.PromoteDemoteClanMemberStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"PromoteDemoteClanMemberStatus")]
+    public enum PromoteDemoteClanMemberStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_IN_CLAN", Value=2)]
+      FAIL_NOT_IN_CLAN = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_AUTHORIZED", Value=3)]
+      FAIL_NOT_AUTHORIZED = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
+      FAIL_OTHER = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;

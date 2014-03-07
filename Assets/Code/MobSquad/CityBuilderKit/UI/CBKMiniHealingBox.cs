@@ -95,7 +95,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		Debug.LogWarning("Removing " + monster.userMonster.userMonsterId);
 		if (monster.isHealing)
 		{
-			MSMonsterManager.instance.RemoveFromHealQueue(monster);
+			MSHospitalManager.instance.RemoveFromHealQueue(monster);
 		}
 		else if (monster.isEnhancing)
 		{

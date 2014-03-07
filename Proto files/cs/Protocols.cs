@@ -229,6 +229,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_RECORD_CLAN_RAID_STATS_EVENT", Value=64)]
       C_RECORD_CLAN_RAID_STATS_EVENT = 64,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_PROMOTE_DEMOTE_CLAN_MEMBER_EVENT", Value=65)]
+      C_PROMOTE_DEMOTE_CLAN_MEMBER_EVENT = 65,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101
     }
@@ -423,6 +426,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"S_RECORD_CLAN_RAID_STATS_EVENT", Value=64)]
       S_RECORD_CLAN_RAID_STATS_EVENT = 64,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"S_PROMOTE_DEMOTE_CLAN_MEMBER_EVENT", Value=65)]
+      S_PROMOTE_DEMOTE_CLAN_MEMBER_EVENT = 65,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,
             
@@ -442,7 +448,10 @@ namespace com.lvl6.proto
       S_GENERAL_NOTIFICATION_EVENT = 106,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_RECEIVED_RARE_BOOSTER_PURCHASE_EVENT", Value=107)]
-      S_RECEIVED_RARE_BOOSTER_PURCHASE_EVENT = 107
+      S_RECEIVED_RARE_BOOSTER_PURCHASE_EVENT = 107,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_AWARD_CLAN_RAID_STAGE_REWARD_EVENT", Value=108)]
+      S_AWARD_CLAN_RAID_STAGE_REWARD_EVENT = 108
     }
   
 }

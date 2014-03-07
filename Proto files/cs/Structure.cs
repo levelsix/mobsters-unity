@@ -506,6 +506,15 @@ namespace com.lvl6.proto
       get { return _pvpQueueCashCost; }
       set { _pvpQueueCashCost = value; }
     }
+
+    private int _resourceCapacity = default(int);
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"resourceCapacity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int resourceCapacity
+    {
+      get { return _resourceCapacity; }
+      set { _resourceCapacity = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -630,6 +639,34 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TutorialStructProto")]
+  public partial class TutorialStructProto : global::ProtoBuf.IExtensible
+  {
+    public TutorialStructProto() {}
+    
+
+    private int _structId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"structId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int structId
+    {
+      get { return _structId; }
+      set { _structId = value; }
+    }
+
+    private com.lvl6.proto.CoordinateProto _coordinate = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"coordinate", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.CoordinateProto coordinate
+    {
+      get { return _coordinate; }
+      set { _coordinate = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     [global::ProtoBuf.ProtoContract(Name=@"ResourceType")]
     public enum ResourceType
     {
@@ -641,7 +678,10 @@ namespace com.lvl6.proto
       OIL = 2,
             
       [global::ProtoBuf.ProtoEnum(Name=@"GEMS", Value=3)]
-      GEMS = 3
+      GEMS = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"MONSTER", Value=20)]
+      MONSTER = 20
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"StructOrientation")]
