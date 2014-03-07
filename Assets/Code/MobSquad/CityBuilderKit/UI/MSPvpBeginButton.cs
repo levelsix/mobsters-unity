@@ -24,7 +24,7 @@ public class MSPvpBeginButton : MonoBehaviour {
 			);
 			return;
 		}
-		else if (MSMonsterManager.instance.userMonsters.Count > MSMonsterManager.totalResidenceSlots)
+		else if (MSMonsterManager.instance.userMonsters.Count > MSMonsterManager.instance.totalResidenceSlots)
 		{
 			MSActionManager.Popup.CreateButtonPopup("Uh oh, you have recruited too many mobsters. Manage your team?",
 			                                        new string[]{"Later", "Manage"},

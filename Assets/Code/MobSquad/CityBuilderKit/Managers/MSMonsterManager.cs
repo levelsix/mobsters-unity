@@ -23,7 +23,7 @@ public class MSMonsterManager : MonoBehaviour {
 	
 	public static PZMonster currentEnhancementMonster;
 
-	public static int totalResidenceSlots;
+	public int totalResidenceSlots;
 
 	public const int TEAM_SLOTS = 3;
 
@@ -36,12 +36,8 @@ public class MSMonsterManager : MonoBehaviour {
 			return _monstersCount;
 		}
 	}
-
-	public static bool healingMonstersInitiated = false;
 	
 	SubmitMonsterEnhancementRequestProto enhanceRequestProto = null;
-	
-	HealMonsterRequestProto healRequestProto = null;
 	
 	CombineUserMonsterPiecesRequestProto combineRequestProto = null;
 
@@ -444,141 +440,6 @@ public class MSMonsterManager : MonoBehaviour {
 		{
 			return x.enhancement.expectedStartTimeMillis.CompareTo(y.enhancement.expectedStartTimeMillis);
 		}
-	}
-	
-	#endregion
-
-	#region Healing Management
-
-	/// <summary>
-	/// Prepares a new heal request.
-	/// </summary>
-	void PrepareNewHealRequest()
-	{
-		healRequestProto = new HealMonsterRequestProto();
-		healRequestProto.sender = MSWhiteboard.localMupWithResources;
-		healRequestProto.isSpeedup = false;
-	}
-
-	/// <summary>
-	/// Determines what hospitals this monster will use and how long it will take to heal.
-	/// After being run, monster.finishHealTimeMillis will be updated to reflect when it will finish,
-	/// and all utilized hospitals will have their completeTime update to refect their use
-	/// </summary>
-	/// <param name="monster">Monster.</param>
-	void DetermineHealTime(PZMonster monster)
-	{
-		monster.hospitalTimes.Clear();
-
-		float progress = monster.healingMonster.healthProgress;
-
-		#region Debug
-
-		string str = "Listing Hospitals";
-		foreach (var hos in MSBuildingManager.hospitals) 
-		{
-			str += "\n" + hos.completeTime + ", " + hos.id;
-		}
-		Debug.Log(str);
-
-		#endregion
-
-		CBKBuilding lastHospital = GetSoonestHospital();
-		long lastStartTime = Math.Max(monster.healingMonster.queuedTimeMillis, lastHospital.completeTime);
-		monster.healingMonster.queuedTimeMillis = lastStartTime;
-		lastHospital.completeTime = CalculateFinishTime(monster, lastHospital, progress, lastStartTime);
-		monster.finishHealTimeMillis = lastHospital.completeTime;
-
-		monster.hospitalTimes.Add(new HospitalTime(lastHospital, lastStartTime));
-
-		for (CBKBuilding nextHospital = GetSoonestFasterHospital(lastHospital);
-		     nextHospital != null;
-		     nextHospital = GetSoonestFasterHospital(lastHospital))
-		{
-			lastHospital.completeTime = nextHospital.completeTime;
-			progress += (lastHospital.completeTime - lastStartTime) / 1000 * lastHospital.combinedProto.hospital.healthPerSecond;
-			lastStartTime = nextHospital.completeTime;
-			nextHospital.completeTime = CalculateFinishTime(monster, nextHospital, progress, lastStartTime);
-			monster.finishHealTimeMillis = nextHospital.completeTime;
-			lastHospital = nextHospital;
-			monster.hospitalTimes.Add(new HospitalTime(lastHospital, lastStartTime));
-		}
-
-		#region Debug2
-		str = "Scheduled heal for " + monster.monster.displayName;
-		str += "\nNow: " + MSUtil.timeNowMillis;
-		str += "\nHealth to heal: " + (monster.maxHP - monster.currHP) + ", Progress: " + monster.healingMonster.healthProgress;
-		str += "\n"  + monster.healStartTime + " Start";
-		foreach (var hospitalTime in monster.hospitalTimes) {
-			str += "\n" + hospitalTime.startTime + " Hospital " + hospitalTime.hospital.id;
-		}
-		str += "\n" + monster.finishHealTimeMillis + " Finish";
-		Debug.Log(str);
-		#endregion
-
-	}
-	
-	long CalculateFinishTime(PZMonster monster, CBKBuilding hospital, float progress, long startTime)
-	{
-		float healthLeftToHeal = monster.maxHP - progress - monster.currHP;
-		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.combinedProto.hospital.healthPerSecond * 1000);
-		return startTime + millis;
-	}
-
-	/// <summary>
-	/// Gets the soonest available hospital
-	/// </summary>
-	/// <returns>The soonest hospital.</returns>
-	CBKBuilding GetSoonestHospital()
-	{
-		CBKBuilding soonest = null;
-		foreach (var building in MSBuildingManager.hospitals) 
-		{
-			//If this building is sooner, or just as soon and faster, than the current soonest
-			if (soonest == null || building.completeTime < soonest.completeTime || (building.completeTime == soonest.completeTime
-			                        && building.combinedProto.hospital.healthPerSecond > soonest.combinedProto.hospital.healthPerSecond))
-			{
-				soonest = building;
-			}
-		}
-		return soonest;
-	}
-
-	/// <summary>
-	/// Gets the soonest hospital that is faster than the hospital that is currently being used for healing.
-	/// Used to see if we can speed up a monster's healing time by switching it to another hospital mid-heal.
-	/// Preconditions: lastHospital has its completeTime set to the time that it would take to finish healing the current
-	/// monster 
-	/// </summary>
-	/// <returns>The soonest faster hospital.</returns>
-	/// <param name="lastHospital">Last hospital.</param>
-	CBKBuilding GetSoonestFasterHospital(CBKBuilding lastHospital)
-	{
-		string str = "Trying to find sooner hospital that will finish before " + lastHospital.completeTime + " with a faster speed than " + lastHospital.combinedProto.hospital.healthPerSecond;
-		CBKBuilding soonest = null;
-		foreach (var building in MSBuildingManager.hospitals) 
-		{
-			if (building == lastHospital) continue;
-			str += "\nChecking " + building.id + ": " + building.completeTime + ", " + building.combinedProto.hospital.healthPerSecond;
-			if (building.combinedProto.hospital.healthPerSecond > lastHospital.combinedProto.hospital.healthPerSecond
-			    && building.completeTime < lastHospital.completeTime)
-			{
-				str += " Faster!";
-				//If this building is sooner, or just as soon and faster, than the current soonest
-				if (soonest == null || building.completeTime < soonest.completeTime || (building.completeTime == soonest.completeTime
-				                                                                        && building.combinedProto.hospital.healthPerSecond > soonest.combinedProto.hospital.healthPerSecond))
-				{
-					str += " Soonest!";
-					soonest = building;
-				}
-			}
-			else
-			{
-				str += " Slower!";
-			}
-		}
-		Debug.LogWarning(str);
-		return soonest;
 	}
 	
 	#endregion

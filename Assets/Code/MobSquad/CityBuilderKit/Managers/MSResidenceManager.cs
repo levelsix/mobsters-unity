@@ -135,7 +135,7 @@ public class MSResidenceManager : MonoBehaviour {
 		}
 	}
 
-	CBKCombinedBuildingProto GetResidenceLevelBelowCurrent(int level, CBKCombinedBuildingProto residence)
+	public CBKCombinedBuildingProto GetResidenceLevelBelowCurrent(int level, CBKCombinedBuildingProto residence)
 	{
 		if (residence.structInfo.level > level)
 		{

@@ -352,7 +352,8 @@ public class MSBuildingManager : MonoBehaviour
 		}
 		
 		MSResourceManager.instance.DetermineResourceMaxima();
-		MSMonsterManager.totalResidenceSlots = GetMonsterSlotCount();
+
+		MSMonsterManager.instance.totalResidenceSlots = GetMonsterSlotCount();
 	}
 	
 	CBKBuilding MakeBuildingAt (StructureInfoProto proto, int id, int x, int y)
@@ -708,13 +709,22 @@ public class MSBuildingManager : MonoBehaviour
 
 	public int GetMonsterSlotCount()
 	{
+		
+		Debug.LogWarning("Setting monster slot count");
 		int monsterSlots = MSWhiteboard.constants.userMonsterConstants.initialMaxNumMonsterLimit;
 
-		foreach (var item in residences) {
+		foreach (var item in MSResidenceManager.residences.Values) 
+		{
+			Debug.LogWarning("Slots!");
 			monsterSlots += item.combinedProto.residence.numMonsterSlots;
 
-			//TODO: Add functionality for FB slots
+			//Add fb levels
+			for (int i = 1; i <= item.userStructProto.fbInviteStructLvl; i++) 
+			{
+				monsterSlots += MSResidenceManager.instance.GetResidenceLevelBelowCurrent(i, item.combinedProto).residence.numBonusMonsterSlots;
+			}
 		}
+		Debug.LogWarning("Total slots should be " + monsterSlots);
 		return monsterSlots;
 	}
 
