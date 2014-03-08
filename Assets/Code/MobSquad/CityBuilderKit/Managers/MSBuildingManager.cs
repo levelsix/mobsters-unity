@@ -71,8 +71,6 @@ public class MSBuildingManager : MonoBehaviour
 	/// </summary>
 	private Dictionary<long, CBKUnit> units = new Dictionary<long, CBKUnit>();
 
-	public static List<CBKBuilding> hospitals = new List<CBKBuilding>();
-
 	public static List<CBKBuilding> labs = new List<CBKBuilding>();
 
 	public static List<CBKBuilding> residences = new List<CBKBuilding>();
@@ -298,7 +296,8 @@ public class MSBuildingManager : MonoBehaviour
 
 		RecycleCity();
 
-		hospitals.Clear();
+		MSHospitalManager.instance.ClearHospitals();
+
 		labs.Clear();
 		MSResidenceManager.residences.Clear();
 
@@ -314,7 +313,7 @@ public class MSBuildingManager : MonoBehaviour
 			{
 				if (building.combinedProto.hospital != null)
 				{
-					hospitals.Add(building);
+					MSHospitalManager.instance.AddHospital(building);
 				}
 				else if (building.combinedProto.residence != null)
 				{
@@ -765,7 +764,7 @@ public class MSBuildingManager : MonoBehaviour
 		switch(building.combinedProto.structInfo.structType)
 		{
 			case StructureInfoProto.StructType.HOSPITAL:
-				hospitals.Remove(building);
+				MSHospitalManager.instance.RemoveHospital(building);
 				break;
 			case StructureInfoProto.StructType.LAB:
 				labs.Remove(building);
@@ -778,7 +777,7 @@ public class MSBuildingManager : MonoBehaviour
 		switch(building.combinedProto.structInfo.structType)
 		{
 			case StructureInfoProto.StructType.HOSPITAL:
-				hospitals.Add(building);
+				MSHospitalManager.instance.AddHospital(building);
 				break;
 			case StructureInfoProto.StructType.LAB:
 				labs.Add(building);

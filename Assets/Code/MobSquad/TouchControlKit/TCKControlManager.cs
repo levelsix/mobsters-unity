@@ -160,7 +160,7 @@ public class TCKControlManager : MonoBehaviour
 	{
 		if (touchPile.Count > 0)
 		{
-			Debug.Log("Recycled tap");
+			//Debug.Log("Recycled tap");
 			TCKTouchData temp = touchPile[0];
 			touchPile.RemoveAt(0);
 			temp.init(pos);
@@ -168,7 +168,7 @@ public class TCKControlManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("New tap");
+			//Debug.Log("New tap");
 			return new TCKTouchData(pos);
 		}
 	}

@@ -14,6 +14,10 @@ public class MSHospitalManager : MonoBehaviour {
 	public static MSHospitalManager instance;
 
 	public List<PZMonster> healingMonsters = new List<PZMonster>();
+
+	public List<CBKBuilding> hospitals = new List<CBKBuilding>();
+
+	public int queueSize = 0;
 	
 	HealMonsterRequestProto healRequestProto = null;
 
@@ -34,6 +38,28 @@ public class MSHospitalManager : MonoBehaviour {
 			MSHospitalManager.instance.healingMonsters.Add(mon);
 		}
 	}
+
+	#region Hospitals
+
+	public void ClearHospitals()
+	{
+		hospitals.Clear();
+		queueSize = 0;
+	}
+
+	public void AddHospital(CBKBuilding building)
+	{
+		hospitals.Add(building);
+		queueSize += building.combinedProto.hospital.queueSize;
+	}
+
+	public void RemoveHospital(CBKBuilding building)
+	{
+		hospitals.RemoveAll(x=>x==building);
+		queueSize -= building.combinedProto.hospital.queueSize;
+	}
+
+	#endregion
 
 	public void InitHealers()
 	{
@@ -161,8 +187,13 @@ public class MSHospitalManager : MonoBehaviour {
 	/// <param name="monster">Monster.</param>
 	public void AddToHealQueue(PZMonster monster)
 	{
-		if (MSBuildingManager.hospitals.Count == 0)
+		if (hospitals.Count == 0)
 		{
+			return;
+		}
+		if (healingMonsters.Count >= queueSize)
+		{
+			CBKGoonScreen.instance.DisplayErrorMessage("Healing Queue Full");
 			return;
 		}
 		
@@ -221,7 +252,7 @@ public class MSHospitalManager : MonoBehaviour {
 		#region Debug
 		
 		string str = "Listing Hospitals";
-		foreach (var hos in MSBuildingManager.hospitals) 
+		foreach (var hos in hospitals) 
 		{
 			str += "\n" + hos.completeTime + ", " + hos.id;
 		}
@@ -318,7 +349,7 @@ public class MSHospitalManager : MonoBehaviour {
 	CBKBuilding GetSoonestHospital()
 	{
 		CBKBuilding soonest = null;
-		foreach (var building in MSBuildingManager.hospitals) 
+		foreach (var building in hospitals) 
 		{
 			//If this building is sooner, or just as soon and faster, than the current soonest
 			if (soonest == null || building.completeTime < soonest.completeTime || (building.completeTime == soonest.completeTime
@@ -342,7 +373,7 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		string str = "Trying to find sooner hospital that will finish before " + lastHospital.completeTime + " with a faster speed than " + lastHospital.combinedProto.hospital.healthPerSecond;
 		CBKBuilding soonest = null;
-		foreach (var building in MSBuildingManager.hospitals) 
+		foreach (var building in hospitals) 
 		{
 			if (building == lastHospital) continue;
 			str += "\nChecking " + building.id + ": " + building.completeTime + ", " + building.combinedProto.hospital.healthPerSecond;
@@ -376,7 +407,7 @@ public class MSHospitalManager : MonoBehaviour {
 	void RearrangeHealingQueue()
 	{
 		UpdateAllProgress();
-		foreach (CBKBuilding hospital in MSBuildingManager.hospitals) 
+		foreach (CBKBuilding hospital in hospitals) 
 		{
 			hospital.completeTime = 0;
 		}

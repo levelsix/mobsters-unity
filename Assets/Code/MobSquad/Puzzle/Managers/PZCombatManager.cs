@@ -79,7 +79,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		get
 		{
-			return -(Screen.width * 640f / 2) + playerXFromSideThreshold;
+			return -(Screen.width * Screen.height / 640f / 2) + playerXFromSideThreshold;
 		}
 	}
 
@@ -557,11 +557,20 @@ public class PZCombatManager : MonoBehaviour {
 
 		MSSoundManager.instance.Loop(MSSoundManager.instance.walking);
 
+		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed));
+		activePlayer.unit.direction = MSValues.Direction.EAST;
+		activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
+
+
+		/*
+		Debug.Log("Moving until player is past " + playerXPos);
 		while(activePlayer.unit.transf.localPosition.x < playerXPos)
 		{
 			activePlayer.unit.transf.localPosition += Time.deltaTime * -background.direction * background.scrollSpeed;
 			yield return null;
 		}
+		*/
+
 
 		while(activeEnemy.unit.transf.localPosition.x > enemyXPos)
 		{
