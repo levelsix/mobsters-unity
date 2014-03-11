@@ -158,6 +158,10 @@ public class MSDataManager : MonoBehaviour {
 		{
 			Load (item, item.clanEventId);
 		}
+		foreach (var item in data.raids) 
+		{
+			Load (item, item.clanRaidId);
+		}
 		foreach (var item in data.expansionCosts) 
 		{
 			Load(item, item.expansionNum);

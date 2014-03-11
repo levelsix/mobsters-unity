@@ -57,5 +57,6 @@ public class MSRaidScreen : MonoBehaviour {
 	{
 		MSRaidStageBoxUI stageBox = Instantiate(stageBoxPrefab) as MSRaidStageBoxUI;
 		stageBox.transform.parent = stageBoxParent.transform;
+		stageBox.transform.localScale = Vector3.one;
 	}
 }

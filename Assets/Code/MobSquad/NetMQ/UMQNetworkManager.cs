@@ -451,6 +451,11 @@ public class UMQNetworkManager : MonoBehaviour {
 			Debug.Log("Purging static data");
 			MSDataManager.instance.LoadStaticData(proto as PurgeClientStaticDataResponseProto);
 		}
+		else if (proto is ForceLogoutResponseProto)
+		{
+			ForceLogoutResponseProto logout = proto as ForceLogoutResponseProto;
+			Debug.LogError("Force logout: " + logout.loginTime + ", " + logout.previousLoginTime);
+		}
 		else
 		{
 

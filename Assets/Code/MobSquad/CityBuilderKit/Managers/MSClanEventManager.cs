@@ -10,11 +10,30 @@ using com.lvl6.proto;
 /// </summary>
 public class MSClanEventManager : MonoBehaviour {
 
-	PersistentClanEventClanInfoProto currClanInfo;
+	public static MSClanEventManager instance;
 
-	PersistentClanEventUserInfoProto currUserInfo;
+	public PersistentClanEventClanInfoProto currClanInfo;
 
-	PersistentClanEventProto currRaid;
+	public PersistentClanEventUserInfoProto currUserInfo;
+
+	public PersistentClanEventProto currPersisRaid;
+
+	public ClanRaidProto currRaid;
+
+	public ClanRaidStageProto currStage;
+
+	public long currStageTimeLeft
+	{
+		get
+		{
+			return (currClanInfo.stageStartTime + currStage.durationMinutes * 60000) - MSUtil.timeNowMillis;
+		}
+	}
+
+	void Awake()
+	{
+		instance = this;
+	}
 
 	public void Init()
 	{
