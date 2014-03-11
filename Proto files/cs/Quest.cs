@@ -264,8 +264,17 @@ namespace com.lvl6.proto
       set { _speaker = value; }
     }
 
+    private string _speakerImage = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"speakerImage", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string speakerImage
+    {
+      get { return _speakerImage; }
+      set { _speakerImage = value; }
+    }
+
     private string _speakerText = "";
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"speakerText", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"speakerText", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string speakerText
     {
@@ -274,7 +283,7 @@ namespace com.lvl6.proto
     }
 
     private bool _isLeftSide = default(bool);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"isLeftSide", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"isLeftSide", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
     public bool isLeftSide
     {

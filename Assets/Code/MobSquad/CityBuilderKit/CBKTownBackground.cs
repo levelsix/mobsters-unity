@@ -26,7 +26,7 @@ public class CBKTownBackground : MonoBehaviour {
 	public void InitMission(FullCityProto city)
 	{
 		InitMission(city.mapImgName, city.roadImgName);
-		missionRoad.transform.localPosition = new Vector3(city.center.x/25f, city.center.y/25f);
+		missionRoad.transform.localPosition = new Vector3(city.roadImgCoords.x/25f, city.roadImgCoords.y/25f);
 	}
 
 	public void InitMission(string background, string road)

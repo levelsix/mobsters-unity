@@ -98,6 +98,15 @@ namespace com.lvl6.proto
       get { return _isFreshRestart; }
       set { _isFreshRestart = value; }
     }
+
+    private long _clientTime = default(long);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long clientTime
+    {
+      get { return _clientTime; }
+      set { _clientTime = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -649,6 +658,24 @@ namespace com.lvl6.proto
       get { return _continueBattleGemCostMultiplier; }
       set { _continueBattleGemCostMultiplier = value; }
     }
+
+    private bool _addAllFbFriends = default(bool);
+    [global::ProtoBuf.ProtoMember(23, IsRequired = false, Name=@"addAllFbFriends", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool addAllFbFriends
+    {
+      get { return _addAllFbFriends; }
+      set { _addAllFbFriends = value; }
+    }
+
+    private com.lvl6.proto.StartupResponseProto.StartupConstants.MiniTutorialConstants _miniTuts = null;
+    [global::ProtoBuf.ProtoMember(24, IsRequired = false, Name=@"miniTuts", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StartupResponseProto.StartupConstants.MiniTutorialConstants miniTuts
+    {
+      get { return _miniTuts; }
+      set { _miniTuts = value; }
+    }
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnimatedSpriteOffsetProto")]
   public partial class AnimatedSpriteOffsetProto : global::ProtoBuf.IExtensible
   {
@@ -880,6 +907,79 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MiniTutorialConstants")]
+  public partial class MiniTutorialConstants : global::ProtoBuf.IExtensible
+  {
+    public MiniTutorialConstants() {}
+    
+
+    private int _matchThreeTutorialAssetId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"matchThreeTutorialAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int matchThreeTutorialAssetId
+    {
+      get { return _matchThreeTutorialAssetId; }
+      set { _matchThreeTutorialAssetId = value; }
+    }
+
+    private int _firstPowerUpAssetId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"firstPowerUpAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int firstPowerUpAssetId
+    {
+      get { return _firstPowerUpAssetId; }
+      set { _firstPowerUpAssetId = value; }
+    }
+
+    private int _rainbowTutorialAssetId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"rainbowTutorialAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int rainbowTutorialAssetId
+    {
+      get { return _rainbowTutorialAssetId; }
+      set { _rainbowTutorialAssetId = value; }
+    }
+
+    private int _powerUpComboTutorialAssetId = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"powerUpComboTutorialAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int powerUpComboTutorialAssetId
+    {
+      get { return _powerUpComboTutorialAssetId; }
+      set { _powerUpComboTutorialAssetId = value; }
+    }
+
+    private int _monsterDropTutorialAssetId = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"monsterDropTutorialAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int monsterDropTutorialAssetId
+    {
+      get { return _monsterDropTutorialAssetId; }
+      set { _monsterDropTutorialAssetId = value; }
+    }
+
+    private int _elementTutorialAssetId = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"elementTutorialAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int elementTutorialAssetId
+    {
+      get { return _elementTutorialAssetId; }
+      set { _elementTutorialAssetId = value; }
+    }
+
+    private int _cityId = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"cityId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int cityId
+    {
+      get { return _cityId; }
+      set { _cityId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1031,6 +1131,34 @@ namespace com.lvl6.proto
       USER_NOT_IN_DB = 2
     }
   
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ForceLogoutResponseProto")]
+  public partial class ForceLogoutResponseProto : global::ProtoBuf.IExtensible
+  {
+    public ForceLogoutResponseProto() {}
+    
+
+    private long _loginTime = default(long);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"loginTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long loginTime
+    {
+      get { return _loginTime; }
+      set { _loginTime = value; }
+    }
+
+    private long _previousLoginTime = default(long);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"previousLoginTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long previousLoginTime
+    {
+      get { return _previousLoginTime; }
+      set { _previousLoginTime = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

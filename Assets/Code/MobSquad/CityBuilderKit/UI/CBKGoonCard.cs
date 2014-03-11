@@ -352,7 +352,7 @@ public class CBKGoonCard : MonoBehaviour {
 		
 		goonElementParent.SetActive(true);
 		
-		goonPose.sprite2D = CBKAtlasUtil.instance.GetSprite("Cards/HD/" + MSUtil.StripExtensions(goon.monster.imagePrefix) + "Card");
+		goonPose.sprite2D = MSAtlasUtil.instance.GetSprite("Cards/HD/" + MSUtil.StripExtensions(goon.monster.imagePrefix) + "Card");
 		if (goonPose.sprite2D != null)
 		{
 			goonPose.width = (int)goonPose.sprite2D.rect.width;

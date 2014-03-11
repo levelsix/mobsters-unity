@@ -45,7 +45,7 @@ public class CBKBuildingCard : MonoBehaviour {
 		nameLabel.text = proto.structInfo.name;
 		timeToBuild.text = "TIME " + proto.structInfo.minutesToBuild + "m";
 
-		buildingSprite.sprite2D = CBKAtlasUtil.instance.GetBuildingSprite(proto.structInfo.imgName);
+		buildingSprite.sprite2D = MSAtlasUtil.instance.GetBuildingSprite(proto.structInfo.imgName);
 		if (buildingSprite.sprite2D != null)
 		{
 			buildingSprite.width = (int)buildingSprite.sprite2D.rect.width;

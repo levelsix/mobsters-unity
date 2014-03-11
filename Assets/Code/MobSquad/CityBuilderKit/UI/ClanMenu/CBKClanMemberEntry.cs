@@ -68,19 +68,33 @@ public class CBKClanMemberEntry : MonoBehaviour, MSPoolable {
 	UILabel levelLabel;
 
 	[SerializeField]
-	UISprite[] teamSprites;
+	UILabel clanRaidContribution;
+
+	[SerializeField]
+	CBKMiniHealingBox[] teamSprites;
 
 	[SerializeField]
 	CBKActionButton profileButton;
 
 	const string LEADER_TEXT = "Clan Leader";
 
-	public void Init(MinimumUserProtoForClans user, bool isLeader)
+	public void Init(MinimumUserProtoForClans user, UserCurrentMonsterTeamProto monsters)
 	{
 		nameLabel.text = user.minUserProto.minUserProtoWithLevel.minUserProto.name;
 		levelLabel.text = user.minUserProto.minUserProtoWithLevel.level.ToString();
-		leaderLabel.text = isLeader ? LEADER_TEXT : " ";
+		leaderLabel.text = user.clanStatus.ToString();
+		clanRaidContribution.text = ((int)(user.raidContribution * 100)).ToString();
 
-		//TODO: Team members
+		for (int i = 0; i < teamSprites.Length; i++) 
+		{
+			if (monsters.currentTeam.Count > i)
+			{
+				teamSprites[i].Init(new PZMonster(monsters.currentTeam[i]));
+			}
+			else
+			{
+				teamSprites[i].Init(null, false);
+			}
+		}
 	}
 }

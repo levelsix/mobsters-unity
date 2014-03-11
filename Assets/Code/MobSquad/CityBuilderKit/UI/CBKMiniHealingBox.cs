@@ -45,6 +45,21 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		tweenPos = GetComponent<TweenPosition>();
 	}
 
+	public void Init(MonsterProto monster)
+	{
+		removeButton.gameObject.SetActive(false);
+		if (monster == null)
+		{
+			goonPortrait.alpha = 0;
+		}
+		else
+		{
+			goonPortrait.spriteName = MSUtil.StripExtensions(monster.imagePrefix) + "Card";	
+			background.spriteName = elementBackgrounds[monster.monsterElement];
+		}
+		gameObject.SetActive(true);
+	}
+
 	public void Init(PZMonster monster, bool forTeam = false)
 	{
 		if (monster == null)

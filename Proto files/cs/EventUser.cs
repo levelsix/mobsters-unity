@@ -37,17 +37,8 @@ namespace com.lvl6.proto
       set { _name = value; }
     }
 
-    private string _referrerCode = "";
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"referrerCode", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue("")]
-    public string referrerCode
-    {
-      get { return _referrerCode; }
-      set { _referrerCode = value; }
-    }
-
     private string _deviceToken = "";
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"deviceToken", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"deviceToken", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string deviceToken
     {
@@ -55,50 +46,21 @@ namespace com.lvl6.proto
       set { _deviceToken = value; }
     }
 
-    private long _timeOfStructPurchase = default(long);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"timeOfStructPurchase", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long timeOfStructPurchase
-    {
-      get { return _timeOfStructPurchase; }
-      set { _timeOfStructPurchase = value; }
-    }
-
-    private long _timeOfStructBuild = default(long);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"timeOfStructBuild", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long timeOfStructBuild
-    {
-      get { return _timeOfStructBuild; }
-      set { _timeOfStructBuild = value; }
-    }
-
-    private com.lvl6.proto.CoordinateProto _structCoords = null;
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"structCoords", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.CoordinateProto structCoords
-    {
-      get { return _structCoords; }
-      set { _structCoords = value; }
-    }
-
-    private bool _usedDiamondsToBuilt = default(bool);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"usedDiamondsToBuilt", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool usedDiamondsToBuilt
-    {
-      get { return _usedDiamondsToBuilt; }
-      set { _usedDiamondsToBuilt = value; }
-    }
-
     private string _facebookId = "";
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"facebookId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"facebookId", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
     public string facebookId
     {
       get { return _facebookId; }
       set { _facebookId = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.TutorialStructProto> _structsJustBuilt = new global::System.Collections.Generic.List<com.lvl6.proto.TutorialStructProto>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"structsJustBuilt", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.TutorialStructProto> structsJustBuilt
+    {
+      get { return _structsJustBuilt; }
+    }
+  
 
     private int _cash = default(int);
     [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"cash", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
@@ -384,6 +346,15 @@ namespace com.lvl6.proto
       get { return _fbId; }
       set { _fbId = value; }
     }
+
+    private bool _isUserCreate = default(bool);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"isUserCreate", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isUserCreate
+    {
+      get { return _isUserCreate; }
+      set { _isUserCreate = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -420,7 +391,13 @@ namespace com.lvl6.proto
       SUCCESS = 1,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
-      FAIL_OTHER = 2
+      FAIL_OTHER = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_FB_ID_EXISTS", Value=3)]
+      FAIL_FB_ID_EXISTS = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_USER_FB_ID_ALREADY_SET", Value=4)]
+      FAIL_USER_FB_ID_ALREADY_SET = 4
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -542,6 +519,82 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=5)]
       FAIL_INSUFFICIENT_GEMS = 5
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SetGameCenterIdRequestProto")]
+  public partial class SetGameCenterIdRequestProto : global::ProtoBuf.IExtensible
+  {
+    public SetGameCenterIdRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private string _gameCenterId = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"gameCenterId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string gameCenterId
+    {
+      get { return _gameCenterId; }
+      set { _gameCenterId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SetGameCenterIdResponseProto")]
+  public partial class SetGameCenterIdResponseProto : global::ProtoBuf.IExtensible
+  {
+    public SetGameCenterIdResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private string _gameCenterId = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"gameCenterId", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string gameCenterId
+    {
+      get { return _gameCenterId; }
+      set { _gameCenterId = value; }
+    }
+
+    private com.lvl6.proto.SetGameCenterIdResponseProto.SetGameCenterIdStatus _status = com.lvl6.proto.SetGameCenterIdResponseProto.SetGameCenterIdStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SetGameCenterIdResponseProto.SetGameCenterIdStatus.SUCCESS)]
+    public com.lvl6.proto.SetGameCenterIdResponseProto.SetGameCenterIdStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"SetGameCenterIdStatus")]
+    public enum SetGameCenterIdStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
     }
   
     private global::ProtoBuf.IExtension extensionObject;

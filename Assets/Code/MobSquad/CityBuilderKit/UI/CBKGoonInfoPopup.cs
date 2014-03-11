@@ -55,7 +55,7 @@ public class CBKGoonInfoPopup : MonoBehaviour {
 	{
 		currMonster = monster;
 
-		mobsterSprite.sprite2D = CBKAtlasUtil.instance.GetMobsterSprite(monster.monster.imagePrefix);
+		mobsterSprite.sprite2D = MSAtlasUtil.instance.GetMobsterSprite(monster.monster.imagePrefix);
 
 		if (mobsterSprite.sprite2D != null)
 		{

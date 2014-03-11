@@ -73,9 +73,10 @@ public class CBKClanDetailScreen : MonoBehaviour {
 			+ "\nMembers: " + response.members.Count + "/" + clan.clanSize;
 
 		memberList.Clear();
+
 		foreach (var item in response.members) 
 		{
-			AddMemberEntryToGrid(item);
+			AddMemberEntryToGrid(item, response.monsterTeams.Find(x => x.userId == item.minUserProto.minUserProtoWithLevel.minUserProto.userId));
 		}
 		memberGrid.GetComponent<UIGrid>().Reposition();
 
@@ -91,12 +92,12 @@ public class CBKClanDetailScreen : MonoBehaviour {
 		loadingObjects.SetActive(false);
 	}
 
-	void AddMemberEntryToGrid(MinimumUserProtoForClans member)
+	void AddMemberEntryToGrid(MinimumUserProtoForClans member, UserCurrentMonsterTeamProto monsters)
 	{
 		CBKClanMemberEntry entry = MSPoolManager.instance.Get(clanMemberEntryPrefab, Vector3.zero) as CBKClanMemberEntry;
 		entry.transf.parent = memberGrid;
 		entry.transf.localScale = Vector3.one;
-		entry.Init(member, member.clanStatus == UserClanStatus.LEADER);
+		entry.Init(member, monsters);
 
 		memberList.Add(entry);
 	}

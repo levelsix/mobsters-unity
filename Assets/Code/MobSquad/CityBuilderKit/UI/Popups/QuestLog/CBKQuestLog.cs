@@ -352,7 +352,7 @@ public class CBKQuestLog : MonoBehaviour {
 		
 		questGiver.GetComponent<TweenPosition>().PlayForward();
 		questGiver.GetComponent<CBKUIHelper>().FadeIn();
-		questGiver.sprite2D = CBKAtlasUtil.instance.GetSprite("Quest/HD/" + MSUtil.StripExtensions(quest.quest.questGiverImageSuffix) + "Big");
+		questGiver.sprite2D = MSAtlasUtil.instance.GetSprite("Quest/HD/" + MSUtil.StripExtensions(quest.quest.questGiverImageSuffix) + "Big");
 
 		GetComponent<TweenPosition>().PlayForward();
 

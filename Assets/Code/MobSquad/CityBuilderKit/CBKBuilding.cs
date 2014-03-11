@@ -437,15 +437,15 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 
 		//sprite.spriteName = CBKUtil.StripExtensions(structName);
 		//CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
-		sprite.sprite = CBKAtlasUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
+		sprite.sprite = MSAtlasUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
 
-		RuntimeAnimatorController animator = CBKAtlasUtil.instance.GetAnimator(MSUtil.StripExtensions(structName));
+		RuntimeAnimatorController animator = MSAtlasUtil.instance.GetAnimator(MSUtil.StripExtensions(structName));
 		Animator spriteAnimator = sprite.GetComponent<Animator>();
 		if (spriteAnimator != null)
 		{
 			if (animator != null)
 			{
-				spriteAnimator.runtimeAnimatorController = CBKAtlasUtil.instance.GetAnimator(combinedProto.structInfo.imgName);
+				spriteAnimator.runtimeAnimatorController = MSAtlasUtil.instance.GetAnimator(combinedProto.structInfo.imgName);
 			}
 			else
 			{

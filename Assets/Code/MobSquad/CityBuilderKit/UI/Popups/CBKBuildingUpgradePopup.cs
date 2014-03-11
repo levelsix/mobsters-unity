@@ -163,7 +163,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 			upgradeButton.icon.spriteName = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? cashButtonName : oilButtonName);
 			upgradeButton.label.text = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? "$" : "(O) ") + currCost.ToString();
 
-			Sprite sprite = CBKAtlasUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
+			Sprite sprite = MSAtlasUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
 			buildingSprite.sprite2D = sprite;
 			if (sprite != null)
 			{

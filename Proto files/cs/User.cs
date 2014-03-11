@@ -571,13 +571,22 @@ namespace com.lvl6.proto
       set { _facebookId = value; }
     }
 
-    private string _udid = "";
-    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"udid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private string _gameCenterId = "";
+    [global::ProtoBuf.ProtoMember(45, IsRequired = false, Name=@"gameCenterId", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
-    public string udid
+    public string gameCenterId
     {
-      get { return _udid; }
-      set { _udid = value; }
+      get { return _gameCenterId; }
+      set { _gameCenterId = value; }
+    }
+
+    private string _udidForHistory = "";
+    [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"udidForHistory", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string udidForHistory
+    {
+      get { return _udidForHistory; }
+      set { _udidForHistory = value; }
     }
 
     private string _deviceToken = "";
@@ -659,6 +668,24 @@ namespace com.lvl6.proto
     {
       get { return _inBattleShieldEndTime; }
       set { _inBattleShieldEndTime = value; }
+    }
+
+    private bool _fbIdSetOnUserCreate = default(bool);
+    [global::ProtoBuf.ProtoMember(44, IsRequired = false, Name=@"fbIdSetOnUserCreate", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool fbIdSetOnUserCreate
+    {
+      get { return _fbIdSetOnUserCreate; }
+      set { _fbIdSetOnUserCreate = value; }
+    }
+
+    private string _udid = "";
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"udid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string udid
+    {
+      get { return _udid; }
+      set { _udid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

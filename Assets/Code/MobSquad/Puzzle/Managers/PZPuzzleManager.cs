@@ -113,6 +113,11 @@ public class PZPuzzleManager : MonoBehaviour {
 			columnQueues[i] = new List<PZGem>();
 		}
 	}
+
+	public void Start()
+	{
+		MSPoolManager.instance.Warm(rocketPrefab.GetComponent<CBKSimplePoolable>(), 6);
+	}
 	
 	public void ResetCombo()
 	{
