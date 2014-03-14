@@ -484,19 +484,6 @@ public class UMQNetworkManager : MonoBehaviour {
 				{
 					MSRequestManager.instance.JustReceivedFriendInvite(proto as InviteFbFriendsForSlotsResponseProto);
 				}
-
-				//Clan Raid stuff that other players will send!
-
-				if (proto is BeginClanRaidResponseProto && MSClanEventManager.instance != null)
-				{
-					Debug.Log("Fallback: From other");
-					MSClanEventManager.instance.DealWithBeginResponse(tagNum);
-				}
-				if (proto is AttackClanRaidMonsterResponseProto && MSClanEventManager.instance != null)
-				{
-					Debug.Log("Fallback: From other");
-					MSClanEventManager.instance.DealWithAttackResponse(tagNum);
-				}
 			}
 
 			requestsOut.Remove(tagNum);

@@ -20,6 +20,7 @@ public class CBKClanPopup : MonoBehaviour {
 
 	void OnEnable()
 	{
+		raidStuff.SetActive(false);
 		if (MSClanManager.userClanId > 0)
 		{
 			buttons.SetActive(true);

@@ -25,7 +25,7 @@ public class PZRetreatButton : MonoBehaviour {
 
 	void Update()
 	{
-		button.enabled = PZPuzzleManager.instance.swapLock <= 0;
+		button.enabled = PZPuzzleManager.instance.swapLock <= 0 || PZDeployPopup.acting;
 		sprite.alpha = (button.enabled) ? 1 : 0;
 	}
 }

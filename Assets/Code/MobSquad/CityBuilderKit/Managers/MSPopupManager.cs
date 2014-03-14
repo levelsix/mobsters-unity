@@ -13,6 +13,8 @@ public class MSPopupManager : MonoBehaviour {
 		public CBKGoonScreen goonScreen;
 		public CBKClanPopup clanPopup;
 		public MSRaidScreen raidScreen;
+		public MSRaidTeamPopup raidTeamPopup;
+		public GameObject loadingScreenBlocker;
 	}
 
 	public Popups popups;

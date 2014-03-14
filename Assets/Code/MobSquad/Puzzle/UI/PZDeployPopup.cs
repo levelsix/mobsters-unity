@@ -12,7 +12,7 @@ public class PZDeployPopup : MonoBehaviour {
 
 	UITweener tween;
 
-	static bool acting = false;
+	public static bool acting = false;
 
 	void Awake()
 	{
@@ -44,13 +44,30 @@ public class PZDeployPopup : MonoBehaviour {
 		acting = false;
 		tween.PlayReverse();
 	}
-	
+
+	public void Init(UserCurrentMonsterTeamProto userMonsters)
+	{
+		tween.PlayForward();
+		acting = true;
+		for (int i = 0; i < userMonsters.currentTeam.Count; i++) 
+		{
+			PZMonster monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == userMonsters.currentTeam[i].userMonsterId);
+			if (monster != null)
+			{
+				slots[i].Init(monster);
+			}
+			else
+			{
+				slots[i].InitEmpty();
+			}
+		}
+	}
+
 	public void Init(PZMonster[] userMonsters)
 	{
 		tween.PlayForward();
 		acting = true;
-		int i;
-		for (i = 0; i < userMonsters.Length; i++) 
+		for (int i = 0; i < userMonsters.Length; i++) 
 		{
 			if (userMonsters[i] != null && userMonsters[i].monster != null && userMonsters[i].monster.monsterId > 0)
 			{

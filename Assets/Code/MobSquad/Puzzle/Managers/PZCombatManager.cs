@@ -291,8 +291,20 @@ public class PZCombatManager : MonoBehaviour {
 	public void InitRaid()
 	{
 		Init ();
+		
+		PZMonster mon;
 
-
+		//We need to make sure we're using the right player team
+		//This gets set up in init, so we're going to clear it and fix it here
+		playerGoonies.Clear();
+		foreach (var item in MSClanEventManager.instance.myTeam.currentTeam) 
+		{
+			mon = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == item.userMonsterId);
+			if (mon != null)
+			{
+				playerGoonies.Add(mon);
+			}
+		}
 
 		boardMove.Sample(0,false);
 		boardMove.PlayForward();
@@ -301,7 +313,6 @@ public class PZCombatManager : MonoBehaviour {
 		pvpMode = false;
 		raidMode = true;
 
-		PZMonster mon;
 
 		foreach (var item in MSClanEventManager.instance.GetCurrentStageMonsters().OrderBy(x=>x.crsmId)) 
 		{
@@ -542,7 +553,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	void OnRaidEnemyAttacked(AttackClanRaidMonsterResponseProto response)
 	{
-		if (raidMode && response.sender != MSWhiteboard.localMup)
+		if (raidMode && response.sender.userId != MSWhiteboard.localMup.userId)
 		{
 			StartCoroutine(activeEnemy.TakeDamage(response.dmgDealt));
 		}

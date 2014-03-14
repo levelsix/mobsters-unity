@@ -21,6 +21,10 @@ public class CBKClanMemberEntry : MonoBehaviour, MSPoolable {
 	{
 		get
 		{
+			if (trans == null)
+			{
+				trans = transform;
+			}
 			return trans;
 		}
 	}

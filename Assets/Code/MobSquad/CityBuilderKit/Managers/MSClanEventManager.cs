@@ -105,25 +105,37 @@ public class MSClanEventManager : MonoBehaviour {
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_CLAN_RAID_EVENT, DealWithBeginResponse);
 	}
 
-	public void SetRaidTeam()
+	public IEnumerator SetRaidTeam()
 	{
-		BeginClanRaidRequestProto request = new BeginClanRaidRequestProto();
-		request.sender = MSWhiteboard.localMup;
-		request.curTime = MSUtil.timeNowMillis;
-		request.raidId = currRaid.clanRaidId;
-		request.clanEventId = currPersisRaid.clanEventId;
-		request.isFirstStage = false;
-		request.setMonsterTeamForRaid = true;
-
-		foreach (var item in MSMonsterManager.instance.userTeam) 
+		if (myTeam == null)
 		{
-			if (item != null)
-			{
-				request.userMonsters.Add(item.userMonster);
-			}
-		}
+			BeginClanRaidRequestProto request = new BeginClanRaidRequestProto();
+			request.sender = MSWhiteboard.localMup;
+			request.curTime = MSUtil.timeNowMillis;
+			request.raidId = currRaid.clanRaidId;
+			request.clanEventId = currPersisRaid.clanEventId;
+			request.isFirstStage = false;
+			request.setMonsterTeamForRaid = true;
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_CLAN_RAID_EVENT, DealWithBeginResponse);
+			foreach (var item in MSMonsterManager.instance.userTeam) 
+			{
+				if (item != null)
+				{
+					request.userMonsters.Add(item.userMonster);
+				}
+			}
+
+			int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_CLAN_RAID_EVENT, null);
+
+			MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker);
+			while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+			{
+				yield return null;
+			}
+			MSActionManager.Popup.CloseTopPopupLayer();
+
+			DealWithBeginResponse(tagNum);
+		}
 	}
 
 	public void DealWithBeginResponse(BeginClanRaidResponseProto response)
@@ -264,6 +276,41 @@ public class MSClanEventManager : MonoBehaviour {
 			{
 				currDamage += item.crsmDmgDone;
 			}
+		}
+	}
+
+	void SendRecordRequest()
+	{
+		RecordClanRaidStatsRequestProto request = new RecordClanRaidStatsRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.clientTime = MSUtil.timeNowMillis;
+		request.clanId = MSClanManager.instance.playerClan.clanId;
+
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RECORD_CLAN_RAID_STATS_EVENT, DealWithRecordResponse);
+
+		currClanInfo = null;
+		currUserInfos.Clear ();
+		currRaid = null;
+		currPersisRaid = null;
+		currDamage = 0;
+	}
+
+	void DealWithRecordResponse(int tagNum)
+	{
+		RecordClanRaidStatsResponseProto response = UMQNetworkManager.responseDict[tagNum] as RecordClanRaidStatsResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != RecordClanRaidStatsResponseProto.RecordClanRaidStatsStatus.SUCCESS)
+		{
+			Debug.LogError("Problem recording Clan Raid Stats: " + response.status.ToString());
+		}
+	}
+
+	void Update()
+	{
+		if (currClanInfo != null && currClanInfo.clanEventId > 0 && currStageTimeLeft <= 0)
+		{
+			SendRecordRequest();
 		}
 	}
 }

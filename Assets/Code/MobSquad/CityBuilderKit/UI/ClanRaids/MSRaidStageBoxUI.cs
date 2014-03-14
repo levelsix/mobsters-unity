@@ -112,9 +112,16 @@ public class MSRaidStageBoxUI : MonoBehaviour {
 	{
 		beginParent.SetActive(false);
 		battleParent.SetActive (true);
+
+		ClanRaidStageMonsterProto raidMonster = stage.monsters.Find(x=>x.crsmId == clanInfo.crsmId);
+
 		//Figure out percentage
 		float percentagePerMonster = 1f / stage.monsters.Count;
-		float percentage = ((clanInfo.crsmId-1) + ((float)(MSClanEventManager.instance.currDamage))/(stage.monsters[clanInfo.crsmId-1].monsterHp)) * percentagePerMonster;
+		float percentage = 0;
+		if (raidMonster != null)
+		{
+			percentage = ((raidMonster.crsmId-stage.monsters[0].crsmId) + ((float)(MSClanEventManager.instance.currDamage))/(raidMonster.monsterHp)) * percentagePerMonster;
+		}
 		progressBar.fillAmount = percentage;
 		long timeLeft = (clanInfo.stageStartTime + stage.durationMinutes * 60000) - MSUtil.timeNowMillis;
 		int percentageDisplay = (int)(percentage * 100);
@@ -151,10 +158,22 @@ public class MSRaidStageBoxUI : MonoBehaviour {
 
 	public void OnBattle()
 	{
-		//TODO: Check-in user monster team
 		if (MSClanEventManager.instance.myTeam == null)
 		{
-			MSClanEventManager.instance.SetRaidTeam();
+			MSPopupManager.instance.popups.raidTeamPopup.InitSetCurrentTeam();
+			MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.raidTeamPopup.gameObject);
+			return;
+		}
+
+		//Check team against userTeam
+		foreach (var teamMember in MSMonsterManager.instance.userTeam) 
+		{
+			if (teamMember != null && MSClanEventManager.instance.myTeam.currentTeam.Find(x=>x.userMonsterId == teamMember.userMonster.userMonsterId) == null)
+			{
+				MSPopupManager.instance.popups.raidTeamPopup.InitSwitchToRaidTeam();
+				MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.raidTeamPopup.gameObject);
+				return;
+			}
 		}
 
 		PZCombatManager.instance.InitRaid();

@@ -15,7 +15,7 @@ public class CBKMiniHealingBox : MonoBehaviour {
 	UISprite barBG;
 	
 	[SerializeField]
-	UILabel timeLabel;
+	public UILabel label;
 
 	[SerializeField]
 	public UISprite background;
@@ -40,6 +40,8 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		{MonsterProto.MonsterElement.WATER, "waterteam"}
 	};
 
+	const string EMPTY = "hometeamslotopen";
+
 	void Awake()
 	{
 		tweenPos = GetComponent<TweenPosition>();
@@ -47,10 +49,11 @@ public class CBKMiniHealingBox : MonoBehaviour {
 
 	public void Init(MonsterProto monster)
 	{
-		removeButton.gameObject.SetActive(false);
+		if (removeButton != null) removeButton.gameObject.SetActive(false);
 		if (monster == null)
 		{
 			goonPortrait.alpha = 0;
+			background.spriteName = EMPTY;
 		}
 		else
 		{
@@ -65,13 +68,14 @@ public class CBKMiniHealingBox : MonoBehaviour {
 		if (monster == null)
 		{
 			goonPortrait.alpha = 0;
-			removeButton.gameObject.SetActive(false);
+			background.spriteName = EMPTY;
+			if (removeButton != null) removeButton.gameObject.SetActive(false);
 		}
 		else
 		{
 			goonPortrait.spriteName = MSUtil.StripExtensions(monster.monster.imagePrefix) + "Card";	
 			background.spriteName = elementBackgrounds[monster.monster.monsterElement];
-			removeButton.gameObject.SetActive(true);
+			if (removeButton != null) removeButton.gameObject.SetActive(true);
 		}
 
 		gameObject.SetActive(true);
@@ -80,11 +84,11 @@ public class CBKMiniHealingBox : MonoBehaviour {
 
 		if (forTeam)
 		{
-			removeButton.onClick = RemoveTeam;
+			if (removeButton != null) removeButton.onClick = RemoveTeam;
 		}
 		else if (monster != null)
 		{
-			removeButton.onClick = RemoveQueue;
+			if (removeButton != null) removeButton.onClick = RemoveQueue;
 			if (!on)
 			{
 				if (tweenPos != null)
@@ -131,34 +135,34 @@ public class CBKMiniHealingBox : MonoBehaviour {
 	{
 		if (monster == null)
 		{
-			bar.fillAmount = 0;
+			if (bar != null) bar.fillAmount = 0;
 			return;
 		}
 		if (monster.isHealing)
 		{
-			bar.fillAmount = 1 - monster.healProgressPercentage;
-			timeLabel.text = MSUtil.TimeStringShort(monster.healTimeLeftMillis);
+			if (bar != null) bar.fillAmount = 1 - monster.healProgressPercentage;
+			label.text = MSUtil.TimeStringShort(monster.healTimeLeftMillis);
 		}
 		else if (monster.isEnhancing)
 		{
-			bar.fillAmount = 1 - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
-			timeLabel.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
+			if (bar != null) bar.fillAmount = 1 - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
+			label.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
 		}
-		else bar.fillAmount = 0;
+		else if (bar != null) bar.fillAmount = 0;
 	}
 	
 	public void SetBar(bool on)
 	{
 		if (on)
 		{
-			timeLabel.alpha = 1;
-			bar.alpha = 1;
+			label.alpha = 1;
+			if (bar != null) bar.alpha = 1;
 			barBG.alpha = 1;
 		}
 		else
 		{
-			timeLabel.alpha = 0;
-			bar.alpha = 0;
+			label.alpha = 0;
+			if (bar != null) bar.alpha = 0;
 			barBG.alpha = 0;
 		}
 	}
