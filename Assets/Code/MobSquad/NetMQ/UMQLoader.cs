@@ -93,14 +93,15 @@ public class UMQLoader : MonoBehaviour {
 
 		MSRequestManager.instance.Init(response.invitesToMeForSlots);
 
-
-		Debug.Log("Invites to me: " + response.invitesToMeForSlots.Count
-		          + "\nInvites from me: " + response.invitesFromMeForSlots.Count);
-
 		MSResidenceManager.instance.AddInvites(response.invitesFromMeForSlots);
 		
 		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
 		MSEvolutionManager.instance.Init(response.evolution);
+
+		if (MSActionManager.Loading.OnStartup != null)
+		{
+			MSActionManager.Loading.OnStartup(response);
+		}
 
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{

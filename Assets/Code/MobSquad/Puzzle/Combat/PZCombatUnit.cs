@@ -156,19 +156,19 @@ public class PZCombatUnit : MonoBehaviour {
 
 		//TODO: If fullDamage != damage, do some animation or something to reflect super/not very effective
 		
-		RunDamageLabel(fullDamage);
+		yield return StartCoroutine(TakeDamage(fullDamage));
+	}
 
-		monster.currHP -= fullDamage;
-
+	public IEnumerator TakeDamage(int damage)
+	{
+		RunDamageLabel(damage);
+		
+		monster.currHP -= damage;
+		
 		alive = monster.currHP > 0;
-
-		if (monster.userMonster != null)
-		{
-			StartCoroutine(SendHPUpdateToServer());
-		}
-
-		yield return StartCoroutine(LerpHealth(monster.currHP + fullDamage, Mathf.Max(monster.currHP, 0), monster.maxHP));
-
+		
+		yield return StartCoroutine(LerpHealth(monster.currHP + damage, Mathf.Max(monster.currHP, 0), monster.maxHP));
+		
 		if (monster.currHP <= 0)
 		{
 			yield return StartCoroutine(Die());
@@ -188,24 +188,22 @@ public class PZCombatUnit : MonoBehaviour {
 		}
 	}
 
-	IEnumerator SendHPUpdateToServer ()
+	public void SendDamageUpdateToServer(int damage)
 	{
 		UpdateMonsterHealthRequestProto request = new UpdateMonsterHealthRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		
 		UserMonsterCurrentHealthProto hpProto = new UserMonsterCurrentHealthProto();
 		hpProto.userMonsterId = monster.userMonster.userMonsterId;
-		hpProto.currentHealth = monster.currHP;
+		hpProto.currentHealth = monster.currHP - damage;
 		
 		request.umchp.Add(hpProto);
-		
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_MONSTER_HEALTH_EVENT, null);
-		
-		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
-		{
-			yield return null;
-		}
-		
+
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_MONSTER_HEALTH_EVENT, DealWithHPUpdateResponse);
+	}
+
+	void DealWithHPUpdateResponse(int tagNum)
+	{
 		UpdateMonsterHealthResponseProto response = UMQNetworkManager.responseDict[tagNum] as UpdateMonsterHealthResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		

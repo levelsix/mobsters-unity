@@ -17,6 +17,8 @@ public class PZMonster {
 	public FullUserMonsterProto userMonster;
 	
 	public TaskStageMonsterProto taskMonster;
+
+	public ClanRaidStageMonsterProto raidMonster;
 	
 	public UserMonsterHealingProto healingMonster = null;
 	
@@ -219,6 +221,18 @@ public class PZMonster {
 	public int maxHP;
 	public int currHP;
 
+	/// <summary>
+	/// The minimum damage.
+	/// CLAN RAID BOSSES ONLY!
+	/// </summary>
+	public int minDamage;
+
+	/// <summary>
+	/// The max damage.
+	/// CLAN RAID BOSSES ONLY!
+	/// </summary>
+	public int maxDamage;
+
 	public float[] attackDamages = new float[PZPuzzleManager.GEM_TYPES];
 
 	public float totalDamage = 0;
@@ -262,6 +276,17 @@ public class PZMonster {
 		this.taskMonster = taskMonster;
 		
 		SetupWithTask();
+	}
+
+	public PZMonster(ClanRaidStageMonsterProto raidMonster)
+	{
+		this.raidMonster = raidMonster;
+		this.monster = MSDataManager.instance.Get<MonsterProto>(raidMonster.monsterId);
+
+		currHP = maxHP = raidMonster.monsterHp;
+
+		minDamage = raidMonster.minDmg;
+		maxDamage = raidMonster.maxDmg;
 	}
 	
 	public void UpdateUserMonster(FullUserMonsterProto userMonster)

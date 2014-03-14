@@ -25,7 +25,7 @@ public class CBKHomeTopBar : MonoBehaviour {
 	{
 		for (int i = 0; i < icons.Length; i++) 
 		{
-			icons[i].Init(MSMonsterManager.userTeam[i]);
+			icons[i].Init(MSMonsterManager.instance.userTeam[i]);
 		}
 	}
 }

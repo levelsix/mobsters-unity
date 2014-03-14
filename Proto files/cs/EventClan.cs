@@ -1486,13 +1486,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _victim = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"victim", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _victimId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"victimId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int victim
+    public int victimId
     {
-      get { return _victim; }
-      set { _victim = value; }
+      get { return _victimId; }
+      set { _victimId = value; }
     }
 
     private com.lvl6.proto.UserClanStatus _userClanStatus = com.lvl6.proto.UserClanStatus.MEMBER;
@@ -1523,13 +1523,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _victim = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"victim", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _victimId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"victimId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int victim
+    public int victimId
     {
-      get { return _victim; }
-      set { _victim = value; }
+      get { return _victimId; }
+      set { _victimId = value; }
     }
 
     private com.lvl6.proto.UserClanStatus _userClanStatus = com.lvl6.proto.UserClanStatus.MEMBER;

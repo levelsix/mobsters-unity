@@ -69,7 +69,11 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_BEGIN_PVP_BATTLE_EVENT, typeof(BeginPvpBattleResponseProto)},
 		{EventProtocolResponse.S_END_PVP_BATTLE_EVENT, typeof(EndPvpBattleResponseProto)},
 		{EventProtocolResponse.S_UPDATE_USER_CURRENCY_EVENT, typeof(UpdateUserCurrencyResponseProto)},
-		{EventProtocolResponse.S_FORCE_LOGOUT_EVENT, typeof(ForceLogoutResponseProto)}
+		{EventProtocolResponse.S_FORCE_LOGOUT_EVENT, typeof(ForceLogoutResponseProto)},
+		{EventProtocolResponse.S_BEGIN_CLAN_RAID_EVENT, typeof(BeginClanRaidResponseProto)},
+		{EventProtocolResponse.S_ATTACK_CLAN_RAID_MONSTER_EVENT, typeof(AttackClanRaidMonsterResponseProto)},
+		{EventProtocolResponse.S_AWARD_CLAN_RAID_STAGE_REWARD_EVENT, typeof(AwardClanRaidStageRewardResponseProto)},
+		{EventProtocolResponse.S_RECORD_CLAN_RAID_STATS_EVENT, typeof(RecordClanRaidStatsResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

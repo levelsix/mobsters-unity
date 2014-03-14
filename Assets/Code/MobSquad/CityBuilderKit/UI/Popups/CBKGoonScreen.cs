@@ -6,8 +6,6 @@ using System;
 
 public class CBKGoonScreen : MonoBehaviour {
 
-	public static CBKGoonScreen instance;
-
 	#region UI Elements
 
 	[SerializeField]
@@ -133,11 +131,6 @@ public class CBKGoonScreen : MonoBehaviour {
 	const float TWEEN_TIME = 0.6f;
 	
 	#endregion
-
-	void Awake()
-	{
-		instance = this;
-	}
 	
 	public void OrganizeCards()
 	{
@@ -267,22 +260,22 @@ public class CBKGoonScreen : MonoBehaviour {
 	void OrganizeTeamCards ()
 	{
 		int i;
-		for (i = 0; i < MSMonsterManager.userTeam.Length; i++) 
+		for (i = 0; i < MSMonsterManager.instance.userTeam.Length; i++) 
 		{
 			if (healMode)
 			{
-				teamCards[i].InitHeal(MSMonsterManager.userTeam[i]);
+				teamCards[i].InitHeal(MSMonsterManager.instance.userTeam[i]);
 			}
 			else
 			{
-				teamCards[i].InitLab(MSMonsterManager.userTeam[i]);
+				teamCards[i].InitLab(MSMonsterManager.instance.userTeam[i]);
 			}
 		}
 	}
 	
 	void OrganizeReserveCards()
 	{
-		OrganizeReserveCards(MSMonsterManager.userTeam, MSMonsterManager.instance.userMonsters);
+		OrganizeReserveCards(MSMonsterManager.instance.userTeam, MSMonsterManager.instance.userMonsters);
 	}
 	
 	void OrganizeReserveCards (PZMonster[] teamGoons, List<PZMonster> playerGoons)

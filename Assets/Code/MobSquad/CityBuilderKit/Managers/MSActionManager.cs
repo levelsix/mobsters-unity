@@ -64,6 +64,8 @@ public static class MSActionManager
 	
 	public static class Loading
 	{
+		public static Action<StartupResponseProto> OnStartup;
+
 		public static Action LoadBuildings;
 		public static Action OnBuildingsLoaded;
 	}
@@ -150,5 +152,8 @@ public static class MSActionManager
 		/// </summary>
 		public static Action<int> OnCreateClan;
 
+		public static Action OnRaidBegin;
+		public static Action<AttackClanRaidMonsterResponseProto> OnRaidMonsterAttacked;
+		public static Action<AttackClanRaidMonsterResponseProto> OnRaidMonsterDied;
 	}
 }

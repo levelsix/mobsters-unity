@@ -975,6 +975,15 @@ namespace com.lvl6.proto
       get { return _cityId; }
       set { _cityId = value; }
     }
+
+    private int _questIdForCombiningPowerUps = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"questIdForCombiningPowerUps", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int questIdForCombiningPowerUps
+    {
+      get { return _questIdForCombiningPowerUps; }
+      set { _questIdForCombiningPowerUps = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

@@ -21,12 +21,14 @@ public class MSRaidListEntry : MonoBehaviour {
 	[SerializeField] UILabel inactiveName;
 	[SerializeField] UILabel inactiveDescription;
 
+	PersistentClanEventProto info;
 	ClanRaidProto raid;
 
 	const string lockedBackground = "lockedraidbg";
 
 	public void Init(PersistentClanEventProto info)
 	{
+		this.info = info;
 		raid = MSDataManager.instance.Get<ClanRaidProto>(info.clanRaidId);
 
 		if (IsActive(info))
@@ -43,7 +45,7 @@ public class MSRaidListEntry : MonoBehaviour {
 			}
 			else
 			{
-				activeTimeLeft.text = "Raid Active Now / " + timeLeft(info);
+				activeTimeLeft.text = "Raid Active Now / " + MSUtil.TimeStringShort(TimeLeft(info));
 				name = "active " + info.clanRaidId;
 			}
 
@@ -52,16 +54,22 @@ public class MSRaidListEntry : MonoBehaviour {
 			{
 				background.height = (int)background.sprite2D.textureRect.height;
 				background.width = (int)background.sprite2D.textureRect.width;
+				(collider as BoxCollider).size = new Vector3(background.localSize.x, background.localSize.y);
 			}
 			else
 			{
 				background.height = background.width = 0;
 			}
+			collider.enabled = true;
+			//collider.bounds = background.sprite2D.bounds;
+
 			face.sprite2D = null;
 		}
 		else
 		{
 			name = "inactive " + info.clanRaidId;
+
+			collider.enabled = false;
 
 			inactiveName.text = raid.clanRaidName;
 			inactiveDescription.text = raid.inactiveDescription;
@@ -96,18 +104,24 @@ public class MSRaidListEntry : MonoBehaviour {
 
 	bool IsActive(PersistentClanEventProto info)
 	{
-		return ((int)DateTime.UtcNow.DayOfWeek-1) == (int)info.dayOfWeek 
-			&& DateTime.UtcNow.Hour > info.startHour
-			&& DateTime.UtcNow.Minute < info.startHour * 60 + info.eventDurationMinutes;
+		int dayAdjustment = ((int)DateTime.UtcNow.DayOfWeek) - (int)(info.dayOfWeek-1);
+		if (dayAdjustment < 0)
+		{	
+			dayAdjustment += 7;
+		}
+
+		return DateTime.UtcNow.Hour > (info.startHour - dayAdjustment * 24)
+			&& DateTime.UtcNow.Minute < (info.startHour - dayAdjustment * 24) * 60 + info.eventDurationMinutes;
 	}
 
-	long timeLeft(PersistentClanEventProto info)
+	long TimeLeft(PersistentClanEventProto info)
 	{
 		return ((info.eventDurationMinutes + info.startHour * 60)- (DateTime.UtcNow.Minute + DateTime.UtcNow.Hour * 60)) * 60000L;
 	}
 
 	public void OnClick()
 	{
-		//TODO: Call upon the dark gods of the Raid Screen
+		MSPopupManager.instance.popups.raidScreen.Init(raid, info, MSClanEventManager.instance.inProgress ? MSClanEventManager.instance.currClanInfo : null);
+		GetComponent<CBKMenuSlideButton>().Slide();
 	}
 }

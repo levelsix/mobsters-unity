@@ -383,6 +383,15 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
+
+    private com.lvl6.proto.MinimumUserProto _existing = null;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"existing", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto existing
+    {
+      get { return _existing; }
+      set { _existing = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"SetFacebookIdStatus")]
     public enum SetFacebookIdStatus
     {

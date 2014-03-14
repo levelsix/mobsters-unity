@@ -15,7 +15,7 @@ public class MSMonsterManager : MonoBehaviour {
 	
 	public List<PZMonster> userMonsters = new List<PZMonster>();
 	
-	public static PZMonster[] userTeam = new PZMonster[TEAM_SLOTS];
+	public PZMonster[] userTeam = new PZMonster[TEAM_SLOTS];
 	
 	public static List<PZMonster> enhancementFeeders = new List<PZMonster>();
 	

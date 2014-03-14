@@ -608,11 +608,11 @@ public class CBKGoonCard : MonoBehaviour {
 		if (goon.monster.evolutionMonsterId > 0)
 		{
 			MSEvolutionManager.instance.TryEvolveMonster(goon, (buddy!=null) ? buddy.goon : null);
-			CBKGoonScreen.instance.OrganizeEvolution(this);
+			MSPopupManager.instance.popups.goonScreen.OrganizeEvolution(this);
 		}
 		else
 		{
-			CBKGoonScreen.instance.DisplayErrorMessage(goon.monster.displayName + " is already at maximum evolution level");
+			MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage(goon.monster.displayName + " is already at maximum evolution level");
 		}
 	}
 	

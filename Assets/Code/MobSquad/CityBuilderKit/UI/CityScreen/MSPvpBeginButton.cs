@@ -19,8 +19,8 @@ public class MSPvpBeginButton : MonoBehaviour {
 			MSActionManager.Popup.CreateButtonPopup("Uh oh, you have no mobsters on your team. Manage your team?",
 			                                        new string[]{"Later", "Manage"},
 			new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
-				delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(CBKGoonScreen.instance.gameObject);
-					CBKGoonScreen.instance.InitHeal();}}
+				delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject);
+					MSPopupManager.instance.popups.goonScreen.InitHeal();}}
 			);
 			return;
 		}
@@ -29,27 +29,27 @@ public class MSPvpBeginButton : MonoBehaviour {
 			MSActionManager.Popup.CreateButtonPopup("Uh oh, you have recruited too many mobsters. Manage your team?",
 			                                        new string[]{"Later", "Manage"},
 			new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
-				delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(CBKGoonScreen.instance.gameObject);
-					CBKGoonScreen.instance.InitHeal();}});
+				delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject);
+					MSPopupManager.instance.popups.goonScreen.InitHeal();}});
 			return;
 		}
 		else
 		{
 			int i;
-			for (i = 0; i < MSMonsterManager.userTeam.Length; i++) 
+			for (i = 0; i < MSMonsterManager.instance.userTeam.Length; i++) 
 			{
-				if (MSMonsterManager.userTeam[i] != null && MSMonsterManager.userTeam[i].currHP > 0)
+				if (MSMonsterManager.instance.userTeam[i] != null && MSMonsterManager.instance.userTeam[i].currHP > 0)
 				{
 					break;
 				}
 			}
-			if (i == MSMonsterManager.userTeam.Length)
+			if (i == MSMonsterManager.instance.userTeam.Length)
 			{
 				MSActionManager.Popup.CreateButtonPopup("No monsters on team have health! Manage your team?",
 				                                        new string[]{"Later", "Manage"},
 				new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
-					delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(CBKGoonScreen.instance.gameObject);
-						CBKGoonScreen.instance.InitHeal();}});
+					delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject);
+						MSPopupManager.instance.popups.goonScreen.InitHeal();}});
 				return;
 			}
 		}

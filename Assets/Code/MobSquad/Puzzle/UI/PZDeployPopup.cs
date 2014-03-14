@@ -12,6 +12,8 @@ public class PZDeployPopup : MonoBehaviour {
 
 	UITweener tween;
 
+	static bool acting = false;
+
 	void Awake()
 	{
 		tween = GetComponent<UITweener>();
@@ -39,13 +41,14 @@ public class PZDeployPopup : MonoBehaviour {
 
 	void OnDeploy(PZMonster monster)
 	{
+		acting = false;
 		tween.PlayReverse();
 	}
 	
 	public void Init(PZMonster[] userMonsters)
 	{
 		tween.PlayForward();
-
+		acting = true;
 		int i;
 		for (i = 0; i < userMonsters.Length; i++) 
 		{

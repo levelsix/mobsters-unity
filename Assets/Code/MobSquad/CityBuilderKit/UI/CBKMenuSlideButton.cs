@@ -7,15 +7,12 @@ public class CBKMenuSlideButton : MonoBehaviour {
 	
 	[SerializeField]
 	Direction slideDirection;
-	
-	[SerializeField]
-	TweenPosition slidingOut;
-	
-	[SerializeField]
-	TweenPosition slidingIn;
-	
-	[SerializeField]
-	GameObject popup;
+
+	public TweenPosition slidingOut;
+
+	public TweenPosition slidingIn;
+
+	public GameObject popup;
 	
 	[SerializeField]
 	bool closeOut = false;

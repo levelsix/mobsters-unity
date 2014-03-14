@@ -88,6 +88,24 @@ namespace com.lvl6.proto
       get { return _questIds; }
     }
   
+
+    private com.lvl6.proto.MonsterProto.MonsterElement _elem = com.lvl6.proto.MonsterProto.MonsterElement.FIRE;
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"elem", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.MonsterElement.FIRE)]
+    public com.lvl6.proto.MonsterProto.MonsterElement elem
+    {
+      get { return _elem; }
+      set { _elem = value; }
+    }
+
+    private bool _forceEnemyElem = default(bool);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"forceEnemyElem", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool forceEnemyElem
+    {
+      get { return _forceEnemyElem; }
+      set { _forceEnemyElem = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

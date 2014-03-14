@@ -42,14 +42,22 @@ public class MSRaidListScreen : MonoBehaviour {
 		}
 
 		table.Reposition();
+		table.collider.enabled = false;
+		table.collider.enabled = true;
 	}
 
 	void AddEntry()
 	{
 		MSRaidListEntry entry = Instantiate(raidListEntryPrefab) as MSRaidListEntry;
 		raidEntries.Add(entry);
-		entry.GetComponent<CBKActionButton>().dragBehind = table.GetComponent<UIDragScrollView>();
 		entry.transform.parent = table.transform;
 		entry.transform.localScale = Vector3.one;
+
+		entry.GetComponent<CBKActionButton>().dragBehind = table.GetComponent<UIDragScrollView>();
+
+		CBKMenuSlideButton slide = entry.GetComponent<CBKMenuSlideButton>();
+		slide.popup = MSPopupManager.instance.popups.raidScreen.gameObject;
+		slide.slidingIn = MSPopupManager.instance.popups.raidScreen.GetComponent<TweenPosition>();
+		slide.slidingOut = MSPopupManager.instance.popups.clanPopup.GetComponent<TweenPosition>();
 	}
 }

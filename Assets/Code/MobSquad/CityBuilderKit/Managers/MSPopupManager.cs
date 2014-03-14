@@ -7,6 +7,16 @@ public class MSPopupManager : MonoBehaviour {
 
 	public static MSPopupManager instance;
 
+	[System.Serializable]
+	public class Popups
+	{
+		public CBKGoonScreen goonScreen;
+		public CBKClanPopup clanPopup;
+		public MSRaidScreen raidScreen;
+	}
+
+	public Popups popups;
+
 	/// <summary>
 	/// The popup
 	/// </summary>

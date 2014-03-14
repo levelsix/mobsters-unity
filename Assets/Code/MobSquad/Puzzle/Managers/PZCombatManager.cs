@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using com.lvl6.proto;
 
 /// <summary>
@@ -16,6 +17,8 @@ public class PZCombatManager : MonoBehaviour {
 	public static PZCombatManager instance;
 
 	public bool pvpMode = false;
+
+	public bool raidMode = false;
 
 	public UIPanel combatPanel;
 
@@ -171,16 +174,30 @@ public class PZCombatManager : MonoBehaviour {
 	
 	void OnEnable()
 	{
+		MSActionManager.Scene.OnCity += OnCity;
 		MSActionManager.Puzzle.OnDeploy += OnDeploy;
 		activePlayer.OnDeath += OnPlayerDeath;
 		activeEnemy.OnDeath += OnEnemyDeath;
+
+		MSActionManager.Clan.OnRaidMonsterAttacked += OnRaidEnemyAttacked;
+		MSActionManager.Clan.OnRaidMonsterDied += OnRaidEnemyDefeated;
 	}
 	
 	void OnDisable()
 	{
+		MSActionManager.Scene.OnCity -= OnCity;
 		MSActionManager.Puzzle.OnDeploy -= OnDeploy;
 		activePlayer.OnDeath -= OnPlayerDeath;
 		activeEnemy.OnDeath -= OnEnemyDeath;
+		
+		MSActionManager.Clan.OnRaidMonsterAttacked -= OnRaidEnemyAttacked;
+		MSActionManager.Clan.OnRaidMonsterDied -= OnRaidEnemyDefeated;
+	}
+
+	void OnCity()
+	{
+		pvpMode = false;
+		raidMode = false;
 	}
 
 	void Init()
@@ -210,7 +227,7 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.unit.sprite.color = new Color(temp.r, temp.g, temp.b, 0);
 		}
 		
-		foreach (PZMonster monster in MSMonsterManager.userTeam)
+		foreach (PZMonster monster in MSMonsterManager.instance.userTeam)
 		{
 			if (monster != null && monster.monster != null && monster.monster.monsterId > 0 && monster.currHP > 0)
 			{
@@ -231,6 +248,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		pvpUI.Reset();
 		pvpMode = false;
+		raidMode = false;
 
 		MSWhiteboard.currUserTaskId = MSWhiteboard.loadedDungeon.userTaskId;
 
@@ -242,7 +260,7 @@ public class PZCombatManager : MonoBehaviour {
 			enemies.Enqueue(mon);
 		}
 		//CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
-		deployPopup.Init(MSMonsterManager.userTeam);
+		deployPopup.Init(MSMonsterManager.instance.userTeam);
 		
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
@@ -258,6 +276,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		pvpUI.Reset();
 		pvpMode = true;
+		raidMode = false;
 
 		activePlayer.Init(playerGoonies[0]);
 		activePlayer.GoToStartPos();
@@ -266,6 +285,40 @@ public class PZCombatManager : MonoBehaviour {
 
 		StartCoroutine(SpawnPvps());
 
+		PZPuzzleManager.instance.swapLock += 1;
+	}
+
+	public void InitRaid()
+	{
+		Init ();
+
+
+
+		boardMove.Sample(0,false);
+		boardMove.PlayForward();
+		
+		pvpUI.Reset();
+		pvpMode = false;
+		raidMode = true;
+
+		PZMonster mon;
+
+		foreach (var item in MSClanEventManager.instance.GetCurrentStageMonsters().OrderBy(x=>x.crsmId)) 
+		{
+			if (item.crsmId >= MSClanEventManager.instance.currClanInfo.crsmId)
+			{
+				mon = new PZMonster(item);
+				enemies.Enqueue(mon);
+				if (item.crsmId == MSClanEventManager.instance.currClanInfo.crsmId)
+				{
+					mon.currHP -= MSClanEventManager.instance.currDamage;
+				}
+			}
+		}
+		//CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
+		deployPopup.Init(MSMonsterManager.instance.userTeam);
+		
+		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
 	}
 
@@ -474,7 +527,7 @@ public class PZCombatManager : MonoBehaviour {
 			if (goon.currHP > 0)
 			{
 				//CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
-				deployPopup.Init(MSMonsterManager.userTeam);
+				deployPopup.Init(MSMonsterManager.instance.userTeam);
 				return;
 			}
 		}
@@ -485,6 +538,19 @@ public class PZCombatManager : MonoBehaviour {
 		winLosePopup.InitLose();
 		
 		StartCoroutine(SendEndResult(false));
+	}
+
+	void OnRaidEnemyAttacked(AttackClanRaidMonsterResponseProto response)
+	{
+		if (raidMode && response.sender != MSWhiteboard.localMup)
+		{
+			StartCoroutine(activeEnemy.TakeDamage(response.dmgDealt));
+		}
+	}
+
+	void OnRaidEnemyDefeated(AttackClanRaidMonsterResponseProto response)
+	{
+		OnRaidEnemyAttacked(response);
 	}
 
 	/// <summary>
@@ -540,7 +606,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			boardMove.PlayReverse();
 
-			if (!pvpMode)
+			if (!pvpMode && !raidMode)
 			{
 				if (MSActionManager.Quest.OnTaskCompleted != null)
 				{
@@ -655,6 +721,10 @@ public class PZCombatManager : MonoBehaviour {
 			{
 				Debug.LogError("Problem ending PVP: " + response.status.ToString());
 			}
+
+		}
+		else if (raidMode)
+		{
 
 		}
 		else
@@ -923,14 +993,37 @@ public class PZCombatManager : MonoBehaviour {
 		//Debug.Log("Lock: Animating");
 		PZPuzzleManager.instance.swapLock += 1;
 
-		//TODO: Words?
-
 		float score = damage/activePlayer.monster.totalDamage;
+
+		//Calculate how much damage the enemy will deal.
+		//If the player isn't going to kill the enemy, we want to send whatever updates for this stuff to the server ASAP
+		int enemyDamage;
+		if (raidMode)
+		{
+			enemyDamage = Random.Range(activeEnemy.monster.raidMonster.minDmg, activeEnemy.monster.raidMonster.maxDmg);
+		}
+		else
+		{
+			enemyDamage = Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f));
+		}
+
+		int enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement));
+
+		bool playerTakingDamage = damage < activeEnemy.monster.currHP;
+		int fullDamageAfterElements = (int)(damage * MSUtil.GetTypeDamageMultiplier(activeEnemy.monster.monster.monsterElement, activePlayer.monster.monster.monsterElement));
+
+		if (raidMode)
+		{
+			MSClanEventManager.instance.SendAttack(fullDamageAfterElements, activePlayer.monster, playerTakingDamage ? enemyDamage : 0);
+		}
+		else if (playerTakingDamage)
+		{
+			activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
+		}
 
 		yield return StartCoroutine(ShowAttackWords(score));
 
 		yield return StartCoroutine(PlayerShoot(score));
-
 		
 		yield return StartCoroutine(activeEnemy.TakeDamage(damage, element));
 		
@@ -941,8 +1034,7 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
 			yield return new WaitForSeconds(.5f);
 
-			Debug.Log("Dealing Player Damage");
-			StartCoroutine(activePlayer.TakeDamage(Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f)), element));
+			StartCoroutine(activePlayer.TakeDamage(enemyDamage, activeEnemy.monster.monster.monsterElement));
 
 			CheckBleed(activePlayer);
 

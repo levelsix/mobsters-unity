@@ -398,9 +398,18 @@ public class UMQNetworkManager : MonoBehaviour {
 		{
 			MSChatManager.instance.ReceiveGroupChatMessage(proto as ReceivedGroupChatResponseProto);
 		}
-		
+		if (proto is BeginClanRaidResponseProto && MSClanEventManager.instance != null)
+		{
+			Debug.Log("Fallback: From other");
+			MSClanEventManager.instance.DealWithBeginResponse(proto as BeginClanRaidResponseProto);
+		}
+		if (proto is AttackClanRaidMonsterResponseProto && MSClanEventManager.instance != null)
+		{
+			Debug.Log("Fallback: From other");
+			MSClanEventManager.instance.DealWithAttackResponse(proto as AttackClanRaidMonsterResponseProto);
+		}
 	}
-
+	
 	IEnumerator WaitRequestTimeout(int tagNum)
 	{
 		requestsOut.Add(tagNum);
@@ -474,6 +483,19 @@ public class UMQNetworkManager : MonoBehaviour {
 				if (proto is InviteFbFriendsForSlotsResponseProto && MSRequestManager.instance != null)
 				{
 					MSRequestManager.instance.JustReceivedFriendInvite(proto as InviteFbFriendsForSlotsResponseProto);
+				}
+
+				//Clan Raid stuff that other players will send!
+
+				if (proto is BeginClanRaidResponseProto && MSClanEventManager.instance != null)
+				{
+					Debug.Log("Fallback: From other");
+					MSClanEventManager.instance.DealWithBeginResponse(tagNum);
+				}
+				if (proto is AttackClanRaidMonsterResponseProto && MSClanEventManager.instance != null)
+				{
+					Debug.Log("Fallback: From other");
+					MSClanEventManager.instance.DealWithAttackResponse(tagNum);
 				}
 			}
 

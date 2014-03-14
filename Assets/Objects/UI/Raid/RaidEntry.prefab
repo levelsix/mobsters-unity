@@ -60,6 +60,8 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400016}
   - 65: {fileID: 6500000}
+  - 114: {fileID: 11400018}
+  - 114: {fileID: 11400020}
   m_Layer: 8
   m_Name: RaidEntry
   m_TagString: Untagged
@@ -628,6 +630,40 @@ MonoBehaviour:
   able: 1
   label: {fileID: 0}
   dragBehind: {fileID: 0}
+--- !u!114 &11400018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe47bbf267844dc6bfb979f9123c8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slideDirection: 0
+  slidingOut: {fileID: 0}
+  slidingIn: {fileID: 0}
+  popup: {fileID: 0}
+  closeOut: 0
+--- !u!114 &11400020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenTarget: {fileID: 100006}
+  hover: {r: 1, g: 1, b: 1, a: 1}
+  pressed: {r: .566176474, g: .566176474, b: .566176474, a: 1}
+  duration: .200000003
+  disabledColor: {r: .5, g: .5, b: .5, a: 1}
+  dragHighlight: 0
+  onClick: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

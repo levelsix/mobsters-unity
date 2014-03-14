@@ -27,7 +27,7 @@ public class MSRaidScreen : MonoBehaviour {
 
 	List<MSRaidStageBoxUI> stageBoxes = new List<MSRaidStageBoxUI>();
 
-	public void Init(ClanRaidProto raid, PersistentClanEventClanInfoProto clanRaidInfo = null)
+	public void Init(ClanRaidProto raid, PersistentClanEventProto info, PersistentClanEventClanInfoProto clanRaidInfo = null)
 	{
 		enemy.sprite2D = MSAtlasUtil.instance.GetSprite("Raid/" + MSUtil.StripExtensions(raid.spotlightMonsterImgName));
 		raidName.text = raid.clanRaidName;
@@ -36,13 +36,13 @@ public class MSRaidScreen : MonoBehaviour {
 		int i = 0;
 		for (; i < raid.raidStages.Count; i++) 
 		{
-			while (stageBoxes.Count <= i) //This could really be an if instead of a while, but we'll keep it like this in case something gets strage
+			if (stageBoxes.Count <= i) //This could really be an if instead of a while, but we'll keep it like this in case something gets strage
 			{
 				AddStageBox();
 			}
 
 			stageBoxes[i].gameObject.SetActive(true);
-			stageBoxes[i].Init(raid.raidStages[i], clanRaidInfo);
+			stageBoxes[i].Init(raid.raidStages[i], info, clanRaidInfo);
 		}
 
 		for (; i < stageBoxes.Count; i++) 
@@ -58,5 +58,6 @@ public class MSRaidScreen : MonoBehaviour {
 		MSRaidStageBoxUI stageBox = Instantiate(stageBoxPrefab) as MSRaidStageBoxUI;
 		stageBox.transform.parent = stageBoxParent.transform;
 		stageBox.transform.localScale = Vector3.one;
+		stageBoxes.Add (stageBox);
 	}
 }

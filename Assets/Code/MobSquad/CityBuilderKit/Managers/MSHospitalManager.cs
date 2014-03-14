@@ -193,7 +193,7 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 		if (healingMonsters.Count >= queueSize)
 		{
-			CBKGoonScreen.instance.DisplayErrorMessage("Healing Queue Full");
+			MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage("Healing Queue Full");
 			return;
 		}
 		
