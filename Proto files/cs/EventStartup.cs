@@ -8,17 +8,18 @@
 //------------------------------------------------------------------------------
 
 // Generated from: EventStartup.proto
+// Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: Chat.proto
 // Note: requires additional types generated from: City.proto
 // Note: requires additional types generated from: Clan.proto
 // Note: requires additional types generated from: InAppPurchase.proto
+// Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
 // Note: requires additional types generated from: StaticData.proto
 // Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: Task.proto
 // Note: requires additional types generated from: User.proto
-// Note: requires additional types generated from: MonsterStuff.proto
 namespace com.lvl6.proto
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StartupRequestProto")]
@@ -97,15 +98,6 @@ namespace com.lvl6.proto
     {
       get { return _isFreshRestart; }
       set { _isFreshRestart = value; }
-    }
-
-    private long _clientTime = default(long);
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long clientTime
-    {
-      get { return _clientTime; }
-      set { _clientTime = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -383,6 +375,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.PersistentClanEventRaidStageHistoryProto> raidStageHistory
     {
       get { return _raidStageHistory; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PvpHistoryProto> _recentNBattles = new global::System.Collections.Generic.List<com.lvl6.proto.PvpHistoryProto>();
+    [global::ProtoBuf.ProtoMember(35, Name=@"recentNBattles", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PvpHistoryProto> recentNBattles
+    {
+      get { return _recentNBattles; }
     }
   
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
@@ -676,6 +675,24 @@ namespace com.lvl6.proto
       get { return _miniTuts; }
       set { _miniTuts = value; }
     }
+
+    private int _maxObstacles = default(int);
+    [global::ProtoBuf.ProtoMember(25, IsRequired = false, Name=@"maxObstacles", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxObstacles
+    {
+      get { return _maxObstacles; }
+      set { _maxObstacles = value; }
+    }
+
+    private int _minutesPerObstacle = default(int);
+    [global::ProtoBuf.ProtoMember(26, IsRequired = false, Name=@"minutesPerObstacle", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int minutesPerObstacle
+    {
+      get { return _minutesPerObstacle; }
+      set { _minutesPerObstacle = value; }
+    }
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnimatedSpriteOffsetProto")]
   public partial class AnimatedSpriteOffsetProto : global::ProtoBuf.IExtensible
   {
@@ -744,6 +761,15 @@ namespace com.lvl6.proto
     {
       get { return _maxCharLengthForClanTag; }
       set { _maxCharLengthForClanTag = value; }
+    }
+
+    private int _maxClanSize = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"maxClanSize", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxClanSize
+    {
+      get { return _maxClanSize; }
+      set { _maxClanSize = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -1110,6 +1136,13 @@ namespace com.lvl6.proto
       get { return _gemsInit; }
       set { _gemsInit = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumObstacleProto> _tutorialObstacles = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumObstacleProto>();
+    [global::ProtoBuf.ProtoMember(14, Name=@"tutorialObstacles", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumObstacleProto> tutorialObstacles
+    {
+      get { return _tutorialObstacles; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1137,7 +1170,10 @@ namespace com.lvl6.proto
       USER_IN_DB = 1,
             
       [global::ProtoBuf.ProtoEnum(Name=@"USER_NOT_IN_DB", Value=2)]
-      USER_NOT_IN_DB = 2
+      USER_NOT_IN_DB = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SERVER_IN_MAINTENANCE", Value=3)]
+      SERVER_IN_MAINTENANCE = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1151,22 +1187,22 @@ namespace com.lvl6.proto
     public ForceLogoutResponseProto() {}
     
 
-    private long _loginTime = default(long);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"loginTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long loginTime
-    {
-      get { return _loginTime; }
-      set { _loginTime = value; }
-    }
-
     private long _previousLoginTime = default(long);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"previousLoginTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"previousLoginTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
     public long previousLoginTime
     {
       get { return _previousLoginTime; }
       set { _previousLoginTime = value; }
+    }
+
+    private string _udid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"udid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string udid
+    {
+      get { return _udid; }
+      set { _udid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

@@ -142,6 +142,15 @@ namespace com.lvl6.proto
       set { _imgVerticalPixelOffset = value; }
     }
 
+    private float _imgHorizontalPixelOffset = default(float);
+    [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name=@"imgHorizontalPixelOffset", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float imgHorizontalPixelOffset
+    {
+      get { return _imgHorizontalPixelOffset; }
+      set { _imgHorizontalPixelOffset = value; }
+    }
+
     private string _description = "";
     [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"description", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -158,6 +167,33 @@ namespace com.lvl6.proto
     {
       get { return _shortDescription; }
       set { _shortDescription = value; }
+    }
+
+    private string _shadowImgName = "";
+    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"shadowImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string shadowImgName
+    {
+      get { return _shadowImgName; }
+      set { _shadowImgName = value; }
+    }
+
+    private float _shadowVerticalOffset = default(float);
+    [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"shadowVerticalOffset", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float shadowVerticalOffset
+    {
+      get { return _shadowVerticalOffset; }
+      set { _shadowVerticalOffset = value; }
+    }
+
+    private float _shadowHorizontalOfffset = default(float);
+    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"shadowHorizontalOfffset", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float shadowHorizontalOfffset
+    {
+      get { return _shadowHorizontalOfffset; }
+      set { _shadowHorizontalOfffset = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"StructType")]
     public enum StructType
@@ -661,6 +697,243 @@ namespace com.lvl6.proto
     {
       get { return _coordinate; }
       set { _coordinate = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ObstacleProto")]
+  public partial class ObstacleProto : global::ProtoBuf.IExtensible
+  {
+    public ObstacleProto() {}
+    
+
+    private int _obstacleId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"obstacleId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int obstacleId
+    {
+      get { return _obstacleId; }
+      set { _obstacleId = value; }
+    }
+
+    private string _name = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string name
+    {
+      get { return _name; }
+      set { _name = value; }
+    }
+
+    private com.lvl6.proto.ResourceType _removalCostType = com.lvl6.proto.ResourceType.CASH;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"removalCostType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    public com.lvl6.proto.ResourceType removalCostType
+    {
+      get { return _removalCostType; }
+      set { _removalCostType = value; }
+    }
+
+    private int _cost = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"cost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int cost
+    {
+      get { return _cost; }
+      set { _cost = value; }
+    }
+
+    private int _secondsToRemove = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"secondsToRemove", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int secondsToRemove
+    {
+      get { return _secondsToRemove; }
+      set { _secondsToRemove = value; }
+    }
+
+    private int _width = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"width", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int width
+    {
+      get { return _width; }
+      set { _width = value; }
+    }
+
+    private int _height = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"height", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int height
+    {
+      get { return _height; }
+      set { _height = value; }
+    }
+
+    private string _imgName = "";
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"imgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string imgName
+    {
+      get { return _imgName; }
+      set { _imgName = value; }
+    }
+
+    private float _imgVerticalPixelOffset = default(float);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"imgVerticalPixelOffset", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float imgVerticalPixelOffset
+    {
+      get { return _imgVerticalPixelOffset; }
+      set { _imgVerticalPixelOffset = value; }
+    }
+
+    private string _description = "";
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"description", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string description
+    {
+      get { return _description; }
+      set { _description = value; }
+    }
+
+    private float _chanceToAppear = default(float);
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"chanceToAppear", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float chanceToAppear
+    {
+      get { return _chanceToAppear; }
+      set { _chanceToAppear = value; }
+    }
+
+    private string _shadowImgName = "";
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"shadowImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string shadowImgName
+    {
+      get { return _shadowImgName; }
+      set { _shadowImgName = value; }
+    }
+
+    private float _shadowVerticalOffset = default(float);
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"shadowVerticalOffset", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float shadowVerticalOffset
+    {
+      get { return _shadowVerticalOffset; }
+      set { _shadowVerticalOffset = value; }
+    }
+
+    private float _shadowHorizontalOfffset = default(float);
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"shadowHorizontalOfffset", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float shadowHorizontalOfffset
+    {
+      get { return _shadowHorizontalOfffset; }
+      set { _shadowHorizontalOfffset = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MinimumObstacleProto")]
+  public partial class MinimumObstacleProto : global::ProtoBuf.IExtensible
+  {
+    public MinimumObstacleProto() {}
+    
+
+    private int _obstacleId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"obstacleId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int obstacleId
+    {
+      get { return _obstacleId; }
+      set { _obstacleId = value; }
+    }
+
+    private com.lvl6.proto.CoordinateProto _coordinate = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"coordinate", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.CoordinateProto coordinate
+    {
+      get { return _coordinate; }
+      set { _coordinate = value; }
+    }
+
+    private com.lvl6.proto.StructOrientation _orientation = com.lvl6.proto.StructOrientation.POSITION_1;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"orientation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.POSITION_1)]
+    public com.lvl6.proto.StructOrientation orientation
+    {
+      get { return _orientation; }
+      set { _orientation = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserObstacleProto")]
+  public partial class UserObstacleProto : global::ProtoBuf.IExtensible
+  {
+    public UserObstacleProto() {}
+    
+
+    private int _userObstacleId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userObstacleId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userObstacleId
+    {
+      get { return _userObstacleId; }
+      set { _userObstacleId = value; }
+    }
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+
+    private int _obstacleId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"obstacleId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int obstacleId
+    {
+      get { return _obstacleId; }
+      set { _obstacleId = value; }
+    }
+
+    private com.lvl6.proto.CoordinateProto _coordinates = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"coordinates", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.CoordinateProto coordinates
+    {
+      get { return _coordinates; }
+      set { _coordinates = value; }
+    }
+
+    private com.lvl6.proto.StructOrientation _orientation = com.lvl6.proto.StructOrientation.POSITION_1;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"orientation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.POSITION_1)]
+    public com.lvl6.proto.StructOrientation orientation
+    {
+      get { return _orientation; }
+      set { _orientation = value; }
+    }
+
+    private long _removalStartTime = default(long);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"removalStartTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long removalStartTime
+    {
+      get { return _removalStartTime; }
+      set { _removalStartTime = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

@@ -761,4 +761,300 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SpawnObstacleRequestProto")]
+  public partial class SpawnObstacleRequestProto : global::ProtoBuf.IExtensible
+  {
+    public SpawnObstacleRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumObstacleProto> _prospectiveObstacles = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumObstacleProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"prospectiveObstacles", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumObstacleProto> prospectiveObstacles
+    {
+      get { return _prospectiveObstacles; }
+    }
+  
+
+    private long _curTime = default(long);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"curTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long curTime
+    {
+      get { return _curTime; }
+      set { _curTime = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SpawnObstacleResponseProto")]
+  public partial class SpawnObstacleResponseProto : global::ProtoBuf.IExtensible
+  {
+    public SpawnObstacleResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserObstacleProto> _spawnedObstacles = new global::System.Collections.Generic.List<com.lvl6.proto.UserObstacleProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"spawnedObstacles", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserObstacleProto> spawnedObstacles
+    {
+      get { return _spawnedObstacles; }
+    }
+  
+
+    private com.lvl6.proto.SpawnObstacleResponseProto.SpawnObstacleStatus _status = com.lvl6.proto.SpawnObstacleResponseProto.SpawnObstacleStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SpawnObstacleResponseProto.SpawnObstacleStatus.SUCCESS)]
+    public com.lvl6.proto.SpawnObstacleResponseProto.SpawnObstacleStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"SpawnObstacleStatus")]
+    public enum SpawnObstacleStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BeginObstacleRemovalRequestProto")]
+  public partial class BeginObstacleRemovalRequestProto : global::ProtoBuf.IExtensible
+  {
+    public BeginObstacleRemovalRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private long _curTime = default(long);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"curTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long curTime
+    {
+      get { return _curTime; }
+      set { _curTime = value; }
+    }
+
+    private int _gemsSpent = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsSpent
+    {
+      get { return _gemsSpent; }
+      set { _gemsSpent = value; }
+    }
+
+    private int _resourceChange = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"resourceChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int resourceChange
+    {
+      get { return _resourceChange; }
+      set { _resourceChange = value; }
+    }
+
+    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.CASH;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"resourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    public com.lvl6.proto.ResourceType resourceType
+    {
+      get { return _resourceType; }
+      set { _resourceType = value; }
+    }
+
+    private int _userObstacleId = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userObstacleId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userObstacleId
+    {
+      get { return _userObstacleId; }
+      set { _userObstacleId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BeginObstacleRemovalResponseProto")]
+  public partial class BeginObstacleRemovalResponseProto : global::ProtoBuf.IExtensible
+  {
+    public BeginObstacleRemovalResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.BeginObstacleRemovalResponseProto.BeginObstacleRemovalStatus _status = com.lvl6.proto.BeginObstacleRemovalResponseProto.BeginObstacleRemovalStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.BeginObstacleRemovalResponseProto.BeginObstacleRemovalStatus.SUCCESS)]
+    public com.lvl6.proto.BeginObstacleRemovalResponseProto.BeginObstacleRemovalStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"BeginObstacleRemovalStatus")]
+    public enum BeginObstacleRemovalStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=2)]
+      FAIL_INSUFFICIENT_GEMS = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_RESOURCE", Value=3)]
+      FAIL_INSUFFICIENT_RESOURCE = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=4)]
+      FAIL_OTHER = 4
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ObstacleRemovalCompleteRequestProto")]
+  public partial class ObstacleRemovalCompleteRequestProto : global::ProtoBuf.IExtensible
+  {
+    public ObstacleRemovalCompleteRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private long _curTime = default(long);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"curTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long curTime
+    {
+      get { return _curTime; }
+      set { _curTime = value; }
+    }
+
+    private bool _speedUp = default(bool);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"speedUp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool speedUp
+    {
+      get { return _speedUp; }
+      set { _speedUp = value; }
+    }
+
+    private int _gemsSpent = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemsSpent
+    {
+      get { return _gemsSpent; }
+      set { _gemsSpent = value; }
+    }
+
+    private int _userObstacleId = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userObstacleId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userObstacleId
+    {
+      get { return _userObstacleId; }
+      set { _userObstacleId = value; }
+    }
+
+    private bool _atMaxObstacles = default(bool);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"atMaxObstacles", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool atMaxObstacles
+    {
+      get { return _atMaxObstacles; }
+      set { _atMaxObstacles = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ObstacleRemovalCompleteResponseProto")]
+  public partial class ObstacleRemovalCompleteResponseProto : global::ProtoBuf.IExtensible
+  {
+    public ObstacleRemovalCompleteResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.ObstacleRemovalCompleteResponseProto.ObstacleRemovalCompleteStatus _status = com.lvl6.proto.ObstacleRemovalCompleteResponseProto.ObstacleRemovalCompleteStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ObstacleRemovalCompleteResponseProto.ObstacleRemovalCompleteStatus.SUCCESS)]
+    public com.lvl6.proto.ObstacleRemovalCompleteResponseProto.ObstacleRemovalCompleteStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"ObstacleRemovalCompleteStatus")]
+    public enum ObstacleRemovalCompleteStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_GEMS", Value=2)]
+      FAIL_INSUFFICIENT_GEMS = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
 }

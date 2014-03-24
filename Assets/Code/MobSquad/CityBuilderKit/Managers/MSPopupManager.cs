@@ -35,6 +35,37 @@ public class MSPopupManager : MonoBehaviour {
 	/// The stack of current popup menus.
 	/// </summary>
 	Stack<GameObject> _currPops;
+
+	/// <summary>
+	/// Gets the popup that's one behind the current popup.
+	/// Used by a Back Button to get the popup that it should slide to
+	/// </summary>
+	/// <value>The back pop.</value>
+	public GameObject backPop
+	{
+		get
+		{
+			if (_currPops.Count > 1)
+			{
+				GameObject temp = _currPops.Pop();
+				GameObject back = _currPops.Peek();
+				_currPops.Push(temp);
+				return back;
+			}
+			else
+			{
+				return null;
+			}
+		}
+	}
+
+	public GameObject top
+	{
+		get
+		{
+			return _currPops.Peek();
+		}
+	}
 	
 	/// <summary>
 	/// Awake this instance.
@@ -115,8 +146,8 @@ public class MSPopupManager : MonoBehaviour {
 	/// </param>
 	void OnPopup(GameObject popup)
 	{
-		popup.SetActive(true);
 		_currPops.Push(popup);
+		popup.SetActive(true);
 	}
 	
 	/// <summary>

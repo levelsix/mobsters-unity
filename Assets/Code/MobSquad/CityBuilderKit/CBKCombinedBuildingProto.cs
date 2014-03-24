@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
+[System.Serializable]
 public class CBKCombinedBuildingProto {
 
 	public int id;

@@ -88,6 +88,13 @@ namespace com.lvl6.proto
       get { return _userCityExpansionDataProtoList; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserObstacleProto> _obstacles = new global::System.Collections.Generic.List<com.lvl6.proto.UserObstacleProto>();
+    [global::ProtoBuf.ProtoMember(6, Name=@"obstacles", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserObstacleProto> obstacles
+    {
+      get { return _obstacles; }
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"LoadPlayerCityStatus")]
     public enum LoadPlayerCityStatus
     {

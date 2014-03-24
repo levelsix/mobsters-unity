@@ -149,6 +149,24 @@ namespace com.lvl6.proto
       get { return _enemy; }
       set { _enemy = value; }
     }
+
+    private bool _exactingRevenge = default(bool);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"exactingRevenge", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool exactingRevenge
+    {
+      get { return _exactingRevenge; }
+      set { _exactingRevenge = value; }
+    }
+
+    private long _previousBattleEndTime = default(long);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"previousBattleEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long previousBattleEndTime
+    {
+      get { return _previousBattleEndTime; }
+      set { _previousBattleEndTime = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: OilCollector
+  m_Name: OilStorage
   serializedVersion: 2
   m_AnimatorParameters:
   - m_Name: Amount
@@ -215,6 +215,11 @@ StateMachine:
       second:
       - {fileID: 110100000}
     data:
+      first: {fileID: 110288748}
+      second:
+      - {fileID: 110124749}
+      - {fileID: 110141005}
+    data:
       first: {fileID: 110230751}
       second:
       - {fileID: 110142824}
@@ -223,11 +228,6 @@ StateMachine:
       first: {fileID: 110244044}
       second:
       - {fileID: 110186095}
-    data:
-      first: {fileID: 110288748}
-      second:
-      - {fileID: 110124749}
-      - {fileID: 110141005}
   m_MotionSetCount: 1
   m_AnyStatePosition: {x: -168, y: -60, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}

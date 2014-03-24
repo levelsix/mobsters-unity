@@ -206,10 +206,10 @@ public class MSClanManager : MonoBehaviour
 
 		switch (response.status) 
 		{
-		case RequestJoinClanResponseProto.RequestJoinClanStatus.REQUEST_SUCCESS:
+		case RequestJoinClanResponseProto.RequestJoinClanStatus.SUCCESS_REQUEST:
 			pendingClanInvites.Add (response.clanId);
 			break;
-		case RequestJoinClanResponseProto.RequestJoinClanStatus.JOIN_SUCCESS:
+		case RequestJoinClanResponseProto.RequestJoinClanStatus.SUCCESS_JOIN:
 
 			userClanId = response.clanId;
 			userClanStatus = response.requester.clanStatus;
@@ -335,7 +335,7 @@ public class MSClanManager : MonoBehaviour
 	{
 		TransferClanOwnershipRequestProto request = new TransferClanOwnershipRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.newClanOwnerId = newClanOwnerId;
+		request.clanOwnerIdNew = newClanOwnerId;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_TRANSFER_CLAN_OWNERSHIP, null);
 
@@ -359,21 +359,22 @@ public class MSClanManager : MonoBehaviour
 
 	public IEnumerator ChangeClanDescription(string description)
 	{
-		ChangeClanDescriptionRequestProto request = new ChangeClanDescriptionRequestProto();
+		ChangeClanSettingsRequestProto request = new ChangeClanSettingsRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.description = description;
+		request.isChangeDescription = true;
+		request.descriptionNow = description;
 
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_DESCRIPTION_EVENT, null);
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_SETTINGS_EVENT, null);
 
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
 			yield return null;
 		}
 
-		ChangeClanDescriptionResponseProto response = UMQNetworkManager.responseDict[tagNum] as ChangeClanDescriptionResponseProto;
+		ChangeClanSettingsResponseProto response = UMQNetworkManager.responseDict[tagNum] as ChangeClanSettingsResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
-		if (response.status != ChangeClanDescriptionResponseProto.ChangeClanDescriptionStatus.SUCCESS)
+		if (response.status != ChangeClanSettingsResponseProto.ChangeClanSettingsStatus.SUCCESS)
 		{
 			Debug.LogError("Problem changing clan description: " + response.status.ToString());
 		}
@@ -381,21 +382,22 @@ public class MSClanManager : MonoBehaviour
 
 	public IEnumerator ChangeClanJoinType(bool joinType)
 	{
-		ChangeClanJoinTypeRequestProto request = new ChangeClanJoinTypeRequestProto();
+		ChangeClanSettingsRequestProto request = new ChangeClanSettingsRequestProto();
 		request.sender = MSWhiteboard.localMup;
+		request.isChangeJoinType = true;
 		request.requestToJoinRequired = joinType;
 
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_JOIN_TYPE_EVENT, null);
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_SETTINGS_EVENT, null);
 
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
 			yield return null;
 		}
 
-		ChangeClanJoinTypeResponseProto response = UMQNetworkManager.responseDict[tagNum] as ChangeClanJoinTypeResponseProto;
+		ChangeClanSettingsResponseProto response = UMQNetworkManager.responseDict[tagNum] as ChangeClanSettingsResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
-		if (response.status != ChangeClanJoinTypeResponseProto.ChangeClanJoinTypeStatus.SUCCESS)
+		if (response.status != ChangeClanSettingsResponseProto.ChangeClanSettingsStatus.SUCCESS)
 		{
 			Debug.LogError("Problem changing clan join type: " + response.status.ToString());
 		}

@@ -133,8 +133,8 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_RETRIEVE_CLAN_INFO_EVENT", Value=30)]
       C_RETRIEVE_CLAN_INFO_EVENT = 30,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_CHANGE_CLAN_DESCRIPTION_EVENT", Value=31)]
-      C_CHANGE_CLAN_DESCRIPTION_EVENT = 31,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_CHANGE_CLAN_SETTINGS_EVENT", Value=31)]
+      C_CHANGE_CLAN_SETTINGS_EVENT = 31,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_BOOT_PLAYER_FROM_CLAN_EVENT", Value=32)]
       C_BOOT_PLAYER_FROM_CLAN_EVENT = 32,
@@ -156,9 +156,6 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_EVOLUTION_FINISHED_EVENT", Value=38)]
       C_EVOLUTION_FINISHED_EVENT = 38,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"C_CHANGE_CLAN_JOIN_TYPE_EVENT", Value=39)]
-      C_CHANGE_CLAN_JOIN_TYPE_EVENT = 39,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_PRIVATE_CHAT_POST_EVENT", Value=40)]
       C_PRIVATE_CHAT_POST_EVENT = 40,
@@ -234,6 +231,15 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_SET_GAME_CENTER_ID_EVENT", Value=66)]
       C_SET_GAME_CENTER_ID_EVENT = 66,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_SPAWN_OBSTACLE_EVENT", Value=67)]
+      C_SPAWN_OBSTACLE_EVENT = 67,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_BEGIN_OBSTACLE_REMOVAL_EVENT", Value=68)]
+      C_BEGIN_OBSTACLE_REMOVAL_EVENT = 68,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_OBSTACLE_REMOVAL_COMPLETE_EVENT", Value=69)]
+      C_OBSTACLE_REMOVAL_COMPLETE_EVENT = 69,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101
@@ -333,8 +339,8 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_CLAN_INFO_EVENT", Value=30)]
       S_RETRIEVE_CLAN_INFO_EVENT = 30,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_CHANGE_CLAN_DESCRIPTION_EVENT", Value=31)]
-      S_CHANGE_CLAN_DESCRIPTION_EVENT = 31,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_CHANGE_CLAN_SETTINGS_EVENT", Value=31)]
+      S_CHANGE_CLAN_SETTINGS_EVENT = 31,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_BOOT_PLAYER_FROM_CLAN_EVENT", Value=32)]
       S_BOOT_PLAYER_FROM_CLAN_EVENT = 32,
@@ -356,9 +362,6 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_EVOLUTION_FINISHED_EVENT", Value=38)]
       S_EVOLUTION_FINISHED_EVENT = 38,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"S_CHANGE_CLAN_JOIN_TYPE_EVENT", Value=39)]
-      S_CHANGE_CLAN_JOIN_TYPE_EVENT = 39,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_PRIVATE_CHAT_POST_EVENT", Value=40)]
       S_PRIVATE_CHAT_POST_EVENT = 40,
@@ -434,6 +437,15 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_SET_GAME_CENTER_ID_EVENT", Value=66)]
       S_SET_GAME_CENTER_ID_EVENT = 66,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_SPAWN_OBSTACLE_EVENT", Value=67)]
+      S_SPAWN_OBSTACLE_EVENT = 67,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_BEGIN_OBSTACLE_REMOVAL_EVENT", Value=68)]
+      S_BEGIN_OBSTACLE_REMOVAL_EVENT = 68,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_OBSTACLE_REMOVAL_COMPLETE_EVENT", Value=69)]
+      S_OBSTACLE_REMOVAL_COMPLETE_EVENT = 69,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

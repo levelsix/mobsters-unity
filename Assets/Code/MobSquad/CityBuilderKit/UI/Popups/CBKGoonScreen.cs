@@ -143,7 +143,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		goonPanelElements.ResetAlpha(true);
 		evolveElements.ResetAlpha(false);
 		scientistIcons.ResetAlpha(false);
-		backButton.Disable();
+		//backButton.Disable();
 
 		bringGoonIn = false;
 		healMode = true;
@@ -164,7 +164,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	public void InitEnhance(bool fromEvolve = false)
 	{
-		backButton.Disable();
+		//backButton.Disable();
 		goonPanelElements.ResetAlpha(true);
 		evolveElements.ResetAlpha(false);
 		if (fromEvolve)
@@ -205,7 +205,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		{
 			scientistIcons.FadeIn();
 			bottomBarLabel.GetComponent<CBKUIHelper>().FadeOut();
-			backButton.Disable();
+			//backButton.Disable();
 		}
 
 
@@ -231,7 +231,7 @@ public class CBKGoonScreen : MonoBehaviour {
 
 	public void OnStartEvolve()
 	{
-		backButton.Disable();
+		//backButton.Disable();
 	}
 	
 	void OnEnable()
@@ -337,8 +337,6 @@ public class CBKGoonScreen : MonoBehaviour {
 
 		if (!MSEvolutionManager.instance.active)
 		{
-			backButton.Enable();
-			backButton.label.text = "Back";
 			backButton.onClick = CancelEvolve;
 		}
 

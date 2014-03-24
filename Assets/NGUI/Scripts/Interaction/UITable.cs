@@ -130,6 +130,8 @@ public class UITable : UIWidgetContainer
 		float xOffset = 0;
 		float yOffset = 0;
 
+		Vector3 max = Vector3.zero;
+
 		int cols = columns > 0 ? children.Count / columns + 1 : 1;
 		int rows = columns > 0 ? columns : children.Count;
 
@@ -174,15 +176,19 @@ public class UITable : UIWidgetContainer
 			pos.x = xOffset + b.extents.x - b.center.x;
 			pos.x += b.min.x - br.min.x + padding.x;
 
+			max.x = Mathf.Max(max.x, br.max.x * 2);
+
 			if (direction == Direction.Down)
 			{
 				pos.y = -yOffset - b.extents.y - b.center.y;
 				pos.y += (b.max.y - b.min.y - bc.max.y + bc.min.y) * 0.5f - padding.y;
+				max.y = Mathf.Min(max.y, bc.min.y * 2 - yOffset);
 			}
 			else
 			{
 				pos.y = yOffset + (b.extents.y - b.center.y);
 				pos.y -= (b.max.y - b.min.y - bc.max.y + bc.min.y) * 0.5f - padding.y;
+				max.y = Mathf.Max (max.y, bc.max.y * 2 + yOffset);
 			}
 
 			xOffset += br.max.x - br.min.x + padding.x * 2f;
@@ -200,6 +206,13 @@ public class UITable : UIWidgetContainer
 
 				xOffset = 0f;
 				yOffset += bc.size.y + padding.y * 2f;
+			}
+
+			BoxCollider box = GetComponent<BoxCollider>();
+			if (box != null)
+			{
+				box.center = max/2;
+				box.size = max;
 			}
 		}
 	}

@@ -211,6 +211,51 @@ namespace com.lvl6.proto
       get { return _attackAnimationType; }
       set { _attackAnimationType = value; }
     }
+
+    private int _verticalPixelOffset = default(int);
+    [global::ProtoBuf.ProtoMember(23, IsRequired = false, Name=@"verticalPixelOffset", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int verticalPixelOffset
+    {
+      get { return _verticalPixelOffset; }
+      set { _verticalPixelOffset = value; }
+    }
+
+    private string _atkSoundFile = "";
+    [global::ProtoBuf.ProtoMember(24, IsRequired = false, Name=@"atkSoundFile", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string atkSoundFile
+    {
+      get { return _atkSoundFile; }
+      set { _atkSoundFile = value; }
+    }
+
+    private int _atkSoundAnimationFrame = default(int);
+    [global::ProtoBuf.ProtoMember(25, IsRequired = false, Name=@"atkSoundAnimationFrame", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int atkSoundAnimationFrame
+    {
+      get { return _atkSoundAnimationFrame; }
+      set { _atkSoundAnimationFrame = value; }
+    }
+
+    private int _atkAnimationRepeatedFramesStart = default(int);
+    [global::ProtoBuf.ProtoMember(26, IsRequired = false, Name=@"atkAnimationRepeatedFramesStart", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int atkAnimationRepeatedFramesStart
+    {
+      get { return _atkAnimationRepeatedFramesStart; }
+      set { _atkAnimationRepeatedFramesStart = value; }
+    }
+
+    private int _atkAnimationRepeatedFramesEnd = default(int);
+    [global::ProtoBuf.ProtoMember(27, IsRequired = false, Name=@"atkAnimationRepeatedFramesEnd", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int atkAnimationRepeatedFramesEnd
+    {
+      get { return _atkAnimationRepeatedFramesEnd; }
+      set { _atkAnimationRepeatedFramesEnd = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"MonsterQuality")]
     public enum MonsterQuality
     {

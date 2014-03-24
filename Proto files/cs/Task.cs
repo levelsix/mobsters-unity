@@ -189,6 +189,15 @@ namespace com.lvl6.proto
       set { _cashReward = value; }
     }
 
+    private int _oilReward = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"oilReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int oilReward
+    {
+      get { return _oilReward; }
+      set { _oilReward = value; }
+    }
+
     private bool _puzzlePieceDropped = default(bool);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"puzzlePieceDropped", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]

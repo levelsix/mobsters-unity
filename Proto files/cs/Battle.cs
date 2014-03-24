@@ -111,6 +111,95 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PvpHistoryProto")]
+  public partial class PvpHistoryProto : global::ProtoBuf.IExtensible
+  {
+    public PvpHistoryProto() {}
+    
+
+    private long _battleEndTime = default(long);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"battleEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long battleEndTime
+    {
+      get { return _battleEndTime; }
+      set { _battleEndTime = value; }
+    }
+
+    private com.lvl6.proto.FullUserProto _attacker = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"attacker", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.FullUserProto attacker
+    {
+      get { return _attacker; }
+      set { _attacker = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto> _attackersMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"attackersMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto> attackersMonsters
+    {
+      get { return _attackersMonsters; }
+    }
+  
+
+    private bool _attackerWon = default(bool);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"attackerWon", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool attackerWon
+    {
+      get { return _attackerWon; }
+      set { _attackerWon = value; }
+    }
+
+    private int _defenderCashChange = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"defenderCashChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int defenderCashChange
+    {
+      get { return _defenderCashChange; }
+      set { _defenderCashChange = value; }
+    }
+
+    private int _defenderOilChange = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"defenderOilChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int defenderOilChange
+    {
+      get { return _defenderOilChange; }
+      set { _defenderOilChange = value; }
+    }
+
+    private bool _exactedRevenge = default(bool);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"exactedRevenge", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool exactedRevenge
+    {
+      get { return _exactedRevenge; }
+      set { _exactedRevenge = value; }
+    }
+
+    private int _prospectiveCashWinnings = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"prospectiveCashWinnings", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int prospectiveCashWinnings
+    {
+      get { return _prospectiveCashWinnings; }
+      set { _prospectiveCashWinnings = value; }
+    }
+
+    private int _prospectiveOilWinnings = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"prospectiveOilWinnings", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int prospectiveOilWinnings
+    {
+      get { return _prospectiveOilWinnings; }
+      set { _prospectiveOilWinnings = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     [global::ProtoBuf.ProtoContract(Name=@"BattleResult")]
     public enum BattleResult
     {

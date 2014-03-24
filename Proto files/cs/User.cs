@@ -69,6 +69,15 @@ namespace com.lvl6.proto
       get { return _requestToJoinRequired; }
       set { _requestToJoinRequired = value; }
     }
+
+    private int _clanIconId = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"clanIconId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanIconId
+    {
+      get { return _clanIconId; }
+      set { _clanIconId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -578,6 +587,15 @@ namespace com.lvl6.proto
     {
       get { return _gameCenterId; }
       set { _gameCenterId = value; }
+    }
+
+    private long _lastObstacleSpawnedTime = default(long);
+    [global::ProtoBuf.ProtoMember(47, IsRequired = false, Name=@"lastObstacleSpawnedTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long lastObstacleSpawnedTime
+    {
+      get { return _lastObstacleSpawnedTime; }
+      set { _lastObstacleSpawnedTime = value; }
     }
 
     private string _udidForHistory = "";

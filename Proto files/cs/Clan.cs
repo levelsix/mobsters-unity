@@ -74,6 +74,15 @@ namespace com.lvl6.proto
       get { return _requestToJoinRequired; }
       set { _requestToJoinRequired = value; }
     }
+
+    private int _clanIconId = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"clanIconId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanIconId
+    {
+      get { return _clanIconId; }
+      set { _clanIconId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -852,6 +861,43 @@ namespace com.lvl6.proto
     {
       get { return _clanCrDmg; }
       set { _clanCrDmg = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ClanIconProto")]
+  public partial class ClanIconProto : global::ProtoBuf.IExtensible
+  {
+    public ClanIconProto() {}
+    
+
+    private int _clanIconId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"clanIconId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanIconId
+    {
+      get { return _clanIconId; }
+      set { _clanIconId = value; }
+    }
+
+    private string _imgName = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"imgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string imgName
+    {
+      get { return _imgName; }
+      set { _imgName = value; }
+    }
+
+    private bool _isAvailable = default(bool);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"isAvailable", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isAvailable
+    {
+      get { return _isAvailable; }
+      set { _isAvailable = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

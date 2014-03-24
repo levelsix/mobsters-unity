@@ -463,7 +463,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		else if (proto is ForceLogoutResponseProto)
 		{
 			ForceLogoutResponseProto logout = proto as ForceLogoutResponseProto;
-			Debug.LogError("Force logout: " + logout.loginTime + ", " + logout.previousLoginTime);
+			Debug.LogError("Force logout: " + logout.previousLoginTime);
 		}
 		else
 		{

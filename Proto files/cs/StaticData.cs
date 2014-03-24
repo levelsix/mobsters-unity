@@ -165,6 +165,27 @@ namespace com.lvl6.proto
       get { return _persistentClanEvents; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ItemProto> _items = new global::System.Collections.Generic.List<com.lvl6.proto.ItemProto>();
+    [global::ProtoBuf.ProtoMember(22, Name=@"items", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ItemProto> items
+    {
+      get { return _items; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ObstacleProto> _obstacles = new global::System.Collections.Generic.List<com.lvl6.proto.ObstacleProto>();
+    [global::ProtoBuf.ProtoMember(23, Name=@"obstacles", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ObstacleProto> obstacles
+    {
+      get { return _obstacles; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanIconProto> _clanIcons = new global::System.Collections.Generic.List<com.lvl6.proto.ClanIconProto>();
+    [global::ProtoBuf.ProtoMember(24, Name=@"clanIcons", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ClanIconProto> clanIcons
+    {
+      get { return _clanIcons; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
