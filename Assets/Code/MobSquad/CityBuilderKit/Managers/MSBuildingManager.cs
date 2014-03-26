@@ -26,6 +26,8 @@ public class MSBuildingManager : MonoBehaviour
     /// Prefab for a building
     /// </summary>
     public MSBuilding buildingPrefab;
+
+	public MSBuilding currentUnderConstruction;
 	
 	/// <summary>
 	/// The scene's camera, which this needs to pass

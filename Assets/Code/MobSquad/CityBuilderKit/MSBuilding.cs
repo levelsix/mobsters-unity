@@ -406,6 +406,8 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		_box.enabled = true;
 		shadow.gameObject.SetActive(true);
 
+		sprite.transform.localPosition = Vector3.zero;
+
 		if (combinedProto != null)
 		{
 			width = combinedProto.structInfo.width;
@@ -413,7 +415,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 			      
 			SetupSprite(combinedProto.structInfo.imgName);
 
-			//sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset, combinedProto.structInfo.imgVerticalPixelOffset);
+			sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset/25, combinedProto.structInfo.imgVerticalPixelOffset/25);
 
 			name = combinedProto.structInfo.name;
 		}
@@ -424,7 +426,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 
 			SetupSprite(obstacle.obstacle.imgName);
 
-			//sprite.transform.Translate(0, obstacle.obstacle.imgVerticalPixelOffset, 0, Space.Self);
+			sprite.transform.Translate(0, obstacle.obstacle.imgVerticalPixelOffset/25, 0, Space.Self);
 
 			name = obstacle.obstacle.name;
 		}
@@ -457,7 +459,8 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		//float hypot = Mathf.Max(width, length) * CBKGridManager.instance.gridSpaceHypotenuse / 2;
 
 		//sprite.transform.localPosition = new Vector3(-hypot, 0, -hypot);
-		sprite.transform.localPosition = new Vector3(-2.8f, 1.63f, -2.8f);
+		sprite.transform.localPosition += new Vector3(-2.8f, 1.63f, -2.8f);
+		shadow.transform.localPosition = new Vector3(-2.8f, 1.63f, -2.8f);
 
 		_box.center = Vector3.zero;
 
