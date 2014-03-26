@@ -31,7 +31,7 @@ public class CBKTaskBar : MonoBehaviour {
 	[SerializeField]
 	GameObject upgradePopup;
 	
-	CBKBuilding currBuilding;
+	MSBuilding currBuilding;
 	
 	CBKUnit currUnit;
 	
@@ -56,7 +56,7 @@ public class CBKTaskBar : MonoBehaviour {
 		
 	}
 	
-	void OnBuildingSelect(CBKBuilding building)
+	void OnBuildingSelect(MSBuilding building)
 	{
 		ClearButtons();
 
@@ -133,7 +133,7 @@ public class CBKTaskBar : MonoBehaviour {
 		}
 	}
 	
-	void SetBuildingButtons(CBKBuilding building)
+	void SetBuildingButtons(MSBuilding building)
 	{
 		currBuilding = building;
 		
@@ -148,6 +148,17 @@ public class CBKTaskBar : MonoBehaviour {
 				AddButton(CBKTaskButton.Mode.UPGRADE);
 			}
 			AddButton(CBKTaskButton.Mode.SELL);
+		}
+		else if (currBuilding.obstacle != null)
+		{
+			if (currBuilding.obstacle.secsLeft > 0)
+			{
+				AddButton(CBKTaskButton.Mode.FINISH);
+			}
+			else
+			{
+				AddButton(CBKTaskButton.Mode.REMOVE);
+			}
 		}
 		else
 		{

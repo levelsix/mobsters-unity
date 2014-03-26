@@ -110,7 +110,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.571928, y: 0, z: 11.5603323}
+  m_LocalPosition: {x: 7.03392982, y: 0, z: 12.8318806}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400008}
@@ -171,8 +171,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400006}
   - {fileID: 400004}
+  - {fileID: 400006}
   m_Father: {fileID: 400000}
 --- !u!65 &6500000
 BoxCollider:
@@ -397,6 +397,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameObj: {fileID: 0}
+  combinedProto:
+    id: 0
+  obstacle: {fileID: 0}
   groundPos: {x: 12, y: 19}
   width: 2
   length: 2
@@ -414,7 +417,7 @@ MonoBehaviour:
   upgrade: {fileID: 0}
   collector: {fileID: 0}
   storage: {fileID: 0}
-  shadow: {fileID: 100006}
+  shadow: {fileID: 21200002}
   hoverIcon: {fileID: 11400000}
   lockTween: {fileID: 11400002}
   arrowPosTween: {fileID: 11400012}
@@ -553,7 +556,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 6d3c19263af774573a93c415ade6677c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be0a514e8794546e0b4b9ccec39728db, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21200004
 SpriteRenderer:

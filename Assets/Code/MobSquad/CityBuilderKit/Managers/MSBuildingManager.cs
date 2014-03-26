@@ -25,7 +25,7 @@ public class MSBuildingManager : MonoBehaviour
     /// <summary>
     /// Prefab for a building
     /// </summary>
-    public CBKBuilding buildingPrefab;
+    public MSBuilding buildingPrefab;
 	
 	/// <summary>
 	/// The scene's camera, which this needs to pass
@@ -64,18 +64,20 @@ public class MSBuildingManager : MonoBehaviour
 	/// <summary>
 	/// Dictionary of the buildings currently in the scene
 	/// </summary>
-	private Dictionary<int, CBKBuilding> buildings = new Dictionary<int, CBKBuilding>();
+	private Dictionary<int, MSBuilding> buildings = new Dictionary<int, MSBuilding>();
+
+	public List<MSBuilding> obstacles = new List<MSBuilding>();
 
 	/// <summary>
 	/// Dictionary of the units currently in the scene
 	/// </summary>
 	private Dictionary<long, CBKUnit> units = new Dictionary<long, CBKUnit>();
 
-	public static List<CBKBuilding> labs = new List<CBKBuilding>();
+	public static List<MSBuilding> labs = new List<MSBuilding>();
 
-	public static List<CBKBuilding> residences = new List<CBKBuilding>();
+	public static List<MSBuilding> residences = new List<MSBuilding>();
 
-	public static CBKBuilding townHall;
+	public static MSBuilding townHall;
 
 	/// <summary>
 	/// The current selected building.
@@ -304,7 +306,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSGridManager.instance.InitHome ();
 		background.InitHome();
 
-		CBKBuilding building;
+		MSBuilding building;
 		for (int i = 0; i < response.ownerNormStructs.Count; i++) 
 		{
 			building = MakeBuilding(response.ownerNormStructs[i]);
@@ -329,6 +331,10 @@ public class MSBuildingManager : MonoBehaviour
 					townHall = building;
 				}
 			}
+		}
+		for (int i = 0; i < response.obstacles.Count; i++) 
+		{
+			MakeObstacle(response.obstacles[i]);
 		}
 
 		DistributeCash(MSResourceManager.resources[0]);
@@ -355,12 +361,12 @@ public class MSBuildingManager : MonoBehaviour
 		MSMonsterManager.instance.totalResidenceSlots = GetMonsterSlotCount();
 	}
 	
-	CBKBuilding MakeBuildingAt (StructureInfoProto proto, int id, int x, int y)
+	MSBuilding MakeBuildingAt (StructureInfoProto proto, int id, int x, int y)
 	{
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * x, 0, 
     		MSGridManager.instance.spaceSize * y);
     	
-	    CBKBuilding building = Instantiate(buildingPrefab, position, buildingParent.rotation) as CBKBuilding;
+	    MSBuilding building = Instantiate(buildingPrefab, position, buildingParent.rotation) as MSBuilding;
     	
     	building.trans.parent = buildingParent;
     	building.Init(proto);
@@ -372,12 +378,12 @@ public class MSBuildingManager : MonoBehaviour
     	return building;
 	}
 	
-	CBKBuilding MakeBuilding(FullUserStructureProto proto)
+	MSBuilding MakeBuilding(FullUserStructureProto proto)
 	{
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coordinates.x, 0, 
-    		MSGridManager.instance.spaceSize * proto.coordinates.y);
-    	
-	    CBKBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as CBKBuilding;
+		                               MSGridManager.instance.spaceSize * proto.coordinates.y);
+		
+		MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as MSBuilding;
 		
 		building.trans.rotation = buildingParent.rotation;
     	building.trans.parent = buildingParent;
@@ -390,15 +396,33 @@ public class MSBuildingManager : MonoBehaviour
 		
     	return building;
 	}
+
+	void MakeObstacle(UserObstacleProto proto)
+	{
+		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coordinates.x, 0, 
+		                               MSGridManager.instance.spaceSize * proto.coordinates.y);
+		
+		MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as MSBuilding;
+
+		building.trans.rotation = buildingParent.rotation;
+		building.trans.parent = buildingParent;
+		building.Init(proto);
+
+		ObstacleProto obp = MSDataManager.instance.Get<ObstacleProto>(proto.obstacleId);
+		MSGridManager.instance.AddBuilding(building, (int)proto.coordinates.x, (int)proto.coordinates.y, obp.width, obp.height);
+
+		obstacles.Add(building);
+		
+	}
 	
-	CBKBuilding MakeBuilding(CityElementProto proto)
+	MSBuilding MakeBuilding(CityElementProto proto)
 	{
 		//Debug.Log("Neutral building " + proto.imgId + " at " + proto.coords.x + ", " + proto.coords.y);
 		
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coords.x, 0, 
     		MSGridManager.instance.spaceSize * proto.coords.y);
     	
-	    CBKBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as CBKBuilding;
+	    MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as MSBuilding;
 		
 		building.trans.parent = buildingParent;
 		building.trans.localRotation = Quaternion.identity;
@@ -454,7 +478,7 @@ public class MSBuildingManager : MonoBehaviour
 		
 		if (response.status == PurchaseNormStructureResponseProto.PurchaseNormStructureStatus.SUCCESS)
 		{
-	        CBKBuilding building = MakeBuildingAt(proto, response.userStructId,
+	        MSBuilding building = MakeBuildingAt(proto, response.userStructId,
 				(int)MSWhiteboard.tempStructurePos.pos.x, (int)MSWhiteboard.tempStructurePos.pos.y);
 			
 			building.userStructProto.userStructId = response.userStructId;
@@ -474,7 +498,7 @@ public class MSBuildingManager : MonoBehaviour
 	/// <param name='proto'>
 	/// The prefab for the building to be made
 	/// </param>
-	private CBKBuilding MakeBuildingCenter(StructureInfoProto proto)
+	private MSBuilding MakeBuildingCenter(StructureInfoProto proto)
 	{
 		CBKGridNode coords = MSGridManager.instance.ScreenToPoint(new Vector3(Screen.width/2, Screen.height/2));
 		coords = FindSpaceInRange(proto, coords, 0);
@@ -482,7 +506,7 @@ public class MSBuildingManager : MonoBehaviour
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * coords.x, 0, 
 			MSGridManager.instance.spaceSize * coords.z);
 		
-		CBKBuilding building = Instantiate(buildingPrefab, position, buildingParent.rotation) as CBKBuilding;
+		MSBuilding building = Instantiate(buildingPrefab, position, buildingParent.rotation) as MSBuilding;
 		
 		building.trans.parent = buildingParent;
 		building.Init(proto);
@@ -606,12 +630,12 @@ public class MSBuildingManager : MonoBehaviour
 	/// <param name='point'>
 	/// Point on screen
 	/// </param>
-	public CBKBuilding SelectBuildingFromScreen(Vector2 point)
+	public MSBuilding SelectBuildingFromScreen(Vector2 point)
 	{
 		Collider coll = SelectSomethingFromScreen(point);
 		if (coll != null)
 		{
-			return coll.GetComponent<CBKBuilding>();
+			return coll.GetComponent<MSBuilding>();
 		}
 		return null;
 	}
@@ -624,7 +648,7 @@ public class MSBuildingManager : MonoBehaviour
 		if (_selected != null)
 		{
 			_selected.Deselect();
-			if (_selected is CBKBuilding)
+			if (_selected is MSBuilding)
 			{
 				MSActionManager.Town.PlaceBuilding();	
 			}
@@ -633,7 +657,7 @@ public class MSBuildingManager : MonoBehaviour
 		}
 	}
 	
-	private void SetSelectedBuilding(CBKBuilding building)
+	private void SetSelectedBuilding(MSBuilding building)
 	{
 		if (_selected != null)
 		{
@@ -679,7 +703,11 @@ public class MSBuildingManager : MonoBehaviour
 	
 	private void RecycleCity()
 	{
-		foreach (CBKBuilding item in buildings.Values) 
+		foreach (MSBuilding item in buildings.Values) 
+		{
+			item.Pool();
+		}
+		foreach (MSBuilding item in obstacles) 
 		{
 			item.Pool();
 		}
@@ -688,6 +716,7 @@ public class MSBuildingManager : MonoBehaviour
 			item.Pool();
 		}
 		buildings.Clear();
+		obstacles.Clear();
 		units.Clear();
 	}
 	
@@ -732,9 +761,9 @@ public class MSBuildingManager : MonoBehaviour
 		return buildings[userStructId].combinedProto.hospital;
 	}
 
-	public List<CBKBuilding> GetStorages(ResourceType resource)
+	public List<MSBuilding> GetStorages(ResourceType resource)
 	{
-		List<CBKBuilding> storages = new List<CBKBuilding>();
+		List<MSBuilding> storages = new List<MSBuilding>();
 		foreach (var item in buildings.Values) 
 		{
 			if (item.combinedProto.storage != null && item.combinedProto.storage.structInfo.structId > 0
@@ -759,7 +788,7 @@ public class MSBuildingManager : MonoBehaviour
 		return storages;
 	}
 
-	public void RemoveFromFunctionalityLists(CBKBuilding building)
+	public void RemoveFromFunctionalityLists(MSBuilding building)
 	{
 		switch(building.combinedProto.structInfo.structType)
 		{
@@ -772,7 +801,7 @@ public class MSBuildingManager : MonoBehaviour
 		}
 	}
 
-	public void AddToFunctionalityLists(CBKBuilding building)
+	public void AddToFunctionalityLists(MSBuilding building)
 	{
 		switch(building.combinedProto.structInfo.structType)
 		{
@@ -802,7 +831,7 @@ public class MSBuildingManager : MonoBehaviour
 	{
 		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) return;
 
-		List<CBKBuilding> storages = GetStorages(resource);
+		List<MSBuilding> storages = GetStorages(resource);
 		storages.Sort( (x,y)=>x.combinedProto.storage.capacity.CompareTo(y.combinedProto.storage.capacity));
 		float avgAmnt = total / storages.Count;
 		float overflow = 0;
@@ -874,7 +903,7 @@ public class MSBuildingManager : MonoBehaviour
 	{        
 		Collider hit = SelectSomethingFromScreen(touch.pos);
 		if (hit != null){
-			CBKBuilding building = hit.GetComponent<CBKBuilding>();
+			MSBuilding building = hit.GetComponent<MSBuilding>();
 			if (building != null)
 			{
 				if (building != _selected)
@@ -913,7 +942,7 @@ public class MSBuildingManager : MonoBehaviour
 	public void OnStartHold(TCKTouchData touch)
 	{
 		//If we're on a building, select it so that if we start dragging, we can move it
-		CBKBuilding chosen = SelectBuildingFromScreen(touch.pos);
+		MSBuilding chosen = SelectBuildingFromScreen(touch.pos);
 		if (chosen != null)
 		{
 			if (chosen != _selected){
@@ -937,7 +966,7 @@ public class MSBuildingManager : MonoBehaviour
 	/// </param>
 	public void OnStartDrag(TCKTouchData touch)
 	{
-		CBKBuilding touched = SelectBuildingFromScreen(touch._initialPos);
+		MSBuilding touched = SelectBuildingFromScreen(touch._initialPos);
 		if (_selected != null && touched == _selected && touched.locallyOwned)
 		{
 			_target = touched;
@@ -957,9 +986,9 @@ public class MSBuildingManager : MonoBehaviour
 	/// </param>
 	public void OnReleaseDrag(TCKTouchData touch)
 	{
-		if (_target != null && _target is CBKBuilding)
+		if (_target != null && _target is MSBuilding)
 		{
-			(_target as CBKBuilding).Drop();
+			(_target as MSBuilding).Drop();
 		}
 	}
 	

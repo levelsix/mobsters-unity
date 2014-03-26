@@ -45,7 +45,7 @@ public static class MSActionManager
 		/// The on building select event.
 		/// Notifies UI that we've selected a new building
 		/// </summary>
-		public static Action<CBKBuilding> OnBuildingSelect;
+		public static Action<MSBuilding> OnBuildingSelect;
 		
 		/// <summary>
 		/// The on unit select event.
@@ -59,7 +59,7 @@ public static class MSActionManager
 		/// </summary>
 		public static Action PlaceBuilding;
 		
-		public static Action<CBKBuilding> OnCollectFromBuilding;
+		public static Action<MSBuilding> OnCollectFromBuilding;
 	}
 	
 	public static class Loading

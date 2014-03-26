@@ -17,7 +17,7 @@ public class MSResidenceManager : MonoBehaviour {
 	static Dictionary<int, List<UserFacebookInviteForSlotProto>> fbInviteAccepted = 
 		new Dictionary<int, List<UserFacebookInviteForSlotProto>>();
 
-	public static Dictionary<int, CBKBuilding> residences = new Dictionary<int, CBKBuilding>();
+	public static Dictionary<int, MSBuilding> residences = new Dictionary<int, MSBuilding>();
 
 	int currBuildingId;
 

@@ -36,7 +36,7 @@ public class CBKTaskable : MonoBehaviour {
 	{
 		if (task != null && task.prerequisiteTaskId > 0) 
 		{
-			CBKBuilding building = GetComponent<CBKBuilding> ();
+			MSBuilding building = GetComponent<MSBuilding> ();
 			CBKCityUnit unit = GetComponent<CBKCityUnit>();
 			if (!MSQuestManager.taskDict.ContainsKey (task.prerequisiteTaskId)) 
 			{

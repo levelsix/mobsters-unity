@@ -314,7 +314,7 @@ public class MSGridManager : MonoBehaviour {
     /// <param name="building">The building to be added</param>
     /// <param name="x">The left-most x position in grid coordinates</param>
     /// <param name="y">The lowest y positing in grid coordinates</param>
-    public void AddBuilding(CBKBuilding building, int x, int y, int xLength, int yLength)
+    public void AddBuilding(MSBuilding building, int x, int y, int xLength, int yLength)
     {
         _grid[x, y] = building;
         building.groundPos = new Vector2(x, y);
@@ -335,7 +335,7 @@ public class MSGridManager : MonoBehaviour {
     /// ground grid.
     /// </summary>
     /// <param name="building">The building being removed from the grid</param>
-    public void RemoveBuilding(CBKBuilding building)
+    public void RemoveBuilding(MSBuilding building)
     {
 		//Debug.LogWarning("Removing " + building.name + ", id: " + building.id);
         for (int i = 0; i < building.width; i++)
@@ -402,7 +402,7 @@ public class MSGridManager : MonoBehaviour {
 			{
 				CBKITakesGridSpace space = _grid[j, gridSize - 1 - i];
 				if (space == null) s += "0 ";
-				else if (space is CBKBuilding) s += "B ";
+				else if (space is MSBuilding) s += "B ";
 				else s += "W ";
 			}
 			s += "\n";

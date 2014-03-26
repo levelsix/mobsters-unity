@@ -8,20 +8,20 @@ using com.lvl6.proto;
 /// Component for a single building
 /// </summary>
 [RequireComponent (typeof(BoxCollider))]
-public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGridSpace, CBKISelectable
+public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGridSpace, CBKISelectable
 {
 	#region Members
 	
 	#region Interface Fields
 	
-	private CBKBuilding _prefab;
+	private MSBuilding _prefab;
 	
 	public MSPoolable prefab {
 		get {
 			return _prefab;
 		}
 		set {
-			_prefab = value as CBKBuilding;
+			_prefab = value as MSBuilding;
 		}
 	}
 	
@@ -55,6 +55,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 	public CBKCombinedBuildingProto combinedProto;
 	
 	public FullUserStructureProto userStructProto;
+
+	public MSObstacle obstacle;
 
     /// <summary>
     /// The position within ground that this building is located
@@ -191,7 +193,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 	public CBKResourceStorage storage;
 
 	[SerializeField]
-	GameObject shadow;
+	SpriteRenderer shadow;
 
 	[SerializeField]
 	public UISprite hoverIcon;
@@ -273,12 +275,27 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 	public void Init(FullUserStructureProto proto)
 	{
 		combinedProto = MSDataManager.instance.Get(typeof(CBKCombinedBuildingProto), proto.structId) as CBKCombinedBuildingProto;
-		
 		userStructProto = proto;
 
 		id = proto.userStructId;
 		
 		Setup();
+	}
+
+	public void Init(UserObstacleProto proto)
+	{
+		obstacle = gameObj.AddComponent<MSObstacle>();
+
+		obstacle.Init(proto);
+
+		combinedProto = null;
+		userStructProto = null;
+
+		id = proto.userObstacleId;
+
+		Setup();
+
+		locallyOwned = false;
 	}
 	
 	/// <summary>
@@ -324,17 +341,18 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 		
 		width = (int)proto.xLength;
 		length = (int)proto.yLength;
-		
+
+		shadow.gameObject.SetActive(false);
 		SetupSprite(proto.imgId);
 
 		if (proto.orientation == StructOrientation.POSITION_2)
 		{
-			sprite.transform.localScale = new Vector3(-1, 1, 1);
-			shadow.transform.localPosition = FLIP_SHADOW_POS;
+			//sprite.transform.localScale = new Vector3(-1, 1, 1);
+			//shadow.transform.localPosition = FLIP_SHADOW_POS;
 		}
 		else
 		{
-			shadow.transform.localPosition = SHADOW_POS;
+			//shadow.transform.localPosition = SHADOW_POS;
 		}
 		
 		//trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
@@ -360,12 +378,12 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 			float hypot = Mathf.Max(width, length) * MSGridManager.instance.gridSpaceHypotenuse / 2 *2/3;
 			_box.center = new Vector3(hypot, 0, hypot);
 			_box.size = new Vector3(width * MSGridManager.instance.spaceSize, 1, length * MSGridManager.instance.spaceSize);
-			shadow.SetActive(true);
+			//shadow.gameObject.SetActive(true);
 		}
 		else
 		{
 			_box.enabled = false;
-			shadow.SetActive(false);
+			//shadow.gameObject.SetActive(false);
 		}
 	}
 	
@@ -376,9 +394,8 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 
 		locked = false;
 
-		name = combinedProto.structInfo.name;
 
-		shadow.transform.localPosition = SHADOW_POS;
+		//shadow.transform.localPosition = SHADOW_POS;
 
 		hoverIcon.gameObject.SetActive(false);
 		sprite.color = Color.white;
@@ -387,22 +404,55 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 
 		//name = structProto.name;
 		_box.enabled = true;
-		shadow.SetActive(true);
-		
-		width = combinedProto.structInfo.width;
-		length = combinedProto.structInfo.height;
-		      
-		SetupSprite(combinedProto.structInfo.imgName);
-		
+		shadow.gameObject.SetActive(true);
+
+		if (combinedProto != null)
+		{
+			width = combinedProto.structInfo.width;
+			length = combinedProto.structInfo.height;
+			      
+			SetupSprite(combinedProto.structInfo.imgName);
+
+			//sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset, combinedProto.structInfo.imgVerticalPixelOffset);
+
+			name = combinedProto.structInfo.name;
+		}
+		else if (obstacle != null)
+		{
+			width = obstacle.obstacle.width;
+			length = obstacle.obstacle.height;
+
+			SetupSprite(obstacle.obstacle.imgName);
+
+			//sprite.transform.Translate(0, obstacle.obstacle.imgVerticalPixelOffset, 0, Space.Self);
+
+			name = obstacle.obstacle.name;
+		}
 		_box.size = new Vector3(width * MSGridManager.instance.spaceSize, 1, 
-			length * MSGridManager.instance.spaceSize);
+	                        length * MSGridManager.instance.spaceSize);
 		trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
 		SetGridFromTrans();
 		
+		
 		locallyOwned = (MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER && MSWhiteboard.cityID == MSWhiteboard.localMup.userId);
 
-		upgrade = gameObj.AddComponent<CBKBuildingUpgrade>();
-		upgrade.Init(combinedProto.structInfo, userStructProto);
+		if (locallyOwned && combinedProto != null)
+		{
+			upgrade = gameObj.AddComponent<CBKBuildingUpgrade>();
+			upgrade.Init(combinedProto.structInfo, userStructProto);
+			switch (combinedProto.structInfo.structType) 
+			{
+			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
+				collector = gameObj.AddComponent<CBKResourceCollector>();
+				collector.Init(combinedProto);
+				break;
+			case StructureInfoProto.StructType.RESOURCE_STORAGE:
+				storage = gameObj.AddComponent<CBKResourceStorage>();
+				break;
+			default:
+				break;
+			}
+		}
 
 		//float hypot = Mathf.Max(width, length) * CBKGridManager.instance.gridSpaceHypotenuse / 2;
 
@@ -412,16 +462,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 		_box.center = Vector3.zero;
 
 		//Add and init the component for whatever struct type this building is. Unless it's a decoration. Then it does nothing.
-		switch (combinedProto.structInfo.structType) {
-		case StructureInfoProto.StructType.RESOURCE_GENERATOR:
-			collector = gameObj.AddComponent<CBKResourceCollector>();
-			collector.Init(combinedProto);
-			break;
-		default:
-			storage = gameObj.AddComponent<CBKResourceStorage>();
 
-			break;
-		}
 	}
 	
 	public void SetupConstructionSprite()
@@ -464,7 +505,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 			sprite.spriteName = CBKUtil.StripExtensions(CBKAtlasUtil.instance.StripSpaces(structName));
 		}
 		*/
-		
+
 		sprite.color = Color.white;
 		baseColor = Color.white;
 		
@@ -477,7 +518,9 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 		
 		spriteTrans.localScale = Vector3.one;
 
-
+		//Set up shadow stuff
+		shadow.sprite = MSAtlasUtil.instance.GetBuildingSprite(width + "x" + length + "dark");
+		
 		
 		//spriteTrans.localPosition = new Vector3(0, sprite.height / 100f * (1/Mathf.Sin((90 - Camera.main.transform.parent.localRotation.x) * Mathf.Deg2Rad)), 0);
 		
@@ -753,7 +796,7 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 	
 	public MSPoolable Make (Vector3 origin)
 	{
-		CBKBuilding building = Instantiate(this, origin, Quaternion.identity) as CBKBuilding;
+		MSBuilding building = Instantiate(this, origin, Quaternion.identity) as MSBuilding;
 		building.prefab = this;
 		return building;
 	}
@@ -782,6 +825,13 @@ public class CBKBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGr
 		{
 			MSGridManager.instance.RemoveBuilding(this);
 		}
+
+		if (obstacle != null)
+		{
+			Destroy (obstacle);
+			obstacle = null;
+		}
+
 		if (taskable != null)
 		{
 			Destroy(taskable);

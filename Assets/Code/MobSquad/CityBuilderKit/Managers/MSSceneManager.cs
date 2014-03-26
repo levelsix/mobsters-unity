@@ -58,6 +58,7 @@ public class MSSceneManager : MonoBehaviour {
 		if (loadingState)
 		{
 			StartCoroutine(FadeFromLoading());
+			puzzleParent.SetActive(false);
 		}
 		if (!cityState)
 		{

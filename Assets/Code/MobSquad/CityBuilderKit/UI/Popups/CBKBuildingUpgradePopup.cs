@@ -87,7 +87,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	const string cashButtonName = "confirm";
 	const string oilButtonName = "oilupgradebutton";
 	
-	CBKBuilding currBuilding;
+	MSBuilding currBuilding;
 	
 	ResourceType currResource;
 	int currCost;
@@ -113,7 +113,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		}
 	}
 	
-	public void Init(CBKBuilding building)
+	public void Init(MSBuilding building)
 	{
 		currBuilding = building;
 		
@@ -196,7 +196,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		}
 	}
 
-	void SetBuildingBarInfo (CBKBuilding building, CBKCombinedBuildingProto oldBuilding, CBKCombinedBuildingProto nextBuilding)
+	void SetBuildingBarInfo (MSBuilding building, CBKCombinedBuildingProto oldBuilding, CBKCombinedBuildingProto nextBuilding)
 	{
 		CBKCombinedBuildingProto max = nextBuilding.maxLevel;
 
@@ -283,7 +283,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		nextBar.fill = next/max;
 	}
 
-	void SetupHireUI(CBKBuilding currBuilding)
+	void SetupHireUI(MSBuilding currBuilding)
 	{
 
 		CBKCombinedBuildingProto thisLevel = currBuilding.combinedProto.baseLevel;

@@ -9,7 +9,7 @@ using com.lvl6.proto;
 /// a resource collector.
 /// Gathers resources over time
 /// </summary>
-[RequireComponent (typeof (CBKBuilding))]
+[RequireComponent (typeof (MSBuilding))]
 public class CBKResourceCollector : MonoBehaviour {
     
 	bool hasMoney
@@ -75,7 +75,7 @@ public class CBKResourceCollector : MonoBehaviour {
     
 	public ResourceGeneratorProto _generator;
 
-    private CBKBuilding _building;
+    private MSBuilding _building;
     
     private CBKBuildingUpgrade _upgrade;
 
@@ -86,7 +86,7 @@ public class CBKResourceCollector : MonoBehaviour {
 	
     void Awake()
     {
-        _building = GetComponent<CBKBuilding>();
+        _building = GetComponent<MSBuilding>();
         _upgrade = GetComponent<CBKBuildingUpgrade>();
     }
     

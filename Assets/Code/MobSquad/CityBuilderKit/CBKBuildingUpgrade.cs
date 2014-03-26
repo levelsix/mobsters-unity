@@ -8,7 +8,7 @@ using com.lvl6.proto;
 /// Component of a building that mananges upgrading,
 /// including timing and cost.
 /// </summary>
-[RequireComponent (typeof (CBKBuilding))]
+[RequireComponent (typeof (MSBuilding))]
 public class CBKBuildingUpgrade : MonoBehaviour {
 	
 	
@@ -58,7 +58,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
     /// <summary>
     /// The building component.
     /// </summary>
-	protected CBKBuilding building;
+	protected MSBuilding building;
 	
     /// <summary>
     /// The on start upgrade event.
@@ -90,7 +90,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public void Awake()
 	{
-		building = GetComponent<CBKBuilding>();
+		building = GetComponent<MSBuilding>();
 	}
 	
 	public void Init(StructureInfoProto sProto, FullUserStructureProto uProto)

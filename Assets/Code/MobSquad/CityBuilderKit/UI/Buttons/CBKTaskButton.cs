@@ -44,11 +44,11 @@ public class CBKTaskButton : CBKTriggerPopupButton, MSPoolable {
 	[SerializeField]
 	UISprite icon;
 	
-	CBKBuilding currBuilding;
+	MSBuilding currBuilding;
 	
 	CBKUnit currUnit;
 	
-	public enum Mode {SELL, UPGRADE, FINISH, ENGAGE, HEAL, ENHANCE};
+	public enum Mode {SELL, UPGRADE, FINISH, ENGAGE, HEAL, ENHANCE, REMOVE};
 	
 	Mode currMode;
 	
@@ -58,14 +58,16 @@ public class CBKTaskButton : CBKTriggerPopupButton, MSPoolable {
 		{Mode.FINISH, "FINISH"},
 		{Mode.ENGAGE, "ENGAGE"},
 		{Mode.HEAL, "HEAL"},
-		{Mode.ENHANCE, "ENHANCE"}
+		{Mode.ENHANCE, "ENHANCE"},
+		{Mode.REMOVE, "REMOVE"}
 	};
 	
 	System.Collections.Generic.Dictionary<Mode, string> modeSprites = new System.Collections.Generic.Dictionary<Mode, string>() {
 		{Mode.UPGRADE, "upgradeicon"},
 		{Mode.SELL, "sellicon"},
 		{Mode.FINISH, "diamond"},
-		{Mode.ENGAGE, "moneystack"}
+		{Mode.ENGAGE, "moneystack"},
+		{Mode.REMOVE, "sellicon"}
 	};
 	
 	void Awake()
@@ -81,7 +83,7 @@ public class CBKTaskButton : CBKTriggerPopupButton, MSPoolable {
 		return button;
 	}
 	
-	public void Setup(Mode mode, CBKBuilding building, GameObject popup = null)
+	public void Setup(Mode mode, MSBuilding building, GameObject popup = null)
 	{
 		currBuilding = building;
 		currUnit = null;
@@ -127,6 +129,9 @@ public class CBKTaskButton : CBKTriggerPopupButton, MSPoolable {
 		case Mode.SELL:
 			ClickSell();
 			break;
+		case Mode.REMOVE:
+			ClickRemove();
+			break;
 		default:
 			break;
 		}
@@ -134,9 +139,15 @@ public class CBKTaskButton : CBKTriggerPopupButton, MSPoolable {
 	
 	void ClickFinish()
 	{
-		
-		base.OnClick();
-		popup.GetComponent<CBKBuildingUpgradePopup>().Init(currBuilding);
+		if (currBuilding.obstacle == null)
+		{
+			base.OnClick();
+			popup.GetComponent<CBKBuildingUpgradePopup>().Init(currBuilding);
+		}
+		else
+		{
+			currBuilding.obstacle.FinishWithGems();
+		}
 
 		//currBuilding.upgrade.FinishWithPremium();
 	}
@@ -167,5 +178,10 @@ public class CBKTaskButton : CBKTriggerPopupButton, MSPoolable {
 	public void Pool ()
 	{
 		MSPoolManager.instance.Pool(this);
+	}
+
+	void ClickRemove()
+	{
+		currBuilding.GetComponent<MSObstacle>().StartRemove();
 	}
 }

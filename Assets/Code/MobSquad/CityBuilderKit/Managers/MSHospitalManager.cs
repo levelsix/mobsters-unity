@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -15,7 +15,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 	public List<PZMonster> healingMonsters = new List<PZMonster>();
 
-	public List<CBKBuilding> hospitals = new List<CBKBuilding>();
+	public List<MSBuilding> hospitals = new List<MSBuilding>();
 
 	public int queueSize = 0;
 	
@@ -47,13 +47,13 @@ public class MSHospitalManager : MonoBehaviour {
 		queueSize = 0;
 	}
 
-	public void AddHospital(CBKBuilding building)
+	public void AddHospital(MSBuilding building)
 	{
 		hospitals.Add(building);
 		queueSize += building.combinedProto.hospital.queueSize;
 	}
 
-	public void RemoveHospital(CBKBuilding building)
+	public void RemoveHospital(MSBuilding building)
 	{
 		hospitals.RemoveAll(x=>x==building);
 		queueSize -= building.combinedProto.hospital.queueSize;
@@ -260,7 +260,7 @@ public class MSHospitalManager : MonoBehaviour {
 		
 		#endregion
 		
-		CBKBuilding lastHospital = GetSoonestHospital();
+		MSBuilding lastHospital = GetSoonestHospital();
 		long lastStartTime = Math.Max(monster.healingMonster.queuedTimeMillis, lastHospital.completeTime);
 		monster.healingMonster.queuedTimeMillis = lastStartTime;
 		lastHospital.completeTime = CalculateFinishTime(monster, lastHospital, progress, lastStartTime);
@@ -268,7 +268,7 @@ public class MSHospitalManager : MonoBehaviour {
 		
 		monster.hospitalTimes.Add(new HospitalTime(lastHospital, lastStartTime));
 		
-		for (CBKBuilding nextHospital = GetSoonestFasterHospital(lastHospital);
+		for (MSBuilding nextHospital = GetSoonestFasterHospital(lastHospital);
 		     nextHospital != null;
 		     nextHospital = GetSoonestFasterHospital(lastHospital))
 		{
@@ -295,7 +295,7 @@ public class MSHospitalManager : MonoBehaviour {
 		
 	}
 	
-	long CalculateFinishTime(PZMonster monster, CBKBuilding hospital, float progress, long startTime)
+	long CalculateFinishTime(PZMonster monster, MSBuilding hospital, float progress, long startTime)
 	{
 		float healthLeftToHeal = monster.maxHP - progress - monster.currHP;
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.combinedProto.hospital.healthPerSecond * 1000);
@@ -346,9 +346,9 @@ public class MSHospitalManager : MonoBehaviour {
 	/// Gets the soonest available hospital
 	/// </summary>
 	/// <returns>The soonest hospital.</returns>
-	CBKBuilding GetSoonestHospital()
+	MSBuilding GetSoonestHospital()
 	{
-		CBKBuilding soonest = null;
+		MSBuilding soonest = null;
 		foreach (var building in hospitals) 
 		{
 			//If this building is sooner, or just as soon and faster, than the current soonest
@@ -369,10 +369,10 @@ public class MSHospitalManager : MonoBehaviour {
 	/// </summary>
 	/// <returns>The soonest faster hospital.</returns>
 	/// <param name="lastHospital">Last hospital.</param>
-	CBKBuilding GetSoonestFasterHospital(CBKBuilding lastHospital)
+	MSBuilding GetSoonestFasterHospital(MSBuilding lastHospital)
 	{
 		string str = "Trying to find sooner hospital that will finish before " + lastHospital.completeTime + " with a faster speed than " + lastHospital.combinedProto.hospital.healthPerSecond;
-		CBKBuilding soonest = null;
+		MSBuilding soonest = null;
 		foreach (var building in hospitals) 
 		{
 			if (building == lastHospital) continue;
@@ -407,7 +407,7 @@ public class MSHospitalManager : MonoBehaviour {
 	void RearrangeHealingQueue()
 	{
 		UpdateAllProgress();
-		foreach (CBKBuilding hospital in hospitals) 
+		foreach (MSBuilding hospital in hospitals) 
 		{
 			hospital.completeTime = 0;
 		}

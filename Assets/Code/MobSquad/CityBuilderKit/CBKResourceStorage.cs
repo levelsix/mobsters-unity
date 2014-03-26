@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CBKResourceStorage : MonoBehaviour {
 
-	CBKBuilding building;
+	MSBuilding building;
 
 	CBKBuildingUpgrade buildingUpgrade;
 
@@ -11,7 +11,7 @@ public class CBKResourceStorage : MonoBehaviour {
 
 	void Awake()
 	{
-		building = GetComponent<CBKBuilding>();
+		building = GetComponent<MSBuilding>();
 		buildingUpgrade = GetComponent<CBKBuildingUpgrade>();
 		animator = building.sprite.GetComponent<Animator>();
 	}

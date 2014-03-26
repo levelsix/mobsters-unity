@@ -26,7 +26,7 @@ public class CBKHoverBar : MonoBehaviour {
 	[SerializeField]
 	UISprite engageBackground;
 	
-	CBKBuilding currBuilding;
+	MSBuilding currBuilding;
 	
 	Transform trans;
 	
@@ -51,7 +51,7 @@ public class CBKHoverBar : MonoBehaviour {
 		gameObj.SetActive(false);
 	}
 	
-	public void AttachToPlayerStructure(CBKBuilding building)
+	public void AttachToPlayerStructure(MSBuilding building)
 	{
 		if (building != null)
 		{

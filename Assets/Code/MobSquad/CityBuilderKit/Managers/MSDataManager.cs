@@ -227,5 +227,21 @@ public class MSDataManager : MonoBehaviour {
 		{
 			Load(item, item.questId);
 		}
+		foreach (var item in data.mbds) 
+		{
+			//Need to do something special for these!
+		}
+		foreach (var item in data.items) 
+		{
+			Load (item, item.itemId);
+		}
+		foreach (var item in data.obstacles) 
+		{
+			Load(item, item.obstacleId);
+		}
+		foreach (var item in data.clanIcons) 
+		{
+			Load(item, item.clanIconId);
+		}
 	}
 }

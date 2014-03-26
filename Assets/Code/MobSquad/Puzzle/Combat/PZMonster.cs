@@ -422,7 +422,12 @@ public class PZMonster {
 			Debug.LogWarning("Attempting to get exp for a higher level than this monster can go");
 			return ExpForLevel(monster.maxLevel);
 		}
-		return monster.lvlInfo.Find(x=>x.lvl==level).curLvlRequiredExp;
+		MonsterLevelInfoProto levelInfo = monster.lvlInfo.Find(x=>x.lvl==level);
+		if (levelInfo == null)
+		{
+			return 0;
+		}
+		return levelInfo.curLvlRequiredExp;
 	}
 	
 	public void GainXP(int exp)
@@ -448,9 +453,9 @@ public class PZMonster {
 
 public struct HospitalTime
 {
-	public CBKBuilding hospital;
+	public MSBuilding hospital;
 	public long startTime;
-	public HospitalTime(CBKBuilding hospital, long startTime)
+	public HospitalTime(MSBuilding hospital, long startTime)
 	{
 		this.hospital = hospital;
 		this.startTime = startTime;

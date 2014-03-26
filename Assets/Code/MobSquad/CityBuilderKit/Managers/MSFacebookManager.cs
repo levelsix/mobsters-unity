@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class MSFacebookManager : MonoBehaviour {
@@ -30,7 +30,7 @@ public class MSFacebookManager : MonoBehaviour {
 		//CBKEventManager.Town.OnCollectFromBuilding -= ShareCollectFromBuildingToFeed;
 	}
 	
-	void ShareCollectFromBuildingToFeed(CBKBuilding building)
+	void ShareCollectFromBuildingToFeed(MSBuilding building)
 	{
 		if (FB.IsLoggedIn)
 		{

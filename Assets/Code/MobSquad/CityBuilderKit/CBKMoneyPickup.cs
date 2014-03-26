@@ -128,7 +128,7 @@ public class CBKMoneyPickup : MonoBehaviour, MSPoolable {
 		gameUI = GetComponent<CBKPointAtCamera>();
 	}
 	
-	public void Init(CBKBuilding source, int money)
+	public void Init(MSBuilding source, int money)
 	{
 		clicked = false;
 		trans.position = source.trans.position + startOffset;

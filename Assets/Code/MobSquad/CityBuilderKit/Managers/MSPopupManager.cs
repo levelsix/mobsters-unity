@@ -34,7 +34,7 @@ public class MSPopupManager : MonoBehaviour {
 	/// <summary>
 	/// The stack of current popup menus.
 	/// </summary>
-	Stack<GameObject> _currPops;
+	List<GameObject> _currPops;
 
 	/// <summary>
 	/// Gets the popup that's one behind the current popup.
@@ -47,10 +47,7 @@ public class MSPopupManager : MonoBehaviour {
 		{
 			if (_currPops.Count > 1)
 			{
-				GameObject temp = _currPops.Pop();
-				GameObject back = _currPops.Peek();
-				_currPops.Push(temp);
-				return back;
+				return _currPops[_currPops.Count-2];
 			}
 			else
 			{
@@ -63,7 +60,11 @@ public class MSPopupManager : MonoBehaviour {
 	{
 		get
 		{
-			return _currPops.Peek();
+			if (_currPops.Count == 0)
+			{
+				return null;
+			}
+			return _currPops[_currPops.Count-1];
 		}
 	}
 	
@@ -73,7 +74,7 @@ public class MSPopupManager : MonoBehaviour {
 	/// </summary>
 	void Awake()
 	{
-		_currPops = new Stack<GameObject>();
+		_currPops = new List<GameObject>();
 		instance = this;
 	}
 	
@@ -146,7 +147,7 @@ public class MSPopupManager : MonoBehaviour {
 	/// </param>
 	void OnPopup(GameObject popup)
 	{
-		_currPops.Push(popup);
+		_currPops.Add(popup);
 		popup.SetActive(true);
 	}
 	
@@ -162,7 +163,8 @@ public class MSPopupManager : MonoBehaviour {
 	{
 		if (_currPops.Count > 0)
 		{
-			_currPops.Pop().SetActive(false);
+			_currPops[_currPops.Count-1].SetActive(false);
+			_currPops.RemoveAt(_currPops.Count-1);
 		}
 	}
 	
