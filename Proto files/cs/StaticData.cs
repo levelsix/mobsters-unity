@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: StaticData.proto
+// Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: City.proto
 // Note: requires additional types generated from: Clan.proto
@@ -184,6 +185,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.ClanIconProto> clanIcons
     {
       get { return _clanIcons; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PvpLeagueProto> _leagues = new global::System.Collections.Generic.List<com.lvl6.proto.PvpLeagueProto>();
+    [global::ProtoBuf.ProtoMember(25, Name=@"leagues", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PvpLeagueProto> leagues
+    {
+      get { return _leagues; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

@@ -54,7 +54,7 @@ public class CBKBuildingMenu : MonoBehaviour {
 		CBKBuildingCard card = Instantiate(buildingCardProto) as CBKBuildingCard;
 		card.trans.parent = lastCard.trans.parent;
 		card.trans.localScale = Vector3.one;
-		card.buyButton.dragBehind = lastCard.buyButton.dragBehind;
+		card.actionButton.dragBehind = lastCard.actionButton.dragBehind;
 		cards.Add (card);
 	}
 }

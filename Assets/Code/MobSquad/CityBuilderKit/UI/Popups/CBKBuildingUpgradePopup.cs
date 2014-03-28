@@ -8,6 +8,9 @@ using com.lvl6.proto;
 /// Popup that shows up when paying to start upgrading a building
 /// or paying to rush construction on a building
 /// </summary>
+using System;
+
+
 public class CBKBuildingUpgradePopup : MonoBehaviour {
 	
 	/// <summary>
@@ -95,6 +98,25 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	void TryToBuy()
 	{
 		Debug.LogWarning("Trying to buy");
+
+		if (MSBuildingManager.instance.currentUnderConstruction != null)
+		{
+			MSActionManager.Popup.CreateButtonPopup("Your builder is busy! Speed him up for " + 
+			                                        CBKMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
+			                                        + "gems and upgrade this building?",
+			                                        new string[]{"Cancel", "Speed Up"},
+			new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
+				delegate
+				{
+					MSActionManager.Popup.CloseTopPopupLayer();
+					MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
+					TryToBuy();
+				}
+			}
+			);
+			return;
+		}
+
 		//Spend Money Here
 		if (MSResourceManager.instance.Spend(currResource, currCost, TryToBuy))
 		{

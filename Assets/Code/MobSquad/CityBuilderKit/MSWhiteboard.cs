@@ -54,9 +54,6 @@ public static class MSWhiteboard {
 	/// The city id, which can be used for either city type.
 	/// </summary>
 	public static int cityID = 1;
-	
-	public static StructureInfoProto tempStructureProto;
-	public static CBKGridNode tempStructurePos;
 
 	public static long currUserTaskId;
 	

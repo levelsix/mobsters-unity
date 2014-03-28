@@ -1,0 +1,22 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System;
+using com.lvl6.proto;
+
+/// <summary>
+/// @author Rob Giusti
+/// MSRoadSpace
+/// </summary>
+public class MSRoadSpace : CBKITakesGridSpace {
+
+	public bool walkable
+	{
+		get
+		{
+			return true;
+		}
+	}
+
+	public MSRoadSpace(){}
+}

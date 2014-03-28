@@ -22,11 +22,9 @@ public class CBKBuildingCard : MonoBehaviour {
 	[SerializeField]
 	UIWidget[] tintSprites;
 
-	[SerializeField]
-	Color tintColor;
+	public CBKActionButton actionButton;
 
-	[SerializeField]
-	public CBKActionButton buyButton;
+	UIButton button;
 
 	CBKCombinedBuildingProto building;
 
@@ -36,6 +34,7 @@ public class CBKBuildingCard : MonoBehaviour {
 	void Awake()
 	{
 		trans = transform;
+		button = GetComponent<UIButton>();
 	}
 
 	public void Init(CBKCombinedBuildingProto proto)
@@ -66,8 +65,6 @@ public class CBKBuildingCard : MonoBehaviour {
 		}
 
 		DetermineCount();
-
-		buyButton.onClick += BuyBuilding;
 	}
 
 	void DetermineCount()
@@ -112,13 +109,13 @@ public class CBKBuildingCard : MonoBehaviour {
 
 		if (count >= max)
 		{
-			Tint(tintColor);
-			buyButton.able = false;
+			button.isEnabled = false;
+			Tint(button.disabledColor);
 		}
 		else
 		{
+			button.isEnabled = true;
 			Tint(Color.white);
-			buyButton.able = true;
 		}
 	}
 
@@ -130,8 +127,9 @@ public class CBKBuildingCard : MonoBehaviour {
 		}
 	}
 
-	void BuyBuilding()
+	public void BuyBuilding()
 	{
-		MSBuildingManager.instance.BuyBuilding(building.structInfo);
+		MSBuildingManager.instance.MakeHoverBuilding(building);
+		MSActionManager.Popup.CloseAllPopups();
 	}
 }

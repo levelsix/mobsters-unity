@@ -136,7 +136,12 @@ public class CBKTaskBar : MonoBehaviour {
 	void SetBuildingButtons(MSBuilding building)
 	{
 		currBuilding = building;
-		
+
+		if (currBuilding == MSBuildingManager.instance.hoveringToBuild)
+		{
+			return;
+		}
+
 		if (currBuilding.locallyOwned)
 		{
 			if (!currBuilding.userStructProto.isComplete)
@@ -147,7 +152,7 @@ public class CBKTaskBar : MonoBehaviour {
 			{
 				AddButton(CBKTaskButton.Mode.UPGRADE);
 			}
-			AddButton(CBKTaskButton.Mode.SELL);
+			//AddButton(CBKTaskButton.Mode.SELL);
 		}
 		else if (currBuilding.obstacle != null)
 		{

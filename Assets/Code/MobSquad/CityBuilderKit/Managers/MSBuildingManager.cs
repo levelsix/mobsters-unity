@@ -28,6 +28,8 @@ public class MSBuildingManager : MonoBehaviour
     public MSBuilding buildingPrefab;
 
 	public MSBuilding currentUnderConstruction;
+
+	public MSBuilding hoveringToBuild;
 	
 	/// <summary>
 	/// The scene's camera, which this needs to pass
@@ -363,19 +365,21 @@ public class MSBuildingManager : MonoBehaviour
 		MSMonsterManager.instance.totalResidenceSlots = GetMonsterSlotCount();
 	}
 	
-	MSBuilding MakeBuildingAt (StructureInfoProto proto, int id, int x, int y)
+	MSBuilding MakeBuildingAt (CBKCombinedBuildingProto proto, int x, int y)
 	{
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * x, 0, 
     		MSGridManager.instance.spaceSize * y);
     	
+		//MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as MSBuilding;
 	    MSBuilding building = Instantiate(buildingPrefab, position, buildingParent.rotation) as MSBuilding;
     	
     	building.trans.parent = buildingParent;
+		//building.gameObj.layer = MSValues.Layers.DEFAULT;
     	building.Init(proto);
     	
-	    MSGridManager.instance.AddBuilding(building, x, y, proto.width, proto.height);
+	    //MSGridManager.instance.AddBuilding(building, x, y, proto.width, proto.height);
 	
-		buildings.Add(id, building);
+		//buildings.Add(id, building);
 		
     	return building;
 	}
@@ -435,40 +439,49 @@ public class MSBuildingManager : MonoBehaviour
 		
     	return building;
 	}
-	
-	public bool BuyBuilding(StructureInfoProto proto)
+
+	public void MakeHoverBuilding(CBKCombinedBuildingProto proto)
 	{
-		ResourceType costType = proto.buildResourceType;
-		if (MSResourceManager.instance.Spend(costType, proto.buildCost, delegate {BuyBuilding(proto);}))
+		if (hoveringToBuild != null && hoveringToBuild.userStructProto.purchaseTime == 0)
+		{
+			hoveringToBuild.Pool();
+		}
+
+		CBKGridNode coords = MSGridManager.instance.ScreenToPoint(new Vector3(Screen.width/2, Screen.height/2));
+		coords = FindSpaceInRange(proto.structInfo, coords, 0);
+
+		MSBuilding building = MakeBuildingAt(proto, (int)coords.pos.x, (int)coords.pos.y);
+
+		SelectBuildingToBuild(building);
+
+		hoveringToBuild = building;
+	}
+	
+	public void BuyBuilding(MSBuilding building)
+	{
+		ResourceType costType = building.combinedProto.structInfo.buildResourceType;
+		if (MSResourceManager.instance.Spend(costType, building.combinedProto.structInfo.buildCost, delegate {BuyBuilding(building);}))
 		{
 			PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
 			request.sender = MSWhiteboard.localMup;
-			
-			CBKGridNode coords = MSGridManager.instance.ScreenToPoint(new Vector3(Screen.width/2, Screen.height/2));
-			coords = FindSpaceInRange(proto, coords, 0);
-			
+
 			request.structCoordinates = new CoordinateProto();
-			request.structCoordinates.x = coords.pos.x;
-			request.structCoordinates.y = coords.pos.y;
+			request.structCoordinates.x = building.groundPos.x;
+			request.structCoordinates.y = building.groundPos.y;
 			
-			request.structId = proto.structId;
+			request.structId = building.combinedProto.structInfo.structId;
 			request.timeOfPurchase = MSUtil.timeNowMillis;
 
 			request.gemsSpent = 0;
-			request.resourceChange = -proto.buildCost;
+			request.resourceChange = -building.combinedProto.structInfo.buildCost;
 
-			request.resourceType = proto.buildResourceType;
-			
-			MSWhiteboard.tempStructureProto = proto;
-			MSWhiteboard.tempStructurePos = coords;
+			request.resourceType = building.combinedProto.structInfo.buildResourceType;
 			
 			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_NORM_STRUCTURE_EVENT, PurchaseBuildingResponse);
 
 			MSActionManager.Popup.CloseAllPopups();
 
-			return true;
 		}
-		return false;
 	}
 	
 	private void PurchaseBuildingResponse(int tagNum)
@@ -476,46 +489,18 @@ public class MSBuildingManager : MonoBehaviour
 		PurchaseNormStructureResponseProto response = UMQNetworkManager.responseDict[tagNum] as PurchaseNormStructureResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		StructureInfoProto proto = MSWhiteboard.tempStructureProto;
-		
 		if (response.status == PurchaseNormStructureResponseProto.PurchaseNormStructureStatus.SUCCESS)
 		{
-	        MSBuilding building = MakeBuildingAt(proto, response.userStructId,
-				(int)MSWhiteboard.tempStructurePos.pos.x, (int)MSWhiteboard.tempStructurePos.pos.y);
-			
-			building.userStructProto.userStructId = response.userStructId;
+			hoveringToBuild.id = response.userStructId;
+
+			buildings.Add(hoveringToBuild.id, hoveringToBuild);
+
+			hoveringToBuild = null;
 		}
 		else
 		{
 			Debug.LogError("Problem building building: " + response.status.ToString());
 		}
-	}
-	
-	/// <summary>
-	/// Makes a building, adding it to the closest place near the center of the current screen possible
-	/// </summary>
-	/// <returns>
-	/// The created building
-	/// </returns>
-	/// <param name='proto'>
-	/// The prefab for the building to be made
-	/// </param>
-	private MSBuilding MakeBuildingCenter(StructureInfoProto proto)
-	{
-		CBKGridNode coords = MSGridManager.instance.ScreenToPoint(new Vector3(Screen.width/2, Screen.height/2));
-		coords = FindSpaceInRange(proto, coords, 0);
-		
-		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * coords.x, 0, 
-			MSGridManager.instance.spaceSize * coords.z);
-		
-		MSBuilding building = Instantiate(buildingPrefab, position, buildingParent.rotation) as MSBuilding;
-		
-		building.trans.parent = buildingParent;
-		building.Init(proto);
-		building.upgrade.StartConstruction();
-        MSGridManager.instance.AddBuilding(building, (int)coords.x, (int)coords.z, proto.width, proto.height);
-
-        return building;
 	}
 	
 	#endregion
@@ -634,12 +619,19 @@ public class MSBuildingManager : MonoBehaviour
 	/// </param>
 	public MSBuilding SelectBuildingFromScreen(Vector2 point)
 	{
+
 		Collider coll = SelectSomethingFromScreen(point);
-		if (coll != null)
+		if (coll != null && (hoveringToBuild != null || coll.GetComponent<MSBuilding>() == hoveringToBuild))
 		{
 			return coll.GetComponent<MSBuilding>();
 		}
 		return null;
+	}
+
+	public void SelectBuildingToBuild(MSBuilding building)
+	{
+		SetSelectedBuilding(building);
+		hoveringToBuild = building;
 	}
 	
 	/// <summary>
@@ -658,7 +650,7 @@ public class MSBuildingManager : MonoBehaviour
 			_target = null;
 		}
 	}
-	
+
 	private void SetSelectedBuilding(MSBuilding building)
 	{
 		if (_selected != null)
@@ -768,7 +760,7 @@ public class MSBuildingManager : MonoBehaviour
 		List<MSBuilding> storages = new List<MSBuilding>();
 		foreach (var item in buildings.Values) 
 		{
-			if (item.combinedProto.storage != null && item.combinedProto.storage.structInfo.structId > 0
+			if (item.combinedProto != null && item.combinedProto.storage != null && item.combinedProto.storage.structInfo.structId > 0
 			    && item.combinedProto.storage.resourceType == resource)
 			{
 				storages.Add(item);
@@ -871,27 +863,19 @@ public class MSBuildingManager : MonoBehaviour
 	/// </summary>
 	public void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
-		{
-			if (MSActionManager.Town.PlaceBuilding != null)
-			{
-				MSActionManager.Town.PlaceBuilding();
-			}
-		}
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			MSGridManager.instance.DebugPrintGrid();	
-		}
-		if (Input.GetKeyDown(KeyCode.G))
-		{
-			//MakeBuildingCenter(CBKBuildingList.instance.sevenEleven);	
-			BuyBuilding((MSDataManager.instance.Get(typeof(CBKCombinedBuildingProto), 20) as CBKCombinedBuildingProto).structInfo);
-		}
 	}
 #endif
 	
 	#endregion
-	
+
+	public void OnCity()
+	{
+		if (hoveringToBuild != null)
+		{
+			hoveringToBuild.Pool();
+		}
+	}
+
 	#region Control Delegates
 	
 	/// <summary>
@@ -903,6 +887,11 @@ public class MSBuildingManager : MonoBehaviour
 	/// </param>
 	public void OnTap(TCKTouchData touch)
 	{        
+		if (hoveringToBuild != null)
+		{
+			return;
+		}
+
 		Collider hit = SelectSomethingFromScreen(touch.pos);
 		if (hit != null){
 			MSBuilding building = hit.GetComponent<MSBuilding>();

@@ -13,6 +13,18 @@ public class MSObstacle : MonoBehaviour {
 
 	long endTime = 0;
 
+	public long millisLeft
+	{
+		get
+		{
+			if (endTime == 0)
+			{
+				return 0;
+			}
+			return endTime - MSUtil.timeNowMillis;
+		}
+	}
+
 	public int secsLeft
 	{
 		get
@@ -21,7 +33,7 @@ public class MSObstacle : MonoBehaviour {
 			{
 				return 0;
 			}
-			return (int)((endTime - MSUtil.timeNowMillis) / 1000);
+			return (int)(millisLeft / 1000);
 		}
 	}
 
@@ -42,6 +54,24 @@ public class MSObstacle : MonoBehaviour {
 
 	public void StartRemove()
 	{
+		if (MSBuildingManager.instance.currentUnderConstruction != null)
+		{
+			MSActionManager.Popup.CreateButtonPopup("Your builder is busy! Speed him up for " + 
+			                                        CBKMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
+			                                        + "gems and remove this obstacle?",
+			                                        new string[]{"Cancel", "Speed Up"},
+			new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
+				delegate
+				{
+					MSActionManager.Popup.CloseTopPopupLayer();
+					MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
+					StartRemove();
+				}
+			}
+			);
+			return;
+		}
+
 		endTime = MSUtil.timeNowMillis + obstacle.secondsToRemove * 1000;
 		Debug.Log("Start remove");
 		StartCoroutine(Check ());
@@ -69,6 +99,7 @@ public class MSObstacle : MonoBehaviour {
 
 	IEnumerator Check()
 	{
+		MSBuildingManager.instance.currentUnderConstruction = GetComponent<MSBuilding>();
 		while (true)
 		{
 			if (MSUtil.timeNowMillis > endTime)
@@ -96,7 +127,8 @@ public class MSObstacle : MonoBehaviour {
 		request.atMaxObstacles = (MSWhiteboard.constants.maxObstacles == MSBuildingManager.instance.obstacles.Count);
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_OBSTACLE_REMOVAL_COMPLETE_EVENT, DealWithFinishRemovalResponse);
-		
+
+		MSBuildingManager.instance.currentUnderConstruction = null;
 		MSBuilding building = GetComponent<MSBuilding>();
 		if (building.selected)
 		{

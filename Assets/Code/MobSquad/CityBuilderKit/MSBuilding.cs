@@ -208,6 +208,25 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 	TweenPosition arrowScaleTween;
 
 	public bool locallyOwned = true;
+
+	[SerializeField]
+	GameObject confirmationButtons;
+
+	long constructionTimeLeft
+	{
+		get
+		{
+			if (obstacle != null)
+			{
+				return obstacle.secsLeft;
+			}
+			if (upgrade != null)
+			{
+				return upgrade.timeRemaining;
+			}
+			return 0;
+		}
+	}
 	
     #endregion
 
@@ -278,8 +297,9 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		userStructProto = proto;
 
 		id = proto.userStructId;
-		
+
 		Setup();
+
 	}
 
 	public void Init(UserObstacleProto proto)
@@ -304,20 +324,15 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 	/// <param name='structProto'>
 	/// Struct proto to initialize from.
 	/// </param>
-	public void Init(StructureInfoProto proto)
+	public void Init(CBKCombinedBuildingProto proto)
 	{
-		combinedProto = MSDataManager.instance.Get(typeof(CBKCombinedBuildingProto), proto.structId) as CBKCombinedBuildingProto;
+		combinedProto = proto;
 		
 		userStructProto = new FullUserStructureProto();
 
-		long now = MSUtil.timeNowMillis;
-		userStructProto.lastRetrieved = now;
-		userStructProto.purchaseTime = now;
-		userStructProto.isComplete = false;
-		userStructProto.structId = combinedProto.structInfo.structId;
-		userStructProto.userId = MSWhiteboard.localMup.userId;
-		
 		Setup ();
+
+		confirmationButtons.SetActive(true);
 	}
 	
 	public void Init(CityElementProto proto)
@@ -362,14 +377,6 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		locallyOwned = false;
 
 		sprite.transform.localPosition = Vector3.zero;
-		if (width > length)
-		{
-			//sprite.transform.localPosition = new Vector3(sprite.GetAtlasSprite().width/200f, 0, -sprite.GetAtlasSprite().width/200f);
-		}
-		else if (width < length)
-		{
-			//sprite.transform.localPosition = new Vector3(-sprite.GetAtlasSprite().width/200f, 0, sprite.GetAtlasSprite().width/200f);
-		}
 
 		if (proto.type == CityElementProto.CityElemType.BUILDING)
 		{
@@ -389,20 +396,14 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 	
 	void Setup ()
 	{
-
-		hoverIcon.transform.localPosition = new Vector3(0, FLOAT_ICON_HOME_HEIGHT);
-
+		confirmationButtons.SetActive(false);
 		locked = false;
-
-
-		//shadow.transform.localPosition = SHADOW_POS;
-
+		
 		hoverIcon.gameObject.SetActive(false);
 		sprite.color = Color.white;
 
-		//trans.localScale = new Vector3(HOME_BUILDING_SCALE, HOME_BUILDING_SCALE, HOME_BUILDING_SCALE);
+		hoverIcon.transform.localPosition = new Vector3(0, FLOAT_ICON_HOME_HEIGHT);
 
-		//name = structProto.name;
 		_box.enabled = true;
 		shadow.gameObject.SetActive(true);
 
@@ -442,6 +443,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		{
 			upgrade = gameObj.AddComponent<CBKBuildingUpgrade>();
 			upgrade.Init(combinedProto.structInfo, userStructProto);
+
 			switch (combinedProto.structInfo.structType) 
 			{
 			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
@@ -456,15 +458,10 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 			}
 		}
 
-		//float hypot = Mathf.Max(width, length) * CBKGridManager.instance.gridSpaceHypotenuse / 2;
-
-		//sprite.transform.localPosition = new Vector3(-hypot, 0, -hypot);
 		sprite.transform.localPosition += new Vector3(-2.8f, 1.63f, -2.8f);
 		shadow.transform.localPosition = new Vector3(-2.8f, 1.63f, -2.8f);
 
 		_box.center = Vector3.zero;
-
-		//Add and init the component for whatever struct type this building is. Unless it's a decoration. Then it does nothing.
 
 	}
 	
@@ -623,6 +620,28 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		MSActionManager.Town.PlaceBuilding -= Place;
 		Deselect();
     }
+
+	public void Confirm()
+	{
+		MSBuildingManager.instance.BuyBuilding(this);
+
+		long now = MSUtil.timeNowMillis;
+		userStructProto.lastRetrieved = now;
+		userStructProto.purchaseTime = now;
+		userStructProto.isComplete = false;
+		userStructProto.structId = combinedProto.structInfo.structId;
+		userStructProto.userId = MSWhiteboard.localMup.userId;
+
+		upgrade.StartConstruction();
+
+		MSBuildingManager.instance.FullDeselect();
+	}
+
+	public void Cancel()
+	{
+		Pool();
+		MSBuildingManager.instance.hoveringToBuild = null;
+	}
 	
 	void SendBuildingMovedRequest()
 	{
@@ -698,6 +717,18 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 	#endregion
 	
 	#region Utility
+
+	public void CompleteWithGems()
+	{
+		if (upgrade != null && upgrade.timeRemaining > 0)
+		{
+			upgrade.FinishWithPremium();
+		}
+		else if (obstacle != null && obstacle.millisLeft > 0)
+		{
+			obstacle.FinishWithGems();
+		}
+	}
 
 	public void SetLocked()
 	{
@@ -792,7 +823,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		}
 		*/
 	}
-	
+
 	#endregion
 	
 	#region Poolable Functions
@@ -827,6 +858,10 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		if (!selected)
 		{
 			MSGridManager.instance.RemoveBuilding(this);
+		}
+		else
+		{
+			MSBuildingManager.instance.FullDeselect();
 		}
 
 		if (obstacle != null)

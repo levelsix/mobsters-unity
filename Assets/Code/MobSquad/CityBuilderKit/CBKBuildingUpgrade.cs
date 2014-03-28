@@ -95,7 +95,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	
 	public void Init(StructureInfoProto sProto, FullUserStructureProto uProto)
     {
-		if (!uProto.isComplete)
+		if (!uProto.isComplete && uProto.purchaseTime > 0)
 		{
 			Debug.Log("Building " + uProto.userStructId + " isn't finished; checking upgrade");
 			building.SetupConstructionSprite();
@@ -196,6 +196,7 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public IEnumerator CheckUpgrade()
 	{
+		MSBuildingManager.instance.currentUnderConstruction = building;
 		yield return null;
 		while (!building.userStructProto.isComplete)
 		{
@@ -280,6 +281,8 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public virtual void FinishUpgrade()
 	{
+		MSBuildingManager.instance.currentUnderConstruction = null;
+
 		building.userStructProto.isComplete = true;
 		
 		building.SetupSprite(building.combinedProto.structInfo.imgName);

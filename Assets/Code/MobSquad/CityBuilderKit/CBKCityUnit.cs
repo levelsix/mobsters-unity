@@ -128,6 +128,11 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 	{
 		while (path == null || path.Count == 0)
 		{
+			if (target == null || !MSGridManager.instance.IsWalkable(target.pos))
+			{
+				target = new CBKGridNode(1,1);
+				trans.localPosition = Vector3.zero;
+			}
 			path = PlanPath(target, ChooseTarget());
 		}
 		SetTarget(path.Pop());
@@ -248,19 +253,6 @@ public class CBKCityUnit : MonoBehaviour, CBKISelectable {
 			
 			open.Sort();
 		}
-		string str = "Null path: " + start.pos + " to " + end.pos;
-		str += "\nOpen: ";
-		foreach (var item in open)
-		{
-			str += item.pos + ", ";
-		}
-		str += "\nClosed: ";
-		foreach (var item in closed)
-		{
-			str += item.Key + ", ";
-		}
-		
-		Debug.LogError(str);
 		return null;
 		
 	}

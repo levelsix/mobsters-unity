@@ -37,7 +37,7 @@ public class MSPvpUI : MonoBehaviour {
 
 		oil.text = defender.prospectiveOilWinnings.ToString();
 
-		rankings.text = defender.curElo + ". " + defender.defender.minUserProto.name;
+		rankings.text = defender.pvpLeagueStats.elo + ". " + defender.defender.minUserProto.name;
 
 		rematchCost.text = "$" + PZCombatManager.MATCH_MONEY + "\nNext Match";
 		

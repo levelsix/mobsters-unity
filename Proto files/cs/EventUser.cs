@@ -158,6 +158,15 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
+
+    private int _nextLevel = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"nextLevel", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int nextLevel
+    {
+      get { return _nextLevel; }
+      set { _nextLevel = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -193,14 +202,8 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
       SUCCESS = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NOT_ENOUGH_EXP_TO_NEXT_LEVEL", Value=2)]
-      NOT_ENOUGH_EXP_TO_NEXT_LEVEL = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"ALREADY_AT_MAX_LEVEL", Value=3)]
-      ALREADY_AT_MAX_LEVEL = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"OTHER_FAIL", Value=4)]
-      OTHER_FAIL = 4
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
     }
   
     private global::ProtoBuf.IExtension extensionObject;

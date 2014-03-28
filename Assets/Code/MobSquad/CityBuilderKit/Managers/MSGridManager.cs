@@ -144,19 +144,16 @@ public class MSGridManager : MonoBehaviour {
 				walkableSpaces.Add(space);
 			}
 		}
-		/*
-		CBKWalkableSpace space;
-		for (int i = 0; i < roadLines.Count; i++) {
-			for (int j = 0; j < gridSize; j++) {
-				space = new CBKWalkableSpace (new Vector2 (roadLines [i], j));
-				_grid [roadLines [i], j] = space;
-				walkableSpaces.Add (space);
-				space = new CBKWalkableSpace (new Vector2 (j, roadLines [i]));
-				_grid [j, roadLines [i]] = space;
-				walkableSpaces.Add (space);
+
+		MSRoadSpace road = new MSRoadSpace();
+		for (int i = 0; i < roadLines.Count; i++) 
+		{
+			for (int j = 0; j < gridSize; j++) 
+			{
+				_grid [roadLines [i], j] = road;
+				_grid [j, roadLines [i]] = road;
 			}
 		}
-		*/
 	}
 
 	public void InitMission (string maptmx)

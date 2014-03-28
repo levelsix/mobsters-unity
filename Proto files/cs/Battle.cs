@@ -72,15 +72,6 @@ namespace com.lvl6.proto
       get { return _defender; }
       set { _defender = value; }
     }
-
-    private int _curElo = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"curElo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int curElo
-    {
-      get { return _curElo; }
-      set { _curElo = value; }
-    }
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto> _defenderMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto>();
     [global::ProtoBuf.ProtoMember(3, Name=@"defenderMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto> defenderMonsters
@@ -105,6 +96,15 @@ namespace com.lvl6.proto
     {
       get { return _prospectiveOilWinnings; }
       set { _prospectiveOilWinnings = value; }
+    }
+
+    private com.lvl6.proto.UserPvpLeagueProto _pvpLeagueStats = null;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"pvpLeagueStats", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserPvpLeagueProto pvpLeagueStats
+    {
+      get { return _pvpLeagueStats; }
+      set { _pvpLeagueStats = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -194,6 +194,161 @@ namespace com.lvl6.proto
     {
       get { return _prospectiveOilWinnings; }
       set { _prospectiveOilWinnings = value; }
+    }
+
+    private com.lvl6.proto.UserPvpLeagueProto _attackerBefore = null;
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"attackerBefore", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserPvpLeagueProto attackerBefore
+    {
+      get { return _attackerBefore; }
+      set { _attackerBefore = value; }
+    }
+
+    private com.lvl6.proto.UserPvpLeagueProto _attackerAfter = null;
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"attackerAfter", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserPvpLeagueProto attackerAfter
+    {
+      get { return _attackerAfter; }
+      set { _attackerAfter = value; }
+    }
+
+    private com.lvl6.proto.UserPvpLeagueProto _defenderBefore = null;
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"defenderBefore", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserPvpLeagueProto defenderBefore
+    {
+      get { return _defenderBefore; }
+      set { _defenderBefore = value; }
+    }
+
+    private com.lvl6.proto.UserPvpLeagueProto _defenderAfter = null;
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"defenderAfter", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserPvpLeagueProto defenderAfter
+    {
+      get { return _defenderAfter; }
+      set { _defenderAfter = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PvpLeagueProto")]
+  public partial class PvpLeagueProto : global::ProtoBuf.IExtensible
+  {
+    public PvpLeagueProto() {}
+    
+
+    private int _leagueId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"leagueId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int leagueId
+    {
+      get { return _leagueId; }
+      set { _leagueId = value; }
+    }
+
+    private string _leagueName = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"leagueName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string leagueName
+    {
+      get { return _leagueName; }
+      set { _leagueName = value; }
+    }
+
+    private string _imgPrefix = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"imgPrefix", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string imgPrefix
+    {
+      get { return _imgPrefix; }
+      set { _imgPrefix = value; }
+    }
+
+    private int _numRanks = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"numRanks", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numRanks
+    {
+      get { return _numRanks; }
+      set { _numRanks = value; }
+    }
+
+    private string _description = "";
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"description", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string description
+    {
+      get { return _description; }
+      set { _description = value; }
+    }
+
+    private int _minElo = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"minElo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int minElo
+    {
+      get { return _minElo; }
+      set { _minElo = value; }
+    }
+
+    private int _maxElo = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"maxElo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxElo
+    {
+      get { return _maxElo; }
+      set { _maxElo = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserPvpLeagueProto")]
+  public partial class UserPvpLeagueProto : global::ProtoBuf.IExtensible
+  {
+    public UserPvpLeagueProto() {}
+    
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+
+    private int _leagueId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"leagueId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int leagueId
+    {
+      get { return _leagueId; }
+      set { _leagueId = value; }
+    }
+
+    private int _rank = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"rank", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int rank
+    {
+      get { return _rank; }
+      set { _rank = value; }
+    }
+
+    private int _elo = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"elo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int elo
+    {
+      get { return _elo; }
+      set { _elo = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
