@@ -74,7 +74,8 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_AWARD_CLAN_RAID_STAGE_REWARD_EVENT, typeof(AwardClanRaidStageRewardResponseProto)},
 		{EventProtocolResponse.S_RECORD_CLAN_RAID_STATS_EVENT, typeof(RecordClanRaidStatsResponseProto)},
 		{EventProtocolResponse.S_BEGIN_OBSTACLE_REMOVAL_EVENT, typeof(BeginObstacleRemovalResponseProto)},
-		{EventProtocolResponse.S_OBSTACLE_REMOVAL_COMPLETE_EVENT, typeof(ObstacleRemovalCompleteResponseProto)}
+		{EventProtocolResponse.S_OBSTACLE_REMOVAL_COMPLETE_EVENT, typeof(ObstacleRemovalCompleteResponseProto)},
+		{EventProtocolResponse.S_SPAWN_OBSTACLE_EVENT, typeof(SpawnObstacleResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

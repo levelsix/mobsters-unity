@@ -194,11 +194,11 @@ public class MSGridManager : MonoBehaviour {
     /// <param name="x">X position to check the grid at</param>
     /// <param name="y">Y position to check the grid at</param>
     /// <returns>Whether the grid has space for this building at the given space</returns>
-	public bool HasSpaceForBuilding(StructureInfoProto proto, int x, int y)
+	public bool HasSpaceForBuilding(int width, int height, int x, int y)
     {
-        for (int i = 0; i < proto.width; i++)
+        for (int i = 0; i < width; i++)
         {
-            for (int j = 0; j < proto.height; j++)
+            for (int j = 0; j < height; j++)
             {
 				if (!OnGrid(x+i, y+j))
 				{
@@ -212,6 +212,11 @@ public class MSGridManager : MonoBehaviour {
         }
         return true;
     }
+
+	public bool HasSpaceForBuilding(StructureInfoProto proto, CBKGridNode coords)
+	{
+		return HasSpaceForBuilding(proto.width, proto.height, coords);
+	}
 	
 	/// <summary>
     /// Checks if there is room on the ground for the given building prefab to be inserted
@@ -220,9 +225,9 @@ public class MSGridManager : MonoBehaviour {
     /// <param name="proto">Building to use for checking for space</param>
     /// <param name="coords">Position to check the grid at</param>
     /// <returns>Whether the grid has space for this building at the given space</returns>
-	public bool HasSpaceForBuilding(StructureInfoProto proto, CBKGridNode coords)
+	public bool HasSpaceForBuilding(int width, int height, CBKGridNode coords)
 	{
-		return HasSpaceForBuilding (proto, coords.x, coords.z);	
+		return HasSpaceForBuilding (width, height, coords.x, coords.z);	
 	}
 	
 	/// <summary>

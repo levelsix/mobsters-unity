@@ -131,9 +131,7 @@ public class UMQLoader : MonoBehaviour {
 			MSWhiteboard.loadedPlayerCity = UMQNetworkManager.responseDict[tagNum] as LoadPlayerCityResponseProto;
 			UMQNetworkManager.responseDict.Remove(tagNum);
 
-			MSBuildingManager.instance.LoadPlayerCity();
-
-			MSActionManager.Scene.OnCity();
+			StartCoroutine(MSBuildingManager.instance.LoadPlayerCity());
 		}
 
 	}

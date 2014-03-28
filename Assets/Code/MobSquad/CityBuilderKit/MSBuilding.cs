@@ -337,6 +337,8 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 	
 	public void Init(CityElementProto proto)
 	{
+		confirmationButtons.SetActive(false);
+
 		hoverIcon.transform.localPosition = new Vector3(0, FLOAT_ICON_MISSION_HEIGHT);
 
 		groundPos = new Vector2(proto.coords.x, proto.coords.y);
@@ -623,18 +625,37 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 
 	public void Confirm()
 	{
-		MSBuildingManager.instance.BuyBuilding(this);
+		if(MSBuildingManager.instance.currentUnderConstruction != null)
+		{
+			MSActionManager.Popup.CreateButtonPopup("Your builder is busy! Speed him up for " + 
+			                                        CBKMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
+			                                        + "gems and build this structure?",
+			                                        new string[]{"Cancel", "Speed Up"},
+			new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
+				delegate
+				{
+					MSActionManager.Popup.CloseTopPopupLayer();
+					MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
+					Confirm();
+				}
+			}
+			);
+			return;
+		}
 
-		long now = MSUtil.timeNowMillis;
-		userStructProto.lastRetrieved = now;
-		userStructProto.purchaseTime = now;
-		userStructProto.isComplete = false;
-		userStructProto.structId = combinedProto.structInfo.structId;
-		userStructProto.userId = MSWhiteboard.localMup.userId;
+		if (MSBuildingManager.instance.BuyBuilding(this, Confirm))
+		{
+			long now = MSUtil.timeNowMillis;
+			userStructProto.lastRetrieved = now;
+			userStructProto.purchaseTime = now;
+			userStructProto.isComplete = false;
+			userStructProto.structId = combinedProto.structInfo.structId;
+			userStructProto.userId = MSWhiteboard.localMup.userId;
 
-		upgrade.StartConstruction();
+			upgrade.StartConstruction();
 
-		MSBuildingManager.instance.FullDeselect();
+			MSBuildingManager.instance.FullDeselect();
+		}
 	}
 
 	public void Cancel()

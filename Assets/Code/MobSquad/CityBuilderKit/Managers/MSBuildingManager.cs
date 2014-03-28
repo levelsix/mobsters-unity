@@ -183,7 +183,7 @@ public class MSBuildingManager : MonoBehaviour
 		//Debug.Log("Sending city request");
 		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER)
 		{
-			LoadPlayerCity();
+			StartCoroutine(LoadPlayerCity());
 			//LoadPlayerCityRequestProto load = new LoadPlayerCityRequestProto();
 			//load.sender = CBKWhiteboard.localMup;
 			//load.cityOwnerId = CBKWhiteboard.cityID;
@@ -240,25 +240,88 @@ public class MSBuildingManager : MonoBehaviour
 		SyncTasks (cityId);
 
 	}
-	
-	public void LoadPlayerCity()
+
+	public IEnumerator LoadPlayerCity()
 	{
-		Debug.LogWarning("Load Player City");
+		LoadPlayerCityRequestProto request = new LoadPlayerCityRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.cityOwnerId = MSWhiteboard.localMup.userId;
+
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LOAD_PLAYER_CITY_EVENT, null);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		LoadPlayerCityResponseProto response = UMQNetworkManager.responseDict[tagNum] as LoadPlayerCityResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != LoadPlayerCityResponseProto.LoadPlayerCityStatus.SUCCESS)
+		{
+			Debug.LogError("Problem loading player city: " + response.status.ToString());
+			yield break;
+		}
 		
+		BuildPlayerCity (response);
+
+		if (response.obstacles.Count < MSWhiteboard.constants.maxObstacles 
+		    && MSUtil.timeNowMillis - MSWhiteboard.localUser.lastObstacleSpawnedTime > MSWhiteboard.constants.minutesPerObstacle * 60000)
+		{
+			SpawnObstacleRequestProto obstacleRequest = new SpawnObstacleRequestProto();
+			obstacleRequest.sender = MSWhiteboard.localMup;
+			IDictionary obstacles = MSDataManager.instance.GetAll<ObstacleProto>();
+
+			int numObstacles = (int)((MSUtil.timeNowMillis-MSWhiteboard.localUser.lastObstacleSpawnedTime) / (MSWhiteboard.constants.minutesPerObstacle*60000));
+			numObstacles = Math.Min (MSWhiteboard.constants.maxObstacles - response.obstacles.Count, numObstacles);
+
+			for (int i = 0; i < numObstacles; i++)
+			{
+				MinimumObstacleProto obstacle = new MinimumObstacleProto();
+
+				CBKGridNode point = FindSpaceInRange(2,2, new CBKGridNode(UnityEngine.Random.Range (0,MSGridManager.instance.gridSize), UnityEngine.Random.Range (0,MSGridManager.instance.gridSize)));
+
+				CoordinateProto coords = new CoordinateProto();
+				coords.x = point.x;
+				coords.y = point.z;
+				obstacle.coordinate = coords;
+
+				obstacle.obstacleId = (obstacles[UnityEngine.Random.Range(1,obstacles.Count+1)] as ObstacleProto).obstacleId;
+
+				obstacle.orientation = UnityEngine.Random.value > .5f ? StructOrientation.POSITION_1 : StructOrientation.POSITION_2;
+
+				obstacleRequest.prospectiveObstacles.Add(obstacle);
+				                                                                                                                     
+			}
+			obstacleRequest.curTime = MSUtil.timeNowMillis;
+
+			tagNum = UMQNetworkManager.instance.SendRequest(obstacleRequest, (int)EventProtocolRequest.C_SPAWN_OBSTACLE_EVENT, null);
+
+			while (!UMQNetworkManager.responseDict.ContainsKey (tagNum))
+			{
+				yield return null;
+			}
+
+			SpawnObstacleResponseProto obstacleResponse = UMQNetworkManager.responseDict[tagNum] as SpawnObstacleResponseProto;
+			UMQNetworkManager.responseDict.Remove(tagNum);
+
+			if (obstacleResponse.status == SpawnObstacleResponseProto.SpawnObstacleStatus.SUCCESS)
+			{
+				foreach (var item in obstacleResponse.spawnedObstacles) 
+				{
+					MakeObstacle(item);
+				}
+			}
+			else
+			{
+				Debug.LogError("Problem spawning new obstacles: " + obstacleResponse.status.ToString());
+			}
+		}
+
 		if (MSActionManager.Scene.OnCity != null)
 		{
 			MSActionManager.Scene.OnCity();
 		}
-
-		//RecycleCity();
-		
-		//LoadPlayerCityResponseProto response = (LoadPlayerCityResponseProto) UMQNetworkManager.responseDict[tagNum];
-		//UMQNetworkManager.responseDict.Remove(tagNum);
-		
-		//Debug.Log("Loading city for player: " + response.cityOwner.name);
-		
-		BuildPlayerCity (MSWhiteboard.loadedPlayerCity);
-
 
 	}
 	
@@ -448,7 +511,7 @@ public class MSBuildingManager : MonoBehaviour
 		}
 
 		CBKGridNode coords = MSGridManager.instance.ScreenToPoint(new Vector3(Screen.width/2, Screen.height/2));
-		coords = FindSpaceInRange(proto.structInfo, coords, 0);
+		coords = FindSpaceInRange(proto.structInfo.width, proto.structInfo.height, coords);
 
 		MSBuilding building = MakeBuildingAt(proto, (int)coords.pos.x, (int)coords.pos.y);
 
@@ -457,10 +520,14 @@ public class MSBuildingManager : MonoBehaviour
 		hoveringToBuild = building;
 	}
 	
-	public void BuyBuilding(MSBuilding building)
+	public bool BuyBuilding(MSBuilding building, Action callback = null)
 	{
+		if (callback == null) 
+		{
+			callback = delegate {BuyBuilding(building);};
+		}
 		ResourceType costType = building.combinedProto.structInfo.buildResourceType;
-		if (MSResourceManager.instance.Spend(costType, building.combinedProto.structInfo.buildCost, delegate {BuyBuilding(building);}))
+		if (MSResourceManager.instance.Spend(costType, building.combinedProto.structInfo.buildCost, callback))
 		{
 			PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
 			request.sender = MSWhiteboard.localMup;
@@ -481,7 +548,9 @@ public class MSBuildingManager : MonoBehaviour
 
 			MSActionManager.Popup.CloseAllPopups();
 
+			return true;
 		}
+		return false;
 	}
 	
 	private void PurchaseBuildingResponse(int tagNum)
@@ -523,7 +592,7 @@ public class MSBuildingManager : MonoBehaviour
 	/// <param name='range'>
 	/// Range.
 	/// </param>
-	public CBKGridNode FindSpaceInRange(StructureInfoProto proto, CBKGridNode startPos, int range)
+	public CBKGridNode FindSpaceInRange(int width, int height, CBKGridNode startPos, int range = 0)
 	{
 		if (range > 36)
 		{
@@ -532,18 +601,18 @@ public class MSBuildingManager : MonoBehaviour
 		for (int i = 0; i <= range; i++) 
 		{
 			CBKGridNode space;
-			space = CheckSpaces(proto, startPos, range, i);
+			space = CheckSpaces(width, height, startPos, range, i);
 			if (space != null && space.x >= 0)
 			{
 				return space;
 			}
-			space = CheckSpaces(proto, startPos, i, range);
+			space = CheckSpaces(width, height, startPos, i, range);
 			if (space != null && space.x >= 0)
 			{
 				return space;
 			}
 		}
-		return FindSpaceInRange(proto, startPos, range+1);
+		return FindSpaceInRange(width, height, startPos, range+1);
 	}
 	
 	/// <summary>
@@ -564,22 +633,22 @@ public class MSBuildingManager : MonoBehaviour
 	/// <param name='y'>
 	/// Y derivation
 	/// </param>
-	public CBKGridNode CheckSpaces(StructureInfoProto proto, CBKGridNode basePos, int x, int y)
+	public CBKGridNode CheckSpaces(int width, int height, CBKGridNode basePos, int x, int y)
 	{
-		if (MSGridManager.instance.HasSpaceForBuilding(proto, basePos + new CBKGridNode(x,y)))
+		if (MSGridManager.instance.HasSpaceForBuilding(width, height, basePos + new CBKGridNode(x,y)))
 		{
 			return basePos+new CBKGridNode(x,y);	
 		}
 		if (x==0 || y==0) return new CBKGridNode(-1,-1);
-		if (MSGridManager.instance.HasSpaceForBuilding(proto, basePos + new CBKGridNode(-x,y)))
+		if (MSGridManager.instance.HasSpaceForBuilding(width, height, basePos + new CBKGridNode(-x,y)))
 		{
 			return basePos+new CBKGridNode(-x,y);	
 		}
-		if (MSGridManager.instance.HasSpaceForBuilding(proto, basePos + new CBKGridNode(x,-y)))
+		if (MSGridManager.instance.HasSpaceForBuilding(width, height, basePos + new CBKGridNode(x,-y)))
 		{
 			return basePos+new CBKGridNode(x,-y);	
 		}
-		if (MSGridManager.instance.HasSpaceForBuilding(proto, basePos + new CBKGridNode(-x,-y)))
+		if (MSGridManager.instance.HasSpaceForBuilding(width, height, basePos + new CBKGridNode(-x,-y)))
 		{
 			return basePos+new CBKGridNode(-x,-y);	
 		}
@@ -621,7 +690,7 @@ public class MSBuildingManager : MonoBehaviour
 	{
 
 		Collider coll = SelectSomethingFromScreen(point);
-		if (coll != null && (hoveringToBuild != null || coll.GetComponent<MSBuilding>() == hoveringToBuild))
+		if (coll != null && (hoveringToBuild == null || coll.GetComponent<MSBuilding>() == hoveringToBuild))
 		{
 			return coll.GetComponent<MSBuilding>();
 		}
