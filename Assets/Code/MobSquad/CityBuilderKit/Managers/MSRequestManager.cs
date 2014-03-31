@@ -12,7 +12,7 @@ public class MSRequestManager : MonoBehaviour {
 
 	public static MSRequestManager instance;
 
-	public static List<UserFacebookInviteForSlotProto> invitesForMe = new List<UserFacebookInviteForSlotProto>();
+	public List<UserFacebookInviteForSlotProto> invitesForMe = new List<UserFacebookInviteForSlotProto>();
 
 	AcceptAndRejectFbInviteForSlotsRequestProto _inviteResponseRequest;
 
@@ -37,6 +37,11 @@ public class MSRequestManager : MonoBehaviour {
 	public void Init(List<UserFacebookInviteForSlotProto> invitesToMe)
 	{
 		invitesForMe = invitesToMe;
+
+		if (MSActionManager.UI.OnRequestsAcceptOrReject != null)
+		{
+			MSActionManager.UI.OnRequestsAcceptOrReject();
+		}
 	}
 
 	public void AcceptOrRejectInvite(UserFacebookInviteForSlotProto invite, bool accepted)
@@ -48,6 +53,11 @@ public class MSRequestManager : MonoBehaviour {
 		else
 		{
 			RejectInvite(invite);
+		}
+
+		if (MSActionManager.UI.OnRequestsAcceptOrReject != null)
+		{
+			MSActionManager.UI.OnRequestsAcceptOrReject();
 		}
 	}
 

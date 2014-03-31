@@ -48,10 +48,7 @@ public class CBKFacebookRequestEntry : MonoBehaviour {
 
 	public void TryAccept()
 	{
-		if (accepted)
-		{
-			MSRequestManager.instance.AcceptInvite(invite);
-		}
+		MSRequestManager.instance.AcceptOrRejectInvite(invite, accepted);
 	}
 
 	#region FB Requests and Callbacks

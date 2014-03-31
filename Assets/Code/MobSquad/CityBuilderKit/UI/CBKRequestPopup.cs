@@ -27,16 +27,16 @@ public class CBKRequestPopup : MonoBehaviour {
 	{
 		//Debug.Log("Initting request popup...");
 
-		while (entries.Count < MSRequestManager.invitesForMe.Count)
+		while (entries.Count < MSRequestManager.instance.invitesForMe.Count)
 		{
 			AddEntry();
 		}
 
 		int i = 0;
-		for (; i < MSRequestManager.invitesForMe.Count; i++) 
+		for (; i < MSRequestManager.instance.invitesForMe.Count; i++) 
 		{
 			entries[i].gameObject.SetActive(true);
-			entries[i].Init(MSRequestManager.invitesForMe[i]);
+			entries[i].Init(MSRequestManager.instance.invitesForMe[i]);
 		}
 		for (; i < entries.Count; i++)  //Deactivate the rest of the entries that exist
 		{

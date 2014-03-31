@@ -265,6 +265,7 @@ public class PZCombatUnit : MonoBehaviour {
 				yield return null;
 			}
 		}
+		transform.localPosition += (x - transform.localPosition.x) * direction;
 		unit.animat = CBKUnit.AnimationType.IDLE;
 	}
 

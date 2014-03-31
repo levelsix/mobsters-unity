@@ -82,7 +82,9 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		get
 		{
-			return -(Screen.width * Screen.height / 640f / 2) + playerXFromSideThreshold;
+			float xPos = -(Screen.width * Mathf.Min(1,(640f / Screen.height)) / 2) + playerXFromSideThreshold;
+			Debug.LogWarning("Player X pos: " + xPos);
+			return xPos;
 		}
 	}
 
@@ -141,6 +143,8 @@ public class PZCombatManager : MonoBehaviour {
 	public float recoilDistance = 20;
 
 	public float recoilTime = .2f;
+
+	[SerializeField] float MELEE_ATTACK_DISTANCE = 60;
 
 	const float BLEED_ONCE_THRESH = 0.5f;
 	const float BLEED_CONT_THRESH = 0.3f;
@@ -949,14 +953,26 @@ public class PZCombatManager : MonoBehaviour {
 		float strength = Mathf.Min(1, score/MAKE_IT_RAIN_SCORE);
 
 		int shots = Mathf.RoundToInt(strength * MAX_SHOTS);
+		float shotTime = .1f;
+
+		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		{
+			shots = 1;
+			shotTime = .3f;
+		}
 
 		Vector3 enemyPos = activeEnemy.unit.transf.localPosition;
 
 		for (int i = 0; i < shots; i++) {
 
+			if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+			{
+				yield return StartCoroutine(activePlayer.AdvanceTo(activeEnemy.transform.localPosition.x - 30, -background.direction, background.scrollSpeed * 4));
+			}
+
 			activePlayer.unit.animat = CBKUnit.AnimationType.ATTACK;
 
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(shotTime);
 
 			activeEnemy.unit.animat = CBKUnit.AnimationType.FLINCH;
 
@@ -972,6 +988,11 @@ public class PZCombatManager : MonoBehaviour {
 
 			yield return new WaitForSeconds(recoilTime-.2f);
 
+			if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+			{
+				yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
+				activePlayer.unit.direction = MSValues.Direction.EAST;
+			}
 		}
 
 		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
@@ -1041,7 +1062,12 @@ public class PZCombatManager : MonoBehaviour {
 		//Enemy attack back if not dead
 		if (activeEnemy.monster.currHP > 0 && activeEnemy.monster.currHP < activeEnemy.monster.maxHP)
 		{
-			
+
+			if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+			{
+				yield return StartCoroutine(activeEnemy.AdvanceTo(activePlayer.transform.localPosition.x + MELEE_ATTACK_DISTANCE, -background.direction, background.scrollSpeed * 4));
+			}
+
 			activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
 			yield return new WaitForSeconds(.5f);
 
@@ -1050,7 +1076,13 @@ public class PZCombatManager : MonoBehaviour {
 			CheckBleed(activePlayer);
 
 			yield return new WaitForSeconds(.3f);
-			
+
+			if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+			{
+				yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 4));
+				activeEnemy.unit.direction = MSValues.Direction.WEST;
+			}
+
 			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
 		
 		}

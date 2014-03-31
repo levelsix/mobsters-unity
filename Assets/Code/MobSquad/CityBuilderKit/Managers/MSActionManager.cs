@@ -92,6 +92,8 @@ public static class MSActionManager
 		public static Action OnReorganizeHealQueue;
 
 		public static Action<ReceivedGroupChatResponseProto> OnGroupChatReceived;
+
+		public static Action OnRequestsAcceptOrReject;
 	}
 	
 	public static class Goon
