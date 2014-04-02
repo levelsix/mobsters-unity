@@ -54,6 +54,18 @@ public class CBKBuildingUpgrade : MonoBehaviour {
 			return MSUtil.TimeStringShort(timeRemaining);
 		}
 	}
+
+	public float progress
+	{
+		get
+		{
+			float remaining = (float)timeRemaining;
+			float total = building.combinedProto.structInfo.minutesToBuild * 60000f;
+			float prog = remaining / total;
+			//Debug.LogWarning("Remaining: " + remaining + ", Total: " + total + ", Progress: " + prog);
+			return 1f - prog;//(((float)(timeRemaining)) / (building.combinedProto.structInfo.minutesToBuild * 60000));
+		}
+	}
 	
     /// <summary>
     /// The building component.

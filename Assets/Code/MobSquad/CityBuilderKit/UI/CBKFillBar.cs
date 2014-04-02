@@ -10,21 +10,20 @@ public class CBKFillBar : MonoBehaviour {
 	
 	[SerializeField]
 	int minSize;
-	
+
+	[SerializeField]
+	float v;
+
 	public float fill
 	{
 		set
 		{
+			v = value;
 			if (bar == null)
 			{
 				bar = GetComponent<UISprite>();
 			}
 			bar.width = Mathf.Clamp((int)((maxSize - minSize) * value + minSize), minSize, maxSize);
 		}
-	}
-	
-	void Awake()
-	{
-		bar = GetComponent<UISprite>();
 	}
 }

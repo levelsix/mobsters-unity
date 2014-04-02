@@ -220,11 +220,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 			{
 				return obstacle.secsLeft;
 			}
-			if (upgrade != null)
-			{
-				return upgrade.timeRemaining;
-			}
-			return 0;
+			return upgrade.timeRemaining;
 		}
 	}
 	
@@ -280,6 +276,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
     /// </summary>
     void Awake()
     {
+		upgrade = GetComponent<CBKBuildingUpgrade>();
 		_box = GetComponent<BoxCollider>();
         trans = transform;
 		gameObj = gameObject;
@@ -443,7 +440,6 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 
 		if (locallyOwned && combinedProto != null)
 		{
-			upgrade = gameObj.AddComponent<CBKBuildingUpgrade>();
 			upgrade.Init(combinedProto.structInfo, userStructProto);
 
 			switch (combinedProto.structInfo.structType) 
@@ -860,11 +856,11 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 	{
 		hoverIcon.gameObject.SetActive(false);
 
-		if (upgrade != null)
-		{
-			Destroy (upgrade);
-			upgrade = null;
-		}
+		//if (upgrade != null)
+		//{
+		//	Destroy (upgrade);
+		//	upgrade = null;
+		//}
 		if (collector != null)
 		{
 			Destroy(collector);
