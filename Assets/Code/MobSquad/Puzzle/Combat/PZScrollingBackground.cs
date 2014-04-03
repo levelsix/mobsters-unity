@@ -7,17 +7,17 @@ public class PZScrollingBackground : MonoBehaviour {
 	public static PZScrollingBackground instance;
 
 	[SerializeField]
-	List<CBKSimplePoolable> backgrounds = new List<CBKSimplePoolable>();
+	List<MSSimplePoolable> backgrounds = new List<MSSimplePoolable>();
 
 	public SpriteRenderer[] sprites;
 
 	public Vector3 direction;
 	
 	[SerializeField]
-	CBKSimplePoolable topPrefab;
+	MSSimplePoolable topPrefab;
 	
 	[SerializeField]
-	CBKSimplePoolable bottomPrefab;
+	MSSimplePoolable bottomPrefab;
 	
 	bool wasLastTop = true;
 	
@@ -46,7 +46,7 @@ public class PZScrollingBackground : MonoBehaviour {
 		direction = (backgrounds[0].transf.localPosition - backgrounds[1].transf.localPosition).normalized;
 	}
 	
-	public void Scroll(CBKUnit withUnit)
+	public void Scroll(MSUnit withUnit)
 	{
 		withUnit.transf.localPosition += direction * scrollSpeed * Time.deltaTime;
 		Scroll(scrollSpeed);
@@ -77,7 +77,7 @@ public class PZScrollingBackground : MonoBehaviour {
 	
 	public void Scroll(float speed)
 	{
-		foreach (CBKSimplePoolable item in backgrounds) 
+		foreach (MSSimplePoolable item in backgrounds) 
 		{
 			item.transform.localPosition += direction * speed * Time.deltaTime;
 		}
@@ -89,14 +89,14 @@ public class PZScrollingBackground : MonoBehaviour {
 		if (backgrounds[backgrounds.Count-1].transf.localPosition.y < topThreshold)
 		{
 			//Make new background
-			CBKSimplePoolable back;
+			MSSimplePoolable back;
 			if (wasLastTop)
 			{
-				back = MSPoolManager.instance.Get(bottomPrefab, Vector3.zero) as CBKSimplePoolable;
+				back = MSPoolManager.instance.Get(bottomPrefab, Vector3.zero) as MSSimplePoolable;
 			}
 			else
 			{
-				back = MSPoolManager.instance.Get(topPrefab, Vector3.zero) as CBKSimplePoolable;
+				back = MSPoolManager.instance.Get(topPrefab, Vector3.zero) as MSSimplePoolable;
 			}
 			back.transform.parent = transform;
 			back.transform.localScale = Vector3.one;
@@ -108,7 +108,7 @@ public class PZScrollingBackground : MonoBehaviour {
 			sprites = GetComponentsInChildren<SpriteRenderer>(true);
 			SetAlpha(1);
 		}
-		CBKSimplePoolable first = backgrounds[0];
+		MSSimplePoolable first = backgrounds[0];
 		if (first.transform.localPosition.y < bottomThreshold)
 		{
 			backgrounds.Remove(first);

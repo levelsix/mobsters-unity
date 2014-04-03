@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(CBKSimplePoolable))]
+[RequireComponent (typeof(MSSimplePoolable))]
 [RequireComponent (typeof(PZDestroySpecial))]
 public class PZMolotovPart : MonoBehaviour {
 
@@ -11,7 +11,7 @@ public class PZMolotovPart : MonoBehaviour {
 	[SerializeField]
 	float toleranceSqr = 10;
 
-	CBKSimplePoolable pool;
+	MSSimplePoolable pool;
 
 	PZDestroySpecial desSpec;
 
@@ -28,7 +28,7 @@ public class PZMolotovPart : MonoBehaviour {
 	void Awake()
 	{
 		trans = transform;
-		pool = GetComponent<CBKSimplePoolable>();
+		pool = GetComponent<MSSimplePoolable>();
 		desSpec = GetComponent<PZDestroySpecial>();
 	}
 

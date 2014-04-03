@@ -103,14 +103,14 @@ public class PZWinLosePopup : MonoBehaviour {
 	void RecyclePrizes ()
 	{
 		foreach (var item in prizes) {
-			item.GetComponent<CBKSimplePoolable> ().Pool ();
+			item.GetComponent<MSSimplePoolable> ().Pool ();
 		}
 		prizes.Clear ();
 	}
 
 	PZPrize GetPrize()
 	{
-		PZPrize prize = (MSPoolManager.instance.Get(prizePrefab.GetComponent<CBKSimplePoolable>(), Vector3.zero) as MonoBehaviour).GetComponent<PZPrize>();
+		PZPrize prize = (MSPoolManager.instance.Get(prizePrefab.GetComponent<MSSimplePoolable>(), Vector3.zero) as MonoBehaviour).GetComponent<PZPrize>();
 		prize.transform.parent = prizeParent;
 		prize.transform.localScale = Vector3.one;
 		return prize;

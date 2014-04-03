@@ -20,12 +20,12 @@ public class PZBomb : MonoBehaviour {
 
 	Transform trans;
 
-	CBKSimplePoolable pool;
+	MSSimplePoolable pool;
 
 	void Awake()
 	{
 		trans = transform;
-		pool = GetComponent<CBKSimplePoolable>();
+		pool = GetComponent<MSSimplePoolable>();
 	}
 
 	void OnEnable()

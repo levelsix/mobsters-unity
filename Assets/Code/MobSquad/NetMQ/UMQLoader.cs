@@ -66,7 +66,7 @@ public class UMQLoader : MonoBehaviour {
 
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{
-			MSActionManager.Popup.OnPopup(createUserPopup);
+			MSActionManager.Popup.OnPopup(createUserPopup.GetComponent<MSPopup>());
 			yield break;
 		}
 
@@ -105,7 +105,7 @@ public class UMQLoader : MonoBehaviour {
 
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{
-			MSActionManager.Popup.OnPopup(createUserPopup);
+			MSActionManager.Popup.OnPopup(createUserPopup.GetComponent<MSPopup>());
 		}
 		else
 		{

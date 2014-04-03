@@ -190,7 +190,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	void CreateMatchParticle()
 	{
-		PZMatchParticle part = (MSPoolManager.instance.Get(MSPrefabList.instance.matchParticle[colorIndex].GetComponent<CBKSimplePoolable>(), trans.localPosition)
+		PZMatchParticle part = (MSPoolManager.instance.Get(MSPrefabList.instance.matchParticle[colorIndex].GetComponent<MSSimplePoolable>(), trans.localPosition)
 		                        as MonoBehaviour).GetComponent<PZMatchParticle>();
 		part.trans.parent = trans.parent;
 		part.trans.localPosition = new Vector3(trans.localPosition.x, trans.localPosition.y, -2);

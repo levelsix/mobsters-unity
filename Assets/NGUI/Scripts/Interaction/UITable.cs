@@ -23,6 +23,15 @@ public class UITable : UIWidgetContainer
 		Up,
 	}
 
+	public enum Sorting
+	{
+		None,
+		Alphabetic,
+		Horizontal,
+		Vertical,
+		Custom,
+	}
+
 	/// <summary>
 	/// How many columns there will be before a new line is started. 0 means unlimited.
 	/// </summary>
@@ -36,10 +45,10 @@ public class UITable : UIWidgetContainer
 	public Direction direction = Direction.Down;
 
 	/// <summary>
-	/// Whether the table's contents will be sorted alphabetically.
+	/// How to sort the grid's elements.
 	/// </summary>
 
-	public bool sorted = false;
+	public Sorting sorting = Sorting.None;
 
 	/// <summary>
 	/// Whether inactive children will be discarded from the table's calculations.
@@ -60,14 +69,6 @@ public class UITable : UIWidgetContainer
 	public Vector2 padding = Vector2.zero;
 
 	/// <summary>
-	/// Whether this will animate smoothly
-	/// </summary>
-
-	public bool animateSmoothly = true;
-
-	public float springStrength = 15f;
-
-	/// <summary>
 	/// Delegate function that will be called when the table repositions its content.
 	/// </summary>
 
@@ -77,6 +78,9 @@ public class UITable : UIWidgetContainer
 	protected bool mInitDone = false;
 	protected bool mReposition = false;
 	protected List<Transform> mChildren = new List<Transform>();
+
+	// Use the 'sorting' property instead
+	[HideInInspector][SerializeField] bool sorted = false;
 
 	/// <summary>
 	/// Reposition the children on the next Update().
@@ -100,26 +104,27 @@ public class UITable : UIWidgetContainer
 				for (int i = 0; i < myTrans.childCount; ++i)
 				{
 					Transform child = myTrans.GetChild(i);
-
-					if (child && child.gameObject && (!hideInactive || NGUITools.GetActive(child.gameObject))) mChildren.Add(child);
+					if (child && child.gameObject && (!hideInactive || NGUITools.GetActive(child.gameObject)))
+						mChildren.Add(child);
 				}
-				if (sorted) Sort(mChildren);
+				
+				if (sorting != Sorting.None || sorted)
+				{
+					if (sorting == Sorting.Alphabetic) mChildren.Sort(UIGrid.SortByName);
+					else if (sorting == Sorting.Horizontal) mChildren.Sort(UIGrid.SortHorizontal);
+					else if (sorting == Sorting.Vertical) mChildren.Sort(UIGrid.SortVertical);
+					else Sort(mChildren);
+				}
 			}
 			return mChildren;
 		}
 	}
 
 	/// <summary>
-	/// Function that sorts items by name.
-	/// </summary>
-
-	static protected int SortByName (Transform a, Transform b) { return string.Compare(a.name, b.name); }
-
-	/// <summary>
 	/// Want your own custom sorting logic? Override this function.
 	/// </summary>
 
-	protected virtual void Sort (List<Transform> list) { list.Sort(SortByName); }
+	protected virtual void Sort (List<Transform> list) { list.Sort(UIGrid.SortByName); }
 
 	/// <summary>
 	/// Positions the grid items, taking their own size into consideration.
@@ -129,8 +134,6 @@ public class UITable : UIWidgetContainer
 	{
 		float xOffset = 0;
 		float yOffset = 0;
-
-		Vector3 max = Vector3.zero;
 
 		int cols = columns > 0 ? children.Count / columns + 1 : 1;
 		int rows = columns > 0 ? columns : children.Count;
@@ -145,7 +148,7 @@ public class UITable : UIWidgetContainer
 		for (int i = 0, imax = children.Count; i < imax; ++i)
 		{
 			Transform t = children[i];
-			Bounds b = NGUIMath.CalculateRelativeWidgetBounds(t);
+			Bounds b = NGUIMath.CalculateRelativeWidgetBounds(t, !hideInactive);
 
 			Vector3 scale = t.localScale;
 			b.min = Vector3.Scale(b.min, scale);
@@ -176,28 +179,20 @@ public class UITable : UIWidgetContainer
 			pos.x = xOffset + b.extents.x - b.center.x;
 			pos.x += b.min.x - br.min.x + padding.x;
 
-			max.x = Mathf.Max(max.x, br.max.x * 2);
-
 			if (direction == Direction.Down)
 			{
 				pos.y = -yOffset - b.extents.y - b.center.y;
 				pos.y += (b.max.y - b.min.y - bc.max.y + bc.min.y) * 0.5f - padding.y;
-				max.y = Mathf.Min(max.y, bc.min.y * 2 - yOffset);
 			}
 			else
 			{
 				pos.y = yOffset + (b.extents.y - b.center.y);
 				pos.y -= (b.max.y - b.min.y - bc.max.y + bc.min.y) * 0.5f - padding.y;
-				max.y = Mathf.Max (max.y, bc.max.y * 2 + yOffset);
 			}
 
 			xOffset += br.max.x - br.min.x + padding.x * 2f;
 
-			if (animateSmoothly && Application.isPlaying)
-			{
-				SpringPosition.Begin(t.gameObject, pos, springStrength);
-			}
-			else t.localPosition = pos;
+			t.localPosition = pos;
 
 			if (++x >= columns && columns > 0)
 			{
@@ -206,13 +201,6 @@ public class UITable : UIWidgetContainer
 
 				xOffset = 0f;
 				yOffset += bc.size.y + padding.y * 2f;
-			}
-
-			BoxCollider box = GetComponent<BoxCollider>();
-			if (box != null)
-			{
-				box.center = max/2;
-				box.size = max;
 			}
 		}
 	}

@@ -60,7 +60,6 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400016}
   - 65: {fileID: 6500000}
-  - 114: {fileID: 11400018}
   - 114: {fileID: 11400020}
   m_Layer: 8
   m_Name: RaidEntry
@@ -257,6 +256,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 7
   mWidth: 244
@@ -272,6 +272,7 @@ MonoBehaviour:
   mText: Raid Active Now / 7h 12m Left
   mFontSize: 27
   mFontStyle: 0
+  mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
@@ -317,6 +318,7 @@ MonoBehaviour:
     target: {fileID: 400006}
     relative: 1
     absolute: -56
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
   mWidth: 416
@@ -332,6 +334,7 @@ MonoBehaviour:
   mText: Zark's Underground Lair
   mFontSize: 53
   mFontStyle: 0
+  mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
@@ -377,6 +380,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 6
   mWidth: 136
@@ -417,6 +421,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 930
@@ -457,6 +462,7 @@ MonoBehaviour:
     target: {fileID: 400006}
     relative: .5
     absolute: 14
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
   mWidth: 554
@@ -474,6 +480,7 @@ MonoBehaviour:
     one, the green one mwhahahaha!"
   mFontSize: 27
   mFontStyle: 0
+  mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
@@ -519,6 +526,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
   mWidth: 6
@@ -534,6 +542,7 @@ MonoBehaviour:
   mText: 
   mFontSize: 27
   mFontStyle: 0
+  mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
@@ -579,6 +588,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
   mWidth: 10
@@ -594,6 +604,7 @@ MonoBehaviour:
   mText: 
   mFontSize: 53
   mFontStyle: 0
+  mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
@@ -630,22 +641,6 @@ MonoBehaviour:
   able: 1
   label: {fileID: 0}
   dragBehind: {fileID: 0}
---- !u!114 &11400018
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe47bbf267844dc6bfb979f9123c8a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slideDirection: 0
-  slidingOut: {fileID: 0}
-  slidingIn: {fileID: 0}
-  popup: {fileID: 0}
-  closeOut: 0
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -660,9 +655,13 @@ MonoBehaviour:
   tweenTarget: {fileID: 100006}
   hover: {r: 1, g: 1, b: 1, a: 1}
   pressed: {r: .566176474, g: .566176474, b: .566176474, a: 1}
-  duration: .200000003
   disabledColor: {r: .5, g: .5, b: .5, a: 1}
+  duration: .200000003
   dragHighlight: 0
+  hoverSprite: 
+  pressedSprite: 
+  disabledSprite: 
+  pixelSnap: 0
   onClick: []
 --- !u!1001 &100100000
 Prefab:

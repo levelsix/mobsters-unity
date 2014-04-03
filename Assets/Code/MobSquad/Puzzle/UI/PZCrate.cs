@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PZCrate : MonoBehaviour {
@@ -70,6 +70,6 @@ public class PZCrate : MonoBehaviour {
 		}
 
 		PZCombatManager.instance.crate = null;
-		GetComponent<CBKSimplePoolable>().Pool();
+		GetComponent<MSSimplePoolable>().Pool();
 	}
 }

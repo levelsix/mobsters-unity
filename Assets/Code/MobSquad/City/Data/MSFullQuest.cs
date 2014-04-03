@@ -1,0 +1,34 @@
+﻿using UnityEngine;
+using System.Collections;
+using com.lvl6.proto;
+
+public class MSFullQuest {
+
+	public FullUserQuestProto userQuest;
+	
+	public FullQuestProto quest;
+
+	public string progressString
+	{
+		get
+		{
+			return userQuest.progress + "/" + quest.quantity;
+		}
+	}
+	
+	public MSFullQuest(FullQuestProto quest)
+	{
+		this.quest = quest;
+	}
+	
+	public MSFullQuest(FullQuestProto quest, FullUserQuestProto userQuest)
+	{
+		this.quest = quest;
+		this.userQuest = userQuest;
+	}
+	
+	public string GetProgressString()
+	{
+		return userQuest.progress + "/" + quest.quantity;
+	}
+}

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent (typeof(CBKSimplePoolable))]
+[RequireComponent (typeof(MSSimplePoolable))]
 public class PZRocket : MonoBehaviour {
 
 	MSValues.Direction dir;
@@ -13,12 +13,12 @@ public class PZRocket : MonoBehaviour {
 	[HideInInspector]
 	public Transform trans;
 
-	CBKSimplePoolable pool;
+	MSSimplePoolable pool;
 
 	void Awake()
 	{
 		trans = transform;
-		pool = GetComponent<CBKSimplePoolable>();
+		pool = GetComponent<MSSimplePoolable>();
 	}
 
 	public void Init(MSValues.Direction dir)

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class PZMatchParticle : MonoBehaviour {
@@ -18,7 +18,7 @@ public class PZMatchParticle : MonoBehaviour {
 
 	Vector3 dest;
 
-	CBKSimplePoolable pool;
+	MSSimplePoolable pool;
 
 	[HideInInspector]
 	public Transform trans;
@@ -35,7 +35,7 @@ public class PZMatchParticle : MonoBehaviour {
 
 	void Awake()
 	{
-		pool = GetComponent<CBKSimplePoolable>();
+		pool = GetComponent<MSSimplePoolable>();
 		trans = transform;
 	}
 

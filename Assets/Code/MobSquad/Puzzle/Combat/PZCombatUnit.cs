@@ -8,13 +8,13 @@ using System;
 /// @author Rob Giusti
 /// Component for handling all damage dealing and taking done by units.
 /// </summary>
-[RequireComponent (typeof(CBKUnit))]
+[RequireComponent (typeof(MSUnit))]
 public class PZCombatUnit : MonoBehaviour {
 
 	/// <summary>
 	/// The unit component
                	/// </summary>
-	public CBKUnit unit;
+	public MSUnit unit;
 	
 	/// <summary>
 	/// The monster proto
@@ -66,7 +66,7 @@ public class PZCombatUnit : MonoBehaviour {
 	/// </summary>
 	void Awake()
 	{
-		unit = GetComponent<CBKUnit>();
+		unit = GetComponent<MSUnit>();
 	}
 	
 	/// <summary>
@@ -246,7 +246,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 	public IEnumerator AdvanceTo(float x, Vector3 direction, float speed)
 	{
-		unit.animat = CBKUnit.AnimationType.RUN;
+		unit.animat = MSUnit.AnimationType.RUN;
 		if (transform.localPosition.x < x)
 		{
 			unit.direction = MSValues.Direction.EAST;
@@ -266,7 +266,7 @@ public class PZCombatUnit : MonoBehaviour {
 			}
 		}
 		transform.localPosition += (x - transform.localPosition.x) * direction;
-		unit.animat = CBKUnit.AnimationType.IDLE;
+		unit.animat = MSUnit.AnimationType.IDLE;
 	}
 
 	public IEnumerator Retreat(Vector3 direction, float speed)

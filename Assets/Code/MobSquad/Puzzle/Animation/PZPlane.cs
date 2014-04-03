@@ -5,7 +5,7 @@ public class PZPlane : MonoBehaviour {
 
 	Transform trans;
 
-	CBKSimplePoolable pool;
+	MSSimplePoolable pool;
 
 	const float Y_ABOVE_SCREEN_THRESH = 100;
 
@@ -22,7 +22,7 @@ public class PZPlane : MonoBehaviour {
 
 	void Awake()
 	{
-		pool = GetComponent<CBKSimplePoolable>();
+		pool = GetComponent<MSSimplePoolable>();
 		trans = transform;
 	}
 

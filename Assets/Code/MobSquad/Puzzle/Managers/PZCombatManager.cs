@@ -55,7 +55,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// enemies.
 	/// </summary>
 	[SerializeField]
-	CBKUnit unitPrefab;
+	MSUnit unitPrefab;
 	
 	/// <summary>
 	/// The scrolling background, which will be scrolled appropriately
@@ -354,7 +354,7 @@ public class PZCombatManager : MonoBehaviour {
 		yield return null;
 		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed));
 		Debug.Log("Finished player run");
-		activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
+		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
 		activePlayer.unit.direction = MSValues.Direction.EAST;
 		background.StartScroll();
 
@@ -403,7 +403,7 @@ public class PZCombatManager : MonoBehaviour {
 		yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 1.5f));
 
 		background.StopScroll();
-		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
+		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 
 		//Bring in the UI
 		pvpUI.Init(defender);
@@ -605,14 +605,14 @@ public class PZCombatManager : MonoBehaviour {
 		//Debug.Log("Lock: Scrolling");
 		PZPuzzleManager.instance.swapLock += 1;
 		
-		activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
+		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
 
 		if (enemies.Count > 0)
 		{
 			activeEnemy.GoToStartPos();
 			activeEnemy.Init(enemies.Dequeue());
 			activeEnemy.unit.direction = MSValues.Direction.WEST;
-			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
+			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 		}
 		else if (!activeEnemy.alive)
 		{
@@ -640,7 +640,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed));
 		activePlayer.unit.direction = MSValues.Direction.EAST;
-		activePlayer.unit.animat = CBKUnit.AnimationType.RUN;
+		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
 
 
 		/*
@@ -660,7 +660,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 
-		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
+		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 
 		MSSoundManager.instance.StopLoop();
 
@@ -970,11 +970,11 @@ public class PZCombatManager : MonoBehaviour {
 				yield return StartCoroutine(activePlayer.AdvanceTo(activeEnemy.transform.localPosition.x - 30, -background.direction, background.scrollSpeed * 4));
 			}
 
-			activePlayer.unit.animat = CBKUnit.AnimationType.ATTACK;
+			activePlayer.unit.animat = MSUnit.AnimationType.ATTACK;
 
 			yield return new WaitForSeconds(shotTime);
 
-			activeEnemy.unit.animat = CBKUnit.AnimationType.FLINCH;
+			activeEnemy.unit.animat = MSUnit.AnimationType.FLINCH;
 
 			MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, activeEnemy.unit.transf.position);
 
@@ -995,8 +995,8 @@ public class PZCombatManager : MonoBehaviour {
 			}
 		}
 
-		activePlayer.unit.animat = CBKUnit.AnimationType.IDLE;
-		activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
+		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
+		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 
 		while(activeEnemy.unit.transf.localPosition.x > enemyPos.x)
 		{
@@ -1068,7 +1068,7 @@ public class PZCombatManager : MonoBehaviour {
 				yield return StartCoroutine(activeEnemy.AdvanceTo(activePlayer.transform.localPosition.x + MELEE_ATTACK_DISTANCE, -background.direction, background.scrollSpeed * 4));
 			}
 
-			activeEnemy.unit.animat = CBKUnit.AnimationType.ATTACK;
+			activeEnemy.unit.animat = MSUnit.AnimationType.ATTACK;
 			yield return new WaitForSeconds(.5f);
 
 			StartCoroutine(activePlayer.TakeDamage(enemyDamage, activeEnemy.monster.monster.monsterElement));
@@ -1083,7 +1083,7 @@ public class PZCombatManager : MonoBehaviour {
 				activeEnemy.unit.direction = MSValues.Direction.WEST;
 			}
 
-			activeEnemy.unit.animat = CBKUnit.AnimationType.IDLE;
+			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 		
 		}
 		
