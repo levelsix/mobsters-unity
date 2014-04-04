@@ -175,7 +175,7 @@ public class MSPopupManager : MonoBehaviour {
 		{
 			MSPopup closing = top;
 			_currPops.RemoveAt(_currPops.Count-1);
-			closing.Close();
+			closing.Close(false);
 		}
 	}
 	
@@ -189,7 +189,9 @@ public class MSPopupManager : MonoBehaviour {
 	{
 		while(_currPops.Count > stackLayer)
 		{
-			CloseTopLayer();
+			MSPopup closing = top;
+			_currPops.RemoveAt(_currPops.Count-1);
+			closing.Close(true);
 		}
 	}
 	

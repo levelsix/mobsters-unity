@@ -21,17 +21,27 @@ public class MSMenuPopup : MSPopup {
 	public override void Popup ()
 	{
 		gameObject.SetActive(true);
-		menuSlide.TweenIn();
-		base.Popup ();
+		if (MSPopupManager.instance.backPop != null)
+		{
+			menuSlide.TweenIn();
+			foreach (var item in inTweens) 
+			{
+				item.Sample(1, true);
+			}
+		}
+		else
+		{
+			base.Popup ();
+		}
 	}
 
-	protected override IEnumerator RunOutTweens ()
+	protected override IEnumerator RunOutTweens (bool all)
 	{
 		foreach (var item in inTweens) 
 		{
 			item.tweenFactor = 1;
 		}
-		if (MSPopupManager.instance.top != null)
+		if (!all && MSPopupManager.instance.top != null)
 		{
 			menuSlide.TweenClosed();
 			while (menuSlide.tweenFactor < 1)

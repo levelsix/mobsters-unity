@@ -28,12 +28,12 @@ public class MSPopup : MonoBehaviour {
 		}
 	}
 
-	public virtual void Close()
+	public virtual void Close(bool all = false)
 	{
-		StartCoroutine(RunOutTweens());
+		StartCoroutine(RunOutTweens(all));
 	}
 
-	protected virtual IEnumerator RunOutTweens()
+	protected virtual IEnumerator RunOutTweens(bool all)
 	{
 		foreach (var item in inTweens) 
 		{
