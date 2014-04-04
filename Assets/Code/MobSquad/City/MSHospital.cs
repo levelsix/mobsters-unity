@@ -36,6 +36,10 @@ public class MSHospital : MonoBehaviour {
 				}
 			}
 		}
+		get
+		{
+			return _goon;
+		}
 	}
 
 	void Awake()
@@ -43,6 +47,7 @@ public class MSHospital : MonoBehaviour {
 		building = GetComponent<MSBuilding>();
 		building.overlayUnit.gameObject.SetActive(true);
 		animator = building.sprite.GetComponent<Animator>();
+		goon = null;
 	}
 
 	void OnDestroy()

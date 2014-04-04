@@ -56,9 +56,16 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			label.text = building.upgrade.timeLeftString;
 			bar.fill = building.upgrade.progress;
 		}
-		else if (isHealing)
+		else if (building.hospital != null && building.hospital.goon != null)
 		{
-			//TODO: aprifuls
+			foreach (var item in caps) 
+			{
+				item.spriteName = "healingcap";
+			}
+			barSprite.spriteName = "healingmiddle";
+			bg.alpha = 1;
+			label.text = MSUtil.TimeStringShort(building.hospital.goon.healTimeLeftMillis);
+			bar.fill = building.hospital.goon.healProgressPercentage;
 		}
 		else
 		{
