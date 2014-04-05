@@ -13,6 +13,8 @@ public class MSObstacle : MonoBehaviour {
 
 	long endTime = 0;
 
+	public bool isRemoving;
+
 	public long millisLeft
 	{
 		get
@@ -34,6 +36,14 @@ public class MSObstacle : MonoBehaviour {
 				return 0;
 			}
 			return (int)(millisLeft / 1000);
+		}
+	}
+
+	public float progress
+	{
+		get
+		{
+			return 1f - ((float)millisLeft / (obstacle.secondsToRemove * 1000f));
 		}
 	}
 
@@ -99,6 +109,7 @@ public class MSObstacle : MonoBehaviour {
 
 	IEnumerator Check()
 	{
+		isRemoving = true;
 		MSBuildingManager.instance.currentUnderConstruction = GetComponent<MSBuilding>();
 		while (true)
 		{

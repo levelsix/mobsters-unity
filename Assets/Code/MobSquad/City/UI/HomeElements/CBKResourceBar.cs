@@ -8,6 +8,10 @@ public class CBKResourceBar : MonoBehaviour {
 	ResourceType resourceType;
 
 	CBKFillBar fillBar;
+
+	[SerializeField] float speed = 1;
+
+	float target = 0;
 	
 	void Awake()
 	{
@@ -38,6 +42,18 @@ public class CBKResourceBar : MonoBehaviour {
 
 	void Reset()
 	{
-		fillBar.fill = ((float)MSResourceManager.resources[(int)resourceType - 1]) / MSResourceManager.maxes[(int)resourceType - 1];
+		target = ((float)MSResourceManager.resources[(int)resourceType - 1]) / MSResourceManager.maxes[(int)resourceType - 1];
+	}
+
+	void Update()
+	{
+		if (fillBar.fill < target)
+		{
+			fillBar.fill = Mathf.Min(fillBar.fill + speed * Time.deltaTime, target);
+		}
+		else if (fillBar.fill > target)
+		{
+			fillBar.fill = Mathf.Max(fillBar.fill - speed * Time.deltaTime, target);
+		}
 	}
 }

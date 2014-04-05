@@ -76,7 +76,7 @@ public class CBKClanDetailScreen : MonoBehaviour {
 
 		foreach (var item in response.members) 
 		{
-			AddMemberEntryToGrid(item, response.monsterTeams.Find(x => x.userId == item.minUserProto.minUserProtoWithLevel.minUserProto.userId));
+			AddMemberEntryToGrid(item, response.monsterTeams.Find(x => x.userId == item.minUserProtoWithLevel.minUserProto.userId));
 		}
 		memberGrid.GetComponent<UIGrid>().Reposition();
 

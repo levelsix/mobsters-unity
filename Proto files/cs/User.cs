@@ -373,33 +373,6 @@ namespace com.lvl6.proto
       set { _tasksCompleted = value; }
     }
 
-    private int _battlesWon = default(int);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"battlesWon", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int battlesWon
-    {
-      get { return _battlesWon; }
-      set { _battlesWon = value; }
-    }
-
-    private int _battlesLost = default(int);
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"battlesLost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int battlesLost
-    {
-      get { return _battlesLost; }
-      set { _battlesLost = value; }
-    }
-
-    private int _flees = default(int);
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"flees", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int flees
-    {
-      get { return _flees; }
-      set { _flees = value; }
-    }
-
     private string _referralCode = "";
     [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"referralCode", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -499,78 +472,6 @@ namespace com.lvl6.proto
       set { _numBeginnerSalesPurchased = value; }
     }
 
-    private bool _hasActiveShield = default(bool);
-    [global::ProtoBuf.ProtoMember(31, IsRequired = false, Name=@"hasActiveShield", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool hasActiveShield
-    {
-      get { return _hasActiveShield; }
-      set { _hasActiveShield = value; }
-    }
-
-    private long _shieldEndTime = default(long);
-    [global::ProtoBuf.ProtoMember(32, IsRequired = false, Name=@"shieldEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long shieldEndTime
-    {
-      get { return _shieldEndTime; }
-      set { _shieldEndTime = value; }
-    }
-
-    private int _elo = default(int);
-    [global::ProtoBuf.ProtoMember(33, IsRequired = false, Name=@"elo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int elo
-    {
-      get { return _elo; }
-      set { _elo = value; }
-    }
-
-    private string _rank = "";
-    [global::ProtoBuf.ProtoMember(34, IsRequired = false, Name=@"rank", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue("")]
-    public string rank
-    {
-      get { return _rank; }
-      set { _rank = value; }
-    }
-
-    private int _attacksWon = default(int);
-    [global::ProtoBuf.ProtoMember(36, IsRequired = false, Name=@"attacksWon", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int attacksWon
-    {
-      get { return _attacksWon; }
-      set { _attacksWon = value; }
-    }
-
-    private int _defensesWon = default(int);
-    [global::ProtoBuf.ProtoMember(37, IsRequired = false, Name=@"defensesWon", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int defensesWon
-    {
-      get { return _defensesWon; }
-      set { _defensesWon = value; }
-    }
-
-    private int _attacksLost = default(int);
-    [global::ProtoBuf.ProtoMember(38, IsRequired = false, Name=@"attacksLost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int attacksLost
-    {
-      get { return _attacksLost; }
-      set { _attacksLost = value; }
-    }
-
-    private int _defensesLost = default(int);
-    [global::ProtoBuf.ProtoMember(39, IsRequired = false, Name=@"defensesLost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int defensesLost
-    {
-      get { return _defensesLost; }
-      set { _defensesLost = value; }
-    }
-
     private string _facebookId = "";
     [global::ProtoBuf.ProtoMember(40, IsRequired = false, Name=@"facebookId", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -598,6 +499,15 @@ namespace com.lvl6.proto
       set { _lastObstacleSpawnedTime = value; }
     }
 
+    private com.lvl6.proto.UserPvpLeagueProto _pvpLeagueInfo = null;
+    [global::ProtoBuf.ProtoMember(48, IsRequired = false, Name=@"pvpLeagueInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserPvpLeagueProto pvpLeagueInfo
+    {
+      get { return _pvpLeagueInfo; }
+      set { _pvpLeagueInfo = value; }
+    }
+
     private string _udidForHistory = "";
     [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"udidForHistory", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -614,15 +524,6 @@ namespace com.lvl6.proto
     {
       get { return _deviceToken; }
       set { _deviceToken = value; }
-    }
-
-    private long _lastBattleNotificationTime = default(long);
-    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"lastBattleNotificationTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long lastBattleNotificationTime
-    {
-      get { return _lastBattleNotificationTime; }
-      set { _lastBattleNotificationTime = value; }
     }
 
     private int _numBadges = default(int);
@@ -679,15 +580,6 @@ namespace com.lvl6.proto
       set { _kabamNaid = value; }
     }
 
-    private long _inBattleShieldEndTime = default(long);
-    [global::ProtoBuf.ProtoMember(35, IsRequired = false, Name=@"inBattleShieldEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long inBattleShieldEndTime
-    {
-      get { return _inBattleShieldEndTime; }
-      set { _inBattleShieldEndTime = value; }
-    }
-
     private bool _fbIdSetOnUserCreate = default(bool);
     [global::ProtoBuf.ProtoMember(44, IsRequired = false, Name=@"fbIdSetOnUserCreate", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -732,6 +624,79 @@ namespace com.lvl6.proto
     {
       get { return _requiredExperience; }
       set { _requiredExperience = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserPvpLeagueProto")]
+  public partial class UserPvpLeagueProto : global::ProtoBuf.IExtensible
+  {
+    public UserPvpLeagueProto() {}
+    
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+
+    private int _leagueId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"leagueId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int leagueId
+    {
+      get { return _leagueId; }
+      set { _leagueId = value; }
+    }
+
+    private int _rank = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"rank", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int rank
+    {
+      get { return _rank; }
+      set { _rank = value; }
+    }
+
+    private int _elo = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"elo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int elo
+    {
+      get { return _elo; }
+      set { _elo = value; }
+    }
+
+    private int _battlesWon = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"battlesWon", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int battlesWon
+    {
+      get { return _battlesWon; }
+      set { _battlesWon = value; }
+    }
+
+    private int _battlesLost = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"battlesLost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int battlesLost
+    {
+      get { return _battlesLost; }
+      set { _battlesLost = value; }
+    }
+
+    private long _shieldEndTime = default(long);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"shieldEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long shieldEndTime
+    {
+      get { return _shieldEndTime; }
+      set { _shieldEndTime = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

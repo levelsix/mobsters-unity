@@ -12,52 +12,6 @@
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MinimumUserProtoWithBattleHistory")]
-  public partial class MinimumUserProtoWithBattleHistory : global::ProtoBuf.IExtensible
-  {
-    public MinimumUserProtoWithBattleHistory() {}
-    
-
-    private com.lvl6.proto.MinimumUserProtoWithLevel _minUserProtoWithLevel = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"minUserProtoWithLevel", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProtoWithLevel minUserProtoWithLevel
-    {
-      get { return _minUserProtoWithLevel; }
-      set { _minUserProtoWithLevel = value; }
-    }
-
-    private int _battlesWon = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"battlesWon", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int battlesWon
-    {
-      get { return _battlesWon; }
-      set { _battlesWon = value; }
-    }
-
-    private int _battlesLost = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"battlesLost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int battlesLost
-    {
-      get { return _battlesLost; }
-      set { _battlesLost = value; }
-    }
-
-    private int _battlesFled = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"battlesFled", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int battlesFled
-    {
-      get { return _battlesFled; }
-      set { _battlesFled = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PvpProto")]
   public partial class PvpProto : global::ProtoBuf.IExtensible
   {
@@ -303,52 +257,6 @@ namespace com.lvl6.proto
     {
       get { return _maxElo; }
       set { _maxElo = value; }
-    }
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserPvpLeagueProto")]
-  public partial class UserPvpLeagueProto : global::ProtoBuf.IExtensible
-  {
-    public UserPvpLeagueProto() {}
-    
-
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
-    {
-      get { return _userId; }
-      set { _userId = value; }
-    }
-
-    private int _leagueId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"leagueId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int leagueId
-    {
-      get { return _leagueId; }
-      set { _leagueId = value; }
-    }
-
-    private int _rank = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"rank", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int rank
-    {
-      get { return _rank; }
-      set { _rank = value; }
-    }
-
-    private int _elo = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"elo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int elo
-    {
-      get { return _elo; }
-      set { _elo = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

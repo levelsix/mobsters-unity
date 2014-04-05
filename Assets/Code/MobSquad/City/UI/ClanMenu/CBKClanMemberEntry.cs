@@ -84,8 +84,8 @@ public class CBKClanMemberEntry : MonoBehaviour, MSPoolable {
 
 	public void Init(MinimumUserProtoForClans user, UserCurrentMonsterTeamProto monsters)
 	{
-		nameLabel.text = user.minUserProto.minUserProtoWithLevel.minUserProto.name;
-		levelLabel.text = user.minUserProto.minUserProtoWithLevel.level.ToString();
+		nameLabel.text = user.minUserProtoWithLevel.minUserProto.name;
+		levelLabel.text = user.minUserProtoWithLevel.level.ToString();
 		leaderLabel.text = user.clanStatus.ToString();
 		clanRaidContribution.text = ((int)(user.raidContribution * 100)).ToString();
 

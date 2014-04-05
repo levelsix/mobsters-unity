@@ -25,19 +25,19 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 	
 	static readonly Dictionary<MonsterProto.MonsterElement, string> ringElementDict = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "nightcardhealthbar"},
+		{MonsterProto.MonsterElement.DARK, "nightcardhealthbar"},
 		{MonsterProto.MonsterElement.FIRE, "firecardhealthbar"},
 		{MonsterProto.MonsterElement.GRASS, "earthcardhealthbar"},
-		{MonsterProto.MonsterElement.LIGHTNING, "lightcardhealthbar"},
+		{MonsterProto.MonsterElement.LIGHT, "lightcardhealthbar"},
 		{MonsterProto.MonsterElement.WATER, "watercardhealthbar"}
 	};
 
 	static readonly Dictionary<MonsterProto.MonsterElement, string> backgroundElementDict = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "nightteam"},
+		{MonsterProto.MonsterElement.DARK, "nightteam"},
 		{MonsterProto.MonsterElement.FIRE, "fireteam"},
 		{MonsterProto.MonsterElement.GRASS, "earthteam"},
-		{MonsterProto.MonsterElement.LIGHTNING, "lightteam"},
+		{MonsterProto.MonsterElement.LIGHT, "lightteam"},
 		{MonsterProto.MonsterElement.WATER, "waterteam"}
 	};
 

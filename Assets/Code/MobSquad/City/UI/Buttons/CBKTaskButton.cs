@@ -141,15 +141,14 @@ public class CBKTaskButton : CBKTriggerPopupButton, MSPoolable {
 	{
 		if (currBuilding.obstacle == null)
 		{
-			base.OnClick();
-			popup.GetComponent<CBKBuildingUpgradePopup>().Init(currBuilding);
+			currBuilding.upgrade.FinishWithPremium();
 		}
 		else
 		{
 			currBuilding.obstacle.FinishWithGems();
 		}
 
-		//currBuilding.upgrade.FinishWithPremium();
+		MSBuildingManager.instance.FullDeselect();
 	}
 	
 	void ClickEngage()
@@ -183,5 +182,6 @@ public class CBKTaskButton : CBKTriggerPopupButton, MSPoolable {
 	void ClickRemove()
 	{
 		currBuilding.GetComponent<MSObstacle>().StartRemove();
+		MSBuildingManager.instance.FullDeselect();
 	}
 }

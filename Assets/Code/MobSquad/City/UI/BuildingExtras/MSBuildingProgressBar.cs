@@ -26,7 +26,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 	{
 		get
 		{
-			return building.upgrade != null && building.upgrade.timeRemaining > 0;
+			return (building.upgrade != null && !building.upgrade.isComplete);
 		}
 	}
 
@@ -40,11 +40,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 	void Update () 
 	{
-		if (building.obstacle != null)
-		{
-			bg.alpha = 0;
-		}
-		else if (isConstructing)
+		if (isConstructing)
 		{
 			foreach (var item in caps) 
 			{
@@ -55,6 +51,18 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			bg.alpha = 1;
 			label.text = building.upgrade.timeLeftString;
 			bar.fill = building.upgrade.progress;
+		}
+		else if (building.obstacle != null && building.obstacle.isRemoving)
+		{
+			foreach (var item in caps) 
+			{
+				item.spriteName = "buildingcap";
+			}
+			barSprite.spriteName = "buildingmiddle";
+			
+			bg.alpha = 1;
+			label.text = MSUtil.TimeStringShort(building.obstacle.millisLeft);
+			bar.fill = building.obstacle.progress;
 		}
 		else if (building.hospital != null && building.hospital.goon != null)
 		{

@@ -34,6 +34,15 @@ namespace com.lvl6.proto
       set { _name = value; }
     }
 
+    private string _shorterName = "";
+    [global::ProtoBuf.ProtoMember(28, IsRequired = false, Name=@"shorterName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string shorterName
+    {
+      get { return _shorterName; }
+      set { _shorterName = value; }
+    }
+
     private string _monsterGroup = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"monsterGroup", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -292,11 +301,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"WATER", Value=3)]
       WATER = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LIGHTNING", Value=4)]
-      LIGHTNING = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"LIGHT", Value=4)]
+      LIGHT = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"DARKNESS", Value=5)]
-      DARKNESS = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"DARK", Value=5)]
+      DARK = 5,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ROCK", Value=6)]
       ROCK = 6

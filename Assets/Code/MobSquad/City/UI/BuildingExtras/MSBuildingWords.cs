@@ -54,11 +54,11 @@ public class MSBuildingWords : MonoBehaviour {
 	{
 		pos.duration = time;
 		pos.ResetToBeginning();
-		pos.Play();
+		pos.PlayForward();
 
 		alph.duration = time;
 		alph.ResetToBeginning();
-		alph.Play();
+		alph.PlayForward();
 
 		sprite.spriteName = building.upgrade.level == 1 ? completeSpriteName : upgradeSpriteName;
 	}

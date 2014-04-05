@@ -35,7 +35,7 @@ public class CBKCreateUserPopup : MonoBehaviour {
 			{
 				create.facebookId = FB.UserId;
 			}
-			
+
 			UMQNetworkManager.instance.SendRequest(create, (int)EventProtocolRequest.C_USER_CREATE_EVENT, OnUserCreateResponse);
 			
 			submitButton.able = false;
@@ -49,7 +49,8 @@ public class CBKCreateUserPopup : MonoBehaviour {
 		
 		if (response.status == UserCreateResponseProto.UserCreateStatus.SUCCESS)
 		{
-			MSUtil.LoadLocalUser(response.sender);
+			//Doesn't work right now, is this getting fixed? If not, we don't know UserId to start up the networking queue...
+			//MSUtil.LoadLocalUser(response.sender);
 			
 			MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 			MSValues.Scene.ChangeScene(MSValues.Scene.Scenes.STARTING_SCENE);

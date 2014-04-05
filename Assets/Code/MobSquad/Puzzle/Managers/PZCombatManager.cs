@@ -442,7 +442,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		BeginPvpBattleRequestProto request = new BeginPvpBattleRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.senderElo = MSWhiteboard.localUser.elo;
+		request.senderElo = MSWhiteboard.localUser.pvpLeagueInfo.elo;
 		request.attackStartTime = MSUtil.timeNowMillis;
 		request.enemy = defender;
 
@@ -1121,7 +1121,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		QueueUpRequestProto request = new QueueUpRequestProto();
 		request.attacker = MSWhiteboard.localMup;
-		request.attackerElo = MSWhiteboard.localUser.elo;
+		request.attackerElo = MSWhiteboard.localUser.pvpLeagueInfo.elo;
 		request.clientTime = MSUtil.timeNowMillis;
 
 		//We seenUserIds is read-only, so we can't just do seenUserIds = playersSeen. Laaame.

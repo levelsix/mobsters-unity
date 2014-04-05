@@ -168,13 +168,13 @@ namespace com.lvl6.proto
     public MinimumUserProtoForClans() {}
     
 
-    private com.lvl6.proto.MinimumUserProtoWithBattleHistory _minUserProto = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"minUserProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private com.lvl6.proto.MinimumUserProtoWithLevel _minUserProtoWithLevel = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"minUserProtoWithLevel", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProtoWithBattleHistory minUserProto
+    public com.lvl6.proto.MinimumUserProtoWithLevel minUserProtoWithLevel
     {
-      get { return _minUserProto; }
-      set { _minUserProto = value; }
+      get { return _minUserProtoWithLevel; }
+      set { _minUserProtoWithLevel = value; }
     }
 
     private com.lvl6.proto.UserClanStatus _clanStatus = com.lvl6.proto.UserClanStatus.LEADER;
@@ -193,6 +193,15 @@ namespace com.lvl6.proto
     {
       get { return _raidContribution; }
       set { _raidContribution = value; }
+    }
+
+    private int _battlesWon = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"battlesWon", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int battlesWon
+    {
+      get { return _battlesWon; }
+      set { _battlesWon = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

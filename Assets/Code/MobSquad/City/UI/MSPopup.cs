@@ -24,7 +24,7 @@ public class MSPopup : MonoBehaviour {
 		foreach (var item in inTweens) 
 		{
 			item.ResetToBeginning();
-			item.Play();
+			item.PlayForward();
 		}
 	}
 
@@ -42,7 +42,7 @@ public class MSPopup : MonoBehaviour {
 		foreach (var item in outTweens) 
 		{
 			item.ResetToBeginning();
-			item.Play();
+			item.PlayForward();
 		}
 		foreach (var item in outTweens) 
 		{

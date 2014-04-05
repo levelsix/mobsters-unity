@@ -8,6 +8,8 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Quest.proto
+// Note: requires additional types generated from: Chat.proto
+// Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Structure.proto
 namespace com.lvl6.proto
 {
@@ -107,22 +109,31 @@ namespace com.lvl6.proto
       set { _quantity = value; }
     }
 
-    private int _coinReward = default(int);
-    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"coinReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _cashReward = default(int);
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"cashReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int coinReward
+    public int cashReward
     {
-      get { return _coinReward; }
-      set { _coinReward = value; }
+      get { return _cashReward; }
+      set { _cashReward = value; }
     }
 
-    private int _diamondReward = default(int);
-    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"diamondReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _oilReward = default(int);
+    [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name=@"oilReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int diamondReward
+    public int oilReward
     {
-      get { return _diamondReward; }
-      set { _diamondReward = value; }
+      get { return _oilReward; }
+      set { _oilReward = value; }
+    }
+
+    private int _gemReward = default(int);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"gemReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gemReward
+    {
+      get { return _gemReward; }
+      set { _gemReward = value; }
     }
 
     private int _expReward = default(int);
@@ -159,13 +170,22 @@ namespace com.lvl6.proto
     }
   
 
-    private string _questGiverImageSuffix = "";
-    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"questGiverImageSuffix", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private string _questGiverName = "";
+    [global::ProtoBuf.ProtoMember(24, IsRequired = false, Name=@"questGiverName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
-    public string questGiverImageSuffix
+    public string questGiverName
     {
-      get { return _questGiverImageSuffix; }
-      set { _questGiverImageSuffix = value; }
+      get { return _questGiverName; }
+      set { _questGiverName = value; }
+    }
+
+    private string _questGiverImagePrefix = "";
+    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"questGiverImagePrefix", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string questGiverImagePrefix
+    {
+      get { return _questGiverImagePrefix; }
+      set { _questGiverImagePrefix = value; }
     }
 
     private int _priority = default(int);
@@ -202,6 +222,15 @@ namespace com.lvl6.proto
     {
       get { return _questGiverImgOffset; }
       set { _questGiverImgOffset = value; }
+    }
+
+    private com.lvl6.proto.MonsterProto.MonsterElement _monsterElement = com.lvl6.proto.MonsterProto.MonsterElement.FIRE;
+    [global::ProtoBuf.ProtoMember(23, IsRequired = false, Name=@"monsterElement", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.MonsterElement.FIRE)]
+    public com.lvl6.proto.MonsterProto.MonsterElement monsterElement
+    {
+      get { return _monsterElement; }
+      set { _monsterElement = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"QuestType")]
     public enum QuestType
@@ -386,6 +415,24 @@ namespace com.lvl6.proto
     {
       get { return _imgName; }
       set { _imgName = value; }
+    }
+
+    private string _borderImgName = "";
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"borderImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string borderImgName
+    {
+      get { return _borderImgName; }
+      set { _borderImgName = value; }
+    }
+
+    private com.lvl6.proto.ColorProto _color = null;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"color", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.ColorProto color
+    {
+      get { return _color; }
+      set { _color = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

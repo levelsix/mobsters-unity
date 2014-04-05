@@ -54,7 +54,7 @@ public class MSMenuPopup : MSPopup {
 			foreach (var item in outTweens) 
 			{
 				item.ResetToBeginning();
-				item.Play();
+				item.PlayForward();
 			}
 			foreach (var item in outTweens) 
 			{

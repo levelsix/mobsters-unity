@@ -422,6 +422,33 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
+
+    private long _userTaskId = default(long);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userTaskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userTaskId
+    {
+      get { return _userTaskId; }
+      set { _userTaskId = value; }
+    }
+
+    private bool _isUpdateTaskStageForUser = default(bool);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"isUpdateTaskStageForUser", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isUpdateTaskStageForUser
+    {
+      get { return _isUpdateTaskStageForUser; }
+      set { _isUpdateTaskStageForUser = value; }
+    }
+
+    private int _nuTaskStageId = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"nuTaskStageId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int nuTaskStageId
+    {
+      get { return _nuTaskStageId; }
+      set { _nuTaskStageId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

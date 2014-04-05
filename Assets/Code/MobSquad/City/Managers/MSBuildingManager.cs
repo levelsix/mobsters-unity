@@ -275,22 +275,35 @@ public class MSBuildingManager : MonoBehaviour
 			int numObstacles = (int)((MSUtil.timeNowMillis-MSWhiteboard.localUser.lastObstacleSpawnedTime) / (MSWhiteboard.constants.minutesPerObstacle*60000));
 			numObstacles = Math.Min (MSWhiteboard.constants.maxObstacles - response.obstacles.Count, numObstacles);
 
+			List<MSWalkableSpace> takenSpaces = new List<MSWalkableSpace>();
+
 			for (int i = 0; i < numObstacles; i++)
 			{
 				MinimumObstacleProto obstacle = new MinimumObstacleProto();
 
-				MSGridNode point = FindSpaceInRange(2,2, new MSGridNode(UnityEngine.Random.Range (0,MSGridManager.instance.gridSize), UnityEngine.Random.Range (0,MSGridManager.instance.gridSize)));
+				MSGridNode point = FindSpaceInRange(2, 2, new MSGridNode(UnityEngine.Random.Range (0,MSGridManager.instance.gridSize), UnityEngine.Random.Range (0,MSGridManager.instance.gridSize)));
 
-				CoordinateProto coords = new CoordinateProto();
-				coords.x = point.x;
-				coords.y = point.z;
-				obstacle.coordinate = coords;
+				if (point != null)
+				{
+					for (int x = 0; x < 2; x++) 
+					{
+						for (int z = 0; z < 2; z++) 
+						{
+							MSGridManager.instance.BlockSpace(point.x + x, point.z + z);
+						}
+					}
 
-				obstacle.obstacleId = (obstacles[UnityEngine.Random.Range(1,obstacles.Count+1)] as ObstacleProto).obstacleId;
+					CoordinateProto coords = new CoordinateProto();
+					coords.x = point.x;
+					coords.y = point.z;
+					obstacle.coordinate = coords;
 
-				obstacle.orientation = UnityEngine.Random.value > .5f ? StructOrientation.POSITION_1 : StructOrientation.POSITION_2;
+					obstacle.obstacleId = (obstacles[UnityEngine.Random.Range(1,obstacles.Count+1)] as ObstacleProto).obstacleId;
 
-				obstacleRequest.prospectiveObstacles.Add(obstacle);
+					obstacle.orientation = UnityEngine.Random.value > .5f ? StructOrientation.POSITION_1 : StructOrientation.POSITION_2;
+
+					obstacleRequest.prospectiveObstacles.Add(obstacle);
+				}
 				                                                                                                                     
 			}
 			obstacleRequest.curTime = MSUtil.timeNowMillis;
@@ -304,6 +317,8 @@ public class MSBuildingManager : MonoBehaviour
 
 			SpawnObstacleResponseProto obstacleResponse = UMQNetworkManager.responseDict[tagNum] as SpawnObstacleResponseProto;
 			UMQNetworkManager.responseDict.Remove(tagNum);
+
+			MSGridManager.instance.ClearBlocks();
 
 			if (obstacleResponse.status == SpawnObstacleResponseProto.SpawnObstacleStatus.SUCCESS)
 			{

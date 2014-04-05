@@ -198,6 +198,9 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 	public MSHospital hospital;
 
 	[SerializeField]
+	SpriteRenderer floor;
+
+	[SerializeField]
 	SpriteRenderer shadow;
 
 	[SerializeField]
@@ -363,7 +366,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		width = (int)proto.xLength;
 		length = (int)proto.yLength;
 
-		shadow.gameObject.SetActive(false);
+		floor.gameObject.SetActive(false);
 		SetupSprite(proto.imgId);
 
 		if (proto.orientation == StructOrientation.POSITION_2)
@@ -411,7 +414,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		hoverIcon.transform.localPosition = new Vector3(0, FLOAT_ICON_HOME_HEIGHT);
 
 		_box.enabled = true;
-		shadow.gameObject.SetActive(true);
+		floor.gameObject.SetActive(true);
 
 		sprite.transform.localPosition = Vector3.zero;
 
@@ -467,7 +470,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		}
 
 		sprite.transform.localPosition += new Vector3(-2.8f, 1.63f, -2.8f);
-		shadow.transform.localPosition = new Vector3(-2.8f, 1.63f, -2.8f);
+		floor.transform.localPosition = new Vector3(-2.8f, 1.63f, -2.8f);
 
 		_box.center = Vector3.zero;
 
@@ -527,7 +530,8 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 		spriteTrans.localScale = Vector3.one;
 
 		//Set up shadow stuff
-		shadow.sprite = MSAtlasUtil.instance.GetBuildingSprite(width + "x" + length + "dark");
+		shadow.sprite = MSAtlasUtil.instance.GetBuildingSprite(width + "x" + length + "shadow");
+		floor.sprite = MSAtlasUtil.instance.GetBuildingSprite(width + "x" + length + "dark");
 		
 		
 		//spriteTrans.localPosition = new Vector3(0, sprite.height / 100f * (1/Mathf.Sin((90 - Camera.main.transform.parent.localRotation.x) * Mathf.Deg2Rad)), 0);

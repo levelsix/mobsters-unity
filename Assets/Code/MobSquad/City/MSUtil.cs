@@ -295,17 +295,17 @@ public static class MSUtil {
 			}
 		},
 		{
-			MonsterProto.MonsterElement.DARKNESS, new Dictionary<MonsterProto.MonsterElement, float>()
+			MonsterProto.MonsterElement.DARK, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.DARKNESS, MSWhiteboard.constants.monsterConstants.elementalStrength},
-				{MonsterProto.MonsterElement.LIGHTNING, MSWhiteboard.constants.monsterConstants.elementalWeakness}
+				{MonsterProto.MonsterElement.DARK, MSWhiteboard.constants.monsterConstants.elementalStrength},
+				{MonsterProto.MonsterElement.LIGHT, MSWhiteboard.constants.monsterConstants.elementalWeakness}
 			}
 		},
 		{
-			MonsterProto.MonsterElement.LIGHTNING, new Dictionary<MonsterProto.MonsterElement, float>()
+			MonsterProto.MonsterElement.LIGHT, new Dictionary<MonsterProto.MonsterElement, float>()
 			{
-				{MonsterProto.MonsterElement.DARKNESS, MSWhiteboard.constants.monsterConstants.elementalWeakness},
-				{MonsterProto.MonsterElement.LIGHTNING, MSWhiteboard.constants.monsterConstants.elementalStrength}
+				{MonsterProto.MonsterElement.DARK, MSWhiteboard.constants.monsterConstants.elementalWeakness},
+				{MonsterProto.MonsterElement.LIGHT, MSWhiteboard.constants.monsterConstants.elementalStrength}
 			}
 		}
 	};

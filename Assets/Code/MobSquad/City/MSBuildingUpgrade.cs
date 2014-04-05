@@ -23,6 +23,18 @@ public class MSBuildingUpgrade : MonoBehaviour {
 			return building.combinedProto.structInfo.level;
 		}
 	}
+
+	public bool isComplete
+	{
+		get
+		{
+			if (building.userStructProto == null)
+			{
+				return true;
+			}
+			return building.userStructProto.isComplete;
+		}
+	}
 	
 	/// <summary>
 	/// Gets the time at which this building will be completed building or upgrading

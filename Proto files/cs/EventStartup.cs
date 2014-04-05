@@ -384,15 +384,6 @@ namespace com.lvl6.proto
       get { return _recentNBattles; }
     }
   
-
-    private com.lvl6.proto.UserPvpLeagueProto _pvpLeagueInfo = null;
-    [global::ProtoBuf.ProtoMember(36, IsRequired = false, Name=@"pvpLeagueInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.UserPvpLeagueProto pvpLeagueInfo
-    {
-      get { return _pvpLeagueInfo; }
-      set { _pvpLeagueInfo = value; }
-    }
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
   public partial class AttackedNotificationProto : global::ProtoBuf.IExtensible
   {

@@ -132,6 +132,8 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 			{
 				MSActionManager.Popup.CloseAllPopups();
 			}
+
+			MSBuildingManager.instance.FullDeselect();
 		}
 	}
 	

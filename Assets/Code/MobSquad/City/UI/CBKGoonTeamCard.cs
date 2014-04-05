@@ -36,10 +36,10 @@ public class CBKGoonTeamCard : MonoBehaviour {
 
 	static readonly Dictionary<MonsterProto.MonsterElement, string> healthBarForElements = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "nightteamhealthbar"},
+		{MonsterProto.MonsterElement.DARK, "nightteamhealthbar"},
 		{MonsterProto.MonsterElement.FIRE, "fireteamhealthbar"},
 		{MonsterProto.MonsterElement.GRASS, "earthteamhealthbar"},
-		{MonsterProto.MonsterElement.LIGHTNING, "lightteamhealthbar"},
+		{MonsterProto.MonsterElement.LIGHT, "lightteamhealthbar"},
 		{MonsterProto.MonsterElement.WATER, "waterteamhealthbar"}
 	};
 

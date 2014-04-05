@@ -41,7 +41,7 @@ public class MSMenuTween : TweenPosition {
 		from = rightPos;
 		to = Vector3.zero;
 		ResetToBeginning();
-		Play();
+		PlayForward();
 	}
 
 	public void TweenClosed()
@@ -49,7 +49,7 @@ public class MSMenuTween : TweenPosition {
 		from = Vector3.zero;
 		to = rightPos;
 		ResetToBeginning();
-		Play ();
+		PlayForward ();
 	}
 
 	public void TweenBackIn()
@@ -57,7 +57,7 @@ public class MSMenuTween : TweenPosition {
 		from = leftPos;
 		to = Vector3.zero;
 		ResetToBeginning();
-		Play();
+		PlayForward();
 	}
 
 	public void TweenOut()
@@ -65,6 +65,6 @@ public class MSMenuTween : TweenPosition {
 		from = Vector3.zero;
 		to = leftPos;
 		ResetToBeginning();
-		Play();
+		PlayForward();
 	}
 }

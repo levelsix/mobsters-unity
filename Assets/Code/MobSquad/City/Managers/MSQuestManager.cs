@@ -261,13 +261,13 @@ public class MSQuestManager : MonoBehaviour {
 			{
 				//TODO: Get that equip bro
 			}
-			if (quest.coinReward > 0)
+			if (quest.cashReward > 0)
 			{
-				MSResourceManager.instance.Collect(ResourceType.CASH, quest.coinReward);
+				MSResourceManager.instance.Collect(ResourceType.CASH, quest.cashReward);
 			}
-			if (quest.diamondReward > 0)
+			if (quest.gemReward > 0)
 			{
-				MSResourceManager.instance.Collect(ResourceType.GEMS, quest.diamondReward);
+				MSResourceManager.instance.Collect(ResourceType.GEMS, quest.gemReward);
 			}
 			if (quest.expReward > 0)
 			{

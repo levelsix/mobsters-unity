@@ -82,19 +82,19 @@ public class CBKGoonCard : MonoBehaviour {
 	
 	static readonly Dictionary<MonsterProto.MonsterElement, string> backgroundsForElements = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "nightcard"},
+		{MonsterProto.MonsterElement.DARK, "nightcard"},
 		{MonsterProto.MonsterElement.FIRE, "firecard"},
 		{MonsterProto.MonsterElement.GRASS, "earthcard"},
-		{MonsterProto.MonsterElement.LIGHTNING, "lightcard"},
+		{MonsterProto.MonsterElement.LIGHT, "lightcard"},
 		{MonsterProto.MonsterElement.WATER, "watercard"}
 	};
 
 	static readonly Dictionary<MonsterProto.MonsterElement, string> healthBarForElements = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "nightcardhealthbar"},
+		{MonsterProto.MonsterElement.DARK, "nightcardhealthbar"},
 		{MonsterProto.MonsterElement.FIRE, "firecardhealthbar"},
 		{MonsterProto.MonsterElement.GRASS, "earthcardhealthbar"},
-		{MonsterProto.MonsterElement.LIGHTNING, "lightcardhealthbar"},
+		{MonsterProto.MonsterElement.LIGHT, "lightcardhealthbar"},
 		{MonsterProto.MonsterElement.WATER, "watercardhealthbar"}
 	};
 	

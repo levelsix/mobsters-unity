@@ -268,23 +268,23 @@ public class CBKQuestLog : MonoBehaviour {
 	{
 		int numPrizes = 0;
 		
-		if (fullQ.quest.diamondReward > 0)
+		if (fullQ.quest.gemReward > 0)
 		{
 			if (rewards.Count < numPrizes+1)
 			{
 				AddReward();
 			}
-			rewards[numPrizes].InitDiamond(fullQ.quest.diamondReward);
+			rewards[numPrizes].InitDiamond(fullQ.quest.gemReward);
 			numPrizes++;
 		}
 
-		if (fullQ.quest.coinReward > 0)
+		if (fullQ.quest.cashReward > 0)
 		{
 			if (rewards.Count < numPrizes+1)
 			{
 				AddReward();
 			}
-			rewards[numPrizes].InitCash (fullQ.quest.coinReward);
+			rewards[numPrizes].InitCash (fullQ.quest.cashReward);
 			numPrizes++;
 		}
 
@@ -352,7 +352,7 @@ public class CBKQuestLog : MonoBehaviour {
 		
 		questGiver.GetComponent<TweenPosition>().PlayForward();
 		questGiver.GetComponent<CBKUIHelper>().FadeIn();
-		questGiver.sprite2D = MSAtlasUtil.instance.GetSprite("Quest/HD/" + MSUtil.StripExtensions(quest.quest.questGiverImageSuffix) + "Big");
+		questGiver.sprite2D = MSAtlasUtil.instance.GetSprite("Quest/HD/" + MSUtil.StripExtensions(quest.quest.questGiverImagePrefix) + "Big");
 
 		GetComponent<TweenPosition>().PlayForward();
 

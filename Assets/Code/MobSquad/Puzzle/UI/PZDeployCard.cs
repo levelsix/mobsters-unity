@@ -20,10 +20,10 @@ public class PZDeployCard : MonoBehaviour {
 	
 	static readonly Dictionary<MonsterProto.MonsterElement, string> backgroundDict = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "nightteam"},
+		{MonsterProto.MonsterElement.DARK, "nightteam"},
 		{MonsterProto.MonsterElement.FIRE, "fireteam"},
 		{MonsterProto.MonsterElement.GRASS, "earthteam"},
-		{MonsterProto.MonsterElement.LIGHTNING, "lightteam"},
+		{MonsterProto.MonsterElement.LIGHT, "lightteam"},
 		{MonsterProto.MonsterElement.WATER, "waterteam"}
 	};
 

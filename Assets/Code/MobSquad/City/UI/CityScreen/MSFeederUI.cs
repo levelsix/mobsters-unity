@@ -40,8 +40,8 @@ public class MSFeederUI : MonoBehaviour {
 
 	Dictionary<MonsterProto.MonsterElement, string> backgroundSprites = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "nightbanner"},
-		{MonsterProto.MonsterElement.LIGHTNING, "lightbanner"},
+		{MonsterProto.MonsterElement.DARK, "nightbanner"},
+		{MonsterProto.MonsterElement.LIGHT, "lightbanner"},
 		{MonsterProto.MonsterElement.FIRE, "firebanner"},
 		{MonsterProto.MonsterElement.WATER, "waterbanner"},
 		{MonsterProto.MonsterElement.GRASS, "earthbanner"}
@@ -49,8 +49,8 @@ public class MSFeederUI : MonoBehaviour {
 
 	Dictionary<MonsterProto.MonsterElement, string> bannerSprites = new Dictionary<MonsterProto.MonsterElement, string>()
 	{
-		{MonsterProto.MonsterElement.DARKNESS, "nightdailylab"},
-		{MonsterProto.MonsterElement.LIGHTNING, "lightdailylab"},
+		{MonsterProto.MonsterElement.DARK, "nightdailylab"},
+		{MonsterProto.MonsterElement.LIGHT, "lightdailylab"},
 		{MonsterProto.MonsterElement.FIRE, "firedailylab"},
 		{MonsterProto.MonsterElement.WATER, "waterdailylab"},
 		{MonsterProto.MonsterElement.GRASS, "earthdailylab"}

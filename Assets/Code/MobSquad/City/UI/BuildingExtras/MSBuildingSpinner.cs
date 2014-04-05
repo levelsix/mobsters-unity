@@ -55,11 +55,10 @@ public class MSBuildingSpinner : MonoBehaviour {
 	{
 		rotate.duration = time*1.1f;
 		rotate.ResetToBeginning();
-		rotate.Play();
+		rotate.PlayForward();
 
 		float startAlphaTime = time/10f;
 		curr = 0;
-		float alpha = 0;
 		while (curr < time)
 		{
 			curr += Time.deltaTime;

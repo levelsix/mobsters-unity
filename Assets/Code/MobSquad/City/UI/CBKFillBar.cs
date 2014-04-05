@@ -25,5 +25,9 @@ public class CBKFillBar : MonoBehaviour {
 			}
 			bar.width = Mathf.Clamp((int)((maxSize - minSize) * value + minSize), minSize, maxSize);
 		}
+		get
+		{
+			return v;
+		}
 	}
 }

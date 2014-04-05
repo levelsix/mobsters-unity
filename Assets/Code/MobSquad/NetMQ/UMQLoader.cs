@@ -114,23 +114,6 @@ public class UMQLoader : MonoBehaviour {
 			
 			MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 
-			LoadPlayerCityRequestProto request = new LoadPlayerCityRequestProto();
-			request.sender = MSWhiteboard.localMup;
-			request.cityOwnerId = MSWhiteboard.cityID;
-			
-			tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LOAD_PLAYER_CITY_EVENT, null);
-			
-			while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
-			{
-				//Debug.Log("Waiting on response: " + tagNum);
-				yield return new WaitForSeconds(1);
-			}
-			
-			Debug.Log("Got response");
-			
-			MSWhiteboard.loadedPlayerCity = UMQNetworkManager.responseDict[tagNum] as LoadPlayerCityResponseProto;
-			UMQNetworkManager.responseDict.Remove(tagNum);
-
 			StartCoroutine(MSBuildingManager.instance.LoadPlayerCity());
 		}
 

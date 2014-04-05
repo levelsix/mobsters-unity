@@ -16,7 +16,9 @@ public class MSGridManager : MonoBehaviour {
 	List<int> roadLines;
 	
 	List<MSWalkableSpace> walkableSpaces = new List<MSWalkableSpace>();
-	
+
+	List<MSWalkableSpace> tempBlocks = new List<MSWalkableSpace>();
+
 	#endregion
 	
 	#region Private
@@ -503,5 +505,21 @@ public class MSGridManager : MonoBehaviour {
 			return (IsOpen(start.x,end.z) && IsOpen(end.x,start.z));
 		}
 		return true;
+	}
+
+	public void BlockSpace(int x, int y)
+	{
+		MSWalkableSpace space = new MSWalkableSpace(new Vector2(x,y));
+		_grid[x,y] = space;
+		tempBlocks.Add (space);
+	}
+
+	public void ClearBlocks()
+	{
+		foreach (var item in tempBlocks) 
+		{
+			_grid[(int)item.pos.x, (int)item.pos.y] = null;
+		}
+		tempBlocks.Clear();
 	}
 }
