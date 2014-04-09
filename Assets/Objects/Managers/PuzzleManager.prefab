@@ -38,6 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbcf036ac96cb47e1bbef698d376d09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boardSprite: {fileID: 0}
   comboLabel: {fileID: 0}
   _swapLock: 0
   processingSwap: 0
@@ -45,15 +46,17 @@ MonoBehaviour:
   puzzleParent: {fileID: 0}
   gemPrefab: {fileID: 11400000, guid: 0e7ac0e626e3d49a182637a99a1e4a5b, type: 2}
   gemTypes:
-  - earth
   - fire
+  - earth
+  - water
   - light
   - night
-  - water
   - rock
   currGems: 
   gemsOnBoardByType: 0000000000000000000000000000000000000000
   gemsByType: 0
+  boardWidth: 8
+  boardHeight: 8
   damageNumberPrefab: {fileID: 11400004, guid: 0bde78446e90b4023a26e133a756d3cc, type: 2}
   rocketPrefab: {fileID: 11400000, guid: ac52f9ee03f3e4a2687ddb81918e52e4, type: 2}
   molotovPartPrefab: {fileID: 11400004, guid: 21b4370dac4cf4cfe99d801abf9a2245, type: 2}

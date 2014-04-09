@@ -83,9 +83,9 @@ public class CBKQuestTaskEntry : MonoBehaviour, MSPoolable
 		
 		taskNameLabel.text = fullTask.name;
 		
-		numLeftLabel.text = task.numTimesActed + "/" + 1;
+		numLeftLabel.text = /*task.numTimesActed +*/ "/" + 1;
 		
-		SetComplete(task.numTimesActed > 0);
+		SetComplete(false/*task.numTimesActed > 0*/);
 	}
 	
 	public void Init(MinimumUserBuildStructJobProto job)

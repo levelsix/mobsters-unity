@@ -112,7 +112,10 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	public int colorIndex = 0;
 
 	public bool lockedBySpecial = false;
-	
+
+	[SerializeField]
+	UISprite blocker;
+
 	[SerializeField]
 	Vector2 currDrag = Vector2.zero;
 	
@@ -178,11 +181,13 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	void Init(int colr, int column)
 	{
+		Debug.Log("Init color: " + colr);
+
 		colorIndex = colr;
 		baseSprite = PZPuzzleManager.instance.gemTypes[colorIndex];
 		
 		boardX = column;
-		boardY = PZPuzzleManager.BOARD_HEIGHT;
+		boardY = PZPuzzleManager.instance.boardHeight;
 
 		trans.localScale = Vector3.one;
 		gemType = GemType.NORMAL;
@@ -218,7 +223,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			}
 
 			PZPuzzleManager.instance.board[boardX, boardY] = null; //Remove from board
-			for (int j = boardY; j < PZPuzzleManager.BOARD_HEIGHT; j++) //Tell everything that was above this to fall
+			for (int j = boardY; j < PZPuzzleManager.instance.boardHeight; j++) //Tell everything that was above this to fall
 			{
 				if (PZPuzzleManager.instance.board[boardX, j] != null)
 				{
@@ -232,7 +237,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 					break;
 				}
 			}
-			SpawnAbove(PZPuzzleManager.instance.PickColor(), boardX); //Respawn at top of board
+			SpawnAbove(PZPuzzleManager.instance.PickColor(boardX), boardX); //Respawn at top of board
 		}
 	}
 	
@@ -265,7 +270,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			//If this gem is above the board, it is new and doesn't need to be removed.
 			//Otherwise, it's falling from within the board, so we need to mark its old
 			//space as empty
-			if (boardY < PZPuzzleManager.BOARD_HEIGHT)
+			if (boardY < PZPuzzleManager.instance.boardHeight)
 			{
 				PZPuzzleManager.instance.board[boardX, boardY] = null;
 			}
@@ -279,7 +284,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		}
 		else
 		{
-			if (!enqueued && boardY >= PZPuzzleManager.BOARD_HEIGHT)
+			if (!enqueued && boardY >= PZPuzzleManager.instance.boardHeight)
 			{
 				//Debug.LogWarning("Queuing: " + id);
 				PZPuzzleManager.instance.columnQueues[boardX].Add(this);
@@ -346,7 +351,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		if (!dragged && !moving && PZPuzzleManager.instance.swapLock == 0)
 		{
 			currDrag += delta;
-			if (currDrag.x > DRAG_THRESHOLD && boardX < PZPuzzleManager.BOARD_WIDTH-1)
+			if (currDrag.x > DRAG_THRESHOLD && boardX < PZPuzzleManager.instance.boardWidth-1)
 			{
 				StartCoroutine(Shift(MSValues.Direction.EAST));
 			}
@@ -354,7 +359,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			{
 				StartCoroutine(Shift(MSValues.Direction.WEST));
 			}
-			else if (currDrag.y > DRAG_THRESHOLD && boardY < PZPuzzleManager.BOARD_HEIGHT-1)
+			else if (currDrag.y > DRAG_THRESHOLD && boardY < PZPuzzleManager.instance.boardHeight-1)
 			{
 				StartCoroutine(Shift(MSValues.Direction.NORTH));
 			}
@@ -447,10 +452,26 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		moving = false;
 		PZPuzzleManager.instance.OnStopMoving(this);
 	}
+
+	public void Block()
+	{
+		blocker.gameObject.SetActive(true);
+		MSActionManager.Puzzle.OnGemMatch += Unblock;
+	}
+
+	void Unblock()
+	{
+		blocker.gameObject.SetActive(false);
+		MSActionManager.Puzzle.OnGemMatch -= Unblock;
+	}
 		
 	public void Pool()
 	{
 		MSPoolManager.instance.Pool(this);
+		if (blocker.gameObject.activeSelf)
+		{
+			Unblock ();
+		}
 	}
 	
 	public override string ToString()

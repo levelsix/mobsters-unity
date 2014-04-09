@@ -134,13 +134,13 @@ namespace com.lvl6.proto
       set { _taskId = value; }
     }
 
-    private int _numTimesActed = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"numTimesActed", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _curTaskStageId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"curTaskStageId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int numTimesActed
+    public int curTaskStageId
     {
-      get { return _numTimesActed; }
-      set { _numTimesActed = value; }
+      get { return _curTaskStageId; }
+      set { _curTaskStageId = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

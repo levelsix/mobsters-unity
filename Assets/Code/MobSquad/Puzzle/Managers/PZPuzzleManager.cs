@@ -1,11 +1,17 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using System.IO;
+using System;
 
 public class PZPuzzleManager : MonoBehaviour {
 	
 	public static PZPuzzleManager instance;
-	
+
+	[SerializeField]
+	UISprite boardSprite;
+
 	[SerializeField]
 	UILabel comboLabel;
 
@@ -70,12 +76,19 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	public int[] gemsOnBoardByType = new int[GEM_TYPES];
 
-	public List<PZGem>[] columnQueues = new List<PZGem>[BOARD_WIDTH];
+	public List<PZGem>[] columnQueues = new List<PZGem>[STANDARD_BOARD_HEIGHT];
+
+	public Stack<int>[] riggedBoardStacks = new Stack<int>[STANDARD_BOARD_WIDTH];
 	
 	public int gemsByType;
+
+	public const int STANDARD_BOARD_WIDTH = 8;
+	public const int STANDARD_BOARD_HEIGHT = 8;
+
+	public const int SPACE_SIZE = 71;
 	
-	public const int BOARD_WIDTH = 8;
-	public const int BOARD_HEIGHT = 8;
+	public int boardWidth = 8;
+	public int boardHeight = 8;
 	
 	public const int GEM_TYPES = 6;
 	
@@ -96,7 +109,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		instance = this;
 		
-		board = new PZGem[BOARD_WIDTH, BOARD_HEIGHT];
+		board = new PZGem[boardWidth, boardHeight];
 		
 		currGems = new int[GEM_TYPES];
 
@@ -111,6 +124,10 @@ public class PZPuzzleManager : MonoBehaviour {
 		for (int i = 0; i < columnQueues.Length; i++) 
 		{
 			columnQueues[i] = new List<PZGem>();
+		}
+		for (int i = 0; i < riggedBoardStacks.Length; i++) 
+		{
+			riggedBoardStacks[i] = new Stack<int>();
 		}
 	}
 
@@ -131,16 +148,35 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 	}
 	
-	public void InitBoard()
+	public void InitBoard(int w = STANDARD_BOARD_WIDTH, int h = STANDARD_BOARD_HEIGHT, string boardFile = "")
 	{
+		//Make sure we clear the board with the old values for width and height!
 		ClearBoard();
+
+		boardWidth = w;
+		boardHeight = h;
+
+		board = new PZGem[w, h];
+
+		boardSprite.width = w * SPACE_SIZE;
+		boardSprite.height = h * SPACE_SIZE;
+		
+		foreach (var item in riggedBoardStacks) 
+		{
+			item.Clear();
+		}
+		if (boardFile != "")
+		{
+			RigBoard(boardFile);
+		}
+
 		PZGem gem;
 
 		do
 		{
-			for (int i = 0; i < BOARD_HEIGHT; i++) 
+			for (int i = 0; i < boardHeight; i++) 
 			{
-				for (int j = 0; j < BOARD_WIDTH; j++) 
+				for (int j = 0; j < boardWidth; j++) 
 				{
 					gem = MSPoolManager.instance.Get(gemPrefab, Vector3.zero) as PZGem;
 					gem.transf.parent = puzzleParent;
@@ -152,13 +188,34 @@ public class PZPuzzleManager : MonoBehaviour {
 		setUpBoard = true;
 	}
 
+	void RigBoard(string boardFile)
+	{
+		try
+		{
+			string fileText = File.ReadAllText(boardFile);
+			string[] lines = fileText.Split('\n');
+
+			foreach (var item in lines) 
+			{
+				for (int i = 0; i < item.Length; i++) 
+				{
+					riggedBoardStacks[i].Push((int)char.GetNumericValue(item[i]) - 1);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			Debug.LogError("Problem opening file: " + e.Message);
+		}
+	}
+
 	public void ClearBoard ()
 	{
 		if (setUpBoard)
 		{
-			for (int i = 0; i < BOARD_HEIGHT; i++) 
+			for (int i = 0; i < boardHeight; i++) 
 			{
-				for (int j = 0; j < BOARD_WIDTH; j++) 
+				for (int j = 0; j < boardWidth; j++) 
 				{
 					board[j,i].Pool();
 					board[j,i] = null;
@@ -186,8 +243,13 @@ public class PZPuzzleManager : MonoBehaviour {
 	/// <param name='col'>
 	/// Column
 	/// </param>
-	public int PickColor(int row = 0, int col = 0)
+	public int PickColor(int row, int col)
 	{
+		if (riggedBoardStacks[col].Count > 0)
+		{
+			return riggedBoardStacks[col].Pop();
+		}
+		
 		int picked;
 		int rowCol = -1;
 		if (row >= 2)
@@ -201,7 +263,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 		while(true)
 		{
-			picked = Random.Range(0,gemTypes.Length);
+			picked = UnityEngine.Random.Range(0,gemTypes.Length);
 			if (picked != rowCol && picked != colCol)
 			{
 				break;
@@ -209,6 +271,16 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 		gemsOnBoardByType[picked]++;
 		return picked;
+	}
+
+	public int PickColor(int col)
+	{
+		if (riggedBoardStacks[col].Count > 0)
+		{
+			return riggedBoardStacks[col].Pop();
+		}
+
+		return UnityEngine.Random.Range(0,gemTypes.Length);
 	}
 	
 	public void OnStartMoving(PZGem gem)
@@ -275,10 +347,10 @@ public class PZPuzzleManager : MonoBehaviour {
 		PZGem curr;
 		
 		//Determine horizontal matches
-		for (int i = 0; i < BOARD_WIDTH; i++) 
+		for (int i = 0; i < boardWidth; i++) 
 		{
 			currGems.Add(board[i,0]);
-			for (int j = 1; j < BOARD_HEIGHT; j++) 
+			for (int j = 1; j < boardHeight; j++) 
 			{
 				curr = board[i,j];
 				
@@ -314,9 +386,9 @@ public class PZPuzzleManager : MonoBehaviour {
 			currGems.Clear ();
 		}
 		
-		for (int i = 0; i < BOARD_HEIGHT; i++) {
+		for (int i = 0; i < boardHeight; i++) {
 			currGems.Add (board[0,i]);
-			for (int j = 1; j < BOARD_WIDTH; j++) {
+			for (int j = 1; j < boardWidth; j++) {
 				curr = board[j,i];
 				if (currGems[0].colorIndex != curr.colorIndex)
 				{
@@ -513,8 +585,8 @@ public class PZPuzzleManager : MonoBehaviour {
 		PZGem gem;
 		gems.Add(molly);
 		int index = 0;
-		for (int i = 0; i < BOARD_WIDTH; i++) {
-			for (int j = 0; j < BOARD_HEIGHT; j++) {
+		for (int i = 0; i < boardWidth; i++) {
+			for (int j = 0; j < boardHeight; j++) {
 				gem = board[i,j];
 				if (gem != null && gem.colorIndex == colorIndex && gem != molly)
 				{
@@ -543,19 +615,19 @@ public class PZPuzzleManager : MonoBehaviour {
 			{
 				gems.Add(board[bomb.boardX-1, bomb.boardY-1]);
 			}
-			if (bomb.boardY < BOARD_HEIGHT-1)
+			if (bomb.boardY < boardHeight-1)
 			{
 				gems.Add(board[bomb.boardX-1, bomb.boardY+1]);
 			}
 		}
-		if (bomb.boardX < BOARD_WIDTH-1)
+		if (bomb.boardX < boardWidth-1)
 		{
 			gems.Add(board[bomb.boardX+1, bomb.boardY]);
 			if (bomb.boardY > 0)
 			{
 				gems.Add(board[bomb.boardX+1, bomb.boardY-1]);
 			}
-			if (bomb.boardY < BOARD_HEIGHT-1)
+			if (bomb.boardY < boardHeight-1)
 			{
 				gems.Add(board[bomb.boardX+1, bomb.boardY+1]);
 			}
@@ -564,7 +636,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			gems.Add(board[bomb.boardX, bomb.boardY-1]);
 		}
-		if (bomb.boardY < BOARD_HEIGHT-1)
+		if (bomb.boardY < boardHeight-1)
 		{
 			gems.Add(board[bomb.boardX, bomb.boardY+1]);
 		}
@@ -593,7 +665,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			rocket.trans.localScale = new Vector3(-1,1,1);
 			rocket.trans.localPosition = gem.transf.localPosition;
 
-			for (int i = 0; i < BOARD_WIDTH; i++) 
+			for (int i = 0; i < boardWidth; i++) 
 			{
 				PZGem target = board[i, gem.boardY];
 				target.lockedBySpecial = true;
@@ -618,7 +690,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			rocket.trans.localScale = new Vector3(-1,1,1);
 			rocket.trans.localPosition = gem.transf.localPosition;
 
-			for (int i = 0; i < BOARD_HEIGHT; i++) {
+			for (int i = 0; i < boardHeight; i++) {
 				PZGem target = board[gem.boardX, i];
 				target.lockedBySpecial = true;
 				gems.Add (target);
@@ -650,12 +722,12 @@ public class PZPuzzleManager : MonoBehaviour {
 		PZGem gem;
 		
 		//Check horizontal possibilities
-		for (int i = 0; i < BOARD_HEIGHT; i++) 
+		for (int i = 0; i < boardHeight; i++) 
 		{
-			for (int j = 0; j < BOARD_WIDTH-2; j++) 
+			for (int j = 0; j < boardWidth-2; j++) 
 			{
 				gem = board[j, i];
-				if (j < BOARD_WIDTH-3)
+				if (j < boardWidth-3)
 				{
 					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+3,i].colorIndex)
 					{
@@ -681,7 +753,7 @@ public class PZPuzzleManager : MonoBehaviour {
 						return true;
 					}
 				}
-				if (i < BOARD_HEIGHT-1)
+				if (i < boardHeight-1)
 				{
 					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+2,i+1].colorIndex)
 					{
@@ -700,16 +772,16 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 		
 		//Check vertical possibilities
-		for (int i = 0; i < BOARD_WIDTH; i++) 
+		for (int i = 0; i < boardWidth; i++) 
 		{
-			for (int j = 0; j < BOARD_HEIGHT-2; j++) 
+			for (int j = 0; j < boardHeight-2; j++) 
 			{
 				gem = board[i,j];
 				if (gem.gemType == PZGem.GemType.MOLOTOV)
 				{
 					return true;
 				}
-				if (j < BOARD_HEIGHT-3)
+				if (j < boardHeight-3)
 				{
 					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i, j+3].colorIndex)
 					{
@@ -735,7 +807,7 @@ public class PZPuzzleManager : MonoBehaviour {
 						return true;
 					}
 				}
-				if (i < BOARD_HEIGHT-1)
+				if (i < boardHeight-1)
 				{
 					if (gem.colorIndex == board[i,j+1].colorIndex && gem.colorIndex == board[i+1,j+2].colorIndex)
 					{
@@ -762,7 +834,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			return columnQueues[col][columnQueues[col].Count-1].transf.localPosition.y;
 		}
-		for (int i = BOARD_HEIGHT-1; i >= 0; i--) 
+		for (int i = boardHeight-1; i >= 0; i--) 
 		{
 			if (board[col,i] != null)
 			{
@@ -772,14 +844,28 @@ public class PZPuzzleManager : MonoBehaviour {
 		return 0;
 	}
 
+	public void BlockBoard(List<Vector2> exceptSpaces)
+	{
+		for (int i = 0; i < boardWidth; i++) 
+		{
+			for (int j = 0; j < boardHeight; j++) 
+			{
+				if (!exceptSpaces.Contains(new Vector2(i,j)))
+				{
+					board[i,j].Block();
+				}
+			}
+		}
+	}
+
 	[ContextMenu ("Print board")]
 	public void PrintBoard()
 	{
 		string str = "Board";
-		for (int i = BOARD_HEIGHT-1; i >= 0; i--) 
+		for (int i = boardHeight-1; i >= 0; i--) 
 		{
 			str += "\n";
-			for (int j = 0; j < BOARD_WIDTH; j++) 
+			for (int j = 0; j < boardWidth; j++) 
 			{
 				if (board[j,i] == null)
 				{

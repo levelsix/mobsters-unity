@@ -384,6 +384,22 @@ namespace com.lvl6.proto
       get { return _recentNBattles; }
     }
   
+
+    private com.lvl6.proto.MinimumUserTaskProto _curTask = null;
+    [global::ProtoBuf.ProtoMember(36, IsRequired = false, Name=@"curTask", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserTaskProto curTask
+    {
+      get { return _curTask; }
+      set { _curTask = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.TaskStageProto> _curTaskStages = new global::System.Collections.Generic.List<com.lvl6.proto.TaskStageProto>();
+    [global::ProtoBuf.ProtoMember(37, Name=@"curTaskStages", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.TaskStageProto> curTaskStages
+    {
+      get { return _curTaskStages; }
+    }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
   public partial class AttackedNotificationProto : global::ProtoBuf.IExtensible
   {

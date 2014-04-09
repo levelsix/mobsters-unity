@@ -143,7 +143,15 @@ public class MSTaskable : MonoBehaviour {
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
 		PZCombatManager.instance.InitTask();
-		PZPuzzleManager.instance.InitBoard();
+
+		if (MSTutorialManager.instance.IsTaskTutorial(task.taskId))
+		{
+			MSTutorialManager.instance.StartTutorial(task.taskId);
+		}
+		else
+		{
+			PZPuzzleManager.instance.InitBoard();
+		}
 
 		MSActionManager.Scene.OnPuzzle();
 	}
