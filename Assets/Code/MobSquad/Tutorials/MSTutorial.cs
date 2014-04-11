@@ -34,6 +34,7 @@ public class MSTutorial {
 		}
 	}
 
+	[ContextMenu ("Click Dialogue")]
 	public void OnDialogueClicked()
 	{
 		clicked = true;

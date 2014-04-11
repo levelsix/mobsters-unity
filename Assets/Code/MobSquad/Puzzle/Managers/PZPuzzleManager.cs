@@ -74,7 +74,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	public int[] currGems;
 
-	public int[] gemsOnBoardByType = new int[GEM_TYPES];
+	//public int[] gemsOnBoardByType = new int[GEM_TYPES];
 
 	public List<PZGem>[] columnQueues = new List<PZGem>[STANDARD_BOARD_HEIGHT];
 
@@ -113,7 +113,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		
 		currGems = new int[GEM_TYPES];
 
-		gemsOnBoardByType = new int[GEM_TYPES];
+		//gemsOnBoardByType = new int[GEM_TYPES];
 		
 		ResetCombo();
 		
@@ -224,7 +224,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 		for (int i = 0; i < GEM_TYPES; i++) 
 		{
-			gemsOnBoardByType[i] = 0;
+			//gemsOnBoardByType[i] = 0;
 		}
 	}
 
@@ -269,7 +269,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				break;
 			}
 		}
-		gemsOnBoardByType[picked]++;
+		//gemsOnBoardByType[picked]++;
 		return picked;
 	}
 
@@ -311,14 +311,9 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	void CheckIfTurnFinished ()
 	{
-		if (movingGems.Count == 0) {
-			foreach (var item in columnQueues) 
-			{
-				if (item.Count > 0)
-				{
+		if (movingGems.Count == 0) 
+		{
 
-				}
-			}
 
 			CheckWholeBoard ();
 			gemsToCheck.Clear ();
@@ -467,6 +462,8 @@ public class PZPuzzleManager : MonoBehaviour {
 					{
 					case PZGem.GemType.BOMB:
 						match = GetBombMatch(gem);
+						RemoveRepeats(match, matchList);
+						matchList.Add(match);
 						break;
 					case PZGem.GemType.MOLOTOV:
 						match = GetMolotovGroup(gem, gem.colorIndex);
@@ -478,8 +475,6 @@ public class PZPuzzleManager : MonoBehaviour {
 						match = null;
 						break;
 					}
-					RemoveRepeats(match, matchList);
-					matchList.Add(match);
 				}
 			}
 		}
@@ -568,15 +563,45 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 	}
 	
-	public void DetonateMolotovFromSwap(PZGem molly, int colorIndex)
+	public void DetonateMolotovFromSwap(PZGem molly, PZGem other)
 	{
+		if (molly == other)
+		{
+			molly.colorIndex = UnityEngine.Random.Range(0, GEM_TYPES);
+		}
+
 		List<PZMatch> matchList = new List<PZMatch>();
-		matchList.Add(GetMolotovGroup(molly, colorIndex));
+		PZMatch matching = GetMolotovGroup(molly, other.colorIndex);
+		switch (other.gemType) {
+		case PZGem.GemType.BOMB:
+			foreach (var item in matching.gems) 
+			{
+				item.gemType = PZGem.GemType.BOMB;
+			}
+			break;
+		case PZGem.GemType.MOLOTOV:
+
+			return;
+		case PZGem.GemType.ROCKET:
+			foreach (var item in matching.gems) 
+			{
+				item.horizontal = UnityEngine.Random.value > .5f;
+				item.gemType = PZGem.GemType.ROCKET;
+			}
+			break;
+		default:
+			break;
+		}
+		
+		matchList.Add(matching);
 		molly.gemType = PZGem.GemType.NORMAL;
 		
-		DetonateSpecialsInMatches(matchList);
+		//DetonateSpecialsInMatches(matchList);
 		DestroyMatches(matchList);
 		IncrementCombo(matchList);
+
+
+
 	}
 	
 	PZMatch GetMolotovGroup(PZGem molly, int colorIndex)
@@ -603,7 +628,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		return new PZMatch(gems, true);
 	}
 	
-	PZMatch GetBombMatch(PZGem bomb)
+	public PZMatch GetBombMatch(PZGem bomb)
 	{
 		MSPoolManager.instance.Get(MSPrefabList.instance.grenadeParticle, bomb.transf.position);
 
@@ -640,13 +665,20 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			gems.Add(board[bomb.boardX, bomb.boardY+1]);
 		}
-		foreach (PZGem item in gems) {
-			CheckIfMolly(item, bomb.colorIndex);
+		for (int i = 0; i < gems.Count; ) 
+		{
+			if (gems[i] == null)
+			{
+				gems.RemoveAt(i);
+				continue;
+			}
+			CheckIfMolly(gems[i], bomb.colorIndex);
+			i++;
 		}
 		return new PZMatch(gems, true);
 	}
 	
-	PZMatch DetonateRocket(PZGem gem)
+	public PZMatch DetonateRocket(PZGem gem)
 	{
 		List<PZGem> gems = new List<PZGem>();
 		if (gem.horizontal)
@@ -668,6 +700,10 @@ public class PZPuzzleManager : MonoBehaviour {
 			for (int i = 0; i < boardWidth; i++) 
 			{
 				PZGem target = board[i, gem.boardY];
+				if (target == null)
+				{
+					continue;
+				}
 				target.lockedBySpecial = true;
 				gems.Add(target);
 				OnStartMoving(target);
@@ -690,8 +726,13 @@ public class PZPuzzleManager : MonoBehaviour {
 			rocket.trans.localScale = new Vector3(-1,1,1);
 			rocket.trans.localPosition = gem.transf.localPosition;
 
-			for (int i = 0; i < boardHeight; i++) {
+			for (int i = 0; i < boardHeight; i++) 
+			{
 				PZGem target = board[gem.boardX, i];
+				if (target == null)
+				{
+					continue;
+				}
 				target.lockedBySpecial = true;
 				gems.Add (target);
 				OnStartMoving(target);

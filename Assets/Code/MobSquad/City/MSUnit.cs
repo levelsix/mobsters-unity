@@ -195,7 +195,9 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	
 	void SetAnimation(AnimationType animate)
 	{
-		
+
+		if (anim.animation == null) return;
+
 		switch(animate)
 		{
 			case AnimationType.ATTACK:

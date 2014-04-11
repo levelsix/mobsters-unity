@@ -56,6 +56,10 @@ public class PZMonster {
 	{
 		get
 		{
+			if (healingMonster == null)
+			{
+				return 1;
+			}
 			float progress = healingMonster.healthProgress;
 			for (int i = 0; i < hospitalTimes.Count; i++) {
 				HospitalTime hosTime = hospitalTimes[i];

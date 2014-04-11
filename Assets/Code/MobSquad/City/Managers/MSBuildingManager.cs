@@ -1076,9 +1076,12 @@ public class MSBuildingManager : MonoBehaviour
 	/// </param>
 	public void OnDrag(TCKTouchData touch)
 	{
-		//Move building or camera
-		if (_target != null){
-			_target.MoveRelative(touch);
+		if (MSSceneManager.instance.cityState)
+		{
+			//Move building or camera
+			if (_target != null){
+				_target.MoveRelative(touch);
+			}
 		}
 	}
 	

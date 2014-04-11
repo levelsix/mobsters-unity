@@ -13,7 +13,6 @@ public class PZDestroySpecial : MonoBehaviour {
 			gem.lockedBySpecial = false;
 			MSPoolManager.instance.Get(MSPrefabList.instance.orbBlowUpParticle, gem.transf.position);
 			gem.Destroy();
-
 		}
 	}
 

@@ -266,6 +266,8 @@ public class MSHospitalManager : MonoBehaviour {
 
 		if (lastHospital.completeTime < MSUtil.timeNowMillis)
 		{
+			Debug.Log("Hospital: " + lastHospital.hospital);
+			Debug.Log("Monster: " + monster);
 			lastHospital.hospital.goon = monster;
 		}
 

@@ -230,6 +230,36 @@ State:
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
+--- !u!1102 &110235971
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: MPMT2
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: 6d4a1b6ebac064a82b200925c7425321, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2080, y: 3820, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110236810
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: CashStorageT3_0
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: ed84735d7be824147b2970ce534e7316, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2325, y: 4275, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
 --- !u!1102 &110237322
 State:
   m_ObjectHideFlags: 3
@@ -275,6 +305,21 @@ State:
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
+--- !u!1102 &110239028
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: MPMT1
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: 55a180db42fde4c3f905bf05103550e0, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2045, y: 3755, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
 --- !u!1102 &110239678
 State:
   m_ObjectHideFlags: 3
@@ -287,6 +332,21 @@ State:
   - {fileID: 7400000, guid: 0b1b1a4eefbf84cdb868844fd763335e, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 330, y: 570, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110240163
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: OilStorageT1
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: 5748170972e70413eb90bd2eeb9a6c64, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2150, y: 3950, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -365,6 +425,21 @@ State:
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
+--- !u!1102 &110247975
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: OilStorageT2
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: 96816d4d1a0b64821b907bd1b28b1237, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2185, y: 4015, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
 --- !u!1102 &110253971
 State:
   m_ObjectHideFlags: 3
@@ -425,6 +500,21 @@ State:
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
+--- !u!1102 &110258324
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: OilDrillT2
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: 00d12ed51550c4911ab02869d3c17a9f, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2395, y: 4405, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
 --- !u!1102 &110258496
 State:
   m_ObjectHideFlags: 3
@@ -437,6 +527,21 @@ State:
   - {fileID: 7400000, guid: 93bacbde4df984602962791a6e865f1b, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 85, y: 115, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110258985
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: OilDrillT3
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: eb7361e2075a74766aaef83437bf2e12, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2430, y: 4470, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -695,6 +800,21 @@ State:
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
+--- !u!1102 &110282607
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: OilStorageT3
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: 77755f0f0764c43d69b8dddc6b02a92e, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2220, y: 4080, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
 --- !u!1102 &110282742
 State:
   m_ObjectHideFlags: 3
@@ -722,6 +842,36 @@ State:
   - {fileID: 7400000, guid: eadc112db848c47eea33d428db08e074, type: 2}
   m_ParentStateMachine: {fileID: 110700000}
   m_Position: {x: 1590, y: 2910, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110285439
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: CashStorageT2_0
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: 6370e2dae227c49af9fb68a8b625e204, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2290, y: 4210, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110288120
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: CashStorageT1_0
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: 42e3aabb9e65c446bb9ad2f7b28d8eb6, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2255, y: 4145, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -845,6 +995,36 @@ State:
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
+--- !u!1102 &110295945
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: OilDrillT1
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: e02ff60f01bbd48fba0bcb9b729a0351, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2360, y: 4340, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
+--- !u!1102 &110296435
+State:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: MPMT3
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Motions:
+  - {fileID: 7400000, guid: 8b08a8a8ed4814d819212f44620602b7, type: 2}
+  m_ParentStateMachine: {fileID: 110700000}
+  m_Position: {x: 2115, y: 3885, z: 0}
+  m_IKOnFeet: 0
+  m_Mirror: 0
+  m_Tag: 
 --- !u!1102 &110299722
 State:
   m_ObjectHideFlags: 3
@@ -941,6 +1121,18 @@ StateMachine:
   - {fileID: 110271486}
   - {fileID: 110294765}
   - {fileID: 110206615}
+  - {fileID: 110239028}
+  - {fileID: 110235971}
+  - {fileID: 110296435}
+  - {fileID: 110240163}
+  - {fileID: 110247975}
+  - {fileID: 110282607}
+  - {fileID: 110288120}
+  - {fileID: 110285439}
+  - {fileID: 110236810}
+  - {fileID: 110295945}
+  - {fileID: 110258324}
+  - {fileID: 110258985}
   m_ChildStateMachine: []
   m_ChildStateMachinePosition: []
   m_OrderedTransitions: {}

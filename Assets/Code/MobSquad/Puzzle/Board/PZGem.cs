@@ -181,8 +181,6 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	void Init(int colr, int column)
 	{
-		Debug.Log("Init color: " + colr);
-
 		colorIndex = colr;
 		baseSprite = PZPuzzleManager.instance.gemTypes[colorIndex];
 		
@@ -210,9 +208,14 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	public void Destroy()
 	{
-		if (!lockedBySpecial)
+		if (!lockedBySpecial) //Specials need to disable this lock before destroying the gem
 		{
-			//Debug.LogWarning("Destroying: " + id);
+			if (colorIndex >= 0)
+			{
+				PZDamageNumber damNum = MSPoolManager.instance.Get(PZPuzzleManager.instance.damageNumberPrefab, transf.position) as PZDamageNumber;
+				damNum.Init(this);
+				PZPuzzleManager.instance.currGems[colorIndex]++;
+			}
 
 			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.gemPop);
 
@@ -223,6 +226,9 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			}
 
 			PZPuzzleManager.instance.board[boardX, boardY] = null; //Remove from board
+			
+			Detonate();
+
 			for (int j = boardY; j < PZPuzzleManager.instance.boardHeight; j++) //Tell everything that was above this to fall
 			{
 				if (PZPuzzleManager.instance.board[boardX, j] != null)
@@ -230,6 +236,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 					PZPuzzleManager.instance.board[boardX, j].CheckFall();
 				}
 			}
+
 			while(PZPuzzleManager.instance.columnQueues[boardX].Count > 0)
 			{
 				if (!PZPuzzleManager.instance.columnQueues[boardX][0].CheckFall())
@@ -237,7 +244,9 @@ public class PZGem : MonoBehaviour, MSPoolable {
 					break;
 				}
 			}
+
 			SpawnAbove(PZPuzzleManager.instance.PickColor(boardX), boardX); //Respawn at top of board
+
 		}
 	}
 	
@@ -333,6 +342,23 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		moving = false;
 		PZPuzzleManager.instance.OnStopMoving(this);
 	}
+
+	void Detonate()
+	{
+		switch (gemType) {
+		case GemType.ROCKET:
+			PZPuzzleManager.instance.DetonateRocket(this);
+			break;
+		case GemType.MOLOTOV:
+			PZPuzzleManager.instance.DetonateMolotovFromSwap(this, this);
+			break;
+		case GemType.BOMB:
+			PZPuzzleManager.instance.GetBombMatch(this).Destroy();
+			break;
+		default:
+			break;
+		}
+	}
 	
 	void OnPress(bool pressed)
 	{
@@ -394,11 +420,32 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		{
 			if (gemType == GemType.MOLOTOV)
 			{
-				PZPuzzleManager.instance.DetonateMolotovFromSwap(this, swapee.colorIndex);
+				PZPuzzleManager.instance.DetonateMolotovFromSwap(this, swapee); //Takes care of all MOLOTOV-SPECIAL combos
 			}
 			else if (swapee.gemType == GemType.MOLOTOV)
 			{
-				PZPuzzleManager.instance.DetonateMolotovFromSwap(swapee, colorIndex);
+				PZPuzzleManager.instance.DetonateMolotovFromSwap(swapee, this);
+			}
+			else if (gemType != GemType.NORMAL && swapee.gemType != GemType.NORMAL) //Only cases left are BOMB-BOMB, ROCKET-ROCKET, and BOMB-ROCKET
+			{
+				if (gemType == swapee.gemType)
+				{
+					if (gemType == GemType.BOMB) //BOMB-BOMB
+					{
+
+					}
+					else //ROCKET-ROCKET
+					{
+						horizontal = true;
+						PZPuzzleManager.instance.DetonateRocket(this);
+						swapee.horizontal = false;
+						PZPuzzleManager.instance.DetonateRocket(swapee);
+					}
+				}
+				else //BOMB-ROCKET
+				{
+
+				}
 			}
 			else
 			{

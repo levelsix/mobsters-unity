@@ -263,9 +263,13 @@ public class PZCombatManager : MonoBehaviour {
 			mon = new PZMonster(stage.stageMonsters[0]);
 			enemies.Enqueue(mon);
 		}
+
 		//CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
-		deployPopup.Init(MSMonsterManager.instance.userTeam);
-		
+		//deployPopup.Init(MSMonsterManager.instance.userTeam);
+
+		//StartCoroutine(ScrollToNextEnemy());
+		OnDeploy(playerGoonies[0]);
+
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
 	}
@@ -671,6 +675,11 @@ public class PZCombatManager : MonoBehaviour {
 				MSActionManager.Puzzle.ForceShowSwap();
 			}
 			boardTint.PlayReverse();
+		}
+
+		if (MSActionManager.Puzzle.OnTurnChange != null)
+		{
+			MSActionManager.Puzzle.OnTurnChange(playerTurns);
 		}
 
 		PZPuzzleManager.instance.swapLock = activeEnemy.alive ? 0 : 1;

@@ -26,13 +26,13 @@ public class MSHospital : MonoBehaviour {
 				if (_goon == null)
 				{
 					animator.SetBool("Healing", false);
-					building.overlayUnit.sprite.color = new Color(1,1,1,0);
+					building.overlayUnit.gameObject.SetActive(false);
 				}
 				else
 				{
+					building.overlayUnit.gameObject.SetActive(true);
 					animator.SetBool("Healing", true);
 					building.overlayUnit.Init(_goon);
-					building.overlayUnit.sprite.color = Color.white;
 				}
 			}
 		}
@@ -45,9 +45,9 @@ public class MSHospital : MonoBehaviour {
 	void Awake()
 	{
 		building = GetComponent<MSBuilding>();
-		building.overlayUnit.gameObject.SetActive(true);
 		animator = building.sprite.GetComponent<Animator>();
 		goon = null;
+		building.overlayUnit.gameObject.SetActive(false);
 	}
 
 	void OnDestroy()

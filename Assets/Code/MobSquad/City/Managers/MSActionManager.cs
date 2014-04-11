@@ -94,6 +94,8 @@ public static class MSActionManager
 		public static Action<ReceivedGroupChatResponseProto> OnGroupChatReceived;
 
 		public static Action OnRequestsAcceptOrReject;
+
+		public static Action OnDialogueClicked;
 	}
 	
 	public static class Goon

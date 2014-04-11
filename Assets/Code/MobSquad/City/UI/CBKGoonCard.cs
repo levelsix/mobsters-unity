@@ -593,14 +593,7 @@ public class CBKGoonCard : MonoBehaviour {
 		{
 			return;
 		}
-		if (goon.userMonster.teamSlotNum > 0)
-		{
-			PopupTeamMemberToHealingQueue(goon);
-		}
-		else
-		{
-			MSHospitalManager.instance.AddToHealQueue(goon);
-		}
+		MSHospitalManager.instance.AddToHealQueue(goon);
 	}
 
 	void AddToEvolveScreen()
