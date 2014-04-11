@@ -23,9 +23,16 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		{
 			_spriteBaseName = value;
 			anim.runtimeAnimatorController = MSAtlasUtil.instance.GetAnimator(value);
-			//_spriteBaseName = value;
-			//sprite.spriteName = value;
-			//CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
+
+			if (anim.runtimeAnimatorController == null)
+			{
+				sprite.color = new Color(1,1,1,0);
+			}
+			else
+			{
+				sprite.color = Color.white;
+			}
+
 			SetAnimation(AnimationType.IDLE);
 		}
 	}
@@ -183,6 +190,9 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 
 	void SetDirection ()
 	{
+		
+		if (anim.runtimeAnimatorController == null) return;
+
 		anim.SetBool("Far", (direction == MSValues.Direction.NORTH || direction == MSValues.Direction.EAST));
 
 		if (direction == MSValues.Direction.SOUTH || direction == MSValues.Direction.EAST) {
@@ -196,7 +206,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	void SetAnimation(AnimationType animate)
 	{
 
-		if (anim.animation == null) return;
+		if (anim.runtimeAnimatorController == null) return;
 
 		switch(animate)
 		{
