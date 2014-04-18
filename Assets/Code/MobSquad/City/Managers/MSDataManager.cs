@@ -36,7 +36,8 @@ public class MSDataManager : MonoBehaviour {
 	{
 		instance = this;
 	}
-	
+
+	/*
 	IEnumerator Start()
 	{
 		while(true)
@@ -45,7 +46,8 @@ public class MSDataManager : MonoBehaviour {
 			GC.Collect();
 		}
 	}
-	
+	*/
+
 	/// <summary>
 	/// Adds the specified type to the data dictionary and creates a list
 	/// for it.

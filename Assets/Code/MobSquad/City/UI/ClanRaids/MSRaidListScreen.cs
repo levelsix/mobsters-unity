@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -53,6 +53,6 @@ public class MSRaidListScreen : MonoBehaviour {
 		entry.transform.parent = table.transform;
 		entry.transform.localScale = Vector3.one;
 
-		entry.GetComponent<CBKActionButton>().dragBehind = table.GetComponent<UIDragScrollView>();
+		entry.GetComponent<MSUIHelper>().dragBehind = table.GetComponent<UIDragScrollView>();
 	}
 }

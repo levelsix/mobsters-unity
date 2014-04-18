@@ -9,7 +9,7 @@ public class UMQLoader : MonoBehaviour {
 	GameObject createUserPopup;
 
 	[SerializeField]
-	CBKFillBar fillBar;
+	MSFillBar fillBar;
 
 	// Use this for initialization
 	IEnumerator Start () {

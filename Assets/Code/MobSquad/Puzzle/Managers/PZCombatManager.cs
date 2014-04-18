@@ -16,9 +16,13 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	public static PZCombatManager instance;
 
+	public BeginDungeonResponseProto debug;
+
 	public bool pvpMode = false;
 
 	public bool raidMode = false;
+
+	public bool waitingForTutorialSignal = false;
 
 	public UIPanel combatPanel;
 
@@ -245,6 +249,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	public void InitTask()
 	{
+		debug = MSWhiteboard.loadedDungeon;
+
 		Init ();
 		
 		boardMove.Sample(0,false);
@@ -255,6 +261,8 @@ public class PZCombatManager : MonoBehaviour {
 		raidMode = false;
 
 		MSWhiteboard.currUserTaskId = MSWhiteboard.loadedDungeon.userTaskId;
+
+		Debug.LogWarning("Number of stages: " + MSWhiteboard.loadedDungeon.tsp.Count);
 
 		PZMonster mon;
 		foreach (TaskStageProto stage in MSWhiteboard.loadedDungeon.tsp)
@@ -321,8 +329,9 @@ public class PZCombatManager : MonoBehaviour {
 		pvpMode = false;
 		raidMode = true;
 
+		MSClanEventManager.instance.GetCurrentStageMonsters().Sort((m1,m2)=>m1.crsmId.CompareTo(m2.crsmId));
 
-		foreach (var item in MSClanEventManager.instance.GetCurrentStageMonsters().OrderBy(x=>x.crsmId)) 
+		foreach (var item in MSClanEventManager.instance.GetCurrentStageMonsters()) 
 		{
 			if (item.crsmId >= MSClanEventManager.instance.currClanInfo.crsmId)
 			{
@@ -585,6 +594,8 @@ public class PZCombatManager : MonoBehaviour {
 
 		activePlayer.Init(swapTo);
 
+		yield return null;
+
 		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed*3.5f));
 
 		PZPuzzleManager.instance.swapLock = 0;
@@ -606,10 +617,7 @@ public class PZCombatManager : MonoBehaviour {
 			boardTint.PlayForward();
 		}
 
-		//Debug.Log("Lock: Scrolling");
 		PZPuzzleManager.instance.swapLock += 1;
-		
-		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
 
 		if (enemies.Count > 0)
 		{
@@ -639,6 +647,8 @@ public class PZCombatManager : MonoBehaviour {
 			winLosePopup.tweener.ResetToBeginning();
 			winLosePopup.tweener.PlayForward();
 		}
+		
+		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
 
 		MSSoundManager.instance.Loop(MSSoundManager.instance.walking);
 
@@ -1150,6 +1160,11 @@ public class PZCombatManager : MonoBehaviour {
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
 		nextPvpDefenderIndex = 0;
+	}
+
+	void OnTutorialContinue()
+	{
+		waitingForTutorialSignal = false;
 	}
 	
 	int[] PickEnemyGems()

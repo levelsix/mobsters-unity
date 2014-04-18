@@ -174,9 +174,9 @@ public class MSQuestManager : MonoBehaviour {
 			userQuest.isRedeemed = false;
 			switch(fullQuest.questType)
 			{
-			case FullQuestProto.QuestType.BUILD_STRUCT:
+			//case FullQuestProto.QuestType.BUILD_STRUCT:
 
-				break;
+				//break;
 			case FullQuestProto.QuestType.UPGRADE_STRUCT:
 
 				break;
@@ -288,11 +288,11 @@ public class MSQuestManager : MonoBehaviour {
 			{
 				continue;
 			}
-			if (item.quest.questType == FullQuestProto.QuestType.BUILD_STRUCT && item.quest.staticDataId == structID) 
-			{
-				item.userQuest.progress++;
-				UpdateQuestProgress(item);
-			}
+			//if (item.quest.questType == FullQuestProto.QuestType.BUILD_STRUCT && item.quest.staticDataId == structID) 
+			//{
+			//	item.userQuest.progress++;
+			//	UpdateQuestProgress(item);
+			//}
 		}
 	}
 
@@ -339,11 +339,11 @@ public class MSQuestManager : MonoBehaviour {
 			{
 				continue;
 			}
-			if (item.quest.questType == FullQuestProto.QuestType.COLLECT_COINS_FROM_HOME)
-			{
-				item.userQuest.progress += amount;
-				UpdateQuestProgress(item);
-			}
+			//if (item.quest.questType == FullQuestProto.QuestType.COLLECT_COINS_FROM_HOME)
+			//{
+			//	item.userQuest.progress += amount;
+			//	UpdateQuestProgress(item);
+			//}
 		}
 	}
 
@@ -354,11 +354,11 @@ public class MSQuestManager : MonoBehaviour {
 			{
 				continue;
 			}
-			if (item.quest.questType == FullQuestProto.QuestType.KILL_MONSTER && item.quest.staticDataId == monsterId)
-			{
-				item.userQuest.progress++;
-				UpdateQuestProgress(item);
-			}
+			//if (item.quest.questType == FullQuestProto.QuestType.KILL_MONSTER && item.quest.staticDataId == monsterId)
+			//{
+			//	item.userQuest.progress++;
+			//	UpdateQuestProgress(item);
+			//}
 		}
 	}
 

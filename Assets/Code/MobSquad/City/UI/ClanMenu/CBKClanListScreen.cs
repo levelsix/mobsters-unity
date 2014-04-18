@@ -9,7 +9,7 @@ public class CBKClanListScreen : MonoBehaviour {
 	UIInput searchBox;
 
 	[SerializeField]
-	CBKActionButton searchButton;
+	MSActionButton searchButton;
 
 	[SerializeField]
 	Transform clanListParent;

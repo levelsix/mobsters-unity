@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -35,7 +35,7 @@ public class MSRaidStageBoxUI : MonoBehaviour {
 	UISprite header;
 
 	[SerializeField]
-	CBKMiniHealingBox[] prizes;
+	MSMiniGoonBox[] prizes;
 
 	ClanRaidStageProto stage;
 

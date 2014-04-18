@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,10 +13,10 @@ public class CBKGachaFeatureMover : MonoBehaviour {
 	List<BoosterItemProto> featuredMobsters;
 
 	[SerializeField]
-	CBKActionButton forwardButton;
+	MSActionButton forwardButton;
 
 	[SerializeField]
-	CBKActionButton backwardButton;
+	MSActionButton backwardButton;
 
 	[SerializeField]
 	CBKGachaFeaturedMobster mobster;

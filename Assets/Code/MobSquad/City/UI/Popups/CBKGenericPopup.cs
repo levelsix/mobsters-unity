@@ -15,7 +15,7 @@ public class CBKGenericPopup : MonoBehaviour {
 	UILabel label;
 	
 	[SerializeField]
-	CBKActionButton[] buttons;
+	MSActionButton[] buttons;
 	
 	const float BUTTON_WIDTH = 190;
 	

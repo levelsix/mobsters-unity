@@ -31,6 +31,7 @@ public class MSMenuPopup : MSPopup {
 		}
 		else
 		{
+			transform.localPosition = Vector3.zero;
 			base.Popup ();
 		}
 	}

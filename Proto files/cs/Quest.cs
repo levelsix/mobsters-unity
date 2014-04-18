@@ -73,9 +73,9 @@ namespace com.lvl6.proto
       set { _acceptDialogue = value; }
     }
 
-    private com.lvl6.proto.FullQuestProto.QuestType _questType = com.lvl6.proto.FullQuestProto.QuestType.KILL_MONSTER;
+    private com.lvl6.proto.FullQuestProto.QuestType _questType = com.lvl6.proto.FullQuestProto.QuestType.KILL_SPECIFIC_MONSTER;
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"questType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.FullQuestProto.QuestType.KILL_MONSTER)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.FullQuestProto.QuestType.KILL_SPECIFIC_MONSTER)]
     public com.lvl6.proto.FullQuestProto.QuestType questType
     {
       get { return _questType; }
@@ -236,29 +236,23 @@ namespace com.lvl6.proto
     public enum QuestType
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"KILL_MONSTER", Value=1)]
-      KILL_MONSTER = 1,
+      [global::ProtoBuf.ProtoEnum(Name=@"KILL_SPECIFIC_MONSTER", Value=1)]
+      KILL_SPECIFIC_MONSTER = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"DONATE_MONSTER", Value=2)]
-      DONATE_MONSTER = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"KILL_MONSTER_IN_CITY", Value=2)]
+      KILL_MONSTER_IN_CITY = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"COMPLETE_TASK", Value=3)]
-      COMPLETE_TASK = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"DONATE_MONSTER", Value=3)]
+      DONATE_MONSTER = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"COLLECT_COINS_FROM_HOME", Value=4)]
-      COLLECT_COINS_FROM_HOME = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"COMPLETE_TASK", Value=4)]
+      COMPLETE_TASK = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"BUILD_STRUCT", Value=5)]
-      BUILD_STRUCT = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"UPGRADE_STRUCT", Value=5)]
+      UPGRADE_STRUCT = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"UPGRADE_STRUCT", Value=6)]
-      UPGRADE_STRUCT = 6,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"MONSTER_APPEAR", Value=7)]
-      MONSTER_APPEAR = 7,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"COLLECT_SPECIAL_ITEM", Value=8)]
-      COLLECT_SPECIAL_ITEM = 8
+      [global::ProtoBuf.ProtoEnum(Name=@"COLLECT_SPECIAL_ITEM", Value=6)]
+      COLLECT_SPECIAL_ITEM = 6
     }
   
     private global::ProtoBuf.IExtension extensionObject;

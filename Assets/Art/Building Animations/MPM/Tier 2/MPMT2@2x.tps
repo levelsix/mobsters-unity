@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.3.2</string>
         <key>fileName</key>
-        <string>/Users/LINJAMIN/Desktop/Final Buildings/MPM/Tier 2/MPMT2@2x.tps</string>
+        <string>/Users/robertgiusti/Desktop/mobsters-unity/Assets/Art/Building Animations/MPM/Tier 2/MPMT2@2x.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -28,7 +28,7 @@
             </struct>
         </array>
         <key>allowRotation</key>
-        <true/>
+        <false/>
         <key>premultiplyAlpha</key>
         <false/>
         <key>shapeDebug</key>
@@ -36,9 +36,9 @@
         <key>dpi</key>
         <uint>72</uint>
         <key>dataFormat</key>
-        <string>cocos2d</string>
+        <string>unity-texture2d</string>
         <key>textureFileName</key>
-        <filename>MPMT2@2x.pvr.ccz</filename>
+        <filename>MPMT2.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -66,7 +66,7 @@
         <key>textureSubPath</key>
         <string></string>
         <key>textureFormat</key>
-        <enum type="SettingsBase::TextureFormat">pvr2ccz</enum>
+        <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
         <uint>2</uint>
         <key>maxTextureSize</key>
@@ -92,7 +92,7 @@
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
-            <enum type="AlgorithmSettings::SizeConstraints">NPOT</enum>
+            <enum type="AlgorithmSettings::SizeConstraints">POT</enum>
             <key>forceSquared</key>
             <false/>
             <key>forceWordAligned</key>
@@ -133,6 +133,11 @@
                 <key>name</key>
                 <filename>MPMT2@2x.plist</filename>
             </struct>
+            <key>datafile</key>
+            <struct type="DataFile">
+                <key>name</key>
+                <filename>Tier 1.tpsheet</filename>
+            </struct>
             <key>java</key>
             <struct type="DataFile">
                 <key>name</key>
@@ -169,7 +174,7 @@
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <enum type="SpriteSettings::TrimMode">CropKeepPos</enum>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>

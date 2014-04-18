@@ -12,15 +12,22 @@ public class MSTutorialManager : MonoBehaviour
 {
 	public static MSTutorialManager instance;
 
-	[SerializeField] TutorialData tutorialData;
+	public MSTutorial currentTutorial = null;
+
+	public TutorialData tutorialData;
 
 	public TutorialUI TutorialUI;
+
+	public bool holdUpEndingCombat = false;
 
 	#region Task Tutorials
 	Dictionary<int, Action> tutorialTasks = new Dictionary<int, Action>()
 	{
-		{2, SetupTutorial1},
-		{3, SetupTutorial2}
+		{5, StartBasicPuzzleTutorial},
+		{6, StartPowerupPuzzleTutorial},
+		{3, StartRainbowTutorial},
+		{4, StartCombineTutorial},
+		{1, StartCaptureTutorial}
 	};
 
 	void Awake()
@@ -30,7 +37,6 @@ public class MSTutorialManager : MonoBehaviour
 
 	public void StartTutorial(int taskId)
 	{
-		Debug.Log("Doing a tutorial...");
 		tutorialTasks[taskId]();
 	}
 
@@ -39,16 +45,29 @@ public class MSTutorialManager : MonoBehaviour
 		return tutorialTasks.ContainsKey(taskId);
 	}
 
-	static void SetupTutorial1()
+	static void StartBasicPuzzleTutorial()
 	{
-		Debug.Log("Starting Tutorial 1");
 		instance.StartCoroutine(instance.tutorialData.basicPuzzleTutorial.Run());
 	}
 
-	static void SetupTutorial2()
+	static void StartPowerupPuzzleTutorial()
 	{
-		Debug.Log("Starting Tutorial 2");
-		PZPuzzleManager.instance.InitBoard(6,6);
+		instance.StartCoroutine(instance.tutorialData.powerupPuzzleTutorial.Run());
+	}
+
+	static void StartRainbowTutorial()
+	{
+		instance.StartCoroutine(instance.tutorialData.rainbowPuzzleTutorial.Run());
+	}
+	
+	static void StartCombineTutorial()
+	{
+		instance.StartCoroutine(instance.tutorialData.combinePuzzleTutorial.Run());
+	}
+
+	static void StartCaptureTutorial()
+	{
+		instance.StartCoroutine(instance.tutorialData.collectPuzzleTutorial.Run());
 	}
 
 	[ContextMenu ("Click Dialogue")]
@@ -64,6 +83,11 @@ public class MSTutorialManager : MonoBehaviour
 public class TutorialData
 {
 	public MSPuzzleTutorial basicPuzzleTutorial;
+	public MSPuzzleTutorial powerupPuzzleTutorial;
+	public MSPuzzleTutorial rainbowPuzzleTutorial;
+	public MSPuzzleTutorial combinePuzzleTutorial;
+	public MSPuzzleTutorial collectPuzzleTutorial;
+	public MSPuzzleTutorial superEffectiveTutorial;
 }
 
 [Serializable]
@@ -72,28 +96,10 @@ public class TutorialUI
 	public UIWidget dialogueClickbox;
 
 	public UISprite arrow;
-
-	public UI2DSprite leftMobster;
-	public UITweener leftMobsterTween;
-	public UISprite leftMobsterDialogueBox;
-	public UITweener leftMobsterDialogueBoxTween;
-	public UILabel leftMobsterDialogueLabel;
-	public UILabel leftMobsterNameLabel;
 	
-	public UI2DSprite rightMobster;
-	public UITweener rightMobsterTween;
-	public UISprite rightMobsterDialogueBox;
-	public UITweener rightMobsterDialogueBoxTween;
-	public UILabel rightMobsterDialogueLabel;
-	public UILabel rightMobsterNameLabel;
-
-	public GameObject puzzleMobsterClickbox;
-	public UI2DSprite puzzleMobster;
-	public UITweener puzzleMobsterTween;
-	public UISprite puzzleMobsterDialogueBox;
-	public UITweener puzzleMobsterDialogueBoxTween;
-	public UILabel puzzleMobsterDialogueLabel;
-	public UILabel puzzleMonsterNameLabel;
+	public MSDialogueUI leftDialogue;
+	public MSDialogueUI rightDialogue;
+	public MSDialogueUI puzzleDialogue;
 
 }
 

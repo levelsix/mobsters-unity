@@ -133,11 +133,14 @@ public class MSTaskable : MonoBehaviour {
 		MSWhiteboard.dungeonToLoad = request;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, null);
-		
+
+
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
 			yield return null;
 		}
+
+		Debug.Log("Got dungeon request");
 		
 		MSWhiteboard.loadedDungeon = UMQNetworkManager.responseDict[tagNum] as BeginDungeonResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
@@ -152,7 +155,7 @@ public class MSTaskable : MonoBehaviour {
 		{
 			PZPuzzleManager.instance.InitBoard();
 		}
-
+		
 		MSActionManager.Scene.OnPuzzle();
 	}
 }

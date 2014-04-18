@@ -7,7 +7,7 @@ using System.Collections;
 /// Move Relative is controlled by AOC2BuildingManager, in order to delineate when
 /// a drag should affect buildings rather than the camera.
 /// </summary>
-public class MSTownCamera : MonoBehaviour, CBKIPlaceable
+public class MSTownCamera : MonoBehaviour, MSIPlaceable
 {
 	/// <summary>
 	/// The smallest orthographic size of the camera.

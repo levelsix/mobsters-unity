@@ -15,23 +15,25 @@ public class MSPuzzleTutorial : MSTutorial
 
 	bool abort = false;
 
-	[SerializeField] int rigVictoryOrLoss = 0;
+	public int rigVictoryOrLoss = 0;
 
-	[SerializeField] int boardSize = 8;
+	public int boardSize = 8;
 
-	[SerializeField] string boardLayout;
+	public string boardLayout;
 
-	[SerializeField] MSTutorialStep onEndStep;
+	public MSTutorialStep[] endSteps;
 
-	[SerializeField] MSTutorialStep onDieStep;
+	public MSTutorialStep dieStep;
 
 	public override IEnumerator Run()
 	{
+		MSTutorialManager.instance.currentTutorial = this;
+
 		abort = false;
 		
 		PZPuzzleManager.instance.InitBoard(boardSize, boardSize, "Tutorial/" + boardLayout);
 
-		MSActionManager.UI.OnDialogueClicked += OnDialogueClicked;
+		MSActionManager.UI.OnDialogueClicked += OnClicked;
 
 		//Attach to the turn start event
 		MSActionManager.Puzzle.OnTurnChange += OnTurnStart;
@@ -42,104 +44,100 @@ public class MSPuzzleTutorial : MSTutorial
 		//Cycle through the steps
 		foreach (var item in steps) 
 		{
-			newTurn = false;
+			yield return MSTutorialManager.instance.StartCoroutine(RunStep(item));
+		}
 
-			Debug.Log("Waiting for new turn...");
-
-			//Wait for the next turn
-			while(!newTurn && !abort)
+		if (endSteps != null)
+		{
+			MSTutorialManager.instance.holdUpEndingCombat = true;
+			while(MSTutorialManager.instance.holdUpEndingCombat)
 			{
 				yield return null;
 			}
 
-			yield return MSTutorialManager.instance.StartCoroutine(RunStep(item));
-
+			foreach (var item in endSteps) 
+			{
+				yield return MSTutorialManager.instance.StartCoroutine(RunStep(item));
+			}
 		}
 		
-		MSActionManager.UI.OnDialogueClicked -= OnDialogueClicked;
+		MSActionManager.UI.OnDialogueClicked -= OnClicked;
 
 		//Detach from the turn start event
 		MSActionManager.Puzzle.OnTurnChange -= OnTurnStart;
 
 		//Detach from the on city event
 		MSActionManager.Scene.OnCity -= OnCity;
+
+		if (MSTutorialManager.instance.currentTutorial == this)
+		{
+			MSTutorialManager.instance.currentTutorial = null;
+		}
 	}
 
 	protected override IEnumerator RunStep (MSTutorialStep step)
 	{
-		//Block spaces
-		if (step.spaces.Count > 0)
+		switch (step.stepType) 
 		{
-			PZPuzzleManager.instance.BlockBoard(step.spaces);
-		}
-
-		if (step.dialogues.Length > 0)
-		{
-			MSTutorialManager.instance.TutorialUI.puzzleMobsterClickbox.SetActive(true);
-
-			MSTutorialManager.instance.TutorialUI.puzzleMobsterDialogueBoxTween.Sample(0, false);
-			MSTutorialManager.instance.TutorialUI.puzzleMobsterTween.Sample(0, false);
-
-			//Bring in the dialogue
-			MSTutorialManager.instance.TutorialUI.puzzleMobsterTween.PlayForward();
-
-			MSTutorialManager.instance.TutorialUI.puzzleMonsterNameLabel.text = PZCombatManager.instance.activePlayer.monster.monster.displayName;
-
-			while (MSTutorialManager.instance.TutorialUI.puzzleMobsterTween.tweenFactor < 1)
-			{
-				yield return null;
+		case StepType.DIALOGUE:
+			MSDialogueUI dialoguer;
+			switch (step.dialogueType) {
+			case DialogueType.PUZZLE:
+			default:
+				dialoguer = MSTutorialManager.instance.TutorialUI.puzzleDialogue;
+				break;
 			}
-			
-			//Cycle through dialogue
-			foreach (var item in step.dialogues) 
+			yield return dialoguer.StartCoroutine(dialoguer.BringInMobster(
+				PZCombatManager.instance.activePlayer.monster.monster.imagePrefix,
+				PZCombatManager.instance.activePlayer.monster.monster.displayName,
+				step.dialogue));
+			if (step.needsClick)
 			{
-				//Bring in Dialogue box
-				MSTutorialManager.instance.TutorialUI.puzzleMobsterDialogueBoxTween.PlayForward();
-
-				MSTutorialManager.instance.TutorialUI.puzzleMobsterDialogueLabel.text = item;
-
-				while (MSTutorialManager.instance.TutorialUI.puzzleMobsterDialogueBoxTween.tweenFactor < 1)
-				{
-					yield return null;
-				}
-
+				MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(true);
 				clicked = false;
-				Debug.LogWarning("Dialogue: " + item);
 				while (!clicked && !abort)
 				{
 					yield return null;
 				}
-
-				//Take out Dialogue box
-				MSTutorialManager.instance.TutorialUI.puzzleMobsterDialogueBoxTween.PlayReverse();
-				
-				while (MSTutorialManager.instance.TutorialUI.puzzleMobsterDialogueBoxTween.tweenFactor > 0)
-				{
-					yield return null;
-				}
+				MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(false);
 			}
-
-			MSTutorialManager.instance.TutorialUI.puzzleMobsterTween.PlayReverse();
-
-			while (MSTutorialManager.instance.TutorialUI.puzzleMobsterTween.tweenFactor > 0)
+			break;
+		case StepType.PUZZLE_BLOCK:
+			PZPuzzleManager.instance.BlockBoard(step.spaces);
+			break;
+		case StepType.WAIT_FOR_DIALOGUE:
+			MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(true);
+			clicked = false;
+			while (!clicked && !abort)
 			{
 				yield return null;
 			}
-
-			if (step.ui != null)
+			MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(false);
+			break;
+		case StepType.WAIT_FOR_TURN:
+			newTurn = false;
+			while (!newTurn)
 			{
-
+				yield return null;
 			}
-
-			//Slide out the dialogue
-			Debug.LogWarning("Dialogue Complete");
-			
-			MSTutorialManager.instance.TutorialUI.puzzleMobsterClickbox.SetActive(false);
-
+			break;
+		case StepType.UI:
+			currUI = step.ui;
+			clicked = false;
+			while (!clicked && !abort)
+			{
+				yield return null;
+			}
+			break;
+		case StepType.CONTINUE:
+			if (MSActionManager.Tutorial.OnTutorialContinue != null)
+			{
+				MSActionManager.Tutorial.OnTutorialContinue();
+			}
+			break;
+		default:
+			break;
 		}
-
-		yield return null;
-
 	}
 
 	void OnTurnStart(int turnsLeft)
@@ -152,8 +150,6 @@ public class MSPuzzleTutorial : MSTutorial
 	{
 		Debug.Log("Abort");
 		abort = true;
-		MSTutorialManager.instance.TutorialUI.puzzleMobsterTween.Sample(0, true);
-		MSTutorialManager.instance.TutorialUI.puzzleMobsterDialogueBoxTween.Sample(0, true);
-		MSTutorialManager.instance.TutorialUI.puzzleMobsterClickbox.SetActive(false);
+		MSTutorialManager.instance.TutorialUI.puzzleDialogue.ForceOut();
 	}
 }

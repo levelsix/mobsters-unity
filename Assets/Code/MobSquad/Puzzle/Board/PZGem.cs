@@ -122,7 +122,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	[HideInInspector]
 	public bool moving = false;
 	
-	bool dragged = false;
+	public bool dragged = false;
 
 	public int id = 0;
 	static int nextId = 0;
@@ -148,6 +148,16 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		PZGem gem = Instantiate(this, origin, Quaternion.identity) as PZGem;
 		gem.prefab = this;
 		return gem;
+	}
+
+	void OnEnable()
+	{
+		MSActionManager.Puzzle.OnNewPlayerTurn += OnNewTurn;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Puzzle.OnNewPlayerTurn -= OnNewTurn;
 	}
 
 	public void SpawnOnMap(int colr, int column)
@@ -366,14 +376,27 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		{
 			currDrag = Vector2.zero;
 		}
-		else if (PZPuzzleManager.instance.swapLock == 0)
+		else
 		{
-			dragged = false;
+			if (MSActionManager.Puzzle.OnGemPressed != null)
+			{
+				MSActionManager.Puzzle.OnGemPressed();
+			}
+
+			if (PZPuzzleManager.instance.swapLock == 0)
+			{
+				dragged = false;
+			}
 		}
 	}
 	
 	void OnDrag(Vector2 delta)
 	{
+		if (blocker.gameObject.activeSelf)
+		{
+			return;
+		}
+
 		if (!dragged && !moving && PZPuzzleManager.instance.swapLock == 0)
 		{
 			currDrag += delta;
@@ -394,6 +417,11 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				StartCoroutine(Shift(MSValues.Direction.SOUTH));
 			}
 		}
+	}
+
+	void OnNewTurn()
+	{
+		dragged = false;
 	}
 	
 	IEnumerator Shift(MSValues.Direction dir)
@@ -416,7 +444,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				swapee = null;
 				break;
 		}
-		if (!swapee.moving)
+		if (!swapee.moving && !swapee.blocker.gameObject.activeSelf)
 		{
 			if (gemType == GemType.MOLOTOV)
 			{
@@ -453,6 +481,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				StartCoroutine(Swap(dir));
 				//Debug.Log("Swapping: " + ToString() + " with " + swapee.ToString());
 				dragged = true;
+				swapee.dragged = true;
 			}
 		}
 		

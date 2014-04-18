@@ -12,7 +12,7 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 	UISprite barBg;
 
 	[SerializeField]
-	CBKFillBar hpbar;
+	MSFillBar hpbar;
 
 	[SerializeField]
 	UISprite bar;

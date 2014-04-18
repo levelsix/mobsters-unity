@@ -163,6 +163,15 @@ public class UIButton : UIButtonColor
 
 	protected virtual void OnClick ()
 	{
+		if (MSTutorialManager.instance.currentTutorial != null && MSTutorialManager.instance.currentTutorial.currUI != null)
+		{
+			if (gameObject != MSTutorialManager.instance.currentTutorial.currUI)
+			{
+				return;
+			}
+			MSTutorialManager.instance.currentTutorial.OnClicked();
+		}
+
 		if (isEnabled)
 		{
 			current = this;

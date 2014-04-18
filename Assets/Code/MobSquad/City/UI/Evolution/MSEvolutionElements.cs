@@ -11,7 +11,7 @@ using com.lvl6.proto;
 public class MSEvolutionElements : MonoBehaviour {
 
 	[SerializeField]
-	CBKGoonCard scientistCard;
+	MSGoonCard scientistCard;
 
 	[SerializeField]
 	Transform goonCardParent;
@@ -29,17 +29,17 @@ public class MSEvolutionElements : MonoBehaviour {
 	UILabel aboveButtonLabel;
 
 	[SerializeField]
-	CBKActionButton button;
+	MSActionButton button;
 
 	PZMonster evolvingGoon;
 
-	public CBKGoonCard evolvingCard;
+	public MSGoonCard evolvingCard;
 
 	string greenButton = "confirm";
 
 	string gemButton = "finishbuild";
 
-	public void Init(CBKGoonCard monsterCard)
+	public void Init(MSGoonCard monsterCard)
 	{
 		evolvingCard = monsterCard;
 		evolvingGoon = monsterCard.goon;

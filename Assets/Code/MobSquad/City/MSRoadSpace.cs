@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -8,7 +8,7 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// MSRoadSpace
 /// </summary>
-public class MSRoadSpace : CBKITakesGridSpace {
+public class MSRoadSpace : MSITakesGridSpace {
 
 	public bool walkable
 	{

@@ -26,7 +26,7 @@ public class MSGridManager : MonoBehaviour {
 	/// <summary>
     /// The grid of everything in the scene
     /// </summary>
-    private CBKITakesGridSpace[,] _grid;
+    private MSITakesGridSpace[,] _grid;
 
 	#endregion
 	
@@ -126,14 +126,14 @@ public class MSGridManager : MonoBehaviour {
 
 	void Init ()
 	{
-		_grid = new CBKITakesGridSpace[gridSize, gridSize];
+		_grid = new MSITakesGridSpace[gridSize, gridSize];
 		walkableSpaces.Clear();
 	}
 
 	public void InitHome ()
 	{
 		gridSize = HOME_GRID_SIZE;
-		worldSize = HOME_WORLD_SIZE;
+		//worldSize = HOME_WORLD_SIZE;
 
 		Init ();
 
@@ -161,7 +161,7 @@ public class MSGridManager : MonoBehaviour {
 	public void InitMission (string maptmx)
 	{
 		gridSize = MISSION_GRID_SIZE;
-		worldSize = MISSION_WORLD_SIZE;
+		//worldSize = MISSION_WORLD_SIZE;
 
 		Init ();
 
@@ -404,7 +404,7 @@ public class MSGridManager : MonoBehaviour {
 			s += ((gridSize - i - 1)%10) + " ";
 			for (int j = 0; j < gridSize; j++) 
 			{
-				CBKITakesGridSpace space = _grid[j, gridSize - 1 - i];
+				MSITakesGridSpace space = _grid[j, gridSize - 1 - i];
 				if (space == null) s += "0 ";
 				else if (space is MSBuilding) s += "B ";
 				else s += "W ";

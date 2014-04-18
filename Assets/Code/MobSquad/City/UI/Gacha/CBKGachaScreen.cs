@@ -12,7 +12,7 @@ public class CBKGachaScreen : MonoBehaviour {
 	UISprite machine;
 
 	[SerializeField]
-	CBKActionButton[] spinButtons;
+	MSActionButton[] spinButtons;
 
 	[SerializeField]
 	CBKGachaFeatureMover featureController;
@@ -23,7 +23,7 @@ public class CBKGachaScreen : MonoBehaviour {
 
 		machine.spriteName = MSUtil.StripExtensions(pack.machineImgName);
 
-		foreach (CBKActionButton spinButton in spinButtons)
+		foreach (MSActionButton spinButton in spinButtons)
 		{
 			spinButton.label.text = pack.gemPrice + " (G) SPIN";
 

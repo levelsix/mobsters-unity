@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -10,7 +10,7 @@ using com.lvl6.proto;
 /// </summary>
 public class MSRaidTeamPopup : MonoBehaviour {
 
-	[SerializeField] CBKMiniHealingBox[] team;
+	[SerializeField] MSMiniGoonBox[] team;
 
 	[SerializeField] UILabel header;
 

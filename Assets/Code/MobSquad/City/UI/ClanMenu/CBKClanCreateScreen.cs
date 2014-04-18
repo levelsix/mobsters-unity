@@ -14,10 +14,10 @@ public class CBKClanCreateScreen : MonoBehaviour {
 	UIInput descriptionBox;
 
 	[SerializeField]
-	CBKActionButton changeClanTypeButton;
+	MSActionButton changeClanTypeButton;
 
 	[SerializeField]
-	CBKActionButton createClanButton;
+	MSActionButton createClanButton;
 
 	public string symbolSpriteName = "shield";
 

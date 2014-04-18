@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent (typeof(MSUnit))]
-public class MSCityUnit : MonoBehaviour, CBKISelectable {
+public class MSCityUnit : MonoBehaviour, MSISelectable {
 	
 	public Color baseColor;
 	public Color selectColor;

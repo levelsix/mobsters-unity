@@ -68,7 +68,7 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			DetermineHealTime(item);
 		}
-		MSHospitalManager.instance.healingMonsters.OrderBy(x=>x.healingMonster.priority);
+		MSHospitalManager.instance.healingMonsters.Sort((m1, m2)=>m1.healingMonster.priority.CompareTo(m2.healingMonster.priority));
 	}
 
 	/// <summary>

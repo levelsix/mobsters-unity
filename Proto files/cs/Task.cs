@@ -142,6 +142,15 @@ namespace com.lvl6.proto
       get { return _curTaskStageId; }
       set { _curTaskStageId = value; }
     }
+
+    private long _userTaskId = default(long);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userTaskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userTaskId
+    {
+      get { return _userTaskId; }
+      set { _userTaskId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

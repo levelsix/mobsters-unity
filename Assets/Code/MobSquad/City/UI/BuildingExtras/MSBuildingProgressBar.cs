@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -18,7 +18,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 	[SerializeField] UILabel label;
 
-	[SerializeField] CBKFillBar bar;
+	[SerializeField] MSFillBar bar;
 
 	[SerializeField] MSBuilding building;
 

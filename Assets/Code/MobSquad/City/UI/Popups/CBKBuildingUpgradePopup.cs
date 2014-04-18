@@ -44,13 +44,13 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	/// The upgrade button.
 	/// </summary>
 	[SerializeField]
-	CBKActionButton upgradeButton;
+	MSActionButton upgradeButton;
 
 	[SerializeField]
-	CBKFillBar topBarCurrent;
+	MSFillBar topBarCurrent;
 
 	[SerializeField]
-	CBKFillBar topBarFuture;
+	MSFillBar topBarFuture;
 
 	[SerializeField]
 	UILabel topBarText;
@@ -59,10 +59,10 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	GameObject bottomBar;
 
 	[SerializeField]
-	CBKFillBar botBarCurrent;
+	MSFillBar botBarCurrent;
 
 	[SerializeField]
-	CBKFillBar botBarFuture;
+	MSFillBar botBarFuture;
 
 	[SerializeField]
 	UILabel botBarText;
@@ -80,12 +80,12 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 	GameObject hireViewButton;
 
 	[SerializeField]
-	CBKHireEntry hireEntryPrefab;
+	MSHireEntry hireEntryPrefab;
 
 	[SerializeField]
 	Transform grid;
 
-	List<CBKHireEntry> hireEntries = new List<CBKHireEntry>();
+	List<MSHireEntry> hireEntries = new List<MSHireEntry>();
 
 	const string cashButtonName = "confirm";
 	const string oilButtonName = "oilupgradebutton";
@@ -301,7 +301,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 		}
 	}
 
-	void SetBar(CBKFillBar currBar, CBKFillBar nextBar, float curr, float next, float max)
+	void SetBar(MSFillBar currBar, MSFillBar nextBar, float curr, float next, float max)
 	{
 		currBar.fill = curr/max;
 		nextBar.fill = next/max;
@@ -339,7 +339,7 @@ public class CBKBuildingUpgradePopup : MonoBehaviour {
 
 	void AddHireEntry()
 	{
-		CBKHireEntry entry = Instantiate(hireEntryPrefab) as CBKHireEntry;
+		MSHireEntry entry = Instantiate(hireEntryPrefab) as MSHireEntry;
 		entry.transform.parent = grid;
 		entry.transform.localScale = Vector3.one;
 		hireEntries.Add(entry);

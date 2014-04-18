@@ -10,7 +10,7 @@ public class CBKExpBar : MonoBehaviour {
 	UILabel expLabel;
 	
 	[SerializeField]
-	CBKFillBar expBar;
+	MSFillBar expBar;
 
 	void OnEnable()
 	{

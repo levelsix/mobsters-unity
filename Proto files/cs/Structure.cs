@@ -195,6 +195,15 @@ namespace com.lvl6.proto
       get { return _shadowHorizontalOfffset; }
       set { _shadowHorizontalOfffset = value; }
     }
+
+    private float _shadowScale = default(float);
+    [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name=@"shadowScale", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float shadowScale
+    {
+      get { return _shadowScale; }
+      set { _shadowScale = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"StructType")]
     public enum StructType
     {

@@ -61,6 +61,7 @@ GameObject:
   - 114: {fileID: 11400016}
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400020}
+  - 114: {fileID: 11400018}
   m_Layer: 8
   m_Name: RaidEntry
   m_TagString: Untagged
@@ -634,12 +635,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6426bfa04ab4a4f089dd7dcd4eb1e4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tweenTarget: {fileID: 0}
+  hover: {r: .882352948, g: .784313738, b: .588235319, a: 1}
+  pressed: {r: .717647076, g: .639215708, b: .482352942, a: 1}
+  disabledColor: {r: .5, g: .5, b: .5, a: 1}
+  duration: .200000003
+  dragHighlight: 0
+  hoverSprite: 
+  pressedSprite: 
+  disabledSprite: 
+  pixelSnap: 0
+  onClick: []
   gameObj: {fileID: 0}
   trans: {fileID: 0}
   icon: {fileID: 0}
   button: {fileID: 0}
   able: 1
   label: {fileID: 0}
+  dragBehind: {fileID: 0}
+--- !u!114 &11400018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1a3899468264031ba9c7e8d8e0f8d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: .600000024
   dragBehind: {fileID: 0}
 --- !u!114 &11400020
 MonoBehaviour:

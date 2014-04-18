@@ -7,7 +7,7 @@ public class CBKResourceBar : MonoBehaviour {
 	[SerializeField]
 	ResourceType resourceType;
 
-	CBKFillBar fillBar;
+	MSFillBar fillBar;
 
 	[SerializeField] float speed = 1;
 
@@ -15,7 +15,7 @@ public class CBKResourceBar : MonoBehaviour {
 	
 	void Awake()
 	{
-		fillBar = GetComponent<CBKFillBar>();
+		fillBar = GetComponent<MSFillBar>();
 	}
 	
 	void OnEnable()

@@ -5,7 +5,7 @@ using com.lvl6.proto;
 public class CBKCreateUserPopup : MonoBehaviour {
 	
 	[SerializeField]
-	CBKActionButton submitButton;
+	MSActionButton submitButton;
 	
 	[SerializeField]
 	UILabel inputLabel;

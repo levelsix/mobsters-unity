@@ -75,10 +75,10 @@ public class CBKClanMemberEntry : MonoBehaviour, MSPoolable {
 	UILabel clanRaidContribution;
 
 	[SerializeField]
-	CBKMiniHealingBox[] teamSprites;
+	MSMiniGoonBox[] teamSprites;
 
 	[SerializeField]
-	CBKActionButton profileButton;
+	MSActionButton profileButton;
 
 	const string LEADER_TEXT = "Clan Leader";
 

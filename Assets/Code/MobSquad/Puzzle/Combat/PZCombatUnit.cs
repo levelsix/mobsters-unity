@@ -29,7 +29,7 @@ public class PZCombatUnit : MonoBehaviour {
 	public Action OnDeath;
 
 	[SerializeField]
-	CBKFillBar hpBar;
+	MSFillBar hpBar;
 
 	[SerializeField]
 	UILabel hpLabel;

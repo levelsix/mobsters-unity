@@ -499,6 +499,15 @@ namespace com.lvl6.proto
       set { _lastObstacleSpawnedTime = value; }
     }
 
+    private int _numObstaclesRemoved = default(int);
+    [global::ProtoBuf.ProtoMember(49, IsRequired = false, Name=@"numObstaclesRemoved", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numObstaclesRemoved
+    {
+      get { return _numObstaclesRemoved; }
+      set { _numObstaclesRemoved = value; }
+    }
+
     private com.lvl6.proto.UserPvpLeagueProto _pvpLeagueInfo = null;
     [global::ProtoBuf.ProtoMember(48, IsRequired = false, Name=@"pvpLeagueInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]

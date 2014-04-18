@@ -19,7 +19,7 @@ public class CBKClanDetailScreen : MonoBehaviour {
 	UILabel foundationMembersLabel;
 
 	[SerializeField]
-	CBKActionButton joinEditButton;
+	MSActionButton joinEditButton;
 
 	[SerializeField]
 	Transform memberGrid;

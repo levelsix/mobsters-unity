@@ -93,6 +93,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400016}
+  - 114: {fileID: 11400018}
   m_Layer: 8
   m_Name: FBRequest
   m_TagString: Untagged
@@ -197,9 +198,13 @@ MonoBehaviour:
   tweenTarget: {fileID: 100010}
   hover: {r: 1, g: 1, b: 1, a: 1}
   pressed: {r: .558823526, g: .558823526, b: .558823526, a: 1}
-  duration: .200000003
   disabledColor: {r: .301470578, g: .301470578, b: .301470578, a: 1}
+  duration: .200000003
   dragHighlight: 0
+  hoverSprite: 
+  pressedSprite: 
+  disabledSprite: 
+  pixelSnap: 0
   onClick:
   - mTarget: {fileID: 11400016}
     mMethodName: 
@@ -221,7 +226,6 @@ MonoBehaviour:
   button: {fileID: 0}
   able: 1
   label: {fileID: 0}
-  dragBehind: {fileID: 0}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -249,6 +253,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 52
@@ -264,6 +269,7 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+  mFlip: 0
   mFillCenter: 1
   centerType: 1
   leftType: 1
@@ -297,6 +303,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 64
@@ -312,6 +319,7 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+  mFlip: 0
   mFillCenter: 1
   centerType: 1
   leftType: 1
@@ -345,6 +353,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: .345098048, g: .376470596, b: .400000006, a: 1}
   mPivot: 0
   mWidth: 402
@@ -360,6 +369,7 @@ MonoBehaviour:
   mText: Your friend Alex needs help unlocking more mobster slots.
   mFontSize: 27
   mFontStyle: 0
+  mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 0
@@ -405,6 +415,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: .345098048, g: .376470596, b: .400000006, a: 1}
   mPivot: 3
   mWidth: 270
@@ -420,6 +431,7 @@ MonoBehaviour:
   mText: Alex needs your help!
   mFontSize: 40
   mFontStyle: 0
+  mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 0
@@ -465,6 +477,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 90
@@ -510,6 +523,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 682
@@ -525,6 +539,7 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+  mFlip: 0
   mFillCenter: 1
   centerType: 1
   leftType: 1
@@ -547,6 +562,19 @@ MonoBehaviour:
   topText: {fileID: 11400010}
   bottomText: {fileID: 11400008}
   button: {fileID: 11400002}
+--- !u!114 &11400018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1a3899468264031ba9c7e8d8e0f8d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: .600000024
+  dragBehind: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

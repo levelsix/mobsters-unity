@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
 public class CBKMoneyBar : MonoBehaviour {
 
 	[SerializeField]
-	CBKFillBar bar;
+	MSFillBar bar;
 	
 	[SerializeField]
 	UILabel capacityLabel;

@@ -29,13 +29,13 @@ public class CBKChatPopup : MonoBehaviour {
 	CBKChatBubble leftPrefab;
 
 	[SerializeField]
-	CBKActionButton globalChatButton;
+	MSActionButton globalChatButton;
 
 	[SerializeField]
-	CBKActionButton clanChatButton;
+	MSActionButton clanChatButton;
 
 	[SerializeField]
-	CBKActionButton privateChatButton;
+	MSActionButton privateChatButton;
 
 	[SerializeField]
 	UIScrollView scrollView;

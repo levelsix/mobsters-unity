@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class MSWalkableSpace : CBKITakesGridSpace {
+public class MSWalkableSpace : MSITakesGridSpace {
 
 	public bool walkable {
 		get {

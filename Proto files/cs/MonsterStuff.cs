@@ -431,6 +431,42 @@ namespace com.lvl6.proto
       get { return _speed; }
       set { _speed = value; }
     }
+
+    private float _hpExponentBase = default(float);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"hpExponentBase", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float hpExponentBase
+    {
+      get { return _hpExponentBase; }
+      set { _hpExponentBase = value; }
+    }
+
+    private float _dmgExponentBase = default(float);
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"dmgExponentBase", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float dmgExponentBase
+    {
+      get { return _dmgExponentBase; }
+      set { _dmgExponentBase = value; }
+    }
+
+    private float _expLvlDivisor = default(float);
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"expLvlDivisor", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float expLvlDivisor
+    {
+      get { return _expLvlDivisor; }
+      set { _expLvlDivisor = value; }
+    }
+
+    private float _expLvlExponent = default(float);
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"expLvlExponent", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float expLvlExponent
+    {
+      get { return _expLvlExponent; }
+      set { _expLvlExponent = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

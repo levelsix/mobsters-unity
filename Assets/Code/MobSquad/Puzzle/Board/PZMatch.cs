@@ -89,15 +89,7 @@ public class PZMatch {
 	
 	public void Destroy()
 	{	
-		foreach (PZGem item in gems) 
-		{
-			if (item.colorIndex >= 0)
-			{
-				//PZPuzzleManager.instance.currGems[item.colorIndex]++;
-				//PZPuzzleManager.instance.gemsOnBoardByType[item.colorIndex]--;
-
-			}
-		}
+		gems.Sort((gem1, gem2) => -gem1.dragged.CompareTo(gem2.dragged));
 		
 		int i = 0;
 		if (!special) //Don't make special gems if this is the result of a special detonation

@@ -12,34 +12,34 @@ public class CBKGoonScreen : MonoBehaviour {
 	UIDragScrollView dragPanel;
 
 	[SerializeField]
-	CBKGoonTeamCard[] teamCards;
+	MSGoonTeamCard[] teamCards;
 	
 	[SerializeField]
-	List<CBKGoonCard> reserveCards;
+	List<MSGoonCard> reserveCards;
 	
 	[SerializeField]
-	List<CBKMiniHealingBox> bottomMiniBoxes;
+	List<MSMiniGoonBox> bottomMiniBoxes;
 	
 	[SerializeField]
-	CBKGoonCard goonCardPrefab;
+	MSGoonCard goonCardPrefab;
 	
 	[SerializeField]
-	CBKMiniHealingBox healBoxPrefab;
+	MSMiniGoonBox healBoxPrefab;
 	
 	[SerializeField]
-	CBKActionButton speedUpButton;
+	MSActionButton speedUpButton;
 	
 	[SerializeField]
 	UILabel totalTimeLabel;
 	
 	[SerializeField]
-	CBKGoonCard enhanceBaseBox; 
+	MSGoonCard enhanceBaseBox; 
 
 	[SerializeField]
 	TweenPosition enhanceLeftSideElements;
 
 	[SerializeField]
-	CBKUIHelper bottomFadeInElements;
+	MSUIHelper bottomFadeInElements;
 
 	[SerializeField]
 	UIPanel scrollPanel;
@@ -54,22 +54,22 @@ public class CBKGoonScreen : MonoBehaviour {
 	Transform goonCardParent;
 
 	[SerializeField]
-	CBKGoonInfoPopup infoPopup;
+	MSGoonInfoPopup infoPopup;
 
 	[SerializeField]
 	GameObject labButtons;
 
 	[SerializeField]
-	CBKUIHelper goonPanelElements;
+	MSUIHelper goonPanelElements;
 
 	[SerializeField]
-	CBKUIHelper evolveElements;
+	MSUIHelper evolveElements;
 
 	[SerializeField]
-	CBKActionButton backButton;
+	MSActionButton backButton;
 
 	[SerializeField]
-	CBKUIHelper scientistIcons;
+	MSUIHelper scientistIcons;
 
 	[SerializeField]
 	UILabel errorLabel;
@@ -198,13 +198,13 @@ public class CBKGoonScreen : MonoBehaviour {
 
 		if (MSEvolutionManager.instance.currEvolution != null && MSEvolutionManager.instance.currEvolution.userMonsterIds.Count > 0)
 		{
-			CBKGoonCard card = reserveCards.Find(x=>x.goon.userMonster.userMonsterId == MSEvolutionManager.instance.currEvolution.userMonsterIds[0]);
+			MSGoonCard card = reserveCards.Find(x=>x.goon.userMonster.userMonsterId == MSEvolutionManager.instance.currEvolution.userMonsterIds[0]);
 			OrganizeEvolution(card);
 		}
 		else
 		{
 			scientistIcons.FadeIn();
-			bottomBarLabel.GetComponent<CBKUIHelper>().FadeOut();
+			bottomBarLabel.GetComponent<MSUIHelper>().FadeOut();
 			//backButton.Disable();
 		}
 
@@ -327,7 +327,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	/// it's missing parts (buddies or scientists), we call this
 	/// </summary>
 	/// <param name="currEvolution">Curr evolution.</param>
-	public void OrganizeEvolution(CBKGoonCard card)
+	public void OrganizeEvolution(MSGoonCard card)
 	{
 		evolutionElements.Init(card);
 
@@ -340,7 +340,7 @@ public class CBKGoonScreen : MonoBehaviour {
 			backButton.onClick = CancelEvolve;
 		}
 
-		bottomBarLabel.GetComponent<CBKUIHelper>().FadeIn();
+		bottomBarLabel.GetComponent<MSUIHelper>().FadeIn();
 
 		string catalystColorString = "[ff0000]";
 		if (MSEvolutionManager.instance.currEvolution.catalystUserMonsterId > 0)
@@ -461,19 +461,19 @@ public class CBKGoonScreen : MonoBehaviour {
 	
 	void AddReserveCardSlot()
 	{
-		CBKGoonCard card = Instantiate(goonCardPrefab) as CBKGoonCard;
+		MSGoonCard card = Instantiate(goonCardPrefab) as MSGoonCard;
 		card.transform.parent = reserveCards[lastReserveCardIndex].transform.parent;
 		card.transform.localScale = Vector3.one;
 		//card.transform.localPosition = reserveCards[lastReserveCardIndex].transform.localPosition + cardOffset;
-		card.addRemoveTeamButton.dragBehind = reserveCards[lastReserveCardIndex].addRemoveTeamButton.dragBehind;
-		card.healButton.dragBehind = reserveCards[lastReserveCardIndex].healButton.dragBehind;
+		card.addRemoveTeamButton.GetComponent<MSUIHelper>().dragBehind = reserveCards[lastReserveCardIndex].addRemoveTeamButton.GetComponent<MSUIHelper>().dragBehind;
+		card.healButton.GetComponent<MSUIHelper>().dragBehind = reserveCards[lastReserveCardIndex].healButton.GetComponent<MSUIHelper>().dragBehind;
 		card.infoPopup = infoPopup;
 		reserveCards.Add (card);
 	}
 	
 	void AddHealBox()
 	{
-		CBKMiniHealingBox box = Instantiate(healBoxPrefab) as CBKMiniHealingBox;
+		MSMiniGoonBox box = Instantiate(healBoxPrefab) as MSMiniGoonBox;
 		box.transform.parent = bottomMiniBoxes[lastBox].transform.parent;
 		box.transform.localScale = Vector3.one;
 		box.transform.localPosition = bottomMiniBoxes[lastBox].transform.localPosition + boxOffset;
@@ -547,7 +547,7 @@ public class CBKGoonScreen : MonoBehaviour {
 		dragPanel.scrollView.RestrictWithinBounds(false);
 	}
 
-	CBKGoonCard GetCardForMonster(PZMonster monster)
+	MSGoonCard GetCardForMonster(PZMonster monster)
 	{
 		return reserveCards.Find(x=>x.goon == monster);
 	}
@@ -574,7 +574,7 @@ public class CBKGoonScreen : MonoBehaviour {
 	{
 		errorLabel.text = error;
 		errorLabel.alpha = 1;
-		errorLabel.GetComponent<CBKUIHelper>().FadeOut();
+		errorLabel.GetComponent<MSUIHelper>().FadeOut();
 	}
 	
 	void OnHealQueueChanged()
@@ -582,12 +582,12 @@ public class CBKGoonScreen : MonoBehaviour {
 		if (MSHospitalManager.instance.healingMonsters.Count > 0)
 		{
 			bottomFadeInElements.FadeIn();
-			bottomBarLabel.GetComponent<CBKUIHelper>().FadeOut();
+			bottomBarLabel.GetComponent<MSUIHelper>().FadeOut();
 		}
 		else
 		{
 			bottomFadeInElements.FadeOut();
-			bottomBarLabel.GetComponent<CBKUIHelper>().FadeIn();
+			bottomBarLabel.GetComponent<MSUIHelper>().FadeIn();
 		}
 		OrganizeHealingQueue();
 		OrganizeCards();
@@ -598,12 +598,12 @@ public class CBKGoonScreen : MonoBehaviour {
 		if (MSMonsterManager.enhancementFeeders.Count > 0)
 		{
 			bottomFadeInElements.FadeIn();
-			bottomBarLabel.GetComponent<CBKUIHelper>().FadeOut();
+			bottomBarLabel.GetComponent<MSUIHelper>().FadeOut();
 		}
 		else
 		{
 			bottomFadeInElements.FadeOut();
-			bottomBarLabel.GetComponent<CBKUIHelper>().FadeIn();
+			bottomBarLabel.GetComponent<MSUIHelper>().FadeIn();
 		}
 		OrganizeEnhanceQueue();
 		OrganizeCards();

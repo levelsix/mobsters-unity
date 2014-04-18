@@ -8,7 +8,7 @@ using com.lvl6.proto;
 /// Component for a single building
 /// </summary>
 [RequireComponent (typeof(BoxCollider))]
-public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGridSpace, CBKISelectable
+public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridSpace, MSISelectable
 {
 	#region Members
 	
@@ -78,7 +78,8 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
     /// <summary>
     /// This building's transform, 
     /// </summary>
-    public Transform trans;
+    [HideInInspector]
+	public Transform trans;
 	
 	/// <summary>
 	/// DEBUG: The base tint. Used to reflect construction
@@ -178,6 +179,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 	/// <summary>
 	/// The upgrade component
 	/// </summary>
+	[HideInInspector]
 	public MSBuildingUpgrade upgrade;
 	
 	/// <summary>
@@ -185,16 +187,19 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
 	/// Added to the base building if this building
 	/// is meant to be a resource collector.
 	/// </summary>
+	[HideInInspector]
 	public MSResourceCollector collector;
 
 	/// <summary>
 	/// The resource storage component.
 	/// </summary>
+	[HideInInspector]
 	public MSResourceStorage storage;
 
 	/// <summary>
 	/// The hospital component.
 	/// </summary>
+	[HideInInspector]
 	public MSHospital hospital;
 
 	[SerializeField]
@@ -586,7 +591,7 @@ public class MSBuilding : MonoBehaviour, CBKIPlaceable, MSPoolable, CBKITakesGri
         trans.position = MSGridManager.instance.SnapPointToGrid(transform.position, width, length);
 
 		SetGridFromTrans ();
-		
+
 		
 		if (MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 		{

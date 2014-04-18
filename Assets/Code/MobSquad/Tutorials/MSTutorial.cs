@@ -11,31 +11,79 @@ using com.lvl6.proto;
 [System.Serializable]
 public class MSTutorial {
 
-	[SerializeField] protected List<MSTutorialStep> steps;
+	public string name = "Tutorial";
+
+	public MSTutorialStep[] steps = new MSTutorialStep[0];
 
 	protected bool clicked = false;
 
+	public GameObject currUI;
+
 	protected virtual IEnumerator RunStep(MSTutorialStep step)
 	{
-		clicked = false;
-		while (!clicked)
+		switch (step.stepType) 
 		{
-			yield return null;
+		case StepType.DIALOGUE:
+			MSDialogueUI dialoguer;
+			switch (step.dialogueType) {
+			case DialogueType.PUZZLE:
+			default:
+				dialoguer = MSTutorialManager.instance.TutorialUI.puzzleDialogue;
+				break;
+			}
+			yield return dialoguer.StartCoroutine(dialoguer.BringInMobster(
+				PZCombatManager.instance.activePlayer.monster.monster.imagePrefix,
+				PZCombatManager.instance.activePlayer.monster.monster.displayName,
+				step.dialogue));
+			if (step.needsClick)
+			{
+				MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(true);
+				clicked = false;
+				while (!clicked)
+				{
+					yield return null;
+				}
+				MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(false);
+			}
+			break;
+		case StepType.WAIT_FOR_DIALOGUE:
+			MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(true);
+			clicked = false;
+			while (!clicked)
+			{
+				yield return null;
+			}
+			MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(false);
+			break;
+		case StepType.UI:
+			currUI = step.ui;
+			clicked = false;
+			while (!clicked)
+			{
+				yield return null;
+			}
+			break;
+		case StepType.CONTINUE:
+			if (MSActionManager.Tutorial.OnTutorialContinue != null)
+			{
+				MSActionManager.Tutorial.OnTutorialContinue();
+			}
+			break;
+		default:
+			break;
 		}
-
-		yield return null;
 	}
 
 	public virtual IEnumerator Run()
 	{
 		foreach (var item in steps) 
 		{
-			yield return MSTutorialManager.instance.StartCoroutine(RunStep(item));
+			yield return UMQNetworkManager.instance.StartCoroutine(RunStep(item));
 		}
 	}
 
 	[ContextMenu ("Click Dialogue")]
-	public void OnDialogueClicked()
+	public void OnClicked()
 	{
 		clicked = true;
 	}

@@ -134,6 +134,7 @@ public static class MSActionManager
 		public static Action<int> OnComboChange;
 		public static Action OnNewPlayerTurn;
 		public static Action OnGemMatch;
+		public static Action OnGemPressed;
 
 		public static Action ForceHideSwap;
 		public static Action ForceShowSwap;
@@ -159,5 +160,10 @@ public static class MSActionManager
 		public static Action OnRaidBegin;
 		public static Action<AttackClanRaidMonsterResponseProto> OnRaidMonsterAttacked;
 		public static Action<AttackClanRaidMonsterResponseProto> OnRaidMonsterDied;
+	}
+
+	public static class Tutorial
+	{
+		public static Action OnTutorialContinue;
 	}
 }

@@ -86,13 +86,13 @@ public class MSBuildingManager : MonoBehaviour
 	/// <summary>
 	/// The current selected building.
 	/// </summary>
-	private CBKISelectable _selected;
+	private MSISelectable _selected;
 	
 	/// <summary>
 	/// The current target, which will be moved as long
 	/// as a drag continues
 	/// </summary>
-	private CBKIPlaceable _target;
+	private MSIPlaceable _target;
     
     #endregion
 

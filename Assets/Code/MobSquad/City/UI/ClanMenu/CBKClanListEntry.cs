@@ -51,10 +51,10 @@ public class CBKClanListEntry : MonoBehaviour, MSPoolable {
 	UILabel memberCount;
 
 	[SerializeField]
-	CBKActionButton joinButton;
+	MSActionButton joinButton;
 
 	[SerializeField]
-	CBKActionButton selectButton;
+	MSActionButton selectButton;
 
 	FullClanProtoWithClanSize clan;
 
