@@ -22,7 +22,8 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		set
 		{
 			_spriteBaseName = value;
-			anim.runtimeAnimatorController = MSAtlasUtil.instance.GetAnimator(value);
+			//anim.runtimeAnimatorController = MSAtlasUtil.instance.GetAnimator(value);
+			StartCoroutine(MSAtlasUtil.instance.SetAnimator(value, anim));
 
 			if (anim.runtimeAnimatorController == null)
 			{

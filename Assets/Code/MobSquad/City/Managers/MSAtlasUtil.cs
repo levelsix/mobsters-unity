@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml;
+using System;
 
 public class MSAtlasUtil : MonoBehaviour {
 	
@@ -15,6 +16,14 @@ public class MSAtlasUtil : MonoBehaviour {
 	static Dictionary<string, string> imgToAtlas = new Dictionary<string, string>();
 	
 	static Dictionary<string, UIAtlas> atlases;
+
+	static Dictionary<string, AssetBundle> bundles = new Dictionary<string, AssetBundle>();
+
+	[SerializeField] RuntimeAnimatorController defaultAnimator;
+
+	[SerializeField] Sprite defaultSprite;
+
+	const string AWS = "https://s3-us-west-1.amazonaws.com/lvl6mobsters/Resources/Android/";
 	
 	public void Awake()
 	{
@@ -130,6 +139,41 @@ public class MSAtlasUtil : MonoBehaviour {
 		return (Resources.Load("Controllers/" + MSUtil.StripExtensions(imageName))) as RuntimeAnimatorController;
 	}
 
+	public IEnumerator SetSprite(string baseName, string spriteName, SpriteRenderer sprite)
+	{
+		if (!bundles.ContainsKey(baseName))
+		{
+			sprite.sprite = defaultSprite;
+			yield return StartCoroutine(DownloadAndCache(baseName));
+			
+		}
+		sprite.sprite = bundles[baseName].Load(spriteName, typeof(Sprite)) as Sprite;
+	}
+
+	public IEnumerator SetSprite(string baseName, string spriteName, UI2DSprite sprite)
+	{
+		if (!bundles.ContainsKey(baseName))
+		{
+			sprite.sprite2D = defaultSprite;
+			yield return StartCoroutine(DownloadAndCache(baseName));
+			
+		}
+		sprite.sprite2D = bundles[baseName].Load(spriteName, typeof(Sprite)) as Sprite;
+	}
+
+	public IEnumerator SetAnimator(string baseName, Animator animator)
+	{
+		if (!bundles.ContainsKey(baseName))
+		{
+			animator.runtimeAnimatorController = defaultAnimator;
+			yield return StartCoroutine(DownloadAndCache(baseName));
+		}
+
+		animator.runtimeAnimatorController = bundles[baseName].Load(baseName, typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
+		animator.GetComponent<SpriteRenderer>().color = Color.white;
+		Debug.Log("Assigned it: " + animator.runtimeAnimatorController);
+	}
+
 	public Sprite GetBuildingSprite(string spriteName)
 	{
 		return Resources.Load("Sprites/Buildings/" + MSUtil.StripExtensions(spriteName), typeof(Sprite)) as Sprite;
@@ -139,5 +183,49 @@ public class MSAtlasUtil : MonoBehaviour {
 	{
 		atlases.Clear();
 		Resources.UnloadUnusedAssets();
+	}
+
+	/// <summary>
+	/// Downloads the and cache.
+	/// Sample code from: http://docs.unity3d.com/Documentation/Manual/DownloadingAssetBundles.html
+	/// </summary>
+	/// <returns>The and cache.</returns>
+	IEnumerator DownloadAndCache (string bundleName)
+	{
+		// Wait for the Caching system to be ready
+		while (!Caching.ready)
+			yield return null;
+		
+		Debug.Log ("Grabbing bundle: " + bundleName);
+		
+		// Load the AssetBundle file from Cache if it exists with the same version or download and store it in the cache
+		using(WWW www = WWW.LoadFromCacheOrDownload (AWS + bundleName + ".unity3d", 1)){
+			yield return www;
+			
+			if (bundles.ContainsKey(bundleName))
+			{
+				yield break;
+			}
+
+			if (www.error != null)
+				throw new Exception("WWW download of " + bundleName + " had an error:" + www.error);
+			AssetBundle bundle = www.assetBundle;
+
+			Debug.Log("Loaded bundle: " + bundleName);
+
+			foreach (var item in www.assetBundle.LoadAll()) 
+			{
+				Debug.Log("One more thing: " + item.name + " " + item.GetType().ToString());
+			}
+
+			bundles[bundleName] = bundle;
+			
+		} // memory is freed from the web stream (www.Dispose() gets called implicitly)
+	}
+
+	[ContextMenu ("Test AssBuns")]
+	public void Test()
+	{
+		StartCoroutine(DownloadAndCache("Goonie1T1"));
 	}
 }
