@@ -36,6 +36,7 @@ public class MSAtlasUtil : MonoBehaviour {
 				//WarmAtlasDictionaryFromXML(item);
 			}
 		}
+		Caching.CleanCache();
 	}
 	
 	public void WarmAtlasDictionaryFromXML(string filename)
@@ -152,6 +153,7 @@ public class MSAtlasUtil : MonoBehaviour {
 
 	public IEnumerator SetSprite(string baseName, string spriteName, UI2DSprite sprite)
 	{
+		Debug.Log("Setting sprite: " + spriteName);
 		if (!bundles.ContainsKey(baseName))
 		{
 			sprite.sprite2D = defaultSprite;
@@ -159,6 +161,12 @@ public class MSAtlasUtil : MonoBehaviour {
 			
 		}
 		sprite.sprite2D = bundles[baseName].Load(spriteName, typeof(Sprite)) as Sprite;
+
+		if (sprite.sprite2D != null)
+		{
+			sprite.width = (int)sprite.sprite2D.rect.width;
+			sprite.height = (int)sprite.sprite2D.rect.height;
+		}
 	}
 
 	public IEnumerator SetAnimator(string baseName, Animator animator)
@@ -169,7 +177,7 @@ public class MSAtlasUtil : MonoBehaviour {
 			yield return StartCoroutine(DownloadAndCache(baseName));
 		}
 
-		animator.runtimeAnimatorController = bundles[baseName].Load(baseName, typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
+		animator.runtimeAnimatorController = bundles[baseName].Load(baseName + "Controller", typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
 		animator.GetComponent<SpriteRenderer>().color = Color.white;
 		Debug.Log("Assigned it: " + animator.runtimeAnimatorController);
 	}
@@ -215,7 +223,7 @@ public class MSAtlasUtil : MonoBehaviour {
 
 			foreach (var item in www.assetBundle.LoadAll()) 
 			{
-				Debug.Log("One more thing: " + item.name + " " + item.GetType().ToString());
+				//Debug.Log("One more thing: " + item.name + " " + item.GetType().ToString());
 			}
 
 			bundles[bundleName] = bundle;
@@ -223,9 +231,9 @@ public class MSAtlasUtil : MonoBehaviour {
 		} // memory is freed from the web stream (www.Dispose() gets called implicitly)
 	}
 
-	[ContextMenu ("Test AssBuns")]
-	public void Test()
+	[ContextMenu ("Clean Cache")]
+	void CleanCache()
 	{
-		StartCoroutine(DownloadAndCache("Goonie1T1"));
+		Caching.CleanCache();
 	}
 }

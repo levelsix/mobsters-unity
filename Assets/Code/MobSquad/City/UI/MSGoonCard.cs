@@ -351,8 +351,10 @@ public class MSGoonCard : MonoBehaviour {
 		this.goon = goon;
 		
 		goonElementParent.SetActive(true);
-		
-		goonPose.sprite2D = MSAtlasUtil.instance.GetSprite("Cards/HD/" + MSUtil.StripExtensions(goon.monster.imagePrefix) + "Card");
+
+		string goonImageBase = MSUtil.StripExtensions(goon.monster.imagePrefix);
+		StartCoroutine(MSAtlasUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", goonPose));
+
 		if (goonPose.sprite2D != null)
 		{
 			goonPose.width = (int)goonPose.sprite2D.rect.width;

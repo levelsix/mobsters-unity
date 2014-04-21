@@ -18,7 +18,7 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 	UISprite bar;
 	
 	[SerializeField]
-	UISprite icon;
+	UI2DSprite icon;
 	
 	[SerializeField]
 	UISprite background;
@@ -58,15 +58,9 @@ public class CBKGoonCircleIcon : MonoBehaviour {
 			goonName.text = monster.monster.displayName;
 			background.spriteName = backgroundElementDict[monster.monster.monsterElement];
 			icon.alpha = 1;
-			
-			icon.spriteName = MSUtil.StripExtensions(monster.monster.imagePrefix) + "Thumbnail";
 
-			UISpriteData spDat = icon.GetAtlasSprite();
-			if (spDat != null)
-			{
-				icon.width = spDat.width;
-				icon.height = spDat.height;
-			}
+			string mobsterPrefix = MSUtil.StripExtensions (monster.monster.imagePrefix);
+			StartCoroutine(MSAtlasUtil.instance.SetSprite(mobsterPrefix, mobsterPrefix + "Thumbnail", icon));
 			
 			hpbar.fill = ((float)monster.currHP) / monster.maxHP;
 			bar.spriteName = ringElementDict[monster.monster.monsterElement];
