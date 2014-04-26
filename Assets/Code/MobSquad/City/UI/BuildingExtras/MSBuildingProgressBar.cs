@@ -64,7 +64,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			label.text = MSUtil.TimeStringShort(building.obstacle.millisLeft);
 			bar.fill = building.obstacle.progress;
 		}
-		else if (building.hospital != null && building.hospital.goon != null)
+		else if (building.hospital != null && building.hospital.goon != null && building.hospital.goon.monster != null && building.hospital.goon.monster.monsterId > 0)
 		{
 			foreach (var item in caps) 
 			{

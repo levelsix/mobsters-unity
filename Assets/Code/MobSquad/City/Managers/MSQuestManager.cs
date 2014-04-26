@@ -172,18 +172,8 @@ public class MSQuestManager : MonoBehaviour {
 			userQuest.userId = MSWhiteboard.localMup.userId;
 			userQuest.questId = fullQuest.questId;
 			userQuest.isRedeemed = false;
-			switch(fullQuest.questType)
-			{
-			//case FullQuestProto.QuestType.BUILD_STRUCT:
 
-				//break;
-			case FullQuestProto.QuestType.UPGRADE_STRUCT:
-
-				break;
-			default:
-
-				break;
-			}
+			//TODO: Create UserQuestJobProtos for each job within the quest
 		}
 		
 		/*
@@ -201,12 +191,15 @@ public class MSQuestManager : MonoBehaviour {
 #if DEBUG3
 		Debug.Log("Checking quest: " + fullQuest.quest.name);
 #endif
-		fullQuest.userQuest.isComplete = (fullQuest.userQuest.progress >= fullQuest.quest.quantity);
+		//TODO: Fix the isComplete flag!
+		//fullQuest.userQuest.isComplete = (fullQuest.userQuest.progress >= fullQuest.quest.quantity);
 
 		QuestProgressRequestProto request = new QuestProgressRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.questId = fullQuest.quest.questId;
-		request.currentProgress = fullQuest.userQuest.progress;
+
+		//TODO: Fix progress tracker!
+		//request.currentProgress = fullQuest.userQuest.progress;
 		request.isComplete = fullQuest.userQuest.isComplete;
 
 		if (donateMonsters != null)
@@ -304,6 +297,7 @@ public class MSQuestManager : MonoBehaviour {
 			{
 				continue;
 			}
+			/* TODO: Fix this to look through each job
 			if (item.quest.questType == FullQuestProto.QuestType.UPGRADE_STRUCT && item.quest.staticDataId == structID)
 			{
 				if (item.userQuest.progress < level)
@@ -312,6 +306,7 @@ public class MSQuestManager : MonoBehaviour {
 					UpdateQuestProgress(item);
 				}
 			}
+			*/
 		}
 	}
 	
@@ -323,11 +318,13 @@ public class MSQuestManager : MonoBehaviour {
 			{
 				continue;
 			}
+			/* TODO: Fix this for jobs
 			if (item.quest.questType == FullQuestProto.QuestType.COMPLETE_TASK && item.quest.staticDataId == taskID)
 			{
 				item.userQuest.progress++;
 				UpdateQuestProgress(item);
 			}
+			*/
 		}
 	}
 	
@@ -364,6 +361,7 @@ public class MSQuestManager : MonoBehaviour {
 
 	public bool AttemptDonation(MSFullQuest quest)
 	{
+		/* TODO: Fix for jobs
 		List<PZMonster> matchingMonsters = MSMonsterManager.instance.GetMonstersByMonsterId(quest.quest.staticDataId);
 		if (matchingMonsters.Count >= quest.quest.quantity)
 		{
@@ -393,6 +391,7 @@ public class MSQuestManager : MonoBehaviour {
 			}
 			return true;
 		}
+		*/
 		return false;
 	}
 
@@ -403,11 +402,13 @@ public class MSQuestManager : MonoBehaviour {
 			{
 				continue;
 			}
+			/* TODO: Fix for jobs
 			if (item.quest.questType == FullQuestProto.QuestType.DONATE_MONSTER && item.quest.staticDataId == monsterId)
 			{
 				item.userQuest.progress++;
 				UpdateQuestProgress(item);
 			}
+			*/
 		}
 	}
 }

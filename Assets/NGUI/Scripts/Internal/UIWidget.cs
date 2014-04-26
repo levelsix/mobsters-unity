@@ -659,7 +659,7 @@ public class UIWidget : UIRect
 
 		if (panel != null)
 		{
-			bool vis = (hideIfOffScreen || panel.clipsChildren) ? panel.IsVisible(this) : true;
+			bool vis = (hideIfOffScreen || panel.hasCumulativeClipping) ? panel.IsVisible(this) : true;
 			UpdateVisibility(CalculateCumulativeAlpha(Time.frameCount) > 0.001f, vis);
 			UpdateFinalAlpha(Time.frameCount);
 			if (includeChildren) base.Invalidate(true);
@@ -680,7 +680,7 @@ public class UIWidget : UIRect
 	/// Set the widget's rectangle.
 	/// </summary>
 
-	public void SetRect (float x, float y, float width, float height)
+	public override void SetRect (float x, float y, float width, float height)
 	{
 		Vector2 po = pivotOffset;
 
@@ -816,6 +816,8 @@ public class UIWidget : UIRect
 
 	protected void RemoveFromPanel ()
 	{
+		//Debug.Log(name + " removed from panel");
+
 		if (panel != null)
 		{
 			panel.RemoveWidget(this);
@@ -921,6 +923,7 @@ public class UIWidget : UIRect
 		if (mStarted && panel == null && enabled && NGUITools.GetActive(gameObject))
 		{
 			panel = UIPanel.Find(cachedTransform, true, cachedGameObject.layer);
+			//Debug.Log("Set panel for " + name + " to " + panel.name);
 
 			if (panel != null)
 			{
@@ -943,7 +946,7 @@ public class UIWidget : UIRect
 		{
 			Debug.LogWarning("You can't place widgets on a layer different than the UIPanel that manages them.\n" +
 				"If you want to move widgets to a different layer, parent them to a new panel instead.", this);
-			gameObject.layer = panel.gameObject.layer;
+			//gameObject.layer = panel.gameObject.layer;
 		}
 	}
 
@@ -954,6 +957,7 @@ public class UIWidget : UIRect
 	public override void ParentHasChanged ()
 	{
 		base.ParentHasChanged();
+		//Debug.Log(name + " parent has changed");
 
 		if (panel != null)
 		{

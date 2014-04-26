@@ -52,16 +52,16 @@ public class MSMapButton : MonoBehaviour {
 	{
 		MSWhiteboard.currCityType = MSWhiteboard.CityType.NEUTRAL;
 		MSWhiteboard.cityID = cityID;
-		MSActionManager.Loading.LoadBuildings();
 		MSActionManager.Popup.CloseAllPopups();
+		MSActionManager.Loading.LoadBuildings();
 	}
 	
 	void GoHome()
 	{	
 		MSWhiteboard.currCityType = MSWhiteboard.CityType.PLAYER;
 		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
-		MSActionManager.Loading.LoadBuildings();	
 		MSActionManager.Popup.CloseAllPopups();
+		MSActionManager.Loading.LoadBuildings();	
 	}
 	
 }

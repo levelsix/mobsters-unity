@@ -58,7 +58,7 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	const float ZOOM_COEFFICIENT = -1f;
 	const float BASE_CAMERA_OFFSET_MAX = 17.5f;
 
-	const float CAMERA_BASE_HOME_Y = 18.2f;
+	const float CAMERA_BASE_HOME_Y = 20.2f;
 	const float CAMERA_BASE_MISSION_Y = 19.6f;
 	
 	public float maxY;

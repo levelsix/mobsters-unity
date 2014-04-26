@@ -466,7 +466,7 @@ public class MSGridManager : MonoBehaviour {
 	
 	public bool IsWalkable(int x, int y)
 	{
-		return x >= 0 && y >= 0 && x < gridSize && y < gridSize && (_grid[x,y] == null || _grid[x,y].walkable);
+		return x >= 0 && y >= 0 && x < gridSize && y < gridSize && ((_grid[x,y] == null && MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER) || _grid[x,y].walkable);
 	}
 	
 	public bool CanWalkInDir(MSGridNode start, Vector2 dir)

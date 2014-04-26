@@ -218,6 +218,7 @@ public class MSGoonCard : MonoBehaviour {
 			isBaseEnhanceMonster = true;
 			addRemoveTeamButton.button.isEnabled = true;
 			addRemoveButtonBackground.spriteName = removeButtonSpriteName;
+			addRemoveTeamButton.GetComponent<UIButton>().normalSprite = removeButtonSpriteName;
 			addRemoveTeamButton.onClick = ClearEnhanceQueue;
 			bottomCardLabel.text = " ";
 			healthBarBackground.alpha = 1;
@@ -354,32 +355,29 @@ public class MSGoonCard : MonoBehaviour {
 
 		string goonImageBase = MSUtil.StripExtensions(goon.monster.imagePrefix);
 		StartCoroutine(MSAtlasUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", goonPose));
-
-		if (goonPose.sprite2D != null)
-		{
-			goonPose.width = (int)goonPose.sprite2D.rect.width;
-			goonPose.height = (int)goonPose.sprite2D.rect.height;
-		}
 		
 		cardBackground.spriteName = backgroundsForElements[goon.monster.monsterElement];
 		if (goon.userMonster.teamSlotNum > 0)
 		{
-			addRemoveButtonBackground.spriteName = onTeamButtonSpriteName;
 			addRemoveTeamButton.button.isEnabled = true;
+			addRemoveButtonBackground.spriteName = onTeamButtonSpriteName;
+			addRemoveTeamButton.GetComponent<UIButton>().normalSprite = onTeamButtonSpriteName;
 		}
 		else
 		{
 			if (MSMonsterManager.monstersOnTeam < MSMonsterManager.TEAM_SLOTS 
 				&& !goon.isHealing && !goon.isEnhancing && goon.userMonster.isComplete)
 			{
-				addRemoveButtonBackground.spriteName = addButtonSpriteName;
 				addRemoveTeamButton.onClick = AddToTeam;
 				addRemoveTeamButton.button.isEnabled = true;
 			}
 			else
 			{
+				addRemoveTeamButton.onClick = null;
 				addRemoveTeamButton.button.isEnabled = false;
 			}
+			addRemoveButtonBackground.spriteName = addButtonSpriteName;
+			addRemoveTeamButton.GetComponent<UIButton>().normalSprite = addButtonSpriteName;
 		}
 		
 		healthBar.spriteName = healthBarForElements[goon.monster.monsterElement];
@@ -395,8 +393,8 @@ public class MSGoonCard : MonoBehaviour {
 
 		infoButton.onClick = delegate 
 			{
-				infoPopup.Init(goon);
 				MSActionManager.Popup.OnPopup(infoPopup.GetComponent<MSPopup>());
+				infoPopup.Init(goon);
 			};
 	}
 
@@ -518,17 +516,21 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			if (MSMonsterManager.enhancementFeeders.Count > 0)
 			{
-				float totalExpToAdd = 0;
+				int totalExpToAdd = 0;
 				foreach (var item in MSMonsterManager.enhancementFeeders) 
 				{
 					totalExpToAdd += item.enhanceXP;
 				}
-				int finalPercentage = Mathf.FloorToInt((goon.percentageTowardsNextLevel + goon.PercentageOfAddedLevelup(totalExpToAdd)) * 100);
+				int finalPercentage = Mathf.FloorToInt(goon.LevelForMonster(goon.userMonster.currentExp + totalExpToAdd) * 100);
 
 				float progress = ((float)(MSMonsterManager.enhancementFeeders[0].timeToUseEnhance - MSMonsterManager.enhancementFeeders[0].enhanceTimeLeft)) 
 					/ MSMonsterManager.enhancementFeeders[0].timeToUseEnhance;
 						
-				float currentPercentage = (goon.percentageTowardsNextLevel + progress * goon.PercentageOfAddedLevelup(MSMonsterManager.enhancementFeeders[0].enhanceXP)) * 100;
+				int currAddedExp = Mathf.FloorToInt(MSMonsterManager.enhancementFeeders[0].enhanceXP * progress);
+
+				float currentLevel = goon.LevelForMonster(goon.userMonster.currentExp + currAddedExp) % 1;
+
+				float currentPercentage = (currentLevel - goon.userMonster.currentLvl) * 100;
 				//Debug.Log ("Final: " + finalPercentage + ", Current: " + currentPercentage);
 
 				//Debug.LogWarning("Final perc: " + finalPercentage + ", progress: " + progress + ", currPerc: " + currentPercentage);

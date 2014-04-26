@@ -60,21 +60,24 @@ public class PZMonster {
 			{
 				return 1;
 			}
-			float progress = healingMonster.healthProgress;
+			float progress = healingMonster.healthProgress / totalHealthToHeal;
 			for (int i = 0; i < hospitalTimes.Count; i++) {
 				HospitalTime hosTime = hospitalTimes[i];
-				if (hosTime.startTime < MSUtil.timeNowMillis)
+				if (hosTime.startTime <= MSUtil.timeNowMillis)
 				{
 					if (i < hospitalTimes.Count-1 && hospitalTimes[i].startTime < MSUtil.timeNowMillis)
 					{
-						progress += ((hospitalTimes[i].startTime - hosTime.startTime) * hosTime.hospital.combinedProto.hospital.healthPerSecond) / (maxHP - currHP);
+						progress += ((hospitalTimes[i].startTime - hosTime.startTime) / 1000
+						             * hosTime.hospital.proto.healthPerSecond) / totalHealthToHeal;
 					}
 					else
 					{
-						progress += ((MSUtil.timeNowMillis - hosTime.startTime) * hosTime.hospital.combinedProto.hospital.healthPerSecond) / (maxHP - currHP);
+						progress += ((MSUtil.timeNowMillis - hosTime.startTime) / 1000
+						             * hosTime.hospital.proto.healthPerSecond) / totalHealthToHeal;
 					}
 				}
 			}
+			//Debug.Log("Progress: " + progress);
 			return progress;
 		}
 	}
@@ -97,7 +100,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return (int)((maxHP - currHP) * MSWhiteboard.constants.monsterConstants.cashPerHealthPoint);
+			return (int)(totalHealthToHeal * MSWhiteboard.constants.monsterConstants.cashPerHealthPoint);
 		}
 	}
 	
@@ -106,6 +109,14 @@ public class PZMonster {
 		get
 		{
 			return Mathf.CeilToInt((healTimeLeftMillis/60000) / MSWhiteboard.constants.minutesPerGem);
+		}
+	}
+
+	public int totalHealthToHeal
+	{
+		get
+		{
+			return maxHP - currHP;
 		}
 	}
 	
@@ -121,13 +132,7 @@ public class PZMonster {
 	{
 		get
 		{
-			MonsterLevelInfoProto lvlInfo = monster.lvlInfo.Find(x=>x.lvl==userMonster.currentLvl);
-			if (lvlInfo == null)
-			{
-				Debug.LogError("Probleming finding xp for mobster " + monster.monsterId + " for level " + userMonster.currentLvl);
-				return 0;
-			}
-			return lvlInfo.feederExp;
+			return userMonster.currentLvl * 777;
 		}
 	}
 	
@@ -253,9 +258,8 @@ public class PZMonster {
 	{
 		this.monster = MSDataManager.instance.Get<MonsterProto>(pvpMonster.monsterId);
 
-		MonsterLevelInfoProto lvlInfo = monster.lvlInfo.Find(x=>x.lvl==pvpMonster.monsterLvl);
-		currHP = maxHP = lvlInfo.hp;
-		SetAttackDamagesFromMonsterLevelInfo(lvlInfo);
+		currHP = maxHP = MaxHPAtLevel(pvpMonster.monsterLvl);
+		SetAttackDamagesForLevel(pvpMonster.monsterLvl);
 	}
 	
 	public PZMonster(MonsterProto monster, FullUserMonsterProto userMonster)
@@ -303,26 +307,44 @@ public class PZMonster {
 	{
 		userMonster.currentLvl = Math.Min(userMonster.currentLvl, monster.maxLevel);
 
-		MonsterLevelInfoProto lvlInfo = monster.lvlInfo.Find(x=>x.lvl==userMonster.currentLvl);
-		if (lvlInfo != null)
-		{
-			maxHP = lvlInfo.hp;
-		}
-		else
-		{
-			maxHP = 1;
-		}
-
-		SetAttackDamagesFromMonsterLevelInfo(lvlInfo);
+		maxHP = MaxHPAtLevel(userMonster.currentLvl);
 		currHP = userMonster.currentHealth;
+		SetAttackDamagesForLevel(userMonster.currentLvl);
 	}
 	
 	void SetupWithTask()
 	{
-		MonsterLevelInfoProto levelInfo = monster.lvlInfo.Find(x=>x.lvl==taskMonster.level);
-		maxHP = levelInfo.hp;
-		SetAttackDamagesFromMonsterLevelInfo(levelInfo);
-		currHP = maxHP;
+		currHP = maxHP = MaxHPAtLevel(taskMonster.level);
+		SetAttackDamagesForLevel(taskMonster.level);
+	}
+
+	void SetAttackDamagesForLevel(int level)
+	{
+		if (monster.lvlInfo.Count > 0)
+		{
+			attackDamages[0] = monster.lvlInfo[0].fireDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
+			attackDamages[1] = monster.lvlInfo[0].grassDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
+			attackDamages[2] = monster.lvlInfo[0].waterDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
+			attackDamages[3] = monster.lvlInfo[0].lightningDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
+			attackDamages[4] = monster.lvlInfo[0].darknessDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
+			attackDamages[5] = monster.lvlInfo[0].rockDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
+		}
+		else
+		{
+			attackDamages[0] = 1;
+			attackDamages[1] = 1;
+			attackDamages[2] = 1;
+			attackDamages[3] = 1;
+			attackDamages[4] = 1;
+			attackDamages[5] = 1;
+		}
+		
+		float total = 0;
+		foreach (var damage in attackDamages) 
+		{
+			total += damage;
+		}
+		totalDamage = total;
 	}
 
 	void SetAttackDamagesFromMonsterLevelInfo(MonsterLevelInfoProto lvlInfo)
@@ -356,29 +378,46 @@ public class PZMonster {
 
 	public int TotalAttackAtLevel(int level)
 	{
-		MonsterLevelInfoProto levelInfo = monster.lvlInfo.Find(x=>x.lvl==level);
-		return levelInfo.fireDmg + levelInfo.grassDmg + levelInfo.waterDmg
-				+ levelInfo.lightningDmg + levelInfo.darknessDmg + levelInfo.rockDmg;
+		if (monster.lvlInfo.Count == 0)
+		{
+			return PZPuzzleManager.GEM_TYPES;
+		}
+
+		return Mathf.FloorToInt((monster.lvlInfo[0].fireDmg + monster.lvlInfo[0].grassDmg + monster.lvlInfo[0].waterDmg
+				+ monster.lvlInfo[0].lightningDmg + monster.lvlInfo[0].darknessDmg + monster.lvlInfo[0].rockDmg)
+				* Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1));
 	}
 
 	public int MaxHPAtLevel(int level)
 	{
-		return monster.lvlInfo.Find(x=>x.lvl==level).hp;
+		if (monster.lvlInfo.Count == 0)
+		{
+			return 1;
+		}
+
+		return Mathf.FloorToInt(monster.lvlInfo[0].hp * Mathf.Pow(monster.lvlInfo[0].hpExponentBase, level-1));
 	}
 	
 	#region Experience
-	
-	public float PercentageOfLevelup(float totalExp)
+
+	/// <summary>
+	/// Returns a value from [0,1) that designates the progress until this monster next levels up,
+	/// Given a certain amount of experience
+	/// </summary>
+	/// <returns>The level up progress percentage</returns>
+	/// <param name="totalExp">The total experience to use for this check</param>
+	public float PercentageOfLevelup(int totalExp)
 	{
-		return (totalExp - ExpForLevel(userMonster.currentLvl)) / (ExpForLevel(userMonster.currentLvl + 1) - ExpForLevel(userMonster.currentLvl));
+		return LevelForMonster(totalExp) % 1;
 	}
 
 	/// <summary>
 	/// Calculates the exp percentage if the added exp were to be added to this monster's current amount of exp
+	/// Used to display on cards in the enhancement view how much they will add if used to enhance this mobster
 	/// </summary>
 	/// <returns>Exp percentage gained by adding this much exp</returns>
 	/// <param name="withAddedExp">Exp being added to this monster</param>
-	public float PercentageOfAddedLevelup(float withAddedExp, bool checkFeeders = true)
+	public float PercentageOfAddedLevelup(int withAddedExp, bool checkFeeders = true)
 	{
 		int currExp = 0;
 		float currPerc = 0;
@@ -392,55 +431,38 @@ public class PZMonster {
 		}
 		currExp += userMonster.currentExp;
 
-		if (userMonster.currentLvl == monster.maxLevel)
-		{
-			return 0;
-		}
-		if (currExp + withAddedExp > ExpForLevel(userMonster.currentLvl + 1))
-		{
-			float total = 1 - percentageTowardsNextLevel; //Because we know this finishes the current level
-			int levelsUp = 1;
-			while(currExp + withAddedExp > ExpForLevel(userMonster.currentLvl + levelsUp + 1) && userMonster.currentLvl + levelsUp < monster.maxLevel)
-	 	    {
-				levelsUp++;
-			}
-			total += levelsUp - 1; //One less, because the first level is the partial level that we already added
-			if (levelsUp + userMonster.currentLvl == monster.maxLevel)
-			{
-				return total - currPerc;
-			}
-			//Now get that level beyond the last level
-			total += (float)(currExp + withAddedExp - ExpForLevel(userMonster.currentLvl + levelsUp)) / (ExpForLevel(userMonster.currentLvl + 1 + levelsUp) - ExpForLevel(userMonster.currentLvl + levelsUp));
-			return total - currPerc;
-		}
-		else
-		{
-			return ((float)(currExp + withAddedExp - ExpForLevel(userMonster.currentLvl)) / (ExpForLevel(userMonster.currentLvl + 1) - ExpForLevel(userMonster.currentLvl))) - currPerc;
-		}
+		float currLevel = LevelForMonster(currExp);
+		float addedLevel = LevelForMonster(currExp + withAddedExp);
+
+		return addedLevel - currLevel;
 	}
 	
 	int ExpForLevel(int level)
 	{
+
 		if (level > monster.maxLevel)
 		{
 			Debug.LogWarning("Attempting to get exp for a higher level than this monster can go");
 			return ExpForLevel(monster.maxLevel);
 		}
-		MonsterLevelInfoProto levelInfo = monster.lvlInfo.Find(x=>x.lvl==level);
-		if (levelInfo == null)
+		return (level-1) * 500;
+	}
+
+	public float LevelForMonster(int withExp)
+	{
+		float level = 1;
+		if (monster.lvlInfo.Count > 0)
 		{
-			return 0;
+			float maxExp = monster.lvlInfo[0].curLvlRequiredExp;
+			level = Mathf.Pow(withExp/maxExp, 1/monster.lvlInfo[0].expLvlExponent) * monster.lvlInfo[0].expLvlDivisor + 1;
 		}
-		return levelInfo.curLvlRequiredExp;
+		return Mathf.Min(monster.maxLevel, level);
 	}
 	
 	public void GainXP(int exp)
 	{
 		userMonster.currentExp += exp;
-		while (userMonster.currentLvl < monster.maxLevel && userMonster.currentExp > ExpForLevel(userMonster.currentLvl + 1))
-		{
-			userMonster.currentLvl++;
-		}
+		userMonster.currentLvl = (int)LevelForMonster(userMonster.currentExp);
 	}
 	
 	public UserMonsterCurrentExpProto GetCurrentExpProto()
@@ -457,9 +479,9 @@ public class PZMonster {
 
 public struct HospitalTime
 {
-	public MSBuilding hospital;
+	public MSHospital hospital;
 	public long startTime;
-	public HospitalTime(MSBuilding hospital, long startTime)
+	public HospitalTime(MSHospital hospital, long startTime)
 	{
 		this.hospital = hospital;
 		this.startTime = startTime;

@@ -38,7 +38,7 @@ public class MSPoolManager : MonoBehaviour {
 	/// <param name='pos'>
 	/// Position at which to move the object to
 	/// </param>
-	public MSPoolable Get(MSPoolable prefab, Vector3 pos)
+	public MSPoolable Get(MSPoolable prefab, Vector3 pos, Transform parent = null)
 	{
 		MSPoolable pooled;
 		if(pools.ContainsKey(prefab) && pools[prefab].Count > 0)
@@ -56,7 +56,7 @@ public class MSPoolManager : MonoBehaviour {
 		}
 		
 		//Set it back up.
-		pooled.transf.parent = null;
+		pooled.transf.parent = parent;
 		pooled.gObj.SetActive(true);
 		
 		return pooled;

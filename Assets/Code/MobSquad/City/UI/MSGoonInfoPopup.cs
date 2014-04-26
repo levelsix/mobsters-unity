@@ -55,6 +55,9 @@ public class MSGoonInfoPopup : MonoBehaviour {
 	{
 		currMonster = monster;
 
+		StartCoroutine(MSAtlasUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Character", mobsterSprite));
+
+		/*
 		mobsterSprite.sprite2D = MSAtlasUtil.instance.GetMobsterSprite(monster.monster.imagePrefix);
 
 		if (mobsterSprite.sprite2D != null)
@@ -62,6 +65,7 @@ public class MSGoonInfoPopup : MonoBehaviour {
 			mobsterSprite.height = (int)mobsterSprite.sprite2D.textureRect.height;
 			mobsterSprite.width = (int)mobsterSprite.sprite2D.textureRect.width;
 		}
+		*/
 
 		headerLabel.text = monster.monster.displayName;
 
@@ -81,10 +85,10 @@ public class MSGoonInfoPopup : MonoBehaviour {
 
 		for (int i = 0; i < damageLabels.Length; i++)
 		{
-			damageLabels[i].text = ":  " + monster.attackDamages[i].ToString();
+			damageLabels[i].text = monster.attackDamages[i].ToString();
 		}
 
-		infoTween.ResetToBeginning();
+		infoTween.Sample(0, false);
 
 		backButton.SetActive(false);
 	}

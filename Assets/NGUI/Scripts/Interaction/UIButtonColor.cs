@@ -13,7 +13,7 @@ using UnityEngine;
 [AddComponentMenu("NGUI/Interaction/Button Color")]
 public class UIButtonColor : UIWidgetContainer
 {
-	protected enum State
+	public enum State
 	{
 		Normal,
 		Hover,
@@ -31,13 +31,13 @@ public class UIButtonColor : UIWidgetContainer
 	/// Color to apply on hover event (mouse only).
 	/// </summary>
 
-	public Color hover = new Color(1f, 1f, 1f, 1f);
+	public Color hover = new Color(225f / 255f, 200f / 255f, 150f / 255f, 1f);
 
 	/// <summary>
 	/// Color to apply on the pressed event.
 	/// </summary>
 
-	public Color pressed = Color.grey;
+	public Color pressed = new Color(183f / 255f, 163f / 255f, 123f / 255f, 1f);
 
 	/// <summary>
 	/// Color that will be applied when the button is disabled.
@@ -55,6 +55,12 @@ public class UIButtonColor : UIWidgetContainer
 	protected bool mInitDone = false;
 	protected UIWidget mWidget;
 	protected State mState = State.Normal;
+
+	/// <summary>
+	/// Button's current state.
+	/// </summary>
+
+	public State state { get { return mState; } set { SetState(value, false); } }
 
 	/// <summary>
 	/// UIButtonColor's default (starting) color. It's useful to be able to change it, just in case.
@@ -252,7 +258,7 @@ public class UIButtonColor : UIWidgetContainer
 	/// Change the visual state.
 	/// </summary>
 
-	protected virtual void SetState (State state, bool instant)
+	public virtual void SetState (State state, bool instant)
 	{
 		if (!mInitDone)
 		{

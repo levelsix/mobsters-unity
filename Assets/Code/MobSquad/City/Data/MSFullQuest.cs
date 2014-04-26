@@ -12,7 +12,8 @@ public class MSFullQuest {
 	{
 		get
 		{
-			return userQuest.progress + "/" + quest.quantity;
+			return "?/?";
+			//return userQuest.progress + "/" + quest.quantity;
 		}
 	}
 	
@@ -29,6 +30,7 @@ public class MSFullQuest {
 	
 	public string GetProgressString()
 	{
-		return userQuest.progress + "/" + quest.quantity;
+		return "?/?";
+		//return userQuest.progress + "/" + quest.quantity;
 	}
 }

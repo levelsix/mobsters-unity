@@ -8,7 +8,7 @@ public class MSChatManager : MonoBehaviour {
 	public static MSChatManager instance;
 	
 	[SerializeField]
-	CBKChatGrid chatGrid;
+	MSChatGrid chatGrid;
 	
 	public MSValues.ChatMode currMode = MSValues.ChatMode.GLOBAL;
 	

@@ -178,8 +178,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			{
 				for (int j = 0; j < boardWidth; j++) 
 				{
-					gem = MSPoolManager.instance.Get(gemPrefab, Vector3.zero) as PZGem;
-					gem.transf.parent = puzzleParent;
+					gem = MSPoolManager.instance.Get(gemPrefab, Vector3.zero, puzzleParent) as PZGem;
 					gem.SpawnOnMap(PickColor(i, j), j);
 				}
 			}

@@ -65,15 +65,6 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-
-    private int _cityIdOfAcceptedQuest = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"cityIdOfAcceptedQuest", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int cityIdOfAcceptedQuest
-    {
-      get { return _cityIdOfAcceptedQuest; }
-      set { _cityIdOfAcceptedQuest = value; }
-    }
     [global::ProtoBuf.ProtoContract(Name=@"QuestAcceptStatus")]
     public enum QuestAcceptStatus
     {
@@ -120,8 +111,26 @@ namespace com.lvl6.proto
       set { _questId = value; }
     }
 
+    private bool _isComplete = default(bool);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"isComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isComplete
+    {
+      get { return _isComplete; }
+      set { _isComplete = value; }
+    }
+
+    private int _questJobId = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"questJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int questJobId
+    {
+      get { return _questJobId; }
+      set { _questJobId = value; }
+    }
+
     private int _currentProgress = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"currentProgress", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"currentProgress", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int currentProgress
     {
@@ -129,16 +138,16 @@ namespace com.lvl6.proto
       set { _currentProgress = value; }
     }
 
-    private bool _isComplete = default(bool);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"isComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private bool _isQuestJobComplete = default(bool);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"isQuestJobComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool isComplete
+    public bool isQuestJobComplete
     {
-      get { return _isComplete; }
-      set { _isComplete = value; }
+      get { return _isQuestJobComplete; }
+      set { _isQuestJobComplete = value; }
     }
     private readonly global::System.Collections.Generic.List<long> _deleteUserMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"deleteUserMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(7, Name=@"deleteUserMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public global::System.Collections.Generic.List<long> deleteUserMonsterIds
     {
       get { return _deleteUserMonsterIds; }
@@ -190,6 +199,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INCOMPLETE_USER_MONSTERS", Value=5)]
       FAIL_INCOMPLETE_USER_MONSTERS = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_QUEST_JOB_INCOMPLETE", Value=7)]
+      FAIL_QUEST_JOB_INCOMPLETE = 7,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=6)]
       FAIL_OTHER = 6

@@ -6,7 +6,7 @@ using com.lvl6.proto;
 public class MSMiniGoonBox : MonoBehaviour {
 
 	[SerializeField]
-	public UISprite goonPortrait;
+	public UI2DSprite goonPortrait;
 	
 	[SerializeField]
 	UISprite bar;
@@ -57,7 +57,8 @@ public class MSMiniGoonBox : MonoBehaviour {
 		}
 		else
 		{
-			goonPortrait.spriteName = MSUtil.StripExtensions(monster.imagePrefix) + "Card";	
+			string monsterPrefix = MSUtil.StripExtensions (monster.imagePrefix);
+			StartCoroutine(MSAtlasUtil.instance.SetSprite(monsterPrefix, monsterPrefix + "Thumbnail", goonPortrait));
 			background.spriteName = elementBackgrounds[monster.monsterElement];
 		}
 		gameObject.SetActive(true);
@@ -65,6 +66,8 @@ public class MSMiniGoonBox : MonoBehaviour {
 
 	public void Init(PZMonster monster, bool forTeam = false)
 	{
+		gameObject.SetActive(true);
+
 		if (monster == null)
 		{
 			goonPortrait.alpha = 0;
@@ -73,13 +76,12 @@ public class MSMiniGoonBox : MonoBehaviour {
 		}
 		else
 		{
-			goonPortrait.spriteName = MSUtil.StripExtensions(monster.monster.imagePrefix) + "Card";	
+			string monsterPrefix = MSUtil.StripExtensions (monster.monster.imagePrefix);
+			StartCoroutine(MSAtlasUtil.instance.SetSprite(monsterPrefix, monsterPrefix + "Thumbnail", goonPortrait));
 			background.spriteName = elementBackgrounds[monster.monster.monsterElement];
 			if (removeButton != null) removeButton.gameObject.SetActive(true);
 		}
 
-		gameObject.SetActive(true);
-		
 		this.monster = monster;
 
 		if (forTeam)
@@ -140,7 +142,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 		}
 		if (monster.isHealing)
 		{
-			if (bar != null) bar.fillAmount = 1 - monster.healProgressPercentage;
+			if (bar != null) bar.fillAmount = monster.healProgressPercentage;
 			label.text = MSUtil.TimeStringShort(monster.healTimeLeftMillis);
 		}
 		else if (monster.isEnhancing)

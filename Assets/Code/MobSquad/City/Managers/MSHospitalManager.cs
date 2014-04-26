@@ -15,13 +15,13 @@ public class MSHospitalManager : MonoBehaviour {
 
 	public List<PZMonster> healingMonsters = new List<PZMonster>();
 
-	public List<MSBuilding> hospitals = new List<MSBuilding>();
+	public List<MSHospital> hospitals = new List<MSHospital>();
 
 	public int queueSize = 0;
 	
 	HealMonsterRequestProto healRequestProto = null;
 
-	public bool initalized = false;
+	public bool initialized = false;
 
 	void Awake()
 	{
@@ -41,21 +41,25 @@ public class MSHospitalManager : MonoBehaviour {
 
 	#region Hospitals
 
-	public void ClearHospitals()
+	public void AssignHospital(MSBuilding building)
 	{
-		hospitals.Clear();
-		queueSize = 0;
-	}
+		MSHospital hospital = hospitals.Find(x=>x.userBuildingData.userStructId == building.userStructProto.userStructId);
 
-	public void AddHospital(MSBuilding building)
-	{
-		hospitals.Add(building);
-		queueSize += building.combinedProto.hospital.queueSize;
+		if (hospital == null)
+		{
+			hospital = new MSHospital();
+			hospitals.Add(hospital);
+			queueSize += building.combinedProto.hospital.queueSize;
+		}
+
+		building.hospital = hospital;
+		hospital.InitFromBuilding(building);
+
 	}
 
 	public void RemoveHospital(MSBuilding building)
 	{
-		hospitals.RemoveAll(x=>x==building);
+		hospitals.RemoveAll(x=>x.userBuildingData.userStructId==building.userStructProto.userStructId);
 		queueSize -= building.combinedProto.hospital.queueSize;
 	}
 
@@ -63,7 +67,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 	public void InitHealers()
 	{
-		initalized = true;
+		initialized = true;
 		foreach (var item in healingMonsters) 
 		{
 			DetermineHealTime(item);
@@ -134,7 +138,7 @@ public class MSHospitalManager : MonoBehaviour {
 			{
 				if (MSHospitalManager.instance.healingMonsters[i].finishHealTimeMillis <= MSUtil.timeNowMillis)
 				{
-					MSHospitalManager.instance.healingMonsters[i].hospitalTimes[MSHospitalManager.instance.healingMonsters[i].hospitalTimes.Count-1].hospital.hospital.goon = null;
+					MSHospitalManager.instance.healingMonsters[i].hospitalTimes[MSHospitalManager.instance.healingMonsters[i].hospitalTimes.Count-1].hospital.goon = null;
 
 					health = new UserMonsterCurrentHealthProto();
 					health.userMonsterId = MSHospitalManager.instance.healingMonsters[i].healingMonster.userMonsterId;
@@ -256,20 +260,22 @@ public class MSHospitalManager : MonoBehaviour {
 		string str = "Listing Hospitals";
 		foreach (var hos in hospitals) 
 		{
-			str += "\n" + hos.completeTime + ", " + hos.id;
+			str += "\n" + hos.building.completeTime + ", " + hos.userBuildingData.userStructId;
 		}
 		Debug.Log(str);
 		
 		#endregion
 		
-		MSBuilding lastHospital = GetSoonestHospital();
+		MSHospital lastHospital = GetSoonestHospital();
 
-		if (lastHospital.completeTime < MSUtil.timeNowMillis)
+		/*
+		if (lastHospital.completeTime <= MSUtil.timeNowMillis)
 		{
 			Debug.Log("Hospital: " + lastHospital.hospital);
 			Debug.Log("Monster: " + monster);
 			lastHospital.hospital.goon = monster;
 		}
+		*/
 
 		long lastStartTime = Math.Max(monster.healingMonster.queuedTimeMillis, lastHospital.completeTime);
 		monster.healingMonster.queuedTimeMillis = lastStartTime;
@@ -278,12 +284,12 @@ public class MSHospitalManager : MonoBehaviour {
 		
 		monster.hospitalTimes.Add(new HospitalTime(lastHospital, lastStartTime));
 		
-		for (MSBuilding nextHospital = GetSoonestFasterHospital(lastHospital);
+		for (MSHospital nextHospital = GetSoonestFasterHospital(lastHospital);
 		     nextHospital != null;
 		     nextHospital = GetSoonestFasterHospital(lastHospital))
 		{
 			lastHospital.completeTime = nextHospital.completeTime;
-			progress += (lastHospital.completeTime - lastStartTime) / 1000 * lastHospital.combinedProto.hospital.healthPerSecond;
+			progress += (lastHospital.completeTime - lastStartTime) / 1000 * lastHospital.proto.healthPerSecond;
 			lastStartTime = nextHospital.completeTime;
 			nextHospital.completeTime = CalculateFinishTime(monster, nextHospital, progress, lastStartTime);
 			monster.finishHealTimeMillis = nextHospital.completeTime;
@@ -297,7 +303,7 @@ public class MSHospitalManager : MonoBehaviour {
 		str += "\nHealth to heal: " + (monster.maxHP - monster.currHP) + ", Progress: " + monster.healingMonster.healthProgress;
 		str += "\n"  + monster.healStartTime + " Start";
 		foreach (var hospitalTime in monster.hospitalTimes) {
-			str += "\n" + hospitalTime.startTime + " Hospital " + hospitalTime.hospital.id;
+			str += "\n" + hospitalTime.startTime + " Hospital " + hospitalTime.hospital.userBuildingData.userStructId;
 		}
 		str += "\n" + monster.finishHealTimeMillis + " Finish";
 		Debug.Log(str);
@@ -305,10 +311,10 @@ public class MSHospitalManager : MonoBehaviour {
 		
 	}
 	
-	long CalculateFinishTime(PZMonster monster, MSBuilding hospital, float progress, long startTime)
+	long CalculateFinishTime(PZMonster monster, MSHospital hospital, float progress, long startTime)
 	{
 		float healthLeftToHeal = monster.maxHP - progress - monster.currHP;
-		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.combinedProto.hospital.healthPerSecond * 1000);
+		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
 		return startTime + millis;
 	}
 	
@@ -324,11 +330,11 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			if (i < monster.hospitalTimes.Count - 1 && MSUtil.timeNowMillis > monster.hospitalTimes[i+1].startTime)
 			{
-				progress += (monster.hospitalTimes[i+1].startTime - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.combinedProto.hospital.healthPerSecond;
+				progress += (monster.hospitalTimes[i+1].startTime - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.proto.healthPerSecond;
 			}
 			else
 			{
-				progress += (MSUtil.timeNowMillis - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.combinedProto.hospital.healthPerSecond;
+				progress += (MSUtil.timeNowMillis - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.proto.healthPerSecond;
 				//monster.hospitalTimes[i].hospital.hospital.goon = monster;
 			}
 		}
@@ -357,16 +363,17 @@ public class MSHospitalManager : MonoBehaviour {
 	/// Gets the soonest available hospital
 	/// </summary>
 	/// <returns>The soonest hospital.</returns>
-	MSBuilding GetSoonestHospital()
+	MSHospital GetSoonestHospital()
 	{
-		MSBuilding soonest = null;
-		foreach (var building in hospitals) 
+		MSHospital soonest = null;
+		foreach (var hos in hospitals) 
 		{
+			if (hos.completeTime < MSUtil.timeNowMillis) hos.completeTime = MSUtil.timeNowMillis;
 			//If this building is sooner, or just as soon and faster, than the current soonest
-			if (soonest == null || building.completeTime < soonest.completeTime || (building.completeTime == soonest.completeTime
-			                                                                        && building.combinedProto.hospital.healthPerSecond > soonest.combinedProto.hospital.healthPerSecond))
+			if (soonest == null || hos.completeTime < soonest.completeTime || (hos.completeTime == soonest.completeTime
+			                                                                            && hos.proto.healthPerSecond > soonest.proto.healthPerSecond))
 			{
-				soonest = building;
+				soonest = hos;
 			}
 		}
 		return soonest;
@@ -380,24 +387,25 @@ public class MSHospitalManager : MonoBehaviour {
 	/// </summary>
 	/// <returns>The soonest faster hospital.</returns>
 	/// <param name="lastHospital">Last hospital.</param>
-	MSBuilding GetSoonestFasterHospital(MSBuilding lastHospital)
+	MSHospital GetSoonestFasterHospital(MSHospital lastHospital)
 	{
-		string str = "Trying to find sooner hospital that will finish before " + lastHospital.completeTime + " with a faster speed than " + lastHospital.combinedProto.hospital.healthPerSecond;
-		MSBuilding soonest = null;
-		foreach (var building in hospitals) 
+		string str = "Trying to find sooner hospital that will finish before " + lastHospital.completeTime + " with a faster speed than " + lastHospital.proto.healthPerSecond;
+		MSHospital soonest = null;
+		foreach (var hos in hospitals) 
 		{
-			if (building == lastHospital) continue;
-			str += "\nChecking " + building.id + ": " + building.completeTime + ", " + building.combinedProto.hospital.healthPerSecond;
-			if (building.combinedProto.hospital.healthPerSecond > lastHospital.combinedProto.hospital.healthPerSecond
-			    && building.completeTime < lastHospital.completeTime)
+			if (hos.completeTime < MSUtil.timeNowMillis) hos.completeTime = MSUtil.timeNowMillis;
+			if (hos == lastHospital) continue;
+			str += "\nChecking " + hos.userBuildingData.userStructId + ": " + hos.completeTime + ", " + hos.proto.healthPerSecond;
+			if (hos.proto.healthPerSecond > lastHospital.proto.healthPerSecond
+			    && hos.completeTime < lastHospital.completeTime)
 			{
 				str += " Faster!";
 				//If this building is sooner, or just as soon and faster, than the current soonest
-				if (soonest == null || building.completeTime < soonest.completeTime || (building.completeTime == soonest.completeTime
-				                                                                        && building.combinedProto.hospital.healthPerSecond > soonest.combinedProto.hospital.healthPerSecond))
+				if (soonest == null || hos.completeTime < soonest.completeTime || (hos.completeTime == soonest.completeTime
+				                                                                        && hos.proto.healthPerSecond > soonest.proto.healthPerSecond))
 				{
 					str += " Soonest!";
-					soonest = building;
+					soonest = hos;
 				}
 			}
 			else
@@ -418,7 +426,7 @@ public class MSHospitalManager : MonoBehaviour {
 	void RearrangeHealingQueue()
 	{
 		UpdateAllProgress();
-		foreach (MSBuilding hospital in hospitals) 
+		foreach (MSHospital hospital in hospitals) 
 		{
 			hospital.completeTime = 0;
 		}
@@ -491,7 +499,10 @@ public class MSHospitalManager : MonoBehaviour {
 
 	void Update()
 	{
-		CheckHealingMonsters();
+		if (initialized)
+		{
+			CheckHealingMonsters();
+		}
 	}
 
 	void OnApplicationQuit()

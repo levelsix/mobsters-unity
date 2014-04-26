@@ -9,7 +9,7 @@ public class PZDeployCard : MonoBehaviour {
 	UISprite background;
 	
 	[SerializeField]
-	UISprite goonSprite;
+	UI2DSprite goonSprite;
 	
 	[SerializeField]
 	UISprite bar;
@@ -40,14 +40,9 @@ public class PZDeployCard : MonoBehaviour {
 		
 		background.spriteName = backgroundDict[goon.monster.monsterElement];
 
-		goonSprite.spriteName = MSUtil.StripExtensions(goon.monster.imagePrefix) + "Thumbnail";
-
-		UISpriteData spriteData = goonSprite.GetAtlasSprite();
-		if (spriteData != null)
-		{
-			goonSprite.width = spriteData.width;
-			goonSprite.height = spriteData.height;
-		}
+		
+		string goonPrefix = MSUtil.StripExtensions (goon.monster.imagePrefix);
+		StartCoroutine(MSAtlasUtil.instance.SetSprite(goonPrefix, goonPrefix + "Thumbnail", goonSprite));
 		
 		bar.fillAmount = (float)goon.currHP / goon.maxHP;
 		

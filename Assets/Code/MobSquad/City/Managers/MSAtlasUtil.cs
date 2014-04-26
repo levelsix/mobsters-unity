@@ -153,14 +153,18 @@ public class MSAtlasUtil : MonoBehaviour {
 
 	public IEnumerator SetSprite(string baseName, string spriteName, UI2DSprite sprite)
 	{
-		Debug.Log("Setting sprite: " + spriteName);
+		//Debug.Log("Setting sprite: " + spriteName);
 		if (!bundles.ContainsKey(baseName))
 		{
 			sprite.sprite2D = defaultSprite;
 			yield return StartCoroutine(DownloadAndCache(baseName));
 			
 		}
-		sprite.sprite2D = bundles[baseName].Load(spriteName, typeof(Sprite)) as Sprite;
+
+		if (bundles.ContainsKey(baseName))
+		{
+			sprite.sprite2D = bundles[baseName].Load(spriteName, typeof(Sprite)) as Sprite;
+		}
 
 		if (sprite.sprite2D != null)
 		{
@@ -169,17 +173,27 @@ public class MSAtlasUtil : MonoBehaviour {
 		}
 	}
 
+	public IEnumerator SetUnitAnimator(MSUnit unit)
+	{
+		yield return SetAnimator(unit.spriteBaseName, unit.anim);
+
+		unit.ResetAnimation();
+	}
+
 	public IEnumerator SetAnimator(string baseName, Animator animator)
 	{
 		if (!bundles.ContainsKey(baseName))
 		{
-			animator.runtimeAnimatorController = defaultAnimator;
+			animator.runtimeAnimatorController = null;
 			yield return StartCoroutine(DownloadAndCache(baseName));
 		}
 
-		animator.runtimeAnimatorController = bundles[baseName].Load(baseName + "Controller", typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
-		animator.GetComponent<SpriteRenderer>().color = Color.white;
-		Debug.Log("Assigned it: " + animator.runtimeAnimatorController);
+		if (bundles.ContainsKey(baseName))
+		{
+			animator.runtimeAnimatorController = bundles[baseName].Load(baseName + "Controller", typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
+			animator.GetComponent<SpriteRenderer>().color = Color.white;
+			Debug.Log("Assigned it: " + animator.runtimeAnimatorController);
+		}
 	}
 
 	public Sprite GetBuildingSprite(string spriteName)
@@ -193,6 +207,11 @@ public class MSAtlasUtil : MonoBehaviour {
 		Resources.UnloadUnusedAssets();
 	}
 
+	public bool HasBundle (string bundleName)
+	{
+		return bundles.ContainsKey(bundleName);
+	}
+
 	/// <summary>
 	/// Downloads the and cache.
 	/// Sample code from: http://docs.unity3d.com/Documentation/Manual/DownloadingAssetBundles.html
@@ -204,7 +223,7 @@ public class MSAtlasUtil : MonoBehaviour {
 		while (!Caching.ready)
 			yield return null;
 		
-		Debug.Log ("Grabbing bundle: " + bundleName);
+		//Debug.Log ("Grabbing bundle: " + bundleName);
 		
 		// Load the AssetBundle file from Cache if it exists with the same version or download and store it in the cache
 		using(WWW www = WWW.LoadFromCacheOrDownload (AWS + bundleName + ".unity3d", 1)){
@@ -216,15 +235,11 @@ public class MSAtlasUtil : MonoBehaviour {
 			}
 
 			if (www.error != null)
-				throw new Exception("WWW download of " + bundleName + " had an error:" + www.error);
+				yield break;
+				//throw new Exception("WWW download of " + bundleName + " had an error:" + www.error);
 			AssetBundle bundle = www.assetBundle;
 
-			Debug.Log("Loaded bundle: " + bundleName);
-
-			foreach (var item in www.assetBundle.LoadAll()) 
-			{
-				//Debug.Log("One more thing: " + item.name + " " + item.GetType().ToString());
-			}
+			//Debug.Log("Loaded bundle: " + bundleName);
 
 			bundles[bundleName] = bundle;
 			

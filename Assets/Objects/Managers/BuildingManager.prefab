@@ -39,6 +39,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingPrefab: {fileID: 11400008, guid: 753436069b57242f6b6f6b42adf82b75, type: 2}
+  currentUnderConstruction: {fileID: 0}
+  hoveringToBuild: {fileID: 0}
   cam: {fileID: 0}
   BuilderBar: {fileID: 0}
   builderAvailable: 1
@@ -46,6 +48,8 @@ MonoBehaviour:
   unitParent: {fileID: 0}
   buildingParent: {fileID: 0}
   background: {fileID: 0}
+  buildingPanel: {fileID: 0}
+  obstacles: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

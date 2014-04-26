@@ -1,0 +1,131 @@
+using UnityEngine;
+using System.Collections;
+using com.lvl6.proto;
+
+/// <summary>
+/// @author Rob Giusti
+/// CBK quest task entry.
+/// </summary>
+public class MSQuestTaskEntry : MonoBehaviour, MSPoolable
+{
+	
+	GameObject gameObj;
+	Transform trans;
+	MSQuestTaskEntry _prefab;
+	
+	public GameObject gObj {
+		get {
+			return gameObj;
+		}
+	}
+	
+	public Transform transf {
+		get {
+			return trans;
+		}
+	}
+	
+	public MSPoolable prefab {
+		get {
+			return _prefab;
+		}
+		set {
+			_prefab = value as MSQuestTaskEntry;
+		}
+	}
+	
+	[SerializeField]
+	UILabel taskNameLabel;
+	
+	[SerializeField]
+	UILabel numLeftLabel;
+	
+	[SerializeField]
+	UISprite visitOrDoneSprite;
+	
+	[SerializeField]
+	UILabel visitOrDoneLabel;
+	
+	const string DONE_STRING = "Done!";
+	
+	const string VISIT_STRING = "Visit";
+	
+	void Awake()
+	{
+		trans = transform;
+		gameObj = gameObject;
+	}
+	
+	public MSPoolable Make (Vector3 origin)
+	{
+		MSQuestTaskEntry entry = Instantiate(this, origin, Quaternion.identity) as MSQuestTaskEntry;
+		entry.prefab = this;
+		return entry;
+	}
+	
+	public void Pool ()
+	{
+		MSPoolManager.instance.Pool(this);
+	}
+	
+	public void InitMoneyCollect(int amountCollected, int amountToCollect)
+	{
+		taskNameLabel.text = "Collect [" + MSValues.Colors.moneyText +"]$" + amountToCollect + "[-] from buildings";
+		
+		numLeftLabel.text = amountCollected + "/" + amountToCollect;
+		
+		SetComplete(amountCollected >= amountToCollect);
+	}
+	
+	public void Init(MinimumUserTaskProto task)
+	{
+		FullTaskProto fullTask = MSDataManager.instance.Get(typeof(FullTaskProto), task.taskId) as FullTaskProto;
+		
+		taskNameLabel.text = fullTask.name;
+		
+		numLeftLabel.text = /*task.numTimesActed +*/ "/" + 1;
+		
+		SetComplete(false/*task.numTimesActed > 0*/);
+	}
+	
+	public void Init(MinimumUserBuildStructJobProto job)
+	{
+		BuildStructJobProto buildJob = MSDataManager.instance.Get (typeof(BuildStructJobProto), job.buildStructJobId) as BuildStructJobProto;
+		
+		StructureInfoProto structure = MSDataManager.instance.Get(typeof(StructureInfoProto), buildJob.structId) as StructureInfoProto;
+		
+		taskNameLabel.text = "Build " + buildJob.quantityRequired + " " + structure.name + "s";
+		
+		numLeftLabel.text = job.numOfStructUserHas + "/" + buildJob.quantityRequired;
+		
+		SetComplete(job.numOfStructUserHas >= buildJob.quantityRequired);
+	}
+	
+	public void Init(MinimumUserUpgradeStructJobProto job)
+	{
+		UpgradeStructJobProto upgradeJob = MSDataManager.instance.Get(typeof(UpgradeStructJobProto), job.upgradeStructJobId) as UpgradeStructJobProto;
+		
+		StructureInfoProto structure = MSDataManager.instance.Get(typeof(StructureInfoProto), upgradeJob.structId) as StructureInfoProto;
+		
+		taskNameLabel.text = "Upgrade " + structure.name + " to level " + upgradeJob.levelReq;
+		
+		numLeftLabel.text = job.currentLevel + "/" + upgradeJob.levelReq;
+		
+		SetComplete(job.currentLevel >= upgradeJob.levelReq);
+	}
+	
+	public void SetComplete(bool complete)
+	{
+		if (complete)
+		{
+			visitOrDoneSprite.alpha = 0;
+			visitOrDoneLabel.text = DONE_STRING;
+		}
+		else
+		{
+			visitOrDoneSprite.alpha = 1;
+			visitOrDoneLabel.text = VISIT_STRING;
+		}
+	}
+	
+}

@@ -29,6 +29,8 @@ public class MSGoonTeamCard : MonoBehaviour {
 	[SerializeField]
 	Color tintColor;
 
+	PZMonster goon;
+
 	const string EMPTY_SLOT_NAME_LABEL = "Team Slot Open";
 	const string EMPTY_SLOT_BOTTOM_LABEL = "Tap [33ff33]+[-] to add";
 
@@ -78,7 +80,7 @@ public class MSGoonTeamCard : MonoBehaviour {
 	{
 		portrait.Init(goon, true);
 
-		if (goon != null)
+		if (goon != null && goon.monster != null && goon.monster.monsterId > 0)
 		{
 			nameLabel.text = goon.monster.displayName;
 			if (goon.isHealing)
@@ -87,20 +89,19 @@ public class MSGoonTeamCard : MonoBehaviour {
 				barBG.alpha = 0;
 				bottomLabel.text = HEALING_BOTTOM_LABEL;
 				dottedBorder.alpha = 1;
-				portrait.background.alpha = 1;
-				portrait.background.color = tintColor;
+				portrait.background.alpha = .5f;
+				//portrait.background.color = tintColor;
 				portrait.goonPortrait.color = Color.white;
 			}
 			else
 			{
 				bar.alpha = 1;
 				barBG.alpha = 1;
-				bar.spriteName = healthBarForElements[goon.monster.monsterElement];
 				fillBar.fill = ((float)goon.currHP) / goon.maxHP;
 				bottomLabel.text = " ";
 				dottedBorder.alpha = 0;
 				portrait.background.alpha = 1;
-				portrait.background.color = Color.white;
+				//portrait.background.color = Color.white;
 				portrait.goonPortrait.color = Color.white;
 			}
 		}
@@ -113,6 +114,9 @@ public class MSGoonTeamCard : MonoBehaviour {
 			bar.alpha = 0;
 			barBG.alpha = 0;
 		}
+
+
+		this.goon = goon;
 	}
 
 }

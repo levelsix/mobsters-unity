@@ -284,13 +284,6 @@ namespace com.lvl6.proto
       get { return _cityId; }
       set { _cityId = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserQuestProto> _inProgressUserQuestDataInCity = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserQuestProto>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"inProgressUserQuestDataInCity", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserQuestProto> inProgressUserQuestDataInCity
-    {
-      get { return _inProgressUserQuestDataInCity; }
-    }
-  
     [global::ProtoBuf.ProtoContract(Name=@"LoadCityStatus")]
     public enum LoadCityStatus
     {

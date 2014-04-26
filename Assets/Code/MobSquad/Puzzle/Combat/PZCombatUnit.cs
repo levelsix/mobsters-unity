@@ -48,6 +48,8 @@ public class PZCombatUnit : MonoBehaviour {
 
 	public bool alive = false;
 
+	public bool moving = false;
+
 	const float HP_LERP_FRAME = 1f;
 
 	[ContextMenu("SetStartPos")]
@@ -244,8 +246,9 @@ public class PZCombatUnit : MonoBehaviour {
 
 	}
 
-	public IEnumerator AdvanceTo(float x, Vector3 direction, float speed)
+	public IEnumerator AdvanceTo(float x, Vector3 direction, float speed, bool idleAfter = true)
 	{
+		moving = true;
 		unit.animat = MSUnit.AnimationType.RUN;
 		if (transform.localPosition.x < x)
 		{
@@ -266,7 +269,11 @@ public class PZCombatUnit : MonoBehaviour {
 			}
 		}
 		transform.localPosition += (x - transform.localPosition.x) * direction;
-		unit.animat = MSUnit.AnimationType.IDLE;
+		if (idleAfter)
+		{
+			unit.animat = MSUnit.AnimationType.IDLE;
+		}
+		moving = false;
 	}
 
 	public IEnumerator Retreat(Vector3 direction, float speed)

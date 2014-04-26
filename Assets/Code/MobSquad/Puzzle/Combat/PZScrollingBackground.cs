@@ -74,7 +74,12 @@ public class PZScrollingBackground : MonoBehaviour {
 			yield return null;
 		}
 	}
-	
+
+	public void Scroll()
+	{
+		Scroll(scrollSpeed);
+	}
+
 	public void Scroll(float speed)
 	{
 		foreach (MSSimplePoolable item in backgrounds) 

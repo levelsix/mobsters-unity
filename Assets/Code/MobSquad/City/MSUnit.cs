@@ -1,4 +1,4 @@
-using UnityEngine;
+	using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -23,15 +23,15 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		{
 			_spriteBaseName = value;
 			//anim.runtimeAnimatorController = MSAtlasUtil.instance.GetAnimator(value);
-			StartCoroutine(MSAtlasUtil.instance.SetAnimator(value, anim));
+			StartCoroutine(MSAtlasUtil.instance.SetUnitAnimator(this));
 
-			if (anim.runtimeAnimatorController == null)
+			if (MSAtlasUtil.instance.HasBundle(value))
 			{
-				sprite.color = new Color(1,1,1,0);
+				sprite.color = Color.white;
 			}
 			else
 			{
-				sprite.color = Color.white;
+				sprite.color = new Color(1,1,1,0);
 			}
 
 			SetAnimation(AnimationType.IDLE);
@@ -69,11 +69,18 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	
 	public enum AnimationType {IDLE, RUN, ATTACK, FLINCH};
 	
+	private AnimationType _animat = AnimationType.IDLE;
+
 	public AnimationType animat
 	{
 		set
 		{
+			_animat = value;
 			SetAnimation(value);
+		}
+		get
+		{
+			return _animat;
 		}
 	}
 	
@@ -101,8 +108,6 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 			_prefab = value as MSUnit;
 		}
 	}
-	
-	const int ANIMATION_FPS = 15;
 	
 	public float unitSize = 1.1f;
 	
@@ -233,6 +238,10 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		SetDirection ();
 
 	}
-	
+
+	public void ResetAnimation()
+	{
+		SetAnimation(animat);
+	}
 	
 }

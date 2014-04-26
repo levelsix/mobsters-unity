@@ -4,7 +4,7 @@ using System.Collections;
 public class MSTriggerGoonPopup : MSTriggerPopupButton {
 	
 	[SerializeField]
-	CBKGoonScreen goonScreen;
+	MSGoonScreen goonScreen;
 	
 	[SerializeField]
 	bool healMode;

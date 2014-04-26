@@ -2585,6 +2585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbcf036ac96cb47e1bbef698d376d09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boardSprite: {fileID: 0}
   comboLabel: {fileID: 11400126}
   _swapLock: 0
   processingSwap: 0
@@ -2598,8 +2599,9 @@ MonoBehaviour:
   - night
   - water
   currGems: 
-  gemsOnBoardByType: 0000000000000000000000000000000000000000
   gemsByType: 0
+  boardWidth: 8
+  boardHeight: 8
   damageNumberPrefab: {fileID: 11400004, guid: 0bde78446e90b4023a26e133a756d3cc, type: 2}
   rocketPrefab: {fileID: 0}
   molotovPartPrefab: {fileID: 0}
@@ -3642,6 +3644,7 @@ MonoBehaviour:
   damageLabelTweens: []
   startingPos: {x: 0, y: 0, z: 0}
   alive: 0
+  moving: 0
 --- !u!114 &11400066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4191,7 +4194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 11400056}
-  goonSprite: {fileID: 11400118}
+  goonSprite: {fileID: 0}
   bar: {fileID: 11400002}
 --- !u!114 &11400092
 MonoBehaviour:
@@ -4255,7 +4258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 11400022}
-  goonSprite: {fileID: 11400172}
+  goonSprite: {fileID: 0}
   bar: {fileID: 11400016}
 --- !u!114 &11400096
 MonoBehaviour:
@@ -4954,6 +4957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pvpMode: 0
   raidMode: 0
+  waitingForTutorialSignal: 0
   combatPanel: {fileID: 0}
   playerGoonies: []
   defeatedEnemies: []
@@ -5207,7 +5211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 11400012}
-  goonSprite: {fileID: 11400048}
+  goonSprite: {fileID: 0}
   bar: {fileID: 11400052}
 --- !u!114 &11400140
 MonoBehaviour:
@@ -5903,7 +5907,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -10
   m_SortingLayerID: 4066043011
   m_Sprite: {fileID: 21300000, guid: 71fe01d5fc8754428b3a5ebf665a4e59, type: 3}
@@ -5926,7 +5930,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -10
   m_SortingLayerID: 4066043011
   m_Sprite: {fileID: 21300000, guid: e56be894bea9649dbb9163dd83999f79, type: 3}
@@ -5949,7 +5953,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -10
   m_SortingLayerID: 4066043011
   m_Sprite: {fileID: 21300000, guid: 620475329a98c4c27827de170896a126, type: 3}
@@ -5972,7 +5976,7 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -10
   m_SortingLayerID: 4066043011
   m_Sprite: {fileID: 21300000, guid: f03fed5dcc002412dab23dfb4b1e4565, type: 3}

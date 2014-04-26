@@ -148,6 +148,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	public float recoilTime = .2f;
 
+	bool waiting = false;
+
 	[SerializeField] float MELEE_ATTACK_DISTANCE = 60;
 
 	const float BLEED_ONCE_THRESH = 0.5f;
@@ -208,7 +210,7 @@ public class PZCombatManager : MonoBehaviour {
 		raidMode = false;
 	}
 
-	void Init()
+	void PreInit()
 	{
 		boardTint.PlayForward();
 		
@@ -243,6 +245,24 @@ public class PZCombatManager : MonoBehaviour {
 			}
 		}
 	}
+
+	public void PreInitTask()
+	{
+		PreInit();
+		
+		boardMove.Sample(0,false);
+		boardMove.PlayForward();
+		
+		pvpUI.Reset();
+		pvpMode = false;
+		raidMode = false;
+
+		activePlayer.Init(playerGoonies[0]);
+
+		waiting = true;
+		StartCoroutine(ScrollToNextEnemy());
+
+	}
 	
 	/// <summary>
 	/// Start this instance. Gets the combat going.
@@ -250,15 +270,6 @@ public class PZCombatManager : MonoBehaviour {
 	public void InitTask()
 	{
 		debug = MSWhiteboard.loadedDungeon;
-
-		Init ();
-		
-		boardMove.Sample(0,false);
-		boardMove.PlayForward();
-
-		pvpUI.Reset();
-		pvpMode = false;
-		raidMode = false;
 
 		MSWhiteboard.currUserTaskId = MSWhiteboard.loadedDungeon.userTaskId;
 
@@ -272,11 +283,7 @@ public class PZCombatManager : MonoBehaviour {
 			enemies.Enqueue(mon);
 		}
 
-		//CBKEventManager.Popup.OnPopup(deployPopup.gameObject);
-		//deployPopup.Init(MSMonsterManager.instance.userTeam);
-
-		//StartCoroutine(ScrollToNextEnemy());
-		OnDeploy(playerGoonies[0]);
+		waiting = false;
 
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
@@ -284,7 +291,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void InitPvp()
 	{
-		Init ();
+		PreInit ();
 
 		playersSeen.Clear();
 
@@ -306,7 +313,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void InitRaid()
 	{
-		Init ();
+		PreInit ();
 		
 		PZMonster mon;
 
@@ -508,20 +515,17 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			Debug.Log ("Actually deploying");
 
-			if (activePlayer.alive)
-			{
+			//if (activePlayer.alive)
+			//{
 				StartCoroutine(SwapCharacters(monster));
-			}
-			else
-			{
-				activePlayer.Init(monster);
-				activePlayer.GoToStartPos();
-				CheckBleed(activePlayer);
-				//if (!activeEnemy.alive)
-				//{
-					StartCoroutine(ScrollToNextEnemy());
-				//}
-			}
+			//}
+			//else
+			//{
+			//	activePlayer.Init(monster);
+			//	activePlayer.GoToStartPos();
+			//	CheckBleed(activePlayer);
+			//	StartCoroutine(ScrollToNextEnemy());
+			//}
 		}
 		else
 		{
@@ -619,6 +623,18 @@ public class PZCombatManager : MonoBehaviour {
 
 		PZPuzzleManager.instance.swapLock += 1;
 
+		activePlayer.GoToStartPos();
+		
+		MSSoundManager.instance.Loop(MSSoundManager.instance.walking);
+
+		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed));
+
+		while (waiting)
+		{
+			background.Scroll();
+			yield return null;
+		}
+
 		if (enemies.Count > 0)
 		{
 			activeEnemy.GoToStartPos();
@@ -650,9 +666,6 @@ public class PZCombatManager : MonoBehaviour {
 		
 		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
 
-		MSSoundManager.instance.Loop(MSSoundManager.instance.walking);
-
-		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed));
 		activePlayer.unit.direction = MSValues.Direction.EAST;
 		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
 

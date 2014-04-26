@@ -83,7 +83,19 @@ static public class NGUITools
 		{
 			if (mListener == null || !NGUITools.GetActive(mListener))
 			{
-				mListener = GameObject.FindObjectOfType(typeof(AudioListener)) as AudioListener;
+				AudioListener[] listeners = GameObject.FindObjectsOfType(typeof(AudioListener)) as AudioListener[];
+
+				if (listeners != null)
+				{
+					for (int i = 0; i < listeners.Length; ++i)
+					{
+						if (NGUITools.GetActive(listeners[i]))
+						{
+							mListener = listeners[i];
+							break;
+						}
+					}
+				}
 
 				if (mListener == null)
 				{
@@ -236,7 +248,11 @@ static public class NGUITools
 					if (Application.isPlaying) GameObject.Destroy(col);
 					else GameObject.DestroyImmediate(col);
 				}
+
 				box = go.AddComponent<BoxCollider>();
+#if !UNITY_3_5 && UNITY_EDITOR
+				UnityEditor.Undo.RegisterCreatedObjectUndo(box, "Add Collider");
+#endif
 				box.isTrigger = true;
 
 				UIWidget widget = go.GetComponent<UIWidget>();
@@ -1417,5 +1433,19 @@ static public class NGUITools
 				mSides[i] = relativeTo.InverseTransformPoint(mSides[i]);
 		}
 		return mSides;
+	}
+
+	/// <summary>
+	/// Convenience function that converts Class + Function combo into Class.Function representation.
+	/// </summary>
+
+	static public string GetFuncName (object obj, string method)
+	{
+		if (obj == null) return "<null>";
+		if (string.IsNullOrEmpty(method)) return "<Choose>";
+		string type = obj.GetType().ToString();
+		int period = type.LastIndexOf('.');
+		if (period > 0) type = type.Substring(period + 1);
+		return type + "." + method;
 	}
 }

@@ -60,6 +60,9 @@ public class MSBuildingManager : MonoBehaviour
 
 	[SerializeField]
 	MSCityBackground background;
+
+	[SerializeField]
+	UIPanel buildingPanel;
 	
     #endregion
 
@@ -215,6 +218,8 @@ public class MSBuildingManager : MonoBehaviour
 	
 	public IEnumerator LoadNeutralCity(int cityId)
 	{
+
+
 		LoadCityRequestProto load = new LoadCityRequestProto();
 		load.sender = MSWhiteboard.localMup;
 		load.cityId = cityId;
@@ -238,6 +243,7 @@ public class MSBuildingManager : MonoBehaviour
 		BuildNeutralCity (response);
 		
 		SyncTasks (cityId);
+
 
 	}
 
@@ -380,7 +386,7 @@ public class MSBuildingManager : MonoBehaviour
 
 		RecycleCity();
 
-		MSHospitalManager.instance.ClearHospitals();
+		//MSHospitalManager.instance.ClearHospitals();
 
 		labs.Clear();
 		MSResidenceManager.residences.Clear();
@@ -397,7 +403,7 @@ public class MSBuildingManager : MonoBehaviour
 			{
 				if (building.combinedProto.hospital != null)
 				{
-					MSHospitalManager.instance.AddHospital(building);
+					MSHospitalManager.instance.AssignHospital(building);
 				}
 				else if (building.combinedProto.residence != null)
 				{
@@ -422,7 +428,7 @@ public class MSBuildingManager : MonoBehaviour
 		DistributeCash(MSResourceManager.resources[0]);
 		DistributeOil(MSResourceManager.resources[1]);
 
-		if (!MSHospitalManager.instance.initalized)
+		if (!MSHospitalManager.instance.initialized)
 		{
 			MSHospitalManager.instance.InitHealers();
 		}
@@ -467,8 +473,8 @@ public class MSBuildingManager : MonoBehaviour
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coordinates.x, 0, 
 		                               MSGridManager.instance.spaceSize * proto.coordinates.y);
 		
-		MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as MSBuilding;
-		
+		MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position, buildingParent) as MSBuilding;
+
 		building.trans.rotation = buildingParent.rotation;
     	building.trans.parent = buildingParent;
     	building.Init(proto);
@@ -477,7 +483,12 @@ public class MSBuildingManager : MonoBehaviour
 	    MSGridManager.instance.AddBuilding(building, (int)proto.coordinates.x, (int)proto.coordinates.y, fsp.width, fsp.height);
 	
 		buildings.Add(proto.userStructId, building);
-		
+
+		foreach (var item in building.GetComponentsInChildren<UIWidget>()) 
+		{
+			item.panel = buildingPanel;
+		}
+
     	return building;
 	}
 
@@ -506,9 +517,9 @@ public class MSBuildingManager : MonoBehaviour
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coords.x, 0, 
     		MSGridManager.instance.spaceSize * proto.coords.y);
     	
-	    MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as MSBuilding;
+	    MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position, buildingParent) as MSBuilding;
 		
-		building.trans.parent = buildingParent;
+		//building.trans.parent = buildingParent;
 		building.trans.localRotation = Quaternion.identity;
 		
 		building.Init(proto);
@@ -834,10 +845,12 @@ public class MSBuildingManager : MonoBehaviour
 		return monsterSlots;
 	}
 
+	/* Seems depricated
 	public MSHospital GetHospital(int userStructId)
 	{
 		return buildings[userStructId].hospital;
 	}
+	*/
 
 	public List<MSBuilding> GetStorages(ResourceType resource)
 	{
@@ -884,7 +897,7 @@ public class MSBuildingManager : MonoBehaviour
 		switch(building.combinedProto.structInfo.structType)
 		{
 			case StructureInfoProto.StructType.HOSPITAL:
-				MSHospitalManager.instance.AddHospital(building);
+				MSHospitalManager.instance.AssignHospital(building);
 				break;
 			case StructureInfoProto.StructType.LAB:
 				labs.Add(building);

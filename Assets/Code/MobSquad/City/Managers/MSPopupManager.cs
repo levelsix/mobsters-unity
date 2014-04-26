@@ -10,8 +10,8 @@ public class MSPopupManager : MonoBehaviour {
 	[System.Serializable]
 	public class Popups
 	{
-		public CBKGoonScreen goonScreen;
-		public CBKClanPopup clanPopup;
+		public MSGoonScreen goonScreen;
+		public MSClanPopup clanPopup;
 		public MSRaidScreen raidScreen;
 		public MSRaidTeamPopup raidTeamPopup;
 		public GameObject loadingScreenBlocker;
@@ -23,7 +23,7 @@ public class MSPopupManager : MonoBehaviour {
 	/// The popup
 	/// </summary>
 	[SerializeField]
-	CBKGenericPopup popup;
+	MSGenericPopup popup;
 	
 	[SerializeField]
 	Transform townPopupParent;
@@ -105,7 +105,7 @@ public class MSPopupManager : MonoBehaviour {
 		MSActionManager.Popup.CreateButtonPopup -= PopWithButtons;
 	}
 	
-	void InitPopup (CBKGenericPopup pop)
+	void InitPopup (MSGenericPopup pop)
 	{
 		Transform popT = pop.transform;
 

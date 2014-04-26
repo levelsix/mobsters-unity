@@ -12,7 +12,7 @@ public class UMQLoader : MonoBehaviour {
 	MSFillBar fillBar;
 
 	// Use this for initialization
-	IEnumerator Start () {
+	public IEnumerator Start () {
 
 		Application.targetFrameRate = 60;
 

@@ -342,6 +342,11 @@ public static class MSUtil {
 
 	public static void LoadLocalUser (FullUserProto user)
 	{
+		if (user == null)
+		{
+			Debug.LogError("User is null...");
+			return;
+		}
 		MSWhiteboard.localUser = user;
 		MSWhiteboard.localMup = new MinimumUserProto();
 		MSWhiteboard.localMup.userId = user.userId;

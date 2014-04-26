@@ -449,9 +449,11 @@ public class UICamera : MonoBehaviour
 			current = this;
 			currentCamera = mCam;
 			UICamera.currentScheme = mNextScheme;
+			inputHasFocus = (mCurrentSelection.GetComponent<UIInput>() != null);
 			Notify(mCurrentSelection, "OnSelect", true);
 			current = null;
 		}
+		else inputHasFocus = false;
 	}
 
 	/// <summary>
@@ -703,11 +705,12 @@ public class UICamera : MonoBehaviour
 	{
 		UIPanel panel = NGUITools.FindInParents<UIPanel>(hit.collider.gameObject);
 
-		if (panel == null || panel.IsVisible(hit.point))
+		while (panel != null)
 		{
-			return true;
+			if (!panel.IsVisible(hit.point)) return false;
+			panel = panel.parentPanel;
 		}
-		return false;
+		return true;
 	}
 
 	/// <summary>
@@ -721,7 +724,13 @@ public class UICamera : MonoBehaviour
 #endif
 	{
 		UIPanel panel = NGUITools.FindInParents<UIPanel>(de.hit.collider.gameObject);
-		return (panel == null || panel.IsVisible(de.hit.point));
+
+		while (panel != null)
+		{
+			if (!panel.IsVisible(de.hit.point)) return false;
+			panel = panel.parentPanel;
+		}
+		return true;
 	}
 
 	/// <summary>
@@ -950,20 +959,12 @@ public class UICamera : MonoBehaviour
 	void Update ()
 	{
 		// Only the first UI layer should be processing events
+#if UNITY_EDITOR
 		if (!Application.isPlaying || !handlesEvents) return;
-
+#else
+		if (!handlesEvents) return;
+#endif
 		current = this;
-
-		int w = Screen.width;
-		int h = Screen.height;
-
-		if (w != mWidth || h != mHeight)
-		{
-			mWidth = w;
-			mHeight = h;
-			if (onScreenResize != null)
-				onScreenResize();
-		}
 
 		// Process touch events first
 		if (useTouch) ProcessTouches ();
@@ -1009,6 +1010,32 @@ public class UICamera : MonoBehaviour
 			}
 		}
 		current = null;
+	}
+
+	/// <summary>
+	/// Keep an eye on screen size changes.
+	/// </summary>
+
+	void LateUpdate ()
+	{
+#if UNITY_EDITOR
+		if (!Application.isPlaying || !handlesEvents) return;
+#else
+		if (!handlesEvents) return;
+#endif
+		int w = Screen.width;
+		int h = Screen.height;
+
+		if (w != mWidth || h != mHeight)
+		{
+			mWidth = w;
+			mHeight = h;
+
+			UIRoot.Broadcast("UpdateAnchors");
+
+			if (onScreenResize != null)
+				onScreenResize();
+		}
 	}
 
 	/// <summary>
@@ -1233,9 +1260,6 @@ public class UICamera : MonoBehaviour
 	{
 		currentTouchID = -100;
 		currentTouch = controller;
-
-		// If this is an input field, ignore WASD and Space key presses
-		inputHasFocus = (mCurrentSelection != null && mCurrentSelection.GetComponent<UIInput>() != null);
 
 		bool submitKeyDown = false;
 		bool submitKeyUp = false;

@@ -353,6 +353,9 @@ public abstract class UIRect : MonoBehaviour
 		if (updateAnchors == AnchorUpdate.OnEnable)
 			mUpdateAnchors = true;
 		if (mStarted) OnInit();
+#if UNITY_EDITOR
+		OnValidate();
+#endif
 	}
 
 	/// <summary>
@@ -404,7 +407,9 @@ public abstract class UIRect : MonoBehaviour
 
 		if (mUpdateFrame != frame)
 		{
+#if !UNITY_EDITOR
 			if (updateAnchors == AnchorUpdate.OnUpdate || mUpdateAnchors)
+#endif
 			{
 				mUpdateFrame = frame;
 				mUpdateAnchors = false;
@@ -543,6 +548,12 @@ public abstract class UIRect : MonoBehaviour
 
 		mUpdateAnchors = true;
 	}
+
+	/// <summary>
+	/// Set the rectangle manually.
+	/// </summary>
+
+	public abstract void SetRect (float x, float y, float width, float height);
 
 	/// <summary>
 	/// Helper function -- attempt to find the camera responsible for the specified anchor.

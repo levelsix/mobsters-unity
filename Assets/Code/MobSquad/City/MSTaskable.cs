@@ -116,10 +116,10 @@ public class MSTaskable : MonoBehaviour {
 			}
 		}
 
-		StartCoroutine(BeginDungeonRequest());
+		BeginDungeonRequest();
 	}
 
-	IEnumerator BeginDungeonRequest()
+	void BeginDungeonRequest()
 	{
 		BeginDungeonRequestProto request = new BeginDungeonRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -132,13 +132,18 @@ public class MSTaskable : MonoBehaviour {
 		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.PUZZLE;
 		MSWhiteboard.dungeonToLoad = request;
 		
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, null);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, ReceiveBeginDungeonResponse);
+		
+		
+		MSActionManager.Scene.OnPuzzle();
+		
+		PZCombatManager.instance.PreInitTask();
 
+		PZPuzzleManager.instance.InitBoard();
+	}
 
-		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
-		{
-			yield return null;
-		}
+	void ReceiveBeginDungeonResponse(int tagNum)
+	{
 
 		Debug.Log("Got dungeon request");
 		
@@ -147,15 +152,13 @@ public class MSTaskable : MonoBehaviour {
 
 		PZCombatManager.instance.InitTask();
 
-		if (MSTutorialManager.instance.IsTaskTutorial(task.taskId))
-		{
-			MSTutorialManager.instance.StartTutorial(task.taskId);
-		}
-		else
-		{
-			PZPuzzleManager.instance.InitBoard();
-		}
-		
-		MSActionManager.Scene.OnPuzzle();
+		//if (MSTutorialManager.instance.IsTaskTutorial(task.taskId))
+		//{
+		//	MSTutorialManager.instance.StartTutorial(task.taskId);
+		//}
+		//else
+		//{
+		//}
+
 	}
 }
