@@ -46,7 +46,7 @@ public class MSBuildingMenu : MonoBehaviour {
 		grid.Reposition();
 
 		grid.collider.enabled = false;
-		grid.collider.enabled = true;
+		//grid.collider.enabled = true;
 	}
 
 	void AddCard()

@@ -67,7 +67,6 @@ public class MSTaskBar : MonoBehaviour {
 	
 	void OnBuildingSelect(MSBuilding building)
 	{
-		ClearButtons();
 
 		if (currBuilding != null)
 		{
@@ -153,19 +152,24 @@ public class MSTaskBar : MonoBehaviour {
 
 		if (currBuilding.locallyOwned)
 		{
+
 			if (!currBuilding.userStructProto.isComplete)
 			{
 				AddButton(MSTaskButton.Mode.FINISH);
 			}
-			else if (currBuilding.combinedProto.structInfo.successorStructId > 0)
+			else
 			{
-				AddButton(MSTaskButton.Mode.UPGRADE);
+				if (currBuilding.hospital != null)
+				{
+					AddButton(MSTaskButton.Mode.HEAL);
+				}
+				if (currBuilding.combinedProto.structInfo.successorStructId > 0)
+				{
+					AddButton(MSTaskButton.Mode.UPGRADE);
+				}
 			}
 
-			if (currBuilding.hospital != null)
-			{
-				AddButton(MSTaskButton.Mode.HEAL);
-			}
+
 		}
 		else if (currBuilding.obstacle != null)
 		{
@@ -208,6 +212,7 @@ public class MSTaskBar : MonoBehaviour {
 		{
 			yield return null;
 		}
+		ClearButtons();
 		SetBuildingButtons(building);
 		tweenPos.PlayForward();
 		tweenAlph.PlayForward();

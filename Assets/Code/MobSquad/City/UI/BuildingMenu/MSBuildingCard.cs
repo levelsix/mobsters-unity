@@ -29,6 +29,9 @@ public class MSBuildingCard : MonoBehaviour {
 	UITweener[] flipTweens;
 
 	[SerializeField]
+	UISprite background;
+
+	[SerializeField]
 	GameObject front;
 
 	[SerializeField]
@@ -38,11 +41,14 @@ public class MSBuildingCard : MonoBehaviour {
 
 	bool isFlipping = false;
 
-	public MSActionButton actionButton;
+	bool on = true;
 
 	UIButton button;
 
 	MSFullBuildingProto building;
+
+	const string FRONT_IMAGE = "buildingbg";
+	const string BACK_IMAGE = "buildinginfobg";
 
 	[HideInInspector]
 	public Transform trans;
@@ -59,6 +65,7 @@ public class MSBuildingCard : MonoBehaviour {
 		flipped = false;
 		front.SetActive(true);
 		back.SetActive(false);
+		background.spriteName = FRONT_IMAGE;
 		foreach (var item in flipTweens) 
 		{
 			item.Sample(0, true);
@@ -136,12 +143,16 @@ public class MSBuildingCard : MonoBehaviour {
 
 		if (count >= max)
 		{
-			button.isEnabled = false;
+			on = false;
+			button.defaultColor = button.disabledColor;
+			button.hover = button.disabledColor;
 			Tint(button.disabledColor);
 		}
 		else
 		{
-			button.isEnabled = true;
+			on = true;
+			button.defaultColor = Color.white;
+			button.hover = Color.white;
 			Tint(Color.white);
 		}
 	}
@@ -157,7 +168,6 @@ public class MSBuildingCard : MonoBehaviour {
 	public void Flip()
 	{
 		StartCoroutine(DoFlip());
-
 	}
 
 	IEnumerator DoFlip()
@@ -177,6 +187,7 @@ public class MSBuildingCard : MonoBehaviour {
 		flipped = !flipped;
 		front.SetActive(!flipped);
 		back.SetActive(flipped);
+		background.spriteName = flipped ? BACK_IMAGE : FRONT_IMAGE;
 		
 		foreach (var item in flipTweens) 
 		{
@@ -193,13 +204,14 @@ public class MSBuildingCard : MonoBehaviour {
 
 	void OnClick()
 	{
-		if (!flipped)
-		{
-			BuyBuilding();
-		}
-		else
+		Debug.Log("Clicked!");
+		if (flipped)
 		{
 			Flip();
+		}
+		else if (on)
+		{
+			BuyBuilding();
 		}
 	}
 

@@ -218,7 +218,7 @@ public class MSGoonCard : MonoBehaviour {
 			isBaseEnhanceMonster = true;
 			addRemoveTeamButton.button.isEnabled = true;
 			addRemoveButtonBackground.spriteName = removeButtonSpriteName;
-			addRemoveTeamButton.GetComponent<UIButton>().normalSprite = removeButtonSpriteName;
+			addRemoveTeamButton.button.normalSprite = removeButtonSpriteName;
 			addRemoveTeamButton.onClick = ClearEnhanceQueue;
 			bottomCardLabel.text = " ";
 			healthBarBackground.alpha = 1;
@@ -361,7 +361,7 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			addRemoveTeamButton.button.isEnabled = true;
 			addRemoveButtonBackground.spriteName = onTeamButtonSpriteName;
-			addRemoveTeamButton.GetComponent<UIButton>().normalSprite = onTeamButtonSpriteName;
+			addRemoveTeamButton.button.normalSprite = onTeamButtonSpriteName;
 		}
 		else
 		{
@@ -377,7 +377,7 @@ public class MSGoonCard : MonoBehaviour {
 				addRemoveTeamButton.button.isEnabled = false;
 			}
 			addRemoveButtonBackground.spriteName = addButtonSpriteName;
-			addRemoveTeamButton.GetComponent<UIButton>().normalSprite = addButtonSpriteName;
+			addRemoveTeamButton.button.normalSprite = addButtonSpriteName;
 		}
 		
 		healthBar.spriteName = healthBarForElements[goon.monster.monsterElement];

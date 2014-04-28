@@ -15,6 +15,14 @@ public class MSObstacle : MonoBehaviour {
 
 	public bool isRemoving;
 
+	public int gemsToFinish
+	{
+		get
+		{
+			return MSMath.GemsForTime(endTime - MSUtil.timeNowMillis);
+		}
+	}
+
 	public long millisLeft
 	{
 		get
@@ -124,7 +132,7 @@ public class MSObstacle : MonoBehaviour {
 
 	public void FinishWithGems()
 	{
-		FinishRemove(MSMath.GemsForTime(endTime - MSUtil.timeNowMillis));
+		FinishRemove(gemsToFinish);
 	}
 
 	void FinishRemove(int gems = 0)

@@ -113,7 +113,6 @@ GameObject:
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400018}
   - 114: {fileID: 11400026}
-  - 114: {fileID: 11400024}
   m_Layer: 8
   m_Name: BuildingCard
   m_TagString: Untagged
@@ -329,11 +328,12 @@ MonoBehaviour:
   buildingSprite: {fileID: 11400012}
   tintSprites:
   - {fileID: 11400012}
+  - {fileID: 11400014}
   flipTweens:
   - {fileID: 11400026}
+  background: {fileID: 11400014}
   front: {fileID: 100016}
   back: {fileID: 100014}
-  actionButton: {fileID: 11400004}
   trans: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
@@ -679,7 +679,7 @@ MonoBehaviour:
   mWidth: 302
   mHeight: 392
   mDepth: 12
-  autoResizeBoxCollider: 1
+  autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .770408154
@@ -807,44 +807,6 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
---- !u!114 &11400024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100012}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfa4a4a103e4fed43a7e9e9df4a6915c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  method: 0
-  style: 0
-  animationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 1
-      tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  ignoreTimeScale: 1
-  delay: 0
-  duration: 1
-  steeperCurves: 0
-  tweenGroup: 0
-  onFinished: []
-  eventReceiver: {fileID: 0}
-  callWhenFinished: 
-  from: {r: 1, g: 1, b: 1, a: 1}
-  to: {r: .647058845, g: .647058845, b: .647058845, a: 1}
 --- !u!114 &11400026
 MonoBehaviour:
   m_ObjectHideFlags: 1

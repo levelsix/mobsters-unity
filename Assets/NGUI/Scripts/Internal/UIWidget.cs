@@ -1457,8 +1457,8 @@ public class UIWidget : UIRect
 		pos.y = Mathf.Round(pos.y);
 		cachedTransform.localPosition = pos;
 
-		Vector3 ls = cachedTransform.localScale;
-		cachedTransform.localScale = new Vector3(Mathf.Sign(ls.x), Mathf.Sign(ls.y), 1f);
+		//Vector3 ls = cachedTransform.localScale;
+		//cachedTransform.localScale = new Vector3(Mathf.Sign(ls.x), Mathf.Sign(ls.y), 1f);
 	}
 
 	/// <summary>
