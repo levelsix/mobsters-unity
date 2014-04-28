@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: af2e79552583a41d3ba1a73d51fc36f2
+guid: 7e9dfb85459514944812d1667f892bbb
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -20,21 +20,21 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 1024
   textureSettings:
-    filterMode: 1
+    filterMode: -1
     aniso: 1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 9
-  spritePivot: {x: .519999981, y: -.100000001}
+  spritePivot: {x: .400000006, y: .0500000007}
   spritePixelsToUnits: 50
   alphaIsTransparency: 1
   textureType: 8
@@ -44,6 +44,15 @@ TextureImporter:
     textureFormat: -2
     compressionQuality: 50
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: MPMT1
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 34
+        width: 164
+        height: 198
+      alignment: 7
+      pivot: {x: .5, y: 0}
   spritePackingTag: 
   userData: 

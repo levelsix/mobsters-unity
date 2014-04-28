@@ -7,15 +7,15 @@ using com.lvl6.proto;
 public class MSBuildingMenu : MonoBehaviour {
 
 	[SerializeField]
-	CBKBuildingCard buildingCardProto;
+	MSBuildingCard buildingCardProto;
 
 	[SerializeField]
 	UIGrid grid;
 
 	[SerializeField]
-	List<CBKBuildingCard> cards;
+	List<MSBuildingCard> cards;
 
-	CBKBuildingCard lastCard
+	MSBuildingCard lastCard
 	{
 		get
 		{
@@ -51,7 +51,7 @@ public class MSBuildingMenu : MonoBehaviour {
 
 	void AddCard()
 	{
-		CBKBuildingCard card = Instantiate(buildingCardProto) as CBKBuildingCard;
+		MSBuildingCard card = Instantiate(buildingCardProto) as MSBuildingCard;
 		card.trans.parent = lastCard.trans.parent;
 		card.trans.localScale = Vector3.one;
 		card.GetComponent<MSUIHelper>().dragBehind = lastCard.GetComponent<MSUIHelper>().dragBehind;

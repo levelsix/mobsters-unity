@@ -980,12 +980,7 @@ public class UIWidgetInspector : UIRectEditor
 					{
 						UIWidget w = go.GetComponent<UIWidget>();
 
-						if (w != null)
-						{
-							NGUIEditorTools.RegisterUndo("Snap Dimensions", w);
-							NGUIEditorTools.RegisterUndo("Snap Dimensions", w.transform);
-							w.MakePixelPerfect();
-						}
+						w.MakePixelPerfect();
 					}
 				}
 				EditorGUI.EndDisabledGroup();

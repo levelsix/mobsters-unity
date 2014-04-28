@@ -166,16 +166,12 @@ public class MSAtlasUtil : MonoBehaviour {
 			sprite.sprite2D = bundles[baseName].Load(spriteName, typeof(Sprite)) as Sprite;
 		}
 
-		if (sprite.sprite2D != null)
-		{
-			sprite.width = (int)sprite.sprite2D.rect.width;
-			sprite.height = (int)sprite.sprite2D.rect.height;
-		}
+		sprite.MakePixelPerfect();
 	}
 
 	public IEnumerator SetUnitAnimator(MSUnit unit)
 	{
-		yield return SetAnimator(unit.spriteBaseName, unit.anim);
+		yield return StartCoroutine(SetAnimator(unit.spriteBaseName, unit.anim));
 
 		unit.ResetAnimation();
 	}

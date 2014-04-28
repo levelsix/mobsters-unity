@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
-public class CBKBuildingCard : MonoBehaviour {
+public class MSBuildingCard : MonoBehaviour {
 
 	[SerializeField]
 	UILabel nameLabel;
@@ -17,10 +17,26 @@ public class CBKBuildingCard : MonoBehaviour {
 	UILabel cost;
 
 	[SerializeField]
+	UILabel description;
+
+	[SerializeField]
 	UI2DSprite buildingSprite;
 
 	[SerializeField]
 	UIWidget[] tintSprites;
+
+	[SerializeField]
+	UITweener[] flipTweens;
+
+	[SerializeField]
+	GameObject front;
+
+	[SerializeField]
+	GameObject back;
+
+	bool flipped = false;
+
+	bool isFlipping = false;
 
 	public MSActionButton actionButton;
 
@@ -39,10 +55,21 @@ public class CBKBuildingCard : MonoBehaviour {
 
 	public void Init(MSFullBuildingProto proto)
 	{
+		//Reset all the flip stuff
+		flipped = false;
+		front.SetActive(true);
+		back.SetActive(false);
+		foreach (var item in flipTweens) 
+		{
+			item.Sample(0, true);
+		}
+
 		building = proto;
 
 		nameLabel.text = proto.structInfo.name;
-		timeToBuild.text = "TIME " + proto.structInfo.minutesToBuild + "m";
+		timeToBuild.text = "TIME\n(T) " + proto.structInfo.minutesToBuild + "m";
+
+		description.text = proto.structInfo.description;
 
 		buildingSprite.sprite2D = MSAtlasUtil.instance.GetBuildingSprite(proto.structInfo.imgName);
 		if (buildingSprite.sprite2D != null)
@@ -57,7 +84,7 @@ public class CBKBuildingCard : MonoBehaviour {
 				cost.text = "$" + proto.structInfo.buildCost;
 				break;
 			case ResourceType.OIL:
-				cost.text = "(O)" + proto.structInfo.buildCost;
+				cost.text = "(o) " + proto.structInfo.buildCost;
 				break;
 			case ResourceType.GEMS:
 				cost.text = "(G)" + proto.structInfo.buildCost;
@@ -124,6 +151,55 @@ public class CBKBuildingCard : MonoBehaviour {
 		foreach (var item in tintSprites) 
 		{
 			item.color = tint;
+		}
+	}
+
+	public void Flip()
+	{
+		StartCoroutine(DoFlip());
+
+	}
+
+	IEnumerator DoFlip()
+	{
+		foreach (var item in flipTweens) 
+		{
+			item.PlayForward();
+		}
+		foreach (var item in flipTweens) 
+		{
+			while (item.tweenFactor < 1)
+			{
+				yield return null;
+			}
+		}
+
+		flipped = !flipped;
+		front.SetActive(!flipped);
+		back.SetActive(flipped);
+		
+		foreach (var item in flipTweens) 
+		{
+			item.PlayReverse();
+		}
+		foreach (var item in flipTweens) 
+		{
+			while (item.tweenFactor > 0)
+			{
+				yield return null;
+			}
+		}
+	}
+
+	void OnClick()
+	{
+		if (!flipped)
+		{
+			BuyBuilding();
+		}
+		else
+		{
+			Flip();
 		}
 	}
 
