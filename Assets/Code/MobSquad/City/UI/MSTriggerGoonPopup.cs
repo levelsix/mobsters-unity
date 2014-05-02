@@ -2,12 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class MSTriggerGoonPopup : MSTriggerPopupButton {
-	
+
 	[SerializeField]
-	MSGoonScreen goonScreen;
-	
-	[SerializeField]
-	bool healMode;
+	GoonScreenMode mode;
 	
 	public override void OnClick ()
 	{
@@ -20,14 +17,7 @@ public class MSTriggerGoonPopup : MSTriggerPopupButton {
 			MSTutorialManager.instance.currentTutorial.OnClicked();
 		}
 		base.OnClick ();
-		if (healMode)
-		{
-			goonScreen.InitHeal();
-		}
-		else
-		{
-			goonScreen.InitEnhance();
-		}
+		MSPopupManager.instance.popups.goonScreen.Init (mode);
 	}
 	
 }

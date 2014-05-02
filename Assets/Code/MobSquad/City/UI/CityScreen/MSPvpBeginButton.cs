@@ -19,8 +19,9 @@ public class MSPvpBeginButton : MonoBehaviour {
 			MSActionManager.Popup.CreateButtonPopup("Uh oh, you have no mobsters on your team. Manage your team?",
 			                                        new string[]{"Later", "Manage"},
 			new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
-				delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
-					MSPopupManager.instance.popups.goonScreen.InitHeal();}}
+				delegate{MSActionManager.Popup.CloseAllPopups();
+					MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
+					MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);}}
 			);
 			return;
 		}
@@ -29,8 +30,10 @@ public class MSPvpBeginButton : MonoBehaviour {
 			MSActionManager.Popup.CreateButtonPopup("Uh oh, you have recruited too many mobsters. Manage your team?",
 			                                        new string[]{"Later", "Manage"},
 			new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
-				delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
-					MSPopupManager.instance.popups.goonScreen.InitHeal();}});
+				delegate{MSActionManager.Popup.CloseAllPopups();
+					MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
+					MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);}}
+			);
 			return;
 		}
 		else
@@ -48,8 +51,10 @@ public class MSPvpBeginButton : MonoBehaviour {
 				MSActionManager.Popup.CreateButtonPopup("No monsters on team have health! Manage your team?",
 				                                        new string[]{"Later", "Manage"},
 				new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
-					delegate{MSActionManager.Popup.CloseAllPopups(); MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.GetComponent<MSPopup>());
-						MSPopupManager.instance.popups.goonScreen.InitHeal();}});
+					delegate{MSActionManager.Popup.CloseAllPopups();
+						MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
+						MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);}}
+				);
 				return;
 			}
 		}

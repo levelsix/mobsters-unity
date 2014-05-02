@@ -12,13 +12,13 @@ public class MSFillBar : MonoBehaviour {
 	int minSize;
 
 	[SerializeField]
-	float v;
+	float currVal;
 
 	public float fill
 	{
 		set
 		{
-			v = value;
+			currVal = value;
 			if (bar == null)
 			{
 				bar = GetComponent<UISprite>();
@@ -27,7 +27,16 @@ public class MSFillBar : MonoBehaviour {
 		}
 		get
 		{
-			return v;
+			return currVal;
+		}
+	}
+
+	public int max
+	{
+		set
+		{
+			maxSize = value;
+			fill = currVal;
 		}
 	}
 }

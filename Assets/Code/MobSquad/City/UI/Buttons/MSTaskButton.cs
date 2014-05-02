@@ -188,8 +188,8 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 	void ClickHeal()
 	{
-		MSPopupManager.instance.popups.goonScreen.InitHeal();
 		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.GetComponent<MSPopup>());
+		MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);
 
 		MSBuildingManager.instance.FullDeselect();
 	}

@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using com.lvl6.proto;
 using System;
 
+public enum GoonScreenMode {HEAL, ENHANCE, EVOLVE, SELL};
+
 public class MSGoonScreen : MonoBehaviour {
+
+	public GoonScreenMode currMode = GoonScreenMode.HEAL;
 
 	#region UI Elements
 
@@ -15,7 +19,7 @@ public class MSGoonScreen : MonoBehaviour {
 	MSGoonTeamCard[] teamCards;
 	
 	[SerializeField]
-	List<MSGoonCard> reserveCards;
+	List<MSGoonCard> cards;
 	
 	[SerializeField]
 	List<MSMiniGoonBox> bottomMiniBoxes;
@@ -45,7 +49,7 @@ public class MSGoonScreen : MonoBehaviour {
 	UIPanel scrollPanel;
 
 	[SerializeField]
-	UITable table;
+	public UITable goonTable;
 
 	[SerializeField]
 	UILabel bottomBarLabel;
@@ -79,6 +83,8 @@ public class MSGoonScreen : MonoBehaviour {
 
 	[SerializeField]
 	UILabel titleLabel;
+
+	public MSBottomBar bottomBar;
 	
 	#endregion
 	
@@ -103,7 +109,7 @@ public class MSGoonScreen : MonoBehaviour {
 	{
 		get
 		{
-			return reserveCards.Count - 1;
+			return cards.Count - 1;
 		}
 	}
 	
@@ -140,8 +146,31 @@ public class MSGoonScreen : MonoBehaviour {
 		OrganizeTeamCards();
 		OrganizeReserveCards();
 	}
-	
-	public void InitHeal(bool fromMenu = false)
+
+	public void Init(GoonScreenMode mode)
+	{
+		currMode = mode;
+		Init ();
+	}
+
+	public void Init()
+	{
+		switch (currMode) {
+			case GoonScreenMode.HEAL:
+				InitHeal();
+				break;
+			case GoonScreenMode.ENHANCE:
+				InitEnhance();
+				break;
+			case GoonScreenMode.EVOLVE:
+				InitEvolve();
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void InitHeal()
 	{	
 		goonPanelElements.ResetAlpha(true);
 		evolveElements.ResetAlpha(false);
@@ -151,9 +180,13 @@ public class MSGoonScreen : MonoBehaviour {
 		bringGoonIn = false;
 		healMode = true;
 		OrganizeCards();	
-		OrganizeHealingQueue (MSHospitalManager.instance.healingMonsters);
+		//OrganizeHealingQueue (MSHospitalManager.instance.healingMonsters);
+		bottomBar.Init(GoonScreenMode.HEAL);
+
 		speedUpButton.onClick = TrySpeedUpHeal;
 		labButtons.SetActive(false);
+
+
 	}
 
 	/// <summary>
@@ -201,7 +234,7 @@ public class MSGoonScreen : MonoBehaviour {
 
 		if (MSEvolutionManager.instance.currEvolution != null && MSEvolutionManager.instance.currEvolution.userMonsterIds.Count > 0)
 		{
-			MSGoonCard card = reserveCards.Find(x=>x.goon.userMonster.userMonsterId == MSEvolutionManager.instance.currEvolution.userMonsterIds[0]);
+			MSGoonCard card = cards.Find(x=>x.goon.userMonster.userMonsterId == MSEvolutionManager.instance.currEvolution.userMonsterIds[0]);
 			OrganizeEvolution(card);
 		}
 		else
@@ -241,7 +274,7 @@ public class MSGoonScreen : MonoBehaviour {
 	{
 		MSActionManager.Goon.OnMonsterAddTeam += OnAddTeamMember;
 		MSActionManager.Goon.OnMonsterRemoveTeam += OnRemoveTeamMember;
-		MSActionManager.Goon.OnHealQueueChanged += OnHealQueueChanged;
+		//MSActionManager.Goon.OnHealQueueChanged += OnHealQueueChanged;
 		MSActionManager.Goon.OnEnhanceQueueChanged += OnEnhanceQueueChanged;
 		MSActionManager.Goon.OnMonsterListChanged += OrganizeReserveCards;
 	}
@@ -250,7 +283,7 @@ public class MSGoonScreen : MonoBehaviour {
 	{
 		MSActionManager.Goon.OnMonsterAddTeam -= OnAddTeamMember;
 		MSActionManager.Goon.OnMonsterRemoveTeam -= OnRemoveTeamMember;
-		MSActionManager.Goon.OnHealQueueChanged -= OnHealQueueChanged;
+		//MSActionManager.Goon.OnHealQueueChanged -= OnHealQueueChanged;
 		MSActionManager.Goon.OnEnhanceQueueChanged -= OnEnhanceQueueChanged;
 		MSActionManager.Goon.OnMonsterListChanged -= OrganizeReserveCards;
 
@@ -258,6 +291,13 @@ public class MSGoonScreen : MonoBehaviour {
 		{
 			MSEvolutionManager.instance.currEvolution = null;
 		}
+	}
+
+	void RefreshCards()
+	{
+		foreach (var item in cards) {
+			item.Refresh();
+				}
 	}
 
 	void OrganizeTeamCards ()
@@ -297,35 +337,35 @@ public class MSGoonScreen : MonoBehaviour {
 			}
 			if (healMode)
 			{
-				reserveCards[i].InitHeal(item);
+				cards[i].InitHeal(item);
 			}
 			else
 			{
 				if (item != MSMonsterManager.currentEnhancementMonster)
 				{
-					reserveCards[i].InitLab(item);
+					cards[i].InitLab(item);
 				}
 			}
 
-			if (reserveCards[i].transform.parent != goonCardParent)
+			if (cards[i].transform.parent != goonCardParent)
 			{
-				reserveCards[i].transform.parent = goonCardParent;
-				reserveCards[i].gameObject.SetActive(false);
-				reserveCards[i].gameObject.SetActive(true);
+				cards[i].transform.parent = goonCardParent;
+				cards[i].gameObject.SetActive(false);
+				cards[i].gameObject.SetActive(true);
 			}
 
 			i++;
 		}
 		
-		while (++i < reserveCards.Count)
+		while (++i < cards.Count)
 		{
-			reserveCards[i].gameObject.SetActive(false);
+			cards[i].gameObject.SetActive(false);
 		}
 
 		dragPanel.collider.enabled = false;
 		dragPanel.collider.enabled = true;
 
-		table.Reposition();
+		goonTable.Reposition();
 	}
 
 	/// <summary>
@@ -374,7 +414,7 @@ public class MSGoonScreen : MonoBehaviour {
 	/// </summary>
 	void OrganizeEvolveCards()
 	{
-		foreach (var item in reserveCards) 
+		foreach (var item in cards) 
 		{
 			if (item.buddy == null)
 			{
@@ -397,34 +437,10 @@ public class MSGoonScreen : MonoBehaviour {
 		while (currTime < moveTime)
 		{
 			currTime += Time.deltaTime;
-			table.Reposition();
+			goonTable.Reposition();
 			yield return null;
 		}
-		table.Reposition();
-	}
-	
-	void OrganizeHealingQueue()
-	{
-		OrganizeHealingQueue(MSHospitalManager.instance.healingMonsters);
-	}
-	
-	void OrganizeHealingQueue(List<PZMonster> healingMonsters)
-	{
-		
-		while(bottomMiniBoxes.Count < healingMonsters.Count)
-		{
-			AddHealBox();
-		}
-		int i;
-		for (i = 0; i < healingMonsters.Count; i++) 
-		{
-			bottomMiniBoxes[i].Init (healingMonsters[i]);
-			bottomMiniBoxes[i].SetBar(healingMonsters[i].healingMonster.queuedTimeMillis <= MSUtil.timeNowMillis);
-		}
-		for (; i < bottomMiniBoxes.Count; i++) 
-		{
-			bottomMiniBoxes[i].gameObject.SetActive(false);
-		}
+		goonTable.Reposition();
 	}
 	
 	void OrganizeEnhanceQueue()
@@ -457,7 +473,6 @@ public class MSGoonScreen : MonoBehaviour {
 		for (i = 0; i < MSMonsterManager.enhancementFeeders.Count;i++)
 		{
 			bottomMiniBoxes[i].Init(MSMonsterManager.enhancementFeeders[i]);
-			bottomMiniBoxes[i].SetBar(i==0);
 		}
 		for (;i < bottomMiniBoxes.Count;i++)
 		{
@@ -467,14 +482,12 @@ public class MSGoonScreen : MonoBehaviour {
 	
 	void AddReserveCardSlot()
 	{
-		MSGoonCard card = Instantiate(goonCardPrefab) as MSGoonCard;
-		card.transform.parent = reserveCards[lastReserveCardIndex].transform.parent;
+		MSGoonCard card = (MSPoolManager.instance.Get(goonCardPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, dragPanel.transform) as MSSimplePoolable).GetComponent<MSGoonCard>();
 		card.transform.localScale = Vector3.one;
-		//card.transform.localPosition = reserveCards[lastReserveCardIndex].transform.localPosition + cardOffset;
-		card.addRemoveTeamButton.GetComponent<MSUIHelper>().dragBehind = reserveCards[lastReserveCardIndex].addRemoveTeamButton.GetComponent<MSUIHelper>().dragBehind;
-		card.healButton.GetComponent<MSUIHelper>().dragBehind = reserveCards[lastReserveCardIndex].healButton.GetComponent<MSUIHelper>().dragBehind;
+		card.addRemoveTeamButton.GetComponent<MSUIHelper>().dragBehind = cards[lastReserveCardIndex].addRemoveTeamButton.GetComponent<MSUIHelper>().dragBehind;
+		card.healButton.GetComponent<MSUIHelper>().dragBehind = cards[lastReserveCardIndex].healButton.GetComponent<MSUIHelper>().dragBehind;
 		card.infoPopup = infoPopup;
-		reserveCards.Add (card);
+		cards.Add (card);
 	}
 	
 	void AddHealBox()
@@ -539,7 +552,7 @@ public class MSGoonScreen : MonoBehaviour {
 	{
 		enhanceLeftSideElements.transform.localPosition = enhanceLeftSideElements.to;
 
-		table.Reposition();
+		goonTable.Reposition();
 	}
 
 	IEnumerator TakeOutEnhanceGoon()
@@ -555,7 +568,7 @@ public class MSGoonScreen : MonoBehaviour {
 
 	MSGoonCard GetCardForMonster(PZMonster monster)
 	{
-		return reserveCards.Find(x=>x.goon == monster);
+		return cards.Find(x=>x.goon == monster);
 	}
 	
 	void TrySpeedUpHeal()
@@ -595,7 +608,8 @@ public class MSGoonScreen : MonoBehaviour {
 			bottomFadeInElements.FadeOut();
 			bottomBarLabel.GetComponent<MSUIHelper>().FadeIn();
 		}
-		OrganizeHealingQueue();
+
+		//OrganizeHealingQueue();
 		OrganizeCards();
 	}
 	

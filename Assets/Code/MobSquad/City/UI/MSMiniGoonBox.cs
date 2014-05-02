@@ -9,7 +9,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 	public UI2DSprite goonPortrait;
 	
 	[SerializeField]
-	UISprite bar;
+	MSFillBar bar;
 	
 	[SerializeField]
 	UISprite barBG;
@@ -20,10 +20,13 @@ public class MSMiniGoonBox : MonoBehaviour {
 	[SerializeField]
 	public UISprite background;
 	
-	PZMonster monster;
+	public PZMonster monster;
 	
 	[SerializeField]
 	public MSActionButton removeButton;
+
+	[HideInInspector]
+	public MSUIHelper helper;
 
 	public bool on = false;
 
@@ -45,6 +48,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 	void Awake()
 	{
 		tweenPos = GetComponent<TweenPosition>();
+		helper = GetComponent<MSUIHelper>();
 	}
 
 	public void Init(MonsterProto monster)
@@ -137,35 +141,29 @@ public class MSMiniGoonBox : MonoBehaviour {
 	{
 		if (monster == null)
 		{
-			if (bar != null) bar.fillAmount = 0;
-			return;
+			barBG.alpha = 0;
 		}
 		if (monster.isHealing)
 		{
-			if (bar != null) bar.fillAmount = monster.healProgressPercentage;
+			if (MSUtil.timeNowMillis < monster.healStartTime)
+			{
+				barBG.alpha = 0;
+				return;
+			}
+			barBG.alpha = 1;
+			if (bar != null) bar.fill = monster.healProgressPercentage;
 			label.text = MSUtil.TimeStringShort(monster.healTimeLeftMillis);
 		}
 		else if (monster.isEnhancing)
 		{
-			if (bar != null) bar.fillAmount = 1 - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
+			if (MSUtil.timeNowMillis < monster.enhancement.expectedStartTimeMillis)
+			{
+				barBG.alpha = 0;
+				return;
+			}
+			if (bar != null) bar.fill = 1 - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
 			label.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
 		}
-		else if (bar != null) bar.fillAmount = 0;
-	}
-	
-	public void SetBar(bool on)
-	{
-		if (on)
-		{
-			label.alpha = 1;
-			if (bar != null) bar.alpha = 1;
-			barBG.alpha = 1;
-		}
-		else
-		{
-			label.alpha = 0;
-			if (bar != null) bar.alpha = 0;
-			barBG.alpha = 0;
-		}
+		else if (bar != null) bar.fill = 0;
 	}
 }

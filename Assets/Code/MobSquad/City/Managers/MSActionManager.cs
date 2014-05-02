@@ -102,6 +102,8 @@ public static class MSActionManager
 	{
 		public static Action<PZMonster> OnMonsterAddTeam;
 		public static Action<PZMonster> OnMonsterRemoveTeam;
+		public static Action<PZMonster> OnMonsterAddQueue;
+		public static Action<PZMonster> OnMonsterRemoveQueue;
 		public static Action OnTeamChanged;
 		public static Action OnHealQueueChanged;
 		public static Action OnEnhanceQueueChanged;

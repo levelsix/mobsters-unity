@@ -119,6 +119,7 @@ MonoBehaviour:
   blocker: {fileID: 11400006}
   currDrag: {x: 0, y: 0}
   moving: 0
+  dragged: 0
   id: 0
 --- !u!114 &11400002
 MonoBehaviour:
@@ -158,7 +159,7 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1.02777779
   mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
-  mSpriteName: puzzleImage
+  mSpriteName: rockorb
   mType: 0
   mFillDirection: 4
   mFillAmount: 1

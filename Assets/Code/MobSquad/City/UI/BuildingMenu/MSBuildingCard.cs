@@ -47,8 +47,8 @@ public class MSBuildingCard : MonoBehaviour {
 
 	MSFullBuildingProto building;
 
-	const string FRONT_IMAGE = "buildingbg";
-	const string BACK_IMAGE = "buildinginfobg";
+	const string FRONT_IMAGE = "buildinginfobg";
+	const string BACK_IMAGE = "buildingbg";
 
 	[HideInInspector]
 	public Transform trans;

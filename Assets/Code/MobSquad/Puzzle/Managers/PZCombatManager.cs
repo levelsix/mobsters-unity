@@ -623,7 +623,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		PZPuzzleManager.instance.swapLock += 1;
 
-		activePlayer.GoToStartPos();
+		//activePlayer.GoToStartPos();
 		
 		MSSoundManager.instance.Loop(MSSoundManager.instance.walking);
 

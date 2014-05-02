@@ -74,6 +74,8 @@ public class UITable : UIWidgetContainer
 
 	public OnReposition onReposition;
 
+	public bool animateSmoothly = false;
+
 	protected UIPanel mPanel;
 	protected bool mInitDone = false;
 	protected bool mReposition = false;
@@ -192,7 +194,11 @@ public class UITable : UIWidgetContainer
 
 			xOffset += br.max.x - br.min.x + padding.x * 2f;
 
-			t.localPosition = pos;
+			if (animateSmoothly && Application.isPlaying)
+			{
+				SpringPosition.Begin(t.gameObject, pos, 15f).updateScrollView = true;
+			}
+			else t.localPosition = pos;
 
 			if (++x >= columns && columns > 0)
 			{

@@ -73,7 +73,7 @@ public class MSCenterGrid : UIGrid {
 				float depth = t.localPosition.z;
 				Vector3 pos = (arrangement == Arrangement.Horizontal) ?
 					new Vector3(cellWidth * x - (myTrans.childCount-1) * cellWidth / 2, -cellHeight * y, depth) :
-						new Vector3(cellWidth * y, -cellHeight * x, depth);
+						new Vector3(cellWidth * y, -cellHeight * x + (myTrans.childCount-1) * cellHeight/2, depth);
 				
 				if (animateSmoothly && Application.isPlaying)
 				{

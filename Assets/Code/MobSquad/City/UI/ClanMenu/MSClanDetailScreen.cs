@@ -22,7 +22,7 @@ public class MSClanDetailScreen : MonoBehaviour {
 	MSActionButton joinEditButton;
 
 	[SerializeField]
-	Transform memberGrid;
+	UIGrid memberGrid;
 
 	[SerializeField]
 	MSClanMemberEntry clanMemberEntryPrefab;
@@ -78,7 +78,7 @@ public class MSClanDetailScreen : MonoBehaviour {
 		{
 			AddMemberEntryToGrid(item, response.monsterTeams.Find(x => x.userId == item.minUserProtoWithLevel.minUserProto.userId));
 		}
-		memberGrid.GetComponent<UIGrid>().Reposition();
+		memberGrid.Reposition();
 
 		if (MSClanManager.userClanId == 0)
 		{
@@ -95,7 +95,7 @@ public class MSClanDetailScreen : MonoBehaviour {
 	void AddMemberEntryToGrid(MinimumUserProtoForClans member, UserCurrentMonsterTeamProto monsters)
 	{
 		MSClanMemberEntry entry = MSPoolManager.instance.Get(clanMemberEntryPrefab, Vector3.zero) as MSClanMemberEntry;
-		entry.transf.parent = memberGrid;
+		entry.transf.parent = memberGrid.transform;
 		entry.transf.localScale = Vector3.one;
 		entry.Init(member, monsters);
 

@@ -41,14 +41,6 @@ public class MSGridManager : MonoBehaviour {
     /// Size of the placeable area of the mesh
     /// </summary>
 	public float worldSize = 25.23f;
-
-	const int HOME_GRID_SIZE = 26;
-
-	const int MISSION_GRID_SIZE = 26;
-
-	const float HOME_WORLD_SIZE = 25.23f;
-
-	const float MISSION_WORLD_SIZE = 25.23f;
 	
 	public const float GRID_OFFSET = .5f;
 	
@@ -132,15 +124,13 @@ public class MSGridManager : MonoBehaviour {
 
 	public void InitHome ()
 	{
-		gridSize = HOME_GRID_SIZE;
-		//worldSize = HOME_WORLD_SIZE;
 
 		Init ();
 
 		MSWalkableSpace space;
-		for (int i = 0; i < HOME_GRID_SIZE; i++) 
+		for (int i = 0; i < gridSize; i++) 
 		{
-			for (int j = 0; j < HOME_GRID_SIZE; j++) 
+			for (int j = 0; j < gridSize; j++) 
 			{
 				space = new MSWalkableSpace(new Vector2(i, j));
 				walkableSpaces.Add(space);
@@ -160,9 +150,6 @@ public class MSGridManager : MonoBehaviour {
 
 	public void InitMission (string maptmx)
 	{
-		gridSize = MISSION_GRID_SIZE;
-		//worldSize = MISSION_WORLD_SIZE;
-
 		Init ();
 
 		//TODO: Build walkable grid from TMX fileCBKWalkableSpace space
@@ -466,7 +453,9 @@ public class MSGridManager : MonoBehaviour {
 	
 	public bool IsWalkable(int x, int y)
 	{
-		return x >= 0 && y >= 0 && x < gridSize && y < gridSize && ((_grid[x,y] == null && MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER) || _grid[x,y].walkable);
+		return (x >= 0 && y >= 0 && x < gridSize && y < gridSize)
+			&& ((_grid[x,y] == null && MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER) 
+			    || (_grid[x,y] != null &&_grid[x,y].walkable));
 	}
 	
 	public bool CanWalkInDir(MSGridNode start, Vector2 dir)

@@ -25,12 +25,6 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	UILabel buildingName;
 	
 	/// <summary>
-	/// The current income information.
-	/// </summary>
-	[SerializeField]
-	UILabel qualities;
-	
-	/// <summary>
 	/// The upgrade time information.
 	/// </summary>
 	[SerializeField]
@@ -46,6 +40,9 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	MSActionButton upgradeButton;
 
 	[SerializeField]
+	UILabel topQuality;
+
+	[SerializeField]
 	MSFillBar topBarCurrent;
 
 	[SerializeField]
@@ -58,6 +55,9 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	GameObject bottomBar;
 
 	[SerializeField]
+	UILabel botQuality;
+
+	[SerializeField]
 	MSFillBar botBarCurrent;
 
 	[SerializeField]
@@ -67,18 +67,6 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	UILabel botBarText;
 
 	[SerializeField]
-	GameObject insides;
-
-	[SerializeField]
-	GameObject hireHeader;
-
-	[SerializeField]
-	GameObject upgradeViewButton;
-
-	[SerializeField]
-	GameObject hireViewButton;
-
-	[SerializeField]
 	MSHireEntry hireEntryPrefab;
 
 	[SerializeField]
@@ -86,8 +74,11 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 	List<MSHireEntry> hireEntries = new List<MSHireEntry>();
 
-	const string cashButtonName = "confirm";
-	const string oilButtonName = "oilupgradebutton";
+	const string cashButtonName = "greenmenuoption";
+	const string oilButtonName = "yellowmenuoption";
+
+	static readonly Color cashTextColor = new Color(.353f, .491f, .027f);
+	static readonly Color oilTextColor = new Color(.776f, .533f, 0);
 	
 	MSBuilding currBuilding;
 	
@@ -156,35 +147,20 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		}
 
 
-		if (nextBuilding != null)
+		if (nextBuilding != null) //This should really be a precondition. Does the button even show up otherwise?
 		{
-			//If it is complete, use Upgrade prompts, otherwise, Finish prompts
-			if (building.userStructProto.isComplete)
-			{
 				
-				header.text = "Upgrade to level " + nextBuilding.structInfo.level + "?";
-				
-				upgradeTime.text = MSUtil.TimeStringLong(nextBuilding.structInfo.minutesToBuild * 60000);
-				
-				currResource = nextBuilding.structInfo.buildResourceType;
-				
-				currCost = (int) (nextBuilding.structInfo.buildCost);
-				
-			}
-			else //Note: This is getting removed, soon the outerworld finish button will just finish the building
-			{
-				header.text = "Finish upgrade?";
+			header.text = "Upgrade to level " + nextBuilding.structInfo.level + "?";
+			
+			upgradeTime.text = MSUtil.TimeStringLong(nextBuilding.structInfo.minutesToBuild * 60000);
+			
+			currResource = nextBuilding.structInfo.buildResourceType;
+			
+			currCost = (int) (nextBuilding.structInfo.buildCost);
 
-				upgradeTime.text = MSUtil.TimeStringMed(building.upgrade.timeRemaining);
-				StartCoroutine(UpdateRemainingTime());
-
-				currResource = ResourceType.GEMS;
-				currCost = building.upgrade.gemsToFinish;
-			}
-		
-
-			upgradeButton.icon.spriteName = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? cashButtonName : oilButtonName);
-			upgradeButton.label.text = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? "$" : "(O) ") + currCost.ToString();
+			upgradeButton.button.normalSprite = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? cashButtonName : oilButtonName);
+			upgradeButton.label.text = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? "$" : "(o) ") + currCost.ToString();
+			upgradeButton.label.color = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? cashTextColor : oilTextColor);
 
 			Sprite sprite = MSAtlasUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
 			buildingSprite.sprite2D = sprite;
@@ -201,21 +177,6 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 			upgradeButton.onClick = TryToBuy;
 			upgradeButton.button.enabled = true;
-
-			UpgradeView();
-
-			if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESIDENCE)
-			{
-				SetupHireUI(building);
-				upgradeViewButton.SetActive(true);
-				hireViewButton.SetActive(true);
-				header.text = " ";
-			}
-			else
-			{
-				upgradeViewButton.SetActive(false);
-				hireViewButton.SetActive(false);
-			}
 		}
 	}
 
@@ -225,7 +186,8 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 		switch (building.combinedProto.structInfo.structType) {
 		case StructureInfoProto.StructType.RESOURCE_GENERATOR:
-			qualities.text = "Rate:\n\nCapacity:";
+			topQuality.text = "Rate:";
+			botQuality.text = "Capacity:";
 			bottomBar.SetActive (true);
 			SetBar (topBarCurrent, topBarFuture, oldBuilding.generator.productionRate, nextBuilding.generator.productionRate, max.generator.productionRate);
 			SetBar (botBarCurrent, botBarFuture, oldBuilding.generator.capacity, nextBuilding.generator.capacity, max.generator.capacity);
@@ -239,7 +201,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			}
 			break;
 		case StructureInfoProto.StructType.RESOURCE_STORAGE:
-			qualities.text = "Capacity:";
+			topQuality.text = "Capacity:";
 			bottomBar.SetActive (false);
 			SetBar (topBarCurrent, topBarFuture, oldBuilding.storage.capacity, nextBuilding.storage.capacity, max.storage.capacity);
 			if (oldBuilding.storage.resourceType == ResourceType.CASH) {
@@ -250,7 +212,8 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			}
 			break;
 		case StructureInfoProto.StructType.HOSPITAL:
-			qualities.text = "Queue Size:\n\nRate:";
+			topQuality.text = "Queue Size:";
+			botQuality.text = "Rate:";
 			bottomBar.SetActive (true);
 			SetBar (topBarCurrent, topBarFuture, oldBuilding.hospital.queueSize, nextBuilding.hospital.queueSize, max.hospital.queueSize);
 			SetBar (botBarCurrent, botBarFuture, oldBuilding.hospital.healthPerSecond, nextBuilding.hospital.healthPerSecond, max.hospital.healthPerSecond);
@@ -268,7 +231,8 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			}
 			break;
 		case StructureInfoProto.StructType.LAB:
-			qualities.text = "Queue Size:\n\nRate:";
+			topQuality.text = "Queue Size:";
+			botQuality.text = "Rate:";
 			bottomBar.SetActive (true);
 			SetBar (topBarCurrent, topBarFuture, oldBuilding.lab.queueSize, nextBuilding.lab.queueSize, max.lab.queueSize);
 			SetBar (botBarCurrent, botBarFuture, oldBuilding.lab.pointsPerSecond, nextBuilding.lab.pointsPerSecond, max.lab.pointsPerSecond);
@@ -286,13 +250,13 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			}
 			break;
 		case StructureInfoProto.StructType.RESIDENCE:
-			qualities.text = "Slots:";
+			topQuality.text = "Slots:";
 			bottomBar.SetActive (false);
 			SetBar (topBarCurrent, topBarFuture, oldBuilding.residence.numMonsterSlots, nextBuilding.residence.numMonsterSlots, max.residence.numMonsterSlots);
 			topBarText.text = oldBuilding.residence.numMonsterSlots + " + " + nextBuilding.residence.numMonsterSlots;
 			break;
 		case StructureInfoProto.StructType.TOWN_HALL:
-			qualities.text = "City Level:";
+			topQuality.text = "City Level:";
 			bottomBar.SetActive (false);
 			SetBar (topBarCurrent, topBarFuture, oldBuilding.structInfo.level, nextBuilding.structInfo.level, max.structInfo.level);
 			topBarText.text = oldBuilding.structInfo.level + " + " + nextBuilding.structInfo.level;
@@ -308,7 +272,6 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 	void SetupHireUI(MSBuilding currBuilding)
 	{
-
 		MSFullBuildingProto thisLevel = currBuilding.combinedProto.baseLevel;
 		int i = 0;
 		while (thisLevel != null)
@@ -354,18 +317,6 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			yield return new WaitForSeconds(1);
 		}
 		Init(currBuilding);
-	}
-
-	public void UpgradeView()
-	{
-		insides.SetActive(true);
-		hireHeader.SetActive(false);
-	}
-
-	public void HireView()
-	{
-		insides.SetActive(false);
-		hireHeader.SetActive(true);
 	}
 	
 }

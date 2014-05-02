@@ -144,7 +144,12 @@ public class MSHospitalManager : MonoBehaviour {
 					health.userMonsterId = MSHospitalManager.instance.healingMonsters[i].healingMonster.userMonsterId;
 					health.currentHealth = MSHospitalManager.instance.healingMonsters[i].maxHP;
 					healRequestProto.umchp.Add(health);
+					if (MSActionManager.Goon.OnMonsterRemoveQueue != null)
+					{
+						MSActionManager.Goon.OnMonsterRemoveQueue(MSHospitalManager.instance.healingMonsters[i]);
+					}
 					CompleteHeal(MSHospitalManager.instance.healingMonsters[i]);
+
 				}
 				else
 				{
@@ -179,7 +184,6 @@ public class MSHospitalManager : MonoBehaviour {
 	
 	void CompleteHeal(PZMonster monster)
 	{
-		
 		MSHospitalManager.instance.healingMonsters.Remove(monster);
 		monster.healingMonster = null;
 		monster.currHP = monster.maxHP;
@@ -193,11 +197,7 @@ public class MSHospitalManager : MonoBehaviour {
 	/// <param name="monster">Monster.</param>
 	public void AddToHealQueue(PZMonster monster)
 	{
-		if (hospitals.Count == 0)
-		{
-			return;
-		}
-		if (healingMonsters.Count >= queueSize)
+		if (hospitals.Count == 0 || healingMonsters.Count >= queueSize)
 		{
 			MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage("Healing Queue Full");
 			return;
@@ -234,7 +234,12 @@ public class MSHospitalManager : MonoBehaviour {
 			}
 			
 			healRequestProto.cashChange += monster.healCost;
-			
+
+			if (MSActionManager.Goon.OnMonsterAddQueue != null)
+			{
+				MSActionManager.Goon.OnMonsterAddQueue(monster);
+			}
+
 			if (MSActionManager.Goon.OnHealQueueChanged != null)
 			{
 				MSActionManager.Goon.OnHealQueueChanged();
@@ -306,7 +311,7 @@ public class MSHospitalManager : MonoBehaviour {
 			str += "\n" + hospitalTime.startTime + " Hospital " + hospitalTime.hospital.userBuildingData.userStructId;
 		}
 		str += "\n" + monster.finishHealTimeMillis + " Finish";
-		Debug.Log(str);
+		//Debug.Log(str);
 		#endregion
 		
 	}
@@ -325,17 +330,19 @@ public class MSHospitalManager : MonoBehaviour {
 			PrepareNewHealRequest();
 		}
 		
-		float progress = (monster.maxHP - monster.currHP) * monster.healingMonster.healthProgress;
+		float progress = monster.healingMonster.healthProgress;
 		for (int i = 0; i < monster.hospitalTimes.Count && monster.hospitalTimes[i].startTime < MSUtil.timeNowMillis; i++) 
 		{
 			if (i < monster.hospitalTimes.Count - 1 && MSUtil.timeNowMillis > monster.hospitalTimes[i+1].startTime)
 			{
 				progress += (monster.hospitalTimes[i+1].startTime - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.proto.healthPerSecond;
+				Debug.Log("Progress: " + progress);
 			}
 			else
 			{
+				long time = (MSUtil.timeNowMillis - monster.hospitalTimes[i].startTime) / 1000;
 				progress += (MSUtil.timeNowMillis - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.proto.healthPerSecond;
-				//monster.hospitalTimes[i].hospital.hospital.goon = monster;
+				Debug.Log("Time: " + time + "\nSpeed: " + monster.hospitalTimes[i].hospital.proto.healthPerSecond + "\nProgress: " + progress);
 			}
 		}
 		if (progress > 0)
@@ -413,7 +420,7 @@ public class MSHospitalManager : MonoBehaviour {
 				str += " Slower!";
 			}
 		}
-		Debug.LogWarning(str);
+		//Debug.LogWarning(str);
 		return soonest;
 	}
 	
@@ -440,22 +447,12 @@ public class MSHospitalManager : MonoBehaviour {
 	
 	public void RemoveFromHealQueue(PZMonster monster)
 	{
+		//Debug.Log("Removing monster: " + monster.monster.name);
+
 		if (healRequestProto == null)
 		{
 			PrepareNewHealRequest();
 		}
-		
-		/*
-		int i;
-		for (i = 0; i < healingMonsters.Count; i++) 
-		{
-			if (healingMonsters[i] == monster)
-			{
-				break;
-			}
-		}
-		healingMonsters.RemoveAt(i);
-		*/
 		
 		MSHospitalManager.instance.healingMonsters.Remove(monster);
 		
@@ -479,7 +476,12 @@ public class MSHospitalManager : MonoBehaviour {
 		RearrangeHealingQueue();
 		
 		MSResourceManager.instance.Collect(ResourceType.CASH, monster.healCost);
-		
+
+		if (MSActionManager.Goon.OnMonsterRemoveQueue != null)
+		{
+			MSActionManager.Goon.OnMonsterRemoveQueue(monster);
+		}
+
 		if (MSActionManager.Goon.OnHealQueueChanged != null)
 		{
 			MSActionManager.Goon.OnHealQueueChanged();

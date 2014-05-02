@@ -16,19 +16,48 @@ public class MSUIHelper : MonoBehaviour {
 	
 	public UIDragScrollView dragBehind;
 
+	MSSimplePoolable poolable;
+
+	void Awake()
+	{
+		poolable = GetComponent<MSSimplePoolable>();
+	}
+
 	public void ResetAlpha(bool on)
 	{
 		TweenAlpha.Begin(gameObject, 0, on ? 1 : 0); 
 	}
 
-	public void FadeIn()
+	public TweenAlpha FadeIn()
 	{
-		TweenAlpha.Begin(gameObject, fadeTime, 1);
+		return TweenAlpha.Begin(gameObject, fadeTime, 1);
 	}
 
-	public void FadeOut()
+	public TweenAlpha FadeOut()
 	{
-		TweenAlpha.Begin(gameObject, fadeTime, 0);
+		return TweenAlpha.Begin(gameObject, fadeTime, 0);
+	}
+
+	public void FadeOutAndPool()
+	{
+		StartCoroutine(DoFadeOutThenPool());
+	}
+
+	IEnumerator DoFadeOutThenPool()
+	{
+		TweenAlpha alph = FadeOut();
+		while (alph.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		if (poolable != null)
+		{
+			poolable.Pool();
+		}
+		else
+		{
+			gameObject.SetActive(false);
+		}
 	}
 
 	public void TurnOn()
