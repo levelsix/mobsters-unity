@@ -9,6 +9,7 @@
 
 // Generated from: Task.proto
 // Note: requires additional types generated from: MonsterStuff.proto
+// Note: requires additional types generated from: SharedEnumConfig.proto
 namespace com.lvl6.proto
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TaskStageProto")]
@@ -267,9 +268,9 @@ namespace com.lvl6.proto
       set { _eventId = value; }
     }
 
-    private com.lvl6.proto.DayOfWeek _dayOfWeek = com.lvl6.proto.DayOfWeek.SUNDAY;
+    private com.lvl6.proto.DayOfWeek _dayOfWeek = com.lvl6.proto.DayOfWeek.MONDAY;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"dayOfWeek", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DayOfWeek.SUNDAY)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DayOfWeek.MONDAY)]
     public com.lvl6.proto.DayOfWeek dayOfWeek
     {
       get { return _dayOfWeek; }
@@ -321,10 +322,10 @@ namespace com.lvl6.proto
       set { _type = value; }
     }
 
-    private com.lvl6.proto.MonsterProto.MonsterElement _monsterElement = com.lvl6.proto.MonsterProto.MonsterElement.FIRE;
+    private com.lvl6.proto.Element _monsterElement = com.lvl6.proto.Element.NO_ELEMENT;
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"monsterElement", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.MonsterElement.FIRE)]
-    public com.lvl6.proto.MonsterProto.MonsterElement monsterElement
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
+    public com.lvl6.proto.Element monsterElement
     {
       get { return _monsterElement; }
       set { _monsterElement = value; }
@@ -381,31 +382,5 @@ namespace com.lvl6.proto
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
-  
-    [global::ProtoBuf.ProtoContract(Name=@"DayOfWeek")]
-    public enum DayOfWeek
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SUNDAY", Value=1)]
-      SUNDAY = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"MONDAY", Value=2)]
-      MONDAY = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"TUESDAY", Value=3)]
-      TUESDAY = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"WEDNESDAY", Value=4)]
-      WEDNESDAY = 4,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"THURSDAY", Value=5)]
-      THURSDAY = 5,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"FRIDAY", Value=6)]
-      FRIDAY = 6,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SATURDAY", Value=7)]
-      SATURDAY = 7
-    }
   
 }

@@ -9,6 +9,7 @@
 
 // Generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: MonsterStuff.proto
+// Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
@@ -278,10 +279,10 @@ namespace com.lvl6.proto
       set { _isComplete = value; }
     }
 
-    private com.lvl6.proto.MonsterProto.MonsterQuality _quality = com.lvl6.proto.MonsterProto.MonsterQuality.COMMON;
+    private com.lvl6.proto.Quality _quality = com.lvl6.proto.Quality.NO_QUALITY;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"quality", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.MonsterQuality.COMMON)]
-    public com.lvl6.proto.MonsterProto.MonsterQuality quality
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Quality.NO_QUALITY)]
+    public com.lvl6.proto.Quality quality
     {
       get { return _quality; }
       set { _quality = value; }

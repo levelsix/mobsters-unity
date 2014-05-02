@@ -9,6 +9,7 @@
 
 // Generated from: EventDungeon.proto
 // Note: requires additional types generated from: MonsterStuff.proto
+// Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: Task.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
@@ -89,10 +90,10 @@ namespace com.lvl6.proto
     }
   
 
-    private com.lvl6.proto.MonsterProto.MonsterElement _elem = com.lvl6.proto.MonsterProto.MonsterElement.FIRE;
+    private com.lvl6.proto.Element _elem = com.lvl6.proto.Element.NO_ELEMENT;
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"elem", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.MonsterElement.FIRE)]
-    public com.lvl6.proto.MonsterProto.MonsterElement elem
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
+    public com.lvl6.proto.Element elem
     {
       get { return _elem; }
       set { _elem = value; }

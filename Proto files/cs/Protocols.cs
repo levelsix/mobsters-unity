@@ -8,11 +8,13 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Protocols.proto
+// Note: requires additional types generated from: AchievementStuff.proto
 // Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: Chat.proto
 // Note: requires additional types generated from: City.proto
 // Note: requires additional types generated from: Clan.proto
+// Note: requires additional types generated from: EventAchievement.proto
 // Note: requires additional types generated from: EventApns.proto
 // Note: requires additional types generated from: EventBoosterPack.proto
 // Note: requires additional types generated from: EventChat.proto
@@ -30,8 +32,10 @@
 // Note: requires additional types generated from: EventTournament.proto
 // Note: requires additional types generated from: EventUser.proto
 // Note: requires additional types generated from: InAppPurchase.proto
+// Note: requires additional types generated from: MiniJobConfig.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
+// Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: StaticData.proto
 // Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: Task.proto
@@ -157,6 +161,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_EVOLUTION_FINISHED_EVENT", Value=38)]
       C_EVOLUTION_FINISHED_EVENT = 38,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_ACHIEVEMENT_PROGRESS_EVENT", Value=39)]
+      C_ACHIEVEMENT_PROGRESS_EVENT = 39,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_PRIVATE_CHAT_POST_EVENT", Value=40)]
       C_PRIVATE_CHAT_POST_EVENT = 40,
             
@@ -183,6 +190,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_HEAL_MONSTER_EVENT", Value=48)]
       C_HEAL_MONSTER_EVENT = 48,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_ACHIEVEMENT_REDEEM_EVENT", Value=49)]
+      C_ACHIEVEMENT_REDEEM_EVENT = 49,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT", Value=50)]
       C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT = 50,
@@ -363,6 +373,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"S_EVOLUTION_FINISHED_EVENT", Value=38)]
       S_EVOLUTION_FINISHED_EVENT = 38,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"S_ACHIEVEMENT_PROGRESS_EVENT", Value=39)]
+      S_ACHIEVEMENT_PROGRESS_EVENT = 39,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"S_PRIVATE_CHAT_POST_EVENT", Value=40)]
       S_PRIVATE_CHAT_POST_EVENT = 40,
             
@@ -389,6 +402,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_HEAL_MONSTER_EVENT", Value=48)]
       S_HEAL_MONSTER_EVENT = 48,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_ACHIEVEMENT_REDEEM_EVENT", Value=49)]
+      S_ACHIEVEMENT_REDEEM_EVENT = 49,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_ADD_MONSTER_TO_BATTLE_TEAM_EVENT", Value=50)]
       S_ADD_MONSTER_TO_BATTLE_TEAM_EVENT = 50,

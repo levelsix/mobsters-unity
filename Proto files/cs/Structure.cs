@@ -43,18 +43,18 @@ namespace com.lvl6.proto
       set { _level = value; }
     }
 
-    private com.lvl6.proto.StructureInfoProto.StructType _structType = com.lvl6.proto.StructureInfoProto.StructType.RESOURCE_GENERATOR;
+    private com.lvl6.proto.StructureInfoProto.StructType _structType = com.lvl6.proto.StructureInfoProto.StructType.NO_STRUCT;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"structType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructureInfoProto.StructType.RESOURCE_GENERATOR)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructureInfoProto.StructType.NO_STRUCT)]
     public com.lvl6.proto.StructureInfoProto.StructType structType
     {
       get { return _structType; }
       set { _structType = value; }
     }
 
-    private com.lvl6.proto.ResourceType _buildResourceType = com.lvl6.proto.ResourceType.CASH;
+    private com.lvl6.proto.ResourceType _buildResourceType = com.lvl6.proto.ResourceType.NO_RESOURCE;
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"buildResourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.NO_RESOURCE)]
     public com.lvl6.proto.ResourceType buildResourceType
     {
       get { return _buildResourceType; }
@@ -208,6 +208,9 @@ namespace com.lvl6.proto
     public enum StructType
     {
             
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_STRUCT", Value=8)]
+      NO_STRUCT = 8,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"RESOURCE_GENERATOR", Value=1)]
       RESOURCE_GENERATOR = 1,
             
@@ -250,9 +253,9 @@ namespace com.lvl6.proto
       set { _structInfo = value; }
     }
 
-    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.CASH;
+    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.NO_RESOURCE;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"resourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.NO_RESOURCE)]
     public com.lvl6.proto.ResourceType resourceType
     {
       get { return _resourceType; }
@@ -296,9 +299,9 @@ namespace com.lvl6.proto
       set { _structInfo = value; }
     }
 
-    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.CASH;
+    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.NO_RESOURCE;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"resourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.NO_RESOURCE)]
     public com.lvl6.proto.ResourceType resourceType
     {
       get { return _resourceType; }
@@ -634,9 +637,9 @@ namespace com.lvl6.proto
       set { _coordinates = value; }
     }
 
-    private com.lvl6.proto.StructOrientation _orientation = com.lvl6.proto.StructOrientation.POSITION_1;
+    private com.lvl6.proto.StructOrientation _orientation = com.lvl6.proto.StructOrientation.NO_ORIENTATION;
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"orientation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.POSITION_1)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.NO_ORIENTATION)]
     public com.lvl6.proto.StructOrientation orientation
     {
       get { return _orientation; }
@@ -736,9 +739,9 @@ namespace com.lvl6.proto
       set { _name = value; }
     }
 
-    private com.lvl6.proto.ResourceType _removalCostType = com.lvl6.proto.ResourceType.CASH;
+    private com.lvl6.proto.ResourceType _removalCostType = com.lvl6.proto.ResourceType.NO_RESOURCE;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"removalCostType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.CASH)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.NO_RESOURCE)]
     public com.lvl6.proto.ResourceType removalCostType
     {
       get { return _removalCostType; }
@@ -872,9 +875,9 @@ namespace com.lvl6.proto
       set { _coordinate = value; }
     }
 
-    private com.lvl6.proto.StructOrientation _orientation = com.lvl6.proto.StructOrientation.POSITION_1;
+    private com.lvl6.proto.StructOrientation _orientation = com.lvl6.proto.StructOrientation.NO_ORIENTATION;
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"orientation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.POSITION_1)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.NO_ORIENTATION)]
     public com.lvl6.proto.StructOrientation orientation
     {
       get { return _orientation; }
@@ -927,9 +930,9 @@ namespace com.lvl6.proto
       set { _coordinates = value; }
     }
 
-    private com.lvl6.proto.StructOrientation _orientation = com.lvl6.proto.StructOrientation.POSITION_1;
+    private com.lvl6.proto.StructOrientation _orientation = com.lvl6.proto.StructOrientation.NO_ORIENTATION;
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"orientation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.POSITION_1)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.NO_ORIENTATION)]
     public com.lvl6.proto.StructOrientation orientation
     {
       get { return _orientation; }
@@ -953,6 +956,9 @@ namespace com.lvl6.proto
     public enum ResourceType
     {
             
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_RESOURCE", Value=4)]
+      NO_RESOURCE = 4,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"CASH", Value=1)]
       CASH = 1,
             
@@ -969,6 +975,9 @@ namespace com.lvl6.proto
     [global::ProtoBuf.ProtoContract(Name=@"StructOrientation")]
     public enum StructOrientation
     {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_ORIENTATION", Value=3)]
+      NO_ORIENTATION = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"POSITION_1", Value=1)]
       POSITION_1 = 1,

@@ -10,6 +10,7 @@
 // Generated from: Clan.proto
 // Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: MonsterStuff.proto
+// Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: Task.proto
 // Note: requires additional types generated from: User.proto

@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: EventStartup.proto
+// Note: requires additional types generated from: AchievementStuff.proto
 // Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: Chat.proto
@@ -398,6 +399,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.TaskStageProto> curTaskStages
     {
       get { return _curTaskStages; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserAchievementProto> _userAchievements = new global::System.Collections.Generic.List<com.lvl6.proto.UserAchievementProto>();
+    [global::ProtoBuf.ProtoMember(38, Name=@"userAchievements", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserAchievementProto> userAchievements
+    {
+      get { return _userAchievements; }
     }
   
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]

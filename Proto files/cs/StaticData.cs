@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: StaticData.proto
+// Note: requires additional types generated from: AchievementStuff.proto
 // Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: City.proto
@@ -192,6 +193,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.PvpLeagueProto> leagues
     {
       get { return _leagues; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.AchievementProto> _achievements = new global::System.Collections.Generic.List<com.lvl6.proto.AchievementProto>();
+    [global::ProtoBuf.ProtoMember(26, Name=@"achievements", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.AchievementProto> achievements
+    {
+      get { return _achievements; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

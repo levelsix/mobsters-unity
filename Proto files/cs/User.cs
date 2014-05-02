@@ -517,6 +517,15 @@ namespace com.lvl6.proto
       set { _pvpLeagueInfo = value; }
     }
 
+    private long _lastMiniJobSpawnedTime = default(long);
+    [global::ProtoBuf.ProtoMember(50, IsRequired = false, Name=@"lastMiniJobSpawnedTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long lastMiniJobSpawnedTime
+    {
+      get { return _lastMiniJobSpawnedTime; }
+      set { _lastMiniJobSpawnedTime = value; }
+    }
+
     private string _udidForHistory = "";
     [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"udidForHistory", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]

@@ -119,35 +119,15 @@ namespace com.lvl6.proto
       get { return _isComplete; }
       set { _isComplete = value; }
     }
-
-    private int _questJobId = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"questJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int questJobId
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserQuestJobProto> _userQuestJobs = new global::System.Collections.Generic.List<com.lvl6.proto.UserQuestJobProto>();
+    [global::ProtoBuf.ProtoMember(4, Name=@"userQuestJobs", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserQuestJobProto> userQuestJobs
     {
-      get { return _questJobId; }
-      set { _questJobId = value; }
+      get { return _userQuestJobs; }
     }
-
-    private int _currentProgress = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"currentProgress", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int currentProgress
-    {
-      get { return _currentProgress; }
-      set { _currentProgress = value; }
-    }
-
-    private bool _isQuestJobComplete = default(bool);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"isQuestJobComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool isQuestJobComplete
-    {
-      get { return _isQuestJobComplete; }
-      set { _isQuestJobComplete = value; }
-    }
+  
     private readonly global::System.Collections.Generic.List<long> _deleteUserMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(7, Name=@"deleteUserMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(5, Name=@"deleteUserMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public global::System.Collections.Generic.List<long> deleteUserMonsterIds
     {
       get { return _deleteUserMonsterIds; }

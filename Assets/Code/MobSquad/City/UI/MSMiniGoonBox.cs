@@ -40,7 +40,8 @@ public class MSMiniGoonBox : MonoBehaviour {
 		{MonsterProto.MonsterElement.FIRE, "fireteam"},
 		{MonsterProto.MonsterElement.GRASS, "earthteam"},
 		{MonsterProto.MonsterElement.LIGHT, "lightteam"},
-		{MonsterProto.MonsterElement.WATER, "waterteam"}
+		{MonsterProto.MonsterElement.WATER, "waterteam"},
+		{MonsterProto.MonsterElement.ROCK, "earthteam"}
 	};
 
 	const string EMPTY = "hometeamslotopen";
@@ -117,7 +118,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 
 	void RemoveQueue()
 	{
-		Debug.LogWarning("Removing " + monster.userMonster.userMonsterId);
+		//Debug.LogWarning("Removing " + monster.userMonster.userMonsterId);
 		if (monster.isHealing)
 		{
 			MSHospitalManager.instance.RemoveFromHealQueue(monster);

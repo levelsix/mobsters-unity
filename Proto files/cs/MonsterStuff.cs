@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: MonsterStuff.proto
+// Note: requires additional types generated from: SharedEnumConfig.proto
 namespace com.lvl6.proto
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MonsterProto")]
@@ -52,10 +53,10 @@ namespace com.lvl6.proto
       set { _monsterGroup = value; }
     }
 
-    private com.lvl6.proto.MonsterProto.MonsterQuality _quality = com.lvl6.proto.MonsterProto.MonsterQuality.COMMON;
+    private com.lvl6.proto.Quality _quality = com.lvl6.proto.Quality.NO_QUALITY;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"quality", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.MonsterQuality.COMMON)]
-    public com.lvl6.proto.MonsterProto.MonsterQuality quality
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Quality.NO_QUALITY)]
+    public com.lvl6.proto.Quality quality
     {
       get { return _quality; }
       set { _quality = value; }
@@ -79,10 +80,10 @@ namespace com.lvl6.proto
       set { _displayName = value; }
     }
 
-    private com.lvl6.proto.MonsterProto.MonsterElement _monsterElement = com.lvl6.proto.MonsterProto.MonsterElement.FIRE;
+    private com.lvl6.proto.Element _monsterElement = com.lvl6.proto.Element.NO_ELEMENT;
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"monsterElement", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.MonsterElement.FIRE)]
-    public com.lvl6.proto.MonsterProto.MonsterElement monsterElement
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
+    public com.lvl6.proto.Element monsterElement
     {
       get { return _monsterElement; }
       set { _monsterElement = value; }
@@ -212,9 +213,9 @@ namespace com.lvl6.proto
       set { _evolutionCost = value; }
     }
 
-    private com.lvl6.proto.MonsterProto.AnimationType _attackAnimationType = com.lvl6.proto.MonsterProto.AnimationType.MELEE;
+    private com.lvl6.proto.MonsterProto.AnimationType _attackAnimationType = com.lvl6.proto.MonsterProto.AnimationType.NO_ANIMATION;
     [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name=@"attackAnimationType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.AnimationType.MELEE)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.AnimationType.NO_ANIMATION)]
     public com.lvl6.proto.MonsterProto.AnimationType attackAnimationType
     {
       get { return _attackAnimationType; }
@@ -265,55 +266,12 @@ namespace com.lvl6.proto
       get { return _atkAnimationRepeatedFramesEnd; }
       set { _atkAnimationRepeatedFramesEnd = value; }
     }
-    [global::ProtoBuf.ProtoContract(Name=@"MonsterQuality")]
-    public enum MonsterQuality
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"COMMON", Value=1)]
-      COMMON = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"RARE", Value=2)]
-      RARE = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"ULTRA", Value=3)]
-      ULTRA = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"EPIC", Value=4)]
-      EPIC = 4,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"LEGENDARY", Value=5)]
-      LEGENDARY = 5,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"EVO", Value=6)]
-      EVO = 6
-    }
-  
-    [global::ProtoBuf.ProtoContract(Name=@"MonsterElement")]
-    public enum MonsterElement
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"FIRE", Value=1)]
-      FIRE = 1,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"GRASS", Value=2)]
-      GRASS = 2,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"WATER", Value=3)]
-      WATER = 3,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"LIGHT", Value=4)]
-      LIGHT = 4,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"DARK", Value=5)]
-      DARK = 5,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"ROCK", Value=6)]
-      ROCK = 6
-    }
-  
     [global::ProtoBuf.ProtoContract(Name=@"AnimationType")]
     public enum AnimationType
     {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_ANIMATION", Value=3)]
+      NO_ANIMATION = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"MELEE", Value=1)]
       MELEE = 1,
@@ -896,9 +854,9 @@ namespace com.lvl6.proto
       set { _monsterId = value; }
     }
 
-    private com.lvl6.proto.MonsterBattleDialogueProto.DialogueType _dialogueType = com.lvl6.proto.MonsterBattleDialogueProto.DialogueType.ENTER_BATTLE;
+    private com.lvl6.proto.MonsterBattleDialogueProto.DialogueType _dialogueType = com.lvl6.proto.MonsterBattleDialogueProto.DialogueType.NO_DIALOGUE;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"dialogueType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterBattleDialogueProto.DialogueType.ENTER_BATTLE)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterBattleDialogueProto.DialogueType.NO_DIALOGUE)]
     public com.lvl6.proto.MonsterBattleDialogueProto.DialogueType dialogueType
     {
       get { return _dialogueType; }
@@ -925,6 +883,9 @@ namespace com.lvl6.proto
     [global::ProtoBuf.ProtoContract(Name=@"DialogueType")]
     public enum DialogueType
     {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_DIALOGUE", Value=2)]
+      NO_DIALOGUE = 2,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ENTER_BATTLE", Value=1)]
       ENTER_BATTLE = 1

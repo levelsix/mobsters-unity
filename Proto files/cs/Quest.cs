@@ -10,6 +10,7 @@
 // Generated from: Quest.proto
 // Note: requires additional types generated from: Chat.proto
 // Note: requires additional types generated from: MonsterStuff.proto
+// Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: Structure.proto
 namespace com.lvl6.proto
 {
@@ -170,10 +171,10 @@ namespace com.lvl6.proto
       set { _questGiverImgOffset = value; }
     }
 
-    private com.lvl6.proto.MonsterProto.MonsterElement _monsterElement = com.lvl6.proto.MonsterProto.MonsterElement.FIRE;
+    private com.lvl6.proto.Element _monsterElement = com.lvl6.proto.Element.NO_ELEMENT;
     [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"monsterElement", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterProto.MonsterElement.FIRE)]
-    public com.lvl6.proto.MonsterProto.MonsterElement monsterElement
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
+    public com.lvl6.proto.Element monsterElement
     {
       get { return _monsterElement; }
       set { _monsterElement = value; }
