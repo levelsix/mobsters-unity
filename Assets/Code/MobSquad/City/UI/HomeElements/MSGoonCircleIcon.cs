@@ -20,13 +20,13 @@ public class MSGoonCircleIcon : MonoBehaviour {
 	[SerializeField]
 	UISprite background;
 
-	static readonly Dictionary<MonsterProto.MonsterElement, string> backgroundElementDict = new Dictionary<MonsterProto.MonsterElement, string>()
+	static readonly Dictionary<Element, string> backgroundElementDict = new Dictionary<Element, string>()
 	{
-		{MonsterProto.MonsterElement.DARK, "nightteam"},
-		{MonsterProto.MonsterElement.FIRE, "fireteam"},
-		{MonsterProto.MonsterElement.GRASS, "earthteam"},
-		{MonsterProto.MonsterElement.LIGHT, "lightteam"},
-		{MonsterProto.MonsterElement.WATER, "waterteam"}
+		{Element.DARK, "nightteam"},
+		{Element.FIRE, "fireteam"},
+		{Element.EARTH, "earthteam"},
+		{Element.LIGHT, "lightteam"},
+		{Element.WATER, "waterteam"}
 	};
 
 	const string emptyBackground = "teamempty";

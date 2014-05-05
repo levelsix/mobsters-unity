@@ -251,6 +251,18 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_OBSTACLE_REMOVAL_COMPLETE_EVENT", Value=69)]
       C_OBSTACLE_REMOVAL_COMPLETE_EVENT = 69,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_SPAWN_MINI_JOB_EVENT", Value=70)]
+      C_SPAWN_MINI_JOB_EVENT = 70,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_BEGIN_MINI_JOB_EVENT", Value=71)]
+      C_BEGIN_MINI_JOB_EVENT = 71,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_COMPLETE_MINI_JOB_EVENT", Value=72)]
+      C_COMPLETE_MINI_JOB_EVENT = 72,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_REDEEM_MINI_JOB_EVENT", Value=73)]
+      C_REDEEM_MINI_JOB_EVENT = 73,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101
     }
@@ -462,6 +474,18 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_OBSTACLE_REMOVAL_COMPLETE_EVENT", Value=69)]
       S_OBSTACLE_REMOVAL_COMPLETE_EVENT = 69,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_SPAWN_MINI_JOB_EVENT", Value=70)]
+      S_SPAWN_MINI_JOB_EVENT = 70,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_BEGIN_MINI_JOB_EVENT", Value=71)]
+      S_BEGIN_MINI_JOB_EVENT = 71,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_COMPLETE_MINI_JOB_EVENT", Value=72)]
+      S_COMPLETE_MINI_JOB_EVENT = 72,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_REDEEM_MINI_JOB_EVENT", Value=73)]
+      S_REDEEM_MINI_JOB_EVENT = 73,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

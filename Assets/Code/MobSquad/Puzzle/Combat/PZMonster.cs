@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using com.lvl6.proto;
 using System;
 
+public enum MonsterStatus
+{
+	HEALTHY, INJURED, HEALING, ENHANCING, EVOLVING, COMBINING, INCOMPLETE
+}
+
 [System.Serializable]
 /// <summary>
 /// @author Rob Giusti
@@ -215,7 +220,8 @@ public class PZMonster {
 	{
 		get
 		{
-			return userMonster.currentLvl + userMonster.currentExp;
+			return Mathf.CeilToInt((userMonster.currentLvl + userMonster.currentExp) 
+				* ((float)userMonster.numPieces) / monster.numPuzzlePieces);
 		}
 	}
 
@@ -224,6 +230,51 @@ public class PZMonster {
 		get
 		{
 			return MSEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterId);
+		}
+	}
+
+	/// <summary>
+	/// Whether this monster can currently be sold.
+	/// Basically, if it's not healing, enhancing, or evolving, and it's completed
+	/// </summary>
+	/// <value><c>true</c> if sellable; otherwise, <c>false</c>.</value>
+	public bool sellable
+	{
+		get
+		{
+			return userMonster.isComplete && !isHealing && !isEnhancing && !isEvoloving;
+		}
+	}
+
+	public MonsterStatus monsterStatus
+	{
+		get
+		{
+			if (userMonster.numPieces < monster.numPuzzlePieces)
+			{
+				return MonsterStatus.INCOMPLETE;
+			}
+			if (!userMonster.isComplete)
+			{
+				return MonsterStatus.COMBINING;
+			}
+			if (isEnhancing)
+			{
+				return MonsterStatus.ENHANCING;
+			}
+			if (isEvoloving)
+			{
+				return MonsterStatus.EVOLVING;
+			}
+			if (isHealing)
+			{
+				return MonsterStatus.HEALING;
+			}
+			if (currHP < maxHP)
+			{
+				return MonsterStatus.INJURED;
+			}
+			return MonsterStatus.HEALTHY;
 		}
 	}
 
@@ -397,6 +448,14 @@ public class PZMonster {
 
 		return Mathf.FloorToInt(monster.lvlInfo[0].hp * Mathf.Pow(monster.lvlInfo[0].hpExponentBase, level-1));
 	}
+
+	public MinimumUserMonsterSellProto GetSellProto()
+	{
+		MinimumUserMonsterSellProto mumsp = new MinimumUserMonsterSellProto();
+		mumsp.userMonsterId = userMonster.userMonsterId;
+		mumsp.cashAmount = sellValue;
+		return mumsp;
+	}
 	
 	#region Experience
 
@@ -423,7 +482,7 @@ public class PZMonster {
 		float currPerc = 0;
 		if (checkFeeders)
 		{
-			foreach (var item in MSMonsterManager.enhancementFeeders) 
+			foreach (var item in MSMonsterManager.instance.enhancementFeeders) 
 			{
 				currExp += item.enhanceXP;
 			}
@@ -435,17 +494,6 @@ public class PZMonster {
 		float addedLevel = LevelForMonster(currExp + withAddedExp);
 
 		return addedLevel - currLevel;
-	}
-	
-	int ExpForLevel(int level)
-	{
-
-		if (level > monster.maxLevel)
-		{
-			Debug.LogWarning("Attempting to get exp for a higher level than this monster can go");
-			return ExpForLevel(monster.maxLevel);
-		}
-		return (level-1) * 500;
 	}
 
 	public float LevelForMonster(int withExp)

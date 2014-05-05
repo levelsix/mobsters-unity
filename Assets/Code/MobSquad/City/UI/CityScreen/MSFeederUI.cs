@@ -38,22 +38,22 @@ public class MSFeederUI : MonoBehaviour {
 
 	const string noFeederBackground = "blackandwhitebanner";
 
-	Dictionary<MonsterProto.MonsterElement, string> backgroundSprites = new Dictionary<MonsterProto.MonsterElement, string>()
+	Dictionary<Element, string> backgroundSprites = new Dictionary<Element, string>()
 	{
-		{MonsterProto.MonsterElement.DARK, "nightbanner"},
-		{MonsterProto.MonsterElement.LIGHT, "lightbanner"},
-		{MonsterProto.MonsterElement.FIRE, "firebanner"},
-		{MonsterProto.MonsterElement.WATER, "waterbanner"},
-		{MonsterProto.MonsterElement.GRASS, "earthbanner"}
+		{Element.DARK, "nightbanner"},
+		{Element.LIGHT, "lightbanner"},
+		{Element.FIRE, "firebanner"},
+		{Element.WATER, "waterbanner"},
+		{Element.EARTH, "earthbanner"}
 	};
 
-	Dictionary<MonsterProto.MonsterElement, string> bannerSprites = new Dictionary<MonsterProto.MonsterElement, string>()
+	Dictionary<Element, string> bannerSprites = new Dictionary<Element, string>()
 	{
-		{MonsterProto.MonsterElement.DARK, "nightdailylab"},
-		{MonsterProto.MonsterElement.LIGHT, "lightdailylab"},
-		{MonsterProto.MonsterElement.FIRE, "firedailylab"},
-		{MonsterProto.MonsterElement.WATER, "waterdailylab"},
-		{MonsterProto.MonsterElement.GRASS, "earthdailylab"}
+		{Element.DARK, "nightdailylab"},
+		{Element.LIGHT, "lightdailylab"},
+		{Element.FIRE, "firedailylab"},
+		{Element.WATER, "waterdailylab"},
+		{Element.EARTH, "earthdailylab"}
 	};
 
 	void OnEnable()

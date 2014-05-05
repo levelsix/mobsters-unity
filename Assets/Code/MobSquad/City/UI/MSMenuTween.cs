@@ -15,7 +15,7 @@ public class MSMenuTween : TweenPosition {
 	{
 		get
 		{
-			return Screen.width * Mathf.Max(1, 640f/Screen.height);
+			return (Screen.width * 640f) / Screen.height ;
 		}
 	}
 

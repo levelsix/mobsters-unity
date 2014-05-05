@@ -30,25 +30,22 @@ public class MSMiniGoonBox : MonoBehaviour {
 
 	public bool on = false;
 
-	TweenPosition tweenPos;
-
 	static readonly Vector3 BOTTOM_Y_OFFSET = new Vector3(0, -100, 0);
 
-	Dictionary<MonsterProto.MonsterElement, string> elementBackgrounds = new Dictionary<MonsterProto.MonsterElement, string>()
+	Dictionary<Element, string> elementBackgrounds = new Dictionary<Element, string>()
 	{
-		{MonsterProto.MonsterElement.DARK, "nightteam"},
-		{MonsterProto.MonsterElement.FIRE, "fireteam"},
-		{MonsterProto.MonsterElement.GRASS, "earthteam"},
-		{MonsterProto.MonsterElement.LIGHT, "lightteam"},
-		{MonsterProto.MonsterElement.WATER, "waterteam"},
-		{MonsterProto.MonsterElement.ROCK, "earthteam"}
+		{Element.DARK, "nightteam"},
+		{Element.FIRE, "fireteam"},
+		{Element.EARTH, "earthteam"},
+		{Element.LIGHT, "lightteam"},
+		{Element.WATER, "waterteam"},
+		{Element.ROCK, "earthteam"}
 	};
 
 	const string EMPTY = "hometeamslotopen";
 
 	void Awake()
 	{
-		tweenPos = GetComponent<TweenPosition>();
 		helper = GetComponent<MSUIHelper>();
 	}
 
@@ -83,6 +80,11 @@ public class MSMiniGoonBox : MonoBehaviour {
 		{
 			string monsterPrefix = MSUtil.StripExtensions (monster.monster.imagePrefix);
 			StartCoroutine(MSAtlasUtil.instance.SetSprite(monsterPrefix, monsterPrefix + "Thumbnail", goonPortrait));
+			if (monster.monster.monsterElement == Element.NO_ELEMENT)
+			{
+				Debug.Log("What the fuck, " + monster.monster.displayName + " has no element");
+				monster.monster.monsterElement = Element.DARK;
+			}
 			background.spriteName = elementBackgrounds[monster.monster.monsterElement];
 			if (removeButton != null) removeButton.gameObject.SetActive(true);
 		}
@@ -96,17 +98,6 @@ public class MSMiniGoonBox : MonoBehaviour {
 		else if (monster != null)
 		{
 			if (removeButton != null) removeButton.onClick = RemoveQueue;
-			if (!on)
-			{
-				if (tweenPos != null)
-				{
-					tweenPos.to = transform.localPosition;
-					tweenPos.from = transform.localPosition + BOTTOM_Y_OFFSET;
-					tweenPos.ResetToBeginning();
-					tweenPos.PlayForward();
-				}
-				on = true;
-			}
 		}
 	}
 
@@ -125,7 +116,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 		}
 		else if (monster.isEnhancing)
 		{
-			if (monster == MSMonsterManager.currentEnhancementMonster)
+			if (monster == MSMonsterManager.instance.currentEnhancementMonster)
 			{
 				Debug.Log("Clear enhance queue");
 				MSMonsterManager.instance.ClearEnhanceQueue();
@@ -133,6 +124,13 @@ public class MSMiniGoonBox : MonoBehaviour {
 			else
 			{
 				MSMonsterManager.instance.RemoveFromEnhanceQueue(monster);
+			}
+		}
+		else
+		{
+			if (MSActionManager.Goon.OnMonsterRemoveQueue != null)
+			{
+				MSActionManager.Goon.OnMonsterRemoveQueue(monster);
 			}
 		}
 		on = false;
@@ -144,7 +142,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 		{
 			barBG.alpha = 0;
 		}
-		if (monster.isHealing)
+		else if (monster.isHealing)
 		{
 			if (MSUtil.timeNowMillis < monster.healStartTime)
 			{
@@ -165,6 +163,9 @@ public class MSMiniGoonBox : MonoBehaviour {
 			if (bar != null) bar.fill = 1 - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
 			label.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
 		}
-		else if (bar != null) bar.fill = 0;
+		else if (barBG != null)
+		{
+			barBG.alpha = 0;
+		}
 	}
 }

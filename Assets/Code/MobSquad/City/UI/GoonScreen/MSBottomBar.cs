@@ -38,6 +38,27 @@ public class MSBottomBar : MonoBehaviour {
 	MSUIHelper bottomTextHelper;
 
 	[SerializeField]
+	MSUIHelper scientists;
+
+	[SerializeField]
+	MSActionButton rightSideButton;
+
+	[SerializeField]
+	UILabel buttonHeader;
+
+	[SerializeField]
+	UILabel timeLeftHeader;
+
+	[SerializeField]
+	UILabel timeLeftLabel;
+
+	[SerializeField]
+	MSBottomBarModeButton topButton;
+
+	[SerializeField]
+	MSBottomBarModeButton bottomButton;
+
+	[SerializeField]
 	Color redTextColor = Color.red;
 
 	[SerializeField]
@@ -50,7 +71,28 @@ public class MSBottomBar : MonoBehaviour {
 
 	MSGoonScreen goonScreen;
 
-	int numSlots;
+	int currSellValue = 0;
+
+	bool updateBottom = true;
+
+	int numSlots
+	{
+		get
+		{
+			switch (mode) {
+				case GoonScreenMode.HEAL:
+					return MSHospitalManager.instance.queueSize;
+				case GoonScreenMode.SELL:
+					return boxes.Count + 1;
+				case GoonScreenMode.ENHANCE:
+					//TODO: Tie this into lab shit and make this actually matter
+					return 5;
+				default:
+					break;
+			}
+			return 0;
+		}
+	}
 
 	const string GREEN_ARROW = "hospitalopenarrow";
 	const string RED_ARROW = "closedhospitalarrow";
@@ -64,16 +106,21 @@ public class MSBottomBar : MonoBehaviour {
 	{
 		MSActionManager.Goon.OnMonsterAddQueue += OnQueueAdd;
 		MSActionManager.Goon.OnMonsterRemoveQueue += OnQueueRemove;
+		MSActionManager.Goon.OnMonsterRemoved += OnMonsterRemove;
 	}
 
 	void OnDisable()
 	{
 		MSActionManager.Goon.OnMonsterAddQueue -= OnQueueAdd;
 		MSActionManager.Goon.OnMonsterRemoveQueue -= OnQueueRemove;
+		MSActionManager.Goon.OnMonsterRemoved -= OnMonsterRemove;
 	}
+
+	#region Initialization and Setup
 
 	public void Init (GoonScreenMode mode)
 	{
+		this.mode = mode;
 		Pool();
 		switch (mode) {
 			case GoonScreenMode.HEAL:
@@ -92,28 +139,30 @@ public class MSBottomBar : MonoBehaviour {
 				break;
 		}
 		RefreshBottomDetails();
+		SetupLeftButtons();
 	}
 
 	void InitHeal()
 	{
-		numSlots = MSHospitalManager.instance.queueSize;
-
 		FillBoxes(MSHospitalManager.instance.healingMonsters);
 	}
 
 	void InitEnhance()
 	{
-
+		FillBoxes(MSMonsterManager.instance.enhancementFeeders);
 	}
 
 	void InitEvolve()
 	{
-
+		//For now, just keep letting GoonScreen take care of this
+		goonScreen.InitEvolve();
 	}
 
 	void InitSell()
 	{
-
+		currSellValue = 0;
+		AddEmpty(int.MaxValue);
+		boxParent.Reposition();
 	}
 
 	void FillBoxes(List<PZMonster> monsters)
@@ -158,6 +207,30 @@ public class MSBottomBar : MonoBehaviour {
 		return box;
 	}
 
+	void SetupLeftButtons()
+	{
+		switch (mode) {
+		case GoonScreenMode.HEAL:
+		case GoonScreenMode.SELL:
+			topButton.mode = GoonScreenMode.HEAL;
+			topButton.Set(mode == GoonScreenMode.HEAL);
+			bottomButton.mode = GoonScreenMode.SELL;
+			bottomButton.Set(mode == GoonScreenMode.SELL);
+			break;
+		case GoonScreenMode.ENHANCE:
+		case GoonScreenMode.EVOLVE:
+			topButton.mode = GoonScreenMode.ENHANCE;
+			topButton.Set(mode == GoonScreenMode.ENHANCE);
+			bottomButton.mode = GoonScreenMode.EVOLVE;
+			bottomButton.Set(mode == GoonScreenMode.EVOLVE);
+			break;
+		default:
+				break;
+		}
+	}
+
+	#endregion
+
 	void RefreshBottomDetails()
 	{
 		if (numSlots == 0)
@@ -171,6 +244,13 @@ public class MSBottomBar : MonoBehaviour {
 			bottomText.text = CLICK_A_MOBSTER_TEXT;
 			bottomTextHelper.FadeIn();
 			queueHelper.FadeOut();
+		}
+		else if (mode == GoonScreenMode.SELL)
+		{
+			slotsRemainingLabel.text = "";
+			queueHelper.FadeIn();
+			arrowSprite.spriteName = GREEN_ARROW;
+			bottomTextHelper.FadeOut();
 		}
 		else if (boxes.Count == numSlots)
 		{
@@ -190,29 +270,129 @@ public class MSBottomBar : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Updates the timer that lists total time remaining
+	/// SELL MODE: Instead of listing a time, lists total sell value
+	/// EVOLVE MODE: Ignore
+	/// </summary>
+	void UpdateTimer()
+	{
+		long timeLeft;
+		switch (mode) {
+			case GoonScreenMode.HEAL:
+				timeLeft = MSHospitalManager.instance.lastFinishTime - MSUtil.timeNowMillis;
+				timeLeftLabel.text = MSUtil.TimeStringShort(timeLeft);
+				rightSideButton.label.text = "(g) " + MSMath.GemsForTime(timeLeft/1000);
+				buttonHeader.text = "FINISH";
+				timeLeftHeader.text = "Time Left";
+				break;
+			case GoonScreenMode.ENHANCE:
+				timeLeft = MSMonsterManager.instance.lastEnhance - MSUtil.timeNowMillis;
+				timeLeftLabel.text = MSUtil.TimeStringShort(timeLeft);
+				buttonHeader.text = "FINISH";
+				rightSideButton.label.text = "(g) " + MSMath.GemsForTime(timeLeft/1000);
+				timeLeftHeader.text = "Time Left";
+				break;
+			case GoonScreenMode.SELL:
+				rightSideButton.label.text = "$" + currSellValue;
+				buttonHeader.text = "SELL";
+				timeLeftLabel.text = "";
+				timeLeftHeader.text = "";
+				break;
+			default:
+				break;
+		}
+	}
+
+	void Update()
+	{
+		UpdateTimer();
+	}
+
+	/// <summary>
+	/// Assigned to button in inspector
+	/// Controls the logic that happens when the button on the very right is clicked
+	/// HEAL: Finishes the current heal
+	/// SELL: Sells all monsters in the queue
+	/// ENHANCE: Finishes the current enhance
+	/// EVOLVE: The button shouldn't exist in this mode
+	/// </summary>
+	public void OnClickButton()
+	{
+		switch (mode) {
+		case GoonScreenMode.HEAL:
+			MSHospitalManager.instance.TrySpeedUpHeal();
+			break;
+		case GoonScreenMode.SELL:
+			List<PZMonster> monsters = new List<PZMonster>();
+			foreach (var item in boxes) 
+			{
+				monsters.Add (item.monster);
+			}
+			MSMonsterManager.instance.SellMonsters(monsters);
+			break;
+			default:
+					break;
+		}
+	}
+
+	void RemoveBox(MSMiniGoonBox box)
+	{
+		if (mode == GoonScreenMode.SELL)
+		{
+			currSellValue -= box.monster.sellValue;
+		}
+		
+		Debug.Log("Queue removing: " + box.monster.monster.name);
+		
+		boxes.Remove(box);
+		
+		if (boxes.Count + empties.Count < numSlots)
+		{
+			MSUIHelper empty = AddEmpty(empties.Count);
+			empties.Insert(0, empty);
+			
+			empty.FadeIn();
+			
+			empty.transform.localPosition = box.transform.localPosition;
+		}
+		
+		box.transform.parent = box.transform.parent.parent;
+		box.helper.FadeOutAndPool();
+		
+		boxParent.animateSmoothly = true;
+		boxParent.Reposition();
+		
+		RefreshBottomDetails();
+	}
+
+	/// <summary>
+	/// When a monster is removed from the user's monsters (by selling 
+	/// or feeding), we need to make sure
+	/// that its box gets pulled out from the queue
+	/// </summary>
+	/// <param name="userMonsterId">User monster identifier.</param>
+	void OnMonsterRemove(long userMonsterId)
+	{
+		MSMiniGoonBox box = boxes.Find(x=>x.monster.userMonster.userMonsterId == userMonsterId);
+		if (box != null)
+		{
+			RemoveBox(box);
+		}
+	}
+
+	/// <summary>
+	/// When a monster is removed from the queue (by having its removal button clicked
+	/// or by finishing a heal), we need to make sure that its box gets
+	/// pulled out from the queue
+	/// </summary>
+	/// <param name="monster">Monster.</param>
 	void OnQueueRemove(PZMonster monster)
 	{
 		MSMiniGoonBox box = boxes.Find(x=>x.monster == monster);
 		if (box != null)
 		{
-			Debug.Log("Queue removing: " + monster.monster.name);
-
-			boxes.Remove(box);
-
-			MSUIHelper empty = AddEmpty(empties.Count);
-			empties.Insert(0, empty);
-
-			empty.FadeIn();
-
-			empty.transform.localPosition = box.transform.localPosition;
-
-			box.transform.parent = box.transform.parent.parent;
-			box.helper.FadeOutAndPool();
-			
-			boxParent.animateSmoothly = true;
-			boxParent.Reposition();
-
-			RefreshBottomDetails();
+			RemoveBox(box);
 		}
 	}
 
@@ -222,6 +402,11 @@ public class MSBottomBar : MonoBehaviour {
 		{
 			Debug.LogError("QUEUE IS FULL!\nYou've got problems, man...");
 			return;
+		}
+
+		if (mode == GoonScreenMode.SELL)
+		{
+			currSellValue += monster.sellValue;
 		}
 
 		//Grab an empty slot to fade out
@@ -239,6 +424,11 @@ public class MSBottomBar : MonoBehaviour {
 		//Get it out of the grid so that we can reposition around it
 		empty.transform.parent = empty.transform.parent.parent; 
 		empty.FadeOutAndPool();
+
+		while (empties.Count + boxes.Count < numSlots)
+		{
+			AddEmpty(int.MaxValue - empties.Count);
+		}
 
 		boxParent.animateSmoothly = true;
 		boxParent.Reposition();

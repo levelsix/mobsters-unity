@@ -23,6 +23,19 @@ public class MSHospitalManager : MonoBehaviour {
 
 	public bool initialized = false;
 
+	public long lastFinishTime
+	{
+		get
+		{
+			long last = 0;
+			foreach (var item in healingMonsters) 
+			{
+				last = Math.Max(last, item.finishHealTimeMillis);
+			}
+			return last;
+		}
+	}
+
 	void Awake()
 	{
 		instance = this;
@@ -159,8 +172,17 @@ public class MSHospitalManager : MonoBehaviour {
 			SendHealRequest();
 		}
 	}
+
+	public void TrySpeedUpHeal()
+	{
+		int gemCost = Mathf.CeilToInt((lastFinishTime - MSUtil.timeNowMillis) * 1f/60000);
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost, TrySpeedUpHeal))
+		{
+			SpeedUpHeal(gemCost);
+		}
+	}
 	
-	public void SpeedUpHeal(int cost)
+	void SpeedUpHeal(int cost)
 	{
 		if (healRequestProto == null)
 		{

@@ -38,6 +38,11 @@ public class MSUIHelper : MonoBehaviour {
 		return TweenAlpha.Begin(gameObject, fadeTime, 0);
 	}
 
+	public TweenAlpha Fade(bool fadeIn)
+	{
+		return fadeIn ? FadeIn() : FadeOut();
+	}
+
 	public void FadeOutAndPool()
 	{
 		StartCoroutine(DoFadeOutThenPool());

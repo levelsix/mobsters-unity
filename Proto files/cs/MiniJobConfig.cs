@@ -155,13 +155,13 @@ namespace com.lvl6.proto
     public UserMiniJobProto() {}
     
 
-    private int _miniTaskId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"miniTaskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int miniTaskId
+    private long _userMiniJobId = default(long);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMiniJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userMiniJobId
     {
-      get { return _miniTaskId; }
-      set { _miniTaskId = value; }
+      get { return _userMiniJobId; }
+      set { _userMiniJobId = value; }
     }
 
     private int _baseDmgReceived = default(int);
@@ -181,13 +181,31 @@ namespace com.lvl6.proto
       get { return _timeStarted; }
       set { _timeStarted = value; }
     }
-    private readonly global::System.Collections.Generic.List<int> _userMonsterIds = new global::System.Collections.Generic.List<int>();
+    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
     [global::ProtoBuf.ProtoMember(4, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> userMonsterIds
+    public global::System.Collections.Generic.List<long> userMonsterIds
     {
       get { return _userMonsterIds; }
     }
   
+
+    private long _timeCompleted = default(long);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"timeCompleted", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long timeCompleted
+    {
+      get { return _timeCompleted; }
+      set { _timeCompleted = value; }
+    }
+
+    private com.lvl6.proto.MiniJobProto _miniJob = null;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"miniJob", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MiniJobProto miniJob
+    {
+      get { return _miniJob; }
+      set { _miniJob = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

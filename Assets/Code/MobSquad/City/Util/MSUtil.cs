@@ -270,47 +270,47 @@ public static class MSUtil {
 	#region Monster Type Comparisons
 	
 	//Maps Monster Type -> Type of the damage it is taking -> damage multiplier
-	public static readonly Dictionary<MonsterProto.MonsterElement, Dictionary<MonsterProto.MonsterElement, float>> elementStrengths = 
-		new Dictionary<MonsterProto.MonsterElement, Dictionary<MonsterProto.MonsterElement, float>>()
+	public static readonly Dictionary<Element, Dictionary<Element, float>> elementStrengths = 
+		new Dictionary<Element, Dictionary<Element, float>>()
 	{
 		{
-			MonsterProto.MonsterElement.FIRE, new Dictionary<MonsterProto.MonsterElement, float>()
+			Element.FIRE, new Dictionary<Element, float>()
 			{
-				{MonsterProto.MonsterElement.GRASS, MSWhiteboard.constants.monsterConstants.elementalStrength},
-				{MonsterProto.MonsterElement.WATER, MSWhiteboard.constants.monsterConstants.elementalWeakness}
+				{Element.EARTH, MSWhiteboard.constants.monsterConstants.elementalStrength},
+				{Element.WATER, MSWhiteboard.constants.monsterConstants.elementalWeakness}
 			}
 		},
 		{
-			MonsterProto.MonsterElement.WATER, new Dictionary<MonsterProto.MonsterElement, float>()
+			Element.WATER, new Dictionary<Element, float>()
 			{
-				{MonsterProto.MonsterElement.GRASS, MSWhiteboard.constants.monsterConstants.elementalWeakness},
-				{MonsterProto.MonsterElement.FIRE, MSWhiteboard.constants.monsterConstants.elementalStrength}
+				{Element.EARTH, MSWhiteboard.constants.monsterConstants.elementalWeakness},
+				{Element.FIRE, MSWhiteboard.constants.monsterConstants.elementalStrength}
 			}
 		},
 		{
-			MonsterProto.MonsterElement.GRASS, new Dictionary<MonsterProto.MonsterElement, float>()
+			Element.EARTH, new Dictionary<Element, float>()
 			{
-				{MonsterProto.MonsterElement.FIRE, MSWhiteboard.constants.monsterConstants.elementalWeakness},
-				{MonsterProto.MonsterElement.WATER, MSWhiteboard.constants.monsterConstants.elementalStrength}
+				{Element.FIRE, MSWhiteboard.constants.monsterConstants.elementalWeakness},
+				{Element.WATER, MSWhiteboard.constants.monsterConstants.elementalStrength}
 			}
 		},
 		{
-			MonsterProto.MonsterElement.DARK, new Dictionary<MonsterProto.MonsterElement, float>()
+			Element.DARK, new Dictionary<Element, float>()
 			{
-				{MonsterProto.MonsterElement.DARK, MSWhiteboard.constants.monsterConstants.elementalStrength},
-				{MonsterProto.MonsterElement.LIGHT, MSWhiteboard.constants.monsterConstants.elementalWeakness}
+				{Element.DARK, MSWhiteboard.constants.monsterConstants.elementalStrength},
+				{Element.LIGHT, MSWhiteboard.constants.monsterConstants.elementalWeakness}
 			}
 		},
 		{
-			MonsterProto.MonsterElement.LIGHT, new Dictionary<MonsterProto.MonsterElement, float>()
+			Element.LIGHT, new Dictionary<Element, float>()
 			{
-				{MonsterProto.MonsterElement.DARK, MSWhiteboard.constants.monsterConstants.elementalWeakness},
-				{MonsterProto.MonsterElement.LIGHT, MSWhiteboard.constants.monsterConstants.elementalStrength}
+				{Element.DARK, MSWhiteboard.constants.monsterConstants.elementalWeakness},
+				{Element.LIGHT, MSWhiteboard.constants.monsterConstants.elementalStrength}
 			}
 		}
 	};
 	
-	public static float GetTypeDamageMultiplier(MonsterProto.MonsterElement monsterType, MonsterProto.MonsterElement attackType)
+	public static float GetTypeDamageMultiplier(Element monsterType, Element attackType)
 	{
 		if (elementStrengths.ContainsKey(monsterType) && elementStrengths[monsterType].ContainsKey(attackType))
 		{

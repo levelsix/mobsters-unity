@@ -11,6 +11,9 @@ using com.lvl6.proto;
 public class MSBottomBarModeButton : MonoBehaviour {
 
 	[SerializeField]
+	GoonScreenMode _mode;
+
+	[SerializeField]
 	UISprite icon;
 
 	[SerializeField]
@@ -31,17 +34,56 @@ public class MSBottomBarModeButton : MonoBehaviour {
 	[SerializeField]
 	string baseIconSpriteName = "heal";
 
+	public GoonScreenMode mode
+	{
+		set
+		{
+			_mode = value;
+
+		}
+		get
+		{
+			return _mode;
+		}
+	}
+
 	UISprite backgroundSprite;
+
+	Dictionary<GoonScreenMode, string> baseIconSprites = new Dictionary<GoonScreenMode, string>(){
+		{GoonScreenMode.HEAL, "heal"},
+		{GoonScreenMode.SELL, "sell"},
+		{GoonScreenMode.ENHANCE, "enhance"},
+		{GoonScreenMode.EVOLVE, "evolove"}
+	};
+
+	Dictionary<GoonScreenMode, string> labels = new Dictionary<GoonScreenMode, string>(){
+		{GoonScreenMode.HEAL, "Heal"},
+		{GoonScreenMode.SELL, "Sell"},
+		{GoonScreenMode.ENHANCE, "Enhance"},
+		{GoonScreenMode.EVOLVE, "Evolove"}
+	};
 
 	void Awake()
 	{
 		backgroundSprite = GetComponent<UISprite>();
 	}
 
+	public void Set(bool active)
+	{
+		if (active)
+		{
+			SetActive();
+		}
+		else
+		{
+			SetInactive();
+		}
+	}
+
 	[ContextMenu ("Set Active")]
 	public void SetActive()
 	{
-		icon.spriteName = baseIconSpriteName + "blue";
+		icon.spriteName = baseIconSprites[_mode] + "blue";
 		label.color = onColor;
 
 		if (backgroundSprite == null)
@@ -49,15 +91,13 @@ public class MSBottomBarModeButton : MonoBehaviour {
 			Awake ();
 		}
 		backgroundSprite.enabled = false;
-
-		icon.transform.localPosition = new Vector3(onOffset, icon.transform.localPosition.y, icon.transform.localPosition.z);
-		label.transform.localPosition = new Vector3(onOffset, label.transform.localPosition.y, label.transform.localPosition.z);
+		collider.enabled = false;
 	}
 
 	[ContextMenu ("Set Inactive")]
 	public void SetInactive()
 	{
-		icon.spriteName = baseIconSpriteName + "grey";
+		icon.spriteName = baseIconSprites[_mode] + "grey";
 		label.color = offColor;
 
 		if (backgroundSprite == null)
@@ -65,9 +105,12 @@ public class MSBottomBarModeButton : MonoBehaviour {
 			Awake ();
 		}
 		backgroundSprite.enabled = true;
-		
-		icon.transform.localPosition = new Vector3(0, icon.transform.localPosition.y, icon.transform.localPosition.z);
-		label.transform.localPosition = new Vector3(0, label.transform.localPosition.y, label.transform.localPosition.z);
+		collider.enabled = true;
+	}
+
+	void OnClick()
+	{
+		MSPopupManager.instance.popups.goonScreen.Init(_mode);
 	}
 
 }

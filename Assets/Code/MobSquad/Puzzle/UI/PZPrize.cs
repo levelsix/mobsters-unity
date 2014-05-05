@@ -25,14 +25,14 @@ public class PZPrize : MonoBehaviour {
 	[SerializeField]
 	Color cashColor;
 
-	static readonly Dictionary<MonsterProto.MonsterQuality, Color> textColors = new Dictionary<MonsterProto.MonsterQuality, Color>()
+	static readonly Dictionary<Quality, Color> textColors = new Dictionary<Quality, Color>()
 	{
-		{MonsterProto.MonsterQuality.COMMON, Color.grey},
-		{MonsterProto.MonsterQuality.EPIC, new Color(.6f, .2f, .9f)},
-		{MonsterProto.MonsterQuality.EVO, Color.red},
-		{MonsterProto.MonsterQuality.LEGENDARY, Color.red},
-		{MonsterProto.MonsterQuality.RARE, new Color(.3f, .3f, 1)},
-		{MonsterProto.MonsterQuality.ULTRA, Color.yellow}
+		{Quality.COMMON, Color.grey},
+		{Quality.EPIC, new Color(.6f, .2f, .9f)},
+		{Quality.EVO, Color.red},
+		{Quality.LEGENDARY, Color.red},
+		{Quality.RARE, new Color(.3f, .3f, 1)},
+		{Quality.ULTRA, Color.yellow}
 	};
 
 	public void InitXP(int amount)

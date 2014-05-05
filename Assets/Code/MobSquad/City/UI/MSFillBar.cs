@@ -24,6 +24,7 @@ public class MSFillBar : MonoBehaviour {
 				bar = GetComponent<UISprite>();
 			}
 			bar.width = Mathf.Clamp((int)((maxSize - minSize) * value + minSize), minSize, maxSize);
+			bar.alpha = (value <= 0) ? 0 : 1;
 		}
 		get
 		{

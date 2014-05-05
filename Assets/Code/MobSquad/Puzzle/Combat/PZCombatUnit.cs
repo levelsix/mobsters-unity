@@ -130,7 +130,7 @@ public class PZCombatUnit : MonoBehaviour {
 	/// <param name='element'>
 	/// Out: Element of the damage
 	/// </param>
-	public void DealDamage(int[] gems, out int damage, out MonsterProto.MonsterElement element)
+	public void DealDamage(int[] gems, out int damage, out Element element)
 	{
 		damage = 0;
 		for (int i = 0; i < monster.attackDamages.Length; i++) 
@@ -150,7 +150,7 @@ public class PZCombatUnit : MonoBehaviour {
 	/// <param name='element'>
 	/// Damage element.
 	/// </param>
-	public IEnumerator TakeDamage(int damage, MonsterProto.MonsterElement element)
+	public IEnumerator TakeDamage(int damage, Element element)
 	{
 		int fullDamage = (int)(damage * MSUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
 		

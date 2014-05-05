@@ -92,10 +92,4 @@ public class MSGoonInfoPopup : MonoBehaviour {
 
 		backButton.SetActive(false);
 	}
-
-	public void Sell()
-	{
-		MSMonsterManager.instance.SellMonster(currMonster);
-		MSActionManager.Popup.CloseTopPopupLayer();
-	}
 }

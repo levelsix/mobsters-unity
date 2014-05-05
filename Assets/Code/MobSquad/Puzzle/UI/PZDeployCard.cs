@@ -18,13 +18,13 @@ public class PZDeployCard : MonoBehaviour {
 	
 	PZMonster monster;
 	
-	static readonly Dictionary<MonsterProto.MonsterElement, string> backgroundDict = new Dictionary<MonsterProto.MonsterElement, string>()
+	static readonly Dictionary<Element, string> backgroundDict = new Dictionary<Element, string>()
 	{
-		{MonsterProto.MonsterElement.DARK, "nightteam"},
-		{MonsterProto.MonsterElement.FIRE, "fireteam"},
-		{MonsterProto.MonsterElement.GRASS, "earthteam"},
-		{MonsterProto.MonsterElement.LIGHT, "lightteam"},
-		{MonsterProto.MonsterElement.WATER, "waterteam"}
+		{Element.DARK, "nightteam"},
+		{Element.FIRE, "fireteam"},
+		{Element.EARTH, "earthteam"},
+		{Element.LIGHT, "lightteam"},
+		{Element.WATER, "waterteam"}
 	};
 
 	const string EMPTY_BOX = "teamempty";

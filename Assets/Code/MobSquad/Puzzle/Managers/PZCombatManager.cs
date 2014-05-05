@@ -824,7 +824,7 @@ public class PZCombatManager : MonoBehaviour {
 	public void OnBreakGems(int[] gemsBroken, int combo)
 	{
 		int damage;
-		MonsterProto.MonsterElement element;
+		Element element;
 		activePlayer.DealDamage(gemsBroken, out damage, out element);
 		
 		//Debug.Log("Damage: " + damage + ", Combo: " + combo);
@@ -1050,7 +1050,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// <param name='element'>
 	/// Damage element.
 	/// </param>
-	IEnumerator DamageAnimations(int damage, MonsterProto.MonsterElement element)
+	IEnumerator DamageAnimations(int damage, Element element)
 	{
 		boardTint.PlayForward();
 

@@ -188,7 +188,7 @@ public class MSAtlasUtil : MonoBehaviour {
 		{
 			animator.runtimeAnimatorController = bundles[baseName].Load(baseName + "Controller", typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
 			animator.GetComponent<SpriteRenderer>().color = Color.white;
-			Debug.Log("Assigned it: " + animator.runtimeAnimatorController);
+			//Debug.Log("Assigned it: " + animator.runtimeAnimatorController);
 		}
 	}
 

@@ -17,11 +17,11 @@ public class MSMonsterManager : MonoBehaviour {
 	
 	public PZMonster[] userTeam = new PZMonster[TEAM_SLOTS];
 	
-	public static List<PZMonster> enhancementFeeders = new List<PZMonster>();
+	public List<PZMonster> enhancementFeeders = new List<PZMonster>();
 	
 	public static List<PZMonster> combiningMonsters = new List<PZMonster>();
 	
-	public static PZMonster currentEnhancementMonster;
+	public PZMonster currentEnhancementMonster;
 
 	public int totalResidenceSlots;
 
@@ -44,6 +44,18 @@ public class MSMonsterManager : MonoBehaviour {
 	SellUserMonsterRequestProto sellRequest = null;
 
 	public static MSMonsterManager instance;
+
+	public long lastEnhance
+	{
+		get
+		{
+			long last = 0;
+			foreach (var item in enhancementFeeders) {
+				last = Math.Max(last, item.finishEnhanceTime);
+			}
+			return last;
+		}
+	}
 	
 	void Awake()
 	{
@@ -158,6 +170,21 @@ public class MSMonsterManager : MonoBehaviour {
 	}
 
 	#region Selling
+
+	public void SellMonsters(List<PZMonster> monsters)
+	{
+		SellUserMonsterRequestProto sellRequest = new SellUserMonsterRequestProto();
+		sellRequest.sender = MSWhiteboard.localMupWithResources;
+
+		foreach (var item in monsters) 
+		{
+			MSResourceManager.instance.Collect(ResourceType.CASH, item.sellValue);
+			sellRequest.sales.Add(item.GetSellProto());
+			RemoveMonster(item.userMonster.userMonsterId);
+		}
+
+		UMQNetworkManager.instance.SendRequest(sellRequest, (int)EventProtocolRequest.C_SELL_USER_MONSTER_EVENT, DealWithSellResponse);
+	}
 
 	void PrepareNewSellRequest()
 	{
@@ -619,6 +646,11 @@ public class MSMonsterManager : MonoBehaviour {
 			}
 			enhancementFeeders.Add(monster);
 			enhanceRequestProto.oilChange -= monster.enhanceXP;
+
+			if (MSActionManager.Goon.OnMonsterAddQueue != null)
+			{
+				MSActionManager.Goon.OnMonsterAddQueue(monster);
+			}
 		}
 		
 		if (enhanceRequestProto.ueipDelete.Contains(monster.enhancement))
@@ -631,7 +663,7 @@ public class MSMonsterManager : MonoBehaviour {
 			enhanceRequestProto.ueipNew.Add(monster.enhancement);
 		}
 		
-		
+
 		if (MSActionManager.Goon.OnEnhanceQueueChanged != null)
 		{
 			MSActionManager.Goon.OnEnhanceQueueChanged();
@@ -685,7 +717,12 @@ public class MSMonsterManager : MonoBehaviour {
 		enhanceRequestProto.oilChange += monster.enhanceXP;
 		
 		MSResourceManager.instance.Collect(ResourceType.OIL, monster.enhanceXP);
-		
+
+
+		if (MSActionManager.Goon.OnMonsterRemoveQueue != null)
+		{
+			MSActionManager.Goon.OnMonsterRemoveQueue(monster);
+		}
 		if (MSActionManager.Goon.OnEnhanceQueueChanged != null)
 		{
 			MSActionManager.Goon.OnEnhanceQueueChanged();
