@@ -171,7 +171,6 @@ public class MSGoonTeamCard : MonoBehaviour {
 		}
 		else
 		{
-			nameLabel.text = EMPTY_SLOT_NAME_LABEL;
 			bottomLabel.text = EMPTY_SLOT_BOTTOM_LABEL;
 			bar.alpha = 0;
 			barBG.alpha = 0;

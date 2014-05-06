@@ -181,38 +181,28 @@ public class MSGoonCard : MonoBehaviour {
 		SetName();
 	}
 
-	void SetName(bool healMode = true)
+	void SetName()
 	{
-		if (healMode)
+		switch (cardMode)
 		{
-			if (goon.userMonster.numPieces < goon.monster.numPuzzlePieces)
-			{
-				name = "4 Unavailable 5 Piece";
-			}
-			else if (goon.combineTimeLeft > 0)
-			{
-				name = "4 Unavailable 4 Combining";
-			}
-			else if (goon.isEnhancing)
-			{
-				name = "4 Unavailable 3 Enhancing";
-			}
-			else if (goon.isHealing)
-			{
-				name = "4 Unavailable 2 Healing";
-			}
-			else if (goon.currHP < goon.maxHP)
-			{
-				name = "1 Injured 2 Card";
-			}
-			else
-			{
-				name = "3 Healthy 2 Card";
-			}
-		}
-		else
-		{
+		case MonsterStatus.INCOMPLETE:
+			name = "4 Unavailable 5 Piece";
+			break;
+		case MonsterStatus.COMBINING:
+			name = "4 Unavailable 4 Combining";
+			break;
+		case MonsterStatus.ENHANCING:
+			name = "4 Unavailable 3 Enhancing";
+			break;
+		case MonsterStatus.HEALING:
+			name = "4 Unavailable 2 Healing";
+			break;
+		case MonsterStatus.INJURED:
+			name = "1 Injured 2 Card";
+			break;
+		case MonsterStatus.HEALTHY:
 			name = "3 Healthy 2 Card";
+			break;
 		}
 		name += " " + goon.monster.monsterId + " " + goon.userMonster.currentLvl + " " + goon.userMonster.userMonsterId;
 	}
@@ -225,7 +215,7 @@ public class MSGoonCard : MonoBehaviour {
 		Setup (goon);
 		SetEnhanceButton(goon);
 		
-		SetName (false);
+		SetName ();
 
 		healCostLabel.text = " ";
 
@@ -345,6 +335,13 @@ public class MSGoonCard : MonoBehaviour {
 	public void InitSell()
 	{
 		//Since we've already got a goon from heal mode, that makes this part easy
+		if (goon.sellable)
+		{
+			cardMode = MonsterStatus.HEALTHY;
+		}
+
+		SetName();
+
 		gameObject.SetActive(goon.sellable);
 		healButton.onClick = AddToSellQueue;
 
@@ -660,7 +657,7 @@ public class MSGoonCard : MonoBehaviour {
 			return;
 		}
 		MSHospitalManager.instance.AddToHealQueue(goon);
-		SetName(true);
+		SetName();
 		MSPopupManager.instance.popups.goonScreen.goonTable.Reposition();
 	}
 

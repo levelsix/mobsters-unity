@@ -56,7 +56,10 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	
 	public FullUserStructureProto userStructProto;
 
+	[HideInInspector]
 	public MSObstacle obstacle;
+
+	public TweenScale tweenScale;
 
     /// <summary>
     /// The position within ground that this building is located
@@ -716,6 +719,9 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		}
 		else if (!selected)
 		{
+			tweenScale.ResetToBeginning();
+			tweenScale.Play();
+
 			_originalPos = trans.position;
 			_tempPos = trans.position;
 			if (userStructProto != null)

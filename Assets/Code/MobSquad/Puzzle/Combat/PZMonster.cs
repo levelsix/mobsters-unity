@@ -242,7 +242,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return userMonster.isComplete && !isHealing && !isEnhancing && !isEvoloving;
+			return !isHealing && !isEnhancing && !isEvoloving;
 		}
 	}
 

@@ -90,7 +90,7 @@ public class MSEvolutionElements : MonoBehaviour {
 
 	void SetDisabledButton()
 	{
-		button.button.enabled = false;
+		button.GetComponent<UIButton>().enabled = false;
 		button.icon.spriteName = greenButton;
 		aboveButtonLabel.text = " ";
 		button.label.text = "$" + evolvingGoon.monster.evolutionCost;
@@ -98,7 +98,7 @@ public class MSEvolutionElements : MonoBehaviour {
 
 	void SetEvolveButton()
 	{
-		button.button.enabled = true;
+		button.GetComponent<UIButton>().enabled = true;
 		button.icon.spriteName = greenButton;
 		aboveButtonLabel.text = "Evolve";
 		button.label.text = "$" + evolvingGoon.monster.evolutionCost;
@@ -106,12 +106,15 @@ public class MSEvolutionElements : MonoBehaviour {
 
 	void SetGemButton()
 	{
-		button.button.enabled = true;
+		button.GetComponent<UIButton>().enabled = true;
 		button.icon.spriteName = gemButton;
 		aboveButtonLabel.text = "Finish Now";
 		button.label.text = "(G)" + Mathf.CeilToInt((MSEvolutionManager.instance.timeLeftMillis/6000f) / MSWhiteboard.constants.minutesPerGem);
 	}
 
+	/// <summary>
+	/// ASSIGNED IN EDITOR
+	/// </summary>
 	public void OnButtonClick()
 	{
 		if (MSEvolutionManager.instance.ready)

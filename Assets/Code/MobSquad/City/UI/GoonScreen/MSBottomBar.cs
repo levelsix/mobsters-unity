@@ -69,8 +69,6 @@ public class MSBottomBar : MonoBehaviour {
 
 	GoonScreenMode mode = GoonScreenMode.HEAL;
 
-	MSGoonScreen goonScreen;
-
 	int currSellValue = 0;
 
 	bool updateBottom = true;
@@ -97,7 +95,10 @@ public class MSBottomBar : MonoBehaviour {
 	const string GREEN_ARROW = "hospitalopenarrow";
 	const string RED_ARROW = "closedhospitalarrow";
 
-	const string CLICK_A_MOBSTER_TEXT = "Tap a Mobster to Begin";
+	const string CLICK_A_MOBSTER_TO_HEAL_TEXT = "Select a mobster to heal";
+	const string CLICK_A_MOBSTER_TO_ENHANCE_TEXT = "Select a mobster to enhance";
+	const string CLICK_A_MOBSTER_TO_SELL_TEXT = "Select a mobster to sell";
+	const string CLICK_A_MOBSTER_TO_FEED_TEXT = "Select a mobster to use";
 	const string NO_SLOTS_TEXT = "No slots available";
 	const string QUEUE_FULL_TEXT = "QUEUE\nFULL";
 	const string SLOTS_REMAINING_TEXT = " SLOTS\nOPEN";
@@ -155,7 +156,6 @@ public class MSBottomBar : MonoBehaviour {
 	void InitEvolve()
 	{
 		//For now, just keep letting GoonScreen take care of this
-		goonScreen.InitEvolve();
 	}
 
 	void InitSell()
@@ -241,7 +241,7 @@ public class MSBottomBar : MonoBehaviour {
 		}
 		else if (boxes.Count == 0)
 		{
-			bottomText.text = CLICK_A_MOBSTER_TEXT;
+			SetBottomText();
 			bottomTextHelper.FadeIn();
 			queueHelper.FadeOut();
 		}
@@ -267,6 +267,31 @@ public class MSBottomBar : MonoBehaviour {
 			queueHelper.FadeIn();
 			arrowSprite.spriteName = GREEN_ARROW;
 			bottomTextHelper.FadeOut();
+		}
+	}
+
+	void SetBottomText()
+	{
+		switch (mode) 
+		{
+		case GoonScreenMode.HEAL:
+			bottomText.text = CLICK_A_MOBSTER_TO_HEAL_TEXT;
+			break;
+		case GoonScreenMode.SELL:
+			bottomText.text = CLICK_A_MOBSTER_TO_SELL_TEXT;
+			break;
+		case GoonScreenMode.ENHANCE:
+			if (MSMonsterManager.instance.currentEnhancementMonster == null)
+			{
+				bottomText.text = CLICK_A_MOBSTER_TO_ENHANCE_TEXT;
+			}
+			else
+			{
+				bottomText.text = CLICK_A_MOBSTER_TO_FEED_TEXT;
+			}
+			break;
+		default:
+			break;
 		}
 	}
 

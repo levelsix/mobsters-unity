@@ -187,8 +187,6 @@ public class MSGoonScreen : MonoBehaviour {
 
 	public void InitHeal()
 	{	
-
-
 		goonPanelElements.ResetAlpha(true);
 		evolveElements.ResetAlpha(false);
 		scientistIcons.ResetAlpha(false);
@@ -207,13 +205,12 @@ public class MSGoonScreen : MonoBehaviour {
 	/// </summary>
 	public void InitEnhanceFromButton()
 	{
+		currMode = GoonScreenMode.ENHANCE;
 		InitEnhance(true);
 	}
 	
 	public void InitEnhance(bool fromEvolve = false)
 	{
-		currMode = GoonScreenMode.ENHANCE;
-
 		//backButton.Disable();
 		goonPanelElements.ResetAlpha(true);
 		evolveElements.ResetAlpha(false);
@@ -243,6 +240,8 @@ public class MSGoonScreen : MonoBehaviour {
 	{
 		evolveElements.ResetAlpha(false);
 		goonPanelElements.ResetAlpha(true);
+
+		bottomBar.Init(currMode);
 		
 		OrganizeEvolveCards();
 
@@ -268,10 +267,9 @@ public class MSGoonScreen : MonoBehaviour {
 	{
 		bottomBar.Init(currMode);
 
-		foreach (var item in cards) 
-		{
-			item.InitSell();
-		}
+		OrganizeCards();
+
+		goonTable.Reposition();
 	}
 
 	public void CancelEvolve()
@@ -331,7 +329,7 @@ public class MSGoonScreen : MonoBehaviour {
 		int i;
 		for (i = 0; i < MSMonsterManager.instance.userTeam.Length; i++) 
 		{
-			if (healMode)
+			if (currMode == GoonScreenMode.HEAL)
 			{
 				teamCards[i].InitHeal(MSMonsterManager.instance.userTeam[i]);
 			}
@@ -352,71 +350,80 @@ public class MSGoonScreen : MonoBehaviour {
 		//Reset all these values
 		currInjured = currHealthy = currUnavail = 0;
 
-		int i = 0;
-		foreach (var item in playerGoons) 
+		if (currMode == GoonScreenMode.SELL)
 		{
-			if (!healMode && (!item.userMonster.isComplete || item.isEnhancing || item.isHealing))
+			currHealthy = 1;
+			foreach (var item in cards) 
 			{
-				continue;
+				item.InitSell();
 			}
-
-			if (lastReserveCardIndex < i)
+		}
+		else
+		{
+			int i = 0;
+			foreach (var item in playerGoons) 
 			{
-				AddReserveCardSlot();
-			}
-			if (healMode)
-			{
-				cards[i].InitHeal(item);
-			}
-			else
-			{
-				if (item == MSMonsterManager.instance.currentEnhancementMonster)
+				if (currMode != GoonScreenMode.HEAL 
+				    && (!item.userMonster.isComplete || item.isEnhancing || item.isHealing))
 				{
 					continue;
 				}
-				if (item.monsterStatus != MonsterStatus.HEALTHY 
-				    && item.monsterStatus != MonsterStatus.INJURED)
+
+				if (lastReserveCardIndex < i)
 				{
-					continue;
+					AddReserveCardSlot();
 				}
-				cards[i].InitLab(item);
+				if (currMode == GoonScreenMode.HEAL)
+				{
+					cards[i].InitHeal(item);
+				}
+				else
+				{
+					if (item == MSMonsterManager.instance.currentEnhancementMonster)
+					{
+						continue;
+					}
+					if (item.monsterStatus != MonsterStatus.HEALTHY 
+					    && item.monsterStatus != MonsterStatus.INJURED)
+					{
+						continue;
+					}
+					cards[i].InitLab(item);
+				}
+
+
+				switch (cards[i].cardMode) {
+					case MonsterStatus.HEALTHY:
+						currHealthy++;
+						break;
+					case MonsterStatus.INJURED:
+						currInjured++;
+						break;
+					default:
+						currUnavail++;
+						break;
+				}
+
+				if (cards[i].transform.parent != goonCardParent)
+				{
+					cards[i].transform.parent = goonCardParent;
+					cards[i].gameObject.SetActive(false);
+					cards[i].gameObject.SetActive(true);
+				}
+
+				i++;
 			}
 
-			switch (cards[i].cardMode) {
-				case MonsterStatus.HEALTHY:
-					currHealthy++;
-					break;
-				case MonsterStatus.INJURED:
-					currInjured++;
-					break;
-				default:
-					currUnavail++;
-					break;
-			}
+			//Set all of the headers on or off
 
-			if (cards[i].transform.parent != goonCardParent)
+
+			for (;i < cards.Count; i++)
 			{
-				cards[i].transform.parent = goonCardParent;
 				cards[i].gameObject.SetActive(false);
-				cards[i].gameObject.SetActive(true);
 			}
-
-			i++;
 		}
 
-		//Set all of the headers on or off
-
-		injuredTitle.Fade(currInjured > 0);
-		injuredHeader.SetActive(currInjured > 0);
-		healthyTitle.Fade(currHealthy > 0);
-		healthyHeader.SetActive(currHealthy > 0);
-		unavailableTitle.Fade (currUnavail > 0);
-		unavailableHeader.SetActive(currUnavail > 0);
-		
-		while (++i < cards.Count)
-		{
-			cards[i].gameObject.SetActive(false);
-		}
+		SetGroupTitles();
 
 		dragPanel.collider.enabled = false;
 		dragPanel.collider.enabled = true;
@@ -515,28 +522,18 @@ public class MSGoonScreen : MonoBehaviour {
 		cards.Add (card);
 	}
 
+	void SetGroupTitles ()
+	{
+		injuredTitle.Fade (currInjured > 0);
+		injuredHeader.SetActive (currInjured > 0);
+		healthyTitle.Fade (currHealthy > 0);
+		healthyHeader.SetActive (currHealthy > 0);
+		unavailableTitle.Fade (currUnavail > 0);
+		unavailableHeader.SetActive (currUnavail > 0);
+	}
+
 	void Update()
 	{
-		if (healMode && MSHospitalManager.instance.healingMonsters.Count > 0)
-		{
-			long totalHealTimeLeft = 0;
-			foreach (var item in MSHospitalManager.instance.healingMonsters) {
-				if (item.finishHealTimeMillis > totalHealTimeLeft)
-				{
-					totalHealTimeLeft = item.finishHealTimeMillis;
-				}
-			}
-			//totalHealTimeLeft -= MSUtil.timeNowMillis;
-			//totalTimeLabel.text = MSUtil.TimeStringShort(totalHealTimeLeft);
-			//speedUpButton.label.text = Mathf.Ceil((float)totalHealTimeLeft / (MSWhiteboard.constants.minutesPerGem * 60000)).ToString();
-		}
-		else if (MSMonsterManager.instance.enhancementFeeders.Count > 0)
-		{
-			//long timeLeft = MSMonsterManager.enhancementFeeders[MSMonsterManager.enhancementFeeders.Count-1].enhanceTimeLeft;
-			//totalTimeLabel.text = MSUtil.TimeStringShort(timeLeft);
-			//speedUpButton.label.text = Mathf.Ceil((float)timeLeft / (MSWhiteboard.constants.minutesPerGem * 60000)).ToString();
-		}
-
 		if (!goonIn && bringGoonIn)
 		{
 			goonIn = true;
@@ -545,16 +542,16 @@ public class MSGoonScreen : MonoBehaviour {
 		if (goonIn && !bringGoonIn)
 		{
 			goonIn = false;
-			StartCoroutine(TakeOutEnhanceGoon());
+			StartCoroutine(TakeOutEnhanceGoon(currMode != GoonScreenMode.ENHANCE && currMode != GoonScreenMode.EVOLVE));
 		}
 	}
 
 	IEnumerator BringInEnhanceGoon()
 	{
 		Debug.LogWarning("Bringing enhancement goon in");
-
-		enhanceLeftSideElements.PlayForward();
+		
 		enhanceLeftSideElements.ResetToBeginning();
+		enhanceLeftSideElements.PlayForward();
 
 		while (enhanceLeftSideElements.tweenFactor < 1)
 		{
@@ -569,20 +566,34 @@ public class MSGoonScreen : MonoBehaviour {
 	{
 		Debug.LogWarning("Snapping enhancing goon in");
 
-		enhanceLeftSideElements.transform.localPosition = enhanceLeftSideElements.to;
+		enhanceLeftSideElements.Sample(1, true);
 
 		goonTable.Reposition();
 	}
 
-	IEnumerator TakeOutEnhanceGoon()
+	/// <summary>
+	/// Takes out the enhancement goon on the left.
+	/// If we're in any mode other than Enhancing, this should
+	/// be done immediately rather than waiting for the tween.
+	/// </summary>
+	/// <returns>The out enhance goon.</returns>
+	/// <param name="instant">If set to <c>true</c> instant.</param>
+	IEnumerator TakeOutEnhanceGoon(bool instant)
 	{
 		Debug.LogWarning("Taking enhancement goon out");
 
-		enhanceLeftSideElements.PlayReverse();
-		while (enhanceLeftSideElements.tweenFactor > 0)
+		if (instant)
 		{
-			dragPanel.scrollView.RestrictWithinBounds(false);
-			yield return null;
+			enhanceLeftSideElements.Sample(0, true);
+		}
+		else
+		{
+			enhanceLeftSideElements.PlayReverse();
+			while (enhanceLeftSideElements.tweenFactor > 0)
+			{
+				dragPanel.scrollView.RestrictWithinBounds(false);
+				yield return null;
+			}
 		}
 		dragPanel.scrollView.RestrictWithinBounds(false);
 	}

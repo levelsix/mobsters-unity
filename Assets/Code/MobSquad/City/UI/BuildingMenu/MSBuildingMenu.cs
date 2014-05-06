@@ -7,10 +7,10 @@ using com.lvl6.proto;
 public class MSBuildingMenu : MonoBehaviour {
 
 	[SerializeField]
-	MSBuildingCard buildingCardProto;
+	MSBuildingCard buildingCardPrefab;
 
 	[SerializeField]
-	UIGrid grid;
+	UITable table;
 
 	[SerializeField]
 	List<MSBuildingCard> cards;
@@ -43,15 +43,16 @@ public class MSBuildingMenu : MonoBehaviour {
 				index++;
 			}
 		}
-		grid.Reposition();
 
-		grid.collider.enabled = false;
-		//grid.collider.enabled = true;
+		table.Reposition();
+
+		table.collider.enabled = false;
+		table.collider.enabled = true;
 	}
 
 	void AddCard()
 	{
-		MSBuildingCard card = Instantiate(buildingCardProto) as MSBuildingCard;
+		MSBuildingCard card = Instantiate(buildingCardPrefab) as MSBuildingCard;
 		card.trans.parent = lastCard.trans.parent;
 		card.trans.localScale = Vector3.one;
 		card.GetComponent<MSUIHelper>().dragBehind = lastCard.GetComponent<MSUIHelper>().dragBehind;

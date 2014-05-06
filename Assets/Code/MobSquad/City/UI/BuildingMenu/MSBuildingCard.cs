@@ -99,6 +99,8 @@ public class MSBuildingCard : MonoBehaviour {
 		}
 
 		DetermineCount();
+
+		SetName();
 	}
 
 	void DetermineCount()
@@ -154,6 +156,42 @@ public class MSBuildingCard : MonoBehaviour {
 			button.defaultColor = Color.white;
 			button.hover = Color.white;
 			Tint(Color.white);
+		}
+	}
+
+	void SetName()
+	{
+		switch (building.structInfo.structType) 
+		{
+		case StructureInfoProto.StructType.RESOURCE_GENERATOR:
+			if (building.generator.resourceType == ResourceType.CASH)
+			{
+				name = "1 Cash Printer";
+			}
+			else
+			{
+				name = "3 Oil Drill";
+			}
+			break;
+		case StructureInfoProto.StructType.RESOURCE_STORAGE:
+			if (building.storage.resourceType == ResourceType.CASH)
+			{
+				name = "2 Cash Vault";
+			}
+			else
+			{
+				name = "4 Oil Storage";
+			}
+			break;
+		case StructureInfoProto.StructType.HOSPITAL:
+			name = "6 Hospital";
+			break;
+		case StructureInfoProto.StructType.RESIDENCE:
+			name = "7 Residence";
+			break;
+		default:
+			name = "8 Lab";
+			break;
 		}
 	}
 

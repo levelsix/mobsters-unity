@@ -78,6 +78,7 @@ public class MSBottomBarModeButton : MonoBehaviour {
 		{
 			SetInactive();
 		}
+		label.text = labels[mode];
 	}
 
 	[ContextMenu ("Set Active")]
@@ -110,7 +111,14 @@ public class MSBottomBarModeButton : MonoBehaviour {
 
 	void OnClick()
 	{
-		MSPopupManager.instance.popups.goonScreen.Init(_mode);
+		if (mode == GoonScreenMode.ENHANCE)
+		{
+			MSPopupManager.instance.popups.goonScreen.InitEnhanceFromButton();
+		}
+		else
+		{
+			MSPopupManager.instance.popups.goonScreen.Init(_mode);
+		}
 	}
 
 }

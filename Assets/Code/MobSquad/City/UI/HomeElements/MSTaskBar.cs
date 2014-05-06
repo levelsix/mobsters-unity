@@ -16,13 +16,52 @@ public class MSTaskBar : MonoBehaviour {
 	MSTaskButton taskButtonPrefab;
 	
 	[SerializeField]
-	UILabel topText;
+	UILabel topTextSmall;
+
+	[SerializeField]
+	UILabel topTextWide;
+
+	UILabel topText
+	{
+		get
+		{
+			return wide ? topTextWide : topTextSmall;
+		}
+	}
 	
 	[SerializeField]
-	UILabel bottomText;
-	
+	UILabel bottomTextSmall;
+
 	[SerializeField]
-	Transform taskButtonParent;
+	UILabel bottomTextWide;
+
+	UILabel bottomText
+	{
+		get
+		{
+			return wide ? bottomTextWide : bottomTextSmall;
+		}
+	}
+
+	[SerializeField]
+	GameObject layoutSmall;
+
+	[SerializeField]
+	GameObject layoutWide;
+
+	[SerializeField]
+	UIGrid taskButtonGridSmall;
+
+	[SerializeField]
+	UIGrid taskButtonGridWide;
+
+	UIGrid taskButtonGrid
+	{
+		get
+		{
+			return wide ? taskButtonGridWide : taskButtonGridSmall;
+		}
+	}
 	
 	[SerializeField]
 	GameObject upgradePopup;
@@ -38,10 +77,31 @@ public class MSTaskBar : MonoBehaviour {
 	
 	const int BUTTON_HEIGHT = 100;
 
+	bool wide
+	{
+		get
+		{
+			float ratio = ((float)Screen.width)/Screen.height;
+			return ratio > 1.6f;
+		}
+	}
+
 	void Awake()
 	{
 		tweenPos = GetComponent<TweenPosition>();
 		tweenAlph = GetComponent<TweenAlpha>();
+	}
+
+	void Start()
+	{
+		ResetLayoutAssignment();
+	}
+
+	[ContextMenu ("Reset Layout")]
+	void ResetLayoutAssignment()
+	{
+		layoutSmall.SetActive(!wide);
+		layoutWide.SetActive(wide);
 	}
 
 	void OnEnable()
@@ -119,26 +179,11 @@ public class MSTaskBar : MonoBehaviour {
 	{
 		foreach (MSTaskButton item in taskButtons) 
 		{
-			item.trans.parent = taskButtonParent;
+			item.trans.parent = taskButtonGrid.transform;
 			item.trans.localScale = Vector3.one;
 		}
-		switch(taskButtons.Count)
-		{
-			case 3:
-				taskButtons[0].trans.localPosition = new Vector3(-1.5f * BUTTON_WIDTH, 0);
-				taskButtons[1].trans.localPosition = new Vector3(0, 0);
-				taskButtons[2].trans.localPosition = new Vector3(1.5f * BUTTON_WIDTH, 0);
-				break;
-			case 2:
-				taskButtons[0].trans.localPosition = new Vector3(-BUTTON_WIDTH, 0);
-				taskButtons[1].trans.localPosition = new Vector3(BUTTON_WIDTH, 0);
-				break;
-			case 1:
-				taskButtons[0].trans.localPosition = new Vector3(0, 0);
-				break;
-			default:
-				break;
-		}
+
+		taskButtonGrid.Reposition();
 	}
 	
 	void SetBuildingButtons(MSBuilding building)
