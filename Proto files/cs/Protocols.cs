@@ -22,6 +22,7 @@
 // Note: requires additional types generated from: EventClan.proto
 // Note: requires additional types generated from: EventDungeon.proto
 // Note: requires additional types generated from: EventInAppPurchase.proto
+// Note: requires additional types generated from: EventMiniJob.proto
 // Note: requires additional types generated from: EventMonster.proto
 // Note: requires additional types generated from: EventPvp.proto
 // Note: requires additional types generated from: EventQuest.proto

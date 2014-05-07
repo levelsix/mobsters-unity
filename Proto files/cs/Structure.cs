@@ -230,7 +230,10 @@ namespace com.lvl6.proto
       LAB = 6,
             
       [global::ProtoBuf.ProtoEnum(Name=@"EVO", Value=7)]
-      EVO = 7
+      EVO = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"MINI_JOB", Value=9)]
+      MINI_JOB = 9
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -562,6 +565,43 @@ namespace com.lvl6.proto
     {
       get { return _resourceCapacity; }
       set { _resourceCapacity = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"MiniJobCenterProto")]
+  public partial class MiniJobCenterProto : global::ProtoBuf.IExtensible
+  {
+    public MiniJobCenterProto() {}
+    
+
+    private com.lvl6.proto.StructureInfoProto _structInfo = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"structInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StructureInfoProto structInfo
+    {
+      get { return _structInfo; }
+      set { _structInfo = value; }
+    }
+
+    private int _generatedJobLimit = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"generatedJobLimit", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int generatedJobLimit
+    {
+      get { return _generatedJobLimit; }
+      set { _generatedJobLimit = value; }
+    }
+
+    private int _hoursBetweenJobGeneration = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"hoursBetweenJobGeneration", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int hoursBetweenJobGeneration
+    {
+      get { return _hoursBetweenJobGeneration; }
+      set { _hoursBetweenJobGeneration = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

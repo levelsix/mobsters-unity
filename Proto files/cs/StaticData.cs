@@ -139,6 +139,13 @@ namespace com.lvl6.proto
       get { return _allTownHalls; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MiniJobCenterProto> _allMiniJobCenters = new global::System.Collections.Generic.List<com.lvl6.proto.MiniJobCenterProto>();
+    [global::ProtoBuf.ProtoMember(27, Name=@"allMiniJobCenters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.MiniJobCenterProto> allMiniJobCenters
+    {
+      get { return _allMiniJobCenters; }
+    }
+  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> _persistentEvents = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto>();
     [global::ProtoBuf.ProtoMember(18, Name=@"persistentEvents", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> persistentEvents
