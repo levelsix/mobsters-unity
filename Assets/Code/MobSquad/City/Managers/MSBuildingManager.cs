@@ -437,8 +437,7 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			if (item.userMonster.isComplete)
 			{
-				MSUnit dude = MSPoolManager.instance.Get(unitPrefab, Vector3.zero) as MSUnit;
-				dude.transf.parent = unitParent;
+				MSUnit dude = MSPoolManager.instance.Get(unitPrefab, Vector3.zero, unitParent) as MSUnit;
 				dude.Init(item.userMonster);
 				units.Add(item.userMonster.userMonsterId, dude);
 			}

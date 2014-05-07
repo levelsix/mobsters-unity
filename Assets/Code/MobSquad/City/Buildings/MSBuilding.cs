@@ -435,6 +435,9 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 			sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset/25, combinedProto.structInfo.imgVerticalPixelOffset/25);
 
+			shadow.gameObject.SetActive(true);
+			shadow.transform.localPosition = new Vector3(combinedProto.structInfo.shadowHorizontalOfffset/25, combinedProto.structInfo.shadowVerticalOffset/25);
+
 			name = combinedProto.structInfo.name;
 		}
 		else if (obstacle != null)
@@ -444,7 +447,9 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 			SetupSprite(obstacle.obstacle.imgName);
 
-			sprite.transform.Translate(0, obstacle.obstacle.imgVerticalPixelOffset/25, 0, Space.Self);
+			sprite.transform.localPosition = new Vector3(0, obstacle.obstacle.imgVerticalPixelOffset/25);
+
+			shadow.gameObject.SetActive(false);
 
 			name = obstacle.obstacle.name;
 		}
@@ -477,8 +482,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			}
 		}
 
-		sprite.transform.localPosition += new Vector3(-2.8f, 1.63f, -2.8f);
-		floor.transform.localPosition = new Vector3(-2.8f, 1.63f, -2.8f);
+		//sprite.transform.localPosition += new Vector3(-2.8f, 1.63f, -2.8f);
+		//floor.transform.localPosition = new Vector3(-2.8f, 1.63f, -2.8f);
 
 		_box.center = Vector3.zero;
 

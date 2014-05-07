@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.3.2</string>
+        <string>3.3.3</string>
         <key>fileName</key>
         <string>/Users/LINJAMIN/Desktop/Final Buildings Android/Cash Storage/Tier 1/ACashStorageT1@2x.tps</string>
         <key>autoSDSettings</key>
@@ -168,7 +168,7 @@
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
-            <enum type="SpriteSettings::PivotPoint">BottomCenter</enum>
+            <enum type="SpriteSettings::PivotPoint">Center</enum>
         </struct>
         <key>fileList</key>
         <array>

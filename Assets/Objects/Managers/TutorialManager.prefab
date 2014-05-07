@@ -1,0 +1,791 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fefd7a454224fb6906bf3dfc5eb87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTutorial:
+    name: Tutorial
+    steps: []
+    currUI: {fileID: 0}
+  tutorialData:
+    basicPuzzleTutorial:
+      name: Basic Puzzle Tutorial
+      steps:
+      - stepType: 5
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 0, y: 0}
+        - {x: 0, y: 0}
+        - {x: 0, y: 0}
+        - {x: 0, y: 0}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 1
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 3, y: 1}
+        - {x: 3, y: 2}
+        - {x: 3, y: 3}
+        - {x: 4, y: 2}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 4
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 0, y: 0}
+        - {x: 0, y: 0}
+        - {x: 0, y: 0}
+        - {x: 0, y: 0}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 1
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 3, y: 1}
+        - {x: 3, y: 2}
+        - {x: 3, y: 3}
+        - {x: 3, y: 4}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 5
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      currUI: {fileID: 0}
+      rigVictoryOrLoss: 1
+      boardSize: 6
+      boardLayout: TutorialBattle1Layout.txt
+      endSteps: []
+      dieStep:
+        stepType: 0
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+    powerupPuzzleTutorial:
+      name: Rocket Powerup
+      steps:
+      - stepType: 5
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 1
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 2, y: 1}
+        - {x: 3, y: 1}
+        - {x: 4, y: 1}
+        - {x: 5, y: 1}
+        - {x: 3, y: 2}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 5
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 1
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 3, y: 1}
+        - {x: 3, y: 2}
+        - {x: 3, y: 3}
+        - {x: 3, y: 4}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 5
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      currUI: {fileID: 0}
+      rigVictoryOrLoss: 1
+      boardSize: 6
+      boardLayout: TutorialBattle2Layout.txt
+      endSteps: []
+      dieStep:
+        stepType: 0
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+    rainbowPuzzleTutorial:
+      name: Rainbow
+      steps:
+      - stepType: 5
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 1
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 1, y: 3}
+        - {x: 2, y: 3}
+        - {x: 3, y: 3}
+        - {x: 4, y: 3}
+        - {x: 5, y: 3}
+        - {x: 3, y: 4}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 1, y: 3}
+        - {x: 2, y: 3}
+        - {x: 3, y: 3}
+        - {x: 4, y: 3}
+        - {x: 5, y: 3}
+        - {x: 3, y: 4}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 5
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 1
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 3, y: 3}
+        - {x: 3, y: 4}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 3, y: 3}
+        - {x: 3, y: 4}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 5
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      currUI: {fileID: 0}
+      rigVictoryOrLoss: 1
+      boardSize: 6
+      boardLayout: TutorialRainbowBattleLayout.txt
+      endSteps: []
+      dieStep:
+        stepType: 0
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+    combinePuzzleTutorial:
+      name: Combine Specials
+      steps:
+      - stepType: 5
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 1
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 1, y: 3}
+        - {x: 2, y: 3}
+        - {x: 3, y: 3}
+        - {x: 4, y: 3}
+        - {x: 5, y: 3}
+        - {x: 3, y: 4}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 1, y: 3}
+        - {x: 2, y: 3}
+        - {x: 3, y: 3}
+        - {x: 4, y: 3}
+        - {x: 5, y: 3}
+        - {x: 3, y: 4}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 5
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 1
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 2, y: 2}
+        - {x: 3, y: 2}
+        - {x: 4, y: 2}
+        - {x: 5, y: 2}
+        - {x: 4, y: 3}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 2, y: 2}
+        - {x: 3, y: 2}
+        - {x: 4, y: 2}
+        - {x: 5, y: 2}
+        - {x: 4, y: 3}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 5
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 1
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces:
+        - {x: 3, y: 2}
+        - {x: 4, y: 2}
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      currUI: {fileID: 0}
+      rigVictoryOrLoss: 1
+      boardSize: 6
+      boardLayout: TutorialRainbowBattleLayout.txt
+      endSteps: []
+      dieStep:
+        stepType: 0
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+    collectPuzzleTutorial:
+      name: Capture
+      steps:
+      - stepType: 5
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: Unlike your world, we mobsters find violence more civil than words
+          when resolving issues
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: Earn the respect of this Goonie and recruit him to your squad by
+          defeating him now!
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      currUI: {fileID: 0}
+      rigVictoryOrLoss: 1
+      boardSize: 6
+      boardLayout: TutorialDropLayout.txt
+      endSteps:
+      - stepType: 0
+        dialogueType: 2
+        dialogue: Check it out! This goonie dropped an orb, which shows you've earned
+          his loyalty.
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 2
+        dialogue: Let's get outta here so I can show you how to put him on your team.
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 7
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 3
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 1
+        dialogue: It's your lucky day guys -- You've just recruited a star to your
+          team without even knowing it.
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 0
+        dialogue: Wow... this is coming from the guy who didn't even shoot back?
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 1
+        dialogue: Typical noob. Any real mobster would've known I was acting. Can
+          you believe this guy?
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 0
+        dialogue: I cannot wait to use you as a meat shield. Let's just assign this
+          guy to your team and get it over with.
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 0
+        dialogue: Click the top bar now to manage your squad.
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 3
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 8
+        dialogueType: 0
+        dialogue: The mobsters at the top are the ones currently assigned to your
+          team.
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 0
+        dialogue: The mobsters at the top are the ones currently assigned to your
+          team.
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 0
+        dialogue: Click here now to assign this Goonie to your squad
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 0
+        dialogue: 'PLACEHOLDER: This is where you need to add the teammate!'
+        needsClick: 1
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 0
+        dialogueType: 0
+        dialogue: Good work. Exit this screen so we can throw this Goonie into battle.
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      - stepType: 3
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+      dieStep:
+        stepType: 0
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+    superEffectiveTutorial:
+      name: Tutorial
+      steps: []
+      currUI: {fileID: 0}
+      rigVictoryOrLoss: 0
+      boardSize: 8
+      boardLayout: 
+      endSteps: []
+      dieStep:
+        stepType: 0
+        dialogueType: 0
+        dialogue: 
+        needsClick: 0
+        spaces: []
+        snap: 0
+        ui: {fileID: 0}
+        paths:
+        - unit: {fileID: 0}
+          path: []
+  TutorialUI:
+    dialogueClickbox: {fileID: 0}
+    arrow: {fileID: 0}
+    leftDialogue: {fileID: 0}
+    rightDialogue: {fileID: 0}
+    puzzleDialogue: {fileID: 0}
+  holdUpEndingCombat: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

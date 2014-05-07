@@ -33,6 +33,7 @@ public class MSMenuPopup : MSPopup {
 		{
 			transform.localPosition = Vector3.zero;
 			base.Popup ();
+			MSMenuTopper.instance.Popup();
 		}
 	}
 
@@ -52,6 +53,7 @@ public class MSMenuPopup : MSPopup {
 		}
 		else
 		{
+			MSMenuTopper.instance.Close(all);
 			foreach (var item in outTweens) 
 			{
 				item.ResetToBeginning();

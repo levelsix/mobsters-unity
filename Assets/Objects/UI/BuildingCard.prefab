@@ -111,8 +111,8 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400016}
-  - 114: {fileID: 11400018}
   - 114: {fileID: 11400026}
+  - 114: {fileID: 11400018}
   m_Layer: 8
   m_Name: BuildingCard
   m_TagString: Untagged
@@ -217,7 +217,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.00961303711, y: -65.9420624, z: 0}
+  m_LocalPosition: {x: -0, y: -66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
@@ -239,7 +239,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 216.018158, y: -320.068878, z: 0}
+  m_LocalPosition: {x: 216.010605, y: -196.007263, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400016}
@@ -382,7 +382,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  mEffectColor: {r: 1, g: 1, b: 1, a: .458823532}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 2
@@ -461,7 +461,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  mEffectColor: {r: 1, g: 1, b: 1, a: .458823532}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 3
@@ -525,7 +525,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  mEffectColor: {r: 1, g: 1, b: 1, a: .458823532}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 2
@@ -590,7 +590,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  mEffectColor: {r: 1, g: 1, b: 1, a: .458823532}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 3
@@ -635,14 +635,14 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 7
-  mWidth: 260
-  mHeight: 386
+  mWidth: 86
+  mHeight: 106
   mDepth: 14
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .673575103
-  mSprite: {fileID: 21300000, guid: e0d63e3945bb64101982f0e61e745f8c, type: 3}
+  aspectRatio: .811320782
+  mSprite: {fileID: 21300000, guid: 30f72b75407cf42d993689c26d02c242, type: 3}
   mMat: {fileID: 0}
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
   nextSprite: {fileID: 0}
@@ -710,7 +710,7 @@ MonoBehaviour:
   tweenTarget: {fileID: 100012}
   hover: {r: 1, g: 1, b: 1, a: 1}
   pressed: {r: .529411793, g: .529411793, b: .529411793, a: 1}
-  disabledColor: {r: .5, g: .5, b: .5, a: 1}
+  disabledColor: {r: .772549033, g: .772549033, b: .772549033, a: 1}
   duration: .200000003
   dragHighlight: 0
   hoverSprite: 
@@ -726,11 +726,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec1a3899468264031ba9c7e8d8e0f8d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 118848a7d5fd441ffa919404bb6c498a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: .600000024
-  dragBehind: {fileID: 0}
+  scrollView: {fileID: 0}
+  draggablePanel: {fileID: 0}
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -892,7 +892,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 1, g: 1, b: 1, a: .80392158}
+  mEffectColor: {r: 1, g: 1, b: 1, a: .458823532}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 3

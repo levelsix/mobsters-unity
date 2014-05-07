@@ -15,14 +15,6 @@ public class MSBuildingMenu : MonoBehaviour {
 	[SerializeField]
 	List<MSBuildingCard> cards;
 
-	MSBuildingCard lastCard
-	{
-		get
-		{
-			return cards[cards.Count - 1];
-		}
-	}
-
 	void OnEnable()
 	{
 		Init();
@@ -45,17 +37,13 @@ public class MSBuildingMenu : MonoBehaviour {
 		}
 
 		table.Reposition();
-
-		table.collider.enabled = false;
-		table.collider.enabled = true;
 	}
 
 	void AddCard()
 	{
 		MSBuildingCard card = Instantiate(buildingCardPrefab) as MSBuildingCard;
-		card.trans.parent = lastCard.trans.parent;
+		card.trans.parent = table.transform;
 		card.trans.localScale = Vector3.one;
-		card.GetComponent<MSUIHelper>().dragBehind = lastCard.GetComponent<MSUIHelper>().dragBehind;
 		cards.Add (card);
 	}
 }

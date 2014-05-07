@@ -517,7 +517,6 @@ public class MSGoonScreen : MonoBehaviour {
 		MSGoonCard card = (MSPoolManager.instance.Get(goonCardPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, dragPanel.transform) as MSSimplePoolable).GetComponent<MSGoonCard>();
 		card.transform.localScale = Vector3.one;
 		card.addRemoveTeamButton.GetComponent<MSUIHelper>().dragBehind = cards[lastReserveCardIndex].addRemoveTeamButton.GetComponent<MSUIHelper>().dragBehind;
-		card.healButton.GetComponent<MSUIHelper>().dragBehind = cards[lastReserveCardIndex].healButton.GetComponent<MSUIHelper>().dragBehind;
 		card.infoPopup = infoPopup;
 		cards.Add (card);
 	}

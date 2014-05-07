@@ -94,7 +94,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	}
 	public Transform transf {
 		get {
-			return trans;
+			return transform;
 		}
 	}
 	public MSCityUnit cityUnit;
