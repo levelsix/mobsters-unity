@@ -11,11 +11,13 @@ using com.lvl6.proto;
 [RequireComponent (typeof (UILabel))]
 public class MSShieldTimer : MonoBehaviour {
 
-	long shieldTime;
+	long shieldTime = long.MaxValue;
 
 	UILabel label;
 
 	bool running = false;
+
+	bool set = false;
 
 	void OnEnable()
 	{
@@ -31,10 +33,16 @@ public class MSShieldTimer : MonoBehaviour {
 	void OnStartup(StartupResponseProto response)
 	{
 		shieldTime = response.sender.pvpLeagueInfo.shieldEndTime;
+		set = true;
 	}
 
 	IEnumerator RunShieldClock()
 	{
+		while (!set)
+		{
+			yield return null;
+		}
+
 		if (label == null)
 		{
 			label = GetComponent<UILabel>();
@@ -56,18 +64,15 @@ public class MSShieldTimer : MonoBehaviour {
 
 				if (timeLeft < 1000)
 				{
-
+					yield return null;
 				}
-
-				//If there is more than a day left, don't bother updating
-				//If there is less than a day, update in an hour
-				if (timeLeft < 1000 * 60 * 60 * 24)
+				else if (timeLeft < 1000 * 60)
 				{
-
+					yield return new WaitForSeconds(1);
 				}
-				else if (timeLeft < 1000 * 60 * 60)
+				else
 				{
-
+					yield return new WaitForSeconds(60);
 				}
 			}
 		}
