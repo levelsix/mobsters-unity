@@ -144,6 +144,24 @@ namespace com.lvl6.proto
       get { return _maxDmgDealt; }
       set { _maxDmgDealt = value; }
     }
+
+    private int _durationMinMinutes = default(int);
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"durationMinMinutes", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int durationMinMinutes
+    {
+      get { return _durationMinMinutes; }
+      set { _durationMinMinutes = value; }
+    }
+
+    private int _durationMaxMinutes = default(int);
+    [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"durationMaxMinutes", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int durationMaxMinutes
+    {
+      get { return _durationMaxMinutes; }
+      set { _durationMaxMinutes = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -196,6 +214,15 @@ namespace com.lvl6.proto
     {
       get { return _timeCompleted; }
       set { _timeCompleted = value; }
+    }
+
+    private int _durationMinutes = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"durationMinutes", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int durationMinutes
+    {
+      get { return _durationMinutes; }
+      set { _durationMinutes = value; }
     }
 
     private com.lvl6.proto.MiniJobProto _miniJob = null;
