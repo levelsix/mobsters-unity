@@ -53,13 +53,17 @@ MonoBehaviour:
   - night
   - rock
   currGems: 
-  gemsOnBoardByType: 0000000000000000000000000000000000000000
   gemsByType: 0
   boardWidth: 8
   boardHeight: 8
   damageNumberPrefab: {fileID: 11400004, guid: 0bde78446e90b4023a26e133a756d3cc, type: 2}
   rocketPrefab: {fileID: 11400000, guid: ac52f9ee03f3e4a2687ddb81918e52e4, type: 2}
   molotovPartPrefab: {fileID: 11400004, guid: 21b4370dac4cf4cfe99d801abf9a2245, type: 2}
+  BASE_FALL_SPEED: -300
+  BASE_BOUNCE_SPEED: 80
+  SECOND_BOUNCE_MODIFIER: .25
+  GRAVITY: -800
+  SWAP_TIME: .200000003
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

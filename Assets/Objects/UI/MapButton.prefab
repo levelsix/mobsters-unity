@@ -68,8 +68,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 53, y: 55, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 41, y: 59, z: 0}
+  m_Center: {x: -.5, y: -.5, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,9 +84,13 @@ MonoBehaviour:
   tweenTarget: {fileID: 100002}
   hover: {r: 1, g: 1, b: 1, a: 1}
   pressed: {r: .433823526, g: .433823526, b: .433823526, a: 1}
-  duration: .200000003
   disabledColor: {r: .5, g: .5, b: .5, a: 1}
+  duration: .200000003
   dragHighlight: 0
+  hoverSprite: 
+  pressedSprite: 
+  disabledSprite: 
+  pixelSnap: 0
   onClick: []
 --- !u!114 &11400002
 MonoBehaviour:
@@ -115,6 +119,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 11
+  updateAnchors: 1
   mColor: {r: 1, g: .92860043, b: .529411793, a: 1}
   mPivot: 4
   mWidth: 146
@@ -130,6 +135,7 @@ MonoBehaviour:
   mText: Training Grounds
   mFontSize: 27
   mFontStyle: 0
+  mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
@@ -175,21 +181,23 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 53
-  mHeight: 55
+  mWidth: 42
+  mHeight: 60
   mDepth: 11
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .963636339
+  aspectRatio: .699999988
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
-  mSpriteName: opencity
+  mSpriteName: opencitypin
   mType: 1
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+  mFlip: 0
   mFillCenter: 1
   centerType: 1
   leftType: 1
@@ -207,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba3474756a364e98911971c494ce2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cityID: 1
+  cityID: 5
   label: {fileID: 11400002}
   sprite: {fileID: 11400004}
 --- !u!1001 &100100000

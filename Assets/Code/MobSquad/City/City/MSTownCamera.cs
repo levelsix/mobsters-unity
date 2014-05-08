@@ -9,6 +9,8 @@ using System.Collections;
 /// </summary>
 public class MSTownCamera : MonoBehaviour, MSIPlaceable
 {
+	public static MSTownCamera instance;
+
 	/// <summary>
 	/// The smallest orthographic size of the camera.
 	/// Once this value is decided, we can make it a constant
@@ -72,6 +74,7 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	{
 		trans = transform;
 		cam = camera;
+		instance = this;
 	}
 	
 	void Start()

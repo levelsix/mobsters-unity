@@ -31,11 +31,13 @@ public class MSResidenceManager : MonoBehaviour {
 		if (FB.IsLoggedIn)
 		{
 			currBuildingId = forBuilding;
+			/*
 			FB.AppRequest(
 				message: "Please respond to my request!",
 				title: "A request from " + MSWhiteboard.localMup.name,
 				callback: RequestCallback
 				);
+				*/
 		}
 	}
 

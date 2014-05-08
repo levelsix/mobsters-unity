@@ -35,7 +35,7 @@ public class PZDeployPopup : MonoBehaviour {
 	{
 		if (!PZCombatManager.instance.pvpMode)
 		{
-			tween.PlayForward();
+			//tween.PlayForward();
 		}
 	}
 
@@ -43,6 +43,11 @@ public class PZDeployPopup : MonoBehaviour {
 	{
 		acting = false;
 		tween.PlayReverse();
+	}
+
+	public void Init()
+	{
+		Init (MSMonsterManager.instance.userTeam);
 	}
 
 	public void Init(UserCurrentMonsterTeamProto userMonsters)

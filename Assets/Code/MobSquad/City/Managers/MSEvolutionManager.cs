@@ -51,7 +51,7 @@ public class MSEvolutionManager : MonoBehaviour {
 		}
 	}
 
-	public bool active
+	public bool hasEvolution
 	{
 		get
 		{

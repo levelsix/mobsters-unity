@@ -479,14 +479,12 @@ public class PZMonster {
 	public float PercentageOfAddedLevelup(int withAddedExp, bool checkFeeders = true)
 	{
 		int currExp = 0;
-		float currPerc = 0;
 		if (checkFeeders)
 		{
 			foreach (var item in MSMonsterManager.instance.enhancementFeeders) 
 			{
 				currExp += item.enhanceXP;
 			}
-			currPerc = PercentageOfAddedLevelup(currExp, false);
 		}
 		currExp += userMonster.currentExp;
 

@@ -65,7 +65,7 @@ public class MSSceneManager : MonoBehaviour {
 			StartCoroutine(FadeToCity());
 			cityState = true;
 		}
-		else
+		else if (MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER)
 		{
 			snapShot.Snap();
 		}
@@ -93,6 +93,7 @@ public class MSSceneManager : MonoBehaviour {
 
 	IEnumerator FadeFromLoading()
 	{
+		loadingState = false;
 		cityParent.SetActive(true);
 		yield return StartCoroutine(Fade (loadingPanel, cityPanel));
 		loadingParent.SetActive(false);

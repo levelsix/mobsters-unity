@@ -31,10 +31,6 @@ public class MSAtlasUtil : MonoBehaviour {
 		if (atlases == null)
 		{
 			atlases = new Dictionary<string, UIAtlas>();
-			foreach (string item in xmls) 
-			{
-				//WarmAtlasDictionaryFromXML(item);
-			}
 		}
 		Caching.CleanCache();
 	}

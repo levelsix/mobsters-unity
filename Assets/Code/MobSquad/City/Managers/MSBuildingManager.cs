@@ -281,8 +281,6 @@ public class MSBuildingManager : MonoBehaviour
 			int numObstacles = (int)((MSUtil.timeNowMillis-MSWhiteboard.localUser.lastObstacleSpawnedTime) / (MSWhiteboard.constants.minutesPerObstacle*60000));
 			numObstacles = Math.Min (MSWhiteboard.constants.maxObstacles - response.obstacles.Count, numObstacles);
 
-			List<MSWalkableSpace> takenSpaces = new List<MSWalkableSpace>();
-
 			for (int i = 0; i < numObstacles; i++)
 			{
 				MinimumObstacleProto obstacle = new MinimumObstacleProto();

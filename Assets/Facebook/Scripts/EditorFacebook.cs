@@ -97,6 +97,8 @@ namespace Facebook
 
         public override void AppRequest(
             string message,
+            OGActionType actionType,
+            string objectId,
             string[] to = null,
             string filters = "",
             string[] excludeIds = null,
@@ -105,7 +107,7 @@ namespace Facebook
             string title = "",
             FacebookDelegate callback = null)
         {
-            fb.AppRequest(message, to, filters, excludeIds, maxRecipients, data, title, callback);
+            fb.AppRequest(message, actionType, objectId, to, filters, excludeIds, maxRecipients, data, title, callback);
         }
 
         public override void FeedRequest(
@@ -239,6 +241,7 @@ namespace Facebook
             accessToken = "";
             fb.AccessToken = "";
             FBComponentFactory.GetComponent<EditorFacebookAccessToken>();
+			FB.hasFailed = true;
         }
 
         #endregion

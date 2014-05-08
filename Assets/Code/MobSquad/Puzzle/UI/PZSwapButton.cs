@@ -4,6 +4,9 @@ using System.Collections;
 public class PZSwapButton : MonoBehaviour {
 
 	[SerializeField]
+	PZDeployPopup deployPopup;
+
+	[SerializeField]
 	UITweener deployTween;
 
 	[SerializeField]
@@ -25,6 +28,7 @@ public class PZSwapButton : MonoBehaviour {
 
 	void OnClick()
 	{
+		deployPopup.Init();
 		deployTween.PlayForward();
 		swapTween.PlayReverse();
 	}

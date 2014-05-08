@@ -13,8 +13,8 @@ public class MSMapButton : MonoBehaviour {
 	[SerializeField]
 	UISprite sprite;
 
-	const string OPEN_CITY = "opencity";
-	const string CLOSED_CITY = "closedcity";
+	const string OPEN_CITY = "opencitypin";
+	const string CLOSED_CITY = "closedcitypin";
 
 	void OnEnable()
 	{
@@ -31,6 +31,7 @@ public class MSMapButton : MonoBehaviour {
 				sprite.spriteName = CLOSED_CITY;
 				label.text = " ";
 			}
+			sprite.MakePixelPerfect();
 		}
 	}
 
@@ -38,30 +39,32 @@ public class MSMapButton : MonoBehaviour {
 	{
 		if (cityID >= 1)
 		{
-			GoToTown();
-			//CBKEventManager.Popup.CreateButtonPopup("Go to Town " + cityID + "?", new string[]{"Yes", "No"}, new Action[]{GoToTown, CBKEventManager.Popup.CloseAllPopups});
+			StartCoroutine(GoToTown());
 		}
 		else
 		{
-			GoHome();
-			//CBKEventManager.Popup.CreateButtonPopup("Go Home?", new string[]{"Yes", "No"}, new Action[]{GoHome, CBKEventManager.Popup.CloseAllPopups});
+			StartCoroutine(GoHome());
 		}
 	}
 	
-	void GoToTown()
+	IEnumerator GoToTown()
 	{
 		MSWhiteboard.currCityType = MSWhiteboard.CityType.NEUTRAL;
 		MSWhiteboard.cityID = cityID;
+
+		yield return StartCoroutine(MSBuildingManager.instance.LoadNeutralCity(cityID));
+
 		MSActionManager.Popup.CloseAllPopups();
-		MSActionManager.Loading.LoadBuildings();
 	}
 	
-	void GoHome()
+	IEnumerator GoHome()
 	{	
 		MSWhiteboard.currCityType = MSWhiteboard.CityType.PLAYER;
 		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
+
+		yield return StartCoroutine(MSBuildingManager.instance.LoadPlayerCity());
+
 		MSActionManager.Popup.CloseAllPopups();
-		MSActionManager.Loading.LoadBuildings();	
 	}
 	
 }

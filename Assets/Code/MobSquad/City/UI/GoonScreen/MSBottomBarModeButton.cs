@@ -26,9 +26,6 @@ public class MSBottomBarModeButton : MonoBehaviour {
 	Color onColor;
 
 	[SerializeField]
-	bool active = false;
-
-	[SerializeField]
 	float onOffset = 2;
 
 	[SerializeField]

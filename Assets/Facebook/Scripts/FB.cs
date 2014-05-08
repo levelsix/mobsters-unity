@@ -159,11 +159,7 @@ public sealed class FB : ScriptableObject
     private static void OnDllLoaded()
     {
         var versionInfo = FBBuildVersionAttribute.GetVersionAttributeOfType(FacebookImpl.GetType());
-        if (versionInfo == null)
-        {
-            FbDebug.Warn("Finished loading Facebook dll, but could not find version info");
-        }
-        else
+        if (versionInfo != null)
         {
             FbDebug.Log(string.Format("Finished loading Facebook dll. Version {0} Build {1}", versionInfo.SdkVersion, versionInfo.BuildVersion));
         }
@@ -194,6 +190,32 @@ public sealed class FB : ScriptableObject
 
     public static void AppRequest(
             string message,
+            OGActionType actionType,
+            string objectId,
+            string[] to,
+            string data = "",
+            string title = "",
+            FacebookDelegate callback = null)
+    {
+        FacebookImpl.AppRequest(message, actionType, objectId, to, null, null, null, data, title, callback);
+    }
+
+    public static void AppRequest(
+            string message,
+            OGActionType actionType,
+            string objectId,
+            string filters = "",
+            string[] excludeIds = null,
+            int? maxRecipients = null,
+            string data = "",
+            string title = "",
+            FacebookDelegate callback = null)
+    {
+        FacebookImpl.AppRequest(message, actionType, objectId, null, filters, excludeIds, maxRecipients, data, title, callback);
+    }
+
+    public static void AppRequest(
+            string message,
             string[] to = null,
             string filters = "",
             string[] excludeIds = null,
@@ -202,7 +224,7 @@ public sealed class FB : ScriptableObject
             string title = "",
             FacebookDelegate callback = null)
     {
-        FacebookImpl.AppRequest(message, to, filters, excludeIds, maxRecipients, data, title, callback);
+        FacebookImpl.AppRequest(message, null, null, to, filters, excludeIds, maxRecipients, data, title, callback);
     }
 
     public static void Feed(
@@ -357,7 +379,20 @@ public sealed class FB : ScriptableObject
                 yield break;
             }
 
+#if !UNITY_WINRT
+#if UNITY_4_5
+            var authTokenWww = new WWW(IntegratedPluginCanvasLocation.KeyUrl);
+            yield return authTokenWww;
+            if (authTokenWww.error != null)
+            {
+                FbDebug.Error("Cannot load from " + IntegratedPluginCanvasLocation.KeyUrl + ": " + authTokenWww.error);
+                authTokenWww.Dispose();
+                yield break;
+            }
+            var assembly = Security.LoadAndVerifyAssembly(www.bytes, authTokenWww.text);
+#else
             var assembly = Security.LoadAndVerifyAssembly(www.bytes);
+#endif
             if (assembly == null)
             {
                 FbDebug.Error("Could not securely load assembly from " + url);
@@ -388,6 +423,7 @@ public sealed class FB : ScriptableObject
             }
 
             callback(fb);
+#endif
             www.Dispose();
         }
 

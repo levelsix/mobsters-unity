@@ -102,7 +102,7 @@ public class MSClanEventManager : MonoBehaviour {
 		request.clanEventId = persisEvent.clanEventId;
 		request.isFirstStage = true;
 		
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_CLAN_RAID_EVENT, DealWithBeginResponse);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_CLAN_RAID_EVENT, DealWithBeginResponse);
 	}
 
 	public IEnumerator SetRaidTeam()

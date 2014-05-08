@@ -18,7 +18,9 @@ public class MSDataManager : MonoBehaviour {
 	/// A dictionary that maps types to lists of their 
 	/// </summary>
 	static Dictionary<Type, Dictionary<int, object>> dataDict = new Dictionary<Type, Dictionary<int,object>>();
-	
+
+	static Dictionary<int, List<MonsterBattleDialogueProto>> dialogues = new Dictionary<int, List<MonsterBattleDialogueProto>>();
+
 	bool enemiesDone = false;
 	
 	bool loadComplete{
@@ -231,7 +233,11 @@ public class MSDataManager : MonoBehaviour {
 		}
 		foreach (var item in data.mbds) 
 		{
-			//Need to do something special for these!
+			if (!dialogues.ContainsKey(item.monsterId))
+			{
+				dialogues.Add(item.monsterId, new List<MonsterBattleDialogueProto>());
+			}
+			dialogues[item.monsterId].Add(item);
 		}
 		foreach (var item in data.items) 
 		{
@@ -244,6 +250,14 @@ public class MSDataManager : MonoBehaviour {
 		foreach (var item in data.clanIcons) 
 		{
 			Load(item, item.clanIconId);
+		}
+		foreach (var item in data.leagues) 
+		{
+			Load(item, item.leagueId);
+		}
+		foreach (var item in data.achievements) 
+		{
+			Load (item, item.achievementId);
 		}
 	}
 }

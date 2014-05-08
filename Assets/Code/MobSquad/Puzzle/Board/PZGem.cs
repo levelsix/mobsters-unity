@@ -99,16 +99,6 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	
 	const float SPACE_SIZE = 72;
 	
-	const float BASE_FALL_SPEED = -250;
-
-	const float BASE_BOUNCE_SPEED = 80;
-
-	const float SECOND_BOUNCE_MODIFIER = .25f;
-	
-	const float GRAVITY = -600f;
-	
-	const float SWAP_TIME = .2f;
-	
 	public int colorIndex = 0;
 
 	public bool lockedBySpecial = false;
@@ -317,32 +307,32 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	{
 		moving = true;
 		PZPuzzleManager.instance.OnStartMoving(this);
-		float fallSpeed = BASE_FALL_SPEED;
+		float fallSpeed = PZPuzzleManager.instance.BASE_FALL_SPEED;
 		while(trans.localPosition.y > boardY * SPACE_SIZE)
 		{
 			yield return null;
-			fallSpeed += GRAVITY * Time.deltaTime;
+			fallSpeed += PZPuzzleManager.instance.GRAVITY * Time.deltaTime;
 			trans.localPosition = new Vector3(trans.localPosition.x,
 				trans.localPosition.y + fallSpeed * Time.deltaTime, -1);
 		}
 		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1, -1);
 
-		fallSpeed = BASE_BOUNCE_SPEED;
+		fallSpeed = PZPuzzleManager.instance.BASE_BOUNCE_SPEED;
 		while(trans.localPosition.y > boardY * SPACE_SIZE)
 		{
 			yield return null;
-			fallSpeed += GRAVITY * Time.deltaTime;
+			fallSpeed += PZPuzzleManager.instance.GRAVITY * Time.deltaTime;
 			trans.localPosition = new Vector3(trans.localPosition.x,
 			                                  trans.localPosition.y + fallSpeed * Time.deltaTime,
 			                                  -1);
 		}
 		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1, -1);
 
-		fallSpeed = BASE_BOUNCE_SPEED * SECOND_BOUNCE_MODIFIER;
+		fallSpeed = PZPuzzleManager.instance.BASE_BOUNCE_SPEED * PZPuzzleManager.instance.SECOND_BOUNCE_MODIFIER;
 		while(trans.localPosition.y > boardY * SPACE_SIZE)
 		{
 			yield return null;
-			fallSpeed += GRAVITY * Time.deltaTime;
+			fallSpeed += PZPuzzleManager.instance.GRAVITY * Time.deltaTime;
 			trans.localPosition = new Vector3(trans.localPosition.x,
 			                                  trans.localPosition.y + fallSpeed * Time.deltaTime,
 			                                  -1);
@@ -514,10 +504,10 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		Vector3 startPos = trans.localPosition;
 		Vector3 endPos = trans.localPosition + SPACE_SIZE * dirVals[dir];
 		float currTime = 0;
-		while (currTime < SWAP_TIME)
+		while (currTime < PZPuzzleManager.instance.SWAP_TIME)
 		{
 			currTime += Time.deltaTime;
-			trans.localPosition = Vector3.Lerp(startPos, endPos, currTime/SWAP_TIME);
+			trans.localPosition = Vector3.Lerp(startPos, endPos, currTime/PZPuzzleManager.instance.SWAP_TIME);
 			yield return null;
 		}
 		boardX += (int)Mathf.Round(dirVals[dir].x);

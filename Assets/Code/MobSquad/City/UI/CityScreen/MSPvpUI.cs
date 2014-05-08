@@ -11,7 +11,7 @@ using com.lvl6.proto;
 public class MSPvpUI : MonoBehaviour {
 
 	[SerializeField]
-	UILabel name;
+	UILabel nameLabel;
 
 	[SerializeField]
 	UILabel money;
@@ -31,7 +31,7 @@ public class MSPvpUI : MonoBehaviour {
 	public void Init(PvpProto defender)
 	{
 
-		name.text = defender.defender.minUserProto.name;
+		nameLabel.text = defender.defender.minUserProto.name;
 
 		money.text = "$" + defender.prospectiveCashWinnings;
 

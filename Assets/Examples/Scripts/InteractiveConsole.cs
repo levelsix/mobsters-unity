@@ -98,13 +98,14 @@ public sealed class InteractiveConsole : MonoBehaviour
         string[] excludeIds = (FriendSelectorExcludeIds == "") ? null : FriendSelectorExcludeIds.Split(',');
 
         FB.AppRequest(
-            message: FriendSelectorMessage,
-            filters: FriendSelectorFilters,
-            excludeIds: excludeIds,
-            maxRecipients: maxRecipients,
-            data: FriendSelectorData,
-            title: FriendSelectorTitle,
-            callback: Callback
+            FriendSelectorMessage,
+            null,
+            FriendSelectorFilters,
+            excludeIds,
+            maxRecipients,
+            FriendSelectorData,
+            FriendSelectorTitle,
+            Callback
         );
     }
     #endregion
@@ -122,10 +123,14 @@ public sealed class InteractiveConsole : MonoBehaviour
             throw new ArgumentException("\"To Comma Ids\" must be specificed", "to");
         }
         FB.AppRequest(
-            message: DirectRequestMessage,
-            to: DirectRequestTo.Split(','),
-            title: DirectRequestTitle,
-            callback: Callback
+            DirectRequestMessage,
+            DirectRequestTo.Split(','),
+            "",
+            null,
+            null,
+            "",
+            DirectRequestTitle,
+            Callback
         );
     }
 
@@ -276,7 +281,7 @@ public sealed class InteractiveConsole : MonoBehaviour
     private Texture2D lastResponseTexture;
 
     private Vector2 scrollPosition = Vector2.zero;
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
     int buttonHeight = 60;
     int mainWindowWidth = Screen.width - 30;
     int mainWindowFullWidth = Screen.width;
@@ -290,7 +295,7 @@ public sealed class InteractiveConsole : MonoBehaviour
     {
         get
         {
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
             return IsHorizontalLayout() ? Screen.height : 85;
 #else
         return Screen.height;
@@ -320,7 +325,7 @@ public sealed class InteractiveConsole : MonoBehaviour
         GUILayout.Space(5);
         GUILayout.Box("Status: " + status, GUILayout.MinWidth(mainWindowWidth));
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             scrollPosition.y += Input.GetTouch(0).deltaPosition.y;
@@ -345,7 +350,7 @@ public sealed class InteractiveConsole : MonoBehaviour
             status = "Login called";
         }
 
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
         GUI.enabled = FB.IsLoggedIn;
         if (Button("Logout"))
         {
@@ -580,7 +585,7 @@ public sealed class InteractiveConsole : MonoBehaviour
 
     private bool IsHorizontalLayout()
     {
-#if UNITY_IOS || UNITY_ANDROID
+#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
         return Screen.orientation == ScreenOrientation.Landscape;
 #else
         return true;

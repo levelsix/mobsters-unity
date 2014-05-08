@@ -229,12 +229,22 @@ frictionlessRequests:(bool)_frictionlessRequests
 
 
 - (BOOL)openURL:(NSURL*)url sourceApplication:(NSString*)sourceApplication {
-  bool res = [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:self.session];
+  __block bool hasDeepLink = false;
+  bool fbhandled = [FBAppCall handleOpenURL:url
+                        sourceApplication:sourceApplication
+                        withSession:self.session
+                        fallbackHandler:^(FBAppCall *call) {
+    // Handler is called when FB SDK does consume a url, but only partially
+    hasDeepLink = true;
+  }];
+
   [FBSession setActiveSession:self.session];
-  self.launchURL = [url absoluteString];
-  iosGetDeepLink();
+  if (hasDeepLink || !fbhandled) {
+    self.launchURL = [url absoluteString];
+    iosGetDeepLink();
+  }
   
-  return res;
+  return fbhandled;
 }
 
 
@@ -397,6 +407,8 @@ void iosSetShareDialogMode(NativeDialogModes::eModes mode) {
 
 void iosAppRequest(int requestId,
                    const char *message,
+                   const char *actionType,
+                   const char *objectId,
                    const char **to,
                    int toLength,
                    const char *filters,
@@ -408,6 +420,10 @@ void iosAppRequest(int requestId,
                    const char *title) {
   NSMutableDictionary *params = [NSMutableDictionary dictionary];
   addCStrToNsDict(params, "message", message);
+  if (actionType != nil && objectId != nil) {
+    addCStrToNsDict(params, "action_type", actionType);
+    addCStrToNsDict(params, "object_id", objectId);
+  }
   addCStrToNsDict(params, "filters", filters);
   addCStrToNsDict(params, "data", data);
   addCStrToNsDict(params, "title", title);

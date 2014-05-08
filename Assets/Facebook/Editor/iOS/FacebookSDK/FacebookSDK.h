@@ -135,5 +135,5 @@
 
  */
 
-#define FB_IOS_SDK_VERSION_STRING @"3.11.0/Unity.5.0.2"
+#define FB_IOS_SDK_VERSION_STRING @"3.11.0/Unity.5.1.0"
 

@@ -725,7 +725,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		else if (!selected)
 		{
 			tweenScale.ResetToBeginning();
-			tweenScale.Play();
+			tweenScale.PlayForward();
 
 			_originalPos = trans.position;
 			_tempPos = trans.position;

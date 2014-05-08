@@ -200,10 +200,11 @@ namespace UnityEditor.FacebookEditor
 
         private static XmlElement CreateUnityLoginElement(XmlDocument doc, string ns)
         {
-            //<activity android:name="com.facebook.unity.FBUnityLoginActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            //<activity android:name="com.facebook.unity.FBUnityLoginActivity" android:configChanges="all|of|them" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             //</activity>
             XmlElement activityElement = doc.CreateElement("activity");
             activityElement.SetAttribute("name", ns, UnityLoginActivityName);
+            activityElement.SetAttribute("configChanges", ns, "fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen");
             activityElement.SetAttribute("theme", ns, "@android:style/Theme.Translucent.NoTitleBar.Fullscreen");
             activityElement.InnerText = "\n    ";  //be extremely anal to make diff tools happy
             return activityElement;

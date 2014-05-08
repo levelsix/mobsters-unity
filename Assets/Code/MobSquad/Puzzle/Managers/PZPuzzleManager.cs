@@ -105,6 +105,16 @@ public class PZPuzzleManager : MonoBehaviour {
 	[SerializeField]
 	PZMolotovPart molotovPartPrefab;
 
+	public float BASE_FALL_SPEED = -250;
+	
+	public float BASE_BOUNCE_SPEED = 80;
+	
+	public float SECOND_BOUNCE_MODIFIER = .25f;
+	
+	public float GRAVITY = -600f;
+	
+	public float SWAP_TIME = .2f;
+
 	public void Awake()
 	{
 		instance = this;

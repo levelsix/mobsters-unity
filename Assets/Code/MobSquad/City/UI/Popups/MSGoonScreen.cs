@@ -311,7 +311,7 @@ public class MSGoonScreen : MonoBehaviour {
 		MSActionManager.Goon.OnMonsterListChanged -= OrganizeReserveCards;
 		MSActionManager.Goon.OnMonsterRemoveQueue -= OnQueueChanged;
 
-		if (!MSEvolutionManager.instance.active)
+		if (!MSEvolutionManager.instance.hasEvolution)
 		{
 			MSEvolutionManager.instance.currEvolution = null;
 		}

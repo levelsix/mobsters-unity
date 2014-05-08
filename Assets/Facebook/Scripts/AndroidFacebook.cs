@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -71,7 +70,7 @@ namespace Facebook
         protected override void OnAwake()
         {
             keyHash = "";
-#if DEBUG
+#if UNITY_ANDROID && DEBUG
             AndroidJNIHelper.debug = true;
 #endif
         }
@@ -202,6 +201,8 @@ namespace Facebook
 
         public override void AppRequest(
             string message,
+            OGActionType actionType,
+            string objectId,
             string[] to = null,
             string filters = "",
             string[] excludeIds = null,
@@ -210,7 +211,23 @@ namespace Facebook
             string title = "",
             FacebookDelegate callback = null)
         {
-            Dictionary<string, object> paramsDict = new Dictionary<string, object>();
+
+            if (string.IsNullOrEmpty(message))
+            {
+                throw new ArgumentNullException("message", "message cannot be null or empty!");
+            }
+
+            if (actionType != null && string.IsNullOrEmpty(objectId))
+            {
+                throw new ArgumentNullException("objectId", "You cannot provide an actionType without an objectId");
+            }
+
+            if (actionType == null && !string.IsNullOrEmpty(objectId))
+            {
+                throw new ArgumentNullException("actionType", "You cannot provide an objectId without an actionType");
+            }
+
+            var paramsDict = new Dictionary<string, object>();
             // Marshal all the above into the thing
 
             paramsDict["message"] = message;
@@ -218,6 +235,12 @@ namespace Facebook
             if (callback != null)
             {
                 paramsDict["callback_id"] = AddFacebookDelegate(callback);
+            }
+
+            if (actionType != null && !string.IsNullOrEmpty(objectId))
+            {
+                paramsDict["action_type"] = actionType.ToString();
+                paramsDict["object_id"] = objectId;
             }
 
             if (to != null)

@@ -64,7 +64,7 @@ public class MSEvolutionElements : MonoBehaviour {
 
 		if (MSEvolutionManager.instance.ready)
 		{
-			if (MSEvolutionManager.instance.active)
+			if (MSEvolutionManager.instance.hasEvolution)
 			{
 				SetGemButton();
 			}
@@ -81,7 +81,7 @@ public class MSEvolutionElements : MonoBehaviour {
 
 	void Update()
 	{
-		if (MSEvolutionManager.instance.active)
+		if (MSEvolutionManager.instance.hasEvolution)
 		{
 			finalTimeLabel.text = MSUtil.TimeStringShort(MSEvolutionManager.instance.timeLeftMillis);
 			button.label.text = "(G)" + Mathf.CeilToInt((MSEvolutionManager.instance.timeLeftMillis/6000f) / MSWhiteboard.constants.minutesPerGem);
@@ -119,7 +119,7 @@ public class MSEvolutionElements : MonoBehaviour {
 	{
 		if (MSEvolutionManager.instance.ready)
 		{
-			if (MSEvolutionManager.instance.active)
+			if (MSEvolutionManager.instance.hasEvolution)
 			{
 				MSEvolutionManager.instance.FinishWithGems();
 			}

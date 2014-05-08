@@ -11,7 +11,23 @@ public class PZScrollingBackground : MonoBehaviour {
 
 	public SpriteRenderer[] sprites;
 
-	public Vector3 direction;
+	Vector3 _direction = Vector3.zero;
+
+	public Vector3 direction
+	{
+		get
+		{
+			if (_direction == Vector3.zero)
+			{
+				_direction = (backgrounds[0].transf.localPosition - backgrounds[1].transf.localPosition).normalized;
+			}
+			return _direction;
+		}
+		set
+		{
+			_direction = value;
+		}
+	}
 	
 	[SerializeField]
 	MSSimplePoolable topPrefab;
