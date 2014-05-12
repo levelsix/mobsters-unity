@@ -78,7 +78,7 @@ public class MSBuildingCard : MonoBehaviour {
 
 		description.text = proto.structInfo.description;
 
-		buildingSprite.sprite2D = MSAtlasUtil.instance.GetBuildingSprite(proto.structInfo.imgName);
+		buildingSprite.sprite2D = MSSpriteUtil.instance.GetBuildingSprite(proto.structInfo.imgName);
 		if (buildingSprite.sprite2D != null)
 		{
 			buildingSprite.width = (int)buildingSprite.sprite2D.rect.width;

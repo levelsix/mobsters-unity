@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -49,7 +49,7 @@ public class MSRaidListEntry : MonoBehaviour {
 				name = "active " + info.clanRaidId;
 			}
 
-			background.sprite2D = MSAtlasUtil.instance.GetSprite("Raid/" + MSUtil.StripExtensions(raid.activeBackgroundImgName));
+			background.sprite2D = MSSpriteUtil.instance.GetSprite("Raid/" + MSUtil.StripExtensions(raid.activeBackgroundImgName));
 			if (background.sprite2D != null)
 			{
 				background.height = (int)background.sprite2D.textureRect.height;
@@ -78,7 +78,7 @@ public class MSRaidListEntry : MonoBehaviour {
 			activeDescription.text = " ";
 			activeTimeLeft.text = " ";
 
-			background.sprite2D = MSAtlasUtil.instance.GetSprite("Raid/" + lockedBackground);
+			background.sprite2D = MSSpriteUtil.instance.GetSprite("Raid/" + lockedBackground);
 			if (background.sprite2D != null)
 			{
 				background.height = (int)background.sprite2D.textureRect.height;
@@ -89,7 +89,7 @@ public class MSRaidListEntry : MonoBehaviour {
 				background.height = background.width = 0;
 			}
 			
-			face.sprite2D = MSAtlasUtil.instance.GetSprite("Raid/" + MSUtil.StripExtensions(raid.inactiveMonsterImgName));
+			face.sprite2D = MSSpriteUtil.instance.GetSprite("Raid/" + MSUtil.StripExtensions(raid.inactiveMonsterImgName));
 			if (face.sprite2D != null)
 			{
 				face.height = (int)face.sprite2D.textureRect.height;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -29,7 +29,7 @@ public class MSRaidScreen : MonoBehaviour {
 
 	public void Init(ClanRaidProto raid, PersistentClanEventProto info, PersistentClanEventClanInfoProto clanRaidInfo = null)
 	{
-		enemy.sprite2D = MSAtlasUtil.instance.GetSprite("Raid/" + MSUtil.StripExtensions(raid.spotlightMonsterImgName));
+		enemy.sprite2D = MSSpriteUtil.instance.GetSprite("Raid/" + MSUtil.StripExtensions(raid.spotlightMonsterImgName));
 		raidName.text = raid.clanRaidName;
 		dialogue.text = raid.dialogueText;
 

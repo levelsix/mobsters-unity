@@ -29,7 +29,7 @@ public class MSGachaReveal : MonoBehaviour {
 		if (prize.monsterId > 0)
 		{
 			MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(prize.monsterId);
-			goonSprite.sprite2D = MSAtlasUtil.instance.GetMobsterSprite(monster.imagePrefix);
+			goonSprite.sprite2D = MSSpriteUtil.instance.GetMobsterSprite(monster.imagePrefix);
 			description.text = monster.description;
 			rarityTag.spriteName = monster.quality.ToString().ToLower() + "gtag";
 			raritylabel.text = monster.quality.ToString();
@@ -37,7 +37,7 @@ public class MSGachaReveal : MonoBehaviour {
 		}
 		else
 		{
-			goonSprite.sprite2D = MSAtlasUtil.instance.GetSprite(gemCasePath);
+			goonSprite.sprite2D = MSSpriteUtil.instance.GetSprite(gemCasePath);
 			description.text = prize.gemReward + " gems";
 			rarityTag.spriteName = "";
 			raritylabel.text = "";

@@ -357,7 +357,7 @@ public class MSQuestLog : MonoBehaviour {
 		
 		questGiver.GetComponent<TweenPosition>().PlayForward();
 		questGiver.GetComponent<MSUIHelper>().FadeIn();
-		questGiver.sprite2D = MSAtlasUtil.instance.GetSprite("Quest/HD/" + MSUtil.StripExtensions(quest.quest.questGiverImagePrefix) + "Big");
+		questGiver.sprite2D = MSSpriteUtil.instance.GetSprite("Quest/HD/" + MSUtil.StripExtensions(quest.quest.questGiverImagePrefix) + "Big");
 
 		GetComponent<TweenPosition>().PlayForward();
 

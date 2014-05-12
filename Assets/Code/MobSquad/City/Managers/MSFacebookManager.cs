@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using Facebook;
+using Facebook.MiniJSON;
+using System.Collections.Generic;
 
 public class MSFacebookManager : MonoBehaviour {
 	
@@ -73,6 +76,34 @@ public class MSFacebookManager : MonoBehaviour {
 		}
 		hasTriedLogin = true;
 	}
+
+	[ContextMenu ("Try Friends")]
+	public void TryLoadFriends()
+	{
+		if (isLoggedIn)
+		{
+			FB.API("/me/friends", Facebook.HttpMethod.GET, LoadFriendsCallback);
+		}
+	}
+
+	void LoadFriendsCallback(FBResult result)
+	{
+		if (result.Error != null)
+		{
+			Debug.LogError("Problem getting friends, trying again...");
+			FB.API("/me/friends", Facebook.HttpMethod.GET, LoadFriendsCallback);
+			return;
+		}
+
+		Dictionary<string, object> friends = Json.Deserialize(result.Text) as Dictionary<string, object>;
+
+		foreach (var item in (friends["data"] as List<object>)) 
+		{
+			Debug.Log("Item: " + item);
+		}
+	}
+
+			    
 	
 	
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -20,7 +20,7 @@ public class MSDialogueUI : MonoBehaviour {
 
 	public IEnumerator BringInMobster(string mobsterImgName, string mobsterName, string dialogue)
 	{
-		mobster.sprite2D = MSAtlasUtil.instance.GetMobsterSprite(mobsterImgName);
+		mobster.sprite2D = MSSpriteUtil.instance.GetMobsterSprite(mobsterImgName);
 
 		mobsterTween.PlayForward();
 
