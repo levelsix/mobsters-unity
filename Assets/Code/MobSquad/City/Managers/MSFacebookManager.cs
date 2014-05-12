@@ -7,6 +7,8 @@ using System.Collections.Generic;
 public class MSFacebookManager : MonoBehaviour {
 	
 	public static MSFacebookManager instance;
+
+	public List<MSFacebookFriend> friends = new List<MSFacebookFriend>();
 	
 	public static bool hasTriedLogin = false;
 	
@@ -73,6 +75,7 @@ public class MSFacebookManager : MonoBehaviour {
 		if (isLoggedIn)
 		{
 			Debug.Log("Logged in as: " + FB.UserId);
+			TryLoadFriends();
 		}
 		hasTriedLogin = true;
 	}
@@ -82,7 +85,7 @@ public class MSFacebookManager : MonoBehaviour {
 	{
 		if (isLoggedIn)
 		{
-			FB.API("/me/friends", Facebook.HttpMethod.GET, LoadFriendsCallback);
+			FB.API("me/friends?fields=installed,name,picture,id", Facebook.HttpMethod.GET, LoadFriendsCallback);
 		}
 	}
 
@@ -91,16 +94,62 @@ public class MSFacebookManager : MonoBehaviour {
 		if (result.Error != null)
 		{
 			Debug.LogError("Problem getting friends, trying again...");
-			FB.API("/me/friends", Facebook.HttpMethod.GET, LoadFriendsCallback);
+			FB.API("me/friends?fields=installed,name,picture,id", Facebook.HttpMethod.GET, LoadFriendsCallback);
 			return;
 		}
 
-		Dictionary<string, object> friends = Json.Deserialize(result.Text) as Dictionary<string, object>;
+		Dictionary<string, object> friendsDict = Json.Deserialize(result.Text) as Dictionary<string, object>;
 
-		foreach (var item in (friends["data"] as List<object>)) 
+		List<object> friendsData = friendsDict["data"] as List<object>;
+
+		string name = "";
+		string id = "";
+		string url = "";
+		bool installed;
+		foreach (var item in friendsData)
 		{
-			Debug.Log("Item: " + item);
+			installed = false;
+			foreach (var thing in (item as Dictionary<string, object>))
+			{
+				switch(thing.Key)
+				{
+				case "name":
+					name = thing.Value as string;
+					break;
+				case "id":
+					id = thing.Value as string;
+					break;
+				case "picture":
+					url = (((thing.Value as Dictionary<string, object>)["data"]) as Dictionary<string, object>)["url"] as string;
+					break;
+				case "installed":
+					installed = true;
+					break;
+				default:
+					break;
+				}
+
+				//Debug.Log("Key: " + thing.Key + ", Value: " + thing.Value);
+			}
+
+			friends.Add(new MSFacebookFriend(name, id, url, installed));
 		}
+
+		foreach(var friend in friends)
+		{
+			Debug.Log(friend);
+		}
+
+		Debug.Log("Num friends: " + friendsData.Count);
+
+		/*
+		Dictionary<string, object> friendDict = friendsData[0] as Dictionary<string, object>;
+
+		foreach (var item in friendDict) 
+		{
+			Debug.Log("Key: " + item.Key + ", Value: " + item.Value);
+		}
+		*/
 	}
 
 			    
