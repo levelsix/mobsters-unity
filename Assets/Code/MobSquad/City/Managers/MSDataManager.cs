@@ -204,6 +204,11 @@ public class MSDataManager : MonoBehaviour {
 			MSFullBuildingProto building = new MSFullBuildingProto(item);
 			Load(building, building.id);
 		}
+		foreach (var item in data.allMiniJobCenters)
+		{
+			MSFullBuildingProto building = new MSFullBuildingProto(item);
+			Load (building, building.id);
+		}
 		foreach (var item in data.allTasks) 
 		{
 			Load(item, item.taskId);
