@@ -167,21 +167,21 @@ public class MSBottomBar : MonoBehaviour {
 
 	void FillBoxes(List<PZMonster> monsters)
 	{
-		Debug.Log("Filling slots: " + numSlots);
+		//Debug.Log("Filling slots: " + numSlots);
 
 		int i;
 		for (i = 0; i < monsters.Count; i++) 
 		{
-			Debug.Log("Box: " + i);
+			//Debug.Log("Box: " + i);
 			AddBox (monsters[i], (int.MaxValue - i));
 		}
 		for (;i < numSlots; i++)
 		{
-			Debug.Log("Empty: " + i);
+			//Debug.Log("Empty: " + i);
 			AddEmpty((int.MaxValue - i));
 		}
 
-		Debug.Log("Repositioning");
+		//Debug.Log("Repositioning");
 		//boxParent.animateSmoothly = false;
 		boxParent.Reposition();
 	}
@@ -368,7 +368,7 @@ public class MSBottomBar : MonoBehaviour {
 			currSellValue -= box.monster.sellValue;
 		}
 		
-		Debug.Log("Queue removing: " + box.monster.monster.name);
+		//Debug.Log("Queue removing: " + box.monster.monster.name);
 		
 		boxes.Remove(box);
 		

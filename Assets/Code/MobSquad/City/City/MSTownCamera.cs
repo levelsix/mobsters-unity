@@ -45,8 +45,6 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	/// </summary>
 	const float CAMERA_ZOOM_SCALE = .2f;
 	
-	public Vector3 worldPosition;
-	
     /// <summary>
     /// This camera's transform, 
     /// </summary>
@@ -62,9 +60,15 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 
 	const float CAMERA_BASE_HOME_Y = 20.2f;
 	const float CAMERA_BASE_MISSION_Y = 19.6f;
+
+	[SerializeField] float deceleration = .7f;
+
+	Vector3 velocity = Vector3.zero;
 	
 	public float maxY;
 	public float maxX;
+
+	[SerializeField] UILabel debug;
 	
 	/// <summary>
 	/// Awake this instance.
@@ -114,24 +118,26 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	/// </param>
 	virtual public void MoveRelative(TCKTouchData touch)
 	{
-		Vector3 movement = touch.delta;
-		
-        //Turn the mouse difference in screen coordinates to world coordinates
-        movement.y *= DRAG_COEFF * (Camera.main.orthographicSize / Screen.height);
-        movement.x *= DRAG_COEFF * (Camera.main.orthographicSize / Screen.width) * X_DRAG_FUDGE;
 
-        //Turn the 2D coordinates into our tilted isometric coordinates
-		/*
-        movement.z = movement.y - movement.x;
-        movement.x = movement.x + movement.y;
-        movement.y = 0;
-		*/
+		velocity = touch.delta;
+		
+	}
+
+	void MoveVelocity()
+	{
+		Vector3 movement = velocity;
+
+		//Turn the mouse difference in screen coordinates to world coordinates
+		movement.y *= DRAG_COEFF * (cam.orthographicSize / Screen.height);
+		movement.x *= DRAG_COEFF * (cam.orthographicSize / Screen.width) * X_DRAG_FUDGE;
+
+		//Flip the directions, since we want to move the camera in the opposite
+		//directions to the touch movement
 		movement *= -1;
-
-        //Add the difference to the original position, since we only hold original mouse pos
-        trans.localPosition += movement;
-		ClampCamera();
 		
+		//Add the difference to the original position, since we only hold original mouse pos
+		trans.localPosition += movement;
+		ClampCamera();
 	}
 
 	void SetBounds ()
@@ -179,7 +185,7 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 
 	void Reset()
 	{
-		Debug.Log("Camera reset: " + MSWhiteboard.currCityType.ToString());
+		//Debug.Log("Camera reset: " + MSWhiteboard.currCityType.ToString());
 		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL)
 		{
 			trans.parent.localPosition = new Vector3(0, CAMERA_BASE_MISSION_Y);
@@ -194,15 +200,19 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		SetBounds();
 	}
 
-#if UNITY_EDITOR
 	/// <summary>
 	/// Update this instance.
 	/// Cheats to zoom the camera in/out when on computer
 	/// </summary>
 	void Update()
 	{
-		worldPosition = trans.localPosition;
+		if (velocity.sqrMagnitude > 0)
+		{
+			MoveVelocity ();
+			velocity *= deceleration;
+		}
 		
+		#if UNITY_EDITOR
 		if (Input.GetKey(KeyCode.K))
 		{
 			Zoom(12);
@@ -211,7 +221,7 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		{
 			Zoom (-12);
 		}
+		#endif
 	}
-#endif
 	
 }

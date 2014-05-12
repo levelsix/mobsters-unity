@@ -824,12 +824,12 @@ public class MSBuildingManager : MonoBehaviour
 	public int GetMonsterSlotCount()
 	{
 		
-		Debug.LogWarning("Setting monster slot count");
+		//Debug.LogWarning("Setting monster slot count");
 		int monsterSlots = MSWhiteboard.constants.userMonsterConstants.initialMaxNumMonsterLimit;
 
 		foreach (var item in MSResidenceManager.residences.Values) 
 		{
-			Debug.LogWarning("Slots!");
+			//Debug.LogWarning("Slots!");
 			monsterSlots += item.combinedProto.residence.numMonsterSlots;
 
 			//Add fb levels
@@ -838,7 +838,7 @@ public class MSBuildingManager : MonoBehaviour
 				monsterSlots += MSResidenceManager.instance.GetResidenceLevelBelowCurrent(i, item.combinedProto).residence.numBonusMonsterSlots;
 			}
 		}
-		Debug.LogWarning("Total slots should be " + monsterSlots);
+		//Debug.LogWarning("Total slots should be " + monsterSlots);
 		return monsterSlots;
 	}
 

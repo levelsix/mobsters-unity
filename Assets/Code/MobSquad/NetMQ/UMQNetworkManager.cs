@@ -416,7 +416,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		yield return new WaitForSeconds(30);
 		if (requestsOut.Contains(tagNum))
 		{
-			Debug.LogWarning("Response never received for request: " + tagNum);
+			//Debug.LogWarning("Response never received for request: " + tagNum);
 		}
 	}
 

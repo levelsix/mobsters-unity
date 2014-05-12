@@ -146,7 +146,11 @@ public class MSEvolutionManager : MonoBehaviour {
 
 	void Update()
 	{
-		if (!MSSceneManager.instance.loadingState && currEvolution != null && timeLeftMillis <= 0)
+		if (!MSSceneManager.instance.loadingState 
+		    && currEvolution != null 
+		    && currEvolution.userMonsterIds.Count == 2
+		    && currEvolution.catalystUserMonsterId > 0
+		    && timeLeftMillis <= 0)
 		{
 			StartCoroutine(CompleteEvolution());
 		}
@@ -169,6 +173,14 @@ public class MSEvolutionManager : MonoBehaviour {
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLUTION_FINISHED_EVENT, null);
 
+		foreach (var item in currEvolution.userMonsterIds) {
+			MSMonsterManager.instance.RemoveMonster(item);
+		}
+
+		MSMonsterManager.instance.RemoveMonster(currEvolution.catalystUserMonsterId);
+		
+		currEvolution = null;
+
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
 			yield return null;
@@ -179,16 +191,7 @@ public class MSEvolutionManager : MonoBehaviour {
 
 		if (response.status == EvolutionFinishedResponseProto.EvolutionFinishedStatus.SUCCESS)
 		{
-			//TODO: Update monster
-
-			foreach (var item in currEvolution.userMonsterIds) {
-				MSMonsterManager.instance.RemoveMonster(item);
-			}
-			MSMonsterManager.instance.RemoveMonster(currEvolution.catalystUserMonsterId);
-
 			MSMonsterManager.instance.UpdateOrAdd(response.evolvedMonster);
-
-			currEvolution = null;
 		}
 		else
 		{

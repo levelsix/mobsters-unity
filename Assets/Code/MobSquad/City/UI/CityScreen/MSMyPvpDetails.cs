@@ -35,6 +35,11 @@ public class MSMyPvpDetails : MonoBehaviour {
 		{"platinumribbon", "platinumribbon"}
 	};
 
+	void OnEnable()
+	{
+		SetLeagueInfo();
+	}
+
 	void SetLeagueInfo()
 	{
 		PvpLeagueProto pvpLeague = MSDataManager.instance.Get<PvpLeagueProto>(MSWhiteboard.localUser.pvpLeagueInfo.leagueId);
@@ -57,7 +62,8 @@ public class MSMyPvpDetails : MonoBehaviour {
 				break;
 		}
 
-		leagueIcon.spriteName = MSUtil.StripExtensions(pvpLeague.imgPrefix);
+		leagueIcon.spriteName = MSUtil.StripExtensions(pvpLeague.imgPrefix) + "big";
+		leagueIcon.MakePixelPerfect();
 
 		//TODO: Get ribbon sprite from AWS
 	}

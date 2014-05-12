@@ -23,19 +23,19 @@ public class UMQLoader : MonoBehaviour {
 			yield return null;
 		}
 
-		Debug.Log("Loader hanging out");
+		//Debug.Log("Loader hanging out");
 
 		//Hang here while we set up the connetion
 		//TODO: Time out if we've been hanging here for too long
 		while(!UMQNetworkManager.instance.ready)
 		{
 			yield return new WaitForSeconds(1);
-			Debug.Log("Loader still waiting");
+			//Debug.Log("Loader still waiting");
 		}
 
 		fillBar.fill = .2f;
 		
-		Debug.Log("Sending StartupRequest");
+		//Debug.Log("Sending StartupRequest");
 		
 		StartupRequestProto startup = new StartupRequestProto();
 		
@@ -57,7 +57,7 @@ public class UMQLoader : MonoBehaviour {
 
 		fillBar.fill = .75f;
 		
-		Debug.Log(tagNum + ": Received StartupResponse");
+		//Debug.Log(tagNum + ": Received StartupResponse");
 		
 		StartupResponseProto response = (StartupResponseProto) UMQNetworkManager.responseDict[tagNum];
 		UMQNetworkManager.responseDict.Remove(tagNum);

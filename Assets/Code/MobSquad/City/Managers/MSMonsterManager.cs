@@ -104,7 +104,7 @@ public class MSMonsterManager : MonoBehaviour {
 			currentEnhancementMonster = userMonsters.Find(x => x.userMonster.userMonsterId == enhancement.baseMonster.userMonsterId);
 			currentEnhancementMonster.enhancement = enhancement.baseMonster;
 			
-			Debug.Log("Ehancement Base: " + currentEnhancementMonster.enhancement.userMonsterId);
+			//Debug.Log("Ehancement Base: " + currentEnhancementMonster.enhancement.userMonsterId);
 			
 			foreach (UserEnhancementItemProto item in enhancement.feeders) 
 			{

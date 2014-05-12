@@ -283,14 +283,16 @@ public class MSHospitalManager : MonoBehaviour {
 		float progress = monster.healingMonster.healthProgress;
 		
 		#region Debug
-		
+
+		/*
 		string str = "Listing Hospitals";
 		foreach (var hos in hospitals) 
 		{
 			str += "\n" + hos.building.completeTime + ", " + hos.userBuildingData.userStructId;
 		}
 		Debug.Log(str);
-		
+		*/
+
 		#endregion
 		
 		MSHospital lastHospital = GetSoonestHospital();
@@ -325,6 +327,8 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 		
 		#region Debug2
+
+		/*
 		str = "Scheduled heal for " + monster.monster.displayName;
 		str += "\nNow: " + MSUtil.timeNowMillis;
 		str += "\nHealth to heal: " + (monster.maxHP - monster.currHP) + ", Progress: " + monster.healingMonster.healthProgress;
@@ -334,6 +338,8 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 		str += "\n" + monster.finishHealTimeMillis + " Finish";
 		//Debug.Log(str);
+		*/
+
 		#endregion
 		
 	}
@@ -358,13 +364,13 @@ public class MSHospitalManager : MonoBehaviour {
 			if (i < monster.hospitalTimes.Count - 1 && MSUtil.timeNowMillis > monster.hospitalTimes[i+1].startTime)
 			{
 				progress += (monster.hospitalTimes[i+1].startTime - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.proto.healthPerSecond;
-				Debug.Log("Progress: " + progress);
+				//Debug.Log("Progress: " + progress);
 			}
 			else
 			{
 				long time = (MSUtil.timeNowMillis - monster.hospitalTimes[i].startTime) / 1000;
 				progress += (MSUtil.timeNowMillis - monster.hospitalTimes[i].startTime) / 1000 * monster.hospitalTimes[i].hospital.proto.healthPerSecond;
-				Debug.Log("Time: " + time + "\nSpeed: " + monster.hospitalTimes[i].hospital.proto.healthPerSecond + "\nProgress: " + progress);
+				//Debug.Log("Time: " + time + "\nSpeed: " + monster.hospitalTimes[i].hospital.proto.healthPerSecond + "\nProgress: " + progress);
 			}
 		}
 		if (progress > 0)
@@ -374,7 +380,7 @@ public class MSHospitalManager : MonoBehaviour {
 			{
 				healRequestProto.umhUpdate.Add(monster.healingMonster);
 			}
-			Debug.Log("Updated progress for " + monster.monster.name + ", Progress: " + monster.healingMonster.healthProgress);
+			//Debug.Log("Updated progress for " + monster.monster.name + ", Progress: " + monster.healingMonster.healthProgress);
 		}
 		monster.healingMonster.queuedTimeMillis = MSUtil.timeNowMillis;
 		

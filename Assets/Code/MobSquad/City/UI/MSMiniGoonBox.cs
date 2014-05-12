@@ -82,7 +82,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 			StartCoroutine(MSAtlasUtil.instance.SetSprite(monsterPrefix, monsterPrefix + "Thumbnail", goonPortrait));
 			if (monster.monster.monsterElement == Element.NO_ELEMENT)
 			{
-				Debug.Log("What the fuck, " + monster.monster.displayName + " has no element");
+				//Debug.Log("What the fuck, " + monster.monster.displayName + " has no element");
 				monster.monster.monsterElement = Element.DARK;
 			}
 			background.spriteName = elementBackgrounds[monster.monster.monsterElement];

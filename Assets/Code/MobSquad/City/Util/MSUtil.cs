@@ -268,44 +268,46 @@ public static class MSUtil {
 	#endregion
 
 	#region Monster Type Comparisons
+
+	enum Comparison {STRONG, WEAK, NORMAL};
 	
 	//Maps Monster Type -> Type of the damage it is taking -> damage multiplier
-	public static readonly Dictionary<Element, Dictionary<Element, float>> elementStrengths = 
-		new Dictionary<Element, Dictionary<Element, float>>()
+	static readonly Dictionary<Element, Dictionary<Element, Comparison>> elementStrengths = 
+		new Dictionary<Element, Dictionary<Element, Comparison>>()
 	{
 		{
-			Element.FIRE, new Dictionary<Element, float>()
+			Element.FIRE, new Dictionary<Element, Comparison>()
 			{
-				{Element.EARTH, MSWhiteboard.constants.monsterConstants.elementalStrength},
-				{Element.WATER, MSWhiteboard.constants.monsterConstants.elementalWeakness}
+				{Element.EARTH, Comparison.STRONG},
+				{Element.WATER, Comparison.WEAK}
 			}
 		},
 		{
-			Element.WATER, new Dictionary<Element, float>()
+			Element.WATER, new Dictionary<Element, Comparison>()
 			{
-				{Element.EARTH, MSWhiteboard.constants.monsterConstants.elementalWeakness},
-				{Element.FIRE, MSWhiteboard.constants.monsterConstants.elementalStrength}
+				{Element.EARTH, Comparison.WEAK},
+				{Element.FIRE, Comparison.STRONG}
 			}
 		},
 		{
-			Element.EARTH, new Dictionary<Element, float>()
+			Element.EARTH, new Dictionary<Element, Comparison>()
 			{
-				{Element.FIRE, MSWhiteboard.constants.monsterConstants.elementalWeakness},
-				{Element.WATER, MSWhiteboard.constants.monsterConstants.elementalStrength}
+				{Element.FIRE, Comparison.WEAK},
+				{Element.WATER, Comparison.STRONG}
 			}
 		},
 		{
-			Element.DARK, new Dictionary<Element, float>()
+			Element.DARK, new Dictionary<Element, Comparison>()
 			{
-				{Element.DARK, MSWhiteboard.constants.monsterConstants.elementalStrength},
-				{Element.LIGHT, MSWhiteboard.constants.monsterConstants.elementalWeakness}
+				{Element.DARK, Comparison.STRONG},
+				{Element.LIGHT, Comparison.WEAK}
 			}
 		},
 		{
-			Element.LIGHT, new Dictionary<Element, float>()
+			Element.LIGHT, new Dictionary<Element, Comparison>()
 			{
-				{Element.DARK, MSWhiteboard.constants.monsterConstants.elementalWeakness},
-				{Element.LIGHT, MSWhiteboard.constants.monsterConstants.elementalStrength}
+				{Element.DARK, Comparison.WEAK},
+				{Element.LIGHT, Comparison.STRONG}
 			}
 		}
 	};
@@ -314,7 +316,14 @@ public static class MSUtil {
 	{
 		if (elementStrengths.ContainsKey(monsterType) && elementStrengths[monsterType].ContainsKey(attackType))
 		{
-			return elementStrengths[monsterType][attackType];
+			switch (elementStrengths[monsterType][attackType]) {
+			case Comparison.STRONG:
+				return MSWhiteboard.constants.monsterConstants.elementalStrength;
+			case Comparison.WEAK:
+				return MSWhiteboard.constants.monsterConstants.elementalWeakness;
+			default:
+				break;
+			}
 		}
 		return 1;
 	}

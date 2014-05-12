@@ -2605,6 +2605,11 @@ MonoBehaviour:
   damageNumberPrefab: {fileID: 11400004, guid: 0bde78446e90b4023a26e133a756d3cc, type: 2}
   rocketPrefab: {fileID: 0}
   molotovPartPrefab: {fileID: 0}
+  BASE_FALL_SPEED: -250
+  BASE_BOUNCE_SPEED: 80
+  SECOND_BOUNCE_MODIFIER: .25
+  GRAVITY: -600
+  SWAP_TIME: .200000003
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5791,7 +5796,6 @@ MonoBehaviour:
   - {fileID: 11400036}
   - {fileID: 11400112}
   sprites: []
-  direction: {x: 0, y: 0, z: 0}
   topPrefab: {fileID: 11400004, guid: 05e5907a6da0d46e7a71fc6c4bca05cb, type: 2}
   bottomPrefab: {fileID: 11400004, guid: d6b3f6129da8e4d288beb9b27430da9d, type: 2}
   scrollSpeed: 120
