@@ -120,25 +120,11 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	{
 
 		velocity = touch.delta;
-		
+
+		debug.text = touch.delta.ToString();
 	}
 
-	void MoveVelocity()
-	{
-		Vector3 movement = velocity;
 
-		//Turn the mouse difference in screen coordinates to world coordinates
-		movement.y *= DRAG_COEFF * (cam.orthographicSize / Screen.height);
-		movement.x *= DRAG_COEFF * (cam.orthographicSize / Screen.width) * X_DRAG_FUDGE;
-
-		//Flip the directions, since we want to move the camera in the opposite
-		//directions to the touch movement
-		movement *= -1;
-		
-		//Add the difference to the original position, since we only hold original mouse pos
-		trans.localPosition += movement;
-		ClampCamera();
-	}
 
 	void SetBounds ()
 	{
@@ -222,6 +208,23 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 			Zoom (-12);
 		}
 		#endif
+	}
+
+	void MoveVelocity()
+	{
+		Vector3 movement = velocity;
+		
+		//Turn the mouse difference in screen coordinates to world coordinates
+		movement.y *= DRAG_COEFF * (cam.orthographicSize / Screen.height);
+		movement.x *= DRAG_COEFF * (cam.orthographicSize / Screen.width) * X_DRAG_FUDGE;
+		
+		//Flip the directions, since we want to move the camera in the opposite
+		//directions to the touch movement
+		movement *= -1;
+		
+		//Add the difference to the original position, since we only hold original mouse pos
+		trans.localPosition += movement;
+		ClampCamera();
 	}
 	
 }

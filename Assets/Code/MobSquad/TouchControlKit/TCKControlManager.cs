@@ -214,7 +214,7 @@ public class TCKControlManager : MonoBehaviour
 			else
 			{
 				touches[touch.fingerId].pos = touch.position;
-				touches[touch.fingerId].delta = touch.deltaPosition;
+				touches[touch.fingerId].delta = touch.deltaPosition * Time.deltaTime / touch.deltaTime;
 				//UpdateTouch(touches[touch.fingerId]);
 			}
 		}

@@ -43,26 +43,26 @@ namespace com.lvl6.proto
     public enum Element
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"NO_ELEMENT", Value=1)]
-      NO_ELEMENT = 1,
+      [global::ProtoBuf.ProtoEnum(Name=@"FIRE", Value=1)]
+      FIRE = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FIRE", Value=2)]
-      FIRE = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"EARTH", Value=2)]
+      EARTH = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"EARTH", Value=3)]
-      EARTH = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"WATER", Value=3)]
+      WATER = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"WATER", Value=4)]
-      WATER = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"LIGHT", Value=4)]
+      LIGHT = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LIGHT", Value=5)]
-      LIGHT = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"DARK", Value=5)]
+      DARK = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"DARK", Value=6)]
-      DARK = 6,
+      [global::ProtoBuf.ProtoEnum(Name=@"ROCK", Value=6)]
+      ROCK = 6,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ROCK", Value=7)]
-      ROCK = 7
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_ELEMENT", Value=7)]
+      NO_ELEMENT = 7
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"Quality")]
