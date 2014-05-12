@@ -366,7 +366,7 @@ public class PZPuzzleManager : MonoBehaviour {
 						{
 							if (item.gemType != PZGem.GemType.ROCKET)
 							{
-								item.horizontal = false;
+								item.horizontal = true;
 							}
 						}
 						matchList.Add(new PZMatch(currGems));
@@ -381,7 +381,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (item.gemType != PZGem.GemType.ROCKET)
 					{
-						item.horizontal = false;
+						item.horizontal = true;
 					}
 				}
 				matchList.Add(new PZMatch(currGems));
@@ -402,7 +402,7 @@ public class PZPuzzleManager : MonoBehaviour {
 						{
 							if (item.gemType != PZGem.GemType.ROCKET)
 							{
-								item.horizontal = true;
+								item.horizontal = false;
 								//Debug.Log(item);
 							}
 						}
@@ -418,7 +418,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (item.gemType != PZGem.GemType.ROCKET)
 					{
-						item.horizontal = true;
+						item.horizontal = false;
 					}
 				}
 				matchList.Add(new PZMatch(currGems));
