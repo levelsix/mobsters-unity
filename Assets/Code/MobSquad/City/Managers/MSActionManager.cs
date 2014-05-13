@@ -60,6 +60,16 @@ public static class MSActionManager
 		public static Action PlaceBuilding;
 		
 		public static Action<MSBuilding> OnCollectFromBuilding;
+
+		/// <summary>
+		/// Activates UI changes for when a building is dragged
+		/// </summary>
+		public static Action<MSBuilding> OnBuildingDragStart;
+
+		/// <summary>
+		/// Activates UI changes for when a building is done being dragged
+		/// </summary>
+		public static Action<MSBuilding> OnBuildingDragEnd;
 	}
 	
 	public static class Loading

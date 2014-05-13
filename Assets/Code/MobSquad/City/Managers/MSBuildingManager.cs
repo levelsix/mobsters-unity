@@ -116,6 +116,11 @@ public class MSBuildingManager : MonoBehaviour
     /// </summary>
     const int NUM_LARGE_BUILDINGS = 2;
 
+	/// <summary>
+	/// The alpha of a building while it is selected.
+	/// </summary>
+	const float ALPHA_WHILE_SELECTED = 0.35f;
+
 
     #endregion
 	
@@ -1060,6 +1065,10 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			_target = cam;
 		}
+
+		if (_target is MSBuilding){
+
+		}
 	}
 	
 	/// <summary>
@@ -1074,6 +1083,10 @@ public class MSBuildingManager : MonoBehaviour
 		if (_target != null && _target is MSBuilding)
 		{
 			(_target as MSBuilding).Drop();
+		}
+
+		if (_target is MSBuilding){
+
 		}
 	}
 	
