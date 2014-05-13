@@ -31,13 +31,18 @@ public class MSResidenceManager : MonoBehaviour {
 		if (FB.IsLoggedIn)
 		{
 			currBuildingId = forBuilding;
-			/*
+
 			FB.AppRequest(
-				message: "Please respond to my request!",
-				title: "A request from " + MSWhiteboard.localMup.name,
-				callback: RequestCallback
-				);
-				*/
+				"Please respond to my request!",
+				null,
+				"",
+				null,
+				100,
+				"",
+				"A request from " + MSWhiteboard.localMup.name,
+				RequestCallback
+			);
+				
 		}
 	}
 
@@ -133,7 +138,7 @@ public class MSResidenceManager : MonoBehaviour {
 
 		if (invites >= invitesNeeded)
 		{
-			StartCoroutine(UpgradeResidenceFacebookLevelFromInvites(userBuildingId));
+			UpgradeResidenceFacebookLevelFromInvites(userBuildingId);
 		}
 	}
 
@@ -170,7 +175,18 @@ public class MSResidenceManager : MonoBehaviour {
 		}
 	}
 
-	IEnumerator UpgradeResidenceFacebookLevelFromInvites(int userStructureId)
+	public void UpgradeResidenceFacebookLevelWithGems(int userStructureId, int gems)
+	{
+		IncreaseMonsterInventorySlotRequestProto request = new IncreaseMonsterInventorySlotRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.increaseSlotType = IncreaseMonsterInventorySlotRequestProto.IncreaseSlotType.PURCHASE;
+		request.userStructId = userStructureId;
+		//TODO: Need a field in the proto for how many gems are being spent!
+
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_INCREASE_MONSTER_INVENTORY_SLOT_EVENT, DealWithUpgradeResidenceResponse);
+	}
+
+	void UpgradeResidenceFacebookLevelFromInvites(int userStructureId)
 	{
 		IncreaseMonsterInventorySlotRequestProto request = new IncreaseMonsterInventorySlotRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -181,16 +197,14 @@ public class MSResidenceManager : MonoBehaviour {
 			request.userFbInviteForSlotIds.Add(item.inviteId);
 		}
 
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_INCREASE_MONSTER_INVENTORY_SLOT_EVENT, null);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_INCREASE_MONSTER_INVENTORY_SLOT_EVENT, DealWithUpgradeResidenceResponse);
+	}
 
-		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
-		{
-			yield return null;
-		}
-
+	void DealWithUpgradeResidenceResponse(int tagNum)
+	{
 		IncreaseMonsterInventorySlotResponseProto response = UMQNetworkManager.responseDict[tagNum] as IncreaseMonsterInventorySlotResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
-
+		
 		if (response.status != IncreaseMonsterInventorySlotResponseProto.IncreaseMonsterInventorySlotStatus.SUCCESS)
 		{
 			Debug.LogError("Problem increasing residence slots: " + response.status.ToString());
