@@ -31,17 +31,12 @@ public class MSHireEntry : MonoBehaviour {
 	[SerializeField]
 	Color greyColor;
 
-	[SerializeField]
-	TweenPosition mover;
-
 	bool activatesRequest;
 
 	int currBuilding;
 
 	public void Init(ResidenceProto proto, bool claimed, int userBuildingId)
 	{
-		mover.Sample(0, true);
-
 		occupationName.color = blueColor;
 		bottomLabel.color = Color.black;
 
@@ -79,8 +74,7 @@ public class MSHireEntry : MonoBehaviour {
 	{
 		if (activatesRequest)
 		{
-			Debug.Log("Clicked Button");
-			//MSResidenceManager.instance.OpenRequestDialogue(currBuilding);
+			MSPopupManager.instance.popups.hirePopup.SelectLevel();
 		}
 	}
 }
