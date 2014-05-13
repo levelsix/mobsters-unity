@@ -415,7 +415,7 @@ public class MSGoonCard : MonoBehaviour {
 
 		if (goon.monster.monsterElement == Element.NO_ELEMENT)
 		{
-			Debug.LogWarning("Why the fuck does " + goon.monster.name + " have no element?!");
+			Debug.LogWarning("Why the fuck does " + goon.monster.displayName + " have no element?!");
 		}
 		cardBackground.spriteName = backgroundsForElements[goon.monster.monsterElement];
 		if (goon.userMonster.teamSlotNum > 0)
