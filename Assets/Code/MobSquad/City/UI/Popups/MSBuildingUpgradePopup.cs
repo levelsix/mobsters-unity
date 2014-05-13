@@ -162,7 +162,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			upgradeButton.label.text = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? "$" : "(o) ") + currCost.ToString();
 			upgradeButton.label.color = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? cashTextColor : oilTextColor);
 
-			Sprite sprite = MSAtlasUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
+			Sprite sprite = MSSpriteUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
 			buildingSprite.sprite2D = sprite;
 			if (sprite != null)
 			{

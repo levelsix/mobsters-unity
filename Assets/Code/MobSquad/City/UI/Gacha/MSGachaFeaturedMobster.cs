@@ -37,7 +37,7 @@ public class MSGachaFeaturedMobster : MonoBehaviour {
 	{
 		MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(mobster.monsterId);
 
-		mobsterSprite.sprite2D = MSAtlasUtil.instance.GetMobsterSprite(monster.imagePrefix);
+		mobsterSprite.sprite2D = MSSpriteUtil.instance.GetMobsterSprite(monster.imagePrefix);
 		mobsterName.text = monster.displayName;
 
 		rarityBg.spriteName = monster.quality.ToString().ToLower() + "gtag";

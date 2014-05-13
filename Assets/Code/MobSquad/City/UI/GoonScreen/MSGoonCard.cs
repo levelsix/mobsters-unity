@@ -411,7 +411,7 @@ public class MSGoonCard : MonoBehaviour {
 		goonElementParent.SetActive(true);
 
 		string goonImageBase = MSUtil.StripExtensions(goon.monster.imagePrefix);
-		StartCoroutine(MSAtlasUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", goonPose));
+		StartCoroutine(MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", goonPose));
 
 		if (goon.monster.monsterElement == Element.NO_ELEMENT)
 		{

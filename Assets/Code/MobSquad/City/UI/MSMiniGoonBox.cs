@@ -60,7 +60,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 		else
 		{
 			string monsterPrefix = MSUtil.StripExtensions (monster.imagePrefix);
-			StartCoroutine(MSAtlasUtil.instance.SetSprite(monsterPrefix, monsterPrefix + "Thumbnail", goonPortrait));
+			StartCoroutine(MSSpriteUtil.instance.SetSprite(monsterPrefix, monsterPrefix + "Thumbnail", goonPortrait));
 			background.spriteName = elementBackgrounds[monster.monsterElement];
 		}
 		gameObject.SetActive(true);
@@ -79,7 +79,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 		else
 		{
 			string monsterPrefix = MSUtil.StripExtensions (monster.monster.imagePrefix);
-			StartCoroutine(MSAtlasUtil.instance.SetSprite(monsterPrefix, monsterPrefix + "Thumbnail", goonPortrait));
+			StartCoroutine(MSSpriteUtil.instance.SetSprite(monsterPrefix, monsterPrefix + "Thumbnail", goonPortrait));
 			if (monster.monster.monsterElement == Element.NO_ELEMENT)
 			{
 				//Debug.Log("What the fuck, " + monster.monster.displayName + " has no element");

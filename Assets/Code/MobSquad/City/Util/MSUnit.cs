@@ -23,9 +23,9 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		{
 			_spriteBaseName = value;
 			//anim.runtimeAnimatorController = MSAtlasUtil.instance.GetAnimator(value);
-			StartCoroutine(MSAtlasUtil.instance.SetUnitAnimator(this));
+			StartCoroutine(MSSpriteUtil.instance.SetUnitAnimator(this));
 
-			if (MSAtlasUtil.instance.HasBundle(value))
+			if (MSSpriteUtil.instance.HasBundle(value))
 			{
 				sprite.color = Color.white;
 			}

@@ -25,7 +25,7 @@ public class MSGachaBanner : MonoBehaviour {
 		gameObject.SetActive(true);
 		this.pack = pack;
 
-		background.sprite2D = MSAtlasUtil.instance.GetSprite( "Gacha/" + MSUtil.StripExtensions(pack.listBackgroundImgName) );
+		background.sprite2D = MSSpriteUtil.instance.GetSprite( "Gacha/" + MSUtil.StripExtensions(pack.listBackgroundImgName) );
 
 		details.text = pack.listDescription;
 	}

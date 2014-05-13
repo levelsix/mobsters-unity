@@ -55,7 +55,7 @@ public class MSGoonInfoPopup : MonoBehaviour {
 	{
 		currMonster = monster;
 
-		StartCoroutine(MSAtlasUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Character", mobsterSprite));
+		StartCoroutine(MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Character", mobsterSprite));
 
 		/*
 		mobsterSprite.sprite2D = MSAtlasUtil.instance.GetMobsterSprite(monster.monster.imagePrefix);

@@ -502,15 +502,15 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 		//sprite.spriteName = CBKUtil.StripExtensions(structName);
 		//CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
-		sprite.sprite = MSAtlasUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
+		sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
 
-		RuntimeAnimatorController animator = MSAtlasUtil.instance.GetAnimator(MSUtil.StripExtensions(structName));
+		RuntimeAnimatorController animator = MSSpriteUtil.instance.GetAnimator(MSUtil.StripExtensions(structName));
 		Animator spriteAnimator = sprite.GetComponent<Animator>();
 		if (spriteAnimator != null)
 		{
 			if (animator != null)
 			{
-				spriteAnimator.runtimeAnimatorController = MSAtlasUtil.instance.GetAnimator(combinedProto.structInfo.imgName);
+				spriteAnimator.runtimeAnimatorController = MSSpriteUtil.instance.GetAnimator(combinedProto.structInfo.imgName);
 			}
 			else
 			{
@@ -543,8 +543,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		spriteTrans.localScale = Vector3.one;
 
 		//Set up shadow stuff
-		shadow.sprite = MSAtlasUtil.instance.GetBuildingSprite(width + "x" + length + "shadow");
-		floor.sprite = MSAtlasUtil.instance.GetBuildingSprite(width + "x" + length + "dark");
+		shadow.sprite = MSSpriteUtil.instance.GetBuildingSprite(width + "x" + length + "shadow");
+		floor.sprite = MSSpriteUtil.instance.GetBuildingSprite(width + "x" + length + "dark");
 		
 		
 		//spriteTrans.localPosition = new Vector3(0, sprite.height / 100f * (1/Mathf.Sin((90 - Camera.main.transform.parent.localRotation.x) * Mathf.Deg2Rad)), 0);
