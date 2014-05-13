@@ -50,7 +50,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 	UIButton button;
 
-	public enum Mode {SELL, UPGRADE, FINISH, ENGAGE, HEAL, ENHANCE, REMOVE, EVOLVE, SLOTS};
+	public enum Mode {SELL, UPGRADE, FINISH, ENGAGE, HEAL, ENHANCE, REMOVE, EVOLVE, HIRE};
 	
 	Mode currMode;
 	
@@ -62,7 +62,8 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		{Mode.HEAL, "HEAL"},
 		{Mode.ENHANCE, "ENHANCE"},
 		{Mode.REMOVE, "REMOVE"},
-		{Mode.EVOLVE, "EVOLVE"}
+		{Mode.EVOLVE, "EVOLVE"},
+		{Mode.HIRE, "HIRE"}
 	};
 
 	System.Collections.Generic.Dictionary<Mode, string> modeButtonSprites = new System.Collections.Generic.Dictionary<Mode, string>() {
@@ -71,7 +72,8 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		{Mode.ENGAGE, "orangemenuoption"},
 		{Mode.REMOVE, "greenmenuoption"},
 		{Mode.HEAL, "orangemenuoption"},
-		{Mode.EVOLVE, "orangemenuoption"}
+		{Mode.EVOLVE, "orangemenuoption"},
+		{Mode.HIRE, "orangemenuoption"}
 	};
 
 	System.Collections.Generic.Dictionary<string, Color> buttonTextColors = new Dictionary<string, Color>(){
@@ -181,6 +183,9 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		case Mode.HEAL:
 			ClickHeal();
 			break;
+		case Mode.HIRE:
+			ClickHire();
+			break;
 		default:
 			break;
 		}
@@ -226,6 +231,12 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	{
 		base.OnClick();
 		popup.GetComponent<MSBuildingUpgradePopup>().Init(currBuilding);
+	}
+
+	void ClickHire()
+	{
+		base.OnClick();
+		popup.GetComponent<MSHirePopup>().Init(currBuilding);
 	}
 	
 	public void Pool ()

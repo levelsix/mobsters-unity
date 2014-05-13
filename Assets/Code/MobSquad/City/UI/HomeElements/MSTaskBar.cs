@@ -66,6 +66,9 @@ public class MSTaskBar : MonoBehaviour {
 	[SerializeField]
 	GameObject upgradePopup;
 
+	[SerializeField]
+	GameObject hirePopup;
+
 	TweenPosition tweenPos;
 	TweenAlpha tweenAlph;
 	
@@ -159,13 +162,18 @@ public class MSTaskBar : MonoBehaviour {
 		MSTaskButton button = MSPoolManager.instance.Get(taskButtonPrefab, Vector3.zero) as MSTaskButton;
 		if (currBuilding != null)
 		{
-			if (mode == MSTaskButton.Mode.UPGRADE || mode == MSTaskButton.Mode.FINISH)
+			switch (mode)
 			{
+			case MSTaskButton.Mode.UPGRADE:
+			case MSTaskButton.Mode.FINISH:
 				button.Setup(mode, currBuilding, upgradePopup);
-			}
-			else
-			{
+				break;
+			case MSTaskButton.Mode.HIRE:
+				button.Setup(mode, currBuilding, hirePopup);
+				break;
+			default:
 				button.Setup(mode, currBuilding);
+				break;
 			}
 		}
 		else
@@ -204,6 +212,10 @@ public class MSTaskBar : MonoBehaviour {
 			}
 			else
 			{
+				if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.RESIDENCE)
+				{
+					AddButton(MSTaskButton.Mode.HIRE);
+				}
 				if (currBuilding.hospital != null)
 				{
 					AddButton(MSTaskButton.Mode.HEAL);
