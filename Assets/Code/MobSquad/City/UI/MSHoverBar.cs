@@ -6,20 +6,31 @@ using System.Collections;
 public class MSHoverBar : MonoBehaviour {
 
 	[SerializeField]
-	UISprite[] backArrows;
+	GameObject ArrowUp;
 
 	[SerializeField]
-	UISprite[] frontArrows;
+	GameObject ArrowDown;
 
 	[SerializeField]
-	GameObject[] arrows;
-	
+	GameObject ArrowLeft;
+
+	[SerializeField]
+	GameObject ArrowRight;
+
+	GameObject[] arrows = new GameObject[4];
+
 	MSBuilding currBuilding;
 	
 	Transform trans;
 	
 	GameObject gameObj;
-	
+
+	const float HORIZONTAL_SCALE = 24.0f;
+	const float VERTICAL_SCALE = 17.5f;
+
+	//this is an estimation of the center of a building in the local transform
+	static readonly Vector3 BUILDING_CENTER = new Vector3 ( 10.0f, -152.5f ,200.0f);
+
 	static readonly Vector3 BUILDING_OFFSET = new Vector3(0, 4.5f, 0);
 	
 	void Awake()
@@ -27,6 +38,11 @@ public class MSHoverBar : MonoBehaviour {
 		MSActionManager.Town.OnBuildingSelect += AttachToPlayerStructure;
 		trans = transform;
 		gameObj = gameObject;
+
+		arrows [0] = ArrowDown;
+		arrows [1] = ArrowLeft;
+		arrows [2] = ArrowRight;
+		arrows [3] = ArrowUp;
 	}
 	
 	void OnDestroy()
@@ -59,13 +75,18 @@ public class MSHoverBar : MonoBehaviour {
 			trans.localPosition = BUILDING_OFFSET;
 			trans.Translate(0,0,-2,Space.Self);
 
+			ArrowDown.transform.localPosition = new Vector3(BUILDING_CENTER.x + HORIZONTAL_SCALE * building.length, BUILDING_CENTER.y - VERTICAL_SCALE * building.width, BUILDING_CENTER.z);
+			ArrowLeft.transform.localPosition = new Vector3(BUILDING_CENTER.x - HORIZONTAL_SCALE * building.width, BUILDING_CENTER.y - VERTICAL_SCALE * building.width, BUILDING_CENTER.z);
+			ArrowRight.transform.localPosition = new Vector3(BUILDING_CENTER.x + HORIZONTAL_SCALE * building.width, BUILDING_CENTER.y + VERTICAL_SCALE * building.width, BUILDING_CENTER.z);
+			ArrowUp.transform.localPosition = new Vector3(BUILDING_CENTER.x - HORIZONTAL_SCALE * building.length, BUILDING_CENTER.y + VERTICAL_SCALE * building.width, BUILDING_CENTER.z);
+
 		}
 		else
 		{
 			gameObj.SetActive(false);
 		}
 	}
-		
+	
 	void EnableArrows()
 	{
 		foreach (var item in arrows) 
