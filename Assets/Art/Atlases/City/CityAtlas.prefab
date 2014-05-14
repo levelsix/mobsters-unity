@@ -40,9 +40,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 41c928ad454fe4d85a4e1a26e296b6d0, type: 2}
   mSprites:
+  - name: buildingcap
+    x: 435
+    y: 481
+    width: 4
+    height: 15
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 0
+    paddingTop: 2
+    paddingBottom: 3
+  - name: buildingcomplete
+    x: 0
+    y: 123
+    width: 323
+    height: 32
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: buildingmiddle
+    x: 435
+    y: 465
+    width: 2
+    height: 15
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 2
+    paddingBottom: 3
+  - name: buildingupgraded
+    x: 0
+    y: 156
+    width: 327
+    height: 32
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
   - name: cashcollected
-    x: 0
-    y: 19
+    x: 324
+    y: 348
     width: 110
     height: 54
     borderLeft: 0
@@ -53,9 +105,35 @@ MonoBehaviour:
     paddingRight: 17
     paddingTop: 2
     paddingBottom: 8
+  - name: cashoverflow
+    x: 70
+    y: 47
+    width: 69
+    height: 75
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: cashready
+    x: 0
+    y: 47
+    width: 69
+    height: 75
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: gemscollected
-    x: 0
-    y: 74
+    x: 324
+    y: 403
     width: 110
     height: 54
     borderLeft: 0
@@ -66,9 +144,87 @@ MonoBehaviour:
     paddingRight: 17
     paddingTop: 2
     paddingBottom: 8
+  - name: healingcap
+    x: 435
+    y: 497
+    width: 4
+    height: 15
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 0
+    paddingTop: 2
+    paddingBottom: 3
+  - name: healingmiddle
+    x: 440
+    y: 497
+    width: 2
+    height: 15
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 2
+    paddingBottom: 3
+  - name: obenhance
+    x: 324
+    y: 299
+    width: 120
+    height: 48
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: obevolve
+    x: 140
+    y: 74
+    width: 100
+    height: 48
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: obfull
+    x: 140
+    y: 25
+    width: 80
+    height: 48
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: obheal
+    x: 241
+    y: 74
+    width: 80
+    height: 48
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: oilcollected
-    x: 111
-    y: 74
+    x: 324
+    y: 458
     width: 110
     height: 54
     borderLeft: 0
@@ -79,6 +235,58 @@ MonoBehaviour:
     paddingRight: 17
     paddingTop: 2
     paddingBottom: 8
+  - name: oiloverflow
+    x: 394
+    y: 223
+    width: 69
+    height: 75
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: oilready
+    x: 324
+    y: 223
+    width: 69
+    height: 75
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: overbuildingbar
+    x: 328
+    y: 168
+    width: 120
+    height: 20
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: spinnertest
+    x: 0
+    y: 189
+    width: 323
+    height: 323
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}
   mCoordinates: 0
