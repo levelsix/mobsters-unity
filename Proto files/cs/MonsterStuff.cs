@@ -26,13 +26,13 @@ namespace com.lvl6.proto
       set { _monsterId = value; }
     }
 
-    private string _name = "";
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private string _evolutionGroup = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"evolutionGroup", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
-    public string name
+    public string evolutionGroup
     {
-      get { return _name; }
-      set { _name = value; }
+      get { return _evolutionGroup; }
+      set { _evolutionGroup = value; }
     }
 
     private string _shorterName = "";

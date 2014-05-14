@@ -482,8 +482,11 @@ public class MSBuildingManager : MonoBehaviour
     	building.Init(proto);
     	
 		StructureInfoProto fsp = (MSDataManager.instance.Get(typeof(MSFullBuildingProto), proto.structId) as MSFullBuildingProto).structInfo;
-	    MSGridManager.instance.AddBuilding(building, (int)proto.coordinates.x, (int)proto.coordinates.y, fsp.width, fsp.height);
-	
+	   	if (fsp.structType != StructureInfoProto.StructType.MINI_JOB)
+		{
+			MSGridManager.instance.AddBuilding(building, (int)proto.coordinates.x, (int)proto.coordinates.y, fsp.width, fsp.height);
+		}
+
 		buildings.Add(proto.userStructId, building);
 
 		foreach (var item in building.GetComponentsInChildren<UIWidget>()) 
