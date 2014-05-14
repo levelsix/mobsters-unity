@@ -137,10 +137,10 @@ public class MSFacebookManager : MonoBehaviour {
 
 		foreach(var friend in friends)
 		{
-			Debug.Log(friend);
+			//Debug.Log(friend);
 		}
 
-		Debug.Log("Num friends: " + friendsData.Count);
+		//Debug.Log("Num friends: " + friendsData.Count);
 
 		/*
 		Dictionary<string, object> friendDict = friendsData[0] as Dictionary<string, object>;
