@@ -269,43 +269,6 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		currBar.fill = curr/max;
 		nextBar.fill = next/max;
 	}
-
-	void SetupHireUI(MSBuilding currBuilding)
-	{
-		MSFullBuildingProto thisLevel = currBuilding.combinedProto.baseLevel;
-		int i = 0;
-		while (thisLevel != null)
-		{
-			while (hireEntries.Count <= i)
-			{
-				AddHireEntry();
-			}
-
-			if (thisLevel.structInfo.level > currBuilding.combinedProto.structInfo.level)
-			{
-				hireEntries[i].Init(thisLevel.residence, "Requires Lvl " + thisLevel.structInfo.level + " Residence");
-			}
-			else if (thisLevel.structInfo.level > currBuilding.userStructProto.fbInviteStructLvl + 1)
-			{
-				hireEntries[i].Init(thisLevel.residence, "Requires " + thisLevel.predecessor.residence.occupationName);
-			}
-			else
-			{
-				hireEntries[i].Init(thisLevel.residence, thisLevel.structInfo.level <= currBuilding.userStructProto.fbInviteStructLvl, currBuilding.userStructProto.userStructId);
-			}
-
-			thisLevel = thisLevel.successor;
-			i++;
-		}
-	}
-
-	void AddHireEntry()
-	{
-		MSHireEntry entry = Instantiate(hireEntryPrefab) as MSHireEntry;
-		entry.transform.parent = grid;
-		entry.transform.localScale = Vector3.one;
-		hireEntries.Add(entry);
-	}
 	
 	IEnumerator UpdateRemainingTime()
 	{

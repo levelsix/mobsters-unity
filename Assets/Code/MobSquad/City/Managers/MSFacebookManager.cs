@@ -85,7 +85,7 @@ public class MSFacebookManager : MonoBehaviour {
 	{
 		if (isLoggedIn)
 		{
-			FB.API("me/friends?fields=installed,name,picture,id", Facebook.HttpMethod.GET, LoadFriendsCallback);
+			FB.API("me/friends?fields=installed,name,picture,id&limit=100", Facebook.HttpMethod.GET, LoadFriendsCallback);
 		}
 	}
 
@@ -94,7 +94,7 @@ public class MSFacebookManager : MonoBehaviour {
 		if (result.Error != null)
 		{
 			Debug.LogError("Problem getting friends, trying again...");
-			FB.API("me/friends?fields=installed,name,picture,id", Facebook.HttpMethod.GET, LoadFriendsCallback);
+			FB.API("me/friends?fields=installed,name,picture,id&limit=100", Facebook.HttpMethod.GET, LoadFriendsCallback);
 			return;
 		}
 

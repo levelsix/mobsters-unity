@@ -64,12 +64,12 @@ public static class MSActionManager
 		/// <summary>
 		/// Activates UI changes for when a building is dragged
 		/// </summary>
-		public static Action<MSBuilding> OnBuildingDragStart;
+		public static Action OnBuildingDragStart;
 
 		/// <summary>
 		/// Activates UI changes for when a building is done being dragged
 		/// </summary>
-		public static Action<MSBuilding> OnBuildingDragEnd;
+		public static Action OnBuildingDragEnd;
 	}
 	
 	public static class Loading

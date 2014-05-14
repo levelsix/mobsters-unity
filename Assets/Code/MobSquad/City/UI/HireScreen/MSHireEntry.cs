@@ -14,16 +14,25 @@ public class MSHireEntry : MonoBehaviour {
 	UILabel occupationName;
 
 	[SerializeField]
-	UILabel slots;
+	UILabel bottomLabel;
 
 	[SerializeField]
-	UILabel requirement;
+	UISprite icon;
 
 	[SerializeField]
-	GameObject arrow;
+	UISprite arrow;
 
 	[SerializeField]
-	GameObject claim;
+	GameObject hiredIcon;
+
+	[SerializeField]
+	Color blueColor;
+
+	[SerializeField]
+	Color greyColor;
+
+	[SerializeField]
+	TweenPosition mover;
 
 	bool activatesRequest;
 
@@ -31,10 +40,18 @@ public class MSHireEntry : MonoBehaviour {
 
 	public void Init(ResidenceProto proto, bool claimed, int userBuildingId)
 	{
+		mover.Sample(0, true);
+
+		occupationName.color = blueColor;
+		bottomLabel.color = Color.black;
+
+		icon.spriteName = "onjobicon" + proto.occupationName.ToLower();
+
 		Init (proto);
-		claim.SetActive(claimed);
-		arrow.SetActive(!claimed);
-		requirement.text = " ";
+
+		hiredIcon.SetActive(claimed);
+		arrow.gameObject.SetActive(!claimed);
+
 		activatesRequest = !claimed;
 		currBuilding = userBuildingId;
 	}
@@ -42,16 +59,16 @@ public class MSHireEntry : MonoBehaviour {
 	public void Init(ResidenceProto proto, string needs)
 	{
 		Init (proto);
-		claim.SetActive(false);
-		arrow.SetActive(false);
-		requirement.text = needs;
+		hiredIcon.SetActive(false);
+		arrow.gameObject.SetActive(false); //TODO: Set arrow sprite to lock
+		bottomLabel.text = needs;
 		activatesRequest = false;
 	}
 
 	public void Init(ResidenceProto proto)
 	{
 		occupationName.text = proto.occupationName;
-		slots.text = proto.numBonusMonsterSlots + " Bonus Slots";
+		bottomLabel.text = "Adds " + proto.numBonusMonsterSlots + " slots to your residence";
 	}
 
 	/// <summary>
@@ -62,7 +79,8 @@ public class MSHireEntry : MonoBehaviour {
 	{
 		if (activatesRequest)
 		{
-			MSResidenceManager.instance.OpenRequestDialogue(currBuilding);
+			Debug.Log("Clicked Button");
+			//MSResidenceManager.instance.OpenRequestDialogue(currBuilding);
 		}
 	}
 }

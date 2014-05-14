@@ -1067,7 +1067,7 @@ public class MSBuildingManager : MonoBehaviour
 		}
 
 		if (_target is MSBuilding){
-
+			MSActionManager.Town.OnBuildingDragStart();
 		}
 	}
 	
@@ -1086,7 +1086,7 @@ public class MSBuildingManager : MonoBehaviour
 		}
 
 		if (_target is MSBuilding){
-
+			MSActionManager.Town.OnBuildingDragEnd();
 		}
 	}
 	

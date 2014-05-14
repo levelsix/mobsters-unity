@@ -583,6 +583,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
     public void MoveRelative(TCKTouchData touch)
     {
 		Vector3 movement = touch.Movement;
+		Vector3 tempPosition = trans.position;
 		
         //Turn the mouse difference in screen coordinates to world coordinates
         movement.y *= 2 * (Camera.main.orthographicSize / Screen.height);
@@ -599,7 +600,10 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
         trans.position = MSGridManager.instance.SnapPointToGrid(transform.position, width, length);
 
 		SetGridFromTrans ();
-
+		MSPlacementGrid grid = GetComponent<MSPlacementGrid> ();
+		if (grid != null && tempPosition != trans.position) {
+			grid.updateSprites();
+		}
 		
 		if (MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 		{
