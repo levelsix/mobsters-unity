@@ -169,6 +169,11 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	public MSUnit overlayUnit;
 
+	/// <summary>
+	/// This is a poolable lable that when created rises up and fades away.
+	/// </summary>
+	public MSSimplePoolable textLabel;
+
     #endregion
 
     #region Private
