@@ -120,6 +120,55 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	public long completeTime = 0;
 
+	/// <summary>
+	/// If the building is currently selected
+	/// </summary>
+	public bool selected;
+	
+	/// <summary>
+	/// Current color.
+	/// </summary>
+	public Color currColor;
+
+	/// <summary>
+	/// The sprite for this building.
+	/// </summary>
+	public SpriteRenderer sprite;
+	
+	/// <summary>
+	/// An sprite, used only by specific buildings (i.e. hospital) which
+	/// need to put Units 'inside' of them
+	/// </summary>
+	public SpriteRenderer overlay;
+	
+	/// <summary>
+	/// The upgrade component
+	/// </summary>
+	[HideInInspector]
+	public MSBuildingUpgrade upgrade;
+	
+	/// <summary>
+	/// The resource collector component.
+	/// Added to the base building if this building
+	/// is meant to be a resource collector.
+	/// </summary>
+	[HideInInspector]
+	public MSResourceCollector collector;
+	
+	/// <summary>
+	/// The resource storage component.
+	/// </summary>
+	[HideInInspector]
+	public MSResourceStorage storage;
+	
+	/// <summary>
+	/// The hospital component.
+	/// </summary>
+	[HideInInspector]
+	public MSHospital hospital;
+
+	public MSUnit overlayUnit;
+
     #endregion
 
     #region Private
@@ -144,16 +193,6 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
     private MSGridNode _currPos;
 	
 	/// <summary>
-	/// If the building is currently selected
-	/// </summary>
-	public bool selected;
-	
-	/// <summary>
-	/// Current color.
-	/// </summary>
-	private Color _currColor;
-	
-	/// <summary>
 	/// The direction of the tint ping-pong
 	/// </summary>
 	private int _ppDir = 1;
@@ -167,43 +206,6 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	/// The box collider for this building
 	/// </summary>
 	private BoxCollider _box;
-	
-	/// <summary>
-	/// The sprite for this building.
-	/// </summary>
-	public SpriteRenderer sprite;
-
-	/// <summary>
-	/// An sprite, used only by specific buildings (i.e. hospital) which
-	/// need to put Units 'inside' of them
-	/// </summary>
-	public SpriteRenderer overlay;
-	
-	/// <summary>
-	/// The upgrade component
-	/// </summary>
-	[HideInInspector]
-	public MSBuildingUpgrade upgrade;
-	
-	/// <summary>
-	/// The resource collector component.
-	/// Added to the base building if this building
-	/// is meant to be a resource collector.
-	/// </summary>
-	[HideInInspector]
-	public MSResourceCollector collector;
-
-	/// <summary>
-	/// The resource storage component.
-	/// </summary>
-	[HideInInspector]
-	public MSResourceStorage storage;
-
-	/// <summary>
-	/// The hospital component.
-	/// </summary>
-	[HideInInspector]
-	public MSHospital hospital;
 
 	[SerializeField]
 	SpriteRenderer floor;
@@ -227,8 +229,6 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	[SerializeField]
 	GameObject confirmationButtons;
-
-	public MSUnit overlayUnit;
 
 	long constructionTimeLeft
 	{
@@ -583,6 +583,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
     public void MoveRelative(TCKTouchData touch)
     {
 		Vector3 movement = touch.Movement;
+		Vector3 tempPosition = trans.position;
 		
         //Turn the mouse difference in screen coordinates to world coordinates
         movement.y *= 2 * (Camera.main.orthographicSize / Screen.height);
@@ -599,15 +600,18 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
         trans.position = MSGridManager.instance.SnapPointToGrid(transform.position, width, length);
 
 		SetGridFromTrans ();
-
+		MSPlacementGrid grid = GetComponent<MSPlacementGrid> ();
+		if (grid != null && tempPosition != trans.position) {
+			grid.updateSprites();
+		}
 		
 		if (MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 		{
-			_currColor = selectColor;
+			currColor = selectColor;
 		}
 		else
 		{
-			_currColor = badColor;
+			currColor = badColor;
 		}
 		
     }
@@ -735,7 +739,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			}
 			MSActionManager.Town.PlaceBuilding += Place;
 			selected = true;
-			_currColor = selectColor;
+			currColor = selectColor;
 			
 			if (OnSelect != null)
 			{
@@ -825,7 +829,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				_ppDir = 1;
 			}
 
-			curr = Color.Lerp(baseColor, _currColor, _ppPow);
+			curr = Color.Lerp(baseColor, currColor, _ppPow);
 			sprite.color = curr;
 			if (overlay.color.a > 0)
 			{

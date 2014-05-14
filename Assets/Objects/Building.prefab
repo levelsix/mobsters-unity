@@ -11,6 +11,7 @@ GameObject:
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400008}
   - 114: {fileID: 11400052}
+  - 114: {fileID: 11400056}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -805,11 +806,13 @@ MonoBehaviour:
   id: 0
   taskable: {fileID: 0}
   selected: 0
+  currColor: {r: 0, g: 0, b: 0, a: 0}
   sprite: {fileID: 21200004}
   overlay: {fileID: 21200000}
   upgrade: {fileID: 0}
   collector: {fileID: 0}
   storage: {fileID: 0}
+  overlayUnit: {fileID: 11400044}
   floor: {fileID: 21200010}
   shadow: {fileID: 21200002}
   hoverIcon: {fileID: 11400000}
@@ -818,7 +821,6 @@ MonoBehaviour:
   arrowScaleTween: {fileID: 11400012}
   locallyOwned: 1
   confirmationButtons: {fileID: 100016}
-  overlayUnit: {fileID: 11400044}
   X_DRAG_FUDGE: 1.25
 --- !u!114 &11400010
 MonoBehaviour:
@@ -1630,6 +1632,18 @@ MonoBehaviour:
   from: {x: 1, y: 1, z: 1}
   to: {x: 1.20000005, y: 1.20000005, z: 1.20000005}
   updateTable: 0
+--- !u!114 &11400056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5289f63ca3d2244d48ff345851dd0248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 11400002, guid: 0ee8cc133cc37436ab072d2217b43f67, type: 2}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
