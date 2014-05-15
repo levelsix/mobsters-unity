@@ -731,7 +731,6 @@ public class MSBuildingManager : MonoBehaviour
 	/// </param>
 	public MSBuilding SelectBuildingFromScreen(Vector2 point)
 	{
-
 		Collider coll = SelectSomethingFromScreen(point);
 		if (coll != null && (hoveringToBuild == null || coll.GetComponent<MSBuilding>() == hoveringToBuild))
 		{
@@ -1005,7 +1004,6 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			return;
 		}
-
 		Collider hit = SelectSomethingFromScreen(touch.pos);
 		if (hit != null){
 			MSBuilding building = hit.GetComponent<MSBuilding>();
@@ -1032,6 +1030,21 @@ public class MSBuildingManager : MonoBehaviour
 		else //if (hit.GetComponent<CBKGround>() != null)
 		{
 			FullDeselect();
+			Dictionary<long, MSUnit> dict;
+			if(MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER){
+				dict = units;
+			}else{
+				Debug.Log ("checking alt dict");
+				dict = new Dictionary<long, MSUnit>();
+			}
+			Vector3 gridLocation = MSGridManager.instance.PointToGridCoords(MSGridManager.instance.ScreenToGround(touch.pos, true));
+			foreach (var mobster in MSMonsterManager.instance.userTeam) {
+				if(mobster != null){
+					MSGridNode endpoint = new MSGridNode((int)gridLocation.x, (int)gridLocation.y);
+					units[mobster.userMonster.userMonsterId].cityUnit.UserClickMoveTo(endpoint);
+					break;
+				}
+			}
 		}
 		
 	}

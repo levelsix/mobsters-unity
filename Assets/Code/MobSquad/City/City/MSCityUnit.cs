@@ -149,11 +149,11 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		}
 		if (unit.direction == MSValues.Direction.NORTH || unit.direction == MSValues.Direction.SOUTH)
 		{
-			trans.position = new Vector3(node.worldPos.x, trans.position.y, trans.position.z);
+			//trans.position = new Vector3(node.worldPos.x, trans.position.y, trans.position.z);
 		}
 		else
 		{
-			trans.position = new Vector3(trans.position.x, trans.position.y, node.worldPos.z);
+			//trans.position = new Vector3(trans.position.x, trans.position.y, node.worldPos.z);
 		}
 		//unit.sprite.depth = -(node.x + node.z) - 10;
 	}
@@ -271,6 +271,15 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		//Debug.Log(str);
 		
 		return buildPath;
+	}
+
+	public void UserClickMoveTo(MSGridNode end){
+		Stack<MSGridNode> newPath = PlanPath (null, end);
+		if (target != null && newPath != null) {
+			path = newPath;
+			path.Push (target);
+			rushing = true;
+		}
 	}
 	
 	#endregion
