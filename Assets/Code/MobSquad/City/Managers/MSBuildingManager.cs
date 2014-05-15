@@ -391,6 +391,8 @@ public class MSBuildingManager : MonoBehaviour
 
 		//MSHospitalManager.instance.ClearHospitals();
 
+		MiniJobCenterProto jobCenter = null;
+
 		labs.Clear();
 		MSResidenceManager.residences.Clear();
 
@@ -401,6 +403,11 @@ public class MSBuildingManager : MonoBehaviour
 		for (int i = 0; i < response.ownerNormStructs.Count; i++) 
 		{
 			building = MakeBuilding(response.ownerNormStructs[i]);
+
+			if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.MINI_JOB)
+			{
+				jobCenter = building.combinedProto.miniJobCenter;
+			}
 
 			if (building.userStructProto.isComplete)
 			{
@@ -434,6 +441,11 @@ public class MSBuildingManager : MonoBehaviour
 		if (!MSHospitalManager.instance.initialized)
 		{
 			MSHospitalManager.instance.InitHealers();
+		}
+
+		if (!MSMiniJobManager.instance.initialized)
+		{
+			MSMiniJobManager.instance.Init(jobCenter);
 		}
 		
 		foreach (var item in MSMonsterManager.instance.userMonsters) 

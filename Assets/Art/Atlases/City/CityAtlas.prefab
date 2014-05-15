@@ -40,9 +40,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 41c928ad454fe4d85a4e1a26e296b6d0, type: 2}
   mSprites:
+  - name: arrow
+    x: 324
+    y: 883
+    width: 82
+    height: 92
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: bosslock
+    x: 407
+    y: 895
+    width: 75
+    height: 80
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 5
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: buildingcap
-    x: 435
-    y: 481
+    x: 488
+    y: 1009
     width: 4
     height: 15
     borderLeft: 0
@@ -55,7 +81,7 @@ MonoBehaviour:
     paddingBottom: 3
   - name: buildingcomplete
     x: 0
-    y: 123
+    y: 578
     width: 323
     height: 32
     borderLeft: 0
@@ -67,8 +93,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingmiddle
-    x: 435
-    y: 465
+    x: 496
+    y: 1009
     width: 2
     height: 15
     borderLeft: 0
@@ -81,7 +107,7 @@ MonoBehaviour:
     paddingBottom: 3
   - name: buildingupgraded
     x: 0
-    y: 156
+    y: 611
     width: 327
     height: 32
     borderLeft: 0
@@ -94,7 +120,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: cashcollected
     x: 324
-    y: 348
+    y: 724
     width: 110
     height: 54
     borderLeft: 0
@@ -106,8 +132,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: cashoverflow
-    x: 70
-    y: 47
+    x: 210
+    y: 502
     width: 69
     height: 75
     borderLeft: 0
@@ -119,8 +145,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: cashready
-    x: 0
-    y: 47
+    x: 140
+    y: 502
     width: 69
     height: 75
     borderLeft: 0
@@ -132,8 +158,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: gemscollected
-    x: 324
-    y: 403
+    x: 235
+    y: 646
     width: 110
     height: 54
     borderLeft: 0
@@ -145,8 +171,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: healingcap
-    x: 435
-    y: 497
+    x: 483
+    y: 1009
     width: 4
     height: 15
     borderLeft: 0
@@ -158,8 +184,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 3
   - name: healingmiddle
-    x: 440
-    y: 497
+    x: 493
+    y: 1009
     width: 2
     height: 15
     borderLeft: 0
@@ -170,9 +196,48 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 2
     paddingBottom: 3
+  - name: lockedup
+    x: 0
+    y: 502
+    width: 69
+    height: 75
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 1
+  - name: mjdone
+    x: 0
+    y: 305
+    width: 52
+    height: 73
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: mjnew
+    x: 0
+    y: 379
+    width: 52
+    height: 73
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: obenhance
-    x: 324
-    y: 299
+    x: 346
+    y: 652
     width: 120
     height: 48
     borderLeft: 0
@@ -184,8 +249,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: obevolve
-    x: 140
-    y: 74
+    x: 280
+    y: 529
     width: 100
     height: 48
     borderLeft: 0
@@ -197,8 +262,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: obfull
-    x: 140
-    y: 25
+    x: 381
+    y: 529
     width: 80
     height: 48
     borderLeft: 0
@@ -210,9 +275,35 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: obheal
-    x: 241
-    y: 74
+    x: 0
+    y: 453
     width: 80
+    height: 48
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: objobcomplete
+    x: 324
+    y: 976
+    width: 158
+    height: 48
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: obopenjobs
+    x: 324
+    y: 834
+    width: 130
     height: 48
     borderLeft: 0
     borderRight: 0
@@ -224,7 +315,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: oilcollected
     x: 324
-    y: 458
+    y: 779
     width: 110
     height: 54
     borderLeft: 0
@@ -236,8 +327,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: oiloverflow
-    x: 394
-    y: 223
+    x: 435
+    y: 703
     width: 69
     height: 75
     borderLeft: 0
@@ -249,8 +340,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: oilready
-    x: 324
-    y: 223
+    x: 70
+    y: 502
     width: 69
     height: 75
     borderLeft: 0
@@ -262,8 +353,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: overbuildingbar
-    x: 328
-    y: 168
+    x: 324
+    y: 590
     width: 120
     height: 20
     borderLeft: 0
@@ -276,7 +367,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: spinnertest
     x: 0
-    y: 189
+    y: 701
     width: 323
     height: 323
     borderLeft: 0
@@ -284,6 +375,32 @@ MonoBehaviour:
     borderTop: 0
     borderBottom: 0
     paddingLeft: 1
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: tapchartofill
+    x: 0
+    y: 644
+    width: 234
+    height: 56
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: ultrajob
+    x: 328
+    y: 616
+    width: 112
+    height: 27
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
     paddingRight: 0
     paddingTop: 1
     paddingBottom: 0

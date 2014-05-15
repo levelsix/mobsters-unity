@@ -39,6 +39,7 @@ public class MSResourceAmountLabel : MonoBehaviour {
 	{
 		target = amount;
 		speed = (target - current) * time;
+		Debug.Log("Changing resource label to " + target);
 	}
 
 	void Update()
