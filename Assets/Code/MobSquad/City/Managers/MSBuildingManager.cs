@@ -78,7 +78,12 @@ public class MSBuildingManager : MonoBehaviour
 	/// <summary>
 	/// Dictionary of the units currently in the scene
 	/// </summary>
-	private Dictionary<long, MSUnit> units = new Dictionary<long, MSUnit>();
+	private Dictionary<long, MSUnit> NPCUnits = new Dictionary<long, MSUnit>();
+	
+	/// <summary>
+	/// In a nuetral city the player's units must be in a different dictionary than NPCs
+	/// </summary>
+	private Dictionary<long, MSUnit> playerUnits = new Dictionary<long, MSUnit> ();
 
 	public static List<MSBuilding> labs = new List<MSBuilding>();
 
@@ -150,6 +155,8 @@ public class MSBuildingManager : MonoBehaviour
 		MSActionManager.Town.PlaceBuilding += OnPlace;
 		MSActionManager.UI.OnChangeResource[0] += DistributeCash;
 		MSActionManager.UI.OnChangeResource[1] += DistributeOil;
+		MSActionManager.Goon.OnMonsterAddTeam += OnAddTeam;
+		MSActionManager.Goon.OnMonsterRemoveTeam += OnRemoveTeam;
 	}
 	
 	/// <summary>
@@ -167,6 +174,8 @@ public class MSBuildingManager : MonoBehaviour
 		MSActionManager.Town.PlaceBuilding -= OnPlace;
 		MSActionManager.UI.OnChangeResource[0] -= DistributeCash;
 		MSActionManager.UI.OnChangeResource[1] -= DistributeOil;
+		MSActionManager.Goon.OnMonsterAddTeam -= OnAddTeam;
+		MSActionManager.Goon.OnMonsterRemoveTeam -= OnRemoveTeam;
 	}
 	
 	#endregion
@@ -213,9 +222,9 @@ public class MSBuildingManager : MonoBehaviour
 				{
 					buildings[task.assetNumWithinCity].taskable.Init(task);
 				}
-				else if(units.ContainsKey(task.assetNumWithinCity))
+				else if(NPCUnits.ContainsKey(task.assetNumWithinCity))
 				{
-					units[task.assetNumWithinCity].taskable.Init(task);
+					NPCUnits[task.assetNumWithinCity].taskable.Init(task);
 				}
 			}
 		}
@@ -348,13 +357,39 @@ public class MSBuildingManager : MonoBehaviour
 		}
 
 	}
+
+	/// <summary>
+	/// Adds a monster to scene.
+	/// </summary>
+	/// <param name="monster">The monster that you want added to the scene.</param>
+	/// <param name="dict">The dictionary you want the mobster added to.</param>
+	void addMonsterToScene(PZMonster monster, Dictionary<long, MSUnit> dict){
+
+		if (monster.userMonster.isComplete)
+		{
+			MSUnit dude = MSPoolManager.instance.Get(unitPrefab, Vector3.zero, unitParent) as MSUnit;
+			dude.Init(monster.userMonster);
+			dict.Add(monster.userMonster.userMonsterId, dude);
+		}
+	}
+
+	/// <summary>
+	/// Removes the monster from scene.
+	/// </summary>
+	/// <param name="monster">monster to be removed.</param>
+	/// <param name="dict">Dictionary that the monster needs to be removed from.</param>
+	void removeMonsterFromScene(PZMonster monster, Dictionary<long, MSUnit> dict){
+		MSUnit rmMonster = dict [monster.userMonster.userMonsterId];
+		dict.Remove (monster.userMonster.userMonsterId);
+		rmMonster.Pool ();
+	}
 	
 	void MakeNPC(CityElementProto element)
 	{
 		MSUnit unit = MSPoolManager.instance.Get(unitPrefab, Vector3.zero) as MSUnit;
 		unit.transf.parent = unitParent;
 		unit.Init(element);
-		units.Add(element.assetId, unit);
+		NPCUnits.Add(element.assetId, unit);
 		unit.taskable = unit.gameObject.AddComponent<MSTaskable>();
 	}
 
@@ -365,7 +400,8 @@ public class MSBuildingManager : MonoBehaviour
 		FullCityProto city = MSDataManager.instance.Get(typeof(FullCityProto), response.cityId) as FullCityProto;
 		MSGridManager.instance.InitMission(city.mapTmxName);
 		background.InitMission(city);
-		
+
+		//creates objects stored in the database
 		for (int i = 0; i < response.cityElements.Count; i++) 
 		{
 			//Debug.Log("Making neutral element " + i);
@@ -380,6 +416,14 @@ public class MSBuildingManager : MonoBehaviour
 					break;
 				default:
 					break;
+			}
+		}
+
+		foreach (var item in MSMonsterManager.instance.userMonsters) 
+		{
+			if (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED)
+			{
+				addMonsterToScene(item, playerUnits);
 			}
 		}
 	}
@@ -450,11 +494,9 @@ public class MSBuildingManager : MonoBehaviour
 		
 		foreach (var item in MSMonsterManager.instance.userMonsters) 
 		{
-			if (item.userMonster.isComplete)
+			if (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED)
 			{
-				MSUnit dude = MSPoolManager.instance.Get(unitPrefab, Vector3.zero, unitParent) as MSUnit;
-				dude.Init(item.userMonster);
-				units.Add(item.userMonster.userMonsterId, dude);
+				addMonsterToScene(item, playerUnits);
 			}
 		}
 		
@@ -816,13 +858,18 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			item.Pool();
 		}
-		foreach (MSUnit item in units.Values) 
+		foreach (MSUnit item in NPCUnits.Values) 
+		{
+			item.Pool();
+		}
+		foreach (MSUnit item in playerUnits.Values) 
 		{
 			item.Pool();
 		}
 		buildings.Clear();
 		obstacles.Clear();
-		units.Clear();
+		NPCUnits.Clear();
+		playerUnits.Clear();
 	}
 	
 	#endregion
@@ -1030,18 +1077,13 @@ public class MSBuildingManager : MonoBehaviour
 		else //if (hit.GetComponent<CBKGround>() != null)
 		{
 			FullDeselect();
-			Dictionary<long, MSUnit> dict;
-			if(MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER){
-				dict = units;
-			}else{
-				Debug.Log ("checking alt dict");
-				dict = new Dictionary<long, MSUnit>();
-			}
 			Vector3 gridLocation = MSGridManager.instance.PointToGridCoords(MSGridManager.instance.ScreenToGround(touch.pos, true));
 			foreach (var mobster in MSMonsterManager.instance.userTeam) {
-				if(mobster != null){
+				if(mobster != null && mobster.monster.monsterId > 0){
 					MSGridNode endpoint = new MSGridNode((int)gridLocation.x, (int)gridLocation.y);
-					units[mobster.userMonster.userMonsterId].cityUnit.UserClickMoveTo(endpoint);
+					if(playerUnits.Count > 0){
+						playerUnits[mobster.userMonster.userMonsterId].cityUnit.UserClickMoveTo(endpoint);
+					}
 					break;
 				}
 			}
@@ -1135,7 +1177,19 @@ public class MSBuildingManager : MonoBehaviour
 			}
 		}
 	}
-	
+
+	public void OnAddTeam(PZMonster monster){
+		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) {
+			addMonsterToScene (monster, playerUnits);
+		}
+	}
+
+	public void OnRemoveTeam(PZMonster monster){
+		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) {
+			removeMonsterFromScene (monster, playerUnits);
+		}
+	}
+
 	/// <summary>
 	/// Raises the place event.
 	/// If we place a building, null out the selected building pointer
@@ -1144,7 +1198,7 @@ public class MSBuildingManager : MonoBehaviour
 	{
 		_selected = null;	
 	}
-	
+
 	#endregion
 	
     #endregion
