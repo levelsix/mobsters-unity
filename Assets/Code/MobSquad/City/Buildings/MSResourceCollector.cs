@@ -143,6 +143,17 @@ public class MSResourceCollector : MonoBehaviour {
 				MSActionManager.Quest.OnMoneyCollected(currMoney);
 			}
 
+			if(_building != null){
+				MSResourceCollectLabel label = (MSPoolManager.instance.Get(_building.textLabel, Vector3.zero, _building.trans) as MSSimplePoolable).GetComponent<MSResourceCollectLabel>();
+				label.label.text = currMoney.ToString();
+				if(_generator.resourceType == ResourceType.CASH){
+					label.setFontCash();
+				}else{
+					label.setFontOil();
+				}
+
+			}
+
 			_building.userStructProto.lastRetrieved = MSUtil.timeNowMillis;
 			_building.hoverIcon.gameObject.SetActive(false);
 			
@@ -189,7 +200,11 @@ public class MSResourceCollector : MonoBehaviour {
 			if (hasMoney)
 			{
 				_building.hoverIcon.gameObject.SetActive(true);
-				_building.hoverIcon.spriteName = (_generator.resourceType == ResourceType.CASH) ? "cashready" : "oilready";
+				if(MSResourceManager.resources[(int)_generator.resourceType - 1] < MSResourceManager.maxes[(int)_generator.resourceType - 1]){
+					_building.hoverIcon.spriteName = (_generator.resourceType == ResourceType.CASH) ? "cashready" : "oilready";
+				}else{
+					_building.hoverIcon.spriteName = (_generator.resourceType == ResourceType.CASH) ? "cashoverflow" : "oiloverflow";
+				}
 			}
 			if (_building.userStructProto.isComplete && _building.OnUpdateValues != null)
 			{
