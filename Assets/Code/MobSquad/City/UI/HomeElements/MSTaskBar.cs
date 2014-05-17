@@ -69,6 +69,9 @@ public class MSTaskBar : MonoBehaviour {
 	[SerializeField]
 	GameObject hirePopup;
 
+	[SerializeField]
+	GameObject minijobPopup;
+
 	TweenPosition tweenPos;
 	TweenAlpha tweenAlph;
 	
@@ -171,6 +174,9 @@ public class MSTaskBar : MonoBehaviour {
 			case MSTaskButton.Mode.HIRE:
 				button.Setup(mode, currBuilding, hirePopup);
 				break;
+			case MSTaskButton.Mode.MINIJOB:
+				button.Setup(mode, currBuilding, minijobPopup);
+				break;
 			default:
 				button.Setup(mode, currBuilding);
 				break;
@@ -215,6 +221,11 @@ public class MSTaskBar : MonoBehaviour {
 				if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.RESIDENCE)
 				{
 					AddButton(MSTaskButton.Mode.HIRE);
+				}
+				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.MINI_JOB
+				         && currBuilding.combinedProto.structInfo.level > 0)
+				{
+					AddButton(MSTaskButton.Mode.MINIJOB);
 				}
 				if (currBuilding.hospital != null)
 				{

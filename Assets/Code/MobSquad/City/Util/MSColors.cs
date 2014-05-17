@@ -22,6 +22,8 @@ public static class MSColors {
 		{Quality.RARE, new Color(.043f, .584f, .929f)},
 		{Quality.ULTRA, new Color(1, .752f, .004f)},
 		{Quality.EPIC, new Color(.352f, .008f, 1)},
-		{Quality.LEGENDARY, new Color(.725f, .082f, .091f)}
+		{Quality.LEGENDARY, new Color(.725f, .082f, .091f)},
+		{Quality.NO_QUALITY, Color.black},
+		{Quality.EVO, Color.gray}
 	};
 }

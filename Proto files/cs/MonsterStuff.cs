@@ -425,6 +425,15 @@ namespace com.lvl6.proto
       get { return _expLvlExponent; }
       set { _expLvlExponent = value; }
     }
+
+    private int _sellAmount = default(int);
+    [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"sellAmount", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int sellAmount
+    {
+      get { return _sellAmount; }
+      set { _sellAmount = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

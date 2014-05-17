@@ -30,7 +30,7 @@ public class MSMiniJobEntry : MonoBehaviour {
 	MSUIHelper buttonHelper;
 
 	[SerializeField]
-	UISprite button;
+	UIButton button;
 
 	[SerializeField]
 	UILabel buttonLabel;
@@ -68,6 +68,19 @@ public class MSMiniJobEntry : MonoBehaviour {
 			arrow.ResetAlpha(true);
 			buttonHelper.TurnOff();
 		}
+		else
+		{
+			if (userMiniJob.timeCompleted > 0)
+			{
+				currMode = EntryMode.COMPLETE;
+			}
+			else
+			{
+				currMode = EntryMode.WAITING;
+			}
+
+			SetupButton();
+		}
 	}
 
 	void SetupButton()
@@ -80,15 +93,20 @@ public class MSMiniJobEntry : MonoBehaviour {
 		{
 			timeLeftLabel.color = MSColors.cashTextColor;
 			timeLeftLabel.text = "COMPLETE!";
-			button.spriteName = "greenmenuoption";
+			button.normalSprite = "greenmenuoption";
 			buttonLabel.text = "Collect!";
 		}
 		else if (currMode == EntryMode.WAITING)
 		{
-			timeLeftLabel.color = Color.black;
-			button.spriteName = "purplemenuoption";
-			StartCoroutine(UpdateFinishButtonLabel());
+			SetupWaitingButton();
 		}
+	}
+
+	void SetupWaitingButton()
+	{
+		timeLeftLabel.color = Color.black;
+		button.normalSprite = "purplemenuoption";
+		StartCoroutine(UpdateFinishButtonLabel());
 	}
 
 	IEnumerator UpdateFinishButtonLabel()
@@ -131,6 +149,8 @@ public class MSMiniJobEntry : MonoBehaviour {
 			reward = AddReward();
 			reward.InitMonster(miniJob.monsterIdReward);
 		}
+
+		rewardGrid.Reposition();
 	}
 
 	MSMiniJobReward AddReward()
@@ -171,18 +191,17 @@ public class MSMiniJobEntry : MonoBehaviour {
 
 	void Collect()
 	{
-		//TODO: Block leaving the popup or reclicking the button until collect complete
-		MSMiniJobManager.instance.RedeemCurrJob();
+		if (MSMiniJobManager.instance.RedeemCurrJob())
+		{
+			StartCoroutine(FadeOutAndPool());
+		}
 	}
 
 	void OnJobStarted(UserMiniJobProto job)
 	{
 		if (job == this.job)
 		{
-			currMode = EntryMode.WAITING;
-			buttonHelper.TurnOn();
-			buttonHelper.ResetAlpha(true);
-
+			SetupWaitingButton();
 		}
 	}
 
