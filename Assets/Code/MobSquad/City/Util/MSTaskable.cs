@@ -121,10 +121,72 @@ public class MSTaskable : MonoBehaviour {
 			}
 		}
 
-		BeginDungeonRequest();
+		StartCoroutine( BeginDungeonRequest());
 	}
 
-	void BeginDungeonRequest()
+	private IEnumerator EnterDungeon (){
+		foreach (KeyValuePair<long, MSUnit> monster in MSBuildingManager.instance.playerUnits) {
+			if(GetComponent<MSBuilding>() != null){
+				MSBuilding building = GetComponent<MSBuilding>();
+
+				//move the monster to be infront of the door
+				Vector2 doorPosition = new Vector2(building.groundPos.x + 1, building.groundPos.y - 4);
+				monster.Value.transf.position = MSGridManager.instance.GridToWorld(doorPosition);
+
+				//set the monster to move through the building
+				Color newColor = new Color(monster.Value.sprite.color.r ,monster.Value.sprite.color.g, monster.Value.sprite.color.b, 0f);
+				monster.Value.sprite.color = newColor;
+				MSGridNode node = new MSGridNode(new Vector2(doorPosition.x, doorPosition.y + 4));
+				node.direction = MSValues.Direction.NORTH;
+				monster.Value.GetComponent<MSCityUnit>().SetTarget(node);
+
+				//manually tween the alpha as they walk into the building
+				StartCoroutine(TweenAlpha(0f,1f,0.2f,monster.Value));
+				yield return new WaitForSeconds(0.2f);
+				StartCoroutine(TweenAlpha(1f,0f,0.8f,monster.Value));
+			}else{
+				//else enter a person (oh baby)
+			}
+			yield return new WaitForSeconds(1f);
+		}
+
+	}
+
+	//This system assumes that the user is trying to fade all the way from 0 to 1 or vise versa
+	private IEnumerator TweenAlpha(float from, float to, float fadeTime, MSUnit unit){
+
+		Color newColor = new Color(unit.sprite.color.r ,unit.sprite.color.g, unit.sprite.color.b, from);
+		unit.sprite.color = newColor;
+		unit.shadow.color = newColor;
+
+		float currTime = 0;
+		float alpha;
+		while (currTime <= fadeTime)
+		{
+			currTime += Time.deltaTime;
+			if(to > from){
+				alpha = (currTime / fadeTime);
+			}else{
+				alpha = 1 - (currTime / fadeTime);
+			}
+			newColor = new Color(unit.sprite.color.r ,unit.sprite.color.g, unit.sprite.color.b, alpha);
+			unit.sprite.color = newColor;
+			unit.shadow.color = newColor;
+			yield return new WaitForEndOfFrame();
+		}
+
+		if (to > from) {
+			alpha = 1f;
+		} else {
+			alpha = 0f;
+		}
+
+		newColor = new Color(unit.sprite.color.r ,unit.sprite.color.g, unit.sprite.color.b, alpha);
+		unit.sprite.color = newColor;
+		unit.shadow.color = newColor;
+	}
+
+	IEnumerator BeginDungeonRequest()
 	{
 		BeginDungeonRequestProto request = new BeginDungeonRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -139,7 +201,8 @@ public class MSTaskable : MonoBehaviour {
 		
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, ReceiveBeginDungeonResponse);
 		
-		
+		yield return StartCoroutine (EnterDungeon ());
+
 		MSActionManager.Scene.OnPuzzle();
 		
 		PZCombatManager.instance.PreInitTask();
