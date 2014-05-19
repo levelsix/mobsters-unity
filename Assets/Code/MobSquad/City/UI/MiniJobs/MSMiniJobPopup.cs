@@ -277,7 +277,7 @@ public class MSMiniJobPopup : MonoBehaviour {
 	void InitRightAlreadyOnJob()
 	{
 		currJobName.text = MSMiniJobManager.instance.currActiveJob.miniJob.name;
-		StartCoroutine(UpdateStupidFuckingButton());
+		StartCoroutine(UpdateJobNotDoneButton());
 	}
 
 	public bool TryPickMonster(PZMonster monster, MSMiniJobGoonPortrait portrait)
@@ -337,10 +337,13 @@ public class MSMiniJobPopup : MonoBehaviour {
 		noJobsLabel.Fade(jobEntries.Count == 0);
 	}
 
-	/// <summary>
-	/// Fuck this button and fuck this code
+	/// <summary>	
+	/// If the player clicks a job while they have one already running,
+	/// it will bring them to a side-screen where there's a button that should function
+	/// the same as the button on the job entry. However, since that functionality was coded
+	/// into MiniJobEntry, we've got to replicate (somewhat) it here.
 	/// </summary>
-	IEnumerator UpdateStupidFuckingButton()
+	IEnumerator UpdateJobNotDoneButton()
 	{
 		while (MSMiniJobManager.instance.currActiveJob.timeCompleted == 0)
 		{
