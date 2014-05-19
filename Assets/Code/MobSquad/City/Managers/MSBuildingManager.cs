@@ -78,12 +78,19 @@ public class MSBuildingManager : MonoBehaviour
 	/// <summary>
 	/// Dictionary of the units currently in the scene
 	/// </summary>
-	private Dictionary<long, MSUnit> NPCUnits = new Dictionary<long, MSUnit>();
+	private Dictionary<long, MSUnit> _NPCUnits = new Dictionary<long, MSUnit>();
 	
 	/// <summary>
 	/// In a nuetral city the player's units must be in a different dictionary than NPCs
 	/// </summary>
-	private Dictionary<long, MSUnit> playerUnits = new Dictionary<long, MSUnit> ();
+	private Dictionary<long, MSUnit> _playerUnits = new Dictionary<long, MSUnit> ();
+
+	/// <summary>
+	/// getter for dictionary playerUnits.
+	/// </summary>
+	public Dictionary<long, MSUnit> playerUnits{
+		get{ return _playerUnits; }
+	}
 
 	public static List<MSBuilding> labs = new List<MSBuilding>();
 
@@ -222,9 +229,9 @@ public class MSBuildingManager : MonoBehaviour
 				{
 					buildings[task.assetNumWithinCity].taskable.Init(task);
 				}
-				else if(NPCUnits.ContainsKey(task.assetNumWithinCity))
+				else if(_NPCUnits.ContainsKey(task.assetNumWithinCity))
 				{
-					NPCUnits[task.assetNumWithinCity].taskable.Init(task);
+					_NPCUnits[task.assetNumWithinCity].taskable.Init(task);
 				}
 			}
 		}
@@ -389,7 +396,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSUnit unit = MSPoolManager.instance.Get(unitPrefab, Vector3.zero) as MSUnit;
 		unit.transf.parent = unitParent;
 		unit.Init(element);
-		NPCUnits.Add(element.assetId, unit);
+		_NPCUnits.Add(element.assetId, unit);
 		unit.taskable = unit.gameObject.AddComponent<MSTaskable>();
 	}
 
@@ -419,11 +426,11 @@ public class MSBuildingManager : MonoBehaviour
 			}
 		}
 
-		foreach (var item in MSMonsterManager.instance.userMonsters) 
+		foreach (var item in MSMonsterManager.instance.userTeam) 
 		{
 			if (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED)
 			{
-				addMonsterToScene(item, playerUnits);
+				addMonsterToScene(item, _playerUnits);
 			}
 		}
 	}
@@ -496,7 +503,7 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			if (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED)
 			{
-				addMonsterToScene(item, playerUnits);
+				addMonsterToScene(item, _playerUnits);
 			}
 		}
 		
@@ -858,18 +865,18 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			item.Pool();
 		}
-		foreach (MSUnit item in NPCUnits.Values) 
+		foreach (MSUnit item in _NPCUnits.Values) 
 		{
 			item.Pool();
 		}
-		foreach (MSUnit item in playerUnits.Values) 
+		foreach (MSUnit item in _playerUnits.Values) 
 		{
 			item.Pool();
 		}
 		buildings.Clear();
 		obstacles.Clear();
-		NPCUnits.Clear();
-		playerUnits.Clear();
+		_NPCUnits.Clear();
+		_playerUnits.Clear();
 	}
 	
 	#endregion
@@ -1081,8 +1088,8 @@ public class MSBuildingManager : MonoBehaviour
 			foreach (var mobster in MSMonsterManager.instance.userTeam) {
 				if(mobster != null && mobster.monster.monsterId > 0){
 					MSGridNode endpoint = new MSGridNode((int)gridLocation.x, (int)gridLocation.y);
-					if(playerUnits.Count > 0){
-						playerUnits[mobster.userMonster.userMonsterId].cityUnit.UserClickMoveTo(endpoint);
+					if(_playerUnits.Count > 0){
+						_playerUnits[mobster.userMonster.userMonsterId].cityUnit.UserClickMoveTo(endpoint);
 					}
 					break;
 				}
@@ -1180,13 +1187,13 @@ public class MSBuildingManager : MonoBehaviour
 
 	public void OnAddTeam(PZMonster monster){
 		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) {
-			addMonsterToScene (monster, playerUnits);
+			addMonsterToScene (monster, _playerUnits);
 		}
 	}
 
 	public void OnRemoveTeam(PZMonster monster){
 		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) {
-			removeMonsterFromScene (monster, playerUnits);
+			removeMonsterFromScene (monster, _playerUnits);
 		}
 	}
 

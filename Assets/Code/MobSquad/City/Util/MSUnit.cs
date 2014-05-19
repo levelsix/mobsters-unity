@@ -7,6 +7,9 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	
 	public SpriteRenderer sprite;
 
+	[SerializeField]
+	public SpriteRenderer shadow;
+
 	public Animator anim;
 	
 	string _spriteBaseName;
@@ -120,6 +123,13 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		trans = transform;
 		gameObj = gameObject;
 		cityUnit = GetComponent<MSCityUnit>();
+	}
+
+	void OnEnable(){
+		Color newColor = new Color (sprite.color.r, sprite.color.g, sprite.color.b, 1f);
+		sprite.color = newColor;
+		shadow.color = newColor;
+		ResetAnimation ();
 	}
 	
 	public MSPoolable Make (Vector3 origin)
