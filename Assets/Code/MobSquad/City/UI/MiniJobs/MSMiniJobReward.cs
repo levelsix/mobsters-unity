@@ -18,7 +18,7 @@ public class MSMiniJobReward : MonoBehaviour {
 	UILabel label;
 
 	const string gemSpriteName = "diamond";
-	const string cashSpriteName = "cashstack";
+	const string cashSpriteName = "moneystack";
 	const string oilSpriteName = "oilicon";
 
 	void Init(string spriteName, string labelText, Color textColor)

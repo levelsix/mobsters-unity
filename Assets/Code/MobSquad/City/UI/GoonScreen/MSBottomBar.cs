@@ -307,7 +307,7 @@ public class MSBottomBar : MonoBehaviour {
 			case GoonScreenMode.HEAL:
 				timeLeft = MSHospitalManager.instance.lastFinishTime - MSUtil.timeNowMillis;
 				timeLeftLabel.text = MSUtil.TimeStringShort(timeLeft);
-				rightSideButton.label.text = "(g) " + MSMath.GemsForTime(timeLeft/1000);
+				rightSideButton.label.text = "(g) " + MSMath.GemsForTime(timeLeft);
 				buttonHeader.text = "FINISH";
 				timeLeftHeader.text = "Time Left";
 				break;
@@ -315,7 +315,7 @@ public class MSBottomBar : MonoBehaviour {
 				timeLeft = MSMonsterManager.instance.lastEnhance - MSUtil.timeNowMillis;
 				timeLeftLabel.text = MSUtil.TimeStringShort(timeLeft);
 				buttonHeader.text = "FINISH";
-				rightSideButton.label.text = "(g) " + MSMath.GemsForTime(timeLeft/1000);
+				rightSideButton.label.text = "(g) " + MSMath.GemsForTime(timeLeft);
 				timeLeftHeader.text = "Time Left";
 				break;
 			case GoonScreenMode.SELL:

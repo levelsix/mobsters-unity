@@ -50,7 +50,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 	UIButton button;
 
-	public enum Mode {SELL, UPGRADE, FINISH, ENGAGE, HEAL, ENHANCE, REMOVE, EVOLVE, HIRE};
+	public enum Mode {SELL, UPGRADE, FINISH, ENGAGE, HEAL, ENHANCE, REMOVE, EVOLVE, HIRE, MINIJOB};
 	
 	Mode currMode;
 	
@@ -63,7 +63,8 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		{Mode.ENHANCE, "ENHANCE"},
 		{Mode.REMOVE, "REMOVE"},
 		{Mode.EVOLVE, "EVOLVE"},
-		{Mode.HIRE, "HIRE"}
+		{Mode.HIRE, "HIRE"},
+		{Mode.MINIJOB, "MINI JOBS"}
 	};
 
 	System.Collections.Generic.Dictionary<Mode, string> modeButtonSprites = new System.Collections.Generic.Dictionary<Mode, string>() {
@@ -73,7 +74,8 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		{Mode.REMOVE, "greenmenuoption"},
 		{Mode.HEAL, "orangemenuoption"},
 		{Mode.EVOLVE, "orangemenuoption"},
-		{Mode.HIRE, "orangemenuoption"}
+		{Mode.HIRE, "orangemenuoption"},
+		{Mode.MINIJOB, "orangemenuoption"}
 	};
 
 	System.Collections.Generic.Dictionary<string, Color> buttonTextColors = new Dictionary<string, Color>(){
@@ -186,6 +188,9 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		case Mode.HIRE:
 			ClickHire();
 			break;
+		case Mode.MINIJOB:
+			ClickMiniJob();
+			break;
 		default:
 			break;
 		}
@@ -237,6 +242,11 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	{
 		base.OnClick();
 		popup.GetComponent<MSHirePopup>().Init(currBuilding);
+	}
+
+	void ClickMiniJob()
+	{
+		base.OnClick();
 	}
 	
 	public void Pool ()

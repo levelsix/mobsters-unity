@@ -75,7 +75,11 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_RECORD_CLAN_RAID_STATS_EVENT, typeof(RecordClanRaidStatsResponseProto)},
 		{EventProtocolResponse.S_BEGIN_OBSTACLE_REMOVAL_EVENT, typeof(BeginObstacleRemovalResponseProto)},
 		{EventProtocolResponse.S_OBSTACLE_REMOVAL_COMPLETE_EVENT, typeof(ObstacleRemovalCompleteResponseProto)},
-		{EventProtocolResponse.S_SPAWN_OBSTACLE_EVENT, typeof(SpawnObstacleResponseProto)}
+		{EventProtocolResponse.S_SPAWN_OBSTACLE_EVENT, typeof(SpawnObstacleResponseProto)},
+		{EventProtocolResponse.S_SPAWN_MINI_JOB_EVENT, typeof(SpawnMiniJobResponseProto)},
+		{EventProtocolResponse.S_COMPLETE_MINI_JOB_EVENT, typeof(CompleteMiniJobResponseProto)},
+		{EventProtocolResponse.S_BEGIN_MINI_JOB_EVENT, typeof(BeginMiniJobResponseProto)},
+		{EventProtocolResponse.S_REDEEM_MINI_JOB_EVENT, typeof (RedeemMiniJobResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

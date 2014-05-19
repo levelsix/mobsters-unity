@@ -43,6 +43,21 @@ public class MSUIHelper : MonoBehaviour {
 		return fadeIn ? FadeIn() : FadeOut();
 	}
 
+	public void FadeOutAndOff()
+	{
+		StartCoroutine(DoFadeOutThenDisable());
+	}
+
+	IEnumerator DoFadeOutThenDisable()
+	{
+		TweenAlpha alph = FadeOut();
+		while (alph.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		TurnOff();
+	}
+
 	public void FadeOutAndPool()
 	{
 		StartCoroutine(DoFadeOutThenPool());
@@ -61,7 +76,7 @@ public class MSUIHelper : MonoBehaviour {
 		}
 		else
 		{
-			gameObject.SetActive(false);
+			TurnOff();
 		}
 	}
 

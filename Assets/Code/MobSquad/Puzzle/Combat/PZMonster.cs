@@ -6,7 +6,7 @@ using System;
 
 public enum MonsterStatus
 {
-	HEALTHY, INJURED, HEALING, ENHANCING, EVOLVING, COMBINING, INCOMPLETE
+	HEALTHY, INJURED, HEALING, ENHANCING, EVOLVING, COMBINING, INCOMPLETE, ON_MINI_JOB
 }
 
 [System.Serializable]
@@ -270,6 +270,10 @@ public class PZMonster {
 			{
 				return MonsterStatus.HEALING;
 			}
+			if (MSMiniJobManager.instance.IsMonsterBusy(userMonster.userMonsterId))
+			{
+				return MonsterStatus.ON_MINI_JOB;
+			}
 			if (currHP < maxHP)
 			{
 				return MonsterStatus.INJURED;
@@ -447,6 +451,14 @@ public class PZMonster {
 		}
 
 		return Mathf.FloorToInt(monster.lvlInfo[0].hp * Mathf.Pow(monster.lvlInfo[0].hpExponentBase, level-1));
+	}
+
+	public UserMonsterCurrentHealthProto GetCurrentHealthProto()
+	{
+		UserMonsterCurrentHealthProto umchp = new UserMonsterCurrentHealthProto();
+		umchp.currentHealth = currHP;
+		umchp.userMonsterId = userMonster.userMonsterId;
+		return umchp;
 	}
 
 	public MinimumUserMonsterSellProto GetSellProto()

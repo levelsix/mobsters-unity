@@ -293,6 +293,8 @@ public abstract class UITweener : MonoBehaviour
 		// Calculate the sampling value
 		float val = Mathf.Clamp01(factor);
 
+		mFactor = val;
+
 		if (method == Method.EaseIn)
 		{
 			val = 1f - Mathf.Sin(0.5f * Mathf.PI * (1f - val));

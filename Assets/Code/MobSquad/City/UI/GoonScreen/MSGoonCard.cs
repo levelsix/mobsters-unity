@@ -186,7 +186,10 @@ public class MSGoonCard : MonoBehaviour {
 		switch (cardMode)
 		{
 		case MonsterStatus.INCOMPLETE:
-			name = "4 Unavailable 5 Piece";
+			name = "4 Unavailable 6 Piece";
+			break;
+		case MonsterStatus.ON_MINI_JOB:
+			name = "4 Unavailable 5 On Mini Job";
 			break;
 		case MonsterStatus.COMBINING:
 			name = "4 Unavailable 4 Combining";
