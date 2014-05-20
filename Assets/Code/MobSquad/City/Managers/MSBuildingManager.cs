@@ -388,9 +388,11 @@ public class MSBuildingManager : MonoBehaviour
 		RemoveMonsterFromScene (monster.userMonster.userMonsterId, dict);
 	}
 	public void RemoveMonsterFromScene(long key, Dictionary<long, MSUnit> dict){
-		MSUnit rmMonster = dict [key];
-		dict.Remove (key);
-		rmMonster.Pool ();
+		if (dict.ContainsKey (key)) {
+			MSUnit rmMonster = dict [key];
+			dict.Remove (key);
+			rmMonster.Pool ();
+		}
 	}
 	
 	void MakeNPC(CityElementProto element)
