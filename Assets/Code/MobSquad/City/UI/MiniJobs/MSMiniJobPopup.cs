@@ -75,13 +75,29 @@ public class MSMiniJobPopup : MonoBehaviour {
 	
 	#endregion
 
+	#region Busy On Job Stuff
+
+	[SerializeField]
+	UILabel currJobName;
+
+	[SerializeField]
+	UILabel currJobTime;
+
+	[SerializeField]
+	UILabel buttonLabel;
+
+	[SerializeField]
+	UIButton buttonSprite;
+
+	#endregion
+
 	[SerializeField]
 	MSUIHelper backButton;
 
 	[SerializeField]
 	TweenPosition mover;
 
-	List<MSMiniJobEntry> jobEntries = new List<MSMiniJobEntry>();
+	public List<MSMiniJobEntry> jobEntries = new List<MSMiniJobEntry>();
 
 	public List<MSMiniJobGoonie> goonEntries = new List<MSMiniJobGoonie>();
 
@@ -101,13 +117,13 @@ public class MSMiniJobPopup : MonoBehaviour {
 
 	void OnEnable()
 	{
+		mover.Sample(0, true);
+
 		Init ();
 	}
 
 	public void Init()
 	{
-		mover.Sample(0, true);
-
 		SetupJobGrid();
 
 		StartCoroutine(RunTimerUntilJobsReset());
@@ -128,6 +144,8 @@ public class MSMiniJobPopup : MonoBehaviour {
 		}
 	
 		miniJobGrid.Reposition();
+
+		CheckNoJobs();
 	}
 
 	void InsertJobEntry(UserMiniJobProto job)
@@ -253,11 +271,13 @@ public class MSMiniJobPopup : MonoBehaviour {
 			}
 		}
 		goonGrid.Reposition();
+		tapHint.ResetAlpha(true);
 	}
 
 	void InitRightAlreadyOnJob()
 	{
-
+		currJobName.text = MSMiniJobManager.instance.currActiveJob.miniJob.name;
+		StartCoroutine(UpdateJobNotDoneButton());
 	}
 
 	public bool TryPickMonster(PZMonster monster, MSMiniJobGoonPortrait portrait)
@@ -272,6 +292,7 @@ public class MSMiniJobPopup : MonoBehaviour {
 				item.InsertMonster(monster, portrait);
 				currTeam.Add(monster);
 				CalculateBars ();
+				tapHint.FadeOut();
 				return true;
 			}
 		}
@@ -288,12 +309,20 @@ public class MSMiniJobPopup : MonoBehaviour {
 		                                                   goonGrid.transform) as MSSimplePoolable).GetComponent<MSMiniJobGoonie>();
 		entry.transform.localPosition = Vector3.zero;
 		entry.transform.localScale = Vector3.one;
-		entry.Init(monster, currJob.miniJob.atkRequired, currJob.miniJob.hpRequired, this);
+		entry.Init(monster, currJob.miniJob.hpRequired, currJob.miniJob.atkRequired, this);
 		goonEntries.Add(entry);
 
 		if (once)
 		{
 			goonGrid.Reposition();
+			foreach (var item in goonSlots) 
+			{
+				if (!item.isOpen)
+				{
+					return;
+				}
+			}
+			tapHint.FadeIn();
 		}
 	}
 
@@ -303,4 +332,51 @@ public class MSMiniJobPopup : MonoBehaviour {
 		backButton.FadeOutAndOff();
 	}
 
+	public void CheckNoJobs()
+	{
+		noJobsLabel.Fade(jobEntries.Count == 0);
+	}
+
+	/// <summary>	
+	/// If the player clicks a job while they have one already running,
+	/// it will bring them to a side-screen where there's a button that should function
+	/// the same as the button on the job entry. However, since that functionality was coded
+	/// into MiniJobEntry, we've got to replicate (somewhat) it here.
+	/// </summary>
+	IEnumerator UpdateJobNotDoneButton()
+	{
+		while (MSMiniJobManager.instance.currActiveJob.timeCompleted == 0)
+		{
+			buttonSprite.normalSprite = "purplemenuoption";
+			buttonLabel.text = "Finish\n(g) " + MSMath.GemsForTime(MSMiniJobManager.instance.timeLeft);
+			currJobTime.text = MSUtil.TimeStringShort(MSMiniJobManager.instance.timeLeft);
+			currJobTime.color = Color.black;
+			yield return new WaitForSeconds(1);
+		}
+
+		currJobTime.text = "Complete!";
+		currJobTime.color = MSColors.cashTextColor;
+		buttonLabel.text = "Collect!";
+		buttonSprite.normalSprite = "greenmenuoption";
+	}
+
+	/// <summary>
+	/// If the player clicks a job while they have one already running,
+	/// it will bring them to a side-screen where there's a button that should function
+	/// the same as the button on the job entry. However, since that functionality was coded
+	/// into MiniJobEntry, we've got to replicate (somewhat) it here.
+	/// </summary>
+	public void ClickJobNotDoneButton()
+	{
+		if (MSMiniJobManager.instance.currActiveJob.timeCompleted == 0)
+		{
+			MSMiniJobManager.instance.CompleteCurrentJobWithGems();
+		}
+		else
+		{
+			MSMiniJobManager.instance.RedeemCurrJob();
+			mover.PlayReverse();
+		}
+
+	}
 }

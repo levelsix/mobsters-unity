@@ -53,6 +53,8 @@ public class MSMiniJobEntry : MonoBehaviour {
 
 	public void Init(UserMiniJobProto userMiniJob, MSMiniJobPopup popup)
 	{
+		rootHelper.ResetAlpha(true);
+
 		this.popup = popup;
 		job = userMiniJob;
 
@@ -221,6 +223,9 @@ public class MSMiniJobEntry : MonoBehaviour {
 		{
 			grid.Reposition();
 		}
+
+		popup.jobEntries.Remove(this);
+		popup.CheckNoJobs();
 
 		TweenAlpha fade = rootHelper.FadeOut();
 		while(fade.tweenFactor < 1)

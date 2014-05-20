@@ -14,6 +14,8 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	public bool initialized = false;
 
+	public bool isBeginning = false;
+
 	public bool isRedeeming = false;
 
 	public bool isCompleting = false;
@@ -202,13 +204,16 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		request.userMiniJobId = job.userMiniJobId;
 
+		isBeginning = true;
+
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_MINI_JOB_EVENT, 
 		                                       DealWithJobBegin);
-
 	}
 
 	void DealWithJobBegin(int tagNum)
 	{
+		isBeginning = false;
+
 		BeginMiniJobResponseProto response = UMQNetworkManager.responseDict[tagNum] as BeginMiniJobResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
@@ -227,7 +232,7 @@ public class MSMiniJobManager : MonoBehaviour {
 		int numGems = MSMath.GemsForTime(timeLeft);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, numGems))
 		{
-			CompleteCurrentJob(true, numGems);
+			StartCoroutine(CompleteCurrentJob(true, numGems));
 		}
 	}
 
@@ -239,17 +244,22 @@ public class MSMiniJobManager : MonoBehaviour {
 			return;
 		}
 
-		CompleteCurrentJob(false);
+		StartCoroutine(CompleteCurrentJob(false));
 	}
 
-	void CompleteCurrentJob(bool speedUp, int gems = 0)
+	IEnumerator CompleteCurrentJob(bool speedUp, int gems = 0)
 	{	
-		if (isCompleting)
+		if (isCompleting) //If the player decides to mash the button, don't send more requests
 		{
-			return;
+			yield break;
 		}
 
 		isCompleting = true;
+
+		while (isBeginning)
+		{
+			yield return null;
+		}
 
 		currActiveJob.timeCompleted = MSUtil.timeNowMillis;
 
@@ -338,16 +348,19 @@ public class MSMiniJobManager : MonoBehaviour {
 			yield return null;
 		}
 
+		UserMiniJobProto currJob = currActiveJob;
+		currActiveJob = null;
+		userMiniJobs.Remove(currJob);
+
 		RedeemMiniJobRequestProto request = new RedeemMiniJobRequestProto();
 		request.sender = MSWhiteboard.localMupWithResources;
 		request.clientTime = MSUtil.timeNowMillis;
-		request.userMiniJobId = currActiveJob.userMiniJobId;
+		request.userMiniJobId = currJob.userMiniJobId;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REDEEM_MINI_JOB_EVENT, null);
 
 		isRedeeming = true;
 
-		userMiniJobs.Remove(currActiveJob);
 
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
@@ -364,9 +377,9 @@ public class MSMiniJobManager : MonoBehaviour {
 				MSMonsterManager.instance.UpdateOrAdd(response.fump);
 			}
 
-			MSResourceManager.instance.Collect(ResourceType.CASH, currActiveJob.miniJob.cashReward);
-			MSResourceManager.instance.Collect(ResourceType.OIL, currActiveJob.miniJob.oilReward);
-			MSResourceManager.instance.Collect(ResourceType.GEMS, currActiveJob.miniJob.gemReward);
+			MSResourceManager.instance.Collect(ResourceType.CASH, currJob.miniJob.cashReward);
+			MSResourceManager.instance.Collect(ResourceType.OIL, currJob.miniJob.oilReward);
+			MSResourceManager.instance.Collect(ResourceType.GEMS, currJob.miniJob.gemReward);
 
 		}
 		else
@@ -374,7 +387,6 @@ public class MSMiniJobManager : MonoBehaviour {
 			Debug.LogError("Problem redeeming job: " + response.status.ToString());
 		}
 
-		currActiveJob = null;
 		isRedeeming = false;
 	}
 

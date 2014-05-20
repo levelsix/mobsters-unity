@@ -14,16 +14,44 @@ public class MSMiniJobGoonGrid : UIGrid {
 
 	public SortingMode sortingMode = SortingMode.HP;
 
+	bool reverse = true;
+
+	public bool SetMode(SortingMode mode)
+	{
+		if (mode == sortingMode)
+		{
+			reverse = !reverse;
+		}
+		else
+		{
+			reverse = true;
+		}
+		sortingMode = mode;
+		Reposition();
+		return reverse;
+	}
+
 	public void SetATKMode() { sortingMode = SortingMode.ATK; }
 	public void SetHPMode() { sortingMode = SortingMode.HP; }
 	
-	static public int SortByHP (Transform a, Transform b) 
+	public int SortByHP (Transform a, Transform b) 
 	{ 
+		if (reverse)
+		{
+			return b.GetComponent<MSMiniJobGoonie>().goonie.currHP.CompareTo
+				(a.GetComponent<MSMiniJobGoonie>().goonie.currHP); 
+		}
 		return a.GetComponent<MSMiniJobGoonie>().goonie.currHP.CompareTo
 		                     (b.GetComponent<MSMiniJobGoonie>().goonie.currHP); 
 	}
-	static public int SortByATK (Transform a, Transform b) 
+
+	public int SortByATK (Transform a, Transform b) 
 	{ 
+		if (reverse)
+		{
+			return b.GetComponent<MSMiniJobGoonie>().goonie.totalDamage.CompareTo
+				(a.GetComponent<MSMiniJobGoonie>().goonie.totalDamage);
+		}
 		return a.GetComponent<MSMiniJobGoonie>().goonie.totalDamage.CompareTo
 		                   (b.GetComponent<MSMiniJobGoonie>().goonie.totalDamage); 
 	}
