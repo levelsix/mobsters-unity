@@ -165,10 +165,9 @@ public class MSGridManager : MonoBehaviour {
 				{
 					if ((binr.ReadUInt32() & 1) > 0)
 					{
-						space = new MSWalkableSpace(new Vector2((gridSize-x-1),y));
-						_grid[(gridSize-x-1), y] = space;
+						space = new MSWalkableSpace(new Vector2((gridSize-x-1),(gridSize-y-1)));
+						_grid[(gridSize-x-1), (gridSize-y-1)] = space;
 						walkableSpaces.Add (space);
-						//Debug.Log("Walkable: " + x + ", " + y);
 					}
 				}
 			}
@@ -433,7 +432,15 @@ public class MSGridManager : MonoBehaviour {
 			zOff.z = space * i;
 			Gizmos.DrawLine(transform.position + xOff, backLeft + xOff);
 			Gizmos.DrawLine(transform.position + zOff, frontRight + zOff);
-		}	
+		}
+
+		//Makes blue squares where all walkable spaces are
+		//Inefficient, turn on only when want to test it
+		//Gizmos.color = Color.blue;
+		//foreach (var item in walkableSpaces) 
+		//{
+			//Gizmos.DrawCube (new Vector3(item.pos.x + .5f, 0, item.pos.y + .5f) * spaceSize, new Vector3(spaceSize, .2f, spaceSize));
+		//}
 	}
 	
 	public bool IsOpen(Vector2 pos)

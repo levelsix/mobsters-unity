@@ -348,6 +348,10 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		float healthLeftToHeal = monster.maxHP - progress - monster.currHP;
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
+
+		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructId
+			+ "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
+
 		return startTime + millis;
 	}
 	
@@ -403,7 +407,7 @@ public class MSHospitalManager : MonoBehaviour {
 		MSHospital soonest = null;
 		foreach (var hos in hospitals) 
 		{
-			if (hos.completeTime < MSUtil.timeNowMillis) hos.completeTime = MSUtil.timeNowMillis;
+			//if (hos.completeTime < MSUtil.timeNowMillis) hos.completeTime = MSUtil.timeNowMillis;
 			//If this building is sooner, or just as soon and faster, than the current soonest
 			if (soonest == null || hos.completeTime < soonest.completeTime || (hos.completeTime == soonest.completeTime
 			                                                                            && hos.proto.healthPerSecond > soonest.proto.healthPerSecond))
@@ -428,7 +432,7 @@ public class MSHospitalManager : MonoBehaviour {
 		MSHospital soonest = null;
 		foreach (var hos in hospitals) 
 		{
-			if (hos.completeTime < MSUtil.timeNowMillis) hos.completeTime = MSUtil.timeNowMillis;
+			//if (hos.completeTime < MSUtil.timeNowMillis) hos.completeTime = MSUtil.timeNowMillis;
 			if (hos == lastHospital) continue;
 			str += "\nChecking " + hos.userBuildingData.userStructId + ": " + hos.completeTime + ", " + hos.proto.healthPerSecond;
 			if (hos.proto.healthPerSecond > lastHospital.proto.healthPerSecond

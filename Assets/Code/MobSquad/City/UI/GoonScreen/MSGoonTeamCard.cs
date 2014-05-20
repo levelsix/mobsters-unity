@@ -56,6 +56,16 @@ public class MSGoonTeamCard : MonoBehaviour {
 		{Element.WATER, "waterteamhealthbar"}
 	};
 
+	void OnEnable()
+	{
+		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += OnMonsterRemovedFromInventory;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory -= OnMonsterRemovedFromInventory;
+	}
+
 	public void AddAnimation()
 	{
 		foreach (var item in addTweens) 
@@ -193,6 +203,14 @@ public class MSGoonTeamCard : MonoBehaviour {
 		
 		
 		this.goon = goon;
+	}
+
+	void OnMonsterRemovedFromInventory(long userMonsterId)
+	{
+		if (goon.userMonster.userMonsterId == userMonsterId)
+		{
+			Init (null, true);
+		}
 	}
 
 }

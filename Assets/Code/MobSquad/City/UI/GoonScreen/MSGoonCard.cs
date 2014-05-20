@@ -709,8 +709,7 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		if (goon != null && goon.userMonster != null && goon.userMonster.userMonsterId == userMonsterId)
 		{
-			GetComponent<MSSimplePoolable>().Pool();
-
+			//GetComponent<MSSimplePoolable>().Pool();
 		}
 	}
 
