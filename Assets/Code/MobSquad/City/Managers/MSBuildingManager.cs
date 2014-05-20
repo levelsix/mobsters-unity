@@ -370,8 +370,7 @@ public class MSBuildingManager : MonoBehaviour
 	/// </summary>
 	/// <param name="monster">The monster that you want added to the scene.</param>
 	/// <param name="dict">The dictionary you want the mobster added to.</param>
-	void addMonsterToScene(PZMonster monster, Dictionary<long, MSUnit> dict){
-
+	public void AddMonsterToScene(PZMonster monster, Dictionary<long, MSUnit> dict){
 		if (monster.userMonster.isComplete)
 		{
 			MSUnit dude = MSPoolManager.instance.Get(unitPrefab, Vector3.zero, unitParent) as MSUnit;
@@ -385,9 +384,12 @@ public class MSBuildingManager : MonoBehaviour
 	/// </summary>
 	/// <param name="monster">monster to be removed.</param>
 	/// <param name="dict">Dictionary that the monster needs to be removed from.</param>
-	void removeMonsterFromScene(PZMonster monster, Dictionary<long, MSUnit> dict){
-		MSUnit rmMonster = dict [monster.userMonster.userMonsterId];
-		dict.Remove (monster.userMonster.userMonsterId);
+	public void RemoveMonsterFromScene(PZMonster monster, Dictionary<long, MSUnit> dict){
+		RemoveMonsterFromScene (monster.userMonster.userMonsterId, dict);
+	}
+	public void RemoveMonsterFromScene(long key, Dictionary<long, MSUnit> dict){
+		MSUnit rmMonster = dict [key];
+		dict.Remove (key);
 		rmMonster.Pool ();
 	}
 	
@@ -430,7 +432,7 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			if (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED)
 			{
-				addMonsterToScene(item, _playerUnits);
+				AddMonsterToScene(item, _playerUnits);
 			}
 		}
 	}
@@ -503,7 +505,7 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			if (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED)
 			{
-				addMonsterToScene(item, _playerUnits);
+				AddMonsterToScene(item, _playerUnits);
 			}
 		}
 		
@@ -1086,7 +1088,7 @@ public class MSBuildingManager : MonoBehaviour
 			FullDeselect();
 			Vector3 gridLocation = MSGridManager.instance.PointToGridCoords(MSGridManager.instance.ScreenToGround(touch.pos, true));
 			foreach (var mobster in MSMonsterManager.instance.userTeam) {
-				if(mobster != null && mobster.monster.monsterId > 0){
+				if(mobster != null && mobster.monster.monsterId > 0 && _playerUnits.ContainsKey(mobster.userMonster.userMonsterId)){
 					MSGridNode endpoint = new MSGridNode((int)gridLocation.x, (int)gridLocation.y);
 					if(_playerUnits.Count > 0){
 						_playerUnits[mobster.userMonster.userMonsterId].cityUnit.UserClickMoveTo(endpoint);
@@ -1094,6 +1096,7 @@ public class MSBuildingManager : MonoBehaviour
 					break;
 				}
 			}
+			Debug.LogWarning ("A tap was detected but no mobster was found on the grid to move");
 		}
 		
 	}
@@ -1185,15 +1188,21 @@ public class MSBuildingManager : MonoBehaviour
 		}
 	}
 
-	public void OnAddTeam(PZMonster monster){
+	void OnAddTeam(PZMonster monster){
 		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) {
-			addMonsterToScene (monster, _playerUnits);
+			AddMonsterToScene (monster, _playerUnits);
 		}
 	}
 
-	public void OnRemoveTeam(PZMonster monster){
+	void OnRemoveTeam(PZMonster monster){
 		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) {
-			removeMonsterFromScene (monster, _playerUnits);
+			RemoveMonsterFromScene (monster, _playerUnits);
+		}
+	}
+
+	void OnMonsterRemovedFromPlayerInventory(long monsterID){
+		if (_playerUnits.ContainsKey (monsterID)) {
+			RemoveMonsterFromScene (monsterID , _playerUnits);
 		}
 	}
 

@@ -131,13 +131,13 @@ public class MSGoonCard : MonoBehaviour {
 
 	void OnEnable()
 	{
-		MSActionManager.Goon.OnMonsterRemoved += CheckRemovedMonster;
+		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += CheckRemovedMonster;
 		MSActionManager.Goon.OnEnhanceQueueChanged += OnEnhancementQueueChanged;
 	}
 
 	void OnDisable()
 	{
-		MSActionManager.Goon.OnMonsterRemoved -= CheckRemovedMonster;
+		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory -= CheckRemovedMonster;
 		MSActionManager.Goon.OnEnhanceQueueChanged -= OnEnhancementQueueChanged;
 		addRemoveTeamButton.onClick = null;
 		healButton.onClick = null;

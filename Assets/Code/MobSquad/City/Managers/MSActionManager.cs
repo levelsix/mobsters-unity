@@ -118,7 +118,7 @@ public static class MSActionManager
 		public static Action OnHealQueueChanged;
 		public static Action OnEnhanceQueueChanged;
 		public static Action<PZMonster> OnMonsterFinishHeal;
-		public static Action<long> OnMonsterRemoved;
+		public static Action<long> OnMonsterRemovedFromPlayerInventory;
 
 		public static Action OnMonsterListChanged;
 	}

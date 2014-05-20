@@ -159,9 +159,9 @@ public class MSMonsterManager : MonoBehaviour {
 	public void RemoveMonster(long userMonsterId)
 	{
 		userMonsters.RemoveAll(x=>x.userMonster.userMonsterId==userMonsterId);
-		if (MSActionManager.Goon.OnMonsterRemoved != null)
+		if (MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory != null)
 		{
-			MSActionManager.Goon.OnMonsterRemoved(userMonsterId);
+			MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory(userMonsterId);
 		}
 		if (MSActionManager.Goon.OnMonsterListChanged != null)
 		{

@@ -107,14 +107,14 @@ public class MSBottomBar : MonoBehaviour {
 	{
 		MSActionManager.Goon.OnMonsterAddQueue += OnQueueAdd;
 		MSActionManager.Goon.OnMonsterRemoveQueue += OnQueueRemove;
-		MSActionManager.Goon.OnMonsterRemoved += OnMonsterRemove;
+		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += OnMonsterRemove;
 	}
 
 	void OnDisable()
 	{
 		MSActionManager.Goon.OnMonsterAddQueue -= OnQueueAdd;
 		MSActionManager.Goon.OnMonsterRemoveQueue -= OnQueueRemove;
-		MSActionManager.Goon.OnMonsterRemoved -= OnMonsterRemove;
+		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory -= OnMonsterRemove;
 	}
 
 	#region Initialization and Setup
@@ -419,6 +419,10 @@ public class MSBottomBar : MonoBehaviour {
 		{
 			RemoveBox(box);
 		}
+
+		if (mode != GoonScreenMode.SELL) {
+			MSBuildingManager.instance.AddMonsterToScene (monster, MSBuildingManager.instance.playerUnits);
+		}
 	}
 
 	void OnQueueAdd(PZMonster monster)
@@ -429,9 +433,10 @@ public class MSBottomBar : MonoBehaviour {
 			return;
 		}
 
-		if (mode == GoonScreenMode.SELL)
-		{
+		if (mode == GoonScreenMode.SELL) {
 			currSellValue += monster.sellValue;
+		} else {
+			MSBuildingManager.instance.RemoveMonsterFromScene(monster, MSBuildingManager.instance.playerUnits);
 		}
 
 		//Grab an empty slot to fade out
