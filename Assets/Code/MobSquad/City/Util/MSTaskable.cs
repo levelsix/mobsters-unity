@@ -199,7 +199,7 @@ public class MSTaskable : MonoBehaviour {
 		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.PUZZLE;
 		MSWhiteboard.dungeonToLoad = request;
 		
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, ReceiveBeginDungeonResponse);
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, null);
 		
 		yield return StartCoroutine (EnterDungeon ());
 
@@ -208,25 +208,16 @@ public class MSTaskable : MonoBehaviour {
 		PZCombatManager.instance.PreInitTask();
 
 		PZPuzzleManager.instance.InitBoard();
-	}
 
-	void ReceiveBeginDungeonResponse(int tagNum)
-	{
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
 
-		Debug.Log("Got dungeon request");
-		
 		MSWhiteboard.loadedDungeon = UMQNetworkManager.responseDict[tagNum] as BeginDungeonResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
-
+		
 		PZCombatManager.instance.InitTask();
-
-		//if (MSTutorialManager.instance.IsTaskTutorial(task.taskId))
-		//{
-		//	MSTutorialManager.instance.StartTutorial(task.taskId);
-		//}
-		//else
-		//{
-		//}
 
 	}
 }
