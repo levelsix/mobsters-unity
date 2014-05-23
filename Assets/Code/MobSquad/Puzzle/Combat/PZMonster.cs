@@ -300,6 +300,8 @@ public class PZMonster {
 	public float[] attackDamages = new float[PZPuzzleManager.GEM_TYPES];
 
 	public float totalDamage = 0;
+
+	public int level;
 	
 	public PZMonster(FullUserMonsterProto userMonster)
 	{
@@ -315,6 +317,8 @@ public class PZMonster {
 
 		currHP = maxHP = MaxHPAtLevel(pvpMonster.monsterLvl);
 		SetAttackDamagesForLevel(pvpMonster.monsterLvl);
+
+		level = pvpMonster.monsterLvl;
 	}
 	
 	public PZMonster(MonsterProto monster, FullUserMonsterProto userMonster)
@@ -329,7 +333,9 @@ public class PZMonster {
 	{
 		this.taskMonster = taskMonster;
 		this.monster = MSDataManager.instance.Get(typeof(MonsterProto), taskMonster.monsterId) as MonsterProto;
-		
+
+		level = taskMonster.level;
+
 		SetupWithTask();
 	}
 	
@@ -337,6 +343,8 @@ public class PZMonster {
 	{
 		this.monster = monster;
 		this.taskMonster = taskMonster;
+
+		level = taskMonster.level;
 		
 		SetupWithTask();
 	}
@@ -350,6 +358,8 @@ public class PZMonster {
 
 		minDamage = raidMonster.minDmg;
 		maxDamage = raidMonster.maxDmg;
+
+		level = 100;
 	}
 	
 	public void UpdateUserMonster(FullUserMonsterProto userMonster)
@@ -360,7 +370,7 @@ public class PZMonster {
 	
 	void SetupWithUser()
 	{
-		userMonster.currentLvl = Math.Min(userMonster.currentLvl, monster.maxLevel);
+		level = userMonster.currentLvl = Math.Min(userMonster.currentLvl, monster.maxLevel);
 
 		maxHP = MaxHPAtLevel(userMonster.currentLvl);
 		currHP = userMonster.currentHealth;
@@ -520,7 +530,7 @@ public class PZMonster {
 	public void GainXP(int exp)
 	{
 		userMonster.currentExp += exp;
-		userMonster.currentLvl = (int)LevelForMonster(userMonster.currentExp);
+		level = userMonster.currentLvl = (int)LevelForMonster(userMonster.currentExp);
 	}
 	
 	public UserMonsterCurrentExpProto GetCurrentExpProto()
