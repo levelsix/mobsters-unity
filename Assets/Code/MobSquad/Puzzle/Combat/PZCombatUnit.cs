@@ -127,7 +127,7 @@ public class PZCombatUnit : MonoBehaviour {
 		hpBar.fill = ((float)monster.currHP) / monster.maxHP;
 		hpLabel.text = monster.currHP + "/" + monster.maxHP;
 
-		unitInfo.text = monster.monster.displayName + " (LVL " + "<level>" + ")";
+		unitInfo.text = monster.monster.displayName + " (LVL " + monster.level + ")";
 
 		Color healthColor;
 		switch (monster.monster.monsterElement) {
