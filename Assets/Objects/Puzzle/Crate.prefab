@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!54 &5400000
@@ -69,6 +69,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397705a8710284462bdb9407b0afc8de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  capsuleCommon: {fileID: 21300000, guid: dd4902ca66f9348bb84a38ecb6d67caa, type: 3}
+  capsuleRare: {fileID: 21300000, guid: 853f03506cedb4d759d834ad519b9a45, type: 3}
+  capsuleUltra: {fileID: 21300000, guid: 27341d8bd3cdb4989be5c26d45b79ad4, type: 3}
+  capsuleEpic: {fileID: 21300000, guid: 1be37e3dc5af04ea49fe3d3739293b5d, type: 3}
+  capsuleLegendary: {fileID: 21300000, guid: 8ce4e44411b194f58ad7e97b4a85d6f2, type: 3}
+  pieceCommon: {fileID: 21300000, guid: 86ad5b970f76b4d9cbc18beab871eec7, type: 3}
+  pieceRare: {fileID: 21300000, guid: 53d2d0d22d1234afd9187a6727a7e58e, type: 3}
+  pieceUltra: {fileID: 21300000, guid: 41d62532bc4184400a9d080d2bbfe5c7, type: 3}
+  pieceEpic: {fileID: 21300000, guid: 425c9b9843eb24c91aa59cf25a98f645, type: 3}
+  pieceLegendary: {fileID: 21300000, guid: db4b0d19019b14d90989320e3d5a7e30, type: 3}
   moveTime: .800000012
   moveSpeed: 1000
   fallDist: {x: 0, y: 10, z: 0}

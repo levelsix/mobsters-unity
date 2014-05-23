@@ -174,6 +174,11 @@ public class PZCombatManager : MonoBehaviour {
 
 	public const int MATCH_MONEY = 1500;
 
+	public UILabel prizeQuantityLabel;
+
+	[SerializeField]
+	PZMonsterIntro intro;
+
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
 	/// </summary>
@@ -248,6 +253,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void PreInitTask()
 	{
+		prizeQuantityLabel.text = "0";
+
 		PreInit();
 		
 		boardMove.Sample(0,false);
@@ -641,6 +648,9 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.Init(enemies.Dequeue());
 			activeEnemy.unit.direction = MSValues.Direction.WEST;
 			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
+
+			intro.SetText (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
+			intro.PlayAnimation ();
 		}
 		else if (!activeEnemy.alive)
 		{
@@ -678,7 +688,6 @@ public class PZCombatManager : MonoBehaviour {
 			yield return null;
 		}
 		*/
-
 
 		while(activeEnemy.unit.transf.localPosition.x > enemyXPos)
 		{

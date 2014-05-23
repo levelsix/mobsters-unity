@@ -78,6 +78,7 @@ GameObject:
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400018}
+  - 114: {fileID: 11400020}
   m_Layer: 10
   m_Name: DamageLabel
   m_TagString: Untagged
@@ -141,7 +142,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 353.653259, y: 508.190491, z: 0}
+  m_LocalPosition: {x: 340.555115, y: 406.023132, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -365,7 +366,8 @@ MonoBehaviour:
   damageLabelTweens:
   - {fileID: 11400016}
   - {fileID: 11400018}
-  startingPos: {x: 353.653259, y: 508.190491, z: 0}
+  - {fileID: 11400020}
+  startingPos: {x: 340.555115, y: 406.023132, z: 0}
   alive: 0
   moving: 0
 --- !u!114 &11400008
@@ -496,18 +498,18 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 1, g: 0, b: 0, a: 0}
+  mColor: {r: 1, g: 1, b: 1, a: 0}
   mPivot: 4
-  mWidth: 40
+  mWidth: 68
   mHeight: 40
   mDepth: 3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 1.70000005
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 8a2e4fb7e2b464759aa30a0aca13ace3, type: 2}
+  mFont: {fileID: 11400000, guid: fa47be72d4c12443da44cf3038709fb9, type: 2}
   mText: -55
   mFontSize: 40
   mFontStyle: 0
@@ -669,6 +671,80 @@ MonoBehaviour:
   callWhenFinished: 
   from: 1
   to: 0
+--- !u!114 &11400020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e7459110b9666449485c40f25362a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  method: 0
+  style: 0
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: .572421789
+      outSlope: .572421789
+      tangentMode: 0
+    - time: .113658428
+      value: .0938356668
+      inSlope: 1.84610701
+      outSlope: 1.84610701
+      tangentMode: 0
+    - time: .229012504
+      value: .986310363
+      inSlope: .355526745
+      outSlope: .355526745
+      tangentMode: 0
+    - time: .379700005
+      value: -.00606497284
+      inSlope: .00139813893
+      outSlope: .00139813893
+      tangentMode: 0
+    - time: .49683997
+      value: .320504725
+      inSlope: -.00538130617
+      outSlope: -.00538130617
+      tangentMode: 0
+    - time: .624562323
+      value: -.00946433377
+      inSlope: -.0127418116
+      outSlope: -.0127418116
+      tangentMode: 0
+    - time: .756673634
+      value: .132103115
+      inSlope: -.00193575525
+      outSlope: -.00193575525
+      tangentMode: 0
+    - time: .879125059
+      value: -.00848473329
+      inSlope: .0118218949
+      outSlope: .0118218949
+      tangentMode: 0
+    - time: .991666675
+      value: 1.1920929e-07
+      inSlope: -.730768323
+      outSlope: -.730768323
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  ignoreTimeScale: 1
+  delay: 0
+  duration: 1
+  steeperCurves: 0
+  tweenGroup: 0
+  onFinished: []
+  eventReceiver: {fileID: 0}
+  callWhenFinished: 
+  from: {x: 1.24999988, y: 1.24999988, z: 1.24999988}
+  to: {x: 2.5, y: 2.5, z: 2.5}
+  updateTable: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

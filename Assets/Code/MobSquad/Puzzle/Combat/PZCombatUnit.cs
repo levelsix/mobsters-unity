@@ -231,8 +231,9 @@ public class PZCombatUnit : MonoBehaviour {
 		{
 			Transform crate = (MSPoolManager.instance.Get(MSPrefabList.instance.cratePrefab, unit.transf.position) as MonoBehaviour).transform;
 			PZCombatManager.instance.crate = crate.GetComponent<PZCrate>();
+			PZCombatManager.instance.crate.initCrate(monster);
 			crate.parent = unit.transf.parent;
-			crate.localScale = new Vector3(50,50,1);
+			crate.localScale = new Vector3(80,80,1);
 		}
 
 		yield return new WaitForSeconds(1);

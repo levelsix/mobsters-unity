@@ -164,6 +164,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSActionManager.UI.OnChangeResource[1] += DistributeOil;
 		MSActionManager.Goon.OnMonsterAddTeam += OnAddTeam;
 		MSActionManager.Goon.OnMonsterRemoveTeam += OnRemoveTeam;
+		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += OnMonsterRemovedFromPlayerInventory;
 	}
 	
 	/// <summary>
@@ -183,6 +184,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSActionManager.UI.OnChangeResource[1] -= DistributeOil;
 		MSActionManager.Goon.OnMonsterAddTeam -= OnAddTeam;
 		MSActionManager.Goon.OnMonsterRemoveTeam -= OnRemoveTeam;
+		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory -= OnMonsterRemovedFromPlayerInventory;
 	}
 	
 	#endregion
@@ -388,9 +390,11 @@ public class MSBuildingManager : MonoBehaviour
 		RemoveMonsterFromScene (monster.userMonster.userMonsterId, dict);
 	}
 	public void RemoveMonsterFromScene(long key, Dictionary<long, MSUnit> dict){
-		MSUnit rmMonster = dict [key];
-		dict.Remove (key);
-		rmMonster.Pool ();
+		if (dict.ContainsKey (key)) {
+			MSUnit rmMonster = dict [key];
+			dict.Remove (key);
+			rmMonster.Pool ();
+		}
 	}
 	
 	void MakeNPC(CityElementProto element)
@@ -1093,7 +1097,7 @@ public class MSBuildingManager : MonoBehaviour
 					if(_playerUnits.Count > 0){
 						_playerUnits[mobster.userMonster.userMonsterId].cityUnit.UserClickMoveTo(endpoint);
 					}
-					break;
+					return;
 				}
 			}
 			Debug.LogWarning ("A tap was detected but no mobster was found on the grid to move");
