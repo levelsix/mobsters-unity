@@ -380,19 +380,18 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 
-	public IEnumerator ChangeClanJoinType(bool joinType)
+	public void ChangeClanJoinType(bool joinType)
 	{
 		ChangeClanSettingsRequestProto request = new ChangeClanSettingsRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.isChangeJoinType = true;
 		request.requestToJoinRequired = joinType;
 
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_SETTINGS_EVENT, null);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_SETTINGS_EVENT, DealWithChangeClanJoinResponse);
+	}
 
-		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
-		{
-			yield return null;
-		}
+	void DealWithChangeClanJoinResponse(int tagNum)
+	{
 
 		ChangeClanSettingsResponseProto response = UMQNetworkManager.responseDict[tagNum] as ChangeClanSettingsResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
@@ -403,18 +402,38 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 
-	public IEnumerator BootPlayerFromClan(int playerId)
+	public void PromoteDemoteClanMember(int playerId, UserClanStatus clanStatus)
+	{
+		PromoteDemoteClanMemberRequestProto request = new PromoteDemoteClanMemberRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.victimId = playerId;
+		request.userClanStatus = clanStatus;
+
+		UMQNetworkManager.instance.SendRequest(request, (int) EventProtocolRequest.C_PROMOTE_DEMOTE_CLAN_MEMBER_EVENT, DealWithPromoteDemoteResponse);
+	}
+
+	void DealWithPromoteDemoteResponse(int tagNum)
+	{
+		PromoteDemoteClanMemberResponseProto response = UMQNetworkManager.responseDict[tagNum] as PromoteDemoteClanMemberResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != PromoteDemoteClanMemberResponseProto.PromoteDemoteClanMemberStatus.SUCCESS)
+		{
+			Debug.LogError("Problem promoting/demoting member: " + response.status.ToString());
+		}
+	}
+
+	public void BootPlayerFromClan(int playerId)
 	{
 		BootPlayerFromClanRequestProto request = new BootPlayerFromClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.playerToBoot = playerId;
 
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BOOT_PLAYER_FROM_CLAN_EVENT, null);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BOOT_PLAYER_FROM_CLAN_EVENT, DealWithBootResponse);
+	}
 
-		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
-		{
-			yield return null;
-		}
+	void DealWithBootResponse(int tagNum)
+	{
 
 		BootPlayerFromClanResponseProto response = UMQNetworkManager.responseDict[tagNum] as BootPlayerFromClanResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);

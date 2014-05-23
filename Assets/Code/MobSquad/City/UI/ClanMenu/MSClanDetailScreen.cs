@@ -16,10 +16,7 @@ public class MSClanDetailScreen : MonoBehaviour {
 	UILabel clanDescription;
 
 	[SerializeField]
-	UILabel foundationMembersLabel;
-
-	[SerializeField]
-	MSActionButton joinEditButton;
+	UILabel membersLabel;
 
 	[SerializeField]
 	UIGrid memberGrid;
@@ -41,12 +38,25 @@ public class MSClanDetailScreen : MonoBehaviour {
 		StartCoroutine(RetrieveClanValues(clanId));
 	}
 
+	void SetLoadingMode()
+	{
+		clanLogo.alpha = 0;
+		clanName.text = "Loading...";
+		clanDescription.text = "Fetching clan information";
+
+		foreach (var item in memberList) 
+		{
+			item.Pool();
+		}
+		
+		memberList.Clear();
+	}
+
 	IEnumerator RetrieveClanValues(int clanId)
 	{
 		loadingObjects.SetActive(true);
 
-		clanName.text = "Loading...";
-		clanDescription.text = " ";
+		SetLoadingMode();
 
 		RetrieveClanInfoRequestProto request = new RetrieveClanInfoRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -61,6 +71,8 @@ public class MSClanDetailScreen : MonoBehaviour {
 			yield return null;
 		}
 
+		clanLogo.alpha = 1;
+
 		RetrieveClanInfoResponseProto response = UMQNetworkManager.responseDict[tagNum] as RetrieveClanInfoResponseProto;
 
 		clan = response.clanInfo[0];
@@ -69,10 +81,7 @@ public class MSClanDetailScreen : MonoBehaviour {
 		clanDescription.text = clan.clan.description;
 
 		DateTime foundationDate = (new DateTime(1970,1,1)).AddMilliseconds(clan.clan.createTime);
-		foundationMembersLabel.text = "Founded: " + foundationDate.Month + "/" + foundationDate.Day + "/" + foundationDate.Year
-			+ "\nMembers: " + response.members.Count + "/" + clan.clanSize;
-
-		memberList.Clear();
+		membersLabel.text = clan.clanSize + "/" + MSWhiteboard.constants.clanConstants.maxClanSize + " MEM.";
 
 		foreach (var item in response.members) 
 		{
@@ -92,12 +101,24 @@ public class MSClanDetailScreen : MonoBehaviour {
 		loadingObjects.SetActive(false);
 	}
 
+	public void CloseAllOptions()
+	{
+		foreach (var item in memberList) 
+		{
+			item.CloseOptions();
+		}
+	}
+
 	void AddMemberEntryToGrid(MinimumUserProtoForClans member, UserCurrentMonsterTeamProto monsters)
 	{
 		MSClanMemberEntry entry = MSPoolManager.instance.Get(clanMemberEntryPrefab, Vector3.zero) as MSClanMemberEntry;
 		entry.transf.parent = memberGrid.transform;
 		entry.transf.localScale = Vector3.one;
-		entry.Init(member, monsters);
+		entry.Init(member, monsters, this);
+		foreach (var item in entry.GetComponentsInChildren<UIWidget>()) 
+		{
+			item.ParentHasChanged();
+		}
 
 		memberList.Add(entry);
 	}

@@ -140,7 +140,10 @@ public class MSMiniGoonBox : MonoBehaviour {
 	{
 		if (monster == null)
 		{
-			barBG.alpha = 0;
+			if (barBG != null)
+			{
+				barBG.alpha = 0;
+			}
 		}
 		else if (monster.isHealing)
 		{

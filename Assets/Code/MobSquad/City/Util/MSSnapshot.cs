@@ -19,7 +19,7 @@ public class MSSnapshot : MonoBehaviour {
 
 		//Render the texture
 		cam.targetTexture = rendTex;
-		cam.orthographicSize *= ((float)Screen.width / Screen.height);
+		//cam.orthographicSize *= ((float)Screen.width / Screen.height);
 		cam.Render();
 
 		//Start the fade out
@@ -27,6 +27,6 @@ public class MSSnapshot : MonoBehaviour {
 
 
 		cam.targetTexture = null;
-		cam.orthographicSize = saveSize;
+		//cam.orthographicSize = saveSize;
 	}
 }
