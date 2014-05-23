@@ -12,13 +12,13 @@ public class MSClanListScreen : MonoBehaviour {
 	MSActionButton searchButton;
 
 	[SerializeField]
-	Transform clanListParent;
-
-	[SerializeField]
 	MSClanListEntry entryPrefab;
 
 	[SerializeField]
 	UIGrid entryGrid;
+
+	[SerializeField]
+	MSClanPopup popup;
 
 	List<MSClanListEntry> currEntries = new List<MSClanListEntry>();
 
@@ -37,7 +37,7 @@ public class MSClanListScreen : MonoBehaviour {
 		string search = searchBox.label.text;
 		if (searchBox.label.color != searchBox.activeTextColor)
 		{
-			search = " ";
+			search = "";
 		}
 		IEnumerator searcher = MSClanManager.instance.SearchClanListing(search, beforeId);
 		while(searcher.MoveNext())
@@ -49,15 +49,24 @@ public class MSClanListScreen : MonoBehaviour {
 		foreach (var item in clans){
 			AddEntry (item);
 		}
-		//entryGrid.Reposition();
+
+		Debug.Log("Clans: " + entryGrid.transform.childCount);
+
+		entryGrid.Reposition();
+
 	}
 
 	void AddEntry(FullClanProtoWithClanSize clan)
 	{
 		MSClanListEntry entry = MSPoolManager.instance.Get(entryPrefab, Vector3.zero) as MSClanListEntry;
-		entry.Init(clan);
-		entry.transf.parent = clanListParent;
+		entry.Init(clan, popup);
+		entry.transf.parent = entryGrid.transform;
 		entry.transf.localScale = Vector3.one;
+		foreach (var item in entry.GetComponentsInChildren<UIWidget>()) 
+		{
+			item.ParentHasChanged();
+		}
+
 		currEntries.Add(entry);
 	}
 

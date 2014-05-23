@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class MSClanPopup : MonoBehaviour {
+public enum ClanPopupMode {BROWSE, DETAILS, CREATE, RAIDS};
 
+public class MSClanPopup : MonoBehaviour 
+{
 	[SerializeField]
 	MSClanCreateScreen clanCreateScreen;
 
@@ -13,35 +15,125 @@ public class MSClanPopup : MonoBehaviour {
 	MSClanDetailScreen clanDetailScreen;
 
 	[SerializeField]
+	TweenPosition mover;
+
+	[SerializeField]
+	MSClanTab leftTab;
+
+	[SerializeField]
+	MSClanTab rightTab;
+
+	[SerializeField]
 	GameObject raidStuff;
 
 	[SerializeField]
-	GameObject buttons;
+	GameObject createStuff;
+
+	[SerializeField]
+	GameObject listAndDetailsStuff;
 
 	void OnEnable()
 	{
-		raidStuff.SetActive(false);
+		Init ();
+	}
+
+	void Init()
+	{
+		RefreshTabs();
 		if (MSClanManager.userClanId > 0)
 		{
-			buttons.SetActive(true);
-			clanDetailScreen.gameObject.SetActive(true);
-			clanDetailScreen.Init(MSClanManager.userClanId);
+			GoToMode(ClanPopupMode.DETAILS, true);
 		}
 		else
 		{
-			buttons.SetActive(false);
-			clanListScreen.gameObject.SetActive(true);
-			clanListScreen.Init();
+			GoToMode(ClanPopupMode.BROWSE, true);
 		}
 	}
 
-	public void GoToDetails()
+	public void RefreshTabs()
 	{
-		clanDetailScreen.gameObject.SetActive(true);
-		raidStuff.SetActive(false);
+		if (MSClanManager.userClanId > 0)
+		{
+			leftTab.Init(ClanPopupMode.DETAILS, true);
+			rightTab.Init(ClanPopupMode.BROWSE, false);
+		}
+		else
+		{
+			leftTab.Init(ClanPopupMode.BROWSE, true);
+			rightTab.Init(ClanPopupMode.CREATE, false);
+		}
 	}
 
-	public void GoToRaids()
+	public void GoToMode(ClanPopupMode mode, bool instant = false)
+	{
+		switch (mode) {
+		case ClanPopupMode.BROWSE:
+			GoToList(instant);
+			break;
+		case ClanPopupMode.DETAILS:
+			GoToDetails(MSClanManager.userClanId, instant);
+			break;
+		case ClanPopupMode.CREATE:
+			GoToCreate();
+			break;
+		case ClanPopupMode.RAIDS:
+			GoToRaids();
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void ShiftToDetails(int clanId)
+	{
+		GoToDetails(clanId, false);
+	}
+
+	void GoToList(bool instant)
+	{
+		listAndDetailsStuff.SetActive(true);
+		raidStuff.SetActive(false);
+
+		clanListScreen.Init();
+
+		if (instant)
+		{
+			mover.Sample(0, true);
+		}
+		else
+		{
+			mover.PlayReverse();
+		}
+	}
+
+	void GoToDetails(int clanId, bool instant)
+	{
+		listAndDetailsStuff.SetActive(true);
+		raidStuff.SetActive(false);
+		createStuff.SetActive(false);
+
+		clanDetailScreen.Init(clanId);
+
+		if (instant)
+		{
+			mover.Sample(1, true);
+		}
+		else
+		{
+			mover.PlayForward();
+		}
+	}
+
+	void GoToCreate()
+	{
+		createStuff.SetActive(true);
+		listAndDetailsStuff.SetActive(false);
+		raidStuff.SetActive(false);
+
+		clanCreateScreen.Init();
+	}
+
+	void GoToRaids()
 	{
 		clanDetailScreen.gameObject.SetActive(false);
 		raidStuff.SetActive(true);

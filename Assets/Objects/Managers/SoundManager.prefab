@@ -12,7 +12,7 @@ GameObject:
   - 82: {fileID: 8200000}
   - 114: {fileID: 11400000}
   - 81: {fileID: 8100000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,6 +185,7 @@ MonoBehaviour:
   rocket: {fileID: 8300000, guid: 80a38ef569955449d9dabe3662ffa127, type: 3}
   walking: {fileID: 8300000, guid: 103f64d49057c45788d64badf605462d, type: 3}
   wrongMove: {fileID: 8300000, guid: b382d6b0ae5534d629eb45460cbc999b, type: 3}
+  playSounds: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

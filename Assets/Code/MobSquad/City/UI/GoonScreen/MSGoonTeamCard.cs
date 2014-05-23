@@ -92,7 +92,7 @@ public class MSGoonTeamCard : MonoBehaviour {
 		if (firstTime)
 		{
 			Init (goon, true);
-			portrait.Init (goon);
+			portrait.Init (goon, true);
 			if (goon == null || goon.monster.monsterId == 0)
 			{
 				portrait.background.alpha = 0;

@@ -39,7 +39,7 @@ public class MSClanListEntry : MonoBehaviour, MSPoolable {
 	}
 
 	[SerializeField]
-	UISprite clanLogo;
+	UI2DSprite clanLogo;
 
 	[SerializeField]
 	UILabel clanName;
@@ -53,12 +53,9 @@ public class MSClanListEntry : MonoBehaviour, MSPoolable {
 	[SerializeField]
 	MSActionButton joinButton;
 
-	[SerializeField]
-	MSActionButton selectButton;
-
 	FullClanProtoWithClanSize clan;
 
-
+	MSClanPopup clanPopup;
 
 	const string JOIN_BY_REQUEST_LABEL = "By request only";
 	const string OPEN_JOIN_LABEL = "Anyone can join";
@@ -85,16 +82,18 @@ public class MSClanListEntry : MonoBehaviour, MSPoolable {
 		trans = transform;
 	}
 
-	public void Init(FullClanProtoWithClanSize clan)
+	public void Init(FullClanProtoWithClanSize clan, MSClanPopup clanPopup)
 	{
 		this.clan = clan;
+
+		this.clanPopup = clanPopup;
 
 		clanName.text = clan.clan.name;
 
 		SetupJoinButton ();
 
+		memberCount.text = clan.clanSize + "/" + MSWhiteboard.constants.clanConstants.maxClanSize;
 
-		//TODO: Set number of members
 		//TODO: Set clan logo
 
 	}
@@ -105,20 +104,24 @@ public class MSClanListEntry : MonoBehaviour, MSPoolable {
 	/// </summary>
 	void SetupJoinButton()
 	{
-		if (clan.clan.requestToJoinRequired) {
+		if (clan.clan.requestToJoinRequired) 
+		{
 			clanJoinTypeLabel.text = JOIN_BY_REQUEST_LABEL;
 			joinButton.label.text = REQUEST_BUTTON_LABEL;
 		}
-		else {
+		else 
+		{
 			clanJoinTypeLabel.text = OPEN_JOIN_LABEL;
 			joinButton.label.text = JOIN_BUTTON_LABEL;
 		}
 
-		if (MSClanManager.instance.HasRequestedClan (clan.clan.clanId)) {
+		if (MSClanManager.instance.HasRequestedClan (clan.clan.clanId)) 
+		{
 			joinButton.label.text = CANCEL_BUTTON_LABEL;
 			joinButton.onClick = CancelJoinRequest;
 		}
-		else {
+		else 
+		{
 			joinButton.onClick = Join;
 		}
 	}
@@ -153,5 +156,9 @@ public class MSClanListEntry : MonoBehaviour, MSPoolable {
 		SetupJoinButton();
 	}
 
+	void OnClick()
+	{
+		clanPopup.ShiftToDetails(clan.clan.clanId);
+	}
 
 }
