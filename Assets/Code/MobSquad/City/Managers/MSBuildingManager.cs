@@ -1090,19 +1090,20 @@ public class MSBuildingManager : MonoBehaviour
 		else //if (hit.GetComponent<CBKGround>() != null)
 		{
 			FullDeselect();
-			Vector3 gridLocation = MSGridManager.instance.PointToGridCoords(MSGridManager.instance.ScreenToGround(touch.pos, true));
-			foreach (var mobster in MSMonsterManager.instance.userTeam) {
-				if(mobster != null && mobster.monster.monsterId > 0 && _playerUnits.ContainsKey(mobster.userMonster.userMonsterId)){
-					MSGridNode endpoint = new MSGridNode((int)gridLocation.x, (int)gridLocation.y);
-					if(_playerUnits.Count > 0){
-						_playerUnits[mobster.userMonster.userMonsterId].cityUnit.UserClickMoveTo(endpoint);
+			if(MSWhiteboard.currSceneType == MSWhiteboard.SceneType.CITY){
+				Vector3 gridLocation = MSGridManager.instance.PointToGridCoords(MSGridManager.instance.ScreenToGround(touch.pos, true));
+				foreach (var mobster in MSMonsterManager.instance.userTeam) {
+					if(mobster != null && mobster.monster.monsterId > 0 && _playerUnits.ContainsKey(mobster.userMonster.userMonsterId)){
+						MSGridNode endpoint = new MSGridNode((int)gridLocation.x, (int)gridLocation.y);
+						if(_playerUnits.Count > 0){
+							_playerUnits[mobster.userMonster.userMonsterId].cityUnit.UserClickMoveTo(endpoint);
+						}
+						return;
 					}
-					return;
 				}
+				Debug.LogWarning ("A tap was detected but no mobster was found on the grid to move");
 			}
-			Debug.LogWarning ("A tap was detected but no mobster was found on the grid to move");
 		}
-		
 	}
 	
 	/// <summary>

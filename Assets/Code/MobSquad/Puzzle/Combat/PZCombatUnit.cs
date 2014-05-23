@@ -52,6 +52,16 @@ public class PZCombatUnit : MonoBehaviour {
 
 	const float HP_LERP_FRAME = 1f;
 
+	/// <summary>
+	/// When this unit is clicked, info appears above it's head
+	/// </summary>
+	[SerializeField]
+	UILabel unitInfo;
+	
+	const float INFO_DISPLAY_TIME = 3f;
+
+	float currTotalTime = 0f;
+
 	[ContextMenu("SetStartPos")]
 	void SetStartingPos()
 	{
@@ -116,6 +126,35 @@ public class PZCombatUnit : MonoBehaviour {
 		shadow.alpha = 1;
 		hpBar.fill = ((float)monster.currHP) / monster.maxHP;
 		hpLabel.text = monster.currHP + "/" + monster.maxHP;
+
+		unitInfo.text = monster.monster.displayName + " (LVL " + "<level>" + ")";
+
+		Color healthColor;
+		switch (monster.monster.monsterElement) {
+		case Element.DARK:
+			healthColor = new Color(172f/255f, 90f/255f, 217f/255f);
+			break;
+		case Element.EARTH:
+			healthColor = new Color(90f/255f,162f/255f,15f/255f);
+			break;
+		case Element.FIRE:
+			healthColor = new Color(215f/255f, 46f/255f, 0f/255f);
+			break;
+		case Element.LIGHT:
+			healthColor = new Color(1f, 1f, 0f);
+			break;
+		case Element.ROCK:
+			healthColor = new Color(171f/255f, 171f/255f, 171f/255f);
+			break;
+		case Element.WATER:
+			healthColor = new Color(79f/255f,199f/255f,234f/255f);
+			break;
+		default:
+			healthColor = new Color(0f,0f,0f);
+			break;
+		}
+
+		hpBar.GetComponent<UISprite> ().color = healthColor;
 	}
 	
 	/// <summary>
@@ -290,5 +329,35 @@ public class PZCombatUnit : MonoBehaviour {
 			item.ResetToBeginning();
 			item.PlayForward();
 		}
+	}
+
+	public void OnClick(){
+		if (currTotalTime == 0f && !unitInfo.GetComponent<TweenAlpha> ().enabled) {
+			StartCoroutine (showInfo ());	
+		} else if (currTotalTime > 0) {
+			currTotalTime -= INFO_DISPLAY_TIME;
+		} else {
+			unitInfo.GetComponent<TweenAlpha> ().PlayForward();
+			currTotalTime = -0.5f;
+			StartCoroutine(showInfo());
+		}
+	}
+
+	IEnumerator showInfo(){
+		float totalDisplayTime = INFO_DISPLAY_TIME;
+		
+		TweenAlpha tween = unitInfo.GetComponent<TweenAlpha> ();
+		if(currTotalTime >= 0){
+			tween.Sample(0f, false);
+			tween.PlayForward();
+		}
+
+		while (totalDisplayTime > currTotalTime) {
+			currTotalTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+		tween.Sample (1f, false);
+		tween.PlayReverse ();
+		currTotalTime = 0f;
 	}
 }
