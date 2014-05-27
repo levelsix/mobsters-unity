@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using com.lvl6.proto;
 
 public enum ClanPopupMode {BROWSE, DETAILS, CREATE, RAIDS};
 
@@ -34,7 +35,13 @@ public class MSClanPopup : MonoBehaviour
 
 	void OnEnable()
 	{
+		MSActionManager.Clan.OnPlayerClanChange += OnClanChange;
 		Init ();
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Clan.OnPlayerClanChange -= OnClanChange;
 	}
 
 	void Init()
@@ -93,6 +100,7 @@ public class MSClanPopup : MonoBehaviour
 	{
 		listAndDetailsStuff.SetActive(true);
 		raidStuff.SetActive(false);
+		createStuff.SetActive(false);
 
 		clanListScreen.Init();
 
@@ -130,12 +138,24 @@ public class MSClanPopup : MonoBehaviour
 		listAndDetailsStuff.SetActive(false);
 		raidStuff.SetActive(false);
 
-		clanCreateScreen.Init();
+		clanCreateScreen.InitCreate();
 	}
 
 	void GoToRaids()
 	{
 		clanDetailScreen.gameObject.SetActive(false);
 		raidStuff.SetActive(true);
+	}
+
+	void OnClanChange(int clanId, UserClanStatus clanStatus)
+	{
+		if (clanId == 0)
+		{
+			GoToList(false);
+		}
+		else
+		{
+			GoToDetails(clanId, false);
+		}
 	}
 }

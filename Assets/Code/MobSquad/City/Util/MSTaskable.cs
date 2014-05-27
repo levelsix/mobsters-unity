@@ -121,7 +121,7 @@ public class MSTaskable : MonoBehaviour {
 			}
 		}
 
-		StartCoroutine( BeginDungeonRequest());
+		PZCombatManager.instance.StartCoroutine(BeginDungeonRequest());
 	}
 
 	private IEnumerator EnterDungeon (){

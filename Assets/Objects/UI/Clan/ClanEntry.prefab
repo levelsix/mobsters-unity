@@ -141,9 +141,9 @@ GameObject:
   - 4: {fileID: 400016}
   - 114: {fileID: 11400022}
   - 114: {fileID: 11400020}
-  - 114: {fileID: 11400000}
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400008}
+  - 114: {fileID: 11400000}
   m_Layer: 8
   m_Name: JoinButton
   m_TagString: Untagged
@@ -318,14 +318,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6426bfa04ab4a4f089dd7dcd4eb1e4ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c8ca6030c0a3438c90fd6bc8193371a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObj: {fileID: 0}
-  trans: {fileID: 0}
-  icon: {fileID: 0}
-  button: {fileID: 0}
-  able: 1
+  button: {fileID: 11400022}
   label: {fileID: 11400012}
 --- !u!114 &11400002
 MonoBehaviour:
@@ -338,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372313f9959654adda00af5515bbe259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clanLogo: {fileID: 0}
+  clanLogo: {fileID: 11400018}
   clanName: {fileID: 11400004}
   clanJoinTypeLabel: {fileID: 11400016}
   memberCount: {fileID: 11400006}
@@ -816,7 +812,7 @@ MonoBehaviour:
   dragHighlight: 0
   hoverSprite: 
   pressedSprite: 
-  disabledSprite: 
+  disabledSprite: greysmallbutton
   pixelSnap: 0
   onClick: []
 --- !u!114 &11400024

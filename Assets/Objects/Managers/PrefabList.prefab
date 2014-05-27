@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PrefabList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,14 +38,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c85c63f47b8a4364ab0f3885d566b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyPrefab: {fileID: 11400000, guid: 67f36e0c229604594bb5063f94478d05, type: 2}
   gemMatchSparkle: {fileID: 0}
   matchParticle:
-  - {fileID: 11400000, guid: ad6794db378004545bc8ef690398cc94, type: 2}
   - {fileID: 11400000, guid: 6bc0e3066d72948d88ddbd23007ce92f, type: 2}
+  - {fileID: 11400000, guid: ad6794db378004545bc8ef690398cc94, type: 2}
+  - {fileID: 11400000, guid: e3e7aa97dfd2d404fb80716f4d65d2b1, type: 2}
   - {fileID: 11400000, guid: 7489a4ea608a24dc8869495c0f67b98c, type: 2}
   - {fileID: 11400000, guid: c9cea36ed36b34f42b2fd1794cbe4d71, type: 2}
-  - {fileID: 11400000, guid: e3e7aa97dfd2d404fb80716f4d65d2b1, type: 2}
   - {fileID: 11400000, guid: 45cfe8340cace4218b43b45d3b928a07, type: 2}
   characterDieParticle: {fileID: 11400002, guid: d8d3c535ed3d040ab95d1ea974f2015a,
     type: 2}

@@ -651,7 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1a3899468264031ba9c7e8d8e0f8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeTime: .600000024
+  fadeTime: .300000012
   dragBehind: {fileID: 0}
 --- !u!114 &11400012
 MonoBehaviour:
@@ -958,6 +958,7 @@ MonoBehaviour:
   settingsButtonPrefab: {fileID: 11400002, guid: fe49fe4a5c82047fcb2d970131aaa61b,
     type: 2}
   openSettingsButton: {fileID: 100006}
+  listScreen: {fileID: 0}
 --- !u!114 &11400030
 MonoBehaviour:
   m_ObjectHideFlags: 1

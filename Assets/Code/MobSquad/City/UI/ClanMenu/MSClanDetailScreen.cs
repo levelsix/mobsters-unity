@@ -19,7 +19,9 @@ public class MSClanDetailScreen : MonoBehaviour {
 	UILabel membersLabel;
 
 	[SerializeField]
-	UIGrid memberGrid;
+	MSClanJoinButton joinButton;
+
+	public UIGrid memberGrid;
 
 	[SerializeField]
 	MSClanMemberEntry clanMemberEntryPrefab;
@@ -27,11 +29,9 @@ public class MSClanDetailScreen : MonoBehaviour {
 	[SerializeField]
 	GameObject loadingObjects;
 
-
-	List<MSClanMemberEntry> memberList = new List<MSClanMemberEntry>();
+	public List<MSClanMemberEntry> memberList = new List<MSClanMemberEntry>();
 
 	FullClanProtoWithClanSize clan;
-
 
 	public void Init(int clanId)
 	{
@@ -71,9 +71,13 @@ public class MSClanDetailScreen : MonoBehaviour {
 			yield return null;
 		}
 
+
+
 		clanLogo.alpha = 1;
 
 		RetrieveClanInfoResponseProto response = UMQNetworkManager.responseDict[tagNum] as RetrieveClanInfoResponseProto;
+
+		joinButton.Init(response.clanInfo[0]);
 
 		clan = response.clanInfo[0];
 
