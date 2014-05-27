@@ -8,7 +8,7 @@ using UnityEditor;
 public class ExportAssetBundles 
 {
 
-	[MenuItem("Assets/Build AssetBundle From Selection")]
+	[MenuItem("Assets/Build AssetBundle From Selection %t")]
 	static void ExportResource () {
 		// Bring up save panel
 		string path = EditorUtility.SaveFilePanel ("Save Resource", "Bundles", Selection.activeObject.name, "unity3d");
