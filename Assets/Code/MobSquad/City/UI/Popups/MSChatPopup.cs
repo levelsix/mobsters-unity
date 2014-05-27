@@ -92,16 +92,12 @@ public class MSChatPopup : MonoBehaviour {
 		}
 	}
 	
-	void Start()
+	void OnEnable()
 	{
 		SetGlobalChat();
-
-		globalChatButton.onClick = SetGlobalChat;
-		clanChatButton.onClick = SetClanChat;
-		privateChatButton.onClick = SetPrivateChat;
 	}
 
-	void SetGlobalChat()
+	public void SetGlobalChat()
 	{
 		MSChatManager.instance.SetChatMode(MSValues.ChatMode.GLOBAL);
 
@@ -114,14 +110,14 @@ public class MSChatPopup : MonoBehaviour {
 		
 		clanChatButton.label.color = Color.black;
 		clanChatButton.label.effectColor = Color.white;
-		
+
 		privateChatButton.label.color = Color.black;
 		privateChatButton.label.effectColor = Color.white;
 
 		scrollView.ResetPosition();
 	}
 
-	void SetClanChat()
+	public void SetClanChat()
 	{
 		MSChatManager.instance.SetChatMode(MSValues.ChatMode.CLAN);
 		
@@ -141,7 +137,7 @@ public class MSChatPopup : MonoBehaviour {
 		scrollView.ResetPosition();
 	}
 
-	void SetPrivateChat()
+	public void SetPrivateChat()
 	{
 		MSChatManager.instance.SetChatMode(MSValues.ChatMode.PRIVATE);
 		
