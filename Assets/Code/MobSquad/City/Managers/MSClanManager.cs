@@ -57,6 +57,7 @@ public class MSClanManager : MonoBehaviour
 		{
 			if (clans[0].status != UserClanStatus.REQUESTING)
 			{
+				playerClan = clans[0];
 				userClanId = clans[0].clanId;
 				userClanStatus = clans[0].status;
 				UMQNetworkManager.instance.CreateClanChatQueue(MSWhiteboard.localMup, clans[0].clanId);
@@ -188,18 +189,18 @@ public class MSClanManager : MonoBehaviour
 	/// </summary>
 	/// <returns>The or apply to clan.</returns>
 	/// <param name="clanId">Clan identifier.</param>
-	public IEnumerator JoinOrApplyToClan(int clanId)
+	public void JoinOrApplyToClan(int clanId)
 	{
 		RequestJoinClanRequestProto request = new RequestJoinClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.clanId = clanId;
 
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REQUEST_JOIN_CLAN_EVENT, null);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REQUEST_JOIN_CLAN_EVENT, DealWithJoinApplyResponse);
 
-		while(!UMQNetworkManager.responseDict.ContainsKey(tagNum))
-		{
-			yield return null;
-		}
+	}
+
+	public void DealWithJoinApplyResponse(int tagNum)
+	{
 
 		RequestJoinClanResponseProto response = UMQNetworkManager.responseDict[tagNum] as RequestJoinClanResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
@@ -213,6 +214,8 @@ public class MSClanManager : MonoBehaviour
 
 			userClanId = response.clanId;
 			userClanStatus = response.requester.clanStatus;
+
+			pendingClanInvites.Clear();
 
 			if (MSActionManager.Clan.OnPlayerClanChange != null)
 			{
@@ -263,32 +266,30 @@ public class MSClanManager : MonoBehaviour
 	/// Leaves the current clan.
 	/// PRECONDITION: User must be part of a clan
 	/// </summary>
-	public IEnumerator LeaveClan()
+	public void LeaveClan()
 	{
 		LeaveClanRequestProto request = new LeaveClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
 
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LEAVE_CLAN_EVENT, null);
-
-		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		userClanId = 0;
+		playerClan = null;
+		
+		if (MSActionManager.Clan.OnPlayerClanChange != null)
 		{
-			yield return null;
+			MSActionManager.Clan.OnPlayerClanChange(userClanId, UserClanStatus.MEMBER);
 		}
 
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LEAVE_CLAN_EVENT, DealWithLeaveClanResponse);
+	}
+
+	public void DealWithLeaveClanResponse(int tagNum)
+	{
 		LeaveClanResponseProto response = UMQNetworkManager.responseDict[tagNum] as LeaveClanResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
 		if (response.status != LeaveClanResponseProto.LeaveClanStatus.SUCCESS)
 		{
 			Debug.LogError("Problem leaving clan: " + response.status.ToString());
-		}
-		else
-		{
-			userClanId = 0;
-			if (MSActionManager.Clan.OnPlayerClanChange != null)
-			{
-				MSActionManager.Clan.OnPlayerClanChange(userClanId, UserClanStatus.MEMBER);
-			}
 		}
 	}
 
@@ -357,6 +358,32 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 
+	public void EditClan(FullClanProto clan, string description, bool requestNeeded, int shield = 1)
+	{
+		ChangeClanSettingsRequestProto request = new ChangeClanSettingsRequestProto();
+		request.sender = MSWhiteboard.localMup;
+
+		if (clan.description != description)
+		{
+			request.isChangeDescription = true;
+			request.descriptionNow = description;
+		}
+
+		if (clan.requestToJoinRequired != requestNeeded)
+		{
+			request.isChangeJoinType = true;
+			request.requestToJoinRequired = requestNeeded;
+		}
+
+		if (clan.clanIconId != shield)
+		{
+			request.isChangeIcon = true;
+			request.iconId = shield;
+		}
+
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_SETTINGS_EVENT, DealWithChangeSettingsResponse);
+	}
+
 	public IEnumerator ChangeClanDescription(string description)
 	{
 		ChangeClanSettingsRequestProto request = new ChangeClanSettingsRequestProto();
@@ -387,10 +414,10 @@ public class MSClanManager : MonoBehaviour
 		request.isChangeJoinType = true;
 		request.requestToJoinRequired = joinType;
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_SETTINGS_EVENT, DealWithChangeClanJoinResponse);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CHANGE_CLAN_SETTINGS_EVENT, DealWithChangeSettingsResponse);
 	}
 
-	void DealWithChangeClanJoinResponse(int tagNum)
+	void DealWithChangeSettingsResponse(int tagNum)
 	{
 
 		ChangeClanSettingsResponseProto response = UMQNetworkManager.responseDict[tagNum] as ChangeClanSettingsResponseProto;

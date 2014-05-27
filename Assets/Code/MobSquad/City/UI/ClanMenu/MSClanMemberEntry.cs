@@ -52,7 +52,7 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 
 	public void Pool()
 	{
-
+		PoolButtons();
 		MSPoolManager.instance.Pool(this);
 	}
 
@@ -88,11 +88,11 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 	[SerializeField]
 	GameObject openSettingsButton;
 
-	MinimumUserProtoForClans clanMember;
+	public MinimumUserProtoForClans clanMember;
 
 	List<MSClanMemberOptionButton> currButtons = new List<MSClanMemberOptionButton>();
 
-	MSClanDetailScreen listScreen;
+	public MSClanDetailScreen listScreen;
 
 	bool isFading = false;
 
@@ -105,16 +105,16 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 
 		//Only have the settings button open if the player is a leader or a JR leader and the other player is lower
 		openSettingsButton.SetActive (user.minUserProtoWithLevel.minUserProto.userId != MSWhiteboard.localMup.userId
-			&& MSClanManager.instance.playerClan.status == UserClanStatus.LEADER
+			&& (MSClanManager.instance.playerClan.status == UserClanStatus.LEADER
 		    || (MSClanManager.instance.playerClan.status == UserClanStatus.JUNIOR_LEADER
-		    && (int)user.clanStatus >= 3));
+		    && (int)user.clanStatus >= 3)));
 
 		settingsRoot.ResetAlpha(false);
 		isFading = false;
 		PoolButtons();
 
 		nameLabel.text = user.minUserProtoWithLevel.minUserProto.name;
-		leaderLabel.text = user.clanStatus.ToString();
+		ResetRoleLabel();
 
 		for (int i = 0; i < teamSprites.Length; i++) 
 		{
@@ -127,6 +127,11 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 				teamSprites[i].Init(null, false);
 			}
 		}
+	}
+
+	public void ResetRoleLabel()
+	{	
+		leaderLabel.text = clanMember.clanStatus.ToString();
 	}
 
 	public void OpenSettings()
@@ -199,7 +204,7 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 		button.transform.localScale = Vector3.one;
 		currButtons.Add(button);
 
-		button.Init(mode, green);
+		button.Init(clanMember, this, mode, green);
 	}
 
 	void RecycleButtons()
