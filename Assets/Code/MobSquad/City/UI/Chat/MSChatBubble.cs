@@ -7,20 +7,10 @@ using com.lvl6.proto;
 public class MSChatBubble : MonoBehaviour, MSPoolable {
 	
 	#region Size Constants
-	
-	const float FONT_SIZE = 32;
-	
-	const float BASE_HEIGHT = 78;
-	
-	const float LINE_HEIGHT = 24;
-	
-	const float LINE_ADD_SCALE = .43f;
-	
-	const float ICON_LINE_Y_ADD = -35;
-	
-	const float BASE_ICON_Y = -5;
-	
-	const float BASE_ICON_X_POS = -387;
+
+	[SerializeField] int LINE_LENGTH = 40;
+
+	[SerializeField] int LINE_WIDTH = 100;
 	
 	#endregion
 	
@@ -29,6 +19,8 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	GameObject gameObj;
 	
 	Transform trans;
+
+	bool rightSide = true;
 	
 	public MSPoolable prefab {
 		get {
@@ -73,9 +65,6 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	
 	[SerializeField]
 	UISprite bubble;
-
-	[SerializeField]
-	UILabel timeLabel;
 	
 	void Awake()
 	{
@@ -94,7 +83,7 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	/// </returns>
 	public void Init(GroupChatMessageProto proto)
 	{
-		height = Init(proto.timeOfChat, proto.sender.minUserProto.name, proto.content, proto.sender.level, proto.isAdmin);
+		Init(proto.timeOfChat, proto.sender.minUserProto.name, proto.content, proto.sender.level, proto.isAdmin);
 	}
 	
 	/// <summary>
@@ -106,12 +95,12 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	public void Init(PrivateChatPostProto proto)
 	{
 		//Same shit, different proto
-		height = Init(proto.timeOfPost, proto.poster.minUserProto.name, proto.content, proto.poster.level);
+		Init(proto.timeOfPost, proto.poster.minUserProto.name, proto.content, proto.poster.level);
 	}
 
 	public void Init(ReceivedGroupChatResponseProto proto)
 	{
-		height = Init(MSUtil.timeNowMillis, proto.sender.minUserProto.name, proto.chatMessage, proto.sender.level, proto.isAdmin);
+		Init(MSUtil.timeNowMillis, proto.sender.minUserProto.name, proto.chatMessage, proto.sender.level, proto.isAdmin);
 	}
 	
 	/// <summary>
@@ -123,17 +112,23 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	/// <param name='message'>
 	/// Message.
 	/// </param>
-	int Init(long time, string sender, string message, int level, bool leader = false)
+	void Init(long time, string sender, string message, int level, bool leader = false)
 	{	
 		//Fill text with message
 		textLabel.text = message;
 		senderLabel.text = sender;
-		
-		//Count the lines
-		int lines = Mathf.RoundToInt(textLabel.localSize.y / FONT_SIZE);
-		
-		//Size the bubble
-		bubble.height = (int)(BASE_HEIGHT + (lines - 1) * LINE_HEIGHT);
+
+		if (message.Length < LINE_LENGTH)
+		{
+			textLabel.overflowMethod = UILabel.Overflow.ResizeFreely;
+			textLabel.alignment = rightSide ? NGUIText.Alignment.Right : NGUIText.Alignment.Left;
+		}
+		else
+		{
+			textLabel.overflowMethod = UILabel.Overflow.ResizeHeight;
+			textLabel.width = LINE_WIDTH;
+			textLabel.alignment = NGUIText.Alignment.Left;
+		}
 
 #if VERBOSE
 		
@@ -141,25 +136,5 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 		
 #endif
 
-		StartCoroutine(CheckTime(time));
-
-		return bubble.height;
-	}
-
-	IEnumerator CheckTime(long timeSent)
-	{
-		while(true)
-		{
-			long timePassed = MSUtil.timeNowMillis - timeSent;
-			if (timePassed < 60000)
-			{
-				timeLabel.text = "just recently";
-			}
-			else
-			{
-				timeLabel.text = (MSUtil.TimeStringLong(timePassed, true)) + " ago";
-			}
-			yield return new WaitForSeconds(1);
-		}
 	}
 }

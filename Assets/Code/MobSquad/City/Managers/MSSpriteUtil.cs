@@ -49,33 +49,42 @@ public class MSSpriteUtil : MonoBehaviour {
 		return (Resources.Load("Controllers/" + MSUtil.StripExtensions(imageName))) as RuntimeAnimatorController;
 	}
 
-	public IEnumerator SetSprite(string baseName, string spriteName, SpriteRenderer sprite)
+	public IEnumerator SetSprite(string bundleName, string spriteName, SpriteRenderer sprite)
 	{
-		if (!bundles.ContainsKey(baseName))
+		if (!bundles.ContainsKey(bundleName))
 		{
 			sprite.sprite = defaultSprite;
-			yield return StartCoroutine(DownloadAndCache(baseName));
+			yield return StartCoroutine(DownloadAndCache(bundleName));
 			
 		}
-		sprite.sprite = bundles[baseName].Load(spriteName, typeof(Sprite)) as Sprite;
+
+		if (bundles.ContainsKey (bundleName))
+	    {
+			sprite.sprite = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
+		}
 	}
 
-	public IEnumerator SetSprite(string baseName, string spriteName, UI2DSprite sprite)
+	public void SetSprite(string bundleName, string spriteName, UI2DSprite sprite)
+	{
+		StartCoroutine(SetSpriteCoroutine(bundleName, spriteName, sprite));
+	}
+
+	IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite)
 	{
 		//Debug.Log("Setting sprite: " + spriteName);
-		if (!bundles.ContainsKey(baseName))
+		if (!bundles.ContainsKey(bundleName))
 		{
 			sprite.sprite2D = defaultSprite;
-			yield return StartCoroutine(DownloadAndCache(baseName));
+			yield return StartCoroutine(DownloadAndCache(bundleName));
 			
 		}
 
-		if (bundles.ContainsKey(baseName))
+		if (bundles.ContainsKey(bundleName))
 		{
-			sprite.sprite2D = bundles[baseName].Load(spriteName, typeof(Sprite)) as Sprite;
+			sprite.sprite2D = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
+			sprite.MakePixelPerfect();
 		}
 
-		sprite.MakePixelPerfect();
 	}
 
 	public IEnumerator SetUnitAnimator(MSUnit unit)

@@ -82,6 +82,10 @@ public class PZMatch {
 			{
 				gems.Add(item);
 			}
+			else
+			{
+				item.dragged = true; //We do this so that a gem that falls into an L will become the bomb
+			}
 		}
 		otherMatch.gems.Clear();
 		multi += otherMatch.multi + 1;
@@ -100,7 +104,7 @@ public class PZMatch {
 				gems[i++].gemType = PZGem.GemType.BOMB;
 				//PZPuzzleManager.instance.gemsOnBoardByType[gems[i].colorIndex]++;
 			}
-			if (gems.Count - multi * 2 > 3)
+			else if (gems.Count > 3)
 			{
 				if (gems.Count == 4)
 				{
@@ -108,7 +112,7 @@ public class PZMatch {
 					gems[i++].gemType = PZGem.GemType.ROCKET;
 					//PZPuzzleManager.instance.gemsOnBoardByType[gems[i].colorIndex]++;
 				}
-				else if (gems.Count >= 5)
+				else
 				{
 					//Make special molly gem, and save gem
 					PZGem molly = gems[i++];

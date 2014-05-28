@@ -88,7 +88,7 @@ public class MSTaskBar : MonoBehaviour {
 		get
 		{
 			float ratio = ((float)Screen.width)/Screen.height;
-			return ratio > 1.6f;
+			return ratio > 1.59f;
 		}
 	}
 

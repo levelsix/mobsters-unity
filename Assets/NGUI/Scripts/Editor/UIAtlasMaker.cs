@@ -479,6 +479,9 @@ public class UIAtlasMaker : EditorWindow
 		// Make the atlas texture readable
 		Texture2D tex = NGUIEditorTools.ImportTexture(atlas.texture, true, true, false);
 
+		try
+		{
+
 		if (tex != null)
 		{
 			Color32[] pixels = null;
@@ -511,6 +514,12 @@ public class UIAtlasMaker : EditorWindow
 					if (sprite != null) finalSprites.Add(sprite);
 				}
 			}
+		}
+
+		}
+		catch(System.Exception e)
+		{
+			Debug.LogError(e.ToString());
 		}
 
 		// The atlas no longer needs to be readable

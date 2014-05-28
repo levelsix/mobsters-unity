@@ -88,6 +88,7 @@ public class MSClanListEntry : MonoBehaviour, MSPoolable {
 		memberCount.text = clan.clanSize + "/" + MSWhiteboard.constants.clanConstants.maxClanSize;
 
 		//TODO: Set clan logo
+		MSSpriteUtil.instance.SetSprite("clanicon", "clanicon" + clan.clan.clanIconId, clanLogo);
 
 	}
 
