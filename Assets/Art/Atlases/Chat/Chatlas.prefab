@@ -41,48 +41,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 6974894dc50394f9fa42b79131b0cd35, type: 2}
   mSprites:
-  - name: bluechatcorner
-    x: 575
-    y: 842
-    width: 34
-    height: 34
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: bluechattail
-    x: 453
-    y: 842
-    width: 46
-    height: 34
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
+  - name: bluebubble
+    x: 534
+    y: 869
+    width: 80
+    height: 68
+    borderLeft: 46
+    borderRight: 34
+    borderTop: 34
+    borderBottom: 34
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
   - name: bluelightbluedivider
     x: 907
-    y: 943
+    y: 938
     width: 2
     height: 2
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 1
+    borderBottom: 1
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 2
     paddingBottom: 0
   - name: chatglobalactive
-    x: 927
-    y: 946
+    x: 474
+    y: 849
     width: 19
     height: 19
     borderLeft: 0
@@ -94,7 +81,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: chatglobalinactive
-    x: 967
+    x: 1004
     y: 946
     width: 19
     height: 19
@@ -133,7 +120,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: chatprivateactive
-    x: 947
+    x: 984
     y: 946
     width: 19
     height: 19
@@ -146,7 +133,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: chatprivateinactive
-    x: 907
+    x: 964
     y: 946
     width: 19
     height: 19
@@ -171,8 +158,34 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: clansbrowseactive
+    x: 936
+    y: 944
+    width: 27
+    height: 21
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: clansbrowseinactive
+    x: 907
+    y: 944
+    width: 28
+    height: 21
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: earthavatar
-    x: 697
+    x: 859
     y: 877
     width: 60
     height: 60
@@ -185,7 +198,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: fireavatar
-    x: 636
+    x: 798
     y: 877
     width: 60
     height: 60
@@ -197,35 +210,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: greychatcorner
-    x: 636
-    y: 842
-    width: 34
-    height: 34
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: greychattail
-    x: 514
-    y: 842
-    width: 46
-    height: 34
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
+  - name: greybubble
+    x: 453
+    y: 869
+    width: 80
+    height: 68
+    borderLeft: 46
+    borderRight: 34
+    borderTop: 34
+    borderBottom: 34
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
   - name: greyopenarrow
-    x: 610
-    y: 845
+    x: 453
+    y: 837
     width: 20
     height: 31
     borderLeft: 0
@@ -238,19 +238,19 @@ MonoBehaviour:
     paddingBottom: 0
   - name: greywhite
     x: 907
-    y: 940
+    y: 941
     width: 2
     height: 2
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 1
+    borderBottom: 1
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 2
     paddingBottom: 0
   - name: lightavatar
-    x: 575
+    x: 737
     y: 877
     width: 60
     height: 60
@@ -263,8 +263,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: newchatdot
-    x: 987
-    y: 954
+    x: 474
+    y: 837
     width: 11
     height: 11
     borderLeft: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: nightavatar
-    x: 514
+    x: 676
     y: 877
     width: 60
     height: 60
@@ -302,7 +302,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: wateravatar
-    x: 453
+    x: 615
     y: 877
     width: 60
     height: 60

@@ -8,16 +8,7 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// MSClanTab
 /// </summary>
-public class MSClanTab : MonoBehaviour {
-
-	[SerializeField]
-	UISprite tab;
-
-	[SerializeField]
-	UISprite icon;
-
-	[SerializeField]
-	UILabel label;
+public class MSClanTab : MSTab {
 
 	[SerializeField]
 	MSClanTab other;
@@ -25,13 +16,7 @@ public class MSClanTab : MonoBehaviour {
 	[SerializeField]
 	MSClanPopup pop;
 
-	[SerializeField]
-	Color activeTextColor;
-
-	[SerializeField]
-	Color inactiveTextColor;
-
-	bool inactive = true;
+	[SerializeField] bool inactive = true;
 
 	ClanPopupMode clanMode;
 
@@ -43,13 +28,12 @@ public class MSClanTab : MonoBehaviour {
 		{ClanPopupMode.RAIDS, "clansbrowse"}
 	};
 
-	const string inactiveTab = "popupinactivetab";
-	const string activeTab = "popupactivetab";
-
 	public void Init(ClanPopupMode mode, bool activate)
 	{
+		spriteRoot = iconDict[mode];
 		clanMode = mode;
 		inactive = !activate;
+		label.text = clanMode.ToString();
 		if (activate)
 		{
 			InitActive();
@@ -62,17 +46,13 @@ public class MSClanTab : MonoBehaviour {
 
 	public void InitActive()
 	{
-		tab.spriteName = activeTab;
-		icon.spriteName = iconDict[clanMode] + "active";
-		label.color = activeTextColor;
+		base.InitActive();
 		inactive = false;
 	}
 
 	public void InitInactive()
 	{
-		tab.spriteName = inactiveTab;
-		icon.spriteName = iconDict[clanMode] + "inactive";
-		label.color = inactiveTextColor;
+		base.InitInactive();
 		inactive = true;
 	}
 

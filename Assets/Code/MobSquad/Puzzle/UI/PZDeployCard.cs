@@ -42,7 +42,7 @@ public class PZDeployCard : MonoBehaviour {
 
 		
 		string goonPrefix = MSUtil.StripExtensions (goon.monster.imagePrefix);
-		StartCoroutine(MSSpriteUtil.instance.SetSprite(goonPrefix, goonPrefix + "Thumbnail", goonSprite));
+		MSSpriteUtil.instance.SetSprite(goonPrefix, goonPrefix + "Thumbnail", goonSprite);
 		
 		bar.fillAmount = (float)goon.currHP / goon.maxHP;
 		

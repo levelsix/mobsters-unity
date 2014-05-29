@@ -11,10 +11,11 @@ using com.lvl6.proto;
 public static class MSColors {
 
 	public static readonly Color cashTextColor = new Color(.294f, .627f, 0);
-
 	public static readonly Color oilTextColor = new Color(.901f, .667f, .105f);
-
 	public static readonly Color gemTextColor = new Color(.537f, 0, .949f);
+
+	public static readonly Color activeTabTextColor = new Color(0, .5f, .9f);
+	public static readonly Color inactiveTabTextColor = new Color(0, .41f, .61f);
 
 	public static readonly Dictionary<Quality, Color> qualityColors = new Dictionary<Quality, Color>()
 	{

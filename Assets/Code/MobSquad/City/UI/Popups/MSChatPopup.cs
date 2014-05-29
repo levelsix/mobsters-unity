@@ -7,42 +7,21 @@ using com.lvl6.proto;
 /// The controller for the chat popup
 /// </summary>
 public class MSChatPopup : MonoBehaviour {
-	
-	/// <summary>
-	/// The number of pixels to space vertically between messages
-	/// </summary>
-	const float SPACE_BETWEEN_MESSAGES = 5f;
-	
+
 	#region UI Parts
 	
 	[SerializeField]
 	UIInput inputField;
-	
-	[SerializeField]
-	Transform grid;
-	
-	#endregion
-	
-	#region Prefabs
-	
-	[SerializeField]
-	MSChatBubble leftPrefab;
 
 	[SerializeField]
-	MSActionButton globalChatButton;
+	MSTab globalChatButton;
 
 	[SerializeField]
-	MSActionButton clanChatButton;
+	MSTab clanChatButton;
 
 	[SerializeField]
-	MSActionButton privateChatButton;
+	MSTab privateChatButton;
 
-	[SerializeField]
-	UIScrollView scrollView;
-
-	const string ACTIVE_BUTTON_SPRITE = "chatactivetab";
-	const string INACTIVE_BUTTON_SPRITE = "chatinactivetab";
-	
 	#endregion
 	
 	public void SendChatMessage()
@@ -101,60 +80,27 @@ public class MSChatPopup : MonoBehaviour {
 	{
 		MSChatManager.instance.SetChatMode(MSValues.ChatMode.GLOBAL);
 
-		globalChatButton.icon.spriteName = ACTIVE_BUTTON_SPRITE;
-		clanChatButton.icon.spriteName = INACTIVE_BUTTON_SPRITE;
-		privateChatButton.icon.spriteName = INACTIVE_BUTTON_SPRITE;
-		
-		globalChatButton.label.color = Color.white;
-		globalChatButton.label.effectColor = Color.black;
-		
-		clanChatButton.label.color = Color.black;
-		clanChatButton.label.effectColor = Color.white;
-
-		privateChatButton.label.color = Color.black;
-		privateChatButton.label.effectColor = Color.white;
-
-		scrollView.ResetPosition();
+		globalChatButton.InitActive();
+		clanChatButton.InitInactive();
+		privateChatButton.InitInactive();
 	}
 
 	public void SetClanChat()
 	{
 		MSChatManager.instance.SetChatMode(MSValues.ChatMode.CLAN);
 		
-		globalChatButton.icon.spriteName = INACTIVE_BUTTON_SPRITE;
-		clanChatButton.icon.spriteName = ACTIVE_BUTTON_SPRITE;
-		privateChatButton.icon.spriteName = INACTIVE_BUTTON_SPRITE;
-
-		globalChatButton.label.color = Color.black;
-		globalChatButton.label.effectColor = Color.white;
-
-		clanChatButton.label.color = Color.white;
-		clanChatButton.label.effectColor = Color.black;
-
-		privateChatButton.label.color = Color.black;
-		privateChatButton.label.effectColor = Color.white;
-		
-		scrollView.ResetPosition();
+		globalChatButton.InitInactive();
+		clanChatButton.InitActive();
+		privateChatButton.InitInactive();
 	}
 
 	public void SetPrivateChat()
 	{
 		MSChatManager.instance.SetChatMode(MSValues.ChatMode.PRIVATE);
 		
-		globalChatButton.icon.spriteName = INACTIVE_BUTTON_SPRITE;
-		clanChatButton.icon.spriteName = INACTIVE_BUTTON_SPRITE;
-		privateChatButton.icon.spriteName = ACTIVE_BUTTON_SPRITE;
-		
-		globalChatButton.label.color = Color.black;
-		globalChatButton.label.effectColor = Color.white;
-		
-		clanChatButton.label.color = Color.black;
-		clanChatButton.label.effectColor = Color.white;
-		
-		privateChatButton.label.color = Color.white;
-		privateChatButton.label.effectColor = Color.black;
-
-		scrollView.ResetPosition();
+		globalChatButton.InitInactive();
+		clanChatButton.InitInactive();
+		privateChatButton.InitActive();
 	}
 	
 }

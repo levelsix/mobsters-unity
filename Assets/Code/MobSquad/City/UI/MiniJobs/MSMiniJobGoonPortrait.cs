@@ -20,7 +20,7 @@ public class MSMiniJobGoonPortrait : MonoBehaviour {
 
 	public void Init(PZMonster monster)
 	{
-		StartCoroutine(MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", goon));
+		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", goon);
 
 		//TODO: Set background
 	}

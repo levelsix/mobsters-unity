@@ -49,7 +49,7 @@ public class MSGoonCircleIcon : MonoBehaviour {
 			barBg.alpha = 1;
 
 			string mobsterPrefix = MSUtil.StripExtensions (monster.monster.imagePrefix);
-			StartCoroutine(MSSpriteUtil.instance.SetSprite(mobsterPrefix, mobsterPrefix + "Thumbnail", icon));
+			MSSpriteUtil.instance.SetSprite(mobsterPrefix, mobsterPrefix + "Thumbnail", icon);
 			
 			hpbar.fill = ((float)monster.currHP) / monster.maxHP;
 		}

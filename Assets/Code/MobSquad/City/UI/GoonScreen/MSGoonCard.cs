@@ -165,6 +165,8 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		healMode = true;
 
+		addRemoveTeamButton.gameObj.SetActive(true);
+
 		Setup (goon);
 		SetHealButton(goon);
 
@@ -222,11 +224,8 @@ public class MSGoonCard : MonoBehaviour {
 
 		healCostLabel.text = " ";
 
-		if (goon.userMonster.teamSlotNum == 0)
-		{
-			addRemoveTeamButton.button.isEnabled = false;
-			addRemoveTeamButton.onClick = null;
-		}
+		addRemoveButtonBackground.spriteName = onTeamButtonSpriteName;
+		addRemoveTeamButton.gameObj.SetActive(goon.userMonster.teamSlotNum != 0);
 
 		healthBar.max = ENHANCE_BAR_WIDTH;
 		healthBarBackground.width = ENHANCE_BAR_WIDTH + BAR_BG_WIDTH;
@@ -276,6 +275,9 @@ public class MSGoonCard : MonoBehaviour {
 	/// <param name="buddy">Buddy.</param>
 	public void InitEvolve(MSGoonCard buddy = null)
 	{
+		addRemoveButtonBackground.spriteName = onTeamButtonSpriteName;
+		addRemoveTeamButton.gameObj.SetActive(goon.userMonster.teamSlotNum != 0);
+
 		bottomHolder.SetActive(false);
 		this.buddy = buddy;
 
@@ -414,7 +416,7 @@ public class MSGoonCard : MonoBehaviour {
 		goonElementParent.SetActive(true);
 
 		string goonImageBase = MSUtil.StripExtensions(goon.monster.imagePrefix);
-		StartCoroutine(MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", goonPose));
+		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", goonPose);
 
 		if (goon.monster.monsterElement == Element.NO_ELEMENT)
 		{

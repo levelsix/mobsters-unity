@@ -7,7 +7,7 @@ using System;
 public class MSClanDetailScreen : MonoBehaviour {
 
 	[SerializeField]
-	UISprite clanLogo;
+	UI2DSprite clanLogo;
 
 	[SerializeField]
 	UILabel clanName;
@@ -71,8 +71,6 @@ public class MSClanDetailScreen : MonoBehaviour {
 			yield return null;
 		}
 
-
-
 		clanLogo.alpha = 1;
 
 		RetrieveClanInfoResponseProto response = UMQNetworkManager.responseDict[tagNum] as RetrieveClanInfoResponseProto;
@@ -83,13 +81,17 @@ public class MSClanDetailScreen : MonoBehaviour {
 
 		clanName.text = clan.clan.name;
 		clanDescription.text = clan.clan.description;
+		MSSpriteUtil.instance.SetSprite("clanicon", "clanicon" + clan.clan.clanIconId, clanLogo);
 
 		DateTime foundationDate = (new DateTime(1970,1,1)).AddMilliseconds(clan.clan.createTime);
 		membersLabel.text = clan.clanSize + "/" + MSWhiteboard.constants.clanConstants.maxClanSize + " MEM.";
 
 		foreach (var item in response.members) 
 		{
-			AddMemberEntryToGrid(item, response.monsterTeams.Find(x => x.userId == item.minUserProtoWithLevel.minUserProto.userId));
+			if (item.clanStatus != UserClanStatus.REQUESTING)
+			{
+				AddMemberEntryToGrid(item, response.monsterTeams.Find(x => x.userId == item.minUserProtoWithLevel.minUserProto.userId));
+			}
 		}
 		memberGrid.Reposition();
 

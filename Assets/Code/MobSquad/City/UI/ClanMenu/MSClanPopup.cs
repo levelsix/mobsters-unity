@@ -33,6 +33,11 @@ public class MSClanPopup : MonoBehaviour
 	[SerializeField]
 	GameObject listAndDetailsStuff;
 
+	[SerializeField]
+	MSUIHelper backButton;
+
+	ClanPopupMode currMode;
+
 	void OnEnable()
 	{
 		MSActionManager.Clan.OnPlayerClanChange += OnClanChange;
@@ -46,6 +51,7 @@ public class MSClanPopup : MonoBehaviour
 
 	void Init()
 	{
+		backButton.TurnOff();
 		RefreshTabs();
 		if (MSClanManager.userClanId > 0)
 		{
@@ -57,6 +63,11 @@ public class MSClanPopup : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Refreshs the tabs at the top of the popup.
+	/// Run whenever the player joins or leaves a clan, since
+	/// the setup of the buttons is different between the two.
+	/// </summary>
 	public void RefreshTabs()
 	{
 		if (MSClanManager.userClanId > 0)
@@ -71,8 +82,15 @@ public class MSClanPopup : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Goes to mode.
+	/// </summary>
+	/// <param name="mode">Mode to transition to.</param>
+	/// <param name="instant">If set to <c>true</c> instant. Only applies if we're going to DETAILS mode.</param>
 	public void GoToMode(ClanPopupMode mode, bool instant = false)
 	{
+		backButton.TurnOff(); //We want to make sure the back button is off when jumping to a mode
+		currMode = mode;
 		switch (mode) {
 		case ClanPopupMode.BROWSE:
 			GoToList(instant);
@@ -91,9 +109,41 @@ public class MSClanPopup : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Shifts to details.
+	/// Called when a clan is clicked on.
+	/// If the player opens the popup and is already in a clan,
+	/// GoToMode will get called elsewhere with the GoToDetails being
+	/// instant instead.
+	/// Also, we set up the back button so that the player can
+	/// get back to the list view
+	/// </summary>
+	/// <param name="clanId">Clan identifier.</param>
 	public void ShiftToDetails(int clanId)
 	{
 		GoToDetails(clanId, false);
+		currMode = ClanPopupMode.DETAILS;
+		backButton.ResetAlpha(false);
+		backButton.TurnOn();
+		backButton.FadeIn();
+	}
+
+	/// <summary>
+	/// Shifts the back to list.
+	/// Called by the back button, assigned in the editor.
+	/// Checks that the mode is details so that we don't get a
+	/// weird tween if the player manages to double-tap the back
+	/// button before it fades out.
+	/// </summary>
+	public void ShiftBackToList()
+	{
+		if (currMode == ClanPopupMode.DETAILS)
+		{
+			Debug.Log("Shifting back");
+			mover.PlayReverse();
+			backButton.FadeOutAndOff();
+			currMode = ClanPopupMode.BROWSE;
+		}
 	}
 
 	void GoToList(bool instant)
