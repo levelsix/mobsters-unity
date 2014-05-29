@@ -570,7 +570,10 @@ public class PZCombatManager : MonoBehaviour {
 				return;
 			}
 		}
-		
+		ActivateLoseMenu ();
+	}
+
+	public void ActivateLoseMenu(){
 		winLosePopup.gameObject.SetActive(true);
 		winLosePopup.tweener.ResetToBeginning();
 		winLosePopup.tweener.GetComponent<UITweener>().PlayForward();
@@ -623,64 +626,51 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	IEnumerator ScrollToNextEnemy()
 	{
-		if (boardTint.value <= .01f)
-		{
-			boardTint.PlayForward();
-		}
-
-		PZPuzzleManager.instance.swapLock += 1;
-
-		//activePlayer.GoToStartPos();
-		
-		MSSoundManager.instance.Loop(MSSoundManager.instance.walking);
-
-		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed));
-
-		while (waiting)
-		{
-			background.Scroll();
-			yield return null;
-		}
-
-		if (enemies.Count > 0)
-		{
-			activeEnemy.GoToStartPos();
-			activeEnemy.Init(enemies.Dequeue());
-			activeEnemy.unit.direction = MSValues.Direction.WEST;
-			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
-
-			intro.SetText (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
-			intro.PlayAnimation ();
-		}
-		else if (!activeEnemy.alive)
-		{
-			activeEnemy.GoToStartPos();
-			StartCoroutine(SendEndResult(true));
-
-			boardMove.PlayReverse();
-
-			if (!pvpMode && !raidMode)
-			{
-				if (MSActionManager.Quest.OnTaskCompleted != null)
-				{
-					MSActionManager.Quest.OnTaskCompleted(MSWhiteboard.loadedDungeon.taskId);
+				if (boardTint.value <= .01f) {
+						boardTint.PlayForward ();
 				}
-			}
 
-			winLosePopup.gameObject.SetActive(true);
+				PZPuzzleManager.instance.swapLock += 1;
 
-			GetRewards();
-			winLosePopup.tweener.ResetToBeginning();
-			winLosePopup.tweener.PlayForward();
-		}
+				//activePlayer.GoToStartPos();
 		
-		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
+				MSSoundManager.instance.Loop (MSSoundManager.instance.walking);
 
-		activePlayer.unit.direction = MSValues.Direction.EAST;
-		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
+				yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed));
+
+				while (waiting) {
+						background.Scroll ();
+						yield return null;
+				}
+
+				if (enemies.Count > 0) {
+						activeEnemy.GoToStartPos ();
+						activeEnemy.Init (enemies.Dequeue ());
+						activeEnemy.unit.direction = MSValues.Direction.WEST;
+						activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
+
+						intro.SetText (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
+						intro.PlayAnimation ();
+				} else if (!activeEnemy.alive) {
+						activeEnemy.GoToStartPos ();
+						StartCoroutine (SendEndResult (true));
+
+						if (!pvpMode && !raidMode) {
+								if (MSActionManager.Quest.OnTaskCompleted != null) {
+										MSActionManager.Quest.OnTaskCompleted (MSWhiteboard.loadedDungeon.taskId);
+								}
+						}
 
 
-		/*
+				}
+		
+				activePlayer.unit.animat = MSUnit.AnimationType.RUN;
+
+				activePlayer.unit.direction = MSValues.Direction.EAST;
+				activePlayer.unit.animat = MSUnit.AnimationType.RUN;
+
+
+				/*
 		Debug.Log("Moving until player is past " + playerXPos);
 		while(activePlayer.unit.transf.localPosition.x < playerXPos)
 		{
@@ -688,7 +678,9 @@ public class PZCombatManager : MonoBehaviour {
 			yield return null;
 		}
 		*/
-
+		if (!activeEnemy.alive) {
+			StartCoroutine(DelayedWinLosePopup(2f));
+		}
 		while(activeEnemy.unit.transf.localPosition.x > enemyXPos)
 		{
 			background.Scroll(activeEnemy.unit);
@@ -715,6 +707,18 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 		PZPuzzleManager.instance.swapLock = activeEnemy.alive ? 0 : 1;
+	}
+
+	IEnumerator DelayedWinLosePopup(float seconds){
+
+		yield return new WaitForSeconds (seconds);
+
+		boardMove.PlayReverse ();
+		winLosePopup.gameObject.SetActive(true);
+		
+		GetRewards();
+		winLosePopup.tweener.ResetToBeginning();
+		winLosePopup.tweener.PlayForward();
 	}
 
 	void GetRewards()

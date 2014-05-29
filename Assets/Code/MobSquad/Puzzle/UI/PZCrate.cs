@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using com.lvl6.proto;
 
@@ -52,8 +53,23 @@ public class PZCrate : MonoBehaviour {
 	[SerializeField]
 	float fallTime;
 
+	[SerializeField]
+	TweenPosition xTween;
+
+	[SerializeField]
+	TweenPosition yTween;
+
+	[SerializeField]
+	TweenPosition bounceTween;
+
+	[SerializeField]
+	TweenScale scaleTween;
+
+	[SerializeField]
+	SpriteRenderer sprite;
+
 	Transform trans;
-	
+
 	void Awake()
 	{
 		trans = transform;
@@ -62,7 +78,8 @@ public class PZCrate : MonoBehaviour {
 	void OnEnable()
 	{
 		started = false;
-		StartCoroutine(Fall());
+		//StartCoroutine(Fall());
+
 	}
 
 	/// <summary>
@@ -70,23 +87,33 @@ public class PZCrate : MonoBehaviour {
 	/// </summary>
 	/// <param name="monster">The monster that is dropping the item.</param>
 	public void initCrate(PZMonster monster){
+		foreach (Transform trans in GetComponentsInChildren<Transform> ()) {
+			trans.position = Vector3.zero;
+		}
+
+		sprite.transform.localScale = new Vector3 (80f, 80f, 0f);
+
+
+		bounceTween.ResetToBeginning ();
+		bounceTween.PlayForward ();
+
 		if (monster.monster.numPuzzlePieces > 1) {
 			switch(monster.monster.quality){
 
 			case Quality.COMMON:
-				GetComponent<SpriteRenderer> ().sprite = pieceCommon;
+				sprite.sprite = pieceCommon;
 				break;
 			case Quality.RARE:
-				GetComponent<SpriteRenderer> ().sprite = pieceRare;
+				sprite.sprite = pieceRare;
 				break;
 			case Quality.ULTRA:
-				GetComponent<SpriteRenderer> ().sprite = pieceUltra;
+				sprite.sprite = pieceUltra;
 				break;
 			case Quality.EPIC:
-				GetComponent<SpriteRenderer> ().sprite = pieceEpic;
+				sprite.sprite = pieceEpic;
 				break;
 			case Quality.LEGENDARY:
-				GetComponent<SpriteRenderer> ().sprite = pieceLegendary;
+				sprite.sprite = pieceLegendary;
 				break;
 			default:
 				//if something isn't right then the sprite will default to the prefab crate
@@ -96,66 +123,97 @@ public class PZCrate : MonoBehaviour {
 			switch(monster.monster.quality){
 				
 			case Quality.COMMON:
-				GetComponent<SpriteRenderer> ().sprite = capsuleCommon;
+				sprite.sprite = capsuleCommon;
 				break;
 			case Quality.RARE:
-				GetComponent<SpriteRenderer> ().sprite = capsuleRare;
+				sprite.sprite = capsuleRare;
 				break;
 			case Quality.ULTRA:
-				GetComponent<SpriteRenderer> ().sprite = capsuleUltra;
+				sprite.sprite = capsuleUltra;
 				break;
 			case Quality.EPIC:
-				GetComponent<SpriteRenderer> ().sprite = capsuleEpic;
+				sprite.sprite = capsuleEpic;
 				break;
 			case Quality.LEGENDARY:
-				GetComponent<SpriteRenderer> ().sprite = capsuleLegendary;
+				sprite.sprite = capsuleLegendary;
 				break;
 			default:
 				//if something isn't right then the sprite will default to the prefab crate
 				break;
 			}
 		}
+		
 	}
 
-	IEnumerator Fall()
-	{
-		Vector3 start = trans.localPosition;
-		Vector3 target = start + fallDist;
-		float curr = 0;
-		while (curr < fallTime)
-		{
-			curr += Time.deltaTime;
-			trans.localPosition = Vector3.Lerp(start, target, curr/fallTime);
-			yield return null;
-		}
-	}
+//	IEnumerator Fall()
+//	{
+//		Vector3 start = trans.localPosition;
+//		Vector3 target = start + fallDist;
+//		float curr = 0;
+//		while (curr < fallTime)
+//		{
+//			curr += Time.deltaTime;
+//			trans.localPosition = Vector3.Lerp(start, target, curr/fallTime);
+//			yield return null;
+//		}
+//	}
 
 	void OnTriggerEnter(Collider other)
 	{
+		
 		PZCombatUnit combat = other.GetComponent<PZCombatUnit>();
 		if (!started && combat != null && combat == PZCombatManager.instance.activePlayer)
 		{
-			StartCoroutine(Move());
+			//StartCoroutine(Move());
+			CollectionAnimation();
+			trans.parent = PZCombatManager.instance.prizeQuantityLabel.parent.transform;
 		}
 	}
 
-	IEnumerator Move()
-	{
-		started = true;
-		Vector3 originalScale = trans.localScale;
-		float curr = 0;
-		while (curr < moveTime)
-		{
-			curr += Time.deltaTime;
-			
-			float lp = curr/moveTime;
-			trans.localPosition += Time.deltaTime * moveSpeed * lp *
-				Vector3.Lerp(new Vector3(1.2f, 3f), new Vector3(1.2f, -1f), lp);
-			trans.localScale = Vector3.Lerp (originalScale, Vector3.zero, lp);
+//	IEnumerator Move()
+//	{
+//		started = true;
+//		Vector3 originalScale = trans.localScale;
+//		float curr = 0;
+//		while (curr < moveTime)
+//		{
+//			curr += Time.deltaTime;
+//			
+//			float lp = curr/moveTime;
+//			trans.localPosition += Time.deltaTime * moveSpeed * lp *
+//				Vector3.Lerp(new Vector3(1.2f, 3f), new Vector3(1.2f, -1f), lp);
+//			trans.localScale = Vector3.Lerp (originalScale, Vector3.zero, lp);
+//
+//			yield return null;
+//		}
+//
+//		PZCombatManager.instance.crate = null;
+//		GetComponent<MSSimplePoolable>().Pool();
+//		UILabel label = PZCombatManager.instance.prizeQuantityLabel;
+//		int newCount = int.Parse (label.text) + 1;
+//		label.text = newCount.ToString();
+//	}
 
-			yield return null;
-		}
+	void CollectionAnimation(){
+		Vector3 deltaPosition = PZCombatManager.instance.prizeQuantityLabel.transform.parent.position - trans.position;
+		xTween.to = new Vector3 (-trans.localPosition.x , 0f, 0f);
 
+		yTween.to = new Vector3 (0f, -trans.localPosition.y, 0f);
+
+		xTween.ResetToBeginning ();
+		xTween.PlayForward ();
+
+		yTween.ResetToBeginning ();
+		yTween.PlayForward ();
+
+		scaleTween.ResetToBeginning ();
+		scaleTween.PlayForward ();
+	}
+
+	/// <summary>
+	/// This gets called when the tween for X is finnished
+	/// </summary>
+	public void endOfAnimation(){
 		PZCombatManager.instance.crate = null;
 		GetComponent<MSSimplePoolable>().Pool();
 		UILabel label = PZCombatManager.instance.prizeQuantityLabel;
