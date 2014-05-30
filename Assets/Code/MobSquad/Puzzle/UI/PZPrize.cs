@@ -25,6 +25,14 @@ public class PZPrize : MonoBehaviour {
 	[SerializeField]
 	Color cashColor;
 
+	Transform trans;
+
+	public UISprite sprite;
+
+	TweenPosition tweenPos;
+
+	TweenAlpha tweenAlpha;
+
 	static readonly Dictionary<Quality, Color> textColors = new Dictionary<Quality, Color>()
 	{
 		{Quality.COMMON, Color.grey},
@@ -34,6 +42,19 @@ public class PZPrize : MonoBehaviour {
 		{Quality.RARE, new Color(.3f, .3f, 1)},
 		{Quality.ULTRA, Color.yellow}
 	};
+
+	void Awake(){
+		trans = GetComponent<Transform>();
+		tweenPos = GetComponent<TweenPosition> ();
+		tweenAlpha = GetComponent<TweenAlpha> ();
+		sprite = GetComponent<UISprite> ();
+	}
+
+	void OnEnable(){
+		Color newColor = label.color;
+		newColor.a = 0f;
+		label.color = newColor;
+	}
 
 	public void InitXP(int amount)
 	{
@@ -92,5 +113,29 @@ public class PZPrize : MonoBehaviour {
 			icon.width = data.width;
 			icon.height = data.height;
 		}
+	}
+
+	/// <summary>
+	/// Starts the tween animations for collected items to slide in and be collected
+	/// </summary>
+	/// <param name="position">The position that the tween will end with</param>
+	public void SlideIn(Vector3 position){
+
+		Vector3 startPostition = new Vector3 (340, position.y, position.z);
+		tweenPos.from = startPostition;
+		tweenPos.to = position;
+
+		float time = (startPostition.x - position.x) / 400f;
+
+		tweenPos.duration = time;
+
+		tweenPos.enabled = true;
+		tweenPos.ResetToBeginning ();
+		tweenPos.PlayForward ();
+
+		tweenAlpha.ResetToBeginning ();
+		tweenAlpha.PlayForward ();
+
+		Debug.LogWarning (time);
 	}
 }
