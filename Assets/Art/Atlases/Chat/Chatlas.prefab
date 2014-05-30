@@ -42,7 +42,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 6974894dc50394f9fa42b79131b0cd35, type: 2}
   mSprites:
   - name: bluebubble
-    x: 534
+    x: 864
     y: 869
     width: 80
     height: 68
@@ -67,9 +67,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 2
     paddingBottom: 0
+  - name: bluesmallbutton
+    x: 590
+    y: 877
+    width: 136
+    height: 60
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: chatglobalactive
     x: 474
-    y: 849
+    y: 857
     width: 19
     height: 19
     borderLeft: 0
@@ -185,8 +198,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: earthavatar
-    x: 859
-    y: 877
+    x: 0
+    y: 463
     width: 60
     height: 60
     borderLeft: 0
@@ -198,8 +211,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: fireavatar
-    x: 798
-    y: 877
+    x: 0
+    y: 524
     width: 60
     height: 60
     borderLeft: 0
@@ -210,9 +223,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: greybubble
+  - name: greensmallbutton
     x: 453
-    y: 869
+    y: 877
+    width: 136
+    height: 60
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: greybubble
+    x: 0
+    y: 707
     width: 80
     height: 68
     borderLeft: 46
@@ -225,7 +251,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: greyopenarrow
     x: 453
-    y: 837
+    y: 845
     width: 20
     height: 31
     borderLeft: 0
@@ -250,8 +276,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 0
   - name: lightavatar
-    x: 737
-    y: 877
+    x: 0
+    y: 585
     width: 60
     height: 60
     borderLeft: 0
@@ -264,7 +290,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: newchatdot
     x: 474
-    y: 837
+    y: 845
     width: 11
     height: 11
     borderLeft: 0
@@ -276,9 +302,22 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: nightavatar
-    x: 676
-    y: 877
+    x: 0
+    y: 646
     width: 60
+    height: 60
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: redsmallbutton
+    x: 727
+    y: 877
+    width: 136
     height: 60
     borderLeft: 0
     borderRight: 0
@@ -302,7 +341,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: wateravatar
-    x: 615
+    x: 945
     y: 877
     width: 60
     height: 60

@@ -36,17 +36,24 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	public Sprite GetMobsterSprite(string mobsterName)
 	{
-		Sprite mobster = (Resources.Load("Characters/HD/" + (mobsterName) + "Character", typeof(Sprite))) as Sprite;
+		Sprite mobster = (Resources.Load("Characters/Poses/" + (mobsterName) + "Character", typeof(Sprite))) as Sprite;
 		if (mobster == null)
 		{
 			Debug.LogWarning("Failed to get mobster sprite: " + mobsterName);
 		}
 		return mobster;
 	}
-
+	
 	public RuntimeAnimatorController GetAnimator(string imageName)
 	{
 		return (Resources.Load("Controllers/" + MSUtil.StripExtensions(imageName))) as RuntimeAnimatorController;
+	}
+
+	public RuntimeAnimatorController GetUnitAnimator(string imageName)
+	{
+		string path = "Characters/" + imageName + "/" + imageName + "Controller";
+		Debug.Log("Getting: " + path);
+		return (Resources.Load(path)) as RuntimeAnimatorController;
 	}
 
 	public IEnumerator SetSprite(string bundleName, string spriteName, SpriteRenderer sprite)

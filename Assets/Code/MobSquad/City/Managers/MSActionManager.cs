@@ -102,6 +102,7 @@ public static class MSActionManager
 		public static Action OnReorganizeHealQueue;
 
 		public static Action<ReceivedGroupChatResponseProto> OnGroupChatReceived;
+		public static Action<PrivateChatPostResponseProto> OnPrivateChatReceived;
 
 		public static Action OnRequestsAcceptOrReject;
 
@@ -177,5 +178,10 @@ public static class MSActionManager
 	public static class Tutorial
 	{
 		public static Action OnTutorialContinue;
+	}
+
+	public static class Chat
+	{
+
 	}
 }

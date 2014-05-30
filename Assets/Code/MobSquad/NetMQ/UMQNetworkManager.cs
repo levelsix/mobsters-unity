@@ -470,7 +470,7 @@ public class UMQNetworkManager : MonoBehaviour {
 
 			responseDict[tagNum] = proto;
 			
-			if (actionDict[tagNum] != null)
+			if (actionDict.ContainsKey(tagNum) && actionDict[tagNum] != null)
 			{
 				actionDict[tagNum](tagNum);
 			}
@@ -483,6 +483,10 @@ public class UMQNetworkManager : MonoBehaviour {
 				if (proto is InviteFbFriendsForSlotsResponseProto && MSRequestManager.instance != null)
 				{
 					MSRequestManager.instance.JustReceivedFriendInvite(proto as InviteFbFriendsForSlotsResponseProto);
+				}
+				if (proto is PrivateChatPostResponseProto && MSChatManager.instance != null)
+				{
+					MSChatManager.instance.ReceivePrivateChatMessage(proto as PrivateChatPostResponseProto);
 				}
 			}
 

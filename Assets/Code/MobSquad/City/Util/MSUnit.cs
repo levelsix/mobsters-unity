@@ -25,8 +25,8 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		set
 		{
 			_spriteBaseName = value;
-			//anim.runtimeAnimatorController = MSAtlasUtil.instance.GetAnimator(value);
-			StartCoroutine(MSSpriteUtil.instance.SetUnitAnimator(this));
+			anim.runtimeAnimatorController = MSSpriteUtil.instance.GetUnitAnimator(MSUtil.StripExtensions(value));
+			//StartCoroutine(MSSpriteUtil.instance.SetUnitAnimator(this));
 
 			if (MSSpriteUtil.instance.HasBundle(value))
 			{

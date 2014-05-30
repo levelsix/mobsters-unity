@@ -28,34 +28,69 @@ public class MSChatGrid : MonoBehaviour {
 	void OnEnable()
 	{
 		MSActionManager.UI.OnGroupChatReceived += SpawnBubbleFromNewMessage;
+		MSActionManager.UI.OnPrivateChatReceived += SpawnBubbleFromPrivateMessage;
 	}
 
 	void OnDisable()
 	{
 		MSActionManager.UI.OnGroupChatReceived -= SpawnBubbleFromNewMessage;
+		MSActionManager.UI.OnPrivateChatReceived -= SpawnBubbleFromPrivateMessage;
+	}
+
+	void RecycleBubbles ()
+	{
+		foreach (MSChatBubble item in bubbles.Values) 
+		{
+			item.Pool ();
+		}
+		bubbles.Clear ();
+	}
+
+	MSChatBubble CreateBubble(int senderId, long timeSent)
+	{
+		MSChatBubble bub = MSPoolManager.instance.Get(leftBubblePrefab,
+		                           Vector3.zero, transform) as MSChatBubble;
+		bub.transf.localScale = Vector3.one;
+		bub.name = (long.MaxValue - timeSent).ToString();
+		bubbles.Add(timeSent, bub);
+		foreach (var widget in bub.GetComponentsInChildren<UIWidget>()) 
+		{
+			widget.ParentHasChanged();
+		}
+		return bub;
+	}
+	
+	public void SpawnBubbles(SortedList<long, PrivateChatPostProto> messages)
+	{
+		gameObject.SetActive(true);
+		
+		RecycleBubbles ();
+
+		if (messages != null)
+		{
+			foreach (KeyValuePair<long, PrivateChatPostProto> item in messages) 
+			{
+				MSChatBubble bub = CreateBubble(item.Value.poster.minUserProto.userId, item.Key);
+				bub.Init(item.Value);
+			}
+		}
+		
+		table.animateSmoothly = false;
+		table.Reposition();
+		
+		posResetter.Reset();
 	}
 	
 	public void SpawnBubbles(SortedList<long, GroupChatMessageProto> messages)
 	{
-		foreach (MSChatBubble item in bubbles.Values) 
-		{
-			item.Pool();
-		}
+		gameObject.SetActive(true);
 
-		bubbles.Clear();
+		RecycleBubbles ();
 
 		foreach (KeyValuePair<long, GroupChatMessageProto> item in messages) 
 		{
-			MSChatBubble bub = MSPoolManager.instance.Get(item.Value.sender.minUserProto.userId == MSWhiteboard.localMup.userId ? rightBubblePrefab : leftBubblePrefab,
-			                                              Vector3.zero) as MSChatBubble;
-			bub.transf.parent = transform;
-			bub.transf.localScale = Vector3.one;
+			MSChatBubble bub = CreateBubble(item.Value.sender.minUserProto.userId, item.Key);
 			bub.Init(item.Value);
-			bub.name = (long.MaxValue - item.Key).ToString();
-			bubbles.Add(item.Key, bub);
-			foreach (var widget in bub.GetComponentsInChildren<UIWidget>()) {
-				widget.ParentHasChanged();
-			}
 		}
 
 		table.animateSmoothly = false;
@@ -64,22 +99,32 @@ public class MSChatGrid : MonoBehaviour {
 		posResetter.Reset();
 	}
 
+	public void SpawnBubbleFromPrivateMessage(PrivateChatPostResponseProto proto)
+	{
+		if (MSChatManager.instance.currMode == MSValues.ChatMode.PRIVATE 
+		    && (proto.sender.userId == MSChatManager.instance.chatPopup.privateChatter.minUserProto.userId
+		    || proto.post.recipient.minUserProto.userId == MSChatManager.instance.chatPopup.privateChatter.minUserProto.userId))
+		{
+			MSChatBubble bub = CreateBubble(proto.sender.userId, MSUtil.timeNowMillis);
+			bub.Init (proto.post);
+			
+			table.animateSmoothly = true;
+			table.Reposition();
+		}
+	}
+
 	public void SpawnBubbleFromNewMessage(ReceivedGroupChatResponseProto proto)
 	{
-		MSChatBubble bub = MSPoolManager.instance.Get(
-			proto.sender.minUserProto.userId == MSWhiteboard.localMup.userId ? rightBubblePrefab : leftBubblePrefab,
-			Vector3.zero) as MSChatBubble;
-		bub.transf.parent = transform;
-		bub.transf.localScale = Vector3.one;
-		bub.Init (proto);
-		bub.name = (long.MaxValue - MSUtil.timeNowMillis).ToString();
-		bubbles.Add(MSUtil.timeNowMillis, bub);
-		foreach (var widget in bub.GetComponentsInChildren<UIWidget>()) {
-			widget.ParentHasChanged();
+		if ((proto.scope == GroupChatScope.GLOBAL && MSChatManager.instance.currMode == MSValues.ChatMode.GLOBAL) 
+		    || proto.scope == GroupChatScope.CLAN && MSChatManager.instance.currMode == MSValues.ChatMode.CLAN)
+		{
+			MSChatBubble bub = CreateBubble(proto.sender.minUserProto.userId, MSUtil.timeNowMillis);
+			bub.Init (proto);
+			
+			table.animateSmoothly = true;
+			table.Reposition();
 		}
-		
-		table.animateSmoothly = true;
-		table.Reposition();
+
 	}
 	
 }

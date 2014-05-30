@@ -1,4 +1,3 @@
-#define VERBOSE
 
 using UnityEngine;
 using System.Collections;
@@ -44,6 +43,9 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	}
 	
 	public int height;
+
+	static int nextId = 0;
+	int id = nextId++;
 	
 	public MSPoolable Make (Vector3 origin)
 	{
@@ -54,6 +56,7 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	
 	public void Pool ()
 	{
+		PoolOptions();
 		MSPoolManager.instance.Pool(this);
 	}
 	
@@ -65,6 +68,13 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	
 	[SerializeField]
 	UISprite bubble;
+
+	[SerializeField]
+	MSChatBubbleOptions optionsPrefab;
+
+	MSChatBubbleOptions options = null;
+
+	MinimumUserProtoWithLevel sender;
 	
 	void Awake()
 	{
@@ -83,6 +93,7 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	/// </returns>
 	public void Init(GroupChatMessageProto proto)
 	{
+		sender = proto.sender;
 		Init(proto.timeOfChat, proto.sender.minUserProto.name, proto.content, proto.sender.level, proto.isAdmin);
 	}
 	
@@ -95,11 +106,13 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	public void Init(PrivateChatPostProto proto)
 	{
 		//Same shit, different proto
+		sender = proto.poster;
 		Init(proto.timeOfPost, proto.poster.minUserProto.name, proto.content, proto.poster.level);
 	}
 
 	public void Init(ReceivedGroupChatResponseProto proto)
 	{
+		sender = proto.sender;
 		Init(MSUtil.timeNowMillis, proto.sender.minUserProto.name, proto.chatMessage, proto.sender.level, proto.isAdmin);
 	}
 	
@@ -114,6 +127,8 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	/// </param>
 	void Init(long time, string sender, string message, int level, bool leader = false)
 	{	
+
+		Debug.Log("Bubble " + id + ": " + message);
 		//Fill text with message
 		textLabel.text = message;
 		senderLabel.text = sender;
@@ -130,11 +145,25 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 			textLabel.alignment = NGUIText.Alignment.Left;
 		}
 
-#if VERBOSE
-		
-		//Debug.Log("Message: " + textLabel.processedText + "\nLines: " + lines);
-		
-#endif
+	}
 
+	[ContextMenu ("Pool Options")]
+	public void PoolOptions()
+	{
+		if (options != null)
+		{
+			options.GetComponent<MSSimplePoolable>().Pool();
+		}
+	}
+
+	void OnClick()
+	{
+		if (sender.minUserProto.userId != MSWhiteboard.localMup.userId)
+		{
+			options = (MSPoolManager.instance.Get(optionsPrefab.GetComponent<MSSimplePoolable>(), transform.position)
+			           as MSSimplePoolable).GetComponent<MSChatBubbleOptions>();
+			options.Init(sender, trans);
+			options.transform.localScale = Vector3.one;
+		}
 	}
 }

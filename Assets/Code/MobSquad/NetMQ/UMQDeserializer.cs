@@ -80,7 +80,8 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_COMPLETE_MINI_JOB_EVENT, typeof(CompleteMiniJobResponseProto)},
 		{EventProtocolResponse.S_BEGIN_MINI_JOB_EVENT, typeof(BeginMiniJobResponseProto)},
 		{EventProtocolResponse.S_REDEEM_MINI_JOB_EVENT, typeof (RedeemMiniJobResponseProto)},
-		{EventProtocolResponse.S_PROMOTE_DEMOTE_CLAN_MEMBER_EVENT, typeof (PromoteDemoteClanMemberResponseProto)}
+		{EventProtocolResponse.S_PROMOTE_DEMOTE_CLAN_MEMBER_EVENT, typeof (PromoteDemoteClanMemberResponseProto)},
+		{EventProtocolResponse.S_PRIVATE_CHAT_POST_EVENT, typeof(PrivateChatPostResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

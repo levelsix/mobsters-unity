@@ -16,6 +16,7 @@ public class MSPopupManager : MonoBehaviour {
 		public MSRaidTeamPopup raidTeamPopup;
 		public GameObject loadingScreenBlocker;
 		public MSHirePopup hirePopup;
+		public MSChatPopup chatPopup;
 	}
 
 	public Popups popups;

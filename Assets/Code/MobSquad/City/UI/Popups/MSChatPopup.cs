@@ -22,7 +22,27 @@ public class MSChatPopup : MonoBehaviour {
 	[SerializeField]
 	MSTab privateChatButton;
 
+	[SerializeField]
+	MSChatGrid chatGrid;
+
+	[SerializeField]
+	UIGrid privateChatGrid;
+
+	[SerializeField]
+	MSPrivateChatEntry privateChatEntryPrefab;
+	
+	/// <summary>
+	/// The mover.
+	/// Private -> Chat
+	/// </summary>
+	[SerializeField]
+	TweenPosition mover;
+
 	#endregion
+
+	List<MSPrivateChatEntry> privateChats = new List<MSPrivateChatEntry>();
+
+	public MinimumUserProtoWithLevel privateChatter;
 	
 	public void SendChatMessage()
 	{
@@ -34,29 +54,54 @@ public class MSChatPopup : MonoBehaviour {
 
 		if (inputField.label.text.Length > 0)
 		{
-			//TODO: Private chat send
-
-			SendGroupChatRequestProto request = new SendGroupChatRequestProto();
-			
-			request.sender = MSWhiteboard.localMup;
-			if(MSChatManager.instance.currMode == MSValues.ChatMode.CLAN)
+			if (MSChatManager.instance.currMode == MSValues.ChatMode.PRIVATE)
 			{
-				Debug.Log("Sending Clan Message");
-				request.scope = GroupChatScope.CLAN;
+				PrivateChatPostRequestProto request = new PrivateChatPostRequestProto();
+				request.sender = MSWhiteboard.localMup;
+				request.recipientId = privateChatter.minUserProto.userId;
+				request.content = inputField.label.text;
+
+				UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PRIVATE_CHAT_POST_EVENT, CheckPrivateChatResponse);
 			}
 			else
 			{
-				request.scope = GroupChatScope.GLOBAL;
+				SendGroupChatRequestProto request = new SendGroupChatRequestProto();
+				
+				request.sender = MSWhiteboard.localMup;
+				if(MSChatManager.instance.currMode == MSValues.ChatMode.CLAN)
+				{
+					Debug.Log("Sending Clan Message");
+					request.scope = GroupChatScope.CLAN;
+				}
+				else
+				{
+					request.scope = GroupChatScope.GLOBAL;
+				}
+				request.chatMessage = inputField.label.text;
+				request.clientTime = MSUtil.timeNowMillis;
+				
+				UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolResponse.S_SEND_GROUP_CHAT_EVENT, CheckServerChatResponse);
 			}
-			request.chatMessage = inputField.label.text;
-			request.clientTime = MSUtil.timeNowMillis;
-			
-			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolResponse.S_SEND_GROUP_CHAT_EVENT, CheckServerChatResponse);
 		}
 
 		inputField.value = "";
 	}
-	
+
+	void CheckPrivateChatResponse(int tagNum)
+	{
+		PrivateChatPostResponseProto response = UMQNetworkManager.responseDict[tagNum] as PrivateChatPostResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status == PrivateChatPostResponseProto.PrivateChatPostStatus.SUCCESS)
+		{
+			MSChatManager.instance.ReceivePrivateChatMessage(response);
+		}
+		else
+		{
+			Debug.LogError("Problem sending private message: " + response.status.ToString());
+		}
+	}
+
 	/// <summary>
 	/// Makes sure that our chat went through and it's not innapropro or nuttin'
 	/// </summary>
@@ -78,6 +123,7 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void SetGlobalChat()
 	{
+		mover.Sample(1, true);
 		MSChatManager.instance.SetChatMode(MSValues.ChatMode.GLOBAL);
 
 		globalChatButton.InitActive();
@@ -87,6 +133,7 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void SetClanChat()
 	{
+		mover.Sample(1, true);
 		MSChatManager.instance.SetChatMode(MSValues.ChatMode.CLAN);
 		
 		globalChatButton.InitInactive();
@@ -96,11 +143,74 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void SetPrivateChat()
 	{
+		mover.Sample(0, true);
 		MSChatManager.instance.SetChatMode(MSValues.ChatMode.PRIVATE);
 		
 		globalChatButton.InitInactive();
 		clanChatButton.InitInactive();
 		privateChatButton.InitActive();
 	}
-	
+
+	public void GoToPrivateChat(MinimumUserProtoWithLevel otherPlayer,
+	                            SortedList<long, PrivateChatPostProto> chat,
+	                            bool slide = false)
+	{
+		if (slide)
+		{
+			mover.PlayForward();
+		}
+		else
+		{
+			mover.Sample(1, true);
+		}
+
+		privateChatter = otherPlayer;
+
+		chatGrid.SpawnBubbles(chat);
+		
+		globalChatButton.InitInactive();
+		clanChatButton.InitInactive();
+		privateChatButton.InitInactive();
+	}
+
+	void RecyclePrivates()
+	{
+		foreach (var item in privateChats) 
+		{
+			item.GetComponent<MSSimplePoolable>().Pool();
+		}
+
+		privateChats.Clear();
+	}
+
+	MSPrivateChatEntry Add(KeyValuePair<int, SortedList<long, PrivateChatPostProto>> pair)
+	{
+		MSPrivateChatEntry entry = (MSPoolManager.instance.Get(privateChatEntryPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, privateChatGrid.transform) 
+		                            as MSSimplePoolable).GetComponent<MSPrivateChatEntry>();
+		entry.transform.localScale = Vector3.one;
+		privateChats.Add(entry);
+		entry.Init(pair.Value.Values[0]);
+		foreach (var item in entry.GetComponents<UIWidget>()) 
+		{
+			item.ParentHasChanged();
+		}
+		return entry;
+	}
+
+	public void SetupPrivateChatListing(Dictionary<int, SortedList<long, PrivateChatPostProto>> chats)
+	{
+		if (chats.Count == 0)
+		{
+
+		}
+		else
+		{
+			RecyclePrivates();
+			foreach (var pair in chats) 
+			{
+				MSPrivateChatEntry entry = Add(pair);
+			}
+			privateChatGrid.Reposition();
+		}
+	}
 }
