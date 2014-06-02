@@ -231,6 +231,11 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 				break;
 			case AnimationType.FLINCH:
 				anim.SetBool("Flinch", true);
+				if(anim.GetBool("Far")){
+					anim.Play("FlinchFarLeft", 0, 0f);
+				}else{
+					anim.Play("FlinchNearLeft", 0, 0f);
+				}
 				break;
 			case AnimationType.IDLE:
 				anim.SetBool("Running", false);

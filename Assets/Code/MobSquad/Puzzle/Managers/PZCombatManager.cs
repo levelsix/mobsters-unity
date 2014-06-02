@@ -101,6 +101,8 @@ public class PZCombatManager : MonoBehaviour {
 			return -playerXFromSideThreshold - 150;
 		}
 	}
+
+	Vector3 enemyStartPosition;
 	
 	[SerializeField]
 	PZDeployPopup deployPopup;
@@ -144,9 +146,9 @@ public class PZCombatManager : MonoBehaviour {
 
 	PvpProto defender;
 
-	public float recoilDistance = 20;
+	public float recoilDistance = 1;
 
-	public float recoilTime = .2f;
+	public float recoilTime = .01f;
 
 	bool waiting = false;
 
@@ -637,6 +639,7 @@ public class PZCombatManager : MonoBehaviour {
 				MSSoundManager.instance.Loop (MSSoundManager.instance.walking);
 
 				yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed));
+				activePlayer.unit.direction = MSValues.Direction.EAST;
 
 				while (waiting) {
 						background.Scroll ();
@@ -665,11 +668,6 @@ public class PZCombatManager : MonoBehaviour {
 				}
 		
 				activePlayer.unit.animat = MSUnit.AnimationType.RUN;
-
-				activePlayer.unit.direction = MSValues.Direction.EAST;
-				activePlayer.unit.animat = MSUnit.AnimationType.RUN;
-
-
 				/*
 		Debug.Log("Moving until player is past " + playerXPos);
 		while(activePlayer.unit.transf.localPosition.x < playerXPos)
@@ -995,18 +993,23 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator PlayerShoot(float score)
 	{
+		enemyStartPosition =  activeEnemy.unit.transf.localPosition;
+
 		float strength = Mathf.Min(1, score/MAKE_IT_RAIN_SCORE);
 
 		int shots = Mathf.RoundToInt(strength * MAX_SHOTS);
-		float shotTime = .1f;
+		float shotTime = 0.4166f;
 
 		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
 			shots = 1;
-			shotTime = .3f;
+			shotTime = 0.4166f;//this my be different per character;
 		}
 
 		Vector3 enemyPos = activeEnemy.unit.transf.localPosition;
+
+		activePlayer.unit.anim.GetComponent<MSAnimationEvents> ().totalAttacks = shots;
+		activePlayer.unit.animat = MSUnit.AnimationType.ATTACK;
 
 		for (int i = 0; i < shots; i++) {
 
@@ -1015,41 +1018,53 @@ public class PZCombatManager : MonoBehaviour {
 				yield return StartCoroutine(activePlayer.AdvanceTo(activeEnemy.transform.localPosition.x - 30, -background.direction, background.scrollSpeed * 4));
 			}
 
-			activePlayer.unit.animat = MSUnit.AnimationType.ATTACK;
-
 			yield return new WaitForSeconds(shotTime);
 
-			activeEnemy.unit.animat = MSUnit.AnimationType.FLINCH;
-
-			MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, activeEnemy.unit.transf.position);
-
-			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
-
-			while (activeEnemy.unit.transf.localPosition.x < enemyPos.x + recoilDistance * (i+1))
-			{
-				activeEnemy.unit.transf.localPosition += Time.deltaTime * recoilDistance / recoilTime * -background.direction;
-				yield return null;
-			}
-
-			yield return new WaitForSeconds(recoilTime-.2f);
-
-			if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
-			{
-				yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
-				activePlayer.unit.direction = MSValues.Direction.EAST;
-			}
+			//When the animation gets to the frame where the gun fires, EnemyFlinch() is triggered
 		}
+	}
 
-		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
-		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
+	public IEnumerator EnemyFlinch(int totalShots){
+		Vector3 enemyPos = activeEnemy.unit.transf.localPosition;
 
-		while(activeEnemy.unit.transf.localPosition.x > enemyPos.x)
+		activeEnemy.unit.animat = MSUnit.AnimationType.FLINCH;
+		
+		MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, activeEnemy.unit.transf.position);
+		
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
+		
+		while (activeEnemy.unit.transf.localPosition.x < enemyPos.x + recoilDistance )//* (totalShots+1))
 		{
-			activeEnemy.unit.transf.localPosition -= Time.deltaTime * recoilDistance / recoilTime * -background.direction * 3;
+			activeEnemy.unit.transf.localPosition += Time.deltaTime * recoilDistance / recoilTime * -background.direction;
 			yield return null;
 		}
+		
+		yield return new WaitForSeconds(recoilTime-.2f);
+		
+		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		{
+			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
+			activePlayer.unit.direction = MSValues.Direction.EAST;
+		}
+	}
 
+	public IEnumerator EnemyReturnToStartPosition(){
+		Vector3 enemyPos = enemyStartPosition;
+		activeEnemy.unit.animat = MSUnit.AnimationType.RUN;
+
+		yield return new WaitForSeconds (0.1f);
+
+		//this moves the mobster back to the original position
+		while(activeEnemy.unit.transf.localPosition.x > enemyPos.x)
+		{
+			activeEnemy.unit.transf.localPosition -= Time.deltaTime * recoilDistance / recoilTime * -background.direction;// * 3;
+			yield return null;
+		}
+		
+		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
+		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 		activeEnemy.unit.transf.localPosition = enemyPos;
+		
 	}
 
 

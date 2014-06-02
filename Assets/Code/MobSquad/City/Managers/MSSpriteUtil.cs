@@ -52,7 +52,7 @@ public class MSSpriteUtil : MonoBehaviour {
 	public RuntimeAnimatorController GetUnitAnimator(string imageName)
 	{
 		string path = "Characters/" + imageName + "/" + imageName + "Controller";
-		Debug.Log("Getting: " + path);
+//		Debug.Log("Getting: " + path);
 		return (Resources.Load(path)) as RuntimeAnimatorController;
 	}
 
