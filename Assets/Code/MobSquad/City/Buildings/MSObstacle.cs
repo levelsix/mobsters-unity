@@ -137,6 +137,11 @@ public class MSObstacle : MonoBehaviour {
 
 	void FinishRemove(int gems = 0)
 	{
+		if (MSActionManager.Town.OnObstacleRemoved != null)
+		{
+			MSActionManager.Town.OnObstacleRemoved(this);
+		}
+
 		ObstacleRemovalCompleteRequestProto request = new ObstacleRemovalCompleteRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.curTime = MSUtil.timeNowMillis;

@@ -17,7 +17,7 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	[SerializeField]
 	int _swapLock = 0;
-	
+
 	public int swapLock
 	{
 		get
@@ -157,7 +157,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			MSActionManager.Puzzle.OnComboChange(combo);
 		}
 	}
-	
+
 	public void InitBoard(int w = STANDARD_BOARD_WIDTH, int h = STANDARD_BOARD_HEIGHT, string boardFile = "")
 	{
 		//Make sure we clear the board with the old values for width and height!
@@ -322,8 +322,6 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		if (movingGems.Count == 0) 
 		{
-
-
 			CheckWholeBoard ();
 			gemsToCheck.Clear ();
 			if (movingGems.Count == 0) {

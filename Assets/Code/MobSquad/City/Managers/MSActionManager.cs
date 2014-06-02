@@ -70,6 +70,8 @@ public static class MSActionManager
 		/// Activates UI changes for when a building is done being dragged
 		/// </summary>
 		public static Action OnBuildingDragEnd;
+
+		public static Action<MSObstacle> OnObstacleRemoved;
 	}
 	
 	public static class Loading
@@ -131,13 +133,35 @@ public static class MSActionManager
 	
 	public static class Quest
 	{
-		public static Action<int> OnStructureBuilt;
-		public static Action<int, int> OnStructureUpgraded;
-		public static Action<int> OnMonsterDefeated;
+		public static Action<int> OnStructureUpgraded;
 		public static Action<int> OnMonsterDonated;
-		public static Action<int> OnEquipObtained;
-		public static Action<int> OnTaskCompleted;
-		public static Action<int> OnMoneyCollected;
+		public static Action<BeginDungeonResponseProto> OnTaskCompleted;
+		public static Action<ResourceType, int> OnMoneyCollected;
+
+		public static Action<BattleStats> OnBattleFinish;
+
+		/// <summary>
+		/// Called whenever a monster is finished being enhanced
+		/// Parameter: Number of Enhance Points gained
+		/// </summary>
+		public static Action<int> OnMonsterEnhanced;
+
+		/// <summary>
+		/// Called whenever the player moves up a league in PvP rankings
+		/// Parameter: League number (id?)
+		/// </summary>
+		public static Action<int> OnLeagueJoined;
+
+		/// <summary>
+		/// Called whenever monsters are sold
+		/// Parameter: The number of monsters sold
+		/// </summary>
+		public static Action<int> OnMonstersSold;
+	}
+
+	public static class Pvp
+	{
+		public static Action<int, int> OnPvpVictory;
 	}
 	
 	public static class Puzzle

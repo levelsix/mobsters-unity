@@ -183,41 +183,12 @@ public class MSMonsterManager : MonoBehaviour {
 			RemoveMonster(item.userMonster.userMonsterId);
 		}
 
-		UMQNetworkManager.instance.SendRequest(sellRequest, (int)EventProtocolRequest.C_SELL_USER_MONSTER_EVENT, DealWithSellResponse);
-	}
-
-	void PrepareNewSellRequest()
-	{
-		sellRequest = new SellUserMonsterRequestProto();
-		sellRequest.sender = MSWhiteboard.localMupWithResources;
-	}
-
-	public void SellMonster(PZMonster monster)
-	{
-		MSResourceManager.instance.Collect(ResourceType.CASH, monster.sellValue);
-
-		if (sellRequest == null)
+		if (MSActionManager.Quest.OnMonstersSold != null)
 		{
-			PrepareNewSellRequest();
+			MSActionManager.Quest.OnMonstersSold(monsters.Count);
 		}
 
-		MinimumUserMonsterSellProto sell = new MinimumUserMonsterSellProto();
-		sell.userMonsterId = monster.userMonster.userMonsterId;
-		sell.cashAmount = monster.sellValue;
-
-		sellRequest.sales.Add(sell);
-
-		RemoveMonster(monster.userMonster.userMonsterId);
-	}
-
-	void SendSellRequest()
-	{
-		if (sellRequest==null)
-		{
-			return;
-		}
 		UMQNetworkManager.instance.SendRequest(sellRequest, (int)EventProtocolRequest.C_SELL_USER_MONSTER_EVENT, DealWithSellResponse);
-		sellRequest = null;
 	}
 
 	void DealWithSellResponse(int tagNum)
@@ -543,11 +514,12 @@ public class MSMonsterManager : MonoBehaviour {
 		}
 	}
 	
-	void Feed (PZMonster feeder)
+	int Feed (PZMonster feeder)
 	{
 		currentEnhancementMonster.GainXP(feeder.enhanceXP);
 		enhancementFeeders.Remove(feeder);
 		RemoveMonster(feeder.userMonster.userMonsterId);
+		return feeder.enhanceXP;
 	}
 	
 	void CheckEnhancingMonsters()
@@ -560,10 +532,11 @@ public class MSMonsterManager : MonoBehaviour {
 			request.isSpeedup = false;
 			
 			PZMonster feeder;
+			int enhancePoints = 0;
 			while (enhancementFeeders.Count > 0 && enhancementFeeders[0].finishEnhanceTime <= MSUtil.timeNowMillis)
 			{
 				feeder = enhancementFeeders[0];
-				Feed (feeder);
+				enhancePoints += Feed (feeder);
 				
 				request.userMonsterIds.Add(feeder.userMonster.userMonsterId);
 			}
@@ -571,14 +544,11 @@ public class MSMonsterManager : MonoBehaviour {
 			request.umcep = currentEnhancementMonster.GetCurrentExpProto();
 			
 			StartCoroutine(SendCompleteEnhanceRequest(request));
-			
-			/*
-			if (enhancementFeeders.Count == 0)
+
+			if (MSActionManager.Quest.OnMonsterEnhanced != null)
 			{
-				currentEnhancementMonster.enhancement = null;
-				currentEnhancementMonster = null;
+				MSActionManager.Quest.OnMonsterEnhanced(enhancePoints);
 			}
-			*/
 		}
 	}
 	
@@ -827,7 +797,6 @@ public class MSMonsterManager : MonoBehaviour {
 	void SendRequests()
 	{
 		SendStartEnhanceRequest();
-		SendSellRequest();
 	}
 	
 	void OnApplicationQuit()

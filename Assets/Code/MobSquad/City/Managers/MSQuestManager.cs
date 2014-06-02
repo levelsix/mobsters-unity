@@ -1,6 +1,6 @@
 //#define DEUBG3
 //#define DEBUG1
-//#define DEBUG2
+#define DEBUG2
 
 using UnityEngine;
 using System.Collections;
@@ -11,11 +11,9 @@ public class MSQuestManager : MonoBehaviour {
 	
 	public static MSQuestManager instance;
 	
-	static Dictionary<int, FullQuestProto> tempQuests;
-	
-	public static Dictionary<int, MSFullQuest> questDict = new Dictionary<int, MSFullQuest>();
+	public List<MSFullQuest> currQuests = new List<MSFullQuest>();
 
-	public static Dictionary<int, bool> taskDict = new Dictionary<int, bool>();
+	public Dictionary<int, bool> taskDict = new Dictionary<int, bool>();
 
 	public void Awake()
 	{
@@ -24,27 +22,20 @@ public class MSQuestManager : MonoBehaviour {
 	
 	public void OnEnable()
 	{
-		MSActionManager.Quest.OnStructureBuilt += OnStructureBuilt;
 		MSActionManager.Quest.OnStructureUpgraded += OnStructureUpgraded;
 		MSActionManager.Quest.OnTaskCompleted += OnTaskCompleted;
-		MSActionManager.Quest.OnMoneyCollected += OnMoneyCollected;
-		MSActionManager.Quest.OnMonsterDefeated += OnEnemyDefeated;
 		MSActionManager.Quest.OnMonsterDonated += OnMonsterDonated;
 	}
 	
 	public void Disable()
 	{
-		MSActionManager.Quest.OnStructureBuilt -= OnStructureBuilt;
 		MSActionManager.Quest.OnStructureUpgraded -= OnStructureUpgraded;
 		MSActionManager.Quest.OnTaskCompleted -= OnTaskCompleted;
-		MSActionManager.Quest.OnMoneyCollected -= OnMoneyCollected;
-		MSActionManager.Quest.OnMonsterDefeated -= OnEnemyDefeated;
 		MSActionManager.Quest.OnMonsterDonated -= OnMonsterDonated;
 	}
 	
 	public void Init(StartupResponseProto proto)
 	{
-		tempQuests = new Dictionary<int, FullQuestProto>();
 		foreach (FullQuestProto item in proto.staticDataStuffProto.availableQuests) 
 		{
 #if DEBUG2
@@ -54,7 +45,7 @@ public class MSQuestManager : MonoBehaviour {
 		}
 		foreach (var item in proto.userQuests) 
 		{
-			questDict[item.questId] = new MSFullQuest(MSDataManager.instance.Get(typeof(FullQuestProto), item.questId) as FullQuestProto, item);
+			currQuests.Add (new MSFullQuest(MSDataManager.instance.Get(typeof(FullQuestProto), item.questId) as FullQuestProto, item));
 #if DEBUG2
 			Debug.Log ("In Progress Quest: " + item.questId);
 #endif
@@ -142,8 +133,6 @@ public class MSQuestManager : MonoBehaviour {
 		Debug.Log("Accepting quest: " + fullQuest.questId);
 #endif
 		
-		tempQuests.Add(fullQuest.questId, fullQuest);
-		
 		QuestAcceptRequestProto request = new QuestAcceptRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.questId = fullQuest.questId;
@@ -173,34 +162,37 @@ public class MSQuestManager : MonoBehaviour {
 			userQuest.questId = fullQuest.questId;
 			userQuest.isRedeemed = false;
 
-			//TODO: Create UserQuestJobProtos for each job within the quest
+			UserQuestJobProto userjob;
+			foreach (var job in fullQuest.jobs) 
+			{
+				userjob = new UserQuestJobProto();
+				userjob.questId = fullQuest.questId;
+				userjob.questJobId = job.questJobId;
+				userjob.isComplete = false;
+				userjob.progress = 0;
+
+				userQuest.userQuestJobs.Add(userjob);
+
+			}
+
+			currQuests.Add(new MSFullQuest(fullQuest, userQuest));
 		}
-		
-		/*
-		UserQuestDetailsRequestProto detailRequest = new UserQuestDetailsRequestProto();
-		detailRequest.sender = CBKWhiteboard.localMup;
-		detailRequest.questId = fullQuest.questId;
-		
-		UMQNetworkManager.instance.SendRequest(detailRequest, (int)EventProtocolRequest.C_USER_QUEST_DETAILS_EVENT, LoadUserQuestDetails);
-		*/
 	}
 	
-	void UpdateQuestProgress(MSFullQuest fullQuest, List<PZMonster> donateMonsters = null)
+	void UpdateQuestProgress(MSFullQuest fullQuest, List<UserQuestJobProto> jobsUpdated, List<PZMonster> donateMonsters = null)
 	{
 		
 #if DEBUG3
 		Debug.Log("Checking quest: " + fullQuest.quest.name);
 #endif
-		//TODO: Fix the isComplete flag!
-		//fullQuest.userQuest.isComplete = (fullQuest.userQuest.progress >= fullQuest.quest.quantity);
-
 		QuestProgressRequestProto request = new QuestProgressRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.questId = fullQuest.quest.questId;
-
-		//TODO: Fix progress tracker!
-		//request.currentProgress = fullQuest.userQuest.progress;
-		request.isComplete = fullQuest.userQuest.isComplete;
+		foreach (var item in fullQuest.userQuest.userQuestJobs) 
+		{
+			request.userQuestJobs.Add(item);
+		}
+		request.isComplete = fullQuest.userQuest.isComplete = fullQuest.userQuest.userQuestJobs.Find(x=>!x.isComplete) == null;
 
 		if (donateMonsters != null)
 		{
@@ -216,7 +208,7 @@ public class MSQuestManager : MonoBehaviour {
 
 	public void CompleteQuest(MSFullQuest quest)
 	{
-		questDict.Remove(quest.quest.questId);
+		currQuests.RemoveAll(x=>x.quest.questId == quest.quest.questId);
 		StartCoroutine(RedeemQuest(quest.quest));
 	}
 	
@@ -228,7 +220,7 @@ public class MSQuestManager : MonoBehaviour {
 #endif
 		yield return null;
 		
-		questDict.Remove(quest.questId);
+		currQuests.RemoveAll(x=>x.quest.questId == quest.questId);
 		
 		QuestRedeemRequestProto request = new QuestRedeemRequestProto();
 		request.sender = MSWhiteboard.localMupWithResources;
@@ -245,7 +237,6 @@ public class MSQuestManager : MonoBehaviour {
 		
 		if (response.status != QuestRedeemResponseProto.QuestRedeemStatus.SUCCESS)
 		{
-			//TODO: Reload?
 			Debug.LogError("Problem redeeming quest: " + response.status.ToString());
 		}
 		else
@@ -272,90 +263,111 @@ public class MSQuestManager : MonoBehaviour {
 			}
 		}
 	}
-	
-	void OnStructureBuilt(int structID)
-	{
-		foreach (MSFullQuest item in questDict.Values) 
-		{
-			if (item.userQuest.isComplete)
-			{
-				continue;
-			}
-			//if (item.quest.questType == FullQuestProto.QuestType.BUILD_STRUCT && item.quest.staticDataId == structID) 
-			//{
-			//	item.userQuest.progress++;
-			//	UpdateQuestProgress(item);
-			//}
-		}
-	}
 
-	void OnStructureUpgraded(int structID, int level)
+	void OnStructureUpgraded(int structID)
 	{
-		foreach (MSFullQuest item in questDict.Values)
+		foreach (MSFullQuest item in currQuests)
 		{
 			if (item.userQuest.isComplete)
 			{
 				continue;
 			}
-			/* TODO: Fix this to look through each job
-			if (item.quest.questType == FullQuestProto.QuestType.UPGRADE_STRUCT && item.quest.staticDataId == structID)
+			foreach (var job in item.quest.jobs)
 			{
-				if (item.userQuest.progress < level)
+				if (job.questJobType == QuestJobProto.QuestJobType.UPGRADE_STRUCT
+				    && job.staticDataId == structID)
 				{
-					item.userQuest.progress = level;
-					UpdateQuestProgress(item);
+					UserQuestJobProto userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId == job.questJobId);
+					userJob.isComplete = ++userJob.progress >= job.quantity;
 				}
 			}
-			*/
 		}
 	}
 	
-	void OnTaskCompleted(int taskID)
+	void OnTaskCompleted(BeginDungeonResponseProto dungeon)
 	{
-		foreach (MSFullQuest item in questDict.Values)
+		List<UserQuestJobProto> updatedJobs = new List<UserQuestJobProto>();
+		UserQuestJobProto userJob;
+		int numMonsters;
+		foreach (MSFullQuest item in currQuests)
 		{
 			if (item.userQuest.isComplete)
 			{
 				continue;
 			}
-			/* TODO: Fix this for jobs
-			if (item.quest.questType == FullQuestProto.QuestType.COMPLETE_TASK && item.quest.staticDataId == taskID)
+			updatedJobs.Clear();
+			foreach (var job in item.quest.jobs) 
 			{
-				item.userQuest.progress++;
-				UpdateQuestProgress(item);
+				switch (job.questJobType) {
+				case QuestJobProto.QuestJobType.COMPLETE_TASK:
+					if (dungeon.taskId == job.staticDataId)
+					{
+						userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId==job.questJobId);
+						userJob.isComplete = ++userJob.progress >= job.quantity;
+						updatedJobs.Add(userJob);
+					}
+					break;
+				case QuestJobProto.QuestJobType.KILL_SPECIFIC_MONSTER:
+					numMonsters = 0;
+					foreach (var taskStage in dungeon.tsp) {
+						foreach (var taskStageMonster in taskStage.stageMonsters) 
+						{
+							if (taskStageMonster.monsterId == job.staticDataId)
+							{
+								numMonsters++;
+							}
+						}
+					}
+					if (numMonsters > 0)
+					{
+						userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId==job.questJobId);
+						userJob.progress = Mathf.Max(userJob.progress + numMonsters, job.quantity);
+						userJob.isComplete = userJob.progress >= job.quantity;
+						updatedJobs.Add(userJob);
+					}
+					break;
+				case QuestJobProto.QuestJobType.KILL_MONSTER_IN_CITY:
+					if (MSWhiteboard.cityID == job.staticDataId)
+					{
+						numMonsters = 0;
+						foreach (var taskStage in dungeon.tsp) 
+						{
+							numMonsters += taskStage.stageMonsters.Count;
+						}
+						
+						userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId==job.questJobId);
+						userJob.progress = Mathf.Max(userJob.progress + numMonsters, job.quantity);
+						userJob.isComplete = userJob.progress >= job.quantity;
+						updatedJobs.Add(userJob);
+					}
+					break;
+				case QuestJobProto.QuestJobType.COLLECT_SPECIAL_ITEM:
+					numMonsters = 0;
+					foreach (var taskStage in dungeon.tsp) {
+						foreach (var taskStageMonster in taskStage.stageMonsters) 
+						{
+							if (taskStageMonster.itemId == job.staticDataId)
+							{
+								numMonsters++;
+							}
+						}
+					}
+					if (numMonsters > 0)
+					{
+						userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId==job.questJobId);
+						userJob.progress = Mathf.Max(userJob.progress + numMonsters, job.quantity);
+						userJob.isComplete = userJob.progress >= job.quantity;
+						updatedJobs.Add(userJob);
+					}
+					break;
+				default:
+					break;
+				}
+				if (updatedJobs.Count > 0)
+				{
+					UpdateQuestProgress(item, updatedJobs);
+				}
 			}
-			*/
-		}
-	}
-	
-	void OnMoneyCollected(int amount)
-	{
-		foreach (MSFullQuest item in questDict.Values)
-		{
-			if (item.userQuest.isComplete)
-			{
-				continue;
-			}
-			//if (item.quest.questType == FullQuestProto.QuestType.COLLECT_COINS_FROM_HOME)
-			//{
-			//	item.userQuest.progress += amount;
-			//	UpdateQuestProgress(item);
-			//}
-		}
-	}
-
-	void OnEnemyDefeated(int monsterId)
-	{
-		foreach (MSFullQuest item in questDict.Values) {
-			if (item.userQuest.isComplete)
-			{
-				continue;
-			}
-			//if (item.quest.questType == FullQuestProto.QuestType.KILL_MONSTER && item.quest.staticDataId == monsterId)
-			//{
-			//	item.userQuest.progress++;
-			//	UpdateQuestProgress(item);
-			//}
 		}
 	}
 
@@ -397,7 +409,7 @@ public class MSQuestManager : MonoBehaviour {
 
 	void OnMonsterDonated(int monsterId)
 	{
-		foreach (MSFullQuest item in questDict.Values) {
+		foreach (MSFullQuest item in currQuests) {
 			if (item.userQuest.isComplete)
 			{
 				continue;

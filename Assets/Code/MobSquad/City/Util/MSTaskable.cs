@@ -38,7 +38,7 @@ public class MSTaskable : MonoBehaviour {
 		{
 			MSBuilding building = GetComponent<MSBuilding> ();
 			MSCityUnit unit = GetComponent<MSCityUnit>();
-			if (!MSQuestManager.taskDict.ContainsKey (task.prerequisiteTaskId)) 
+			if (!MSQuestManager.instance.taskDict.ContainsKey (task.prerequisiteTaskId)) 
 			{
 				if (building != null) 
 				{
@@ -59,7 +59,7 @@ public class MSTaskable : MonoBehaviour {
 				{
 					unit.SetUnlocked();
 				}
-				if (!MSQuestManager.taskDict.ContainsKey (task.taskId)) 
+				if (!MSQuestManager.instance.taskDict.ContainsKey (task.taskId)) 
 				{
 					if (building != null) 
 					{

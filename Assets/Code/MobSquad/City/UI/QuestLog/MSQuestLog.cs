@@ -128,7 +128,7 @@ public class MSQuestLog : MonoBehaviour {
 		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = true;
 		detailsParent.transform.localPosition = RIGHT_POS;
 
-		while(quests.Count < MSQuestManager.questDict.Count)
+		while(quests.Count < MSQuestManager.instance.currQuests.Count)
 		{
 			MSQuestEntry entry = MSPoolManager.instance.Get(questEntryPrefab, Vector3.zero) as MSQuestEntry;
 			entry.trans.parent = questGridParentTrans;
@@ -137,7 +137,7 @@ public class MSQuestLog : MonoBehaviour {
 		}
 
 		int i = 0;
-		foreach (MSFullQuest item in MSQuestManager.questDict.Values) 
+		foreach (MSFullQuest item in MSQuestManager.instance.currQuests) 
 		{
 			quests[i].Init(item);
 			i++;
@@ -178,8 +178,14 @@ public class MSQuestLog : MonoBehaviour {
 
 		questDescription.text = fullQ.quest.description;
 
+		foreach (var job in fullQ.quest.jobs) 
+		{
+			Debug.Log("Job " + job.questJobId + ": " + job.description);
+		}
+
 		foreach (var userJob in fullQ.userQuest.userQuestJobs) 
 		{
+			Debug.Log ("Userjob: " + userJob.questJobId);
 			WriteTask(fullQ.quest.jobs.Find(x=>x.questJobId==userJob.questJobId), userJob);
 		}
 
@@ -197,6 +203,8 @@ public class MSQuestLog : MonoBehaviour {
 
 	void WriteTask(QuestJobProto job, UserQuestJobProto userJob)
 	{
+		Debug.Log(job);
+		Debug.Log(userJob);
 		taskDescription.text = job.description;
 
 		taskProgress.text = userJob.progress + "/" + job.quantity;

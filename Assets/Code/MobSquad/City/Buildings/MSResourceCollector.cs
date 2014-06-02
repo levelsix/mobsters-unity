@@ -140,7 +140,7 @@ public class MSResourceCollector : MonoBehaviour {
 			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructId);
 			if (MSActionManager.Quest.OnMoneyCollected != null)
 			{
-				MSActionManager.Quest.OnMoneyCollected(currMoney);
+				MSActionManager.Quest.OnMoneyCollected(_generator.resourceType, currMoney);
 			}
 
 			if(_building != null){

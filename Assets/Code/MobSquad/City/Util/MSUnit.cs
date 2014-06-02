@@ -28,6 +28,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 			anim.runtimeAnimatorController = MSSpriteUtil.instance.GetUnitAnimator(MSUtil.StripExtensions(value));
 			//StartCoroutine(MSSpriteUtil.instance.SetUnitAnimator(this));
 
+
 			if (MSSpriteUtil.instance.HasBundle(value))
 			{
 				sprite.color = Color.white;

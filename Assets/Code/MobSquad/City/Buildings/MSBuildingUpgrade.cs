@@ -315,14 +315,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		
 		building.SetupSprite(building.combinedProto.structInfo.imgName);
 
-		if (level > 1)
-		{
-			MSActionManager.Quest.OnStructureUpgraded(building.userStructProto.structId, level);
-		}
-		else
-		{
-			MSActionManager.Quest.OnStructureBuilt(building.userStructProto.structId);
-		}
+		MSActionManager.Quest.OnStructureUpgraded(building.userStructProto.structId);
 
 		MSBuildingManager.instance.AddToFunctionalityLists(building);
 			

@@ -2,6 +2,7 @@
 using System.Collections;
 using com.lvl6.proto;
 
+[System.Serializable]
 public class MSFullQuest {
 
 	public FullUserQuestProto userQuest;
