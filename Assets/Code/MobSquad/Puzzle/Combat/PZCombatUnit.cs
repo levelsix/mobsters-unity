@@ -204,7 +204,7 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		RunDamageLabel(damage);
 		
-		monster.currHP -= damage;
+		monster.currHP = Mathf.Max(monster.currHP - damage, 0);
 		
 		alive = monster.currHP > 0;
 		
@@ -236,7 +236,7 @@ public class PZCombatUnit : MonoBehaviour {
 		
 		UserMonsterCurrentHealthProto hpProto = new UserMonsterCurrentHealthProto();
 		hpProto.userMonsterId = monster.userMonster.userMonsterId;
-		hpProto.currentHealth = monster.currHP - damage;
+		hpProto.currentHealth = Mathf.Max(monster.currHP - damage, 0);
 		
 		request.umchp.Add(hpProto);
 

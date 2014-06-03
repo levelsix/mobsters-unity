@@ -16,7 +16,7 @@ public static class MSValues
 		public static int TRANSPARENT_FX = 1;
 		public static int IGNORE_RAYCAST = 2;
 		public static int WATER = 4;
-		public static int UI = 8;
+		public static int UI = 5;
 		public static int PUZZLE = 10;
 	}
     

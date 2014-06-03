@@ -18,12 +18,8 @@ public class MSChatGrid : MonoBehaviour {
 	[SerializeField]
 	MSResetsPosition posResetter;
 
+	[SerializeField]
 	MSChatTable table;
-
-	void Awake()
-	{
-		table = GetComponent<MSChatTable>();
-	}
 
 	void OnEnable()
 	{

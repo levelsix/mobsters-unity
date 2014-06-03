@@ -16,6 +16,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	public static PZCombatManager instance;
 
+	public BattleStats battleStats = new BattleStats();
+
 	public BeginDungeonResponseProto debug;
 
 	public bool pvpMode = false;
@@ -216,9 +218,22 @@ public class PZCombatManager : MonoBehaviour {
 		pvpMode = false;
 		raidMode = false;
 	}
+	
+	void ResetBattleStats()
+	{
+		battleStats.combos = 0;
+		battleStats.grenades = 0;
+		battleStats.orbs = new int[] {0, 0, 0, 0, 0, 0};
+		battleStats.rainbows = 0;
+		battleStats.rockets = 0;
+		battleStats.damageTaken = 0;
+		battleStats.monstersDefeated = 0;
+	}
 
 	void PreInit()
 	{
+		ResetBattleStats();
+
 		boardTint.PlayForward();
 		
 		StopBleeding();
@@ -547,11 +562,7 @@ public class PZCombatManager : MonoBehaviour {
 	
 	void OnEnemyDeath()
 	{
-		if (MSActionManager.Quest.OnMonsterDefeated != null)
-		{
-			MSActionManager.Quest.OnMonsterDefeated(activeEnemy.monster.monster.monsterId);
-		}
-
+		battleStats.monstersDefeated++;
 		defeatedEnemies.Add(activeEnemy.monster);
 		StartCoroutine(ScrollToNextEnemy());
 	}
@@ -628,46 +639,49 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	IEnumerator ScrollToNextEnemy()
 	{
-				if (boardTint.value <= .01f) {
-						boardTint.PlayForward ();
+		if (boardTint.value <= .01f) {
+				boardTint.PlayForward ();
+		}
+
+		PZPuzzleManager.instance.swapLock += 1;
+
+		yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed));
+		activePlayer.unit.direction = MSValues.Direction.EAST;
+		//activePlayer.GoToStartPos();
+
+		MSSoundManager.instance.Loop (MSSoundManager.instance.walking);
+
+		yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed));
+
+		while (waiting) {
+			background.Scroll ();
+			yield return null;
+		}
+
+		if (enemies.Count > 0) {
+			activeEnemy.GoToStartPos ();
+			activeEnemy.Init (enemies.Dequeue ());
+			activeEnemy.unit.direction = MSValues.Direction.WEST;
+			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
+
+			intro.SetText (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
+			intro.PlayAnimation ();
+		} else if (!activeEnemy.alive) {
+			activeEnemy.GoToStartPos ();
+			StartCoroutine (SendEndResult (true));
+
+			if (!pvpMode && !raidMode) 
+			{
+				if (MSActionManager.Quest.OnTaskCompleted != null) 
+				{
+						MSActionManager.Quest.OnTaskCompleted (MSWhiteboard.loadedDungeon);
 				}
-
-				PZPuzzleManager.instance.swapLock += 1;
-
-				//activePlayer.GoToStartPos();
-		
-				MSSoundManager.instance.Loop (MSSoundManager.instance.walking);
-
-				yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed));
-				activePlayer.unit.direction = MSValues.Direction.EAST;
-
-				while (waiting) {
-						background.Scroll ();
-						yield return null;
-				}
-
-				if (enemies.Count > 0) {
-						activeEnemy.GoToStartPos ();
-						activeEnemy.Init (enemies.Dequeue ());
-						activeEnemy.unit.direction = MSValues.Direction.WEST;
-						activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
-
-						intro.SetText (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
-						intro.PlayAnimation ();
-				} else if (!activeEnemy.alive) {
-						activeEnemy.GoToStartPos ();
-						StartCoroutine (SendEndResult (true));
-
-						if (!pvpMode && !raidMode) {
-								if (MSActionManager.Quest.OnTaskCompleted != null) {
-										MSActionManager.Quest.OnTaskCompleted (MSWhiteboard.loadedDungeon.taskId);
-								}
-						}
+			}
 
 
-				}
-		
-				activePlayer.unit.animat = MSUnit.AnimationType.RUN;
+		}
+
+		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
 				/*
 		Debug.Log("Moving until player is past " + playerXPos);
 		while(activePlayer.unit.transf.localPosition.x < playerXPos)
@@ -747,6 +761,11 @@ public class PZCombatManager : MonoBehaviour {
 	
 	IEnumerator SendEndResult(bool userWon)
 	{
+		if (MSActionManager.Quest.OnBattleFinish != null)
+		{
+			MSActionManager.Quest.OnBattleFinish(battleStats);
+		}
+
 		if (pvpMode)
 		{
 			EndPvpBattleRequestProto request = new EndPvpBattleRequestProto();
@@ -762,6 +781,11 @@ public class PZCombatManager : MonoBehaviour {
 
 				MSResourceManager.instance.Collect(ResourceType.CASH, defender.prospectiveCashWinnings);
 				MSResourceManager.instance.Collect (ResourceType.OIL, defender.prospectiveOilWinnings);
+
+				if (MSActionManager.Pvp.OnPvpVictory != null)
+				{
+					MSActionManager.Pvp.OnPvpVictory(defender.prospectiveCashWinnings, defender.prospectiveOilWinnings);
+				}
 			}
 			request.clientTime = MSUtil.timeNowMillis;
 
@@ -793,10 +817,10 @@ public class PZCombatManager : MonoBehaviour {
 			request.userWon = userWon;
 			request.clientTime = MSUtil.timeNowMillis;
 
-			if (!MSQuestManager.taskDict.ContainsKey(MSWhiteboard.loadedDungeon.taskId))
+			if (!MSQuestManager.instance.taskDict.ContainsKey(MSWhiteboard.loadedDungeon.taskId))
 			{
 				int task = MSWhiteboard.loadedDungeon.taskId;
-				MSQuestManager.taskDict[task] = true;
+				MSQuestManager.instance.taskDict[task] = true;
 				request.firstTimeUserWonTask = true;
 				request.userBeatAllCityTasks = MSQuestManager.instance.HasFinishedAllTasksInCity(MSWhiteboard.cityID);
 			}
@@ -834,6 +858,13 @@ public class PZCombatManager : MonoBehaviour {
 	/// </param>
 	public void OnBreakGems(int[] gemsBroken, int combo)
 	{
+		for (int i = 0; i < gemsBroken.Length; i++) 
+		{
+			PZCombatManager.instance.battleStats.orbs[i] += gemsBroken[i];
+		}
+
+		PZCombatManager.instance.battleStats.combos += combo;
+
 		int damage;
 		Element element;
 		activePlayer.DealDamage(gemsBroken, out damage, out element);
@@ -1113,6 +1144,8 @@ public class PZCombatManager : MonoBehaviour {
 			activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
 		}
 
+		battleStats.damageTaken += Mathf.Min (enemyDamageWithElement, activePlayer.monster.currHP);
+
 		yield return StartCoroutine(ShowAttackWords(score));
 
 		yield return StartCoroutine(PlayerShoot(score));
@@ -1218,4 +1251,15 @@ public class PZCombatManager : MonoBehaviour {
 		
 		return gems;
 	}
+}
+
+public struct BattleStats
+{
+	public int[] orbs;
+	public int grenades;
+	public int rockets;
+	public int rainbows;
+	public int combos;
+	public int damageTaken;
+	public int monstersDefeated;
 }

@@ -59,12 +59,15 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			switch(value)
 			{
 				case GemType.BOMB:
+					PZCombatManager.instance.battleStats.grenades++;
 					sprite.spriteName = baseSprite + "grenade";
 					break;
 				case GemType.MOLOTOV:
+					PZCombatManager.instance.battleStats.rainbows++;
 					sprite.spriteName = "allcocktail";
 					break;
 				case GemType.ROCKET:
+					PZCombatManager.instance.battleStats.rockets++;
 					if (horizontal)
 					{
 						sprite.spriteName = baseSprite + "sideways";
