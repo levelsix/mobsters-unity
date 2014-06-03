@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400004}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: ClanName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400002}
   - 114: {fileID: 11400006}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: MemberCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400018}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: ClanSymbol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400006}
   - 114: {fileID: 11400010}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400008}
   - 114: {fileID: 11400012}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400010}
   - 114: {fileID: 11400014}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400012}
   - 114: {fileID: 11400016}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: JoinStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - 114: {fileID: 11400026}
   - 65: {fileID: 6500002}
   - 114: {fileID: 11400028}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: ClanEntry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400008}
   - 114: {fileID: 11400000}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: JoinButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400018}
   - 114: {fileID: 11400024}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: MemberCountBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,6 +179,7 @@ Transform:
   m_Children:
   - {fileID: 400012}
   m_Father: {fileID: 400014}
+  m_RootOrder: 0
 --- !u!4 &400002
 Transform:
   m_ObjectHideFlags: 1
@@ -190,6 +191,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400014}
+  m_RootOrder: 5
 --- !u!4 &400004
 Transform:
   m_ObjectHideFlags: 1
@@ -201,6 +203,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400014}
+  m_RootOrder: 6
 --- !u!4 &400006
 Transform:
   m_ObjectHideFlags: 1
@@ -212,6 +215,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400014}
+  m_RootOrder: 2
 --- !u!4 &400008
 Transform:
   m_ObjectHideFlags: 1
@@ -223,6 +227,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
+  m_RootOrder: 0
 --- !u!4 &400010
 Transform:
   m_ObjectHideFlags: 1
@@ -234,6 +239,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400014}
+  m_RootOrder: 1
 --- !u!4 &400012
 Transform:
   m_ObjectHideFlags: 1
@@ -245,6 +251,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
+  m_RootOrder: 0
 --- !u!4 &400014
 Transform:
   m_ObjectHideFlags: 1
@@ -263,6 +270,7 @@ Transform:
   - {fileID: 400002}
   - {fileID: 400004}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!4 &400016
 Transform:
   m_ObjectHideFlags: 1
@@ -275,6 +283,7 @@ Transform:
   m_Children:
   - {fileID: 400008}
   m_Father: {fileID: 400014}
+  m_RootOrder: 4
 --- !u!4 &400018
 Transform:
   m_ObjectHideFlags: 1
@@ -286,6 +295,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400014}
+  m_RootOrder: 3
 --- !u!65 &6500000
 BoxCollider:
   m_ObjectHideFlags: 1

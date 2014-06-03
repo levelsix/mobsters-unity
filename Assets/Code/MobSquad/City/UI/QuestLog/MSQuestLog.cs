@@ -19,39 +19,33 @@ public class MSQuestLog : MonoBehaviour {
 	
 	[SerializeField]
 	PZPrize rewardBoxPrefab;
+
+	[SerializeField]
+	TweenPosition mover;
 	
 	#region List Mode Members
-	
+
 	[SerializeField]
-	Transform questGridParentTrans;
-	
+	UIGrid questGrid;
+
 	[SerializeField]
-	GameObject questGridParentGob;
+	MSUIHelper tabHelper;
 	
 	#endregion
 	
 	#region Details Mode Members
+
+	[SerializeField]
+	MSResetsPosition taskScrollResetter;
+
+	[SerializeField]
+	UIGrid taskGrid;
+
+	[SerializeField]
+	UIGrid rewardGrid;
 	
 	[SerializeField]
-	GameObject detailsParent;
-
-	[SerializeField]
-	UILabel taskDescription;
-
-	[SerializeField]
-	UILabel taskProgress;
-
-	[SerializeField]
-	MSActionButton visitButton;
-
-	[SerializeField]
-	UILabel completeLabel;
-
-	[SerializeField]
-	Transform rewardHeader;
-	
-	[SerializeField]
-	UILabel questGiverSaysLabel;
+	UILabel questGiverName;
 	
 	[SerializeField]
 	UILabel questDescription;
@@ -60,22 +54,24 @@ public class MSQuestLog : MonoBehaviour {
 	UIButton backButton;
 
 	[SerializeField]
-	UILabel header;
+	UILabel questName;
 
 	[SerializeField]
-	UIToggle shareCheck;
+	UISprite questGiverBG;
 
 	[SerializeField]
-	GameObject completeItems;
+	UI2DSprite questGiverThumb;
 
 	[SerializeField]
-	UI2DSprite questGiver;
+	MSUIHelper topDetailHelper;
+
+	#endregion
 
 	List<PZPrize> rewards = new List<PZPrize>();
 	
 	List<MSQuestEntry> quests = new List<MSQuestEntry>();
-	
-	#endregion
+
+	List<MSQuestTaskEntry> tasks = new List<MSQuestTaskEntry>();
 	
 	int prizeSize = 110;
 	int buffer = 5;
@@ -118,268 +114,153 @@ public class MSQuestLog : MonoBehaviour {
 	{
 		SetupQuestList();
 	}
+
+	void RecycleQuests()
+	{
+		foreach (var item in quests) 
+		{
+			item.Pool();
+		}
+		quests.Clear();
+	}
+
+	void AddQuest(MSFullQuest quest)
+	{
+		MSQuestEntry entry = (MSPoolManager.instance.Get(questEntryPrefab.GetComponent<MSSimplePoolable>(), 
+		                                                 Vector3.zero, questGrid.transform) 
+		                      	as MSSimplePoolable).GetComponent<MSQuestEntry>();
+		entry.transform.localScale = Vector3.one;
+		entry.Init (quest);
+		quests.Add (entry);
+	}
 	
 	public void SetupQuestList()
 	{
-		header.text = QUEST_LIST_HEADER;
+		topDetailHelper.ResetAlpha(false);
+		topDetailHelper.TurnOff();
 
-		GetComponent<TweenPosition>().value = Vector3.zero;
-		questGridParentTrans.localPosition = new Vector3(0, questGridParentTrans.localPosition.y);
-		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = true;
-		detailsParent.transform.localPosition = RIGHT_POS;
+		tabHelper.ResetAlpha (true);
+		tabHelper.TurnOn();
 
-		while(quests.Count < MSQuestManager.instance.currQuests.Count)
-		{
-			MSQuestEntry entry = MSPoolManager.instance.Get(questEntryPrefab, Vector3.zero) as MSQuestEntry;
-			entry.trans.parent = questGridParentTrans;
-			entry.GetComponent<UIDragObject>().target = questGridParentTrans;
-			quests.Add(entry);
-		}
+		mover.Sample(0, true);
 
-		int i = 0;
+		RecycleQuests();
 		foreach (MSFullQuest item in MSQuestManager.instance.currQuests) 
 		{
-			quests[i].Init(item);
-			i++;
+			AddQuest(item);
 		}
 
-		for (; i < quests.Count; i++) 
-		{
-			quests[i].gameObj.SetActive(false);
-		}
-		foreach (var item in quests) 
-		{
-			item.GetComponent<UIDragObject>().restrictWithinPanel = true;
-		}
-
-		questGridParentTrans.GetComponentInChildren<UIGrid>().Reposition();
-		
-		backButton.enabled = false;
+		questGrid.Reposition();
 	}
 	
 	public void ReturnToList()
 	{	
-		GetComponent<TweenPosition>().PlayReverse();
-		TweenPosition.Begin(questGridParentGob, TWEEN_TIME, new Vector3(0, questGridParentTrans.localPosition.y));
-		TweenPosition.Begin(detailsParent, TWEEN_TIME, RIGHT_POS);
-		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = true;
-		questGiver.GetComponent<TweenPosition>().PlayReverse();
-		questGiver.GetComponent<MSUIHelper>().FadeOut();
-		foreach (var item in quests) 
+		mover.PlayReverse();
+		topDetailHelper.FadeOutAndOff();
+		tabHelper.TurnOn();
+		tabHelper.FadeIn();
+	}
+
+	#region Quest Details
+
+	void RecycleTasks()
+	{
+		foreach (var item in tasks) 
 		{
-			item.GetComponent<UIDragObject>().restrictWithinPanel = true;
+			item.Pool();
 		}
+		tasks.Clear();
 	}
 	
-	
+	void AddTask(MSFullQuest quest, UserQuestJobProto userJob, int num)
+	{
+		MSQuestTaskEntry taskEntry = (MSPoolManager.instance.Get(questTaskEntryPrefab.GetComponent<MSSimplePoolable>(), 
+		                                                         Vector3.zero, taskGrid.transform) 
+		                              	as MSSimplePoolable).GetComponent<MSQuestTaskEntry>();
+		taskEntry.transform.localScale = Vector3.one;
+		tasks.Add (taskEntry);
+		taskEntry.Init(quest, userJob, num);
+	}
+
 	void LoadQuestDetails(MSFullQuest fullQ)
 	{
-		header.text = fullQ.quest.name;
+		questName.text = fullQ.quest.name;
 
 		questDescription.text = fullQ.quest.description;
 
-		foreach (var job in fullQ.quest.jobs) 
+		RecycleTasks();
+		for (int i = 0; i < fullQ.userQuest.userQuestJobs.Count; i++) 
 		{
-			Debug.Log("Job " + job.questJobId + ": " + job.description);
+			AddTask(fullQ, fullQ.userQuest.userQuestJobs[i], i);
 		}
-
-		foreach (var userJob in fullQ.userQuest.userQuestJobs) 
-		{
-			Debug.Log ("Userjob: " + userJob.questJobId);
-			WriteTask(fullQ.quest.jobs.Find(x=>x.questJobId==userJob.questJobId), userJob);
-		}
+		taskGrid.Reposition();
+		taskScrollResetter.Reset();
 
 		BuildRewards(fullQ);
 	}
+
+	#region Rewards
 	
-	void AddReward()
+	PZPrize AddReward()
 	{
-		PZPrize reward = Instantiate(rewardBoxPrefab) as PZPrize;
+		PZPrize reward = (MSPoolManager.instance.Get(rewardBoxPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, rewardGrid.transform) 
+		                  as MSSimplePoolable).GetComponent<PZPrize>();
 		rewards.Add (reward);
-		reward.transform.parent = rewardHeader;
 		reward.transform.localScale = Vector3.one;
-		reward.transform.localPosition = new Vector3(0, 0);
+		return reward;
 	}
 
-	void WriteTask(QuestJobProto job, UserQuestJobProto userJob)
+	void RecycleRewards()
 	{
-		Debug.Log(job);
-		Debug.Log(userJob);
-		taskDescription.text = job.description;
-
-		taskProgress.text = userJob.progress + "/" + job.quantity;
-
-		if (userJob.progress < job.quantity)
+		foreach (var item in rewards) 
 		{
-			visitButton.button.enabled = true;
-			if (job.questJobType == QuestJobProto.QuestJobType.DONATE_MONSTER)
-			{
-				completeLabel.text = "Donate";
-			}
-			else
-			{
-				completeLabel.text = "Visit";
-			}
-			visitButton.icon.spriteName = "confirm";
+			item.GetComponent<MSSimplePoolable>().Pool();
 		}
-		else
-		{
-			visitButton.button.enabled = false;
-			completeLabel.text = "[90E200]Complete![-]";
-			visitButton.icon.spriteName = "complete";
-		}
-
+		rewards.Clear ();
 	}
 
-	public void OnClickTaskButton()
-	{
-		/*
-		if (currQuest.quest.questType == FullQuestProto.QuestType.DONATE_MONSTER)
-		{
-			if (MSQuestManager.instance.AttemptDonation(currQuest))
-			{
-				//WriteTask(currQuest);
-				BuildRewards(currQuest);
-				quests.Find(x=>x.fullQuest == currQuest).Init(currQuest);
-			}
-
-		}
-		else
-		{
-			if (currQuest.quest.cityId >= 1)
-			{
-				GoToTown();
-			}
-			else
-			{
-				GoHome();
-			}
-		}
-		*/
-	}
-
-	void GoToTown(int cityId)
-	{
-		MSWhiteboard.currCityType = MSWhiteboard.CityType.NEUTRAL;
-		MSWhiteboard.cityID = cityId;
-		MSActionManager.Loading.LoadBuildings();
-		MSActionManager.Popup.CloseAllPopups();
-	}
-	
-	void GoHome()
-	{	
-		MSWhiteboard.currCityType = MSWhiteboard.CityType.PLAYER;
-		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
-		MSActionManager.Loading.LoadBuildings();	
-		MSActionManager.Popup.CloseAllPopups();
-	}
-
-
-
-	
 	void BuildRewards(MSFullQuest fullQ)
 	{
-		int numPrizes = 0;
+		RecycleRewards();
 		
 		if (fullQ.quest.gemReward > 0)
 		{
-			if (rewards.Count < numPrizes+1)
-			{
-				AddReward();
-			}
-			rewards[numPrizes].InitDiamond(fullQ.quest.gemReward);
-			numPrizes++;
+			AddReward().InitDiamond(fullQ.quest.gemReward);
 		}
 
 		if (fullQ.quest.cashReward > 0)
 		{
-			if (rewards.Count < numPrizes+1)
-			{
-				AddReward();
-			}
-			rewards[numPrizes].InitCash (fullQ.quest.cashReward);
-			numPrizes++;
+			AddReward().InitCash (fullQ.quest.cashReward);
 		}
 
 		if (fullQ.quest.expReward > 0)
 		{
-			if (rewards.Count < numPrizes+1)
-			{
-				AddReward();
-			}
-			rewards[numPrizes].InitXP (fullQ.quest.expReward);
-			numPrizes++;
+			AddReward().InitXP (fullQ.quest.expReward);
 		}
 
 		if (fullQ.quest.monsterIdReward > 0)
 		{
-			if (rewards.Count < numPrizes+1)
-			{
-				AddReward();
-			}
-			rewards[numPrizes].InitEnemy (fullQ.quest.monsterIdReward);
-			numPrizes++;
+			AddReward().InitEnemy (fullQ.quest.monsterIdReward);
 		}
 
-		float spaceNeeded = numPrizes * prizeSize + (numPrizes-1) * buffer;
-		for (int i = 0; i < numPrizes; i++) 
-		{
-			rewards[i].gameObject.SetActive(true);
-			rewards[i].transform.localPosition = new Vector3(i * (prizeSize + buffer) - spaceNeeded/2, 0, 0);
-		}
-
-		for (int i = numPrizes; i < rewards.Count; i++) 
-		{
-			rewards[i].gameObject.SetActive(false);
-		}
-
-		if (fullQ.userQuest.isComplete)
-		{
-			completeItems.SetActive(true);
-			shareCheck.value = true;
-			rewardHeader.transform.localPosition = REWARD_HEADER_COMPLETE_OFFSET;
-		}
-		else
-		{
-			completeItems.SetActive(false);
-			rewardHeader.transform.localPosition = REWARD_HEADER_CENTER;
-		}
+		rewardGrid.Reposition();
 	}
 
-	public void CollectQuest()
-	{
-		MSQuestManager.instance.CompleteQuest(currQuest);
-		if (shareCheck.value)
-		{
-			//TODO: Share quest
-		}
-		SetupQuestList();
-		ReturnToList();
-	}
-	
+           	#endregion
+
+	#endregion
+
 	public void OnQuestEntryClicked(MSFullQuest quest)
 	{
 		currQuest = quest;
 
 		LoadQuestDetails(quest);
-		
-		questGiver.GetComponent<TweenPosition>().PlayForward();
-		questGiver.GetComponent<MSUIHelper>().FadeIn();
-		questGiver.sprite2D = MSSpriteUtil.instance.GetSprite("Quest/HD/" + MSUtil.StripExtensions(quest.quest.questGiverImagePrefix) + "Big");
 
-		GetComponent<TweenPosition>().PlayForward();
+		mover.PlayForward();
 
-		TweenPosition.Begin(questGridParentGob, TWEEN_TIME, LEFT_POS + new Vector3(0, questGridParentTrans.localPosition.y));
-
-		questGridParentTrans.parent.GetComponent<UIScrollView>().restrictWithinPanel = false;
-		foreach (var item in quests) 
-		{
-			item.GetComponent<UIDragObject>().restrictWithinPanel = false;
-		}
-
-		TweenPosition.Begin(detailsParent, TWEEN_TIME, Vector3.zero);
-		
-		backButton.enabled = true;
+		tabHelper.FadeOutAndOff();
+		topDetailHelper.TurnOn();
+		topDetailHelper.FadeIn();
 	}
 	
 }

@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 114: {fileID: 11400004}
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400002}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400006}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: SwapButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,6 +61,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
+  m_RootOrder: 0
 --- !u!4 &400002
 Transform:
   m_ObjectHideFlags: 1
@@ -73,6 +74,7 @@ Transform:
   m_Children:
   - {fileID: 400000}
   m_Father: {fileID: 400004}
+  m_RootOrder: 0
 --- !u!4 &400004
 Transform:
   m_ObjectHideFlags: 1
@@ -85,6 +87,7 @@ Transform:
   m_Children:
   - {fileID: 400002}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!65 &6500000
 BoxCollider:
   m_ObjectHideFlags: 1

@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400004}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: ChooseGachaPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400002}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: BannersScrollPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 114: {fileID: 11400008}
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400006}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Sprite (menubg)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - 4: {fileID: 400006}
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400010}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: MenuTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   - 114: {fileID: 11400018}
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400014}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: XButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400010}
   - 114: {fileID: 11400022}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400012}
   - 114: {fileID: 11400024}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400014}
   - 114: {fileID: 11400026}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,6 +148,7 @@ Transform:
   m_Children:
   - {fileID: 400004}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!4 &400002
 Transform:
   m_ObjectHideFlags: 1
@@ -160,6 +161,7 @@ Transform:
   m_Children:
   - {fileID: 400014}
   m_Father: {fileID: 400004}
+  m_RootOrder: 1
 --- !u!4 &400004
 Transform:
   m_ObjectHideFlags: 1
@@ -173,6 +175,7 @@ Transform:
   - {fileID: 400006}
   - {fileID: 400002}
   m_Father: {fileID: 400000}
+  m_RootOrder: 0
 --- !u!4 &400006
 Transform:
   m_ObjectHideFlags: 1
@@ -186,6 +189,7 @@ Transform:
   - {fileID: 400010}
   - {fileID: 400008}
   m_Father: {fileID: 400004}
+  m_RootOrder: 0
 --- !u!4 &400008
 Transform:
   m_ObjectHideFlags: 1
@@ -198,6 +202,7 @@ Transform:
   m_Children:
   - {fileID: 400012}
   m_Father: {fileID: 400006}
+  m_RootOrder: 1
 --- !u!4 &400010
 Transform:
   m_ObjectHideFlags: 1
@@ -209,6 +214,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400006}
+  m_RootOrder: 0
 --- !u!4 &400012
 Transform:
   m_ObjectHideFlags: 1
@@ -220,6 +226,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400008}
+  m_RootOrder: 0
 --- !u!4 &400014
 Transform:
   m_ObjectHideFlags: 1
@@ -231,6 +238,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
+  m_RootOrder: 0
 --- !u!65 &6500000
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -269,7 +277,6 @@ MonoBehaviour:
   bannerPrefab: {fileID: 11400000, guid: 0427ba281aa174cd78e370794fcc643f, type: 2}
   grid: {fileID: 11400026}
   gachaScreen: {fileID: 0}
-  slider: {fileID: 11400004}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,6 +315,7 @@ MonoBehaviour:
   callWhenFinished: 
   from: {x: 0, y: 0, z: 0}
   to: {x: 0, y: 0, z: 0}
+  worldSpace: 0
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -370,6 +378,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 960
@@ -429,6 +438,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 960
@@ -444,6 +454,7 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+  mFlip: 0
   mFillCenter: 1
   centerType: 1
   leftType: 1
@@ -509,9 +520,13 @@ MonoBehaviour:
   tweenTarget: {fileID: 100012}
   hover: {r: 1, g: 1, b: 1, a: 1}
   pressed: {r: .5, g: .5, b: .5, a: 1}
-  duration: .200000003
   disabledColor: {r: .5, g: .5, b: .5, a: 1}
+  duration: .200000003
   dragHighlight: 0
+  hoverSprite: 
+  pressedSprite: 
+  disabledSprite: 
+  pixelSnap: 0
   onClick: []
 --- !u!114 &11400022
 MonoBehaviour:
@@ -540,6 +555,7 @@ MonoBehaviour:
     target: {fileID: 400006}
     relative: 1
     absolute: -10
+  updateAnchors: 1
   mColor: {r: .235294104, g: .235294104, b: .235294104, a: 1}
   mPivot: 4
   mWidth: 316
@@ -555,6 +571,7 @@ MonoBehaviour:
   mText: Mobster Machines
   mFontSize: 53
   mFontStyle: 0
+  mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
@@ -600,6 +617,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 58
@@ -615,6 +633,7 @@ MonoBehaviour:
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+  mFlip: 0
   mFillCenter: 1
   centerType: 1
   leftType: 1
@@ -633,13 +652,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrangement: 1
+  sorting: 0
+  pivot: 0
   maxPerLine: 0
   cellWidth: 200
   cellHeight: 280
   animateSmoothly: 0
-  sorted: 0
   hideInactive: 1
   keepWithinPanel: 0
+  sorted: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

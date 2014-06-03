@@ -172,7 +172,6 @@ public class MSQuestManager : MonoBehaviour {
 				userjob.progress = 0;
 
 				userQuest.userQuestJobs.Add(userjob);
-
 			}
 
 			currQuests.Add(new MSFullQuest(fullQuest, userQuest));
