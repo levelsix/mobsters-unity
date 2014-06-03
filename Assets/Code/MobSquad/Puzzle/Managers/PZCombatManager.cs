@@ -146,7 +146,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	PvpProto defender;
 
-	public float recoilDistance = 1;
+	public float recoilDistance = 3;
 
 	public float recoilTime = .01f;
 

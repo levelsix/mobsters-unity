@@ -290,20 +290,23 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		moving = true;
 		unit.animat = MSUnit.AnimationType.RUN;
-		if (transform.localPosition.x < x)
+		if (transform.localPosition.x <= x)
 		{
 			unit.direction = MSValues.Direction.EAST;
 			while (transform.localPosition.x < x)
 			{
+				Debug.Log("EAST");
 				transform.localPosition += direction * speed * Time.deltaTime;
 				yield return null;
 			}
 		}
 		else
 		{
+			Debug.Log (transform.localPosition.x + ", " + x);
 			unit.direction = MSValues.Direction.WEST;
 			while (transform.localPosition.x > x)
 			{
+				Debug.Log("WEST");
 				transform.localPosition -= direction * speed * Time.deltaTime;
 				yield return null;
 			}
@@ -313,6 +316,7 @@ public class PZCombatUnit : MonoBehaviour {
 		{
 			unit.animat = MSUnit.AnimationType.IDLE;
 		}
+		transform.localPosition = new Vector3 (x, transform.localPosition.y, transform.localPosition.z);
 		moving = false;
 	}
 
