@@ -295,18 +295,15 @@ public class PZCombatUnit : MonoBehaviour {
 			unit.direction = MSValues.Direction.EAST;
 			while (transform.localPosition.x < x)
 			{
-				Debug.Log("EAST");
 				transform.localPosition += direction * speed * Time.deltaTime;
 				yield return null;
 			}
 		}
 		else
 		{
-			Debug.Log (transform.localPosition.x + ", " + x);
 			unit.direction = MSValues.Direction.WEST;
 			while (transform.localPosition.x > x)
 			{
-				Debug.Log("WEST");
 				transform.localPosition -= direction * speed * Time.deltaTime;
 				yield return null;
 			}
