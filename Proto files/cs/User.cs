@@ -115,6 +115,15 @@ namespace com.lvl6.proto
       get { return _clan; }
       set { _clan = value; }
     }
+
+    private int _avatarMonsterId = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"avatarMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int avatarMonsterId
+    {
+      get { return _avatarMonsterId; }
+      set { _avatarMonsterId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -506,6 +515,15 @@ namespace com.lvl6.proto
     {
       get { return _numObstaclesRemoved; }
       set { _numObstaclesRemoved = value; }
+    }
+
+    private int _avatarMonsterId = default(int);
+    [global::ProtoBuf.ProtoMember(51, IsRequired = false, Name=@"avatarMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int avatarMonsterId
+    {
+      get { return _avatarMonsterId; }
+      set { _avatarMonsterId = value; }
     }
 
     private com.lvl6.proto.UserPvpLeagueProto _pvpLeagueInfo = null;
