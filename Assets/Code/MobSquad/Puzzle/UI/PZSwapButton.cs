@@ -35,7 +35,10 @@ public class PZSwapButton : MonoBehaviour {
 
 	void Show()
 	{
-		swapTween.PlayForward();
+		if (PZCombatManager.instance.activePlayer.alive)
+		{
+			swapTween.PlayForward();
+		}
 	}
 
 	void Hide()

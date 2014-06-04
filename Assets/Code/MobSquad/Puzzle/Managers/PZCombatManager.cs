@@ -534,6 +534,8 @@ public class PZCombatManager : MonoBehaviour {
 		//CBKEventManager.Popup.CloseAllPopups();
 		Debug.Log("Deploying " + monster.userMonster.userId);
 
+		boardTint.PlayReverse();
+
 		if (monster != activePlayer.monster)
 		{
 			Debug.Log ("Actually deploying");
