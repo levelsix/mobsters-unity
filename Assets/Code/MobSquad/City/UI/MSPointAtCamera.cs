@@ -8,19 +8,9 @@ using System.Collections;
 /// root object is oriented.
 /// </summary>
 public class MSPointAtCamera : MonoBehaviour {
-
-	Transform trans;
-	
-	Transform mainCam;
-	
-	void Awake()
-	{
-		trans = transform;
-		mainCam = Camera.main.transform;
-	}
 	
 	public void Start()
 	{
-		trans.forward = mainCam.forward;
+		transform.forward = MSGridManager.instance.cityCamera.transform.forward;
 	}
 }

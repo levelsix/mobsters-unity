@@ -7,7 +7,7 @@ public class MSAchievementManager : MonoBehaviour {
 
 	public static MSAchievementManager instance;
 
-	List<MSFullAchievement> currAchievements = new List<MSFullAchievement>();
+	public List<MSFullAchievement> currAchievements = new List<MSFullAchievement>();
 
 	/// <summary>
 	/// The progress request.
@@ -98,7 +98,7 @@ public class MSAchievementManager : MonoBehaviour {
 		}
 	}
 
-	void RedeemAchievement(MSFullAchievement achievement)
+	public MSFullAchievement RedeemAchievement(MSFullAchievement achievement)
 	{
 		AchievementRedeemRequestProto request = new AchievementRedeemRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -109,10 +109,7 @@ public class MSAchievementManager : MonoBehaviour {
 
 		currAchievements.Remove(achievement);
 
-		if (achievement.achievement.successorId > 0)
-		{
-			currAchievements.Add(new MSFullAchievement(achievement.achievement.successorId));
-		}
+		return currAchievements.Find(x=>x.achievement.achievementId == achievement.achievement.successorId);
 	}
 
 	void DealWithRedeemAchievementResponse(int tagNum)

@@ -11,6 +11,8 @@ public class MSGridManager : MonoBehaviour {
 	#region Public
 	
 	public static MSGridManager instance;
+
+	public Camera cityCamera;
 	
 	[SerializeField]
 	List<int> roadLines;
@@ -350,7 +352,7 @@ public class MSGridManager : MonoBehaviour {
 	public Vector3 ScreenToGround(Vector3 screenPos, bool withinGrid = false)
 	{
 		float dist;
-		Ray fromPoint = Camera.main.ScreenPointToRay(screenPos);
+		Ray fromPoint = cityCamera.ScreenPointToRay(screenPos);
 		if (GROUND_PLANE.Raycast(fromPoint, out dist))
 		{
 			if (withinGrid)

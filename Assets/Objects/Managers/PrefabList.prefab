@@ -27,6 +27,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38,6 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c85c63f47b8a4364ab0f3885d566b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  achievementEntry: {fileID: 11400052, guid: 6a05a8cb43bad44fe8da76e3a2f05504, type: 2}
   gemMatchSparkle: {fileID: 0}
   matchParticle:
   - {fileID: 11400000, guid: 6bc0e3066d72948d88ddbd23007ce92f, type: 2}

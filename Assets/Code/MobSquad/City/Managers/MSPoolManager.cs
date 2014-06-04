@@ -57,6 +57,10 @@ public class MSPoolManager : MonoBehaviour {
 		
 		//Set it back up.
 		pooled.transf.parent = parent;
+		if (parent != null)
+		{
+			pooled.gObj.layer = parent.gameObject.layer;
+		}
 		pooled.gObj.SetActive(true);
 		
 		return pooled;
