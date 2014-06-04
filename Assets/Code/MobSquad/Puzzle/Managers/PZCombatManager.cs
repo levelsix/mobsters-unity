@@ -246,6 +246,7 @@ public class PZCombatManager : MonoBehaviour {
 		
 		enemies.Clear();
 		defeatedEnemies.Clear();
+		playerGoonies.Clear ();
 		currTurn = 0;
 		currPlayerDamage = 0;
 
@@ -581,6 +582,7 @@ public class PZCombatManager : MonoBehaviour {
 				return;
 			}
 		}
+
 		ActivateLoseMenu ();
 	}
 
