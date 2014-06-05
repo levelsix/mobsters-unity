@@ -337,7 +337,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				if (!CheckForMatchMoves ()) {
 					InitBoard ();
 				}
-				Debug.Log ("Board has matches: " + CheckForMatchMoves ());
+//				Debug.Log ("Board has matches: " + CheckForMatchMoves ());
 			}
 			processingSwap = false;
 		}

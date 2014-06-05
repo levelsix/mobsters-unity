@@ -206,9 +206,11 @@ public class PZCombatUnit : MonoBehaviour {
 
 		alive = damage >= monster.currHP;
 		
-		yield return StartCoroutine(LerpHealth(monster.currHP, Mathf.Max(monster.currHP - damage, 0), monster.maxHP));
-		
+		float startHP = monster.currHP;
+
 		monster.currHP = Mathf.Max(monster.currHP - damage, 0);
+		
+		yield return StartCoroutine(LerpHealth(Math.Min(monster.currHP + damage, startHP), Mathf.Max(monster.currHP, 0), monster.maxHP));
 
 		if (monster.currHP <= 0)
 		{
@@ -290,7 +292,7 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		moving = true;
 		unit.animat = MSUnit.AnimationType.RUN;
-		if (transform.localPosition.x < x)
+		if (transform.localPosition.x <= x)
 		{
 			unit.direction = MSValues.Direction.EAST;
 			while (transform.localPosition.x < x)
@@ -313,6 +315,7 @@ public class PZCombatUnit : MonoBehaviour {
 		{
 			unit.animat = MSUnit.AnimationType.IDLE;
 		}
+		transform.localPosition = new Vector3 (x, transform.localPosition.y, transform.localPosition.z);
 		moving = false;
 	}
 
