@@ -76,7 +76,7 @@ public class MSTaskable : MonoBehaviour {
 	
 	public void EngageTask()
 	{
-		if (MSMonsterManager.monstersOnTeam == 0)
+		if (MSMonsterManager.monstersOwned == 0)
 		{
 			MSActionManager.Popup.CreateButtonPopup("Uh oh, you have no mobsters on your team. Manage your team?",
                 new string[]{"Later", "Manage"},
