@@ -286,9 +286,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400036}
-  - 114: {fileID: 11400056}
   - 114: {fileID: 11400058}
   - 65: {fileID: 6500006}
+  - 114: {fileID: 11400056}
   m_Layer: 5
   m_Name: BackArrow
   m_TagString: Untagged
@@ -1002,7 +1002,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -341.869995, y: 0, z: -1}
+  m_LocalPosition: {x: -342, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400040}
@@ -1724,8 +1724,9 @@ MonoBehaviour:
   questEntryPrefab: {fileID: 11400020, guid: 7502090e267bf438ba0c4d87d95daef1, type: 2}
   questTaskEntryPrefab: {fileID: 11400000, guid: ee9b28f9d75e04ab8bcc3f22c8608fa6,
     type: 2}
-  rewardBoxPrefab: {fileID: 11400004, guid: 8c76e7e8a797a460ab4492959f238b99, type: 2}
-  achievementEntryPrefab: {fileID: 0}
+  rewardBoxPrefab: {fileID: 11400008, guid: 4bfb4638ff6e044ef984ced81c3d8f14, type: 2}
+  achievementEntryPrefab: {fileID: 11400052, guid: 6a05a8cb43bad44fe8da76e3a2f05504,
+    type: 2}
   mover: {fileID: 11400112}
   questHelper: {fileID: 11400108}
   listTab: {fileID: 11400036}
@@ -1987,7 +1988,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4020
+  startingRenderQueue: 4026
   mAlpha: 1
   mClipping: 2
   mClipRange: {x: -1, y: -45, z: 756, w: 514}
@@ -2497,7 +2498,7 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: .666666687
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
-  mSpriteName: menuback
+  mSpriteName: whitebackbutton
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -2746,7 +2747,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4020
+  startingRenderQueue: 4026
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -36, z: 756, w: 272}

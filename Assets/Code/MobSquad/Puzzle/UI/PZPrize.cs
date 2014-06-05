@@ -61,8 +61,16 @@ public class PZPrize : MonoBehaviour {
 		label.text = "+" + amount;
 		label.color = xpColor;
 		border.spriteName = "expfound";
-		icon.spriteName = "xp";
-		FixIcon();
+		icon.spriteName = "levelicon";
+		icon.MakePixelPerfect();
+	}
+
+	public void InitOil(int amount)
+	{
+		label.text = amount.ToString();
+		label.color = MSColors.oilTextColor;
+		icon.spriteName = "oil";
+		icon.MakePixelPerfect();
 	}
 
 	public void InitCash(int amount)
@@ -71,7 +79,7 @@ public class PZPrize : MonoBehaviour {
 		label.color = cashColor;
 		border.spriteName = "cashfound";
 		icon.spriteName = "moneystack";
-		FixIcon();
+		icon.MakePixelPerfect();
 	}
 
 	public void InitDiamond(int amount)
@@ -80,7 +88,7 @@ public class PZPrize : MonoBehaviour {
 		label.color = new Color(.4f, .2f, .6f);
 		border.spriteName = "";
 		icon.spriteName = "diamond";
-		FixIcon();
+		icon.MakePixelPerfect();
 	}
 
 	public void InitEnemy(int monsterId)
@@ -102,17 +110,7 @@ public class PZPrize : MonoBehaviour {
 		{
 			icon.spriteName += "capsule";
 		}
-		FixIcon();
-	}
-
-	void FixIcon()
-	{
-		UISpriteData data = icon.GetAtlasSprite();
-		if (data != null)
-		{
-			icon.width = data.width;
-			icon.height = data.height;
-		}
+		icon.MakePixelPerfect();
 	}
 
 	/// <summary>

@@ -87,7 +87,7 @@ public class PZWinLosePopup : MonoBehaviour {
 		StartCoroutine (DropTheTitle ());
 	}
 
-	public void InitWin(int xp, int cash, List<MonsterProto> pieces)
+	public void InitWin(int xp, int cash, int oil, List<MonsterProto> pieces)
 	{
 		didWin = true;
 
@@ -117,7 +117,14 @@ public class PZWinLosePopup : MonoBehaviour {
 		{
 			prize = GetPrize();
 			prize.InitCash(cash);
-			prizes.Add (prize);
+			prizes.Add(prize);
+		}
+
+		if (oil > 0)
+		{
+			prize = GetPrize();
+			prize.InitOil(oil);
+			prizes.Add(prize);
 		}
 
 		if (xp > 0)

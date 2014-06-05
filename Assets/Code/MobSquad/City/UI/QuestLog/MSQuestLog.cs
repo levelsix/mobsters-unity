@@ -18,7 +18,7 @@ public class MSQuestLog : MonoBehaviour {
 	MSQuestTaskEntry questTaskEntryPrefab;
 	
 	[SerializeField]
-	PZPrize rewardBoxPrefab;
+	MSQuestRewardBox rewardBoxPrefab;
 
 	[SerializeField]
 	MSAchievementEntry achievementEntryPrefab;
@@ -88,7 +88,7 @@ public class MSQuestLog : MonoBehaviour {
 
 	#endregion
 
-	List<PZPrize> rewards = new List<PZPrize>();
+	List<MSQuestRewardBox> rewards = new List<MSQuestRewardBox>();
 	
 	List<MSQuestEntry> quests = new List<MSQuestEntry>();
 
@@ -110,9 +110,9 @@ public class MSQuestLog : MonoBehaviour {
 	
 	void Init()
 	{
+		TabToList();
 		SetupQuestList();
 		InitAchievements();
-		TabToList();
 	}
 
 	void RecycleQuests()
@@ -169,6 +169,7 @@ public class MSQuestLog : MonoBehaviour {
 		
 		achievementTab.InitActive();
 		achievementHelper.TurnOn();
+		achievementGrid.Reposition();
 	}
 	
 	public void ReturnToList()
@@ -197,7 +198,13 @@ public class MSQuestLog : MonoBehaviour {
 		                              	as MSSimplePoolable).GetComponent<MSQuestTaskEntry>();
 		taskEntry.transform.localScale = Vector3.one;
 		tasks.Add (taskEntry);
-		taskEntry.Init(quest, userJob, num);
+		taskEntry.Init(quest, userJob, num+1);
+
+		foreach (var item in taskEntry.GetComponentsInChildren<UISprite>()) 
+		{
+			item.gameObject.SetActive(false);
+			item.gameObject.SetActive(true);
+		}
 	}
 
 	void LoadQuestDetails(MSFullQuest fullQ)
@@ -219,10 +226,10 @@ public class MSQuestLog : MonoBehaviour {
 
 	#region Rewards
 	
-	PZPrize AddReward()
+	MSQuestRewardBox AddReward()
 	{
-		PZPrize reward = (MSPoolManager.instance.Get(rewardBoxPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, rewardGrid.transform) 
-		                  as MSSimplePoolable).GetComponent<PZPrize>();
+		MSQuestRewardBox reward = (MSPoolManager.instance.Get(rewardBoxPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, rewardGrid.transform) 
+		                  as MSSimplePoolable).GetComponent<MSQuestRewardBox>();
 		rewards.Add (reward);
 		reward.transform.localScale = Vector3.one;
 		return reward;
@@ -244,6 +251,11 @@ public class MSQuestLog : MonoBehaviour {
 		if (fullQ.quest.gemReward > 0)
 		{
 			AddReward().InitDiamond(fullQ.quest.gemReward);
+		}
+
+		if (fullQ.quest.oilReward > 0)
+		{
+			AddReward().InitOil(fullQ.quest.oilReward);
 		}
 
 		if (fullQ.quest.cashReward > 0)
