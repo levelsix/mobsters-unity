@@ -203,13 +203,15 @@ public class PZCombatUnit : MonoBehaviour {
 	public IEnumerator TakeDamage(int damage)
 	{
 		RunDamageLabel(damage);
-		float startHP = monster.currHP;
+
+		alive = damage >= monster.currHP;
 		
+		float startHP = monster.currHP;
+
 		monster.currHP = Mathf.Max(monster.currHP - damage, 0);
 		
-		alive = monster.currHP > 0;
 		yield return StartCoroutine(LerpHealth(Math.Min(monster.currHP + damage, startHP), Mathf.Max(monster.currHP, 0), monster.maxHP));
-		
+
 		if (monster.currHP <= 0)
 		{
 			yield return StartCoroutine(Die());

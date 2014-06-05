@@ -248,6 +248,7 @@ public class PZCombatManager : MonoBehaviour {
 		
 		enemies.Clear();
 		defeatedEnemies.Clear();
+		playerGoonies.Clear ();
 		currTurn = 0;
 		currPlayerDamage = 0;
 
@@ -535,6 +536,8 @@ public class PZCombatManager : MonoBehaviour {
 		//CBKEventManager.Popup.CloseAllPopups();
 		Debug.Log("Deploying " + monster.userMonster.userId);
 
+		boardTint.PlayReverse();
+
 		if (monster != activePlayer.monster)
 		{
 			Debug.Log ("Actually deploying");
@@ -583,6 +586,7 @@ public class PZCombatManager : MonoBehaviour {
 				return;
 			}
 		}
+
 		ActivateLoseMenu ();
 	}
 
@@ -736,11 +740,13 @@ public class PZCombatManager : MonoBehaviour {
 	void GetRewards()
 	{
 		int cash = 0;
+		int oil = 0;
 		int xp = 0;
 		List<MonsterProto> pieces = new List<MonsterProto>();
 		if (pvpMode)
 		{
 			cash = defender.prospectiveCashWinnings;
+			oil = defender.prospectiveOilWinnings;
 		}
 		else
 		{
@@ -748,13 +754,14 @@ public class PZCombatManager : MonoBehaviour {
 			{
 				cash += item.taskMonster.cashReward;
 				xp += item.taskMonster.expReward;
+				oil += item.taskMonster.oilReward;
 				if (item.taskMonster.puzzlePieceDropped)
 				{
 					pieces.Add(item.monster);
 				}
 			}
 		}
-		winLosePopup.InitWin(xp, cash, pieces);
+		winLosePopup.InitWin(xp, cash, oil, pieces);
 		MSResourceManager.instance.Collect(ResourceType.CASH, cash);
 		MSResourceManager.instance.GainExp(xp);
 	}

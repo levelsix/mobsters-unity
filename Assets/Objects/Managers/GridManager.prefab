@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GridManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,6 +27,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38,9 +39,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6feffe44dbc4fffb3b080982e071d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cityCamera: {fileID: 0}
   roadLines: 00000000010000001800000019000000
   gridSize: 26
-  worldSize: 25.7000008
+  worldSize: 24.6000004
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

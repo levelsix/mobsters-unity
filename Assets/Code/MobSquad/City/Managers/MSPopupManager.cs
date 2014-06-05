@@ -17,6 +17,7 @@ public class MSPopupManager : MonoBehaviour {
 		public GameObject loadingScreenBlocker;
 		public MSHirePopup hirePopup;
 		public MSChatPopup chatPopup;
+		public MSQuestLog questPopup;
 	}
 
 	public Popups popups;

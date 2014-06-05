@@ -10,6 +10,8 @@ public class MSPrefabList : MonoBehaviour {
 		instance = this;
 	}
 
+	public MSAchievementEntry achievementEntry;
+
 	public ParticleSystem gemMatchSparkle;
 
 	/// <summary>

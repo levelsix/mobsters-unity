@@ -569,10 +569,9 @@ public class MSBuildingManager : MonoBehaviour
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coordinates.x, 0, 
 		                               MSGridManager.instance.spaceSize * proto.coordinates.y);
 		
-		MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as MSBuilding;
+		MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position, buildingParent) as MSBuilding;
 
 		building.trans.rotation = buildingParent.rotation;
-		building.trans.parent = buildingParent;
 		building.Init(proto);
 
 		ObstacleProto obp = MSDataManager.instance.Get<ObstacleProto>(proto.obstacleId);

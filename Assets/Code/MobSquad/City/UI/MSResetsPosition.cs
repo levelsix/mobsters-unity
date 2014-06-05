@@ -15,6 +15,8 @@ public class MSResetsPosition : MonoBehaviour {
 
 	bool set = false;
 
+	UIPanel panel;
+
 	/// <summary>
 	/// Awake this instance
 	/// </summary>
@@ -24,6 +26,7 @@ public class MSResetsPosition : MonoBehaviour {
 		//getting changed to something we don't want it to be
 		startPos = transform.localPosition;
 		set = true;
+		panel = GetComponent<UIPanel>();
 	}
 
 	/// <summary>
@@ -39,6 +42,10 @@ public class MSResetsPosition : MonoBehaviour {
 		if (set)
 		{
 			transform.localPosition = startPos;
+			if (panel != null)
+			{
+				panel.clipOffset = Vector3.zero;
+			}
 		}
 	}
 }

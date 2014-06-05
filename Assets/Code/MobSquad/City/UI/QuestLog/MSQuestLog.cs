@@ -18,12 +18,21 @@ public class MSQuestLog : MonoBehaviour {
 	MSQuestTaskEntry questTaskEntryPrefab;
 	
 	[SerializeField]
-	PZPrize rewardBoxPrefab;
+	MSQuestRewardBox rewardBoxPrefab;
+
+	[SerializeField]
+	MSAchievementEntry achievementEntryPrefab;
 
 	[SerializeField]
 	TweenPosition mover;
 	
 	#region List Mode Members
+
+	[SerializeField]
+	MSUIHelper questHelper;
+
+	[SerializeField]
+	MSTab listTab;
 
 	[SerializeField]
 	UIGrid questGrid;
@@ -32,7 +41,7 @@ public class MSQuestLog : MonoBehaviour {
 	MSUIHelper tabHelper;
 	
 	#endregion
-	
+
 	#region Details Mode Members
 
 	[SerializeField]
@@ -67,36 +76,25 @@ public class MSQuestLog : MonoBehaviour {
 
 	#endregion
 
-	List<PZPrize> rewards = new List<PZPrize>();
+	#region Achievements
+
+	[SerializeField]
+	MSTab achievementTab;
+
+	[SerializeField]
+	MSUIHelper achievementHelper;
+	
+	public UIGrid achievementGrid;
+
+	#endregion
+
+	List<MSQuestRewardBox> rewards = new List<MSQuestRewardBox>();
 	
 	List<MSQuestEntry> quests = new List<MSQuestEntry>();
 
 	List<MSQuestTaskEntry> tasks = new List<MSQuestTaskEntry>();
-	
-	int prizeSize = 110;
-	int buffer = 5;
 
-	const string QUEST_LIST_HEADER = "Quests";
-	
-	const float TWEEN_TIME = 0.4f;
-	
-	static readonly Vector3 LEFT_POS = new Vector3(-760, 0);
-	static readonly Vector3 RIGHT_POS = new Vector3(760, 0);
-
-	public Vector3 REWARD_HEADER_CENTER;
-	public Vector3 REWARD_HEADER_COMPLETE_OFFSET;
-	
-	const float START_TASK_OFFSET = -75;
-	
-	const float OFFSET_PER_TASK = -100;
-	
-	const float BASE_REWARD_OFFSET = -22;
-	
-	const float REWARD_BOX_X_OFFSET = 120;
-	
-	float lastTaskOffset;
-
-	MSFullQuest currQuest;
+	public List<MSAchievementEntry> achievements = new List<MSAchievementEntry>();
 	
 	void OnEnable()
 	{
@@ -112,7 +110,9 @@ public class MSQuestLog : MonoBehaviour {
 	
 	void Init()
 	{
+		TabToList();
 		SetupQuestList();
+		InitAchievements();
 	}
 
 	void RecycleQuests()
@@ -152,6 +152,25 @@ public class MSQuestLog : MonoBehaviour {
 
 		questGrid.Reposition();
 	}
+
+	public void TabToList()
+	{
+		listTab.InitActive();
+		questHelper.TurnOn();
+
+		achievementTab.InitInactive();
+		achievementHelper.TurnOff();
+	}
+
+	public void TabToAchievements()
+	{
+		listTab.InitInactive();
+		questHelper.TurnOff();
+		
+		achievementTab.InitActive();
+		achievementHelper.TurnOn();
+		achievementGrid.Reposition();
+	}
 	
 	public void ReturnToList()
 	{	
@@ -179,7 +198,13 @@ public class MSQuestLog : MonoBehaviour {
 		                              	as MSSimplePoolable).GetComponent<MSQuestTaskEntry>();
 		taskEntry.transform.localScale = Vector3.one;
 		tasks.Add (taskEntry);
-		taskEntry.Init(quest, userJob, num);
+		taskEntry.Init(quest, userJob, num+1);
+
+		foreach (var item in taskEntry.GetComponentsInChildren<UISprite>()) 
+		{
+			item.gameObject.SetActive(false);
+			item.gameObject.SetActive(true);
+		}
 	}
 
 	void LoadQuestDetails(MSFullQuest fullQ)
@@ -201,10 +226,10 @@ public class MSQuestLog : MonoBehaviour {
 
 	#region Rewards
 	
-	PZPrize AddReward()
+	MSQuestRewardBox AddReward()
 	{
-		PZPrize reward = (MSPoolManager.instance.Get(rewardBoxPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, rewardGrid.transform) 
-		                  as MSSimplePoolable).GetComponent<PZPrize>();
+		MSQuestRewardBox reward = (MSPoolManager.instance.Get(rewardBoxPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, rewardGrid.transform) 
+		                  as MSSimplePoolable).GetComponent<MSQuestRewardBox>();
 		rewards.Add (reward);
 		reward.transform.localScale = Vector3.one;
 		return reward;
@@ -226,6 +251,11 @@ public class MSQuestLog : MonoBehaviour {
 		if (fullQ.quest.gemReward > 0)
 		{
 			AddReward().InitDiamond(fullQ.quest.gemReward);
+		}
+
+		if (fullQ.quest.oilReward > 0)
+		{
+			AddReward().InitOil(fullQ.quest.oilReward);
 		}
 
 		if (fullQ.quest.cashReward > 0)
@@ -250,10 +280,52 @@ public class MSQuestLog : MonoBehaviour {
 
 	#endregion
 
+	#region Achievements
+
+	void RecycleAchievements()
+	{
+		foreach (var item in achievements) 
+		{
+			item.GetComponent<MSSimplePoolable>().Pool();
+		}
+		achievements.Clear();
+	}
+
+	public MSAchievementEntry AddAchievement(MSFullAchievement fullA)
+	{
+		MSAchievementEntry entry = (MSPoolManager.instance.Get(MSPrefabList.instance.achievementEntry.GetComponent<MSSimplePoolable>(),
+		                                                      Vector3.zero, achievementGrid.transform)
+		                            as MSSimplePoolable).GetComponent<MSAchievementEntry>();
+		entry.transform.localScale = Vector3.one;
+		achievements.Add(entry);
+		entry.Init(fullA);
+
+		foreach (var item in entry.GetComponentsInChildren<UIWidget>()) 
+		{
+			item.ParentHasChanged();
+		}
+
+		return entry;
+	}
+
+	void InitAchievements()
+	{
+		RecycleAchievements();
+		foreach (var item in MSAchievementManager.instance.currAchievements) 
+		{
+			if (MSAchievementManager.instance.currAchievements.Find(x=>x.achievement.achievementId == item.achievement.prerequisiteId) == null)
+			{
+				AddAchievement(item);
+			}
+		}
+		achievementGrid.animateSmoothly = false;
+		achievementGrid.Reposition();
+	}
+
+	#endregion
+
 	public void OnQuestEntryClicked(MSFullQuest quest)
 	{
-		currQuest = quest;
-
 		LoadQuestDetails(quest);
 
 		mover.PlayForward();
