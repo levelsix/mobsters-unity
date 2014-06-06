@@ -431,7 +431,7 @@ public class MSGoonCard : MonoBehaviour {
 		}
 		else
 		{
-			if (MSMonsterManager.monstersOnTeam < MSMonsterManager.TEAM_SLOTS 
+			if (MSMonsterManager.monstersOwned < MSMonsterManager.TEAM_SLOTS 
 				&& !goon.isHealing && !goon.isEnhancing && goon.userMonster.isComplete)
 			{
 				addRemoveTeamButton.onClick = AddToTeam;

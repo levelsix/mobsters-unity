@@ -29,7 +29,7 @@ public class MSMonsterManager : MonoBehaviour {
 
 	private static int _monstersCount;
 	
-	public static int monstersOnTeam
+	public static int monstersOwned
 	{
 		get
 		{
@@ -169,6 +169,60 @@ public class MSMonsterManager : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Updates or adds the specified monster.
+	/// Monsters are updated with new pieces when the player collects monster pieces
+	/// New monsters have just had their first piece collected, so they need a new entry
+	/// in userMonsters
+	/// </summary>
+	/// <param name="monster">Monster.</param>
+	public void UpdateOrAdd(FullUserMonsterProto monster)
+	{
+		PZMonster mon;
+		if (userMonsters.Find(x=>x.userMonster.userMonsterId == monster.userMonsterId) != null)
+		{
+			Debug.Log("Updating monster: " + monster.userMonsterId);
+			mon = userMonsters.Find(x=>x.userMonster.userMonsterId==monster.userMonsterId);
+			mon.UpdateUserMonster(monster);
+		}
+		else
+		{
+			Debug.Log("Adding monster: " + monster.monsterId);
+			mon = new PZMonster(monster);
+			userMonsters.Add(new PZMonster(monster));
+		}
+		
+		if (!mon.userMonster.isComplete && mon.userMonster.numPieces == mon.monster.numPuzzlePieces)
+		{
+			StartMonsterCombine(mon);
+		}
+		if (MSActionManager.Goon.OnMonsterListChanged != null)
+		{
+			MSActionManager.Goon.OnMonsterListChanged();
+		}
+	}
+	
+	/// <summary>
+	/// Called during Dugeon Complete, uses the list of monsters sent in EndDungeonResponse
+	/// to add new monsters and update incomplete monsters with new pieces
+	/// </summary>
+	/// <param name="monsters">Monsters.</param>
+	public void UpdateOrAddAll(List<FullUserMonsterProto> monsters)
+	{
+		foreach (FullUserMonsterProto item in monsters) 
+		{
+			UpdateOrAdd(item);
+		}
+		if (combineRequestProto != null)
+		{
+			SendCombineRequest();
+		}
+		if (MSActionManager.Goon.OnMonsterListChanged != null)
+		{
+			MSActionManager.Goon.OnMonsterListChanged();
+		}
+	}
+
 	#region Selling
 
 	public void SellMonsters(List<PZMonster> monsters)
@@ -276,7 +330,7 @@ public class MSMonsterManager : MonoBehaviour {
 			MSActionManager.Goon.OnTeamChanged();
 		}
 	}
-	
+
 	void DealWithRemoveResponse(int tagNum)
 	{
 		RemoveMonsterFromBattleTeamResponseProto response = UMQNetworkManager.responseDict[tagNum] as RemoveMonsterFromBattleTeamResponseProto;
@@ -301,56 +355,10 @@ public class MSMonsterManager : MonoBehaviour {
 		combineRequestProto.sender = MSWhiteboard.localMup;
 	}
 	
-	/// <summary>
-	/// Called during Dugeon Complete, uses the list of monsters sent in EndDungeonResponse
-	/// to add new monsters and update incomplete monsters with new pieces
-	/// </summary>
-	/// <param name="monsters">Monsters.</param>
-	public void UpdateOrAddAll(List<FullUserMonsterProto> monsters)
-	{
-		foreach (FullUserMonsterProto item in monsters) 
-		{
-			UpdateOrAdd(item);
-		}
-		if (combineRequestProto != null)
-		{
-			SendCombineRequest();
-		}
-	}
-	
 	void SendCombineRequest()
 	{
 		UMQNetworkManager.instance.SendRequest(combineRequestProto, (int)EventProtocolRequest.C_COMBINE_USER_MONSTER_PIECES_EVENT, DealWithCombineResponse);
 		combineRequestProto = null;
-	}
-	
-	/// <summary>
-	/// Updates or adds the specified monster.
-	/// Monsters are updated with new pieces when the player collects monster pieces
-	/// New monsters have just had their first piece collected, so they need a new entry
-	/// in userMonsters
-	/// </summary>
-	/// <param name="monster">Monster.</param>
-	public void UpdateOrAdd(FullUserMonsterProto monster)
-	{
-		PZMonster mon;
-		if (userMonsters.Find(x=>x.userMonster.userMonsterId == monster.userMonsterId) != null)
-		{
-			Debug.Log("Updating monster: " + monster.userMonsterId);
-			mon = userMonsters.Find(x=>x.userMonster.userMonsterId==monster.userMonsterId);
-			mon.UpdateUserMonster(monster);
-		}
-		else
-		{
-			Debug.Log("Adding monster: " + monster.monsterId);
-			mon = new PZMonster(monster);
-			userMonsters.Add(new PZMonster(monster));
-		}
-		
-		if (!mon.userMonster.isComplete && mon.userMonster.numPieces == mon.monster.numPuzzlePieces)
-		{
-			StartMonsterCombine(mon);
-		}
 	}
 	
 	/// <summary>
