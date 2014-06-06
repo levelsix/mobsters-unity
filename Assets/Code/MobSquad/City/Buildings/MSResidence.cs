@@ -4,11 +4,15 @@ using System.Collections;
 public class MSResidence : MSBuildingFrame {
 
 	void OnEnable(){
-		CheckFullResidence ();
-		MSActionManager.Goon.OnMonsterListChanged += CheckFullResidence;
+		CheckTag ();
+		MSActionManager.Goon.OnMonsterListChanged += CheckTag;
 	}
 
-	public void CheckFullResidence(){
+	void Update(){
+		CheckTag ();
+	}
+
+	new public void CheckTag(){
 		if (MSMonsterManager.monstersOwned >= MSMonsterManager.instance.totalResidenceSlots) {
 			hoverIcon.gameObject.SetActive(true);
 			hoverIcon.spriteName = "obfull";
@@ -19,6 +23,6 @@ public class MSResidence : MSBuildingFrame {
 	}
 
 	void OnDisable(){
-		MSActionManager.Goon.OnMonsterListChanged -= CheckFullResidence;
+		MSActionManager.Goon.OnMonsterListChanged -= CheckTag;
 	}
 }

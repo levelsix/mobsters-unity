@@ -24,7 +24,7 @@ public class MSResourceCollector : MonoBehaviour {
 	{
 		get
 		{
-			return enabled && _building.userStructProto.isComplete;
+			return enabled && _building.userStructProto.isComplete && !_building.upgrade.progressBar.upgrading;
 		}
 	}
 	
@@ -155,7 +155,7 @@ public class MSResourceCollector : MonoBehaviour {
 			}
 
 			_building.userStructProto.lastRetrieved = MSUtil.timeNowMillis;
-			_building.hoverIcon.gameObject.SetActive(false);
+			_building.hoverIcon.gameObject.SetActive(false); 
 			
 			if (MSActionManager.Town.OnCollectFromBuilding != null)
 			{

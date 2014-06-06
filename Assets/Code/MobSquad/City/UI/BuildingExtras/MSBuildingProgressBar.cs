@@ -38,19 +38,35 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		}
 	}
 
+	public bool upgradeBarFull
+	{
+		get
+		{
+			return bar.fill >= 1f;
+		}
+	}
+	
+	public bool upgrading = false;
+
 	void Update () 
 	{
 		if (isConstructing)
 		{
+			upgrading = true;
+			building.hoverIcon.gameObject.SetActive(false);
 			foreach (var item in caps) 
 			{
 				item.spriteName = "buildingcap";
 			}
 			barSprite.spriteName = "buildingmiddle";
-
+			
 			bg.alpha = 1;
 			label.text = building.upgrade.timeLeftString;
 			bar.fill = building.upgrade.progress;
+		}
+		else if(bar.fill < 1f && bg.alpha > 0f)
+		{
+			StartCoroutine(LerpBarToEnd());
 		}
 		else if (building.obstacle != null && building.obstacle.isRemoving)
 		{
@@ -75,9 +91,33 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			label.text = MSUtil.TimeStringShort(building.hospital.goon.healTimeLeftMillis);
 			bar.fill = building.hospital.goon.healProgressPercentage;
 		}
-		else
+		else if(bar.fill >= 1f && upgrading)
 		{
+			upgrading = false;
+
 			bg.alpha = 0;
+
+			if (building.upgrade.OnFinishUpgrade != null)
+			{
+				building.upgrade.OnFinishUpgrade();
+			}
+		}
+	}
+	
+	IEnumerator LerpBarToEnd(){
+		long newTime = building.upgrade.timeRemaining;
+		while(bar.fill < 1f)
+		{
+			building.hoverIcon.gameObject.SetActive(false);
+			
+			bar.fill = bar.fill + 0.01f * Time.deltaTime;
+			
+			label.text = MSUtil.TimeStringShort((long)(newTime * (1f - bar.fill)));
+			if(bar.fill >= 1f)
+			{
+				bar.fill = 1f;
+			}
+			yield return null;
 		}
 	}
 }

@@ -31,6 +31,7 @@ public class MSBuildingSpinner : MonoBehaviour {
 
 	void OnEnable()
 	{
+		SetAlpha (0f);
 		if (building.upgrade != null)
 		{
 			building.upgrade.OnFinishUpgrade += OnUpgradeFinish;

@@ -151,7 +151,7 @@ public class MSResourceManager : MonoBehaviour {
 	/// </param>
 	public bool Spend(ResourceType resource, int amount, Action action = null)
 	{
-		if (resources[(int)resource-1] > amount)
+		if (resources[(int)resource-1] >= amount)
 		{
 			resources[(int)resource-1] -= amount;
 			if (MSActionManager.UI.OnChangeResource[(int)resource-1] != null)

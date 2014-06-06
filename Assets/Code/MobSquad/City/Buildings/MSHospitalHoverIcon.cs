@@ -4,11 +4,11 @@ using System.Collections;
 public class MSHospitalHoverIcon : MSBuildingFrame {
 
 	void OnEnable(){
-		MSActionManager.Goon.OnHealQueueChanged += CheckHeal;
-		CheckHeal ();
+		MSActionManager.Goon.OnHealQueueChanged += CheckTag;
+		CheckTag ();
 	}
 
-	public void CheckHeal(){
+	new public void CheckTag(){
 		if (MSHospitalManager.instance.healingMonsters.Count == 0) {
 			int monstersNeedHealing = 0;
 			foreach (PZMonster monster in MSMonsterManager.instance.userMonsters) {
@@ -28,6 +28,6 @@ public class MSHospitalHoverIcon : MSBuildingFrame {
 	}
 
 	void OnDisable(){
-		MSActionManager.Goon.OnHealQueueChanged -= CheckHeal;
+		MSActionManager.Goon.OnHealQueueChanged -= CheckTag;
 	}
 }

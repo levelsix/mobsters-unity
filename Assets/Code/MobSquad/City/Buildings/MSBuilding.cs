@@ -482,15 +482,15 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			case StructureInfoProto.StructType.HOSPITAL:
 				MSHospitalManager.instance.AssignHospital(this);
 				gameObj.AddComponent<MSHospitalHoverIcon>().hoverIcon = hoverIcon;
-				gameObj.GetComponent<MSHospitalHoverIcon>().CheckHeal();
+				gameObj.GetComponent<MSHospitalHoverIcon>().CheckTag();
 				break;
 			case StructureInfoProto.StructType.RESIDENCE:
 				gameObj.AddComponent<MSResidence>().hoverIcon = hoverIcon;
-				gameObj.GetComponent<MSResidence>().CheckFullResidence();
+				gameObj.GetComponent<MSResidence>().CheckTag();
 				break;
 			case StructureInfoProto.StructType.LAB:
 				gameObj.AddComponent<MSLaboratory>().hoverIcon = hoverIcon;
-				gameObj.GetComponent<MSLaboratory>().canEnhance();
+				gameObj.GetComponent<MSLaboratory>().CheckTag();
 				break;
 			default:
 				break;
