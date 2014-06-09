@@ -53,8 +53,6 @@ public class MSMapButton : MonoBehaviour {
 		MSWhiteboard.cityID = cityID;
 
 		yield return StartCoroutine(MSBuildingManager.instance.LoadNeutralCity(cityID));
-
-		MSActionManager.Popup.CloseAllPopups();
 	}
 	
 	IEnumerator GoHome()

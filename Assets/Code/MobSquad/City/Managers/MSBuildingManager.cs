@@ -241,7 +241,7 @@ public class MSBuildingManager : MonoBehaviour
 	
 	public IEnumerator LoadNeutralCity(int cityId)
 	{
-
+		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker);
 
 		LoadCityRequestProto load = new LoadCityRequestProto();
 		load.sender = MSWhiteboard.localMup;
@@ -267,11 +267,14 @@ public class MSBuildingManager : MonoBehaviour
 		
 		SyncTasks (cityId);
 
+		MSActionManager.Popup.CloseAllPopups();
 
 	}
 
 	public IEnumerator LoadPlayerCity()
 	{
+		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker);
+
 		LoadPlayerCityRequestProto request = new LoadPlayerCityRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.cityOwnerId = MSWhiteboard.localMup.userId;
@@ -359,6 +362,8 @@ public class MSBuildingManager : MonoBehaviour
 				Debug.LogError("Problem spawning new obstacles: " + obstacleResponse.status.ToString());
 			}
 		}
+
+		MSActionManager.Popup.CloseAllPopups();
 
 		if (MSActionManager.Scene.OnCity != null)
 		{
@@ -491,6 +496,10 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			MakeObstacle(response.obstacles[i]);
 		}
+		if (jobCenter == null)
+		{
+			//DebugBuildPier();
+		}
 
 		DistributeCash(MSResourceManager.resources[0]);
 		DistributeOil(MSResourceManager.resources[1]);
@@ -517,7 +526,13 @@ public class MSBuildingManager : MonoBehaviour
 
 		MSMonsterManager.instance.totalResidenceSlots = GetMonsterSlotCount();
 	}
-	
+
+	void DebugBuildPier()
+	{
+		MSBuilding pier = MakeBuildingAt(MSDataManager.instance.Get<MSFullBuildingProto>(170), 12, -5);
+		BuyBuilding(pier);
+	}
+
 	MSBuilding MakeBuildingAt (MSFullBuildingProto proto, int x, int y)
 	{
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * x, 0, 

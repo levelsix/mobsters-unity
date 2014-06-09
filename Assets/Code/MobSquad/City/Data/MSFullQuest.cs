@@ -13,8 +13,7 @@ public class MSFullQuest {
 	{
 		get
 		{
-			return "?/?";
-			//return userQuest.progress + "/" + quest.quantity;
+			return userQuest.userQuestJobs.FindAll(x=>x.isComplete).Count + "/" + quest.jobs.Count;
 		}
 	}
 	
