@@ -4,11 +4,11 @@ using System.Collections;
 public class MSLaboratory : MSBuildingFrame {
 
 	void onEnable(){
-		canEnhance ();
-		MSActionManager.Goon.OnEnhanceQueueChanged += canEnhance;
+		CheckTag ();
+		MSActionManager.Goon.OnEnhanceQueueChanged += CheckTag;
 	}
 
-	public void canEnhance(){
+	new public void CheckTag(){
 		int canEnhance = 0;
 		//(currentEnhancementMonster == null || currentEnhancementMonster.monsterId == 0)
 		if (MSMonsterManager.instance.currentEnhancementMonster == null ||
@@ -31,7 +31,7 @@ public class MSLaboratory : MSBuildingFrame {
 	}
 
 	void onDisable(){
-		MSActionManager.Goon.OnEnhanceQueueChanged -= canEnhance;
+		MSActionManager.Goon.OnEnhanceQueueChanged -= CheckTag;
 	}
 
 }

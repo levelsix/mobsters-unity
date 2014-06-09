@@ -8,7 +8,7 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// MSHospital
 /// </summary>
-public class MSHospital : MSBuildingFrame {
+public class MSHospital {
 
 	public MSBuilding building = null;
 
@@ -80,25 +80,6 @@ public class MSHospital : MSBuildingFrame {
 	void OnEnable()
 	{
 		MSActionManager.Goon.OnHealQueueChanged += OnHealingQueueChange;
-		checkHeal ();
-	}
-
-	void checkHeal(){
-		if (MSHospitalManager.instance.healingMonsters.Count == 0) {
-			int monstersNeedHealing = 0;
-			foreach (PZMonster monster in MSMonsterManager.instance.userMonsters) {
-				if(monster.totalHealthToHeal > 0){
-					monstersNeedHealing++;
-				}
-			}
-			
-			if(monstersNeedHealing > 1){
-				hoverIcon.enabled = true;
-				hoverIcon.spriteName = "heal";
-			}
-		} else {
-			hoverIcon.enabled = false;
-		}
 	}
 
 	void OnDisable()
@@ -109,6 +90,5 @@ public class MSHospital : MSBuildingFrame {
 	void OnHealingQueueChange()
 	{
 		goon = MSHospitalManager.instance.healingMonsters.Find(x=>x.hospitalTimes[0].hospital == this);
-		checkHeal ();
 	}
 }

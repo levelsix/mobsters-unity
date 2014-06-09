@@ -111,6 +111,9 @@ public class MSBuildingUpgrade : MonoBehaviour {
 			return Mathf.CeilToInt((timeRemaining / 60000f / MSWhiteboard.constants.minutesPerGem));
 		}
 	}
+
+	[SerializeField]
+	public MSBuildingProgressBar progressBar;
 	
 	/// <summary>
 	/// Awake this instance.
@@ -318,10 +321,9 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		MSActionManager.Quest.OnStructureUpgraded(building.userStructProto.structId);
 
 		MSBuildingManager.instance.AddToFunctionalityLists(building);
-			
-        if (OnFinishUpgrade != null)
-        {
-            OnFinishUpgrade();  
-        }
+
+		if (building.GetComponent<MSBuildingFrame> () != null) {
+			building.GetComponent<MSBuildingFrame>().CheckTag();
+		}
 	}
 }
