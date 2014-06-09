@@ -42,8 +42,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 5d111d1cb866e43dcbcffeadd1eed8d9, type: 2}
   mSprites:
   - name: prizesbg
-    x: 616
-    y: 385
+    x: 1625
+    y: 1830
     width: 343
     height: 218
     borderLeft: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: questcomplete
     x: 0
-    y: 191
+    y: 97
     width: 474
     height: 206
     borderLeft: 0
@@ -68,8 +68,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: questcompletecomplete
-    x: 616
-    y: 255
+    x: 1025
+    y: 1341
     width: 474
     height: 129
     borderLeft: 0
@@ -81,8 +81,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: questcompletelight
-    x: 616
-    y: 604
+    x: 1025
+    y: 1628
     width: 599
     height: 420
     borderLeft: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: questcompletequest
     x: 616
-    y: 30
+    y: 706
     width: 370
     height: 105
     borderLeft: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: questlines
-    x: 1216
-    y: 689
+    x: 1625
+    y: 1494
     width: 169
     height: 335
     borderLeft: 0
@@ -120,8 +120,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: questnameribbon
-    x: 0
-    y: 45
+    x: 1025
+    y: 1482
     width: 431
     height: 145
     borderLeft: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: questnameribbonmask
     x: 616
-    y: 136
+    y: 812
     width: 395
     height: 118
     borderLeft: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
     paddingBottom: 14
   - name: questspinner
     x: 0
-    y: 398
+    y: 304
     width: 615
     height: 626
     borderLeft: 0
@@ -159,8 +159,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: sharecheckboxbg
-    x: 475
-    y: 370
+    x: 1457
+    y: 1600
     width: 26
     height: 27
     borderLeft: 0
@@ -170,6 +170,32 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 1
+    paddingBottom: 0
+  - name: wonlostbg
+    x: 0
+    y: 1471
+    width: 1024
+    height: 577
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: wonlostbg2
+    x: 0
+    y: 931
+    width: 1024
+    height: 539
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
     paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}

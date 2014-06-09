@@ -25,9 +25,11 @@ public class MSQuestEntry : MonoBehaviour {
 	{
 		questName.text = quest.quest.name;
 		
-		questProgress.text = quest.GetProgressString();
+		questProgress.text = quest.progressString;
 		
 		fullQuest = quest;
+
+		newQuestLabel.enabled = MSQuestManager.instance.newQuests.Contains(quest);
 	}
 	
 	void OnClick()

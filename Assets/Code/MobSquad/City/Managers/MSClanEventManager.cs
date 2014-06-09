@@ -127,7 +127,7 @@ public class MSClanEventManager : MonoBehaviour {
 
 			int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_CLAN_RAID_EVENT, null);
 
-			MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker.GetComponent<MSPopup>());
+			MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker);
 			while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 			{
 				yield return null;

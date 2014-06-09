@@ -13,6 +13,17 @@ public class MSQuestManager : MonoBehaviour {
 	
 	public List<MSFullQuest> currQuests = new List<MSFullQuest>();
 
+	public List<MSFullQuest> newQuests = new List<MSFullQuest>();
+
+	/// <summary>
+	/// When we finish a Task, it's possible that we complete multiple quests
+	/// at once. Push them onto this queue, and whenever we get back to the city
+	/// we'll empty this queue and play the animation for all completed quests.
+	/// For quests that aren't completed by tasks, we'll just activate the animation
+	/// manually instead of putting them into this queue.
+	/// </summary>
+	public Queue<MSFullQuest> completeQuests = new Queue<MSFullQuest>();
+
 	public Dictionary<int, bool> taskDict = new Dictionary<int, bool>();
 
 	public void Awake()
@@ -24,14 +35,12 @@ public class MSQuestManager : MonoBehaviour {
 	{
 		MSActionManager.Quest.OnStructureUpgraded += OnStructureUpgraded;
 		MSActionManager.Quest.OnTaskCompleted += OnTaskCompleted;
-		MSActionManager.Quest.OnMonsterDonated += OnMonsterDonated;
 	}
 	
 	public void Disable()
 	{
 		MSActionManager.Quest.OnStructureUpgraded -= OnStructureUpgraded;
 		MSActionManager.Quest.OnTaskCompleted -= OnTaskCompleted;
-		MSActionManager.Quest.OnMonsterDonated -= OnMonsterDonated;
 	}
 	
 	public void Init(StartupResponseProto proto)
@@ -178,7 +187,7 @@ public class MSQuestManager : MonoBehaviour {
 		}
 	}
 	
-	void UpdateQuestProgress(MSFullQuest fullQuest, List<UserQuestJobProto> jobsUpdated, List<PZMonster> donateMonsters = null)
+	void UpdateQuestProgress(MSFullQuest fullQuest, List<UserQuestJobProto> jobsUpdated, bool completeAnimationNow, List<PZMonster> donateMonsters = null)
 	{
 		
 #if DEBUG3
@@ -202,7 +211,11 @@ public class MSQuestManager : MonoBehaviour {
 		}
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_QUEST_PROGRESS_EVENT, null);
-		
+
+		if (fullQuest.userQuest.isComplete)
+		{
+
+		}
 	}
 
 	public void CompleteQuest(MSFullQuest quest)
@@ -265,8 +278,11 @@ public class MSQuestManager : MonoBehaviour {
 
 	void OnStructureUpgraded(int structID)
 	{
+		List<UserQuestJobProto> updateQuests = new List<UserQuestJobProto>();
+
 		foreach (MSFullQuest item in currQuests)
 		{
+			updateQuests.Clear();
 			if (item.userQuest.isComplete)
 			{
 				continue;
@@ -278,7 +294,12 @@ public class MSQuestManager : MonoBehaviour {
 				{
 					UserQuestJobProto userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId == job.questJobId);
 					userJob.isComplete = ++userJob.progress >= job.quantity;
+					updateQuests.Add(userJob);
 				}
+			}
+			if (updateQuests.Count > 0)
+			{
+				UpdateQuestProgress(item, updateQuests, true);
 			}
 		}
 	}
@@ -364,21 +385,22 @@ public class MSQuestManager : MonoBehaviour {
 				}
 				if (updatedJobs.Count > 0)
 				{
-					UpdateQuestProgress(item, updatedJobs);
+					UpdateQuestProgress(item, updatedJobs, false);
 				}
 			}
 		}
 	}
 
-	public bool AttemptDonation(MSFullQuest quest)
+	public bool AttemptDonation(MSFullQuest quest, QuestJobProto job, UserQuestJobProto userJob)
 	{
-		/* TODO: Fix for jobs
-		List<PZMonster> matchingMonsters = MSMonsterManager.instance.GetMonstersByMonsterId(quest.quest.staticDataId);
-		if (matchingMonsters.Count >= quest.quest.quantity)
+		List<UserQuestJobProto> completeJobs = new List<UserQuestJobProto>();
+		List<PZMonster> donateMonsters = new List<PZMonster>();
+
+		List<PZMonster> matchingMonsters = MSMonsterManager.instance.GetMonstersByMonsterId(job.staticDataId);
+		if (matchingMonsters.Count >= job.quantity)
 		{
-			List<PZMonster> donateMonsters = new List<PZMonster>();
 			PZMonster curr;
-			while (donateMonsters.Count < quest.quest.quantity)
+			while (donateMonsters.Count < job.quantity)
 			{
 				curr = null;
 				foreach (var item in matchingMonsters) 
@@ -390,36 +412,24 @@ public class MSQuestManager : MonoBehaviour {
 				}
 				donateMonsters.Add(curr);
 			}
-
-			quest.userQuest.progress = quest.quest.quantity;
-			quest.userQuest.isComplete = true;
-
-			UpdateQuestProgress(quest, donateMonsters);
+			
+			userJob.progress = job.quantity;
+			userJob.isComplete = true;
 
 			foreach (var item in donateMonsters) 
 			{
 				MSMonsterManager.instance.RemoveMonster(item.userMonster.userMonsterId);
 			}
+
+			completeJobs.Add (userJob);
+		}
+
+		if (completeJobs.Count > 0)
+		{
+			UpdateQuestProgress(quest, completeJobs, true, donateMonsters);
 			return true;
 		}
-		*/
-		return false;
-	}
 
-	void OnMonsterDonated(int monsterId)
-	{
-		foreach (MSFullQuest item in currQuests) {
-			if (item.userQuest.isComplete)
-			{
-				continue;
-			}
-			/* TODO: Fix for jobs
-			if (item.quest.questType == FullQuestProto.QuestType.DONATE_MONSTER && item.quest.staticDataId == monsterId)
-			{
-				item.userQuest.progress++;
-				UpdateQuestProgress(item);
-			}
-			*/
-		}
+		return false;
 	}
 }

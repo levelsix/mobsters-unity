@@ -14,7 +14,7 @@ public class MSPopupManager : MonoBehaviour {
 		public MSClanPopup clanPopup;
 		public MSRaidScreen raidScreen;
 		public MSRaidTeamPopup raidTeamPopup;
-		public GameObject loadingScreenBlocker;
+		public MSPopup loadingScreenBlocker;
 		public MSHirePopup hirePopup;
 		public MSChatPopup chatPopup;
 		public MSQuestLog questPopup;
@@ -115,11 +115,22 @@ public class MSPopupManager : MonoBehaviour {
 		if (MSSceneManager.instance.cityState)
 		{
 			popT.parent = townPopupParent;
-		}
+			popT.gameObject.layer = townPopupParent.gameObject.layer;
+			foreach (var item in popT.GetComponentsInChildren<Transform>()) 
+			{
+				item.gameObject.layer = townPopupParent.gameObject.layer;
+			}
+		}	
 		else
 		{
 			popT.parent = puzzlePopupParent;
+			popT.gameObject.layer = puzzlePopupParent.gameObject.layer;
+			foreach (var item in popT.GetComponentsInChildren<Transform>()) 
+			{
+				item.gameObject.layer = puzzlePopupParent.gameObject.layer;
+			}
 		}
+
 		popT.localScale = Vector3.one;
 		popT.localPosition = Vector3.zero;
 		

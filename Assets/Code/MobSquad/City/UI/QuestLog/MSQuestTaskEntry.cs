@@ -24,11 +24,21 @@ public class MSQuestTaskEntry : MonoBehaviour
 	[SerializeField]
 	UILabel taskNumberLabel;
 
+	int num = 0;
+
 	int city = 0;
+
+	MSFullQuest quest;
+
+	QuestJobProto job;
+
+	UserQuestJobProto userJob;
 	
 	const string DONE_STRING = "Done!";
 	
 	const string VISIT_STRING = "GO";
+
+	const string DONATE_STRING = "DONATE";
 	
 	public void Pool ()
 	{
@@ -38,6 +48,11 @@ public class MSQuestTaskEntry : MonoBehaviour
 	public void Init(MSFullQuest quest, UserQuestJobProto userJob, int num)
 	{
 		QuestJobProto job = quest.quest.jobs.Find(x=>x.questJobId == userJob.questJobId);
+
+		this.quest = quest;
+		this.job = job;
+		this.userJob = userJob;
+		this.num = num;
 
 		taskNameLabel.text = job.description;
 
@@ -49,6 +64,14 @@ public class MSQuestTaskEntry : MonoBehaviour
 
 		city = job.cityId;
 	}
+
+	public void DoneMoving()
+	{
+		foreach (var item in GetComponentsInChildren<UIWidget>()) 
+		{
+			item.MarkAsChanged();
+		}
+	}
 	
 	public void SetComplete(bool complete)
 	{
@@ -57,6 +80,11 @@ public class MSQuestTaskEntry : MonoBehaviour
 			visitOrDoneSprite.alpha = 0;
 			visitOrDoneLabel.text = DONE_STRING;
 		}
+		else if (job.questJobType == QuestJobProto.QuestJobType.DONATE_MONSTER)
+		{
+			visitOrDoneSprite.alpha = 1;
+			visitOrDoneLabel.text = DONATE_STRING;
+		}
 		else
 		{
 			visitOrDoneSprite.alpha = 1;
@@ -64,14 +92,29 @@ public class MSQuestTaskEntry : MonoBehaviour
 		}
 	}
 
-	public void GoToCity()
+	/// <summary>
+	/// Called when the button is clicked.
+	/// If the task is a donate task, attempt to donate the monsters.
+	/// Otherwise, go to the proper city
+	/// </summary>
+	public void ButtonClick()
 	{
-		MSWhiteboard.currCityType = city > 0 ? MSWhiteboard.CityType.NEUTRAL : MSWhiteboard.CityType.PLAYER;
-		MSWhiteboard.cityID = city > 0 ? city : MSWhiteboard.localMup.userId;
+		if (job.questJobType == QuestJobProto.QuestJobType.DONATE_MONSTER)
+		{
+			if (MSQuestManager.instance.AttemptDonation(quest, job, userJob))
+			{
+				Init(quest, userJob, num);
+			}
+		}
+		else
+		{
+			MSWhiteboard.currCityType = city > 0 ? MSWhiteboard.CityType.NEUTRAL : MSWhiteboard.CityType.PLAYER;
+			MSWhiteboard.cityID = city > 0 ? city : MSWhiteboard.localMup.userId;
 
-		//TODO: Lock screen!
+			//TODO: Lock screen!
 
-		StartCoroutine(city > 0 ? MSBuildingManager.instance.LoadNeutralCity(city) : MSBuildingManager.instance.LoadPlayerCity());
+			StartCoroutine(city > 0 ? MSBuildingManager.instance.LoadNeutralCity(city) : MSBuildingManager.instance.LoadPlayerCity());
+		}
 	}
 	
 }

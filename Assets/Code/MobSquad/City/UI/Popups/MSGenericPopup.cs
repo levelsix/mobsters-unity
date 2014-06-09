@@ -49,7 +49,7 @@ public class MSGenericPopup : MonoBehaviour {
 		{
 			buttons[i].gameObject.SetActive(true);
 			buttons[i].transform.localPosition = new Vector3((i + 0.5f) * BUTTON_WIDTH - (xOffset), 
-				buttons[i].transform.localPosition.y, buttons[i].transform.localPosition.z);
+			buttons[i].transform.localPosition.y, buttons[i].transform.localPosition.z);
 			buttons[i].label.text = buttonLabels[i];
 			buttons[i].onClick = buttonActions[i];
 		}

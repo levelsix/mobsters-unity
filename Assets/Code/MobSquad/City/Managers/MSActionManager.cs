@@ -134,7 +134,6 @@ public static class MSActionManager
 	public static class Quest
 	{
 		public static Action<int> OnStructureUpgraded;
-		public static Action<int> OnMonsterDonated;
 		public static Action<BeginDungeonResponseProto> OnTaskCompleted;
 		public static Action<ResourceType, int> OnMoneyCollected;
 

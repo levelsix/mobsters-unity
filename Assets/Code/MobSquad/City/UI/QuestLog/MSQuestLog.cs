@@ -200,10 +200,9 @@ public class MSQuestLog : MonoBehaviour {
 		tasks.Add (taskEntry);
 		taskEntry.Init(quest, userJob, num+1);
 
-		foreach (var item in taskEntry.GetComponentsInChildren<UISprite>()) 
+		foreach (var item in taskEntry.GetComponentsInChildren<UIWidget>()) 
 		{
-			item.gameObject.SetActive(false);
-			item.gameObject.SetActive(true);
+			item.MarkAsChanged();
 		}
 	}
 
@@ -333,6 +332,20 @@ public class MSQuestLog : MonoBehaviour {
 		tabHelper.FadeOutAndOff();
 		topDetailHelper.TurnOn();
 		topDetailHelper.FadeIn();
+
+		StartCoroutine(FixOnMoveFinish());
+	}
+
+	IEnumerator FixOnMoveFinish()
+	{
+		while (mover.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		foreach (var item in tasks) 
+		{
+			item.DoneMoving();
+		}
 	}
 	
 }
