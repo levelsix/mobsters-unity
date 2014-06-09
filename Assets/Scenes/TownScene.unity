@@ -31924,6 +31924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currQuests: []
+  newQuests: []
 --- !u!1 &551861937
 GameObject:
   m_ObjectHideFlags: 0
@@ -76687,6 +76688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   label: {fileID: 533383417}
+  title: {fileID: 0}
   buttons:
   - {fileID: 2003749998}
   - {fileID: 557962597}
@@ -108054,7 +108056,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.70624995
+  aspectRatio: 1.33281255
   mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
   mSpriteName: blackcolormask
   mType: 1

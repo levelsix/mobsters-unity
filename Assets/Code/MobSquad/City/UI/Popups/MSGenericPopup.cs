@@ -13,6 +13,9 @@ public class MSGenericPopup : MonoBehaviour {
 	/// </summary>
 	[SerializeField]
 	UILabel label;
+
+	[SerializeField]
+	UILabel title;
 	
 	[SerializeField]
 	MSActionButton[] buttons;
