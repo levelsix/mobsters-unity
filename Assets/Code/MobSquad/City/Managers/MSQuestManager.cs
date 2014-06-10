@@ -38,12 +38,14 @@ public class MSQuestManager : MonoBehaviour {
 	{
 		MSActionManager.Quest.OnStructureUpgraded += OnStructureUpgraded;
 		MSActionManager.Quest.OnTaskCompleted += OnTaskCompleted;
+		MSActionManager.Scene.OnCity += TryCompleteNextQuest;
 	}
 	
-	public void Disable()
+	public void OnDisable()
 	{
 		MSActionManager.Quest.OnStructureUpgraded -= OnStructureUpgraded;
 		MSActionManager.Quest.OnTaskCompleted -= OnTaskCompleted;
+		MSActionManager.Scene.OnCity -= TryCompleteNextQuest;
 	}
 	
 	public void Init(StartupResponseProto proto)
@@ -217,7 +219,7 @@ public class MSQuestManager : MonoBehaviour {
 
 		if (fullQuest.userQuest.isComplete)
 		{
-
+			completeQuests.Enqueue(fullQuest);
 		}
 	}
 
@@ -310,11 +312,13 @@ public class MSQuestManager : MonoBehaviour {
 	
 	void OnTaskCompleted(BeginDungeonResponseProto dungeon)
 	{
+		Debug.Log("On task completed in quest manager");
 		List<UserQuestJobProto> updatedJobs = new List<UserQuestJobProto>();
 		UserQuestJobProto userJob;
 		int numMonsters;
 		foreach (MSFullQuest item in currQuests)
 		{
+			Debug.Log("Quest " + item.quest.questId + ": " + item.userQuest.isComplete);
 			if (item.userQuest.isComplete)
 			{
 				continue;
@@ -322,8 +326,10 @@ public class MSQuestManager : MonoBehaviour {
 			updatedJobs.Clear();
 			foreach (var job in item.quest.jobs) 
 			{
+				Debug.Log("Testing quest " + item.quest.questId + ": Job " + job.questJobId);
 				switch (job.questJobType) {
 				case QuestJobProto.QuestJobType.COMPLETE_TASK:
+					Debug.Log("Complete task job: " + job.staticDataId + ", completed: " + dungeon.taskId);
 					if (dungeon.taskId == job.staticDataId)
 					{
 						userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId==job.questJobId);
@@ -435,5 +441,13 @@ public class MSQuestManager : MonoBehaviour {
 		}
 
 		return false;
+	}
+
+	public void TryCompleteNextQuest()
+	{
+		if (completeQuests.Count > 0)
+		{
+			CompleteQuest(completeQuests.Dequeue());
+		}
 	}
 }

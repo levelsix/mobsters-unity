@@ -78,10 +78,6 @@ public class MSAchievementManager : MonoBehaviour {
 		if (progressRequest.uapList.Count > 0)
 		{
 			progressRequest.clientTime = MSUtil.timeNowMillis;
-			foreach (var item in progressRequest.uapList) 
-			{
-				Debug.LogWarning("Updating Achievement " + item.achievementId + ": " + item.progress);
-			}
 			UMQNetworkManager.instance.SendRequest(progressRequest, (int)EventProtocolRequest.C_ACHIEVEMENT_PROGRESS_EVENT, DealWithProgressResponse);
 			progressRequest.uapList.Clear();
 		}

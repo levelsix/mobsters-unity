@@ -18,8 +18,17 @@ public class PZRetreatButton : MonoBehaviour {
 	{
 		if (button.enabled)
 		{
-			MSActionManager.Popup.CreateButtonPopup("You will lose everything - are you sure you want to forfeit?", new string[]{"Cancel", "Forfeit"},
-			new Action[]{MSActionManager.Popup.CloseAllPopups, delegate {MSActionManager.Puzzle.ForceHideSwap(); MSActionManager.Popup.CloseAllPopups(); PZCombatManager.instance.ActivateLoseMenu(); }  });
+			MSPopupManager.instance.CreatePopup("Forfeit?",
+				"You will lose everything - are you sure you want to forfeit?", 
+                new string[]{"Cancel", "Forfeit"},
+				new string[]{"greymenuoption", "redmenuoption"},
+				new Action[]{MSActionManager.Popup.CloseAllPopups, 
+					delegate {
+						MSActionManager.Puzzle.ForceHideSwap(); 
+						MSActionManager.Popup.CloseAllPopups(); 
+						PZCombatManager.instance.ActivateLoseMenu(); 
+					}  
+				});
 		}
 	}
 

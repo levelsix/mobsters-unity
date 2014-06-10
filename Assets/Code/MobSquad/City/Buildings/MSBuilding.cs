@@ -669,17 +669,19 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	{
 		if(MSBuildingManager.instance.currentUnderConstruction != null)
 		{
-			MSActionManager.Popup.CreateButtonPopup("Your builder is busy! Speed him up for " + 
-			                                        MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
-			                                        + "gems and build this structure?",
-			                                        new string[]{"Cancel", "Speed Up"},
-			new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
-				delegate
-				{
-					MSActionManager.Popup.CloseTopPopupLayer();
-					MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
-					Confirm();
-				}
+			MSPopupManager.instance.CreatePopup("Your builder is busy!",  
+            	"Speed him up for " + 
+	                MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
+	                + "gems and build this structure?",
+                new string[]{"Cancel", "Speed Up"},
+				new string[]{"greymenuoption", "purplemenuoption"},
+				new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
+					delegate
+					{
+						MSActionManager.Popup.CloseTopPopupLayer();
+						MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
+						Confirm();
+					}
 			}
 			);
 			return;
