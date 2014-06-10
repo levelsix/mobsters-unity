@@ -105,7 +105,7 @@ public class PZWinLosePopup : MonoBehaviour {
 
 		PZPrize prize;
 		
-		foreach (var item in pieces) 
+		foreach (var item in pieces)
 		{
 			prize = GetPrize ();
 

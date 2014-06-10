@@ -11,7 +11,7 @@ using com.lvl6.proto;
 public class PZPrize : MonoBehaviour {
 
 	[SerializeField]
-	UISprite border;
+	public UISprite border;
 
 	[SerializeField]
 	UISprite icon;
@@ -54,6 +54,7 @@ public class PZPrize : MonoBehaviour {
 		Color newColor = label.color;
 		newColor.a = 0f;
 		label.color = newColor;
+		border.alpha = 1f;
 	}
 
 	public void InitXP(int amount)

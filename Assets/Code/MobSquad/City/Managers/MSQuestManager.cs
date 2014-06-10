@@ -26,6 +26,9 @@ public class MSQuestManager : MonoBehaviour {
 
 	public Dictionary<int, bool> taskDict = new Dictionary<int, bool>();
 
+	[SerializeField]
+	MSQuestCompletePopup popup;
+
 	public void Awake()
 	{
 		instance = this;
@@ -222,8 +225,9 @@ public class MSQuestManager : MonoBehaviour {
 	{
 		currQuests.RemoveAll(x=>x.quest.questId == quest.quest.questId);
 		StartCoroutine(RedeemQuest(quest.quest));
+		popup.InitCompletedQuest(quest);
 	}
-	
+
 	//TODO
 	IEnumerator RedeemQuest(FullQuestProto quest)
 	{
