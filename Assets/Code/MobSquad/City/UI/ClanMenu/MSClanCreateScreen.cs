@@ -85,7 +85,7 @@ public class MSClanCreateScreen : MonoBehaviour {
 		}
 		else
 		{
-			MSActionManager.Popup.CreatePopup("Invalid Name");
+			MSPopupManager.instance.CreatePopup("Invalid Name");
 		}
 	}
 }

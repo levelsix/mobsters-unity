@@ -90,8 +90,6 @@ public class MSPopupManager : MonoBehaviour {
 		MSActionManager.Popup.CloseAllPopups += CloseAllPopups;
 		MSActionManager.Popup.ClosePopupLayer += ClosePopupLayer;
 		MSActionManager.Popup.CloseTopPopupLayer += CloseTopLayer;
-		MSActionManager.Popup.CreatePopup += CreatePopup;
-		MSActionManager.Popup.CreateButtonPopup += PopWithButtons;
 	}
 	
 	/// <summary>
@@ -104,8 +102,6 @@ public class MSPopupManager : MonoBehaviour {
 		MSActionManager.Popup.CloseAllPopups -= CloseAllPopups;
 		MSActionManager.Popup.ClosePopupLayer -= ClosePopupLayer;
 		MSActionManager.Popup.CloseTopPopupLayer -= CloseTopLayer;
-		MSActionManager.Popup.CreatePopup -= CreatePopup;
-		MSActionManager.Popup.CreateButtonPopup -= PopWithButtons;
 	}
 	
 	void InitPopup (MSGenericPopup pop)
@@ -136,17 +132,31 @@ public class MSPopupManager : MonoBehaviour {
 		
 		OnPopup(pop.GetComponent<MSPopup>());
 	}
-	
-	void CreatePopup(string text)
+
+	public void CreatePopup(string text)
 	{
 		popup.Init(text);
 
 		InitPopup (popup);
 	}
-	
-	void PopWithButtons(string text, string[] buttonLabels, Action[] buttonActions)
+
+	public void CreatePopup(string title, string text)
 	{
-		popup.Init(text, buttonLabels, buttonActions);
+		popup.Init(title, text);
+
+		InitPopup(popup);
+	}
+	
+	public void CreatePopup(string text, string[] buttonLabels, string[] buttonSprites, Action[] buttonActions)
+	{
+		popup.Init(text, buttonLabels, buttonSprites, buttonActions);
+		
+		InitPopup (popup);
+	}
+
+	public void CreatePopup(string title, string text, string[] buttonLabels, string[] buttonSprites, Action[] buttonActions)
+	{
+		popup.Init(title, text, buttonLabels, buttonSprites, buttonActions);
 		
 		InitPopup (popup);
 	}

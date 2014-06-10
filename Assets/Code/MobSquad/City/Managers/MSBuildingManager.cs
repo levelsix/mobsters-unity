@@ -439,7 +439,7 @@ public class MSBuildingManager : MonoBehaviour
 
 		foreach (var item in MSMonsterManager.instance.userTeam) 
 		{
-			if (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED)
+			if (item != null && item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED)
 			{
 				AddMonsterToScene(item, _playerUnits);
 			}

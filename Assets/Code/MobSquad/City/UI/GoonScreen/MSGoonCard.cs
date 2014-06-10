@@ -425,25 +425,23 @@ public class MSGoonCard : MonoBehaviour {
 		cardBackground.spriteName = backgroundsForElements[goon.monster.monsterElement];
 		if (goon.userMonster.teamSlotNum > 0)
 		{
+			addRemoveTeamButton.gameObj.SetActive(true);
 			addRemoveTeamButton.button.isEnabled = true;
+			addRemoveTeamButton.onClick = null;
 			addRemoveButtonBackground.spriteName = onTeamButtonSpriteName;
 			addRemoveTeamButton.button.normalSprite = onTeamButtonSpriteName;
 		}
-		else
+		else if (goon.monsterStatus == MonsterStatus.HEALTHY || goon.monsterStatus == MonsterStatus.INJURED)
 		{
-			if (MSMonsterManager.monstersOwned < MSMonsterManager.TEAM_SLOTS 
-				&& !goon.isHealing && !goon.isEnhancing && goon.userMonster.isComplete)
-			{
-				addRemoveTeamButton.onClick = AddToTeam;
-				addRemoveTeamButton.button.isEnabled = true;
-			}
-			else
-			{
-				addRemoveTeamButton.onClick = null;
-				addRemoveTeamButton.button.isEnabled = false;
-			}
+			addRemoveTeamButton.gameObj.SetActive(true);
+			addRemoveTeamButton.onClick = AddToTeam;
+			addRemoveTeamButton.button.isEnabled = true;
 			addRemoveButtonBackground.spriteName = addButtonSpriteName;
 			addRemoveTeamButton.button.normalSprite = addButtonSpriteName;
+		}
+		else
+		{
+			addRemoveTeamButton.gameObj.SetActive(false);
 		}
 
 		SetTextOverCard (goon);
@@ -625,7 +623,10 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		if (goon.userMonster.teamSlotNum == 0)
 		{
-			MSMonsterManager.instance.AddToTeam(goon);
+			if (MSMonsterManager.instance.AddToTeam(goon) == 0) //Returns 0 if the team is full
+			{
+				MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage("Team is already full!");
+			}
 		}
 	}
 
@@ -693,7 +694,9 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void PopupTeamMemberToEnhanceQueue(PZMonster monster)
 	{
-		MSActionManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
+		MSPopupManager.instance.CreatePopup("Mobster On Team",
+			teamMemberToHealWarning, new string[]{"Yes", "No"},
+			new string[]{"greenmenuoption", "greymenuoption"},
 			new Action[]{delegate{MSMonsterManager.instance.AddToEnhanceQueue(monster);
 				MSActionManager.Popup.CloseTopPopupLayer();}, 
 				MSActionManager.Popup.CloseTopPopupLayer});
@@ -701,7 +704,9 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void PopupTeamMemberToHealingQueue(PZMonster monster)
 	{
-		MSActionManager.Popup.CreateButtonPopup(teamMemberToHealWarning, new string[]{"Yes", "No"},
+		MSPopupManager.instance.CreatePopup("Mobster On Team",
+            teamMemberToHealWarning, new string[]{"Yes", "No"},
+			new string[]{"greenmenuoption", "greymenuoption"},
 			new Action[]{delegate{MSHospitalManager.instance.AddToHealQueue(monster); 
 				MSActionManager.Popup.CloseTopPopupLayer();}, 
 				MSActionManager.Popup.CloseTopPopupLayer});

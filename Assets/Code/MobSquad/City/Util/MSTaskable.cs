@@ -78,23 +78,27 @@ public class MSTaskable : MonoBehaviour {
 	{
 		if (MSMonsterManager.monstersOwned == 0)
 		{
-			MSActionManager.Popup.CreateButtonPopup("Uh oh, you have no mobsters on your team. Manage your team?",
+			MSPopupManager.instance.CreatePopup("No Mobsters!",
+				"Uh oh, you have no mobsters on your team. Manage your team?",
                 new string[]{"Later", "Manage"},
-			new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
-				delegate{MSActionManager.Popup.CloseAllPopups();
-					MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
-					MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);}}
+				new string[]{"greymenuoption", "greenmenuoption"},
+				new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
+					delegate{MSActionManager.Popup.CloseAllPopups();
+						MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
+						MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);}}
 			);
 			return;
 		}
 		else if (MSMonsterManager.instance.userMonsters.Count > MSMonsterManager.instance.totalResidenceSlots)
 		{
-			MSActionManager.Popup.CreateButtonPopup("Uh oh, you have recruited too many mobsters. Manage your team?",
-			                                        new string[]{"Later", "Manage"},
-			new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
-				delegate{MSActionManager.Popup.CloseAllPopups();
-					MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
-					MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);}}
+			MSPopupManager.instance.CreatePopup("Residences Full!",
+				"Uh oh, you have recruited too many mobsters. Manage your team?",
+                new string[]{"Later", "Manage"},
+				new string[]{"greymenuoption", "greenmenuoption"},
+				new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
+					delegate{MSActionManager.Popup.CloseAllPopups();
+						MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
+						MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);}}
 			);
 			return;
 		}
@@ -110,12 +114,14 @@ public class MSTaskable : MonoBehaviour {
 			}
 			if (i == MSMonsterManager.instance.userTeam.Length)
 			{
-				MSActionManager.Popup.CreateButtonPopup("No monsters on team have health! Manage your team?",
-				                                        new string[]{"Later", "Manage"},
-				new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
-					delegate{MSActionManager.Popup.CloseAllPopups();
-						MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
-						MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);}}
+				MSPopupManager.instance.CreatePopup("No Mobsters!",
+					"No monsters on team have health! Manage your team?",
+                	new string[]{"Later", "Manage"},
+					new string[]{"greymenuoption", "greenmenuoption"},
+					new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
+						delegate{MSActionManager.Popup.CloseAllPopups();
+							MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.gameObject.GetComponent<MSPopup>());
+							MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);}}
 				);
 				return;
 			}

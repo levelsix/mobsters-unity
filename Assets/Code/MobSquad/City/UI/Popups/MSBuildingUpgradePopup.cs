@@ -91,17 +91,19 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 		if (MSBuildingManager.instance.currentUnderConstruction != null)
 		{
-			MSActionManager.Popup.CreateButtonPopup("Your builder is busy! Speed him up for " + 
+			MSPopupManager.instance.CreatePopup("Your builder is busy!",
+			                                    "Speed him up for " + 
 			                                        MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
 			                                        + "gems and upgrade this building?",
-			                                        new string[]{"Cancel", "Speed Up"},
-			new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
-				delegate
-				{
-					MSActionManager.Popup.CloseTopPopupLayer();
-					MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
-					TryToBuy();
-				}
+                new string[]{"Cancel", "Speed Up"},
+				new string[]{"greymenuoption", "purplemenuoption"},
+				new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
+					delegate
+					{
+						MSActionManager.Popup.CloseTopPopupLayer();
+						MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
+						TryToBuy();
+					}
 			}
 			);
 			return;

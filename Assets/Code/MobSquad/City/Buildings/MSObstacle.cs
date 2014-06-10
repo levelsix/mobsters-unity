@@ -74,19 +74,21 @@ public class MSObstacle : MonoBehaviour {
 	{
 		if (MSBuildingManager.instance.currentUnderConstruction != null)
 		{
-			MSActionManager.Popup.CreateButtonPopup("Your builder is busy! Speed him up for " + 
-			                                        MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
-			                                        + "gems and remove this obstacle?",
-			                                        new string[]{"Cancel", "Speed Up"},
-			new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
-				delegate
-				{
-					MSActionManager.Popup.CloseTopPopupLayer();
-					MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
-					StartRemove();
+			MSPopupManager.instance.CreatePopup("Your builder is busy!",
+    			"Speed him up for " + 
+	                MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
+	                + "gems and remove this obstacle?",
+                new string[]{"Cancel", "Speed Up"},
+				new string[]{"greymenuoption", "purplemenuoption"},
+				new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
+					delegate
+					{
+						MSActionManager.Popup.CloseTopPopupLayer();
+						MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
+						StartRemove();
+					}
 				}
-			}
-			);
+				);
 			return;
 		}
 

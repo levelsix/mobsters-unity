@@ -173,9 +173,10 @@ public class MSResourceManager : MonoBehaviour {
 			int resourceNeeded = amount - resources[(int)resource - 1];
 			int gemsNeeded = Mathf.CeilToInt(resourceNeeded * MSWhiteboard.constants.gemsPerResource);
 
-			MSActionManager.Popup.CreateButtonPopup(
+			MSPopupManager.instance.CreatePopup("Not enough resources!",
 				"Spend (G)" + gemsNeeded + " to buy the remaining " + ((resource== ResourceType.CASH)?"$":"(O)") + resourceNeeded,
                 new string[] {"No", "Yes"},
+				new string[] {"greymenuoption", "purplemenuoption"},
 				new Action[] { 
 					MSActionManager.Popup.CloseTopPopupLayer,
 					delegate{ MSActionManager.Popup.CloseTopPopupLayer(); SpendGemsForOtherResource(resource, resourceNeeded, action);}
@@ -185,7 +186,7 @@ public class MSResourceManager : MonoBehaviour {
 		else
 		{
 			//Popup that says so
-			MSActionManager.Popup.CreatePopup("Not enough " + resource.ToString().ToLower());
+			MSPopupManager.instance.CreatePopup("Not enough " + resource.ToString().ToLower());
 		}
 
 		return false;

@@ -17,6 +17,9 @@ public class MSBottomBarModeButton : MonoBehaviour {
 	UISprite icon;
 
 	[SerializeField]
+	UISprite background;
+
+	[SerializeField]
 	UILabel label;
 
 	[SerializeField]
@@ -44,7 +47,6 @@ public class MSBottomBarModeButton : MonoBehaviour {
 		}
 	}
 
-	UISprite backgroundSprite;
 
 	Dictionary<GoonScreenMode, string> baseIconSprites = new Dictionary<GoonScreenMode, string>(){
 		{GoonScreenMode.HEAL, "heal"},
@@ -59,11 +61,6 @@ public class MSBottomBarModeButton : MonoBehaviour {
 		{GoonScreenMode.ENHANCE, "Enhance"},
 		{GoonScreenMode.EVOLVE, "Evolove"}
 	};
-
-	void Awake()
-	{
-		backgroundSprite = GetComponent<UISprite>();
-	}
 
 	public void Set(bool active)
 	{
@@ -84,11 +81,7 @@ public class MSBottomBarModeButton : MonoBehaviour {
 		icon.spriteName = baseIconSprites[_mode] + "blue";
 		label.color = onColor;
 
-		if (backgroundSprite == null)
-		{
-			Awake ();
-		}
-		backgroundSprite.enabled = false;
+		background.alpha = 0;
 		collider.enabled = false;
 	}
 
@@ -98,16 +91,13 @@ public class MSBottomBarModeButton : MonoBehaviour {
 		icon.spriteName = baseIconSprites[_mode] + "grey";
 		label.color = offColor;
 
-		if (backgroundSprite == null)
-		{
-			Awake ();
-		}
-		backgroundSprite.enabled = true;
+		background.alpha = 1;
 		collider.enabled = true;
 	}
 
 	void OnClick()
 	{
+		Debug.Log("Clicked");
 		if (mode == GoonScreenMode.ENHANCE)
 		{
 			MSPopupManager.instance.popups.goonScreen.InitEnhanceFromButton();
