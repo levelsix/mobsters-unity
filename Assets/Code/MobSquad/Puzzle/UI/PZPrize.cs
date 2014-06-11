@@ -54,15 +54,16 @@ public class PZPrize : MonoBehaviour {
 		Color newColor = label.color;
 		newColor.a = 0f;
 		label.color = newColor;
-		border.alpha = 1f;
 	}
 
 	public void InitXP(int amount)
 	{
+		if (border != null) {
+			border.spriteName = "expfound";
+		}
 		label.text = "+" + amount;
 		label.color = xpColor;
-		border.spriteName = "expfound";
-		icon.spriteName = "levelicon";
+		icon.spriteName = "xp";
 		icon.MakePixelPerfect();
 	}
 
@@ -76,18 +77,22 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitCash(int amount)
 	{
+		if (border != null) {
+			border.spriteName = "cashfound";
+		}
 		label.text = "$" + amount;
 		label.color = cashColor;
-		border.spriteName = "cashfound";
 		icon.spriteName = "moneystack";
 		icon.MakePixelPerfect();
 	}
 
 	public void InitDiamond(int amount)
 	{
+		if (border != null) {
+			border.spriteName = "";
+		}
 		label.text = amount.ToString();
 		label.color = new Color(.4f, .2f, .6f);
-		border.spriteName = "";
 		icon.spriteName = "diamond";
 		icon.MakePixelPerfect();
 	}
@@ -99,9 +104,12 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitEnemy(MonsterProto monster)
 	{
+
 		label.text = monster.quality.ToString();
 		string rarity = monster.quality.ToString().ToLower();
-		border.spriteName = rarity + "found";
+		if (border != null) {
+			border.spriteName = rarity + "found";
+		}
 		icon.spriteName = rarity;
 		if (monster.numPuzzlePieces > 1)
 		{

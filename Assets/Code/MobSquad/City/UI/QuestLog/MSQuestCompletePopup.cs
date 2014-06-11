@@ -12,7 +12,10 @@ public class MSQuestCompletePopup : MonoBehaviour {
 	Transform prizeParent;
 
 	[SerializeField]
-	MSCheckBox CheckBox;
+	MSCheckBox checkBox;
+
+	[SerializeField]
+	TweenPosition continueButton;
 
 	[SerializeField]
 	UILabel questName;
@@ -25,26 +28,94 @@ public class MSQuestCompletePopup : MonoBehaviour {
 	[SerializeField]
 	int buffer = 5;
 
-	void OnDisable(){
+	[SerializeField]
+	TweenPosition questTween;
+
+	[SerializeField]
+	TweenPosition completeTween;
+
+	[SerializeField]
+	TweenPosition titleTween;
+
+	[SerializeField]
+	TweenScale itemZone;
+
+	[SerializeField]
+	UISprite spinner;
+
+	void OnEnable(){
 		RecyclePrizes();
+		continueButton.GetComponent<MSActionButton> ().onClick += ClickContinueButton;
+	}
+
+	void OnDisable(){
+		continueButton.GetComponent<MSActionButton> ().onClick -= ClickContinueButton;
 	}
 
 	[ContextMenu ("testPopUp")]
 	public void InitSelf(){
 		gameObject.SetActive (true);
 		GetComponent<TweenAlpha>().ResetToBeginning();
-		GetComponent<TweenAlpha> ().PlayForward ();
-		InitCompletedQuest(MSQuestManager.instance.completeQuests.Peek());
+		GetComponent<UITweener> ().PlayForward ();
+		InitCompletedQuest(null);
+	}
+
+	void InitObjects(){
+		//setup Item Zone
+		Vector3 scale = itemZone.transform.localScale;
+		scale.y = 0f;
+		itemZone.transform.localScale = scale;
+
+		//Quest Title Sprite
+		questTween.transform.localScale = Vector3.zero;
+		questTween.GetComponent<UISprite> ().alpha = 0f;
+		questTween.transform.localPosition = questTween.from;
+
+		//Complete Title Sprite
+		completeTween.transform.localScale = Vector3.zero;
+		completeTween.GetComponent<UISprite> ().alpha = 0f;
+		completeTween.transform.localPosition = completeTween.from;
+
+		//Quest Name setup
+		titleTween.transform.localScale = Vector3.zero;
+		titleTween.GetComponent<UISprite> ().alpha = 0f;
+		titleTween.transform.localPosition = titleTween.from;
+
+		//CheckBox
+		checkBox.transform.localPosition = checkBox.GetComponent<TweenPosition>().from;
+		checkBox.GetComponent<UISprite> ().alpha = 0f;
+
+		//coninue button
+		continueButton.transform.localPosition = continueButton.from;
+		continueButton.GetComponent<UISprite> ().alpha = 0f;
+
+		//spinner
+		spinner.alpha = 0f;
 	}
 
 	public void InitCompletedQuest(MSFullQuest quest){
-		int xp = quest.quest.expReward;
-		int cash = quest.quest.cashReward;
-		int oil = quest.quest.oilReward;
-		int gem = quest.quest.gemReward;
-		int monsterId = quest.quest.monsterIdReward;
+		int xp;
+		int cash;
+		int oil;
+		int gem;
+		int monsterId;
+		if (quest != null) {
+			 xp = quest.quest.expReward;
+			 cash = quest.quest.cashReward;
+			 oil = quest.quest.oilReward;
+			 gem = quest.quest.gemReward;
+			 monsterId = quest.quest.monsterIdReward;
+			questName.text = quest.quest.name;
+		} else {
+			 xp = 2;
+			 cash = 3;
+			 oil = 0;
+			 gem = 0;
+			 monsterId = 0;
+			questName.text = "Text Test But Butt";
+		}
 
-		questName.text = quest.quest.name;
+		InitObjects ();
 
 		PZPrize prize;
 		
@@ -54,7 +125,6 @@ public class MSQuestCompletePopup : MonoBehaviour {
 //			
 //			prize.InitEnemy(item);
 //			prizes.Add (prize);
-//			prize.border.alpha = 0f;
 //		}
 
 		if (gem > 0) {
@@ -62,7 +132,6 @@ public class MSQuestCompletePopup : MonoBehaviour {
 			
 			prize.InitDiamond(gem);
 			prizes.Add(prize);
-			prize.border.alpha = 0f;
 		}
 
 		if (monsterId > 0) {
@@ -70,7 +139,6 @@ public class MSQuestCompletePopup : MonoBehaviour {
 
 			prize.InitEnemy(monsterId);
 			prizes.Add(prize);
-			prize.border.alpha = 0f;
 		}
 		
 		if (cash > 0)
@@ -78,7 +146,6 @@ public class MSQuestCompletePopup : MonoBehaviour {
 			prize = GetPrize();
 			prize.InitCash(cash);
 			prizes.Add(prize);
-			prize.border.alpha = 0f;
 		}
 		
 		if (oil > 0)
@@ -86,7 +153,6 @@ public class MSQuestCompletePopup : MonoBehaviour {
 			prize = GetPrize();
 			prize.InitOil(oil);
 			prizes.Add(prize);
-			prize.border.alpha = 0f;
 		}
 		
 		if (xp > 0)
@@ -94,24 +160,81 @@ public class MSQuestCompletePopup : MonoBehaviour {
 			prize = GetPrize();
 			prize.InitXP(xp);
 			prizes.Add (prize);
-			prize.border.alpha = 0f;
 		}
 
+		StartCoroutine (SlideInTitles ());
+	}
+
+	IEnumerator SlideInTitles(){
+		float waitTime = 0.2f;
+
+		yield return new WaitForSeconds (0.5f);
+
+		TweenAlpha alpha;
+		TweenScale scale;
+
+		//the problem with Tween.Begin is it seems to destroy the animation curve
+		questTween.ResetToBeginning ();
+		questTween.PlayForward ();
+		alpha = questTween.GetComponent<TweenAlpha> ();
+		alpha.ResetToBeginning ();
+		alpha.PlayForward ();
+		scale = questTween.GetComponent<TweenScale>();
+		scale.ResetToBeginning ();
+		scale.PlayForward();
+
+		yield return new WaitForSeconds (waitTime);
+		completeTween.ResetToBeginning ();
+		completeTween.PlayForward ();
+		alpha = completeTween.GetComponent<TweenAlpha> ();
+		alpha.ResetToBeginning ();
+		alpha.PlayForward ();
+		scale = completeTween.GetComponent<TweenScale>();
+		scale.ResetToBeginning ();
+		scale.PlayForward();
+
+		yield return new WaitForSeconds (waitTime);
+		titleTween.ResetToBeginning ();
+		titleTween.PlayForward ();
+		alpha = titleTween.GetComponent<TweenAlpha> ();
+		alpha.ResetToBeginning ();
+		alpha.PlayForward ();
+		scale = titleTween.GetComponent<TweenScale> ();
+		scale.ResetToBeginning ();
+		scale.PlayForward ();
+
+		yield return new WaitForSeconds (waitTime);
 		StartCoroutine (SlideInPrizes ());
 	}
 
 	IEnumerator SlideInPrizes(){
-		yield return new WaitForSeconds (1f);
+		itemZone.ResetToBeginning ();
+		itemZone.PlayForward ();
+
 		float spaceNeeded = prizes.Count * prizeSize + (prizes.Count-1) * buffer;
 		for (int i = 0; i < prizes.Count; i++) 
 		{
 			Vector3 endPosition = new Vector3(i * (prizeSize + buffer) - spaceNeeded/2, 0, 0);
-			prizes[i].SlideIn(endPosition);
-			yield return new WaitForSeconds(0.5f);
-			//prizes[i].GetComponent<TweenPosition>().to = new Vector3(i * (prizeSize + buffer) - spaceNeeded/2, 0, 0);
+			prizes[i].transform.localPosition = endPosition;
+			TweenAlpha.Begin(prizes[i].gameObject,0.1f, 1f);
 		}
 		yield return new WaitForSeconds (0.5f);
-		//StartCoroutine (ZoomButtons ());
+		StartCoroutine (SlideInButtons ());
+	}
+
+	IEnumerator SlideInButtons(){
+		checkBox.GetComponent<TweenPosition> ().ResetToBeginning ();
+		checkBox.GetComponent<TweenPosition> ().PlayForward ();
+		checkBox.GetComponent<TweenAlpha> ().ResetToBeginning ();
+		checkBox.GetComponent<TweenAlpha> ().PlayForward ();
+		yield return new WaitForSeconds (0.3f);
+
+		continueButton.ResetToBeginning ();
+		continueButton.PlayForward ();
+		continueButton.GetComponent<TweenAlpha> ().ResetToBeginning ();
+		continueButton.GetComponent<TweenAlpha> ().PlayForward ();
+
+		TweenAlpha.Begin (spinner.gameObject, 1f, 1f);
 	}
 
 	PZPrize GetPrize()
@@ -119,9 +242,9 @@ public class MSQuestCompletePopup : MonoBehaviour {
 		PZPrize prize = (MSPoolManager.instance.Get(prizePrefab.GetComponent<MSSimplePoolable>(), Vector3.zero) as MonoBehaviour).GetComponent<PZPrize>();
 		prize.transform.parent = prizeParent;
 		prize.transform.localScale = Vector3.one;
-		Color newColor = prize.sprite.color;
+		Color newColor = prize.GetComponent<UISprite>().color;
 		newColor.a = 0f;
-		prize.sprite.color = newColor;
+		prize.GetComponent<UISprite> ().color = newColor;
 		
 		return prize;
 	}
@@ -132,5 +255,9 @@ public class MSQuestCompletePopup : MonoBehaviour {
 			item.GetComponent<MSSimplePoolable> ().Pool ();
 		}
 		prizes.Clear ();
-	}	
+	}
+
+	void ClickContinueButton(){
+		gameObject.SetActive (false);
+	}
 }
