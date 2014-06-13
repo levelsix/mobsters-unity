@@ -84,12 +84,12 @@ public static class MSValues
 	public static class Colors
 	{
 		public static Color[] gemColors = {
-			Color.green,
-			Color.red,
-			Color.yellow,
-			Color.magenta,
-			Color.blue,
-			Color.grey
+			new Color(243, 105, 0, 255) / 255,//red
+			new Color(100, 171, 18, 255) / 255,//green
+			new Color(19, 163, 208, 255) / 255,//blue
+			new Color(255, 213, 104, 255) / 255,//yellow
+			new Color(163, 84, 212, 255) / 255,//purple
+			new Color(153, 158, 161, 255) / 255,//grey
 		};
 
 		public const int moneyRed = 213;

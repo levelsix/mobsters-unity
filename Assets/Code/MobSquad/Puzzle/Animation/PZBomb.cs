@@ -51,7 +51,7 @@ public class PZBomb : MonoBehaviour {
 			trans.localPosition += new Vector3(0, velocity, 0) * Time.deltaTime;
 			yield return null;
 		}
-		MSPoolManager.instance.Get(MSPrefabList.instance.grenadeParticle, trans.position);
+		MSPoolManager.instance.Get(MSPrefabList.instance.bombDropParticle, trans.position);
 		pool.Pool();
 	}
 }

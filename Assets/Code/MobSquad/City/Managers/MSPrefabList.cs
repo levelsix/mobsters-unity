@@ -32,6 +32,8 @@ public class MSPrefabList : MonoBehaviour {
 
 	public MSSimplePoolable sparkleParticle;
 
+	public MSSimplePoolable bombDropParticle;
+
 	public MSSimplePoolable cratePrefab;
 
 	public MSSimplePoolable planePrefab;

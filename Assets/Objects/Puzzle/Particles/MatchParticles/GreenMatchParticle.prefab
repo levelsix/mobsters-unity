@@ -31,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!96 &9600000
 TrailRenderer:
   m_ObjectHideFlags: 1
@@ -49,12 +50,11 @@ TrailRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
   m_SortingLayerID: 0
+  m_SortingOrder: 0
   m_Time: .300000012
-  m_StartWidth: 10
-  m_EndWidth: 5
+  m_StartWidth: .0500000007
+  m_EndWidth: .0250000004
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
@@ -126,20 +126,29 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
-  mColor: {r: 0, g: 1, b: 0, a: 1}
+  updateAnchors: 1
+  mColor: {r: .392156869, g: .670588255, b: .0705882385, a: 1}
   mPivot: 4
   mWidth: 50
   mHeight: 50
   mDepth: 6
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 1
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: bombdrop
-  mFillCenter: 1
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
+  mFlip: 0
+  mFillCenter: 1
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
