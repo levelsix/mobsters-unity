@@ -27,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.08253622, y: 1.4578867, z: 0}
+  m_LocalPosition: {x: 0, y: .277847439, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,7 +107,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 3
     startSpeed:
-      scalar: .25
+      scalar: .400000006
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -122,7 +122,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .400000006
+          value: .625
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -221,10 +221,10 @@ ParticleSystem:
         rgba: 4294913024
       maxColor:
         serializedVersion: 2
-        rgba: 1678976209
+        rgba: 855638015
       minMaxState: 0
     startSize:
-      scalar: .075000003
+      scalar: .0399999991
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -239,7 +239,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .333333313
+          value: .5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -331,7 +331,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    cnt0: 20
+    cnt0: 15
     cnt1: 30
     cnt2: 30
     cnt3: 30
@@ -376,9 +376,9 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 1
   RotationModule:
-    enabled: 1
+    enabled: 0
     curve:
-      scalar: 17.4358387
+      scalar: 174.515472
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -874,9 +874,9 @@ ParticleSystem:
       minMaxState: 1
     range: {x: 0, y: 1}
   RotationBySpeedModule:
-    enabled: 0
+    enabled: 1
     curve:
-      scalar: .785398126
+      scalar: 17.4358387
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -908,7 +908,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    range: {x: 0, y: 1}
+    range: {x: 0, y: .0199999996}
   ColorBySpeedModule:
     enabled: 0
     gradient:

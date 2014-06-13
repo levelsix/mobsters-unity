@@ -207,9 +207,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	{
 		ParticleSystem sys = (MSPoolManager.instance.Get(MSPrefabList.instance.sparkleParticle, trans.position) as MonoBehaviour).particleSystem;
 		Color newStartColor = MSValues.Colors.gemColors [colorIndex];
-		Debug.Log (newStartColor);
-
-		//newStartColor.a = sys.startColor.a;
+		newStartColor.a = sys.startColor.a;
 		sys.startColor = newStartColor;
 	}
 
