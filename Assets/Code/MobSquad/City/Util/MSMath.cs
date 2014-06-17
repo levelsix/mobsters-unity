@@ -189,5 +189,30 @@ public static class MSMath {
 	{
 		return (((int)(color.r * 255) << 16) | ((int)(color.g * 255) << 8) | ((int)(color.b * 255)));
 	}
+	
+	public static int DamageAtLevel(int baseDamage, int level, float exponent)
+	{
+		return Mathf.FloorToInt(baseDamage * Mathf.Pow(exponent, level-1));
+	}
+	
+	public static int AttackAtLevel(MonsterProto monster, int level)
+	{
+		return DamageAtLevel(monster.lvlInfo[0].fireDmg, level, monster.lvlInfo[0].dmgExponentBase)
+			+ DamageAtLevel(monster.lvlInfo[0].grassDmg, level, monster.lvlInfo[0].dmgExponentBase)
+				+ DamageAtLevel(monster.lvlInfo[0].waterDmg, level, monster.lvlInfo[0].dmgExponentBase)
+				+ DamageAtLevel(monster.lvlInfo[0].lightningDmg, level, monster.lvlInfo[0].dmgExponentBase)
+				+ DamageAtLevel(monster.lvlInfo[0].darknessDmg, level, monster.lvlInfo[0].dmgExponentBase)
+				+ DamageAtLevel(monster.lvlInfo[0].rockDmg, level, monster.lvlInfo[0].dmgExponentBase);
+	}
+	
+	public static int MaxHPAtLevel(MonsterProto monster, int level)
+	{
+		if (monster.lvlInfo.Count == 0)
+		{
+			return 1;
+		}
+		
+		return Mathf.FloorToInt(monster.lvlInfo[0].hp * Mathf.Pow(monster.lvlInfo[0].hpExponentBase, level-1));
+	}
 
 }

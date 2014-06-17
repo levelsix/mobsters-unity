@@ -27,4 +27,15 @@ public static class MSColors {
 		{Quality.NO_QUALITY, Color.black},
 		{Quality.EVO, Color.gray}
 	};
+	
+	public static readonly Dictionary<Element, Color> elementColors = new Dictionary<Element, Color>()
+	{
+		{Element.DARK, Color.magenta},
+		{Element.EARTH, Color.green},
+		{Element.FIRE, Color.red},
+		{Element.LIGHT, Color.yellow},
+		{Element.WATER, Color.blue},
+		{Element.ROCK, Color.grey},
+		{Element.NO_ELEMENT, Color.black}
+	};
 }

@@ -6,8 +6,7 @@ public class MSTab : MonoBehaviour {
 	[SerializeField]
 	protected UIButton button;
 
-	[SerializeField]
-	protected UILabel label;
+	public UILabel label;
 
 	[SerializeField]
 	protected UISprite icon;
