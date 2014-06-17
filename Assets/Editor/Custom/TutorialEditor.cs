@@ -20,7 +20,7 @@ public class TutorialEditor : Editor
 	{
 		MSTutorialManager tutMan = target as MSTutorialManager;
 
-		if (tutMan.currentTutorial != null)
+		if (tutMan.inTutorial)
 		{
 			EditorGUILayout.LabelField("In tutorial!");
 			EditorGUILayout.LabelField(tutMan.currentTutorial.name);
@@ -34,6 +34,8 @@ public class TutorialEditor : Editor
 			tutMan.TutorialUI.leftDialogue = EditorGUILayout.ObjectField("Left Dialogue", tutMan.TutorialUI.leftDialogue, typeof(MSDialogueUI), true) as MSDialogueUI;
 			tutMan.TutorialUI.puzzleDialogue = EditorGUILayout.ObjectField("Puzzle Mobster Clickbox", tutMan.TutorialUI.puzzleDialogue, typeof(MSDialogueUI),true) as MSDialogueUI;
 		}
+
+		EditTutorial(tutMan.tutorialData.beginningTutorial);
 
 		EditTutorial(tutMan.tutorialData.basicPuzzleTutorial);
 		EditTutorial(tutMan.tutorialData.powerupPuzzleTutorial);
@@ -193,6 +195,7 @@ public class TutorialEditor : Editor
 			break;
 		case StepType.MOVE_CAMERA:
 			step.position = EditorGUILayout.Vector3Field("Cam Pos", step.position);
+			step.time = EditorGUILayout.FloatField("Time", step.time);
 			break;
 		case StepType.MOVE_MOBSTERS:
 			int numUnits = EditorGUILayout.IntField("Units", step.paths.Count);
@@ -223,6 +226,13 @@ public class TutorialEditor : Editor
 				}
 			}
 
+			break;
+		case StepType.GO_TO_CITY:
+			step.home = EditorGUILayout.Toggle("Home City", step.home);
+			if (!step.home)
+			{
+				step.id = EditorGUILayout.IntField("City ID", step.id);
+			}
 			break;
 		default:
 			break;

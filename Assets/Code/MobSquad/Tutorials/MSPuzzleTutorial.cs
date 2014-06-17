@@ -42,6 +42,10 @@ public class MSPuzzleTutorial : MSTutorial
 		MSActionManager.Scene.OnCity += OnCity;
 
 		//Cycle through the steps
+		if (steps == null)
+		{
+			steps = new MSTutorialStep[0];
+		}
 		foreach (var item in steps) 
 		{
 			yield return MSTutorialManager.instance.StartCoroutine(RunStep(item));

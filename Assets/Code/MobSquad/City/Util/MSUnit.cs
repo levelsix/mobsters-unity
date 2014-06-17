@@ -35,7 +35,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 			}
 			else
 			{
-				sprite.color = new Color(1,1,1,0);
+				sprite.color = new Color(1,1,1,1);
 			}
 
 			SetAnimation(AnimationType.IDLE);

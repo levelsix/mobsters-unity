@@ -14,6 +14,14 @@ public class MSTutorialManager : MonoBehaviour
 
 	public MSTutorial currentTutorial = null;
 
+	public bool inTutorial
+	{
+		get
+		{
+			return currentTutorial != null && currentTutorial.steps.Length > 0;
+		}
+	}
+
 	public TutorialData tutorialData;
 
 	public TutorialUI TutorialUI;
@@ -76,6 +84,12 @@ public class MSTutorialManager : MonoBehaviour
 		MSActionManager.UI.OnDialogueClicked();
 	}
 
+	[ContextMenu ("Start First Tutorial")]
+	public void StartBeginningTutorial()
+	{
+		StartCoroutine(tutorialData.beginningTutorial.Run());
+	}
+
 	#endregion
 }
 
@@ -88,6 +102,7 @@ public class TutorialData
 	public MSPuzzleTutorial combinePuzzleTutorial;
 	public MSPuzzleTutorial collectPuzzleTutorial;
 	public MSPuzzleTutorial superEffectiveTutorial;
+	public MSTutorial beginningTutorial;
 }
 
 [Serializable]

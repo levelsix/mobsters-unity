@@ -28,6 +28,12 @@ public class MSTutorialStep
 	public List<UnitPath> paths = new List<UnitPath>();
 
 	public Vector3 position;
+
+	public float time;
+
+	public int id;
+
+	public bool home = true;
 }
 
 public enum StepType {
@@ -42,7 +48,8 @@ public enum StepType {
 	SPECIAL_MAKE_SPACE_ON_TEAM,
 	MOVE_CAMERA,
 	SPAWN_UNIT,
-	WAIT_TIME
+	WAIT_TIME,
+	GO_TO_CITY
 };
 
 public enum DialogueType {LEFT, RIGHT, PUZZLE};

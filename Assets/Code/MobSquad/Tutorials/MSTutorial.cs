@@ -8,12 +8,12 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// Tutorial
 /// </summary>
-[System.Serializable]
+[Serializable]
 public class MSTutorial {
 
-	public string name = "Tutorial";
+	public string name;
 
-	public MSTutorialStep[] steps = new MSTutorialStep[0];
+	public MSTutorialStep[] steps;
 
 	protected bool clicked = false;
 
@@ -69,6 +69,23 @@ public class MSTutorial {
 				MSActionManager.Tutorial.OnTutorialContinue();
 			}
 			break;
+		case StepType.MOVE_CAMERA:
+			yield return MSTutorialManager.instance.StartCoroutine(MSTownCamera.instance.SlideToCameraPosition(step.position, step.time));
+			break;
+		case StepType.GO_TO_CITY:
+			if (step.home)
+			{
+				MSWhiteboard.currCityType = MSWhiteboard.CityType.PLAYER;
+				MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
+				yield return MSTutorialManager.instance.StartCoroutine(MSBuildingManager.instance.LoadPlayerCity());
+			}
+			else
+			{
+				MSWhiteboard.currCityType = MSWhiteboard.CityType.NEUTRAL;
+				MSWhiteboard.cityID = step.id;
+				yield return MSTutorialManager.instance.StartCoroutine(MSBuildingManager.instance.LoadNeutralCity(step.id));
+			}
+			break;
 		default:
 			break;
 		}
@@ -78,7 +95,7 @@ public class MSTutorial {
 	{
 		foreach (var item in steps) 
 		{
-			yield return UMQNetworkManager.instance.StartCoroutine(RunStep(item));
+			yield return MSTutorialManager.instance.StartCoroutine(RunStep(item));
 		}
 	}
 

@@ -498,7 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bfdfe5628ff74dc9be28b8a24050950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useParent: 0
+  useParent: 1
   xLimit: 740
   width: 0
   parentOffset: 0
@@ -550,10 +550,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0763a448f4fac4c84adf0970fadafa8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 0}
-  scaleDist: 100
-  minScale: .699999988
-  minAlpha: .699999988
+  root: {fileID: 11400004}
+  scaleDist: 350
+  minScale: .660000026
+  minAlpha: .5
   panelCenter: 0
 --- !u!114 &11400008
 MonoBehaviour:

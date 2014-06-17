@@ -217,12 +217,12 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		ClampCamera();
 	}
 
-	void SlideToPos(Vector3 localPos, float time)
+	public void SlideToPos(Vector3 localPos, float time)
 	{
 		StartCoroutine(SlideToCameraPosition(localPos, time));
 	}
 
-	IEnumerator SlideToCameraPosition(Vector3 localPos, float time = 0)
+	public IEnumerator SlideToCameraPosition(Vector3 localPos, float time = 0)
 	{
 		controllable = false;
 		if (time == 0)
