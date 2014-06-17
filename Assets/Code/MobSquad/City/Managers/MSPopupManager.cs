@@ -18,21 +18,23 @@ public class MSPopupManager : MonoBehaviour {
 		public MSHirePopup hirePopup;
 		public MSChatPopup chatPopup;
 		public MSQuestLog questPopup;
+		public MSGenericPopup cityGeneric;
+		public MSGenericPopup puzzleGeneric;
 	}
 
 	public Popups popups;
-
-	/// <summary>
-	/// The popup
-	/// </summary>
-	[SerializeField]
-	MSGenericPopup popup;
 	
-	[SerializeField]
-	Transform townPopupParent;
-
-	[SerializeField]
-	Transform puzzlePopupParent;
+	MSGenericPopup popup
+	{
+		get
+		{
+			if (MSWhiteboard.currSceneType == MSWhiteboard.SceneType.CITY)
+			{
+				return popups.cityGeneric;
+			}
+			return popups.puzzleGeneric;
+		}
+	}
 	
 	/// <summary>
 	/// The stack of current popup menus.
@@ -106,30 +108,6 @@ public class MSPopupManager : MonoBehaviour {
 	
 	void InitPopup (MSGenericPopup pop)
 	{
-		Transform popT = pop.transform;
-
-		if (MSSceneManager.instance.cityState)
-		{
-			popT.parent = townPopupParent;
-			popT.gameObject.layer = townPopupParent.gameObject.layer;
-			foreach (var item in popT.GetComponentsInChildren<Transform>()) 
-			{
-				item.gameObject.layer = townPopupParent.gameObject.layer;
-			}
-		}	
-		else
-		{
-			popT.parent = puzzlePopupParent;
-			popT.gameObject.layer = puzzlePopupParent.gameObject.layer;
-			foreach (var item in popT.GetComponentsInChildren<Transform>()) 
-			{
-				item.gameObject.layer = puzzlePopupParent.gameObject.layer;
-			}
-		}
-
-		popT.localScale = Vector3.one;
-		popT.localPosition = Vector3.zero;
-		
 		OnPopup(pop.GetComponent<MSPopup>());
 	}
 

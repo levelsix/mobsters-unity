@@ -20,9 +20,6 @@ public class MSGachaFeaturedMobster : MonoBehaviour {
 	UISprite rarityBg;
 	
 	[SerializeField]
-	UILabel rarityLabel;
-	
-	[SerializeField]
 	UISprite elementSprite;
 	
 	[SerializeField]
@@ -60,10 +57,8 @@ public class MSGachaFeaturedMobster : MonoBehaviour {
 			
 			mobsterName.text = monster.displayName;
 			
-			rarityBg.spriteName = monster.quality.ToString().ToLower() + "gtag";
+			rarityBg.spriteName = "battle" + monster.quality.ToString().ToLower() + "tag";
 			rarityBg.MakePixelPerfect();
-			
-			rarityLabel.text = monster.quality.ToString();
 			
 			elementSprite.spriteName = monster.monsterElement.ToString().ToLower() + "orb";
 			elementName.text = monster.monsterElement.ToString();
