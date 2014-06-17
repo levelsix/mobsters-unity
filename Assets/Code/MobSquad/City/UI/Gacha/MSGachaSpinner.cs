@@ -4,169 +4,187 @@ using System.Collections.Generic;
 using com.lvl6.proto;
 
 public class MSGachaSpinner : MonoBehaviour {
-
+	
 	[SerializeField]
 	List<MSGachaItem> items;
-
+	
 	[SerializeField]
-	float spinSpeed;
-
-	/// <summary>
-	/// The friction, applied as negative acceleration
-	/// </summary>
-	[SerializeField]
-	float friction;
-
+	float minSpinTime = 5;
+	
 	bool spinning = false;
-
+	
+	bool canStop = true;	
+	
 	[SerializeField]
 	float currSpeed;
-
+	
 	[SerializeField]
 	float timeToLand;
-
-	int lastPack = 0;
-
+	
 	[SerializeField]
 	MSGachaReveal reveal;
-
+	
+	BoosterPackProto boosterPack;
+	
+	[SerializeField]
+	UICenterOnChild spinnerCenter;
+	
+	[SerializeField]
+	SpringPanel spinnerSpring;
+	
 	public MSGachaItem lastToLoop = null;
-
+	
 	public void Init(BoosterPackProto pack)
 	{
+		boosterPack = pack;
+		
 		foreach (var item in items) 
 		{
 			item.Init(pack);
-			item.spinner = this;
 		}
 	}
-
-	void OnDrag(Vector2 delta)
+	
+	IEnumerator SpinTimes(int times)
 	{
-		//Debug.Log("Dragged!");
-		if (!spinning)
+		for (int i = 0; i < times; i++) 
 		{
-			delta.y = 0;
-			currSpeed = delta.x / Time.deltaTime;
+			yield return StartCoroutine(Spin());
 		}
+		
+		spinnerSpring.onFinished = delegate { MSActionManager.Popup.OnPopup(reveal.GetComponent<MSPopup>()); };
+		
 	}
-
-	void Update()
+	
+	public void SpinOnce()
 	{
-		if (Mathf.Abs(currSpeed) > 5)
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, boosterPack.gemPrice))
 		{
-			Move (currSpeed * Time.deltaTime);
-			currSpeed -= ((currSpeed>0) ? friction : -friction) * Time.deltaTime;
-
+			StartCoroutine(SpinTimes(1));
 		}
 	}
-
-	void Move(Vector2 dist)
+	
+	public void ThisGoesToEleven()
 	{
-		foreach (var item in items) 
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, boosterPack.gemPrice*10))
 		{
-			item.Drag (dist);
+			StartCoroutine(SpinOutOfControl(5));
 		}
 	}
-
-	void Move(float speed)
+	
+	public IEnumerator SpinOutOfControl(int rolls)
 	{
-		Vector2 drag = new Vector2(speed, 0);
-		Move (drag);
+		List<BoosterItemProto> prizes = new List<BoosterItemProto>();
+		
+		PurchaseBoosterPackRequestProto request = new PurchaseBoosterPackRequestProto();
+		for (int i = 0; i < rolls; i++)
+		{
+			request.sender = MSWhiteboard.localMup;
+			request.boosterPackId = boosterPack.boosterPackId;
+			request.clientTime = MSUtil.timeNowMillis;
+			
+			int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_BOOSTER_PACK_EVENT, null);
+			
+			spinnerSpring.enabled = true;
+			while (!UMQNetworkManager.responseDict.ContainsKey (tagNum))
+			{
+				spinnerSpring.target = spinnerSpring.transform.localPosition + new Vector3(1000, 0, 0);
+				spinnerSpring.strength = currSpeed;
+				yield return null;
+			}
+			
+			PurchaseBoosterPackResponseProto response = UMQNetworkManager.responseDict[tagNum] as PurchaseBoosterPackResponseProto;
+			UMQNetworkManager.responseDict.Remove(tagNum);
+			
+			if (response.status == PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus.SUCCESS)
+			{
+				MSMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
+				
+				prizes.Add(response.prize);
+				Debug.Log("Prize: " + response.prize.boosterItemId + ", " + response.prize.isComplete + ", " + response.prize.monsterId);
+			}
+			else
+			{
+				Debug.LogWarning("Purchase booster fail: " + response.status.ToString());
+			}
+		}
+		
+		float currTime = 0;
+		while (currTime < minSpinTime)
+		{
+			currTime += Time.deltaTime;
+			spinnerSpring.target = spinnerSpring.transform.localPosition + new Vector3(1000, 0, 0);
+			spinnerSpring.strength = currSpeed + 3 * currSpeed * currTime/minSpinTime;
+			yield return null;
+		}
+		
+		reveal.Init(prizes);
+		MSActionManager.Popup.OnPopup(reveal.GetComponent<MSPopup>());
 	}
-
-	public void Spin()
+	
+	public IEnumerator Spin()
 	{
-		StartCoroutine(Spin(lastPack));
-	}
-
-	public IEnumerator Spin(int packId)
-	{
-		lastPack = packId;
-
-		spinning = true;
-
+		
 		PurchaseBoosterPackRequestProto request = new PurchaseBoosterPackRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.boosterPackId = packId;
+		request.boosterPackId = boosterPack.boosterPackId;
 		request.clientTime = MSUtil.timeNowMillis;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_BOOSTER_PACK_EVENT, null);
 		
+		StartCoroutine(SpinForTime(minSpinTime));
+		
+		canStop = false;
+		
 		while (!UMQNetworkManager.responseDict.ContainsKey (tagNum))
 		{
-			currSpeed = spinSpeed;
 			yield return null;
 		}
 		
 		PurchaseBoosterPackResponseProto response = UMQNetworkManager.responseDict[tagNum] as PurchaseBoosterPackResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
+		canStop = true;
+		
+		while(spinning)
+		{
+			yield return null;
+		}
+		
 		if (response.status == PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus.SUCCESS)
 		{
 			MSMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
-
+			
 			reveal.Init(response.prize);
-			Debug.Log("Prize: " + response.prize.monsterId);
+			Debug.Log("Prize: " + response.prize.boosterItemId + ", " + response.prize.isComplete + ", " + response.prize.monsterId);
 		}
 		else
 		{
 			Debug.LogWarning("Purchase booster fail: " + response.status.ToString());
 		}
-
-		//Now finish the spinning
-		while(currSpeed > 300)
-		{
-			yield return null;
-		}
-
-		currSpeed = 0;
-
+		
 		MSGachaItem theOne = lastToLoop;
-
-		theOne.label.text = "THIS ONE";
-
-		float startX = lastToLoop.trans.localPosition.x;
+		
+		theOne.Setup(response.prize);
+		
+		spinnerCenter.CenterOn(theOne.transform);
+		
+		//spinnerSpring.strength = currSpeed;
+		//theOne.label.text = "THE ONE";
+	}
+	
+	IEnumerator SpinForTime(float seconds)
+	{
+		spinning = true;
 		float currTime = 0;
-		float lerp;
-		float posToBe;
-		float posAt;
-		while (currTime < timeToLand)
+		spinnerSpring.enabled = true;
+		while (currTime < seconds || !canStop)
 		{
+			//Debug.Log("Spinning...");
 			currTime += Time.deltaTime;
-
-			lerp = (currTime/timeToLand - 1);
-			lerp *= lerp;
-
-			posToBe = lerp * startX;
-			posAt = theOne.trans.localPosition.x;
-
-			//Debug.Log("Moving from " + posAt + " to " + posToBe);
-
-			Move (posToBe - posAt);
-
+			spinnerSpring.target = spinnerSpring.transform.localPosition + new Vector3(1000, 0, 0);
+			spinnerSpring.strength = currSpeed;
 			yield return null;
-
 		}
-
-		MSActionManager.Popup.OnPopup(reveal.GetComponent<MSPopup>());
-
 		spinning = false;
 	}
-
-	[ContextMenu ("Organize")]
-	void Oragnize()
-	{
-		for(int i = 0; i < items.Count; i++)
-		{
-			items[i].transform.localPosition = new Vector3(i * 140, items[i].transform.localPosition.y);
-		}
-	}
-
-	[ContextMenu ("SetSpeed")]
-	void SetSpeed()
-	{
-		currSpeed = spinSpeed;
-	}
-
 }
