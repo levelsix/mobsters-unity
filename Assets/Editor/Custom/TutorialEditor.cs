@@ -191,6 +191,39 @@ public class TutorialEditor : Editor
 		case StepType.UI:
 			step.ui = EditorGUILayout.ObjectField("Object", step.ui, typeof(GameObject), true) as GameObject;
 			break;
+		case StepType.MOVE_CAMERA:
+			step.position = EditorGUILayout.Vector3Field("Cam Pos", step.position);
+			break;
+		case StepType.MOVE_MOBSTERS:
+			int numUnits = EditorGUILayout.IntField("Units", step.paths.Count);
+			while (step.paths.Count < numUnits) 
+			{
+				step.paths.Add(new UnitPath());
+			}
+			while (step.paths.Count > numUnits)
+			{
+				step.paths.RemoveAt(step.paths.Count-1);
+			}
+
+			foreach (UnitPath path in step.paths) 
+			{
+				path.unit = EditorGUILayout.ObjectField("Unit", path.unit, typeof(MSCityUnit), true) as MSCityUnit;
+				int spaces = EditorGUILayout.IntField("Spaces", path.path.Count);
+				while (path.path.Count < spaces)
+				{
+					path.path.Add(new Vector2());
+				}
+				while (path.path.Count > spaces)
+				{
+					path.path.RemoveAt(path.path.Count-1);
+				}
+				for (int i = 0; i < path.path.Count; i++) 
+				{
+					path.path[i] = EditorGUILayout.Vector2Field("Space " + i, path.path[i]);
+				}
+			}
+
+			break;
 		default:
 			break;
 		}

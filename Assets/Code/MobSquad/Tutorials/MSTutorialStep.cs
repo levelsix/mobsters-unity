@@ -25,7 +25,9 @@ public class MSTutorialStep
 
 	public GameObject ui;
 
-	public UnitPath[] paths = new UnitPath[1];
+	public List<UnitPath> paths = new List<UnitPath>();
+
+	public Vector3 position;
 }
 
 public enum StepType {
@@ -50,5 +52,5 @@ public class UnitPath
 {
 	public MSCityUnit unit;
 
-	public Vector2[] path;
+	public List<Vector2> path = new List<Vector2>();
 }

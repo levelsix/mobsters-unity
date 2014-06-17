@@ -963,6 +963,7 @@ public class PZCombatManager : MonoBehaviour {
 		Transform plane = (MSPoolManager.instance.Get(MSPrefabList.instance.planePrefab, Vector3.zero) as MonoBehaviour).transform;
 		plane.parent = combatParent;
 		plane.localPosition = activePlayer.startingPos;
+		plane.localScale = Vector3.one;
 
 		for (int i = 0; i < NUM_BOMBS; i++) 
 		{
@@ -975,6 +976,7 @@ public class PZCombatManager : MonoBehaviour {
 		Transform bomb = (MSPoolManager.instance.Get(MSPrefabList.instance.bombPrefab, Vector3.zero) as MonoBehaviour).transform;
 		bomb.parent = combatParent;
 		bomb.localPosition = new Vector3(x, Screen.height/2 + BOMB_SPACING);
+		bomb.localScale = Vector3.one;
 		bomb.GetComponent<PZBomb>().targetHeight = activeEnemy.unit.transf.localPosition.y + 
 			(background.direction.y / background.direction.x) * (x - activeEnemy.unit.transf.localPosition.x);
 	}
