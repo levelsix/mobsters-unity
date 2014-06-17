@@ -69,6 +69,8 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	public float maxX;
 
 	[SerializeField] UILabel debug;
+
+	bool controllable = true;
 	
 	/// <summary>
 	/// Awake this instance.
@@ -98,6 +100,7 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	{
 		MSActionManager.Controls.OnPinch += Zoom;
 		MSActionManager.Scene.OnCity += Reset;
+		controllable = true;
 	}
 	
 	/// <summary>
@@ -118,13 +121,10 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	/// </param>
 	virtual public void MoveRelative(TCKTouchData touch)
 	{
-
 		velocity = touch.delta;
 
 		debug.text = touch.delta.ToString();
 	}
-
-
 
 	void SetBounds ()
 	{
@@ -134,9 +134,8 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	
 	public void ClampCamera()
 	{
-		
-		trans.localPosition = new Vector3(Mathf.Clamp(trans.localPosition.x, -maxX, maxX),
-			Mathf.Clamp (trans.localPosition.y, -maxY, maxY), trans.localPosition.z);
+		trans.localPosition = new Vector3(Mathf.Clamp(trans.localPosition.x, -maxX, maxX),                       
+             Mathf.Clamp (trans.localPosition.y, -maxY, maxY), trans.localPosition.z);
 	}
 	
 	/// <summary>
@@ -171,18 +170,9 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 
 	void Reset()
 	{
-		//Debug.Log("Camera reset: " + MSWhiteboard.currCityType.ToString());
-		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL)
-		{
-			trans.parent.localPosition = new Vector3(0, CAMERA_BASE_MISSION_Y);
-		}
-		else
-		{
-			trans.parent.localPosition = new Vector3(0, CAMERA_BASE_HOME_Y);
-		}
+		trans.localPosition = Vector3.zero;
 		cam.orthographicSize = 8;
 		cam.aspect = ((float)Screen.width)/Screen.height;
-		trans.localPosition = Vector3.zero;
 		SetBounds();
 	}
 
@@ -226,5 +216,31 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		trans.localPosition += movement;
 		ClampCamera();
 	}
-	
+
+	void SlideToPos(Vector3 localPos, float time)
+	{
+		StartCoroutine(SlideToCameraPosition(localPos, time));
+	}
+
+	IEnumerator SlideToCameraPosition(Vector3 localPos, float time = 0)
+	{
+		controllable = false;
+		if (time == 0)
+		{
+			trans.localPosition = localPos;
+		}
+		else
+		{
+			float currTime = 0;
+			Vector3 startPos = trans.localPosition;
+			while (currTime < time)
+			{
+				currTime += Time.deltaTime;
+				trans.localPosition = Vector3.Lerp(startPos, localPos, currTime/time);
+				yield return null;
+			}
+		}
+		controllable = true;
+
+	}
 }
