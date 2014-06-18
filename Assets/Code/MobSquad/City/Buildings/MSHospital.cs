@@ -47,6 +47,19 @@ public class MSHospital {
 		}
 	}
 
+	public MSHospital()
+	{
+
+	}
+
+	public MSHospital(MSHospital hospital)
+	{
+		this.building = hospital.building;
+		this.proto = hospital.proto;
+		this.userBuildingData = hospital.userBuildingData;
+		this.completeTime = 0;
+	}
+
 	public void InitFromBuilding(MSBuilding building)
 	{
 		this.building = building;
