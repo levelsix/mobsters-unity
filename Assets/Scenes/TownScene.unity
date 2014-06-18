@@ -52990,7 +52990,7 @@ Prefab:
       objectReference: {fileID: 312760197}
     - target: {fileID: 11400052, guid: 67b656b5b43104eeaa77e2549df87c1c, type: 2}
       propertyPath: aspectRatio
-      value: 1.33281255
+      value: 1.70624995
       objectReference: {fileID: 0}
     - target: {fileID: 400048, guid: 67b656b5b43104eeaa77e2549df87c1c, type: 2}
       propertyPath: m_LocalPosition.x
@@ -53155,6 +53155,10 @@ Prefab:
     - target: {fileID: 100056, guid: 67b656b5b43104eeaa77e2549df87c1c, type: 2}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400052, guid: 67b656b5b43104eeaa77e2549df87c1c, type: 2}
+      propertyPath: mWidth
+      value: 1092
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 67b656b5b43104eeaa77e2549df87c1c, type: 2}
@@ -55118,7 +55122,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 6
+  mWidth: 7
   mHeight: 28
   mDepth: 8
   autoResizeBoxCollider: 0
@@ -79159,7 +79163,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 44
+  mWidth: 45
   mHeight: 28
   mDepth: 6
   autoResizeBoxCollider: 0
@@ -114563,7 +114567,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.33281255
+  aspectRatio: 1.70624995
   mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
   mSpriteName: blackcolormask
   mType: 1

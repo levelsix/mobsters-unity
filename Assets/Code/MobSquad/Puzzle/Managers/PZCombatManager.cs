@@ -183,6 +183,8 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	PZMonsterIntro intro;
 
+	int revives = 0;
+
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
 	/// </summary>
@@ -228,6 +230,8 @@ public class PZCombatManager : MonoBehaviour {
 		battleStats.rockets = 0;
 		battleStats.damageTaken = 0;
 		battleStats.monstersDefeated = 0;
+
+		revives = 0;
 	}
 
 	void PreInit()
@@ -262,7 +266,7 @@ public class PZCombatManager : MonoBehaviour {
 		
 		foreach (PZMonster monster in MSMonsterManager.instance.userTeam)
 		{
-			if (monster != null && monster.monster != null && monster.monster.monsterId > 0 && monster.currHP > 0)
+			if (monster != null && monster.monster != null && monster.monster.monsterId > 0)
 			{
 				playerGoonies.Add(monster);
 			}
@@ -282,7 +286,7 @@ public class PZCombatManager : MonoBehaviour {
 		pvpMode = false;
 		raidMode = false;
 
-		activePlayer.Init(playerGoonies[0]);
+		activePlayer.Init(playerGoonies.Find(x=>x.currHP>0));
 
 		waiting = true;
 		StartCoroutine(ScrollToNextEnemy());
@@ -326,7 +330,7 @@ public class PZCombatManager : MonoBehaviour {
 		pvpMode = true;
 		raidMode = false;
 
-		activePlayer.Init(playerGoonies[0]);
+		activePlayer.Init(playerGoonies.Find(x=>x.currHP>0));
 		activePlayer.GoToStartPos();
 
 		nextPvpDefenderIndex = 0;
@@ -1255,6 +1259,45 @@ public class PZCombatManager : MonoBehaviour {
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
 		nextPvpDefenderIndex = 0;
+	}
+
+	void ReviveWithGems()
+	{
+		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis);
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, 
+		                                     gemsToSpend,
+		                                     ReviveWithGems))
+		{
+			ReviveInDungeonRequestProto request = new ReviveInDungeonRequestProto();
+			request.sender = MSWhiteboard.localMup;
+			request.userTaskId = MSWhiteboard.loadedDungeon.userTaskId;
+			request.clientTime = MSUtil.timeNowMillis;
+
+			foreach (var item in playerGoonies) 
+			{
+				item.currHP = item.maxHP;
+				request.reviveMe.Add(item.GetCurrentHealthProto());
+			}
+
+			request.gemsSpent = gemsToSpend;
+
+			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REVIVE_IN_DUNGEON_EVENT, DealWithReviveResponse);
+		}
+	}
+
+	void DealWithReviveResponse(int tagNum)
+	{
+		ReviveInDungeonResponseProto response = UMQNetworkManager.responseDict[tagNum] as ReviveInDungeonResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status == ReviveInDungeonResponseProto.ReviveInDungeonStatus.SUCCESS)
+		{
+			OnDeploy(playerGoonies[0]);
+		}
+		else
+		{
+			Debug.LogError("Problem reviving in Dungeon: " + response.status.ToString());
+		}
 	}
 
 	void OnTutorialContinue()
