@@ -13,7 +13,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 	/// <summary>
 	/// The unit component
-               	/// </summary>
+	/// </summary>
 	public MSUnit unit;
 	
 	/// <summary>
@@ -61,6 +61,9 @@ public class PZCombatUnit : MonoBehaviour {
 	const float INFO_DISPLAY_TIME = 3f;
 
 	float currTotalTime = 0f;
+
+	[SerializeField]
+	UISprite forfeitSprite;
 
 	[ContextMenu("SetStartPos")]
 	void SetStartingPos()
@@ -322,6 +325,44 @@ public class PZCombatUnit : MonoBehaviour {
 	public IEnumerator Retreat(Vector3 direction, float speed)
 	{
 		yield return StartCoroutine(AdvanceTo(startingPos.x, direction, speed));
+	}
+
+	public IEnumerator Forfeit(bool successfulForfeit)
+	{
+		forfeitSprite.transform.localPosition = Vector3.zero;
+
+		Transform oldParent = forfeitSprite.transform.parent;
+		forfeitSprite.transform.parent = transform.parent;
+		if (successfulForfeit) {
+			forfeitSprite.spriteName = "runawaysuccess";
+			forfeitSprite.MakePixelPerfect();
+		} else {
+			forfeitSprite.spriteName = "runawayfailure";
+			forfeitSprite.MakePixelPerfect();
+		}
+
+		TweenAlpha alpha = forfeitSprite.GetComponent<TweenAlpha> ();
+		TweenScale scale = forfeitSprite.GetComponent<TweenScale> ();
+
+		alpha.ResetToBeginning ();
+		alpha.PlayForward ();
+		scale.ResetToBeginning ();
+		scale.PlayForward ();
+
+		Vector3 start = forfeitSprite.transform.localPosition;
+
+		float currTime = 0f;
+		while (currTime < alpha.duration) {
+			forfeitSprite.transform.localPosition = new Vector3(start.x, start.y + (200f * (currTime/alpha.duration)), start.z);
+			currTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+
+		//TweenPosition.Begin (forfeitSprite.gameObject, alpha.duration, new Vector3 (start.x + 0f, start.y + 200.0f, start.z + 0f));
+
+		yield return new WaitForSeconds (alpha.duration);
+
+		forfeitSprite.transform.parent = oldParent;
 	}
 
 	void RunDamageLabel(int damage)

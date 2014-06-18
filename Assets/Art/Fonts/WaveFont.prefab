@@ -27,6 +27,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -41,10 +42,10 @@ MonoBehaviour:
   mMat: {fileID: 2100000, guid: bb049513545f0432f9302ec4ca36dc58, type: 2}
   mUVRect:
     serializedVersion: 2
-    x: .430664062
-    y: .670898438
+    x: 0
+    y: .591308594
     width: .125
-    height: .25
+    height: .125
   mFont:
     mSize: 71
     mBase: 55
@@ -272,16 +273,12 @@ MonoBehaviour:
       advance: 12
       channel: 0
       kerning: 
-  mSpacingX: 0
-  mSpacingY: 0
   mAtlas: {fileID: 11400000, guid: cbd01d50678ae4a16911bd5aec07038d, type: 2}
   mReplacement: {fileID: 0}
-  mPixelSize: 1
   mSymbols: []
   mDynamicFont: {fileID: 0}
   mDynamicFontSize: 16
   mDynamicFontStyle: 0
-  mDynamicFontOffset: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

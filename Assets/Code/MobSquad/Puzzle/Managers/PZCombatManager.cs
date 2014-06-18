@@ -590,6 +590,18 @@ public class PZCombatManager : MonoBehaviour {
 		ActivateLoseMenu ();
 	}
 
+	public IEnumerator OnPlayerForfeit(){
+		bool forfeitSuccess = true;
+		StartCoroutine(activePlayer.Forfeit (forfeitSuccess));
+
+		if (forfeitSuccess) {
+			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
+			ActivateLoseMenu();
+		} else {
+
+		}
+	}
+
 	public void ActivateLoseMenu(){
 		winLosePopup.gameObject.SetActive(true);
 		winLosePopup.tweener.ResetToBeginning();
