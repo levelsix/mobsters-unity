@@ -90,8 +90,7 @@ public class PZCrate : MonoBehaviour {
 			trans.position = Vector3.zero;
 		}
 
-		sprite.transform.localScale = new Vector3 (80f, 80f, 0f);
-
+		transform.localScale = Vector3.one;
 
 		bounceTween.ResetToBeginning ();
 		bounceTween.PlayForward ();

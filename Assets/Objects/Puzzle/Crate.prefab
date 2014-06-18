@@ -76,7 +76,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15811.3203, y: -11080.9473, z: 0}
+  m_LocalPosition: {x: -2938.87378, y: -2059.63208, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
@@ -90,7 +90,7 @@ Transform:
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 80, y: 80, z: 1}
+  m_LocalScale: {x: .100000001, y: .100000001, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
   m_RootOrder: 0
@@ -385,8 +385,8 @@ MonoBehaviour:
   onFinished: []
   eventReceiver: {fileID: 0}
   callWhenFinished: 
-  from: {x: 80, y: 80, z: 1}
-  to: {x: 10, y: 10, z: 1}
+  from: {x: .100000001, y: .100000001, z: 1}
+  to: {x: .0199999996, y: .0199999996, z: 1}
   updateTable: 0
 --- !u!212 &21200000
 SpriteRenderer:

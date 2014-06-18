@@ -22,6 +22,8 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 	[SerializeField] MSBuilding building;
 
+	float newTime = 0;
+
 	bool isConstructing
 	{
 		get
@@ -64,10 +66,6 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			label.text = building.upgrade.timeLeftString;
 			bar.fill = building.upgrade.progress;
 		}
-		else if(bar.fill < 1f && bg.alpha > 0f)
-		{
-			StartCoroutine(LerpBarToEnd());
-		}
 		else if (building.obstacle != null && building.obstacle.isRemoving)
 		{
 			foreach (var item in caps) 
@@ -91,8 +89,26 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			label.text = MSUtil.TimeStringShort(building.hospital.goon.healTimeLeftMillis);
 			bar.fill = building.hospital.goon.healProgressPercentage;
 		}
+		else if(bar.fill < 1f && bg.alpha > 0f)
+		{
+			if(newTime == 0){
+				newTime = building.upgrade.timeRemaining;
+			}
+
+			building.hoverIcon.gameObject.SetActive(false);
+			
+			bar.fill = bar.fill + 1f * Time.deltaTime;
+			
+			label.text = MSUtil.TimeStringShort((long)(newTime * (1f - bar.fill)));
+			if(bar.fill >= 1f)
+			{
+				bar.fill = 1f;
+			}
+		}
 		else if(bar.fill >= 1f && upgrading)
 		{
+			newTime = 0;
+
 			upgrading = false;
 
 			bg.alpha = 0;
@@ -101,23 +117,6 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			{
 				building.upgrade.OnFinishUpgrade();
 			}
-		}
-	}
-	
-	IEnumerator LerpBarToEnd(){
-		long newTime = building.upgrade.timeRemaining;
-		while(bar.fill < 1f)
-		{
-			building.hoverIcon.gameObject.SetActive(false);
-			
-			bar.fill = bar.fill + 0.01f * Time.deltaTime;
-			
-			label.text = MSUtil.TimeStringShort((long)(newTime * (1f - bar.fill)));
-			if(bar.fill >= 1f)
-			{
-				bar.fill = 1f;
-			}
-			yield return null;
 		}
 	}
 }
