@@ -215,4 +215,29 @@ public static class MSMath {
 		return Mathf.FloorToInt(monster.lvlInfo[0].hp * Mathf.Pow(monster.lvlInfo[0].hpExponentBase, level-1));
 	}
 
+	/// <summary>
+	/// Ray cast from the specified camera and point in screen space
+	/// </summary>
+	/// <returns>Collider hit by cast.</returns>
+	/// <param name="point">Point in screen space to cast from.</param>
+	/// <param name="camera">Camera we're casting from.</param>
+	public static Collider ClickRayCast(Vector2 point, Camera camera){
+		if (camera != null)
+		{
+			//Cast a ray using the mouse position
+			Ray ray = camera.ScreenPointToRay(point);
+			RaycastHit hit;
+			if (Physics.Raycast(ray, out hit))
+			{
+				//If our ray hits, select that object
+				return hit.collider;
+			}
+			else
+			{
+				return null;
+			}
+		}
+		return null;
+	}
+
 }

@@ -310,8 +310,13 @@ public class TCKControlManager : MonoBehaviour
 	/// </param>
 	private void ProcessRelease(TCKTouchData touch)
 	{
-		if (touch.ui) //Ignore UI clicks
+		if (touch.ui)
 		{
+			//Only any tap is called when a ui is tapped
+			if (MSActionManager.Controls.OnAnyTap[touch.countIndex] != null)
+			{
+				MSActionManager.Controls.OnAnyTap[touch.countIndex](touch);
+			}
 			return;
 		}
 		if (touch.phase == TCKTouchData.Phase.TAP)
@@ -331,6 +336,13 @@ public class TCKControlManager : MonoBehaviour
 				{
 					MSActionManager.Controls.OnDoubleTap[touch.countIndex](touch);
 				}
+
+				//Any Tap (this includes taps on UI)
+				if (MSActionManager.Controls.OnAnyTap[touch.countIndex] != null)
+				{
+					MSActionManager.Controls.OnAnyTap[touch.countIndex](touch);
+				}
+
 				//Tap
 				else if (MSActionManager.Controls.OnTap[touch.countIndex] != null)
 				{

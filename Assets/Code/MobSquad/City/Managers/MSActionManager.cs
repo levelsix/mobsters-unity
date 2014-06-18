@@ -22,6 +22,7 @@ public static class MSActionManager
 		//All touch events are indexed using how many touches were involved in their action
 		//This way, listening to multi-touch events is done by listening to the index of touches-1
 		//Example, OnTap[0] fires on a 1-finger tap; OnDoubleTap[2] fires on a three-fingered double-tap
+		public static Action<TCKTouchData>[] OnAnyTap = new Action<TCKTouchData>[TCKControlManager.MAX_TOUCHES];
 		public static Action<TCKTouchData>[] OnTap = new Action<TCKTouchData>[TCKControlManager.MAX_TOUCHES];
 		public static Action<TCKTouchData>[] OnStartHold = new Action<TCKTouchData>[TCKControlManager.MAX_TOUCHES];
 		public static Action<TCKTouchData>[] OnKeepHold = new Action<TCKTouchData>[TCKControlManager.MAX_TOUCHES];
