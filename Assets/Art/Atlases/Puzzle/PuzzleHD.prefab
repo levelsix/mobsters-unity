@@ -42,7 +42,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: bb049513545f0432f9302ec4ca36dc58, type: 2}
   mSprites:
   - name: airplane
-    x: 409
+    x: 0
     y: 714
     width: 225
     height: 169
@@ -55,8 +55,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 6
   - name: allcocktail
-    x: 635
-    y: 818
+    x: 1490
+    y: 1220
     width: 62
     height: 65
     borderLeft: 0
@@ -68,8 +68,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: ballin
-    x: 376
-    y: 206
+    x: 402
+    y: 320
     width: 228
     height: 66
     borderLeft: 0
@@ -82,7 +82,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: blackandwhitebanner
     x: 0
-    y: 1368
+    y: 884
     width: 697
     height: 120
     borderLeft: 0
@@ -94,8 +94,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blackcolormask
-    x: 474
-    y: 287
+    x: 483
+    y: 468
     width: 200
     height: 22
     borderLeft: 5
@@ -108,7 +108,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: bomb
     x: 0
-    y: 3
+    y: 262
     width: 125
     height: 124
     borderLeft: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: canttouchthis
     x: 0
-    y: 273
+    y: 387
     width: 473
     height: 59
     borderLeft: 0
@@ -185,72 +185,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: cashfound
-    x: 806
-    y: 992
-    width: 110
-    height: 110
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: closebattle
-    x: 806
-    y: 375
-    width: 54
-    height: 54
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: collectioncapsule
-    x: 592
-    y: 52
-    width: 67
-    height: 70
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: combobg
-    x: 319
-    y: 612
-    width: 154
-    height: 98
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: commoncapsule
     x: 698
-    y: 878
-    width: 63
-    height: 64
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: commonfound
-    x: 806
     y: 770
     width: 110
     height: 110
@@ -262,9 +197,74 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: closebattle
+    x: 752
+    y: 215
+    width: 54
+    height: 54
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: collectioncapsule
+    x: 618
+    y: 166
+    width: 67
+    height: 70
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: combobg
+    x: 247
+    y: 288
+    width: 154
+    height: 98
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: commoncapsule
+    x: 1169
+    y: 1221
+    width: 63
+    height: 64
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: commonfound
+    x: 698
+    y: 992
+    width: 110
+    height: 110
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: commonpiece
-    x: 1967
-    y: 1305
+    x: 1098
+    y: 1223
     width: 70
     height: 62
     borderLeft: 0
@@ -276,8 +276,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: confirm
-    x: 1798
-    y: 1287
+    x: 510
+    y: 17
     width: 168
     height: 80
     borderLeft: 0
@@ -315,8 +315,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: detailhp
-    x: 1186
-    y: 1265
+    x: 483
+    y: 447
     width: 192
     height: 20
     borderLeft: 0
@@ -354,8 +354,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 328
   - name: earthbanner
-    x: 0
-    y: 1126
+    x: 698
+    y: 1368
     width: 697
     height: 120
     borderLeft: 0
@@ -367,8 +367,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthdailylab
-    x: 917
-    y: 715
+    x: 809
+    y: 419
     width: 111
     height: 99
     borderLeft: 0
@@ -380,8 +380,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: earthgrenade
-    x: 1557
-    y: 1225
+    x: 698
+    y: 575
     width: 60
     height: 60
     borderLeft: 0
@@ -393,8 +393,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthorb
-    x: 1801
-    y: 1219
+    x: 698
+    y: 203
     width: 53
     height: 66
     borderLeft: 0
@@ -406,8 +406,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthpointsfont
-    x: 1032
-    y: 1115
+    x: 809
+    y: 719
     width: 114
     height: 98
     borderLeft: 0
@@ -419,8 +419,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 28
   - name: earthsideways
-    x: 1855
-    y: 1219
+    x: 754
+    y: 703
     width: 53
     height: 66
     borderLeft: 0
@@ -432,8 +432,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthupdown
-    x: 1909
-    y: 1219
+    x: 754
+    y: 636
     width: 53
     height: 66
     borderLeft: 0
@@ -458,8 +458,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: epiccapsule
-    x: 1984
-    y: 1580
+    x: 1426
+    y: 1221
     width: 63
     height: 64
     borderLeft: 0
@@ -471,8 +471,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: epicfound
-    x: 806
-    y: 1103
+    x: 126
+    y: 9
     width: 110
     height: 110
     borderLeft: 0
@@ -484,8 +484,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: epicpiece
-    x: 484
-    y: 3
+    x: 1028
+    y: 1222
     width: 69
     height: 63
     borderLeft: 0
@@ -498,7 +498,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: eventtabs
     x: 243
-    y: 472
+    y: 586
     width: 228
     height: 60
     borderLeft: 0
@@ -510,8 +510,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: exitnow
-    x: 806
-    y: 1214
+    x: 1798
+    y: 1296
     width: 189
     height: 71
     borderLeft: 0
@@ -537,7 +537,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: firebanner
     x: 0
-    y: 884
+    y: 1368
     width: 697
     height: 120
     borderLeft: 0
@@ -549,8 +549,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: firedailylab
-    x: 917
-    y: 915
+    x: 809
+    y: 519
     width: 111
     height: 99
     borderLeft: 0
@@ -562,8 +562,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: firegrenade
-    x: 1679
-    y: 1225
+    x: 698
+    y: 514
     width: 60
     height: 60
     borderLeft: 0
@@ -575,8 +575,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: fireorb
-    x: 698
-    y: 165
+    x: 1926
+    y: 1217
     width: 54
     height: 68
     borderLeft: 0
@@ -588,8 +588,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: firepointsfont
-    x: 1262
-    y: 1115
+    x: 809
+    y: 1016
     width: 114
     height: 98
     borderLeft: 0
@@ -601,8 +601,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 28
   - name: firesideways
-    x: 698
-    y: 234
+    x: 1871
+    y: 1217
     width: 54
     height: 68
     borderLeft: 0
@@ -614,8 +614,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: fireupdown
-    x: 698
-    y: 303
+    x: 1816
+    y: 1217
     width: 54
     height: 68
     borderLeft: 0
@@ -628,7 +628,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: hammertime
     x: 243
-    y: 533
+    y: 647
     width: 417
     height: 66
     borderLeft: 0
@@ -640,8 +640,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: hpbg
-    x: 1657
-    y: 1500
+    x: 483
+    y: 548
     width: 204
     height: 32
     borderLeft: 1
@@ -666,8 +666,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 17
   - name: itemcrate
-    x: 145
-    y: 42
+    x: 402
+    y: 8
     width: 94
     height: 89
     borderLeft: 0
@@ -718,8 +718,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: legendarycapsule
-    x: 698
-    y: 684
+    x: 1984
+    y: 1580
     width: 63
     height: 64
     borderLeft: 0
@@ -731,8 +731,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: legendarypiece
-    x: 584
-    y: 335
+    x: 618
+    y: 101
     width: 68
     height: 64
     borderLeft: 0
@@ -744,8 +744,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: legendfound
-    x: 806
-    y: 548
+    x: 0
+    y: 10
     width: 110
     height: 110
     borderLeft: 0
@@ -757,8 +757,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightbanner
-    x: 698
-    y: 1368
+    x: 0
+    y: 1005
     width: 697
     height: 120
     borderLeft: 0
@@ -770,8 +770,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightdailylab
-    x: 917
-    y: 1015
+    x: 809
+    y: 219
     width: 111
     height: 99
     borderLeft: 0
@@ -783,8 +783,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lightgrenade
-    x: 1740
-    y: 1225
+    x: 698
+    y: 453
     width: 60
     height: 60
     borderLeft: 0
@@ -796,8 +796,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightorb
-    x: 698
-    y: 436
+    x: 1687
+    y: 1225
     width: 66
     height: 60
     borderLeft: 0
@@ -809,7 +809,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightpointsfont
-    x: 1377
+    x: 809
     y: 1115
     width: 114
     height: 98
@@ -822,8 +822,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 28
   - name: lightsideways
-    x: 698
-    y: 497
+    x: 1620
+    y: 1225
     width: 66
     height: 60
     borderLeft: 0
@@ -848,8 +848,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightupdown
-    x: 698
-    y: 558
+    x: 1553
+    y: 1225
     width: 66
     height: 60
     borderLeft: 0
@@ -861,8 +861,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lootcollect
-    x: 483
-    y: 344
+    x: 443
+    y: 717
     width: 100
     height: 55
     borderLeft: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: lostsplash
     x: 1657
-    y: 1645
+    y: 1847
     width: 354
     height: 201
     borderLeft: 0
@@ -887,8 +887,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: loststickerhead
-    x: 255
-    y: 145
+    x: 126
+    y: 259
     width: 120
     height: 127
     borderLeft: 0
@@ -900,8 +900,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: loststuffbg
-    x: 472
-    y: 485
+    x: 226
+    y: 725
     width: 216
     height: 47
     borderLeft: 0
@@ -913,8 +913,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: managebutton
-    x: 483
-    y: 416
+    x: 472
+    y: 596
     width: 193
     height: 50
     borderLeft: 0
@@ -939,8 +939,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: miniborder
-    x: 145
-    y: 132
+    x: 0
+    y: 121
     width: 109
     height: 140
     borderLeft: 0
@@ -952,8 +952,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: miniearth
-    x: 698
-    y: 1008
+    x: 247
+    y: 149
     width: 107
     height: 138
     borderLeft: 0
@@ -965,8 +965,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minifire
-    x: 698
-    y: 1147
+    x: 126
+    y: 120
     width: 107
     height: 138
     borderLeft: 0
@@ -978,8 +978,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minihpbar
-    x: 474
-    y: 613
+    x: 545
+    y: 724
     width: 80
     height: 14
     borderLeft: 3
@@ -991,8 +991,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: mininight
-    x: 255
-    y: 6
+    x: 510
+    y: 98
     width: 107
     height: 138
     borderLeft: 0
@@ -1004,8 +1004,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minisun
-    x: 376
-    y: 67
+    x: 402
+    y: 98
     width: 107
     height: 138
     borderLeft: 0
@@ -1017,8 +1017,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: miniwater
-    x: 484
-    y: 67
+    x: 247
+    y: 10
     width: 107
     height: 138
     borderLeft: 0
@@ -1031,7 +1031,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: mir1
     x: 0
-    y: 333
+    y: 447
     width: 482
     height: 66
     borderLeft: 0
@@ -1044,7 +1044,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: mir2
     x: 0
-    y: 400
+    y: 514
     width: 482
     height: 66
     borderLeft: 0
@@ -1082,8 +1082,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: movesbg
-    x: 592
-    y: 123
+    x: 585
+    y: 237
     width: 102
     height: 82
     borderLeft: 0
@@ -1108,8 +1108,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightdailylab
-    x: 917
-    y: 815
+    x: 809
+    y: 619
     width: 111
     height: 99
     borderLeft: 0
@@ -1121,8 +1121,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: nightgrenade
-    x: 1618
-    y: 1225
+    x: 698
+    y: 392
     width: 60
     height: 60
     borderLeft: 0
@@ -1134,8 +1134,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightorb
-    x: 698
-    y: 943
+    x: 631
+    y: 322
     width: 64
     height: 64
     borderLeft: 0
@@ -1147,8 +1147,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightpointsfont
-    x: 1147
-    y: 1115
+    x: 809
+    y: 917
     width: 114
     height: 98
     borderLeft: 0
@@ -1160,8 +1160,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 28
   - name: nightsideways
-    x: 698
-    y: 814
+    x: 1361
+    y: 1222
     width: 64
     height: 63
     borderLeft: 0
@@ -1173,8 +1173,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: nightupdown
-    x: 698
-    y: 372
+    x: 1988
+    y: 1304
     width: 59
     height: 63
     borderLeft: 0
@@ -1186,8 +1186,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: powermeter
-    x: 474
-    y: 310
+    x: 761
+    y: 1491
     width: 200
     height: 22
     borderLeft: 0
@@ -1199,7 +1199,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: powermeterbg
-    x: 761
+    x: 560
     y: 1491
     width: 200
     height: 22
@@ -1225,8 +1225,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rarecapsule
-    x: 698
-    y: 749
+    x: 1297
+    y: 1221
     width: 63
     height: 64
     borderLeft: 0
@@ -1238,8 +1238,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rarefound
-    x: 806
-    y: 659
+    x: 698
+    y: 881
     width: 110
     height: 110
     borderLeft: 0
@@ -1251,8 +1251,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rarepiece
-    x: 605
-    y: 209
+    x: 958
+    y: 1222
     width: 69
     height: 63
     borderLeft: 0
@@ -1264,7 +1264,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: refillhp
-    x: 996
+    x: 698
     y: 1214
     width: 189
     height: 71
@@ -1290,8 +1290,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: rockgrenade
-    x: 1496
-    y: 1225
+    x: 698
+    y: 270
     width: 60
     height: 60
     borderLeft: 0
@@ -1303,8 +1303,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rockorb
-    x: 806
-    y: 430
+    x: 596
+    y: 388
     width: 60
     height: 58
     borderLeft: 0
@@ -1316,8 +1316,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rocksideways
-    x: 806
-    y: 489
+    x: 535
+    y: 388
     width: 60
     height: 58
     borderLeft: 0
@@ -1329,8 +1329,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rockupdown
-    x: 1963
-    y: 1227
+    x: 474
+    y: 388
     width: 60
     height: 58
     borderLeft: 0
@@ -1341,9 +1341,35 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: runawayfailed
+    x: 1657
+    y: 1501
+    width: 287
+    height: 31
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: runawaysuccess
+    x: 483
+    y: 515
+    width: 155
+    height: 32
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
   - name: shadow
-    x: 1862
-    y: 1489
+    x: 698
+    y: 159
     width: 66
     height: 43
     borderLeft: 0
@@ -1368,8 +1394,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: swap
-    x: 474
-    y: 628
+    x: 402
+    y: 237
     width: 182
     height: 82
     borderLeft: 0
@@ -1420,8 +1446,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 3
   - name: tilepair
-    x: 0
-    y: 128
+    x: 545
+    y: 739
     width: 144
     height: 144
     borderLeft: 1
@@ -1433,8 +1459,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: ultracapsule
-    x: 698
-    y: 619
+    x: 1233
+    y: 1221
     width: 63
     height: 64
     borderLeft: 0
@@ -1446,8 +1472,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: ultrafound
-    x: 806
-    y: 881
+    x: 698
+    y: 1103
     width: 110
     height: 110
     borderLeft: 0
@@ -1459,8 +1485,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: ultrapiece
-    x: 376
-    y: 3
+    x: 888
+    y: 1222
     width: 69
     height: 63
     borderLeft: 0
@@ -1473,7 +1499,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: waterbanner
     x: 0
-    y: 1005
+    y: 1126
     width: 697
     height: 120
     borderLeft: 0
@@ -1485,8 +1511,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: waterdailylab
-    x: 917
-    y: 615
+    x: 809
+    y: 319
     width: 111
     height: 99
     borderLeft: 0
@@ -1498,8 +1524,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: watergrenade
-    x: 1435
-    y: 1225
+    x: 698
+    y: 331
     width: 60
     height: 60
     borderLeft: 0
@@ -1511,8 +1537,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: waterorb
-    x: 698
-    y: 98
+    x: 1981
+    y: 1219
     width: 55
     height: 66
     borderLeft: 0
@@ -1524,8 +1550,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: waterpointsfont
-    x: 917
-    y: 1115
+    x: 809
+    y: 818
     width: 114
     height: 98
     borderLeft: 0
@@ -1538,7 +1564,7 @@ MonoBehaviour:
     paddingBottom: 28
   - name: watersideways
     x: 698
-    y: 31
+    y: 703
     width: 55
     height: 66
     borderLeft: 0
@@ -1550,8 +1576,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: waterupdown
-    x: 1379
-    y: 1219
+    x: 698
+    y: 636
     width: 55
     height: 66
     borderLeft: 0
@@ -1564,7 +1590,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: wavefont
     x: 0
-    y: 467
+    y: 581
     width: 242
     height: 132
     borderLeft: 0
@@ -1576,8 +1602,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 124
   - name: whitecolormask
-    x: 560
-    y: 1491
+    x: 483
+    y: 491
     width: 200
     height: 22
     borderLeft: 0
@@ -1603,7 +1629,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: wonsplash
     x: 1657
-    y: 1847
+    y: 1645
     width: 354
     height: 201
     borderLeft: 0
@@ -1615,8 +1641,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: xp
-    x: 635
-    y: 755
+    x: 1754
+    y: 1223
     width: 61
     height: 62
     borderLeft: 0
@@ -1641,36 +1667,10 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: youwon
-    x: 0
-    y: 600
+    x: 226
+    y: 773
     width: 318
     height: 110
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: elementreeicon
-    x: 1929
-    y: 1494
-    width: 38
-    height: 38
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: elementtree
-    x: 0
-    y: 711
-    width: 408
-    height: 172
     borderLeft: 0
     borderRight: 0
     borderTop: 0

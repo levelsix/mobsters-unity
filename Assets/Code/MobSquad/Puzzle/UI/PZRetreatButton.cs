@@ -26,7 +26,7 @@ public class PZRetreatButton : MonoBehaviour {
 					delegate {
 						MSActionManager.Puzzle.ForceHideSwap(); 
 						MSActionManager.Popup.CloseAllPopups(); 
-						PZCombatManager.instance.ActivateLoseMenu(); 
+						StartCoroutine(PZCombatManager.instance.OnPlayerForfeit());
 					}  
 				});
 		}
