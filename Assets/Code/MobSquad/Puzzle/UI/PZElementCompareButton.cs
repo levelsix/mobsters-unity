@@ -4,6 +4,9 @@ using System;
 
 public class PZElementCompareButton : MonoBehaviour {
 
+	/// <summary>
+	/// The sprite that shows the element info, not the button sprite
+	/// </summary>
 	[SerializeField]
 	UISprite elementSprite;
 
@@ -12,10 +15,16 @@ public class PZElementCompareButton : MonoBehaviour {
 	/// </summary>
 	GameObject element;
 
-	const float ANIMATION_LENGTH = 0.5f;
+	UIButton button;
+
+	UISprite buttonSprite;
+
+	const float ANIMATION_LENGTH = 0.2f;
 
 	void Awake(){
 		element = elementSprite.gameObject;
+		button = GetComponent<UIButton> ();
+		buttonSprite = GetComponent<UISprite> ();
 	}
 
 	void OnEnable(){
@@ -24,6 +33,12 @@ public class PZElementCompareButton : MonoBehaviour {
 
 	void OnDisable(){
 		MSActionManager.Controls.OnAnyTap [0] -= GlobalOnClick;
+	}
+
+	void Update(){
+		button.enabled = PZPuzzleManager.instance.swapLock <= 0 || PZDeployPopup.acting;
+		buttonSprite.alpha = (button.enabled) ? 1 : 0;
+
 	}
 	
 	void OnClick()

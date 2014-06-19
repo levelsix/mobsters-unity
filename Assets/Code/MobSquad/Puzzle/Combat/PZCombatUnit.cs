@@ -337,7 +337,7 @@ public class PZCombatUnit : MonoBehaviour {
 			forfeitSprite.spriteName = "runawaysuccess";
 			forfeitSprite.MakePixelPerfect();
 		} else {
-			forfeitSprite.spriteName = "runawayfailure";
+			forfeitSprite.spriteName = "runawayfailed";
 			forfeitSprite.MakePixelPerfect();
 		}
 
