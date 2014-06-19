@@ -545,6 +545,7 @@ public class PZMonster {
 	#endregion
 }
 
+[Serializable]
 public struct HospitalTime
 {
 	public MSHospital hospital;

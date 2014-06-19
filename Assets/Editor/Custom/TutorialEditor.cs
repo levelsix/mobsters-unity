@@ -210,11 +210,11 @@ public class TutorialEditor : Editor
 
 			foreach (UnitPath path in step.paths) 
 			{
-				path.unit = EditorGUILayout.ObjectField("Unit", path.unit, typeof(MSCityUnit), true) as MSCityUnit;
+				path.index = EditorGUILayout.IntField("Index", path.index);
 				int spaces = EditorGUILayout.IntField("Spaces", path.path.Count);
 				while (path.path.Count < spaces)
 				{
-					path.path.Add(new Vector2());
+					path.path.Add(new MSGridNode());
 				}
 				while (path.path.Count > spaces)
 				{
@@ -222,17 +222,31 @@ public class TutorialEditor : Editor
 				}
 				for (int i = 0; i < path.path.Count; i++) 
 				{
-					path.path[i] = EditorGUILayout.Vector2Field("Space " + i, path.path[i]);
+					path.path[i].pos = EditorGUILayout.Vector2Field("Space " + i, path.path[i].pos);
+					path.path[i].direction = (MSValues.Direction) EditorGUILayout.EnumPopup(path.path[i].direction);
 				}
 			}
 
 			break;
 		case StepType.GO_TO_CITY:
-			step.home = EditorGUILayout.Toggle("Home City", step.home);
-			if (!step.home)
+			step.player = EditorGUILayout.Toggle("Home City", step.player);
+			if (!step.player)
 			{
 				step.id = EditorGUILayout.IntField("City ID", step.id);
 			}
+			break;
+		case StepType.SPAWN_UNIT:
+			step.player = EditorGUILayout.Toggle ("Player Unit", step.player);
+			if (step.player)
+			{
+				step.id = EditorGUILayout.IntField("Team Slot", step.id);
+			}
+			else
+			{
+				step.id = EditorGUILayout.IntField("Monster id", step.id);
+			}
+			step.index = EditorGUILayout.IntField("Index", step.index);
+			step.position = EditorGUILayout.Vector2Field("Position", step.position);
 			break;
 		default:
 			break;

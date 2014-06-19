@@ -424,7 +424,9 @@ public class MSHospitalManager : MonoBehaviour {
 			lastHospital = nextHospital;
 			monster.hospitalTimes.Add(new HospitalTime(lastHospital, lastStartTime));
 		}
-		
+
+		Debug.Log("Finish Time: " + monster.finishHealTimeMillis + ", Now: " + MSUtil.timeNowMillis);
+
 		#region Debug2
 
 		/*

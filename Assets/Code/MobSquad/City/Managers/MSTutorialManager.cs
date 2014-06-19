@@ -22,6 +22,16 @@ public class MSTutorialManager : MonoBehaviour
 		}
 	}
 
+	public bool UiBlock
+	{
+		get
+		{
+			return inTutorial && currUi != null;
+		}
+	}
+
+	public GameObject currUi = null;
+
 	public TutorialData tutorialData;
 
 	public TutorialUI TutorialUI;

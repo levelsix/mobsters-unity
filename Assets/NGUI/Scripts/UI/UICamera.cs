@@ -1505,7 +1505,21 @@ public class UICamera : MonoBehaviour
 					{
 						float time = RealTime.time;
 
-						Notify(currentTouch.pressed, "OnClick", null);
+						if (MSTutorialManager.instance.UiBlock)
+						{
+							if (currentTouch.pressed == MSTutorialManager.instance.currUi)
+							{
+								Notify(currentTouch.pressed, "OnClick", null);
+								if (MSActionManager.UI.OnDialogueClicked != null)
+								{
+									MSActionManager.UI.OnDialogueClicked();
+								}
+							}
+						}
+						else
+						{
+							Notify(currentTouch.pressed, "OnClick", null);
+						}
 
 						if (currentTouch.clickTime + 0.35f > time)
 						{

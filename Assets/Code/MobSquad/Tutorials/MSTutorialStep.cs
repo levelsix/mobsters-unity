@@ -33,7 +33,9 @@ public class MSTutorialStep
 
 	public int id;
 
-	public bool home = true;
+	public int index;
+
+	public bool player = true;
 }
 
 public enum StepType {
@@ -49,7 +51,8 @@ public enum StepType {
 	MOVE_CAMERA,
 	SPAWN_UNIT,
 	WAIT_TIME,
-	GO_TO_CITY
+	GO_TO_CITY,
+	CLEAR_UNITS
 };
 
 public enum DialogueType {LEFT, RIGHT, PUZZLE};
@@ -57,7 +60,7 @@ public enum DialogueType {LEFT, RIGHT, PUZZLE};
 [System.Serializable]
 public class UnitPath
 {
-	public MSCityUnit unit;
+	public int index;
 
-	public List<Vector2> path = new List<Vector2>();
+	public List<MSGridNode> path = new List<MSGridNode>();
 }

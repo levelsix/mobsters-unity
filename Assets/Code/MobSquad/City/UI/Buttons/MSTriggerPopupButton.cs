@@ -11,14 +11,6 @@ public class MSTriggerPopupButton : MonoBehaviour {
 	
 	public virtual void OnClick()
 	{
-		if (MSTutorialManager.instance.currentTutorial != null && MSTutorialManager.instance.currentTutorial.currUI != null)
-		{
-			if (MSTutorialManager.instance.currentTutorial.currUI != gameObject)
-			{
-				return;
-			}
-			MSTutorialManager.instance.currentTutorial.OnClicked();
-		}
 		if (closeTop)
 		{
 			MSActionManager.Popup.CloseTopPopupLayer();

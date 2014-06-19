@@ -49,7 +49,7 @@ public class MSHospital {
 
 	public MSHospital()
 	{
-
+		MSActionManager.Goon.OnHealQueueChanged += OnHealingQueueChange;
 	}
 
 	public MSHospital(MSHospital hospital)
@@ -58,6 +58,7 @@ public class MSHospital {
 		this.proto = hospital.proto;
 		this.userBuildingData = hospital.userBuildingData;
 		this.completeTime = 0;
+		MSActionManager.Goon.OnHealQueueChanged += OnHealingQueueChange;
 	}
 
 	public void InitFromBuilding(MSBuilding building)
@@ -88,16 +89,6 @@ public class MSHospital {
 			animator.SetBool("Healing", true);
 			building.overlayUnit.Init(_goon);
 		}
-	}
-	
-	void OnEnable()
-	{
-		MSActionManager.Goon.OnHealQueueChanged += OnHealingQueueChange;
-	}
-
-	void OnDisable()
-	{
-		MSActionManager.Goon.OnHealQueueChanged -= OnHealingQueueChange;
 	}
 
 	void OnHealingQueueChange()

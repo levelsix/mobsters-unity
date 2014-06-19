@@ -122,8 +122,6 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	virtual public void MoveRelative(TCKTouchData touch)
 	{
 		velocity = touch.delta;
-
-		debug.text = touch.delta.ToString();
 	}
 
 	void SetBounds ()

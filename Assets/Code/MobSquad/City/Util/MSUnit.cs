@@ -114,6 +114,8 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	}
 	
 	public float unitSize = 1.1f;
+
+	public bool tutorial = false;
 	
 	/// <summary>
 	/// Awake this instance.
@@ -129,7 +131,10 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	void OnEnable(){
 		Color newColor = new Color (sprite.color.r, sprite.color.g, sprite.color.b, 1f);
 		sprite.color = newColor;
-		shadow.color = newColor;
+		if (shadow != null)
+		{
+			shadow.color = newColor;
+		}
 		ResetAnimation ();
 	}
 	
@@ -153,7 +158,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	public void Init ()
 	{	
 		name = "Rob";
-		
+
 		Setup();
 	}
 
@@ -176,10 +181,19 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		
 		Setup();
 	}
+
+	public void Init (int monsterId)
+	{
+		MonsterProto proto = MSDataManager.instance.Get<MonsterProto>(monsterId);
+
+		name = proto.displayName;
+		spriteBaseName = MSUtil.StripExtensions(proto.imagePrefix);
+
+		Setup();
+	}
 	
 	public void Init (CityElementProto proto)
 	{
-		
 		name = proto.imgId;
 		
 		ncep = proto;
@@ -194,7 +208,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		
 		if (cityUnit != null)
 		{
-			cityUnit.Init ();
+			cityUnit.Init();
 		}
 		
 		SetAnimation(AnimationType.IDLE);

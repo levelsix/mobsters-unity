@@ -72,6 +72,11 @@ public class MSGridNode : IComparable {
 		{
 			return new Vector2(x, z);
 		}
+		set
+		{
+			x = (int)value.x;
+			z = (int)value.y;
+		}
 	}
 	
 	public Vector3 worldPos{

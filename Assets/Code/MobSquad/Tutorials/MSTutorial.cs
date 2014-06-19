@@ -17,7 +17,13 @@ public class MSTutorial {
 
 	protected bool clicked = false;
 
-	public GameObject currUI;
+	public GameObject currUI
+	{
+		set
+		{
+			MSTutorialManager.instance.currUi = value;
+		}
+	}
 
 	protected virtual IEnumerator RunStep(MSTutorialStep step)
 	{
@@ -58,10 +64,13 @@ public class MSTutorial {
 		case StepType.UI:
 			currUI = step.ui;
 			clicked = false;
+			Debug.Log("Not clicked");
 			while (!clicked)
 			{
 				yield return null;
 			}
+			Debug.Log("Clicked");
+			currUI = null;
 			break;
 		case StepType.CONTINUE:
 			if (MSActionManager.Tutorial.OnTutorialContinue != null)
@@ -73,7 +82,7 @@ public class MSTutorial {
 			yield return MSTutorialManager.instance.StartCoroutine(MSTownCamera.instance.SlideToCameraPosition(step.position, step.time));
 			break;
 		case StepType.GO_TO_CITY:
-			if (step.home)
+			if (step.player)
 			{
 				MSWhiteboard.currCityType = MSWhiteboard.CityType.PLAYER;
 				MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
@@ -86,6 +95,22 @@ public class MSTutorial {
 				yield return MSTutorialManager.instance.StartCoroutine(MSBuildingManager.instance.LoadNeutralCity(step.id));
 			}
 			break;
+		case StepType.CLEAR_UNITS:
+			foreach (var item in MSBuildingManager.instance.playerUnits) 
+			{
+				item.Value.Pool();
+			}
+			MSBuildingManager.instance.playerUnits.Clear();
+			break;
+		case StepType.SPAWN_UNIT:
+			MSBuildingManager.instance.MakeTutorialUnit(step.id, step.position, step.index);
+			break;
+		case StepType.MOVE_MOBSTERS:
+			foreach (var path in step.paths) 
+			{
+				MSBuildingManager.instance.MoveTutorialUnit(path.index, path.path);
+			}
+			break;
 		default:
 			break;
 		}
@@ -96,6 +121,7 @@ public class MSTutorial {
 		foreach (var item in steps) 
 		{
 			yield return MSTutorialManager.instance.StartCoroutine(RunStep(item));
+			//Debug.Break();
 		}
 	}
 

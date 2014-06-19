@@ -59,10 +59,18 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		//Put on a random walkable square
 		MSGridNode node = MSGridManager.instance.randomWalkable;
 		trans.position = node.worldPos;
-		
-		path = PlanPath(null, ChooseTarget());
-		MoveNext();
-		trans.position = target.worldPos;
+
+		if (MSTutorialManager.instance.inTutorial)
+		{
+			Debug.Log("In Tutorial!");
+			Stop();
+		}
+		else
+		{
+			path = PlanPath(null, ChooseTarget());
+			MoveNext();
+			trans.position = target.worldPos;
+		}
 	}
 	
 	MSGridNode ChooseTarget()
@@ -99,16 +107,21 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 					break;
 			}
 			trans.Translate(move);
-		}
-		if (IsPastTarget())
-		{
-			//trans.position = target.worldPos;
-			MoveNext();
+
+			if (IsPastTarget())
+			{
+				//trans.position = target.worldPos;
+				MoveNext();
+			}
 		}
 	}
 
 	bool IsPastTarget()
 	{
+		if (target == null)
+		{
+			return false;
+		}
 		switch (unit.direction)
 		{
 		case MSValues.Direction.NORTH:
@@ -128,7 +141,11 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 	{
 		while (path == null || path.Count == 0)
 		{
-			if (target == null || !MSGridManager.instance.IsWalkable(target.pos))
+			if (MSTutorialManager.instance.inTutorial)
+			{
+				Stop();
+			}
+			else if (target == null || !MSGridManager.instance.IsWalkable(target.pos))
 			{
 				target = new MSGridNode(1,1);
 				trans.localPosition = Vector3.zero;
@@ -155,7 +172,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		{
 			//trans.position = new Vector3(trans.position.x, trans.position.y, node.worldPos.z);
 		}
-		//unit.sprite.depth = -(node.x + node.z) - 10;
+		unit.sprite.sortingOrder = (-(node.x + node.z) - 10) * 3;
 	}
 
 	public void SetLocked()
@@ -178,6 +195,13 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		hoverIcon.spriteName = ARROW_SPRITE_NAME;
 		arrowPosTween.PlayForward();
 		arrowScaleTween.PlayForward();
+	}
+
+	public void Stop()
+	{
+		target = null;
+		moving = false;
+		unit.animat = MSUnit.AnimationType.IDLE;
 	}
 	
 	public void Select()
@@ -280,6 +304,16 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 			path.Push (target);
 			rushing = true;
 		}
+	}
+
+	public void TutorialPath(List<MSGridNode> poses)
+	{
+		path.Clear();
+		for (int i = poses.Count-1; i >= 0; i--) 
+		{
+			path.Push(poses[i]);
+		}
+		SetTarget(path.Pop ());
 	}
 	
 	#endregion

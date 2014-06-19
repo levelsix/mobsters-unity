@@ -401,6 +401,19 @@ public class MSBuildingManager : MonoBehaviour
 			rmMonster.Pool ();
 		}
 	}
+
+	public void MakeTutorialUnit(int monsterId, Vector2 position, int index)
+	{
+		MSUnit unit = MSPoolManager.instance.Get(unitPrefab, Vector3.zero, unitParent) as MSUnit;
+		unit.Init(monsterId);
+		unit.transf.localPosition = MSGridManager.instance.GridToWorld(position);
+		_playerUnits[index] = unit;
+	}
+
+	public void MoveTutorialUnit(int monsterId, List<MSGridNode> path)
+	{
+		_playerUnits[monsterId].cityUnit.TutorialPath(path);
+	}
 	
 	void MakeNPC(CityElementProto element)
 	{

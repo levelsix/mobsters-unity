@@ -20,6 +20,11 @@ public class MSGoonCircleIcon : MonoBehaviour {
 	[SerializeField]
 	UISprite background;
 
+	[SerializeField]
+	int index;
+
+	PZMonster monster;
+
 	static readonly Dictionary<Element, string> backgroundElementDict = new Dictionary<Element, string>()
 	{
 		{Element.DARK, "nightteam"},
@@ -31,9 +36,35 @@ public class MSGoonCircleIcon : MonoBehaviour {
 
 	const string emptyBackground = "teamempty";
 	const string fullBackground = "memberbg";
+
+	void Awake()
+	{
+		MSActionManager.Scene.OnCity += OnCity;
+	}
+
+	void OnDestroy()
+	{
+		MSActionManager.Scene.OnCity -= OnCity;
+	}
+
+	void OnEnable()
+	{
+		MSActionManager.Goon.OnMonsterFinishHeal += OnMobsterHealed;
+		MSActionManager.Goon.OnMonsterAddTeam += OnMobsterAddTeam;
+		MSActionManager.Goon.OnMonsterRemoveTeam += OnMobsterRemoveTeam;
+	}
+
+	void OnDisable()
+	{	
+		MSActionManager.Goon.OnMonsterFinishHeal -= OnMobsterHealed;
+		MSActionManager.Goon.OnMonsterAddTeam -= OnMobsterAddTeam;
+		MSActionManager.Goon.OnMonsterRemoveTeam -= OnMobsterRemoveTeam;
+	}
 	
 	public void Init(PZMonster monster)
 	{
+		this.monster = monster;
+
 		if (monster == null || monster.monster == null || monster.monster.monsterId == 0)
 		{
 			goonName.text = "Slot Empty";
@@ -52,6 +83,35 @@ public class MSGoonCircleIcon : MonoBehaviour {
 			MSSpriteUtil.instance.SetSprite(mobsterPrefix, mobsterPrefix + "Thumbnail", icon);
 			
 			hpbar.fill = ((float)monster.currHP) / monster.maxHP;
+		}
+	}
+
+	void OnCity()
+	{
+		Init(monster);
+	}
+
+	void OnMobsterHealed(PZMonster monster)
+	{
+		if (this.monster == monster)
+		{
+			hpbar.fill = ((float)monster.currHP) / monster.maxHP;
+		}
+	}
+
+	void OnMobsterAddTeam(PZMonster monster)
+	{
+		if (monster.userMonster.teamSlotNum == index)
+		{
+			Init (monster);
+		}
+	}
+
+	void OnMobsterRemoveTeam(PZMonster monster)
+	{
+		if (this.monster == monster)
+		{
+			Init (null);
 		}
 	}
 }
