@@ -22,6 +22,7 @@ public class PZCityModeButton : MonoBehaviour {
 	void OnClick()
 	{
 		Debug.Log("To City");
+		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 		MSActionManager.Scene.OnCity();
 	}
 }

@@ -221,12 +221,13 @@ public class PZWinLosePopup : MonoBehaviour {
 
 	public void OnDoneButton()
 	{
+		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 		MSActionManager.Scene.OnCity();
 	}
 
 	public void OnManageButton()
 	{
+		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 		MSActionManager.Scene.OnCity();
-		//Then do managerial bullshit
 	}
 }
