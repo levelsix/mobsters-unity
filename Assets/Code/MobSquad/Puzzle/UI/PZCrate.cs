@@ -90,8 +90,7 @@ public class PZCrate : MonoBehaviour {
 			trans.position = Vector3.zero;
 		}
 
-		sprite.transform.localScale = new Vector3 (80f, 80f, 0f);
-
+		transform.localScale = Vector3.one;
 
 		bounceTween.ResetToBeginning ();
 		bounceTween.PlayForward ();
@@ -144,19 +143,6 @@ public class PZCrate : MonoBehaviour {
 		
 	}
 
-//	IEnumerator Fall()
-//	{
-//		Vector3 start = trans.localPosition;
-//		Vector3 target = start + fallDist;
-//		float curr = 0;
-//		while (curr < fallTime)
-//		{
-//			curr += Time.deltaTime;
-//			trans.localPosition = Vector3.Lerp(start, target, curr/fallTime);
-//			yield return null;
-//		}
-//	}
-
 	void OnTriggerEnter(Collider other)
 	{
 		
@@ -168,30 +154,6 @@ public class PZCrate : MonoBehaviour {
 			trans.parent = PZCombatManager.instance.prizeQuantityLabel.parent.transform;
 		}
 	}
-
-//	IEnumerator Move()
-//	{
-//		started = true;
-//		Vector3 originalScale = trans.localScale;
-//		float curr = 0;
-//		while (curr < moveTime)
-//		{
-//			curr += Time.deltaTime;
-//			
-//			float lp = curr/moveTime;
-//			trans.localPosition += Time.deltaTime * moveSpeed * lp *
-//				Vector3.Lerp(new Vector3(1.2f, 3f), new Vector3(1.2f, -1f), lp);
-//			trans.localScale = Vector3.Lerp (originalScale, Vector3.zero, lp);
-//
-//			yield return null;
-//		}
-//
-//		PZCombatManager.instance.crate = null;
-//		GetComponent<MSSimplePoolable>().Pool();
-//		UILabel label = PZCombatManager.instance.prizeQuantityLabel;
-//		int newCount = int.Parse (label.text) + 1;
-//		label.text = newCount.ToString();
-//	}
 
 	void CollectionAnimation(){
 		Vector3 deltaPosition = PZCombatManager.instance.prizeQuantityLabel.transform.parent.position - trans.position;

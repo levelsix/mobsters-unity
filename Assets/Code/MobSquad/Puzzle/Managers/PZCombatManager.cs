@@ -185,6 +185,10 @@ public class PZCombatManager : MonoBehaviour {
 
 	int revives = 0;
 
+	float forfeitChance;
+
+	const float FORFEIT_START_CHANCE = 0.25F;
+
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
 	/// </summary>
@@ -299,6 +303,7 @@ public class PZCombatManager : MonoBehaviour {
 	public void InitTask()
 	{
 		debug = MSWhiteboard.loadedDungeon;
+		forfeitChance = FORFEIT_START_CHANCE;
 
 		MSWhiteboard.currUserTaskId = MSWhiteboard.loadedDungeon.userTaskId;
 
@@ -595,14 +600,16 @@ public class PZCombatManager : MonoBehaviour {
 	}
 
 	public IEnumerator OnPlayerForfeit(){
-		bool forfeitSuccess = true;
-		StartCoroutine(activePlayer.Forfeit (forfeitSuccess));
+		Debug.Log ("forfeitChance: " + forfeitChance);
 
+		bool forfeitSuccess = Random.value <= forfeitChance;
+		StartCoroutine(activePlayer.Forfeit (forfeitSuccess));
 		if (forfeitSuccess) {
 			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
 			ActivateLoseMenu();
 		} else {
-
+			forfeitChance *= 2f;
+			StartCoroutine(EnemyAttack(0));
 		}
 	}
 
@@ -1143,67 +1150,15 @@ public class PZCombatManager : MonoBehaviour {
 
 		float score = damage/activePlayer.monster.totalDamage;
 
-		//Calculate how much damage the enemy will deal.
-		//If the player isn't going to kill the enemy, we want to send whatever updates for this stuff to the server ASAP
-		int enemyDamage;
-		if (raidMode)
-		{
-			enemyDamage = Random.Range(activeEnemy.monster.raidMonster.minDmg, activeEnemy.monster.raidMonster.maxDmg);
-		}
-		else
-		{
-			enemyDamage = Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f));
-		}
-
-		int enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement));
-
-		bool playerTakingDamage = damage < activeEnemy.monster.currHP;
-		int fullDamageAfterElements = (int)(damage * MSUtil.GetTypeDamageMultiplier(activeEnemy.monster.monster.monsterElement, activePlayer.monster.monster.monsterElement));
-
-		if (raidMode)
-		{
-			MSClanEventManager.instance.SendAttack(fullDamageAfterElements, activePlayer.monster, playerTakingDamage ? enemyDamage : 0);
-		}
-		else if (playerTakingDamage)
-		{
-			activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
-		}
-
-		battleStats.damageTaken += Mathf.Min (enemyDamageWithElement, activePlayer.monster.currHP);
-
 		yield return StartCoroutine(ShowAttackWords(score));
-
+		
 		yield return StartCoroutine(PlayerShoot(score));
 		
 		yield return StartCoroutine(activeEnemy.TakeDamage(damage, element));
-		
-		//Enemy attack back if not dead
-		if (activeEnemy.monster.currHP > 0 && activeEnemy.monster.currHP < activeEnemy.monster.maxHP)
-		{
 
-			if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
-			{
-				yield return StartCoroutine(activeEnemy.AdvanceTo(activePlayer.transform.localPosition.x + MELEE_ATTACK_DISTANCE, -background.direction, background.scrollSpeed * 4));
-			}
 
-			activeEnemy.unit.animat = MSUnit.AnimationType.ATTACK;
-			yield return new WaitForSeconds(.5f);
 
-			StartCoroutine(activePlayer.TakeDamage(enemyDamage, activeEnemy.monster.monster.monsterElement));
-
-			CheckBleed(activePlayer);
-
-			yield return new WaitForSeconds(.3f);
-
-			if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
-			{
-				yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 4));
-				activeEnemy.unit.direction = MSValues.Direction.WEST;
-			}
-
-			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
-		
-		}
+		StartCoroutine(EnemyAttack(damage));
 		
 		//Debug.Log("Unlock: Done Animating");
 		PZPuzzleManager.instance.swapLock -= 1;
@@ -1225,6 +1180,64 @@ public class PZCombatManager : MonoBehaviour {
 
 		boardTint.PlayReverse();
 
+	}
+
+	public IEnumerator EnemyAttack(float damage){
+		//Calculate how much damage the enemy will deal.
+		//If the player isn't going to kill the enemy, we want to send whatever updates for this stuff to the server ASAP
+		int enemyDamage;
+		if (raidMode)
+		{
+			enemyDamage = Random.Range(activeEnemy.monster.raidMonster.minDmg, activeEnemy.monster.raidMonster.maxDmg);
+		}
+		else
+		{
+			enemyDamage = Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f));
+		}
+		
+		int enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement));
+		
+		battleStats.damageTaken += Mathf.Min (enemyDamageWithElement, activePlayer.monster.currHP);
+
+		bool playerTakingDamage = damage < activeEnemy.monster.currHP;
+		int fullDamageAfterElements = (int)(damage * MSUtil.GetTypeDamageMultiplier(activeEnemy.monster.monster.monsterElement, activePlayer.monster.monster.monsterElement));
+		
+		if (raidMode)
+		{
+			MSClanEventManager.instance.SendAttack(fullDamageAfterElements, activePlayer.monster, playerTakingDamage ? enemyDamage : 0);
+		}
+		else if (playerTakingDamage)
+		{
+			activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
+		}
+
+		//Enemy attack back if not dead
+		if (activeEnemy.monster.currHP > 0 )//&& activeEnemy.monster.currHP < activeEnemy.monster.maxHP)
+		{
+			
+			if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+			{
+				yield return StartCoroutine(activeEnemy.AdvanceTo(activePlayer.transform.localPosition.x + MELEE_ATTACK_DISTANCE, -background.direction, background.scrollSpeed * 4));
+			}
+			
+			activeEnemy.unit.animat = MSUnit.AnimationType.ATTACK;
+			yield return new WaitForSeconds(.5f);
+			
+			StartCoroutine(activePlayer.TakeDamage(enemyDamage, activeEnemy.monster.monster.monsterElement));
+			
+			CheckBleed(activePlayer);
+			
+			yield return new WaitForSeconds(.3f);
+			
+			if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+			{
+				yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 4));
+				activeEnemy.unit.direction = MSValues.Direction.WEST;
+			}
+			
+			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
+			
+		}
 	}
 
 	public IEnumerator QueueUpPvp()

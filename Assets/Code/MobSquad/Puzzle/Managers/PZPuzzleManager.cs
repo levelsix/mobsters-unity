@@ -10,6 +10,9 @@ public class PZPuzzleManager : MonoBehaviour {
 	public static PZPuzzleManager instance;
 
 	[SerializeField]
+	public Camera puzzleCamera;
+
+	[SerializeField]
 	UISprite boardSprite;
 
 	[SerializeField]
