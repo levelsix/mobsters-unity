@@ -990,11 +990,11 @@ public class PZCombatManager : MonoBehaviour {
 
 		for (int i = 0; i < NUM_BOMBS; i++) 
 		{
-			BombAt(activeEnemy.unit.transf.localPosition.x - BOMB_SPACING * NUM_BOMBS / 2f + BOMB_SPACING * i);
+			BombAt(activeEnemy.unit.transf.localPosition.x - BOMB_SPACING * NUM_BOMBS / 2f + BOMB_SPACING * i, plane);
 		}
 	}
 
-	void BombAt(float x)
+	void BombAt(float x, Transform plane)
 	{
 		Transform bomb = (MSPoolManager.instance.Get(MSPrefabList.instance.bombPrefab, Vector3.zero) as MonoBehaviour).transform;
 		bomb.parent = combatParent;
@@ -1002,6 +1002,7 @@ public class PZCombatManager : MonoBehaviour {
 		bomb.localScale = Vector3.one;
 		bomb.GetComponent<PZBomb>().targetHeight = activeEnemy.unit.transf.localPosition.y + 
 			(background.direction.y / background.direction.x) * (x - activeEnemy.unit.transf.localPosition.x);
+		bomb.GetComponent<PZBomb> ().planeTrans = plane;
 	}
 
 	void CheckBleed(PZCombatUnit player)
