@@ -22,6 +22,8 @@ public class PZBomb : MonoBehaviour {
 
 	MSSimplePoolable pool;
 
+	public Transform planeTrans;
+
 	void Awake()
 	{
 		trans = transform;
@@ -31,16 +33,25 @@ public class PZBomb : MonoBehaviour {
 	void OnEnable()
 	{
 		falling = false;
+		velocity = 0;
 	}
 
-	void OnTriggerEnter(Collider other)
-	{
-		//Debug.LogWarning("Entered");
-		if (!falling)
-		{
-			StartCoroutine(Fall ());
+	void Update(){
+		if (planeTrans.position.x > trans.position.x && !falling) {
+			StartCoroutine(Fall());
 		}
 	}
+
+//	void OnTriggerEnter(Collider other)
+//	{
+//		//Debug.LogWarning("Entered");
+//		if (!falling)
+//		{
+//			StartCoroutine(Fall ());
+//		}
+//	}
+
+
 
 	IEnumerator Fall()
 	{
