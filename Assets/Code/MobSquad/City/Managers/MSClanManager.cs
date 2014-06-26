@@ -219,7 +219,7 @@ public class MSClanManager : MonoBehaviour
 
 			if (MSActionManager.Clan.OnPlayerClanChange != null)
 			{
-				MSActionManager.Clan.OnPlayerClanChange(userClanId, userClanStatus);
+				MSActionManager.Clan.OnPlayerClanChange(userClanId, userClanStatus, response.minClan.clanIconId);
 			}
 			break;
 		default:
@@ -276,7 +276,7 @@ public class MSClanManager : MonoBehaviour
 		
 		if (MSActionManager.Clan.OnPlayerClanChange != null)
 		{
-			MSActionManager.Clan.OnPlayerClanChange(userClanId, UserClanStatus.MEMBER);
+			MSActionManager.Clan.OnPlayerClanChange(userClanId, UserClanStatus.MEMBER, 0);
 		}
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LEAVE_CLAN_EVENT, DealWithLeaveClanResponse);

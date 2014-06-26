@@ -183,7 +183,7 @@ public static class MSActionManager
 
 	public static class Clan
 	{
-		public static Action<int, UserClanStatus> OnPlayerClanChange;
+		public static Action<int, UserClanStatus, int> OnPlayerClanChange;
 
 		/// <summary>
 		/// The on create clan event.

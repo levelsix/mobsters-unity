@@ -197,7 +197,7 @@ public class MSClanPopup : MonoBehaviour
 		raidStuff.SetActive(true);
 	}
 
-	void OnClanChange(int clanId, UserClanStatus clanStatus)
+	void OnClanChange(int clanId, UserClanStatus clanStatus, int clanIconId)
 	{
 		if (clanId == 0)
 		{
