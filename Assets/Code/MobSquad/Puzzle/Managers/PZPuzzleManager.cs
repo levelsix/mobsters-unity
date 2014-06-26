@@ -19,6 +19,23 @@ public class PZPuzzleManager : MonoBehaviour {
 	UILabel comboLabel;
 
 	[SerializeField]
+	int _specialBoardLock = 0;
+
+	public int specialBoardLock
+	{
+		get{
+			return _specialBoardLock;
+		}
+
+		set{
+			_specialBoardLock = value;
+			if(value == 0){
+				ReCheckBoard();
+			}
+		}
+	}
+
+	[SerializeField]
 	int _swapLock = 0;
 
 	public int swapLock
@@ -80,6 +97,11 @@ public class PZPuzzleManager : MonoBehaviour {
 	//public int[] gemsOnBoardByType = new int[GEM_TYPES];
 
 	public List<PZGem>[] columnQueues = new List<PZGem>[STANDARD_BOARD_HEIGHT];
+
+	/// <summary>
+	/// This list contains all the gems that are above the board but have not yet fallen in
+	/// </summary>
+	public List<PZGem> prewarmedGems = new List<PZGem>();
 
 	public Stack<int>[] riggedBoardStacks = new Stack<int>[STANDARD_BOARD_WIDTH];
 	
@@ -572,6 +594,63 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 		}
 	}
+
+	/// <summary>
+	/// For when a bomb is swapped with iether a rocket or another bomb
+	/// </summary>
+	/// <param name="source">Gem being dragged</param>
+	/// <param name="destination">Gem that the dragged gem is being swapped with</param>
+	public void DetonateBombFromSwap(PZGem source, PZGem destination){
+		PZGem gem;
+		if (source.gemType == PZGem.GemType.ROCKET || destination.gemType == PZGem.GemType.ROCKET) {
+
+			PZGem rocket = source.gemType == PZGem.GemType.ROCKET? source : destination;
+			Vector2 offset = rocket.horizontal? new Vector2(0,1) : new Vector2(1,0);
+
+			if(rocket.boardX + offset.x < boardWidth && rocket.boardY + offset.y < boardHeight){
+				gem = board[rocket.boardX + (int)offset.x,rocket.boardY + (int)offset.y];
+				gem.gemType = PZGem.GemType.ROCKET;
+				gem.Detonate();
+			}
+
+			rocket.Detonate();
+
+			if(rocket.boardX - offset.x >= 0 && rocket.boardY - offset.y >= 0){
+				gem = board[rocket.boardX - (int)offset.x,rocket.boardY - (int)offset.y];
+				gem.gemType = PZGem.GemType.ROCKET;
+				gem.Detonate();
+			}
+
+		} else { //else bomb-bomb swap
+			int originx = destination.boardX;
+			int originy = destination.boardY;
+			PZMatch bombMatch = new PZMatch();
+
+			if(originx + 1 < boardWidth){
+				gem = board[originx + 1,originy];
+				bombMatch = GetBombMatch(gem);
+			}
+			if(originx - 1 >= 0){
+				gem = board[originx - 1,originy];
+				bombMatch.CheckAgainst(GetBombMatch(gem));
+			}
+
+			if(originy + 1 < boardHeight){
+				gem = board[originx,originy + 1];
+				bombMatch.CheckAgainst(GetBombMatch(gem));
+			}
+			if(originy - 1 >= 0){
+				gem = board[originx,originy - 1];
+				bombMatch.CheckAgainst(GetBombMatch(gem));
+			}
+			Debug.Break ();
+			source.gemType = PZGem.GemType.NORMAL;
+			destination.gemType = PZGem.GemType.NORMAL;
+			bombMatch.Destroy();
+			Debug.Break ();
+			
+		}
+	}
 	
 	public void DetonateMolotovFromSwap(PZGem molly, PZGem other)
 	{
@@ -933,5 +1012,26 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 		}
 		Debug.Log(str);
+	}
+
+	/// <summary>
+	/// Attempts to force all gems on and off the board to fall
+	/// </summary>
+	[ContextMenu ("checkFallAll")]
+	public void ReCheckBoard(){
+		for (int i = 0; i < boardHeight; i++) 
+		{
+			for (int j = 0; j < boardWidth; j++) 
+			{
+
+				if(board[j,i] != null){
+					board[j,i].CheckFall();
+				}
+			}
+		}
+		foreach (PZGem gem in prewarmedGems) {
+			gem.CheckFall();
+		}
+		prewarmedGems.Clear();
 	}
 }

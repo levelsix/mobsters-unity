@@ -6,10 +6,13 @@ using System.Collections;
 public class PZMolotovPart : MonoBehaviour {
 
 	[SerializeField]
+	UISprite sprite;
+
+	[SerializeField]
 	float speed;
 
 	[SerializeField]
-	float toleranceSqr = 10;
+	float toleranceSqr = 1;
 
 	MSSimplePoolable pool;
 
@@ -25,11 +28,31 @@ public class PZMolotovPart : MonoBehaviour {
 	[SerializeField]
 	float delayPerPart = .1f;
 
+	[SerializeField]
+	ParticleSystem particleTail;
+
+	ParticleSystem particleExplode;
+
 	void Awake()
 	{
 		trans = transform;
 		pool = GetComponent<MSSimplePoolable>();
 		desSpec = GetComponent<PZDestroySpecial>();
+		sprite = GetComponent<UISprite> ();
+	}
+
+	void OnEnable(){
+		particleTail.Play ();
+		desSpec.onTrigger += explode;
+	}
+
+	void OnDisable(){
+		desSpec.onTrigger -= explode;
+	}
+
+	void explode(){
+//		transform.position = dest;
+		StartCoroutine (DelayedDeath ());
 	}
 
 	public void Init(Vector3 pos, Vector3 desitination, PZGem target, int index)
@@ -59,12 +82,26 @@ public class PZMolotovPart : MonoBehaviour {
 		*/
 	}
 
+	IEnumerator DelayedDeath(){
+		float storeSpeed = speed;
+		speed = 0;
+		particleTail.Stop ();
+
+		MSPoolManager.instance.Get (MSPrefabList.instance.molotovParticle, trans.position);
+
+		yield return new WaitForSeconds (particleTail.startLifetime);
+
+		speed = storeSpeed;
+		pool.Pool ();
+	}
+
 	void Update()
 	{
 		trans.localPosition += direction * speed * Time.deltaTime;
-		if ((trans.localPosition - dest).sqrMagnitude < toleranceSqr)
-		{
-			pool.Pool();
-		}
+//		if ((trans.localPosition - dest).sqrMagnitude < toleranceSqr || !sprite.isVisible)
+//		{
+//			pool.Pool();
+//		}
+
 	}
 }
