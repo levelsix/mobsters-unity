@@ -176,6 +176,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		Init (colr, column);
 
 		PZPuzzleManager.instance.OnStartMoving(this);
+		PZPuzzleManager.instance.prewarmedGems.Add (this);
 
 		trans.localPosition = new Vector3(boardX * SPACE_SIZE, Mathf.Max(boardY * SPACE_SIZE, PZPuzzleManager.instance.HighestGemInColumn(boardX) + SPACE_SIZE), -1);
 
@@ -254,10 +255,11 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 		}
 	}
-	
+
+	[ContextMenu("CheckFall")]
 	public bool CheckFall()
 	{
-		if (lockedBySpecial)
+		if (lockedBySpecial || PZPuzzleManager.instance.specialBoardLock > 0)
 		{
 			return false;
 		}
@@ -289,6 +291,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				PZPuzzleManager.instance.board[boardX, boardY] = null;
 			}
 			PZPuzzleManager.instance.board[boardX, targetY] = this;
+
 			boardY = targetY;
 			if (!moving)	
 			{
@@ -348,7 +351,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		PZPuzzleManager.instance.OnStopMoving(this);
 	}
 
-	void Detonate()
+	public void Detonate()
 	{
 		switch (gemType) {
 		case GemType.ROCKET:
@@ -455,7 +458,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				{
 					if (gemType == GemType.BOMB) //BOMB-BOMB
 					{
-
+						PZPuzzleManager.instance.DetonateBombFromSwap(this, swapee);
 					}
 					else //ROCKET-ROCKET
 					{
@@ -467,7 +470,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				}
 				else //BOMB-ROCKET
 				{
-
+					PZPuzzleManager.instance.DetonateBombFromSwap(this, swapee);
 				}
 			}
 			else
