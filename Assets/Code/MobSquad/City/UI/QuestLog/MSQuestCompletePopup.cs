@@ -43,6 +43,8 @@ public class MSQuestCompletePopup : MonoBehaviour {
 	[SerializeField]
 	UISprite spinner;
 
+	bool hasQuest = false;
+
 	void OnEnable(){
 		RecyclePrizes();
 		continueButton.GetComponent<MSActionButton> ().onClick += ClickContinueButton;
@@ -94,6 +96,7 @@ public class MSQuestCompletePopup : MonoBehaviour {
 	}
 
 	public void InitCompletedQuest(MSFullQuest quest){
+		gameObject.SetActive(true);
 		int xp;
 		int cash;
 		int oil;
@@ -114,6 +117,8 @@ public class MSQuestCompletePopup : MonoBehaviour {
 			 monsterId = 0;
 			questName.text = "Text Test But Butt";
 		}
+
+		Debug.Log("Prizes:\nXP: " + xp + "\nCash: " + cash + "\nOil: " + oil + "\nGems: " + gem + "\nMonster: " + monsterId);
 
 		InitObjects ();
 
@@ -162,7 +167,17 @@ public class MSQuestCompletePopup : MonoBehaviour {
 			prizes.Add (prize);
 		}
 
-		StartCoroutine (SlideInTitles ());
+		hasQuest = true;
+
+	}
+
+	void Update()
+	{
+		if (hasQuest)
+		{
+			StartCoroutine (SlideInTitles ());
+			hasQuest = false;
+		}
 	}
 
 	IEnumerator SlideInTitles(){
@@ -257,7 +272,9 @@ public class MSQuestCompletePopup : MonoBehaviour {
 		prizes.Clear ();
 	}
 
-	void ClickContinueButton(){
+	void ClickContinueButton()
+	{
 		gameObject.SetActive (false);
+		MSQuestManager.instance.TryCompleteNextQuest();
 	}
 }

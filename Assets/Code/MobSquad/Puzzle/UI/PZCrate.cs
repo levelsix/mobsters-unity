@@ -90,7 +90,7 @@ public class PZCrate : MonoBehaviour {
 			trans.position = Vector3.zero;
 		}
 
-		transform.localScale = Vector3.one;
+		sprite.transform.localScale = new Vector3(50, 50, 50);
 
 		bounceTween.ResetToBeginning ();
 		bounceTween.PlayForward ();
@@ -145,7 +145,6 @@ public class PZCrate : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		
 		PZCombatUnit combat = other.GetComponent<PZCombatUnit>();
 		if (!started && combat != null && combat == PZCombatManager.instance.activePlayer)
 		{

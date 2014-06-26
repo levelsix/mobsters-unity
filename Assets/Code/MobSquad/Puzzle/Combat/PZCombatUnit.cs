@@ -278,6 +278,7 @@ public class PZCombatUnit : MonoBehaviour {
 			PZCombatManager.instance.crate.initCrate(monster);
 			crate.transform.position = unit.transf.position;
 			crate.parent = unit.transf.parent;
+			crate.transform.localScale = Vector3.one;
 		}
 
 		yield return new WaitForSeconds(1);

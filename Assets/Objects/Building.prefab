@@ -993,7 +993,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 0d9e9a6defcc74e97847a3bfeea48f72, type: 2}
   mSpriteName: cancelbuildbot
   mType: 0
   mFillDirection: 4
@@ -1034,7 +1034,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: .200000048, g: 1, b: 0, a: 1}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 50
   mHeight: 50
@@ -1043,8 +1043,8 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
-  mSpriteName: cancelbuildbot
+  mAtlas: {fileID: 11400000, guid: 0d9e9a6defcc74e97847a3bfeea48f72, type: 2}
+  mSpriteName: confirmbuild
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -1547,6 +1547,7 @@ MonoBehaviour:
   _direction: 1
   cityUnit: {fileID: 0}
   unitSize: .839999974
+  tutorial: 0
 --- !u!114 &11400046
 MonoBehaviour:
   m_ObjectHideFlags: 1

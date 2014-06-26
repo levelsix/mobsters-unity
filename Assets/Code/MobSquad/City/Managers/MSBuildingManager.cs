@@ -660,6 +660,8 @@ public class MSBuildingManager : MonoBehaviour
 			request.structCoordinates = new CoordinateProto();
 			request.structCoordinates.x = building.groundPos.x;
 			request.structCoordinates.y = building.groundPos.y;
+
+			Debug.Log("Building struct at coords: " + request.structCoordinates.x + ", " + request.structCoordinates.y);
 			
 			request.structId = building.combinedProto.structInfo.structId;
 			request.timeOfPurchase = MSUtil.timeNowMillis;

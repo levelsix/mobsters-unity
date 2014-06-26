@@ -52,7 +52,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 	void Update () 
 	{
-		if (isConstructing)
+		if (isConstructing && building.upgrade.timeRemaining >= 0)
 		{
 			upgrading = true;
 			building.hoverIcon.gameObject.SetActive(false);

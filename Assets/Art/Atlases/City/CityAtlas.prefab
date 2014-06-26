@@ -27,6 +27,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54,8 +55,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: bosslock
-    x: 407
-    y: 895
+    x: 324
+    y: 753
     width: 75
     height: 80
     borderLeft: 0
@@ -118,9 +119,22 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 0
     paddingBottom: 0
+  - name: cancelbuildbot
+    x: 407
+    y: 895
+    width: 80
+    height: 80
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: cashcollected
-    x: 324
-    y: 724
+    x: 400
+    y: 779
     width: 110
     height: 54
     borderLeft: 0
@@ -132,7 +146,7 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: cashoverflow
-    x: 210
+    x: 280
     y: 502
     width: 69
     height: 75
@@ -145,7 +159,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: cashready
-    x: 140
+    x: 210
     y: 502
     width: 69
     height: 75
@@ -157,9 +171,22 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
+  - name: confirmbuild
+    x: 0
+    y: 326
+    width: 52
+    height: 52
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: gemscollected
-    x: 235
-    y: 646
+    x: 400
+    y: 724
     width: 110
     height: 54
     borderLeft: 0
@@ -211,7 +238,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: mjdone
     x: 0
-    y: 305
+    y: 379
     width: 52
     height: 73
     borderLeft: 0
@@ -223,8 +250,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: mjnew
-    x: 0
-    y: 379
+    x: 451
+    y: 504
     width: 52
     height: 73
     borderLeft: 0
@@ -249,7 +276,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: obevolve
-    x: 280
+    x: 350
     y: 529
     width: 100
     height: 48
@@ -262,8 +289,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: obfull
-    x: 381
-    y: 529
+    x: 0
+    y: 453
     width: 80
     height: 48
     borderLeft: 0
@@ -275,7 +302,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: obheal
-    x: 0
+    x: 81
     y: 453
     width: 80
     height: 48
@@ -314,8 +341,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: oilcollected
-    x: 324
-    y: 779
+    x: 235
+    y: 646
     width: 110
     height: 54
     borderLeft: 0
@@ -327,8 +354,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: oiloverflow
-    x: 435
-    y: 703
+    x: 70
+    y: 502
     width: 69
     height: 75
     borderLeft: 0
@@ -340,7 +367,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: oilready
-    x: 70
+    x: 140
     y: 502
     width: 69
     height: 75

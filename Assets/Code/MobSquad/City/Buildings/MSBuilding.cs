@@ -228,7 +228,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	TweenPosition arrowPosTween;
 
 	[SerializeField]
-	TweenPosition arrowScaleTween;
+	TweenScale arrowScaleTween;
 
 	public bool locallyOwned = true;
 
@@ -694,6 +694,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 		if (MSBuildingManager.instance.BuyBuilding(this, Confirm))
 		{
+			MSBuildingManager.instance.FullDeselect();
+
 			long now = MSUtil.timeNowMillis;
 			userStructProto.lastRetrieved = now;
 			userStructProto.purchaseTime = now;
@@ -703,12 +705,13 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 			upgrade.StartConstruction();
 
-			MSBuildingManager.instance.FullDeselect();
+			confirmationButtons.SetActive(false);
 		}
 	}
 
 	public void Cancel()
 	{
+		confirmationButtons.SetActive(false);
 		Pool();
 		MSBuildingManager.instance.hoveringToBuild = null;
 	}
@@ -809,6 +812,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		sprite.color = lockColor;
 		hoverIcon.gameObject.SetActive(true);
 		hoverIcon.spriteName = LOCK_SPRITE_NAME;
+		hoverIcon.MakePixelPerfect();
 	}
 
 	public void SetUnlocked()
@@ -822,6 +826,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	{
 		hoverIcon.gameObject.SetActive(true);
 		hoverIcon.spriteName = ARROW_SPRITE_NAME;
+		hoverIcon.MakePixelPerfect();
 		arrowPosTween.PlayForward();
 		arrowScaleTween.PlayForward();
 	}

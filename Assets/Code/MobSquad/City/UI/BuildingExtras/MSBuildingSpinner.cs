@@ -54,6 +54,8 @@ public class MSBuildingSpinner : MonoBehaviour {
 
 	IEnumerator DoAnimations()
 	{
+		sprite.sortingOrder = building.sprite.sortingOrder-1;
+
 		rotate.duration = time*1.1f;
 		rotate.ResetToBeginning();
 		rotate.PlayForward();
