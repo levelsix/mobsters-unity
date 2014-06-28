@@ -2666,8 +2666,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbcf036ac96cb47e1bbef698d376d09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puzzleCamera: {fileID: 0}
   boardSprite: {fileID: 0}
   comboLabel: {fileID: 11400126}
+  _specialBoardLock: 0
   _swapLock: 0
   processingSwap: 0
   lastSwapSuccessful: 1
@@ -2680,6 +2682,7 @@ MonoBehaviour:
   - night
   - water
   currGems: 
+  prewarmedGems: []
   gemsByType: 0
   boardWidth: 8
   boardHeight: 8
@@ -3717,6 +3720,7 @@ MonoBehaviour:
   unit: {fileID: 0}
   monster:
     userHospitalID: 0
+    hospitalTimes: []
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -3733,6 +3737,7 @@ MonoBehaviour:
   alive: 0
   moving: 0
   unitInfo: {fileID: 0}
+  forfeitSprite: {fileID: 0}
 --- !u!114 &11400066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3752,6 +3757,7 @@ MonoBehaviour:
   _direction: 3
   cityUnit: {fileID: 0}
   unitSize: 50
+  tutorial: 0
 --- !u!114 &11400068
 MonoBehaviour:
   m_ObjectHideFlags: 1

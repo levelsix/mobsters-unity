@@ -58,9 +58,7 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitXP(int amount)
 	{
-		if (border != null) {
-			border.spriteName = "expfound";
-		}
+		border.spriteName = "expfound";
 		label.text = "+" + amount;
 		label.color = xpColor;
 		icon.spriteName = "xp";
@@ -77,9 +75,7 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitCash(int amount)
 	{
-		if (border != null) {
-			border.spriteName = "cashfound";
-		}
+		border.spriteName = "cashfound";
 		label.text = "$" + amount;
 		label.color = cashColor;
 		icon.spriteName = "moneystack";
@@ -88,9 +84,7 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitDiamond(int amount)
 	{
-		if (border != null) {
-			border.spriteName = "";
-		}
+		border.spriteName = "";
 		label.text = amount.ToString();
 		label.color = new Color(.4f, .2f, .6f);
 		icon.spriteName = "diamond";
@@ -107,9 +101,7 @@ public class PZPrize : MonoBehaviour {
 
 		label.text = monster.quality.ToString();
 		string rarity = monster.quality.ToString().ToLower();
-		if (border != null) {
-			border.spriteName = rarity + "found";
-		}
+		border.spriteName = rarity + "found";
 		icon.spriteName = rarity;
 		if (monster.numPuzzlePieces > 1)
 		{
@@ -120,6 +112,16 @@ public class PZPrize : MonoBehaviour {
 			icon.spriteName += "capsule";
 		}
 		icon.MakePixelPerfect();
+	}
+
+	public void InitItem(ItemProto item){
+		label.text = item.name;
+		if (item.borderImgName != null) {
+			border.spriteName = item.borderImgName;
+		} else {
+			border.spriteName = "";
+		}
+		icon.spriteName = item.imgName.Substring (0, item.imgName.Length - ".png".Length);
 	}
 
 	/// <summary>

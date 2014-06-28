@@ -3,41 +3,6 @@ using System.Collections;
 using com.lvl6.proto;
 
 public class PZCrate : MonoBehaviour {
-
-	#region spriteList
-
-	[SerializeField]
-	Sprite capsuleCommon;
-
-	[SerializeField]
-	Sprite capsuleRare;
-
-	[SerializeField]
-	Sprite capsuleUltra;
-
-	[SerializeField]
-	Sprite capsuleEpic;
-
-	[SerializeField]
-	Sprite capsuleLegendary;
-
-	[SerializeField]
-	Sprite pieceCommon;
-	
-	[SerializeField]
-	Sprite pieceRare;
-	
-	[SerializeField]
-	Sprite pieceUltra;
-	
-	[SerializeField]
-	Sprite pieceEpic;
-	
-	[SerializeField]
-	Sprite pieceLegendary;
-
-	#endregion
-
 	[SerializeField]
 	float moveTime;
 
@@ -65,7 +30,7 @@ public class PZCrate : MonoBehaviour {
 	TweenScale scaleTween;
 
 	[SerializeField]
-	SpriteRenderer sprite;
+	UISprite sprite;
 
 	Transform trans;
 
@@ -90,57 +55,23 @@ public class PZCrate : MonoBehaviour {
 			trans.position = Vector3.zero;
 		}
 
-		sprite.transform.localScale = new Vector3(50, 50, 50);
+		sprite.transform.localScale = Vector3.one;
 
 		bounceTween.ResetToBeginning ();
 		bounceTween.PlayForward ();
 
-		if (monster.monster.numPuzzlePieces > 1) {
-			switch(monster.monster.quality){
 
-			case Quality.COMMON:
-				sprite.sprite = pieceCommon;
-				break;
-			case Quality.RARE:
-				sprite.sprite = pieceRare;
-				break;
-			case Quality.ULTRA:
-				sprite.sprite = pieceUltra;
-				break;
-			case Quality.EPIC:
-				sprite.sprite = pieceEpic;
-				break;
-			case Quality.LEGENDARY:
-				sprite.sprite = pieceLegendary;
-				break;
-			default:
-				//if something isn't right then the sprite will default to the prefab crate
-				break;
-			}
+		if (monster.taskMonster.itemId > 0) {
+			string name = MSDataManager.instance.Get<ItemProto>(monster.taskMonster.itemId).imgName;
+			name = name.Substring(0, name.Length - ".png".Length);
+			sprite.spriteName = name;
+		}else if (monster.monster.numPuzzlePieces > 1) {
+			sprite.spriteName = monster.monster.quality.ToString().ToLower() + "piece";
 		} else {
-			switch(monster.monster.quality){
-				
-			case Quality.COMMON:
-				sprite.sprite = capsuleCommon;
-				break;
-			case Quality.RARE:
-				sprite.sprite = capsuleRare;
-				break;
-			case Quality.ULTRA:
-				sprite.sprite = capsuleUltra;
-				break;
-			case Quality.EPIC:
-				sprite.sprite = capsuleEpic;
-				break;
-			case Quality.LEGENDARY:
-				sprite.sprite = capsuleLegendary;
-				break;
-			default:
-				//if something isn't right then the sprite will default to the prefab crate
-				break;
-			}
+			sprite.spriteName = monster.monster.quality.ToString().ToLower() + "capsule";
 		}
-		
+
+		sprite.MakePixelPerfect ();
 	}
 
 	void OnTriggerEnter(Collider other)
