@@ -279,7 +279,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		foreach (var item in teamToDamage) 
 		{
-			request.umchp.Add(item.GetCurrentHealthProto());
+			//request.umchp.Add(item.GetCurrentHealthProto());
 		}
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_COMPLETE_MINI_JOB_EVENT,

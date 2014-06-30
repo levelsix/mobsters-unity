@@ -118,7 +118,7 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 
 		for (int i = 0; i < teamSprites.Length; i++) 
 		{
-			if (monsters.currentTeam.Count > i)
+			if (monsters != null && monsters.currentTeam.Count > i)
 			{
 				teamSprites[i].Init(new PZMonster(monsters.currentTeam[i]));
 			}

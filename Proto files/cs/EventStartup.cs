@@ -725,6 +725,15 @@ namespace com.lvl6.proto
       get { return _minutesPerObstacle; }
       set { _minutesPerObstacle = value; }
     }
+
+    private com.lvl6.proto.StartupResponseProto.StartupConstants.TaskMapConstants _taskMapConstants = null;
+    [global::ProtoBuf.ProtoMember(27, IsRequired = false, Name=@"taskMapConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StartupResponseProto.StartupConstants.TaskMapConstants taskMapConstants
+    {
+      get { return _taskMapConstants; }
+      set { _taskMapConstants = value; }
+    }
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnimatedSpriteOffsetProto")]
   public partial class AnimatedSpriteOffsetProto : global::ProtoBuf.IExtensible
   {
@@ -959,6 +968,70 @@ namespace com.lvl6.proto
     {
       get { return _elementalWeakness; }
       set { _elementalWeakness = value; }
+    }
+
+    private float _oilPerMonsterLevel = default(float);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"oilPerMonsterLevel", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float oilPerMonsterLevel
+    {
+      get { return _oilPerMonsterLevel; }
+      set { _oilPerMonsterLevel = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TaskMapConstants")]
+  public partial class TaskMapConstants : global::ProtoBuf.IExtensible
+  {
+    public TaskMapConstants() {}
+    
+
+    private string _mapSectionImagePrefix = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"mapSectionImagePrefix", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string mapSectionImagePrefix
+    {
+      get { return _mapSectionImagePrefix; }
+      set { _mapSectionImagePrefix = value; }
+    }
+
+    private int _mapNumberOfSections = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"mapNumberOfSections", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int mapNumberOfSections
+    {
+      get { return _mapNumberOfSections; }
+      set { _mapNumberOfSections = value; }
+    }
+
+    private float _mapSectionHeight = default(float);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"mapSectionHeight", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float mapSectionHeight
+    {
+      get { return _mapSectionHeight; }
+      set { _mapSectionHeight = value; }
+    }
+
+    private float _mapTotalWidth = default(float);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"mapTotalWidth", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float mapTotalWidth
+    {
+      get { return _mapTotalWidth; }
+      set { _mapTotalWidth = value; }
+    }
+
+    private float _mapTotalHeight = default(float);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"mapTotalHeight", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float mapTotalHeight
+    {
+      get { return _mapTotalHeight; }
+      set { _mapTotalHeight = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

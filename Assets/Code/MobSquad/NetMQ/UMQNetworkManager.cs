@@ -246,7 +246,7 @@ public class UMQNetworkManager : MonoBehaviour {
 #endif
 	}
 	
-	public int SendRequest(System.Object request, int type, Action<int> callback)
+	public int SendRequest(System.Object request, int type, Action<int> callback = null)
 	{
 		MemoryStream body = new MemoryStream();
 		

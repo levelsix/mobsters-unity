@@ -383,4 +383,59 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TaskMapElementProto")]
+  public partial class TaskMapElementProto : global::ProtoBuf.IExtensible
+  {
+    public TaskMapElementProto() {}
+    
+
+    private int _mapElementId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"mapElementId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int mapElementId
+    {
+      get { return _mapElementId; }
+      set { _mapElementId = value; }
+    }
+
+    private int _taskId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"taskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int taskId
+    {
+      get { return _taskId; }
+      set { _taskId = value; }
+    }
+
+    private int _xPos = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"xPos", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int xPos
+    {
+      get { return _xPos; }
+      set { _xPos = value; }
+    }
+
+    private int _yPos = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"yPos", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int yPos
+    {
+      get { return _yPos; }
+      set { _yPos = value; }
+    }
+
+    private com.lvl6.proto.Element _element = com.lvl6.proto.Element.NO_ELEMENT;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"element", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
+    public com.lvl6.proto.Element element
+    {
+      get { return _element; }
+      set { _element = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
 }

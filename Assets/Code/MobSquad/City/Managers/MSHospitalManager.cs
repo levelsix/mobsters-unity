@@ -209,6 +209,11 @@ public class MSHospitalManager : MonoBehaviour {
 		MSHospitalManager.instance.healingMonsters.Remove(monster);
 		monster.healingMonster = null;
 		monster.currHP = monster.maxHP;
+
+		if (MSActionManager.Goon.OnMonsterRemoveQueue != null)
+		{
+			MSActionManager.Goon.OnMonsterRemoveQueue(monster);
+		}
 	}
 	
 	
