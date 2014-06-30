@@ -17,15 +17,10 @@ public class MSFacebookRequestEntry : MonoBehaviour {
 	UITexture fbPhoto;
 
 	[SerializeField]
-	GameObject checkMark;
-
-	[SerializeField]
 	UILabel topText;
 
 	[SerializeField]
 	UILabel bottomText;
-
-	public MSActionButton button;
 
 	bool accepted = false;
 
@@ -36,15 +31,12 @@ public class MSFacebookRequestEntry : MonoBehaviour {
 		this.invite = invite;
 
 		accepted = false;
-		checkMark.SetActive(accepted);
 
 		topText.text = "Loading...";
 		bottomText.text = " ";
 		RequestName();
 
 		RequestPicture();
-
-		UIEventListener.Get(button.gameObj).onClick += Swap;
 	}
 
 	public void TryAccept()
@@ -103,11 +95,5 @@ public class MSFacebookRequestEntry : MonoBehaviour {
 	{
 		MSRequestManager.instance.RejectInvite(invite);
 		GetComponent<MSSimplePoolable>().Pool();
-	}
-
-	public void Swap(GameObject go)
-	{
-		accepted = !accepted;
-		checkMark.SetActive(accepted);
 	}
 }
