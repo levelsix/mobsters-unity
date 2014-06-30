@@ -420,8 +420,13 @@ public class MSBottomBar : MonoBehaviour {
 			RemoveBox(box);
 		}
 
-		if (mode != GoonScreenMode.SELL) {
-			MSBuildingManager.instance.AddMonsterToScene (monster, MSBuildingManager.instance.playerUnits);
+		if (mode != GoonScreenMode.SELL ) {
+			foreach (PZMonster item in MSMonsterManager.instance.userTeam) {
+				if(monster == item){
+					MSBuildingManager.instance.AddMonsterToScene (monster, MSBuildingManager.instance.playerUnits);
+					break;
+				}
+			}
 		}
 	}
 
@@ -436,7 +441,12 @@ public class MSBottomBar : MonoBehaviour {
 		if (mode == GoonScreenMode.SELL) {
 			currSellValue += monster.sellValue;
 		} else {
-			MSBuildingManager.instance.RemoveMonsterFromScene(monster, MSBuildingManager.instance.playerUnits);
+			foreach (PZMonster item in MSMonsterManager.instance.userTeam) {
+				if(monster == item){
+					MSBuildingManager.instance.RemoveMonsterFromScene (monster, MSBuildingManager.instance.playerUnits);
+					break;
+				}
+			}
 		}
 
 		//Grab an empty slot to fade out
