@@ -101,7 +101,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	/// <summary>
 	/// This list contains all the gems that are above the board but have not yet fallen in
 	/// </summary>
-	public List<PZGem> prewarmedGems = new List<PZGem>();
+	//public List<PZGem> prewarmedGems = new List<PZGem>();
 
 	public Stack<int>[] riggedBoardStacks = new Stack<int>[STANDARD_BOARD_WIDTH];
 	
@@ -643,11 +643,9 @@ public class PZPuzzleManager : MonoBehaviour {
 				gem = board[originx,originy - 1];
 				bombMatch.CheckAgainst(GetBombMatch(gem));
 			}
-			Debug.Break ();
 			source.gemType = PZGem.GemType.NORMAL;
 			destination.gemType = PZGem.GemType.NORMAL;
 			bombMatch.Destroy();
-			Debug.Break ();
 			
 		}
 	}
@@ -1029,9 +1027,10 @@ public class PZPuzzleManager : MonoBehaviour {
 				}
 			}
 		}
-		foreach (PZGem gem in prewarmedGems) {
-			gem.CheckFall();
+		for(int i = 0; i < columnQueues.Length; i++){
+			while(columnQueues[i].Count > 0){
+				columnQueues[i][0].CheckFall();
+			}
 		}
-		prewarmedGems.Clear();
 	}
 }

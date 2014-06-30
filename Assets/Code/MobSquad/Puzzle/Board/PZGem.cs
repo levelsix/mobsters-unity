@@ -176,9 +176,10 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		Init (colr, column);
 
 		PZPuzzleManager.instance.OnStartMoving(this);
-		PZPuzzleManager.instance.prewarmedGems.Add (this);
 
 		trans.localPosition = new Vector3(boardX * SPACE_SIZE, Mathf.Max(boardY * SPACE_SIZE, PZPuzzleManager.instance.HighestGemInColumn(boardX) + SPACE_SIZE), -1);
+		PZPuzzleManager.instance.columnQueues[boardX].Add (this);
+		enqueued = true;
 
 		CheckFall();
 	}
