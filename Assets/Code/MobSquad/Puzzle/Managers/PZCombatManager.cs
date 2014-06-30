@@ -766,6 +766,7 @@ public class PZCombatManager : MonoBehaviour {
 		int oil = 0;
 		int xp = 0;
 		List<MonsterProto> pieces = new List<MonsterProto>();
+		List<ItemProto> items = new List<ItemProto>();
 		if (pvpMode)
 		{
 			cash = defender.prospectiveCashWinnings;
@@ -778,13 +779,18 @@ public class PZCombatManager : MonoBehaviour {
 				cash += item.taskMonster.cashReward;
 				xp += item.taskMonster.expReward;
 				oil += item.taskMonster.oilReward;
-				if (item.taskMonster.puzzlePieceDropped)
+
+				//if an enemy would have dropped an item and a capsule, it just drops an item instead
+				if (item.taskMonster.itemId > 0){
+					items.Add(MSDataManager.instance.Get<ItemProto>(item.taskMonster.itemId));
+				}
+				else if (item.taskMonster.puzzlePieceDropped)
 				{
 					pieces.Add(item.monster);
 				}
 			}
 		}
-		winLosePopup.InitWin(xp, cash, oil, pieces);
+		winLosePopup.InitWin(xp, cash, oil, pieces, items);
 		MSResourceManager.instance.Collect(ResourceType.CASH, cash);
 		MSResourceManager.instance.GainExp(xp);
 	}
