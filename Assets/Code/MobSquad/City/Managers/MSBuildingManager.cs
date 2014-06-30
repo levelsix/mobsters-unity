@@ -527,9 +527,9 @@ public class MSBuildingManager : MonoBehaviour
 			MSMiniJobManager.instance.Init(jobCenter);
 		}
 		
-		foreach (var item in MSMonsterManager.instance.userMonsters) 
+		foreach (var item in MSMonsterManager.instance.userTeam) 
 		{
-			if (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED)
+			if (item != null && (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED))
 			{
 				AddMonsterToScene(item, _playerUnits);
 			}
@@ -1223,15 +1223,11 @@ public class MSBuildingManager : MonoBehaviour
 	}
 
 	void OnAddTeam(PZMonster monster){
-		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) {
 			AddMonsterToScene (monster, _playerUnits);
-		}
 	}
 
 	void OnRemoveTeam(PZMonster monster){
-		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) {
 			RemoveMonsterFromScene (monster, _playerUnits);
-		}
 	}
 
 	void OnMonsterRemovedFromPlayerInventory(long monsterID){
