@@ -170,6 +170,14 @@ public class MSDataManager : MonoBehaviour {
 		{
 			Load(item, item.expansionNum);
 		}
+		foreach (var item in data.allTasks) 
+		{
+			Load(item, item.taskId);
+		}
+		foreach (var item in data.allTaskMapElements)
+		{
+			Load(item, item.mapElementId);
+		}
 		foreach (var item in data.allCities) 
 		{
 			Load(item, item.cityId);
@@ -208,10 +216,6 @@ public class MSDataManager : MonoBehaviour {
 		{
 			MSFullBuildingProto building = new MSFullBuildingProto(item);
 			Load (building, building.id);
-		}
-		foreach (var item in data.allTasks) 
-		{
-			Load(item, item.taskId);
 		}
 		foreach (var item in data.allMonsters) 
 		{

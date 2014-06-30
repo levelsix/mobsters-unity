@@ -11,61 +11,56 @@ using com.lvl6.proto;
 public class MSRequestPopup : MonoBehaviour {
 
 	[SerializeField]
-	UIDragScrollView grid;
+	UIGrid requestGrid;
 
 	[SerializeField]
-	MSFacebookRequestEntry entryPrefab;
+	MSFacebookRequestEntry requestEntryPrefab;
 
-	List<MSFacebookRequestEntry> entries = new List<MSFacebookRequestEntry>();
+	[SerializeField]
+	MSAttackEntry attackEntryPrefab;
+
+	List<MSFacebookRequestEntry> requestEntries = new List<MSFacebookRequestEntry>();
+
+	List<MSAttackEntry> attackEntries = new List<MSAttackEntry>();
 
 	void OnEnable()
 	{
-		Init ();
+		InitRequests();
 	}
 
-	void Init()
+	public void InitRequests()
 	{
-		//Debug.Log("Initting request popup...");
-
-		while (entries.Count < MSRequestManager.instance.invitesForMe.Count)
+		RecycleRequestEntries();
+		foreach (var item in MSRequestManager.instance.invitesForMe) 
 		{
-			AddEntry();
+			AddRequestEntry(item);
 		}
 
-		int i = 0;
-		for (; i < MSRequestManager.instance.invitesForMe.Count; i++) 
-		{
-			entries[i].gameObject.SetActive(true);
-			entries[i].Init(MSRequestManager.instance.invitesForMe[i]);
-		}
-		for (; i < entries.Count; i++)  //Deactivate the rest of the entries that exist
-		{
-			entries[i].gameObject.SetActive(false);
-		}
-
-		grid.GetComponent<UIGrid>().Reposition();
-
-		grid.collider.enabled = false;
-		grid.collider.enabled = true;
+		requestGrid.Reposition();
 	}
 
-	public void AcceptButton()
-	{
-		foreach (var item in entries) 
-		{
-			item.TryAccept();
-		}
-
-		MSRequestManager.instance.SendAcceptRejectRequest();
-	}
-
-	void AddEntry()
+	void AddRequestEntry(UserFacebookInviteForSlotProto invite)
 	{
 		//Debug.Log("Adding another entry");
-		MSFacebookRequestEntry entry = Instantiate(entryPrefab) as MSFacebookRequestEntry;
-		entry.transform.parent = grid.transform;
+		MSFacebookRequestEntry entry = (MSPoolManager.instance.Get(requestEntryPrefab.GetComponent<MSSimplePoolable>(),
+		                                                          Vector3.zero,
+		                                                           requestGrid.transform) as MSSimplePoolable).GetComponent<MSFacebookRequestEntry>();
 		entry.transform.localScale = Vector3.one;
-		entry.GetComponent<MSUIHelper>().dragBehind = grid;
-		entries.Add(entry);
+		entry.Init(invite);
+		requestEntries.Add(entry);
+	}
+
+	void RecycleRequestEntries()
+	{
+		foreach (var item in requestEntries) 
+		{
+			item.GetComponent<MSSimplePoolable>().Pool();
+		}
+		requestEntries.Clear();
+	}
+
+	void OnRequestAcceptedOrDenied()
+	{
+		requestGrid.Reposition();
 	}
 }

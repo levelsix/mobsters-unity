@@ -78,17 +78,20 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"RARE", Value=3)]
       RARE = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ULTRA", Value=4)]
-      ULTRA = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"SUPER", Value=4)]
+      SUPER = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"EPIC", Value=5)]
-      EPIC = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"ULTRA", Value=5)]
+      ULTRA = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LEGENDARY", Value=6)]
-      LEGENDARY = 6,
+      [global::ProtoBuf.ProtoEnum(Name=@"EPIC", Value=6)]
+      EPIC = 6,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"EVO", Value=7)]
-      EVO = 7
+      [global::ProtoBuf.ProtoEnum(Name=@"LEGENDARY", Value=7)]
+      LEGENDARY = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"EVO", Value=8)]
+      EVO = 8
     }
   
 }

@@ -457,6 +457,15 @@ namespace com.lvl6.proto
       get { return _occupationName; }
       set { _occupationName = value; }
     }
+
+    private string _imgSuffix = "";
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"imgSuffix", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string imgSuffix
+    {
+      get { return _imgSuffix; }
+      set { _imgSuffix = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -565,6 +574,15 @@ namespace com.lvl6.proto
     {
       get { return _resourceCapacity; }
       set { _resourceCapacity = value; }
+    }
+
+    private int _numEvoChambers = default(int);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"numEvoChambers", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numEvoChambers
+    {
+      get { return _numEvoChambers; }
+      set { _numEvoChambers = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -986,6 +1004,25 @@ namespace com.lvl6.proto
     {
       get { return _removalStartTime; }
       set { _removalStartTime = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EvoChamberProto")]
+  public partial class EvoChamberProto : global::ProtoBuf.IExtensible
+  {
+    public EvoChamberProto() {}
+    
+
+    private com.lvl6.proto.StructureInfoProto _structInfo = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"structInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StructureInfoProto structInfo
+    {
+      get { return _structInfo; }
+      set { _structInfo = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

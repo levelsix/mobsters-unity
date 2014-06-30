@@ -55,6 +55,13 @@ namespace com.lvl6.proto
       get { return _allTasks; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.TaskMapElementProto> _allTaskMapElements = new global::System.Collections.Generic.List<com.lvl6.proto.TaskMapElementProto>();
+    [global::ProtoBuf.ProtoMember(28, Name=@"allTaskMapElements", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.TaskMapElementProto> allTaskMapElements
+    {
+      get { return _allTaskMapElements; }
+    }
+  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> _allMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto>();
     [global::ProtoBuf.ProtoMember(5, Name=@"allMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.MonsterProto> allMonsters
@@ -144,6 +151,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.MiniJobCenterProto> allMiniJobCenters
     {
       get { return _allMiniJobCenters; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.EvoChamberProto> _allEvoChambers = new global::System.Collections.Generic.List<com.lvl6.proto.EvoChamberProto>();
+    [global::ProtoBuf.ProtoMember(29, Name=@"allEvoChambers", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.EvoChamberProto> allEvoChambers
+    {
+      get { return _allEvoChambers; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> _persistentEvents = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto>();

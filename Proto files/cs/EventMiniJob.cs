@@ -241,13 +241,6 @@ namespace com.lvl6.proto
       get { return _gemCost; }
       set { _gemCost = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> _umchp = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto>();
-    [global::ProtoBuf.ProtoMember(6, Name=@"umchp", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> umchp
-    {
-      get { return _umchp; }
-    }
-  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -330,6 +323,13 @@ namespace com.lvl6.proto
       get { return _userMiniJobId; }
       set { _userMiniJobId = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> _umchp = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto>();
+    [global::ProtoBuf.ProtoMember(6, Name=@"umchp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> umchp
+    {
+      get { return _umchp; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

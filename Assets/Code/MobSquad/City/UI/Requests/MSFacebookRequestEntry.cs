@@ -10,6 +10,7 @@ using Facebook.MiniJSON;
 /// @author Rob Giusti
 /// CBKFacebookRequestEntry
 /// </summary>
+[RequireComponent (typeof(MSSimplePoolable))]
 public class MSFacebookRequestEntry : MonoBehaviour {
 
 	[SerializeField]
@@ -91,6 +92,18 @@ public class MSFacebookRequestEntry : MonoBehaviour {
 	}
 
 	#endregion
+
+	public void Accept()
+	{
+		MSRequestManager.instance.AcceptInvite(invite);
+		GetComponent<MSSimplePoolable>().Pool();
+	}
+
+	public void Reject()
+	{
+		MSRequestManager.instance.RejectInvite(invite);
+		GetComponent<MSSimplePoolable>().Pool();
+	}
 
 	public void Swap(GameObject go)
 	{

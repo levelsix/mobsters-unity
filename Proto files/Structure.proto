@@ -127,6 +127,8 @@ message ResidenceProto {
 	optional int32 numAcceptedFbInvites = 5;
 	
 	optional string occupationName = 6;
+	
+	optional string imgSuffix = 7;
 }
 
 //------------------------------------------------------------------------------------------
@@ -151,6 +153,8 @@ message TownHallProto {
 	
 	//how much this town hall can hold
 	optional int32 resourceCapacity = 11;
+	
+	optional int32 numEvoChambers = 12;
 }
 
 //------------------------------------------------------------------------------------------
@@ -237,3 +241,6 @@ message UserObstacleProto {
 
 //------------------------------------------------------------------------------------------
 
+message EvoChamberProto {
+	optional StructureInfoProto structInfo = 1; 
+}
