@@ -143,9 +143,16 @@ public class MSChatManager : MonoBehaviour {
 		groupMessage.timeOfChat = MSUtil.timeNowMillis;
 		groupMessage.isAdmin = proto.isAdmin;
 
-		globalChat.Add(MSUtil.timeNowMillis, groupMessage);
+		switch (proto.scope)
+		{
+		case GroupChatScope.GLOBAL:
+			globalChat.Add(MSUtil.timeNowMillis, groupMessage);
+			break;
+		case GroupChatScope.CLAN:
+			clanChat.Add(MSUtil.timeNowMillis, groupMessage);
+			break;
+		}
 
-		
 		if (MSActionManager.UI.OnGroupChatReceived != null)
 		{
 			MSActionManager.UI.OnGroupChatReceived(proto);

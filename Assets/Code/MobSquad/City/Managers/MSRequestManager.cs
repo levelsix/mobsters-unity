@@ -54,23 +54,28 @@ public class MSRequestManager : MonoBehaviour {
 		{
 			RejectInvite(invite);
 		}
-
-		if (MSActionManager.UI.OnRequestsAcceptOrReject != null)
-		{
-			MSActionManager.UI.OnRequestsAcceptOrReject();
-		}
 	}
 
 	public void AcceptInvite(UserFacebookInviteForSlotProto invite)
 	{
 		inviteResponseRequest.acceptedInviteIds.Add(invite.inviteId);
 		invitesForMe.Remove(invite);
+		
+		if (MSActionManager.UI.OnRequestsAcceptOrReject != null)
+		{
+			MSActionManager.UI.OnRequestsAcceptOrReject();
+		}
 	}
 
 	public void RejectInvite(UserFacebookInviteForSlotProto invite)
 	{
 		inviteResponseRequest.rejectedInviteIds.Add(invite.inviteId);
 		invitesForMe.Remove(invite);
+		
+		if (MSActionManager.UI.OnRequestsAcceptOrReject != null)
+		{
+			MSActionManager.UI.OnRequestsAcceptOrReject();
+		}
 	}
 
 	public void SendAcceptRejectRequest()

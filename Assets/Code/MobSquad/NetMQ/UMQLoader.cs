@@ -98,6 +98,10 @@ public class UMQLoader : MonoBehaviour {
 		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
 		MSEvolutionManager.instance.Init(response.evolution);
 
+		Debug.LogError("Global chats: " + response.globalChats.Count
+		               + "\nClan chats: " + response.clanChats.Count
+		               + "\nPrivate chats: " + response.pcpp.Count);
+
 		if (MSActionManager.Loading.OnStartup != null)
 		{
 			MSActionManager.Loading.OnStartup(response);
