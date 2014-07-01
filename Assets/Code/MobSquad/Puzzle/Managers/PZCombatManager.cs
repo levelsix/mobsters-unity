@@ -686,6 +686,8 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 		if (enemies.Count > 0) {
+			activeEnemy.OnClick();
+
 			activeEnemy.GoToStartPos ();
 			activeEnemy.Init (enemies.Dequeue ());
 			activeEnemy.unit.direction = MSValues.Direction.WEST;

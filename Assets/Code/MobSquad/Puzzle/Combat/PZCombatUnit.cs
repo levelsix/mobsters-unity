@@ -57,6 +57,9 @@ public class PZCombatUnit : MonoBehaviour {
 	/// </summary>
 	[SerializeField]
 	UILabel unitInfo;
+
+	[SerializeField]
+	UISprite unitRarity;
 	
 	const float INFO_DISPLAY_TIME = 3f;
 
@@ -131,6 +134,13 @@ public class PZCombatUnit : MonoBehaviour {
 		hpLabel.text = monster.currHP + "/" + monster.maxHP;
 
 		unitInfo.text = monster.monster.displayName + " (LVL " + monster.level + ")";
+		unitRarity.spriteName = "";
+
+		if (monster.monster.quality != Quality.COMMON)
+		{
+			unitRarity.spriteName = "battle" + monster.monster.quality.ToString().ToLower() + "tag";
+			unitRarity.MakePixelPerfect();
+		}
 
 		Color healthColor;
 		switch (monster.monster.monsterElement) {
