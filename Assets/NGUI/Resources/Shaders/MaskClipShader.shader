@@ -1,4 +1,4 @@
-﻿Shader "Custom/MaskClipShader (AlphaClip)" 
+﻿Shader "Custom/MaskClipShader" 
 {
   Properties 
   {
