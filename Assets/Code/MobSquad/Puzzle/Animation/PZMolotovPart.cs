@@ -98,10 +98,11 @@ public class PZMolotovPart : MonoBehaviour {
 	void Update()
 	{
 		trans.localPosition += direction * speed * Time.deltaTime;
-//		if ((trans.localPosition - dest).sqrMagnitude < toleranceSqr || !sprite.isVisible)
-//		{
-//			pool.Pool();
-//		}
+		// This catches the Moltov particle, if for some reason it misses it's target
+		if (Mathf.Abs (trans.localPosition.x) > Screen.width || Mathf.Abs(trans.localPosition.y) > Screen.height)
+		{
+			pool.Pool();
+		}
 
 	}
 }
