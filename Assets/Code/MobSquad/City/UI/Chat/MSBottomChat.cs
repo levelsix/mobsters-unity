@@ -91,10 +91,8 @@ public class MSBottomChat : MonoBehaviour {
 
 	void OnDrag(Vector2 drag)
 	{
-		Debug.Log("Dat drag: " + drag);
 		if (Mathf.Abs (currDrag) < dragThreshold)
 		{
-			Debug.Log("Dat slide");
 			currDrag += drag.x;
 			if (currDrag < -dragThreshold)
 			{
