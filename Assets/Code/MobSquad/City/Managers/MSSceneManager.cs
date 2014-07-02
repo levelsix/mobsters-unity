@@ -101,9 +101,7 @@ public class MSSceneManager : MonoBehaviour {
 	IEnumerator FadeToPuzzle()
 	{
 		puzzleParent.SetActive(true);
-		StartCoroutine(FadePuzzleBackground(true));
-		yield return StartCoroutine(Fade(cityPanel, puzzlePanel));
-		cityParent.SetActive(false);
+		yield return StartCoroutine(FadePuzzleBackground(true));
 	}
 
 	IEnumerator Fade (UIPanel from, UIPanel to)

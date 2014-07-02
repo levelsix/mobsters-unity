@@ -9,8 +9,17 @@ public class MSSetRenderQueue : MonoBehaviour {
 	
 	void Start ()
 	{
-		Renderer ren = renderer;
-		
+		//Renderer ren = renderer;
+
+		Material mMat;
+		foreach (var ren in GetComponentsInChildren<Renderer>()) 
+		{
+			mMat = new Material(ren.sharedMaterial);
+			mMat.renderQueue = renderQueue;
+			ren.material = mMat;
+		}
+
+		/*
 		if (ren == null)
 		{
 			ParticleSystem sys = GetComponent<ParticleSystem>();
@@ -23,6 +32,7 @@ public class MSSetRenderQueue : MonoBehaviour {
 			mMat.renderQueue = renderQueue;
 			ren.material = mMat;
 		}
+		*/
 	}
 	void OnDestroy () { if (mMat != null) Destroy(mMat); }
 }
