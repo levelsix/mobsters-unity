@@ -21,7 +21,7 @@ public class MSTaskable : MonoBehaviour {
 
 		persistentEventId = eventId;
 
-		DetermineHoverIcon ();
+		//DetermineHoverIcon (); No longer in Cities
 	}
 
 	void OnEnable()
