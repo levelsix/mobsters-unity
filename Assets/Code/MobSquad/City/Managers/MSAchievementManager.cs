@@ -9,6 +9,9 @@ public class MSAchievementManager : MonoBehaviour {
 
 	public List<MSFullAchievement> currAchievements = new List<MSFullAchievement>();
 
+	public MSBadge achievementBadge;
+	public MSBadge jobBadge;
+
 	/// <summary>
 	/// The progress request.
 	/// We have this chill around so that if we have a bunch of achievements
@@ -55,6 +58,11 @@ public class MSAchievementManager : MonoBehaviour {
 			if (!item.isRedeemed)
 			{
 				currAchievements.Add(new MSFullAchievement(item));
+				if (item.isComplete)
+				{
+					jobBadge.notifications++;
+					achievementBadge.notifications++;
+				}
 			}
 		}
 		foreach (AchievementProto item in MSDataManager.instance.GetAll<AchievementProto>().Values)
@@ -71,6 +79,11 @@ public class MSAchievementManager : MonoBehaviour {
 	public void AddProgressedAchievement(MSFullAchievement fullAchievement)
 	{
 		progressRequest.uapList.Add(fullAchievement.userAchievement);
+		if (fullAchievement.userAchievement.isComplete)
+		{
+			jobBadge.notifications++;
+			achievementBadge.notifications++;
+		}
 	}
 
 	void Update()
@@ -104,6 +117,9 @@ public class MSAchievementManager : MonoBehaviour {
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ACHIEVEMENT_REDEEM_EVENT, DealWithRedeemAchievementResponse);
 
 		currAchievements.Remove(achievement);
+
+		jobBadge.notifications--;
+		achievementBadge.notifications--;
 
 		return currAchievements.Find(x=>x.achievement.achievementId == achievement.achievement.successorId);
 	}

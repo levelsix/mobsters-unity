@@ -208,6 +208,13 @@ public class MSQuestLog : MonoBehaviour {
 
 	void LoadQuestDetails(MSFullQuest fullQ)
 	{
+		if (fullQ.newQuest)
+		{
+			fullQ.newQuest = false;
+			MSQuestManager.instance.questBadge.notifications--;
+			MSQuestManager.instance.jobsBadge.notifications--;
+		}
+
 		questName.text = fullQ.quest.name;
 
 		questDescription.text = fullQ.quest.description;

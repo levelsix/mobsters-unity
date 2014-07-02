@@ -5,7 +5,7 @@ public enum Language {EN, FR, JA};
 
 public class MSLocalization : MonoBehaviour
 {
-	public static Language language = Language.FR;
+	public static Language language = Language.EN;
 	
 	public static string GetString(Sheet1.rowIds rowId)
 	{

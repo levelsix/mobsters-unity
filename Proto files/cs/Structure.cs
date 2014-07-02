@@ -233,7 +233,10 @@ namespace com.lvl6.proto
       EVO = 7,
             
       [global::ProtoBuf.ProtoEnum(Name=@"MINI_JOB", Value=9)]
-      MINI_JOB = 9
+      MINI_JOB = 9,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"TEAM_CENTER", Value=10)]
+      TEAM_CENTER = 10
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1014,6 +1017,25 @@ namespace com.lvl6.proto
   public partial class EvoChamberProto : global::ProtoBuf.IExtensible
   {
     public EvoChamberProto() {}
+    
+
+    private com.lvl6.proto.StructureInfoProto _structInfo = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"structInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StructureInfoProto structInfo
+    {
+      get { return _structInfo; }
+      set { _structInfo = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TeamCenterProto")]
+  public partial class TeamCenterProto : global::ProtoBuf.IExtensible
+  {
+    public TeamCenterProto() {}
     
 
     private com.lvl6.proto.StructureInfoProto _structInfo = null;
