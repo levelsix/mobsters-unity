@@ -40,17 +40,15 @@ public class MSBottomChat : MonoBehaviour {
 	{
 		foreach (var item in hideTweens) 
 		{
-			item.ResetToBeginning();
-			item.Play();
+			item.PlayForward();
 		}
 	}
 
 	public void Unhide()
 	{
-		foreach (var item in unhideTweens) 
+		foreach (var item in hideTweens) 
 		{
-			item.ResetToBeginning();
-			item.Play();
+			item.PlayReverse();
 		}
 	}
 	
