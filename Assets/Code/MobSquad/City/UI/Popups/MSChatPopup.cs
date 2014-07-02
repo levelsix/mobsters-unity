@@ -121,6 +121,22 @@ public class MSChatPopup : MonoBehaviour {
 		SetGlobalChat();
 	}
 
+	public void Init(MSValues.ChatMode mode)
+	{
+		switch(mode)
+		{
+		case MSValues.ChatMode.GLOBAL:
+			SetGlobalChat();
+			break;
+		case MSValues.ChatMode.CLAN:
+			SetClanChat();
+			break;
+		case MSValues.ChatMode.PRIVATE:
+			SetPrivateChat();
+			break;
+		}
+	}
+
 	public void SetGlobalChat()
 	{
 		mover.Sample(1, true);

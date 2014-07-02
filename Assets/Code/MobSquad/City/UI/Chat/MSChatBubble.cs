@@ -72,6 +72,9 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	[SerializeField]
 	MSChatBubbleOptions optionsPrefab;
 
+	[SerializeField]
+	MSChatAvatar avatar;
+
 	MSChatBubbleOptions options = null;
 
 	MinimumUserProtoWithLevel sender;
@@ -94,7 +97,7 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	public void Init(GroupChatMessageProto proto)
 	{
 		sender = proto.sender;
-		Init(proto.timeOfChat, proto.sender.minUserProto.name, proto.content, proto.sender.level, proto.isAdmin);
+		Init(proto.timeOfChat, proto.sender.minUserProto.name, proto.content, proto.sender.minUserProto.avatarMonsterId, proto.isAdmin);
 	}
 	
 	/// <summary>
@@ -107,13 +110,13 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	{
 		//Same shit, different proto
 		sender = proto.poster;
-		Init(proto.timeOfPost, proto.poster.minUserProto.name, proto.content, proto.poster.level);
+		Init(proto.timeOfPost, proto.poster.minUserProto.name, proto.content, proto.poster.minUserProto.avatarMonsterId);
 	}
 
 	public void Init(ReceivedGroupChatResponseProto proto)
 	{
 		sender = proto.sender;
-		Init(MSUtil.timeNowMillis, proto.sender.minUserProto.name, proto.chatMessage, proto.sender.level, proto.isAdmin);
+		Init(MSUtil.timeNowMillis, proto.sender.minUserProto.name, proto.chatMessage, proto.sender.minUserProto.avatarMonsterId, proto.isAdmin);
 	}
 	
 	/// <summary>
@@ -125,8 +128,9 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	/// <param name='message'>
 	/// Message.
 	/// </param>
-	void Init(long time, string sender, string message, int level, bool leader = false)
+	void Init(long time, string sender, string message, int avatarId, bool leader = false)
 	{	
+		avatar.Init(avatarId);
 
 		Debug.Log("Bubble " + id + ": " + message);
 		//Fill text with message

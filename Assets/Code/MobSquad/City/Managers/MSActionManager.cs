@@ -201,9 +201,4 @@ public static class MSActionManager
 	{
 		public static Action OnTutorialContinue;
 	}
-
-	public static class Chat
-	{
-
-	}
 }

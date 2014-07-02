@@ -78,6 +78,7 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite)
 	{
+		sprite.alpha = 0;
 		//Debug.Log("Setting sprite: " + spriteName);
 		if (!bundles.ContainsKey(bundleName))
 		{
@@ -91,6 +92,7 @@ public class MSSpriteUtil : MonoBehaviour {
 			sprite.sprite2D = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
 			sprite.MakePixelPerfect();
 		}
+		sprite.alpha = 1;
 
 	}
 

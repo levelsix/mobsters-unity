@@ -72,6 +72,9 @@ public class MSTaskBar : MonoBehaviour {
 	[SerializeField]
 	GameObject minijobPopup;
 
+	[SerializeField]
+	MSBottomChat bottomChat;
+
 	TweenPosition tweenPos;
 	TweenAlpha tweenAlph;
 	
@@ -129,6 +132,7 @@ public class MSTaskBar : MonoBehaviour {
 			tweenPos.PlayReverse();
 			tweenAlph.PlayReverse();
 		}
+		bottomChat.Unhide();
 	}
 	
 	void OnBuildingSelect(MSBuilding building)
@@ -143,11 +147,13 @@ public class MSTaskBar : MonoBehaviour {
 		if (building != null)
 		{
 			StartCoroutine(TweenWhenOffScreen(building));
+			bottomChat.Hide();
 		}
 		else
 		{
 			tweenPos.PlayReverse();
 			tweenAlph.PlayReverse();
+			bottomChat.Unhide();
 		}
 	}
 	
