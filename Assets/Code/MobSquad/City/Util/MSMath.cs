@@ -240,4 +240,28 @@ public static class MSMath {
 		return null;
 	}
 
+	/// <summary>
+	/// Fucking magic
+	/// </summary>
+	/// <returns>The screen width.</returns>
+	public static float uiScreenWidth
+	{
+		get
+		{
+			return Screen.width * 640f / Screen.height;
+		}
+	}
+
+	/// <summary>
+	/// Fucking magic
+	/// </summary>
+	/// <returns>The screen height.</returns>
+	public static float uiScreenHeight
+	{
+		get
+		{
+			return 640f;
+		}
+	}
+
 }

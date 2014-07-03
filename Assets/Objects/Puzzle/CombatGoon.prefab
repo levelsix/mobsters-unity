@@ -12,7 +12,8 @@ GameObject:
   - 114: {fileID: 11400004}
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400024}
-  m_Layer: 10
+  - 114: {fileID: 11400038}
+  m_Layer: 5
   m_Name: CombatGoon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +29,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400002}
   - 114: {fileID: 11400008}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +45,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400004}
   - 114: {fileID: 11400002}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: HPBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +62,7 @@ GameObject:
   - 4: {fileID: 400006}
   - 114: {fileID: 11400010}
   - 114: {fileID: 11400000}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +81,7 @@ GameObject:
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400018}
   - 114: {fileID: 11400020}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: DamageLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +99,7 @@ GameObject:
   - 212: {fileID: 21200000}
   - 95: {fileID: 9500000}
   - 114: {fileID: 11400028}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: CharacterSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +115,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400012}
   - 114: {fileID: 11400014}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: HPLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +131,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400014}
   - 212: {fileID: 21200002}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Sprite (shadow)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +148,7 @@ GameObject:
   - 4: {fileID: 400016}
   - 114: {fileID: 11400026}
   - 114: {fileID: 11400022}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: CombatInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +166,7 @@ GameObject:
   - 114: {fileID: 11400034}
   - 114: {fileID: 11400032}
   - 114: {fileID: 11400030}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: ForfeitSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +181,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400020}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: ForfeitParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +197,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400022}
   - 114: {fileID: 11400036}
-  m_Layer: 10
+  m_Layer: 5
   m_Name: Rarity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1219,6 +1220,18 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
+--- !u!114 &11400038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cdfe927ad9c46aaaa02af89b248b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderQueue: 5001
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

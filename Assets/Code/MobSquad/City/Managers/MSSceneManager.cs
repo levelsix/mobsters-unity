@@ -33,9 +33,6 @@ public class MSSceneManager : MonoBehaviour {
 	[SerializeField]
 	float fadeTime = .6f;
 
-	[SerializeField]
-	MSSnapshot snapShot;
-
 	void Awake()
 	{
 		instance = this;
@@ -58,16 +55,11 @@ public class MSSceneManager : MonoBehaviour {
 		if (loadingState)
 		{
 			StartCoroutine(FadeFromLoading());
-			puzzleParent.SetActive(false);
 		}
 		if (!cityState)
 		{
 			StartCoroutine(FadeToCity());
 			cityState = true;
-		}
-		else if (MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER)
-		{
-			snapShot.Snap();
 		}
 	}
 	
@@ -95,24 +87,21 @@ public class MSSceneManager : MonoBehaviour {
 	{
 		loadingState = false;
 		cityParent.SetActive(true);
+		puzzleParent.SetActive(false);
 		yield return StartCoroutine(Fade (loadingPanel, cityPanel));
 		loadingParent.SetActive(false);
 	}
 
 	IEnumerator FadeToCity()
 	{
-		cityParent.SetActive(true);
-		StartCoroutine(FadePuzzleBackground(false));
-		yield return StartCoroutine(Fade(puzzlePanel, cityPanel));
+		yield return StartCoroutine(FadePuzzleBackground(false));
 		puzzleParent.SetActive(false);
 	}
 
 	IEnumerator FadeToPuzzle()
 	{
 		puzzleParent.SetActive(true);
-		StartCoroutine(FadePuzzleBackground(true));
-		yield return StartCoroutine(Fade(cityPanel, puzzlePanel));
-		cityParent.SetActive(false);
+		yield return StartCoroutine(FadePuzzleBackground(true));
 	}
 
 	IEnumerator Fade (UIPanel from, UIPanel to)

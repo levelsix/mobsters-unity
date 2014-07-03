@@ -28,6 +28,7 @@ public class MSPopup : MonoBehaviour {
 		}
 	}
 
+	[ContextMenu ("Close")]
 	public virtual void Close(bool all = false)
 	{
 		StartCoroutine(RunOutTweens(all));

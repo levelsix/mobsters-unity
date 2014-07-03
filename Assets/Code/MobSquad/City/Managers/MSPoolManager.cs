@@ -26,6 +26,21 @@ public class MSPoolManager : MonoBehaviour {
 		pools = new Dictionary<MSPoolable, List<MSPoolable>>();
 		DontDestroyOnLoad(gameObject);
 	}
+
+	public MSSimplePoolable Get(MonoBehaviour prefab, Transform parent = null)
+	{
+		return Get(prefab.GetComponent<MSSimplePoolable>(), Vector3.zero, parent) as MSSimplePoolable;
+	}
+
+	public MSSimplePoolable Get(MSSimplePoolable prefab, Transform parent = null)
+	{
+		return Get (prefab, Vector3.zero, parent) as MSSimplePoolable;
+	}
+
+	public MSPoolable Get(MSPoolable prefab, Transform parent = null)
+	{
+		return Get(prefab, Vector3.zero, parent);
+	}
 	
 	/// <summary>
 	/// Get the specified prefab at pos.

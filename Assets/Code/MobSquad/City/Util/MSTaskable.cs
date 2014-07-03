@@ -127,6 +127,8 @@ public class MSTaskable : MonoBehaviour {
 			}
 		}
 
+		MSActionManager.Popup.CloseAllPopups();
+
 		PZCombatManager.instance.StartCoroutine(BeginDungeonRequest());
 	}
 
@@ -207,7 +209,7 @@ public class MSTaskable : MonoBehaviour {
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, null);
 		
-		yield return StartCoroutine (EnterDungeon ());
+		//yield return StartCoroutine (EnterDungeon ());
 
 		MSActionManager.Scene.OnPuzzle();
 		

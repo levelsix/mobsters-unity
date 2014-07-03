@@ -5,6 +5,8 @@ using com.lvl6.proto;
 [System.Serializable]
 public class MSFullQuest {
 
+	public bool newQuest;
+
 	public FullUserQuestProto userQuest;
 	
 	public FullQuestProto quest;
@@ -22,10 +24,11 @@ public class MSFullQuest {
 		this.quest = quest;
 	}
 	
-	public MSFullQuest(FullQuestProto quest, FullUserQuestProto userQuest)
+	public MSFullQuest(FullQuestProto quest, FullUserQuestProto userQuest, bool newQuest)
 	{
 		this.quest = quest;
 		this.userQuest = userQuest;
+		this.newQuest = newQuest;
 	}
 	
 	public string GetProgressString()

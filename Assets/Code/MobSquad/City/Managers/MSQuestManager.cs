@@ -29,6 +29,10 @@ public class MSQuestManager : MonoBehaviour {
 	[SerializeField]
 	MSQuestCompletePopup popup;
 
+	public MSBadge jobsBadge;
+
+	public MSBadge questBadge;
+
 	public void Awake()
 	{
 		instance = this;
@@ -59,7 +63,7 @@ public class MSQuestManager : MonoBehaviour {
 		}
 		foreach (var item in proto.userQuests) 
 		{
-			currQuests.Add (new MSFullQuest(MSDataManager.instance.Get(typeof(FullQuestProto), item.questId) as FullQuestProto, item));
+			currQuests.Add (new MSFullQuest(MSDataManager.instance.Get(typeof(FullQuestProto), item.questId) as FullQuestProto, item, false));
 #if DEBUG2
 			Debug.Log ("In Progress Quest: " + item.questId);
 #endif
@@ -188,7 +192,10 @@ public class MSQuestManager : MonoBehaviour {
 				userQuest.userQuestJobs.Add(userjob);
 			}
 
-			currQuests.Add(new MSFullQuest(fullQuest, userQuest));
+			currQuests.Add(new MSFullQuest(fullQuest, userQuest, true));
+
+			jobsBadge.notifications++;
+			questBadge.notifications++;
 		}
 	}
 	

@@ -15,10 +15,13 @@ public class PZRocket : MonoBehaviour {
 
 	MSSimplePoolable pool;
 
+	UISprite sprite;
+
 	void Awake()
 	{
 		trans = transform;
 		pool = GetComponent<MSSimplePoolable>();
+		sprite = GetComponent<UISprite>();
 	}
 
 	public void Init(MSValues.Direction dir)
@@ -30,7 +33,7 @@ public class PZRocket : MonoBehaviour {
 	void Update()
 	{
 		trans.localPosition += MSValues.dirVectors[dir] * speed * Time.deltaTime;
-		if (Mathf.Abs (trans.localPosition.x) > Screen.width/2 || Mathf.Abs(trans.localPosition.y) > Screen.height/2)
+		if (!sprite.isVisible)
 		{
 			pool.Pool();
 		}

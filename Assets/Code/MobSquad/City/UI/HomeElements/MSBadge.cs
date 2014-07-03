@@ -14,12 +14,24 @@ public class MSBadge : MonoBehaviour {
 
 	[SerializeField] UISprite sprite;
 
+	int _nots = 0;
+
 	public int notifications
 	{
+		get
+		{
+			return _nots;
+		}
 		set
 		{
+			_nots = value;
 			sprite.alpha = value > 0 ? 1 : 0;
 			label.text = value.ToString();
 		}
+	}
+
+	void Awake()
+	{
+		notifications = 0;
 	}
 }

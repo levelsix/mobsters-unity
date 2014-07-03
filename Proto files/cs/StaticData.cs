@@ -160,6 +160,13 @@ namespace com.lvl6.proto
       get { return _allEvoChambers; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.TeamCenterProto> _allTeamCenters = new global::System.Collections.Generic.List<com.lvl6.proto.TeamCenterProto>();
+    [global::ProtoBuf.ProtoMember(30, Name=@"allTeamCenters", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.TeamCenterProto> allTeamCenters
+    {
+      get { return _allTeamCenters; }
+    }
+  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> _persistentEvents = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto>();
     [global::ProtoBuf.ProtoMember(18, Name=@"persistentEvents", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> persistentEvents

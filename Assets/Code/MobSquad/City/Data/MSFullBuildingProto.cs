@@ -14,6 +14,8 @@ public class MSFullBuildingProto {
 	public TownHallProto townHall;
 	public LabProto lab;
 	public MiniJobCenterProto miniJobCenter;
+	public EvoChamberProto evoChamber;
+	public TeamCenterProto teamCenter;
 
 	public MSFullBuildingProto predecessor
 	{
@@ -106,7 +108,18 @@ public class MSFullBuildingProto {
 		structInfo = jobCenter.structInfo;
 		id = structInfo.structId;
 	}
-
+	public MSFullBuildingProto(EvoChamberProto evoChamber)
+	{
+		this.evoChamber = evoChamber;
+		structInfo = evoChamber.structInfo;
+		id = structInfo.structId;
+	}
+	public MSFullBuildingProto(TeamCenterProto teamCenter)
+	{
+		this.teamCenter = teamCenter;
+		structInfo = teamCenter.structInfo;
+		id = structInfo.structId;
+	}
 
 
 }

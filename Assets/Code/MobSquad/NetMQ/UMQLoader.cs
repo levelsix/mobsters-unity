@@ -16,12 +16,14 @@ public class UMQLoader : MonoBehaviour {
 
 		Application.targetFrameRate = 60;
 
+		/*
 		MSFacebookManager.instance.Init();
 
 		while (!FB.isInitCalled || (!FB.hasFailed && !MSFacebookManager.hasTriedLogin))
 		{
 			yield return null;
 		}
+		*/
 
 		//Debug.Log("Loader hanging out");
 

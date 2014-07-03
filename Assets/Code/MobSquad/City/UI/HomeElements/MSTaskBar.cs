@@ -132,22 +132,21 @@ public class MSTaskBar : MonoBehaviour {
 			tweenPos.PlayReverse();
 			tweenAlph.PlayReverse();
 		}
-		bottomChat.Unhide();
 	}
 	
 	void OnBuildingSelect(MSBuilding building)
 	{
-
 		if (currBuilding != null)
 		{
 			tweenPos.PlayReverse();
 			tweenAlph.PlayReverse();
+
 		}
 		
 		if (building != null)
 		{
+			bottomChat.Hide ();
 			StartCoroutine(TweenWhenOffScreen(building));
-			bottomChat.Hide();
 		}
 		else
 		{
