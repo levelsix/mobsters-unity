@@ -12,12 +12,36 @@ public class MSMapTaskButton : MonoBehaviour {
 
 	MSTaskable taskable;
 
+	public UIButton button;
+
+	[SerializeField]
+	UILabel buttonLabel;
+
+	bool _open;
+
+	public bool Open{
+		get{
+			return _open;		
+		}
+		set{
+			_open = value;
+			if(value){
+				button.normalSprite = OPEN_CITY;
+				buttonLabel.alpha = 1f;
+			}else{
+				button.normalSprite = CLOSED_CITY;
+				buttonLabel.alpha = 0f;
+			}
+		}
+	}
+
 	const string OPEN_CITY = "opencitypin";
-	const string CLOSED_CITY = "closedcitypin";
+	const string CLOSED_CITY = "lockedcitypin";
 
 	void Awake(){
 		trans = transform;
 		taskable = GetComponent<MSTaskable> ();
+		button = GetComponent<UIButton> ();
 	}
 
 	public void initTaskButton(TaskMapElementProto task){
@@ -27,9 +51,11 @@ public class MSMapTaskButton : MonoBehaviour {
 		if (fullTask != null) {
 			taskable.Init(fullTask);
 		}
+		buttonLabel.depth = GetComponent<UISprite> ().depth + 1;
+		buttonLabel.text = task.mapElementId.ToString();
 	}
 
 	public void OnClick(){
-		taskable.EngageTask ();
+		Debug.Log ("print");
 	}
 }

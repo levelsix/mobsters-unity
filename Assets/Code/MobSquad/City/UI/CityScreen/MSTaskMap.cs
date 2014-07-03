@@ -1,0 +1,78 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System;
+using com.lvl6.proto;
+
+public class MSTaskMap : MonoBehaviour {
+	
+	[SerializeField]
+	MSSimplePoolable mapTaskButton;
+
+	[SerializeField]
+	MSSegmentedMap maps;
+
+	[SerializeField]
+	Transform TaskParent;
+
+	public Dictionary<int, MSMapTaskButton> taskButtons = new Dictionary<int, MSMapTaskButton>();
+	
+	Transform trans;
+	
+	/// <summary>
+	/// We have to scale the taskParent to get these coordinates to line up on the map
+	/// </summary>
+	const float SCALE_TO_FIT_X = 2f;
+	const float SCALE_TO_FIT_Y = 2f;
+		
+	void Awake(){
+		trans = transform;
+
+		UI2DSprite map = maps.maps [0];
+		TaskParent.localScale = new Vector3(SCALE_TO_FIT_X, SCALE_TO_FIT_Y, 1f);
+		TaskParent.localPosition = new Vector3 (-map.width, -map.height/2f, 0f);
+		
+		IDictionary tasks = MSDataManager.instance.GetAll<TaskMapElementProto> ();
+		
+		foreach (TaskMapElementProto task in tasks.Values)
+		{
+			mapTaskButton.GetComponent<UISprite>().MakePixelPerfect();
+			
+			MSSimplePoolable taskPool = MSPoolManager.instance.Get(mapTaskButton, Vector3.zero, TaskParent) as MSSimplePoolable;
+			taskPool.transform.localScale = new Vector3(1/SCALE_TO_FIT_X, 1/SCALE_TO_FIT_Y, 1f);
+			taskPool.GetComponent<UISprite>().depth = map.depth + 1;
+			taskPool.GetComponent<MSMapTaskButton>().initTaskButton(task);
+			
+			taskButtons.Add(task.taskId, taskPool.GetComponent<MSMapTaskButton>());
+		}
+		
+		float mapLength = maps.Height;
+		GetComponent<MSDragDropLimited> ().min = new Vector2 (0f, -(mapLength - map.height));
+		
+		BoxCollider box = GetComponent<BoxCollider> ();
+		box.size = new Vector3 (map.width, mapLength, 0f);
+		box.center = new Vector3(-map.width/2f,  (mapLength / 2f) - map.height/2f, 0f);
+	}
+
+	void Start(){
+
+	}
+
+	void OnEnable(){
+		IDictionary tasks = MSDataManager.instance.GetAll<TaskMapElementProto> ();
+				
+		int lastTask = 0;
+		foreach (TaskMapElementProto task in tasks.Values){
+			if (MSQuestManager.instance.taskDict.ContainsKey (task.taskId) ||
+			    MSQuestManager.instance.taskDict.ContainsKey (lastTask))
+			{
+				taskButtons[task.taskId].Open = true;
+			}
+			else
+			{
+				taskButtons[task.taskId].Open = false;
+			}
+			lastTask = task.taskId;
+		}
+	}
+}
