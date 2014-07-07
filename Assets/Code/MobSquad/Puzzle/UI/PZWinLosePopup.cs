@@ -217,8 +217,7 @@ public class PZWinLosePopup : MonoBehaviour {
 
 	PZPrize GetPrize()
 	{
-		PZPrize prize = (MSPoolManager.instance.Get(prizePrefab.GetComponent<MSSimplePoolable>(), Vector3.zero) as MonoBehaviour).GetComponent<PZPrize>();
-		prize.transform.parent = prizeParent;
+		PZPrize prize = (MSPoolManager.instance.Get(prizePrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, prizeParent) as MonoBehaviour).GetComponent<PZPrize>();
 		prize.transform.localScale = Vector3.one;
 		Color newColor = prize.sprite.color;
 		newColor.a = 0f;

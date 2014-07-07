@@ -79,6 +79,8 @@ public class MSSceneManager : MonoBehaviour {
 		{
 			t += Time.deltaTime;
 			PZScrollingBackground.instance.SetAlpha((fadeIn) ? t/fadeTime : 1 - t/fadeTime);
+			PZCombatManager.instance.activePlayer.unit.sprite.color = new Color(1,1,1,(fadeIn) ? t/fadeTime : 1 - t/fadeTime);
+			PZCombatManager.instance.activeEnemy.unit.sprite.color = new Color(1,1,1,(fadeIn) ? t/fadeTime : 1 - t/fadeTime);
 			yield return null;
 		}
 	}
@@ -88,12 +90,14 @@ public class MSSceneManager : MonoBehaviour {
 		loadingState = false;
 		cityParent.SetActive(true);
 		puzzleParent.SetActive(false);
-		yield return StartCoroutine(Fade (loadingPanel, cityPanel));
+		yield return StartCoroutine(Fade (loadingPanel, false));
 		loadingParent.SetActive(false);
 	}
 
 	IEnumerator FadeToCity()
 	{
+		cityParent.SetActive(true);
+		StartCoroutine(Fade (puzzlePanel, false));
 		yield return StartCoroutine(FadePuzzleBackground(false));
 		puzzleParent.SetActive(false);
 	}
@@ -101,20 +105,19 @@ public class MSSceneManager : MonoBehaviour {
 	IEnumerator FadeToPuzzle()
 	{
 		puzzleParent.SetActive(true);
+		puzzlePanel.alpha = 1;
 		yield return StartCoroutine(FadePuzzleBackground(true));
+		cityParent.SetActive(false);
 	}
 
-	IEnumerator Fade (UIPanel from, UIPanel to)
+	IEnumerator Fade (UIPanel pan, bool fadeIn)
 	{
-		to.gameObject.SetActive(true);
 		float t = 0;
 		while (t < fadeTime)
 		{
 			t += Time.deltaTime;
-			to.alpha = t/fadeTime;
-			from.alpha = 1 - to.alpha;
+			pan.alpha = (fadeIn ? t/fadeTime : 1 - t/fadeTime);
 			yield return null;
 		}
-		from.gameObject.SetActive(false);
 	}
 }

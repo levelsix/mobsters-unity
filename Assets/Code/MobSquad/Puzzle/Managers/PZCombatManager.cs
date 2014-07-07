@@ -50,8 +50,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// <summary>
 	/// The active enemy being fought and dealt damage by the player
 	/// </summary>
-	[SerializeField]
-	PZCombatUnit activeEnemy;
+	public PZCombatUnit activeEnemy;
 
 	[SerializeField]
 	PZCombatUnit[] backupPvPEnemies;
@@ -1004,8 +1003,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	void BombAt(float x, Transform plane)
 	{
-		Transform bomb = (MSPoolManager.instance.Get(MSPrefabList.instance.bombPrefab, Vector3.zero) as MonoBehaviour).transform;
-		bomb.parent = combatParent;
+		Transform bomb = (MSPoolManager.instance.Get(MSPrefabList.instance.bombPrefab, Vector3.zero, combatParent) as MonoBehaviour).transform;
 		bomb.localPosition = new Vector3(x, Screen.height/2 + BOMB_SPACING);
 		bomb.localScale = Vector3.one;
 		bomb.GetComponent<PZBomb>().targetHeight = activeEnemy.unit.transf.localPosition.y + 
@@ -1210,12 +1208,12 @@ public class PZCombatManager : MonoBehaviour {
 
 		bool playerTakingDamage = damage < activeEnemy.monster.currHP;
 		int fullDamageAfterElements = (int)(damage * MSUtil.GetTypeDamageMultiplier(activeEnemy.monster.monster.monsterElement, activePlayer.monster.monster.monsterElement));
-		
+
 		if (raidMode)
 		{
 			MSClanEventManager.instance.SendAttack(fullDamageAfterElements, activePlayer.monster, playerTakingDamage ? enemyDamage : 0);
 		}
-		else if (playerTakingDamage)
+		else // if (playerTakingDamage)
 		{
 			activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
 		}
