@@ -171,6 +171,15 @@ public class TutorialEditor : Editor
 			step.dialogueType = (DialogueType)EditorGUILayout.EnumPopup("Dialogue Type", step.dialogueType);
 			
 			step.dialogue = EditorGUILayout.TextField(step.dialogue);
+
+			if (step.dialogueType == DialogueType.PUZZLE)
+			{
+				step.player = EditorGUILayout.Toggle("Player?", step.player);
+			}
+			else
+			{
+				step.index = EditorGUILayout.IntField("Unit Index", step.index);
+			}
 			
 			break;
 		case StepType.PUZZLE_BLOCK:
@@ -192,6 +201,8 @@ public class TutorialEditor : Editor
 			break;
 		case StepType.UI:
 			step.ui = EditorGUILayout.ObjectField("Object", step.ui, typeof(GameObject), true) as GameObject;
+			step.direction = (MSValues.Direction)EditorGUILayout.EnumPopup(step.direction);
+			step.distance = EditorGUILayout.FloatField("Distance", step.distance);
 			break;
 		case StepType.MOVE_CAMERA:
 			step.position = EditorGUILayout.Vector3Field("Cam Pos", step.position);

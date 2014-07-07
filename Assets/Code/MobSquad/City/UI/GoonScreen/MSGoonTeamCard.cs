@@ -6,9 +6,6 @@ using com.lvl6.proto;
 public class MSGoonTeamCard : MonoBehaviour {
 
 	[SerializeField]
-	MSMiniGoonBox portrait;
-
-	[SerializeField]
 	UISprite bar;
 
 	[SerializeField]
@@ -21,6 +18,9 @@ public class MSGoonTeamCard : MonoBehaviour {
 	MSFillBar fillBar;
 
 	[SerializeField]
+	UILabel barLabel;
+
+	[SerializeField]
 	UILabel nameLabel;
 
 	[SerializeField]
@@ -31,12 +31,6 @@ public class MSGoonTeamCard : MonoBehaviour {
 
 	[SerializeField]
 	Color tintColor;
-
-	[SerializeField]
-	UITweener[] addTweens;
-
-	[SerializeField]
-	UITweener[] removeTweens;
 
 	bool firstTime = true;
 
@@ -66,80 +60,28 @@ public class MSGoonTeamCard : MonoBehaviour {
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory -= OnMonsterRemovedFromInventory;
 	}
 
-	public void AddAnimation()
+	public void Init(PZMonster goon)
 	{
-		foreach (var item in addTweens) 
-		{
-			item.ResetToBeginning();
-			item.PlayForward();
-		}
-	}
-
-	public void RemoveAnimation()
-	{
-		foreach (var item in removeTweens) 
-		{
-			item.ResetToBeginning();
-			item.PlayForward();
-		}
-	}
-
-	public void InitHeal(PZMonster goon)
-	{
-		//Stupid little case that we don't want animations when the player is first
-		//entering the game
-		//Every other time, it should animate
-		if (firstTime)
-		{
-			Init (goon, true);
-			portrait.Init (goon, true);
-			if (goon == null || goon.monster.monsterId == 0)
-			{
-				portrait.background.alpha = 0;
-			}
-			firstTime = false;
-			return;
-		}
-
-		if (this.goon != goon)
-		{
-			if (goon == null)
-			{
-				RemoveAnimation();
-			}
-			else
-			{
-				AddAnimation();
-			}
-		}
-		Init (goon, false);
+		Setup (goon, false);
 	}
 
 	public void InitLab(PZMonster goon)
 	{
-		/*
-		portrait.removeButton.able = false;
-		portrait.removeButton.icon.alpha = 0;
-		*/
-		portrait.removeButton.gameObj.SetActive(false);
 
-		Init (goon, true);
+		Setup (goon, true);
 
 		bottomLabel.text = " ";
 	}
 
-	public void Init(PZMonster goon, bool instant)
+	void Setup(PZMonster goon, bool instant)
 	{
 		if (goon != null && goon.monster != null && goon.monster.monsterId > 0)
 		{
-			portrait.Init(goon, true);
 			nameLabel.text = goon.monster.displayName;
 			if (goon.isHealing)
 			{
 				nameLabel.text += "([ff0000]Healing[-])";
 				bottomLabel.text = HEALING_BOTTOM_LABEL;
-				portrait.background.alpha = .5f;
-				portrait.goonPortrait.color = Color.white;
 
 				if (instant)
 				{
@@ -159,9 +101,8 @@ public class MSGoonTeamCard : MonoBehaviour {
 			else
 			{
 				fillBar.fill = ((float)goon.currHP) / goon.maxHP;
+				barLabel.text = goon.currHP + "/" + goon.maxHP;
 				bottomLabel.text = " ";
-				portrait.background.alpha = 1;
-				portrait.goonPortrait.color = Color.white;
 
 				if (instant)
 				{
@@ -205,11 +146,20 @@ public class MSGoonTeamCard : MonoBehaviour {
 		this.goon = goon;
 	}
 
+	/// <summary>
+	/// Removes this mobster from the team
+	/// Assigned in the editor to the remove button
+	/// </summary>
+	public void RemoveButton()
+	{
+		MSMonsterManager.instance.RemoveFromTeam(goon);
+	}
+
 	void OnMonsterRemovedFromInventory(long userMonsterId)
 	{
 		if (goon.userMonster.userMonsterId == userMonsterId)
 		{
-			Init (null, true);
+			Setup (null, true);
 		}
 	}
 

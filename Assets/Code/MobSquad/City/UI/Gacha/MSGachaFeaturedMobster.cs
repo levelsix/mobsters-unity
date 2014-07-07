@@ -51,8 +51,6 @@ public class MSGachaFeaturedMobster : MonoBehaviour {
 			
 			MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(mobster.monsterId);
 			
-			//mobsterSprite.sprite2D = MSSpriteUtil.instance.GetMobsterSprite(monster.imagePrefix);
-			
 			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Character", mobsterSprite);
 			
 			mobsterName.text = monster.displayName;

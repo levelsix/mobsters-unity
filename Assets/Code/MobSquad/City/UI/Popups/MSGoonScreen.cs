@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using com.lvl6.proto;
 using System;
 
-public enum GoonScreenMode {HEAL, ENHANCE, EVOLVE, SELL};
+public enum GoonScreenMode {HEAL, PICK_ENHANCE, DO_ENHANCE, EVOLVE, SELL, TEAM};
 
 public class MSGoonScreen : MonoBehaviour {
 
@@ -171,7 +171,7 @@ public class MSGoonScreen : MonoBehaviour {
 			case GoonScreenMode.HEAL:
 				InitHeal();
 				break;
-			case GoonScreenMode.ENHANCE:
+			case GoonScreenMode.DO_ENHANCE:
 				InitEnhance();
 				break;
 			case GoonScreenMode.EVOLVE:
@@ -205,7 +205,7 @@ public class MSGoonScreen : MonoBehaviour {
 	/// </summary>
 	public void InitEnhanceFromButton()
 	{
-		currMode = GoonScreenMode.ENHANCE;
+		currMode = GoonScreenMode.DO_ENHANCE;
 		InitEnhance(true);
 	}
 	
@@ -247,7 +247,7 @@ public class MSGoonScreen : MonoBehaviour {
 
 		if (MSEvolutionManager.instance.currEvolution != null && MSEvolutionManager.instance.currEvolution.userMonsterIds.Count > 0)
 		{
-			MSGoonCard card = cards.Find(x=>x.goon.userMonster.userMonsterId == MSEvolutionManager.instance.currEvolution.userMonsterIds[0]);
+			MSGoonCard card = cards.Find(x=>x.monster.userMonster.userMonsterId == MSEvolutionManager.instance.currEvolution.userMonsterIds[0]);
 			OrganizeEvolution(card);
 		}
 		else
@@ -317,13 +317,6 @@ public class MSGoonScreen : MonoBehaviour {
 		}
 	}
 
-	void RefreshCards()
-	{
-		foreach (var item in cards) {
-			item.Refresh();
-				}
-	}
-
 	void OrganizeTeamCards ()
 	{
 		int i;
@@ -331,7 +324,7 @@ public class MSGoonScreen : MonoBehaviour {
 		{
 			if (currMode == GoonScreenMode.HEAL)
 			{
-				teamCards[i].InitHeal(MSMonsterManager.instance.userTeam[i]);
+				teamCards[i].Init(MSMonsterManager.instance.userTeam[i]);
 			}
 			else
 			{
@@ -355,7 +348,7 @@ public class MSGoonScreen : MonoBehaviour {
 			currHealthy = 1;
 			foreach (var item in cards) 
 			{
-				item.InitSell();
+
 			}
 		}
 		else
@@ -458,11 +451,11 @@ public class MSGoonScreen : MonoBehaviour {
 			mobsterColorString = "[00ff00]";
 		}
 
-		MonsterProto catalyst = MSDataManager.instance.Get<MonsterProto>(card.goon.monster.evolutionCatalystMonsterId);
-		MonsterProto evoMonster = MSDataManager.instance.Get<MonsterProto>(card.goon.monster.evolutionMonsterId);
+		MonsterProto catalyst = MSDataManager.instance.Get<MonsterProto>(card.monster.monster.evolutionCatalystMonsterId);
+		MonsterProto evoMonster = MSDataManager.instance.Get<MonsterProto>(card.monster.monster.evolutionMonsterId);
 
-		bottomBarLabel.text = "You need " + mobsterColorString + "2 Lvl " + card.goon.monster.maxLevel + " " + card.goon.monster.displayName + "s[-] and "
-			+ catalystColorString + card.goon.monster.numCatalystMonstersRequired + " " + catalyst.displayName + "(Evo " + catalyst.evolutionLevel + ")[-]" 
+		bottomBarLabel.text = "You need " + mobsterColorString + "2 Lvl " + card.monster.monster.maxLevel + " " + card.monster.monster.displayName + "s[-] and "
+			+ catalystColorString + card.monster.monster.numCatalystMonstersRequired + " " + catalyst.displayName + "(Evo " + catalyst.evolutionLevel + ")[-]" 
 				+ "\nto evolve to " + evoMonster.displayName;
 	}
 
@@ -476,7 +469,7 @@ public class MSGoonScreen : MonoBehaviour {
 		{
 			if (item.buddy == null)
 			{
-				PZMonster buddy = MSMonsterManager.instance.FindEvolutionBuddy(item.goon);
+				PZMonster buddy = MSMonsterManager.instance.FindEvolutionBuddy(item.monster);
 				item.InitEvolve(GetCardForMonster(buddy));
 				if (item.transform.parent != goonCardParent)
 				{
@@ -497,7 +490,7 @@ public class MSGoonScreen : MonoBehaviour {
 			return;
 		}
 		bringGoonIn = true;
-		enhanceBaseBox.Init (MSMonsterManager.instance.currentEnhancementMonster, GoonScreenMode.ENHANCE);
+		enhanceBaseBox.Init (MSMonsterManager.instance.currentEnhancementMonster, GoonScreenMode.DO_ENHANCE);
 	}
 
 	IEnumerator RepositionAfterMove(float moveTime)
@@ -516,8 +509,6 @@ public class MSGoonScreen : MonoBehaviour {
 	{
 		MSGoonCard card = (MSPoolManager.instance.Get(goonCardPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, dragPanel.transform) as MSSimplePoolable).GetComponent<MSGoonCard>();
 		card.transform.localScale = Vector3.one;
-		card.addRemoveTeamButton.GetComponent<MSUIHelper>().dragBehind = cards[lastReserveCardIndex].addRemoveTeamButton.GetComponent<MSUIHelper>().dragBehind;
-		card.infoPopup = infoPopup;
 		cards.Add (card);
 	}
 
@@ -541,7 +532,7 @@ public class MSGoonScreen : MonoBehaviour {
 		if (goonIn && !bringGoonIn)
 		{
 			goonIn = false;
-			StartCoroutine(TakeOutEnhanceGoon(currMode != GoonScreenMode.ENHANCE && currMode != GoonScreenMode.EVOLVE));
+			StartCoroutine(TakeOutEnhanceGoon(currMode != GoonScreenMode.DO_ENHANCE && currMode != GoonScreenMode.EVOLVE));
 		}
 	}
 
@@ -599,7 +590,7 @@ public class MSGoonScreen : MonoBehaviour {
 
 	MSGoonCard GetCardForMonster(PZMonster monster)
 	{
-		return cards.Find(x=>x.goon == monster);
+		return cards.Find(x=>x.monster == monster);
 	}
 	
 	void TrySpeedUpEnhance()
@@ -636,7 +627,7 @@ public class MSGoonScreen : MonoBehaviour {
 	
 	void OnAddTeamMember(PZMonster monster)
 	{
-		teamCards[monster.userMonster.teamSlotNum-1].InitHeal(monster);
+		teamCards[monster.userMonster.teamSlotNum-1].Init(monster);
 		OrganizeReserveCards();
 	}
 }

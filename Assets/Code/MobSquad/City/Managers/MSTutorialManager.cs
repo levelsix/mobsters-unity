@@ -12,13 +12,29 @@ public class MSTutorialManager : MonoBehaviour
 {
 	public static MSTutorialManager instance;
 
-	public MSTutorial currentTutorial = null;
+	Stack<MSTutorial> currTutorials = new Stack<MSTutorial>();
+
+	public MSTutorial currentTutorial
+	{
+		get
+		{
+			if (currTutorials.Count == 0)
+			{
+				return null;
+			}
+			return currTutorials.Peek();
+		}
+		set
+		{
+			currTutorials.Push(value);
+		}
+	}
 
 	public bool inTutorial
 	{
 		get
 		{
-			return currentTutorial != null && currentTutorial.steps.Length > 0;
+			return currentTutorial != null;
 		}
 	}
 
@@ -26,7 +42,7 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		get
 		{
-			return inTutorial && currUi != null;
+			return currUi != null;
 		}
 	}
 
@@ -51,6 +67,31 @@ public class MSTutorialManager : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
+	}
+
+	void OnEnable()
+	{
+		MSActionManager.Loading.OnStartup += OnStartup;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Loading.OnStartup += OnStartup;
+	}
+
+	void OnStartup(StartupResponseProto response)
+	{
+		tutorialTasks.Clear();
+		tutorialTasks.Add(response.startupConstants.miniTuts.matchThreeTutorialAssetId,
+		                  StartBasicPuzzleTutorial);
+		tutorialTasks.Add (response.startupConstants.miniTuts.firstPowerUpAssetId,
+		                   StartPowerupPuzzleTutorial);
+		tutorialTasks.Add (response.startupConstants.miniTuts.rainbowTutorialAssetId,
+		                   StartRainbowTutorial);
+		tutorialTasks.Add (response.startupConstants.miniTuts.powerUpComboTutorialAssetId,
+		                   StartCombineTutorial);
+		tutorialTasks.Add (response.startupConstants.miniTuts.monsterDropTutorialAssetId,
+		                   StartCaptureTutorial);
 	}
 
 	public void StartTutorial(int taskId)
@@ -98,6 +139,11 @@ public class MSTutorialManager : MonoBehaviour
 	public void StartBeginningTutorial()
 	{
 		StartCoroutine(tutorialData.beginningTutorial.Run());
+	}
+
+	public void EndTutorial()
+	{
+		currTutorials.Pop();
 	}
 
 	#endregion

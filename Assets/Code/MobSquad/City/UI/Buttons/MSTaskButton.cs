@@ -15,7 +15,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		}
 	}
 	
-	MSTaskButton _prefab;
+	[SerializeField] MSTaskButton _prefab;
 	
 	public MSPoolable prefab {
 		get {

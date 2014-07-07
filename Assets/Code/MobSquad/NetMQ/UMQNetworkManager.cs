@@ -305,9 +305,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		Debug.Log("Message sent: " + tagNum + ": " + request.GetType());
 		
 		actionDict.Add(tagNum, callback);
-		
-		
-		
+
 		return tagNum++;
 	}
 	

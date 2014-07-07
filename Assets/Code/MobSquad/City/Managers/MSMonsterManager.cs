@@ -290,7 +290,7 @@ public class MSMonsterManager : MonoBehaviour {
 					MSActionManager.Goon.OnTeamChanged();
 				}
 				
-				return i;
+				return i+1;
 			}
 		}
 		return 0;

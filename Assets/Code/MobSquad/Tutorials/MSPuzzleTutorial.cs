@@ -84,27 +84,7 @@ public class MSPuzzleTutorial : MSTutorial
 		switch (step.stepType) 
 		{
 		case StepType.DIALOGUE:
-			MSDialogueUI dialoguer;
-			switch (step.dialogueType) {
-			case DialogueType.PUZZLE:
-			default:
-				dialoguer = MSTutorialManager.instance.TutorialUI.puzzleDialogue;
-				break;
-			}
-			yield return dialoguer.StartCoroutine(dialoguer.BringInMobster(
-				PZCombatManager.instance.activePlayer.monster.monster.imagePrefix,
-				PZCombatManager.instance.activePlayer.monster.monster.displayName,
-				step.dialogue));
-			if (step.needsClick)
-			{
-				MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(true);
-				clicked = false;
-				while (!clicked && !abort)
-				{
-					yield return null;
-				}
-				MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(false);
-			}
+			yield return MSTutorialManager.instance.StartCoroutine(DoDialogue(step));
 			break;
 		case StepType.PUZZLE_BLOCK:
 			PZPuzzleManager.instance.BlockBoard(step.spaces);
@@ -120,7 +100,7 @@ public class MSPuzzleTutorial : MSTutorial
 			break;
 		case StepType.WAIT_FOR_TURN:
 			newTurn = false;
-			while (!newTurn)
+			while (!newTurn && !abort)
 			{
 				yield return null;
 			}
