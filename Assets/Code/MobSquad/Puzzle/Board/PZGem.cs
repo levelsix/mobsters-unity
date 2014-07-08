@@ -232,7 +232,10 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				CreateSparkle();
 			}
 
-			PZPuzzleManager.instance.board[boardX, boardY] = null; //Remove from board
+			if (boardX < PZPuzzleManager.instance.boardWidth && boardY < PZPuzzleManager.instance.boardHeight)
+			{
+				PZPuzzleManager.instance.board[boardX, boardY] = null; //Remove from board
+			}
 			
 			Detonate();
 
