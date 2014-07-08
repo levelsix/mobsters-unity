@@ -14,6 +14,9 @@ public class MSTaskable : MonoBehaviour {
 	bool isEvent = false;
 
 	int persistentEventId = 0;
+
+	//if true, OnClick is disabled
+	public bool locked = false;
 	
 	public void Init(FullTaskProto proto, int eventId = 0)
 	{
@@ -230,7 +233,8 @@ public class MSTaskable : MonoBehaviour {
 	}
 
 	public void OnClick(){
-		Debug.Log ("click taskable");
-		EngageTask ();
+		if (!locked) {
+			EngageTask ();
+		}
 	}
 }

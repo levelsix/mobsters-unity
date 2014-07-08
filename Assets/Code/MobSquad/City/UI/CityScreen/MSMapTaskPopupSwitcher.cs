@@ -23,6 +23,15 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 
 	static float ANIMATION_TIME = 0.2f;
 
+	UIRect.AnchorPoint anchorLeft;
+
+	UIRect.AnchorPoint anchorRight;
+
+	void Awake(){
+		anchorLeft = popupA.GetComponent<UISprite> ().leftAnchor;
+		anchorRight = popupA.GetComponent<UISprite> ().rightAnchor;
+	}
+
 	void OnEnable(){
 		activePopup = Popup.None;
 		MSActionManager.Map.OnMapTaskClicked += SwapPopup;
@@ -38,6 +47,7 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 	
 	void SwapPopup(TaskMapElementProto mapTask, MSMapTaskButton.TaskStatusType status){
 		if(!animating){
+
 			animating = true;
 
 			StartCoroutine(endAnimation(ANIMATION_TIME));
@@ -46,6 +56,11 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 			Vector3 startB = popupB.trans.localPosition;
 
 			if (activePopup == Popup.None) {
+				popupA.GetComponent<UISprite> ().leftAnchor = new UIRect.AnchorPoint(0f);
+				popupA.GetComponent<UISprite> ().rightAnchor = new UIRect.AnchorPoint(0f);
+				popupB.GetComponent<UISprite> ().leftAnchor = new UIRect.AnchorPoint(0f);
+				popupB.GetComponent<UISprite> ().rightAnchor = new UIRect.AnchorPoint(0f);
+
 				TweenPosition.Begin(popupA.gameObject, ANIMATION_TIME, new Vector3(startA.x, startA.y + 100, startA.z));
 
 				popupA.init(mapTask, status);
@@ -72,6 +87,8 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 		Vector3 startB = popupB.trans.localPosition;
 		TweenPosition.Begin(popupA.gameObject, ANIMATION_TIME, new Vector3(startA.x, 0, startA.z));
 		TweenPosition.Begin(popupB.gameObject, ANIMATION_TIME, new Vector3(startB.x, 0, startB.z));
+
+		activePopup = Popup.None;
 	}
 
 	IEnumerator endAnimation(float duration){

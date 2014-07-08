@@ -17,6 +17,12 @@ public class MSMapTaskButton : MonoBehaviour {
 	[SerializeField]
 	UILabel buttonLabel;
 
+	[SerializeField]
+	UISprite halo;
+
+	[SerializeField]
+	UILabel levelTitle;
+
 	public enum TaskStatusType
 	{
 		Locked,
@@ -50,15 +56,38 @@ public class MSMapTaskButton : MonoBehaviour {
 		button = GetComponent<UIButton> ();
 	}
 
+	void OnEnable(){
+		halo.alpha = 0f;
+		levelTitle.alpha = 0f;
+		MSActionManager.Map.OnMapTaskClicked += Deselect;
+	}
+
+	void OnDisable(){
+		MSActionManager.Map.OnMapTaskClicked -= Deselect;
+	}
+
 	public void initTaskButton(TaskMapElementProto task){
 		trans.localPosition = new Vector3(task.xPos, task.yPos, 0f);
 		mapTask = task;
 
 		buttonLabel.depth = GetComponent<UISprite> ().depth + 1;
+		halo.depth = buttonLabel.depth - 2;
+
 		buttonLabel.text = task.mapElementId.ToString();
+		levelTitle.text = MSDataManager.instance.Get<FullTaskProto> (task.taskId).name;
+		levelTitle.depth = buttonLabel.depth;
+	}
+
+	void Deselect(TaskMapElementProto mapTask, MSMapTaskButton.TaskStatusType status){
+		halo.alpha = 0f;
+		levelTitle.alpha = 0f;
 	}
 
 	public void OnClick(){
 		MSActionManager.Map.OnMapTaskClicked (mapTask, Status);
+		if (Status != TaskStatusType.Locked) {
+			halo.alpha = 1f;
+		}
+		levelTitle.alpha = 1f;
 	}
 }

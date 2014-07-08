@@ -20,8 +20,6 @@ public class MSMapTaskPopup : MonoBehaviour {
 
 	FullTaskProto task;
 
-	const int LAST_TUTORIAL_LEVEL = 7;
-
 	const string CANCEL_BUTTON = "cancel";
 
 	const string ACCEPT_BUTTON = "acceptrequest";
@@ -52,6 +50,7 @@ public class MSMapTaskPopup : MonoBehaviour {
 	{
 		task = MSDataManager.instance.Get<FullTaskProto> (mapTask.taskId);
 		button.GetComponent<MSTaskable> ().task = task;
+		button.GetComponent<MSTaskable> ().locked = false;
 
 		switch (mapTask.element) {
 		case Element.FIRE:
@@ -77,19 +76,27 @@ public class MSMapTaskPopup : MonoBehaviour {
 			break;
 		}
 
+		button.enabled = true;
+
 		levelTitle.text = task.name;
 		level.text = "Level " + mapTask.mapElementId;
 
-		if (statusType == MSMapTaskButton.TaskStatusType.Completed) {
-			button.SetState(UIButtonColor.State.Normal, true);
+		if (statusType == MSMapTaskButton.TaskStatusType.Completed) 
+		{
+			button.normalSprite = ACCEPT_BUTTON;
 			status.text = "Completed";
-		} else if(statusType == MSMapTaskButton.TaskStatusType.Undefeated){
-			button.SetState(UIButtonColor.State.Normal, true);
+		} 
+		else if(statusType == MSMapTaskButton.TaskStatusType.Undefeated)
+		{
+			button.normalSprite = ACCEPT_BUTTON;
 			status.text = "Undefeated";
-		} else {
+		}
+		else 
+		{
 			status.text = "Locked";
 			background.spriteName = LOCKED_BACKGROUND;
-			button.SetState(UIButtonColor.State.Disabled, true);
+			button.normalSprite = CANCEL_BUTTON;
+			button.GetComponent<MSTaskable> ().locked = true;
 		}
 	}
 	

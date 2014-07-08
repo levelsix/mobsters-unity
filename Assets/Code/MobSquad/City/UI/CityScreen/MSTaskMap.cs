@@ -40,7 +40,7 @@ public class MSTaskMap : MonoBehaviour {
 			
 			MSSimplePoolable taskPool = MSPoolManager.instance.Get(mapTaskButton, Vector3.zero, TaskParent) as MSSimplePoolable;
 			taskPool.transform.localScale = new Vector3(1/SCALE_TO_FIT_X, 1/SCALE_TO_FIT_Y, 1f);
-			taskPool.GetComponent<UISprite>().depth = map.depth + 1;
+			taskPool.GetComponent<UISprite>().depth = map.depth + 2;
 			taskPool.GetComponent<MSMapTaskButton>().initTaskButton(task);
 			
 			taskButtons.Add(task.taskId, taskPool.GetComponent<MSMapTaskButton>());
