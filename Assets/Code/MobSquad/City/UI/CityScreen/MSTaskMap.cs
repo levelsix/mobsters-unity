@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -15,6 +15,9 @@ public class MSTaskMap : MonoBehaviour {
 	[SerializeField]
 	Transform TaskParent;
 
+	[SerializeField]
+	UI2DSprite pvpHud;
+
 	public Dictionary<int, MSMapTaskButton> taskButtons = new Dictionary<int, MSMapTaskButton>();
 	
 	Transform trans;
@@ -27,6 +30,10 @@ public class MSTaskMap : MonoBehaviour {
 		
 	void Awake(){
 		trans = transform;
+
+		float width = MSMath.uiScreenWidth;
+		float scale = (width - pvpHud.width) / maps.maps[0].width;
+		trans.localScale = new Vector3(scale, scale, scale);
 
 		UI2DSprite map = maps.maps [0];
 		TaskParent.localScale = new Vector3(SCALE_TO_FIT_X, SCALE_TO_FIT_Y, 1f);
