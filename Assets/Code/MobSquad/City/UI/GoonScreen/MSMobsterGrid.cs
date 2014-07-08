@@ -10,13 +10,9 @@ public class MSMobsterGrid : MonoBehaviour {
 
 	List<MSGoonCard> cards = new List<MSGoonCard>();
 
-	void OnDisable()
-	{
-		RecycleCards();
-	}
-
 	public void Init(GoonScreenMode mode)
 	{
+		RecycleCards();
 		foreach (var mobster in MSMonsterManager.instance.userMonsters) 
 		{
 			if (ShouldGoonBeAdded(mode, mobster))

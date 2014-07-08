@@ -493,7 +493,7 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			if (MSMonsterManager.instance.AddToTeam(monster) == 0) //Returns 0 if the team is full
 			{
-				MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage("Team is already full!");
+				//MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage("Team is already full!");
 			}
 			else
 			{
@@ -553,7 +553,7 @@ public class MSGoonCard : MonoBehaviour {
 		}
 		MSHospitalManager.instance.AddToHealQueue(monster);
 		SetName();
-		MSPopupManager.instance.popups.goonScreen.goonTable.Reposition();
+		//MSPopupManager.instance.popups.goonScreen.goonTable.Reposition();
 	}
 
 	void AddToSellQueue()
@@ -603,11 +603,11 @@ public class MSGoonCard : MonoBehaviour {
 		if (monster.monster.evolutionMonsterId > 0)
 		{
 			MSEvolutionManager.instance.TryEvolveMonster(monster, (buddy!=null) ? buddy.monster : null);
-			MSPopupManager.instance.popups.goonScreen.OrganizeEvolution(this);
+			//MSPopupManager.instance.popups.goonScreen.OrganizeEvolution(this);
 		}
 		else
 		{
-			MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage(monster.monster.displayName + " is already at maximum evolution level");
+			//MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage(monster.monster.displayName + " is already at maximum evolution level");
 		}
 	}
 	
@@ -630,7 +630,7 @@ public class MSGoonCard : MonoBehaviour {
 		case GoonScreenMode.SELL:
 			AddToSellQueue();
 			break;
-		case GoonScreenMode.EVOLVE:
+		case GoonScreenMode.PICK_EVOLVE:
 			PickForEvolve();
 			break;
 		case GoonScreenMode.TEAM:

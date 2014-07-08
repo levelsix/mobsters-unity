@@ -4,10 +4,90 @@ using System.Collections.Generic;
 using com.lvl6.proto;
 using System;
 
-public enum GoonScreenMode {HEAL, PICK_ENHANCE, DO_ENHANCE, EVOLVE, SELL, TEAM};
+public enum GoonScreenMode {TEAM, SELL, HEAL, PICK_ENHANCE, DO_ENHANCE, PICK_EVOLVE, DO_EVOLVE };
 
-public class MSGoonScreen : MonoBehaviour {
+public class MSGoonScreen : MonoBehaviour 
+{
+	/// <summary>
+	/// The screens.
+	/// Indexed according to GoonScreenMode
+	/// </summary>
+	[SerializeField]
+	MSFunctionalScreen[] screens;
 
+	int currScreen;
+
+	const int SIZE = 860;
+
+	public void Init(GoonScreenMode mode)
+	{
+		currScreen = (int)mode;
+
+		if (currScreen >= screens.Length)
+		{
+			Debug.LogError("Da fuck you doin?");
+			return;
+		}
+
+		foreach (var item in screens) 
+		{
+			if (item != screens[(int)mode])
+			{
+				(item as MonoBehaviour).gameObject.SetActive(false);
+			}
+		}
+
+		screens[(int)mode].Init();
+		screens[(int)mode].gameObject.SetActive(true);
+		screens[(int)mode].transform.localPosition = Vector3.zero;
+	}
+
+	public void ShiftRight()
+	{
+		int nextScreen = currScreen + 1;
+		if (nextScreen >= screens.Length)
+		{
+			nextScreen -= screens.Length;
+		}
+
+		screens[nextScreen].gameObject.SetActive(true);
+		screens[nextScreen].Init();
+		screens[nextScreen].transform.localPosition = new Vector3(SIZE, 0, 0);
+		SpringPosition.Begin(screens[nextScreen].gameObject, Vector3.zero, 15);
+		SpringPosition spring = SpringPosition.Begin(screens[currScreen].gameObject, new Vector3(-SIZE, 0, 0), 15);
+		spring.onFinished += delegate{screens[currScreen].gameObject.SetActive(false);};
+
+		currScreen = nextScreen;
+	}
+
+	public void ShiftLeft()
+	{
+		int nextScreen = currScreen - 1;
+		if (nextScreen < 0)
+		{
+			nextScreen += screens.Length;
+		}
+		
+		screens[nextScreen].gameObject.SetActive(true);
+		screens[nextScreen].Init();
+		screens[nextScreen].transform.localPosition = new Vector3(-SIZE, 0, 0);
+		SpringPosition.Begin(screens[nextScreen].gameObject, Vector3.zero, 15);
+		SpringPosition spring = SpringPosition.Begin(screens[currScreen].gameObject, new Vector3(SIZE, 0, 0), 15);
+		spring.onFinished += delegate{screens[currScreen].gameObject.SetActive(false);};
+
+		currScreen = nextScreen;
+	}
+
+	IEnumerator KillAfterTween(GameObject gobj, UITweener tween)
+	{
+		while (tween.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		gobj.SetActive(false);
+	}
+
+	/*
 	public GoonScreenMode currMode = GoonScreenMode.EVOLVE;
 
 	#region UI Elements
@@ -630,4 +710,6 @@ public class MSGoonScreen : MonoBehaviour {
 		teamCards[monster.userMonster.teamSlotNum-1].Init(monster);
 		OrganizeReserveCards();
 	}
+
+	*/
 }

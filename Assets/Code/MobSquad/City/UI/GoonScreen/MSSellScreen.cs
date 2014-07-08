@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
 
-public class MSSellScreen : MonoBehaviour {
+public class MSSellScreen : MSFunctionalScreen {
 
 	public static MSSellScreen instance;
 
@@ -18,6 +18,11 @@ public class MSSellScreen : MonoBehaviour {
 	MSUIHelper queueRoot;
 
 	public List<MSGoonCard> currSells = new List<MSGoonCard>();
+	
+	public override bool IsAvailable()
+	{
+		return true;
+	}
 
 	void Awake()
 	{
@@ -29,7 +34,7 @@ public class MSSellScreen : MonoBehaviour {
 		Init ();
 	}
 
-	public void Init()
+	public override void Init()
 	{
 		grid.Init(GoonScreenMode.SELL);
 		currSells.Clear();

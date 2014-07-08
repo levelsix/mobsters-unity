@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MSTeamScreen : MonoBehaviour {
+public class MSTeamScreen : MSFunctionalScreen {
 
 	public static MSTeamScreen instance;
 
@@ -13,6 +13,11 @@ public class MSTeamScreen : MonoBehaviour {
 	UILabel title;
 
 	int currTeammates;
+
+	public override bool IsAvailable()
+	{
+		return true;
+	}
 
 	void Awake()
 	{
@@ -32,7 +37,7 @@ public class MSTeamScreen : MonoBehaviour {
 		MSActionManager.Goon.OnMonsterRemoveTeam -= OnMobsterRemoved;
 	}
 
-	public void Init()
+	public override void Init()
 	{
 		mobsterGrid.Init(GoonScreenMode.TEAM);
 		currTeammates = 0;

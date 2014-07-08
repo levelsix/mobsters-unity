@@ -52,14 +52,14 @@ public class MSBottomBarModeButton : MonoBehaviour {
 		{GoonScreenMode.HEAL, "heal"},
 		{GoonScreenMode.SELL, "sell"},
 		{GoonScreenMode.DO_ENHANCE, "enhance"},
-		{GoonScreenMode.EVOLVE, "evolove"}
+		{GoonScreenMode.PICK_EVOLVE, "evolove"}
 	};
 
 	Dictionary<GoonScreenMode, string> labels = new Dictionary<GoonScreenMode, string>(){
 		{GoonScreenMode.HEAL, "Heal"},
 		{GoonScreenMode.SELL, "Sell"},
 		{GoonScreenMode.DO_ENHANCE, "Enhance"},
-		{GoonScreenMode.EVOLVE, "Evolove"}
+		{GoonScreenMode.PICK_EVOLVE, "Evolove"}
 	};
 
 	public void Set(bool active)
@@ -98,14 +98,7 @@ public class MSBottomBarModeButton : MonoBehaviour {
 	void OnClick()
 	{
 		Debug.Log("Clicked");
-		if (mode == GoonScreenMode.DO_ENHANCE)
-		{
-			MSPopupManager.instance.popups.goonScreen.InitEnhanceFromButton();
-		}
-		else
-		{
-			MSPopupManager.instance.popups.goonScreen.Init(_mode);
-		}
+		MSPopupManager.instance.popups.goonScreen.Init(_mode);
 	}
 
 }

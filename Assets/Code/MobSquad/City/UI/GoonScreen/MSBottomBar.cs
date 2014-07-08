@@ -130,7 +130,7 @@ public class MSBottomBar : MonoBehaviour {
 			case GoonScreenMode.DO_ENHANCE:
 				InitEnhance();
 				break;
-			case GoonScreenMode.EVOLVE:
+			case GoonScreenMode.PICK_EVOLVE:
 				InitEvolve();
 				break;
 			case GoonScreenMode.SELL:
@@ -218,11 +218,11 @@ public class MSBottomBar : MonoBehaviour {
 			bottomButton.Set(mode == GoonScreenMode.SELL);
 			break;
 		case GoonScreenMode.DO_ENHANCE:
-		case GoonScreenMode.EVOLVE:
+		case GoonScreenMode.PICK_EVOLVE:
 			topButton.mode = GoonScreenMode.DO_ENHANCE;
 			topButton.Set(mode == GoonScreenMode.DO_ENHANCE);
-			bottomButton.mode = GoonScreenMode.EVOLVE;
-			bottomButton.Set(mode == GoonScreenMode.EVOLVE);
+			bottomButton.mode = GoonScreenMode.PICK_EVOLVE;
+			bottomButton.Set(mode == GoonScreenMode.PICK_EVOLVE);
 			break;
 		default:
 				break;
