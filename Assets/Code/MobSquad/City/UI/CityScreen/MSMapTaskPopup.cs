@@ -69,13 +69,12 @@ public class MSMapTaskPopup : MonoBehaviour {
 		case Element.WATER:
 			background.spriteName = WATER_BACKGROUND;
 			break;
+		case Element.NO_ELEMENT:
+			background.spriteName = RAINBOW_BACKGROUND;
+			break;
 		default:
 			background.spriteName = "";
 			break;
-		}
-
-		if(mapTask.mapElementId <= LAST_TUTORIAL_LEVEL){
-			background.spriteName = RAINBOW_BACKGROUND;
 		}
 
 		levelTitle.text = task.name;

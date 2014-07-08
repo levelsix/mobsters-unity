@@ -228,4 +228,9 @@ public class MSTaskable : MonoBehaviour {
 		PZCombatManager.instance.InitTask();
 
 	}
+
+	public void OnClick(){
+		Debug.Log ("click taskable");
+		EngageTask ();
+	}
 }
