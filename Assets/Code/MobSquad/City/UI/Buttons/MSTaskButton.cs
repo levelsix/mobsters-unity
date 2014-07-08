@@ -224,9 +224,13 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		{
 			currBuilding.GetComponent<MSTaskable>().EngageTask();
 		}
-		else
+		else if(currUnit != null)
 		{
 			currUnit.GetComponent<MSTaskable>().EngageTask();
+		}
+		else
+		{
+			GetComponent<MSTaskable>().EngageTask();
 		}
 
 		MSBuildingManager.instance.FullDeselect();

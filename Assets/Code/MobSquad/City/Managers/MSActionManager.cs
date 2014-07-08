@@ -201,4 +201,9 @@ public static class MSActionManager
 	{
 		public static Action OnTutorialContinue;
 	}
+
+	public static class Map
+	{
+		public static Action<TaskMapElementProto, MSMapTaskButton.TaskStatusType> OnMapTaskClicked;
+	}
 }

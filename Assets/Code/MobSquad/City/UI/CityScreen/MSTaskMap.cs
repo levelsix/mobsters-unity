@@ -47,7 +47,8 @@ public class MSTaskMap : MonoBehaviour {
 		}
 		
 		float mapLength = maps.Height;
-		GetComponent<MSDragDropLimited> ().min = new Vector2 (0f, -(mapLength - map.height));
+		GetComponent<MSDragDropLimited> ().min = new Vector2 (0f, -(mapLength - map.height) + (mapLength * (1f - trans.localScale.y)));
+		GetComponent<MSDragDropLimited> ().max = new Vector2 (0f, -(map.height / 2f) * (1f - trans.localScale.y));
 		
 		BoxCollider box = GetComponent<BoxCollider> ();
 		box.size = new Vector3 (map.width, mapLength, 0f);
@@ -63,14 +64,17 @@ public class MSTaskMap : MonoBehaviour {
 				
 		int lastTask = 0;
 		foreach (TaskMapElementProto task in tasks.Values){
-			if (MSQuestManager.instance.taskDict.ContainsKey (task.taskId) ||
-			    MSQuestManager.instance.taskDict.ContainsKey (lastTask))
+			if (MSQuestManager.instance.taskDict.ContainsKey (task.taskId))
 			{
-				taskButtons[task.taskId].Open = true;
+				taskButtons[task.taskId].Status = MSMapTaskButton.TaskStatusType.Completed;
+			}
+			else if(MSQuestManager.instance.taskDict.ContainsKey (lastTask))
+			{
+				taskButtons[task.taskId].Status = MSMapTaskButton.TaskStatusType.Undefeated;
 			}
 			else
 			{
-				taskButtons[task.taskId].Open = false;
+				taskButtons[task.taskId].Status = MSMapTaskButton.TaskStatusType.Locked;
 			}
 			lastTask = task.taskId;
 		}

@@ -17,15 +17,22 @@ public class MSMapTaskButton : MonoBehaviour {
 	[SerializeField]
 	UILabel buttonLabel;
 
-	bool _open;
+	public enum TaskStatusType
+	{
+		Locked,
+		Completed,
+		Undefeated
+	}
 
-	public bool Open{
+	TaskStatusType _status;
+
+	public TaskStatusType Status{
 		get{
-			return _open;		
+			return _status;		
 		}
 		set{
-			_open = value;
-			if(value){
+			_status = value;
+			if(value == TaskStatusType.Completed || value == TaskStatusType.Undefeated){
 				button.normalSprite = OPEN_CITY;
 				buttonLabel.alpha = 1f;
 			}else{
@@ -40,22 +47,18 @@ public class MSMapTaskButton : MonoBehaviour {
 
 	void Awake(){
 		trans = transform;
-		taskable = GetComponent<MSTaskable> ();
 		button = GetComponent<UIButton> ();
 	}
 
 	public void initTaskButton(TaskMapElementProto task){
 		trans.localPosition = new Vector3(task.xPos, task.yPos, 0f);
 		mapTask = task;
-		FullTaskProto fullTask = MSDataManager.instance.Get<FullTaskProto> (mapTask.taskId);
-		if (fullTask != null) {
-			taskable.Init(fullTask);
-		}
+
 		buttonLabel.depth = GetComponent<UISprite> ().depth + 1;
 		buttonLabel.text = task.mapElementId.ToString();
 	}
 
 	public void OnClick(){
-		Debug.Log ("print");
+		MSActionManager.Map.OnMapTaskClicked (mapTask, Status);
 	}
 }
