@@ -516,6 +516,16 @@ public class PZMonster {
 		return addedLevel - currLevel;
 	}
 
+	public float LevelWithFeeders(List<PZMonster> feeders)
+	{
+		int xp = userMonster.currentExp;
+		foreach (var item in feeders) 
+		{
+			xp += item.enhanceXP;
+		}
+		return LevelForMonster(xp);
+	}
+
 	public float LevelForMonster(int withExp)
 	{
 		float level = 1;

@@ -9,9 +9,6 @@ public class MSTeamScreen : MSFunctionalScreen {
 
 	public MSMobsterGrid mobsterGrid;
 
-	[SerializeField]
-	UILabel title;
-
 	int currTeammates;
 
 	public override bool IsAvailable()
@@ -28,7 +25,6 @@ public class MSTeamScreen : MSFunctionalScreen {
 	{
 		MSActionManager.Goon.OnMonsterAddTeam += OnMobsterAdded;
 		MSActionManager.Goon.OnMonsterRemoveTeam += OnMobsterRemoved;
-		Init ();
 	}
 
 	void OnDisable()
@@ -56,7 +52,7 @@ public class MSTeamScreen : MSFunctionalScreen {
 
 	void RefreshTitle(int newTeammates)
 	{
-		title.text = "MY TEAM (" + newTeammates + "/3)";
+		MSPopupManager.instance.popups.goonScreen.title = "MY TEAM (" + newTeammates + "/3)";
 	}
 
 	void OnMobsterAdded(PZMonster monster)

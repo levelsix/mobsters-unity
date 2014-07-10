@@ -8,7 +8,11 @@ public class MSMobsterGrid : MonoBehaviour {
 
 	[SerializeField] UIGrid grid;
 
+	[SerializeField] MSUIHelper noMobstersLabel;
+
 	List<MSGoonCard> cards = new List<MSGoonCard>();
+
+	[SerializeField] bool evoReady = false;
 
 	public void Init(GoonScreenMode mode)
 	{
@@ -20,7 +24,9 @@ public class MSMobsterGrid : MonoBehaviour {
 				AddCard(mobster, mode);
 			}
 		}
-		grid.Reposition();
+		grid.animateSmoothly = false;
+		Reposition();
+		grid.animateSmoothly = true;
 	}
 
 	bool ShouldGoonBeAdded(GoonScreenMode mode, PZMonster mobster)
@@ -28,11 +34,21 @@ public class MSMobsterGrid : MonoBehaviour {
 		switch(mode)
 		{
 		case GoonScreenMode.HEAL:
-			return mobster.monsterStatus == MonsterStatus.INJURED;
+			return mobster.monsterStatus == MonsterStatus.INJURED || mobster.monsterStatus == MonsterStatus.HEALING;
 		case GoonScreenMode.SELL:
 			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED
 				|| mobster.monsterStatus == MonsterStatus.INCOMPLETE;
 		case GoonScreenMode.TEAM:
+			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED;
+		case GoonScreenMode.PICK_ENHANCE:
+			return true;
+		case GoonScreenMode.DO_ENHANCE:
+			return true;
+		case GoonScreenMode.PICK_EVOLVE:
+			if (IsMonsterEvoBuddy(mobster))
+			{
+				return false;
+			}
 			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED;
 		default:
 			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED;
@@ -57,7 +73,7 @@ public class MSMobsterGrid : MonoBehaviour {
 
 		if (reposition)
 		{
-			grid.Reposition();
+			Reposition();
 		}
 	}
 
@@ -65,7 +81,7 @@ public class MSMobsterGrid : MonoBehaviour {
 	{
 		StartCoroutine(card.PhaseOut());
 		cards.Remove(card);
-		grid.Reposition();
+		Reposition();
 	}
 
 	public void PhaseOutCard(PZMonster monster)
@@ -80,5 +96,25 @@ public class MSMobsterGrid : MonoBehaviour {
 	public void Reposition()
 	{
 		grid.Reposition();
+		if (grid.transform.childCount == 0)
+		{
+			noMobstersLabel.FadeIn();
+		}
+		else
+		{
+			noMobstersLabel.FadeOut();
+		}
+	}
+
+	bool IsMonsterEvoBuddy(PZMonster mon)
+	{
+		foreach (var item in cards) 
+		{
+			if (item.buddy.monster == mon)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -66,6 +66,8 @@ public class UMQNetworkManager : MonoBehaviour {
 	List<int> requestsOut = new List<int>();
 
 	const float TIME_OUT = 15f;
+
+	int attempts = 0;
 	
 	void Awake()
 	{
@@ -78,6 +80,8 @@ public class UMQNetworkManager : MonoBehaviour {
 			DontDestroyOnLoad(gameObject);
 			instance = this;
 		}
+
+		attempts = 0;
 	}
 	
 	// Use this for initialization
@@ -119,7 +123,14 @@ public class UMQNetworkManager : MonoBehaviour {
 		{
 			Debug.LogError("Connection exception: " + e);
 			//gameObject.SetActive(false);
-			StartCoroutine(Start ());
+			if (++attempts < 5)
+			{
+				StartCoroutine(Start());
+			}
+			else
+			{
+				Debug.LogError("Max attempts failed.");
+			}
 			yield break;
 		}
 

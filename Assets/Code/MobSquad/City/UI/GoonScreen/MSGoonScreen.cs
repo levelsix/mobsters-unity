@@ -15,7 +15,30 @@ public class MSGoonScreen : MonoBehaviour
 	[SerializeField]
 	MSFunctionalScreen[] screens;
 
+	[SerializeField]
+	Transform topIconParent;
+
+	[SerializeField]
+	MSFunctionalTopIcon topIconPrefab;
+
+	MSFunctionalTopIcon topIcon;
+
 	int currScreen;
+
+	/// <summary>
+	/// Setter for directly setting the title of the
+	/// current screen.
+	/// Useful for team view when we want to show X/3 slots
+	/// filled.
+	/// </summary>
+	/// <value>The title.</value>
+	public string title
+	{
+		set
+		{
+			topIcon.label.text = value;
+		}
+	}
 
 	const int SIZE = 860;
 
@@ -37,54 +60,97 @@ public class MSGoonScreen : MonoBehaviour
 			}
 		}
 
-		screens[(int)mode].Init();
+		if (topIcon == null)
+		{
+			topIcon = MSPoolManager.instance.Get(topIconPrefab, topIconParent).GetComponent<MSFunctionalTopIcon>();
+			topIcon.transform.localScale = Vector3.one;
+		}
+		topIcon.transform.localPosition = Vector3.zero;
+		topIcon.helper.ResetAlpha(true);
+		topIcon.Init(mode);
+
 		screens[(int)mode].gameObject.SetActive(true);
 		screens[(int)mode].transform.localPosition = Vector3.zero;
+		screens[(int)mode].Init();
+
 	}
 
-	public void ShiftRight()
+	public void ShiftRight(bool doIcon = true)
 	{
-		int nextScreen = currScreen + 1;
-		if (nextScreen >= screens.Length)
+		int nextScreen = currScreen;
+		do
 		{
-			nextScreen -= screens.Length;
-		}
+			if (++nextScreen >= screens.Length)
+			{
+				nextScreen -= screens.Length;
+			}
+		}while(!screens[nextScreen].IsAvailable());
+		
+		MSFunctionalScreen curr = screens[currScreen];
+		MSFunctionalScreen next = screens[nextScreen];
 
-		screens[nextScreen].gameObject.SetActive(true);
-		screens[nextScreen].Init();
-		screens[nextScreen].transform.localPosition = new Vector3(SIZE, 0, 0);
-		SpringPosition.Begin(screens[nextScreen].gameObject, Vector3.zero, 15);
-		SpringPosition spring = SpringPosition.Begin(screens[currScreen].gameObject, new Vector3(-SIZE, 0, 0), 15);
-		spring.onFinished += delegate{screens[currScreen].gameObject.SetActive(false);};
+		next.gameObject.SetActive(true);
+		next.transform.localPosition = new Vector3(SIZE, 0, 0);
+		TweenPosition tp = TweenPosition.Begin(next.gameObject, .3f, Vector3.zero);
+		tp.onFinished.Clear();
+		tp = TweenPosition.Begin(curr.gameObject, .3f, new Vector3(-SIZE, 0, 0));
+		tp.AddOnFinished(delegate{curr.gameObject.SetActive(false);});
 
-		currScreen = nextScreen;
-	}
-
-	public void ShiftLeft()
-	{
-		int nextScreen = currScreen - 1;
-		if (nextScreen < 0)
+		if (doIcon)
 		{
-			nextScreen += screens.Length;
+			tp = TweenPosition.Begin(topIcon.gameObject, .3f, new Vector3(-100, 0, 0));
+			topIcon.helper.FadeOutAndPool();
+
+			topIcon = MSPoolManager.instance.Get(topIconPrefab, topIcon.transform.parent).GetComponent<MSFunctionalTopIcon>();
+			topIcon.Init((GoonScreenMode)nextScreen);
+			topIcon.transform.localScale = Vector3.one;
+			topIcon.transform.localPosition = new Vector3(100, 0, 0);
+			topIcon.helper.ResetAlpha(false);
+			topIcon.helper.FadeIn();
+			TweenPosition.Begin(topIcon.gameObject, .3f, Vector3.zero);
 		}
 		
-		screens[nextScreen].gameObject.SetActive(true);
-		screens[nextScreen].Init();
-		screens[nextScreen].transform.localPosition = new Vector3(-SIZE, 0, 0);
-		SpringPosition.Begin(screens[nextScreen].gameObject, Vector3.zero, 15);
-		SpringPosition spring = SpringPosition.Begin(screens[currScreen].gameObject, new Vector3(SIZE, 0, 0), 15);
-		spring.onFinished += delegate{screens[currScreen].gameObject.SetActive(false);};
-
+		next.Init();
 		currScreen = nextScreen;
 	}
 
-	IEnumerator KillAfterTween(GameObject gobj, UITweener tween)
+	public void ShiftLeft(bool doIcon = true)
 	{
-		while (tween.tweenFactor < 1)
+		int nextScreen = currScreen;
+		do
 		{
-			yield return null;
+			if (--nextScreen < 0)
+			{
+				nextScreen += screens.Length;
+			}
+		}while(!screens[nextScreen].IsAvailable());
+
+		MSFunctionalScreen curr = screens[currScreen];
+		MSFunctionalScreen next = screens[nextScreen];
+		
+		next.gameObject.SetActive(true);
+		next.transform.localPosition = new Vector3(-SIZE, 0, 0);
+		TweenPosition tp = TweenPosition.Begin(next.gameObject, .3f, Vector3.zero);
+		tp.onFinished.Clear();
+		tp = TweenPosition.Begin(curr.gameObject, .3f, new Vector3(SIZE, 0, 0));
+		tp.AddOnFinished(delegate{Debug.Log("Curr: " + curr.name);curr.gameObject.SetActive(false);});
+
+		if (doIcon)
+		{
+			tp = TweenPosition.Begin(topIcon.gameObject, .3f, new Vector3(100, 0, 0));
+			topIcon.helper.FadeOutAndPool();
+
+			topIcon = MSPoolManager.instance.Get(topIconPrefab, topIcon.transform.parent).GetComponent<MSFunctionalTopIcon>();
+			topIcon.Init((GoonScreenMode)nextScreen);
+			topIcon.transform.localScale = Vector3.one;
+			topIcon.transform.localPosition = new Vector3(-100, 0, 0);
+			topIcon.helper.ResetAlpha(false);
+			topIcon.helper.FadeIn();
+			TweenPosition.Begin(topIcon.gameObject, .3f, Vector3.zero);
 		}
-		gobj.SetActive(false);
+
+		next.Init();
+		currScreen = nextScreen;
 	}
 
 	/*

@@ -17,6 +17,9 @@ public class MSSellScreen : MSFunctionalScreen {
 	[SerializeField]
 	MSUIHelper queueRoot;
 
+	[SerializeField]
+	UILabel currValue;
+
 	public List<MSGoonCard> currSells = new List<MSGoonCard>();
 	
 	public override bool IsAvailable()
@@ -27,11 +30,6 @@ public class MSSellScreen : MSFunctionalScreen {
 	void Awake()
 	{
 		instance = this;
-	}
-
-	void OnEnable()
-	{
-		Init ();
 	}
 
 	public override void Init()
@@ -52,6 +50,7 @@ public class MSSellScreen : MSFunctionalScreen {
 		}
 
 		currSells.Add(card);
+		RefreshValue();
 	}
 
 	public void Remove(MSGoonCard card)
@@ -63,6 +62,20 @@ public class MSSellScreen : MSFunctionalScreen {
 			emptyQueueRoot.FadeIn();
 			queueRoot.FadeOut();
 		}
+		else
+		{
+			RefreshValue();
+		}
+	}
+
+	void RefreshValue()
+	{
+		int total = 0;
+		foreach (var item in currSells) 
+		{
+			total += item.monster.sellValue;
+		}
+		currValue.text = "$" + total;
 	}
 
 	public void Sell()
