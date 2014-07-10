@@ -69,31 +69,6 @@ public class MSTutorialManager : MonoBehaviour
 		instance = this;
 	}
 
-	void OnEnable()
-	{
-		MSActionManager.Loading.OnStartup += OnStartup;
-	}
-
-	void OnDisable()
-	{
-		MSActionManager.Loading.OnStartup += OnStartup;
-	}
-
-	void OnStartup(StartupResponseProto response)
-	{
-		tutorialTasks.Clear();
-		tutorialTasks.Add(response.startupConstants.miniTuts.matchThreeTutorialAssetId,
-		                  StartBasicPuzzleTutorial);
-		tutorialTasks.Add (response.startupConstants.miniTuts.firstPowerUpAssetId,
-		                   StartPowerupPuzzleTutorial);
-		tutorialTasks.Add (response.startupConstants.miniTuts.rainbowTutorialAssetId,
-		                   StartRainbowTutorial);
-		tutorialTasks.Add (response.startupConstants.miniTuts.powerUpComboTutorialAssetId,
-		                   StartCombineTutorial);
-		tutorialTasks.Add (response.startupConstants.miniTuts.monsterDropTutorialAssetId,
-		                   StartCaptureTutorial);
-	}
-
 	public void StartTutorial(int taskId)
 	{
 		tutorialTasks[taskId]();

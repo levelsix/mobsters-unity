@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -3764,7 +3764,7 @@ MonoBehaviour:
   mClipping: 3
   mClipRange: {x: 0, y: 25, z: 860, w: 641}
   mClipSoftness: {x: 0, y: 0}
-  mDepth: 1
+  mDepth: 2
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400004
@@ -4417,7 +4417,7 @@ MonoBehaviour:
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 860, w: 350}
   mClipSoftness: {x: 0, y: 0}
-  mDepth: 2
+  mDepth: 3
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400044
@@ -5966,6 +5966,7 @@ MonoBehaviour:
   goonCardPrefab: {fileID: 11400032, guid: e1e01ecb44bd14278b5afbdbf833f73f, type: 2}
   grid: {fileID: 11400038}
   noMobstersLabel: {fileID: 11400214}
+  evoReady: 0
 --- !u!114 &11400126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6560,6 +6561,7 @@ MonoBehaviour:
   goonCardPrefab: {fileID: 11400032, guid: e1e01ecb44bd14278b5afbdbf833f73f, type: 2}
   grid: {fileID: 11400164}
   noMobstersLabel: {fileID: 11400216}
+  evoReady: 0
 --- !u!114 &11400158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6650,7 +6652,7 @@ MonoBehaviour:
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 860, w: 350}
   mClipSoftness: {x: 0, y: 0}
-  mDepth: 2
+  mDepth: 3
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400162
@@ -6899,7 +6901,7 @@ MonoBehaviour:
   mClipping: 3
   mClipRange: {x: 64, y: 1, z: 716, w: 120}
   mClipSoftness: {x: 0, y: 0}
-  mDepth: 2
+  mDepth: 3
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400178
@@ -6937,6 +6939,7 @@ MonoBehaviour:
   goonCardPrefab: {fileID: 11400032, guid: e1e01ecb44bd14278b5afbdbf833f73f, type: 2}
   grid: {fileID: 11400182}
   noMobstersLabel: {fileID: 11400210}
+  evoReady: 0
 --- !u!114 &11400182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8135,7 +8138,7 @@ MonoBehaviour:
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 860, w: 350}
   mClipSoftness: {x: 0, y: 0}
-  mDepth: 2
+  mDepth: 3
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400240
@@ -8173,6 +8176,7 @@ MonoBehaviour:
   goonCardPrefab: {fileID: 11400032, guid: e1e01ecb44bd14278b5afbdbf833f73f, type: 2}
   grid: {fileID: 11400244}
   noMobstersLabel: {fileID: 11400224}
+  evoReady: 0
 --- !u!114 &11400244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9116,6 +9120,7 @@ MonoBehaviour:
   goonCardPrefab: {fileID: 11400032, guid: e1e01ecb44bd14278b5afbdbf833f73f, type: 2}
   grid: {fileID: 11400288}
   noMobstersLabel: {fileID: 11400296}
+  evoReady: 0
 --- !u!114 &11400292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9156,7 +9161,7 @@ MonoBehaviour:
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 860, w: 350}
   mClipSoftness: {x: 0, y: 0}
-  mDepth: 2
+  mDepth: 3
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400294

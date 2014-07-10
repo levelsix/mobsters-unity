@@ -75,7 +75,12 @@ public class MSGoonScreen : MonoBehaviour
 
 	}
 
-	public void ShiftRight(bool doIcon = true)
+	public void ShiftRight()
+	{
+		DoShiftRight(true);
+	}
+
+	public void DoShiftRight(bool doIcon)
 	{
 		int nextScreen = currScreen;
 		do
@@ -114,7 +119,12 @@ public class MSGoonScreen : MonoBehaviour
 		currScreen = nextScreen;
 	}
 
-	public void ShiftLeft(bool doIcon = true)
+	public void ShiftLeft()
+	{
+		DoShiftLeft(true);
+	}
+
+	public void DoShiftLeft(bool doIcon)
 	{
 		int nextScreen = currScreen;
 		do

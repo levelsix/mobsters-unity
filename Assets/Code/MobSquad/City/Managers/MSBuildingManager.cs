@@ -1102,6 +1102,7 @@ public class MSBuildingManager : MonoBehaviour
 	/// </param>
 	public void OnTap(TCKTouchData touch)
 	{        
+		Debug.Log("Tap");
 		if (hoveringToBuild != null)
 		{
 			return;

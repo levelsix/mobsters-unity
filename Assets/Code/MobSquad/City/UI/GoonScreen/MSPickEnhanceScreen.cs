@@ -43,7 +43,7 @@ public class MSPickEnhanceScreen : MSFunctionalScreen
 	public void PickMonster(PZMonster monster)
 	{
 		MSMonsterManager.instance.AddToEnhanceQueue(monster);
-		goonScreen.ShiftRight(false);
+		goonScreen.DoShiftRight(false);
 	}
 
 }

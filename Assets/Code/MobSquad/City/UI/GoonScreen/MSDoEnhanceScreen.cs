@@ -140,7 +140,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	public void Back()
 	{
 		MSMonsterManager.instance.ClearEnhanceQueue();
-		MSPopupManager.instance.popups.goonScreen.ShiftLeft(false);
+		MSPopupManager.instance.popups.goonScreen.DoShiftLeft(false);
 	}
 
 }
