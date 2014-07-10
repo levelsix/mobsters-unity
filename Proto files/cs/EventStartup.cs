@@ -1044,76 +1044,22 @@ namespace com.lvl6.proto
     public MiniTutorialConstants() {}
     
 
-    private int _matchThreeTutorialAssetId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"matchThreeTutorialAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _miniTutorialTaskId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"miniTutorialTaskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int matchThreeTutorialAssetId
+    public int miniTutorialTaskId
     {
-      get { return _matchThreeTutorialAssetId; }
-      set { _matchThreeTutorialAssetId = value; }
+      get { return _miniTutorialTaskId; }
+      set { _miniTutorialTaskId = value; }
     }
 
-    private int _firstPowerUpAssetId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"firstPowerUpAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _guideMonsterId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"guideMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int firstPowerUpAssetId
+    public int guideMonsterId
     {
-      get { return _firstPowerUpAssetId; }
-      set { _firstPowerUpAssetId = value; }
-    }
-
-    private int _rainbowTutorialAssetId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"rainbowTutorialAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int rainbowTutorialAssetId
-    {
-      get { return _rainbowTutorialAssetId; }
-      set { _rainbowTutorialAssetId = value; }
-    }
-
-    private int _powerUpComboTutorialAssetId = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"powerUpComboTutorialAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int powerUpComboTutorialAssetId
-    {
-      get { return _powerUpComboTutorialAssetId; }
-      set { _powerUpComboTutorialAssetId = value; }
-    }
-
-    private int _monsterDropTutorialAssetId = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"monsterDropTutorialAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int monsterDropTutorialAssetId
-    {
-      get { return _monsterDropTutorialAssetId; }
-      set { _monsterDropTutorialAssetId = value; }
-    }
-
-    private int _elementTutorialAssetId = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"elementTutorialAssetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int elementTutorialAssetId
-    {
-      get { return _elementTutorialAssetId; }
-      set { _elementTutorialAssetId = value; }
-    }
-
-    private int _cityId = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"cityId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int cityId
-    {
-      get { return _cityId; }
-      set { _cityId = value; }
-    }
-
-    private int _questIdForCombiningPowerUps = default(int);
-    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"questIdForCombiningPowerUps", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int questIdForCombiningPowerUps
-    {
-      get { return _questIdForCombiningPowerUps; }
-      set { _questIdForCombiningPowerUps = value; }
+      get { return _guideMonsterId; }
+      set { _guideMonsterId = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -1140,6 +1086,15 @@ namespace com.lvl6.proto
       set { _startingMonsterId = value; }
     }
 
+    private int _guideMonsterId = default(int);
+    [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"guideMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int guideMonsterId
+    {
+      get { return _guideMonsterId; }
+      set { _guideMonsterId = value; }
+    }
+
     private int _enemyMonsterId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"enemyMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -1147,6 +1102,15 @@ namespace com.lvl6.proto
     {
       get { return _enemyMonsterId; }
       set { _enemyMonsterId = value; }
+    }
+
+    private int _enemyMonsterIdTwo = default(int);
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"enemyMonsterIdTwo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int enemyMonsterIdTwo
+    {
+      get { return _enemyMonsterIdTwo; }
+      set { _enemyMonsterIdTwo = value; }
     }
 
     private int _enemyBossMonsterId = default(int);

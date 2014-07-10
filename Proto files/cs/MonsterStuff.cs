@@ -266,6 +266,15 @@ namespace com.lvl6.proto
       get { return _atkAnimationRepeatedFramesEnd; }
       set { _atkAnimationRepeatedFramesEnd = value; }
     }
+
+    private float _shadowScaleFactor = default(float);
+    [global::ProtoBuf.ProtoMember(29, IsRequired = false, Name=@"shadowScaleFactor", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float shadowScaleFactor
+    {
+      get { return _shadowScaleFactor; }
+      set { _shadowScaleFactor = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"AnimationType")]
     public enum AnimationType
     {
@@ -753,6 +762,15 @@ namespace com.lvl6.proto
     {
       get { return _expectedLevel; }
       set { _expectedLevel = value; }
+    }
+
+    private int _expectedHp = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"expectedHp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int expectedHp
+    {
+      get { return _expectedHp; }
+      set { _expectedHp = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

@@ -106,6 +106,24 @@ namespace com.lvl6.proto
       get { return _prerequisiteQuestId; }
       set { _prerequisiteQuestId = value; }
     }
+
+    private int _boardWidth = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"boardWidth", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int boardWidth
+    {
+      get { return _boardWidth; }
+      set { _boardWidth = value; }
+    }
+
+    private int _boardHeight = default(int);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"boardHeight", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int boardHeight
+    {
+      get { return _boardHeight; }
+      set { _boardHeight = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -233,6 +251,15 @@ namespace com.lvl6.proto
     {
       get { return _itemId; }
       set { _itemId = value; }
+    }
+
+    private float _dmgMultiplier = default(float);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"dmgMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float dmgMultiplier
+    {
+      get { return _dmgMultiplier; }
+      set { _dmgMultiplier = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"MonsterType")]
     public enum MonsterType
