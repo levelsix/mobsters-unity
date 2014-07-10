@@ -94,13 +94,13 @@ public class UMQNetworkManager : MonoBehaviour {
 
 #if UNITY_ANDROID && !UNITY_EDITOR
 		AndroidJavaObject factoryJava = new AndroidJavaObject("com.rabbitmq.client.ConnectionFactory");
-		factoryJava.Call("setHost", "robot.lvl6.com");
+		factoryJava.Call("setHost", "54.190.8.97");
 		factoryJava.Call("setUsername", "lvl6client");
 		factoryJava.Call("setPassword", "devclient");
 		factoryJava.Call("setVirtualHost", "devmobsters");
 #else
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.HostName = "robot.lvl6.com";
+		factory.HostName = "54.190.8.97";
 		factory.UserName = "lvl6client";
 		factory.Password = "devclient";
 		factory.VirtualHost = "devmobsters";

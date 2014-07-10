@@ -107,6 +107,15 @@ namespace com.lvl6.proto
       get { return _forceEnemyElem; }
       set { _forceEnemyElem = value; }
     }
+
+    private bool _alreadyCompletedMiniTutorialTask = default(bool);
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"alreadyCompletedMiniTutorialTask", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool alreadyCompletedMiniTutorialTask
+    {
+      get { return _alreadyCompletedMiniTutorialTask; }
+      set { _alreadyCompletedMiniTutorialTask = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
