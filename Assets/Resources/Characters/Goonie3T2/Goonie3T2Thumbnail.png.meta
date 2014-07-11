@@ -1,6 +1,9 @@
 fileFormatVersion: 2
-guid: c644bc99ef7e648f19e0c766c2ccdf24
+guid: 7edde9112d1c6430a96cc005a3c63259
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: Goonie3T2Thumbnail@2x
+    21300002: Goonie3T2Thumbnail
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -20,13 +23,13 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -3
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 1
     mipBias: -1
-    wrapMode: -1
+    wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -35,14 +38,11 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
-  buildTargetSettings:
-  - buildTarget: iPhone
-    maxTextureSize: 1024
-    textureFormat: -2
-    compressionQuality: 50
+  buildTargetSettings: []
   spriteSheet:
     sprites: []
   spritePackingTag: 
