@@ -38,12 +38,14 @@ public class MSMobsterGrid : MonoBehaviour {
 		case GoonScreenMode.SELL:
 			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED
 				|| mobster.monsterStatus == MonsterStatus.INCOMPLETE;
+		case GoonScreenMode.DO_ENHANCE:	
+			return mobster != MSMonsterManager.instance.currentEnhancementMonster &&
+				(mobster.monsterStatus == MonsterStatus.HEALTHY 
+				 || mobster.monsterStatus == MonsterStatus.INJURED
+				 || mobster.monsterStatus == MonsterStatus.ENHANCING);
 		case GoonScreenMode.TEAM:
-			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED;
 		case GoonScreenMode.PICK_ENHANCE:
-			return true;
-		case GoonScreenMode.DO_ENHANCE:
-			return true;
+			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED;
 		case GoonScreenMode.PICK_EVOLVE:
 			if (IsMonsterEvoBuddy(mobster))
 			{

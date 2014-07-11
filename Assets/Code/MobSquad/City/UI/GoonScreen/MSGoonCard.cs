@@ -304,7 +304,9 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		Setup (goon);
 		healthBarBackground.alpha = 0;
-		bottomCardLabel.text = Mathf.CeilToInt(goon.LevelForMonster(goon.userMonster.currentExp)%1*100) + "%";
+		float currLevel = goon.LevelForMonster(goon.userMonster.currentExp);
+		Debug.Log("Curr level: " + currLevel);
+		bottomCardLabel.text = Mathf.CeilToInt((currLevel%1)*100) + "%";
 	}
 
 	public void InitDoEnhance(PZMonster goon)
@@ -322,6 +324,11 @@ public class MSGoonCard : MonoBehaviour {
 		mediumBottomlabel.text = goon.enhanceXP + "xp";
 
 		//Small gets fiddled with on Update
+
+		if (MSMonsterManager.instance.enhancementFeeders.Contains(goon))
+		{
+			MoveToEnhanceQueue();
+		}
 
 	}
 
@@ -590,19 +597,21 @@ public class MSGoonCard : MonoBehaviour {
 	void AddToEnhanceQueue()
 	{
 		MSMonsterManager.instance.AddToEnhanceQueue(monster);
-		MSDoEnhanceScreen.instance.AddMonster(this);
+		MoveToEnhanceQueue ();
+	}
 
+	void MoveToEnhanceQueue ()
+	{
+		MSDoEnhanceScreen.instance.AddMonster (this);
+		name = (long.MaxValue - MSUtil.timeNowMillis).ToString ();
 		transform.parent = MSDoEnhanceScreen.instance.enhanceQueue.transform;
-		MSDoEnhanceScreen.instance.grid.Reposition();
-		MSDoEnhanceScreen.instance.enhanceQueue.Reposition();
-
-		foreach (var widget in GetComponentsInChildren<UIWidget>()) 
-		{
-			widget.ParentHasChanged();
+		MSDoEnhanceScreen.instance.grid.Reposition ();
+		MSDoEnhanceScreen.instance.enhanceQueue.Reposition ();
+		foreach (var widget in GetComponentsInChildren<UIWidget> ()) {
+			widget.ParentHasChanged ();
 		}
-
-		mediumHelper.FadeOut();
-		smallHelper.FadeIn();
+		mediumHelper.FadeOut ();
+		smallHelper.FadeIn ();
 	}
 
 	void RemoveFromEnhanceQueue()

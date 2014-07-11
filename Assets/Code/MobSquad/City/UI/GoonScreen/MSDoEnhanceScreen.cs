@@ -19,7 +19,10 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	MSUIHelper timeHelper;
 
 	[SerializeField]
-	UILabel currPerc;
+	UILabel currExpNeeded;
+
+	[SerializeField]
+	UILabel neededForLevel;
 
 	[SerializeField]
 	UILabel finishButtonLabel;
@@ -77,12 +80,14 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		MSSpriteUtil.instance.SetSprite(enhanceMonster.monster.imagePrefix, 
 		                                enhanceMonster.monster.imagePrefix + "Character", 
 		                                mobsterPose);
+		RefreshStats();
 	}
 
 	void OnDisable()
 	{
 		if (feeders.Count == 0)
 		{
+			MSMonsterManager.instance.currentEnhancementMonster.enhancement = null;
 			MSMonsterManager.instance.currentEnhancementMonster = null;
 		}
 	}
@@ -107,9 +112,16 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 			int attDiff = (enhanceMonster.TotalAttackAtLevel((int)level) - (int)enhanceMonster.totalDamage);
 			attackLabel.text = ((int)enhanceMonster.totalDamage) + " + " + attDiff;
 		}
+
+		//Get Next level
+		int next = Mathf.FloorToInt(level + 1);
+		int xpNext = enhanceMonster.XpForLevel(next) - enhanceMonster.ExpWithFeeders(feeders);
+
+		currExpNeeded.text = xpNext + "xp";
+		neededForLevel.text = "Needed for level " + next;
 	}
 
-	void RefreshTime()
+	void Update()
 	{
 		if (feeders.Count == 0)
 		{
@@ -124,12 +136,12 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	public void AddMonster(MSGoonCard card)
 	{
-		RefreshTime();
+		RefreshStats();
 	}
 
 	public void RemoveMonster(MSGoonCard card)
 	{
-		RefreshTime();
+		RefreshStats();
 	}
 
 	public void Finish()
