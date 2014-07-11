@@ -17,6 +17,8 @@ public class MSSpriteUtil : MonoBehaviour {
 	[SerializeField] Sprite defaultSprite;
 
 	const string AWS = "https://s3-us-west-1.amazonaws.com/lvl6mobsters/Resources/Android/";
+
+	[SerializeField] bool AWS_On = false;
 	
 	public void Awake()
 	{
@@ -33,16 +35,6 @@ public class MSSpriteUtil : MonoBehaviour {
 		}
 		return sprite;
 	}
-
-	public Sprite GetMobsterSprite(string mobsterName)
-	{
-		Sprite mobster = (Resources.Load("Characters/Poses/" + (mobsterName) + "Character", typeof(Sprite))) as Sprite;
-		if (mobster == null)
-		{
-			Debug.LogWarning("Failed to get mobster sprite: " + mobsterName);
-		}
-		return mobster;
-	}
 	
 	public RuntimeAnimatorController GetAnimator(string imageName)
 	{
@@ -51,23 +43,29 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	public RuntimeAnimatorController GetUnitAnimator(string imageName)
 	{
-		string path = "Characters/" + imageName + "/" + imageName + "Controller";
-//		Debug.Log("Getting: " + path);
+		string path = "Bundles/" + imageName + "/" + imageName + "Controller";
 		return (Resources.Load(path)) as RuntimeAnimatorController;
 	}
 
 	public IEnumerator SetSprite(string bundleName, string spriteName, SpriteRenderer sprite)
 	{
-		if (!bundles.ContainsKey(bundleName))
+		if (AWS_On)
 		{
-			sprite.sprite = defaultSprite;
-			yield return StartCoroutine(DownloadAndCache(bundleName));
+			if (!bundles.ContainsKey(bundleName))
+			{
+				sprite.sprite = defaultSprite;
+				yield return StartCoroutine(DownloadAndCache(bundleName));
+				
+			}
 			
+			if (bundles.ContainsKey (bundleName))
+			{
+				sprite.sprite = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
+			}
 		}
-
-		if (bundles.ContainsKey (bundleName))
-	    {
-			sprite.sprite = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
+		else
+		{
+			sprite.sprite = Resources.Load(bundleName + "/" + spriteName) as Sprite;
 		}
 	}
 
@@ -78,21 +76,29 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite)
 	{
-		sprite.alpha = 0;
-		//Debug.Log("Setting sprite: " + spriteName);
-		if (!bundles.ContainsKey(bundleName))
+		if (AWS_On)
 		{
-			sprite.sprite2D = defaultSprite;
-			yield return StartCoroutine(DownloadAndCache(bundleName));
-			
-		}
+			sprite.alpha = 0;
+			//Debug.Log("Setting sprite: " + spriteName);
+			if (!bundles.ContainsKey(bundleName))
+			{
+				sprite.sprite2D = defaultSprite;
+				yield return StartCoroutine(DownloadAndCache(bundleName));
+				
+			}
 
-		if (bundles.ContainsKey(bundleName))
-		{
-			sprite.sprite2D = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
-			sprite.MakePixelPerfect();
+			if (bundles.ContainsKey(bundleName))
+			{
+				sprite.sprite2D = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
+				sprite.MakePixelPerfect();
+				sprite.alpha = 1;
+			}
 		}
-		sprite.alpha = 1;
+		else
+		{
+			sprite.sprite2D = Resources.Load(bundleName + "/" + spriteName) as Sprite;
+			sprite.alpha = sprite.sprite2D != null ? 1 : 0;
+		}
 
 	}
 

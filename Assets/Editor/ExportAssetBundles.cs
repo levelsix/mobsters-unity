@@ -32,7 +32,7 @@ public class ExportAssetBundles
 	[MenuItem("Assets/Build Character Bundles")]
 	static void TestBuild () 
 	{
-		string path = "Assets/Resources/Characters";
+		string path = "Assets/Resources/Bundles";
 		string savePath;
 		Object[] files;
 		FileInfo[] info;

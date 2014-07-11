@@ -56,7 +56,7 @@ public class MSEvolutionElements : MonoBehaviour {
 
 		MonsterProto evoMonster = MSDataManager.instance.Get<MonsterProto>(monsterCard.monster.monster.evolutionMonsterId);
 
-		goonOutline.sprite2D = MSSpriteUtil.instance.GetMobsterSprite(evoMonster.imagePrefix);
+		MSSpriteUtil.instance.SetSprite(evoMonster.imagePrefix, evoMonster.imagePrefix + "Character", goonOutline);
 
 		finalNameLabel.text = evoMonster.displayName;
 

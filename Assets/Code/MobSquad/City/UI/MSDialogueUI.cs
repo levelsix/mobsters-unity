@@ -20,7 +20,7 @@ public class MSDialogueUI : MonoBehaviour {
 
 	public IEnumerator BringInMobster(string mobsterImgName, string mobsterName, string dialogue)
 	{
-		mobster.sprite2D = MSSpriteUtil.instance.GetMobsterSprite(mobsterImgName);
+		MSSpriteUtil.instance.SetSprite(mobsterImgName, mobsterImgName + "Character", mobster);
 
 		mobsterTween.PlayForward();
 
