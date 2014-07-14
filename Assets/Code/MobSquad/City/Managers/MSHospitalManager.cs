@@ -98,7 +98,7 @@ public class MSHospitalManager : MonoBehaviour {
 		healRequestProto.isSpeedup = false;
 	}
 	
-	void SendHealRequest ()
+	public void SendHealRequest ()
 	{
 		if (healRequestProto == null)
 		{
@@ -188,7 +188,10 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			PrepareNewHealRequest();
 		}
-		
+
+		healRequestProto.isSpeedup = true;
+		healRequestProto.gemsForSpeedup = cost;
+
 		UserMonsterCurrentHealthProto health;
 		PZMonster item;
 		while(MSHospitalManager.instance.healingMonsters.Count > 0)

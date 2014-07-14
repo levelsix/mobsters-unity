@@ -16,52 +16,13 @@ public class MSTaskBar : MonoBehaviour {
 	MSTaskButton taskButtonPrefab;
 	
 	[SerializeField]
-	UILabel topTextSmall;
-
-	[SerializeField]
-	UILabel topTextWide;
-
-	UILabel topText
-	{
-		get
-		{
-			return wide ? topTextWide : topTextSmall;
-		}
-	}
-	
-	[SerializeField]
-	UILabel bottomTextSmall;
-
-	[SerializeField]
-	UILabel bottomTextWide;
-
-	UILabel bottomText
-	{
-		get
-		{
-			return wide ? bottomTextWide : bottomTextSmall;
-		}
-	}
+	UILabel topText;
 
 	[SerializeField]
 	GameObject layoutSmall;
 
 	[SerializeField]
-	GameObject layoutWide;
-
-	[SerializeField]
-	UIGrid taskButtonGridSmall;
-
-	[SerializeField]
-	UIGrid taskButtonGridWide;
-
-	UIGrid taskButtonGrid
-	{
-		get
-		{
-			return wide ? taskButtonGridWide : taskButtonGridSmall;
-		}
-	}
+	UIGrid taskButtonGrid;
 	
 	[SerializeField]
 	GameObject upgradePopup;
@@ -75,7 +36,7 @@ public class MSTaskBar : MonoBehaviour {
 	[SerializeField]
 	MSBottomChat bottomChat;
 
-	TweenPosition tweenPos;
+	[SerializeField]
 	TweenAlpha tweenAlph;
 	
 	MSBuilding currBuilding;
@@ -95,53 +56,20 @@ public class MSTaskBar : MonoBehaviour {
 		}
 	}
 
-	void Awake()
-	{
-		tweenPos = GetComponent<TweenPosition>();
-		tweenAlph = GetComponent<TweenAlpha>();
-	}
-
-	void Start()
-	{
-		ResetLayoutAssignment();
-	}
-
-	[ContextMenu ("Reset Layout")]
-	void ResetLayoutAssignment()
-	{
-		layoutSmall.SetActive(!wide);
-		layoutWide.SetActive(wide);
-	}
-
 	void OnEnable()
 	{
 		MSActionManager.Town.OnBuildingSelect += OnBuildingSelect;
-		MSActionManager.Town.OnUnitSelect += OnUnitSelect;
 	}
 	
 	void OnDisable()
 	{
 		MSActionManager.Town.OnBuildingSelect -= OnBuildingSelect;
-		MSActionManager.Town.OnUnitSelect -= OnUnitSelect;
-	}
-	
-	void OnUnitSelect(MSUnit unit)
-	{
-		if (tweenPos.tweenFactor > 0)
-		{
-			tweenPos.PlayReverse();
-			tweenAlph.PlayReverse();
-		}
 	}
 	
 	void OnBuildingSelect(MSBuilding building)
 	{
-		if (currBuilding != null)
-		{
-			tweenPos.PlayReverse();
-			tweenAlph.PlayReverse();
-
-		}
+		tweenAlph.PlayReverse();
+		MoveButtons();
 		
 		if (building != null)
 		{
@@ -150,18 +78,15 @@ public class MSTaskBar : MonoBehaviour {
 		}
 		else
 		{
-			tweenPos.PlayReverse();
-			tweenAlph.PlayReverse();
 			bottomChat.Unhide();
 		}
 	}
 	
-	void ClearButtons()
+	void MoveButtons()
 	{
-		while(taskButtons.Count > 0)
+		foreach (var item in taskButtons) 
 		{
-			taskButtons[0].Pool();
-			taskButtons.RemoveAt(0);
+			item.Pool();
 		}
 	}
 	
@@ -172,6 +97,7 @@ public class MSTaskBar : MonoBehaviour {
 		{
 			switch (mode)
 			{
+			case MSTaskButton.Mode.FIX:
 			case MSTaskButton.Mode.UPGRADE:
 			case MSTaskButton.Mode.FINISH:
 				button.Setup(mode, currBuilding, upgradePopup);
@@ -203,6 +129,11 @@ public class MSTaskBar : MonoBehaviour {
 		}
 
 		taskButtonGrid.Reposition();
+
+		for (int i = 0; i < taskButtons.Count; i++) 
+		{
+			taskButtons[i].Enter(i);
+		}
 	}
 	
 	void SetBuildingButtons(MSBuilding building)
@@ -223,22 +154,39 @@ public class MSTaskBar : MonoBehaviour {
 			}
 			else
 			{
+				if (currBuilding.combinedProto.structInfo.level == 0)
+				{
+					AddButton(MSTaskButton.Mode.FIX);
+				}
+				else if (currBuilding.combinedProto.structInfo.successorStructId > 0)
+				{
+					AddButton(MSTaskButton.Mode.UPGRADE);
+				}
 				if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.RESIDENCE)
 				{
 					AddButton(MSTaskButton.Mode.HIRE);
+					AddButton(MSTaskButton.Mode.SELL_MOBSTERS);
 				}
 				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.MINI_JOB
 				         && currBuilding.combinedProto.structInfo.level > 0)
 				{
 					AddButton(MSTaskButton.Mode.MINIJOB);
 				}
+				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.TEAM_CENTER)
+				{
+					AddButton(MSTaskButton.Mode.TEAM);
+				}
+				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.LAB)
+				{
+					AddButton(MSTaskButton.Mode.ENHANCE);
+				}
+				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.EVO)
+				{
+					AddButton(MSTaskButton.Mode.EVOLVE);
+				}
 				if (currBuilding.hospital != null)
 				{
 					AddButton(MSTaskButton.Mode.HEAL);
-				}
-				if (currBuilding.combinedProto.structInfo.successorStructId > 0)
-				{
-					AddButton(MSTaskButton.Mode.UPGRADE);
 				}
 			}
 
@@ -252,12 +200,8 @@ public class MSTaskBar : MonoBehaviour {
 			}
 			else
 			{
-				AddButton(MSTaskButton.Mode.REMOVE);
+				AddButton(MSTaskButton.Mode.REMOVE_OBSTACLE);
 			}
-		}
-		else
-		{
-			AddButton(MSTaskButton.Mode.ENGAGE);
 		}
 		
 		SortButtons();
@@ -265,29 +209,32 @@ public class MSTaskBar : MonoBehaviour {
 		if (building.combinedProto != null)
 		{
 			topText.text = building.name;
-			bottomText.text = building.combinedProto.structInfo.shortDescription;
 		}
 		else if (building.obstacle != null)
 		{
 			topText.text = building.obstacle.obstacle.name;
-			bottomText.text = building.obstacle.obstacle.description;
 		}
 		else if (building.taskable != null)
 		{
 			topText.text = building.taskable.task.name;
-			bottomText.text = building.taskable.task.description;
 		}
 	}
 
 	IEnumerator TweenWhenOffScreen(MSBuilding building)
 	{
-		while (tweenPos.tweenFactor > 0 || tweenAlph.tweenFactor > 0)
+		foreach (var item in taskButtons) 
+		{
+			while (item.tweeningOut)
+			{
+				yield return null;
+			}
+		}
+		while (tweenAlph.tweenFactor > 0)
 		{
 			yield return null;
 		}
-		ClearButtons();
+		taskButtons.Clear();
 		SetBuildingButtons(building);
-		tweenPos.PlayForward();
 		tweenAlph.PlayForward();
 	}
 }

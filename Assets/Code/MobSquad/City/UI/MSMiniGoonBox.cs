@@ -164,7 +164,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 				barBG.alpha = 0;
 				return;
 			}
-			if (bar != null) bar.fill = 1 - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
+			if (bar != null) bar.fill = monster.enhanceProgress;
 			label.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
 		}
 		else if (barBG != null)

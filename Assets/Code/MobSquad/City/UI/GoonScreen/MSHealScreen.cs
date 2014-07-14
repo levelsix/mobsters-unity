@@ -115,4 +115,9 @@ public class MSHealScreen : MSFunctionalScreen
 	{
 		return MSHospitalManager.instance.hospitals.Count > 0;
 	}
+
+	void OnDisable()
+	{
+		MSHospitalManager.instance.SendHealRequest();
+	}
 }

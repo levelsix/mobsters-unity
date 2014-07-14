@@ -50,9 +50,6 @@ public class MSGoonCard : MonoBehaviour {
 	bool isBuddyParent = false;
 
 	Vector3 buddyOffset = new Vector3(15,-15);
-
-	[SerializeField]
-	GameObject extraDots;
 	
 	[SerializeField]
 	MSUIHelper bigHelper;
@@ -369,8 +366,6 @@ public class MSGoonCard : MonoBehaviour {
 		}
 		else
 		{
-			extraDots.SetActive(true);
-
 			name = "4 3 NoBuddy " + monster.monster.monsterId + " " + monster.userMonster.currentLvl + " " + monster.userMonster.userMonsterId;
 		}
 	}
@@ -427,8 +422,6 @@ public class MSGoonCard : MonoBehaviour {
 		bigHelper.ResetAlpha(true);
 		mediumHelper.ResetAlpha (false);
 		smallHelper.ResetAlpha(false);
-
-		extraDots.SetActive(false);
 
 		if (isBuddyParent)
 		{
@@ -805,9 +798,10 @@ public class MSGoonCard : MonoBehaviour {
 	void PopupTeamMemberToEnhanceQueue(PZMonster monster)
 	{
 		MSPopupManager.instance.CreatePopup("Mobster On Team",
-			teamMemberToHealWarning, new string[]{"Yes", "No"},
+			"Mobster will be removed from team, dawg!", new string[]{"Yes", "No"},
 			new string[]{"greenmenuoption", "greymenuoption"},
-			new Action[]{delegate{MSMonsterManager.instance.AddToEnhanceQueue(monster);
+			new Action[]{delegate{ MSMonsterManager.instance.RemoveFromTeam(monster);
+				AddToEnhanceQueue();
 				MSActionManager.Popup.CloseTopPopupLayer();}, 
 				MSActionManager.Popup.CloseTopPopupLayer});
 	}

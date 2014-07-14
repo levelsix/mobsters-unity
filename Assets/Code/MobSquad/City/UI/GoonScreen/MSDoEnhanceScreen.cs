@@ -30,6 +30,15 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	public UIGrid enhanceQueue;
 
 	[SerializeField]
+	UILabel levelLabel;
+
+	[SerializeField]
+	MSFillBar bottomBar;
+
+	[SerializeField]
+	MSFillBar topBar;
+
+	[SerializeField]
 	UILabel hpLabel;
 
 	[SerializeField]
@@ -37,6 +46,8 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	[SerializeField]
 	UILabel costLabel;
+
+	float futureLevel;
 
 	/// <summary>
 	/// Getter for monster being enhanced to keep code clean.
@@ -95,9 +106,9 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	void RefreshStats()
 	{
 		//Get future level
-		float level = enhanceMonster.LevelWithFeeders(feeders);
+		futureLevel = enhanceMonster.LevelWithFeeders(feeders);
 
-		if (level == enhanceMonster.level)
+		if (futureLevel == enhanceMonster.level)
 		{
 			hpLabel.text = enhanceMonster.maxHP.ToString();
 			attackLabel.text = ((int)enhanceMonster.totalDamage).ToString();
@@ -105,20 +116,50 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		else
 		{
 			//Get HP difference
-			int hpDiff = enhanceMonster.MaxHPAtLevel((int)level) - enhanceMonster.maxHP;
+			int hpDiff = enhanceMonster.MaxHPAtLevel((int)futureLevel) - enhanceMonster.maxHP;
 			hpLabel.text = enhanceMonster.maxHP + " + " + hpDiff;
 
 			//Get Attack difference
-			int attDiff = (enhanceMonster.TotalAttackAtLevel((int)level) - (int)enhanceMonster.totalDamage);
+			int attDiff = (enhanceMonster.TotalAttackAtLevel((int)futureLevel) - (int)enhanceMonster.totalDamage);
 			attackLabel.text = ((int)enhanceMonster.totalDamage) + " + " + attDiff;
 		}
 
 		//Get Next level
-		int next = Mathf.FloorToInt(level + 1);
+		int next = Mathf.FloorToInt(futureLevel + 1);
 		int xpNext = enhanceMonster.XpForLevel(next) - enhanceMonster.ExpWithFeeders(feeders);
 
 		currExpNeeded.text = xpNext + "xp";
 		neededForLevel.text = "Needed for level " + next;
+
+		RefreshBar();
+	}
+
+	void RefreshBar()
+	{
+		if (feeders.Count > 0)
+		{
+			float currXp = enhanceMonster.userMonster.currentExp + 
+				feeders[0].enhanceProgress * feeders[0].enhanceXP;
+			float currLevel = enhanceMonster.LevelForMonster(currXp);
+			levelLabel.text = "Level " + ((int)currLevel) + ":";
+			topBar.fill = currLevel % 1;
+
+
+			if ((int)currLevel < (int)futureLevel)
+			{
+				bottomBar.fill = 1;
+			}
+			else
+			{
+				bottomBar.fill = futureLevel%1;
+			}
+		}
+		else
+		{
+			levelLabel.text = "Level " + enhanceMonster.level + ":";
+			topBar.fill = enhanceMonster.LevelForMonster(enhanceMonster.userMonster.currentExp) % 1;
+			bottomBar.fill = 0;
+		}
 	}
 
 	void Update()
@@ -131,6 +172,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		{
 			timeHelper.ResetAlpha(true);
 			timeLeft.text = MSUtil.TimeStringShort(feeders[feeders.Count-1].enhanceTimeLeft);
+			RefreshBar();
 		}
 	}
 
@@ -151,7 +193,6 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	public void Back()
 	{
-		MSMonsterManager.instance.ClearEnhanceQueue();
 		MSPopupManager.instance.popups.goonScreen.DoShiftLeft(false);
 	}
 

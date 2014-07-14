@@ -65,7 +65,12 @@ public class MSSpriteUtil : MonoBehaviour {
 		}
 		else
 		{
-			sprite.sprite = Resources.Load(bundleName + "/" + spriteName) as Sprite;
+			string path = "Bundles/" + bundleName + "/" + spriteName;
+			sprite.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
+			if (sprite.sprite == null)
+			{
+				Debug.Log("Failed to get " + path);
+			}
 		}
 	}
 
@@ -96,8 +101,18 @@ public class MSSpriteUtil : MonoBehaviour {
 		}
 		else
 		{
-			sprite.sprite2D = Resources.Load(bundleName + "/" + spriteName) as Sprite;
-			sprite.alpha = sprite.sprite2D != null ? 1 : 0;
+			string path = "Bundles/" + bundleName + "/" + spriteName;
+			sprite.sprite2D = Resources.Load(path, typeof(Sprite)) as Sprite;
+			if (sprite.sprite2D == null)
+			{
+				Debug.LogError("Failed to get " + path);
+				sprite.alpha = 0;
+			}
+			else
+			{
+				sprite.alpha = 1;
+				sprite.MakePixelPerfect();
+			}
 		}
 
 	}
