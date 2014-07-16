@@ -4,7 +4,7 @@ using System.Collections;
 public class MSTriggerPopupButton : MonoBehaviour {
 	
 	[SerializeField]
-	protected GameObject popup;
+	public GameObject popup;
 	
 	[SerializeField]
 	bool closeTop = false;

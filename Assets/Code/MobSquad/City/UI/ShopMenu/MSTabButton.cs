@@ -20,6 +20,9 @@ public class MSTabButton : MonoBehaviour {
 	[SerializeField]
 	Color textBlue;
 
+	[SerializeField]
+	MSPopup popup;
+
 	enum Tab{
 		BUILDING,
 		FUNDS,
@@ -34,6 +37,8 @@ public class MSTabButton : MonoBehaviour {
 	UISprite tabSprite;
 
 	int startingDepth;
+
+
 
 	public static Action ClickTab;
 
@@ -62,6 +67,10 @@ public class MSTabButton : MonoBehaviour {
 		icon.spriteName = iconWhite;
 		label.color = Color.white;
 		ChangeDepthTo(startingDepth);
+
+		if(popup != null && popup.gameObject.activeSelf){
+			popup.Close();
+		}
 	}
 
 	void OnClick(){
@@ -71,6 +80,9 @@ public class MSTabButton : MonoBehaviour {
 		icon.spriteName = iconBlue;
 		label.color = textBlue;
 		ChangeDepthTo(startingDepth + 2);
-		Debug.Log(buttonType.ToString());
+	}
+
+	void OnDisable(){
+		Deselect();
 	}
 }

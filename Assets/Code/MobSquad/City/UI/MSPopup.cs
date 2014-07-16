@@ -34,6 +34,13 @@ public class MSPopup : MonoBehaviour {
 		StartCoroutine(RunOutTweens(all));
 	}
 
+	/// <summary>
+	/// Convieniece function to allow closing all popups from button OnClick
+	/// </summary>
+	public void CloseAll(){
+		Close (true);
+	}
+
 	protected virtual IEnumerator RunOutTweens(bool all)
 	{
 		foreach (var item in inTweens) 
