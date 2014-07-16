@@ -96,11 +96,11 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	void OnDisable()
 	{
-		if (feeders.Count == 0)
+		if (feeders.Count == 0 && enhanceMonster != null && enhanceMonster.monster.monsterId > 0)
 		{
-			MSMonsterManager.instance.currentEnhancementMonster.enhancement = null;
-			MSMonsterManager.instance.currentEnhancementMonster = null;
+			MSMonsterManager.instance.RemoveFromEnhanceQueue(enhanceMonster);
 		}
+		MSMonsterManager.instance.SendStartEnhanceRequest();
 	}
 
 	void RefreshStats()

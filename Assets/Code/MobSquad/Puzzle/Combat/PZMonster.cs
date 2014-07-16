@@ -302,7 +302,23 @@ public class PZMonster {
 	{
 		get
 		{
-			return monster.lvlInfo[monster.lvlInfo.Count-1].curLvlRequiredExp;
+			return maxLevelInfo.curLvlRequiredExp;
+		}
+	}
+
+	MonsterLevelInfoProto baseLevelInfo
+	{
+		get
+		{
+			return monster.lvlInfo[0];
+		}
+	}
+
+	MonsterLevelInfoProto maxLevelInfo
+	{
+		get
+		{
+			return monster.lvlInfo[monster.lvlInfo.Count-1];
 		}
 	}
 
@@ -407,56 +423,64 @@ public class PZMonster {
 		SetAttackDamagesForLevel(taskMonster.level);
 	}
 
+	int AttackDamageForElement(Element element, int level)
+	{
+		int baseDmg = 0;
+		int finalDmg = 0;
+		switch(element)
+		{
+		case Element.FIRE:
+			baseDmg = baseLevelInfo.fireDmg;
+			finalDmg = maxLevelInfo.fireDmg;
+			break;
+		case Element.EARTH:
+			baseDmg = baseLevelInfo.grassDmg;
+			finalDmg = maxLevelInfo.grassDmg;
+			break;
+		case Element.WATER:
+			baseDmg = baseLevelInfo.waterDmg;
+			finalDmg = maxLevelInfo.waterDmg;
+			break;
+		case Element.LIGHT:
+			baseDmg = baseLevelInfo.lightningDmg;
+			finalDmg = maxLevelInfo.lightningDmg;
+			break;
+		case Element.DARK:
+			baseDmg = baseLevelInfo.darknessDmg;
+			finalDmg = maxLevelInfo.darknessDmg;
+			break;
+		case Element.ROCK:
+			baseDmg = baseLevelInfo.rockDmg;
+			finalDmg = maxLevelInfo.rockDmg;
+			break;
+		default:
+			break;
+		}
+
+		return (int)(baseDmg + (finalDmg-baseDmg) 
+		             * Mathf.Pow((level-1)/((float)(monster.maxLevel-1)), 
+		            	maxLevelInfo.dmgExponentBase));
+	}
+
 	void SetAttackDamagesForLevel(int level)
 	{
 		if (monster.lvlInfo.Count > 0)
 		{
-			attackDamages[0] = monster.lvlInfo[0].fireDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
-			attackDamages[1] = monster.lvlInfo[0].grassDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
-			attackDamages[2] = monster.lvlInfo[0].waterDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
-			attackDamages[3] = monster.lvlInfo[0].lightningDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
-			attackDamages[4] = monster.lvlInfo[0].darknessDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
-			attackDamages[5] = monster.lvlInfo[0].rockDmg * Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1);
+			for (int i = 0; i < attackDamages.Length; i++) 
+			{
+				//NOTE: Because Protocol Buffers are weird, the Element enum starts at 1
+				//So we have to adjust for the off-by-one error -_-
+				attackDamages[i] = AttackDamageForElement((Element)(i+1), level);
+			}
 		}
 		else
 		{
-			attackDamages[0] = 1;
-			attackDamages[1] = 1;
-			attackDamages[2] = 1;
-			attackDamages[3] = 1;
-			attackDamages[4] = 1;
-			attackDamages[5] = 1;
+			for (int i = 0; i < attackDamages.Length; i++) 
+			{
+				attackDamages[i] = 1;
+			}
 		}
 		
-		float total = 0;
-		foreach (var damage in attackDamages) 
-		{
-			total += damage;
-		}
-		totalDamage = total;
-	}
-
-	void SetAttackDamagesFromMonsterLevelInfo(MonsterLevelInfoProto lvlInfo)
-	{
-		if (lvlInfo != null)
-		{
-			attackDamages[0] = lvlInfo.fireDmg;
-			attackDamages[1] = lvlInfo.grassDmg;
-			attackDamages[2] = lvlInfo.waterDmg;
-			attackDamages[3] = lvlInfo.lightningDmg;
-			attackDamages[4] = lvlInfo.darknessDmg;
-			attackDamages[5] = lvlInfo.rockDmg;
-		}
-		else
-		{
-			attackDamages[0] = 1;
-			attackDamages[1] = 1;
-			attackDamages[2] = 1;
-			attackDamages[3] = 1;
-			attackDamages[4] = 1;
-			attackDamages[5] = 1;
-		}
-
 		float total = 0;
 		foreach (var damage in attackDamages) 
 		{
@@ -472,9 +496,12 @@ public class PZMonster {
 			return PZPuzzleManager.GEM_TYPES;
 		}
 
-		return Mathf.FloorToInt((monster.lvlInfo[0].fireDmg + monster.lvlInfo[0].grassDmg + monster.lvlInfo[0].waterDmg
-				+ monster.lvlInfo[0].lightningDmg + monster.lvlInfo[0].darknessDmg + monster.lvlInfo[0].rockDmg)
-				* Mathf.Pow(monster.lvlInfo[0].dmgExponentBase, level-1));
+		int dmg = 0;
+		for (int i = 0; i < PZPuzzleManager.GEM_TYPES; i++) 
+		{
+			dmg += AttackDamageForElement((Element)(i+1), level); 
+		}
+		return dmg;
 	}
 
 	public int MaxHPAtLevel(int level)
@@ -484,9 +511,8 @@ public class PZMonster {
 			return 1;
 		}
 
-		int mhp = Mathf.FloorToInt(monster.lvlInfo[0].hp * Mathf.Pow(monster.lvlInfo[0].hpExponentBase, level-1));
-		Debug.Log("Max hp for " + monster.displayName + " at level " + level + ": " + mhp);
-		return mhp;
+		return (int)(baseLevelInfo.hp + (maxLevelInfo.hp - baseLevelInfo.hp)
+			* Mathf.Pow((level-1)/((float)(monster.maxLevel-1)), maxLevelInfo.hpExponentBase));
 	}
 
 	public UserMonsterCurrentHealthProto GetCurrentHealthProto()

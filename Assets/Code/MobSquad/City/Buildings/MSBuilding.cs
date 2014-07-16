@@ -720,6 +720,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	{
 		confirmationButtons.SetActive(false);
 		Pool();
+		MSGridManager.instance.RemoveBuilding(this);
 		MSBuildingManager.instance.hoveringToBuild = null;
 	}
 	

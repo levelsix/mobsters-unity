@@ -161,6 +161,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		icon.MakePixelPerfect();
 		icon.alpha = 1;
 		middleLabel.text = " ";
+		topLabel.text = " ";
 
 		switch(mode)
 		{
@@ -168,47 +169,51 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 			if (currBuilding.combinedProto.structInfo.buildResourceType == com.lvl6.proto.ResourceType.OIL)
 			{
 				topLabel.text = "(o) " + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.color = MSColors.oilTextColor;
 			}
 			else
 			{
-				topLabel.text = "$" + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.text = "(c) " + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.color = MSColors.cashTextColor;
 			}
 			break;
 		case Mode.UPGRADE:
 			if (currBuilding.combinedProto.structInfo.buildResourceType == com.lvl6.proto.ResourceType.OIL)
 			{
 				topLabel.text = "(o) " + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.color = MSColors.oilTextColor;
 			}
 			else
 			{
-				topLabel.text = "$" + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.text = "(c) " + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.color = MSColors.cashTextColor;
 			}
 			break;
 		case Mode.FINISH:
 			if (currBuilding.obstacle != null)
 			{
-				middleLabel.text = "(G) " + currBuilding.obstacle.gemsToFinish;
+				middleLabel.text = "(g) " + currBuilding.obstacle.gemsToFinish;
 			}
 			else
 			{
-				middleLabel.text = "(G) " + currBuilding.upgrade.gemsToFinish;
+				middleLabel.text = "(g) " + currBuilding.upgrade.gemsToFinish;
 			}
 			icon.alpha = 0;
-			bottomLabel.effectColor = Color.black;
-			topLabel.text = " ";
+			bottomLabel.effectColor = new Color(3/255f, 3/255f, 3/255f);
 			break;
 		case Mode.REMOVE_OBSTACLE:
 			if (currBuilding.obstacle.obstacle.removalCostType == com.lvl6.proto.ResourceType.OIL)
 			{
 				topLabel.text = "(o) " + currBuilding.obstacle.obstacle.cost;
+				topLabel.color = MSColors.oilTextColor;
 			}
 			else
 			{
-				topLabel.text = "$" + currBuilding.obstacle.obstacle.cost;
+				topLabel.text = "(c) " + currBuilding.obstacle.obstacle.cost;
+				topLabel.color = MSColors.cashTextColor;
 			}
 			break;
 		default:
-			topLabel.text = " ";
 			break;
 		}
 		bottomLabel.color = buttonTextColors[bg.spriteName];

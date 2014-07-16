@@ -29,6 +29,24 @@ public class MSFullQuest {
 		this.quest = quest;
 		this.userQuest = userQuest;
 		this.newQuest = newQuest;
+
+		if (!newQuest)
+		{
+			UserQuestJobProto userjob;
+			foreach (var job in quest.jobs) 
+			{
+				if (userQuest.userQuestJobs.Find(x=>x.questJobId == job.questJobId) == null)
+				{
+					userjob = new UserQuestJobProto();
+					userjob.questId = quest.questId;
+					userjob.questJobId = job.questJobId;
+					userjob.isComplete = false;
+					userjob.progress = 0;
+					
+					userQuest.userQuestJobs.Add(userjob);
+				}
+			}
+		}
 	}
 	
 	public string GetProgressString()

@@ -830,6 +830,7 @@ MonoBehaviour:
   upgrade: {fileID: 0}
   collector: {fileID: 0}
   storage: {fileID: 0}
+  teamCenter: {fileID: 0}
   overlayUnit: {fileID: 11400044}
   textLabel: {fileID: 11400002, guid: 3dfd9e3518c824d4fa6f9a7497744e8a, type: 2}
   floor: {fileID: 21200010}
@@ -837,7 +838,7 @@ MonoBehaviour:
   hoverIcon: {fileID: 11400000}
   lockTween: {fileID: 11400002}
   arrowPosTween: {fileID: 11400012}
-  arrowScaleTween: {fileID: 11400012}
+  arrowScaleTween: {fileID: 0}
   locallyOwned: 1
   confirmationButtons: {fileID: 100016}
   X_DRAG_FUDGE: 1.25
@@ -1349,7 +1350,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mEffectColor: {r: .0117647061, g: .0117647061, b: .0117647061, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
   mOverflow: 0

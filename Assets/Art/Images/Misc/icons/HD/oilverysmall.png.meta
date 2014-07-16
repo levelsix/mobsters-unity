@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 3ec41921b6fc74c20aa3fdcf8bca4210
+guid: 02e382a9766c844c4b7d5ae449c16990
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Goonie5T1Card@2x
-    21300002: Goonie5T1Card
+    21300000: oilsmall 1
+    21300002: oilverysmall
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -19,14 +19,14 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: .25
     normalMapFilter: 0
-  isReadable: 0
+  isReadable: 1
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: 5
   maxTextureSize: 1024
   textureSettings:
-    filterMode: 1
+    filterMode: -1
     aniso: 1
     mipBias: -1
     wrapMode: 1
@@ -39,10 +39,14 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 50
-  alphaIsTransparency: 1
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 0
   textureType: 8
-  buildTargetSettings: []
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
   spriteSheet:
     sprites: []
   spritePackingTag: 

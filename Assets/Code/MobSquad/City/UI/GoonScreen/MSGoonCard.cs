@@ -521,7 +521,8 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void TintElements(bool darken)
 	{
-		goonPose.color = darken ? darkenColor : Color.white;
+		goonPose.color = darken ? Color.black : Color.white;
+		cardBackground.color = darken ? Color.black : Color.white;
 	}
 	
 	void AddToTeam()

@@ -76,7 +76,8 @@ public class MSTutorialManager : MonoBehaviour
 
 	public bool IsTaskTutorial(int taskId)
 	{
-		return tutorialTasks.ContainsKey(taskId);
+		return false;
+		//return tutorialTasks.ContainsKey(taskId);
 	}
 
 	static void StartBasicPuzzleTutorial()

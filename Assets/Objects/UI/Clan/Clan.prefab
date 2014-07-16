@@ -891,6 +891,7 @@ GameObject:
   - 4: {fileID: 400108}
   - 114: {fileID: 11400126}
   - 65: {fileID: 6500032}
+  - 114: {fileID: 11400204}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -1242,7 +1243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100152
 GameObject:
   m_ObjectHideFlags: 1
@@ -3595,7 +3596,7 @@ MonoBehaviour:
   mClipping: 3
   mClipRange: {x: 0, y: -42, z: 920, w: 508}
   mClipSoftness: {x: 2, y: 2}
-  mDepth: 1
+  mDepth: 3
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400054
@@ -6493,6 +6494,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd72edbbb404e45c8b817c7973760a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae942c9068183dc40a9d01f648273726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  showInPanelTool: 1
+  generateNormals: 0
+  widgetsAreStatic: 0
+  cullWhileDragging: 0
+  alwaysOnScreen: 0
+  anchorOffset: 0
+  renderQueue: 0
+  startingRenderQueue: 3000
+  mAlpha: 1
+  mClipping: 0
+  mClipRange: {x: 0, y: 0, z: 300, w: 200}
+  mClipSoftness: {x: 4, y: 4}
+  mDepth: 2
+  mSortingOrder: 0
+  mClipOffset: {x: 0, y: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

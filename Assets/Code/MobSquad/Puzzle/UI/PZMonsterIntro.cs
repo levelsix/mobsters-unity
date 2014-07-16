@@ -5,29 +5,27 @@ using System.Collections;
 public class PZMonsterIntro : MonoBehaviour {
 
 	[SerializeField]
-	UILabel currNumber;
-
-	[SerializeField]
-	UILabel totalNumber;
-
-	[SerializeField]
 	UISprite elementSprite;
 
 	[SerializeField]
-	UILabel name;
+	UILabel topLabel;
 
 	[SerializeField]
-	UILabel level;
+	UILabel bottomLabel;
 
 	[SerializeField]
-	TweenPosition top;
+	TweenPosition topPos;
 
 	[SerializeField]
-	TweenPosition bottom;
+	TweenPosition bottomPos;
+
+	[SerializeField]
+	TweenAlpha topAlph;
+
+	[SerializeField]
+	TweenAlpha bottomAlph;
 
 	public void SetText(PZMonster monster, int currUnitIndex, int totalUnits){
-		currNumber.text = currUnitIndex.ToString ();
-		totalNumber.text = totalUnits.ToString ();
 
 		switch (monster.monster.monsterElement) {
 		case Element.DARK:
@@ -49,24 +47,24 @@ public class PZMonsterIntro : MonoBehaviour {
 			elementSprite.spriteName = "waterorb";
 			break;
 		}
-		
-		name.text = monster.monster.displayName;
+		elementSprite.MakePixelPerfect();
 
-		int levelNum = monster.taskMonster.level;
-		level.text = levelNum.ToString();
+		topLabel.text = "Enemy " + currUnitIndex + "/" + totalUnits;
+		bottomLabel.text = monster.monster.displayName + " (Lvl " + monster.taskMonster.level + ")";	
 
 		//these MAY have to be marked as changed
-		currNumber.MarkAsChanged ();
-		totalNumber.MarkAsChanged ();
-		elementSprite.MarkAsChanged ();
-		name.MarkAsChanged ();
-		level.MarkAsChanged ();
+		topLabel.MarkAsChanged();
+		bottomLabel.MarkAsChanged();
 	}
 
 	public void PlayAnimation(){
-		top.ResetToBeginning ();
-		top.PlayForward ();
-		bottom.ResetToBeginning ();
-		bottom.PlayForward ();
+		topPos.ResetToBeginning ();
+		topPos.PlayForward ();
+		topAlph.ResetToBeginning();
+		topAlph.PlayForward();
+		bottomPos.ResetToBeginning ();
+		bottomPos.PlayForward();
+		bottomAlph.ResetToBeginning();
+		bottomAlph.PlayForward();
 	}
 }

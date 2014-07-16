@@ -79,6 +79,7 @@ public class MSTaskBar : MonoBehaviour {
 		else
 		{
 			bottomChat.Unhide();
+			taskButtons.Clear();
 		}
 	}
 	

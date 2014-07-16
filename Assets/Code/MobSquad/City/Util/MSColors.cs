@@ -17,6 +17,8 @@ public static class MSColors {
 	public static readonly Color activeTabTextColor = new Color(0, .5f, .9f);
 	public static readonly Color inactiveTabTextColor = new Color(0, .41f, .61f);
 
+	public static readonly Color blackAndWhiteTint = new Color(0.222f, 0.707f, 0.071f);
+
 	public static readonly Dictionary<Quality, Color> qualityColors = new Dictionary<Quality, Color>()
 	{
 		{Quality.COMMON, new Color(.607f, .592f, .407f)},

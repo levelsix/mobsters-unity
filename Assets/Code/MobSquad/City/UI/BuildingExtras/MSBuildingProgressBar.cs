@@ -118,5 +118,9 @@ public class MSBuildingProgressBar : MonoBehaviour {
 				building.upgrade.OnFinishUpgrade();
 			}
 		}
+		else
+		{
+			bg.alpha = 0;
+		}
 	}
 }

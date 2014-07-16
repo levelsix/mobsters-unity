@@ -47,7 +47,7 @@ public class MSMonsterManager : MonoBehaviour {
 		}
 	}
 	
-	SubmitMonsterEnhancementRequestProto enhanceRequestProto = null;
+	SubmitMonsterEnhancementRequestProto enhanceRequestProto = new SubmitMonsterEnhancementRequestProto();
 	
 	CombineUserMonsterPiecesRequestProto combineRequestProto = null;
 
@@ -454,31 +454,13 @@ public class MSMonsterManager : MonoBehaviour {
 
 	#region Enhancement
 	
-	/// <summary>
-	/// Prepares a new enhance request.
-	/// </summary>
-	void PrepareNewEnhanceRequest()
-	{
-		Debug.Log("Preparing Enhance Request");
-		enhanceRequestProto = new SubmitMonsterEnhancementRequestProto();
-		enhanceRequestProto.sender = MSWhiteboard.localMupWithResources;
-	}
-	
 	IEnumerator SendCompleteEnhanceRequest(EnhancementWaitTimeCompleteRequestProto request)
 	{
-		if (enhanceRequestProto != null)
-		{
-			SendStartEnhanceRequest();
-			while (enhanceRequestProto != null)
-			{
-				yield return null;
-			}
-		}
 
 		Debug.Log("UMCEP: EXP: " + request.umcep.expectedExperience + ", LVL: " + request.umcep.expectedLevel);
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT, null);
-		
+
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
 			yield return null;
@@ -491,12 +473,26 @@ public class MSMonsterManager : MonoBehaviour {
 		{
 			Debug.LogError("Enhance Wait Complete done messed: " + response.status.ToString());
 		}
+		else
+		{
+			if (enhancementFeeders.Count == 0 && !MSDoEnhanceScreen.instance.gameObject.activeSelf)
+			{
+				RemoveFromEnhanceQueue(currentEnhancementMonster);
+			}
+			
+			SendStartEnhanceRequest();
+
+		}
 		
 	}
 	
-	void SendStartEnhanceRequest ()
+	public void SendStartEnhanceRequest ()
 	{
-		if (enhanceRequestProto == null)
+		enhanceRequestProto.sender = MSWhiteboard.localMupWithResources;
+
+		if (enhanceRequestProto.ueipNew.Count == 0
+		    && enhanceRequestProto.ueipUpdate.Count == 0
+		    && enhanceRequestProto.ueipDelete.Count == 0)
 		{
 			return;
 		}
@@ -515,6 +511,14 @@ public class MSMonsterManager : MonoBehaviour {
 			str += "\nDelete: " + item.userMonsterId;
 		}
 		Debug.LogWarning(str);
+
+		//If we're only adding the enhancement mobster, don't send it unless
+		//there are feeders too
+		if (enhanceRequestProto.ueipNew.Count == 1
+		    && enhanceRequestProto.ueipNew[0].userMonsterId == currentEnhancementMonster.userMonster.userMonsterId)
+		{
+			return;
+		}
 		
 		UMQNetworkManager.instance.SendRequest(enhanceRequestProto, (int)EventProtocolRequest.C_SUBMIT_MONSTER_ENHANCEMENT_EVENT, DealWithEnhanceStartResponse);
 		
@@ -522,6 +526,10 @@ public class MSMonsterManager : MonoBehaviour {
 		{
 			MSActionManager.Goon.OnEnhanceQueueChanged();
 		}
+
+		enhanceRequestProto.ueipNew.Clear();
+		enhanceRequestProto.ueipUpdate.Clear();
+		enhanceRequestProto.ueipDelete.Clear();
 	}
 	
 	int Feed (PZMonster feeder)
@@ -600,11 +608,6 @@ public class MSMonsterManager : MonoBehaviour {
 
 	public void AddToEnhanceQueue(PZMonster monster)
 	{
-		if (enhanceRequestProto == null)
-		{
-			PrepareNewEnhanceRequest();
-		}
-		
 		monster.enhancement = new UserEnhancementItemProto();
 		monster.enhancement.userMonsterId = monster.userMonster.userMonsterId;
 		
@@ -614,7 +617,7 @@ public class MSMonsterManager : MonoBehaviour {
 			monster.enhancement.expectedStartTimeMillis = 0;
 			currentEnhancementMonster = monster;
 		}
-		else if (MSResourceManager.instance.Spend(ResourceType.OIL, monster.enhanceXP, delegate{AddToEnhanceQueue(monster);}))
+		else if (MSResourceManager.instance.Spend(ResourceType.OIL, currentEnhancementMonster.enhanceCost, delegate{AddToEnhanceQueue(monster);}))
 		{
 			if (enhancementFeeders.Count == 0)
 			{
@@ -625,14 +628,15 @@ public class MSMonsterManager : MonoBehaviour {
 				monster.enhancement.expectedStartTimeMillis = enhancementFeeders[enhancementFeeders.Count-1].finishEnhanceTime;
 			}
 			enhancementFeeders.Add(monster);
-			enhanceRequestProto.oilChange -= monster.enhanceXP;
+			enhanceRequestProto.oilChange -= currentEnhancementMonster.enhanceCost;
 
 			if (MSActionManager.Goon.OnMonsterAddQueue != null)
 			{
 				MSActionManager.Goon.OnMonsterAddQueue(monster);
 			}
 		}
-		
+
+
 		if (enhanceRequestProto.ueipDelete.Contains(monster.enhancement))
 		{
 			enhanceRequestProto.ueipDelete.Remove(monster.enhancement);
@@ -652,11 +656,6 @@ public class MSMonsterManager : MonoBehaviour {
 	
 	public void RemoveFromEnhanceQueue(PZMonster monster)
 	{
-		if (enhanceRequestProto == null)
-		{
-			PrepareNewEnhanceRequest();
-		}
-		
 		int i;
 		for (i = 0; i < enhancementFeeders.Count; i++) 
 		{
@@ -693,11 +692,22 @@ public class MSMonsterManager : MonoBehaviour {
 		}
 		
 		monster.enhancement = null;
-		
-		enhanceRequestProto.oilChange += monster.enhanceXP;
-		
-		MSResourceManager.instance.Collect(ResourceType.OIL, monster.enhanceXP);
 
+		if (monster == currentEnhancementMonster)
+		{
+			currentEnhancementMonster = null;
+		}
+		else
+		{
+			enhanceRequestProto.oilChange += currentEnhancementMonster.enhanceCost;
+			
+			MSResourceManager.instance.Collect(ResourceType.OIL, monster.enhanceXP);
+
+			if (enhancementFeeders.Count == 0)
+			{
+				RemoveFromEnhanceQueue(currentEnhancementMonster);
+			}
+		}
 
 		if (MSActionManager.Goon.OnMonsterRemoveQueue != null)
 		{
@@ -716,11 +726,6 @@ public class MSMonsterManager : MonoBehaviour {
 	/// </summary>
 	public void ClearEnhanceQueue()
 	{
-		if (enhanceRequestProto == null)
-		{
-			PrepareNewEnhanceRequest ();
-		}
-		
 		//Remove from the back; more efficient
 		while(enhancementFeeders.Count > 0)
 		{
@@ -756,8 +761,6 @@ public class MSMonsterManager : MonoBehaviour {
 		{
 			Debug.LogError("Problem sending enhance request: " + response.status.ToString ());
 		}
-		
-		enhanceRequestProto = null;
 	}
 	
 	void DealWithCombineResponse(int tagNum)
@@ -806,12 +809,38 @@ public class MSMonsterManager : MonoBehaviour {
 	
 	void SendRequests()
 	{
-		SendStartEnhanceRequest();
 	}
 	
 	void OnApplicationQuit()
 	{
 		SendRequests();
+	}
+
+	[ContextMenu ("Debug Dump")]
+	public void DebugDump()
+	{
+		foreach (var item in userMonsters) 
+		{
+			Debug.Log("Monster: " + item.monster.displayName
+			          + "Level: " + item.userMonster.currentLvl
+			          + "Status: " + item.monsterStatus);
+		}
+	}
+
+	[ContextMenu ("Debug Enhancement Proto")]
+	public void StartEnhnacementDump()
+	{
+		string str = "Enh Req";
+		foreach (var item in enhanceRequestProto.ueipNew) {
+			str += ("\nNew: " + item.userMonsterId);
+		}
+		foreach (var item in enhanceRequestProto.ueipUpdate) {
+			str += ("\nUpdate: " + item.userMonsterId);
+		}
+		foreach (var item in enhanceRequestProto.ueipDelete) {
+			str += ("\nDelete: " + item.userMonsterId);
+		}
+		Debug.LogWarning(str);
 	}
 }
 					

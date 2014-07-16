@@ -98,13 +98,13 @@ public class MSMobsterGrid : MonoBehaviour {
 	public void Reposition()
 	{
 		grid.Reposition();
-		if (grid.transform.childCount == 0)
+		if (grid.animateSmoothly)
 		{
-			noMobstersLabel.FadeIn();
+			noMobstersLabel.Fade(grid.transform.childCount == 0);
 		}
 		else
 		{
-			noMobstersLabel.FadeOut();
+			noMobstersLabel.ResetAlpha(grid.transform.childCount == 0);
 		}
 	}
 
