@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -51,15 +51,15 @@ public class MSBottomBarModeButton : MonoBehaviour {
 	Dictionary<GoonScreenMode, string> baseIconSprites = new Dictionary<GoonScreenMode, string>(){
 		{GoonScreenMode.HEAL, "heal"},
 		{GoonScreenMode.SELL, "sell"},
-		{GoonScreenMode.ENHANCE, "enhance"},
-		{GoonScreenMode.EVOLVE, "evolove"}
+		{GoonScreenMode.DO_ENHANCE, "enhance"},
+		{GoonScreenMode.PICK_EVOLVE, "evolove"}
 	};
 
 	Dictionary<GoonScreenMode, string> labels = new Dictionary<GoonScreenMode, string>(){
 		{GoonScreenMode.HEAL, "Heal"},
 		{GoonScreenMode.SELL, "Sell"},
-		{GoonScreenMode.ENHANCE, "Enhance"},
-		{GoonScreenMode.EVOLVE, "Evolove"}
+		{GoonScreenMode.DO_ENHANCE, "Enhance"},
+		{GoonScreenMode.PICK_EVOLVE, "Evolove"}
 	};
 
 	public void Set(bool active)
@@ -98,14 +98,7 @@ public class MSBottomBarModeButton : MonoBehaviour {
 	void OnClick()
 	{
 		Debug.Log("Clicked");
-		if (mode == GoonScreenMode.ENHANCE)
-		{
-			MSPopupManager.instance.popups.goonScreen.InitEnhanceFromButton();
-		}
-		else
-		{
-			MSPopupManager.instance.popups.goonScreen.Init(_mode);
-		}
+		MSPopupManager.instance.popups.goonScreen.Init(_mode);
 	}
 
 }

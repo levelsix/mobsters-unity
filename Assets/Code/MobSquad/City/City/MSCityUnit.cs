@@ -19,7 +19,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 	
 	const float MIN_DIST = .03f;
 	
-	bool moving = true;
+	public bool moving = true;
 	
 	bool _selected = false;
 	
@@ -137,13 +137,14 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		}
 	}
 	
-	void MoveNext()
+	public void MoveNext()
 	{
 		while (path == null || path.Count == 0)
 		{
 			if (MSTutorialManager.instance.inTutorial)
 			{
 				Stop();
+				return;
 			}
 			else if (target == null || !MSGridManager.instance.IsWalkable(target.pos))
 			{
@@ -159,19 +160,8 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 	{
 		//Debug.Log("Setting target to " + node.pos);
 		target = node;
-		if (unit.direction != node.direction)
-		{
-			unit.direction = node.direction;
-			unit.animat = MSUnit.AnimationType.RUN;
-		}
-		if (unit.direction == MSValues.Direction.NORTH || unit.direction == MSValues.Direction.SOUTH)
-		{
-			//trans.position = new Vector3(node.worldPos.x, trans.position.y, trans.position.z);
-		}
-		else
-		{
-			//trans.position = new Vector3(trans.position.x, trans.position.y, node.worldPos.z);
-		}
+		unit.direction = node.direction;
+		unit.animat = MSUnit.AnimationType.RUN;
 		unit.sprite.sortingOrder = (-(node.x + node.z) - 10) * 3;
 	}
 
@@ -314,6 +304,8 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 			path.Push(poses[i]);
 		}
 		SetTarget(path.Pop ());
+
+		moving = true;
 	}
 	
 	#endregion

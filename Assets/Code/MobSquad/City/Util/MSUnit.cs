@@ -116,6 +116,8 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	public float unitSize = 1.1f;
 
 	public bool tutorial = false;
+
+	public MonsterProto monster;
 	
 	/// <summary>
 	/// Awake this instance.
@@ -164,6 +166,8 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 
 	public void Init(PZMonster mon)
 	{
+		monster = mon.monster;
+
 		name = mon.monster.displayName;
 
 		spriteBaseName = MSUtil.StripExtensions(mon.monster.imagePrefix);
@@ -173,7 +177,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	
 	public void Init(FullUserMonsterProto proto)
 	{
-		MonsterProto monster = MSDataManager.instance.Get(typeof(MonsterProto), proto.monsterId) as MonsterProto;
+		monster = MSDataManager.instance.Get(typeof(MonsterProto), proto.monsterId) as MonsterProto;
 		
 		name = monster.displayName;
 		
@@ -184,10 +188,10 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 
 	public void Init (int monsterId)
 	{
-		MonsterProto proto = MSDataManager.instance.Get<MonsterProto>(monsterId);
+		monster = MSDataManager.instance.Get<MonsterProto>(monsterId);
 
-		name = proto.displayName;
-		spriteBaseName = MSUtil.StripExtensions(proto.imagePrefix);
+		name = monster.displayName;
+		spriteBaseName = MSUtil.StripExtensions(monster.imagePrefix);
 
 		Setup();
 	}

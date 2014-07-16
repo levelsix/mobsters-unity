@@ -98,7 +98,7 @@ public class MSHospitalManager : MonoBehaviour {
 		healRequestProto.isSpeedup = false;
 	}
 	
-	void SendHealRequest ()
+	public void SendHealRequest ()
 	{
 		if (healRequestProto == null)
 		{
@@ -175,7 +175,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 	public void TrySpeedUpHeal()
 	{
-		int gemCost = Mathf.CeilToInt((lastFinishTime - MSUtil.timeNowMillis) * 1f/60000);
+		int gemCost = MSMath.GemsForTime(lastFinishTime - MSUtil.timeNowMillis);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost, TrySpeedUpHeal))
 		{
 			SpeedUpHeal(gemCost);
@@ -188,7 +188,10 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			PrepareNewHealRequest();
 		}
-		
+
+		healRequestProto.isSpeedup = true;
+		healRequestProto.gemsForSpeedup = cost;
+
 		UserMonsterCurrentHealthProto health;
 		PZMonster item;
 		while(MSHospitalManager.instance.healingMonsters.Count > 0)
@@ -214,6 +217,11 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			MSActionManager.Goon.OnMonsterRemoveQueue(monster);
 		}
+
+		if (MSActionManager.Goon.OnMonsterFinishHeal != null)
+		{
+			MSActionManager.Goon.OnMonsterFinishHeal(monster);
+		}
 	}
 	
 	
@@ -222,12 +230,12 @@ public class MSHospitalManager : MonoBehaviour {
 	/// Function shorts if there are no available hospitals.
 	/// </summary>
 	/// <param name="monster">Monster.</param>
-	public void AddToHealQueue(PZMonster monster)
+	public bool AddToHealQueue(PZMonster monster)
 	{
 		if (hospitals.Count == 0 || healingMonsters.Count >= queueSize)
 		{
-			MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage("Healing Queue Full");
-			return;
+			//MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage("Healing Queue Full");
+			return false;
 		}
 		
 		if (MSResourceManager.instance.Spend(ResourceType.CASH, monster.healCost, delegate{AddToHealQueue(monster);}))
@@ -273,6 +281,7 @@ public class MSHospitalManager : MonoBehaviour {
 			}
 			
 		}
+		return true;
 	}
 
 	public int SimulateHealForRevive(List<PZMonster> monsters, long startTime)

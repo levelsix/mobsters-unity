@@ -14,7 +14,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 			return gameObj;
 		}
 	}
-	
+
 	MSTaskButton _prefab;
 	
 	public MSPoolable prefab {
@@ -37,12 +37,25 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	[HideInInspector]
 	public GameObject gameObj;
-	
+
 	[SerializeField]
-	UILabel text;
-	
+	UILabel topLabel;
+
+	[SerializeField]
+	UILabel middleLabel;
+
+	[SerializeField]
+	UILabel bottomLabel;
+
+	[SerializeField]
+	UISprite icon;
+
 	[SerializeField]
 	UISprite bg;
+
+	TweenPosition tweenPos;
+
+	TweenAlpha tweenAlpha;
 
 	MSBuilding currBuilding;
 	
@@ -50,46 +63,65 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 	UIButton button;
 
-	public enum Mode {SELL, UPGRADE, FINISH, ENGAGE, HEAL, ENHANCE, REMOVE, EVOLVE, HIRE, MINIJOB};
+	public enum Mode {SELL_MOBSTERS, UPGRADE, FINISH, HEAL, ENHANCE, REMOVE_OBSTACLE, EVOLVE, HIRE, MINIJOB, TEAM, FIX};
 	
 	Mode currMode;
+
+	public bool tweeningOut
+	{
+		get
+		{
+			return tweenPos.tweenFactor > 0 || tweenAlpha.tweenFactor > 0;
+		}
+	}
 	
-	System.Collections.Generic.Dictionary<Mode, string> modeTexts = new System.Collections.Generic.Dictionary<Mode, string>() {
-		{Mode.SELL, "SELL"},
-		{Mode.UPGRADE, "UPGRADE"},
-		{Mode.FINISH, "FINISH"},
-		{Mode.ENGAGE, "(B) ENTER"},
-		{Mode.HEAL, "HEAL"},
-		{Mode.ENHANCE, "ENHANCE"},
-		{Mode.REMOVE, "REMOVE"},
-		{Mode.EVOLVE, "EVOLVE"},
-		{Mode.HIRE, "HIRE"},
-		{Mode.MINIJOB, "MINI JOBS"}
+	static readonly Dictionary<Mode, string> modeTexts = new Dictionary<Mode, string>() 
+	{
+		{Mode.SELL_MOBSTERS, "Sell Mobsters"},
+		{Mode.UPGRADE, "Upgrade"},
+		{Mode.FINISH, "Finish Now"},
+		{Mode.HEAL, "Heal Mobsters"},
+		{Mode.ENHANCE, "Enhance"},
+		{Mode.REMOVE_OBSTACLE, "Remove"},
+		{Mode.EVOLVE, "Evolve"},
+		{Mode.HIRE, "Bonus Slots"},
+		{Mode.MINIJOB, "MiniJobs"},
+		{Mode.TEAM, "Manage Team"},
+		{Mode.FIX, "Fix"}
 	};
 
-	System.Collections.Generic.Dictionary<Mode, string> modeButtonSprites = new System.Collections.Generic.Dictionary<Mode, string>() {
-		{Mode.UPGRADE, "greenmenuoption"},
-		{Mode.FINISH, "purplemenuoption"},
-		{Mode.ENGAGE, "orangemenuoption"},
-		{Mode.REMOVE, "greenmenuoption"},
-		{Mode.HEAL, "orangemenuoption"},
-		{Mode.EVOLVE, "orangemenuoption"},
-		{Mode.HIRE, "orangemenuoption"},
-		{Mode.MINIJOB, "orangemenuoption"}
+	static readonly Dictionary<Mode, string> modeIcons = new Dictionary<Mode, string>()
+	{
+		{Mode.SELL_MOBSTERS, "buildingsell"},
+		{Mode.UPGRADE, "buildingupgrade"},
+		{Mode.FINISH, ""},
+		{Mode.HEAL, "buildingheal"},
+		{Mode.ENHANCE, "buildingenhance"},
+		{Mode.REMOVE_OBSTACLE, "buildingremove"},
+		{Mode.EVOLVE, "buildingevolve"},
+		{Mode.HIRE, "buildingbonusslots"},
+		{Mode.MINIJOB, "buildingminijobs"},
+		{Mode.TEAM, "buildingmanage"},
+		{Mode.FIX, "buildingfix"}
 	};
 
-	System.Collections.Generic.Dictionary<string, Color> buttonTextColors = new Dictionary<string, Color>(){
-		{"greenmenuoption", new Color(.353f, .491f, .027f)},
-		{"orangemenuoption", new Color(.639f, .353f, 0)},
-		{"yellowmenuoption", new Color(.776f, .533f, 0)},
-		{"purplemenuoption", Color.white}
+	Dictionary<string, Color> buttonTextColors = new Dictionary<string, Color>(){
+		{NORMAL_SPRITE, new Color(.639f, .353f, 0)},
+		{FINISH_SPRITE, Color.white}
 	};
+
+	const string NORMAL_SPRITE = "buildingoptionbutton";
+	const string FINISH_SPRITE = "buildingfinishnow";
+
+
 	
 	void Awake()
 	{
 		gameObj = gameObject;
 		trans = transform;
 		button = GetComponent<UIButton>();
+		tweenPos = GetComponent<TweenPosition>();
+		tweenAlpha = GetComponent<TweenAlpha>();
 	}
 	
 	public MSPoolable Make (Vector3 origin)
@@ -121,49 +153,67 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	{
 		currMode = mode; 
 
-		bg.spriteName = modeButtonSprites[mode];
-		text.text = modeTexts[mode];
-		text.effectColor = Color.white;
+		bg.spriteName = mode == Mode.FINISH ? FINISH_SPRITE : NORMAL_SPRITE;
+
+		bottomLabel.text = modeTexts[mode];
+		bottomLabel.effectColor = Color.white;
+		icon.spriteName = modeIcons[mode];
+		icon.MakePixelPerfect();
+		icon.alpha = 1;
+		middleLabel.text = " ";
+
 		switch(mode)
 		{
-		case Mode.UPGRADE:
+		case Mode.FIX:
 			if (currBuilding.combinedProto.structInfo.buildResourceType == com.lvl6.proto.ResourceType.OIL)
 			{
-				bg.spriteName = "yellowmenuoption";
-				text.text = "Upgrade\n(o) " + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.text = "(o) " + currBuilding.combinedProto.successor.structInfo.buildCost;
 			}
 			else
 			{
-				text.text = "Upgrade\n$" + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.text = "$" + currBuilding.combinedProto.successor.structInfo.buildCost;
+			}
+			break;
+		case Mode.UPGRADE:
+			if (currBuilding.combinedProto.structInfo.buildResourceType == com.lvl6.proto.ResourceType.OIL)
+			{
+				topLabel.text = "(o) " + currBuilding.combinedProto.successor.structInfo.buildCost;
+			}
+			else
+			{
+				topLabel.text = "$" + currBuilding.combinedProto.successor.structInfo.buildCost;
 			}
 			break;
 		case Mode.FINISH:
 			if (currBuilding.obstacle != null)
 			{
-				text.text = "Finish\n(G) " + currBuilding.obstacle.gemsToFinish;
+				middleLabel.text = "(G) " + currBuilding.obstacle.gemsToFinish;
 			}
 			else
 			{
-				text.text = "Finish\n(G) " + currBuilding.upgrade.gemsToFinish;
+				middleLabel.text = "(G) " + currBuilding.upgrade.gemsToFinish;
 			}
-			text.effectColor = Color.black;
+			icon.alpha = 0;
+			bottomLabel.effectColor = Color.black;
+			topLabel.text = " ";
 			break;
-		case Mode.REMOVE:
+		case Mode.REMOVE_OBSTACLE:
 			if (currBuilding.obstacle.obstacle.removalCostType == com.lvl6.proto.ResourceType.OIL)
 			{
-				bg.spriteName = "yellowmenuoption";
-				text.text = "Remove\n(o) " + currBuilding.obstacle.obstacle.cost;
+				topLabel.text = "(o) " + currBuilding.obstacle.obstacle.cost;
 			}
 			else
 			{
-				text.text = "Remove\n$" + currBuilding.obstacle.obstacle.cost;
+				topLabel.text = "$" + currBuilding.obstacle.obstacle.cost;
 			}
 			break;
 		default:
+			topLabel.text = " ";
 			break;
 		}
-		text.color = buttonTextColors[bg.spriteName];
+		bottomLabel.color = buttonTextColors[bg.spriteName];
 		button.normalSprite = bg.spriteName;
+		button.pressedSprite = bg.spriteName + "pressed";
 	}
 	
 	public override void OnClick ()
@@ -173,17 +223,27 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		case Mode.FINISH:
 			ClickFinish();
 			break;
-		case Mode.ENGAGE:
-			ClickEngage();
-			break;
+		case Mode.FIX:
 		case Mode.UPGRADE:
 			ClickUpgrade();
 			break;
-		case Mode.REMOVE:
+		case Mode.REMOVE_OBSTACLE:
 			ClickRemove();
 			break;
 		case Mode.HEAL:
-			ClickHeal();
+			OpenFunctionalMenu(GoonScreenMode.HEAL);
+			break;
+		case Mode.TEAM:
+			OpenFunctionalMenu(GoonScreenMode.TEAM);
+			break;
+		case Mode.SELL_MOBSTERS:
+			OpenFunctionalMenu(GoonScreenMode.SELL);
+			break;
+		case Mode.ENHANCE:
+			OpenFunctionalMenu(GoonScreenMode.PICK_ENHANCE);
+			break;
+		case Mode.EVOLVE:
+			OpenFunctionalMenu(GoonScreenMode.PICK_EVOLVE);
 			break;
 		case Mode.HIRE:
 			ClickHire();
@@ -200,7 +260,13 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	{
 		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.GetComponent<MSPopup>());
 		MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);
+		MSBuildingManager.instance.FullDeselect();
+	}
 
+	void OpenFunctionalMenu(GoonScreenMode mode)
+	{
+		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.GetComponent<MSPopup>());
+		MSPopupManager.instance.popups.goonScreen.Init(mode);
 		MSBuildingManager.instance.FullDeselect();
 	}
 	
@@ -213,24 +279,6 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		else
 		{
 			currBuilding.obstacle.FinishWithGems();
-		}
-
-		MSBuildingManager.instance.FullDeselect();
-	}
-	
-	void ClickEngage()
-	{
-		if (currBuilding != null)
-		{
-			currBuilding.GetComponent<MSTaskable>().EngageTask();
-		}
-		else if(currUnit != null)
-		{
-			currUnit.GetComponent<MSTaskable>().EngageTask();
-		}
-		else
-		{
-			GetComponent<MSTaskable>().EngageTask();
 		}
 
 		MSBuildingManager.instance.FullDeselect();
@@ -255,12 +303,38 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	public void Pool ()
 	{
-		MSPoolManager.instance.Pool(this);
+		StartCoroutine(Exit());
 	}
 
 	void ClickRemove()
 	{
 		currBuilding.GetComponent<MSObstacle>().StartRemove();
 		MSBuildingManager.instance.FullDeselect();
+	}
+
+	public void Enter(int delays)
+	{
+		tweenPos.delay = delays * .1f;
+		tweenAlpha.delay = delays * .1f;
+
+		tweenPos.to = trans.localPosition;
+		tweenPos.from = trans.localPosition + new Vector3(0, -50, 0);
+
+		tweenPos.Sample(0, true);
+		tweenPos.PlayForward();
+		tweenAlpha.Sample(0, true);
+		tweenAlpha.PlayForward();
+	}
+
+	IEnumerator Exit()
+	{
+		tweenPos.PlayReverse();
+		tweenAlpha.PlayReverse();
+		while (tweeningOut)
+		{
+			yield return null;
+		}
+		MSPoolManager.instance.Pool(this);
+		yield return null;
 	}
 }

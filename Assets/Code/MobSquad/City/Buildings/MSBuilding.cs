@@ -167,6 +167,9 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	[HideInInspector]
 	public MSHospital hospital;
 
+	[HideInInspector]
+	public MSTeamCenter teamCenter;
+
 	public MSUnit overlayUnit;
 
 	/// <summary>
@@ -493,6 +496,10 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			case StructureInfoProto.StructType.LAB:
 				gameObj.AddComponent<MSLaboratory>().hoverIcon = hoverIcon;
 				gameObj.GetComponent<MSLaboratory>().CheckTag();
+				break;
+			case StructureInfoProto.StructType.TEAM_CENTER:
+				teamCenter = gameObj.AddComponent<MSTeamCenter>();
+				teamCenter.Init(sprite.GetComponent<Animator>());
 				break;
 			default:
 				break;
@@ -926,6 +933,11 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		{
 			Destroy(collector);
 			collector = null;
+		}
+		if (teamCenter != null)
+		{
+			Destroy(teamCenter);
+			teamCenter = null;
 		}
 		if (storage != null)
 		{

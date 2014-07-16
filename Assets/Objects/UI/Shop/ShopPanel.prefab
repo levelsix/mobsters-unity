@@ -5982,19 +5982,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftAnchor:
     target: {fileID: 0}
-    relative: 0
+    relative: .5
     absolute: 0
   rightAnchor:
     target: {fileID: 0}
-    relative: 1
+    relative: .5
     absolute: 0
   bottomAnchor:
     target: {fileID: 0}
-    relative: 0
+    relative: .5
     absolute: 0
   topAnchor:
     target: {fileID: 0}
-    relative: 1
+    relative: .5
     absolute: 0
   updateAnchors: 1
   showInPanelTool: 1
@@ -6004,11 +6004,11 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3021
+  startingRenderQueue: 4013
   mAlpha: 1
-  mClipping: 0
-  mClipRange: {x: 0, y: 0, z: 0, w: 0}
-  mClipSoftness: {x: 40, y: 40}
+  mClipping: 3
+  mClipRange: {x: 0, y: .609527588, z: 20, w: 20}
+  mClipSoftness: {x: 0, y: 0}
   mDepth: 3
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}

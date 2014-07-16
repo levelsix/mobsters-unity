@@ -25,6 +25,10 @@ public class MSTutorialStep
 
 	public GameObject ui;
 
+	public MSValues.Direction direction;
+
+	public float distance;
+
 	public List<UnitPath> paths = new List<UnitPath>();
 
 	public Vector3 position;
@@ -36,6 +40,8 @@ public class MSTutorialStep
 	public int index;
 
 	public bool player = true;
+
+	public float size;
 }
 
 public enum StepType {

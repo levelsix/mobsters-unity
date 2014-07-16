@@ -358,9 +358,12 @@ public class MSQuestManager : MonoBehaviour {
 					if (numMonsters > 0)
 					{
 						userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId==job.questJobId);
-						userJob.progress = Mathf.Max(userJob.progress + numMonsters, job.quantity);
-						userJob.isComplete = userJob.progress >= job.quantity;
-						updatedJobs.Add(userJob);
+						if (userJob != null)
+						{
+							userJob.progress = Mathf.Max(userJob.progress + numMonsters, job.quantity);
+							userJob.isComplete = userJob.progress >= job.quantity;
+							updatedJobs.Add(userJob);
+						}
 					}
 					break;
 				case QuestJobProto.QuestJobType.KILL_MONSTER_IN_CITY:

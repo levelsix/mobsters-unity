@@ -43,7 +43,7 @@ public static class MSMath {
     /// </param>
 	public static int GemsForTime(long time)
 	{
-		return (int)Mathf.Ceil((float)(time / 1000 / SECONDS_PER_GEM));
+		return 1 + (int)Mathf.Ceil((float)(time / 1000 / SECONDS_PER_GEM));
 	}
 	
     /// <summary>

@@ -4,12 +4,16 @@ using com.lvl6.proto;
 
 public class MSClanIcon : MonoBehaviour {
 
+	UIButton button;
+
 	UI2DSprite icon;
 
-	const string noClanIconName = "noclanlilguys";
+	const string clanButtonname = "inaclanbutton";
+	const string noClanButtonName = "notinaclanbutton";
 
 	void Awake()
 	{
+		button = transform.parent.GetComponent<UIButton>();
 		icon = GetComponent<UI2DSprite>();
 		MSActionManager.Clan.OnPlayerClanChange += OnPlayerChangeClan;
 		MSActionManager.Loading.OnStartup += OnStartup;
@@ -49,11 +53,13 @@ public class MSClanIcon : MonoBehaviour {
 
 	void SetNoClan()
 	{
-		MSSpriteUtil.instance.SetSprite("clanicon", noClanIconName, icon);
+		icon.alpha = 0;
+		button.normalSprite = noClanButtonName;
 	}
 
 	void SetClan(int clanIconId)
 	{
+		button.normalSprite = clanButtonname;
 		MSSpriteUtil.instance.SetSprite("clanicon", "clanicon" + clanIconId, icon);
 	}
 }

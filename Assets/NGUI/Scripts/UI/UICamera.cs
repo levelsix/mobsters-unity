@@ -1507,8 +1507,10 @@ public class UICamera : MonoBehaviour
 
 						if (MSTutorialManager.instance.UiBlock)
 						{
+							Debug.Log("Tutorial UI blocked");
 							if (currentTouch.pressed == MSTutorialManager.instance.currUi)
 							{
+								Debug.Log("Tutorial clicked right thing");
 								Notify(currentTouch.pressed, "OnClick", null);
 								if (MSActionManager.UI.OnDialogueClicked != null)
 								{
@@ -1518,6 +1520,7 @@ public class UICamera : MonoBehaviour
 						}
 						else
 						{
+							Debug.Log("Normal Click notification");
 							Notify(currentTouch.pressed, "OnClick", null);
 						}
 

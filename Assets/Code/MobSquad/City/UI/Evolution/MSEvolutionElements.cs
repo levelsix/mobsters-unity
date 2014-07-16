@@ -42,7 +42,7 @@ public class MSEvolutionElements : MonoBehaviour {
 	public void Init(MSGoonCard monsterCard)
 	{
 		evolvingCard = monsterCard;
-		evolvingGoon = monsterCard.goon;
+		evolvingGoon = monsterCard.monster;
 
 		monsterCard.transform.parent = goonCardParent;
 
@@ -54,13 +54,13 @@ public class MSEvolutionElements : MonoBehaviour {
 
 		scientistCard.InitScientist(MSEvolutionManager.instance.currEvolution.catalystUserMonsterId);
 
-		MonsterProto evoMonster = MSDataManager.instance.Get<MonsterProto>(monsterCard.goon.monster.evolutionMonsterId);
+		MonsterProto evoMonster = MSDataManager.instance.Get<MonsterProto>(monsterCard.monster.monster.evolutionMonsterId);
 
-		goonOutline.sprite2D = MSSpriteUtil.instance.GetMobsterSprite(evoMonster.imagePrefix);
+		MSSpriteUtil.instance.SetSprite(evoMonster.imagePrefix, evoMonster.imagePrefix + "Character", goonOutline);
 
 		finalNameLabel.text = evoMonster.displayName;
 
-		finalTimeLabel.text = MSUtil.TimeStringShort(monsterCard.goon.monster.minutesToEvolve * 60000);
+		finalTimeLabel.text = MSUtil.TimeStringShort(monsterCard.monster.monster.minutesToEvolve * 60000);
 
 		if (MSEvolutionManager.instance.ready)
 		{

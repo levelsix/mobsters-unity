@@ -137,7 +137,14 @@ public class PZMonster {
 	{
 		get
 		{
-			return userMonster.currentLvl * 777;
+			int xp = userMonster.currentLvl * monster.lvlInfo[0].feederExp;
+			if (MSMonsterManager.instance.currentEnhancementMonster != null
+			    && MSMonsterManager.instance.currentEnhancementMonster.monster.monsterElement
+			    	== monster.monsterElement)
+			{
+				xp = Mathf.FloorToInt(xp * 1.5f);
+			}
+			return xp;
 		}
 	}
 	
@@ -145,7 +152,8 @@ public class PZMonster {
 	{
 		get
 		{
-			return 100;
+			int totalLevel = (int)LevelWithFeeders(MSMonsterManager.instance.enhancementFeeders);
+			return Mathf.FloorToInt(MSWhiteboard.constants.monsterConstants.oilPerMonsterLevel * totalLevel);
 		}
 	}
 	
@@ -160,12 +168,20 @@ public class PZMonster {
 			return finishEnhanceTime - MSUtil.timeNowMillis;
 		}
 	}
+
+	public float enhanceProgress
+	{
+		get
+		{
+			return 1 - ((float)enhanceTimeLeft) / ((float)timeToUseEnhance);
+		}
+	}
 	
 	public long timeToUseEnhance
 	{
 		get
 		{
-			return 30000;
+			return (long)(enhanceXP/MSBuildingManager.enhanceLabs[0].combinedProto.lab.pointsPerSecond) * 1000;
 		}
 	}
 	
@@ -279,6 +295,14 @@ public class PZMonster {
 				return MonsterStatus.INJURED;
 			}
 			return MonsterStatus.HEALTHY;
+		}
+	}
+
+	float maxExp 
+	{
+		get
+		{
+			return monster.lvlInfo[monster.lvlInfo.Count-1].curLvlRequiredExp;
 		}
 	}
 
@@ -460,7 +484,9 @@ public class PZMonster {
 			return 1;
 		}
 
-		return Mathf.FloorToInt(monster.lvlInfo[0].hp * Mathf.Pow(monster.lvlInfo[0].hpExponentBase, level-1));
+		int mhp = Mathf.FloorToInt(monster.lvlInfo[0].hp * Mathf.Pow(monster.lvlInfo[0].hpExponentBase, level-1));
+		Debug.Log("Max hp for " + monster.displayName + " at level " + level + ": " + mhp);
+		return mhp;
 	}
 
 	public UserMonsterCurrentHealthProto GetCurrentHealthProto()
@@ -516,15 +542,39 @@ public class PZMonster {
 		return addedLevel - currLevel;
 	}
 
-	public float LevelForMonster(int withExp)
+	public float LevelWithFeeders(List<PZMonster> feeders)
+	{
+		return LevelForMonster(ExpWithFeeders(feeders));
+	}
+
+	public int ExpWithFeeders(List<PZMonster> feeders)
+	{
+		int xp = userMonster.currentExp;
+		foreach (var item in feeders) 
+		{
+			xp += item.enhanceXP;
+		}
+		return xp;
+	}
+
+	public float LevelForMonster(float withExp)
 	{
 		float level = 1;
 		if (monster.lvlInfo.Count > 0)
 		{
-			float maxExp = monster.lvlInfo[0].curLvlRequiredExp;
 			level = Mathf.Pow(withExp/maxExp, 1/monster.lvlInfo[0].expLvlExponent) * monster.lvlInfo[0].expLvlDivisor + 1;
 		}
 		return Mathf.Min(monster.maxLevel, level);
+	}
+
+	public int XpForLevel(int level)
+	{
+		int xp = 0;
+		if (monster.lvlInfo.Count > 0)
+		{
+			xp = Mathf.CeilToInt(maxExp * Mathf.Pow((level-1) / monster.lvlInfo[0].expLvlDivisor, monster.lvlInfo[0].expLvlExponent));
+		}
+		return xp;
 	}
 	
 	public void GainXP(int exp)

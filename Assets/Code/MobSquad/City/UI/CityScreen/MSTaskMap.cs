@@ -69,13 +69,15 @@ public class MSTaskMap : MonoBehaviour {
 	void OnEnable(){
 		IDictionary tasks = MSDataManager.instance.GetAll<TaskMapElementProto> ();
 				
-		int lastTask = 0;
+		FullTaskProto taskProto;
 		foreach (TaskMapElementProto task in tasks.Values){
-			if (MSQuestManager.instance.taskDict.ContainsKey (task.taskId))
+			taskProto = MSDataManager.instance.Get<FullTaskProto>(task.taskId);
+			if (MSQuestManager.instance.taskDict.ContainsKey (taskProto.taskId))
 			{
 				taskButtons[task.taskId].Status = MSMapTaskButton.TaskStatusType.Completed;
 			}
-			else if(MSQuestManager.instance.taskDict.ContainsKey (lastTask))
+			else if(taskProto.prerequisiteTaskId == 0 ||
+				MSQuestManager.instance.taskDict.ContainsKey (taskProto.prerequisiteTaskId))
 			{
 				taskButtons[task.taskId].Status = MSMapTaskButton.TaskStatusType.Undefeated;
 			}
@@ -83,7 +85,6 @@ public class MSTaskMap : MonoBehaviour {
 			{
 				taskButtons[task.taskId].Status = MSMapTaskButton.TaskStatusType.Locked;
 			}
-			lastTask = task.taskId;
 		}
 	}
 }

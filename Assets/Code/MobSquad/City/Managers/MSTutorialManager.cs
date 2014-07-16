@@ -12,13 +12,29 @@ public class MSTutorialManager : MonoBehaviour
 {
 	public static MSTutorialManager instance;
 
-	public MSTutorial currentTutorial = null;
+	Stack<MSTutorial> currTutorials = new Stack<MSTutorial>();
+
+	public MSTutorial currentTutorial
+	{
+		get
+		{
+			if (currTutorials.Count == 0)
+			{
+				return null;
+			}
+			return currTutorials.Peek();
+		}
+		set
+		{
+			currTutorials.Push(value);
+		}
+	}
 
 	public bool inTutorial
 	{
 		get
 		{
-			return currentTutorial != null && currentTutorial.steps.Length > 0;
+			return currentTutorial != null;
 		}
 	}
 
@@ -26,7 +42,7 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		get
 		{
-			return inTutorial && currUi != null;
+			return currUi != null;
 		}
 	}
 
@@ -98,6 +114,11 @@ public class MSTutorialManager : MonoBehaviour
 	public void StartBeginningTutorial()
 	{
 		StartCoroutine(tutorialData.beginningTutorial.Run());
+	}
+
+	public void EndTutorial()
+	{
+		currTutorials.Pop();
 	}
 
 	#endregion

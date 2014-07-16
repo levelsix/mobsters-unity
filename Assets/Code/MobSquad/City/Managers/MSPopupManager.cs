@@ -20,6 +20,7 @@ public class MSPopupManager : MonoBehaviour {
 		public MSQuestLog questPopup;
 		public MSGenericPopup cityGeneric;
 		public MSGenericPopup puzzleGeneric;
+		public MSGoonInfoPopup goonInfoPopup;
 	}
 
 	public Popups popups;

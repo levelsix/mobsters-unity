@@ -121,7 +121,10 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	/// </param>
 	virtual public void MoveRelative(TCKTouchData touch)
 	{
-		velocity = touch.delta;
+		if (!MSTutorialManager.instance.inTutorial)
+		{
+			velocity = touch.delta;
+		}
 	}
 
 	void SetBounds ()
@@ -215,12 +218,12 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		ClampCamera();
 	}
 
-	public void SlideToPos(Vector3 localPos, float time)
+	public void SlideToPos(Vector3 localPos, float size, float time)
 	{
-		StartCoroutine(SlideToCameraPosition(localPos, time));
+		StartCoroutine(SlideToCameraPosition(localPos, size, time));
 	}
 
-	public IEnumerator SlideToCameraPosition(Vector3 localPos, float time = 0)
+	public IEnumerator SlideToCameraPosition(Vector3 localPos, float size, float time = 0)
 	{
 		controllable = false;
 		if (time == 0)
@@ -231,10 +234,12 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		{
 			float currTime = 0;
 			Vector3 startPos = trans.localPosition;
+			float startSize = cam.orthographicSize;
 			while (currTime < time)
 			{
 				currTime += Time.deltaTime;
 				trans.localPosition = Vector3.Lerp(startPos, localPos, currTime/time);
+				cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, size, currTime/time);
 				yield return null;
 			}
 		}

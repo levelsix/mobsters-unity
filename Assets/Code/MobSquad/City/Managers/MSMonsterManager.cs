@@ -36,6 +36,16 @@ public class MSMonsterManager : MonoBehaviour {
 			return _monstersCount;
 		}
 	}
+
+	public bool isEnhancing
+	{
+		get
+		{
+			return currentEnhancementMonster != null
+				&& currentEnhancementMonster.monster != null
+					&& currentEnhancementMonster.monster.monsterId > 0;
+		}
+	}
 	
 	SubmitMonsterEnhancementRequestProto enhanceRequestProto = null;
 	
@@ -145,15 +155,7 @@ public class MSMonsterManager : MonoBehaviour {
 
 	public List<PZMonster> GetMonstersByMonsterId(long monsterId, long notMonster = 0)
 	{
-		List<PZMonster> list = new List<PZMonster>();
-		foreach (var item in userMonsters) 
-		{
-			if (item.monster.monsterId == monsterId && item.userMonster.userMonsterId != notMonster)
-			{
-				list.Add(item);
-			}
-		}
-		return list;
+		return userMonsters.FindAll(x=> x.monster.monsterId == monsterId && x.userMonster.userMonsterId != notMonster);
 	}
 
 	public void RemoveMonster(long userMonsterId)
@@ -290,7 +292,7 @@ public class MSMonsterManager : MonoBehaviour {
 					MSActionManager.Goon.OnTeamChanged();
 				}
 				
-				return i;
+				return i+1;
 			}
 		}
 		return 0;
@@ -595,7 +597,7 @@ public class MSMonsterManager : MonoBehaviour {
 			MSActionManager.Goon.OnEnhanceQueueChanged();
 		}
 	}
-	
+
 	public void AddToEnhanceQueue(PZMonster monster)
 	{
 		if (enhanceRequestProto == null)

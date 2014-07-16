@@ -320,6 +320,7 @@ public class MSMiniJobManager : MonoBehaviour {
 		if (response.status != CompleteMiniJobResponseProto.CompleteMiniJobStatus.SUCCESS)
 		{
 			Debug.Log("Problem completing job: " + response.status.ToString());
+			//TODO: Change monster healths accordingly!
 		}
 	}
 

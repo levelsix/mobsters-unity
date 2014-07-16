@@ -49,12 +49,6 @@ public static class MSActionManager
 		public static Action<MSBuilding> OnBuildingSelect;
 		
 		/// <summary>
-		/// The on unit select event.
-		/// Notifies the UI that we've selected a unit.
-		/// </summary>
-		public static Action<MSUnit> OnUnitSelect;
-		
-		/// <summary>
 		/// The place building event, which gives the signal to the
 		/// selected building to place itself on the grid.
 		/// </summary>

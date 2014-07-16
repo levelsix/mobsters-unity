@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -82,7 +82,7 @@ public class MSBottomBar : MonoBehaviour {
 					return MSHospitalManager.instance.queueSize;
 				case GoonScreenMode.SELL:
 					return boxes.Count + 1;
-				case GoonScreenMode.ENHANCE:
+				case GoonScreenMode.DO_ENHANCE:
 					//TODO: Tie this into lab shit and make this actually matter
 					return 5;
 				default:
@@ -127,10 +127,10 @@ public class MSBottomBar : MonoBehaviour {
 			case GoonScreenMode.HEAL:
 				InitHeal();
 				break;
-			case GoonScreenMode.ENHANCE:
+			case GoonScreenMode.DO_ENHANCE:
 				InitEnhance();
 				break;
-			case GoonScreenMode.EVOLVE:
+			case GoonScreenMode.PICK_EVOLVE:
 				InitEvolve();
 				break;
 			case GoonScreenMode.SELL:
@@ -217,12 +217,12 @@ public class MSBottomBar : MonoBehaviour {
 			bottomButton.mode = GoonScreenMode.SELL;
 			bottomButton.Set(mode == GoonScreenMode.SELL);
 			break;
-		case GoonScreenMode.ENHANCE:
-		case GoonScreenMode.EVOLVE:
-			topButton.mode = GoonScreenMode.ENHANCE;
-			topButton.Set(mode == GoonScreenMode.ENHANCE);
-			bottomButton.mode = GoonScreenMode.EVOLVE;
-			bottomButton.Set(mode == GoonScreenMode.EVOLVE);
+		case GoonScreenMode.DO_ENHANCE:
+		case GoonScreenMode.PICK_EVOLVE:
+			topButton.mode = GoonScreenMode.DO_ENHANCE;
+			topButton.Set(mode == GoonScreenMode.DO_ENHANCE);
+			bottomButton.mode = GoonScreenMode.PICK_EVOLVE;
+			bottomButton.Set(mode == GoonScreenMode.PICK_EVOLVE);
 			break;
 		default:
 				break;
@@ -280,7 +280,7 @@ public class MSBottomBar : MonoBehaviour {
 		case GoonScreenMode.SELL:
 			bottomText.text = CLICK_A_MOBSTER_TO_SELL_TEXT;
 			break;
-		case GoonScreenMode.ENHANCE:
+		case GoonScreenMode.DO_ENHANCE:
 			if (MSMonsterManager.instance.currentEnhancementMonster == null)
 			{
 				bottomText.text = CLICK_A_MOBSTER_TO_ENHANCE_TEXT;
@@ -311,7 +311,7 @@ public class MSBottomBar : MonoBehaviour {
 				buttonHeader.text = "FINISH";
 				timeLeftHeader.text = "Time Left";
 				break;
-			case GoonScreenMode.ENHANCE:
+			case GoonScreenMode.DO_ENHANCE:
 				timeLeft = MSMonsterManager.instance.lastEnhance - MSUtil.timeNowMillis;
 				timeLeftLabel.text = MSUtil.TimeStringShort(timeLeft);
 				buttonHeader.text = "FINISH";

@@ -91,8 +91,10 @@ public class MSBuildingManager : MonoBehaviour
 	public Dictionary<long, MSUnit> playerUnits{
 		get{ return _playerUnits; }
 	}
+	
+	public static List<MSBuilding> enhanceLabs = new List<MSBuilding>();
 
-	public static List<MSBuilding> labs = new List<MSBuilding>();
+	public static List<MSBuilding> evoLabs = new List<MSBuilding>();
 
 	public static List<MSBuilding> residences = new List<MSBuilding>();
 
@@ -468,7 +470,8 @@ public class MSBuildingManager : MonoBehaviour
 
 		MiniJobCenterProto jobCenter = null;
 
-		labs.Clear();
+		enhanceLabs.Clear();
+		evoLabs.Clear();
 		MSResidenceManager.residences.Clear();
 
 		MSGridManager.instance.InitHome ();
@@ -497,7 +500,11 @@ public class MSBuildingManager : MonoBehaviour
 				}
 				else if (building.combinedProto.lab != null)
 				{
-					labs.Add (building);
+					enhanceLabs.Add (building);
+				}
+				else if (building.combinedProto.evoChamber != null)
+				{
+					evoLabs.Add(building);
 				}
 				else if (building.combinedProto.townHall != null)
 				{
@@ -992,7 +999,10 @@ public class MSBuildingManager : MonoBehaviour
 				MSHospitalManager.instance.RemoveHospital(building);
 				break;
 			case StructureInfoProto.StructType.LAB:
-				labs.Remove(building);
+				enhanceLabs.Remove(building);
+				break;
+			case StructureInfoProto.StructType.EVO:
+				evoLabs.Remove(building);
 				break;
 		}
 	}
@@ -1005,7 +1015,10 @@ public class MSBuildingManager : MonoBehaviour
 				MSHospitalManager.instance.AssignHospital(building);
 				break;
 			case StructureInfoProto.StructType.LAB:
-				labs.Add(building);
+				enhanceLabs.Add(building);
+				break;
+			case StructureInfoProto.StructType.EVO:
+				evoLabs.Add(building);
 				break;
 			case StructureInfoProto.StructType.TOWN_HALL:
 				townHall = building;
@@ -1089,6 +1102,7 @@ public class MSBuildingManager : MonoBehaviour
 	/// </param>
 	public void OnTap(TCKTouchData touch)
 	{        
+		Debug.Log("Tap");
 		if (hoveringToBuild != null)
 		{
 			return;

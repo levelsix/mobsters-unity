@@ -34,12 +34,13 @@ public class MSMiniGoonBox : MonoBehaviour {
 
 	Dictionary<Element, string> elementBackgrounds = new Dictionary<Element, string>()
 	{
-		{Element.DARK, "nightteam"},
-		{Element.FIRE, "fireteam"},
-		{Element.EARTH, "earthteam"},
-		{Element.LIGHT, "lightteam"},
-		{Element.WATER, "waterteam"},
-		{Element.ROCK, "earthteam"}
+		{Element.DARK, "darkmediumsquare"},
+		{Element.FIRE, "firemediumsquare"},
+		{Element.EARTH, "earthmediumsquare"},
+		{Element.LIGHT, "lightmediumsquare"},
+		{Element.WATER, "watermediumsquare"},
+		{Element.ROCK, "earthmediumsquare"},
+		{Element.NO_ELEMENT, "darkmediumsquare"}
 	};
 
 	const string EMPTY = "hometeamslotopen";
@@ -101,13 +102,13 @@ public class MSMiniGoonBox : MonoBehaviour {
 		}
 	}
 
-	void RemoveTeam()
+	public void RemoveTeam()
 	{
 		MSMonsterManager.instance.RemoveFromTeam(monster);
 		on = false;
 	}
 
-	void RemoveQueue()
+	public void RemoveQueue()
 	{
 		//Debug.LogWarning("Removing " + monster.userMonster.userMonsterId);
 		if (monster.isHealing)
@@ -163,7 +164,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 				barBG.alpha = 0;
 				return;
 			}
-			if (bar != null) bar.fill = 1 - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
+			if (bar != null) bar.fill = monster.enhanceProgress;
 			label.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
 		}
 		else if (barBG != null)
