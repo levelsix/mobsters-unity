@@ -83,6 +83,8 @@ public static class MSActionManager
 		public static Action<int> ClosePopupLayer;
 		public static Action CloseTopPopupLayer;
 		public static Action CloseAllPopups;
+
+		public static Action<string> DisplayError;
 	}
 	
 	public static class UI

@@ -25,7 +25,10 @@ public class MSBuildingMenu : MonoBehaviour {
 		int index = 0;
 		foreach (MSFullBuildingProto proto in MSDataManager.instance.GetAll(typeof(MSFullBuildingProto)).Values) 
 		{
-			if (proto.structInfo.level == 1 && proto.structInfo.structType != StructureInfoProto.StructType.TOWN_HALL)
+			if (proto.structInfo.level == 1 &&
+			    proto.structInfo.structType != StructureInfoProto.StructType.TOWN_HALL && 
+			    proto.structInfo.structType != StructureInfoProto.StructType.TEAM_CENTER &&
+			    proto.structInfo.structType != StructureInfoProto.StructType.MINI_JOB)
 			{
 				if (cards.Count <= index)
 				{

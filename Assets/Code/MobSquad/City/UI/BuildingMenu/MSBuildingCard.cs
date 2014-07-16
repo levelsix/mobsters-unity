@@ -14,13 +14,19 @@ public class MSBuildingCard : MonoBehaviour {
 	UILabel builtCount;
 
 	[SerializeField]
+	UISprite currency;
+
+	[SerializeField]
 	UILabel cost;
 
 	[SerializeField]
 	UILabel description;
 
 	[SerializeField]
-	UI2DSprite buildingSprite;
+	UILabel backDescription;
+
+	[SerializeField]
+	UISprite buildingSprite;
 
 	[SerializeField]
 	UIWidget[] tintSprites;
@@ -39,16 +45,58 @@ public class MSBuildingCard : MonoBehaviour {
 
 	bool flipped = false;
 
-	bool isFlipping = false;
+	bool on{
+		set{
+			if(value){
+				state = State.ACTIVE;
+			} else{
+				state = State.INACTIVE;
+			}
+		}
 
-	bool on = true;
+		get{
+			return state == State.ACTIVE;
+		}
+	}
 
 	UIButton button;
 
 	MSFullBuildingProto building;
 
-	const string FRONT_IMAGE = "buildinginfobg";
-	const string BACK_IMAGE = "buildingbg";
+	int[] townHalls;
+
+	const string FRONT_IMAGE = "menusquareactive";
+	const string BACK_IMAGE = "menusquareinactive";
+
+	public enum State{
+		ACTIVE,
+		INACTIVE
+	}
+	
+	State _state;
+	
+	public State state{
+		get{
+			return _state;
+		}
+		set{
+			_state = value;
+			
+			if(value == State.ACTIVE){
+				button.normalSprite = FRONT_IMAGE;
+				//button.pressed = button.disabledColor;
+
+				front.SetActive(true);
+				back.SetActive(false);
+			}else{
+				button.normalSprite = BACK_IMAGE;
+				//button.pressed = Color.white;
+				
+				front.SetActive(false);
+				back.SetActive(true);
+			}
+		}
+	}
 
 	[HideInInspector]
 	public Transform trans;
@@ -74,28 +122,26 @@ public class MSBuildingCard : MonoBehaviour {
 		building = proto;
 
 		nameLabel.text = proto.structInfo.name;
-		timeToBuild.text = "TIME\n(T) " + proto.structInfo.minutesToBuild + "m";
+		timeToBuild.text = proto.structInfo.minutesToBuild + " m";
 
-		description.text = proto.structInfo.description;
+		description.text = proto.structInfo.shortDescription;
 
-		buildingSprite.sprite2D = MSSpriteUtil.instance.GetBuildingSprite(proto.structInfo.imgName);
-		if (buildingSprite.sprite2D != null)
-		{
-			buildingSprite.width = (int)buildingSprite.sprite2D.rect.width;
-			buildingSprite.height = (int)buildingSprite.sprite2D.rect.height;
-		}
+		buildingSprite.spriteName = proto.structInfo.imgName.Substring(0,proto.structInfo.imgName.Length - ".png".Length);
+		buildingSprite.MakePixelPerfect();
+
+		cost.text = proto.structInfo.buildCost.ToString();
 
 		switch(proto.structInfo.buildResourceType)
 		{
-			case ResourceType.CASH:
-				cost.text = "$" + proto.structInfo.buildCost;
-				break;
-			case ResourceType.OIL:
-				cost.text = "(o) " + proto.structInfo.buildCost;
-				break;
-			case ResourceType.GEMS:
-				cost.text = "(G)" + proto.structInfo.buildCost;
-				break;
+		case ResourceType.CASH:
+			currency.spriteName = "moneysmall";
+			break;
+		case ResourceType.OIL:
+			currency.spriteName = "oilsmall";
+			break;
+		case ResourceType.GEMS:
+			currency.spriteName = "oilsmall";
+			break;
 		}
 
 		DetermineCount();
@@ -141,22 +187,74 @@ public class MSBuildingCard : MonoBehaviour {
 				break;
 			}
 		}
-		builtCount.text = "Built " + count + "/" + max;
+		builtCount.text = count + "/" + max;
 
 		if (count >= max)
 		{
-			on = false;
-			button.defaultColor = button.disabledColor;
-			button.hover = button.disabledColor;
-			Tint(button.disabledColor);
+			int lowestLevelRequired = LowestRequiredHall(building.structInfo.structType, count);
+			if(lowestLevelRequired != -1)
+			{
+				on = false;
+				backDescription.text = "Requires Level " + lowestLevelRequired + " Command Center";
+			}else{
+				on = false;
+			backDescription.text = "You Have the Max Number of This Building";
+			}
 		}
 		else
 		{
 			on = true;
-			button.defaultColor = Color.white;
-			button.hover = Color.white;
-			Tint(Color.white);
 		}
+
+
+
+	}
+
+	int LowestRequiredHall(StructureInfoProto.StructType type, int currentCount){
+		int lowestLevel = 999;
+		MSFullBuildingProto curBuilding = MSBuildingManager.townHall.combinedProto.successor;
+		while(curBuilding != null){
+			TownHallProto townHall = curBuilding.townHall;
+			//TODO: we may have to differentiate between Cash and Oil
+			//Can't do that now cause I have no idea if cash/oil is numResourceOneGenerators or numResourceTwoGenerators
+			switch(type){
+			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
+				if(townHall.numResourceOneGenerators > currentCount && curBuilding.structInfo.level < lowestLevel){
+					lowestLevel = curBuilding.structInfo.level;
+				}
+				break;
+			case StructureInfoProto.StructType.RESOURCE_STORAGE:
+				if(townHall.numResourceOneStorages > currentCount && curBuilding.structInfo.level < lowestLevel){
+					lowestLevel = curBuilding.structInfo.level;
+				}
+				break;
+			case StructureInfoProto.StructType.HOSPITAL:
+				if(townHall.numHospitals > currentCount && curBuilding.structInfo.level < lowestLevel){
+					lowestLevel = curBuilding.structInfo.level;
+				}
+				break;
+			case StructureInfoProto.StructType.RESIDENCE:
+				if(townHall.numResidences > currentCount && curBuilding.structInfo.level < lowestLevel){
+					lowestLevel = curBuilding.structInfo.level;
+				}
+				break;
+			case StructureInfoProto.StructType.LAB:
+				if(townHall.numLabs > currentCount && curBuilding.structInfo.level < lowestLevel){
+					lowestLevel = curBuilding.structInfo.level;
+				}
+				break;
+			case StructureInfoProto.StructType.EVO:
+				if(townHall.numEvoChambers > currentCount && curBuilding.structInfo.level < lowestLevel){
+					lowestLevel = curBuilding.structInfo.level;
+				}
+				break;
+			default:
+				Debug.LogWarning("Could not find required TownHall level for " + type.ToString());
+				break;
+			}
+			curBuilding = curBuilding.successor;
+		}
+		return lowestLevel == 999 ? -1 : lowestLevel;
 	}
 
 	void SetName()
@@ -192,14 +290,6 @@ public class MSBuildingCard : MonoBehaviour {
 		default:
 			name = "8 Lab";
 			break;
-		}
-	}
-
-	void Tint(Color tint)
-	{
-		foreach (var item in tintSprites) 
-		{
-			item.color = tint;
 		}
 	}
 
@@ -242,7 +332,6 @@ public class MSBuildingCard : MonoBehaviour {
 
 	void OnClick()
 	{
-		Debug.Log("Clicked!");
 		if (flipped)
 		{
 			Flip();
@@ -251,11 +340,20 @@ public class MSBuildingCard : MonoBehaviour {
 		{
 			BuyBuilding();
 		}
+		else if(!on){
+			MSActionManager.Popup.DisplayError(backDescription.text);
+		}
 	}
 
 	public void BuyBuilding()
 	{
+		BuildingPurchase();
+	}
+
+	void BuildingPurchase(){
 		MSBuildingManager.instance.MakeHoverBuilding(building);
 		MSActionManager.Popup.CloseAllPopups();
 	}
+
+
 }

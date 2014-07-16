@@ -1,0 +1,488 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: ShopRef
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0c51bb0b6e93049af5e88f93826e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 5c2eddd7cccfc4da5b4ff7bc65fd52a9, type: 2}
+  mSprites:
+  - name: 1FundsCashStorageT1
+    x: 0
+    y: 224
+    width: 160
+    height: 160
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 31
+    paddingTop: 16
+    paddingBottom: 12
+  - name: 1FundsCashStorageT2
+    x: 329
+    y: 868
+    width: 152
+    height: 156
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 39
+    paddingTop: 20
+    paddingBottom: 12
+  - name: 1FundsCashStorageT3
+    x: 161
+    y: 709
+    width: 160
+    height: 158
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 31
+    paddingTop: 18
+    paddingBottom: 12
+  - name: 1FundsOilStorageT1
+    x: 738
+    y: 547
+    width: 141
+    height: 161
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 38
+    paddingTop: 12
+    paddingBottom: 15
+  - name: 1FundsOilStorageT2
+    x: 313
+    y: 543
+    width: 140
+    height: 165
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 39
+    paddingTop: 8
+    paddingBottom: 15
+  - name: 1FundsOilStorageT3
+    x: 313
+    y: 219
+    width: 138
+    height: 161
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 41
+    paddingTop: 12
+    paddingBottom: 15
+  - name: 2FundsCashStorageT1
+    x: 0
+    y: 63
+    width: 160
+    height: 160
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 31
+    paddingTop: 16
+    paddingBottom: 12
+  - name: 2FundsCashStorageT2
+    x: 635
+    y: 868
+    width: 152
+    height: 156
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 39
+    paddingTop: 20
+    paddingBottom: 12
+  - name: 2FundsCashStorageT3
+    x: 322
+    y: 709
+    width: 160
+    height: 158
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 31
+    paddingTop: 18
+    paddingBottom: 12
+  - name: 2FundsOilStorageT1
+    x: 454
+    y: 385
+    width: 141
+    height: 161
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 38
+    paddingTop: 12
+    paddingBottom: 15
+  - name: 2FundsOilStorageT2
+    x: 161
+    y: 388
+    width: 140
+    height: 165
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 39
+    paddingTop: 8
+    paddingBottom: 15
+  - name: 2FundsOilStorageT3
+    x: 454
+    y: 223
+    width: 138
+    height: 161
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 41
+    paddingTop: 12
+    paddingBottom: 15
+  - name: 3FundsCashStorageT1
+    x: 0
+    y: 385
+    width: 160
+    height: 160
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 31
+    paddingTop: 16
+    paddingBottom: 12
+  - name: 3FundsCashStorageT2
+    x: 788
+    y: 868
+    width: 152
+    height: 156
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 39
+    paddingTop: 20
+    paddingBottom: 12
+  - name: 3FundsCashStorageT3
+    x: 483
+    y: 709
+    width: 160
+    height: 158
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 31
+    paddingTop: 18
+    paddingBottom: 12
+  - name: 3FundsOilStorageT1
+    x: 596
+    y: 547
+    width: 141
+    height: 161
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 38
+    paddingTop: 12
+    paddingBottom: 15
+  - name: 3FundsOilStorageT2
+    x: 161
+    y: 56
+    width: 140
+    height: 165
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 39
+    paddingTop: 8
+    paddingBottom: 15
+  - name: 3FundsOilStorageT3
+    x: 313
+    y: 57
+    width: 138
+    height: 161
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 41
+    paddingTop: 12
+    paddingBottom: 15
+  - name: 4FundsCashStorageT1
+    x: 0
+    y: 546
+    width: 160
+    height: 160
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 31
+    paddingTop: 16
+    paddingBottom: 12
+  - name: 4FundsCashStorageT2
+    x: 482
+    y: 868
+    width: 152
+    height: 156
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 39
+    paddingTop: 20
+    paddingBottom: 12
+  - name: 4FundsCashStorageT3
+    x: 644
+    y: 709
+    width: 160
+    height: 158
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 31
+    paddingTop: 18
+    paddingBottom: 12
+  - name: 4FundsOilStorageT1
+    x: 880
+    y: 547
+    width: 141
+    height: 161
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 38
+    paddingTop: 12
+    paddingBottom: 15
+  - name: 4FundsOilStorageT2
+    x: 161
+    y: 222
+    width: 140
+    height: 165
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 39
+    paddingTop: 8
+    paddingBottom: 15
+  - name: 4FundsOilStorageT3
+    x: 313
+    y: 381
+    width: 138
+    height: 161
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 41
+    paddingTop: 12
+    paddingBottom: 15
+  - name: MenuCashStorageT1
+    x: 0
+    y: 707
+    width: 160
+    height: 160
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 9
+    paddingRight: 31
+    paddingTop: 16
+    paddingBottom: 12
+  - name: MenuEvolutionLabT1
+    x: 0
+    y: 868
+    width: 167
+    height: 156
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 12
+    paddingRight: 21
+    paddingTop: 20
+    paddingBottom: 12
+  - name: MenuEvolutionLabT2
+    x: 805
+    y: 716
+    width: 156
+    height: 151
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 14
+    paddingRight: 30
+    paddingTop: 23
+    paddingBottom: 14
+  - name: MenuHealingCenterT1
+    x: 454
+    y: 49
+    width: 123
+    height: 173
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 28
+    paddingRight: 49
+    paddingTop: 1
+    paddingBottom: 14
+  - name: MenuLaboratoryT1
+    x: 168
+    y: 872
+    width: 160
+    height: 152
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 12
+    paddingRight: 28
+    paddingTop: 24
+    paddingBottom: 12
+  - name: MenuMPMT1
+    x: 596
+    y: 422
+    width: 123
+    height: 124
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 29
+    paddingRight: 48
+    paddingTop: 32
+    paddingBottom: 32
+  - name: MenuOilDrillT1
+    x: 720
+    y: 452
+    width: 106
+    height: 94
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 24
+    paddingRight: 70
+    paddingTop: 46
+    paddingBottom: 48
+  - name: MenuOilStorageT1
+    x: 454
+    y: 547
+    width: 141
+    height: 161
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 21
+    paddingRight: 38
+    paddingTop: 12
+    paddingBottom: 15
+  - name: MenuResidenceT1
+    x: 161
+    y: 554
+    width: 151
+    height: 154
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 16
+    paddingRight: 33
+    paddingTop: 24
+    paddingBottom: 10
+  mPixelSize: 1
+  mReplacement: {fileID: 11400000, guid: bf8a6748d401f40e8a1171a547c509dc, type: 2}
+  mCoordinates: 0
+  sprites: []
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
