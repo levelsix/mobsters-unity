@@ -661,6 +661,8 @@ public class MSBuildingManager : MonoBehaviour
 		ResourceType costType = building.combinedProto.structInfo.buildResourceType;
 		if (MSResourceManager.instance.Spend(costType, building.combinedProto.structInfo.buildCost, callback))
 		{
+			FullDeselect();
+
 			PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
 			request.sender = MSWhiteboard.localMup;
 
@@ -668,8 +670,6 @@ public class MSBuildingManager : MonoBehaviour
 			request.structCoordinates.x = building.groundPos.x;
 			request.structCoordinates.y = building.groundPos.y;
 
-			Debug.Log("Building struct at coords: " + request.structCoordinates.x + ", " + request.structCoordinates.y);
-			
 			request.structId = building.combinedProto.structInfo.structId;
 			request.timeOfPurchase = MSUtil.timeNowMillis;
 
@@ -832,8 +832,8 @@ public class MSBuildingManager : MonoBehaviour
 
 	public void SelectBuildingToBuild(MSBuilding building)
 	{
-		SetSelectedBuilding(building);
 		hoveringToBuild = building;
+		SetSelectedBuilding(building);
 	}
 	
 	/// <summary>

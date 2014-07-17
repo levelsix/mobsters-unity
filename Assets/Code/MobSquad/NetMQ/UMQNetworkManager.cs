@@ -217,9 +217,15 @@ public class UMQNetworkManager : MonoBehaviour {
 		chatQueueName = udidKey + "_" + sessionID + "_chat_queue";
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-		//AndroidJavaObject chatChannel = javaConnection.Call<AndroidJavaObject>("createModel");
+		AndroidJavaObject chatChannel = javaConnection.Call<AndroidJavaObject>("createChannel");
 
-		Debug.LogWarning("Chat channel not implemented for Android yet");
+		chatChannel.Call<AndroidJavaObject>("queueDeclare", chatQueueName, true, false, true, null);
+		chatChannel.Call<AndroidJavaObject>("queueBind", chatQueueName, topicExchangeName, chatKey);
+		
+		AndroidJavaObject chatConsumer = new AndroidJavaObject("com.rabbitmq.client.QueueingConsumer", chatChannel);
+		javaChannel.Call<AndroidJavaObject>("basicConsume", chatQueueName, false, chatConsumer);
+		
+		StartCoroutine(ConsumeJava(chatConsumer));
 #else
 		IModel chatChannel = connection.CreateModel();
 

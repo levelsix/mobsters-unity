@@ -161,9 +161,9 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public virtual void StartUpgrade()
 	{
-		SendUpgradeRequest();
-
 		building.combinedProto = building.combinedProto.successor;
+
+		SendUpgradeRequest();
 
 		MSBuildingManager.instance.RemoveFromFunctionalityLists(building);
 
@@ -185,6 +185,8 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		request.sender = MSWhiteboard.localMup;
 		request.userStructId = building.userStructProto.userStructId;
 		request.timeOfUpgrade = MSUtil.timeNowMillis;
+		request.resourceType = building.combinedProto.structInfo.buildResourceType;
+		request.resourceChange = -building.combinedProto.structInfo.buildCost;
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPGRADE_NORM_STRUCTURE_EVENT, CheckUpgradeResponse);
 	}
 			
@@ -251,8 +253,11 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public void FinishWithPremium()
 	{
-		SendPremiumFinishRequest();
-		FinishUpgrade();
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemsToFinish))
+		{
+			SendPremiumFinishRequest();
+			FinishUpgrade();
+		}
 	}
 	
 	void SendPremiumFinishRequest()

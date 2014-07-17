@@ -701,8 +701,6 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 		if (MSBuildingManager.instance.BuyBuilding(this, Confirm))
 		{
-			MSBuildingManager.instance.FullDeselect();
-
 			long now = MSUtil.timeNowMillis;
 			userStructProto.lastRetrieved = now;
 			userStructProto.purchaseTime = now;

@@ -115,6 +115,7 @@ GameObject:
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400018}
   - 114: {fileID: 11400168}
+  - 54: {fileID: 5400008}
   m_Layer: 5
   m_Name: QuestPopup
   m_TagString: Untagged
@@ -1584,6 +1585,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &5400008
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100012}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &6500000
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2115,12 +2131,12 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4022
+  startingRenderQueue: 4020
   mAlpha: 1
   mClipping: 2
   mClipRange: {x: -1, y: -45, z: 756, w: 514}
   mClipSoftness: {x: 1, y: 1}
-  mDepth: 2
+  mDepth: 4
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400028
@@ -2874,12 +2890,12 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4022
+  startingRenderQueue: 4020
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -36, z: 756, w: 272}
   mClipSoftness: {x: 4, y: 4}
-  mDepth: 2
+  mDepth: 4
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400070
@@ -3041,7 +3057,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4022
+  startingRenderQueue: 4020
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -45, z: 758, w: 514}
@@ -3791,7 +3807,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4022
+  startingRenderQueue: 4020
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -45, z: 756, w: 514}
@@ -4680,7 +4696,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3000
+  startingRenderQueue: 4013
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}

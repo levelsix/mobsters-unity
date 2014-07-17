@@ -33,6 +33,7 @@ public class MSCreateUserPopup : MonoBehaviour {
 			UserCreateRequestProto create = new UserCreateRequestProto();
 			create.udid = UMQNetworkManager.udid;
 			create.name = inputLabel.text;
+			create.gems = 50;
 
 			if (FB.IsLoggedIn)
 			{
@@ -42,6 +43,7 @@ public class MSCreateUserPopup : MonoBehaviour {
 			UMQNetworkManager.instance.SendRequest(create, (int)EventProtocolRequest.C_USER_CREATE_EVENT, OnUserCreateResponse);
 			
 			submitButton.able = false;
+			MSActionManager.Popup.CloseAllPopups();
 		}
 	}
 	
@@ -53,11 +55,11 @@ public class MSCreateUserPopup : MonoBehaviour {
 		if (response.status == UserCreateResponseProto.UserCreateStatus.SUCCESS)
 		{
 			loader.StartCoroutine(loader.Start());
-			MSActionManager.Popup.CloseAllPopups();
 		}
 		else
 		{
 			errorLabel.text = response.status.ToString();
+			MSActionManager.Popup.OnPopup(GetComponent<MSPopup>());
 			submitButton.able = true;
 		}
 	}

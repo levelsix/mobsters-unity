@@ -39,6 +39,7 @@ public class MSBottomChatBlock : MonoBehaviour {
 		                                                          grid.transform) as MSSimplePoolable).GetComponent<MSBottomChatMessage>();
 		message.transform.localScale = Vector3.one;
 		message.Init(avatarId, senderName, messageContent);
+		message.GetComponent<MSUIHelper>().ResetAlpha(true);
 		messages.Add(message);
 		grid.Reposition();
 

@@ -134,7 +134,10 @@ public class MSObstacle : MonoBehaviour {
 
 	public void FinishWithGems()
 	{
-		FinishRemove(gemsToFinish);
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemsToFinish))
+		{
+			FinishRemove(gemsToFinish);
+		}
 	}
 
 	void FinishRemove(int gems = 0)

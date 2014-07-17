@@ -71,7 +71,7 @@ public class MSTaskBar : MonoBehaviour {
 		tweenAlph.PlayReverse();
 		MoveButtons();
 		
-		if (building != null)
+		if (building != null && building != MSBuildingManager.instance.hoveringToBuild)
 		{
 			bottomChat.Hide ();
 			StartCoroutine(TweenWhenOffScreen(building));
