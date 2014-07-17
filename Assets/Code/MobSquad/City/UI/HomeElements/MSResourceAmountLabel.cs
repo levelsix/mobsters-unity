@@ -14,9 +14,9 @@ public class MSResourceAmountLabel : MonoBehaviour {
 
 	float speed = 1000f;
 
-	[SerializeField] int target;
+	float target = 0;
 
-	int current = 0;
+	float current = 0;
 	
 	void Awake()
 	{
@@ -26,7 +26,6 @@ public class MSResourceAmountLabel : MonoBehaviour {
 	void OnEnable()
 	{
 		SetAmount(MSResourceManager.resources[(int)resource-1]);
-		target = current;
 		MSActionManager.UI.OnChangeResource[(int)resource-1] += OnChangeResource;
 	}
 	
@@ -46,18 +45,18 @@ public class MSResourceAmountLabel : MonoBehaviour {
 	{
 		if (current < target)
 		{
-			SetAmount (Mathf.Min(target, Mathf.FloorToInt(current + speed * Time.deltaTime)));
+			SetAmount (Mathf.Min(target, current + speed * Time.deltaTime));
 		}
 		else if (current > target)
 		{
-			SetAmount (Mathf.Max(target, Mathf.CeilToInt(current + speed * Time.deltaTime)));
+			SetAmount (Mathf.Max(target, current + speed * Time.deltaTime));
 		}
 	}
 
-	void SetAmount (int amount)
+	void SetAmount (float amount)
 	{
 		current = amount;
-		string formatted = String.Format ("{0:#,##0}", amount);
+		string formatted = String.Format ("{0:#,##0}", ((int)amount));
 		label.text = formatted;
 		if (resource == ResourceType.CASH) 
 		{

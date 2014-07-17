@@ -92,18 +92,21 @@ public class MSObstacle : MonoBehaviour {
 			return;
 		}
 
-		endTime = MSUtil.timeNowMillis + obstacle.secondsToRemove * 1000;
-		Debug.Log("Start remove");
-		StartCoroutine(Check ());
+		if (MSResourceManager.instance.Spend(obstacle.removalCostType, obstacle.cost, StartRemove))
+	    {
+			endTime = MSUtil.timeNowMillis + obstacle.secondsToRemove * 1000;
+			Debug.Log("Start remove");
+			StartCoroutine(Check ());
 
-		BeginObstacleRemovalRequestProto request = new BeginObstacleRemovalRequestProto();
-		request.sender = MSWhiteboard.localMup;
-		request.curTime = MSUtil.timeNowMillis;
-		request.resourceChange = -obstacle.cost;
-		request.resourceType = obstacle.removalCostType;
-		request.userObstacleId = userObstacle.userObstacleId;
+			BeginObstacleRemovalRequestProto request = new BeginObstacleRemovalRequestProto();
+			request.sender = MSWhiteboard.localMup;
+			request.curTime = MSUtil.timeNowMillis;
+			request.resourceChange = -obstacle.cost;
+			request.resourceType = obstacle.removalCostType;
+			request.userObstacleId = userObstacle.userObstacleId;
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_OBSTACLE_REMOVAL_EVENT, DealWithBeginRemovalResponse);
+			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_OBSTACLE_REMOVAL_EVENT, DealWithBeginRemovalResponse);
+		}
 	}
 
 	void DealWithBeginRemovalResponse(int tagNum)
@@ -136,7 +139,7 @@ public class MSObstacle : MonoBehaviour {
 	{
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemsToFinish))
 		{
-			FinishRemove(gemsToFinish);
+//			FinishRemove(gemsToFinish);
 		}
 	}
 

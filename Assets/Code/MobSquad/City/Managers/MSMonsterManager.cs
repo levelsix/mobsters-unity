@@ -642,7 +642,7 @@ public class MSMonsterManager : MonoBehaviour {
 			enhanceRequestProto.ueipDelete.Remove(monster.enhancement);
 			enhanceRequestProto.ueipUpdate.Add(monster.enhancement);
 		}
-		else
+		else if (!enhanceRequestProto.ueipNew.Contains(monster.enhancement)) //Just in case of redundancies...
 		{
 			enhanceRequestProto.ueipNew.Add(monster.enhancement);
 		}
@@ -703,10 +703,10 @@ public class MSMonsterManager : MonoBehaviour {
 			
 			MSResourceManager.instance.Collect(ResourceType.OIL, monster.enhanceXP);
 
-			if (enhancementFeeders.Count == 0)
-			{
-				RemoveFromEnhanceQueue(currentEnhancementMonster);
-			}
+			//if (enhancementFeeders.Count == 0)
+			//{
+				//RemoveFromEnhanceQueue(currentEnhancementMonster);
+			//}
 		}
 
 		if (MSActionManager.Goon.OnMonsterRemoveQueue != null)

@@ -20,6 +20,14 @@ public class MSResourceCollector : MonoBehaviour {
 		}
 	}
 
+	public bool canCollect
+	{
+		get
+		{
+			return hasMoney && MSResourceManager.resources[(int)_generator.resourceType - 1] < MSResourceManager.maxes[(int)_generator.resourceType - 1];
+		}
+	}
+
 	bool isGenerating
 	{
 		get
@@ -110,7 +118,6 @@ public class MSResourceCollector : MonoBehaviour {
 	/// </summary>
 	void OnEnable()
 	{
-		_building.OnSelect += Collect;
         _upgrade.OnFinishUpgrade += OnFinishUpgrade;
 	}
 	
@@ -120,7 +127,6 @@ public class MSResourceCollector : MonoBehaviour {
 	/// </summary>
 	void OnDisable()
 	{
-		_building.OnSelect -= Collect;
         _upgrade.OnFinishUpgrade -= OnFinishUpgrade;
 	}
 
@@ -133,7 +139,7 @@ public class MSResourceCollector : MonoBehaviour {
 	/// <summary>
 	/// Collect this instance.
 	/// </summary>
-	void Collect()
+	public void Collect()
 	{
 		if (hasMoney && MSResourceManager.resources[(int)_generator.resourceType - 1] < MSResourceManager.maxes[(int)_generator.resourceType - 1])
 		{
@@ -200,7 +206,7 @@ public class MSResourceCollector : MonoBehaviour {
 			if (hasMoney)
 			{
 				_building.hoverIcon.gameObject.SetActive(true);
-				if(MSResourceManager.resources[(int)_generator.resourceType - 1] < MSResourceManager.maxes[(int)_generator.resourceType - 1]){
+				if(canCollect){
 					_building.hoverIcon.spriteName = (_generator.resourceType == ResourceType.CASH) ? "cashready" : "oilready";
 				}else{
 					_building.hoverIcon.spriteName = (_generator.resourceType == ResourceType.CASH) ? "cashoverflow" : "oiloverflow";

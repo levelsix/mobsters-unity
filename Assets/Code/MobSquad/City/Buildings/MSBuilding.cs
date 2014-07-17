@@ -757,6 +757,10 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			lockTween.PlayForward();
 			MSBuildingManager.instance.FullDeselect();
 		}
+		else if (collector != null && collector.canCollect)
+		{
+			collector.Collect();
+		}
 		else if (!selected)
 		{
 			tweenScale.ResetToBeginning();
