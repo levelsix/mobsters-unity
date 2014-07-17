@@ -811,7 +811,6 @@ GameObject:
   - 114: {fileID: 11400152}
   - 65: {fileID: 6500012}
   - 114: {fileID: 11400154}
-  - 114: {fileID: 11400158}
   m_Layer: 5
   m_Name: BuildTab
   m_TagString: Untagged
@@ -1165,7 +1164,6 @@ GameObject:
   - 114: {fileID: 11400216}
   - 65: {fileID: 6500022}
   - 114: {fileID: 11400218}
-  - 114: {fileID: 11400222}
   m_Layer: 5
   m_Name: GetMobsters
   m_TagString: Untagged
@@ -1667,7 +1665,6 @@ GameObject:
   - 114: {fileID: 11400304}
   - 65: {fileID: 6500036}
   - 114: {fileID: 11400302}
-  - 114: {fileID: 11400308}
   - 114: {fileID: 11400010}
   m_Layer: 5
   m_Name: AddFundsTab
@@ -2287,7 +2284,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2002, y: 146, z: 0}
+  m_LocalPosition: {x: 0, y: 146, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400200}
@@ -2660,7 +2657,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 132.144897, z: 0}
+  m_LocalPosition: {x: 0, y: 85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400146}
@@ -5982,19 +5979,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftAnchor:
     target: {fileID: 0}
-    relative: .5
+    relative: 0
     absolute: 0
   rightAnchor:
     target: {fileID: 0}
-    relative: .5
+    relative: 1
     absolute: 0
   bottomAnchor:
     target: {fileID: 0}
-    relative: .5
+    relative: 0
     absolute: 0
   topAnchor:
     target: {fileID: 0}
-    relative: .5
+    relative: 1
     absolute: 0
   updateAnchors: 1
   showInPanelTool: 1
@@ -6007,7 +6004,7 @@ MonoBehaviour:
   startingRenderQueue: 4013
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: .609527588, z: 20, w: 20}
+  mClipRange: {x: 0, y: .649078369, z: 1022.96143, w: 640}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 3
   mSortingOrder: 0
@@ -7237,19 +7234,6 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
---- !u!114 &11400158
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aeed38ed56ca43c89e90049d6945fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  popup: {fileID: 100070}
-  closeTop: 0
 --- !u!114 &11400160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8381,19 +8365,6 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
---- !u!114 &11400222
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aeed38ed56ca43c89e90049d6945fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  popup: {fileID: 100074}
-  closeTop: 0
 --- !u!114 &11400224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10063,19 +10034,6 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
---- !u!114 &11400308
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aeed38ed56ca43c89e90049d6945fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  popup: {fileID: 100034}
-  closeTop: 0
 --- !u!114 &11400310
 MonoBehaviour:
   m_ObjectHideFlags: 1

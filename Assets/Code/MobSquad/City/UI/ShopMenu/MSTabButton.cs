@@ -55,6 +55,27 @@ public class MSTabButton : MonoBehaviour {
 		ClickTab += Deselect;
 	}
 
+	void OnEnable(){
+		switch(buttonType){
+		case Tab.BUILDING:
+			if(MSBuildingManager.instance.CapacityForBuildings()){
+				OnClick();
+			}
+			break;
+		case Tab.MOBSTERS:
+			if(!MSBuildingManager.instance.CapacityForBuildings()){
+				OnClick();
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	void OnDisable(){
+		Deselect();
+	}
+
 	void ChangeDepthTo(int depth){
 		tabSprite.depth = depth;
 		label.depth = depth + 1;
@@ -68,21 +89,33 @@ public class MSTabButton : MonoBehaviour {
 		label.color = Color.white;
 		ChangeDepthTo(startingDepth);
 
-		if(popup != null && popup.gameObject.activeSelf){
-			popup.Close();
-		}
+		popup.gameObject.SetActive(false);
 	}
 
 	void OnClick(){
 		ClickTab();
-		button.normalSprite = TAB_ACTIVE;
-		button.pressedSprite = TAB_ACTIVE;
+		popup.gameObject.SetActive(true);
+		StartCoroutine(SetSprite(true));
 		icon.spriteName = iconBlue;
 		label.color = textBlue;
 		ChangeDepthTo(startingDepth + 2);
 	}
 
-	void OnDisable(){
-		Deselect();
+	IEnumerator SetSprite(bool active){
+		if(active){
+			while(button.normalSprite != TAB_ACTIVE){
+				button.normalSprite = TAB_ACTIVE;
+				button.pressedSprite = TAB_ACTIVE;
+				yield return null;
+			}
+		}
+		else
+		{
+			while(button.normalSprite != TAB_INACTIVE){
+				button.normalSprite = TAB_INACTIVE;
+				button.pressedSprite = TAB_PRESSED;
+				yield return null;
+			}
+		}
 	}
 }

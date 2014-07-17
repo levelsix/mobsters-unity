@@ -71,14 +71,14 @@ public class MSResourceCard : MonoBehaviour {
 			_state = value;
 			
 			if(value == State.ACTIVE){
-				Debug.Log("On" + percent + " : " + amountLabel.text);
+//				Debug.Log("On" + percent + " : " + amountLabel.text);
 				button.pressed = button.disabledColor;
 				button.normalSprite = FRONT_IMAGE;
 				
 				front.SetActive(true);
 				back.SetActive(false);
 			}else{
-				Debug.Log("Off" + percent + " : " + amountLabel.text + transform.parent.gameObject.name.ToString());
+//				Debug.Log("Off" + percent + " : " + amountLabel.text + transform.parent.gameObject.name.ToString());
 				button.pressed = button.disabledColor;
 				button.normalSprite = BACK_IMAGE;
 				button.SetState(UIButtonColor.State.Normal, true);

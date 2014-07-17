@@ -178,7 +178,7 @@ public class MSBuildingCard : MonoBehaviour {
 					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceOneStorages;
 					break;
 				case ResourceType.OIL:
-					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceTwoGenerators;
+					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceTwoStorages;
 					break;
 				}
 				break;

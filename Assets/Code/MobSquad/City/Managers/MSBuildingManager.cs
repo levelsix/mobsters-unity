@@ -936,6 +936,31 @@ public class MSBuildingManager : MonoBehaviour
 		return count;
 	}
 
+	/// <summary>
+	/// returns true if the player can build another building without upgrading the town center
+	/// </summary>
+	/// <returns>bool</returns>
+	public bool CapacityForBuildings(){
+		TownHallProto hallProto = townHall.combinedProto.townHall;
+		int maxBuilding = hallProto.numEvoChambers + hallProto.numHospitals + hallProto.numLabs + hallProto.numResidences +
+				hallProto.numResourceOneGenerators + hallProto.numResourceOneStorages + hallProto.numResourceTwoGenerators + hallProto.numResourceTwoStorages;
+
+		Debug.Log ("numEvoChambers "+hallProto.numEvoChambers);
+		Debug.Log ("numHospitals "+hallProto.numHospitals);
+		Debug.Log ("numLabs "+hallProto.numLabs);
+		Debug.Log ("numResidences "+hallProto.numResidences);
+		Debug.Log ("numResourceOneGenerators "+hallProto.numResourceOneGenerators);
+		Debug.Log ("numResourceOneStorages "+hallProto.numResourceOneStorages);
+		Debug.Log ("numResourceTwoGenerators "+hallProto.numResourceTwoGenerators);
+		Debug.Log ("numResourceTwoStorages "+hallProto.numResourceTwoStorages);
+
+		int curBuildingCount = buildings.Count - 2;//subtract town hall, pier
+
+		Debug.Log(curBuildingCount + " < " + maxBuilding);
+
+		return curBuildingCount < maxBuilding;
+	}
+
 	public int GetMonsterSlotCount()
 	{
 		
