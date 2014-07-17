@@ -86,11 +86,15 @@ public class MSBuildingCard : MonoBehaviour {
 				button.normalSprite = FRONT_IMAGE;
 				//button.pressed = button.disabledColor;
 
+				buildingSprite.color = Color.white;
+				
 				front.SetActive(true);
 				back.SetActive(false);
 			}else{
 				button.normalSprite = BACK_IMAGE;
 				//button.pressed = Color.white;
+
+				buildingSprite.color = Color.black;
 				
 				front.SetActive(false);
 				back.SetActive(true);

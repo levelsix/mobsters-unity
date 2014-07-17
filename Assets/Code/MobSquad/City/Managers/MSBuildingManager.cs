@@ -945,18 +945,18 @@ public class MSBuildingManager : MonoBehaviour
 		int maxBuilding = hallProto.numEvoChambers + hallProto.numHospitals + hallProto.numLabs + hallProto.numResidences +
 				hallProto.numResourceOneGenerators + hallProto.numResourceOneStorages + hallProto.numResourceTwoGenerators + hallProto.numResourceTwoStorages;
 
-		Debug.Log ("numEvoChambers "+hallProto.numEvoChambers);
-		Debug.Log ("numHospitals "+hallProto.numHospitals);
-		Debug.Log ("numLabs "+hallProto.numLabs);
-		Debug.Log ("numResidences "+hallProto.numResidences);
-		Debug.Log ("numResourceOneGenerators "+hallProto.numResourceOneGenerators);
-		Debug.Log ("numResourceOneStorages "+hallProto.numResourceOneStorages);
-		Debug.Log ("numResourceTwoGenerators "+hallProto.numResourceTwoGenerators);
-		Debug.Log ("numResourceTwoStorages "+hallProto.numResourceTwoStorages);
+//		Debug.Log ("numEvoChambers "+hallProto.numEvoChambers);
+//		Debug.Log ("numHospitals "+hallProto.numHospitals);
+//		Debug.Log ("numLabs "+hallProto.numLabs);
+//		Debug.Log ("numResidences "+hallProto.numResidences);
+//		Debug.Log ("numResourceOneGenerators "+hallProto.numResourceOneGenerators);
+//		Debug.Log ("numResourceOneStorages "+hallProto.numResourceOneStorages);
+//		Debug.Log ("numResourceTwoGenerators "+hallProto.numResourceTwoGenerators);
+//		Debug.Log ("numResourceTwoStorages "+hallProto.numResourceTwoStorages);
 
 		int curBuildingCount = buildings.Count - 2;//subtract town hall, pier
 
-		Debug.Log(curBuildingCount + " < " + maxBuilding);
+//		Debug.Log(curBuildingCount + " < " + maxBuilding);
 
 		return curBuildingCount < maxBuilding;
 	}

@@ -74,6 +74,8 @@ public class MSResourceCard : MonoBehaviour {
 //				Debug.Log("On" + percent + " : " + amountLabel.text);
 				button.pressed = button.disabledColor;
 				button.normalSprite = FRONT_IMAGE;
+
+				icon.color = Color.white;
 				
 				front.SetActive(true);
 				back.SetActive(false);
@@ -85,7 +87,9 @@ public class MSResourceCard : MonoBehaviour {
 				if(button.normalSprite != BACK_IMAGE){
 					StartCoroutine(Wat());
 				}
-				
+
+				icon.color = Color.black;
+
 				front.SetActive(false);
 				back.SetActive(true);
 			}
