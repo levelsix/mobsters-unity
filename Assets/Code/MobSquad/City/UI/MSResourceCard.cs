@@ -118,7 +118,6 @@ public class MSResourceCard : MonoBehaviour {
 	void OnEnable()
 	{
 		if(oilMaxLevel == -1){
-			Debug.Log("Checking for max level storage");
 			List<ResourceStorageProto> allStorages = MSBuildingManager.instance.GetAllStorages();
 			foreach(ResourceStorageProto storage in allStorages){
 				if(storage.resourceType == ResourceType.OIL && storage.structInfo.level > oilMaxLevel){
@@ -131,6 +130,27 @@ public class MSResourceCard : MonoBehaviour {
 					cashMaxLevel = storage.structInfo.level;
 					cashSprite = storage.structInfo.imgName;
 					cashSprite = cashSprite.Substring(0, cashSprite.Length - ".png".Length); //remove .png
+				}
+			}
+			if(oilMaxLevel == -1 || cashMaxLevel == -1)
+			{
+				foreach(MSFullBuildingProto building in MSDataManager.instance.GetAll<MSFullBuildingProto>().Values)
+				{
+					if(building.storage != null && building.structInfo.level == 1)
+					{
+						if(oilMaxLevel == -1 && building.storage.resourceType == ResourceType.OIL)
+						{
+							oilMaxLevel = building.structInfo.level;
+							oilSprite = building.storage.structInfo.imgName;
+							oilSprite = oilSprite.Substring(0, oilSprite.Length - ".png".Length); //remove .png
+						}
+						else if(cashMaxLevel == -1 && building.storage.resourceType == ResourceType.CASH)
+						{
+							cashMaxLevel = building.structInfo.level;
+							cashSprite = building.storage.structInfo.imgName;
+							cashSprite = cashSprite.Substring(0, cashSprite.Length - ".png".Length); //remove .png
+						}
+					}
 				}
 			}
 		}

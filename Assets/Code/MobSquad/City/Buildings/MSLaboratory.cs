@@ -8,7 +8,7 @@ public class MSLaboratory : MSBuildingFrame {
 		MSActionManager.Goon.OnEnhanceQueueChanged += CheckTag;
 	}
 
-	new public void CheckTag(){
+	public override void CheckTag(){
 		int canEnhance = 0;
 		//(currentEnhancementMonster == null || currentEnhancementMonster.monsterId == 0)
 		if (MSMonsterManager.instance.currentEnhancementMonster == null ||
@@ -21,11 +21,11 @@ public class MSLaboratory : MSBuildingFrame {
 			}
 
 			if(canEnhance > 1){
-				hoverIcon.gameObject.SetActive(true);
-				hoverIcon.spriteName = "obenhance";
-				hoverIcon.MakePixelPerfect();
+				bubbleIcon.gameObject.SetActive(true);
+				bubbleIcon.spriteName = "enhancebubble";
+				bubbleIcon.MakePixelPerfect();
 			}else{
-				hoverIcon.gameObject.SetActive(false);
+				bubbleIcon.gameObject.SetActive(false);
 			}
 		}
 	}

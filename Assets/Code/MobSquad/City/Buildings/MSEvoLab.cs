@@ -3,7 +3,8 @@ using System.Collections;
 
 public class MSEvoLab : MSBuildingFrame {
 
-	new public void CheckTag(){
-
+	public override void CheckTag(){
+		Debug.LogWarning("Check Tag not implemented for evolution labs");
 	}
+
 }

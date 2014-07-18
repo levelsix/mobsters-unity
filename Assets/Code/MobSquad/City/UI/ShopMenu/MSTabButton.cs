@@ -83,6 +83,7 @@ public class MSTabButton : MonoBehaviour {
 	}
 
 	void Deselect(){
+		StopCoroutine("SetSprite");
 		button.normalSprite = TAB_INACTIVE;
 		button.pressedSprite = TAB_PRESSED;
 		icon.spriteName = iconWhite;
@@ -92,10 +93,10 @@ public class MSTabButton : MonoBehaviour {
 		popup.gameObject.SetActive(false);
 	}
 
-	void OnClick(){
+	public void OnClick(){
 		ClickTab();
 		popup.gameObject.SetActive(true);
-		StartCoroutine(SetSprite(true));
+		StartCoroutine("SetSprite",true);
 		icon.spriteName = iconBlue;
 		label.color = textBlue;
 		ChangeDepthTo(startingDepth + 2);

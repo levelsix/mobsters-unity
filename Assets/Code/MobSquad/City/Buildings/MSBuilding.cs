@@ -225,6 +225,9 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	public UISprite hoverIcon;
 
 	[SerializeField]
+	UISprite bubbleIcon;
+
+	[SerializeField]
 	UITweener lockTween;
 
 	[SerializeField]
@@ -486,20 +489,26 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				break;
 			case StructureInfoProto.StructType.HOSPITAL:
 				MSHospitalManager.instance.AssignHospital(this);
-				gameObj.AddComponent<MSHospitalHoverIcon>().hoverIcon = hoverIcon;
+				gameObj.AddComponent<MSHospitalHoverIcon>().bubbleIcon = bubbleIcon;
 				gameObj.GetComponent<MSHospitalHoverIcon>().CheckTag();
 				break;
 			case StructureInfoProto.StructType.RESIDENCE:
-				gameObj.AddComponent<MSResidence>().hoverIcon = hoverIcon;
-				gameObj.GetComponent<MSResidence>().CheckTag();
+				gameObj.AddComponent<MSResidence>().bubbleIcon = bubbleIcon;
+				gameObj.GetComponent<MSResidence>().FirstFrameCheck();
 				break;
 			case StructureInfoProto.StructType.LAB:
-				gameObj.AddComponent<MSLaboratory>().hoverIcon = hoverIcon;
+				gameObj.AddComponent<MSLaboratory>().bubbleIcon = bubbleIcon;
 				gameObj.GetComponent<MSLaboratory>().CheckTag();
 				break;
 			case StructureInfoProto.StructType.TEAM_CENTER:
 				teamCenter = gameObj.AddComponent<MSTeamCenter>();
+				teamCenter.bubbleIcon = bubbleIcon;
+				teamCenter.CheckTag();
 				teamCenter.Init(sprite.GetComponent<Animator>());
+				break;
+			case StructureInfoProto.StructType.MINI_JOB:
+				gameObj.AddComponent<MSPier>().bubbleIcon = bubbleIcon;
+				gameObj.GetComponent<MSPier>().FirstFrameCheck();
 				break;
 			default:
 				break;
