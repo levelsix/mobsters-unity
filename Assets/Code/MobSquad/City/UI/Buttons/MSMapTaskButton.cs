@@ -6,7 +6,7 @@ using com.lvl6.proto;
 
 public class MSMapTaskButton : MonoBehaviour {
 
-	TaskMapElementProto mapTask;
+	public TaskMapElementProto mapTask;
 
 	Transform trans;
 

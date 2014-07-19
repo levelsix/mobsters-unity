@@ -5,6 +5,8 @@ using System;
 using com.lvl6.proto;
 
 public class MSTaskMap : MonoBehaviour {
+
+	Vector3 worldPosition;
 	
 	[SerializeField]
 	MSSimplePoolable mapTaskButton;
@@ -12,11 +14,21 @@ public class MSTaskMap : MonoBehaviour {
 	[SerializeField]
 	MSSegmentedMap maps;
 
+	/// <summary>
+	/// Parent that holds all of the task buttons
+	/// </summary>
 	[SerializeField]
 	Transform TaskParent;
 
 	[SerializeField]
 	UI2DSprite pvpHud;
+
+	/// <summary>
+	/// The furthest task the player has unlocked
+	/// </summary>
+	MSMapTaskButton nextTask;
+
+	MSDragDropLimited limitedDrag;
 
 	public Dictionary<int, MSMapTaskButton> taskButtons = new Dictionary<int, MSMapTaskButton>();
 	
@@ -30,6 +42,7 @@ public class MSTaskMap : MonoBehaviour {
 		
 	void Awake(){
 		trans = transform;
+		limitedDrag = GetComponent<MSDragDropLimited>();
 
 		float width = MSMath.uiScreenWidth;
 		float scale = (width - pvpHud.width) / maps.maps[0].width;
@@ -54,19 +67,17 @@ public class MSTaskMap : MonoBehaviour {
 		}
 		
 		float mapLength = maps.Height;
-		GetComponent<MSDragDropLimited> ().min = new Vector2 (0f, -(mapLength - map.height) + (mapLength * (1f - trans.localScale.y)));
-		GetComponent<MSDragDropLimited> ().max = new Vector2 (0f, -(map.height / 2f) * (1f - trans.localScale.y));
+		limitedDrag.min = new Vector2 (0f, -(mapLength - map.height) + (mapLength * (1f - trans.localScale.y)));
+		limitedDrag.max = new Vector2 (0f, -(map.height / 2f) * (1f - trans.localScale.y));
 		
 		BoxCollider box = GetComponent<BoxCollider> ();
 		box.size = new Vector3 (map.width, mapLength, 0f);
 		box.center = new Vector3(-map.width/2f,  (mapLength / 2f) - map.height/2f, 0f);
 	}
 
-	void Start(){
-
-	}
-
 	void OnEnable(){
+		nextTask = null;
+
 		IDictionary tasks = MSDataManager.instance.GetAll<TaskMapElementProto> ();
 				
 		FullTaskProto taskProto;
@@ -80,11 +91,31 @@ public class MSTaskMap : MonoBehaviour {
 				MSQuestManager.instance.taskDict.ContainsKey (taskProto.prerequisiteTaskId))
 			{
 				taskButtons[task.taskId].Status = MSMapTaskButton.TaskStatusType.Undefeated;
+				nextTask = taskButtons[task.taskId];
 			}
 			else
 			{
 				taskButtons[task.taskId].Status = MSMapTaskButton.TaskStatusType.Locked;
 			}
 		}
+
+		if(nextTask != null)
+		{
+			Vector3 newLocation = trans.position;
+			newLocation.y = trans.position.y - nextTask.transform.position.y;
+			trans.position = newLocation;
+			if (trans.localPosition.y < limitedDrag.min.y)
+			{
+				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.min.y, trans.localPosition.z);
+			}
+			else if(trans.localPosition.y > limitedDrag.max.y)
+			{
+				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.max.y, trans.localPosition.z);
+			}
+		}
+	}
+
+	void Update(){
+		worldPosition = trans.position;
 	}
 }
