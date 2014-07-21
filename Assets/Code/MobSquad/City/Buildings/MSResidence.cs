@@ -4,21 +4,28 @@ using System.Collections;
 public class MSResidence : MSBuildingFrame {
 
 	void OnEnable(){
-		CheckTag ();
+		if(bubbleIcon != null)
+		{
+			FirstFrameCheck ();
+		}
 		MSActionManager.Goon.OnMonsterListChanged += CheckTag;
 	}
 
-	void Update(){
-		CheckTag ();
-	}
+	public override void CheckTag(){
+		if (MSMonsterManager.monstersOwned > MSMonsterManager.instance.totalResidenceSlots) {
+			bubbleIcon.gameObject.SetActive(true);
 
-	new public void CheckTag(){
-		if (MSMonsterManager.monstersOwned >= MSMonsterManager.instance.totalResidenceSlots) {
-			hoverIcon.gameObject.SetActive(true);
-			hoverIcon.spriteName = "obfull";
-			hoverIcon.MakePixelPerfect();
+			if(MSMonsterManager.monstersOwned - MSMonsterManager.instance.totalResidenceSlots <= 9)
+			{
+				bubbleIcon.spriteName = "sellbubble" + (MSMonsterManager.monstersOwned - MSMonsterManager.instance.totalResidenceSlots);
+			}
+			else
+			{
+				bubbleIcon.spriteName = "sellbubbleexclamation";
+			}
+			bubbleIcon.MakePixelPerfect();
 		} else {
-			hoverIcon.gameObject.SetActive(false);
+			bubbleIcon.gameObject.SetActive(false);
 		}
 	}
 

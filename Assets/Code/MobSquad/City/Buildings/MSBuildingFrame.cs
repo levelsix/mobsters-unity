@@ -3,14 +3,21 @@ using System.Collections;
 
 public abstract class MSBuildingFrame : MonoBehaviour {
 
-	public UISprite hoverIcon;
+	public UISprite bubbleIcon;
 
-	void Awake(){
-		hoverIcon = GetComponent<MSBuilding> ().hoverIcon;
+	public abstract void CheckTag ();
+
+	/// <summary>
+	/// If the building is spawned before all the information we need is ready
+	/// call this to wait a single frame
+	/// </summary>
+	public void FirstFrameCheck(){
+		StartCoroutine(WaitThenCheck());
 	}
 
-	public void CheckTag (){
-		Debug.LogError ("CheckTag not implemented for some building");
+	IEnumerator WaitThenCheck(){
+		yield return null;
+		 CheckTag();
 	}
 	
 }
