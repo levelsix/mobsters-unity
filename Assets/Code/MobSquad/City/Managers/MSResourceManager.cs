@@ -298,6 +298,43 @@ public class MSResourceManager : MonoBehaviour {
 
 	}
 
+	public void CheatMoney(int cash, int oil, int gems, string reason)
+	{
+		UpdateUserCurrencyRequestProto request = new UpdateUserCurrencyRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.reason = reason;
+		request.cashSpent = cash;
+		request.oilSpent = oil;
+		request.gemsSpent = gems;
+
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_USER_CURRENCY_EVENT, DealWithCheatResponse);
+
+		Collect(ResourceType.CASH, cash);
+		Collect(ResourceType.OIL, oil);
+		Collect(ResourceType.GEMS, gems);
+	}
+
+	public void CheatReset()
+	{
+		UpdateUserCurrencyRequestProto request = new UpdateUserCurrencyRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.reason = MSChatPopup.RESET_CHEAT;
+
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_USER_CURRENCY_EVENT, DealWithCheatResponse);
+	}
+
+	void DealWithCheatResponse(int tagNum)
+	{
+		UpdateUserCurrencyResponseProto response = UMQNetworkManager.responseDict[tagNum] as UpdateUserCurrencyResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != UpdateUserCurrencyResponseProto.UpdateUserCurrencyStatus.SUCCESS)
+		{
+			Debug.LogError("Problem cheating: " + response.status.ToString());
+		}
+	}
+
+
 	void OnApplicationPause(bool pauseStatus)
 	{
 		if (retrieveRequest != null)

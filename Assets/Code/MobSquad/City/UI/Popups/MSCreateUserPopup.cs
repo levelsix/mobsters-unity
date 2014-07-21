@@ -33,7 +33,15 @@ public class MSCreateUserPopup : MonoBehaviour {
 			UserCreateRequestProto create = new UserCreateRequestProto();
 			create.udid = UMQNetworkManager.udid;
 			create.name = inputLabel.text;
-			create.gems = 50;
+
+			create.cash = MSWhiteboard.tutorialConstants.cashInit;
+			create.oil = MSWhiteboard.tutorialConstants.oilInit;
+			create.gems = MSWhiteboard.tutorialConstants.gemsInit;
+
+			foreach (var item in MSWhiteboard.tutorialConstants.tutorialStructures) 
+			{
+				//create.structsJustBuilt.Add(item);
+			}
 
 			if (FB.IsLoggedIn)
 			{

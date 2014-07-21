@@ -21,7 +21,7 @@ public class MSPlacementGrid : MonoBehaviour {
 		building = GetComponent<MSBuilding> ();
 		trans = transform;
 
-		building.OnSelect += OnBuildingSelect;
+//		building.OnSelect += OnBuildingSelect;
 		building.OnDeselect += OnBuildingDeselect;
 
 		MSActionManager.Town.OnBuildingDragStart += OnDragStart;

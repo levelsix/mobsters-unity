@@ -66,6 +66,8 @@ public class UMQLoader : MonoBehaviour {
 		
 		Debug.Log("Startup Status: " + response.startupStatus.ToString());
 
+		MSWhiteboard.tutorialConstants = response.tutorialConstants;
+
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{
 			MSActionManager.Popup.OnPopup(createUserPopup.GetComponent<MSPopup>());

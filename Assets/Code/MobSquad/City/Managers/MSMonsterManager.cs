@@ -802,6 +802,30 @@ public class MSMonsterManager : MonoBehaviour {
 
 	#endregion
 
+	public void SetMobsterAsAvatar(int monsterId)
+	{
+		SetAvatarMonsterRequestProto request = new SetAvatarMonsterRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.monsterId = monsterId;
+
+		MSWhiteboard.localUser.avatarMonsterId = monsterId;
+		MSWhiteboard.localMup.avatarMonsterId = monsterId;
+
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_SET_AVATAR_MONSTER_EVENT, DealWithSetAvatarResponse);
+	}
+
+	void DealWithSetAvatarResponse(int tagNum)
+	{
+		SetAvatarMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as SetAvatarMonsterResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != SetAvatarMonsterResponseProto.SetAvatarMonsterStatus.SUCCESS)
+		{
+			Debug.LogError("Problem setting player avatar: " + response.status.ToString());
+		}
+	}
+
+
 	void OnPopupClosed()
 	{
 		SendRequests();

@@ -6,6 +6,9 @@ using com.lvl6.proto;
 /// <summary>
 /// The controller for the chat popup
 /// </summary>
+using System;
+
+
 public class MSChatPopup : MonoBehaviour {
 
 	#region UI Parts
@@ -38,6 +41,17 @@ public class MSChatPopup : MonoBehaviour {
 	[SerializeField]
 	TweenPosition mover;
 
+	const string CHEAT_PREFIX = "#~#";
+	const string GEMS_CHEAT = "gemsgalore";
+	const string UNLOCK_BUILDINGS_CHEAT = "unlockdown";
+	public const string RESET_CHEAT = "cleanslate";
+	const string CASH_CHEAT = "fastcash";
+	const string OIL_CHEAT = "oilcheat";
+	const string PURGE_CHEAT = "purgecash";
+	const string SKIP_QUESTS_CHEAT = "quickquests";
+	const string OIL_AND_CASH_CHEAT = "greedisgood";
+
+
 	#endregion
 
 	List<MSPrivateChatEntry> privateChats = new List<MSPrivateChatEntry>();
@@ -52,7 +66,74 @@ public class MSChatPopup : MonoBehaviour {
 			inputField.label.text = inputField.label.text.Substring(0, inputField.label.text.Length - 1);
 		}
 
-		if (inputField.label.text.Length > 0)
+		if (inputField.label.text.Length > 3 && inputField.label.text.Substring(0, 3) == "#~#")
+		{
+			if (inputField.label.text.StartsWith(CHEAT_PREFIX + OIL_CHEAT))
+			{
+				try
+				{
+					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + OIL_CHEAT).Length+1));
+					MSResourceManager.instance.CheatMoney(0, amount, 0, OIL_CHEAT);
+				}
+				catch (Exception e)
+				{
+					Debug.Log("Exception: " + e);
+				}
+			}
+			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + CASH_CHEAT))
+			{
+				try
+				{
+					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + CASH_CHEAT).Length+1));
+					MSResourceManager.instance.CheatMoney(amount, 0, 0, CASH_CHEAT);
+				}
+				catch (Exception e)
+				{
+					Debug.Log("Exception: " + e);
+				}
+			}
+			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + OIL_AND_CASH_CHEAT))
+			{
+				try
+				{
+					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + OIL_AND_CASH_CHEAT).Length+1));
+					MSResourceManager.instance.CheatMoney(amount, amount, 0, OIL_AND_CASH_CHEAT);
+				}
+				catch (Exception e)
+				{
+					Debug.Log("Exception: " + e);
+				}
+			}
+			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + GEMS_CHEAT))
+			{
+				try
+				{
+					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + GEMS_CHEAT).Length+1));
+					MSResourceManager.instance.CheatMoney(0, 0, amount, GEMS_CHEAT);
+				}
+				catch (Exception e)
+				{
+					Debug.Log("Exception: " + e);
+				}
+			}
+			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + UNLOCK_BUILDINGS_CHEAT))
+			{
+				MSQuestManager.instance.CheatCompleteAllTasks();
+			}
+			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + SKIP_QUESTS_CHEAT))
+			{
+				MSQuestManager.instance.CheatCompleteAllTasks();
+			}
+			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + RESET_CHEAT))
+			{
+				
+			}
+			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + PURGE_CHEAT))
+			{
+				
+			}
+		}
+		else if (inputField.label.text.Length > 0)
 		{
 			if (MSChatManager.instance.currMode == MSValues.ChatMode.PRIVATE)
 			{

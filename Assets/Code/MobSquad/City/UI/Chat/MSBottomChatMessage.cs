@@ -15,19 +15,22 @@ public class MSBottomChatMessage : MonoBehaviour {
 	[SerializeField]
 	UILabel dialogue;
 
-	const int maxChars = 80;
+	const int maxChars = 60;
 
 	public void Init(int avatarId, string name, string content)
 	{
 		avatar.Init (avatarId);
 		playerName.text = name + ":";
-		if (name.Length + content.Length > maxChars)
+		dialogue.text = content;
+		Chop();
+	}
+
+	[ContextMenu ("Chop")]
+	public void Chop()
+	{
+		if (playerName.text.Length + dialogue.text.Length > maxChars)
 		{
-			dialogue.text = content.Substring(0, maxChars - name.Length) + "...";
-		}
-		else
-		{
-			dialogue.text = content;
+			dialogue.text = dialogue.text.Substring(0, maxChars - playerName.text.Length - 3) + "...";
 		}
 	}
 }

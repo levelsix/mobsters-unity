@@ -28,9 +28,27 @@ public class MSUIHelper : MonoBehaviour {
 		TweenAlpha.Begin(gameObject, 0, on ? 1 : 0); 
 	}
 
+	/// <summary>
+	/// Fade in, to be called from the editor using UIButtons
+	/// and other delegate systems
+	/// </summary>
+	public void EditorFadeIn()
+	{
+		FadeIn();
+	}
+
 	public TweenAlpha FadeIn()
 	{
 		return TweenAlpha.Begin(gameObject, fadeTime, 1);
+	}
+	
+	/// <summary>
+	/// Fade out, to be called from the editor using UIButtons
+	/// and other delegate systems
+	/// </summary>
+	public void EditorFadeOut()
+	{
+		FadeOut();
 	}
 
 	public TweenAlpha FadeOut()

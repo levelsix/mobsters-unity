@@ -83,7 +83,8 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_PROMOTE_DEMOTE_CLAN_MEMBER_EVENT, typeof (PromoteDemoteClanMemberResponseProto)},
 		{EventProtocolResponse.S_PRIVATE_CHAT_POST_EVENT, typeof(PrivateChatPostResponseProto)},
 		{EventProtocolResponse.S_ACHIEVEMENT_PROGRESS_EVENT, typeof(AchievementProgressResponseProto)},
-		{EventProtocolResponse.S_ACHIEVEMENT_REDEEM_EVENT, typeof(AchievementRedeemResponseProto)}
+		{EventProtocolResponse.S_ACHIEVEMENT_REDEEM_EVENT, typeof(AchievementRedeemResponseProto)},
+		{EventProtocolResponse.S_SET_AVATAR_MONSTER_EVENT, typeof(SetAvatarMonsterResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

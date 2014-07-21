@@ -39,7 +39,7 @@ public class MSPvpUI : MonoBehaviour {
 
 		rankings.text = defender.pvpLeagueStats.elo + ". " + defender.defender.minUserProto.name;
 
-		rematchCost.text = "$" + PZCombatManager.MATCH_MONEY + "\nNext Match";
+		rematchCost.text = "$" + PZCombatManager.instance.pvpMatchCost + "\nNext Match";
 		
 		Reset();
 		posTween.PlayForward();

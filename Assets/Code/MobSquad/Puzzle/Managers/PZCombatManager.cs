@@ -175,7 +175,15 @@ public class PZCombatManager : MonoBehaviour {
 	
 	const int NUM_BOMBS = 5;
 
-	public const int MATCH_MONEY = 1500;
+	public const int MATCH_MONEY = 100;
+
+	public int pvpMatchCost
+	{
+		get
+		{
+			return MSBuildingManager.townHall.combinedProto.townHall.pvpQueueCashCost;
+		}
+	}
 
 	public UILabel prizeQuantityLabel;
 
@@ -392,7 +400,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void SpawnNextPvp()
 	{
-		if (MSResourceManager.instance.Spend(ResourceType.CASH, MATCH_MONEY, SpawnNextPvp))
+		if (MSResourceManager.instance.Spend(ResourceType.CASH, pvpMatchCost, SpawnNextPvp))
 	    {
 			StartCoroutine(SpawnPvps());
 		}
@@ -519,7 +527,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		UpdateUserCurrencyRequestProto request = new UpdateUserCurrencyRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.cashSpent = MATCH_MONEY;
+		request.cashSpent = pvpMatchCost;
 		request.reason = "pvp";
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_USER_CURRENCY_EVENT, null);
@@ -1277,6 +1285,11 @@ public class PZCombatManager : MonoBehaviour {
 		
 		MSWhiteboard.loadedPvps = UMQNetworkManager.responseDict[tagNum] as QueueUpResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (MSWhiteboard.loadedPvps.status != QueueUpResponseProto.QueueUpStatus.SUCCESS)
+		{
+			Debug.LogError("Problem queueing up: " + MSWhiteboard.loadedPvps.status.ToString());
+		}
 
 		nextPvpDefenderIndex = 0;
 	}

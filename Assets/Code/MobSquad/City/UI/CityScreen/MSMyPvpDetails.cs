@@ -25,6 +25,9 @@ public class MSMyPvpDetails : MonoBehaviour {
 	[SerializeField]
 	UI2DSprite ribbon;
 
+	[SerializeField]
+	UILabel pvpCost;
+
 	Dictionary<string, string> ribbonsForLeague = new Dictionary<string, string>()
 	{
 		{"bronze", "bronzegoldribbon"},
@@ -42,6 +45,8 @@ public class MSMyPvpDetails : MonoBehaviour {
 
 	void SetLeagueInfo()
 	{
+		pvpCost.text = "Match Cost: $" + String.Format("{0:#,##0}", PZCombatManager.instance.pvpMatchCost);
+
 		PvpLeagueProto pvpLeague = MSDataManager.instance.Get<PvpLeagueProto>(MSWhiteboard.localUser.pvpLeagueInfo.leagueId);
 
 		leagueName.text = pvpLeague.leagueName;
@@ -65,6 +70,6 @@ public class MSMyPvpDetails : MonoBehaviour {
 		leagueIcon.spriteName = MSUtil.StripExtensions(pvpLeague.imgPrefix) + "big";
 		leagueIcon.MakePixelPerfect();
 
-		//TODO: Get ribbon sprite from AWS
+		MSSpriteUtil.instance.SetSprite("PVP", ribbonsForLeague[pvpLeague.imgPrefix], ribbon);
 	}
 }

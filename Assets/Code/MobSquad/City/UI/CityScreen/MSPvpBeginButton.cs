@@ -65,7 +65,7 @@ public class MSPvpBeginButton : MonoBehaviour {
 			}
 		}
 
-		if (MSResourceManager.instance.Spend(ResourceType.CASH, PZCombatManager.MATCH_MONEY, OnClick))
+		if (MSResourceManager.instance.Spend(ResourceType.CASH, PZCombatManager.instance.pvpMatchCost, OnClick))
 		{
 			Load();
 		}
@@ -73,6 +73,8 @@ public class MSPvpBeginButton : MonoBehaviour {
 
 	void Load()
 	{
+		MSActionManager.Popup.CloseAllPopups();
+
 		PZCombatManager.instance.InitPvp();
 
 		MSActionManager.Scene.OnPuzzle();

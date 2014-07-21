@@ -46,6 +46,7 @@ public static class MSWhiteboard {
 	}
 	
 	public static StartupResponseProto.StartupConstants constants;
+	public static StartupResponseProto.TutorialConstants tutorialConstants;
 	
 	public enum CityType {PLAYER, NEUTRAL};
 	

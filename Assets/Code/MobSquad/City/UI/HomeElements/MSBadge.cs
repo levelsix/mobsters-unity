@@ -32,6 +32,6 @@ public class MSBadge : MonoBehaviour {
 
 	void Awake()
 	{
-		notifications = 0;
+		notifications = _nots;
 	}
 }

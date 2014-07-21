@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System;
 using com.lvl6.proto;
 
@@ -14,7 +15,7 @@ public class MSGoonInfoPopup : MonoBehaviour {
 	UI2DSprite mobsterSprite;
 
 	[SerializeField]
-	UILabel headerLabel;
+	UILabel mobsterNamelabel;
 
 	[SerializeField]
 	UILabel healthLabel;
@@ -23,10 +24,13 @@ public class MSGoonInfoPopup : MonoBehaviour {
 	MSFillBar healthBar;
 
 	[SerializeField]
-	UILabel qualityLabel;
+	UISprite qualitySprite;
 
 	[SerializeField]
 	UISprite elementSprite;
+
+	[SerializeField]
+	UILabel elementLabel;
 
 	[SerializeField]
 	UILabel enhancementLabel;
@@ -38,16 +42,19 @@ public class MSGoonInfoPopup : MonoBehaviour {
 	UILabel descriptionLabel;
 
 	[SerializeField]
-	UILabel sellLabel;
-
-	[SerializeField]
 	UILabel[] damageLabels;
 
 	[SerializeField]
 	UITweener infoTween;
 
 	[SerializeField]
-	GameObject backButton;
+	MSUIHelper backButton;
+
+	[SerializeField]
+	UIButton heartButton;
+
+	[SerializeField]
+	MSUIHelper heartHelper;
 
 	PZMonster currMonster;
 
@@ -57,31 +64,21 @@ public class MSGoonInfoPopup : MonoBehaviour {
 
 		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Character", mobsterSprite);
 
-		/*
-		mobsterSprite.sprite2D = MSAtlasUtil.instance.GetMobsterSprite(monster.monster.imagePrefix);
-
-		if (mobsterSprite.sprite2D != null)
-		{
-			mobsterSprite.height = (int)mobsterSprite.sprite2D.textureRect.height;
-			mobsterSprite.width = (int)mobsterSprite.sprite2D.textureRect.width;
-		}
-		*/
-
-		headerLabel.text = monster.monster.displayName;
+		mobsterNamelabel.text = monster.monster.displayName;
 
 		healthLabel.text = monster.userMonster.currentHealth + "/" + monster.maxHP;
 
 		healthBar.fill = ((float)monster.userMonster.currentHealth) / monster.maxHP;
 
-		qualityLabel.text = monster.monster.quality.ToString();
+		qualitySprite.spriteName = "battle" + monster.monster.quality.ToString().ToLower() + "tag";
 
 		elementSprite.spriteName = monster.monster.monsterElement.ToString().ToLower() + "orb";
 
-		enhancementLabel.text = "Lvl " + monster.userMonster.currentLvl;
+		elementLabel.text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(monster.monster.monsterElement.ToString());
+
+		enhancementLabel.text = monster.userMonster.currentLvl.ToString();
 
 		attackLabel.text = monster.totalDamage.ToString();
-
-		sellLabel.text = "SELL\n$" + monster.sellValue.ToString();
 
 		for (int i = 0; i < damageLabels.Length; i++)
 		{
@@ -90,6 +87,34 @@ public class MSGoonInfoPopup : MonoBehaviour {
 
 		infoTween.Sample(0, false);
 
-		backButton.SetActive(false);
+		heartHelper.TurnOn();
+		heartHelper.ResetAlpha(true);
+
+		backButton.TurnOff();
+		backButton.ResetAlpha(false);
+
+		heartButton.normalSprite = heartButton.GetComponent<UISprite>().spriteName = (currMonster.monster.monsterId == MSWhiteboard.localUser.avatarMonsterId) ?
+			"activeheart" : "inactiveheart";
+	}
+
+	public void SetMobsterAsAvatar()
+	{
+		if (currMonster.monster.monsterId != MSWhiteboard.localUser.avatarMonsterId)
+		{
+			MSPopupManager.instance.CreatePopup(
+				"Set Avatar?",
+				"Would you like to make " + currMonster.monster.displayName + " your avatar?",
+				new string[] {"Cancel", "Yup!"},
+				new string[] {"greymenuoption", "greenmenuoption"},
+				new Action[] {
+					MSActionManager.Popup.CloseTopPopupLayer, 
+					delegate { 
+						MSActionManager.Popup.CloseTopPopupLayer();
+						MSMonsterManager.instance.SetMobsterAsAvatar(currMonster.monster.monsterId);
+					}
+				}
+			);
+		}
+
 	}
 }

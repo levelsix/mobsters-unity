@@ -36,6 +36,8 @@ public class UMQNetworkManager : MonoBehaviour {
 #if UNITY_ANDROID && !UNITY_EDITOR
 	AndroidJavaObject javaConnection = null;
 	AndroidJavaObject javaChannel = null;
+
+	AndroidJavaObject javaChatChannel = null;
 #else
 	IConnection connection = null;
 	IModel channel = null;
@@ -140,6 +142,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		{
 #if UNITY_ANDROID && !UNITY_EDITOR
 			javaChannel = javaConnection.Call<AndroidJavaObject>("createChannel");
+			javaChatChannel = javaConnection.Call<AndroidJavaObject>("createChannel");
 			Debug.Log("Created Channel");
 #else
 			channel = connection.CreateModel();
@@ -217,13 +220,11 @@ public class UMQNetworkManager : MonoBehaviour {
 		chatQueueName = udidKey + "_" + sessionID + "_chat_queue";
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-		AndroidJavaObject chatChannel = javaConnection.Call<AndroidJavaObject>("createChannel");
-
-		chatChannel.Call<AndroidJavaObject>("queueDeclare", chatQueueName, true, false, true, null);
-		chatChannel.Call<AndroidJavaObject>("queueBind", chatQueueName, topicExchangeName, chatKey);
+		javaChatChannel.Call<AndroidJavaObject>("queueDeclare", chatQueueName, true, false, true, null);
+		javaChatChannel.Call<AndroidJavaObject>("queueBind", chatQueueName, topicExchangeName, chatKey);
 		
-		AndroidJavaObject chatConsumer = new AndroidJavaObject("com.rabbitmq.client.QueueingConsumer", chatChannel);
-		javaChannel.Call<AndroidJavaObject>("basicConsume", chatQueueName, false, chatConsumer);
+		AndroidJavaObject chatConsumer = new AndroidJavaObject("com.rabbitmq.client.QueueingConsumer", javaChatChannel);
+		javaChatChannel.Call<AndroidJavaObject>("basicConsume", chatQueueName, false, chatConsumer);
 		
 		StartCoroutine(ConsumeJava(chatConsumer));
 #else
@@ -339,6 +340,7 @@ public class UMQNetworkManager : MonoBehaviour {
 	IEnumerator ConsumeJava(AndroidJavaObject consumer)
 	{
 		Debug.Log("Starting java consume for consumer");
+		debugTextLabel.text += "H";
 
 		if (consumer.GetRawObject().ToInt32() == 0) Debug.Log("Problem with consumer");
 

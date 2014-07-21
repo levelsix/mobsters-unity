@@ -86,11 +86,15 @@ public class MSBuildingCard : MonoBehaviour {
 				button.normalSprite = FRONT_IMAGE;
 				//button.pressed = button.disabledColor;
 
+				buildingSprite.color = Color.white;
+				
 				front.SetActive(true);
 				back.SetActive(false);
 			}else{
 				button.normalSprite = BACK_IMAGE;
 				//button.pressed = Color.white;
+
+				buildingSprite.color = Color.black;
 				
 				front.SetActive(false);
 				back.SetActive(true);
@@ -178,12 +182,18 @@ public class MSBuildingCard : MonoBehaviour {
 					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceOneStorages;
 					break;
 				case ResourceType.OIL:
-					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceTwoGenerators;
+					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceTwoStorages;
 					break;
 				}
 				break;
 			case StructureInfoProto.StructType.RESIDENCE:
 				max = MSBuildingManager.townHall.combinedProto.townHall.numResidences;
+				break;
+			case StructureInfoProto.StructType.EVO:
+				max = MSBuildingManager.townHall.combinedProto.townHall.numEvoChambers;
+				break;
+			case StructureInfoProto.StructType.LAB:
+				max = MSBuildingManager.townHall.combinedProto.townHall.numLabs;
 				break;
 			}
 		}

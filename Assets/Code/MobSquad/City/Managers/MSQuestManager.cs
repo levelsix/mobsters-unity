@@ -460,4 +460,12 @@ public class MSQuestManager : MonoBehaviour {
 			CompleteQuest(completeQuests.Dequeue());
 		}
 	}
+
+	public void CheatCompleteAllTasks()
+	{
+		foreach (FullTaskProto item in MSDataManager.instance.GetAll<FullTaskProto>().Values) 
+		{
+			taskDict[item.taskId] = true;
+		}
+	}
 }

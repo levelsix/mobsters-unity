@@ -609,6 +609,11 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
     /// <param name="movement"></param> 
     public void MoveRelative(TCKTouchData touch)
     {
+		if (combinedProto.structInfo.structType == StructureInfoProto.StructType.MINI_JOB)
+		{
+			return;
+		}
+
 		Vector3 movement = touch.Movement;
 		Vector3 tempPosition = trans.position;
 		

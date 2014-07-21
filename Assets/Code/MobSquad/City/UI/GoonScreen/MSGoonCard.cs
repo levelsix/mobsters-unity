@@ -481,7 +481,7 @@ public class MSGoonCard : MonoBehaviour {
 		healCostLabel.text = " ";
 		infoButton.SetActive(true);
 		
-		nameLabel.text = goon.monster.displayName + "[4a7eae]L" + goon.userMonster.currentLvl + "[-]";
+		nameLabel.text = goon.monster.displayName + " [4a7eae]L" + goon.userMonster.currentLvl + "[-]";
 	}
 
 	void SetTextOverCard (PZMonster goon)

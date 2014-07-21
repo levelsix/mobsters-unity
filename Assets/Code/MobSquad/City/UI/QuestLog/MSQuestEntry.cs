@@ -29,12 +29,13 @@ public class MSQuestEntry : MonoBehaviour {
 		
 		fullQuest = quest;
 
-		newQuestLabel.enabled = MSQuestManager.instance.newQuests.Contains(quest);
+		newQuestLabel.enabled = quest.newQuest;
 	}
 	
 	void OnClick()
 	{
 		MSActionManager.UI.OnQuestEntryClicked(fullQuest);
+		newQuestLabel.enabled = false;
 	}
 	
 	public void Pool ()

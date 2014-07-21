@@ -71,6 +71,8 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	[SerializeField] UILabel debug;
 
 	bool controllable = true;
+
+	Ray debugRay;
 	
 	/// <summary>
 	/// Awake this instance.
@@ -183,7 +185,7 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	/// </summary>
 	void Update()
 	{
-		if (velocity.sqrMagnitude > 0)
+		if (velocity.sqrMagnitude > 0.1f)
 		{
 			MoveVelocity ();
 			velocity *= deceleration;
@@ -218,6 +220,30 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		ClampCamera();
 	}
 
+	Vector3 GroundPosToCameraPos(Vector3 groundPos)
+	{
+		Plane cameraPlane = new Plane(trans.forward, trans.position);
+		Ray ray = new Ray(groundPos, -transform.forward);
+		debugRay = ray;
+
+		Debug.Log("Casting ray " + ray + " to plane");
+
+		float dist;
+		if (cameraPlane.Raycast(ray, out dist))
+		{
+			Debug.Log("Hit at " + ray.GetPoint(dist)
+			          + "\nGo to " + transform.InverseTransformPoint(ray.GetPoint(dist)));
+
+			return transform.localPosition + transform.InverseTransformPoint(ray.GetPoint(dist));
+		}
+		return Vector3.zero;
+	}
+
+	public void CenterOnGroundPos(Vector3 groundPos, float time = .2f)
+	{
+		SlideToPos(GroundPosToCameraPos(groundPos), cam.orthographicSize, time);
+	}
+
 	public void SlideToPos(Vector3 localPos, float size, float time)
 	{
 		StartCoroutine(SlideToCameraPosition(localPos, size, time));
@@ -245,5 +271,11 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		}
 		controllable = true;
 
+	}
+
+	void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(debugRay.origin, debugRay.origin + 100 * debugRay.direction);
 	}
 }

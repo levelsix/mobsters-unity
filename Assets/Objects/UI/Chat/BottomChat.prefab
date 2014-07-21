@@ -331,7 +331,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 297.5, y: 14, z: 0}
+  m_LocalPosition: {x: 312.5, y: 13.8047028, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400030}
@@ -471,7 +471,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .497894287, y: 60, z: 0}
+  m_LocalPosition: {x: 0, y: 60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400028}
@@ -529,7 +529,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 639, y: 100, z: 0}
+  m_Size: {x: 573, y: 100, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -740,21 +740,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 400030}
-    relative: 1
-    absolute: -34
+    target: {fileID: 0}
+    relative: 0
+    absolute: -174
   rightAnchor:
-    target: {fileID: 400030}
+    target: {fileID: 0}
     relative: 1
-    absolute: -10
+    absolute: -150
   bottomAnchor:
-    target: {fileID: 400030}
-    relative: .5
-    absolute: 2
+    target: {fileID: 0}
+    relative: 0
+    absolute: 3
   topAnchor:
-    target: {fileID: 400030}
+    target: {fileID: 0}
     relative: 1
-    absolute: -24
+    absolute: 27
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -1199,12 +1199,12 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4017
+  startingRenderQueue: 4013
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: -.00674438477, y: -4, z: 673.249023, w: 116}
+  mClipRange: {x: .344116211, y: -4, z: 820.954956, w: 116}
   mClipSoftness: {x: 4, y: 4}
-  mDepth: 1
+  mDepth: 0
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400036
@@ -1220,11 +1220,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftAnchor:
     target: {fileID: 0}
-    relative: 1
+    relative: 0
     absolute: 4
   rightAnchor:
     target: {fileID: 0}
-    relative: 0
+    relative: 1
     absolute: -137
   bottomAnchor:
     target: {fileID: 0}
@@ -1237,13 +1237,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 639
+  mWidth: 573
   mHeight: 100
   mDepth: 0
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.38999987
+  aspectRatio: 5.73000002
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -100,6 +100,8 @@ public class MSBuildingManager : MonoBehaviour
 
 	public static MSBuilding townHall;
 
+	public static MSBuilding teamCenter;
+
 	/// <summary>
 	/// The current selected building.
 	/// </summary>
@@ -432,7 +434,7 @@ public class MSBuildingManager : MonoBehaviour
 
 		FullCityProto city = MSDataManager.instance.Get(typeof(FullCityProto), response.cityId) as FullCityProto;
 		MSGridManager.instance.InitMission(city.mapTmxName);
-		background.InitMission(city);
+		//background.InitMission(city);
 
 		//creates objects stored in the database
 		for (int i = 0; i < response.cityElements.Count; i++) 
@@ -475,7 +477,6 @@ public class MSBuildingManager : MonoBehaviour
 		MSResidenceManager.residences.Clear();
 
 		MSGridManager.instance.InitHome ();
-		background.InitHome();
 
 		MSBuilding building;
 		for (int i = 0; i < response.ownerNormStructs.Count; i++) 
@@ -489,26 +490,30 @@ public class MSBuildingManager : MonoBehaviour
 
 			if (building.userStructProto.isComplete)
 			{
-				if (building.combinedProto.hospital != null)
+				if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.HOSPITAL)
 				{
 					MSHospitalManager.instance.AssignHospital(building);
 				}
-				else if (building.combinedProto.residence != null)
+				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESIDENCE)
 				{
 					MSResidenceManager.residences[building.userStructProto.userStructId] = building;
 					MSResidenceManager.instance.CheckBuilding(building.userStructProto.userStructId);
 				}
-				else if (building.combinedProto.lab != null)
+				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.LAB)
 				{
 					enhanceLabs.Add (building);
 				}
-				else if (building.combinedProto.evoChamber != null)
+				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.EVO)
 				{
 					evoLabs.Add(building);
 				}
-				else if (building.combinedProto.townHall != null)
+				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.TOWN_HALL)
 				{
 					townHall = building;
+				}
+				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.TEAM_CENTER)
+				{
+					teamCenter = building;
 				}
 			}
 		}
@@ -650,6 +655,8 @@ public class MSBuildingManager : MonoBehaviour
 		SelectBuildingToBuild(building);
 
 		hoveringToBuild = building;
+
+		MSTownCamera.instance.CenterOnGroundPos(building.trans.position);
 	}
 	
 	public bool BuyBuilding(MSBuilding building, Action callback = null)
@@ -936,6 +943,31 @@ public class MSBuildingManager : MonoBehaviour
 		return count;
 	}
 
+	/// <summary>
+	/// returns true if the player can build another building without upgrading the town center
+	/// </summary>
+	/// <returns>bool</returns>
+	public bool CapacityForBuildings(){
+		TownHallProto hallProto = townHall.combinedProto.townHall;
+		int maxBuilding = hallProto.numEvoChambers + hallProto.numHospitals + hallProto.numLabs + hallProto.numResidences +
+				hallProto.numResourceOneGenerators + hallProto.numResourceOneStorages + hallProto.numResourceTwoGenerators + hallProto.numResourceTwoStorages;
+
+//		Debug.Log ("numEvoChambers "+hallProto.numEvoChambers);
+//		Debug.Log ("numHospitals "+hallProto.numHospitals);
+//		Debug.Log ("numLabs "+hallProto.numLabs);
+//		Debug.Log ("numResidences "+hallProto.numResidences);
+//		Debug.Log ("numResourceOneGenerators "+hallProto.numResourceOneGenerators);
+//		Debug.Log ("numResourceOneStorages "+hallProto.numResourceOneStorages);
+//		Debug.Log ("numResourceTwoGenerators "+hallProto.numResourceTwoGenerators);
+//		Debug.Log ("numResourceTwoStorages "+hallProto.numResourceTwoStorages);
+
+		int curBuildingCount = buildings.Count - 2;//subtract town hall, pier
+
+//		Debug.Log(curBuildingCount + " < " + maxBuilding);
+
+		return curBuildingCount < maxBuilding;
+	}
+
 	public int GetMonsterSlotCount()
 	{
 		
@@ -1022,6 +1054,9 @@ public class MSBuildingManager : MonoBehaviour
 				break;
 			case StructureInfoProto.StructType.TOWN_HALL:
 				townHall = building;
+				break;
+			case StructureInfoProto.StructType.TEAM_CENTER:
+				teamCenter = building;
 				break;
 		}
 	}
