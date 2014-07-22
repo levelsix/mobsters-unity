@@ -115,7 +115,12 @@ public class MSTaskMap : MonoBehaviour {
 		}
 	}
 
-	void Update(){
-		worldPosition = trans.position;
+	public void SelectNextTask()
+	{
+		if(nextTask != null)
+		{
+			nextTask.OnClick();
+		}
 	}
+
 }

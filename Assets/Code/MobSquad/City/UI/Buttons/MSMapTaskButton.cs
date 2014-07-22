@@ -23,6 +23,12 @@ public class MSMapTaskButton : MonoBehaviour {
 	[SerializeField]
 	UILabel levelTitle;
 
+	[SerializeField]
+	Color unlockedTextColor;
+
+	[SerializeField]
+	Color lockedTextColor;
+
 	public enum TaskStatusType
 	{
 		Locked,
@@ -40,9 +46,11 @@ public class MSMapTaskButton : MonoBehaviour {
 			_status = value;
 			if(value == TaskStatusType.Completed || value == TaskStatusType.Undefeated){
 				button.normalSprite = OPEN_CITY;
+				levelTitle.color = unlockedTextColor;
 				buttonLabel.alpha = 1f;
 			}else{
 				button.normalSprite = CLOSED_CITY;
+				levelTitle.color = lockedTextColor;
 				buttonLabel.alpha = 0f;
 			}
 		}

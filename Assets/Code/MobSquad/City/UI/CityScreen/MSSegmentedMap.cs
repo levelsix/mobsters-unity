@@ -21,6 +21,11 @@ public class MSSegmentedMap : MonoBehaviour {
 		}
 	}
 
+	void Awake()
+	{
+		LineUpMaps();
+	}
+
 	[ContextMenu("Line up maps")]
 	public void LineUpMaps(){
 		maps[0].depth = MAP_DEPTH;
