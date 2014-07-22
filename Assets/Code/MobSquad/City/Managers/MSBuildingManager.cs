@@ -517,6 +517,9 @@ public class MSBuildingManager : MonoBehaviour
 				}
 			}
 		}
+
+		MSActionManager.Loading.OnBuildingsLoaded();
+
 		for (int i = 0; i < response.obstacles.Count; i++) 
 		{
 			MakeObstacle(response.obstacles[i]);
@@ -550,6 +553,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSResourceManager.instance.DetermineResourceMaxima();
 
 		MSMonsterManager.instance.totalResidenceSlots = GetMonsterSlotCount();
+
 	}
 
 	void DebugBuildPier()
@@ -947,7 +951,7 @@ public class MSBuildingManager : MonoBehaviour
 	/// returns true if the player can build another building without upgrading the town center
 	/// </summary>
 	/// <returns>bool</returns>
-	public bool CapacityForBuildings(){
+	public int CapacityForBuildings(){
 		TownHallProto hallProto = townHall.combinedProto.townHall;
 		int maxBuilding = hallProto.numEvoChambers + hallProto.numHospitals + hallProto.numLabs + hallProto.numResidences +
 				hallProto.numResourceOneGenerators + hallProto.numResourceOneStorages + hallProto.numResourceTwoGenerators + hallProto.numResourceTwoStorages;
@@ -961,11 +965,9 @@ public class MSBuildingManager : MonoBehaviour
 //		Debug.Log ("numResourceTwoGenerators "+hallProto.numResourceTwoGenerators);
 //		Debug.Log ("numResourceTwoStorages "+hallProto.numResourceTwoStorages);
 
-		int curBuildingCount = buildings.Count - 2;//subtract town hall, pier
+		int curBuildingCount = buildings.Count - 3;//subtract town hall, pier, team center
 
-//		Debug.Log(curBuildingCount + " < " + maxBuilding);
-
-		return curBuildingCount < maxBuilding;
+		return maxBuilding - curBuildingCount;
 	}
 
 	public int GetMonsterSlotCount()
