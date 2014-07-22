@@ -92,6 +92,10 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 
 	List<MSClanMemberOptionButton> currButtons = new List<MSClanMemberOptionButton>();
 
+	[SerializeField]
+	MSChatAvatar avatar;
+
+	[HideInInspector]
 	public MSClanDetailScreen listScreen;
 
 	bool isFading = false;
@@ -100,6 +104,8 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 
 	public void Init(MinimumUserProtoForClans user, UserCurrentMonsterTeamProto monsters, MSClanDetailScreen listScreen)
 	{
+		avatar.Init(user.minUserProtoWithLevel.minUserProto.avatarMonsterId);
+
 		clanMember = user;
 		this.listScreen = listScreen;
 

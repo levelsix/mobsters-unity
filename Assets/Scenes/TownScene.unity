@@ -57803,7 +57803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &858585605
 Transform:
   m_ObjectHideFlags: 0
@@ -58688,6 +58688,10 @@ Prefab:
     - target: {fileID: 11400014, guid: fffd85ab6755c48c3bcaae43d4cf1a9d, type: 2}
       propertyPath: aspectRatio
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 100034, guid: fffd85ab6755c48c3bcaae43d4cf1a9d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fffd85ab6755c48c3bcaae43d4cf1a9d, type: 2}
@@ -90907,6 +90911,26 @@ Prefab:
       propertyPath: uiCamera
       value: 
       objectReference: {fileID: 2082491267}
+    - target: {fileID: 100150, guid: 9e5f7246f7c714a2c87bb20392d39b6e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400244, guid: 9e5f7246f7c714a2c87bb20392d39b6e, type: 2}
+      propertyPath: mWidth
+      value: 1152
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400244, guid: 9e5f7246f7c714a2c87bb20392d39b6e, type: 2}
+      propertyPath: aspectRatio
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500038, guid: 9e5f7246f7c714a2c87bb20392d39b6e, type: 2}
+      propertyPath: m_Size.x
+      value: 1152
+      objectReference: {fileID: 0}
+    - target: {fileID: 100042, guid: 9e5f7246f7c714a2c87bb20392d39b6e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e5f7246f7c714a2c87bb20392d39b6e, type: 2}
   m_RootGameObject: {fileID: 2134313828}
@@ -107842,7 +107866,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1311, y: 768, z: 0}
+  m_Size: {x: 1152, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1574253186
 MonoBehaviour:
@@ -107875,13 +107899,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1311
+  mWidth: 1152
   mHeight: 768
   mDepth: 50
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.70703125
+  aspectRatio: 1.5
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1

@@ -1,4 +1,4 @@
-Shader "Hidden/Unlit/Premultiplied Greyscale 1"
+Shader "Hidden/Unlit/Greyscale 1"
 {
 	Properties
 	{

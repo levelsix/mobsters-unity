@@ -1,4 +1,4 @@
-Shader "Unlit/Premultiplied Greyscale"
+Shader "Unlit/Greyscale"
 {
 	Properties
 	{
@@ -58,14 +58,14 @@ Shader "Unlit/Premultiplied Greyscale"
 				return o;
 			}
 
-			half4 frag (v2f i) : COLOR  
+			half4 frag (v2f IN) : COLOR  
 			{  
 			    half4 col;
 			    half4 colt;
-			    col = tex2D(_MainTex, i.texcoord);
-			    colt = col * i.color;
+			    col = tex2D(_MainTex, IN.texcoord);
+			    colt = col * IN.color;
 			    float grey = dot(col.rgb, float3(0.299, 0.587, 0.114));
-			    col.rgb = (i.color.r==0) * float3(grey, grey, grey) + (i.color.r!=0) * colt.rgb;
+			    col.rgb = (IN.color.r==0) * float3(grey, grey, grey) + (IN.color.r!=0) * colt.rgb;
 			    col.a = colt.a;
 			    return col;
 			} 
