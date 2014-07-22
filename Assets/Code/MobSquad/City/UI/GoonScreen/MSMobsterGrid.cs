@@ -44,6 +44,7 @@ public class MSMobsterGrid : MonoBehaviour {
 				 || mobster.monsterStatus == MonsterStatus.INJURED
 				 || mobster.monsterStatus == MonsterStatus.ENHANCING);
 		case GoonScreenMode.TEAM:
+			return true;
 		case GoonScreenMode.PICK_ENHANCE:
 			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED;
 		case GoonScreenMode.PICK_EVOLVE:

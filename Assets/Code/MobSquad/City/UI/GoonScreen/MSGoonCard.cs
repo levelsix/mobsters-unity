@@ -255,6 +255,8 @@ public class MSGoonCard : MonoBehaviour {
 
 		SetName();
 
+		TintElements(goon.monsterStatus != MonsterStatus.HEALTHY && goon.monsterStatus != MonsterStatus.INJURED);
+
 		if (goon.userMonster.teamSlotNum > 0)
 		{
 			transform.parent = MSTeamScreen.instance.playerTeam[goon.userMonster.teamSlotNum-1].transform;
