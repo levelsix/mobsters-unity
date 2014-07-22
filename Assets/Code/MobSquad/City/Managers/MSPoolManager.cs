@@ -37,6 +37,11 @@ public class MSPoolManager : MonoBehaviour {
 		return Get (prefab, Vector3.zero, parent) as MSSimplePoolable;
 	}
 
+	public T Get<T>(MonoBehaviour prefab, Transform parent = null) where T : MonoBehaviour
+	{
+		return (Get (prefab.GetComponent<MSSimplePoolable>(), Vector3.zero, parent) as MSSimplePoolable).GetComponent<T>();
+	}
+
 	public MSPoolable Get(MSPoolable prefab, Transform parent = null)
 	{
 		return Get(prefab, Vector3.zero, parent);

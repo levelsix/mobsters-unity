@@ -104,6 +104,8 @@ public static class MSActionManager
 		public static Action OnRequestsAcceptOrReject;
 
 		public static Action OnDialogueClicked;
+
+		public static Action<int> OnChangeClanIcon;
 	}
 	
 	public static class Goon

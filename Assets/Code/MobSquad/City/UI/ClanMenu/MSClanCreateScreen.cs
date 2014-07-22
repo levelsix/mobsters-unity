@@ -16,36 +16,51 @@ public class MSClanCreateScreen : MonoBehaviour {
 	[SerializeField]
 	MSActionButton changeClanTypeButton;
 
-	public string symbolSpriteName = "shield";
+	[SerializeField]
+	UI2DSprite clanIcon;
 
 	public bool openClan;
+
+	int currClanIconId = 1;
 
 	const string OPEN_CLAN_BUTTON_LABEL = "OPEN";
 	const string REQUEST_CLAN_BUTTON_LABEL = "REQUEST ONLY";
 
 	FullClanProto clanEditting;
 
+	void OnEnable()
+	{
+		MSActionManager.UI.OnChangeClanIcon += OnChangeClanIcon;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.UI.OnChangeClanIcon -= OnChangeClanIcon;
+	}
+
 	public void InitCreate()
 	{
 		clanEditting = null;
+		OnChangeClanIcon(1);
 		Init ();
 	}
 
 	public void InitEdit(FullClanProto clan)
 	{
 		clanEditting = clan;
+		OnChangeClanIcon(clan.clanIconId);
 		Init ();
 	}
 
 	void Init()
 	{
-		clanNameBox.label.text = " ";
+		clanNameBox.label.text = "Clan Name";
 		clanNameBox.characterLimit = MSWhiteboard.constants.clanConstants.maxCharLengthForClanName;
 		
-		clanTagBox.label.text = " ";
+		clanTagBox.label.text = "Tag";
 		clanTagBox.characterLimit = MSWhiteboard.constants.clanConstants.maxCharLengthForClanTag;
 		
-		descriptionBox.label.text = " ";
+		descriptionBox.label.text = "Description";
 		descriptionBox.characterLimit = MSWhiteboard.constants.clanConstants.maxCharLengthForClanDescription;
 		
 		changeClanTypeButton.label.text = OPEN_CLAN_BUTTON_LABEL;
@@ -80,12 +95,19 @@ public class MSClanCreateScreen : MonoBehaviour {
 					clanNameBox.label.text,
 					clanTagBox.label.text,
 					openClan,
-					descriptionBox.label.text));
+					descriptionBox.label.text,
+					currClanIconId));
 			}
 		}
 		else
 		{
 			MSPopupManager.instance.CreatePopup("Invalid Name");
 		}
+	}
+
+	void OnChangeClanIcon(int iconId)
+	{
+		currClanIconId = iconId;
+		MSSpriteUtil.instance.SetSprite("clanicon", "clanicon" + iconId, clanIcon);
 	}
 }

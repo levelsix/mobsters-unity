@@ -41,18 +41,34 @@ public class MSChatPopup : MonoBehaviour {
 	[SerializeField]
 	TweenPosition mover;
 
-	const string CHEAT_PREFIX = "#~#";
-	const string GEMS_CHEAT = "gemsgalore";
-	const string UNLOCK_BUILDINGS_CHEAT = "unlockdown";
-	public const string RESET_CHEAT = "cleanslate";
-	const string CASH_CHEAT = "fastcash";
-	const string OIL_CHEAT = "oilcheat";
-	const string PURGE_CHEAT = "purgecash";
-	const string SKIP_QUESTS_CHEAT = "quickquests";
-	const string OIL_AND_CASH_CHEAT = "greedisgood";
+	[SerializeField]
+	MSChatAvatar myAvatar;
 
+	[SerializeField]
+	GameObject notInClanParent;
+
+	[SerializeField]
+	GameObject noPrivateChatsParent;
 
 	#endregion
+
+	const string CHEAT_PREFIX = "#~#";
+
+	//Implemented Cheats
+	const string GEMS_CHEAT = "gemsgalore";
+	const string CASH_CHEAT = "fastcash";
+	const string OIL_CHEAT = "oilspill";
+	const string OIL_AND_CASH_CHEAT = "greedisgood";
+	public const string RESET_CHEAT = "cleanslate";
+	const string PURGE_CHEAT = "purgecash";
+	const string SKIP_QUESTS_CHEAT = "quickquests";
+
+	//Not implemented Cheats
+	const string UNLOCK_BUILDINGS_CHEAT = "unlockdown"; //Currently unlocks tasks instead of buildings
+	const string UNMUTE_CHEAT = "allears";
+	const string FB_LOGOUT_CHEAT = "unfb";
+
+	const string LVL6_CHEAT = "mister8conrad3chan9is1a2very4great5man";
 
 	List<MSPrivateChatEntry> privateChats = new List<MSPrivateChatEntry>();
 
@@ -74,6 +90,7 @@ public class MSChatPopup : MonoBehaviour {
 				{
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + OIL_CHEAT).Length+1));
 					MSResourceManager.instance.CheatMoney(0, amount, 0, OIL_CHEAT);
+					Debug.Log("Gaining " + amount + " Oil");
 				}
 				catch (Exception e)
 				{
@@ -86,6 +103,7 @@ public class MSChatPopup : MonoBehaviour {
 				{
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + CASH_CHEAT).Length+1));
 					MSResourceManager.instance.CheatMoney(amount, 0, 0, CASH_CHEAT);
+					Debug.Log("Gaining " + amount + " Cash");
 				}
 				catch (Exception e)
 				{
@@ -98,6 +116,7 @@ public class MSChatPopup : MonoBehaviour {
 				{
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + OIL_AND_CASH_CHEAT).Length+1));
 					MSResourceManager.instance.CheatMoney(amount, amount, 0, OIL_AND_CASH_CHEAT);
+					Debug.Log("Gaining " + amount + " Cash and Oil");
 				}
 				catch (Exception e)
 				{
@@ -110,6 +129,7 @@ public class MSChatPopup : MonoBehaviour {
 				{
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + GEMS_CHEAT).Length+1));
 					MSResourceManager.instance.CheatMoney(0, 0, amount, GEMS_CHEAT);
+					Debug.Log("Gaining " + amount + " Gems");
 				}
 				catch (Exception e)
 				{
@@ -119,18 +139,22 @@ public class MSChatPopup : MonoBehaviour {
 			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + UNLOCK_BUILDINGS_CHEAT))
 			{
 				MSQuestManager.instance.CheatCompleteAllTasks();
+				Debug.Log("Unlocking buildings (well, tasks...)");
 			}
 			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + SKIP_QUESTS_CHEAT))
 			{
 				MSQuestManager.instance.CheatCompleteAllTasks();
+				Debug.Log("Unlocking Tasks");
 			}
 			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + RESET_CHEAT))
 			{
-				
+				MSResourceManager.instance.CheatReset();
+				Debug.Log("Resetting account");
 			}
 			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + PURGE_CHEAT))
 			{
-				
+				Caching.CleanCache();
+				Debug.Log("Cleaning Cache");
 			}
 		}
 		else if (inputField.label.text.Length > 0)
@@ -204,6 +228,10 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void Init(MSValues.ChatMode mode)
 	{
+		myAvatar.Init(MSWhiteboard.localUser.avatarMonsterId);
+
+		inputField.label.text = "Type your message";
+
 		switch(mode)
 		{
 		case MSValues.ChatMode.GLOBAL:
@@ -220,6 +248,9 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void SetGlobalChat()
 	{
+		notInClanParent.SetActive(false);
+		noPrivateChatsParent.SetActive(false);
+		mover.gameObject.SetActive(true);
 		mover.Sample(1, true);
 		MSChatManager.instance.SetChatMode(MSValues.ChatMode.GLOBAL);
 
@@ -230,22 +261,44 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void SetClanChat()
 	{
-		mover.Sample(1, true);
-		MSChatManager.instance.SetChatMode(MSValues.ChatMode.CLAN);
-		
-		globalChatButton.InitInactive();
-		clanChatButton.InitActive();
-		privateChatButton.InitInactive();
+		noPrivateChatsParent.SetActive(false);
+		if (MSClanManager.instance.isInClan)
+		{
+			notInClanParent.SetActive(false);
+			mover.gameObject.SetActive(true);
+			mover.Sample(1, true);
+			MSChatManager.instance.SetChatMode(MSValues.ChatMode.CLAN);
+			
+			globalChatButton.InitInactive();
+			clanChatButton.InitActive();
+			privateChatButton.InitInactive();
+		}
+		else
+		{
+			mover.gameObject.SetActive(false);
+			notInClanParent.SetActive(true);
+		}
 	}
 
 	public void SetPrivateChat()
 	{
-		mover.Sample(0, true);
-		MSChatManager.instance.SetChatMode(MSValues.ChatMode.PRIVATE);
-		
-		globalChatButton.InitInactive();
-		clanChatButton.InitInactive();
-		privateChatButton.InitActive();
+		notInClanParent.SetActive(false);
+		if (MSChatManager.instance.hasPrivateChats)
+		{
+			noPrivateChatsParent.SetActive(false);
+			mover.gameObject.SetActive(true);
+			mover.Sample(0, true);
+			MSChatManager.instance.SetChatMode(MSValues.ChatMode.PRIVATE);
+			
+			globalChatButton.InitInactive();
+			clanChatButton.InitInactive();
+			privateChatButton.InitActive();
+		}
+		else
+		{
+			noPrivateChatsParent.SetActive(true);
+			mover.gameObject.SetActive(false);
+		}
 	}
 
 	public void GoToPrivateChat(MinimumUserProtoWithLevel otherPlayer,

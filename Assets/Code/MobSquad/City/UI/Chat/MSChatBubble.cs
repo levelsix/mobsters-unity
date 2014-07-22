@@ -65,7 +65,10 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	
 	[SerializeField]
 	UILabel senderLabel;
-	
+
+	[SerializeField]
+	UILabel timeLabel;
+
 	[SerializeField]
 	UISprite bubble;
 
@@ -132,22 +135,19 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	{	
 		avatar.Init(avatarId);
 
-		Debug.Log("Bubble " + id + ": " + message);
 		//Fill text with message
 		textLabel.text = message;
 		senderLabel.text = sender;
+		timeLabel.text = MSUtil.TimeStringLong(MSUtil.timeNowMillis - time) + " ago";
 
-		if (message.Length < LINE_LENGTH)
-		{
-			textLabel.overflowMethod = UILabel.Overflow.ResizeFreely;
-			textLabel.alignment = rightSide ? NGUIText.Alignment.Right : NGUIText.Alignment.Left;
-		}
-		else
-		{
-			textLabel.overflowMethod = UILabel.Overflow.ResizeHeight;
-			textLabel.width = LINE_WIDTH;
-			textLabel.alignment = NGUIText.Alignment.Left;
-		}
+		Debug.Log("Message: " + textLabel.text
+		          + "\nMessage width: " + textLabel.printedSize.x
+		          + "\nName width: " + senderLabel.printedSize.x
+		          + "\nTime Width: " + timeLabel.printedSize.x);
+
+		int topLength = (int)(senderLabel.printedSize.x + timeLabel.printedSize.x + 50);
+		bubble.width = Mathf.Max(topLength, (int)textLabel.printedSize.x) + 75;
+		bubble.height = (int)textLabel.printedSize.y + 75;
 
 	}
 
