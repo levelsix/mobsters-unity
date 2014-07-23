@@ -32,6 +32,7 @@ Transform:
   m_LocalScale: {x: .0199999996, y: .0199999996, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,25 +123,25 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
-      inSlope: 19.5481339
-      outSlope: 19.5481339
+      value: -.00176704605
+      inSlope: .0203730017
+      outSlope: .0203730017
       tangentMode: 0
-    - time: .0791666657
-      value: 1
-      inSlope: .193713069
-      outSlope: .193713069
-      tangentMode: 0
+    - time: .150595233
+      value: 1.0017668
+      inSlope: -.028293401
+      outSlope: .0294784568
+      tangentMode: 1
     - time: 1
       value: .00370878261
-      inSlope: .0169779453
-      outSlope: .0169779453
+      inSlope: -3.19228768
+      outSlope: -3.19228768
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
   ignoreTimeScale: 1
   delay: 0
-  duration: 1
+  duration: 4
   steeperCurves: 0
   tweenGroup: 0
   onFinished:
@@ -170,26 +171,26 @@ MonoBehaviour:
     m_Curve:
     - time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 10
     - time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 10
     m_PreInfinity: 2
     m_PostInfinity: 2
   ignoreTimeScale: 1
   delay: 0
-  duration: 1
+  duration: 4
   steeperCurves: 0
   tweenGroup: 0
   onFinished: []
   eventReceiver: {fileID: 0}
   callWhenFinished: 
-  from: {x: 0, y: 0, z: 0}
-  to: {x: 0, y: 5, z: 0}
+  from: {x: 0, y: 3, z: 0}
+  to: {x: 0, y: 7, z: 0}
   worldSpace: 0
 --- !u!114 &11400008
 MonoBehaviour:

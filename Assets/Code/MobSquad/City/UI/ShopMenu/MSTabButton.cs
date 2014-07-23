@@ -22,6 +22,8 @@ public class MSTabButton : MonoBehaviour {
 
 	[SerializeField]
 	MSPopup popup;
+	
+	public MSBadge badge;
 
 	enum Tab{
 		BUILDING,
@@ -58,12 +60,12 @@ public class MSTabButton : MonoBehaviour {
 	void OnEnable(){
 		switch(buttonType){
 		case Tab.BUILDING:
-			if(MSBuildingManager.instance.CapacityForBuildings()){
+			if(badge.notifications > 0){
 				OnClick();
 			}
 			break;
 		case Tab.MOBSTERS:
-			if(!MSBuildingManager.instance.CapacityForBuildings()){
+			if(MSBuildingManager.instance.CapacityForBuildings() <= 0){
 				OnClick();
 			}
 			break;

@@ -1367,7 +1367,7 @@ MonoBehaviour:
   aspectRatio: .98550725
   mSprite: {fileID: 21300002, guid: c0ac250b3e0f24e22b3145f45c511ae2, type: 3}
   mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
+  mShader: {fileID: 4800000, guid: f77408194c9ce4f7a8d3e14d324cb9e5, type: 3}
   nextSprite: {fileID: 0}
 --- !u!114 &11400014
 MonoBehaviour:
@@ -1583,6 +1583,8 @@ MonoBehaviour:
   maxSize: 59
   minSize: 0
   currVal: 1
+  tweenToVal: 0
+  speed: .5
 --- !u!114 &11400024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2201,7 +2203,7 @@ MonoBehaviour:
   aspectRatio: 1
   mSprite: {fileID: 21300000, guid: 3245c2ca594b34c85a7e03d429046f03, type: 3}
   mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
+  mShader: {fileID: 4800000, guid: f77408194c9ce4f7a8d3e14d324cb9e5, type: 3}
   nextSprite: {fileID: 0}
 --- !u!114 &11400054
 MonoBehaviour:
@@ -2546,7 +2548,7 @@ MonoBehaviour:
   aspectRatio: 1
   mSprite: {fileID: 21300000, guid: 3245c2ca594b34c85a7e03d429046f03, type: 3}
   mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
+  mShader: {fileID: 4800000, guid: f77408194c9ce4f7a8d3e14d324cb9e5, type: 3}
   nextSprite: {fileID: 0}
 --- !u!114 &11400076
 MonoBehaviour:
@@ -2812,6 +2814,8 @@ MonoBehaviour:
   maxSize: 109
   minSize: 0
   currVal: 1
+  tweenToVal: 0
+  speed: .5
 --- !u!114 &11400098
 MonoBehaviour:
   m_ObjectHideFlags: 1

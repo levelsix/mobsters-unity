@@ -1,4 +1,4 @@
-Shader "Hidden/Unlit/Greyscale 1"
+Shader "Hidden/Unlit/PMA Greyscale 1"
 {
 	Properties
 	{
@@ -25,7 +25,7 @@ Shader "Hidden/Unlit/Greyscale 1"
 			Fog { Mode Off }
 			Offset -1, -1
 			ColorMask RGB
-			Blend SrcAlpha OneMinusSrcAlpha
+			Blend One OneMinusSrcAlpha
 
 			CGPROGRAM
 			#pragma vertex vert
@@ -104,7 +104,7 @@ Shader "Hidden/Unlit/Greyscale 1"
 			Fog { Mode Off }
 			Offset -1, -1
 			ColorMask RGB
-			Blend SrcAlpha OneMinusSrcAlpha
+			Blend One OneMinusSrcAlpha
 			ColorMaterial AmbientAndDiffuse
 			
 			SetTexture [_MainTex]

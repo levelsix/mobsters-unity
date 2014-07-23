@@ -359,17 +359,21 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	{
 		switch (gemType) {
 		case GemType.ROCKET:
+			Debug.LogWarning("Detonating Rocket: " + boardX + ", " + boardY);
 			PZPuzzleManager.instance.DetonateRocket(this);
 			break;
 		case GemType.MOLOTOV:
+			Debug.LogWarning("Detonating Molly: " + boardX + ", " + boardY);
 			PZPuzzleManager.instance.DetonateMolotovFromSwap(this, this);
 			break;
 		case GemType.BOMB:
+			Debug.LogWarning("Detonating Bomb: " + boardX + ", " + boardY);
 			PZPuzzleManager.instance.GetBombMatch(this).Destroy();
 			break;
 		default:
 			break;
 		}
+		gemType = GemType.NORMAL;
 	}
 	
 	void OnPress(bool pressed)
@@ -451,10 +455,12 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			if (gemType == GemType.MOLOTOV)
 			{
 				PZPuzzleManager.instance.DetonateMolotovFromSwap(this, swapee); //Takes care of all MOLOTOV-SPECIAL combos
+				yield break;
 			}
 			else if (swapee.gemType == GemType.MOLOTOV)
 			{
 				PZPuzzleManager.instance.DetonateMolotovFromSwap(swapee, this);
+				yield break;
 			}
 			else if (gemType != GemType.NORMAL && swapee.gemType != GemType.NORMAL) //Only cases left are BOMB-BOMB, ROCKET-ROCKET, and BOMB-ROCKET
 			{
@@ -463,6 +469,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 					if (gemType == GemType.BOMB) //BOMB-BOMB
 					{
 						PZPuzzleManager.instance.DetonateBombFromSwap(this, swapee);
+						yield break;
 					}
 					else //ROCKET-ROCKET
 					{
@@ -470,11 +477,13 @@ public class PZGem : MonoBehaviour, MSPoolable {
 						PZPuzzleManager.instance.DetonateRocket(this);
 						swapee.horizontal = false;
 						PZPuzzleManager.instance.DetonateRocket(swapee);
+						yield break;
 					}
 				}
 				else //BOMB-ROCKET
 				{
 					PZPuzzleManager.instance.DetonateBombFromSwap(this, swapee);
+					yield break;
 				}
 			}
 			else

@@ -15,7 +15,7 @@ public class PZSwapButton : MonoBehaviour {
 	void OnEnable()
 	{
 		MSActionManager.Puzzle.OnGemMatch += Hide;
-		MSActionManager.Puzzle.OnNewPlayerTurn += Show;
+		MSActionManager.Puzzle.OnNewPlayerRound += Show;
 		MSActionManager.Puzzle.ForceHideSwap += Hide;
 		MSActionManager.Puzzle.ForceShowSwap += Show;
 	}
@@ -23,7 +23,7 @@ public class PZSwapButton : MonoBehaviour {
 	void OnDisable()
 	{
 		MSActionManager.Puzzle.OnGemMatch -= Hide;
-		MSActionManager.Puzzle.OnNewPlayerTurn -= Show;
+		MSActionManager.Puzzle.OnNewPlayerRound -= Show;
 	}
 
 	void OnClick()
