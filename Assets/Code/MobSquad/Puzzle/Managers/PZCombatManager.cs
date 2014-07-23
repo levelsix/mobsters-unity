@@ -862,7 +862,7 @@ public class PZCombatManager : MonoBehaviour {
 			request.userWon = userWon;
 			request.clientTime = MSUtil.timeNowMillis;
 
-			if (!MSQuestManager.instance.taskDict.ContainsKey(MSWhiteboard.loadedDungeon.taskId))
+			if (userWon && !MSQuestManager.instance.taskDict.ContainsKey(MSWhiteboard.loadedDungeon.taskId))
 			{
 				int task = MSWhiteboard.loadedDungeon.taskId;
 				MSQuestManager.instance.taskDict[task] = true;
