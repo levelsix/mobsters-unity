@@ -84,7 +84,7 @@ public class MSMapTaskPopup : MonoBehaviour {
 		minutes -= Mathf.Floor(hours * 60);
 		status.text = minutes + " M " + hours + " H";
 
-		levelTitle = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId).name;
+		levelTitle.text = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId).name;
 
 		switch(pEvent.type)
 		{
