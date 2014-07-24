@@ -114,14 +114,14 @@ public class PZPrize : MonoBehaviour {
 		{
 			border.spriteName = rarity + "found";
 		}
-		icon.spriteName = rarity;
+		icon.spriteName = "gacha" + rarity;
 		if (monster.numPuzzlePieces > 1)
 		{
 			icon.spriteName += "piece";
 		}
 		else
 		{
-			icon.spriteName += "capsule";
+			icon.spriteName += "ball";
 		}
 		icon.MakePixelPerfect();
 	}

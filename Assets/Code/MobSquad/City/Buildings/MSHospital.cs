@@ -79,13 +79,11 @@ public class MSHospital {
 		}
 		if (_goon == null)
 		{
-			Debug.Log("Not healing a goon!");
 			animator.SetBool("Healing", false);
 			building.overlayUnit.gameObject.SetActive(false);
 		}
 		else
 		{
-			Debug.Log("Healing a goon!");
 			building.overlayUnit.gameObject.SetActive(true);
 			animator.SetBool("Healing", true);
 			building.overlayUnit.Init(_goon);

@@ -35,6 +35,25 @@ public class MSEventManager : MonoBehaviour {
 		return null;
 	}
 
+	public List<PersistentEventProto> GetActiveEvents()
+	{
+		List<PersistentEventProto> list = new List<PersistentEventProto>();
+
+		foreach (PersistentEventProto item in MSDataManager.instance.GetAll<PersistentEventProto>().Values) 
+		{
+			//Note: C# day of week ranges 0-6, our day of week ranges 1-7. Add one to DateTime.Now.DayOfWeek to make it work
+			if ((int)item.dayOfWeek == (int)DateTime.Now.DayOfWeek+1)
+			{
+				if (item.startHour <= DateTime.Now.Hour && item.startHour * 60 + item.eventDurationMinutes >= DateTime.Now.Hour * 60 + DateTime.Now.Minute)
+				{
+					list.Add(item);
+				}
+			}
+		}
+
+		return list;
+	}
+
 	public bool IsOnCooldown(PersistentEventProto persisEvent)
 	{
 		if (!eventHistory.ContainsKey(persisEvent.eventId))

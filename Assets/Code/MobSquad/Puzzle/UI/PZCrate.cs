@@ -66,9 +66,9 @@ public class PZCrate : MonoBehaviour {
 			name = name.Substring(0, name.Length - ".png".Length);
 			sprite.spriteName = name;
 		}else if (monster.monster.numPuzzlePieces > 1) {
-			sprite.spriteName = monster.monster.quality.ToString().ToLower() + "piece";
+			sprite.spriteName = "gacha" + monster.monster.quality.ToString().ToLower() + "piece";
 		} else {
-			sprite.spriteName = monster.monster.quality.ToString().ToLower() + "capsule";
+			sprite.spriteName = "gacha" + monster.monster.quality.ToString().ToLower() + "ball";
 		}
 
 		sprite.MakePixelPerfect ();

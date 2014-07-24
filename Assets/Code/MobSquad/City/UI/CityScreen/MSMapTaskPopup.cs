@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 using com.lvl6.proto;
 
 public class MSMapTaskPopup : MonoBehaviour {
@@ -49,10 +50,59 @@ public class MSMapTaskPopup : MonoBehaviour {
 	public void init(TaskMapElementProto mapTask, MSMapTaskButton.TaskStatusType statusType)
 	{
 		task = MSDataManager.instance.Get<FullTaskProto> (mapTask.taskId);
+		init (task, mapTask.element);
+
+		levelTitle.text = task.name;
+		level.text = "Level " + mapTask.mapElementId;
+
+		button.enabled = true;
+
+		if (statusType == MSMapTaskButton.TaskStatusType.Completed) 
+		{
+			button.normalSprite = ACCEPT_BUTTON;
+			status.text = "Completed";
+		} 
+		else if(statusType == MSMapTaskButton.TaskStatusType.Undefeated)
+		{
+			button.normalSprite = ACCEPT_BUTTON;
+			status.text = "Undefeated";
+		}
+		else 
+		{
+			status.text = "Locked";
+			background.spriteName = LOCKED_BACKGROUND;
+			button.normalSprite = CANCEL_BUTTON;
+			button.GetComponent<MSTaskable> ().locked = true;
+		}
+	}
+
+	public void init(PersistentEventProto pEvent)
+	{
+		init (MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId), pEvent.monsterElement);
+		float minutes = pEvent.startHour * 60 + pEvent.eventDurationMinutes - DateTime.Now.Hour * 60 + DateTime.Now.Minute;
+		float hours = Mathf.Floor(minutes / 60);
+		minutes -= Mathf.Floor(hours * 60);
+		status.text = minutes + " M " + hours + " H";
+
+		levelTitle = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId).name;
+
+		switch(pEvent.type)
+		{
+		case PersistentEventProto.EventType.ENHANCE:
+			break;
+		case PersistentEventProto.EventType.EVOLUTION:
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void init(FullTaskProto task, Element element)
+	{
 		button.GetComponent<MSTaskable> ().task = task;
 		button.GetComponent<MSTaskable> ().locked = false;
-
-		switch (mapTask.element) {
+		
+		switch (element) {
 		case Element.FIRE:
 			background.spriteName = FIRE_BACKGROUND;
 			break;
@@ -76,28 +126,5 @@ public class MSMapTaskPopup : MonoBehaviour {
 			break;
 		}
 
-		button.enabled = true;
-
-		levelTitle.text = task.name;
-		level.text = "Level " + mapTask.mapElementId;
-
-		if (statusType == MSMapTaskButton.TaskStatusType.Completed) 
-		{
-			button.normalSprite = ACCEPT_BUTTON;
-			status.text = "Completed";
-		} 
-		else if(statusType == MSMapTaskButton.TaskStatusType.Undefeated)
-		{
-			button.normalSprite = ACCEPT_BUTTON;
-			status.text = "Undefeated";
-		}
-		else 
-		{
-			status.text = "Locked";
-			background.spriteName = LOCKED_BACKGROUND;
-			button.normalSprite = CANCEL_BUTTON;
-			button.GetComponent<MSTaskable> ().locked = true;
-		}
 	}
-	
 }
