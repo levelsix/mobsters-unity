@@ -139,6 +139,16 @@ public class MSPopupSwapper : MonoBehaviour {
 	/// </summary>
 	/// <param name="newPopup">New popup.</param>
 	/// <param name="NewAction">New action.</param>
+//	public void SwapIn(GameObject newPopup, bool forceNewOrigin = false)
+//	{
+//
+//	}
+
+	/// <summary>
+	/// Convenience function for swapping in a new popup.
+	/// </summary>
+	/// <param name="newPopup">New popup.</param>
+	/// <param name="NewAction">New action.</param>
 	public void SwapIn(GameObject newPopup, Action NewAction = null, bool forceNewOrigin = false)
 	{
 		if(activePopup == Popup.A)

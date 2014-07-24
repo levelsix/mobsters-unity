@@ -75,13 +75,13 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 		if(curPopup != Popup.A)
 		{
 			mapTaskA.init(proto, type);
-			swapper.SwapIn(mapTaskA.gameObject,delegate { ZeroAnchors(mapTaskA.GetComponent<UISprite>()); });
+			swapper.SwapIn(mapTaskA.gameObject, delegate {}, ZeroAnchors(mapTaskA.GetComponent<UISprite>()));
 			curPopup = Popup.A;
 		}
 		else
 		{
 			mapTaskB.init(proto, type);
-			swapper.SwapIn(mapTaskB.gameObject,delegate { ZeroAnchors(mapTaskB.GetComponent<UISprite>()); });
+			swapper.SwapIn(mapTaskB.gameObject, delegate {}, ZeroAnchors(mapTaskB.GetComponent<UISprite>()));
 			curPopup = Popup.B;
 		}
 	}
@@ -92,12 +92,12 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 		{
 		case PersistentEventProto.EventType.ENHANCE:
 			enhanceEvent.init(pEvent);
-			swapper.SwapIn(enhanceEvent.gameObject,delegate { ZeroAnchors(enhanceEvent.GetComponent<UISprite>()); });
+			swapper.SwapIn(enhanceEvent.gameObject, delegate {}, ZeroAnchors(enhanceEvent.GetComponent<UISprite>()));
 			curPopup = Popup.ENHANCE;
 			break;
 		case PersistentEventProto.EventType.EVOLUTION:
 			evolutionEvent.init(pEvent);
-			swapper.SwapIn(evolutionEvent.gameObject,delegate { ZeroAnchors(evolutionEvent.GetComponent<UISprite>()); });
+			swapper.SwapIn(evolutionEvent.gameObject, delegate {}, ZeroAnchors(evolutionEvent.GetComponent<UISprite>()));
 			curPopup = Popup.EVO;
 			break;
 		default:
@@ -106,14 +106,17 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 		}
 	}
 
-	void ZeroAnchors(UIWidget widget)
+	bool ZeroAnchors(UIWidget widget)
 	{
-//		Debug.Log("before " + widget.rightAnchor.absolute + ":" + widget.leftAnchor.absolute);
+		bool wrong = widget.rightAnchor.absolute != 0 || widget.leftAnchor.absolute != 0;
+		Debug.Log("before " + widget.rightAnchor.absolute + ":" + widget.leftAnchor.absolute);
 		widget.rightAnchor.absolute = 0;
 		widget.leftAnchor.absolute = 0;
 		widget.ResetAnchors();
 		widget.UpdateAnchors();
-//		Debug.Log("after " + widget.rightAnchor.absolute + ":" + widget.leftAnchor.absolute);
+		Debug.Log("after " + widget.rightAnchor.absolute + ":" + widget.leftAnchor.absolute);
+
+		return wrong;
 	}
 
 	/// <summary>

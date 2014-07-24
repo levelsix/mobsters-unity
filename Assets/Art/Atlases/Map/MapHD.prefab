@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockeddailylab
-    x: 957
-    y: 842
+    x: 984
+    y: 648
     width: 2
     height: 100
     borderLeft: 1
@@ -120,8 +120,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightdailylab
-    x: 960
-    y: 842
+    x: 981
+    y: 648
     width: 2
     height: 100
     borderLeft: 1
@@ -133,8 +133,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: firedailylab
-    x: 963
-    y: 842
+    x: 978
+    y: 648
     width: 2
     height: 100
     borderLeft: 1
@@ -159,8 +159,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthdailylab
-    x: 966
-    y: 842
+    x: 975
+    y: 648
     width: 2
     height: 100
     borderLeft: 1
@@ -172,8 +172,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: waterdailylab
-    x: 969
-    y: 842
+    x: 972
+    y: 648
     width: 2
     height: 100
     borderLeft: 1
@@ -185,8 +185,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightdailylab
-    x: 972
-    y: 842
+    x: 969
+    y: 648
     width: 2
     height: 100
     borderLeft: 1
@@ -237,7 +237,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: multiplayerheader
-    x: 957
+    x: 1000
     y: 944
     width: 2
     height: 80
@@ -262,6 +262,45 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 0
     paddingBottom: 1
+  - name: lockedcitypin
+    x: 957
+    y: 883
+    width: 42
+    height: 59
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: activecityglow
+    x: 957
+    y: 852
+    width: 56
+    height: 30
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: opencitypin
+    x: 957
+    y: 965
+    width: 42
+    height: 59
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}
   mCoordinates: 0
