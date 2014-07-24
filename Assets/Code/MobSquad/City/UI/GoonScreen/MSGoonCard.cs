@@ -120,7 +120,7 @@ public class MSGoonCard : MonoBehaviour {
 	
 	#region Image Constants
 	
-	static readonly Dictionary<Element, string> backgroundsForElements = new Dictionary<Element, string>()
+	public static readonly Dictionary<Element, string> backgroundsForElements = new Dictionary<Element, string>()
 	{
 		{Element.DARK, "darksquare"},
 		{Element.FIRE, "firesquare"},
@@ -131,7 +131,7 @@ public class MSGoonCard : MonoBehaviour {
 		{Element.NO_ELEMENT, "nightsquare"}
 	};
 
-	static readonly Dictionary<Element, string> mediumBackgrounds = new Dictionary<Element, string>()
+	public static readonly Dictionary<Element, string> mediumBackgrounds = new Dictionary<Element, string>()
 	{
 		{Element.DARK, "darkmediumsquare"},
 		{Element.FIRE, "firemediumsquare"},
@@ -142,7 +142,7 @@ public class MSGoonCard : MonoBehaviour {
 		{Element.NO_ELEMENT, "nightmediumsquare"}
 	};
 
-	static readonly Dictionary<Element, string> smallBackgrounds = new Dictionary<Element, string>()
+	public static readonly Dictionary<Element, string> smallBackgrounds = new Dictionary<Element, string>()
 	{
 		{Element.DARK, "darksmallsquare"},
 		{Element.FIRE, "firesmallsquare"},
@@ -153,7 +153,7 @@ public class MSGoonCard : MonoBehaviour {
 		{Element.NO_ELEMENT, "nightsmallsquare"}
 	};
 	
-	static readonly Dictionary<Quality, string> ribbonsForRarity = new Dictionary<Quality, string>()
+	public static readonly Dictionary<Quality, string> ribbonsForRarity = new Dictionary<Quality, string>()
 	{
 		{Quality.COMMON, "commonband"},
 		{Quality.EPIC, "epicband"},

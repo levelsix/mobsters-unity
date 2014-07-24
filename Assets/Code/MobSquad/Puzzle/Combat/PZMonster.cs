@@ -515,6 +515,17 @@ public class PZMonster {
 			* Mathf.Pow((level-1)/((float)(monster.maxLevel-1)), maxLevelInfo.hpExponentBase));
 	}
 
+	public int SpeedAtLevel(int level)
+	{
+		if (monster.lvlInfo.Count == 0)
+		{
+			return 1;
+		}
+		
+		return (int)(baseLevelInfo.speed + (maxLevelInfo.speed - baseLevelInfo.speed)
+		             * ((level-1) / (monster.maxLevel-1)));
+	}
+
 	public UserMonsterCurrentHealthProto GetCurrentHealthProto()
 	{
 		UserMonsterCurrentHealthProto umchp = new UserMonsterCurrentHealthProto();

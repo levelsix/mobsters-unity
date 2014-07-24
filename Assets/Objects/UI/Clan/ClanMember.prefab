@@ -176,8 +176,8 @@ GameObject:
   - 65: {fileID: 6500004}
   - 114: {fileID: 11400054}
   - 114: {fileID: 11400052}
-  - 114: {fileID: 11400050}
   - 114: {fileID: 11400046}
+  - 114: {fileID: 11400050}
   m_Layer: 5
   m_Name: ProfileButton
   m_TagString: Untagged
@@ -1097,12 +1097,12 @@ MonoBehaviour:
   - {fileID: 11400086}
   - {fileID: 11400048}
   - {fileID: 11400042}
-  profileButton: {fileID: 11400050}
   settingsRoot: {fileID: 11400010}
   settingsGrid: {fileID: 11400040}
   settingsButtonPrefab: {fileID: 11400002, guid: fe49fe4a5c82047fcb2d970131aaa61b,
     type: 2}
   openSettingsButton: {fileID: 100006}
+  profileButton: {fileID: 11400050}
   avatar: {fileID: 11400028}
   listScreen: {fileID: 0}
 --- !u!114 &11400028
@@ -1118,6 +1118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bg: {fileID: 11400032}
   thumbnail: {fileID: 11400024}
+  big: 0
 --- !u!114 &11400030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1558,15 +1559,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6426bfa04ab4a4f089dd7dcd4eb1e4ea, type: 3}
+  m_Script: {fileID: 11500000, guid: f0e9b00b0b7b54ac88902054373219b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObj: {fileID: 0}
-  trans: {fileID: 0}
-  icon: {fileID: 0}
-  button: {fileID: 0}
-  able: 1
-  label: {fileID: 0}
+  userId: 0
+  self: 0
 --- !u!114 &11400052
 MonoBehaviour:
   m_ObjectHideFlags: 1

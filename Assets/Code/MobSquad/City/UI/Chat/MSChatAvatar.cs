@@ -11,6 +11,17 @@ public class MSChatAvatar : MonoBehaviour {
 	[SerializeField]
 	UI2DSprite thumbnail;
 
+	[SerializeField]
+	bool big = false;
+
+	public float alpha
+	{
+		set
+		{
+			bg.alpha = value;
+		}
+	}
+
 	Dictionary<Element, string> bgSprites = new Dictionary<Element, string>()
 	{
 		{Element.FIRE, "fireavatar"},
@@ -20,10 +31,19 @@ public class MSChatAvatar : MonoBehaviour {
 		{Element.LIGHT, "lightavatar"}
 	};
 
+	Dictionary<Element, string> bigBgSprites = new Dictionary<Element, string>()
+	{
+		{Element.FIRE, "firebigavatar"},
+		{Element.EARTH, "earthbigavatar"},
+		{Element.DARK, "nightbigavatar"},
+		{Element.WATER, "waterbigavatar"},
+		{Element.LIGHT, "lightbigavatar"}
+	};
+
 	public void Init(int monsterId)
 	{
 		MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(monsterId);
-		bg.spriteName = bgSprites[monster.monsterElement];
+		bg.spriteName = big ? bigBgSprites[monster.monsterElement] : bgSprites[monster.monsterElement];
 		MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumbnail);
 	}
 }

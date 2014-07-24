@@ -74,9 +74,6 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 	MSMiniGoonBox[] teamSprites;
 
 	[SerializeField]
-	MSActionButton profileButton;
-
-	[SerializeField]
 	MSUIHelper settingsRoot;
 
 	[SerializeField]
@@ -87,6 +84,9 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 
 	[SerializeField]
 	GameObject openSettingsButton;
+
+	[SerializeField]
+	MSOpenProfileButton profileButton;
 
 	public MinimumUserProtoForClans clanMember;
 
@@ -133,6 +133,8 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 				teamSprites[i].Init(null, false);
 			}
 		}
+
+		profileButton.userId = user.minUserProtoWithLevel.minUserProto.userId;
 	}
 
 	public void ResetRoleLabel()

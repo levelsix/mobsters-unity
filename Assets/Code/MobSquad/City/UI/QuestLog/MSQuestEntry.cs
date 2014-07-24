@@ -34,8 +34,16 @@ public class MSQuestEntry : MonoBehaviour {
 	
 	void OnClick()
 	{
-		MSActionManager.UI.OnQuestEntryClicked(fullQuest);
-		newQuestLabel.enabled = false;
+		if (fullQuest.complete)
+		{
+			MSActionManager.Popup.CloseAllPopups();
+			MSQuestManager.instance.CompleteQuest(fullQuest);
+		}
+		else
+		{
+			MSActionManager.UI.OnQuestEntryClicked(fullQuest);
+			newQuestLabel.enabled = false;
+		}
 	}
 	
 	public void Pool ()

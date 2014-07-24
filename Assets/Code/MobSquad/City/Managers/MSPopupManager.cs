@@ -21,6 +21,7 @@ public class MSPopupManager : MonoBehaviour {
 		public MSGenericPopup cityGeneric;
 		public MSGenericPopup puzzleGeneric;
 		public MSGoonInfoPopup goonInfoPopup;
+		public MSProfilePopup profilePopup;
 	}
 
 	public Popups popups;

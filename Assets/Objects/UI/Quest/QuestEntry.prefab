@@ -797,12 +797,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddd033ce49964faf9227800ec96e7b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questGiverBG: {fileID: 0}
+  questGiverBG: {fileID: 11400000}
   questGiverThumb: {fileID: 0}
   questName: {fileID: 11400014}
   questProgress: {fileID: 11400010}
   newQuestLabel: {fileID: 11400002}
-  fullQuest: {}
+  fullQuest:
+    newQuest: 0
 --- !u!114 &11400022
 MonoBehaviour:
   m_ObjectHideFlags: 1
