@@ -43,8 +43,6 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400014}
-  - 114: {fileID: 11400016}
-  - 65: {fileID: 6500000}
   m_Layer: 5
   m_Name: RightChatBox
   m_TagString: Untagged
@@ -207,18 +205,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400006}
   m_RootOrder: 2
---- !u!65 &6500000
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 895, y: 100, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -237,7 +223,6 @@ MonoBehaviour:
   senderLabel: {fileID: 11400022}
   timeLabel: {fileID: 11400006}
   bubble: {fileID: 11400004}
-  optionsPrefab: {fileID: 11400000, guid: 043d13ef224dd45f0a9ffab09d8301d5, type: 2}
   avatar: {fileID: 11400008}
 --- !u!114 &11400004
 MonoBehaviour:
@@ -364,6 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bg: {fileID: 11400020}
   thumbnail: {fileID: 11400018}
+  big: 0
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -474,19 +460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e45d618fcbbc4b5eb65be17cfad1b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11400016
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 118848a7d5fd441ffa919404bb6c498a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollView: {fileID: 0}
-  draggablePanel: {fileID: 0}
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -56,7 +56,6 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	
 	public void Pool ()
 	{
-		PoolOptions();
 		MSPoolManager.instance.Pool(this);
 	}
 	
@@ -73,12 +72,15 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	UISprite bubble;
 
 	[SerializeField]
-	MSChatBubbleOptions optionsPrefab;
-
-	[SerializeField]
 	MSChatAvatar avatar;
 
-	MSChatBubbleOptions options = null;
+	MSChatBubbleOptions options
+	{
+		get
+		{
+			return MSChatBubbleOptions.instance;
+		}
+	}
 
 	MinimumUserProtoWithLevel sender;
 	
@@ -151,21 +153,10 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 
 	}
 
-	[ContextMenu ("Pool Options")]
-	public void PoolOptions()
-	{
-		if (options != null)
-		{
-			options.GetComponent<MSSimplePoolable>().Pool();
-		}
-	}
-
 	void OnClick()
 	{
 		if (sender.minUserProto.userId != MSWhiteboard.localMup.userId)
 		{
-			options = (MSPoolManager.instance.Get(optionsPrefab.GetComponent<MSSimplePoolable>(), transform.position)
-			           as MSSimplePoolable).GetComponent<MSChatBubbleOptions>();
 			options.Init(sender, trans);
 			options.transform.localScale = Vector3.one;
 		}

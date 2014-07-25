@@ -223,6 +223,7 @@ public class MSChatPopup : MonoBehaviour {
 	
 	void OnEnable()
 	{
+		MSChatBubbleOptions.instance.Close(true);
 		SetGlobalChat();
 	}
 
@@ -231,6 +232,11 @@ public class MSChatPopup : MonoBehaviour {
 		myAvatar.Init(MSWhiteboard.localUser.avatarMonsterId);
 
 		inputField.label.text = "Type your message";
+
+		if (MSChatBubbleOptions.instance != null)
+		{
+			MSChatBubbleOptions.instance.Close(true);
+		}
 
 		switch(mode)
 		{
@@ -305,6 +311,7 @@ public class MSChatPopup : MonoBehaviour {
 	                            SortedList<long, PrivateChatPostProto> chat,
 	                            bool slide = false)
 	{
+		MSChatBubbleOptions.instance.Close(true);
 		if (slide)
 		{
 			mover.PlayForward();

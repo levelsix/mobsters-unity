@@ -14,8 +14,6 @@ public class MSChatManager : MonoBehaviour {
 	UIGrid privateChatsGrid;
 
 	public MSChatPopup chatPopup;
-
-	public MSChatBubbleOptions chatOptionsPrefab;
 	
 	public MSValues.ChatMode currMode = MSValues.ChatMode.GLOBAL;
 	
