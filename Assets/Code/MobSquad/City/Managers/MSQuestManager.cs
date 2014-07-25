@@ -42,14 +42,14 @@ public class MSQuestManager : MonoBehaviour {
 	{
 		MSActionManager.Quest.OnStructureUpgraded += OnStructureUpgraded;
 		MSActionManager.Quest.OnTaskCompleted += OnTaskCompleted;
-		MSActionManager.Scene.OnCity += TryCompleteNextQuest;
+		MSActionManager.Scene.OnCity += CompleteNextQuest;
 	}
 	
 	public void OnDisable()
 	{
 		MSActionManager.Quest.OnStructureUpgraded -= OnStructureUpgraded;
 		MSActionManager.Quest.OnTaskCompleted -= OnTaskCompleted;
-		MSActionManager.Scene.OnCity -= TryCompleteNextQuest;
+		MSActionManager.Scene.OnCity -= CompleteNextQuest;
 	}
 	
 	public void Init(StartupResponseProto proto)
@@ -453,12 +453,19 @@ public class MSQuestManager : MonoBehaviour {
 		return false;
 	}
 
-	public void TryCompleteNextQuest()
+	void CompleteNextQuest()
+	{
+		TryCompleteNextQuest();
+	}
+
+	public bool TryCompleteNextQuest()
 	{
 		if (completeQuests.Count > 0)
 		{
 			CompleteQuest(completeQuests.Dequeue());
+			return true;
 		}
+		return false;
 	}
 
 	public void CheatCompleteAllTasks()

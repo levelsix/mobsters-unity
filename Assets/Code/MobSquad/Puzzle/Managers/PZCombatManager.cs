@@ -862,7 +862,7 @@ public class PZCombatManager : MonoBehaviour {
 			request.userWon = userWon;
 			request.clientTime = MSUtil.timeNowMillis;
 
-			if (!MSQuestManager.instance.taskDict.ContainsKey(MSWhiteboard.loadedDungeon.taskId))
+			if (userWon && !MSQuestManager.instance.taskDict.ContainsKey(MSWhiteboard.loadedDungeon.taskId))
 			{
 				int task = MSWhiteboard.loadedDungeon.taskId;
 				MSQuestManager.instance.taskDict[task] = true;
@@ -1185,11 +1185,13 @@ public class PZCombatManager : MonoBehaviour {
 			MSActionManager.Puzzle.OnTurnChange(playerTurns);
 		}
 
+		Debug.LogWarning("A");
 		if (activeEnemy.alive)
 		{
-			if (MSActionManager.Puzzle.OnNewPlayerTurn != null)
+			Debug.LogWarning("B");
+			if (MSActionManager.Puzzle.OnNewPlayerRound != null)
 			{
-				MSActionManager.Puzzle.OnNewPlayerTurn();
+				MSActionManager.Puzzle.OnNewPlayerRound();
 			}
 		}
 

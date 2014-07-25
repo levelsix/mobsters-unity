@@ -60,7 +60,7 @@ public class MSClanTab : MSTab {
 	{
 		if (inactive)
 		{
-			pop.GoToMode(clanMode);
+			pop.GoToMode(clanMode, true);
 			InitActive();
 			other.InitInactive();
 		}

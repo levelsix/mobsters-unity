@@ -56,7 +56,6 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	
 	public void Pool ()
 	{
-		PoolOptions();
 		MSPoolManager.instance.Pool(this);
 	}
 	
@@ -65,17 +64,23 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	
 	[SerializeField]
 	UILabel senderLabel;
-	
+
+	[SerializeField]
+	UILabel timeLabel;
+
 	[SerializeField]
 	UISprite bubble;
 
 	[SerializeField]
-	MSChatBubbleOptions optionsPrefab;
-
-	[SerializeField]
 	MSChatAvatar avatar;
 
-	MSChatBubbleOptions options = null;
+	MSChatBubbleOptions options
+	{
+		get
+		{
+			return MSChatBubbleOptions.instance;
+		}
+	}
 
 	MinimumUserProtoWithLevel sender;
 	
@@ -132,40 +137,26 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	{	
 		avatar.Init(avatarId);
 
-		Debug.Log("Bubble " + id + ": " + message);
 		//Fill text with message
 		textLabel.text = message;
 		senderLabel.text = sender;
+		timeLabel.text = MSUtil.TimeStringLong(MSUtil.timeNowMillis - time) + " ago";
 
-		if (message.Length < LINE_LENGTH)
-		{
-			textLabel.overflowMethod = UILabel.Overflow.ResizeFreely;
-			textLabel.alignment = rightSide ? NGUIText.Alignment.Right : NGUIText.Alignment.Left;
-		}
-		else
-		{
-			textLabel.overflowMethod = UILabel.Overflow.ResizeHeight;
-			textLabel.width = LINE_WIDTH;
-			textLabel.alignment = NGUIText.Alignment.Left;
-		}
+		Debug.Log("Message: " + textLabel.text
+		          + "\nMessage width: " + textLabel.printedSize.x
+		          + "\nName width: " + senderLabel.printedSize.x
+		          + "\nTime Width: " + timeLabel.printedSize.x);
 
-	}
+		int topLength = (int)(senderLabel.printedSize.x + timeLabel.printedSize.x + 50);
+		bubble.width = Mathf.Max(topLength, (int)textLabel.printedSize.x) + 75;
+		bubble.height = (int)textLabel.printedSize.y + 75;
 
-	[ContextMenu ("Pool Options")]
-	public void PoolOptions()
-	{
-		if (options != null)
-		{
-			options.GetComponent<MSSimplePoolable>().Pool();
-		}
 	}
 
 	void OnClick()
 	{
 		if (sender.minUserProto.userId != MSWhiteboard.localMup.userId)
 		{
-			options = (MSPoolManager.instance.Get(optionsPrefab.GetComponent<MSSimplePoolable>(), transform.position)
-			           as MSSimplePoolable).GetComponent<MSChatBubbleOptions>();
 			options.Init(sender, trans);
 			options.transform.localScale = Vector3.one;
 		}

@@ -14,15 +14,21 @@ public class MSChatManager : MonoBehaviour {
 	UIGrid privateChatsGrid;
 
 	public MSChatPopup chatPopup;
-
-	public MSChatBubbleOptions chatOptionsPrefab;
 	
 	public MSValues.ChatMode currMode = MSValues.ChatMode.GLOBAL;
 	
 	SortedList<long, GroupChatMessageProto> globalChat = new SortedList<long, GroupChatMessageProto>();
 	SortedList<long, GroupChatMessageProto> clanChat = new SortedList<long, GroupChatMessageProto>();
 	Dictionary<int, SortedList<long, PrivateChatPostProto>> privateChats = new Dictionary<int, SortedList<long, PrivateChatPostProto>>();
-	
+
+	public bool hasPrivateChats
+	{
+		get
+		{
+			return privateChats.Count > 0;
+		}
+	}
+
 	void Awake()
 	{
 		instance = this;

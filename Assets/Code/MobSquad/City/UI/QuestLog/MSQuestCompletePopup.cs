@@ -275,6 +275,9 @@ public class MSQuestCompletePopup : MonoBehaviour {
 	void ClickContinueButton()
 	{
 		gameObject.SetActive (false);
-		MSQuestManager.instance.TryCompleteNextQuest();
+		if (!MSQuestManager.instance.TryCompleteNextQuest())
+		{
+			MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.questPopup.GetComponent<MSPopup>());
+		}
 	}
 }

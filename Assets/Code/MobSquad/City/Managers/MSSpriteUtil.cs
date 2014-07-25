@@ -5,8 +5,23 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using System;
+using com.lvl6.proto;
 
 public class MSSpriteUtil : MonoBehaviour {
+
+	#region Sprite Dictionaries
+	
+	public static readonly Dictionary<string, string> ribbonsForLeague = new Dictionary<string, string>()
+	{
+		{"bronze", "bronzegoldribbon"},
+		{"gold", "bronzegoldribbon"},
+		{"champion", "championribbon"},
+		{"diamond", "diamondribbon"},
+		{"silver", "silverribbon"},
+		{"platinumribbon", "platinumribbon"}
+	};
+
+	#endregion
 
 	public static MSSpriteUtil instance;
 

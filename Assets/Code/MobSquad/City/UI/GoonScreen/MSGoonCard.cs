@@ -120,7 +120,7 @@ public class MSGoonCard : MonoBehaviour {
 	
 	#region Image Constants
 	
-	static readonly Dictionary<Element, string> backgroundsForElements = new Dictionary<Element, string>()
+	public static readonly Dictionary<Element, string> backgroundsForElements = new Dictionary<Element, string>()
 	{
 		{Element.DARK, "darksquare"},
 		{Element.FIRE, "firesquare"},
@@ -131,7 +131,7 @@ public class MSGoonCard : MonoBehaviour {
 		{Element.NO_ELEMENT, "nightsquare"}
 	};
 
-	static readonly Dictionary<Element, string> mediumBackgrounds = new Dictionary<Element, string>()
+	public static readonly Dictionary<Element, string> mediumBackgrounds = new Dictionary<Element, string>()
 	{
 		{Element.DARK, "darkmediumsquare"},
 		{Element.FIRE, "firemediumsquare"},
@@ -142,7 +142,7 @@ public class MSGoonCard : MonoBehaviour {
 		{Element.NO_ELEMENT, "nightmediumsquare"}
 	};
 
-	static readonly Dictionary<Element, string> smallBackgrounds = new Dictionary<Element, string>()
+	public static readonly Dictionary<Element, string> smallBackgrounds = new Dictionary<Element, string>()
 	{
 		{Element.DARK, "darksmallsquare"},
 		{Element.FIRE, "firesmallsquare"},
@@ -153,7 +153,7 @@ public class MSGoonCard : MonoBehaviour {
 		{Element.NO_ELEMENT, "nightsmallsquare"}
 	};
 	
-	static readonly Dictionary<Quality, string> ribbonsForRarity = new Dictionary<Quality, string>()
+	public static readonly Dictionary<Quality, string> ribbonsForRarity = new Dictionary<Quality, string>()
 	{
 		{Quality.COMMON, "commonband"},
 		{Quality.EPIC, "epicband"},
@@ -182,6 +182,8 @@ public class MSGoonCard : MonoBehaviour {
 	GoonScreenMode goonScreenMode;
 
 	bool readyToEvolve = false;
+
+	bool _dark = false;
 
 	void OnEnable()
 	{
@@ -254,6 +256,8 @@ public class MSGoonCard : MonoBehaviour {
 		mediumRibbonHelper.SetActive(false);
 
 		SetName();
+
+		TintElements(goon.monsterStatus != MonsterStatus.HEALTHY && goon.monsterStatus != MonsterStatus.INJURED);
 
 		if (goon.userMonster.teamSlotNum > 0)
 		{
@@ -521,8 +525,14 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void TintElements(bool darken)
 	{
-		goonPose.color = darken ? Color.black : Color.white;
-		cardBackground.color = darken ? Color.black : Color.white;
+		_dark = darken;
+		smallMobster.color = mediumMobster.color = goonPose.color = darken ? Color.black : Color.white;
+		if (darken)
+		{
+			cardBackground.spriteName = "greysquare";
+			mediumBG.spriteName = "greymediumsquare";
+			smallBG.spriteName = "greysmallsquare";
+		}
 	}
 	
 	void AddToTeam()
@@ -729,33 +739,36 @@ public class MSGoonCard : MonoBehaviour {
 
 	void OnClick()
 	{
-		switch(goonScreenMode)
+		if (!_dark)
 		{
-		case GoonScreenMode.HEAL:
-			AddToHealQueue();
-			break;
-		case GoonScreenMode.PICK_ENHANCE:
-			PickEnhanceMonster();
-			break;
-		case GoonScreenMode.DO_ENHANCE:
-			TryAddToEnhanceQueue();
-			break;
-		case GoonScreenMode.SELL:
-			AddToSellQueue();
-			break;
-		case GoonScreenMode.PICK_EVOLVE:
-			PickForEvolve();
-			break;
-		case GoonScreenMode.TEAM:
-			if (monster.userMonster.teamSlotNum > 0)
+			switch(goonScreenMode)
 			{
-				RemoveFromTeam();
+			case GoonScreenMode.HEAL:
+				AddToHealQueue();
+				break;
+			case GoonScreenMode.PICK_ENHANCE:
+				PickEnhanceMonster();
+				break;
+			case GoonScreenMode.DO_ENHANCE:
+				TryAddToEnhanceQueue();
+				break;
+			case GoonScreenMode.SELL:
+				AddToSellQueue();
+				break;
+			case GoonScreenMode.PICK_EVOLVE:
+				PickForEvolve();
+				break;
+			case GoonScreenMode.TEAM:
+				if (monster.userMonster.teamSlotNum > 0)
+				{
+					RemoveFromTeam();
+				}
+				else
+				{
+					AddToTeam();
+				}
+				break;
 			}
-			else
-			{
-				AddToTeam();
-			}
-			break;
 		}
 	}
 

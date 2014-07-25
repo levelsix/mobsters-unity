@@ -44,7 +44,7 @@ public class MSChatGrid : MonoBehaviour {
 
 	MSChatBubble CreateBubble(int senderId, long timeSent)
 	{
-		MSChatBubble bub = MSPoolManager.instance.Get(leftBubblePrefab,
+		MSChatBubble bub = MSPoolManager.instance.Get(senderId == MSWhiteboard.localUser.userId ? rightBubblePrefab : leftBubblePrefab,
 		                           Vector3.zero, transform) as MSChatBubble;
 		bub.transf.localScale = Vector3.one;
 		bub.name = (long.MaxValue - timeSent).ToString();

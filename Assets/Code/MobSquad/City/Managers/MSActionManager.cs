@@ -104,6 +104,8 @@ public static class MSActionManager
 		public static Action OnRequestsAcceptOrReject;
 
 		public static Action OnDialogueClicked;
+
+		public static Action<int> OnChangeClanIcon;
 	}
 	
 	public static class Goon
@@ -163,6 +165,7 @@ public static class MSActionManager
 		public static Action<PZMonster> OnDeploy;
 		public static Action<int> OnTurnChange;
 		public static Action<int> OnComboChange;
+		public static Action OnNewPlayerRound;
 		public static Action OnNewPlayerTurn;
 		public static Action OnGemMatch;
 		public static Action OnGemPressed;

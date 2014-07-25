@@ -126,6 +126,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			}
 
 			MSBuildingManager.instance.FullDeselect();
+			currBuilding.Select();
 		}
 	}
 	

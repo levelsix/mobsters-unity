@@ -14,17 +14,26 @@ public class MSFillBar : MonoBehaviour {
 	[SerializeField]
 	float currVal;
 
+	[SerializeField]
+	bool tweenToVal = false;
+
+	[SerializeField]
+	float speed = .5f;
+
+	float targetVal;
+
 	public float fill
 	{
 		set
 		{
-			currVal = value;
-			if (bar == null)
+			if (tweenToVal)
 			{
-				bar = GetComponent<UISprite>();
+				targetVal = value;
 			}
-			bar.width = Mathf.Clamp((int)((maxSize - minSize) * value + minSize), minSize, maxSize);
-			bar.alpha = (value <= 0) ? 0 : 1;
+			else
+			{
+				SetFill (value);
+			}
 		}
 		get
 		{
@@ -38,6 +47,32 @@ public class MSFillBar : MonoBehaviour {
 		{
 			maxSize = value;
 			fill = currVal;
+		}
+	}
+
+	void SetFill(float val)
+	{
+		currVal = val;
+		if (bar == null)
+		{
+			bar = GetComponent<UISprite>();
+		}
+		bar.width = Mathf.Clamp((int)((maxSize - minSize) * val + minSize), minSize, maxSize);
+		bar.alpha = (val <= 0) ? 0 : 1;
+	}
+
+	void Update()
+	{
+		if (tweenToVal)
+		{
+			if (currVal > targetVal)
+			{
+				SetFill(Mathf.Max(targetVal, currVal - speed * Time.deltaTime));
+			}
+			else if (currVal < targetVal)
+			{
+				SetFill(Mathf.Min(targetVal, currVal + speed * Time.deltaTime));
+			}
 		}
 	}
 }

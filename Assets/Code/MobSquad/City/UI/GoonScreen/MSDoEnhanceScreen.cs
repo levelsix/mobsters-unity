@@ -131,6 +131,8 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		currExpNeeded.text = xpNext + "xp";
 		neededForLevel.text = "Needed for level " + next;
 
+		costLabel.text = "(o) " + enhanceMonster.enhanceCost;
+
 		RefreshBar();
 	}
 

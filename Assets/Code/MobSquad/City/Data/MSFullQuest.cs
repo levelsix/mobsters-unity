@@ -7,6 +7,21 @@ public class MSFullQuest {
 
 	public bool newQuest;
 
+	public bool complete
+	{
+		get
+		{
+			foreach (var item in userQuest.userQuestJobs) 
+			{
+				if (!item.isComplete)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+
 	public FullUserQuestProto userQuest;
 	
 	public FullQuestProto quest;

@@ -277,6 +277,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	void ClickFinish()
 	{
+		MSBuildingManager.instance.FullDeselect();
 		if (currBuilding.obstacle == null)
 		{
 			currBuilding.upgrade.FinishWithPremium();
@@ -284,9 +285,8 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		else
 		{
 			currBuilding.obstacle.FinishWithGems();
+			currBuilding.Select();
 		}
-
-		MSBuildingManager.instance.FullDeselect();
 	}
 	
 	void ClickUpgrade()

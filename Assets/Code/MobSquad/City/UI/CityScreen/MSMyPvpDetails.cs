@@ -28,16 +28,6 @@ public class MSMyPvpDetails : MonoBehaviour {
 	[SerializeField]
 	UILabel pvpCost;
 
-	Dictionary<string, string> ribbonsForLeague = new Dictionary<string, string>()
-	{
-		{"bronze", "bronzegoldribbon"},
-		{"gold", "bronzegoldribbon"},
-		{"champion", "championribbon"},
-		{"diamond", "diamondribbon"},
-		{"silver", "silverribbon"},
-		{"platinumribbon", "platinumribbon"}
-	};
-
 	void OnEnable()
 	{
 		SetLeagueInfo();
@@ -70,6 +60,6 @@ public class MSMyPvpDetails : MonoBehaviour {
 		leagueIcon.spriteName = MSUtil.StripExtensions(pvpLeague.imgPrefix) + "big";
 		leagueIcon.MakePixelPerfect();
 
-		MSSpriteUtil.instance.SetSprite("PVP", ribbonsForLeague[pvpLeague.imgPrefix], ribbon);
+		MSSpriteUtil.instance.SetSprite("PVP", MSSpriteUtil.ribbonsForLeague[pvpLeague.imgPrefix], ribbon);
 	}
 }

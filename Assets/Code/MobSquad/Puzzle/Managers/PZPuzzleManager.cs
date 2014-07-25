@@ -365,6 +365,11 @@ public class PZPuzzleManager : MonoBehaviour {
 //				Debug.Log ("Board has matches: " + CheckForMatchMoves ());
 			}
 			processingSwap = false;
+
+			if (MSActionManager.Puzzle.OnNewPlayerTurn != null)
+			{
+				MSActionManager.Puzzle.OnNewPlayerTurn();
+			}
 		}
 	}
 
@@ -604,7 +609,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		PZGem gem;
 		if (source.gemType == PZGem.GemType.ROCKET || destination.gemType == PZGem.GemType.ROCKET) {
 
-			PZGem rocket = source.gemType == PZGem.GemType.ROCKET? source : destination;
+			PZGem rocket = source.gemType == PZGem.GemType.ROCKET ? source : destination;
 			Vector2 offset = rocket.horizontal? new Vector2(0,1) : new Vector2(1,0);
 
 			if(rocket.boardX + offset.x < boardWidth && rocket.boardY + offset.y < boardHeight){
@@ -823,6 +828,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				CheckIfMolly(target, gem.colorIndex);
 			}	
 		}
+		gem.gemType = PZGem.GemType.NORMAL;
 		return new PZMatch(gems, true);
 	}
 	

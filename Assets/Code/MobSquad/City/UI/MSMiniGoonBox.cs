@@ -34,16 +34,16 @@ public class MSMiniGoonBox : MonoBehaviour {
 
 	Dictionary<Element, string> elementBackgrounds = new Dictionary<Element, string>()
 	{
-		{Element.DARK, "darkmediumsquare"},
-		{Element.FIRE, "firemediumsquare"},
-		{Element.EARTH, "earthmediumsquare"},
-		{Element.LIGHT, "lightmediumsquare"},
-		{Element.WATER, "watermediumsquare"},
-		{Element.ROCK, "earthmediumsquare"},
-		{Element.NO_ELEMENT, "darkmediumsquare"}
+		{Element.DARK, "nightteam"},
+		{Element.FIRE, "fireteam"},
+		{Element.EARTH, "earthteam"},
+		{Element.LIGHT, "lightteam"},
+		{Element.WATER, "waterteam"},
+		{Element.ROCK, "earthteam"},
+		{Element.NO_ELEMENT, "darkteam"}
 	};
 
-	const string EMPTY = "hometeamslotopen";
+	const string EMPTY = "teamempty";
 
 	void Awake()
 	{
