@@ -29336,6 +29336,10 @@ Prefab:
       propertyPath: uiCamera
       value: 
       objectReference: {fileID: 2082491267}
+    - target: {fileID: 100026, guid: 7f666409f57f44a0da024b92bbf8f6ea, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7f666409f57f44a0da024b92bbf8f6ea, type: 2}
   m_RootGameObject: {fileID: 1611139811}
@@ -78832,7 +78836,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4017
+  startingRenderQueue: 4013
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 960, w: 640}
@@ -113577,7 +113581,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4014
+  startingRenderQueue: 4013
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: .344116211, y: -4, z: 688.688293, w: 116}
@@ -115259,7 +115263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1611139812
 Transform:
   m_ObjectHideFlags: 0
