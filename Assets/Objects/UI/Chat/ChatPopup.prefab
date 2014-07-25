@@ -240,7 +240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100028
 GameObject:
   m_ObjectHideFlags: 1
@@ -1383,7 +1383,7 @@ Transform:
   m_GameObject: {fileID: 100090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -380, y: 240.850006, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400088}
   - {fileID: 400086}
@@ -1700,7 +1700,7 @@ MonoBehaviour:
   mPivot: 7
   mWidth: 66
   mHeight: 82
-  mDepth: 3
+  mDepth: 6
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -1986,12 +1986,12 @@ MonoBehaviour:
   mPivot: 7
   mWidth: 10
   mHeight: 78
-  mDepth: 11
+  mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .128205135
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
   mSpriteName: popupheadercap
   mType: 0
   mFillDirection: 4
@@ -2036,12 +2036,12 @@ MonoBehaviour:
   mPivot: 7
   mWidth: 10
   mHeight: 78
-  mDepth: 11
+  mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .128205135
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
   mSpriteName: popupheadercap
   mType: 0
   mFillDirection: 4
@@ -2091,7 +2091,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.6875
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
   mSpriteName: popupactivetab
   mType: 0
   mFillDirection: 4
@@ -2141,7 +2141,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.6875
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
   mSpriteName: popupactivetab
   mType: 0
   mFillDirection: 4
@@ -2191,7 +2191,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.6875
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
   mSpriteName: popupactivetab
   mType: 0
   mFillDirection: 4
@@ -2272,7 +2272,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 11.3846149
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
   mSpriteName: popupheadermiddle
   mType: 1
   mFillDirection: 4
@@ -2322,7 +2322,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.55668354
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1
   mFillDirection: 4
@@ -2414,9 +2414,9 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 6.25396824
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 4894c14aa5e6f4bbfbdd8824bccab7dd, type: 3}
-  mFont: {fileID: 0}
-  mText: Type your message
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f695474f783c14a17929e2c84d829ed6, type: 2}
+  mText: Enter Message...
   mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
@@ -2517,8 +2517,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.91666675
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 9a8f43ef88c324403a2b5b428abfdd15, type: 2}
   mText: Send
   mFontSize: 24
   mFontStyle: 0
@@ -2602,8 +2602,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4.66666651
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 9cadb635568be42d08541de5ecc87110, type: 2}
   mText: PRIVATE
   mFontSize: 18
   mFontStyle: 0
@@ -2961,8 +2961,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.88888884
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 9cadb635568be42d08541de5ecc87110, type: 2}
   mText: CLAN
   mFontSize: 18
   mFontStyle: 0
@@ -3020,7 +3020,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4023
+  startingRenderQueue: 4016
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: -1.52587891e-05, y: 211.350006, z: 920, w: 412}
@@ -3092,8 +3092,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4.33333349
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 9cadb635568be42d08541de5ecc87110, type: 2}
   mText: GLOBAL
   mFontSize: 18
   mFontStyle: 0
@@ -3187,7 +3187,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .961538434
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
   mSpriteName: closepopupx
   mType: 0
   mFillDirection: 4
@@ -3304,7 +3304,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4025
+  startingRenderQueue: 4017
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: -1.52587891e-05, y: -41.5, z: 920, w: 508}
@@ -4059,18 +4059,18 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .329411775, g: .141176477, b: .0431372561, a: 1}
   mPivot: 4
-  mWidth: 104
+  mWidth: 126
   mHeight: 100
   mDepth: 6
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.03999996
+  aspectRatio: 1.25999999
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 9a8f43ef88c324403a2b5b428abfdd15, type: 2}
   mText: Mute 24h
-  mFontSize: 18
+  mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -4197,18 +4197,18 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .0901960805, g: .470588237, b: 0, a: 1}
   mPivot: 4
-  mWidth: 100
+  mWidth: 130
   mHeight: 100
   mDepth: 6
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 1.29999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 9a8f43ef88c324403a2b5b428abfdd15, type: 2}
   mText: Message
-  mFontSize: 18
+  mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -4335,18 +4335,18 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .0588235296, g: .298039228, b: .325490206, a: 1}
   mPivot: 4
-  mWidth: 100
+  mWidth: 128
   mHeight: 100
   mDepth: 6
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 1.27999997
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 9a8f43ef88c324403a2b5b428abfdd15, type: 2}
   mText: Profile
-  mFontSize: 18
+  mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1

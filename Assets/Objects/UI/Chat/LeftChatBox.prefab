@@ -124,7 +124,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 59.9999962, z: 0}
+  m_LocalPosition: {x: 0, y: 60.0000038, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -177,7 +177,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -129, y: 22, z: 0}
+  m_LocalPosition: {x: -114.000008, y: 22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -189,7 +189,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -360, y: 21.712368, z: 0}
+  m_LocalPosition: {x: -360, y: 25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -250,7 +250,6 @@ MonoBehaviour:
   senderLabel: {fileID: 11400012}
   timeLabel: {fileID: 11400006}
   bubble: {fileID: 11400008}
-  optionsPrefab: {fileID: 11400000, guid: 043d13ef224dd45f0a9ffab09d8301d5, type: 2}
   avatar: {fileID: 11400010}
 --- !u!114 &11400004
 MonoBehaviour:
@@ -283,17 +282,17 @@ MonoBehaviour:
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 0
   mWidth: 830
-  mHeight: 16
+  mHeight: 20
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 415
+  aspectRatio: 41.5
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: f3e46b8d18b7745cdadb6fc8d0a7381a, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: e679eb4867ce2426a9a5da86c09140e2, type: 2}
   mText: sounds good, i'll be there.
-  mFontSize: 16
+  mFontSize: 20
   mFontStyle: 0
   mAlignment: 1
   mEncoding: 1
@@ -332,7 +331,7 @@ MonoBehaviour:
   rightAnchor:
     target: {fileID: 400002}
     relative: 1
-    absolute: -40
+    absolute: -25
   bottomAnchor:
     target: {fileID: 0}
     relative: 0
@@ -344,16 +343,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 5
-  mWidth: 90
+  mWidth: 72
   mHeight: 16
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.625
+  aspectRatio: 4.5
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 9aade3e9ba16d438f88b437a6b76581a, type: 2}
   mText: 3 days ago
   mFontSize: 16
   mFontStyle: 0
@@ -439,6 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bg: {fileID: 11400020}
   thumbnail: {fileID: 11400018}
+  big: 0
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -469,18 +469,18 @@ MonoBehaviour:
   updateAnchors: 0
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 80
-  mHeight: 24
+  mWidth: 122
+  mHeight: 28
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.33333325
+  aspectRatio: 4.35714293
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
-  mFont: {fileID: 0}
-  mText: Coopa
-  mFontSize: 24
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 33a97c5dc58284df8aa1aa59e6b23819, type: 2}
+  mText: Jgdytdiuh
+  mFontSize: 28
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
