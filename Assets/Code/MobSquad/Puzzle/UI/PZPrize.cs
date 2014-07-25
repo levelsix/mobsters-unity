@@ -11,13 +11,22 @@ using com.lvl6.proto;
 public class PZPrize : MonoBehaviour {
 
 	[SerializeField]
-	public UISprite border;
+	UISprite border;
 
 	[SerializeField]
 	UISprite icon;
 
 	[SerializeField]
 	UILabel label;
+
+	[SerializeField]
+	UI2DSprite sprite2D;
+
+	[SerializeField]
+	UISprite rarityTag;
+
+	[SerializeField]
+	UILabel pieceLabel;
 
 	[SerializeField]
 	Color xpColor;
@@ -51,17 +60,19 @@ public class PZPrize : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		Color newColor = label.color;
-		newColor.a = 0f;
-		label.color = newColor;
+		sprite2D.alpha = 0f;
+		label.alpha = 0f;
+		rarityTag.alpha = 0f;
+		pieceLabel.alpha = 0f;
+	}
+
+	void init()
+	{
+		border.spriteName = "commmonfound";
 	}
 
 	public void InitXP(int amount)
 	{
-		if (border != null)
-		{
-			border.spriteName = "expfound";
-		}
 		label.text = "+" + amount;
 		label.color = xpColor;
 		icon.spriteName = "xp";
@@ -78,10 +89,6 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitCash(int amount)
 	{
-		if (border != null)
-		{
-			border.spriteName = "cashfound";
-		}
 		label.text = "$" + amount;
 		label.color = cashColor;
 		icon.spriteName = "moneystack";
@@ -90,10 +97,6 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitDiamond(int amount)
 	{
-		if (border != null)
-		{
-			border.spriteName = "";
-		}
 		label.text = amount.ToString();
 		label.color = new Color(.4f, .2f, .6f);
 		icon.spriteName = "diamond";
@@ -107,23 +110,18 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitEnemy(MonsterProto monster)
 	{
-
+		icon.alpha = 0f;
 		label.text = monster.quality.ToString();
 		string rarity = monster.quality.ToString().ToLower();
-		if (border != null)
-		{
-			border.spriteName = rarity + "found";
-		}
-		icon.spriteName = "gacha" + rarity;
 		if (monster.numPuzzlePieces > 1)
 		{
-			icon.spriteName += "piece";
+			pieceLabel.alpha = 1f;
 		}
-		else
-		{
-			icon.spriteName += "ball";
-		}
-		icon.MakePixelPerfect();
+		MSSpriteUtil.instance.SetSprite(monster.imagePrefix,monster.imagePrefix+"Thumbnail",sprite2D);
+		sprite2D.MakePixelPerfect();
+		sprite2D.depth = icon.depth + 1;
+		rarityTag.alpha = 1f;
+		rarityTag.spriteName = "battle" + rarity + "tag";
 	}
 
 	public void InitItem(ItemProto item){

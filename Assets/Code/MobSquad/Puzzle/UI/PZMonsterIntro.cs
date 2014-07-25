@@ -11,7 +11,13 @@ public class PZMonsterIntro : MonoBehaviour {
 	UILabel topLabel;
 
 	[SerializeField]
+	UI2DSprite thumbNail;
+
+	[SerializeField]
 	UILabel bottomLabel;
+
+	[SerializeField]
+	UILabel level;
 
 	[SerializeField]
 	TweenPosition topPos;
@@ -25,7 +31,7 @@ public class PZMonsterIntro : MonoBehaviour {
 	[SerializeField]
 	TweenAlpha bottomAlph;
 
-	public void SetText(PZMonster monster, int currUnitIndex, int totalUnits){
+	public void Init(PZMonster monster, int currUnitIndex, int totalUnits){
 
 		switch (monster.monster.monsterElement) {
 		case Element.DARK:
@@ -50,7 +56,10 @@ public class PZMonsterIntro : MonoBehaviour {
 		elementSprite.MakePixelPerfect();
 
 		topLabel.text = "Enemy " + currUnitIndex + "/" + totalUnits;
-		bottomLabel.text = monster.monster.displayName + " (Lvl " + monster.taskMonster.level + ")";	
+		bottomLabel.text = monster.monster.shorterName;
+		level.text = "L" + monster.level;
+
+		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", thumbNail);
 
 		//these MAY have to be marked as changed
 		topLabel.MarkAsChanged();
