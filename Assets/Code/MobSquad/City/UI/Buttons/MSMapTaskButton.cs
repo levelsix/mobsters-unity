@@ -56,6 +56,7 @@ public class MSMapTaskButton : MonoBehaviour {
 				levelTitle.color = lockedTextColor;
 				buttonLabel.alpha = 0f;
 			}
+			levelTitle.alpha = 0f;
 		}
 	}
 
