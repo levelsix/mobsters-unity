@@ -609,7 +609,7 @@ public class PZCombatManager : MonoBehaviour {
 	public IEnumerator OnPlayerForfeit(){
 		bool forfeitSuccess = Random.value <= forfeitChance;
 		PZPuzzleManager.instance.swapLock++;
-		StartCoroutine(activePlayer.Forfeit (forfeitSuccess));
+		yield return StartCoroutine(activePlayer.Forfeit (forfeitSuccess));
 		if (forfeitSuccess) {
 			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
 			ActivateLoseMenu();

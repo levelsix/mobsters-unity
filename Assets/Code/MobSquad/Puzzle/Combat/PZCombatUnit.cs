@@ -378,7 +378,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 		//TweenPosition.Begin (forfeitSprite.gameObject, alpha.duration, new Vector3 (start.x + 0f, start.y + 200.0f, start.z + 0f));
 
-		yield return new WaitForSeconds (alpha.duration);
+		//yield return new WaitForSeconds (alpha.duration);
 
 		forfeitSprite.transform.parent = oldParent;
 	}
