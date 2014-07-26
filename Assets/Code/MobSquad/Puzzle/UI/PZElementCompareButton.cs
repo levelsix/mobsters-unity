@@ -10,6 +10,9 @@ public class PZElementCompareButton : MonoBehaviour {
 	[SerializeField]
 	UISprite elementSprite;
 
+	[SerializeField]
+	Camera camera;
+
 	/// <summary>
 	/// the game object of elementSprite
 	/// </summary>
@@ -47,7 +50,7 @@ public class PZElementCompareButton : MonoBehaviour {
 	}
 
 	void GlobalOnClick(TCKTouchData data){
-		Collider hit = MSMath.ClickRayCast(data.pos, PZPuzzleManager.instance.puzzleCamera);
+		Collider hit = MSMath.ClickRayCast(data.pos, camera);
 		if(hit == null || hit.GetComponent<PZElementCompareButton> () == null) {
 			CloseImage();
 		}
@@ -63,6 +66,5 @@ public class PZElementCompareButton : MonoBehaviour {
 	void CloseImage(){
 		TweenScale.Begin (element, ANIMATION_LENGTH, Vector3.zero);
 		TweenAlpha.Begin (element, ANIMATION_LENGTH, 0f);
-		
 	}
 }
