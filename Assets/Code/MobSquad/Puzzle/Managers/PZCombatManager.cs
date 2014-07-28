@@ -806,6 +806,10 @@ public class PZCombatManager : MonoBehaviour {
 	
 	IEnumerator SendEndResult(bool userWon)
 	{
+#if UNITY_ANDROID || UNITY_IPHONE
+		Kamcord.StopRecording();
+#endif
+
 		if (MSActionManager.Quest.OnBattleFinish != null)
 		{
 			MSActionManager.Quest.OnBattleFinish(battleStats);

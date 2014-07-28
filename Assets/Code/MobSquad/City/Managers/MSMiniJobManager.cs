@@ -109,7 +109,6 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	public void Init(MiniJobCenterProto pier)
 	{
-		Debug.LogWarning("Initted MiniJobManager: " + pier);
 		currJobCenter = pier;
 
 		if (pier != null)

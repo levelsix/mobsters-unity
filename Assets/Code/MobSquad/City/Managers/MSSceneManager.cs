@@ -108,6 +108,10 @@ public class MSSceneManager : MonoBehaviour {
 		puzzlePanel.alpha = 1;
 		yield return StartCoroutine(FadePuzzleBackground(true));
 		cityParent.SetActive(false);
+#if UNITY_IPHONE || UNITY_ANDROID
+		Kamcord.StartRecording();
+		Debug.Log("Started Recording");
+#endif
 	}
 
 	IEnumerator Fade (UIPanel pan, bool fadeIn)

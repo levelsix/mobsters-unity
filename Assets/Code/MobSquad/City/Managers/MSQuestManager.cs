@@ -1,6 +1,6 @@
 //#define DEUBG3
 //#define DEBUG1
-#define DEBUG2
+//#define DEBUG2
 
 using UnityEngine;
 using System.Collections;
