@@ -167,7 +167,7 @@ public class MSResourceManager : MonoBehaviour {
 			//Prompt to buy more gems
 
 		}
-		else if (amount < maxes[(int)resource-1]) //We don't want to let users use gem buys to overcome resource limits
+		else if (amount <= maxes[(int)resource-1]) //We don't want to let users use gem buys to overcome resource limits
 		{
 			//Prompt to convert gems to currency
 			int resourceNeeded = amount - resources[(int)resource - 1];
