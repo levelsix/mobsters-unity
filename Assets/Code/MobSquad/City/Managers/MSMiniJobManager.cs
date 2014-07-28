@@ -206,6 +206,8 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		isBeginning = true;
 
+
+
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_MINI_JOB_EVENT, 
 		                                       DealWithJobBegin);
 	}
