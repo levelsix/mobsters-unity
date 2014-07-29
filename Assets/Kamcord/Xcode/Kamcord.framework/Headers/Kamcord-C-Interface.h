@@ -563,6 +563,17 @@ extern "C" {
      */
     unsigned int Kamcord_MaximumVideoLength();
     
+    /*
+     *
+     * Should we pause/unpause the game engine when the Kamcord UI appears/disappears?
+     * By default, set to true. Works for cocos2d(-x), GLKit, SpriteKit, and Unity.
+     *
+     * @param   shouldPause     Should we pause the game engine when the Kamcord UI appears?
+     *
+     */
+    void Kamcord_SetShouldPauseGameEngine(bool shouldPause);
+    bool Kamcord_ShouldPauseGameEngine();
+    
     /*******************************************************************
      *
      * Gameplay of the week

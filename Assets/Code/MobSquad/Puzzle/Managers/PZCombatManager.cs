@@ -311,6 +311,10 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		debug = MSWhiteboard.loadedDungeon;
 		forfeitChance = FORFEIT_START_CHANCE;
+		
+		#if UNITY_IPHONE || UNITY_ANDROID
+		Kamcord.StartRecording();
+		#endif
 
 		MSWhiteboard.currUserTaskId = MSWhiteboard.loadedDungeon.userTaskId;
 

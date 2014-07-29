@@ -174,4 +174,9 @@
         android:layout_marginRight="@dimen/kamcordShareSpacing"
         android:text="@string/kamcordShare" />
 
+    <FrameLayout 
+        android:id="@+id/touchInterceptor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>

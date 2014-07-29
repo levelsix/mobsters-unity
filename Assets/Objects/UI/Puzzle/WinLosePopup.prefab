@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100006
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,9 +130,9 @@ GameObject:
   - 65: {fileID: 6500002}
   - 114: {fileID: 11400028}
   - 114: {fileID: 11400026}
-  - 114: {fileID: 11400024}
   - 114: {fileID: 11400022}
   - 114: {fileID: 11400068}
+  - 114: {fileID: 11400024}
   m_Layer: 5
   m_Name: ShareButton
   m_TagString: Untagged
@@ -274,6 +274,7 @@ GameObject:
   - 4: {fileID: 400030}
   - 114: {fileID: 11400062}
   - 114: {fileID: 11400060}
+  - 114: {fileID: 11400080}
   m_Layer: 5
   m_Name: LoseStickerHead
   m_TagString: Untagged
@@ -792,7 +793,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5c5ca47aa5c01740810b7c66662099f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -821,16 +822,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.33281255
-  mRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  mTexture: {fileID: 2800000, guid: 737ab08db52544fdc876d1944d17a1f5, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
+  mAtlas: {fileID: 11400000, guid: 1d26ffe31230a4faf90f293185258d02, type: 2}
+  mSpriteName: wonlostbg
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
   mFlip: 0
+  mFillCenter: 1
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1057,10 +1061,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 100014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23b8a7abe363e4485841f18fe4fc6fee, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ffe7fca0c48e47a08c30ac65bc076e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
 --- !u!114 &11400026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1579,7 +1582,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5c5ca47aa5c01740810b7c66662099f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -1608,16 +1611,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 1
   aspectRatio: 1.89981449
-  mRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  mTexture: {fileID: 2800000, guid: 79c855c26089142ef970afd2a5d27ad8, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
+  mAtlas: {fileID: 11400000, guid: 1d26ffe31230a4faf90f293185258d02, type: 2}
+  mSpriteName: wonlostbg2
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
   mFlip: 0
+  mFillCenter: 1
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
 --- !u!114 &11400058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1643,24 +1649,24 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100030}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75e7459110b9666449485c40f25362a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   method: 0
-  style: 2
+  style: 0
   animationCurve:
     serializedVersion: 2
     m_Curve:
     - time: 0
       value: 0
-      inSlope: 0
-      outSlope: 1
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
     - time: 1
       value: 1
-      inSlope: 1
+      inSlope: 0
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
@@ -1673,8 +1679,8 @@ MonoBehaviour:
   onFinished: []
   eventReceiver: {fileID: 0}
   callWhenFinished: 
-  from: {x: 1, y: 1, z: 1}
-  to: {x: 1.29999995, y: 1.29999995, z: 1}
+  from: {x: 0, y: 0, z: 0}
+  to: {x: 1, y: 1, z: 1}
   updateTable: 0
 --- !u!114 &11400062
 MonoBehaviour:
@@ -1949,36 +1955,31 @@ MonoBehaviour:
       inSlope: .057714954
       outSlope: .057714954
       tangentMode: 0
-    - time: .796488464
-      value: 1.00076795
+    - time: .501845598
+      value: .99193269
       inSlope: 3.51568007
-      outSlope: -13.3289881
+      outSlope: -2.50674033
       tangentMode: 1
-    - time: .850640953
-      value: .700327098
-      inSlope: -.0100487657
-      outSlope: -.0100487657
-      tangentMode: 0
-    - time: .902983129
-      value: .995226741
-      inSlope: 13.8264418
-      outSlope: -3.02114892
+    - time: .748646438
+      value: .998752177
+      inSlope: 3.67841411
+      outSlope: -2.36960769
       tangentMode: 1
-    - time: .95364666
-      value: .899080217
-      inSlope: .00394337764
-      outSlope: .00394337764
-      tangentMode: 0
+    - time: .913806975
+      value: 1.00235844
+      inSlope: 1.90463185
+      outSlope: -1.41650033
+      tangentMode: 1
     - time: 1
       value: 1
-      inSlope: 2.98341274
-      outSlope: 2.98341274
+      inSlope: 2.12102175
+      outSlope: 2.12102175
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
   ignoreTimeScale: 1
   delay: 0
-  duration: .5
+  duration: 1.5
   steeperCurves: 0
   tweenGroup: 0
   onFinished: []
@@ -2044,6 +2045,54 @@ MonoBehaviour:
   from: {x: 0, y: 0, z: 0}
   to: {x: 1, y: 1, z: 1}
   updateTable: 0
+--- !u!114 &11400080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100030}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d1b7c9e9a19a24ab67123a43c6544b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  method: 0
+  style: 1
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: .494699597
+      inSlope: 3.50282812
+      outSlope: 3.50282812
+      tangentMode: 0
+    - time: .250197113
+      value: .999585629
+      inSlope: .00678797765
+      outSlope: .00678797765
+      tangentMode: 0
+    - time: .749622047
+      value: .000258684158
+      inSlope: -.0037352161
+      outSlope: -.0037352161
+      tangentMode: 0
+    - time: 1
+      value: .50000006
+      inSlope: 3.46333814
+      outSlope: 3.46333814
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  ignoreTimeScale: 1
+  delay: 0
+  duration: 1.5
+  steeperCurves: 0
+  tweenGroup: 0
+  onFinished: []
+  eventReceiver: {fileID: 0}
+  callWhenFinished: 
+  from: {x: -0, y: 0, z: 45}
+  to: {x: -0, y: 0, z: -45}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
