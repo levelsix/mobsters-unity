@@ -56,7 +56,13 @@ public class PZCombatUnit : MonoBehaviour {
 	/// When this unit is clicked, info appears above it's head
 	/// </summary>
 	[SerializeField]
-	UILabel unitInfo;
+	UIWidget unitInfo;
+
+	[SerializeField]
+	UILabel unitName;
+
+	[SerializeField]
+	UILabel unitLevelInfo;
 
 	[SerializeField]
 	UISprite unitRarity;
@@ -133,7 +139,8 @@ public class PZCombatUnit : MonoBehaviour {
 		hpBar.fill = ((float)monster.currHP) / monster.maxHP;
 		hpLabel.text = monster.currHP + "/" + monster.maxHP;
 
-		unitInfo.text = monster.monster.displayName + " (LVL " + monster.level + ")";
+		unitName.text = monster.monster.shorterName;
+		unitLevelInfo.text = "L" + monster.level;
 		unitRarity.spriteName = "";
 
 		if (monster.monster.quality != Quality.COMMON)
@@ -371,7 +378,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 		//TweenPosition.Begin (forfeitSprite.gameObject, alpha.duration, new Vector3 (start.x + 0f, start.y + 200.0f, start.z + 0f));
 
-		yield return new WaitForSeconds (alpha.duration);
+		//yield return new WaitForSeconds (alpha.duration);
 
 		forfeitSprite.transform.parent = oldParent;
 	}

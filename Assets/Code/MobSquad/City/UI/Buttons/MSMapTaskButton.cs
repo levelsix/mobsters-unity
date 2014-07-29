@@ -24,6 +24,9 @@ public class MSMapTaskButton : MonoBehaviour {
 	UILabel levelTitle;
 
 	[SerializeField]
+	UISprite shadow;
+
+	[SerializeField]
 	Color unlockedTextColor;
 
 	[SerializeField]
@@ -53,6 +56,7 @@ public class MSMapTaskButton : MonoBehaviour {
 				levelTitle.color = lockedTextColor;
 				buttonLabel.alpha = 0f;
 			}
+			levelTitle.alpha = 0f;
 		}
 	}
 
@@ -80,6 +84,7 @@ public class MSMapTaskButton : MonoBehaviour {
 
 		buttonLabel.depth = GetComponent<UISprite> ().depth + 1;
 		halo.depth = buttonLabel.depth - 2;
+		shadow.depth = buttonLabel.depth - 2;
 
 		buttonLabel.text = task.mapElementId.ToString();
 		levelTitle.text = MSDataManager.instance.Get<FullTaskProto> (task.taskId).name;

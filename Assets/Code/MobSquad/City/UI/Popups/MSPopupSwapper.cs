@@ -20,7 +20,8 @@ public class MSPopupSwapper : MonoBehaviour {
 
 	TweenPosition curTween;
 
-	bool unset = true;
+	bool unsetA = true;
+	bool unsetB = true;
 
 	public enum Popup
 	{
@@ -45,50 +46,64 @@ public class MSPopupSwapper : MonoBehaviour {
 	/// </summary>
 	public Vector3 Tween = new Vector3(0f, 0f, 0f);
 
-	public void Swap(){
-		///This is something that would normally go in Awake but
-		/// in some cases this need to wait for animations to finish
-		if(unset){
-			Debug.Log("beep boop");
-			originA = popupA.transform.localPosition;
-			originB = popupB.transform.localPosition;
-			unset = false;
-		}
-
+	public void Swap(bool resetOrigin = false){
 		switch(activePopup){
 		case Popup.None:
 			if(animating){
-				popupA.transform.localPosition = originA;
 				StopCoroutine("EndAnimation");
 			}
-			TweenPosition.Begin(popupA.gameObject, tweenTime, new Vector3(originA.x + Tween.x, originA.y + Tween.y, originA.z + Tween.z));
+
 			if(ActionA != null){
 				ActionA();
 			}
+
+			if(unsetA || resetOrigin)
+			{
+				originA = popupA.transform.localPosition;
+				unsetA = false;
+			}
+
+
+			TweenPosition.Begin(popupA.gameObject, tweenTime, new Vector3(originA.x + Tween.x, originA.y + Tween.y, originA.z + Tween.z));
+
 			activePopup = Popup.A;
 			break;
 		case Popup.A:
 			if(animating){
-				popupB.transform.localPosition = originB;
 				StopCoroutine("EndAnimation");
 			}
-			TweenPosition.Begin(popupB.gameObject, tweenTime, new Vector3(originB.x + Tween.x, originB.y + Tween.y, originB.z + Tween.z));
-			TweenPosition.Begin(popupA.gameObject, tweenTime, originA);
 			if(ActionB != null){
 				ActionB();
 			}
+			if(unsetB || resetOrigin)
+			{
+				originB = popupB.transform.localPosition;
+				unsetB = false;
+			}
+
+			TweenPosition.Begin(popupB.gameObject, tweenTime, new Vector3(originB.x + Tween.x, originB.y + Tween.y, originB.z + Tween.z));
+			TweenPosition.Begin(popupA.gameObject, tweenTime, originA);
+
 			activePopup = Popup.B;
 			break;
 		case Popup.B:
 			if(animating){
-				popupA.transform.localPosition = originA;
 				StopCoroutine("EndAnimation");
 			}
-			TweenPosition.Begin(popupA.gameObject, tweenTime, new Vector3(originA.x + Tween.x, originA.y + Tween.y, originA.z + Tween.z));
-			TweenPosition.Begin(popupB.gameObject, tweenTime, originB);
 			if(ActionA != null){
 				ActionA();
 			}
+
+			if(unsetA || resetOrigin)
+			{
+				originA = popupA.transform.localPosition;
+				unsetA = false;
+			}
+
+
+			TweenPosition.Begin(popupA.gameObject, tweenTime, new Vector3(originA.x + Tween.x, originA.y + Tween.y, originA.z + Tween.z));
+			TweenPosition.Begin(popupB.gameObject, tweenTime, originB);
+
 			activePopup = Popup.A;
 			break;
 		}
@@ -117,5 +132,35 @@ public class MSPopupSwapper : MonoBehaviour {
 				break;
 			}
 		}
+	}
+
+	/// <summary>
+	/// Convenience function for swapping in a new popup.
+	/// </summary>
+	/// <param name="newPopup">New popup.</param>
+	/// <param name="NewAction">New action.</param>
+//	public void SwapIn(GameObject newPopup, bool forceNewOrigin = false)
+//	{
+//
+//	}
+
+	/// <summary>
+	/// Convenience function for swapping in a new popup.
+	/// </summary>
+	/// <param name="newPopup">New popup.</param>
+	/// <param name="NewAction">New action.</param>
+	public void SwapIn(GameObject newPopup, Action NewAction = null, bool forceNewOrigin = false)
+	{
+		if(activePopup == Popup.A)
+		{
+			popupB = newPopup;
+			ActionB = NewAction;
+		}
+		else
+		{
+			popupA = newPopup;
+			ActionA = NewAction;
+		}
+		Swap(forceNewOrigin);
 	}
 }

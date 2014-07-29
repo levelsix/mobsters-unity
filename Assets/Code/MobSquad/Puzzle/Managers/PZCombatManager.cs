@@ -611,17 +611,17 @@ public class PZCombatManager : MonoBehaviour {
 	}
 
 	public IEnumerator OnPlayerForfeit(){
-		Debug.Log ("forfeitChance: " + forfeitChance);
-
 		bool forfeitSuccess = Random.value <= forfeitChance;
-		StartCoroutine(activePlayer.Forfeit (forfeitSuccess));
+		PZPuzzleManager.instance.swapLock++;
+		yield return StartCoroutine(activePlayer.Forfeit (forfeitSuccess));
 		if (forfeitSuccess) {
 			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
 			ActivateLoseMenu();
 		} else {
 			forfeitChance *= 2f;
-			StartCoroutine(EnemyAttack(0));
+			yield return StartCoroutine(EnemyAttack(0));
 		}
+		PZPuzzleManager.instance.swapLock--;
 	}
 
 	public void ActivateLoseMenu(){
@@ -704,7 +704,7 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.unit.direction = MSValues.Direction.WEST;
 			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 
-			intro.SetText (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
+			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
 			intro.PlayAnimation ();
 		} else if (!activeEnemy.alive) {
 			activeEnemy.GoToStartPos ();

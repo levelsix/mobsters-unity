@@ -1,98 +1,149 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 using com.lvl6.proto;
 
 public class MSMapTaskPopupSwitcher : MonoBehaviour {
 
+	MSPopupSwapper swapper;
+	
+	[SerializeField]
+	MSTaskMap map;
+
+	[SerializeField]
+	MSMapTaskPopup mapTaskA;
+
+	[SerializeField]
+	MSMapTaskPopup mapTaskB;
+
+	[SerializeField]
+	MSMapTaskPopup evolutionEvent;
+
+	[SerializeField]
+	MSMapTaskPopup enhanceEvent;
+
 	enum Popup
 	{
+		NONE,
 		A,
 		B,
-		None
-	}
-	
-	Popup activePopup = Popup.None;
-	
-	[SerializeField]
-	MSMapTaskPopup popupA;
-	
-	[SerializeField]
-	MSMapTaskPopup popupB;
-
-	bool animating = false;
-
-	static float ANIMATION_TIME = 0.2f;
-
-	UIRect.AnchorPoint anchorLeft;
-
-	UIRect.AnchorPoint anchorRight;
-
-	void Awake(){
-		anchorLeft = popupA.GetComponent<UISprite> ().leftAnchor;
-		anchorRight = popupA.GetComponent<UISprite> ().rightAnchor;
+		EVO,
+		ENHANCE
 	}
 
-	void OnEnable(){
-		activePopup = Popup.None;
-		MSActionManager.Map.OnMapTaskClicked += SwapPopup;
-		MSActionManager.Popup.CloseAllPopups += Close;
+	Popup curPopup = Popup.NONE;
+
+	void Awake()
+	{
+		swapper = GetComponent<MSPopupSwapper>();
 	}
 
-	void OnDisable(){
-		MSActionManager.Map.OnMapTaskClicked -= SwapPopup;
-		MSActionManager.Popup.CloseAllPopups -= Close;
-		popupA.trans.localPosition = new Vector3 (popupA.trans.localPosition.x, 0f, popupA.trans.localPosition.z);
-		popupB.trans.localPosition = new Vector3 (popupB.trans.localPosition.x, 0f, popupB.trans.localPosition.z);
+	void OnEnable()
+	{
+		MSActionManager.Map.OnMapTaskClicked += clickedMapTask;
+		MSActionManager.Popup.CloseAllPopups += swapper.Close;
+		MSActionManager.Popup.CloseAllPopups += delegate { curPopup = Popup.NONE; };
 	}
-	
-	void SwapPopup(TaskMapElementProto mapTask, MSMapTaskButton.TaskStatusType status){
-		if(!animating){
 
-			animating = true;
-
-			StartCoroutine(endAnimation(ANIMATION_TIME));
-
-			Vector3 startA = popupA.trans.localPosition;
-			Vector3 startB = popupB.trans.localPosition;
-
-			if (activePopup == Popup.None) {
-				popupA.GetComponent<UISprite> ().leftAnchor = new UIRect.AnchorPoint(0f);
-				popupA.GetComponent<UISprite> ().rightAnchor = new UIRect.AnchorPoint(0f);
-				popupB.GetComponent<UISprite> ().leftAnchor = new UIRect.AnchorPoint(0f);
-				popupB.GetComponent<UISprite> ().rightAnchor = new UIRect.AnchorPoint(0f);
-
-				TweenPosition.Begin(popupA.gameObject, ANIMATION_TIME, new Vector3(startA.x, startA.y + 100, startA.z));
-
-				popupA.init(mapTask, status);
-				activePopup = Popup.A;
-			} else if(activePopup == Popup.A) {
-				TweenPosition.Begin(popupB.gameObject, ANIMATION_TIME, new Vector3(startB.x, startB.y + 100, startB.z));
-				TweenPosition.Begin(popupA.gameObject, ANIMATION_TIME, new Vector3(startA.x, startA.y - 100, startA.z));
-				
-				popupB.init(mapTask, status);
-				activePopup = Popup.B;
-			} else {
-				TweenPosition.Begin(popupA.gameObject, ANIMATION_TIME, new Vector3(startA.x, startA.y + 100, startA.z));
-				TweenPosition.Begin(popupB.gameObject, ANIMATION_TIME, new Vector3(startB.x, startB.y - 100, startB.z));
-				
-				popupA.init(mapTask, status);
-				activePopup = Popup.A;
-			}
-
+	public void EndOfTween()
+	{
+		if(!activateEventPopup())
+		{
+			map.SelectNextTask();
 		}
 	}
 
-	void Close(){
-		Vector3 startA = popupA.trans.localPosition;
-		Vector3 startB = popupB.trans.localPosition;
-		TweenPosition.Begin(popupA.gameObject, ANIMATION_TIME, new Vector3(startA.x, 0, startA.z));
-		TweenPosition.Begin(popupB.gameObject, ANIMATION_TIME, new Vector3(startB.x, 0, startB.z));
-
-		activePopup = Popup.None;
+	void OnDisable()
+	{
+		MSActionManager.Map.OnMapTaskClicked -= clickedMapTask;
+		MSActionManager.Popup.CloseAllPopups -= swapper.Close;
+		MSActionManager.Popup.CloseAllPopups -= delegate { curPopup = Popup.NONE; };
 	}
 
-	IEnumerator endAnimation(float duration){
-		yield return new WaitForSeconds (duration);
-		animating = false;
+	public bool activateEventPopup()
+	{
+		foreach(PersistentEventProto pEvent in MSEventManager.instance.GetActiveEvents())
+		{
+			swapEvent(pEvent);
+			return true;
+		}
+		return false;
+	}
+
+	void clickedMapTask(TaskMapElementProto proto, MSMapTaskButton.TaskStatusType type)
+	{
+		if(curPopup != Popup.A)
+		{
+			mapTaskA.init(proto, type);
+			swapper.SwapIn(mapTaskA.gameObject, delegate {}, ZeroAnchors(mapTaskA.GetComponent<UISprite>()));
+			curPopup = Popup.A;
+		}
+		else
+		{
+			mapTaskB.init(proto, type);
+			swapper.SwapIn(mapTaskB.gameObject, delegate {}, ZeroAnchors(mapTaskB.GetComponent<UISprite>()));
+			curPopup = Popup.B;
+		}
+	}
+
+	void swapEvent(PersistentEventProto pEvent)
+	{
+		switch(pEvent.type)
+		{
+		case PersistentEventProto.EventType.ENHANCE:
+			enhanceEvent.init(pEvent);
+			swapper.SwapIn(enhanceEvent.gameObject, delegate {}, ZeroAnchors(enhanceEvent.GetComponent<UISprite>()));
+			curPopup = Popup.ENHANCE;
+			break;
+		case PersistentEventProto.EventType.EVOLUTION:
+			evolutionEvent.init(pEvent);
+			swapper.SwapIn(evolutionEvent.gameObject, delegate {}, ZeroAnchors(evolutionEvent.GetComponent<UISprite>()));
+			curPopup = Popup.EVO;
+			break;
+		default:
+			Debug.LogError("An unknown event type was detected!Type:" + pEvent.type.ToString());
+			break;
+		}
+	}
+
+	bool ZeroAnchors(UIWidget widget)
+	{
+		bool wrong = widget.rightAnchor.absolute != 0 || widget.leftAnchor.absolute != 0;
+		Debug.Log("before " + widget.rightAnchor.absolute + ":" + widget.leftAnchor.absolute);
+		widget.rightAnchor.absolute = 0;
+		widget.leftAnchor.absolute = 0;
+		widget.ResetAnchors();
+		widget.UpdateAnchors();
+		Debug.Log("after " + widget.rightAnchor.absolute + ":" + widget.leftAnchor.absolute);
+
+		return wrong;
+	}
+
+	/// <summary>
+	/// debug function
+	/// </summary>
+	/// <returns>String for day of the week.</returns>
+	/// <param name="day">Day.</param>
+	string IntToDay(int day)
+	{
+		switch(day)
+		{
+		case 0:
+			return "SUNDAY";
+		case 1:
+			return "MONDAY";
+		case 2:
+			return "TUESDAY";
+		case 3:
+			return "WEDNESDAY";
+		case 4:
+			return "THURSDAY";
+		case 5:
+			return "FRIDAY";
+		case 6:
+			return "SATURDAY";
+		default:
+			return "nope";
+		}
 	}
 }

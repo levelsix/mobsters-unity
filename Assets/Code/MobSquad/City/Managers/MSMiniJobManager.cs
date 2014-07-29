@@ -358,11 +358,21 @@ public class MSMiniJobManager : MonoBehaviour {
 		request.sender = MSWhiteboard.localMupWithResources;
 		request.clientTime = MSUtil.timeNowMillis;
 		request.userMiniJobId = currJob.userMiniJobId;
+		
+		//Damage Monsters
+		int damage = currJob.baseDmgReceived;
+		foreach (var item in currJob.userMonsterIds) 
+		{
+			PZMonster monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == item);
+			monster.currHP = Mathf.Max(monster.currHP - damage/currJob.userMonsterIds.Count, 0);
+			request.umchp.Add(monster.GetCurrentHealthProto());
+		}
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REDEEM_MINI_JOB_EVENT, null);
 
 		isRedeeming = true;
 
+		Debug.Log("Redeeming job: " + request.userMiniJobId);
 
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
