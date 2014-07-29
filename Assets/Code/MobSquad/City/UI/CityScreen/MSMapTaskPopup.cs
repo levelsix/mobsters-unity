@@ -19,6 +19,12 @@ public class MSMapTaskPopup : MonoBehaviour {
 	[SerializeField]
 	UISprite background;
 
+	[SerializeField]
+	UISprite eventIcon;
+
+	[SerializeField]
+	UISprite eventIconB;
+
 	FullTaskProto task;
 
 	const string CANCEL_BUTTON = "cancel";
@@ -89,8 +95,11 @@ public class MSMapTaskPopup : MonoBehaviour {
 		switch(pEvent.type)
 		{
 		case PersistentEventProto.EventType.ENHANCE:
+			eventIcon.spriteName = "FatBoy" + pEvent.monsterElement.ToString().ToLower();
+			eventIconB.spriteName = pEvent.monsterElement.ToString().ToLower() + "feederevent";
 			break;
 		case PersistentEventProto.EventType.EVOLUTION:
+			eventIcon.spriteName = "Scientist" + pEvent.monsterElement.ToString().ToLower();
 			break;
 		default:
 			break;

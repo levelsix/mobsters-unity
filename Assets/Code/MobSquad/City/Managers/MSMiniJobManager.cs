@@ -208,6 +208,10 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_MINI_JOB_EVENT, 
 		                                       DealWithJobBegin);
+		if(MSActionManager.MiniJob.OnStartMiniJob != null)
+		{
+			MSActionManager.MiniJob.OnStartMiniJob(job);
+		}
 	}
 
 	void DealWithJobBegin(int tagNum)

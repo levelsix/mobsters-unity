@@ -205,4 +205,10 @@ public static class MSActionManager
 	{
 		public static Action<TaskMapElementProto, MSMapTaskButton.TaskStatusType> OnMapTaskClicked;
 	}
+
+	public static class MiniJob
+	{
+		public static Action<UserMiniJobProto> OnStartMiniJob;
+//		public static Action OnMiniJobFinish;
+	}
 }

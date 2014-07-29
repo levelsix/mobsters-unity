@@ -3736,6 +3736,8 @@ MonoBehaviour:
   alive: 0
   moving: 0
   unitInfo: {fileID: 0}
+  unitName: {fileID: 0}
+  unitLevelInfo: {fileID: 0}
   unitRarity: {fileID: 0}
   forfeitSprite: {fileID: 0}
 --- !u!114 &11400066
@@ -5224,6 +5226,8 @@ MonoBehaviour:
   maxSize: 80
   minSize: 0
   currVal: 0
+  tweenToVal: 0
+  speed: .5
 --- !u!114 &11400134
 MonoBehaviour:
   m_ObjectHideFlags: 1
