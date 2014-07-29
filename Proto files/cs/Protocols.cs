@@ -14,12 +14,14 @@
 // Note: requires additional types generated from: Chat.proto
 // Note: requires additional types generated from: City.proto
 // Note: requires additional types generated from: Clan.proto
+// Note: requires additional types generated from: Dev.proto
 // Note: requires additional types generated from: EventAchievement.proto
 // Note: requires additional types generated from: EventApns.proto
 // Note: requires additional types generated from: EventBoosterPack.proto
 // Note: requires additional types generated from: EventChat.proto
 // Note: requires additional types generated from: EventCity.proto
 // Note: requires additional types generated from: EventClan.proto
+// Note: requires additional types generated from: EventDev.proto
 // Note: requires additional types generated from: EventDungeon.proto
 // Note: requires additional types generated from: EventInAppPurchase.proto
 // Note: requires additional types generated from: EventMiniJob.proto
@@ -268,7 +270,10 @@ namespace com.lvl6.proto
       C_SET_AVATAR_MONSTER_EVENT = 74,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
-      C_LOGOUT_EVENT = 101
+      C_LOGOUT_EVENT = 101,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_DEV_EVENT", Value=200)]
+      C_DEV_EVENT = 200
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"EventProtocolResponse")]
@@ -519,7 +524,10 @@ namespace com.lvl6.proto
       S_AWARD_CLAN_RAID_STAGE_REWARD_EVENT = 108,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_FORCE_LOGOUT_EVENT", Value=109)]
-      S_FORCE_LOGOUT_EVENT = 109
+      S_FORCE_LOGOUT_EVENT = 109,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_DEV_EVENT", Value=200)]
+      S_DEV_EVENT = 200
     }
   
 }

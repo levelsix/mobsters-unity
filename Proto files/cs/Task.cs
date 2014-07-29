@@ -124,6 +124,15 @@ namespace com.lvl6.proto
       get { return _boardHeight; }
       set { _boardHeight = value; }
     }
+
+    private string _groundImgPrefix = "";
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"groundImgPrefix", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string groundImgPrefix
+    {
+      get { return _groundImgPrefix; }
+      set { _groundImgPrefix = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -459,6 +468,15 @@ namespace com.lvl6.proto
     {
       get { return _element; }
       set { _element = value; }
+    }
+
+    private bool _boss = default(bool);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"boss", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool boss
+    {
+      get { return _boss; }
+      set { _boss = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

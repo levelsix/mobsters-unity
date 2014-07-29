@@ -88,6 +88,24 @@ namespace com.lvl6.proto
       get { return _gems; }
       set { _gems = value; }
     }
+
+    private string _email = "";
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string email
+    {
+      get { return _email; }
+      set { _email = value; }
+    }
+
+    private string _fbData = "";
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"fbData", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string fbData
+    {
+      get { return _fbData; }
+      set { _fbData = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -348,6 +366,24 @@ namespace com.lvl6.proto
     {
       get { return _isUserCreate; }
       set { _isUserCreate = value; }
+    }
+
+    private string _email = "";
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"email", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string email
+    {
+      get { return _email; }
+      set { _email = value; }
+    }
+
+    private string _fbData = "";
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"fbData", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string fbData
+    {
+      get { return _fbData; }
+      set { _fbData = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
