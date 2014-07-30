@@ -208,7 +208,10 @@ public static class MSActionManager
 
 	public static class MiniJob
 	{
-		public static Action<UserMiniJobProto> OnStartMiniJob;
-//		public static Action OnMiniJobFinish;
+		public static Action OnMiniJobRestock;
+		public static Action<UserMiniJobProto> OnMiniJobBegin;
+		public static Action OnMiniJobGemsComplete;
+		public static Action OnMiniJobComplete;
+		public static Action OnMiniJobRedeem;
 	}
 }

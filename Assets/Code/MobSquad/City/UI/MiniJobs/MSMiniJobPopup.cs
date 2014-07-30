@@ -235,7 +235,7 @@ public class MSMiniJobPopup : MonoBehaviour {
 		reqHpBar.fill = totalHp / currJob.miniJob.hpRequired;
 		reqHpLabel.text = "REQUIRED HP: " + totalHp + "/" + currJob.miniJob.hpRequired;
 
-		if (totalAttack > currJob.miniJob.atkRequired && totalHp > currJob.miniJob.hpRequired)
+		if (totalAttack >= currJob.miniJob.atkRequired && totalHp >= currJob.miniJob.hpRequired)
 		{
 			engageButton.spriteName = greenEngage;
 			engageArrow.spriteName = greenArrow;

@@ -311,6 +311,10 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		debug = MSWhiteboard.loadedDungeon;
 		forfeitChance = FORFEIT_START_CHANCE;
+		
+		#if UNITY_IPHONE || UNITY_ANDROID
+		Kamcord.StartRecording();
+		#endif
 
 		MSWhiteboard.currUserTaskId = MSWhiteboard.loadedDungeon.userTaskId;
 
@@ -806,6 +810,10 @@ public class PZCombatManager : MonoBehaviour {
 	
 	IEnumerator SendEndResult(bool userWon)
 	{
+#if UNITY_ANDROID || UNITY_IPHONE
+		Kamcord.StopRecording();
+#endif
+
 		if (MSActionManager.Quest.OnBattleFinish != null)
 		{
 			MSActionManager.Quest.OnBattleFinish(battleStats);

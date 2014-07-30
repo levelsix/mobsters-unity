@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: KamcordPrefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730efc69a6ca641e3a49936f9453d290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableIOS: 1
+  enableAndroid: 1
+  enableLogging: 1
+  developerKey: T2WbwIzdmQYV3CFRrpqk3KKByJXfZ27BG2KjXXGecNs
+  developerSecret: NgDeiI09TnS3DgiWbuJ6EpBTZmBQxN5ZKWpsxA5FcOq
+  appName: Mob Squad
+  videoQuality: 0
+  deviceBlacklist:
+    ipod4Gen: 0
+    ipod5Gen: 0
+    iphone3GS: 0
+    iphone4: 0
+    iphone4S: 0
+    iphone5: 0
+    iphone5c: 0
+    iphone5S: 0
+    ipad1: 0
+    ipad2: 0
+    ipadMini: 0
+    ipad3: 0
+    ipad4: 0
+    ipadAir: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

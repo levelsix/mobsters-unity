@@ -55,7 +55,7 @@ public class MSChatManager : MonoBehaviour {
 
 	void AddPrivateChat(PrivateChatPostProto item)
 	{
-		Debug.LogWarning("Private chat\nSender: " + item.poster + "\nMessage: " + item.content);
+		//Debug.LogWarning("Private chat\nSender: " + item.poster + "\nMessage: " + item.content);
 		MinimumUserProtoWithLevel otherPlayer = (item.poster.minUserProto.userId == MSWhiteboard.localUser.userId) ? item.recipient : item.poster;
 		if (!privateChats.ContainsKey(otherPlayer.minUserProto.userId))
 		{

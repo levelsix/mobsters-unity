@@ -185,13 +185,13 @@ namespace com.lvl6.proto
       set { _curStructCoordinates = value; }
     }
 
-    private com.lvl6.proto.StructOrientation _newOrientation = com.lvl6.proto.StructOrientation.POSITION_1;
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"newOrientation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private com.lvl6.proto.StructOrientation _orientationNew = com.lvl6.proto.StructOrientation.POSITION_1;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"orientationNew", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.POSITION_1)]
-    public com.lvl6.proto.StructOrientation newOrientation
+    public com.lvl6.proto.StructOrientation orientationNew
     {
-      get { return _newOrientation; }
-      set { _newOrientation = value; }
+      get { return _orientationNew; }
+      set { _orientationNew = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"MoveOrRotateNormStructType")]
     public enum MoveOrRotateNormStructType

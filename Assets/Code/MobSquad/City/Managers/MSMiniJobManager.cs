@@ -109,7 +109,6 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	public void Init(MiniJobCenterProto pier)
 	{
-		Debug.LogWarning("Initted MiniJobManager: " + pier);
 		currJobCenter = pier;
 
 		if (pier != null)
@@ -168,6 +167,10 @@ public class MSMiniJobManager : MonoBehaviour {
 			{
 				Debug.LogWarning("Adding job!");
 				userMiniJobs.Add(job);
+				if(MSActionManager.MiniJob.OnMiniJobRestock != null)
+				{
+					MSActionManager.MiniJob.OnMiniJobRestock();
+				}
 			}
 		}
 		else
@@ -206,11 +209,13 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		isBeginning = true;
 
+
+
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_MINI_JOB_EVENT, 
 		                                       DealWithJobBegin);
-		if(MSActionManager.MiniJob.OnStartMiniJob != null)
+		if(MSActionManager.MiniJob.OnMiniJobBegin != null)
 		{
-			MSActionManager.MiniJob.OnStartMiniJob(job);
+			MSActionManager.MiniJob.OnMiniJobBegin(job);
 		}
 	}
 
@@ -237,6 +242,10 @@ public class MSMiniJobManager : MonoBehaviour {
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, numGems))
 		{
 			StartCoroutine(CompleteCurrentJob(true, numGems));
+			if(MSActionManager.MiniJob.OnMiniJobGemsComplete != null)
+			{
+				MSActionManager.MiniJob.OnMiniJobGemsComplete();
+			}
 		}
 	}
 
@@ -266,6 +275,11 @@ public class MSMiniJobManager : MonoBehaviour {
 		}
 
 		currActiveJob.timeCompleted = MSUtil.timeNowMillis;
+
+		if(MSActionManager.MiniJob.OnMiniJobComplete != null)
+		{
+			MSActionManager.MiniJob.OnMiniJobComplete();
+		}
 
 		CompleteMiniJobRequestProto request = new CompleteMiniJobRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -361,11 +375,21 @@ public class MSMiniJobManager : MonoBehaviour {
 		request.sender = MSWhiteboard.localMupWithResources;
 		request.clientTime = MSUtil.timeNowMillis;
 		request.userMiniJobId = currJob.userMiniJobId;
+		
+		//Damage Monsters
+		int damage = currJob.baseDmgReceived;
+		foreach (var item in currJob.userMonsterIds) 
+		{
+			PZMonster monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == item);
+			monster.currHP = Mathf.Max(monster.currHP - damage/currJob.userMonsterIds.Count, 0);
+			request.umchp.Add(monster.GetCurrentHealthProto());
+		}
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REDEEM_MINI_JOB_EVENT, null);
 
 		isRedeeming = true;
 
+		Debug.Log("Redeeming job: " + request.userMiniJobId);
 
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
@@ -386,6 +410,10 @@ public class MSMiniJobManager : MonoBehaviour {
 			MSResourceManager.instance.Collect(ResourceType.OIL, currJob.miniJob.oilReward);
 			MSResourceManager.instance.Collect(ResourceType.GEMS, currJob.miniJob.gemReward);
 
+			if(MSActionManager.MiniJob.OnMiniJobRedeem != null)
+			{
+				MSActionManager.MiniJob.OnMiniJobRedeem();
+			}
 		}
 		else
 		{

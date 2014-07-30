@@ -318,8 +318,10 @@ public static class MSUtil {
 		{
 			switch (elementStrengths[monsterType][attackType]) {
 			case Comparison.STRONG:
+				Debug.Log("Super Effective!");
 				return MSWhiteboard.constants.monsterConstants.elementalStrength;
 			case Comparison.WEAK:
+				Debug.Log("Not Effective!");
 				return MSWhiteboard.constants.monsterConstants.elementalWeakness;
 			default:
 				break;

@@ -151,6 +151,8 @@ public class MSHospitalManager : MonoBehaviour {
 			{
 				if (MSHospitalManager.instance.healingMonsters[i].finishHealTimeMillis <= MSUtil.timeNowMillis)
 				{
+					MSSlideUp.instance.QueueMonsterFinishHealing(MSHospitalManager.instance.healingMonsters[i]);
+
 					MSHospitalManager.instance.healingMonsters[i].hospitalTimes[MSHospitalManager.instance.healingMonsters[i].hospitalTimes.Count-1].hospital.goon = null;
 
 					health = new UserMonsterCurrentHealthProto();

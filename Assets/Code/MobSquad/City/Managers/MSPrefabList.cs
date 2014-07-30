@@ -41,4 +41,6 @@ public class MSPrefabList : MonoBehaviour {
 	public MSSimplePoolable bombPrefab;
 
 	public MSSimplePoolable progressBar;
+
+	public MSSimplePoolable miniJobDone;
 }

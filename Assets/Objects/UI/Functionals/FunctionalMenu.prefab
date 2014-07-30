@@ -11,6 +11,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400030}
   - 54: {fileID: 5400014}
+  - 114: {fileID: 11400002}
   m_Layer: 5
   m_Name: FunctionalMenu
   m_TagString: Untagged
@@ -118,7 +119,6 @@ GameObject:
   - 114: {fileID: 11400016}
   - 65: {fileID: 6500002}
   - 54: {fileID: 5400000}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400338}
   - 114: {fileID: 11400336}
   - 114: {fileID: 11400334}
@@ -3794,7 +3794,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1311, y: 768, z: 0}
+  m_Size: {x: 1152, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500002
 BoxCollider:
@@ -3964,7 +3964,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100012}
+  m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae942c9068183dc40a9d01f648273726, type: 3}
@@ -3994,7 +3994,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4014
+  startingRenderQueue: 4013
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 25, z: 860, w: 641}
@@ -4051,13 +4051,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1311
+  mWidth: 1152
   mHeight: 768
-  mDepth: 50
+  mDepth: -1
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.70703125
+  aspectRatio: 1.5
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1
@@ -4327,15 +4327,15 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 34
-  mHeight: 34
+  mWidth: 50
+  mHeight: 52
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: .961538434
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
-  mSpriteName: closex
+  mSpriteName: closepopupx
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -4577,7 +4577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrangement: 0
-  sorting: 0
+  sorting: 1
   pivot: 0
   maxPerLine: 5
   cellWidth: 170
@@ -4647,7 +4647,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4022
+  startingRenderQueue: 4021
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 860, w: 350}
@@ -4974,6 +4974,8 @@ MonoBehaviour:
   maxSize: 110
   minSize: 12
   currVal: 0
+  tweenToVal: 0
+  speed: .5
 --- !u!114 &11400060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5314,6 +5316,8 @@ MonoBehaviour:
   maxSize: 110
   minSize: 12
   currVal: 0
+  tweenToVal: 0
+  speed: .5
 --- !u!114 &11400082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5838,6 +5842,8 @@ MonoBehaviour:
   maxSize: 110
   minSize: 12
   currVal: 0
+  tweenToVal: 0
+  speed: .5
 --- !u!114 &11400108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10013,6 +10019,8 @@ MonoBehaviour:
   maxSize: 164
   minSize: 2
   currVal: 0
+  tweenToVal: 0
+  speed: .5
 --- !u!114 &11400322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10027,6 +10035,8 @@ MonoBehaviour:
   maxSize: 164
   minSize: 2
   currVal: 0
+  tweenToVal: 0
+  speed: .5
 --- !u!114 &11400324
 MonoBehaviour:
   m_ObjectHideFlags: 1

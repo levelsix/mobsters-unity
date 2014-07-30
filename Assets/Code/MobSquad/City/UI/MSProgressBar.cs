@@ -23,14 +23,14 @@ public class MSProgressBar : MonoBehaviour {
 	/// <summary>
 	/// Start Time
 	/// </summary>
-	long start;
+	public long start;
 
 	/// <summary>
 	/// End time
 	/// </summary>
 	long duration;
 
-	long end
+	public long end
 	{
 		get{
 			return start + duration;
@@ -45,9 +45,11 @@ public class MSProgressBar : MonoBehaviour {
 	public bool isActiveTimeFrame
 	{
 		get{
-			return MSUtil.timeNowMillis < end;
+			return  MSUtil.timeNowMillis > start && MSUtil.timeNowMillis < end;
 		}
 	}
+
+	const int STEPS_TO_COMPLETE_FAST_LERP = 20;
 
 	/// <summary>
 	/// Disables the bar and will have to be re-initiated
@@ -91,10 +93,30 @@ public class MSProgressBar : MonoBehaviour {
 	{
 		while(MSUtil.timeNowMillis < end)
 		{
-			long fill = MSUtil.timeSince(start) / duration;
-			bar.fill = (float)fill;
-			timeLabel.text = MSUtil.TimeStringShort(end - MSUtil.timeNowMillis);
+			float fill = (float)MSUtil.timeSince(start) / (float)duration;
+			bar.fill = fill;
+			timeLabel.text = MSUtil.TimeStringShort(MSUtil.timeUntil(end));
 			yield return new WaitForEndOfFrame();
+		}
+		CompleteBar();
+	}
+
+	public void FastComplete()
+	{
+		StopAllCoroutines();
+		StartCoroutine(FastLerp());
+	}
+
+	IEnumerator FastLerp()
+	{
+		long now = MSUtil.timeNowMillis;
+		long increment = duration / STEPS_TO_COMPLETE_FAST_LERP;
+		while(now < end)
+		{
+			now += increment;
+			bar.fill = (((float)now - (float)start) / (float)duration);
+			timeLabel.text = MSUtil.TimeStringShort(Math.Max(end - now, 0));
+			yield return null;
 		}
 		CompleteBar();
 	}
@@ -110,6 +132,7 @@ public class MSProgressBar : MonoBehaviour {
 			BarCompleted();
 		}
 
-		gameObject.SetActive(false);
+		TweenAlpha.Begin(gameObject, 0.2f, 0f);
+		GetComponent<TweenAlpha>().AddOnFinished(delegate {	gameObject.SetActive(false); GetComponent<UISprite>().alpha = 1f; });
 	}
 }

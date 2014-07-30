@@ -50,6 +50,7 @@ public class MSHospital {
 	public MSHospital()
 	{
 		MSActionManager.Goon.OnHealQueueChanged += OnHealingQueueChange;
+		MSActionManager.Scene.OnCity += OnHealingQueueChange;
 	}
 
 	public MSHospital(MSHospital hospital)

@@ -10,11 +10,13 @@ public class MSTeamCenter : MSBuildingFrame {
 	{
 		CheckTag();
 		MSActionManager.Goon.OnTeamChanged += OnTeamChange;
+		MSActionManager.Scene.OnCity += OnTeamChange;
 	}
 
 	void OnDisable()
 	{
 		MSActionManager.Goon.OnTeamChanged -= OnTeamChange;
+		MSActionManager.Scene.OnCity -= OnTeamChange;
 	}
 
 	public void Init(Animator controller)

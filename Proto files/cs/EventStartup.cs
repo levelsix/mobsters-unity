@@ -690,6 +690,24 @@ namespace com.lvl6.proto
       set { _continueBattleGemCostMultiplier = value; }
     }
 
+    private float _battleRunAwayBasePercent = default(float);
+    [global::ProtoBuf.ProtoMember(28, IsRequired = false, Name=@"battleRunAwayBasePercent", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float battleRunAwayBasePercent
+    {
+      get { return _battleRunAwayBasePercent; }
+      set { _battleRunAwayBasePercent = value; }
+    }
+
+    private float _battleRunAwayIncrement = default(float);
+    [global::ProtoBuf.ProtoMember(29, IsRequired = false, Name=@"battleRunAwayIncrement", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float battleRunAwayIncrement
+    {
+      get { return _battleRunAwayIncrement; }
+      set { _battleRunAwayIncrement = value; }
+    }
+
     private bool _addAllFbFriends = default(bool);
     [global::ProtoBuf.ProtoMember(23, IsRequired = false, Name=@"addAllFbFriends", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
