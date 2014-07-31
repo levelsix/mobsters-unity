@@ -31,6 +31,9 @@ public class PZMonsterIntro : MonoBehaviour {
 	[SerializeField]
 	TweenAlpha bottomAlph;
 
+	[SerializeField]
+	TweenAlpha tintAlph;
+
 	public void Init(PZMonster monster, int currUnitIndex, int totalUnits){
 
 		switch (monster.monster.monsterElement) {
@@ -67,6 +70,8 @@ public class PZMonsterIntro : MonoBehaviour {
 	}
 
 	public void PlayAnimation(){
+		tintAlph.ResetToBeginning();
+		tintAlph.PlayForward();
 		topPos.ResetToBeginning ();
 		topPos.PlayForward ();
 		topAlph.ResetToBeginning();
