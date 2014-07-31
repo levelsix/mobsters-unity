@@ -19,6 +19,9 @@ public class MSGenericPopup : MonoBehaviour {
 	
 	[SerializeField]
 	MSActionButton[] buttons;
+
+	[SerializeField]
+	UISprite topper;
 	
 	const float BUTTON_WIDTH = 190;
 	
@@ -32,25 +35,26 @@ public class MSGenericPopup : MonoBehaviour {
 	/// </param>
 	public void Init(string message)
 	{		
-		Init("", message, new string[]{"Okay"}, new string[]{"greymenuoption"}, new Action[]{MSActionManager.Popup.CloseTopPopupLayer});
+		Init("", message, new string[]{"Okay"}, new string[]{"greymenuoption"}, new Action[]{MSActionManager.Popup.CloseTopPopupLayer}, "green");
 	}
 
 	public void Init(string title, string message)
 	{
-		Init(title, message, new string[]{"Okay"}, new string[]{"greymenuoption"}, new Action[]{MSActionManager.Popup.CloseTopPopupLayer});
+		Init(title, message, new string[]{"Okay"}, new string[]{"greymenuoption"}, new Action[]{MSActionManager.Popup.CloseTopPopupLayer}, "green");
 	}
 	
 	public void Init(string message, string[] buttonLabels, string[] buttonSprites, Action[] buttonActions)
 	{
-		Init("", message, buttonLabels, buttonSprites, buttonActions);
+		Init("", message, buttonLabels, buttonSprites, buttonActions, "green");
 	}
 	
-	public void Init(string title, string message, string[] buttonLabels, string[] buttonSprites, Action[] buttonActions)
+	public void Init(string title, string message, string[] buttonLabels, string[] buttonSprites, Action[] buttonActions, string topSpriteColor)
 	{
 		if (buttonLabels.Length != buttonActions.Length)
 		{
 			throw new Exception("Length mismatch.");
 		}
+		topper.spriteName = topSpriteColor + "notificationheader";
 		label.text = message;
 		this.title.text = message;
 		float xOffset = (BUTTON_WIDTH * buttonLabels.Length) / 2;

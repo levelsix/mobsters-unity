@@ -278,7 +278,7 @@ public class RecordingGUI : MonoBehaviour
 
     void MyAdjustAndroidWhitelist()
     {
-        // Kamcord.WhitelistAll (); // Comment this in to test on any Android device.
+        //Kamcord.WhitelistAll (); // Comment this in to test on any Android device.
         Kamcord.DoneChangingWhitelist ();
     }
 

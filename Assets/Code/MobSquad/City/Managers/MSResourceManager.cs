@@ -180,7 +180,8 @@ public class MSResourceManager : MonoBehaviour {
 				new Action[] { 
 					MSActionManager.Popup.CloseTopPopupLayer,
 					delegate{ MSActionManager.Popup.CloseTopPopupLayer(); SpendGemsForOtherResource(resource, resourceNeeded, action);}
-				}
+				},
+				"purple"
 			);
 		}
 		else

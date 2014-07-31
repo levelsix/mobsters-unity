@@ -40,4 +40,17 @@ public static class MSColors {
 		{Element.ROCK, Color.grey},
 		{Element.NO_ELEMENT, Color.black}
 	};
+
+	public static string colorHexString(Color color)
+	{
+		string red = ((int)(color.r * 255)).ToString("X2");
+		string green = ((int)(color.g * 255)).ToString("X2");
+		string blue = ((int)(color.b * 255)).ToString("X2");
+		return red + green + blue;
+	}
+
+	public static string nguiColorHexString(Color color)
+	{
+		return "[" + colorHexString(color) + "]";
+	}
 }

@@ -9,10 +9,19 @@ public class MSPickEvolveScreen : MSFunctionalScreen {
 	UITable table;
 
 	[SerializeField]
-	MSMobsterGrid readyToEvolveGrid;
+	GameObject noMobstersReadyElements;
+
+	[SerializeField]
+	UIGrid readyToEvolveGrid;
 
 	[SerializeField]
 	MSMobsterGrid notReadyGrid;
+
+	[SerializeField]
+	GameObject readyToEvolveHeader;
+
+	[SerializeField]
+	GameObject notReadyHeader;
 
 	void Awake()
 	{
@@ -27,8 +36,44 @@ public class MSPickEvolveScreen : MSFunctionalScreen {
 		}
 		else
 		{
-			readyToEvolveGrid.Init(GoonScreenMode.PICK_EVOLVE);
 			notReadyGrid.Init(GoonScreenMode.PICK_EVOLVE);
+
+			foreach (var item in notReadyGrid.cards) 
+			{
+				if (item.FindBuddy(notReadyGrid.cards) 
+				    && MSMonsterManager.instance.GetMonstersByMonsterId(item.monster.monster.evolutionCatalystMonsterId).Count > 0)
+				{
+					item.transform.parent = readyToEvolveGrid.transform;
+				}
+			}
+
+			if (readyToEvolveGrid.transform.childCount == 0)
+			{
+				noMobstersReadyElements.SetActive(true);
+				readyToEvolveHeader.SetActive(false);
+				readyToEvolveGrid.gameObject.SetActive(false);
+			}
+			else
+			{
+				noMobstersReadyElements.SetActive(false);
+				readyToEvolveHeader.SetActive(true);
+				readyToEvolveGrid.gameObject.SetActive(true);
+				readyToEvolveGrid.Reposition();
+			}
+
+			if (notReadyGrid.Count == 0)
+			{
+				notReadyHeader.SetActive(false);
+				notReadyGrid.gameObject.SetActive(false);
+			}
+			else
+			{
+				notReadyHeader.SetActive(true);
+				notReadyGrid.gameObject.SetActive(true);
+				notReadyGrid.Reposition();
+			}
+
+			table.Reposition();
 		}
 	}
 

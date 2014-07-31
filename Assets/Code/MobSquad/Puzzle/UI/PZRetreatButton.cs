@@ -28,7 +28,9 @@ public class PZRetreatButton : MonoBehaviour {
 						MSActionManager.Popup.CloseAllPopups(); 
 						StartCoroutine(PZCombatManager.instance.OnPlayerForfeit());
 					}  
-				});
+				},
+				"orange"
+			);
 		}
 	}
 

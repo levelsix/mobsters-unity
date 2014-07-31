@@ -87,8 +87,9 @@ public class MSObstacle : MonoBehaviour {
 						MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
 						StartRemove();
 					}
-				}
-				);
+				},
+				"purple"
+			);
 			return;
 		}
 

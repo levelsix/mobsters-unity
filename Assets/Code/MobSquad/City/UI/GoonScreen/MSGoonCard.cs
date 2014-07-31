@@ -57,6 +57,8 @@ public class MSGoonCard : MonoBehaviour {
 	[SerializeField]
 	GameObject infoButton;
 
+	public MSUIHelper dots;
+
 	#region SmallMobster
 
 	[SerializeField]
@@ -218,6 +220,9 @@ public class MSGoonCard : MonoBehaviour {
 		case GoonScreenMode.TEAM:
 			InitTeam(goon);
 			break;
+		case GoonScreenMode.PICK_EVOLVE:
+			InitEvolve(goon);
+			break;
 		default:
 			break;
 		}
@@ -339,39 +344,54 @@ public class MSGoonCard : MonoBehaviour {
 	/// If we can get a buddy
 	/// </summary>
 	/// <param name="buddy">Buddy.</param>
-	public void InitEvolve(MSGoonCard buddy = null)
+	public void InitEvolve(PZMonster monster)
 	{
-		bottomHolder.SetActive(false);
+		Setup(monster);
+
+		bottomCardLabel.text = "Tap for Info";
+		dots.ResetAlpha(true);
+
+	}
+
+	public bool FindBuddy(List<MSGoonCard> cards)
+	{
+		if (buddy != null
+		    || monster.userMonster.currentLvl < monster.monster.maxLevel)
+		{
+			return false;
+		}
+
+		foreach (var item in cards) 
+		{
+			if (item != this 
+			    && item.buddy == null
+			    && item.monster.monster.monsterId == monster.monster.monsterId
+			    && item.monster.userMonster.currentLvl == monster.monster.maxLevel)
+			{
+				BuddyUp(item);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void BuddyUp(MSGoonCard buddy)
+	{
+		foreach (var item in GetComponentsInChildren<UIWidget>()) 
+		{
+			item.depth += 10;
+		}
+		
+		isBuddyParent = true;
 		this.buddy = buddy;
-
-		if (buddy != null)
-		{
-			foreach (var item in GetComponentsInChildren<UIWidget>()) 
-			{
-				item.depth += 10;
-			}
-
-			isBuddyParent = true;
-			buddy.buddy = this;
-			buddy.transform.parent = transform;
-			TweenPosition.Begin(buddy.gameObject, .2f, buddyOffset);
-			buddy.bottomHolder.SetActive(false);
-
-			nameLabel.text = " ";
-
-			if (MSMonsterManager.instance.GetMonstersByMonsterId(monster.monster.evolutionCatalystMonsterId).Count > 0)
-			{
-				name = "1 2 Card " + monster.monster.monsterId + " " + monster.userMonster.userMonsterId;
-			}
-			else
-			{
-				name = "2 2 NoSci " + monster.monster.monsterId + " " + monster.userMonster.userMonsterId;
-			}
-		}
-		else
-		{
-			name = "4 3 NoBuddy " + monster.monster.monsterId + " " + monster.userMonster.currentLvl + " " + monster.userMonster.userMonsterId;
-		}
+		buddy.buddy = this;
+		buddy.transform.parent = transform;
+		buddy.transform.localPosition = new Vector3(15, -15);
+		buddy.bottomHolder.SetActive(false);
+		dots.ResetAlpha(false);
+		buddy.dots.ResetAlpha(false);
+		
+		nameLabel.text = " ";
 	}
 
 	public void InitScientist(long userMonsterId)
@@ -399,14 +419,12 @@ public class MSGoonCard : MonoBehaviour {
 		this.monster = goon;
 		Setup(goon);
 
-
 		infoButton.SetActive(false);
 
 		SetName();
 
 		healCostLabel.text = "$" + goon.sellValue;
 		healCostLabel.color = Color.green;
-
 	}
 
 	void SetEnhancementBonusText()
@@ -424,22 +442,9 @@ public class MSGoonCard : MonoBehaviour {
 	void Setup(PZMonster goon)
 	{
 		bigHelper.ResetAlpha(true);
-		mediumHelper.ResetAlpha (false);
+		mediumHelper.ResetAlpha(false);
 		smallHelper.ResetAlpha(false);
-
-		if (isBuddyParent)
-		{
-			buddy.transform.parent = transform.parent;
-			isBuddyParent = false;
-
-			foreach (var item in GetComponentsInChildren<UIWidget>()) 
-			{
-				item.depth -= 10;
-			}
-
-			buddy.buddy = null;
-			buddy = null;
-		}
+		dots.ResetAlpha(false);
 
 		bottomHolder.SetActive(true);
 		
@@ -894,6 +899,25 @@ public class MSGoonCard : MonoBehaviour {
 			MSHealScreen.instance.Remove(this);
 			MSHealScreen.instance.healQueue.Reposition();
 		}
+	}
+
+	public void Pool()
+	{
+		if (isBuddyParent)
+		{
+			buddy.transform.parent = transform.parent;
+			isBuddyParent = false;
+			
+			foreach (var item in GetComponentsInChildren<UIWidget>()) 
+			{
+				item.depth -= 10;
+			}
+			
+			buddy.buddy = null;
+			buddy = null;
+		}
+
+		GetComponent<MSSimplePoolable>().Pool();
 	}
 
 }
