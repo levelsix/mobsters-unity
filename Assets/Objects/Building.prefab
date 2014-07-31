@@ -220,7 +220,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400024}
-  - 114: {fileID: 11400038}
+  - 114: {fileID: 11400036}
   m_Layer: 0
   m_Name: Child
   m_TagString: Untagged
@@ -237,7 +237,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400026}
   - 114: {fileID: 11400040}
-  - 114: {fileID: 11400036}
+  - 114: {fileID: 11400038}
   m_Layer: 0
   m_Name: Bar
   m_TagString: Untagged
@@ -1403,20 +1403,6 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b942fba2053a14d328be1d3170b5309b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSize: 110
-  minSize: 2
-  currVal: 0
---- !u!114 &11400038
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100024}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -1462,6 +1448,22 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
+--- !u!114 &11400038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b942fba2053a14d328be1d3170b5309b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSize: 110
+  minSize: 2
+  currVal: 0
+  tweenToVal: 0
+  speed: .5
 --- !u!114 &11400040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1596,10 +1598,10 @@ MonoBehaviour:
   bg: {fileID: 11400032}
   caps:
   - {fileID: 11400042}
-  - {fileID: 11400038}
+  - {fileID: 11400036}
   barSprite: {fileID: 11400040}
   label: {fileID: 11400034}
-  bar: {fileID: 11400036}
+  bar: {fileID: 11400038}
   building: {fileID: 11400008}
   upgrading: 0
 --- !u!114 &11400048

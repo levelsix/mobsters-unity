@@ -58,6 +58,22 @@ public class MSDoEvolveScreen : MonoBehaviour
 	[SerializeField]
 	float doesNotHaveAlpha = .5f;
 
+	string redString
+	{
+		get
+		{
+			return MSColors.nguiColorHexString(redColor);
+		}
+	}
+	
+	string greenString
+	{
+		get
+		{
+			return MSColors.nguiColorHexString(greenColor);
+		}
+	}
+
 	long scientistId;
 
 	void Init(PZMonster monster, PZMonster buddy)
@@ -111,7 +127,13 @@ public class MSDoEvolveScreen : MonoBehaviour
 		}
 		else
 		{
-
+			string firstCharacterColorString = userMonsterLeveled ? greenString : redString;
+			string buddyColorString = buddyLeveled ? greenString : redString;
+			string sciColorString = hasScientist ? greenString : redString;
+			bigBottomLabel.text = "[000000]To create " + evoMonster.shorterName + ", you need to combine a "
+				+ firstCharacterColorString + monster.monster.shorterName + " L" + monster.monster.maxLevel + "[-], another " + buddyColorString
+				+ monster.monster.shorterName + " L" + monster.monster.maxLevel + "[-], and a " + sciColorString +
+				scientist.shorterName + " (Evo " + scientist.evolutionLevel + ")[-].";
 		}
 	}
 

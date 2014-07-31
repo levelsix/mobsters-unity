@@ -48,6 +48,10 @@ public class MSFillBar : MonoBehaviour {
 			maxSize = value;
 			fill = currVal;
 		}
+		get
+		{
+			return maxSize;
+		}
 	}
 
 	void SetFill(float val)

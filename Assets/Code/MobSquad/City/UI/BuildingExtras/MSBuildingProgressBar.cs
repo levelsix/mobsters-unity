@@ -18,7 +18,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 	[SerializeField] UILabel label;
 
-	[SerializeField] MSFillBar bar;
+	public MSFillBar bar;
 
 	[SerializeField] MSBuilding building;
 

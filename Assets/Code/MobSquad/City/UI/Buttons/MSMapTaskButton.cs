@@ -48,11 +48,25 @@ public class MSMapTaskButton : MonoBehaviour {
 		set{
 			_status = value;
 			if(value == TaskStatusType.Completed || value == TaskStatusType.Undefeated){
-				button.normalSprite = OPEN_CITY;
+				if(mapTask.boss)
+				{
+					button.normalSprite = OPEN_BOSS;
+				}
+				else
+				{
+					button.normalSprite = OPEN_CITY;
+				}
 				levelTitle.color = unlockedTextColor;
 				buttonLabel.alpha = 1f;
 			}else{
-				button.normalSprite = CLOSED_CITY;
+				if(mapTask.boss)
+				{
+					button.normalSprite = CLOSED_BOSS;
+				}
+				else
+				{
+					button.normalSprite = CLOSED_CITY;
+				}
 				levelTitle.color = lockedTextColor;
 				buttonLabel.alpha = 0f;
 			}
@@ -62,6 +76,9 @@ public class MSMapTaskButton : MonoBehaviour {
 
 	const string OPEN_CITY = "opencitypin";
 	const string CLOSED_CITY = "lockedcitypin";
+
+	const string OPEN_BOSS = "bosspin";
+	const string CLOSED_BOSS = "bosspinlocked";
 
 	void Awake(){
 		trans = transform;
@@ -79,6 +96,11 @@ public class MSMapTaskButton : MonoBehaviour {
 	}
 
 	public void initTaskButton(TaskMapElementProto task){
+		if(task.boss)
+		{
+			Debug.Log("boss"+task.mapElementId);
+		}
+
 		trans.localPosition = new Vector3(task.xPos, task.yPos, 0f);
 		mapTask = task;
 

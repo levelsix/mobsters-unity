@@ -19,6 +19,12 @@ public class MSMapTaskPopup : MonoBehaviour {
 	[SerializeField]
 	UISprite background;
 
+	[SerializeField]
+	UISprite eventIcon;
+
+	[SerializeField]
+	UISprite eventIconB;
+
 	FullTaskProto task;
 
 	const string CANCEL_BUTTON = "cancel";
@@ -82,15 +88,18 @@ public class MSMapTaskPopup : MonoBehaviour {
 		float minutes = pEvent.startHour * 60 + pEvent.eventDurationMinutes - DateTime.Now.Hour * 60 + DateTime.Now.Minute;
 		float hours = Mathf.Floor(minutes / 60);
 		minutes -= Mathf.Floor(hours * 60);
-		status.text = minutes + " M " + hours + " H";
+		status.text = hours + "H " + minutes + "M";
 
 		levelTitle.text = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId).name;
 
 		switch(pEvent.type)
 		{
 		case PersistentEventProto.EventType.ENHANCE:
+			eventIcon.spriteName = "FatBoy" + pEvent.monsterElement.ToString().ToLower();
+			eventIconB.spriteName = pEvent.monsterElement.ToString().ToLower() + "feederevent";
 			break;
 		case PersistentEventProto.EventType.EVOLUTION:
+			eventIcon.spriteName = "Scientist" + pEvent.monsterElement.ToString().ToLower();
 			break;
 		default:
 			break;

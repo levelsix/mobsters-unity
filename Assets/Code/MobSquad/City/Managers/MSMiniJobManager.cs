@@ -167,6 +167,10 @@ public class MSMiniJobManager : MonoBehaviour {
 			{
 				Debug.LogWarning("Adding job!");
 				userMiniJobs.Add(job);
+				if(MSActionManager.MiniJob.OnMiniJobRestock != null)
+				{
+					MSActionManager.MiniJob.OnMiniJobRestock();
+				}
 			}
 		}
 		else
@@ -209,6 +213,10 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_MINI_JOB_EVENT, 
 		                                       DealWithJobBegin);
+		if(MSActionManager.MiniJob.OnMiniJobBegin != null)
+		{
+			MSActionManager.MiniJob.OnMiniJobBegin(job);
+		}
 	}
 
 	void DealWithJobBegin(int tagNum)
@@ -234,6 +242,10 @@ public class MSMiniJobManager : MonoBehaviour {
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, numGems))
 		{
 			StartCoroutine(CompleteCurrentJob(true, numGems));
+			if(MSActionManager.MiniJob.OnMiniJobGemsComplete != null)
+			{
+				MSActionManager.MiniJob.OnMiniJobGemsComplete();
+			}
 		}
 	}
 
@@ -263,6 +275,11 @@ public class MSMiniJobManager : MonoBehaviour {
 		}
 
 		currActiveJob.timeCompleted = MSUtil.timeNowMillis;
+
+		if(MSActionManager.MiniJob.OnMiniJobComplete != null)
+		{
+			MSActionManager.MiniJob.OnMiniJobComplete();
+		}
 
 		CompleteMiniJobRequestProto request = new CompleteMiniJobRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -393,6 +410,10 @@ public class MSMiniJobManager : MonoBehaviour {
 			MSResourceManager.instance.Collect(ResourceType.OIL, currJob.miniJob.oilReward);
 			MSResourceManager.instance.Collect(ResourceType.GEMS, currJob.miniJob.gemReward);
 
+			if(MSActionManager.MiniJob.OnMiniJobRedeem != null)
+			{
+				MSActionManager.MiniJob.OnMiniJobRedeem();
+			}
 		}
 		else
 		{
