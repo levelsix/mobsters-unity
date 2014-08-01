@@ -20,7 +20,10 @@ public class MSPvpUI : MonoBehaviour {
 	UILabel oil;
 
 	[SerializeField]
-	UILabel rankings;
+	UILabel rankNumber;
+
+	[SerializeField]
+	UILabel rankSuffix;
 
 	[SerializeField]
 	UILabel rematchCost;
@@ -30,19 +33,24 @@ public class MSPvpUI : MonoBehaviour {
 
 	public void Init(PvpProto defender)
 	{
-
+		
 		nameLabel.text = defender.defender.minUserProto.name;
 
 		money.text = "$" + defender.prospectiveCashWinnings;
 
 		oil.text = defender.prospectiveOilWinnings.ToString();
 
-		rankings.text = defender.pvpLeagueStats.elo + ". " + defender.defender.minUserProto.name;
+		rankNumber.text = defender.pvpLeagueStats.elo.ToString();
+
+		rankSuffix.text = MSUtil.LeagueRankSuffix(defender.pvpLeagueStats.elo);
 
 		rematchCost.text = "$" + PZCombatManager.instance.pvpMatchCost + "\nNext Match";
 		
 		Reset();
-		posTween.PlayForward();
+		transform.localPosition = new Vector3(-300f, -50f, 0f);
+		gameObject.SetActive(true);
+		//posTween.PlayForward();
+		//MSSwoopAnimation.SwoopGroup(1,0.3f);
 	}
 
 	public void Reset()

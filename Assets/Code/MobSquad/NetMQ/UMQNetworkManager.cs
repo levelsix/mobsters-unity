@@ -106,7 +106,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		factoryJava.Call("setVirtualHost", "devmobsters");
 #else
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.HostName = "54.190.8.97";
+		factory.HostName = "staging.mobsters.lvl6.com";
 		factory.UserName = "lvl6client";
 		factory.Password = "devclient";
 		factory.VirtualHost = "devmobsters";

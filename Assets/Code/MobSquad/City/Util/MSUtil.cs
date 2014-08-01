@@ -380,5 +380,24 @@ public static class MSUtil {
 		return copy;
 	}
 
+	public static string LeagueRankSuffix(int rank)
+	{
+		switch(rank % 10)
+		{
+		case 1:
+			return "st";
+			break;
+		case 2:
+			return "nd";
+			break;
+		case 3:
+			return "rd";
+			break;
+		default:
+			return "th";
+			break;
+		}
+	}
+
 
 }
