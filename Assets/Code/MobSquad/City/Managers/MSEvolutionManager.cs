@@ -14,6 +14,30 @@ public class MSEvolutionManager : MonoBehaviour {
 
 	public UserMonsterEvolutionProto currEvolution = null;
 
+	public PZMonster evoMonster
+	{
+		get
+		{
+			if (currEvolution == null || currEvolution.userMonsterIds.Count == 0)
+			{
+				return null;
+			}
+			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == currEvolution.userMonsterIds[0]);
+		}
+	}
+
+	public PZMonster buddy
+	{
+		get
+		{
+			if (currEvolution == null || currEvolution.userMonsterIds.Count < 2)
+			{
+				return null;
+			}
+			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == currEvolution.userMonsterIds[1]);
+		}
+	}
+
 	long finishTime;
 
 	int oilCost
@@ -52,6 +76,14 @@ public class MSEvolutionManager : MonoBehaviour {
 	}
 
 	public bool hasEvolution
+	{
+		get
+		{
+			return currEvolution != null && currEvolution.userMonsterIds.Count > 0;
+		}
+	}
+
+	public bool isEvolving
 	{
 		get
 		{
@@ -110,27 +142,43 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		if (currEvolution == null)
 		{
-			Debug.LogError("ERROR: No evolution to start");
+			MSActionManager.Popup.DisplayError("ERROR: No evolution to start");
 			return;
 		}
 
 		if (!ready)
 		{
-			Debug.LogError("ERROR: Not enough stuff for evolution");
+			MSActionManager.Popup.DisplayError("ERROR: Not enough stuff for evolution");
 			return;
 		}
 
-		currEvolution.startTime = MSUtil.timeNowMillis;
+		/*
+		if (MSResourceManager.resources[ResourceType.OIL] < oilCost)
+		{
+			if (useGems)
+			{
 
-		EvolveMonsterRequestProto request = new EvolveMonsterRequestProto();
-		request.sender = MSWhiteboard.localMup;
-		request.evolution = currEvolution;
-		request.oilChange = oilCost;
+			}
+			else
+			{
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLVE_MONSTER_EVENT, ReceiveEvolutionStartResponse);
+			}
+		}
+		*/
+		if (MSResourceManager.instance.Spend(ResourceType.OIL, oilCost, StartEvolution))
+	    {
+			currEvolution.startTime = MSUtil.timeNowMillis;
 
-		finishTime = currEvolution.startTime + 
-			MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==currEvolution.userMonsterIds[0]).monster.minutesToEvolve * 60000;
+			EvolveMonsterRequestProto request = new EvolveMonsterRequestProto();
+			request.sender = MSWhiteboard.localMup;
+			request.evolution = currEvolution;
+			request.oilChange = oilCost;
+
+			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLVE_MONSTER_EVENT, ReceiveEvolutionStartResponse);
+
+			finishTime = currEvolution.startTime + 
+				MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==currEvolution.userMonsterIds[0]).monster.minutesToEvolve * 60000;
+		}
 	}
 
 	void ReceiveEvolutionStartResponse(int tagNum)

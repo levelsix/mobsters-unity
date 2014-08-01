@@ -165,7 +165,18 @@ public class MSResourceManager : MonoBehaviour {
 		if (resource == ResourceType.GEMS)
 		{
 			//Prompt to buy more gems
-
+			MSPopupManager.instance.CreatePopup("Not Enough Gems",
+				"You don't have enough gems. Want more?",
+			                                    new string[] {"Enter Shop"},
+			new string[] {"purplemenuoption"},
+			new Action[] {
+				delegate 
+				{
+					MSActionManager.Popup.CloseAllPopups(); 
+				}
+			},
+			"purple"
+			);
 		}
 		else if (amount <= maxes[(int)resource-1]) //We don't want to let users use gem buys to overcome resource limits
 		{

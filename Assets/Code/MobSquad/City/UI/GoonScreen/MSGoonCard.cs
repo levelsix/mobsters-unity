@@ -544,15 +544,13 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		if (monster.userMonster.teamSlotNum == 0)
 		{
-			if (MSMonsterManager.instance.AddToTeam(monster) == 0) //Returns 0 if the team is full
+			if (MSMonsterManager.instance.AddToTeam(monster) == 0)
 			{
-				//MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage("Team is already full!");
+				MSActionManager.Popup.DisplayError("Team is already full!");
 			}
 			else
 			{
-				Debug.Log("Here, parent: " + transform.parent.name);
 				transform.parent = MSTeamScreen.instance.playerTeam[monster.userMonster.teamSlotNum-1].transform;
-				Debug.Log("Here, parent: " + transform.parent.name);
 				SpringPosition.Begin(gameObject, Vector3.zero, 15);
 				bigHelper.FadeOut();
 				mediumHelper.FadeIn();
@@ -726,15 +724,8 @@ public class MSGoonCard : MonoBehaviour {
 
 	void PickForEvolve()
 	{
-		if (monster.monster.evolutionMonsterId > 0)
-		{
-			MSEvolutionManager.instance.TryEvolveMonster(monster, (buddy!=null) ? buddy.monster : null);
-			//MSPopupManager.instance.popups.goonScreen.OrganizeEvolution(this);
-		}
-		else
-		{
-			//MSPopupManager.instance.popups.goonScreen.DisplayErrorMessage(monster.monster.displayName + " is already at maximum evolution level");
-		}
+		MSEvolutionManager.instance.TryEvolveMonster(monster, (buddy!=null) ? buddy.monster : null);
+		MSPopupManager.instance.popups.goonScreen.DoShiftRight(false);
 	}
 	
 	void SpeedUpCombine()

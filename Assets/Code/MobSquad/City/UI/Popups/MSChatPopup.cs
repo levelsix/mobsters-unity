@@ -308,7 +308,7 @@ public class MSChatPopup : MonoBehaviour {
 	}
 
 	public void GoToPrivateChat(MinimumUserProtoWithLevel otherPlayer,
-	                            SortedList<long, PrivateChatPostProto> chat,
+	                            List<PrivateChatPostProto> chat,
 	                            bool slide = false)
 	{
 		MSChatBubbleOptions.instance.Close(true);
@@ -340,13 +340,13 @@ public class MSChatPopup : MonoBehaviour {
 		privateChats.Clear();
 	}
 
-	MSPrivateChatEntry Add(KeyValuePair<int, SortedList<long, PrivateChatPostProto>> pair)
+	MSPrivateChatEntry Add(KeyValuePair<int, List<PrivateChatPostProto>> pair)
 	{
 		MSPrivateChatEntry entry = (MSPoolManager.instance.Get(privateChatEntryPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, privateChatGrid.transform) 
 		                            as MSSimplePoolable).GetComponent<MSPrivateChatEntry>();
 		entry.transform.localScale = Vector3.one;
 		privateChats.Add(entry);
-		entry.Init(pair.Value.Values[0]);
+		entry.Init(pair.Value[0]);
 		foreach (var item in entry.GetComponents<UIWidget>()) 
 		{
 			item.ParentHasChanged();
@@ -354,7 +354,7 @@ public class MSChatPopup : MonoBehaviour {
 		return entry;
 	}
 
-	public void SetupPrivateChatListing(Dictionary<int, SortedList<long, PrivateChatPostProto>> chats)
+	public void SetupPrivateChatListing(Dictionary<int, List<PrivateChatPostProto>> chats)
 	{
 		if (chats.Count == 0)
 		{
@@ -363,9 +363,9 @@ public class MSChatPopup : MonoBehaviour {
 		else
 		{
 			RecyclePrivates();
-			foreach (var pair in chats) 
+			foreach (var item in chats) 
 			{
-				MSPrivateChatEntry entry = Add(pair);
+				MSPrivateChatEntry entry = Add(item);
 			}
 			privateChatGrid.Reposition();
 		}

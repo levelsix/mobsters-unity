@@ -7,7 +7,7 @@ using com.lvl6.proto;
 /// MSDoEvolveScreen
 /// @author Rob Giusti
 /// </summary>
-public class MSDoEvolveScreen : MonoBehaviour 
+public class MSDoEvolveScreen : MSFunctionalScreen 
 {
 	#region UI Elements
 
@@ -74,26 +74,45 @@ public class MSDoEvolveScreen : MonoBehaviour
 		}
 	}
 
+	PZMonster monster;
+	PZMonster buddy;
+	PZMonster sci;
+
 	long scientistId;
 
-	void Init(PZMonster monster, PZMonster buddy)
+	public override bool IsAvailable ()
 	{
+		return MSEvolutionManager.instance.hasEvolution;
+	}
+
+	void OnDisable()
+	{
+		if (!MSEvolutionManager.instance.isEvolving)
+		{
+			MSEvolutionManager.instance.currEvolution = null;
+		}
+	}
+
+	public override void Init()
+	{
+		monster = MSEvolutionManager.instance.evoMonster;
+		buddy = MSEvolutionManager.instance.buddy;
+
 		bool userMonsterLeveled = monster.userMonster.currentLvl >= monster.monster.maxLevel;
 		bool hasBuddy = buddy != null;
 		bool buddyLeveled = hasBuddy && buddy.userMonster.currentLvl >= monster.monster.maxLevel;
-		scientistId = 0;
+		sci = null;
 		foreach (var item in MSMonsterManager.instance.GetMonstersByMonsterId(monster.monster.evolutionCatalystMonsterId)) 
 		{
 			if (item != monster && item != buddy)
 			{
-				scientistId = item.monster.monsterId;
+				sci = item;
 				break;
 			}
 		}
-		bool hasScientist = scientistId > 0;
+		bool hasScientist = sci != null && sci.monster.monsterId > 0;
 		bool isReady = userMonsterLeveled && buddyLeveled && hasScientist;
 
-		MonsterProto scientist = MSDataManager.instance.Get<MonsterProto>(monster.monster.evolutionCatalystMonsterId);
 		MonsterProto evoMonster = MSDataManager.instance.Get<MonsterProto>(monster.monster.evolutionMonsterId);
 
 		secondCharacter.color = hasBuddy ? Color.white : Color.black;
@@ -107,8 +126,8 @@ public class MSDoEvolveScreen : MonoBehaviour
 		                                monster.monster.displayName + "Character",
 		                                secondCharacter,
 		                                buddyLeveled ? 1f : doesNotHaveAlpha);
-		MSSpriteUtil.instance.SetSprite(scientist.displayName,
-		                                scientist.displayName + "Character",
+		MSSpriteUtil.instance.SetSprite(sci.monster.displayName,
+		                                sci.monster.displayName + "Character",
 		                               	scientistCharacter,
 		                                hasScientist ? 1f : doesNotHaveAlpha);
 		MSSpriteUtil.instance.SetSprite(evoMonster.displayName,
@@ -123,7 +142,7 @@ public class MSDoEvolveScreen : MonoBehaviour
 			bigBottomLabel.text = MSColors.nguiColorHexString(greenColor) + "You have all the pieces to create "
 				+ evoMonster.shorterName + "\n" + monster.monster.shorterName + " L" + monster.monster.maxLevel
 				+ ", another " + monster.monster.shorterName + " L" + monster.monster.maxLevel + ", and a "
-					+ scientist.shorterName + "(Evo " + scientist.evolutionLevel + ").[-]";
+					+ sci.monster.shorterName + "(Evo " + sci.monster.evolutionLevel + ").[-]";
 		}
 		else
 		{
@@ -133,17 +152,24 @@ public class MSDoEvolveScreen : MonoBehaviour
 			bigBottomLabel.text = "[000000]To create " + evoMonster.shorterName + ", you need to combine a "
 				+ firstCharacterColorString + monster.monster.shorterName + " L" + monster.monster.maxLevel + "[-], another " + buddyColorString
 				+ monster.monster.shorterName + " L" + monster.monster.maxLevel + "[-], and a " + sciColorString +
-				scientist.shorterName + " (Evo " + scientist.evolutionLevel + ")[-].";
+				sci.monster.shorterName + " (Evo " + sci.monster.evolutionLevel + ")[-].";
 		}
 	}
-
+	
 	public void Back()
 	{
-
+		MSPopupManager.instance.popups.goonScreen.DoShiftLeft(false);
 	}
 
-	public void Start()
+	public void Button()
 	{
-
+		if (MSEvolutionManager.instance.hasEvolution)
+		{
+			MSEvolutionManager.instance.FinishWithGems();
+		}
+		else
+		{
+			MSEvolutionManager.instance.StartEvolution();
+		}
 	}
 }

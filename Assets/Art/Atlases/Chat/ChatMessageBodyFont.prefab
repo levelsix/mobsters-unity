@@ -1945,7 +1945,13 @@ MonoBehaviour:
       kerning: 
   mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
   mReplacement: {fileID: 0}
-  mSymbols: []
+  mSymbols:
+  - sequence: "\U0001F605"
+    spriteName: wateravatar
+  - sequence: "\U0001F600"
+    spriteName: earthavatar
+  - sequence: "\U0001F601"
+    spriteName: fireavatar
   mDynamicFont: {fileID: 0}
   mDynamicFontSize: 16
   mDynamicFontStyle: 0
