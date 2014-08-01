@@ -10,9 +10,18 @@ public class MSMobsterGrid : MonoBehaviour {
 
 	[SerializeField] MSUIHelper noMobstersLabel;
 
-	List<MSGoonCard> cards = new List<MSGoonCard>();
+	[HideInInspector]
+	public List<MSGoonCard> cards = new List<MSGoonCard>();
 
 	[SerializeField] bool evoReady = false;
+
+	public int Count
+	{
+		get
+		{
+			return cards.Count;
+		}
+	}
 
 	public void Init(GoonScreenMode mode)
 	{
@@ -62,7 +71,7 @@ public class MSMobsterGrid : MonoBehaviour {
 	{
 		foreach(var card in cards)
 		{
-			card.GetComponent<MSSimplePoolable>().Pool();
+			card.Pool();
 		}
 		cards.Clear();
 	}
@@ -99,13 +108,16 @@ public class MSMobsterGrid : MonoBehaviour {
 	public void Reposition()
 	{
 		grid.Reposition();
-		if (grid.animateSmoothly)
+		if (noMobstersLabel != null)
 		{
-			noMobstersLabel.Fade(grid.transform.childCount == 0);
-		}
-		else
-		{
-			noMobstersLabel.ResetAlpha(grid.transform.childCount == 0);
+			if (grid.animateSmoothly)
+			{
+				noMobstersLabel.Fade(grid.transform.childCount == 0);
+			}
+			else
+			{
+				noMobstersLabel.ResetAlpha(grid.transform.childCount == 0);
+			}
 		}
 	}
 
@@ -113,7 +125,7 @@ public class MSMobsterGrid : MonoBehaviour {
 	{
 		foreach (var item in cards) 
 		{
-			if (item.buddy.monster == mon)
+			if (item.buddy != null && item.buddy.monster == mon)
 			{
 				return true;
 			}

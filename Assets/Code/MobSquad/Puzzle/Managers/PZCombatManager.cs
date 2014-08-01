@@ -496,7 +496,9 @@ public class PZCombatManager : MonoBehaviour {
 		PZPuzzleManager.instance.InitBoard();
 
 		boardMove.Sample(0, false);
+		boardMove.delay = 1f;
 		boardMove.PlayForward();
+		boardMove.delay = 0f;
 
 		boardTint.Sample(1, false);
 		boardTint.PlayReverse();

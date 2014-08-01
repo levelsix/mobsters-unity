@@ -83,6 +83,8 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	}
 
 	MinimumUserProtoWithLevel sender;
+
+	public long timeSent;
 	
 	void Awake()
 	{
@@ -136,6 +138,7 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	void Init(long time, string sender, string message, int avatarId, bool leader = false)
 	{	
 		avatar.Init(avatarId);
+		timeSent = time;
 
 		//Fill text with message
 		textLabel.text = message;

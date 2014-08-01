@@ -60,6 +60,18 @@ public class MSPvpUI : MonoBehaviour {
 
 	public void Retract()
 	{
-		posTween.PlayReverse();
+		//posTween.PlayReverse();
+		if(MSSwoopAnimation.SwoopGroupOut != null)
+		{
+			Debug.Log("swoooops");
+			MSSwoopAnimation.SwoopGroupOut(MSSwoopAnimation.SwoopIDs.PVPMENU);
+		}
+		StartCoroutine(DelayedDisable());
+	}
+
+	IEnumerator DelayedDisable()
+	{
+		yield return new WaitForSeconds(1f);
+		gameObject.SetActive(false);
 	}
 }

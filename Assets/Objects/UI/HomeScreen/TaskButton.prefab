@@ -105,7 +105,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -50, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400008}
@@ -199,7 +199,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .884615362
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: buildingevovle
   mType: 0
   mFillDirection: 4
@@ -306,7 +306,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.38596487
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: buildingoptionbutton
   mType: 0
   mFillDirection: 4
@@ -355,10 +355,10 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 14.3000002
+  aspectRatio: 11.916667
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 6103dc100ea8d4f3cb1319f31abe8d5f, type: 2}
+  mFont: {fileID: 11400000, guid: ced1eda36375d45589bdad391c1a2b66, type: 2}
   mText: Upgrade
   mFontSize: 18
   mFontStyle: 0
@@ -420,8 +420,8 @@ MonoBehaviour:
   aspectRatio: 14.3000002
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 6103dc100ea8d4f3cb1319f31abe8d5f, type: 2}
-  mText: (o) 300
+  mFont: {fileID: 11400000, guid: ced1eda36375d45589bdad391c1a2b66, type: 2}
+  mText: (g) 300
   mFontSize: 18
   mFontStyle: 0
   mAlignment: 0
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d166255cacf07b4292b8402b3ddefc5, type: 3}
   m_Name: 
@@ -559,7 +559,7 @@ MonoBehaviour:
   aspectRatio: 7.94444466
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 6103dc100ea8d4f3cb1319f31abe8d5f, type: 2}
+  mFont: {fileID: 11400000, guid: ced1eda36375d45589bdad391c1a2b66, type: 2}
   mText: (o) 300
   mFontSize: 18
   mFontStyle: 0

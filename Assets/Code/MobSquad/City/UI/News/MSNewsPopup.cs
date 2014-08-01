@@ -8,8 +8,8 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// CBKRequestPopup
 /// </summary>
-public class MSRequestPopup : MonoBehaviour {
-
+public class MSNewsPopup : MonoBehaviour {
+	
 	[SerializeField]
 	UIGrid requestGrid;
 

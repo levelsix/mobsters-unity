@@ -14,6 +14,9 @@ public class UMQLoader : MonoBehaviour {
 	// Use this for initialization
 	public IEnumerator Start () {
 
+		Kamcord.WhitelistAll();
+		Kamcord.DoneChangingWhitelist();
+
 		Application.targetFrameRate = 60;
 
 		/*

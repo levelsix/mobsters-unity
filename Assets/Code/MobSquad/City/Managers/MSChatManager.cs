@@ -17,9 +17,9 @@ public class MSChatManager : MonoBehaviour {
 	
 	public MSValues.ChatMode currMode = MSValues.ChatMode.GLOBAL;
 	
-	SortedList<long, GroupChatMessageProto> globalChat = new SortedList<long, GroupChatMessageProto>();
-	SortedList<long, GroupChatMessageProto> clanChat = new SortedList<long, GroupChatMessageProto>();
-	Dictionary<int, SortedList<long, PrivateChatPostProto>> privateChats = new Dictionary<int, SortedList<long, PrivateChatPostProto>>();
+	List<GroupChatMessageProto> globalChat = new List<GroupChatMessageProto>();
+	List<GroupChatMessageProto> clanChat = new List<GroupChatMessageProto>();
+	Dictionary<int, List<PrivateChatPostProto>> privateChats = new Dictionary<int, List<PrivateChatPostProto>>();
 
 	public bool hasPrivateChats
 	{
@@ -39,13 +39,15 @@ public class MSChatManager : MonoBehaviour {
 		foreach (GroupChatMessageProto item in startup.globalChats) 
 		{
 			//Debug.Log("Global Chat message: From: " + item.sender.minUserProto.name + "\n" + item.content);
-			globalChat.Add(item.timeOfChat, item);
+			globalChat.Add(item);
 		}
+		globalChat.Sort ((a,b) => a.timeOfChat.CompareTo(b.timeOfChat));
 
 		foreach (GroupChatMessageProto item in startup.clanChats)
 		{
-			clanChat.Add(item.timeOfChat, item);
+			clanChat.Add(item);
 		}
+		clanChat.Sort ((a,b) => a.timeOfChat.CompareTo(b.timeOfChat));
 
 		foreach (PrivateChatPostProto item in startup.pcpp) 
 		{
@@ -59,11 +61,13 @@ public class MSChatManager : MonoBehaviour {
 		MinimumUserProtoWithLevel otherPlayer = (item.poster.minUserProto.userId == MSWhiteboard.localUser.userId) ? item.recipient : item.poster;
 		if (!privateChats.ContainsKey(otherPlayer.minUserProto.userId))
 		{
-			privateChats.Add(otherPlayer.minUserProto.userId, new SortedList<long, PrivateChatPostProto>());
+			privateChats.Add(otherPlayer.minUserProto.userId, new List<PrivateChatPostProto>());
 		}
 		
-		privateChats[otherPlayer.minUserProto.userId].Add(item.timeOfPost, item);
+		privateChats[otherPlayer.minUserProto.userId].Add(item);
+		privateChats[otherPlayer.minUserProto.userId].Sort((a,b) => a.timeOfPost.CompareTo(b.timeOfPost));
 	}
+
 	
 	public void SetChatMode(MSValues.ChatMode mode)
 	{
@@ -100,7 +104,7 @@ public class MSChatManager : MonoBehaviour {
 			chatPopup.GoToPrivateChat(otherUser, privateChats[otherUser.minUserProto.userId]);
 			if (privateChats[otherUser.minUserProto.userId].Count == 1)
 			{
-				LoadAllMessagesForPrivateChat(otherUser, privateChats[otherUser.minUserProto.userId].Values[0]);
+				LoadAllMessagesForPrivateChat(otherUser, privateChats[otherUser.minUserProto.userId][0]);
 			}
 		}
 		else
@@ -152,10 +156,12 @@ public class MSChatManager : MonoBehaviour {
 		switch (proto.scope)
 		{
 		case GroupChatScope.GLOBAL:
-			globalChat.Add(MSUtil.timeNowMillis, groupMessage);
+			globalChat.Add(groupMessage);
+			globalChat.Sort((a,b) => a.timeOfChat.CompareTo(b.timeOfChat));
 			break;
 		case GroupChatScope.CLAN:
-			clanChat.Add(MSUtil.timeNowMillis, groupMessage);
+			clanChat.Add(groupMessage);
+			clanChat.Sort ((a,b) => a.timeOfChat.CompareTo(b.timeOfChat));
 			break;
 		}
 
@@ -163,10 +169,5 @@ public class MSChatManager : MonoBehaviour {
 		{
 			MSActionManager.UI.OnGroupChatReceived(proto);
 		}
-	}
-	
-	public void ReceiveGroupChatMessage(GroupChatMessageProto message)
-	{
-		globalChat.Add(message.timeOfChat, message);
 	}
 }

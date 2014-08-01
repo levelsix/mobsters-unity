@@ -55,8 +55,8 @@ public class MSSwoopAnimation : MonoBehaviour {
 	/// <summary>
 	/// Swoops an active swoopers with groupID INT over duration FLOAT
 	/// </summary>
-	public static Action<SwoopIDs,float> SwoopGroup;
-	public static Action<SwoopIDs,float> SwoopGroupOut;
+	public static Action<SwoopIDs> SwoopGroup;
+	public static Action<SwoopIDs> SwoopGroupOut;
 
 	void Awake()
 	{
@@ -69,7 +69,7 @@ public class MSSwoopAnimation : MonoBehaviour {
 	void OnEnable()
 	{
 		SwoopGroup += SwoopByID;
-		SwoopGroup += SwoopOutByID;
+		SwoopGroupOut += SwoopOutByID;
 		widget.alpha = 0f;
 		if(swoopOnEnable)
 		{
@@ -80,6 +80,7 @@ public class MSSwoopAnimation : MonoBehaviour {
 	void OnDisable()
 	{
 		SwoopGroup -= SwoopByID;
+		SwoopGroupOut -= SwoopOutByID;
 	}
 
 	IEnumerator Swoop()
@@ -137,41 +138,32 @@ public class MSSwoopAnimation : MonoBehaviour {
 		}
 
 		tweenPos.duration = duration;
-		tweenPos.to = new Vector3(startPosition.x - offset.x, startPosition.y - offset.y, startPosition.z - offset.z);
+		tweenPos.to = new Vector3(startPosition.x + offset.x, startPosition.y + offset.y, startPosition.z + offset.z);
 		tweenPos.from = startPosition;
 
 		trans.localPosition = startPosition;
 		tweenPos.ResetToBeginning();
 		tweenPos.PlayForward();
 		TweenAlpha.Begin(gameObject, duration, 0f);
+		GetComponent<TweenAlpha>().AddOnFinished( delegate { transform.localPosition = startPosition; } );
 	}
 
 	/// <summary>
 	/// Swoops all active swoop components with the given ID
 	/// </summary>
 	/// <param name="groupId">Group identifier.</param>
-	void SwoopByID(SwoopIDs groupId, float dur = -1f)
+	void SwoopByID(SwoopIDs groupId)
 	{
 		if(groupId != SwoopIDs.NONE && groupId == this.swoopId)
 		{
-			if(dur >= 0f)
-			{
-				duration = dur;
-			}
-
 			StartCoroutine( this.Swoop ());
 		}
 	}
 
-	void SwoopOutByID(SwoopIDs groupId, float dur = -1f)
+	void SwoopOutByID(SwoopIDs groupId)
 	{
 		if(groupId != SwoopIDs.NONE && groupId == this.swoopId)
 		{
-			if(dur >= 0f)
-			{
-				duration = dur;
-			}
-			
 			StartCoroutine( this.SwoopOut ());
 		}
 	}

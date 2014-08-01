@@ -2,10 +2,11 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
+using System;
 
 public class MSChatGrid : MonoBehaviour {
 	
-	public SortedList<long, MSChatBubble> bubbles = new SortedList<long, MSChatBubble>();
+	public List<MSChatBubble> bubbles = new List<MSChatBubble>();
 	
 	const float SPACE_BETWEEN_MESSAGES = 15f;
 	
@@ -35,7 +36,7 @@ public class MSChatGrid : MonoBehaviour {
 
 	void RecycleBubbles ()
 	{
-		foreach (MSChatBubble item in bubbles.Values) 
+		foreach (MSChatBubble item in bubbles) 
 		{
 			item.Pool ();
 		}
@@ -48,7 +49,8 @@ public class MSChatGrid : MonoBehaviour {
 		                           Vector3.zero, transform) as MSChatBubble;
 		bub.transf.localScale = Vector3.one;
 		bub.name = (long.MaxValue - timeSent).ToString();
-		bubbles.Add(timeSent, bub);
+		bubbles.Add(bub);
+		bubbles.Sort((a,b) => a.timeSent.CompareTo(b.timeSent));
 		foreach (var widget in bub.GetComponentsInChildren<UIWidget>()) 
 		{
 			widget.ParentHasChanged();
@@ -56,7 +58,7 @@ public class MSChatGrid : MonoBehaviour {
 		return bub;
 	}
 	
-	public void SpawnBubbles(SortedList<long, PrivateChatPostProto> messages)
+	public void SpawnBubbles(List<PrivateChatPostProto> messages)
 	{
 		gameObject.SetActive(true);
 		
@@ -64,10 +66,10 @@ public class MSChatGrid : MonoBehaviour {
 
 		if (messages != null)
 		{
-			foreach (KeyValuePair<long, PrivateChatPostProto> item in messages) 
+			foreach (PrivateChatPostProto item in messages) 
 			{
-				MSChatBubble bub = CreateBubble(item.Value.poster.minUserProto.userId, item.Key);
-				bub.Init(item.Value);
+				MSChatBubble bub = CreateBubble(item.poster.minUserProto.userId, item.timeOfPost);
+				bub.Init(item);
 			}
 		}
 		
@@ -77,16 +79,16 @@ public class MSChatGrid : MonoBehaviour {
 		posResetter.Reset();
 	}
 	
-	public void SpawnBubbles(SortedList<long, GroupChatMessageProto> messages)
+	public void SpawnBubbles(List<GroupChatMessageProto> messages)
 	{
 		gameObject.SetActive(true);
 
 		RecycleBubbles ();
 
-		foreach (KeyValuePair<long, GroupChatMessageProto> item in messages) 
+		foreach (GroupChatMessageProto item in messages) 
 		{
-			MSChatBubble bub = CreateBubble(item.Value.sender.minUserProto.userId, item.Key);
-			bub.Init(item.Value);
+			MSChatBubble bub = CreateBubble(item.sender.minUserProto.userId, item.timeOfChat);
+			bub.Init(item);
 		}
 
 		table.animateSmoothly = false;

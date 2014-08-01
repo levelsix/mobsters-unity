@@ -83,7 +83,6 @@ public class MSPier : MSBuildingFrame {
 	
 	
 	public override void CheckTag(){
-		Debug.LogWarning("checkTag");
 
 		if(bubbleIcon != null)
 		{

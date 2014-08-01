@@ -89,12 +89,12 @@ public class MSSpriteUtil : MonoBehaviour {
 		}
 	}
 
-	public void SetSprite(string bundleName, string spriteName, UI2DSprite sprite)
+	public void SetSprite(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha = 1f)
 	{
-		StartCoroutine(SetSpriteCoroutine(bundleName, spriteName, sprite));
+		StartCoroutine(SetSpriteCoroutine(bundleName, spriteName, sprite, finalAlpha));
 	}
 
-	IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite)
+	IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha)
 	{
 		if (AWS_On)
 		{
@@ -111,7 +111,7 @@ public class MSSpriteUtil : MonoBehaviour {
 			{
 				sprite.sprite2D = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
 				sprite.MakePixelPerfect();
-				sprite.alpha = 1;
+				sprite.alpha = finalAlpha;
 			}
 		}
 		else

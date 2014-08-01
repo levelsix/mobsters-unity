@@ -134,9 +134,9 @@ public class MSPopupManager : MonoBehaviour {
 		InitPopup (popup);
 	}
 
-	public void CreatePopup(string title, string text, string[] buttonLabels, string[] buttonSprites, Action[] buttonActions)
+	public void CreatePopup(string title, string text, string[] buttonLabels, string[] buttonSprites, Action[] buttonActions, string topColor = "green")
 	{
-		popup.Init(title, text, buttonLabels, buttonSprites, buttonActions);
+		popup.Init(title, text, buttonLabels, buttonSprites, buttonActions, topColor);
 		
 		InitPopup (popup);
 	}
