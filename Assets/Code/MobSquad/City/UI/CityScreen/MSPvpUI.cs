@@ -11,6 +11,9 @@ using com.lvl6.proto;
 public class MSPvpUI : MonoBehaviour {
 
 	[SerializeField]
+	MSChatAvatar avatar;
+
+	[SerializeField]
 	UILabel nameLabel;
 
 	[SerializeField]
@@ -33,7 +36,8 @@ public class MSPvpUI : MonoBehaviour {
 
 	public void Init(PvpProto defender)
 	{
-		
+		avatar.Init(defender.defender.minUserProto.avatarMonsterId);
+
 		nameLabel.text = defender.defender.minUserProto.name;
 
 		money.text = "$" + defender.prospectiveCashWinnings;
@@ -63,15 +67,18 @@ public class MSPvpUI : MonoBehaviour {
 		//posTween.PlayReverse();
 		if(MSSwoopAnimation.SwoopGroupOut != null)
 		{
-			Debug.Log("swoooops");
 			MSSwoopAnimation.SwoopGroupOut(MSSwoopAnimation.SwoopIDs.PVPMENU);
 		}
-		StartCoroutine(DelayedDisable());
+
+		if(gameObject.activeSelf)
+		{
+			StartCoroutine(DelayedDisable());
+		}
 	}
 
 	IEnumerator DelayedDisable()
 	{
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(1.5f);
 		gameObject.SetActive(false);
 	}
 }

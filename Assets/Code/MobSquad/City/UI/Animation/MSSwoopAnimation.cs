@@ -83,10 +83,9 @@ public class MSSwoopAnimation : MonoBehaviour {
 		SwoopGroupOut -= SwoopOutByID;
 	}
 
-	IEnumerator Swoop()
+	void UpdateOffset()
 	{
 
-		yield return new WaitForSeconds(delay);
 		switch(swoopFrom)
 		{
 		case Direction.DOWN:
@@ -106,45 +105,40 @@ public class MSSwoopAnimation : MonoBehaviour {
 		}
 
 		tweenPos.duration = duration;
+	}
+
+	IEnumerator Swoop()
+	{
+		yield return new WaitForSeconds(duration);
+
+		UpdateOffset();
+
 		tweenPos.from = new Vector3(startPosition.x + offset.x, startPosition.y + offset.y, startPosition.z + offset.z);
 		tweenPos.to = startPosition;
 
 		trans.localPosition = new Vector3(startPosition.x + offset.x, startPosition.y + offset.y, startPosition.z + offset.z);
 		tweenPos.ResetToBeginning();
+		tweenPos.delay = delay;
 		tweenPos.PlayForward();
 		TweenAlpha.Begin(gameObject, duration, 1f);
+		GetComponent<TweenAlpha>().delay = delay;
 	}
 
 	IEnumerator SwoopOut()
 	{
 		yield return new WaitForSeconds(duration);
 
-		switch(swoopFrom)
-		{
-		case Direction.DOWN:
-			offset = new Vector3(0f,-swoopDistance,0f);
-			break;
-		case Direction.LEFT:
-			offset = new Vector3(-swoopDistance,0f,0f);
-			break;
-		case Direction.RIGHT:
-			offset = new Vector3(swoopDistance,0f,0f);
-			break;
-		case Direction.UP:
-			offset = new Vector3(0f,swoopDistance,0f);
-			break;
-		default:
-			break;
-		}
+		UpdateOffset();
 
-		tweenPos.duration = duration;
 		tweenPos.to = new Vector3(startPosition.x + offset.x, startPosition.y + offset.y, startPosition.z + offset.z);
 		tweenPos.from = startPosition;
 
 		trans.localPosition = startPosition;
 		tweenPos.ResetToBeginning();
+		tweenPos.delay = delay;
 		tweenPos.PlayForward();
 		TweenAlpha.Begin(gameObject, duration, 0f);
+		GetComponent<TweenAlpha>().delay = delay;
 		GetComponent<TweenAlpha>().AddOnFinished( delegate { transform.localPosition = startPosition; } );
 	}
 
