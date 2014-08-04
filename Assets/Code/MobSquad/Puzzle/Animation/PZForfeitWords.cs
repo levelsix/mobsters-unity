@@ -36,7 +36,6 @@ public class PZForfeitWords : MonoBehaviour {
 	/// <param name="position">World space coordinates. NOT local</param>
 	public void SetParentPosition(Vector3 position)
 	{
-		Debug.Log("set position: " + position);
 		parent.position = position;
 	}
 
@@ -69,37 +68,41 @@ public class PZForfeitWords : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator Forfeit(bool successfulForfeit)
-	{
-		forfeitSprite.transform.localPosition = Vector3.zero;
-		
-		Transform oldParent = forfeitSprite.transform.parent;
-		forfeitSprite.transform.parent = transform.parent;
-		if (successfulForfeit) {
-			forfeitSprite.spriteName = "runawaysuccess";
-			forfeitSprite.MakePixelPerfect();
-		} else {
-			forfeitSprite.spriteName = "runawayfailed";
-			forfeitSprite.MakePixelPerfect();
-		}
-		
-		TweenAlpha alpha = forfeitSprite.GetComponent<TweenAlpha> ();
-		TweenScale scale = forfeitSprite.GetComponent<TweenScale> ();
-		
-		alpha.ResetToBeginning ();
-		alpha.PlayForward ();
-		scale.ResetToBeginning ();
-		scale.PlayForward ();
-		
-		Vector3 start = forfeitSprite.transform.localPosition;
-		
-		float currTime = 0f;
-		while (currTime < alpha.duration) {
-			forfeitSprite.transform.localPosition = new Vector3(start.x, start.y + (200f * (currTime/alpha.duration)), start.z);
-			currTime += Time.deltaTime;
-			yield return new WaitForEndOfFrame();
-		}
-		
-		forfeitSprite.transform.parent = oldParent;
-	}
+	/// <summary>
+	/// depreciated
+	/// </summary>
+	/// <param name="successfulForfeit">If set to <c>true</c> successful forfeit.</param>
+//	public IEnumerator Forfeit(bool successfulForfeit)
+//	{
+//		forfeitSprite.transform.localPosition = Vector3.zero;
+//		
+//		Transform oldParent = forfeitSprite.transform.parent;
+//		forfeitSprite.transform.parent = transform.parent;
+//		if (successfulForfeit) {
+//			forfeitSprite.spriteName = "runawaysuccess";
+//			forfeitSprite.MakePixelPerfect();
+//		} else {
+//			forfeitSprite.spriteName = "runawayfailed";
+//			forfeitSprite.MakePixelPerfect();
+//		}
+//		
+//		TweenAlpha alpha = forfeitSprite.GetComponent<TweenAlpha> ();
+//		TweenScale scale = forfeitSprite.GetComponent<TweenScale> ();
+//		
+//		alpha.ResetToBeginning ();
+//		alpha.PlayForward ();
+//		scale.ResetToBeginning ();
+//		scale.PlayForward ();
+//		
+//		Vector3 start = forfeitSprite.transform.localPosition;
+//		
+//		float currTime = 0f;
+//		while (currTime < alpha.duration) {
+//			forfeitSprite.transform.localPosition = new Vector3(start.x, start.y + (200f * (currTime/alpha.duration)), start.z);
+//			currTime += Time.deltaTime;
+//			yield return new WaitForEndOfFrame();
+//		}
+//		
+//		forfeitSprite.transform.parent = oldParent;
+//	}
 }

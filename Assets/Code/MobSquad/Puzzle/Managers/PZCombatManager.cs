@@ -624,7 +624,6 @@ public class PZCombatManager : MonoBehaviour {
 	public IEnumerator OnPlayerForfeit(){
 		bool forfeitSuccess = Random.value <= forfeitChance;
 		PZPuzzleManager.instance.swapLock++;
-		Debug.Log(activeEnemy.transform.position + ":" + activePlayer.transform.position);
 		Vector3 center = new Vector3((activeEnemy.transform.position.x + activePlayer.transform.position.x) / 2f,
 		                             (activeEnemy.transform.position.y + activePlayer.transform.position.y) / 2f,
 		                             activePlayer.transform.position.z);
