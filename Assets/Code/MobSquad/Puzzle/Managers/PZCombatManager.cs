@@ -61,7 +61,10 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	[SerializeField]
 	MSUnit unitPrefab;
-	
+
+	[SerializeField]
+	PZForfeitWords forfeit;
+
 	/// <summary>
 	/// The scrolling background, which will be scrolled appropriately
 	/// as the player's unit moves from enemy to enemy
@@ -621,7 +624,12 @@ public class PZCombatManager : MonoBehaviour {
 	public IEnumerator OnPlayerForfeit(){
 		bool forfeitSuccess = Random.value <= forfeitChance;
 		PZPuzzleManager.instance.swapLock++;
-		yield return StartCoroutine(activePlayer.Forfeit (forfeitSuccess));
+		Debug.Log(activeEnemy.transform.position + ":" + activePlayer.transform.position);
+		Vector3 center = new Vector3((activeEnemy.transform.position.x + activePlayer.transform.position.x) / 2f,
+		                             (activeEnemy.transform.position.y + activePlayer.transform.position.y) / 2f,
+		                             activePlayer.transform.position.z);
+		forfeit.SetParentPosition(center);
+		yield return StartCoroutine(forfeit.Animate (forfeitSuccess));
 		if (forfeitSuccess) {
 			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
 			ActivateLoseMenu();
