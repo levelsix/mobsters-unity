@@ -239,7 +239,12 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		return Vector3.zero;
 	}
 
-	public void CenterOnGroundPos(Vector3 groundPos, float time = .2f)
+	public IEnumerator CenterOnGroundPos(Vector3 groundPos, float time = .2f)
+	{
+		yield return StartCoroutine(SlideToCameraPosition(GroundPosToCameraPos(groundPos), cam.orthographicSize, time));
+	}
+
+	public void DoCenterOnGroundPos(Vector3 groundPos, float time = .2f)
 	{
 		SlideToPos(GroundPosToCameraPos(groundPos), cam.orthographicSize, time);
 	}

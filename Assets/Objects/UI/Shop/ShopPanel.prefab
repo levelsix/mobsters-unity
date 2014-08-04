@@ -792,6 +792,7 @@ GameObject:
   - 114: {fileID: 11400150}
   - 114: {fileID: 11400148}
   - 65: {fileID: 6500010}
+  - 114: {fileID: 11400230}
   m_Layer: 5
   m_Name: GoonieGrab
   m_TagString: Untagged
@@ -1229,8 +1230,8 @@ GameObject:
   - 4: {fileID: 400146}
   - 114: {fileID: 11400234}
   - 114: {fileID: 11400232}
-  - 114: {fileID: 11400230}
   - 65: {fileID: 6500024}
+  - 114: {fileID: 11400388}
   m_Layer: 5
   m_Name: BasicGrab
   m_TagString: Untagged
@@ -1701,6 +1702,7 @@ GameObject:
   - 114: {fileID: 11400314}
   - 114: {fileID: 11400312}
   - 65: {fileID: 6500038}
+  - 114: {fileID: 11400390}
   m_Layer: 5
   m_Name: MadGrab
   m_TagString: Untagged
@@ -6120,10 +6122,10 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4013
+  startingRenderQueue: 4003
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: 0, z: 1136.55176, w: 640}
+  mClipRange: {x: 0, y: 0, z: 960, w: 640}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 3
   mSortingOrder: 0
@@ -8716,14 +8718,15 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100146}
+  m_GameObject: {fileID: 100094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aeed38ed56ca43c89e90049d6945fca, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c6727a75e5cd445a989432ebd683b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 0}
-  closeTop: 0
+  closeTop: 1
+  boosterId: 2
 --- !u!114 &11400232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9198,6 +9201,7 @@ MonoBehaviour:
   keepWithinPanel: 0
   padding: {x: 5, y: 0}
   animateSmoothly: 0
+  centered: 0
   sorted: 0
 --- !u!114 &11400258
 MonoBehaviour:
@@ -10299,6 +10303,7 @@ MonoBehaviour:
   keepWithinPanel: 0
   padding: {x: 5, y: 0}
   animateSmoothly: 0
+  centered: 0
   sorted: 0
 --- !u!114 &11400312
 MonoBehaviour:
@@ -12022,6 +12027,34 @@ MonoBehaviour:
   initialSize: {x: 1, y: 1}
   borderPadding: {x: 0, y: 0}
   widgetContainer: {fileID: 0}
+--- !u!114 &11400388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6727a75e5cd445a989432ebd683b06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popup: {fileID: 0}
+  closeTop: 1
+  boosterId: 1
+--- !u!114 &11400390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6727a75e5cd445a989432ebd683b06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popup: {fileID: 0}
+  closeTop: 1
+  boosterId: 3
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

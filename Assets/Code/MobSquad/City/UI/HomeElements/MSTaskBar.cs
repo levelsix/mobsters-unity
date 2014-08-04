@@ -8,9 +8,10 @@ using System.Collections.Generic;
 /// Has different modes depending on the current state of the game (CHAT, BUILDING, QUEST)
 /// </summary>
 public class MSTaskBar : MonoBehaviour {
-	
-	[SerializeField]
-	List<MSTaskButton> taskButtons;
+
+	public static MSTaskBar instance;
+
+	public List<MSTaskButton> taskButtons;
 	
 	[SerializeField]
 	MSTaskButton taskButtonPrefab;
@@ -54,6 +55,11 @@ public class MSTaskBar : MonoBehaviour {
 			float ratio = ((float)Screen.width)/Screen.height;
 			return ratio > 1.59f;
 		}
+	}
+
+	void Awake()
+	{
+		instance = this;
 	}
 
 	void OnEnable()

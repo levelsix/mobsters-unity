@@ -65,7 +65,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 	public enum Mode {SELL_MOBSTERS, UPGRADE, FINISH, HEAL, ENHANCE, REMOVE_OBSTACLE, EVOLVE, HIRE, MINIJOB, TEAM, FIX};
 	
-	Mode currMode;
+	public Mode currMode;
 
 	public bool tweeningOut
 	{

@@ -51,6 +51,7 @@ GameObject:
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400014}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400064}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -124,7 +125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100016
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +515,7 @@ MonoBehaviour:
   eventReceiver: {fileID: 0}
   callWhenFinished: 
   from: {x: -0, y: 0, z: 0}
-  to: {x: -0, y: 0, z: 0}
+  to: {x: 0, y: 0, z: -35}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -768,7 +769,7 @@ MonoBehaviour:
   eventReceiver: {fileID: 0}
   callWhenFinished: 
   from: {x: 0, y: 0, z: 0}
-  to: {x: 0, y: 0, z: 0}
+  to: {x: -113.79921, y: -590.005066, z: 0}
   worldSpace: 0
 --- !u!114 &11400016
 MonoBehaviour:
@@ -1375,6 +1376,7 @@ MonoBehaviour:
   - {fileID: 11400018}
   - {fileID: 11400048}
   - {fileID: 11400016}
+  - {fileID: 11400064}
   outTweens:
   - {fileID: 11400014}
   - {fileID: 11400000}
@@ -1667,6 +1669,44 @@ MonoBehaviour:
   disabledSprite: 
   pixelSnap: 0
   onClick: []
+--- !u!114 &11400064
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d1b7c9e9a19a24ab67123a43c6544b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  method: 0
+  style: 0
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+    - time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  ignoreTimeScale: 1
+  delay: 0
+  duration: 0
+  steeperCurves: 0
+  tweenGroup: 0
+  onFinished: []
+  eventReceiver: {fileID: 0}
+  callWhenFinished: 
+  from: {x: 0, y: 0, z: 0}
+  to: {x: 0, y: 0, z: 0}
 --- !u!114 &11400066
 MonoBehaviour:
   m_ObjectHideFlags: 1

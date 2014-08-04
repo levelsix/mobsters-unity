@@ -61,7 +61,8 @@ public class MSMobsterGrid : MonoBehaviour {
 			{
 				return false;
 			}
-			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED;
+			return mobster.monster.evolutionMonsterId > 0 
+				&& (mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED);
 		default:
 			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED;
 		}

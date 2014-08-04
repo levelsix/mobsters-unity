@@ -290,6 +290,10 @@ public class PZMonster {
 			{
 				return MonsterStatus.ON_MINI_JOB;
 			}
+			if (MSEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterId))
+			{
+				return MonsterStatus.EVOLVING;
+			}
 			if (currHP < maxHP)
 			{
 				return MonsterStatus.INJURED;

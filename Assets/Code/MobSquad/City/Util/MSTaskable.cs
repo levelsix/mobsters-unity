@@ -213,21 +213,9 @@ public class MSTaskable : MonoBehaviour {
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, null);
 		
 		//yield return StartCoroutine (EnterDungeon ());
+		PZPuzzleManager.instance.InitBoard();
 
 		MSActionManager.Scene.OnPuzzle();
-
-		string taskDeb = "Task " + task.taskId;
-		if (MSTutorialManager.instance.IsTaskTutorial(task.taskId))
-		{
-			MSTutorialManager.instance.StartTutorial(task.taskId);
-			taskDeb += ": Tutorial!";
-		}
-		else
-		{
-			PZPuzzleManager.instance.InitBoard();
-			taskDeb += ": Not Tutorial!";
-		}
-		Debug.LogWarning(taskDeb);
 		
 		PZCombatManager.instance.PreInitTask();
 

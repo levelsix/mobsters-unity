@@ -57,7 +57,7 @@ public class TweenPosition : UITweener
 	/// Tween the value.
 	/// </summary>
 
-	protected override void OnUpdate (float factor, bool isFinished) { value = from * (1f - factor) + to * factor; }
+	protected override void OnUpdate (float factor, bool isFinished) { value = Vector3.Lerp(from, to, factor); } // from * (1f - factor) + to * factor; }
 
 	/// <summary>
 	/// Start the tweening operation.

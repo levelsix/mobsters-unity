@@ -121,7 +121,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: cashcollected
     x: 103
-    y: 487
+    y: 542
     width: 110
     height: 54
     borderLeft: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: cashready
     x: 234
-    y: 397
+    y: 473
     width: 69
     height: 75
     borderLeft: 0
@@ -158,9 +158,22 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
+  - name: commonjob
+    x: 887
+    y: 997
+    width: 136
+    height: 27
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: confirmbuild
     x: 234
-    y: 270
+    y: 346
     width: 52
     height: 52
     borderLeft: 0
@@ -184,9 +197,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: epicjob
+    x: 567
+    y: 673
+    width: 96
+    height: 27
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: evolvebubble
-    x: 0
-    y: 8
+    x: 103
+    y: 235
     width: 94
     height: 62
     borderLeft: 0
@@ -199,7 +225,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: fix1
     x: 103
-    y: 298
+    y: 172
     width: 94
     height: 62
     borderLeft: 0
@@ -225,7 +251,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: gemscollected
     x: 103
-    y: 597
+    y: 487
     width: 110
     height: 54
     borderLeft: 0
@@ -392,20 +418,33 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: lockedup
-    x: 234
-    y: 473
-    width: 69
-    height: 75
+  - name: legendaryjob
+    x: 304
+    y: 673
+    width: 158
+    height: 27
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 1
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: minijobsredbubble1
+    x: 324
+    y: 842
+    width: 150
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: minijobsredbubble2
     x: 559
     y: 896
     width: 150
@@ -418,7 +457,7 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: minijobsredbubble2
+  - name: minijobsredbubble3
     x: 324
     y: 716
     width: 150
@@ -431,22 +470,9 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: minijobsredbubble3
-    x: 324
-    y: 779
-    width: 150
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
   - name: minijobsredbubble4
     x: 324
-    y: 842
+    y: 779
     width: 150
     height: 62
     borderLeft: 0
@@ -472,7 +498,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: mjdone
     x: 234
-    y: 323
+    y: 399
     width: 52
     height: 73
     borderLeft: 0
@@ -576,7 +602,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: oilcollected
     x: 103
-    y: 542
+    y: 597
     width: 110
     height: 54
     borderLeft: 0
@@ -588,8 +614,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: oiloverflow
-    x: 234
-    y: 625
+    x: 103
+    y: 47
     width: 69
     height: 75
     borderLeft: 0
@@ -601,8 +627,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: oilready
-    x: 103
-    y: 47
+    x: 234
+    y: 625
     width: 69
     height: 75
     borderLeft: 0
@@ -626,59 +652,20 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: rarejob
+    x: 463
+    y: 673
+    width: 103
+    height: 27
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: sellbubble1
-    x: 924
-    y: 707
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble2
-    x: 0
-    y: 197
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble3
-    x: 0
-    y: 134
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble4
-    x: 0
-    y: 71
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble5
     x: 103
     y: 424
     width: 94
@@ -691,9 +678,61 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: sellbubble2
+    x: 0
+    y: 8
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble3
+    x: 0
+    y: 71
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble4
+    x: 0
+    y: 134
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble5
+    x: 924
+    y: 707
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: sellbubble6
-    x: 103
-    y: 361
+    x: 924
+    y: 770
     width: 94
     height: 62
     borderLeft: 0
@@ -718,8 +757,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: sellbubble8
-    x: 103
-    y: 172
+    x: 0
+    y: 197
     width: 94
     height: 62
     borderLeft: 0
@@ -732,7 +771,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: sellbubble9
     x: 103
-    y: 235
+    y: 298
     width: 94
     height: 62
     borderLeft: 0
@@ -744,8 +783,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: sellbubbleexclamation
-    x: 924
-    y: 770
+    x: 103
+    y: 361
     width: 94
     height: 62
     borderLeft: 0
@@ -796,8 +835,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: teambubble0
-    x: 710
-    y: 896
+    x: 559
+    y: 833
     width: 128
     height: 62
     borderLeft: 0
@@ -822,8 +861,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: teambubble2
-    x: 559
-    y: 770
+    x: 710
+    y: 896
     width: 128
     height: 62
     borderLeft: 0
@@ -836,7 +875,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: teambubble3
     x: 559
-    y: 833
+    y: 770
     width: 128
     height: 62
     borderLeft: 0
@@ -846,58 +885,6 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
-    paddingBottom: 0
-  - name: epicjob
-    x: 567
-    y: 673
-    width: 96
-    height: 27
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: commonjob
-    x: 887
-    y: 997
-    width: 136
-    height: 27
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: rarejob
-    x: 463
-    y: 673
-    width: 103
-    height: 27
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: legendaryjob
-    x: 304
-    y: 673
-    width: 158
-    height: 27
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
     paddingBottom: 0
   - name: ultrajob
     x: 883

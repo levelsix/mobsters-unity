@@ -340,7 +340,7 @@ public class UMQNetworkManager : MonoBehaviour {
 	IEnumerator ConsumeJava(AndroidJavaObject consumer)
 	{
 		Debug.Log("Starting java consume for consumer");
-		debugTextLabel.text += "H";
+		//debugTextLabel.text += "H";
 
 		if (consumer.GetRawObject().ToInt32() == 0) Debug.Log("Problem with consumer");
 

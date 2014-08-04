@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
@@ -21,7 +21,7 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 	void Fail()
 	{
 		//Center on team center
-		MSTownCamera.instance.CenterOnGroundPos(MSBuildingManager.teamCenter.trans.position, .4f);
+		MSTownCamera.instance.DoCenterOnGroundPos(MSBuildingManager.teamCenter.trans.position, .4f);
 
 		//Popup error message
 		MSActionManager.Popup.DisplayError("You have no Mobsters on your team. Manage your team now.");

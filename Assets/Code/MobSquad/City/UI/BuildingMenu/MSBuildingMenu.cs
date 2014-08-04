@@ -6,14 +6,20 @@ using com.lvl6.proto;
 
 public class MSBuildingMenu : MonoBehaviour {
 
+	public static MSBuildingMenu instance;
+
 	[SerializeField]
 	MSBuildingCard buildingCardPrefab;
 
 	[SerializeField]
 	UITable table;
+	
+	public List<MSBuildingCard> cards;
 
-	[SerializeField]
-	List<MSBuildingCard> cards;
+	void Awake()
+	{
+		instance = this;
+	}
 
 	void OnEnable()
 	{

@@ -18,6 +18,19 @@ public class MSDialogueUI : MonoBehaviour {
 	public UILabel dialogueLabel;
 	public UILabel mobsterNameLabel;
 
+	/// <summary>
+	/// Wrapper around the coroutine, so that we can make sure that the
+	/// coroutine is running on this component locally.
+	/// </summary>
+	/// <returns>The dialogue.</returns>
+	/// <param name="mobsterImgName">Mobster image name.</param>
+	/// <param name="mobsterName">Mobster name.</param>
+	/// <param name="dialogue">Dialogue.</param>
+	public Coroutine DoDialogue(string mobsterImgName, string mobsterName, string dialogue)
+    {
+		return StartCoroutine(BringInMobster(mobsterImgName, mobsterName, dialogue));
+	}
+
 	public IEnumerator BringInMobster(string mobsterImgName, string mobsterName, string dialogue)
 	{
 		MSSpriteUtil.instance.SetSprite(mobsterImgName, mobsterImgName + "Character", mobster);

@@ -458,7 +458,7 @@ public class UIInput : MonoBehaviour
 	/// Notification of the input field gaining selection.
 	/// </summary>
 
-	protected void OnSelectEvent ()
+	public void OnSelectEvent ()
 	{
 		selection = this;
 
