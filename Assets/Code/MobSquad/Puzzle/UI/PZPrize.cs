@@ -14,6 +14,9 @@ public class PZPrize : MonoBehaviour {
 	UISprite border;
 
 	[SerializeField]
+	UISprite background;
+
+	[SerializeField]
 	UISprite icon;
 
 	[SerializeField]
@@ -42,6 +45,8 @@ public class PZPrize : MonoBehaviour {
 
 	TweenAlpha tweenAlpha;
 
+	const string LOST_ITEM_BORDER = "youlostitemborder";
+
 	static readonly Dictionary<Quality, Color> textColors = new Dictionary<Quality, Color>()
 	{
 		{Quality.COMMON, Color.grey},
@@ -64,6 +69,7 @@ public class PZPrize : MonoBehaviour {
 		label.alpha = 0f;
 		rarityTag.alpha = 0f;
 		pieceLabel.alpha = 0f;
+		background.alpha = 0f;
 	}
 
 	void init()
@@ -135,6 +141,15 @@ public class PZPrize : MonoBehaviour {
 			}
 		}
 		icon.spriteName = item.imgName.Substring (0, item.imgName.Length - ".png".Length);
+	}
+
+	/// <summary>
+	/// If a player's team is blacked out then we show them what they lost
+	/// </summary>
+	public void SetToLostPrize()
+	{
+		background.alpha = 1f;
+		border.spriteName = LOST_ITEM_BORDER;
 	}
 
 	/// <summary>

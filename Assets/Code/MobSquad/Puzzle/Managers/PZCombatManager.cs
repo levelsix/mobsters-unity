@@ -289,7 +289,6 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void PreInitTask()
 	{
-		mobsterCounter.alpha = 0f;
 
 		prizeQuantityLabel.text = "0";
 
@@ -325,8 +324,6 @@ public class PZCombatManager : MonoBehaviour {
 
 		Debug.LogWarning("Number of stages: " + MSWhiteboard.loadedDungeon.tsp.Count);
 
-		mobsterCounter.alpha = 1f;
-		mobsterCounter.text = "0/" + MSWhiteboard.loadedDungeon.tsp.Count;
 		mobsterCounter.MakePixelPerfect();
 
 		PZMonster mon;
@@ -488,7 +485,6 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		StartCoroutine(SendBeginPvpRequest());
 
-		mobsterCounter.alpha = 0f;
 		//StartCoroutine(RetreatPvpsForBattle());
 		StartCoroutine(backupPvPEnemies[0].Retreat(-background.direction, background.scrollSpeed));
 		StartCoroutine(backupPvPEnemies[1].Retreat(-background.direction, background.scrollSpeed));
@@ -619,7 +615,7 @@ public class PZCombatManager : MonoBehaviour {
 			}
 		}
 
-		ActivateLoseMenu ();
+		ActivateLoseMenu (true);
 	}
 
 	public IEnumerator OnPlayerForfeit(){
@@ -636,11 +632,47 @@ public class PZCombatManager : MonoBehaviour {
 		PZPuzzleManager.instance.swapLock--;
 	}
 
-	public void ActivateLoseMenu(){
+	public void ActivateLoseMenu(bool blackOut = false){
 		winLosePopup.gameObject.SetActive(true);
 		winLosePopup.tweener.ResetToBeginning();
 		winLosePopup.tweener.GetComponent<UITweener>().PlayForward();
-		winLosePopup.InitLose();
+
+		if(blackOut)
+		{
+			int cash = 0;
+			int oil = 0;
+			int xp = 0;
+			List<MonsterProto> pieces = new List<MonsterProto>();
+			List<ItemProto> items = new List<ItemProto>();
+			if (pvpMode)
+			{
+				cash = defender.prospectiveCashWinnings;
+				oil = defender.prospectiveOilWinnings;
+			}
+			else
+			{
+				foreach (var item in defeatedEnemies) 
+				{
+					cash += item.taskMonster.cashReward;
+					xp += item.taskMonster.expReward;
+					oil += item.taskMonster.oilReward;
+					
+					//if an enemy would have dropped an item and a capsule, it just drops an item instead
+					if (item.taskMonster.itemId > 0){
+						items.Add(MSDataManager.instance.Get<ItemProto>(item.taskMonster.itemId));
+					}
+					else if (item.taskMonster.puzzlePieceDropped)
+					{
+						pieces.Add(item.monster);
+					}
+				}
+			}
+			winLosePopup.InitBlackOut(xp, cash, oil, pieces, items);
+		}
+		else
+		{
+			winLosePopup.InitLose();
+		}
 		
 		StartCoroutine(SendEndResult(false));
 	}
@@ -718,6 +750,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			mobsterCounter.text = (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
 			mobsterCounter.MakePixelPerfect();
+			TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 1f ,1f);
 			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
 			intro.PlayAnimation ();
 		} else if (!activeEnemy.alive) {
@@ -1207,10 +1240,8 @@ public class PZCombatManager : MonoBehaviour {
 			MSActionManager.Puzzle.OnTurnChange(playerTurns);
 		}
 
-		Debug.LogWarning("A");
 		if (activeEnemy.alive)
 		{
-			Debug.LogWarning("B");
 			if (MSActionManager.Puzzle.OnNewPlayerRound != null)
 			{
 				MSActionManager.Puzzle.OnNewPlayerRound();
