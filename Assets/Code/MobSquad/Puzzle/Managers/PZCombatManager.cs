@@ -135,6 +135,9 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	MSPvpUI pvpUI;
 
+	[SerializeField]
+	UILabel mobsterCounter;
+
 	bool wordsMoving = false;
 
 	int currPlayerDamage = 0;
@@ -286,6 +289,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void PreInitTask()
 	{
+		mobsterCounter.alpha = 0f;
+
 		prizeQuantityLabel.text = "0";
 
 		PreInit();
@@ -319,6 +324,10 @@ public class PZCombatManager : MonoBehaviour {
 		MSWhiteboard.currUserTaskId = MSWhiteboard.loadedDungeon.userTaskId;
 
 		Debug.LogWarning("Number of stages: " + MSWhiteboard.loadedDungeon.tsp.Count);
+
+		mobsterCounter.alpha = 1f;
+		mobsterCounter.text = "0/" + MSWhiteboard.loadedDungeon.tsp.Count;
+		mobsterCounter.MakePixelPerfect();
 
 		PZMonster mon;
 		foreach (TaskStageProto stage in MSWhiteboard.loadedDungeon.tsp)
@@ -479,6 +488,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		StartCoroutine(SendBeginPvpRequest());
 
+		mobsterCounter.alpha = 0f;
 		//StartCoroutine(RetreatPvpsForBattle());
 		StartCoroutine(backupPvPEnemies[0].Retreat(-background.direction, background.scrollSpeed));
 		StartCoroutine(backupPvPEnemies[1].Retreat(-background.direction, background.scrollSpeed));
@@ -706,6 +716,8 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.unit.direction = MSValues.Direction.WEST;
 			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 
+			mobsterCounter.text = (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
+			mobsterCounter.MakePixelPerfect();
 			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
 			intro.PlayAnimation ();
 		} else if (!activeEnemy.alive) {

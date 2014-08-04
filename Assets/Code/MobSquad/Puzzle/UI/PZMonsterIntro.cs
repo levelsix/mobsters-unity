@@ -34,7 +34,22 @@ public class PZMonsterIntro : MonoBehaviour {
 	[SerializeField]
 	TweenAlpha tintAlph;
 
+	[SerializeField]
+	UISprite rarityTag;
+
+	TweenColor topColor;
+
+	PZMonster curMonster;
+
+	void Awake()
+	{
+		topColor = topLabel.GetComponent<TweenColor>();
+		topPos.AddOnFinished(delegate{Reset();});
+	}
+
 	public void Init(PZMonster monster, int currUnitIndex, int totalUnits){
+
+		curMonster = monster;
 
 		switch (monster.monster.monsterElement) {
 		case Element.DARK:
@@ -64,9 +79,31 @@ public class PZMonsterIntro : MonoBehaviour {
 
 		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", thumbNail);
 
+		if(curMonster.taskMonster.monsterType == TaskStageMonsterProto.MonsterType.BOSS)
+		{
+			topLabel.text = "BOSS";
+			topColor.ResetToBeginning();
+			topColor.PlayForward();
+			rarityTag.spriteName = "battle" + curMonster.monster.quality.ToString().ToLower() + "tag";
+		}
+		else if(curMonster.taskMonster.monsterType == TaskStageMonsterProto.MonsterType.MINI_BOSS)
+		{
+			topLabel.text = "Mini Boss";
+			topColor.ResetToBeginning();
+			topColor.PlayForward();
+			rarityTag.spriteName = "battle" + curMonster.monster.quality.ToString().ToLower() + "tag";
+		}
+		else
+		{
+			rarityTag.spriteName = "";
+		}
+
 		//these MAY have to be marked as changed
 		topLabel.MarkAsChanged();
 		bottomLabel.MarkAsChanged();
+		level.MarkAsChanged();
+
+
 	}
 
 	public void PlayAnimation(){
@@ -80,5 +117,14 @@ public class PZMonsterIntro : MonoBehaviour {
 		bottomPos.PlayForward();
 		bottomAlph.ResetToBeginning();
 		bottomAlph.PlayForward();
+	}
+
+	/// <summary>
+	/// Resets anything that needs to be cleared before the next enemy
+	/// </summary>
+	void Reset()
+	{
+		topColor.Sample(0f, false);
+		topColor.enabled = false;
 	}
 }
