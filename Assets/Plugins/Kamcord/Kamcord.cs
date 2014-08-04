@@ -854,7 +854,6 @@ public class Kamcord : MonoBehaviour
 
     public static string GetDisabledReason()
     {
-		Debug.LogError("WRONG, BITCH");
         return implementation().GetDisabledReason();
     }
 

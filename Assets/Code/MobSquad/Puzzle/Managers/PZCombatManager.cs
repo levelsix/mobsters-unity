@@ -61,7 +61,10 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	[SerializeField]
 	MSUnit unitPrefab;
-	
+
+	[SerializeField]
+	PZForfeitWords forfeit;
+
 	/// <summary>
 	/// The scrolling background, which will be scrolled appropriately
 	/// as the player's unit moves from enemy to enemy
@@ -134,6 +137,9 @@ public class PZCombatManager : MonoBehaviour {
 
 	[SerializeField]
 	MSPvpUI pvpUI;
+
+	[SerializeField]
+	UILabel mobsterCounter;
 
 	bool wordsMoving = false;
 
@@ -286,6 +292,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void PreInitTask()
 	{
+
 		prizeQuantityLabel.text = "0";
 
 		PreInit();
@@ -319,6 +326,8 @@ public class PZCombatManager : MonoBehaviour {
 		MSWhiteboard.currUserTaskId = MSWhiteboard.loadedDungeon.userTaskId;
 
 		Debug.LogWarning("Number of stages: " + MSWhiteboard.loadedDungeon.tsp.Count);
+
+		mobsterCounter.MakePixelPerfect();
 
 		PZMonster mon;
 		foreach (TaskStageProto stage in MSWhiteboard.loadedDungeon.tsp)
@@ -496,7 +505,9 @@ public class PZCombatManager : MonoBehaviour {
 		PZPuzzleManager.instance.InitBoard();
 
 		boardMove.Sample(0, false);
+		boardMove.delay = 1f;
 		boardMove.PlayForward();
+		boardMove.delay = 0f;
 
 		boardTint.Sample(1, false);
 		boardTint.PlayReverse();
@@ -607,13 +618,17 @@ public class PZCombatManager : MonoBehaviour {
 			}
 		}
 
-		ActivateLoseMenu ();
+		ActivateLoseMenu (true);
 	}
 
 	public IEnumerator OnPlayerForfeit(){
 		bool forfeitSuccess = Random.value <= forfeitChance;
 		PZPuzzleManager.instance.swapLock++;
-		yield return StartCoroutine(activePlayer.Forfeit (forfeitSuccess));
+		Vector3 center = new Vector3((activeEnemy.transform.position.x + activePlayer.transform.position.x) / 2f,
+		                             (activeEnemy.transform.position.y + activePlayer.transform.position.y) / 2f,
+		                             activePlayer.transform.position.z);
+		forfeit.SetParentPosition(center);
+		yield return StartCoroutine(forfeit.Animate (forfeitSuccess));
 		if (forfeitSuccess) {
 			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
 			ActivateLoseMenu();
@@ -624,11 +639,47 @@ public class PZCombatManager : MonoBehaviour {
 		PZPuzzleManager.instance.swapLock--;
 	}
 
-	public void ActivateLoseMenu(){
+	public void ActivateLoseMenu(bool blackOut = false){
 		winLosePopup.gameObject.SetActive(true);
 		winLosePopup.tweener.ResetToBeginning();
 		winLosePopup.tweener.GetComponent<UITweener>().PlayForward();
-		winLosePopup.InitLose();
+
+		if(blackOut)
+		{
+			int cash = 0;
+			int oil = 0;
+			int xp = 0;
+			List<MonsterProto> pieces = new List<MonsterProto>();
+			List<ItemProto> items = new List<ItemProto>();
+			if (pvpMode)
+			{
+				cash = defender.prospectiveCashWinnings;
+				oil = defender.prospectiveOilWinnings;
+			}
+			else
+			{
+				foreach (var item in defeatedEnemies) 
+				{
+					cash += item.taskMonster.cashReward;
+					xp += item.taskMonster.expReward;
+					oil += item.taskMonster.oilReward;
+					
+					//if an enemy would have dropped an item and a capsule, it just drops an item instead
+					if (item.taskMonster.itemId > 0){
+						items.Add(MSDataManager.instance.Get<ItemProto>(item.taskMonster.itemId));
+					}
+					else if (item.taskMonster.puzzlePieceDropped)
+					{
+						pieces.Add(item.monster);
+					}
+				}
+			}
+			winLosePopup.InitBlackOut(xp, cash, oil, pieces, items);
+		}
+		else
+		{
+			winLosePopup.InitLose();
+		}
 		
 		StartCoroutine(SendEndResult(false));
 	}
@@ -704,6 +755,9 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.unit.direction = MSValues.Direction.WEST;
 			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 
+			mobsterCounter.text = (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
+			mobsterCounter.MakePixelPerfect();
+			TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 1f ,1f);
 			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
 			intro.PlayAnimation ();
 		} else if (!activeEnemy.alive) {
@@ -1193,10 +1247,8 @@ public class PZCombatManager : MonoBehaviour {
 			MSActionManager.Puzzle.OnTurnChange(playerTurns);
 		}
 
-		Debug.LogWarning("A");
 		if (activeEnemy.alive)
 		{
-			Debug.LogWarning("B");
 			if (MSActionManager.Puzzle.OnNewPlayerRound != null)
 			{
 				MSActionManager.Puzzle.OnNewPlayerRound();

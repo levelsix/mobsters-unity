@@ -567,7 +567,7 @@ MonoBehaviour:
   unitName: {fileID: 11400044}
   unitLevelInfo: {fileID: 11400040}
   unitRarity: {fileID: 11400036}
-  forfeitSprite: {fileID: 11400034}
+  forfeitSprite: {fileID: 0}
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1054,7 +1054,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 32.2000008
+  aspectRatio: 1
 --- !u!114 &11400028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1425,7 +1425,7 @@ SpriteRenderer:
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d67ed4de7c00d4aba9809c67dce5aa17, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21200002

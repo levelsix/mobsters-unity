@@ -12,6 +12,8 @@ public class PZWinLosePopup : MonoBehaviour {
 
 	bool didWin;
 
+	bool didBlackOut = false;
+
 	[SerializeField]
 	UISprite title;
 
@@ -57,7 +59,7 @@ public class PZWinLosePopup : MonoBehaviour {
 	/// <summary>
 	/// initialization of positions for elements required in both win and lose animations
 	/// </summary>
-	void genInit(){
+	void GenInit(){
 		doneButton.transform.localScale = new Vector3 (0f, 0f, 0f);
 		manageButton.transform.localPosition = manageButton.GetComponent<TweenPosition> ().from;
 		titlePow.transform.localPosition = titlePow.transform.GetComponent<TweenPosition> ().from;
@@ -68,6 +70,7 @@ public class PZWinLosePopup : MonoBehaviour {
 	public void InitLose()
 	{
 		didWin = false;
+		didBlackOut = false;
 
 		lostSticker.SetActive(true);
 		shareButton.SetActive(false);
@@ -77,7 +80,7 @@ public class PZWinLosePopup : MonoBehaviour {
 		lostSticker.GetComponent<TweenRotation> ().enabled = false;
 		lostSticker.transform.localScale = Vector3.zero;
 		lostSticker.transform.localRotation = Quaternion.identity;
-		genInit ();
+		GenInit ();
 
 		titlePow.spriteName = LOST_POW;
 		title.spriteName = LOST_TITLE;
@@ -87,36 +90,73 @@ public class PZWinLosePopup : MonoBehaviour {
 		StartCoroutine (DropTheTitle ());
 	}
 
+	public void InitBlackOut(int xp, int cash, int oil, List<MonsterProto> pieces, List<ItemProto> items)
+	{
+		didWin = false;
+		didBlackOut = true;
+
+		lostSticker.SetActive(true);
+		shareButton.SetActive(false);
+		reviveButton.SetActive(true);
+		
+		reviveButton.transform.localScale = Vector3.zero;
+		lostSticker.GetComponent<TweenRotation> ().enabled = false;
+		lostSticker.transform.localScale = Vector3.zero;
+		lostSticker.transform.localRotation = Quaternion.identity;
+		GenInit ();
+		
+		titlePow.spriteName = LOST_POW;
+		title.spriteName = LOST_TITLE;
+
+		InitPrizes(xp, cash, oil, pieces, items);
+
+		foreach(PZPrize prize in prizes)
+		{
+			prize.SetToLostPrize();
+		}
+
+		StartCoroutine (DropTheTitle ());
+	}
+
 	public void InitWin(int xp, int cash, int oil, List<MonsterProto> pieces, List<ItemProto> items)
 	{
 		didWin = true;
+		didBlackOut = false;
 
 		lostSticker.SetActive(false);
 		shareButton.SetActive(true);
 		reviveButton.SetActive(false);
 
 		shareButton.transform.localScale = new Vector3 (0f, 0f, 0f);
-		genInit ();
+		GenInit ();
 
 		titlePow.spriteName = WIN_POW;
 		title.spriteName = WIN_TITLE;
 
-		RecyclePrizes();
+		InitPrizes(xp,cash,oil,pieces,items);
 
+		StartCoroutine (DropTheTitle ());
+
+	}
+
+	void InitPrizes(int xp, int cash, int oil, List<MonsterProto> pieces, List<ItemProto> items)
+	{
+		RecyclePrizes();
+		
 		PZPrize prize;
 		
 		foreach (var item in pieces)
 		{
 			prize = GetPrize ();
-
+			
 			prize.InitEnemy(item);
 			prizes.Add (prize);
 		}
-
+		
 		foreach (ItemProto item in items)
 		{
 			prize = GetPrize();
-
+			
 			prize.InitItem(item);
 			prizes.Add(prize);
 		}
@@ -127,22 +167,20 @@ public class PZWinLosePopup : MonoBehaviour {
 			prize.InitCash(cash);
 			prizes.Add(prize);
 		}
-
+		
 		if (oil > 0)
 		{
 			prize = GetPrize();
 			prize.InitOil(oil);
 			prizes.Add(prize);
 		}
-
+		
 		if (xp > 0)
 		{
 			prize = GetPrize();
 			prize.InitXP(xp);
 			prizes.Add (prize);
 		}
-		StartCoroutine (DropTheTitle ());
-
 	}
 
 	IEnumerator DropTheTitle(){
@@ -150,7 +188,7 @@ public class PZWinLosePopup : MonoBehaviour {
 		titlePow.GetComponent<TweenPosition> ().ResetToBeginning ();
 		titlePow.GetComponent<TweenPosition> ().PlayForward ();
 		yield return new WaitForSeconds (titlePow.GetComponent<TweenPosition> ().duration);
-		if (didWin) {
+		if (didWin || didBlackOut) {
 			StartCoroutine (SlideInPrizes ());
 		} else {
 			StartCoroutine (ExpandDevil());

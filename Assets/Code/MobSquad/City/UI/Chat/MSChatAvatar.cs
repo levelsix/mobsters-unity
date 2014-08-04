@@ -43,7 +43,10 @@ public class MSChatAvatar : MonoBehaviour {
 	public void Init(int monsterId)
 	{
 		MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(monsterId);
-		bg.spriteName = big ? bigBgSprites[monster.monsterElement] : bgSprites[monster.monsterElement];
-		MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumbnail);
+		if(monster != null)
+		{
+			bg.spriteName = big ? bigBgSprites[monster.monsterElement] : bgSprites[monster.monsterElement];
+			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumbnail);
+		}
 	}
 }

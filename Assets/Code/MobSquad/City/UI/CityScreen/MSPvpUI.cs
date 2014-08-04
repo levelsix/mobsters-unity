@@ -11,6 +11,9 @@ using com.lvl6.proto;
 public class MSPvpUI : MonoBehaviour {
 
 	[SerializeField]
+	MSChatAvatar avatar;
+
+	[SerializeField]
 	UILabel nameLabel;
 
 	[SerializeField]
@@ -20,7 +23,10 @@ public class MSPvpUI : MonoBehaviour {
 	UILabel oil;
 
 	[SerializeField]
-	UILabel rankings;
+	UILabel rankNumber;
+
+	[SerializeField]
+	UILabel rankSuffix;
 
 	[SerializeField]
 	UILabel rematchCost;
@@ -30,6 +36,7 @@ public class MSPvpUI : MonoBehaviour {
 
 	public void Init(PvpProto defender)
 	{
+		avatar.Init(defender.defender.minUserProto.avatarMonsterId);
 
 		nameLabel.text = defender.defender.minUserProto.name;
 
@@ -37,12 +44,17 @@ public class MSPvpUI : MonoBehaviour {
 
 		oil.text = defender.prospectiveOilWinnings.ToString();
 
-		rankings.text = defender.pvpLeagueStats.elo + ". " + defender.defender.minUserProto.name;
+		rankNumber.text = defender.pvpLeagueStats.elo.ToString();
+
+		rankSuffix.text = MSUtil.LeagueRankSuffix(defender.pvpLeagueStats.elo);
 
 		rematchCost.text = "$" + PZCombatManager.instance.pvpMatchCost + "\nNext Match";
 		
 		Reset();
-		posTween.PlayForward();
+		transform.localPosition = new Vector3(-300f, -50f, 0f);
+		gameObject.SetActive(true);
+		//posTween.PlayForward();
+		//MSSwoopAnimation.SwoopGroup(1,0.3f);
 	}
 
 	public void Reset()
@@ -52,6 +64,21 @@ public class MSPvpUI : MonoBehaviour {
 
 	public void Retract()
 	{
-		posTween.PlayReverse();
+		//posTween.PlayReverse();
+		if(MSSwoopAnimation.SwoopGroupOut != null)
+		{
+			MSSwoopAnimation.SwoopGroupOut(MSSwoopAnimation.SwoopIDs.PVPMENU);
+		}
+
+		if(gameObject.activeSelf)
+		{
+			StartCoroutine(DelayedDisable());
+		}
+	}
+
+	IEnumerator DelayedDisable()
+	{
+		yield return new WaitForSeconds(1.5f);
+		gameObject.SetActive(false);
 	}
 }

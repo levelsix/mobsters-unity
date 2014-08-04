@@ -17,6 +17,9 @@ public class MSMapTaskPopup : MonoBehaviour {
 	UIButton button;
 
 	[SerializeField]
+	UILabel statusLabel;
+
+	[SerializeField]
 	UISprite background;
 
 	[SerializeField]
@@ -104,6 +107,8 @@ public class MSMapTaskPopup : MonoBehaviour {
 		default:
 			break;
 		}
+		statusLabel.MarkAsChanged();
+		statusLabel.MakePixelPerfect();
 	}
 	
 	public void init(FullTaskProto task, Element element)

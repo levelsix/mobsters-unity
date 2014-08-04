@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CombatManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,6 +27,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38,20 +39,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2d97d86218f44c3a4f947bff196e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pvpMode: 0
+  raidMode: 0
+  waitingForTutorialSignal: 0
   combatPanel: {fileID: 0}
   playerGoonies: []
   defeatedEnemies: []
   activePlayer: {fileID: 0}
   activeEnemy: {fileID: 0}
+  backupPvPEnemies:
+  - {fileID: 0}
+  - {fileID: 0}
   unitPrefab: {fileID: 11400004, guid: 0fc6f22a58d5a4a0d89761dfc134f94b, type: 2}
+  forfeit: {fileID: 0}
   background: {fileID: 0}
   combatParent: {fileID: 0}
-  enemyYThreshold: 30
+  crate: {fileID: 11400000, guid: fea7dbd1368fc406aae46a40b929dfb1, type: 2}
   deployPopup: {fileID: 0}
-  losePopup: {fileID: 0}
-  winPopup: {fileID: 0}
+  winLosePopup: {fileID: 0}
+  attackWords: {fileID: 0}
+  attackWordsTweenPos: {fileID: 0}
+  boardTint: {fileID: 0}
+  boardMove: {fileID: 0}
+  screenTint: {fileID: 0}
+  bloodSplatter: {fileID: 0}
+  pvpUI: {fileID: 0}
+  mobsterCounter: {fileID: 0}
   currTurn: 0
   playerTurns: 3
+  nextPvpDefenderIndex: 0
+  recoilDistance: 3
+  recoilTime: .00999999978
+  MELEE_ATTACK_DISTANCE: 60
+  prizeQuantityLabel: {fileID: 0}
+  intro: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
