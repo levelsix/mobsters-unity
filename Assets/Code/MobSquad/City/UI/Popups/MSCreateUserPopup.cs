@@ -8,7 +8,7 @@ public class MSCreateUserPopup : MonoBehaviour {
 	MSActionButton submitButton;
 	
 	[SerializeField]
-	UILabel inputLabel;
+	UIInput inputLabel;
 	
 	[SerializeField]
 	UILabel errorLabel;
@@ -28,11 +28,11 @@ public class MSCreateUserPopup : MonoBehaviour {
 	
 	void OnSubmit()
 	{
-		if (inputLabel.text.Length > 0)
+		if (inputLabel.label.color == inputLabel.activeTextColor)
 		{
 			UserCreateRequestProto create = new UserCreateRequestProto();
 			create.udid = UMQNetworkManager.udid;
-			create.name = inputLabel.text;
+			create.name = inputLabel.label.text;
 
 			create.cash = MSWhiteboard.tutorialConstants.cashInit;
 			create.oil = MSWhiteboard.tutorialConstants.oilInit;

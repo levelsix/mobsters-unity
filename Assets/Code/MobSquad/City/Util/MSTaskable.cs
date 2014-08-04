@@ -215,19 +215,6 @@ public class MSTaskable : MonoBehaviour {
 		//yield return StartCoroutine (EnterDungeon ());
 
 		MSActionManager.Scene.OnPuzzle();
-
-		string taskDeb = "Task " + task.taskId;
-		if (MSTutorialManager.instance.IsTaskTutorial(task.taskId))
-		{
-			MSTutorialManager.instance.StartTutorial(task.taskId);
-			taskDeb += ": Tutorial!";
-		}
-		else
-		{
-			PZPuzzleManager.instance.InitBoard();
-			taskDeb += ": Not Tutorial!";
-		}
-		Debug.LogWarning(taskDeb);
 		
 		PZCombatManager.instance.PreInitTask();
 

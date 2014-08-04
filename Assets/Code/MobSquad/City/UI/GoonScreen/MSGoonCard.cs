@@ -283,18 +283,23 @@ public class MSGoonCard : MonoBehaviour {
 		{
 		case MonsterStatus.INCOMPLETE:
 			name = "4 Unavailable 6 Piece";
+			bottomCardLabel.text = "Pieces: " + monster.userMonster.numPieces + "/" + monster.monster.numPuzzlePieces;
 			break;
 		case MonsterStatus.ON_MINI_JOB:
 			name = "4 Unavailable 5 On Mini Job";
+			bottomCardLabel.text = "MiniJob";
 			break;
 		case MonsterStatus.COMBINING:
 			name = "4 Unavailable 4 Combining";
+			bottomCardLabel.text = "Combining...";
 			break;
 		case MonsterStatus.ENHANCING:
 			name = "4 Unavailable 3 Enhancing";
+			bottomCardLabel.text = "Enhancing";
 			break;
 		case MonsterStatus.HEALING:
 			name = "4 Unavailable 2 Healing";
+			bottomCardLabel.text = "Healing";
 			break;
 		case MonsterStatus.INJURED:
 			name = "1 Injured 2 Card";
@@ -348,6 +353,7 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		Setup(monster);
 
+		healthBarBackground.alpha = 0;
 		bottomCardLabel.text = "Tap for Info";
 		dots.ResetAlpha(true);
 
@@ -447,7 +453,9 @@ public class MSGoonCard : MonoBehaviour {
 		dots.ResetAlpha(false);
 
 		bottomHolder.SetActive(true);
-		
+
+		healthBarBackground.alpha = 1;
+
 		this.monster = goon;
 
 		string goonImageBase = MSUtil.StripExtensions(goon.monster.imagePrefix);
@@ -534,6 +542,7 @@ public class MSGoonCard : MonoBehaviour {
 		smallMobster.color = mediumMobster.color = goonPose.color = darken ? Color.black : Color.white;
 		if (darken)
 		{
+			healthBarBackground.alpha = 0;
 			cardBackground.spriteName = "greysquare";
 			mediumBG.spriteName = "greymediumsquare";
 			smallBG.spriteName = "greysmallsquare";

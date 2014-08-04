@@ -119,6 +119,7 @@ public static class MSActionManager
 		public static Action OnEnhanceQueueChanged;
 		public static Action<PZMonster> OnMonsterFinishHeal;
 		public static Action<long> OnMonsterRemovedFromPlayerInventory;
+		public static Action<PZMonster> OnEvolutionComplete;
 
 		public static Action OnMonsterListChanged;
 	}
@@ -199,6 +200,9 @@ public static class MSActionManager
 	public static class Tutorial
 	{
 		public static Action OnTutorialContinue;
+
+		public static Action OnInputUsername;
+		public static Action<bool> OnMakeFacebookDecision;
 	}
 
 	public static class Map

@@ -23,6 +23,12 @@ public class MSPickEvolveScreen : MSFunctionalScreen {
 	[SerializeField]
 	GameObject notReadyHeader;
 
+	[SerializeField]
+	MSUIHelper scientistsHeader;
+
+	[SerializeField]
+	MSUIHelper currEvoHeader;
+
 	void Awake()
 	{
 		instance = this;
@@ -30,51 +36,68 @@ public class MSPickEvolveScreen : MSFunctionalScreen {
 
 	public override void Init ()
 	{
-		if (MSEvolutionManager.instance.hasEvolution)
+		notReadyGrid.Init(GoonScreenMode.PICK_EVOLVE);
+
+		foreach (var item in notReadyGrid.cards) 
 		{
-			MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.DO_EVOLVE);
+			if (item.FindBuddy(notReadyGrid.cards) 
+			    && MSMonsterManager.instance.GetMonstersByMonsterId(item.monster.monster.evolutionCatalystMonsterId).Count > 0)
+			{
+				item.transform.parent = readyToEvolveGrid.transform;
+			}
+		}
+
+		if (readyToEvolveGrid.transform.childCount == 0)
+		{
+			noMobstersReadyElements.SetActive(true);
+			readyToEvolveHeader.SetActive(false);
+			readyToEvolveGrid.gameObject.SetActive(false);
 		}
 		else
 		{
-			notReadyGrid.Init(GoonScreenMode.PICK_EVOLVE);
-
-			foreach (var item in notReadyGrid.cards) 
-			{
-				if (item.FindBuddy(notReadyGrid.cards) 
-				    && MSMonsterManager.instance.GetMonstersByMonsterId(item.monster.monster.evolutionCatalystMonsterId).Count > 0)
-				{
-					item.transform.parent = readyToEvolveGrid.transform;
-				}
-			}
-
-			if (readyToEvolveGrid.transform.childCount == 0)
-			{
-				noMobstersReadyElements.SetActive(true);
-				readyToEvolveHeader.SetActive(false);
-				readyToEvolveGrid.gameObject.SetActive(false);
-			}
-			else
-			{
-				noMobstersReadyElements.SetActive(false);
-				readyToEvolveHeader.SetActive(true);
-				readyToEvolveGrid.gameObject.SetActive(true);
-				readyToEvolveGrid.Reposition();
-			}
-
-			if (notReadyGrid.Count == 0)
-			{
-				notReadyHeader.SetActive(false);
-				notReadyGrid.gameObject.SetActive(false);
-			}
-			else
-			{
-				notReadyHeader.SetActive(true);
-				notReadyGrid.gameObject.SetActive(true);
-				notReadyGrid.Reposition();
-			}
-
-			table.Reposition();
+			noMobstersReadyElements.SetActive(false);
+			readyToEvolveHeader.SetActive(true);
+			readyToEvolveGrid.gameObject.SetActive(true);
+			readyToEvolveGrid.Reposition();
 		}
+
+		if (notReadyGrid.Count == 0)
+		{
+			notReadyHeader.SetActive(false);
+			notReadyGrid.gameObject.SetActive(false);
+		}
+		else
+		{
+			notReadyHeader.SetActive(true);
+			notReadyGrid.gameObject.SetActive(true);
+			notReadyGrid.Reposition();
+		}
+
+		StartCoroutine(RepositionNextFrame());
+
+
+		if (MSEvolutionManager.instance.isEvolving)
+		{
+			scientistsHeader.ResetAlpha(false);
+			currEvoHeader.ResetAlpha(true);
+		}
+		else
+		{
+			scientistsHeader.ResetAlpha(false);
+			currEvoHeader.ResetAlpha(true);
+		}
+	}
+
+	public void ClickBottom()
+	{
+		MSEvolutionManager.instance.tempEvolution = MSEvolutionManager.instance.currEvolution;
+		MSPopupManager.instance.popups.goonScreen.DoShiftRight(false);
+	}
+
+	IEnumerator RepositionNextFrame()
+	{
+		yield return null;
+		table.Reposition();
 	}
 
 	public override bool IsAvailable ()
@@ -83,9 +106,16 @@ public class MSPickEvolveScreen : MSFunctionalScreen {
 			&& !MSEvolutionManager.instance.hasEvolution;
 	}
 
-	public void AddMobster(MSGoonCard card)
+	public void AddMobster(PZMonster monster)
 	{
+		notReadyGrid.AddCard(monster, GoonScreenMode.PICK_EVOLVE, true);
+	}
 
+	void OnEvoFinish(PZMonster monster)
+	{
+		AddMobster(monster);
+		currEvoHeader.Fade(false);
+		scientistsHeader.Fade(true);
 	}
 
 }

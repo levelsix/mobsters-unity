@@ -708,7 +708,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 						MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
 						Confirm();
 					}
-			}
+				},
+				"purple"
 			);
 			return;
 		}

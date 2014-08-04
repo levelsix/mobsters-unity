@@ -209,7 +209,6 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	
 	void Setup()
 	{
-		
 		if (cityUnit != null)
 		{
 			cityUnit.Init();
@@ -277,5 +276,52 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	{
 		SetAnimation(animat);
 	}
-	
+
+	[SerializeField] float testJumpHeight = 3;
+	[SerializeField] float testJumpTime = .5f;
+	[SerializeField] bool testJump = false;
+
+	void Update()
+	{
+		if (testJump)
+		{
+			TestJump();
+			testJump = false;
+		}
+	}
+
+	public void TestJump()
+	{
+		DoJump(testJumpHeight, testJumpTime);
+	}
+
+	public Coroutine DoJump(float height, float speed)
+	{
+		return StartCoroutine(Jump(height, speed));
+	}
+
+	IEnumerator Jump(float jumpHeight, float time)
+	{
+		float baseHeight = sprite.transform.localPosition.y;
+		float currTime = 0, t = 0;
+		do
+		{
+			currTime += Time.deltaTime;
+			t = currTime/time;
+			if (t > .5f)
+			{
+				t = 1 - t;
+			}
+			t*=2;
+			sprite.transform.localPosition = 
+				new Vector3( sprite.transform.localPosition.x,
+		                     Mathf.Lerp(baseHeight,
+										baseHeight + jumpHeight,
+										t),
+		                     sprite.transform.localPosition.z);
+			yield return null;
+
+		} while (currTime < time);
+	}
+
 }

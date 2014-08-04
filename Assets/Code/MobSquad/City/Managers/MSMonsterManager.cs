@@ -178,7 +178,7 @@ public class MSMonsterManager : MonoBehaviour {
 	/// in userMonsters
 	/// </summary>
 	/// <param name="monster">Monster.</param>
-	public void UpdateOrAdd(FullUserMonsterProto monster)
+	public PZMonster UpdateOrAdd(FullUserMonsterProto monster)
 	{
 		PZMonster mon;
 		if (userMonsters.Find(x=>x.userMonster.userMonsterId == monster.userMonsterId) != null)
@@ -202,6 +202,7 @@ public class MSMonsterManager : MonoBehaviour {
 		{
 			MSActionManager.Goon.OnMonsterListChanged();
 		}
+		return mon;
 	}
 	
 	/// <summary>

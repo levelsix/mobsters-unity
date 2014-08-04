@@ -98,7 +98,7 @@ public class MSTutorial {
 
 	public virtual IEnumerator Run()
 	{
-		MSTutorialManager.instance.currentTutorial = this;
+		//MSTutorialManager.instance.currentTutorial = this;
 
 		MSActionManager.UI.OnDialogueClicked += OnClicked;
 
@@ -110,7 +110,7 @@ public class MSTutorial {
 
 		MSActionManager.UI.OnDialogueClicked -= OnClicked;
 
-		MSTutorialManager.instance.currentTutorial = null;
+		//MSTutorialManager.instance.currentTutorial = null;
 		
 		foreach (var item in MSBuildingManager.instance.playerUnits) 
 		{
@@ -162,10 +162,11 @@ public class MSTutorial {
 			break;
 		}
 		
-		yield return dialoguer.StartCoroutine(dialoguer.BringInMobster(
+		yield return dialoguer.DoDialogue(
 			monster.imagePrefix,
 			monster.displayName,
-			step.dialogue));
+			step.dialogue);
+
 		if (step.needsClick)
 		{
 			MSTutorialManager.instance.TutorialUI.puzzleDialogue.clickbox.SetActive(true);

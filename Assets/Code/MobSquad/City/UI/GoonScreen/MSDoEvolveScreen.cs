@@ -53,6 +53,15 @@ public class MSDoEvolveScreen : MSFunctionalScreen
 	[SerializeField]
 	Color greenColor;
 
+	[SerializeField]
+	Color evolveDisabledTextColor;
+
+	[SerializeField]
+	Color evolveEnabledTextColor;
+
+	[SerializeField]
+	Color finishTextColor;
+
 	#endregion
 
 	[SerializeField]
@@ -87,16 +96,13 @@ public class MSDoEvolveScreen : MSFunctionalScreen
 
 	void OnDisable()
 	{
-		if (!MSEvolutionManager.instance.isEvolving)
-		{
-			MSEvolutionManager.instance.currEvolution = null;
-		}
+		MSEvolutionManager.instance.tempEvolution = null;
 	}
 
 	public override void Init()
 	{
-		monster = MSEvolutionManager.instance.evoMonster;
-		buddy = MSEvolutionManager.instance.buddy;
+		monster = MSEvolutionManager.instance.tempEvoMonster;
+		buddy = MSEvolutionManager.instance.tempBuddy;
 
 		bool userMonsterLeveled = monster.userMonster.currentLvl >= monster.monster.maxLevel;
 		bool hasBuddy = buddy != null;
@@ -113,36 +119,41 @@ public class MSDoEvolveScreen : MSFunctionalScreen
 		bool hasScientist = sci != null && sci.monster.monsterId > 0;
 		bool isReady = userMonsterLeveled && buddyLeveled && hasScientist;
 
+		MonsterProto scientist = MSDataManager.instance.Get<MonsterProto>(monster.monster.evolutionCatalystMonsterId);
 		MonsterProto evoMonster = MSDataManager.instance.Get<MonsterProto>(monster.monster.evolutionMonsterId);
 
 		secondCharacter.color = hasBuddy ? Color.white : Color.black;
 		scientistCharacter.color = hasBuddy ? Color.white : Color.black;
 
-		MSSpriteUtil.instance.SetSprite(monster.monster.displayName,
-		                                monster.monster.displayName + "Character",
+		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix,
+		                                monster.monster.imagePrefix + "Character",
 		                                firstCharacter,
 		                                userMonsterLeveled ? 1f : doesNotHaveAlpha);
-		MSSpriteUtil.instance.SetSprite(monster.monster.displayName,
-		                                monster.monster.displayName + "Character",
+		firstCharacterName.text = "[000000]" + monster.monster.shorterName + " [0000ff]L" + monster.monster.maxLevel;
+		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix,
+		                                monster.monster.imagePrefix + "Character",
 		                                secondCharacter,
 		                                buddyLeveled ? 1f : doesNotHaveAlpha);
-		MSSpriteUtil.instance.SetSprite(sci.monster.displayName,
-		                                sci.monster.displayName + "Character",
+		secondCharacterName.text = "[000000]" + monster.monster.shorterName + " [0000ff]L" + monster.monster.maxLevel;
+		MSSpriteUtil.instance.SetSprite(scientist.imagePrefix,
+		                                scientist.imagePrefix + "Character",
 		                               	scientistCharacter,
 		                                hasScientist ? 1f : doesNotHaveAlpha);
-		MSSpriteUtil.instance.SetSprite(evoMonster.displayName,
-		                                evoMonster.displayName + "Character",
+		scientistName.text = "[000000]" + scientist.shorterName + " (Evo " + scientist.evolutionLevel + ")";
+		MSSpriteUtil.instance.SetSprite(evoMonster.imagePrefix,
+		                                evoMonster.imagePrefix + "Character",
 		                                finalProductCharacter,
 		                                isReady ? 1f : doesNotHaveAlpha);
+		finalProductName.text = "[000000]" + evoMonster.shorterName;
 
-		buttonSprite.enabled = isReady;
+		buttonSprite.isEnabled = isReady;
 
 		if (isReady)
 		{
 			bigBottomLabel.text = MSColors.nguiColorHexString(greenColor) + "You have all the pieces to create "
 				+ evoMonster.shorterName + "\n" + monster.monster.shorterName + " L" + monster.monster.maxLevel
 				+ ", another " + monster.monster.shorterName + " L" + monster.monster.maxLevel + ", and a "
-					+ sci.monster.shorterName + "(Evo " + sci.monster.evolutionLevel + ").[-]";
+					+ scientist.displayName + "(Evo " + scientist.evolutionLevel + ").[-]";
 		}
 		else
 		{
@@ -152,24 +163,45 @@ public class MSDoEvolveScreen : MSFunctionalScreen
 			bigBottomLabel.text = "[000000]To create " + evoMonster.shorterName + ", you need to combine a "
 				+ firstCharacterColorString + monster.monster.shorterName + " L" + monster.monster.maxLevel + "[-], another " + buddyColorString
 				+ monster.monster.shorterName + " L" + monster.monster.maxLevel + "[-], and a " + sciColorString +
-				sci.monster.shorterName + " (Evo " + sci.monster.evolutionLevel + ")[-].";
+					scientist.displayName + " (Evo " + scientist.evolutionLevel + ")[-].";
+		}
+
+		totalTime.text = MSUtil.TimeStringMed(evoMonster.minutesToEvolve*60000);
+		evolutionCost.text = "Evolve\n(o) " + evoMonster.evolutionCost;
+	}
+
+	void Update()
+	{
+		if (MSEvolutionManager.instance.isEvolving)
+		{
+			totalTime.text = MSUtil.TimeStringMed(MSEvolutionManager.instance.timeLeftMillis);
+			buttonSprite.normalSprite = "purplemenuoption";
+			evolutionCost.text = "Finish\n(g) " + MSEvolutionManager.instance.gemsToFinish;
 		}
 	}
 	
 	public void Back()
 	{
+		MSEvolutionManager.instance.tempEvolution = null;
 		MSPopupManager.instance.popups.goonScreen.DoShiftLeft(false);
 	}
 
 	public void Button()
 	{
-		if (MSEvolutionManager.instance.hasEvolution)
+		Debug.Log("Button");
+		if (MSEvolutionManager.instance.isEvolving)
 		{
 			MSEvolutionManager.instance.FinishWithGems();
+			MSPopupManager.instance.popups.goonScreen.DoShiftLeft(false);
 		}
 		else
 		{
 			MSEvolutionManager.instance.StartEvolution();
 		}
+	}
+
+	void OnEvoComplete()
+	{
+		MSPopupManager.instance.popups.goonScreen.DoShiftLeft(false);
 	}
 }

@@ -660,7 +660,7 @@ public class MSBuildingManager : MonoBehaviour
 
 		hoveringToBuild = building;
 
-		MSTownCamera.instance.CenterOnGroundPos(building.trans.position);
+		MSTownCamera.instance.DoCenterOnGroundPos(building.trans.position);
 	}
 	
 	public bool BuyBuilding(MSBuilding building, Action callback = null)

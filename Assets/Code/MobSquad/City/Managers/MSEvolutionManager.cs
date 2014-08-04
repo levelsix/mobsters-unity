@@ -12,29 +12,31 @@ public class MSEvolutionManager : MonoBehaviour {
 
 	public static MSEvolutionManager instance;
 
+	public UserMonsterEvolutionProto tempEvolution = null;
+
 	public UserMonsterEvolutionProto currEvolution = null;
 
-	public PZMonster evoMonster
+	public PZMonster tempEvoMonster
 	{
 		get
 		{
-			if (currEvolution == null || currEvolution.userMonsterIds.Count == 0)
+			if (tempEvolution == null || tempEvolution.userMonsterIds.Count == 0)
 			{
 				return null;
 			}
-			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == currEvolution.userMonsterIds[0]);
+			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == tempEvolution.userMonsterIds[0]);
 		}
 	}
 
-	public PZMonster buddy
+	public PZMonster tempBuddy
 	{
 		get
 		{
-			if (currEvolution == null || currEvolution.userMonsterIds.Count < 2)
+			if (tempEvolution == null || tempEvolution.userMonsterIds.Count < 2)
 			{
 				return null;
 			}
-			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == currEvolution.userMonsterIds[1]);
+			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == tempEvolution.userMonsterIds[1]);
 		}
 	}
 
@@ -44,11 +46,11 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		get
 		{
-			if (currEvolution == null)
+			if (tempEvolution == null)
 			{
 				return 0;
 			}
-			return MSMonsterManager.instance.userMonsters.Find(x => x.userMonster.userMonsterId == currEvolution.userMonsterIds[0]).monster.evolutionCost;
+			return MSMonsterManager.instance.userMonsters.Find(x => x.userMonster.userMonsterId == tempEvolution.userMonsterIds[0]).monster.evolutionCost;
 		}
 	}
 
@@ -67,11 +69,19 @@ public class MSEvolutionManager : MonoBehaviour {
 		}
 	}
 
+	public int gemsToFinish
+	{
+		get
+		{
+			return MSMath.GemsForTime (timeLeftMillis);
+		}
+	}
+
 	public bool ready
 	{
 		get
 		{
-			return currEvolution != null && currEvolution.catalystUserMonsterId != 0 && currEvolution.userMonsterIds.Count >= 2;
+			return tempEvolution != null && tempEvolution.catalystUserMonsterId != 0 && tempEvolution.userMonsterIds.Count >= 2;
 		}
 	}
 
@@ -79,7 +89,7 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		get
 		{
-			return currEvolution != null && currEvolution.userMonsterIds.Count > 0;
+			return tempEvolution != null && tempEvolution.userMonsterIds.Count > 0;
 		}
 	}
 
@@ -94,53 +104,56 @@ public class MSEvolutionManager : MonoBehaviour {
 	void Awake()
 	{
 		instance = this;
+		tempEvolution = null;
 		currEvolution = null;
 	}
 
 	public void Init(UserMonsterEvolutionProto evo)
 	{
 		currEvolution = evo;
-		if (evo != null)
+		if (isEvolving)
 		{
 			string str = "Evo monsters:";
-			foreach (var item in evo.userMonsterIds) {
+			foreach (var item in evo.userMonsterIds) 
+			{
 				str += " " + item;
 			}
 			Debug.LogWarning(str);
-			finishTime = evo.startTime + MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==evo.userMonsterIds[0]).monster.minutesToEvolve * 60000;
+			finishTime = evo.startTime + 
+				MSDataManager.instance.Get<MonsterProto>(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==evo.userMonsterIds[0]).monster.evolutionMonsterId).minutesToEvolve * 60000;
 		}
 	}
 
 	public bool IsMonsterEvolving(long userMonsterId)
 	{
-		return currEvolution != null && 
+		return isEvolving && 
 			(currEvolution.catalystUserMonsterId == userMonsterId 
 			 || currEvolution.userMonsterIds.Contains(userMonsterId));
 	}
 
 	public UserMonsterEvolutionProto TryEvolveMonster(PZMonster monster, PZMonster buddy)
 	{
-		currEvolution = new UserMonsterEvolutionProto();
+		tempEvolution = new UserMonsterEvolutionProto();
 		
-		currEvolution.userMonsterIds.Add (monster.userMonster.userMonsterId);
+		tempEvolution.userMonsterIds.Add (monster.userMonster.userMonsterId);
 
 		if (buddy != null)
 		{
-			currEvolution.userMonsterIds.Add(buddy.userMonster.userMonsterId);
+			tempEvolution.userMonsterIds.Add(buddy.userMonster.userMonsterId);
 		}
 
 		List<PZMonster> catalysts = MSMonsterManager.instance.GetMonstersByMonsterId(monster.monster.evolutionCatalystMonsterId);
 		if (catalysts.Count >= monster.monster.numCatalystMonstersRequired)
 		{
-			currEvolution.catalystUserMonsterId = catalysts[0].userMonster.userMonsterId;
+			tempEvolution.catalystUserMonsterId = catalysts[0].userMonster.userMonsterId;
 		}
 
-		return currEvolution;
+		return tempEvolution;
 	}
 
 	public void StartEvolution()
 	{
-		if (currEvolution == null)
+		if (tempEvolution == null)
 		{
 			MSActionManager.Popup.DisplayError("ERROR: No evolution to start");
 			return;
@@ -152,21 +165,21 @@ public class MSEvolutionManager : MonoBehaviour {
 			return;
 		}
 
-		/*
-		if (MSResourceManager.resources[ResourceType.OIL] < oilCost)
+		if (isEvolving)
 		{
-			if (useGems)
-			{
-
-			}
-			else
-			{
-
-			}
+			MSPopupManager.instance.CreatePopup("Lab Busy", 
+	            "Your lab is busy evolving another monster. Spend (g) " + gemsToFinish + " to finish it?",
+          	  	new string[] {"No", "Yes"},
+				new string[] {"greymenuoption", "purplemenuoption"},
+				new Action[] {MSActionManager.Popup.CloseTopPopupLayer, delegate{FinishWithGems();StartEvolution();}},
+				"purple"
+			);
 		}
-		*/
+
 		if (MSResourceManager.instance.Spend(ResourceType.OIL, oilCost, StartEvolution))
 	    {
+			currEvolution = tempEvolution;
+
 			currEvolution.startTime = MSUtil.timeNowMillis;
 
 			EvolveMonsterRequestProto request = new EvolveMonsterRequestProto();
@@ -176,8 +189,7 @@ public class MSEvolutionManager : MonoBehaviour {
 
 			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLVE_MONSTER_EVENT, ReceiveEvolutionStartResponse);
 
-			finishTime = currEvolution.startTime + 
-				MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==currEvolution.userMonsterIds[0]).monster.minutesToEvolve * 60000;
+			finishTime = currEvolution.startTime + MSDataManager.instance.Get<MonsterProto>(tempEvoMonster.monster.evolutionMonsterId).minutesToEvolve * 60000;
 		}
 	}
 
@@ -221,7 +233,8 @@ public class MSEvolutionManager : MonoBehaviour {
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLUTION_FINISHED_EVENT, null);
 
-		foreach (var item in currEvolution.userMonsterIds) {
+		foreach (var item in currEvolution.userMonsterIds) 
+		{
 			MSMonsterManager.instance.RemoveMonster(item);
 		}
 
@@ -239,7 +252,11 @@ public class MSEvolutionManager : MonoBehaviour {
 
 		if (response.status == EvolutionFinishedResponseProto.EvolutionFinishedStatus.SUCCESS)
 		{
-			MSMonsterManager.instance.UpdateOrAdd(response.evolvedMonster);
+			PZMonster newMonster = MSMonsterManager.instance.UpdateOrAdd(response.evolvedMonster);
+			if (MSActionManager.Goon.OnEvolutionComplete != null)
+			{
+				MSActionManager.Goon.OnEvolutionComplete(newMonster);
+			}
 		}
 		else
 		{

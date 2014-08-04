@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using com.lvl6.proto;
 
+/*
 /// <summary>
 /// @author Rob Giusti
 /// TutorialStepEditor
@@ -275,3 +276,4 @@ public class TutorialEditor : Editor
 	}
 
 }
+*/

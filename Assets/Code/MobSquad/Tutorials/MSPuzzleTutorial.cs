@@ -27,7 +27,7 @@ public class MSPuzzleTutorial : MSTutorial
 
 	public override IEnumerator Run()
 	{
-		MSTutorialManager.instance.currentTutorial = this;
+		//MSTutorialManager.instance.currentTutorial = this;
 
 		abort = false;
 		
@@ -73,10 +73,10 @@ public class MSPuzzleTutorial : MSTutorial
 		//Detach from the on city event
 		MSActionManager.Scene.OnCity -= OnCity;
 
-		if (MSTutorialManager.instance.currentTutorial == this)
-		{
-			MSTutorialManager.instance.currentTutorial = null;
-		}
+		//if (MSTutorialManager.instance.currentTutorial == this)
+		//{
+		//	MSTutorialManager.instance.currentTutorial = null;
+		//
 	}
 
 	protected override IEnumerator RunStep (MSTutorialStep step)

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 [RequireComponent (typeof(MSUnit))]
 public class MSCityUnit : MonoBehaviour, MSISelectable {
@@ -46,6 +47,8 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 	
 	const string LOCK_SPRITE_NAME = "lockedup";
 	const string ARROW_SPRITE_NAME = "arrow";
+
+	public Action OnArriveAtTarget;
 
 	void Awake()
 	{
@@ -141,6 +144,10 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 	{
 		while (path == null || path.Count == 0)
 		{
+			if (OnArriveAtTarget != null)
+			{
+				OnArriveAtTarget();
+			}
 			if (MSTutorialManager.instance.inTutorial)
 			{
 				Stop();
