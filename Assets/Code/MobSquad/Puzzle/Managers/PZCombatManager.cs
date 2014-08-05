@@ -84,13 +84,14 @@ public class PZCombatManager : MonoBehaviour {
 
 	List<int> playersSeen = new List<int>();
 
-	const float playerXFromSideThreshold = 78;
+	const float playerXFromSideThreshold = 130;
 
 	float playerXPos
 	{
 		get
 		{
-			float xPos = -(Screen.width * Mathf.Min(1,(640f / Screen.height)) / 2) + playerXFromSideThreshold;
+			float xPos = -(Screen.width * (640f / Screen.height) / 2) 
+				+ playerXFromSideThreshold;// * Mathf.Min(1, (Screen.height / 640f));
 			Debug.LogWarning("Player X pos: " + xPos);
 			return xPos;
 		}
