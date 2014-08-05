@@ -79,6 +79,7 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitXP(int amount)
 	{
+		init();
 		label.text = "+" + amount;
 		label.color = xpColor;
 		icon.spriteName = "xp";
@@ -87,6 +88,7 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitOil(int amount)
 	{
+		init();
 		label.text = amount.ToString();
 		label.color = MSColors.oilTextColor;
 		icon.spriteName = "oil";
@@ -95,6 +97,7 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitCash(int amount)
 	{
+		init();
 		label.text = "$" + amount;
 		label.color = cashColor;
 		icon.spriteName = "moneystack";
@@ -103,6 +106,7 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitDiamond(int amount)
 	{
+		init();
 		label.text = amount.ToString();
 		label.color = new Color(.4f, .2f, .6f);
 		icon.spriteName = "diamond";
@@ -116,6 +120,7 @@ public class PZPrize : MonoBehaviour {
 
 	public void InitEnemy(MonsterProto monster)
 	{
+		init();
 		icon.alpha = 0f;
 		label.text = monster.quality.ToString();
 		string rarity = monster.quality.ToString().ToLower();
@@ -131,6 +136,7 @@ public class PZPrize : MonoBehaviour {
 	}
 
 	public void InitItem(ItemProto item){
+		init();
 		label.text = item.name;
 		if (border != null)
 		{
