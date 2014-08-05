@@ -198,7 +198,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	int revives = 0;
 
-	float forfeitChance;
+	public float forfeitChance;
 
 	const float FORFEIT_START_CHANCE = 0.25F;
 
@@ -624,7 +624,12 @@ public class PZCombatManager : MonoBehaviour {
 		ActivateLoseMenu (true);
 	}
 
-	public IEnumerator OnPlayerForfeit(){
+	public void RunPlayerForfeit()
+	{
+		StartCoroutine(OnPlayerForfeit());
+	}
+
+	IEnumerator OnPlayerForfeit(){
 		bool forfeitSuccess = Random.value <= forfeitChance;
 		PZPuzzleManager.instance.swapLock++;
 		Vector3 center = new Vector3((activeEnemy.transform.position.x + activePlayer.transform.position.x) / 2f,
