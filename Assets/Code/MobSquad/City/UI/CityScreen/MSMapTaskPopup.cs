@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using com.lvl6.proto;
 
@@ -54,6 +55,9 @@ public class MSMapTaskPopup : MonoBehaviour {
 	void Awake()
 	{
 		trans = transform;
+		EventDelegate.Add(button.onClick, delegate {
+			PZScrollingBackground.instance.SetBackgrounds(task);
+		});
 	}
 
 	public void init(TaskMapElementProto mapTask, MSMapTaskButton.TaskStatusType statusType)
@@ -66,7 +70,7 @@ public class MSMapTaskPopup : MonoBehaviour {
 
 		button.enabled = true;
 
-		if (statusType == MSMapTaskButton.TaskStatusType.Completed) 
+		if (statusType == MSMapTaskButton.TaskStatusType.Completed)
 		{
 			button.normalSprite = ACCEPT_BUTTON;
 			status.text = "Completed";

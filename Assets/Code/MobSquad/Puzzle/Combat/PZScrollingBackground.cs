@@ -1,10 +1,23 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using com.lvl6.proto;
 
 public class PZScrollingBackground : MonoBehaviour {
 
 	public static PZScrollingBackground instance;
+
+	[SerializeField]
+	SpriteRenderer topLeft;
+	
+	[SerializeField]
+	SpriteRenderer topRight;
+	
+	[SerializeField]
+	SpriteRenderer bottomLeft;
+	
+	[SerializeField]
+	SpriteRenderer bottomRight;
 
 	[SerializeField]
 	List<MSSimplePoolable> backgrounds = new List<MSSimplePoolable>();
@@ -42,6 +55,8 @@ public class PZScrollingBackground : MonoBehaviour {
 	const float topThreshold = 200f;
 	
 	public float scrollSpeed = 60f;
+
+	public FullTaskProto lastTaskActivated;
 	
 	public static readonly Vector3 spawningOffset = new Vector3(513, 359.5f);
 
@@ -143,6 +158,44 @@ public class PZScrollingBackground : MonoBehaviour {
 		foreach(SpriteRenderer sprite in sprites)
 		{
 			sprite.color = Color.Lerp(new Color(1,1,1,0), Color.white, alpha);
+		}
+	}
+
+	public void SetBackgrounds(FullTaskProto task)
+	{
+		lastTaskActivated = task;
+		
+		string prefix = task.groundImgPrefix;
+		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1left", topLeft);
+//		bottomLeft.MakePixelPerfect();
+		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1right", topRight);
+//		bottomLeft.MakePixelPerfect();
+		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2left", bottomLeft);
+//		bottomLeft.MakePixelPerfect();
+		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2right", bottomRight);
+//		bottomRight.MakePixelPerfect();
+	}
+	
+	public void SetSingleBackground(bool top, bool left, SpriteRenderer sprite)
+	{
+		
+		string prefix = lastTaskActivated.groundImgPrefix;
+		
+		if(top && left)
+		{
+			MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1left", sprite);
+		}
+		else if (top && !left)
+		{
+			MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1right", sprite);
+		}
+		else if (!top && left)
+		{
+			MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2left", sprite);
+		}
+		else
+		{
+			MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2right", sprite);
 		}
 	}
 	

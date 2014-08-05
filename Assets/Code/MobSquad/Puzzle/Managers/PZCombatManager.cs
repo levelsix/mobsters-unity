@@ -345,6 +345,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void InitPvp()
 	{
+//		mobsterCounter.transform.parent.GetComponent<UIWidget>().alpha = 0f;
+
 		PreInit ();
 
 		playersSeen.Clear();
@@ -486,6 +488,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void StartPvp()
 	{
+
 		StartCoroutine(SendBeginPvpRequest());
 
 		//StartCoroutine(RetreatPvpsForBattle());
