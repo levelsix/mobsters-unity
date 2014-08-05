@@ -118,7 +118,7 @@ public class PZCombatManager : MonoBehaviour {
 	PZWinLosePopup winLosePopup;
 
 	[SerializeField]
-	UISprite attackWords;
+	PZAttackWords attackWords;
 
 	[SerializeField]
 	UITweener attackWordsTweenPos;
@@ -1019,28 +1019,29 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (score > MAKE_IT_RAIN_SCORE)
 		{
-			attackWords.spriteName = MAKE_IT_RAIN_PREFIX + "2";
+			attackWords.MakeItRain();
 			attackWords.GetComponent<PZRainbow>().Play();
 		}
 		else
 		{
 			if (score > HAMMERTIME_SCORE)
 			{
-				attackWords.spriteName = HAMMERTIME_SPRITE_NAME;
+				attackWords.HammerTime();
 			}
 			else if (score > CANT_TOUCH_THIS_SCORE)
 			{
-				attackWords.spriteName = CANT_TOUCH_THIS_SPRITE_NAME;
+				attackWords.CantTouchThis();
 			}
 			else if (score > BALLIN_SCORE)
 			{
-				attackWords.spriteName = BALLIN_SPRITE_NAME;
+				attackWords.Ballin();
 			}
 		}
 
-		UISpriteData data = attackWords.GetAtlasSprite();
-		attackWords.width = data.width;
-		attackWords.height = data.height;
+		//commenting this out when we switch to labels, not sure of the purpose
+//		UISpriteData data = attackWords.GetAtlasSprite();
+//		attackWords.width = data.width;
+//		attackWords.height = data.height;
 		
 		attackWordsTweenPos.Sample(0, false);
 		attackWordsTweenPos.PlayForward();
