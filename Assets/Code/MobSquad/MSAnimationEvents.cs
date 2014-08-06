@@ -31,8 +31,13 @@ public class MSAnimationEvents : MonoBehaviour {
 	public void shotFired(){
 		//if _totalAttack is == 0 then this is an NPC and not the player
 		if (_totalAttacks > 0) {
+			//this stop coroutine line probably doesn't do anything.  90% sure.
 			StopCoroutine(_combatManager.EnemyFlinch(_consecutiveAttacks));
 			StartCoroutine (_combatManager.EnemyFlinch (++_consecutiveAttacks));
+		}
+		else
+		{
+			StartCoroutine(_combatManager.PlayerFlinch());
 		}
 	}
 

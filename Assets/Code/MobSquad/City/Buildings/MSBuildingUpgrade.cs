@@ -123,6 +123,11 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		building = GetComponent<MSBuilding>();
 	}
+
+	void OnEnable()
+	{
+		OnFinishUpgrade += delegate {building.SetupSprite(building.combinedProto.structInfo.imgName);};
+	}
 	
 	public void Init(StructureInfoProto sProto, FullUserStructureProto uProto)
     {
@@ -319,8 +324,6 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		MSBuildingManager.instance.currentUnderConstruction = null;
 
 		building.userStructProto.isComplete = true;
-		
-		building.SetupSprite(building.combinedProto.structInfo.imgName);
 
 		MSActionManager.Quest.OnStructureUpgraded(building.userStructProto.structId);
 

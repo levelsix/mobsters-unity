@@ -156,7 +156,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public float recoilDistance = 3;
 
-	public float recoilTime = .01f;
+	public float recoilTime = .4f;
 
 	bool waiting = false;
 
@@ -1165,13 +1165,40 @@ public class PZCombatManager : MonoBehaviour {
 		}
 	}
 
+	public IEnumerator PlayerFlinch()
+	{
+		Vector3 playerPos = activePlayer.unit.transf.localPosition;
+
+		activePlayer.unit.animat = MSUnit.AnimationType.FLINCH;
+
+		MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, activePlayer.unit.transf.position);
+
+		//attack sound should be played in attack not flinch
+
+		while (activePlayer.unit.transf.localPosition.x > playerPos.x - recoilDistance )//* (totalShots+1))
+		{
+			activePlayer.unit.transf.localPosition -= Time.deltaTime * recoilDistance / recoilTime * -background.direction;
+			yield return null;
+		}
+
+		yield return new WaitForSeconds(recoilTime);
+
+		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		{
+			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
+			activePlayer.unit.direction = MSValues.Direction.EAST;
+		}
+
+		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
+	}
+
 	public IEnumerator EnemyFlinch(int totalShots){
 		Vector3 enemyPos = activeEnemy.unit.transf.localPosition;
 
 		activeEnemy.unit.animat = MSUnit.AnimationType.FLINCH;
 		
 		MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, activeEnemy.unit.transf.position);
-		
+
 		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
 		
 		while (activeEnemy.unit.transf.localPosition.x < enemyPos.x + recoilDistance )//* (totalShots+1))
@@ -1187,6 +1214,8 @@ public class PZCombatManager : MonoBehaviour {
 			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
 			activePlayer.unit.direction = MSValues.Direction.EAST;
 		}
+
+		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 	}
 
 	public IEnumerator EnemyReturnToStartPosition(){
