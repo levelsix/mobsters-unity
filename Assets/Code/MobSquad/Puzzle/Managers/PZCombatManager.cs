@@ -119,7 +119,10 @@ public class PZCombatManager : MonoBehaviour {
 	PZWinLosePopup winLosePopup;
 
 	[SerializeField]
-	UISprite attackWords;
+	PZAttackWords attackWords;
+
+	[SerializeField]
+	UISprite effectiveness;
 
 	[SerializeField]
 	UITweener attackWordsTweenPos;
@@ -199,7 +202,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	int revives = 0;
 
-	float forfeitChance;
+	public float forfeitChance;
 
 	const float FORFEIT_START_CHANCE = 0.25F;
 
@@ -346,6 +349,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void InitPvp()
 	{
+//		mobsterCounter.transform.parent.GetComponent<UIWidget>().alpha = 0f;
+
 		PreInit ();
 
 		playersSeen.Clear();
@@ -487,6 +492,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void StartPvp()
 	{
+
 		StartCoroutine(SendBeginPvpRequest());
 
 		//StartCoroutine(RetreatPvpsForBattle());
@@ -622,7 +628,12 @@ public class PZCombatManager : MonoBehaviour {
 		ActivateLoseMenu (true);
 	}
 
-	public IEnumerator OnPlayerForfeit(){
+	public void RunPlayerForfeit()
+	{
+		StartCoroutine(OnPlayerForfeit());
+	}
+
+	IEnumerator OnPlayerForfeit(){
 		bool forfeitSuccess = Random.value <= forfeitChance;
 		PZPuzzleManager.instance.swapLock++;
 		Vector3 center = new Vector3((activeEnemy.transform.position.x + activePlayer.transform.position.x) / 2f,
@@ -1012,28 +1023,29 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (score > MAKE_IT_RAIN_SCORE)
 		{
-			attackWords.spriteName = MAKE_IT_RAIN_PREFIX + "2";
+			attackWords.MakeItRain();
 			attackWords.GetComponent<PZRainbow>().Play();
 		}
 		else
 		{
 			if (score > HAMMERTIME_SCORE)
 			{
-				attackWords.spriteName = HAMMERTIME_SPRITE_NAME;
+				attackWords.HammerTime();
 			}
 			else if (score > CANT_TOUCH_THIS_SCORE)
 			{
-				attackWords.spriteName = CANT_TOUCH_THIS_SPRITE_NAME;
+				attackWords.CantTouchThis();
 			}
 			else if (score > BALLIN_SCORE)
 			{
-				attackWords.spriteName = BALLIN_SPRITE_NAME;
+				attackWords.Ballin();
 			}
 		}
 
-		UISpriteData data = attackWords.GetAtlasSprite();
-		attackWords.width = data.width;
-		attackWords.height = data.height;
+		//commenting this out when we switch to labels, not sure of the purpose
+//		UISpriteData data = attackWords.GetAtlasSprite();
+//		attackWords.width = data.width;
+//		attackWords.height = data.height;
 		
 		attackWordsTweenPos.Sample(0, false);
 		attackWordsTweenPos.PlayForward();
@@ -1428,6 +1440,32 @@ public class PZCombatManager : MonoBehaviour {
 	void OnTutorialContinue()
 	{
 		waitingForTutorialSignal = false;
+	}
+
+	/// <summary>
+	/// Shows the sprite for when a effective or non effective element is used
+	/// </summary>
+	public void EffectiveAttack(bool effective)
+	{
+		Vector3 center = new Vector3((activeEnemy.transform.position.x + activePlayer.transform.position.x) / 2f,
+		                             (activeEnemy.transform.position.y + activePlayer.transform.position.y) / 2f,
+		                             activePlayer.transform.position.z);
+		TweenAlpha alpha = effectiveness.GetComponent<TweenAlpha>();
+		TweenScale scale = effectiveness.GetComponent<TweenScale>();
+		effectiveness.transform.position = center;
+		if(effective)
+		{
+			effectiveness.spriteName = "noteffective";
+		}
+		else
+		{
+			effectiveness.spriteName = "supereffective";
+		}
+
+		alpha.ResetToBeginning();
+		alpha.PlayForward();
+		scale.ResetToBeginning();
+		scale.PlayForward();
 	}
 	
 	int[] PickEnemyGems()

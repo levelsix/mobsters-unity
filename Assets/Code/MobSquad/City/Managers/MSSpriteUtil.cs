@@ -62,7 +62,12 @@ public class MSSpriteUtil : MonoBehaviour {
 		return (Resources.Load(path)) as RuntimeAnimatorController;
 	}
 
-	public IEnumerator SetSprite(string bundleName, string spriteName, SpriteRenderer sprite)
+	public void SetSprite(string bundleName, string spriteName, SpriteRenderer sprite)
+	{
+		StartCoroutine(SetSpriteCoroutine(bundleName, spriteName, sprite));
+	}
+
+	public IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, SpriteRenderer sprite)
 	{
 		if (AWS_On)
 		{

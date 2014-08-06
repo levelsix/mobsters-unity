@@ -58,6 +58,7 @@ MonoBehaviour:
   deployPopup: {fileID: 0}
   winLosePopup: {fileID: 0}
   attackWords: {fileID: 0}
+  effectiveness: {fileID: 0}
   attackWordsTweenPos: {fileID: 0}
   boardTint: {fileID: 0}
   boardMove: {fileID: 0}
@@ -73,6 +74,7 @@ MonoBehaviour:
   MELEE_ATTACK_DISTANCE: 60
   prizeQuantityLabel: {fileID: 0}
   intro: {fileID: 0}
+  forfeitChance: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

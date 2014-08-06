@@ -4,6 +4,9 @@ using System;
 
 public class PZRetreatButton : MonoBehaviour {
 
+	[SerializeField]
+	MSPopup retreatPopup;
+
 	UIButton button;
 
 	UISprite sprite;
@@ -16,22 +19,7 @@ public class PZRetreatButton : MonoBehaviour {
 
 	void OnClick()
 	{
-		if (button.enabled)
-		{
-			MSPopupManager.instance.CreatePopup("Forfeit?",
-				"You will lose everything - are you sure you want to forfeit?", 
-                new string[]{"Cancel", "Forfeit"},
-				new string[]{"greymenuoption", "redmenuoption"},
-				new Action[]{MSActionManager.Popup.CloseAllPopups, 
-					delegate {
-						MSActionManager.Puzzle.ForceHideSwap(); 
-						MSActionManager.Popup.CloseAllPopups(); 
-						StartCoroutine(PZCombatManager.instance.OnPlayerForfeit());
-					}  
-				},
-				"orange"
-			);
-		}
+		MSActionManager.Popup.OnPopup(retreatPopup);
 	}
 
 	void Update()
