@@ -162,8 +162,9 @@ public class MSTutorial {
 			break;
 		}
 		
-		yield return dialoguer.DoDialogue(
+		yield return dialoguer.RunDialogue(
 			monster.imagePrefix,
+			monster.imagePrefix + "Character",
 			monster.displayName,
 			step.dialogue);
 

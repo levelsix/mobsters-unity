@@ -28,7 +28,7 @@ public class MSFacebookPopup : MonoBehaviour
 		{
 			MSActionManager.Popup.CloseAllPopups();
 			
-			MSActionManager.Tutorial.OnMakeFacebookDecision(true);
+			MSTutorialManager.instance.OnMakeFacebookDecision(true);
 		}
 	}
 
@@ -47,7 +47,7 @@ public class MSFacebookPopup : MonoBehaviour
 	{
 		MSActionManager.Popup.CloseAllPopups();
 
-		MSActionManager.Tutorial.OnMakeFacebookDecision(false);
+		MSTutorialManager.instance.OnMakeFacebookDecision(false);
 	}
 	
 }

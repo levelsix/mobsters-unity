@@ -47,7 +47,11 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 
 	public void EndOfTween()
 	{
-		if(!activateEventPopup())
+		if(MSTutorialManager.instance.inTutorial)
+		{
+			map.taskButtons[2].OnClick();
+		}
+		else if(!activateEventPopup())
 		{
 			map.SelectNextTask();
 		}

@@ -243,7 +243,6 @@ public class MSBuildingUpgrade : MonoBehaviour {
 			{
 				building.OnUpdateValues();
 			}
-			//TODO: Send update to UI if selected
 			yield return new WaitForSeconds(1f);
 		}
 	}
@@ -326,6 +325,16 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		MSActionManager.Quest.OnStructureUpgraded(building.userStructProto.structId);
 
 		MSBuildingManager.instance.AddToFunctionalityLists(building);
+
+		if (building.selected)
+		{
+			MSBuildingManager.instance.SetSelectedBuilding(building);
+		}
+
+		if (building.upgrade.OnFinishUpgrade != null)
+		{
+			building.upgrade.OnFinishUpgrade();
+		}
 
 		if (building.GetComponent<MSBuildingFrame> () != null) {
 			building.GetComponent<MSBuildingFrame>().CheckTag();

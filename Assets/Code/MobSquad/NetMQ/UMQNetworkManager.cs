@@ -91,7 +91,7 @@ public class UMQNetworkManager : MonoBehaviour {
 	
 		yield return new WaitForSeconds(.5f);
 
-		udid = SystemInfo.deviceUniqueIdentifier;
+		udid = MSUtil.timeNowMillis.ToString(); // SystemInfo.deviceUniqueIdentifier;
 		
 		sessionID = UnityEngine.Random.Range(0, int.MaxValue);
 		

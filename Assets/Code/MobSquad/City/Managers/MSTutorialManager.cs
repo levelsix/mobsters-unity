@@ -57,6 +57,8 @@ public class MSTutorialManager : MonoBehaviour
 
 	bool didJoinFacebook = true;
 
+	bool waitingForUsername = true;
+
 	public bool UiBlock
 	{
 		get
@@ -78,12 +80,12 @@ public class MSTutorialManager : MonoBehaviour
 	MonsterProto enemyTwo;
 	MonsterProto enemyBoss;
 
-	MSCityUnit userUnit;
-	MSCityUnit guideUnit;
-	MSCityUnit zarkUnit;
-	MSCityUnit enemyOneUnit;
-	MSCityUnit enemyTwoUnit;
-	MSCityUnit bossUnit;
+	MSUnit userUnit;
+	MSUnit guideUnit;
+	MSUnit zarkUnit;
+	MSUnit enemyOneUnit;
+	MSUnit enemyTwoUnit;
+	MSUnit bossUnit;
 
 	PZCombatUnit userCombatant;
 	PZCombatUnit enemyOneCombatant;
@@ -105,17 +107,40 @@ public class MSTutorialManager : MonoBehaviour
 	public void StartBeginningTutorial()
 	{
 		SetupTutorial();
-		StartCoroutine(PreCombat_MainTutorial());
+		StartCoroutine(PostCombat_SendOnFirstMission());
 	}
 
 	void SetupTutorial()
 	{
+		
 		userMobster = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.startingMonsterId);
 		guide = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.guideMonsterId);
 		zark = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.markZMonsterId);
 		enemyOne = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.enemyMonsterId);
 		enemyTwo = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.enemyMonsterIdTwo);
 		enemyBoss = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.enemyBossMonsterId);
+
+
+		inTutorial = true;
+
+		/*
+		userMobster = MSDataManager.instance.Get<MonsterProto>(2011);
+		guide = MSDataManager.instance.Get<MonsterProto>(4);
+		zark = MSDataManager.instance.Get<MonsterProto>(16);
+		enemyOne = MSDataManager.instance.Get<MonsterProto>(2010);
+		enemyTwo = MSDataManager.instance.Get<MonsterProto>(19);
+		enemyBoss = MSDataManager.instance.Get<MonsterProto>(31);
+		*/
+
+		userUnit = MSBuildingManager.instance.MakeTutorialUnit(userMobster.monsterId, Vector2.zero, 0);
+		guideUnit = MSBuildingManager.instance.MakeTutorialUnit(guide.monsterId, Vector2.zero, 1);
+		zarkUnit = MSBuildingManager.instance.MakeTutorialUnit(zark.monsterId, Vector2.zero, 2);
+	}
+
+	void CleanUpUnits()
+	{
+		//TODO: Pool out all of the Units that we made
+		//TODO: Give the player their normal unit, and Zark if necessary
 	}
 
 	IEnumerator PreCombat_MainTutorial()
@@ -130,9 +155,24 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator PostCombat_MainTutorial()
 	{
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.THANKS_ZARK_DIALOGUE, true));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.KINDA_DYING_DIALOGUE, true));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.HEAD_TO_HOSPITAL_DIALOGUE, true));
+		//yield return StartCoroutine(PostCombat_DialogueAndRunaway());
+		//yield return StartCoroutine(PostCombat_HealMobsterTutorial());
+		//yield return StartCoroutine(PostCombat_BuildBuildings());
+		yield return StartCoroutine(PostCombat_FacebookLogon());
+		yield return StartCoroutine(PostCombat_Username());
+		yield return StartCoroutine(PostCombat_SendOnFirstMission());
+	}
+
+	IEnumerator PostCombat_DialogueAndRunaway()
+	{
+		yield return null;
+	}
+
+	IEnumerator PostCombat_HealMobsterTutorial()
+	{
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.THANKS_ZARK_DIALOGUE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.KINDA_DYING_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.HEAD_TO_HOSPITAL_DIALOGUE, true));
 
 		//Get to the hospital
 		MSHospital hospital = MSHospitalManager.instance.hospitals[0];
@@ -140,87 +180,154 @@ public class MSTutorialManager : MonoBehaviour
 		MSTownCamera.instance.DoCenterOnGroundPos(hospital.building.trans.position);
 
 		currUi = hospital.building.gameObj;
-		MSTutorialArrow.instance.Init(currUi.transform, 5, MSValues.Direction.NORTH);
-
+		MSTutorialArrow.instance.Init(hospital.building.sprite.transform, 180, MSValues.Direction.NORTH, .02f);
 		yield return StartCoroutine(WaitForClick());
+		
+		//Heal taskbutton
+		yield return StartCoroutine(DoUIStep(
+			MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.HEAL).gameObj,
+			150, MSValues.Direction.EAST));
 
-		//Find the right TaskButton
-		currUi = MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.HEAL).gameObj;
-		MSTutorialArrow.instance.Init(currUi.transform, 5, MSValues.Direction.EAST);
-		yield return StartCoroutine(WaitForClick());
+		//Healing dialogue
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.TAP_CARD_DIALOGUE, false));
 
-		/*
-		//Trigger the facebookPopup
-		Action<bool> facebookAction = delegate (bool didJoin) 
-		{
-			waitForFacebook = false;
-			didJoinFacebook = didJoin;
-		};
-		MSActionManager.Tutorial.OnMakeFacebookDecision += facebookAction;
+		//Find the Goon to heal
+		yield return StartCoroutine(DoUIStep(MSHealScreen.instance.grid.cards[0].gameObject, 125, MSValues.Direction.EAST));
+
+		//Finish the heal
+		yield return StartCoroutine(DoUIStep(TutorialUI.finishHealButton, 105, MSValues.Direction.NORTH));
+
+		//Close the menu
+		yield return StartCoroutine(DoUIStep(TutorialUI.closeHealMenuButton, 50, MSValues.Direction.WEST));
+
+	}
+
+	IEnumerator PostCombat_BuildBuildings()
+	{
+		//Chest of cash dialogue
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.CHEST_OF_CASH_DIALOGUE, true, false));
+
+		//Build cash printer dialogue
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BUILD_CASH_PRINTER_DIALOGUE, true));
+
+		yield return StartCoroutine(BuildStructure(StructureInfoProto.StructType.RESOURCE_GENERATOR, ResourceType.OIL));
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.AFTER_CASH_PRINTER_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BUILD_CASH_VAULT_DIALOGUE, true));
+
+		//Build Vault
+		yield return StartCoroutine(BuildStructure(StructureInfoProto.StructType.RESOURCE_STORAGE, ResourceType.OIL));
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.AFTER_CASH_VAULT_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BEFORE_OIL_SILO_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BUILD_OIL_SILO_DIALOGUE, true));
+		
+		//Build Silo
+		yield return StartCoroutine(BuildStructure(StructureInfoProto.StructType.RESOURCE_STORAGE, ResourceType.CASH));
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.AFTER_OIL_SILO_DIALOGUE, true, false));
+
+	}
+
+	IEnumerator PostCombat_FacebookLogon()
+	{
+		MSTownCamera.instance.DoCenterOnGroundPos(zarkUnit.transf.position, .5f);
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.ISLAND_BASE_DIALOGUE, true, false));
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.THIS_IS_CRAZY_DIALOGUE, true));
+
+		MSActionManager.Popup.OnPopup(TutorialUI.facebookPopup);
+		waitForFacebook = true;
 		while (waitForFacebook)
 		{
 			yield return null;
 		}
-		MSActionManager.Tutorial.OnMakeFacebookDecision -= facebookAction;
-		*/
-
+		if (didJoinFacebook)
+		{
+			yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.FACEBOOK_DID_JOIN_DIALOGUE, true));
+		}
+		else
+		{
+			yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.FACEBOOK_NOT_JOIN_DIALOGUE, true));
+		}
 	}
-
-	IEnumerator WaitForFacebook()
+	
+	public void OnMakeFacebookDecision(bool didJoin)
 	{
-		yield return null;
+		waitForFacebook = false;
+		didJoinFacebook = didJoin;
 	}
 
-	void OnMakeFacebookDecision(bool didJoin)
+	IEnumerator PostCombat_Username()
 	{
+		waitingForUsername = true;
+		MSActionManager.Popup.OnPopup(TutorialUI.usernamePopup);
+		while (waitingForUsername)
+		{
+			yield return null;
+		}
 
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BIRTH_CERTIFICATE_DIALOGUE, true, false));
 	}
 
-	IEnumerator AfterFacebookResponse()
+	public void OnUsernameEnter()
 	{
-		yield return null;
-		//Dialogue asking for name
-
-		//Trigger username popup
+		waitingForUsername = false;
 	}
 
-	void OnUsernameEnter()
-	{
-		StartCoroutine(SendOnFirstMission());
-	}
 
-	IEnumerator SendOnFirstMission()
+
+	IEnumerator PostCombat_SendOnFirstMission()
 	{
 		yield return null;
 		//Dialogue about birth cert
 
-		//Let's recruit mobsters
+		//Attack dialogue
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.GO_RECRUIT_DIALOGUE, true));
+		
+		//Attack button
+		currUi = TutorialUI.attackButton;
+		MSTutorialArrow.instance.Init(currUi.transform, 150, MSValues.Direction.NORTH);
+		yield return StartCoroutine(WaitForClick());
+		
+		CleanUpUnits();
+		
+		//Enter button
+		currUi = TutorialUI.enterButton;
+		MSTutorialArrow.instance.Init(currUi.transform, 150, MSValues.Direction.NORTH);
+		yield return StartCoroutine(WaitForClick());
 
-		//Show attack button
-
-		//UI: Attack button
-
-		//UI: Enter button
-
-		//End tutorial
+		inTutorial = false;
 	}
 
 	#endregion
 
 	#region Coroutines to do things
 
-	IEnumerator DoDialogue(MSDialogueUI dialogueUI, 
-	                       string imageName, 
+	IEnumerator DoDialogue(MSDialogueUI dialogueUI,
+	                       string bundleName,
+	                       string imageName,
 	                       string mobsterName, 
 	                       string dialogue,
-	                       bool wait)
+	                       bool wait,
+	                       bool fullExit = true)
 	{
-		yield return StartCoroutine(dialogueUI.BringInMobster(imageName, mobsterName, dialogue));
+		yield return dialogueUI.RunDialogue(bundleName, imageName, mobsterName, dialogue, wait);
 		if (wait)
 		{
 			MSActionManager.UI.OnDialogueClicked += OnClick;
 			yield return StartCoroutine(WaitForClick());
 			MSActionManager.UI.OnDialogueClicked -= OnClick;
+			if (fullExit)
+			{
+				yield return dialogueUI.RunPushOut();
+			}
+			else
+			{
+				yield return dialogueUI.RunDialogueOut();
+			}
+			dialogueUI.clickbox.SetActive(false);
 		}
 	}
 
@@ -228,7 +335,6 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		currUi = ui;
 		MSTutorialArrow.instance.Init(ui.transform, distance, direction);
-		clicked = false;
 		yield return StartCoroutine(WaitForClick());
 		currUi = null;
 		MSTutorialArrow.instance.gameObject.SetActive(false);
@@ -262,7 +368,35 @@ public class MSTutorialManager : MonoBehaviour
 		waitingForTurn = false;
 	}
 
-	void OnClick()
+	IEnumerator BuildStructure(StructureInfoProto.StructType structType, ResourceType buildResource)
+	{
+		//Shop
+		yield return StartCoroutine(DoUIStep(TutorialUI.shopButton, 150, MSValues.Direction.NORTH));
+		
+		//Cash printer card
+		yield return StartCoroutine(DoUIStep(
+			MSBuildingMenu.instance.cards.Find(x=>x.building.structInfo.structType == structType && x.building.structInfo.buildResourceType == buildResource).gameObject,
+			160, MSValues.Direction.EAST));
+		
+		//Confirm
+		currUi = MSBuildingManager.instance.hoveringToBuild.confirmationButtons.transform.GetChild(0).gameObject;
+		yield return StartCoroutine(WaitForClick());
+		
+		//There's a short bit of time where we're waiting for the
+		//building confirmation to happen. When it ends, hoveringToBuild gets
+		//set to null, so we wait on that.
+		while (MSBuildingManager.instance.hoveringToBuild != null)
+		{
+			yield return null;
+		}
+		
+		//Finish
+		yield return StartCoroutine(DoUIStep(
+			MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.FINISH).gameObj,
+			150, MSValues.Direction.EAST));
+	}
+
+	public void OnClick()
 	{
 		clicked = true;
 	}
@@ -276,8 +410,16 @@ public class TutorialUI
 	public UIWidget dialogueClickbox;
 
 	public UISprite arrow;
+	
+	public GameObject finishHealButton;
+	public GameObject closeHealMenuButton;
 
 	public GameObject shopButton;
+
+	public MSPopup facebookPopup;
+
+	public MSPopup usernamePopup;
+
 	public GameObject attackButton;
 	public GameObject enterButton;
 

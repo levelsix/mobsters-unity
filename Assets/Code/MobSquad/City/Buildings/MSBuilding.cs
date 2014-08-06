@@ -238,8 +238,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	public bool locallyOwned = true;
 
-	[SerializeField]
-	GameObject confirmationButtons;
+	public GameObject confirmationButtons;
 
 	long constructionTimeLeft
 	{

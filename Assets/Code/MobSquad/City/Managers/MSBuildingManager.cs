@@ -406,12 +406,13 @@ public class MSBuildingManager : MonoBehaviour
 		}
 	}
 
-	public void MakeTutorialUnit(int monsterId, Vector2 position, int index)
+	public MSUnit MakeTutorialUnit(int monsterId, Vector2 position, int index)
 	{
 		MSUnit unit = MSPoolManager.instance.Get(unitPrefab, Vector3.zero, unitParent) as MSUnit;
 		unit.Init(monsterId);
 		unit.transf.localPosition = MSGridManager.instance.GridToWorld(position);
 		_playerUnits[index] = unit;
+		return unit;
 	}
 
 	public void MoveTutorialUnit(int monsterId, List<MSGridNode> path)
@@ -709,7 +710,9 @@ public class MSBuildingManager : MonoBehaviour
 
 			buildings.Add(hoveringToBuild.id, hoveringToBuild);
 
+			MSBuilding temp = hoveringToBuild;
 			hoveringToBuild = null;
+			SetSelectedBuilding(temp); //Have to do this after hover is null so that TaskBar treats it proper
 		}
 		else
 		{
@@ -864,7 +867,7 @@ public class MSBuildingManager : MonoBehaviour
 		}
 	}
 
-	private void SetSelectedBuilding(MSBuilding building)
+	public void SetSelectedBuilding(MSBuilding building)
 	{
 		if (_selected != null)
 		{
@@ -1139,12 +1142,17 @@ public class MSBuildingManager : MonoBehaviour
 	/// </param>
 	public void OnTap(TCKTouchData touch)
 	{        
-		Debug.Log("Tap");
 		if (hoveringToBuild != null)
 		{
 			return;
 		}
 		Collider hit = SelectSomethingFromScreen(touch.pos);
+
+		if (MSTutorialManager.instance.UiBlock
+		    && MSTutorialManager.instance.currUi != hit.gameObject)
+		{
+			return;
+		}
 		if (hit != null){
 			MSBuilding building = hit.GetComponent<MSBuilding>();
 			if (building != null)

@@ -59,9 +59,6 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 	public void Init()
 	{
 		hoverIcon.gameObject.SetActive(false);
-		//Put on a random walkable square
-		MSGridNode node = MSGridManager.instance.randomWalkable;
-		trans.position = node.worldPos;
 
 		if (MSTutorialManager.instance.inTutorial)
 		{
@@ -70,6 +67,9 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		}
 		else
 		{
+			//Put on a random walkable square
+			MSGridNode node = MSGridManager.instance.randomWalkable;
+			trans.position = node.worldPos;
 			path = PlanPath(null, ChooseTarget());
 			MoveNext();
 			trans.position = target.worldPos;

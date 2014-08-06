@@ -81,8 +81,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: darkfeederevent
-    x: 0
-    y: 11
+    x: 764
+    y: 554
     width: 106
     height: 81
     borderLeft: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: earthdailylab
-    x: 985
+    x: 991
     y: 730
     width: 2
     height: 100
@@ -120,8 +120,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthfeederevent
-    x: 0
-    y: 93
+    x: 871
+    y: 554
     width: 106
     height: 81
     borderLeft: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: FatBoydark
     x: 0
-    y: 175
+    y: 355
     width: 177
     height: 179
     borderLeft: 0
@@ -146,8 +146,8 @@ MonoBehaviour:
     paddingTop: 21
     paddingBottom: 0
   - name: FatBoyearth
-    x: 178
-    y: 355
+    x: 0
+    y: 175
     width: 177
     height: 179
     borderLeft: 0
@@ -160,19 +160,6 @@ MonoBehaviour:
     paddingBottom: 0
   - name: FatBoyfire
     x: 178
-    y: 175
-    width: 177
-    height: 179
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 15
-    paddingRight: 8
-    paddingTop: 21
-    paddingBottom: 0
-  - name: FatBoylight
-    x: 356
     y: 355
     width: 177
     height: 179
@@ -184,8 +171,21 @@ MonoBehaviour:
     paddingRight: 8
     paddingTop: 21
     paddingBottom: 0
+  - name: FatBoylight
+    x: 178
+    y: 175
+    width: 177
+    height: 179
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 15
+    paddingRight: 8
+    paddingTop: 21
+    paddingBottom: 0
   - name: FatBoywater
-    x: 0
+    x: 356
     y: 355
     width: 177
     height: 179
@@ -224,8 +224,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: firefeederevent
-    x: 871
-    y: 554
+    x: 0
+    y: 93
     width: 106
     height: 81
     borderLeft: 0
@@ -237,7 +237,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lightdailylab
-    x: 991
+    x: 979
     y: 730
     width: 2
     height: 100
@@ -250,8 +250,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightfeederevent
-    x: 764
-    y: 554
+    x: 0
+    y: 11
     width: 106
     height: 81
     borderLeft: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockeddailylab
-    x: 994
+    x: 985
     y: 730
     width: 2
     height: 100
@@ -315,7 +315,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightdailylab
-    x: 979
+    x: 982
     y: 730
     width: 2
     height: 100
@@ -380,8 +380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Scientistdark
-    x: 356
-    y: 173
+    x: 534
+    y: 171
     width: 116
     height: 181
     borderLeft: 0
@@ -406,6 +406,19 @@ MonoBehaviour:
     paddingTop: 19
     paddingBottom: 0
   - name: Scientistfire
+    x: 356
+    y: 173
+    width: 116
+    height: 181
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 51
+    paddingRight: 33
+    paddingTop: 19
+    paddingBottom: 0
+  - name: Scientistlight
     x: 862
     y: 649
     width: 116
@@ -418,7 +431,7 @@ MonoBehaviour:
     paddingRight: 33
     paddingTop: 19
     paddingBottom: 0
-  - name: Scientistlight
+  - name: Scientistwater
     x: 850
     y: 843
     width: 116
@@ -431,21 +444,8 @@ MonoBehaviour:
     paddingRight: 33
     paddingTop: 19
     paddingBottom: 0
-  - name: Scientistwater
-    x: 534
-    y: 171
-    width: 116
-    height: 181
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 51
-    paddingRight: 33
-    paddingTop: 19
-    paddingBottom: 0
   - name: waterdailylab
-    x: 982
+    x: 994
     y: 730
     width: 2
     height: 100
