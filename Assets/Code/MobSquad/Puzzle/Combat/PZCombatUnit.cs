@@ -214,8 +214,17 @@ public class PZCombatUnit : MonoBehaviour {
 		int fullDamage = (int)(damage * MSUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
 		
 		//Debug.Log(name + " taking " + fullDamage + " damage");
-
-		//TODO: If fullDamage != damage, do some animation or something to reflect super/not very effective
+		if(!MSTutorialManager.instance.inTutorial)
+		{
+			if(fullDamage > damage)
+			{
+				PZCombatManager.instance.EffectiveAttack(true);
+			}
+			else if(fullDamage < damage)
+			{
+				PZCombatManager.instance.EffectiveAttack(false);
+			}
+		}
 		
 		yield return StartCoroutine(TakeDamage(fullDamage));
 	}

@@ -121,6 +121,9 @@ public class PZCombatManager : MonoBehaviour {
 	PZAttackWords attackWords;
 
 	[SerializeField]
+	UISprite effectiveness;
+
+	[SerializeField]
 	UITweener attackWordsTweenPos;
 
 	[SerializeField]
@@ -1436,6 +1439,32 @@ public class PZCombatManager : MonoBehaviour {
 	void OnTutorialContinue()
 	{
 		waitingForTutorialSignal = false;
+	}
+
+	/// <summary>
+	/// Shows the sprite for when a effective or non effective element is used
+	/// </summary>
+	public void EffectiveAttack(bool effective)
+	{
+		Vector3 center = new Vector3((activeEnemy.transform.position.x + activePlayer.transform.position.x) / 2f,
+		                             (activeEnemy.transform.position.y + activePlayer.transform.position.y) / 2f,
+		                             activePlayer.transform.position.z);
+		TweenAlpha alpha = effectiveness.GetComponent<TweenAlpha>();
+		TweenScale scale = effectiveness.GetComponent<TweenScale>();
+		effectiveness.transform.position = center;
+		if(effective)
+		{
+			effectiveness.spriteName = "noteffective";
+		}
+		else
+		{
+			effectiveness.spriteName = "supereffective";
+		}
+
+		alpha.ResetToBeginning();
+		alpha.PlayForward();
+		scale.ResetToBeginning();
+		scale.PlayForward();
 	}
 	
 	int[] PickEnemyGems()
