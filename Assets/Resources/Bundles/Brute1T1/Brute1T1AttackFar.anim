@@ -96,4 +96,18 @@ AnimationClip:
     m_Mirror: 0
   m_EditorCurves: []
   m_EulerEditorCurves: []
-  m_Events: []
+  m_Events:
+  - time: .416666657
+    functionName: shotFired
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: .833333313
+    functionName: endOfAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: .285714298
+    intParameter: 0
+    messageOptions: 0
