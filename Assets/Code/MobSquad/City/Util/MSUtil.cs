@@ -314,14 +314,14 @@ public static class MSUtil {
 	
 	public static float GetTypeDamageMultiplier(Element monsterType, Element attackType)
 	{
-		if (elementStrengths.ContainsKey(monsterType) && elementStrengths[monsterType].ContainsKey(attackType))
+		if (!MSTutorialManager.instance.inTutorial && elementStrengths.ContainsKey(monsterType) && elementStrengths[monsterType].ContainsKey(attackType))
 		{
 			switch (elementStrengths[monsterType][attackType]) {
-			case Comparison.STRONG:
-				Debug.Log("Super Effective!");
-				return MSWhiteboard.constants.monsterConstants.elementalStrength;
 			case Comparison.WEAK:
-				Debug.Log("Not Effective!");
+				Debug.Log(monsterType + " hit by " + attackType + ": Super Effective!");
+				return MSWhiteboard.constants.monsterConstants.elementalStrength;
+			case Comparison.STRONG:
+				Debug.Log(monsterType + " hit by " + attackType + ": Not Effective!");
 				return MSWhiteboard.constants.monsterConstants.elementalWeakness;
 			default:
 				break;

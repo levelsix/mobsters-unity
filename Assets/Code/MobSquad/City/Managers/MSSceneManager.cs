@@ -77,7 +77,7 @@ public class MSSceneManager : MonoBehaviour {
 		float t = 0;
 		while (t < fadeTime)
 		{
-			t += Time.deltaTime / Time.timeScale;
+			t += Time.deltaTime;
 			PZScrollingBackground.instance.SetAlpha((fadeIn) ? t/fadeTime : 1 - t/fadeTime);
 			PZCombatManager.instance.activePlayer.unit.sprite.color = new Color(1,1,1,(fadeIn) ? t/fadeTime : 1 - t/fadeTime);
 			PZCombatManager.instance.activeEnemy.unit.sprite.color = new Color(1,1,1,(fadeIn) ? t/fadeTime : 1 - t/fadeTime);
@@ -107,7 +107,6 @@ public class MSSceneManager : MonoBehaviour {
 		puzzleParent.SetActive(true);
 		if (MSTutorialManager.instance.inTutorial)
 		{
-			Time.timeScale = .001f;
 			StartCoroutine(Fade (puzzlePanel, true));
 		}
 		else
@@ -124,7 +123,7 @@ public class MSSceneManager : MonoBehaviour {
 		float t = 0;
 		while (t < fadeTime)
 		{
-			t += Time.deltaTime / Time.timeScale;
+			t += Time.deltaTime;
 			pan.alpha = (fadeIn ? t/fadeTime : 1 - t/fadeTime);
 			yield return null;
 		}

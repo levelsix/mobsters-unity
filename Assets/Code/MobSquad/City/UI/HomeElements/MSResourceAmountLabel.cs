@@ -25,7 +25,7 @@ public class MSResourceAmountLabel : MonoBehaviour {
 	
 	void OnEnable()
 	{
-		SetAmount(MSResourceManager.resources[(int)resource-1]);
+		OnChangeResource(MSResourceManager.resources[(int)resource-1]);
 		MSActionManager.UI.OnChangeResource[(int)resource-1] += OnChangeResource;
 	}
 	

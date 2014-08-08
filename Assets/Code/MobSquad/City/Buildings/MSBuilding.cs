@@ -413,7 +413,14 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		
 		//trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
 		//SetGridFromTrans();
-		sprite.sortingOrder = ((int)(proto.coords.x + proto.coords.y + Mathf.Min(proto.xLength, proto.yLength)/2) * -1 - 10) * 3;
+		if (combinedProto.structInfo.structType == StructureInfoProto.StructType.MINI_JOB)
+		{
+			sprite.sortingOrder = -300; //Walk on the pier, always
+		}
+		else
+		{
+			sprite.sortingOrder = ((int)(proto.coords.x + proto.coords.y + Mathf.Min(proto.xLength, proto.yLength)/2) * -1 - 10) * 3;
+		}
 		overlayUnit.sprite.sortingOrder = sprite.sortingOrder + 1;
 		overlay.sortingOrder = sprite.sortingOrder + 2;
 
@@ -619,8 +626,15 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	{
 		_currPos = new MSGridNode(new Vector2(transform.position.x / MSGridManager.instance.spaceSize - SIZE_OFFSET.x * width,
     	    transform.position.z / MSGridManager.instance.spaceSize - SIZE_OFFSET.z * length));
-		
-		sprite.sortingOrder = 3 * ((int)(_currPos.pos.x + _currPos.pos.y + Mathf.Min(width, length)/2) * -1 - 10);
+
+		if (combinedProto != null && combinedProto.structInfo.structType == StructureInfoProto.StructType.MINI_JOB)
+		{
+			sprite.sortingOrder = -300; //Walk on the pier, always
+		}
+		else
+		{
+			sprite.sortingOrder = 3 * ((int)(_currPos.pos.x + _currPos.pos.y + Mathf.Min(width, length)/2) * -1 - 10);
+		}
 		overlayUnit.sprite.sortingOrder = sprite.sortingOrder + 1;
 		overlay.sortingOrder = sprite.sortingOrder + 2;
 
@@ -736,11 +750,20 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			userStructProto.purchaseTime = now;
 			userStructProto.isComplete = false;
 			userStructProto.structId = combinedProto.structInfo.structId;
-			userStructProto.userId = MSWhiteboard.localMup.userId;
+			if (!MSTutorialManager.instance.inTutorial)
+			{
+				userStructProto.userId = MSWhiteboard.localMup.userId;
+			}
 
 			upgrade.StartConstruction();
 
 			confirmationButtons.SetActive(false);
+
+			if (MSTutorialManager.instance.inTutorial)
+			{
+				MSBuildingManager.instance.FullDeselect();
+				MSBuildingManager.instance.SetSelectedBuilding(this);
+			}
 		}
 	}
 
@@ -870,13 +893,17 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		arrowPosTween.PlayForward();
 		arrowScaleTween.PlayForward();
 	}
-	
+
+	bool isPingPonging = false;
+
 	/// <summary>
 	/// Coroutine that lerps the color back and forth between
 	/// white and the current color
 	/// </summary>
 	IEnumerator ColorPingPong()
 	{
+		if (isPingPonging) yield break;
+		isPingPonging = true;
 		_ppDir = 1;
 		_ppPow = 0;
 		Color curr;
@@ -905,6 +932,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			
 			yield return new WaitForEndOfFrame();
 		}
+		isPingPonging = false;
 	}
 	
 	public void Sell()

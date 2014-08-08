@@ -63,7 +63,9 @@ public class MSBuildingManager : MonoBehaviour
 
 	[SerializeField]
 	UIPanel buildingPanel;
-	
+
+	public List<MSBuilding> buildingsBuiltInTutorial = new List<MSBuilding>();
+
     #endregion
 
     #region Private
@@ -275,9 +277,17 @@ public class MSBuildingManager : MonoBehaviour
 
 	}
 
-	public IEnumerator LoadPlayerCity()
+	public void DoLoadPlayerCity(bool fromBeginning = true)
 	{
-		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker);
+		StartCoroutine(LoadPlayerCity(fromBeginning));
+	}
+
+	public IEnumerator LoadPlayerCity(bool fromBeginning = true)
+	{
+		if (fromBeginning)
+		{
+			MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker);
+		}
 
 		LoadPlayerCityRequestProto request = new LoadPlayerCityRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -367,11 +377,14 @@ public class MSBuildingManager : MonoBehaviour
 			}
 		}
 
-		MSActionManager.Popup.CloseAllPopups();
-
-		if (MSActionManager.Scene.OnCity != null)
+		if (fromBeginning)
 		{
-			MSActionManager.Scene.OnCity();
+			MSActionManager.Popup.CloseAllPopups();
+			
+			if (MSActionManager.Scene.OnCity != null)
+			{
+				MSActionManager.Scene.OnCity();
+			}
 		}
 
 	}
@@ -583,13 +596,19 @@ public class MSBuildingManager : MonoBehaviour
     	return building;
 	}
 
-	public MSBuilding MakeTutorialBuilding(TutorialStructProto proto)
+	public MSBuilding MakeTutorialBuilding(TutorialStructProto proto, int i)
 	{
 		MSFullBuildingProto buildingProto = MSDataManager.instance.Get<MSFullBuildingProto>(proto.structId);
+		while (buildingProto.structInfo.level == 0)
+		{
+			buildingProto = buildingProto.successor;
+		}
 
 		MSBuilding building = MakeBuildingAt(buildingProto, (int)proto.coordinate.x, (int)proto.coordinate.y);
 
 		building.confirmationButtons.SetActive(false);
+
+		buildings[i] = building;
 
 		return building;
 	}
@@ -703,23 +722,35 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			FullDeselect();
 
-			PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
-			request.sender = MSWhiteboard.localMup;
+			if (MSTutorialManager.instance.inTutorial)
+			{
+				buildingsBuiltInTutorial.Add(building);
 
-			request.structCoordinates = new CoordinateProto();
-			request.structCoordinates.x = building.groundPos.x;
-			request.structCoordinates.y = building.groundPos.y;
+				hoveringToBuild.id = buildings.Count;
+				
+				buildings.Add(building.id, building);
 
-			request.structId = building.combinedProto.structInfo.structId;
-			request.timeOfPurchase = MSUtil.timeNowMillis;
+				hoveringToBuild = null;
+			}
+			else
+			{
+				PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
+				request.sender = MSWhiteboard.localMup;
 
-			request.gemsSpent = 0;
-			request.resourceChange = -building.combinedProto.structInfo.buildCost;
+				request.structCoordinates = new CoordinateProto();
+				request.structCoordinates.x = building.groundPos.x;
+				request.structCoordinates.y = building.groundPos.y;
 
-			request.resourceType = building.combinedProto.structInfo.buildResourceType;
-			
-			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_NORM_STRUCTURE_EVENT, PurchaseBuildingResponse);
+				request.structId = building.combinedProto.structInfo.structId;
+				request.timeOfPurchase = MSUtil.timeNowMillis;
 
+				request.gemsSpent = 0;
+				request.resourceChange = -building.combinedProto.structInfo.buildCost;
+
+				request.resourceType = building.combinedProto.structInfo.buildResourceType;
+				
+				UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_NORM_STRUCTURE_EVENT, PurchaseBuildingResponse);
+			}
 			MSActionManager.Popup.CloseAllPopups();
 
 			return true;
@@ -740,6 +771,7 @@ public class MSBuildingManager : MonoBehaviour
 
 			MSBuilding temp = hoveringToBuild;
 			hoveringToBuild = null;
+			FullDeselect();
 			SetSelectedBuilding(temp); //Have to do this after hover is null so that TaskBar treats it proper
 		}
 		else

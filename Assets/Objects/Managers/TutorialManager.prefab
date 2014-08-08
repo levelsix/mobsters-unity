@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fefd7a454224fb6906bf3dfc5eb87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inTutorial: 1
+  inTutorial: 0
   hijackFlinch: 0
   firstCombat: 1
   currUi: {fileID: 0}
@@ -61,11 +61,13 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
     resourceBars:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     boat: {fileID: 0}
+    fightButton: {fileID: 0}
     swapButton: {fileID: 0}
     swapForZark: {fileID: 0}
     finishHealButton: {fileID: 0}
@@ -79,14 +81,18 @@ MonoBehaviour:
     rightDialogue: {fileID: 0}
     puzzleDialogue: {fileID: 0}
   TutorialValues:
-    enemyStartPos: {x: 13, y: -9}
-    boatStartPos: {x: 19, y: -10}
-    boatDockPos: {x: 12, y: -10}
-    boatExitPos: {x: 5, y: -10}
+    cameraSize: 5.5
+    enemyStartPos: {x: 13, y: -8}
+    boatStartPos: {x: 23, y: -10.5}
+    boatDockPos: {x: 18, y: -10.5}
+    boatExitPos: {x: 13, y: -10.5}
+    userMobsterOutsidePos: {x: 13, y: 1}
+    guidOutsidePos: {x: 14.5, y: 1}
+    zarkOutsidePos: {x: 11.5, y: 1}
     boatSpeed: 4
-    enemyEnterJumpHeight: 2
-    enemyEnterJumpTime: 1
-    enemyExitJumpPosition: {x: 0, y: 0}
+    enemyEnterJumpHeight: 1
+    enemyEnterJumpTime: .300000012
+    enemyExitJumpPosition: {x: 13, y: -6}
     hopHeight: 1
     hopTime: .200000003
     swaggyHopHeight: 2

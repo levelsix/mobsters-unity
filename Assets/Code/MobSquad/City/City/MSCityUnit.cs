@@ -118,6 +118,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 
 			if (IsPastTarget(jumpNode))
 			{
+				Debug.Log(name + " jumping\n" + trans.position + "\n" + jumpNode);
 				unit.DoJump(MSTutorialManager.instance.TutorialValues.enemyEnterJumpHeight,
 				            MSTutorialManager.instance.TutorialValues.enemyEnterJumpTime);
 				jumpNode = null;
@@ -132,22 +133,22 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		}
 	}
 
-	bool IsPastTarget(MSGridNode target)
+	bool IsPastTarget(MSGridNode node)
 	{
-		if (target == null)
+		if (node == null)
 		{
 			return false;
 		}
 		switch (unit.direction)
 		{
 		case MSValues.Direction.NORTH:
-			return trans.position.z > target.worldPos.z - MIN_DIST;
+			return trans.position.z > node.worldPos.z - MIN_DIST;
 		case MSValues.Direction.SOUTH:
-			return trans.position.z < target.worldPos.z + MIN_DIST;
+			return trans.position.z < node.worldPos.z + MIN_DIST;
 		case MSValues.Direction.WEST:
-			return trans.position.x < target.worldPos.x + MIN_DIST;
+			return trans.position.x < node.worldPos.x + MIN_DIST;
 		case MSValues.Direction.EAST:
-			return trans.position.x > target.worldPos.x - MIN_DIST;
+			return trans.position.x > node.worldPos.x - MIN_DIST;
 		default:
 			return true;
 		}

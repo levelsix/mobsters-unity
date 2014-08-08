@@ -245,7 +245,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return MSEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterId);
+			return userMonster != null && MSEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterId);
 		}
 	}
 
@@ -266,12 +266,12 @@ public class PZMonster {
 	{
 		get
 		{
-			if (userMonster.numPieces < monster.numPuzzlePieces)
+			if (userMonster != null && !userMonster.isComplete)
 			{
-				return MonsterStatus.INCOMPLETE;
-			}
-			if (!userMonster.isComplete)
-			{
+				if (userMonster.numPieces < monster.numPuzzlePieces)
+				{
+					return MonsterStatus.INCOMPLETE;
+				}
 				return MonsterStatus.COMBINING;
 			}
 			if (isEnhancing)

@@ -104,7 +104,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		get
 		{
-			return -playerXFromSideThreshold - 150;
+			return -playerXFromSideThreshold - (150 * (Screen.height / 640f)) ;
 		}
 	}
 
@@ -597,7 +597,10 @@ public class PZCombatManager : MonoBehaviour {
 		//CBKEventManager.Popup.CloseAllPopups();
 		//Debug.Log("Deploying " + monster.userMonster.userId);
 
-		boardTint.PlayReverse();
+		if (!MSTutorialManager.instance.inTutorial)
+		{
+			boardTint.PlayReverse();
+		}
 
 		if (monster != activePlayer.monster)
 		{
@@ -1217,6 +1220,7 @@ public class PZCombatManager : MonoBehaviour {
 			if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 			{
 				yield return StartCoroutine(activePlayer.AdvanceTo(activeEnemy.transform.localPosition.x - 30, -background.direction, background.scrollSpeed * 4));
+				activePlayer.unit.animat = MSUnit.AnimationType.ATTACK;
 			}
 
 			yield return new WaitForSeconds(shotTime);
@@ -1226,7 +1230,7 @@ public class PZCombatManager : MonoBehaviour {
 			if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 			{
 				yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
-				activePlayer.unit.direction = MSValues.Direction.NORTH;
+				activePlayer.unit.direction = MSValues.Direction.EAST;
 			}
 		}
 	}
@@ -1362,22 +1366,25 @@ public class PZCombatManager : MonoBehaviour {
 	public IEnumerator EnemyAttack(float damage){
 		//Calculate how much damage the enemy will deal.
 		//If the player isn't going to kill the enemy, we want to send whatever updates for this stuff to the server ASAP
-		int enemyDamage;
+		int enemyDamage, enemyDamageWithElement;
 		if (MSTutorialManager.instance.inTutorial)
 		{
-			enemyDamage = activePlayer.monster.currHP - 14; //Want to leave the player barely alive
-		}
-		else if (raidMode)
-		{
-			enemyDamage = Random.Range(activeEnemy.monster.raidMonster.minDmg, activeEnemy.monster.raidMonster.maxDmg);
+			Debug.Log(activePlayer.monster.currHP);
+			enemyDamageWithElement = enemyDamage = activePlayer.monster.currHP - 14; //Want to leave the player barely alive
 		}
 		else
 		{
-			enemyDamage = Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f));
+			if (raidMode)
+			{
+				enemyDamage = Random.Range(activeEnemy.monster.raidMonster.minDmg, activeEnemy.monster.raidMonster.maxDmg);
+			}
+			else
+			{
+				enemyDamage = Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f));
+			}
+			enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement));
 		}
-		
-		int enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement));
-		
+
 		battleStats.damageTaken += Mathf.Min (enemyDamageWithElement, activePlayer.monster.currHP);
 
 		bool playerTakingDamage = damage < activeEnemy.monster.currHP;

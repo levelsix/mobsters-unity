@@ -41,7 +41,12 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 		{
 			MSActionManager.Loading.OnBuildingsLoaded += UpdateBadge;
 			MSActionManager.Town.PlaceBuilding += UpdateBadge;
+			if (MSTutorialManager.instance.inTutorial)
+			{
+				UpdateBadge();
+			}
 		}
+
 	}
 
 	void OnDisable()
@@ -54,6 +59,7 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 	}
 
 	public virtual void OnClick(){
+		MSBuildingManager.instance.FullDeselect();
 		base.OnClick();
 		if(shortCutButton)
 		{

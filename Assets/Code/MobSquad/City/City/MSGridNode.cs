@@ -195,4 +195,9 @@ public class MSGridNode : IComparable {
 		
 		return cost.CompareTo((obj as MSGridNode).cost);
 	}
+
+	public override string ToString ()
+	{
+		return string.Format ("[MSGridNode: pos={0}, worldPos={1}], direction={2}", pos, worldPos, direction);
+	}
 }

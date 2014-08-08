@@ -41,10 +41,20 @@ public class MSCreateUserPopup : MonoBehaviour {
 		create.udid = UMQNetworkManager.udid;
 		create.name = username;
 		
-		create.cash = MSWhiteboard.tutorialConstants.cashInit;
-		create.oil = MSWhiteboard.tutorialConstants.oilInit;
-		create.gems = MSWhiteboard.tutorialConstants.gemsInit;
-		
+		create.cash = MSResourceManager.resources[0];
+		create.oil = MSResourceManager.resources[1];
+		create.gems = MSResourceManager.resources[2];
+
+		foreach (var item in MSBuildingManager.instance.buildingsBuiltInTutorial) 
+		{
+			TutorialStructProto tutStruct = new TutorialStructProto();
+			tutStruct.coordinate = new CoordinateProto();
+			tutStruct.coordinate.x = (int)item.groundPos.x;
+			tutStruct.coordinate.y = (int)item.groundPos.y;
+			tutStruct.structId = item.combinedProto.structInfo.structId;
+			create.structsJustBuilt.Add(tutStruct);
+		}
+
 		if (FB.IsLoggedIn)
 		{
 			create.facebookId = FB.UserId;
@@ -63,6 +73,7 @@ public class MSCreateUserPopup : MonoBehaviour {
 		switch (response.status)
 		{
 		case UserCreateResponseProto.UserCreateStatus.SUCCESS:
+			yield return StartCoroutine(QuickStartupRequest());
 			MSTutorialManager.instance.OnUsernameEnter();
 			MSActionManager.Popup.CloseAllPopups();
 			break;
@@ -71,5 +82,29 @@ public class MSCreateUserPopup : MonoBehaviour {
 			submitButton.enabled = true;
 			break;
 		}
+	}
+
+	IEnumerator QuickStartupRequest()
+	{
+		StartupRequestProto request = new StartupRequestProto();
+		request.udid = UMQNetworkManager.udid;
+		request.versionNum = MSValues.version;
+		if (FB.IsLoggedIn)
+		{
+			request.fbId = FB.UserId;
+		}
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_STARTUP_EVENT, null);
+		while(!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		StartupResponseProto response = UMQNetworkManager.responseDict[tagNum] as StartupResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		MSUtil.LoadLocalUser(response.sender);
+
+		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
+
+		MSChatManager.instance.Init(response);
 	}
 }

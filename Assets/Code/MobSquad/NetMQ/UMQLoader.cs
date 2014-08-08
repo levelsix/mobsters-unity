@@ -38,8 +38,14 @@ public class UMQLoader : MonoBehaviour {
 		StartupRequestProto startup = new StartupRequestProto();
 		
 		startup.udid = UMQNetworkManager.udid;
-		startup.versionNum = 1.0f;
-		startup.isForceTutorial = true;
+		startup.versionNum = MSValues.version;
+
+		if (PlayerPrefs.HasKey("CleanStart"))
+		{
+			startup.isFreshRestart = true;
+			PlayerPrefs.DeleteKey("CleanStart");
+			PlayerPrefs.Save();
+		}
 
 		if (FB.IsLoggedIn)
 		{

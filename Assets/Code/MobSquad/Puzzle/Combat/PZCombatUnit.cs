@@ -212,7 +212,7 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		int fullDamage = (int)(damage * MSUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
 		
-		//Debug.Log(name + " taking " + fullDamage + " damage");
+		Debug.Log(name + " taking " + fullDamage + " damage");
 		if(!MSTutorialManager.instance.inTutorial)
 		{
 			if(fullDamage > damage)

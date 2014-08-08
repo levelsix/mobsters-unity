@@ -340,6 +340,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   selectColor: {r: .352941155, g: .352941155, b: .352941155, a: 1}
+  jumpNode:
+    x: 0
+    z: 0
+    heur: 0
+    dist: 0
+    direction: 4
   moving: 1
   speed: 3
   rushing: 0
@@ -527,8 +533,8 @@ SpriteRenderer:
   m_UseLightProbes: 0
   m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_SortingLayerID: 4066043011
-  m_SortingOrder: 5
+  m_SortingLayerID: 379117485
+  m_SortingOrder: -299
   m_Sprite: {fileID: 21300000, guid: b731b5dc9ea9f4b839ab887b8921f733, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
