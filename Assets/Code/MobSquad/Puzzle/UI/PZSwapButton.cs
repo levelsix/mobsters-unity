@@ -33,7 +33,7 @@ public class PZSwapButton : MonoBehaviour {
 		swapTween.PlayReverse();
 	}
 
-	void Show()
+	public void Show()
 	{
 		if (PZCombatManager.instance.activePlayer.alive)
 		{

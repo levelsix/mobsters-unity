@@ -52,8 +52,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	public PZCombatUnit activeEnemy;
 
-	[SerializeField]
-	PZCombatUnit[] backupPvPEnemies;
+	public PZCombatUnit[] backupPvPEnemies;
 
 	/// <summary>
 	/// The unit prefab which will be used as the template to generate
@@ -85,6 +84,8 @@ public class PZCombatManager : MonoBehaviour {
 	List<int> playersSeen = new List<int>();
 
 	const float playerXFromSideThreshold = 130;
+
+	Queue<int> riggedAttacks;
 
 	float playerXPos
 	{
@@ -126,12 +127,10 @@ public class PZCombatManager : MonoBehaviour {
 
 	[SerializeField]
 	UITweener attackWordsTweenPos;
+	
+	public TweenAlpha boardTint;
 
-	[SerializeField]
-	TweenAlpha boardTint;
-
-	[SerializeField]
-	TweenPosition boardMove;
+	public TweenPosition boardMove;
 
 	[SerializeField]
 	UITweener screenTint;
@@ -257,6 +256,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	void PreInit()
 	{
+		riggedAttacks = null;
+
 		ResetBattleStats();
 
 		boardTint.PlayForward();
@@ -269,7 +270,8 @@ public class PZCombatManager : MonoBehaviour {
 		activePlayer.alive = false;
 		activePlayer.monster = null;
 
-		//TODO: Make sure to reset the PvP stand-ins!
+		backupPvPEnemies[0].GoToStartPos();
+		backupPvPEnemies[1].GoToStartPos();
 		
 		enemies.Clear();
 		defeatedEnemies.Clear();
@@ -373,7 +375,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void InitRaid()
 	{
-		PreInit ();
+		PreInit();
 		
 		PZMonster mon;
 
@@ -416,6 +418,27 @@ public class PZCombatManager : MonoBehaviour {
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
 	}
+
+	public void InitTutorial(MonsterProto boss, MonsterProto enemyOne, MonsterProto enemyTwo, Queue<int> riggedDamages)
+	{
+		PreInit ();
+
+		activeEnemy.Init(new PZMonster(boss, 1));
+		backupPvPEnemies[1].Init(new PZMonster(enemyOne, 1));
+		backupPvPEnemies[0].Init(new PZMonster(enemyTwo, 1));
+		activePlayer.Init(playerGoonies[0]);
+
+		riggedAttacks = riggedDamages;
+
+		boardMove.Sample(0, false);
+
+		pvpUI.Reset();
+		pvpMode = false;
+		raidMode = false;
+
+		//StartCoroutine(ScrollToNextEnemy());
+	}
+
 
 	public void SpawnNextPvp()
 	{
@@ -572,7 +595,7 @@ public class PZCombatManager : MonoBehaviour {
 	void OnDeploy(PZMonster monster)
 	{
 		//CBKEventManager.Popup.CloseAllPopups();
-		Debug.Log("Deploying " + monster.userMonster.userId);
+		//Debug.Log("Deploying " + monster.userMonster.userId);
 
 		boardTint.PlayReverse();
 
@@ -734,6 +757,11 @@ public class PZCombatManager : MonoBehaviour {
 		}
 	}
 
+	public Coroutine RunScrollToNextEnemy()
+	{
+		return StartCoroutine(ScrollToNextEnemy());
+	}
+
 	/// <summary>
 	/// Spawns a new enemy and scrolls the background until
 	/// that enemy is in its place.
@@ -746,20 +774,47 @@ public class PZCombatManager : MonoBehaviour {
 
 		PZPuzzleManager.instance.swapLock += 1;
 
-		yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed));
+		yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed, false));
 		activePlayer.unit.direction = MSValues.Direction.EAST;
-		//activePlayer.GoToStartPos();
 
 		MSSoundManager.instance.Loop (MSSoundManager.instance.walking);
 
-		yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed));
+		yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed, false));
 
 		while (waiting) {
 			background.Scroll ();
 			yield return null;
 		}
 
-		if (enemies.Count > 0) {
+		if (MSTutorialManager.instance.inTutorial)
+		{
+
+			if (MSTutorialManager.instance.firstCombat)
+			{
+				background.StartScroll();
+
+				StartCoroutine(backupPvPEnemies[1].AdvanceTo(enemyXPos + 130, -background.direction, background.scrollSpeed * 1.5f));
+				StartCoroutine(backupPvPEnemies[0].AdvanceTo(enemyXPos + 20, -background.direction, background.scrollSpeed * 1.5f));
+				yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 1.5f));
+				
+				background.StopScroll();
+				MSTutorialManager.instance.firstCombat = false;
+			}
+			else
+			{
+				while (activeEnemy.transform.localPosition.x > enemyXPos)
+				{
+					background.Scroll(new MSUnit[] {activeEnemy.unit, backupPvPEnemies[0].unit});
+					yield return null;
+				}
+			}
+
+			activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
+
+			yield break;
+		}
+		else if (enemies.Count > 0) 
+		{
 			activeEnemy.OnClick();
 
 			activeEnemy.GoToStartPos ();
@@ -772,7 +827,9 @@ public class PZCombatManager : MonoBehaviour {
 			TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 1f ,1f);
 			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
 			intro.PlayAnimation ();
-		} else if (!activeEnemy.alive) {
+		} 
+		else if (!activeEnemy.alive) 
+		{
 			activeEnemy.GoToStartPos ();
 			StartCoroutine (SendEndResult (true));
 
@@ -783,20 +840,12 @@ public class PZCombatManager : MonoBehaviour {
 						MSActionManager.Quest.OnTaskCompleted (MSWhiteboard.loadedDungeon);
 				}
 			}
-
-
 		}
 
 		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
-				/*
-		Debug.Log("Moving until player is past " + playerXPos);
-		while(activePlayer.unit.transf.localPosition.x < playerXPos)
+
+		if (!activeEnemy.alive) 
 		{
-			activePlayer.unit.transf.localPosition += Time.deltaTime * -background.direction * background.scrollSpeed;
-			yield return null;
-		}
-		*/
-		if (!activeEnemy.alive) {
 			StartCoroutine(DelayedWinLosePopup(2f));
 		}
 		while(activeEnemy.unit.transf.localPosition.x > enemyXPos)
@@ -804,7 +853,6 @@ public class PZCombatManager : MonoBehaviour {
 			background.Scroll(activeEnemy.unit);
 			yield return null;
 		}
-
 
 		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 
@@ -1174,11 +1222,23 @@ public class PZCombatManager : MonoBehaviour {
 			yield return new WaitForSeconds(shotTime);
 
 			//When the animation gets to the frame where the gun fires, EnemyFlinch() is triggered
+
+			if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+			{
+				yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
+				activePlayer.unit.direction = MSValues.Direction.NORTH;
+			}
 		}
 	}
 
 	public IEnumerator PlayerFlinch()
 	{
+		if (MSTutorialManager.instance.hijackFlinch)
+		{
+			MSTutorialManager.instance.HijackFlinch();
+			yield break;
+		}
+
 		Vector3 playerPos = activePlayer.unit.transf.localPosition;
 
 		activePlayer.unit.animat = MSUnit.AnimationType.FLINCH;
@@ -1275,8 +1335,6 @@ public class PZCombatManager : MonoBehaviour {
 		
 		yield return StartCoroutine(activeEnemy.TakeDamage(damage, element));
 
-
-
 		StartCoroutine(EnemyAttack(damage));
 		
 		//Debug.Log("Unlock: Done Animating");
@@ -1305,7 +1363,11 @@ public class PZCombatManager : MonoBehaviour {
 		//Calculate how much damage the enemy will deal.
 		//If the player isn't going to kill the enemy, we want to send whatever updates for this stuff to the server ASAP
 		int enemyDamage;
-		if (raidMode)
+		if (MSTutorialManager.instance.inTutorial)
+		{
+			enemyDamage = activePlayer.monster.currHP - 14; //Want to leave the player barely alive
+		}
+		else if (raidMode)
 		{
 			enemyDamage = Random.Range(activeEnemy.monster.raidMonster.minDmg, activeEnemy.monster.raidMonster.maxDmg);
 		}
@@ -1321,19 +1383,18 @@ public class PZCombatManager : MonoBehaviour {
 		bool playerTakingDamage = damage < activeEnemy.monster.currHP;
 		int fullDamageAfterElements = (int)(damage * MSUtil.GetTypeDamageMultiplier(activeEnemy.monster.monster.monsterElement, activePlayer.monster.monster.monsterElement));
 
-		if (raidMode)
-		{
-			MSClanEventManager.instance.SendAttack(fullDamageAfterElements, activePlayer.monster, playerTakingDamage ? enemyDamage : 0);
-		}
-		else // if (playerTakingDamage)
-		{
-			activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
-		}
-
 		//Enemy attack back if not dead
 		if (activeEnemy.monster.currHP > 0 )//&& activeEnemy.monster.currHP < activeEnemy.monster.maxHP)
 		{
-			
+			if (raidMode)
+			{
+				MSClanEventManager.instance.SendAttack(fullDamageAfterElements, activePlayer.monster, playerTakingDamage ? enemyDamage : 0);
+			}
+			else if (!MSTutorialManager.instance.inTutorial)//if (playerTakingDamage )
+			{
+				activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
+			}
+
 			if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 			{
 				yield return StartCoroutine(activeEnemy.AdvanceTo(activePlayer.transform.localPosition.x + MELEE_ATTACK_DISTANCE, -background.direction, background.scrollSpeed * 4));

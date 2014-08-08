@@ -17,7 +17,10 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 	MSGridNode target = null;
 	
 	Stack<MSGridNode> path = new Stack<MSGridNode>();
-	
+
+	[HideInInspector]
+	public MSGridNode jumpNode = null;
+
 	const float MIN_DIST = .03f;
 	
 	public bool moving = true;
@@ -59,6 +62,8 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 	public void Init()
 	{
 		hoverIcon.gameObject.SetActive(false);
+
+		jumpNode = null;
 
 		if (MSTutorialManager.instance.inTutorial)
 		{
@@ -111,7 +116,15 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 			}
 			trans.Translate(move);
 
-			if (IsPastTarget())
+			if (IsPastTarget(jumpNode))
+			{
+				unit.DoJump(MSTutorialManager.instance.TutorialValues.enemyEnterJumpHeight,
+				            MSTutorialManager.instance.TutorialValues.enemyEnterJumpTime);
+				jumpNode = null;
+				unit.DoFade(false, MSTutorialManager.instance.TutorialValues.enemyEnterJumpTime);
+			}
+
+			if (IsPastTarget(target))
 			{
 				//trans.position = target.worldPos;
 				MoveNext();
@@ -119,7 +132,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		}
 	}
 
-	bool IsPastTarget()
+	bool IsPastTarget(MSGridNode target)
 	{
 		if (target == null)
 		{

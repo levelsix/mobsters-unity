@@ -13,9 +13,6 @@ public class MSCreateUserPopup : MonoBehaviour {
 	[SerializeField]
 	UILabel errorLabel;
 
-	[SerializeField]
-	UMQLoader loader;
-	
 	void OnEnable()
 	{
 		submitButton.onClick += OnSubmit;

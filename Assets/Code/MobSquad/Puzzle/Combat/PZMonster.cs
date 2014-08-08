@@ -405,6 +405,16 @@ public class PZMonster {
 
 		level = 100;
 	}
+
+	public PZMonster(MonsterProto monster, int level)
+	{
+		this.monster = monster;
+
+		currHP = maxHP = MSMath.MaxHPAtLevel(monster, level);
+		SetAttackDamagesForLevel(level);
+
+		this.level = level;
+	}
 	
 	public void UpdateUserMonster(FullUserMonsterProto userMonster)
 	{

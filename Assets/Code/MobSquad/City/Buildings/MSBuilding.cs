@@ -327,6 +327,20 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	}
 
+	public void Init(MinimumObstacleProto proto)
+	{
+		obstacle = gameObj.AddComponent<MSObstacle>();
+		
+		obstacle.Init(proto);
+		
+		combinedProto = null;
+		userStructProto = null;
+		
+		Setup();
+		
+		locallyOwned = false;
+	}
+
 	public void Init(UserObstacleProto proto)
 	{
 		obstacle = gameObj.AddComponent<MSObstacle>();
@@ -471,7 +485,9 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		SetGridFromTrans();
 		
 		
-		locallyOwned = (MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER && MSWhiteboard.cityID == MSWhiteboard.localMup.userId);
+		//locallyOwned = (MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER && MSWhiteboard.cityID == MSWhiteboard.localMup.userId);
+
+		locallyOwned = true;
 
 		if (locallyOwned && combinedProto != null)
 		{

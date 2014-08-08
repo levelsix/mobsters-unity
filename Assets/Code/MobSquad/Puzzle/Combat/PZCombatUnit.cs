@@ -35,7 +35,7 @@ public class PZCombatUnit : MonoBehaviour {
 	UILabel hpLabel;
 
 	[SerializeField]
-	UISprite shadow;
+	SpriteRenderer shadow;
 
 	[SerializeField]
 	UILabel damageLabel;
@@ -134,8 +134,7 @@ public class PZCombatUnit : MonoBehaviour {
 	void Init()
 	{
 		unit.spriteBaseName = monster.monster.imagePrefix;
-		unit.sprite.color = new Color (unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 1);
-		shadow.alpha = 1;
+		shadow.color = unit.sprite.color = new Color (unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 1);
 		hpBar.fill = ((float)monster.currHP) / monster.maxHP;
 		hpLabel.text = monster.currHP + "/" + monster.maxHP;
 
@@ -233,11 +232,12 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		RunDamageLabel(damage);
 
-		alive = damage >= monster.currHP;
+		//alive = damage >= monster.currHP;
 		
 		float startHP = monster.currHP;
 
 		monster.currHP = Mathf.Max(monster.currHP - damage, 0);
+		alive = monster.currHP > 0;
 		
 		yield return StartCoroutine(LerpHealth(Math.Min(monster.currHP + damage, startHP), Mathf.Max(monster.currHP, 0), monster.maxHP));
 
@@ -291,9 +291,8 @@ public class PZCombatUnit : MonoBehaviour {
 		PZPuzzleManager.instance.swapLock += 1;
 		
 		alive = false;
-		
-		unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 0);
-		shadow.alpha = 0;
+
+		shadow.color = unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 0);
 
 		MSPoolManager.instance.Get(MSPrefabList.instance.characterDieParticle, unit.transf.position);
 
@@ -316,6 +315,34 @@ public class PZCombatUnit : MonoBehaviour {
 			OnDeath();
 		}
 
+	}
+
+	public IEnumerator MoveTo(Vector3 position, float speed, bool idleAfter = true)
+	{
+		moving = true;
+		unit.animat = MSUnit.AnimationType.RUN;
+
+		Vector3 originalPosition = transform.localPosition;
+		float time = (position - transform.localPosition).magnitude / speed;
+		float t = 0;
+		while (t < 1)
+		{
+			t += Time.deltaTime / time;
+			transform.localPosition = Vector3.Lerp(originalPosition, position, t);
+			yield return null;
+		}
+
+		if (idleAfter)
+		{
+			unit.animat = MSUnit.AnimationType.IDLE;
+		}
+		transform.localPosition = position;
+		moving = false;
+	}
+
+	public Coroutine RunAdvanceTo(float x, Vector3 direction, float speed, bool idleAfter = true)
+	{
+		return StartCoroutine(AdvanceTo(x, direction, speed, idleAfter));
 	}
 
 	public IEnumerator AdvanceTo(float x, Vector3 direction, float speed, bool idleAfter = true)

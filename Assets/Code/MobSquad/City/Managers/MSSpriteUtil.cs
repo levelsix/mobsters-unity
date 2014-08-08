@@ -31,7 +31,7 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	[SerializeField] Sprite defaultSprite;
 
-	const string AWS = "https://s3-us-west-1.amazonaws.com/lvl6mobsters/Resources/Android/";
+	const string AWS = "https://s3-us-west-1.amazonaws.com/lvl6mobsters/Android/";
 
 	[SerializeField] bool AWS_On = false;
 	

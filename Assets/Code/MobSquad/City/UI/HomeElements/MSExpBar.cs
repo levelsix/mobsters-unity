@@ -15,6 +15,7 @@ public class MSExpBar : MonoBehaviour {
 	void OnEnable()
 	{
 		MSActionManager.Scene.OnCity += UpdateBar;
+
 	}
 
 	void OnDisable()
@@ -24,8 +25,12 @@ public class MSExpBar : MonoBehaviour {
 	
 	void UpdateBar()
 	{
-		levelLabel.text = MSWhiteboard.localUser.level.ToString();
-		expLabel.text = MSWhiteboard.localUser.experience + "/" + MSWhiteboard.nextLevelInfo.requiredExperience;
-		expBar.fill = ((float)MSWhiteboard.localUser.experience) / MSWhiteboard.nextLevelInfo.requiredExperience;
+		if (!MSTutorialManager.instance.inTutorial)
+		{   
+		    levelLabel.text = MSWhiteboard.localUser.level.ToString();
+		    expLabel.text = MSWhiteboard.localUser.experience + "/" + MSWhiteboard.nextLevelInfo.requiredExperience;
+		    expBar.fill = ((float)MSWhiteboard.localUser.experience) / MSWhiteboard.nextLevelInfo.requiredExperience;
+
+		}
 	}
 }

@@ -568,18 +568,30 @@ public class MSBuildingManager : MonoBehaviour
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * x, 0, 
     		MSGridManager.instance.spaceSize * y);
     	
-		//MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as MSBuilding;
 	    MSBuilding building = Instantiate(buildingPrefab, position, buildingParent.rotation) as MSBuilding;
     	
     	building.trans.parent = buildingParent;
 		//building.gameObj.layer = MSValues.Layers.DEFAULT;
     	building.Init(proto);
     	
-	    //MSGridManager.instance.AddBuilding(building, x, y, proto.width, proto.height);
-	
+		if (proto.structInfo.structType != StructureInfoProto.StructType.MINI_JOB)
+		{
+	    	MSGridManager.instance.AddBuilding(building, x, y, proto.structInfo.width, proto.structInfo.height);
+		}
 		//buildings.Add(id, building);
 		
     	return building;
+	}
+
+	public MSBuilding MakeTutorialBuilding(TutorialStructProto proto)
+	{
+		MSFullBuildingProto buildingProto = MSDataManager.instance.Get<MSFullBuildingProto>(proto.structId);
+
+		MSBuilding building = MakeBuildingAt(buildingProto, (int)proto.coordinate.x, (int)proto.coordinate.y);
+
+		building.confirmationButtons.SetActive(false);
+
+		return building;
 	}
 	
 	MSBuilding MakeBuilding(FullUserStructureProto proto)
@@ -607,6 +619,22 @@ public class MSBuildingManager : MonoBehaviour
 		}
 
     	return building;
+	}
+
+	public void MakeTutorialObstacle(MinimumObstacleProto proto)
+	{
+		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coordinate.x, 0,
+		                               MSGridManager.instance.spaceSize * proto.coordinate.y);
+
+		MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position, buildingParent) as MSBuilding;
+
+		building.trans.rotation = buildingParent.rotation;
+		building.Init(proto);
+		
+		ObstacleProto obp = MSDataManager.instance.Get<ObstacleProto>(proto.obstacleId);
+		MSGridManager.instance.AddBuilding(building, (int)proto.coordinate.x, (int)proto.coordinate.y, obp.width, obp.height);
+		
+		obstacles.Add(building);
 	}
 
 	void MakeObstacle(UserObstacleProto proto)

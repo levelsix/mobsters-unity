@@ -249,6 +249,11 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		SlideToPos(GroundPosToCameraPos(groundPos), cam.orthographicSize, time);
 	}
 
+	public void DoCenterOnGroundPos(Vector3 groundPos, float size, float time)
+	{
+		SlideToPos(GroundPosToCameraPos(groundPos), size, time);
+	}
+
 	public void SlideToPos(Vector3 localPos, float size, float time)
 	{
 		StartCoroutine(SlideToCameraPosition(localPos, size, time));
@@ -260,6 +265,7 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		if (time == 0)
 		{
 			trans.localPosition = localPos;
+			cam.orthographicSize = size;
 		}
 		else
 		{
@@ -270,7 +276,7 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 			{
 				currTime += Time.deltaTime;
 				trans.localPosition = Vector3.Lerp(startPos, localPos, currTime/time);
-				cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, size, currTime/time);
+				cam.orthographicSize = Mathf.Lerp(startSize, size, currTime/time);
 				yield return null;
 			}
 		}

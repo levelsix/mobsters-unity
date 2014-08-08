@@ -93,16 +93,18 @@ public class MSGridNode : IComparable {
 		z = 0;
 	}
 	
-	public MSGridNode(int _x, int _y)
+	public MSGridNode(int _x, int _y, MSValues.Direction direction = MSValues.Direction.NORTH)
 	{
 		x = _x;
 		z = _y;
+		this.direction = direction;
 	}
 	
-	public MSGridNode(Vector2 _pos)
+	public MSGridNode(Vector2 _pos, MSValues.Direction direction = MSValues.Direction.SOUTH)
 	{
 		x = (int)_pos.x;
 		z = (int)_pos.y;
+		this.direction = direction;
 	}
 	
 	public static MSGridNode operator +(MSGridNode n1, MSGridNode n2)

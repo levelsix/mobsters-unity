@@ -213,7 +213,8 @@ public class MSTaskable : MonoBehaviour {
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_DUNGEON_EVENT, null);
 		
 		//yield return StartCoroutine (EnterDungeon ());
-		PZPuzzleManager.instance.InitBoard();
+
+		PZPuzzleManager.instance.InitBoard(task.boardWidth, task.boardHeight);
 
 		MSActionManager.Scene.OnPuzzle();
 		

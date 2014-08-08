@@ -6,17 +6,56 @@ using com.lvl6.proto;
 
 public static class TutorialStrings
 {
-	
-	
+	#region Pre-Combat Dialogue
+	public const string HEY_BOSS = "Hey boss! We've been expecting you!";
+	public const string EVIL_DICTATOR = "An evil dictator named Lil' Kim has taken over the world and it's up to you to stop him!";
+	public const string HOPEFULLY_DONT_FIND = "Hopefully they don't find...";
+
+	public const string PEASANT_SQUAD = "Well well well... you peasants think you can start a new squad, under my watch?";
+	public const string EGGSPECT = "Heh, did you really EGG-spect us not to find you here?";
+
+	public const string SEND_NEPHEW = "Oh no. It's Lil' Kim! Send my nephew into battle, Boss! I don't like him anyways.";
+
+	public const string YOLO = "Yolo.";
+	#endregion
+
+	#region Combat Dialogue
+	public const string WANTS_A_PIECE = "Who wants a piece of Swaggy?";
+
+	public const string AINT_CHICKEN = "Lemme at 'em boss, I ain't chicken.";
+	public const string DOT_DOT_DOT = "......";
+	public const string MAKE_ME_FRY = "OW! Can't take a joke chicken? Don't make me fry...";
+	public const string GO_PEPE = "Enough you two! Take care of this degenerate, Pepe!";
+
+	public const string MOVIN_ORBS = "Yo dawg, movin' orbs ain't my style. Help a brotha out.";
+	public const string SMOOTH_MOVE = "Smooth move homie! The more orbs you break, the stronger I get.";
+	public const string LAST_MOVE = "Dope! You got one last move before I make it rain. You got this!";
+
+	public const string CHICKENS_WORK = "Sigh, never leave a man to do a chicken's work. Take him out Drumstix.";
+
+	public const string CREATE_POWERUP = "Yo, this chicken is savage. Create a power-up by matching 4 orbs.";
+	public const string SWIPE_POWERUP = "Swipe the striped orb down to activate the power-up.";
+	public const string BALLIN = "BALLIN'! You got one last move homie.";
+
+	public const string NOLO = "Yolo... ain't... the... motto...";
+	public const string POKE = "*Poke*";
+	public const string HEY_BUDDY = "Hey buddy, you don't look so good. Would you \"Like\" me to help you out?";
+
+	public const string UPDATE_BOOKFACE = "Oops, let me update my BookFace status before we begin.";
+	public const string ZARKS_STATUS = "\"Currently saving a stranger who got owned by a chicken. #LOL #GoodGuyZark\"";
+	public const string TWELVE_LIKES = "Heh, 12 likes already. Alright, let's do this.";
+	#endregion
 	
 	#region Post-Combat Dialogue
+	public const string BEAT_A_CHICKEN = "Ohhh, bet you feel like a big man beating a chicken. This isn’t over, I’ll be back!";
+
 	public const string THANKS_ZARK_DIALOGUE = "Whew! That was a close one. Thanks for the help Zark!";
 	public const string KINDA_DYING_DIALOGUE = "No problem buddy, but in case you didn't notice, your nephew is kinda... dying.";
 	public const string HEAD_TO_HOSPITAL_DIALOGUE = "Let's head to the Hospital and get him healed right up. Follow the magical floating arrows to begin.";
 	
 	public const string TAP_CARD_DIALOGUE = "Tap on Swaggy Steve to insert him into the healing queue.";
 	
-	public const string CHEST_OF_CASH_DIALOGUE = "If you're going to fight Lil' Kim, you're going to need a war chest of cash.";
+	public const string CHEST_OF_CASH_DIALOGUE = "If you're going to fight Lil' Kim and his men, you're going to need a war chest of cash.";
 	
 	public const string BUILD_CASH_PRINTER_DIALOGUE = "What better way to make money than to print it? Build a Cash Printer now!";
 	public const string AFTER_CASH_PRINTER_DIALOGUE = "Nice job! The printer can only store a small amount of cash, so we'll need a Vault to stash the rest of it.";
@@ -59,6 +98,17 @@ public class MSTutorialManager : MonoBehaviour
 
 	bool waitingForUsername = true;
 
+	/// <summary>
+	/// The hijack flinch flag.
+	/// Since we need to have Drumstix attack
+	/// Pistol Pepe, we're creating a hook for Flinch
+	/// to check against, and if we need to hijack that flinch
+	/// it'll redirect back here
+	/// </summary>
+	public bool hijackFlinch = false;
+
+	public bool firstCombat = true;
+
 	public bool UiBlock
 	{
 		get
@@ -70,6 +120,16 @@ public class MSTutorialManager : MonoBehaviour
 	public GameObject currUi = null;
 
 	public TutorialUI TutorialUI;
+
+	public TutorialValues TutorialValues;
+
+	[SerializeField] Vector3 startCameraPos;
+
+	[SerializeField] Vector3 pierCameraPos;
+
+	[SerializeField] Vector3 showdownCameraPos;
+
+	Vector3 combatPosition;
 
 	public bool holdUpEndingCombat = false;
 
@@ -92,6 +152,88 @@ public class MSTutorialManager : MonoBehaviour
 	PZCombatUnit enemyTwoCombatant;
 	PZCombatUnit bossCombatant;
 
+	#region Unit Paths
+	static readonly List<MSGridNode> enemyOneEnterPath = new List<MSGridNode>()
+	{
+		new MSGridNode(13, 1, MSValues.Direction.NORTH),
+		new MSGridNode(12, 1, MSValues.Direction.WEST)
+	};
+
+	static readonly List<MSGridNode> enemyTwoEnterPath = new List<MSGridNode>()
+	{
+		new MSGridNode(13, 1, MSValues.Direction.NORTH),
+		new MSGridNode(14, 1, MSValues.Direction.EAST)
+	};
+
+	static readonly List<MSGridNode> enemyBossEnterPath = new List<MSGridNode>()
+	{
+		new MSGridNode(13, 2, MSValues.Direction.NORTH)
+	};
+
+	static readonly List<MSGridNode> guideRetreatPath  = new List<MSGridNode>()
+	{
+		new MSGridNode(19, 5, MSValues.Direction.EAST),
+		new MSGridNode(19, 7, MSValues.Direction.NORTH),
+		new MSGridNode(22, 7, MSValues.Direction.EAST),
+		new MSGridNode(22, 5, MSValues.Direction.SOUTH)
+	};
+
+	static readonly List<MSGridNode> swaggyEnterPath = new List<MSGridNode>()
+	{
+		new MSGridNode(10, 10, MSValues.Direction.EAST),
+		new MSGridNode(10, 7, MSValues.Direction.SOUTH),
+		new MSGridNode(13, 7, MSValues.Direction.EAST),
+		new MSGridNode(13, 5, MSValues.Direction.SOUTH)
+	};
+
+	static readonly List<MSGridNode> enemyBossRetreatPath = new List<MSGridNode>()
+	{
+		new MSGridNode(13, -9, MSValues.Direction.SOUTH)
+	};
+	
+	static readonly List<MSGridNode> enemyOneRetreatPath = new List<MSGridNode>()
+	{
+		new MSGridNode(13, 1, MSValues.Direction.EAST),
+		new MSGridNode(13, -9, MSValues.Direction.SOUTH)
+	};
+	
+	static readonly List<MSGridNode> enemyTwoRetreatPath = new List<MSGridNode>()
+	{
+		new MSGridNode(13, 1, MSValues.Direction.WEST),
+		new MSGridNode(13, -9, MSValues.Direction.SOUTH)
+	};
+
+	static readonly List<MSGridNode> guideReturnPath  = new List<MSGridNode>()
+	{
+		new MSGridNode(22, 7, MSValues.Direction.NORTH),
+		new MSGridNode(13, 7, MSValues.Direction.WEST)
+	};
+
+	#endregion
+
+	#region Puzzle Spaces
+	static readonly List<Vector2> turn1move1 = new List<Vector2>()
+	{
+		new Vector2(2, 2), new Vector2(3, 1), new Vector2(3, 2), new Vector2(3, 3)
+	};
+
+	static readonly List<Vector2> turn1move2 = new List<Vector2>()
+	{
+		new Vector2(3, 1), new Vector2(3, 2), new Vector2(3, 3), new Vector2(3, 4)
+	};
+
+	static readonly List<Vector2> turn2move1 = new List<Vector2>()
+	{
+		new Vector2(2, 4), new Vector2(3, 4), new Vector2(4, 4), new Vector2(5, 4), new Vector2(4, 5)
+	};
+
+	static readonly List<Vector2> turn2move2 = new List<Vector2>()
+	{
+		new Vector2(3, 3), new Vector2(4, 3), new Vector2(5, 3), new Vector2(4, 4)
+	};
+	#endregion
+
+
 	void Awake()
 	{
 		instance = this;
@@ -107,12 +249,21 @@ public class MSTutorialManager : MonoBehaviour
 	public void StartBeginningTutorial()
 	{
 		SetupTutorial();
-		StartCoroutine(PostCombat_SendOnFirstMission());
+		StartCoroutine(MainTutorial());
 	}
 
 	void SetupTutorial()
 	{
-		
+		inTutorial = true;
+
+		foreach (var item in TutorialUI.disableHUD) 
+		{
+			item.SetActive(false);
+		}
+
+		MSActionManager.Scene.OnCity();
+
+		//Make tutorial units
 		userMobster = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.startingMonsterId);
 		guide = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.guideMonsterId);
 		zark = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.markZMonsterId);
@@ -120,52 +271,439 @@ public class MSTutorialManager : MonoBehaviour
 		enemyTwo = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.enemyMonsterIdTwo);
 		enemyBoss = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.enemyBossMonsterId);
 
+		userUnit = MSBuildingManager.instance.MakeTutorialUnit(userMobster.monsterId, new Vector2(4, 10), 0);
+		userUnit.cityUnit.speed = TutorialValues.swaggyMoveSpeed;
 
-		inTutorial = true;
+		guideUnit = MSBuildingManager.instance.MakeTutorialUnit(guide.monsterId, new Vector2(13, 5), 1);
+		guideUnit.cityUnit.speed = TutorialValues.guidMoveSpeed;
 
-		/*
-		userMobster = MSDataManager.instance.Get<MonsterProto>(2011);
-		guide = MSDataManager.instance.Get<MonsterProto>(4);
-		zark = MSDataManager.instance.Get<MonsterProto>(16);
-		enemyOne = MSDataManager.instance.Get<MonsterProto>(2010);
-		enemyTwo = MSDataManager.instance.Get<MonsterProto>(19);
-		enemyBoss = MSDataManager.instance.Get<MonsterProto>(31);
-		*/
+		zarkUnit = MSBuildingManager.instance.MakeTutorialUnit(zark.monsterId, new Vector2(11.5f, 4.5f), 2);
+		zarkUnit.direction = MSValues.Direction.SOUTH;
+		zarkUnit.gameObject.SetActive(false);
 
-		userUnit = MSBuildingManager.instance.MakeTutorialUnit(userMobster.monsterId, Vector2.zero, 0);
-		guideUnit = MSBuildingManager.instance.MakeTutorialUnit(guide.monsterId, Vector2.zero, 1);
-		zarkUnit = MSBuildingManager.instance.MakeTutorialUnit(zark.monsterId, Vector2.zero, 2);
+		enemyOneUnit = MSBuildingManager.instance.MakeTutorialUnit (enemyOne.monsterId, TutorialValues.enemyStartPos, 3);
+		enemyTwoUnit = MSBuildingManager.instance.MakeTutorialUnit (enemyTwo.monsterId, TutorialValues.enemyStartPos, 4);
+		bossUnit = MSBuildingManager.instance.MakeTutorialUnit (enemyBoss.monsterId, TutorialValues.enemyStartPos, 5);
+
+		enemyOneUnit.cityUnit.speed = enemyTwoUnit.cityUnit.speed = bossUnit.cityUnit.speed = TutorialValues.enemyMoveSpeed;
+		enemyOneUnit.alpha = 0;
+		enemyTwoUnit.alpha = 0;
+		bossUnit.alpha = 0;
+
+		MSMonsterManager.instance.userTeam[0] = new PZMonster(userMobster, 1);
+		MSMonsterManager.instance.userTeam[1] = new PZMonster(zark, 15);
+
+		//Make tutorial buildings
+		foreach (var item in MSWhiteboard.tutorialConstants.tutorialStructures) 
+		{
+			MSBuilding building = MSBuildingManager.instance.MakeTutorialBuilding(item);
+			switch (building.combinedProto.structInfo.structType)
+			{
+			case StructureInfoProto.StructType.TOWN_HALL:
+				MSBuildingManager.townHall = building;
+				break;
+			case StructureInfoProto.StructType.HOSPITAL:
+				MSHospitalManager.instance.hospitals.Add(building.hospital);
+				break;
+			case StructureInfoProto.StructType.TEAM_CENTER:
+				MSBuildingManager.teamCenter = building;
+				break;
+			default:
+				break;
+			}
+			building.userStructProto.isComplete = true;
+		}
+		foreach (var item in MSWhiteboard.tutorialConstants.tutorialObstacles) 
+		{
+			MSBuildingManager.instance.MakeTutorialObstacle(item);
+		}
+
+		TutorialUI.boat.position = MSGridManager.instance.GridToWorld(TutorialValues.boatStartPos);
+		TutorialUI.boat.gameObject.SetActive(true);
 	}
 
-	void CleanUpUnits()
+	void CleanUpTutorial()
 	{
+		TutorialUI.boat.gameObject.SetActive(false);
+
 		//TODO: Pool out all of the Units that we made
 		//TODO: Give the player their normal unit, and Zark if necessary
 	}
 
+	IEnumerator MainTutorial()
+	{
+		yield return StartCoroutine(PreCombat_MainTutorial());
+		//yield return StartCoroutine(Combat_MainTutorial());
+		yield return StartCoroutine(PostCombat_MainTutorial());
+	}
+
+	#region Pre Combat Tutorial
+
 	IEnumerator PreCombat_MainTutorial()
 	{
-		//Debug, until the full tutorial works, skip to later in it
-		StartCoroutine(PostCombat_MainTutorial());
+		MSTownCamera.instance.SlideToPos(startCameraPos, TutorialValues.cameraSize, 0);
+		
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.HEY_BOSS, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.EVIL_DICTATOR, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.HOPEFULLY_DONT_FIND, true));
 
-		yield return null;
+		guideUnit.direction = MSValues.Direction.SOUTH;
+
+		MSTownCamera.instance.SlideToPos(pierCameraPos, TutorialValues.cameraSize, .2f);
+
+		yield return StartCoroutine (MoveBoat(TutorialValues.boatStartPos, TutorialValues.boatDockPos));
+
+		enemyOneUnit.cityUnit.TutorialPath(enemyOneEnterPath);
+		enemyOneUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
+		enemyOneUnit.DoFade(true, TutorialValues.enemyEnterJumpTime);
+		yield return new WaitForSeconds(.7f);
+		enemyTwoUnit.cityUnit.TutorialPath(enemyTwoEnterPath);
+		enemyTwoUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
+		enemyTwoUnit.DoFade(true, TutorialValues.enemyEnterJumpTime);
+		yield return new WaitForSeconds(.7f);
+		bossUnit.cityUnit.TutorialPath (enemyBossEnterPath);
+		bossUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
+		bossUnit.DoFade(true, TutorialValues.enemyEnterJumpTime);
+
+		MSTownCamera.instance.SlideToPos(showdownCameraPos, TutorialValues.cameraSize, .2f);
+
+		while (enemyOneUnit.cityUnit.moving)
+		{
+			yield return null;
+		}
+		enemyOneUnit.direction = MSValues.Direction.NORTH;
+		while (enemyTwoUnit.cityUnit.moving)
+		{
+			yield return null;
+		}
+		enemyTwoUnit.direction = MSValues.Direction.NORTH;
+		while(bossUnit.cityUnit.moving)
+		{
+			yield return null;
+		}
+		
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Character", enemyBoss.displayName, TutorialStrings.PEASANT_SQUAD, true));
+		
+		yield return enemyTwoUnit.DoJump(TutorialValues.hopHeight, TutorialValues.hopTime);
+		yield return enemyTwoUnit.DoJump(TutorialValues.hopHeight, TutorialValues.hopTime);
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyTwo.imagePrefix, enemyTwo.imagePrefix + "Character", enemyTwo.displayName, TutorialStrings.EGGSPECT, true));
+
+		yield return guideUnit.DoJump(TutorialValues.hopHeight, TutorialValues.hopTime);
+
+		guideUnit.cityUnit.TutorialPath(guideRetreatPath);
+
+		while (guideUnit.cityUnit.moving)
+		{
+			yield return null;
+		}
+		guideUnit.direction = MSValues.Direction.WEST;
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.SEND_NEPHEW, true));
+
+		userUnit.cityUnit.TutorialPath(swaggyEnterPath);
+		
+		yield return userUnit.DoJump(TutorialValues.swaggyHopHeight, TutorialValues.swaggyHopTime);
+		yield return userUnit.DoJump(TutorialValues.swaggyHopHeight, TutorialValues.swaggyHopTime);
+		yield return userUnit.DoJump(TutorialValues.swaggyHopHeight, TutorialValues.swaggyHopTime);
+
+		while (userUnit.cityUnit.moving)
+		{
+			yield return null;
+		}
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.YOLO, true));
+
 	}
+
+	#endregion
+
+	#region Combat Tutorial
+
+	IEnumerator Combat_MainTutorial()
+	{
+		Combat_Setup();
+
+		yield return StartCoroutine(Combat_IntroFirstEnemy());
+		yield return StartCoroutine(Combat_FirstFight());
+		yield return StartCoroutine(Combat_IntroSecondFight());
+		yield return StartCoroutine(Combat_SecondFightPartOne());
+		yield return StartCoroutine(Combat_BringInZark());
+		yield return StartCoroutine(Combat_ZarkFights());
+	}
+
+	IEnumerator Combat_IntroFirstEnemy()
+	{
+
+		yield return PZCombatManager.instance.RunScrollToNextEnemy();
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.WANTS_A_PIECE, true));
+		
+		yield return enemyOneCombatant.unit.DoJump (TutorialValues.hopHeight * TutorialValues.puzzlePixelMod, TutorialValues.hopTime);
+		yield return enemyOneCombatant.unit.DoJump (TutorialValues.hopHeight * TutorialValues.puzzlePixelMod, TutorialValues.hopTime);
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyOne.imagePrefix, enemyOne.imagePrefix + "Character", enemyOne.displayName, TutorialStrings.AINT_CHICKEN, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyTwo.imagePrefix, enemyTwo.imagePrefix + "Character", enemyTwo.displayName, TutorialStrings.DOT_DOT_DOT, true));
+
+		enemyTwoCombatant.unit.direction = MSValues.Direction.SOUTH;
+		enemyTwoCombatant.unit.animat = MSUnit.AnimationType.ATTACK;
+		yield return StartCoroutine(WaitForFlinch());
+		enemyOneCombatant.unit.direction = MSValues.Direction.NORTH;
+		enemyOneCombatant.unit.animat = MSUnit.AnimationType.FLINCH;
+		MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, enemyOneCombatant.unit.transf.position);
+		yield return new WaitForSeconds(.4f);
+		enemyOneCombatant.unit.animat = MSUnit.AnimationType.IDLE;
+		enemyTwoCombatant.unit.animat = MSUnit.AnimationType.IDLE;
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyOne.imagePrefix, enemyOne.imagePrefix + "Character", enemyOne.displayName, TutorialStrings.MAKE_ME_FRY, true));
+
+		bossCombatant.unit.direction = MSValues.Direction.EAST;
+		yield return bossCombatant.unit.DoJump(TutorialValues.bossStompHeight * TutorialValues.puzzlePixelMod, TutorialValues.bossStompTime);
+		enemyOneCombatant.unit.direction = MSValues.Direction.WEST;
+		enemyTwoCombatant.unit.direction = MSValues.Direction.WEST;
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Character", enemyBoss.displayName, TutorialStrings.GO_PEPE, true));
+
+		combatPosition = bossCombatant.transform.localPosition;
+
+		bossCombatant.RunAdvanceTo(bossCombatant.startingPos.x, -PZScrollingBackground.instance.direction, PZScrollingBackground.instance.scrollSpeed * 2.5f, true);
+
+		Vector3 enemyTwoPosition = enemyTwoCombatant.transform.localPosition;
+		yield return enemyTwoCombatant.RunAdvanceTo(enemyTwoCombatant.startingPos.x, -PZScrollingBackground.instance.direction, PZScrollingBackground.instance.scrollSpeed * 2.5f, true);
+
+		yield return enemyTwoCombatant.RunAdvanceTo(enemyTwoPosition.x, -PZScrollingBackground.instance.direction, PZScrollingBackground.instance.scrollSpeed * 2.5f, true);
+
+		enemyTwoCombatant.unit.direction = MSValues.Direction.SOUTH;
+		enemyTwoCombatant.unit.animat = MSUnit.AnimationType.ATTACK;
+		yield return StartCoroutine(WaitForFlinch());
+		enemyOneCombatant.unit.direction = MSValues.Direction.NORTH;
+		enemyOneCombatant.unit.animat = MSUnit.AnimationType.FLINCH;
+		MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, enemyOneCombatant.unit.transf.position);
+		yield return new WaitForSeconds(.4f);
+		enemyOneCombatant.unit.animat = MSUnit.AnimationType.IDLE;
+		enemyTwoCombatant.unit.animat = MSUnit.AnimationType.IDLE;
+
+		enemyTwoCombatant.RunAdvanceTo(enemyTwoCombatant.startingPos.x, -PZScrollingBackground.instance.direction, PZScrollingBackground.instance.scrollSpeed * 2.5f, true);
+		
+		enemyOneCombatant.unit.direction = MSValues.Direction.WEST;
+		yield return StartCoroutine(enemyOneCombatant.MoveTo(combatPosition, 150, true));
+	}
+
+	IEnumerator Combat_FirstFight()
+	{
+		PZCombatManager.instance.activeEnemy = enemyOneCombatant;
+		PZCombatManager.instance.backupPvPEnemies[1] = bossCombatant;
+
+		PZCombatManager.instance.boardMove.PlayForward();
+		PZCombatManager.instance.boardTint.PlayReverse();
+		PZPuzzleManager.instance.swapLock = 0;
+
+		PZPuzzleManager.instance.BlockBoard(turn1move1);
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.MOVIN_ORBS, false));
+		yield return StartCoroutine(WaitForTurn());
+
+		PZPuzzleManager.instance.BlockBoard(turn1move2);
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.SMOOTH_MOVE, false));
+		yield return StartCoroutine(WaitForTurn());
+		
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.LAST_MOVE, false));
+		yield return StartCoroutine(WaitForTurn());
+
+		PZPuzzleManager.instance.swapLock++;
+		PZCombatManager.instance.boardTint.PlayForward();
+	}
+
+	IEnumerator Combat_IntroSecondFight()
+	{
+		enemyTwoCombatant.unit.direction = bossCombatant.unit.direction = MSValues.Direction.WEST;
+
+		PZCombatManager.instance.activeEnemy = bossCombatant;
+		yield return PZCombatManager.instance.RunScrollToNextEnemy();
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Character", enemyBoss.displayName, TutorialStrings.CHICKENS_WORK, true));
+
+		PZCombatManager.instance.activeEnemy = enemyTwoCombatant;
+		PZCombatManager.instance.backupPvPEnemies[1] = bossCombatant;
+
+		yield return enemyTwoCombatant.unit.DoJump (TutorialValues.hopHeight * TutorialValues.puzzlePixelMod, TutorialValues.hopTime);
+		yield return enemyTwoCombatant.unit.DoJump (TutorialValues.hopHeight * TutorialValues.puzzlePixelMod, TutorialValues.hopTime);
+		
+		bossCombatant.RunAdvanceTo(bossCombatant.startingPos.x, -PZScrollingBackground.instance.direction, PZScrollingBackground.instance.scrollSpeed * 2.5f, true);
+
+		yield return StartCoroutine(enemyTwoCombatant.MoveTo(combatPosition, 150, true));
+	}
+
+	IEnumerator Combat_SecondFightPartOne()
+	{
+		PZCombatManager.instance.boardTint.PlayReverse();
+		PZPuzzleManager.instance.swapLock = 0;
+
+		PZPuzzleManager.instance.BlockBoard(turn2move1);
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.CREATE_POWERUP, false));
+		yield return StartCoroutine(WaitForTurn());
+		
+		PZPuzzleManager.instance.BlockBoard(turn2move2);
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.SWIPE_POWERUP, false));
+		yield return StartCoroutine(WaitForTurn());
+		
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.BALLIN, false));
+		yield return StartCoroutine(WaitForTurn());
+
+		PZPuzzleManager.instance.swapLock++;
+		PZCombatManager.instance.boardTint.PlayForward();
+	}
+
+	IEnumerator Combat_BringInZark()
+	{
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.NOLO, true));
+		
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.POKE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.HEY_BUDDY, true));
+
+		TutorialUI.swapButton.Show();
+
+		yield return StartCoroutine(DoUIStep(TutorialUI.swapButton.gameObject, 105, MSValues.Direction.EAST));
+		
+		yield return StartCoroutine(DoUIStep(TutorialUI.swapForZark, 105, MSValues.Direction.NORTH));
+		
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.UPDATE_BOOKFACE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyTwo.imagePrefix, enemyTwo.imagePrefix + "Character", enemyTwo.displayName, TutorialStrings.DOT_DOT_DOT, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.ZARKS_STATUS, true, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.TWELVE_LIKES, false));
+	}
+
+	IEnumerator Combat_ZarkFights()
+	{
+		PZCombatManager.instance.boardTint.PlayForward ();
+
+		yield return StartCoroutine(WaitForTurn());
+		yield return StartCoroutine(WaitForTurn());
+		yield return StartCoroutine(WaitForTurn());
+
+		yield return userCombatant.RunAdvanceTo(userCombatant.startingPos.x, -PZScrollingBackground.instance.direction, 150, true);
+	}
+
+	IEnumerator WaitForFlinch()
+	{
+		hijackFlinch = true;
+		while (hijackFlinch)
+		{
+			yield return null;
+		}
+	}
+
+	public void HijackFlinch()
+	{
+		hijackFlinch = false;
+	}
+
+	void Combat_Setup()
+	{
+		Queue<int> riggs = new Queue<int>();
+		riggs.Enqueue(157);
+		riggs.Enqueue(34);
+		riggs.Enqueue(186);
+
+		PZCombatManager.instance.InitTutorial(enemyBoss, enemyOne, enemyTwo, riggs);
+		MSActionManager.Scene.OnPuzzle();
+
+		userCombatant = PZCombatManager.instance.activePlayer;
+
+		enemyOneCombatant = PZCombatManager.instance.backupPvPEnemies[1];
+		enemyTwoCombatant = PZCombatManager.instance.backupPvPEnemies[0];
+		bossCombatant = PZCombatManager.instance.activeEnemy;
+		enemyOneCombatant.unit.direction = enemyTwoCombatant.unit.direction = bossCombatant.unit.direction = MSValues.Direction.WEST;
+
+		PZPuzzleManager.instance.InitBoard(6, 6, "Tutorial/TutorialBattle1Layout.txt");
+	}
+
+	public bool SummonNextEnemy()
+	{
+		return true;
+	}
+
+	#endregion
 
 	#region Post Combat Tutorial
 
 	IEnumerator PostCombat_MainTutorial()
 	{
-		//yield return StartCoroutine(PostCombat_DialogueAndRunaway());
-		//yield return StartCoroutine(PostCombat_HealMobsterTutorial());
-		//yield return StartCoroutine(PostCombat_BuildBuildings());
+		PostCombat_Setup();
+		yield return StartCoroutine(PostCombat_DialogueAndRunaway());
+		yield return StartCoroutine(PostCombat_HealMobsterTutorial());
+		yield return StartCoroutine(PostCombat_BuildBuildings());
 		yield return StartCoroutine(PostCombat_FacebookLogon());
 		yield return StartCoroutine(PostCombat_Username());
 		yield return StartCoroutine(PostCombat_SendOnFirstMission());
+
+		inTutorial = false;
+
+		foreach (var item in TutorialUI.disableHUD) 
+		{
+			item.SetActive(true);
+		}
+	}
+
+	void PostCombat_Setup()
+	{
+		MSActionManager.Scene.OnCity();
+		MSTownCamera.instance.SlideToPos(showdownCameraPos, 6, 0);
+		zarkUnit.gameObject.SetActive(true);
+		//Set user mobster animation to crouch
+	}
+
+	IEnumerator WaitUntilReadyToJump(MSUnit unit)
+	{
+		while (!ReadyToJump (unit))
+		{
+			yield return null;
+		}
+	}
+
+	bool ReadyToJump(MSUnit unit)
+	{
+		Debug.Log(unit.transf.position.z + " vs " + MSGridManager.instance.GridToWorld(TutorialValues.enemyExitJumpPosition).z);
+		return unit.transf.position.z < MSGridManager.instance.GridToWorld(TutorialValues.enemyExitJumpPosition).z;
 	}
 
 	IEnumerator PostCombat_DialogueAndRunaway()
 	{
-		yield return null;
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Character", enemyBoss.displayName, TutorialStrings.BEAT_A_CHICKEN, true));
+		
+		bossUnit.cityUnit.TutorialPath (enemyBossRetreatPath);
+		bossUnit.cityUnit.jumpNode = new MSGridNode(TutorialValues.enemyExitJumpPosition, MSValues.Direction.SOUTH);
+		yield return new WaitForSeconds(.5f);
+		enemyTwoUnit.cityUnit.TutorialPath(enemyTwoRetreatPath);
+		enemyTwoUnit.cityUnit.jumpNode = new MSGridNode(TutorialValues.enemyExitJumpPosition, MSValues.Direction.SOUTH);
+		yield return new WaitForSeconds(.5f);
+		enemyOneUnit.cityUnit.TutorialPath(enemyOneRetreatPath);
+		enemyOneUnit.cityUnit.jumpNode = new MSGridNode(TutorialValues.enemyExitJumpPosition, MSValues.Direction.SOUTH);
+
+		while (enemyOneUnit.cityUnit.moving)
+		{
+			yield return null;
+		}
+
+		StartCoroutine(MoveBoat(TutorialValues.boatDockPos, TutorialValues.boatExitPos));
+
+		/*
+		yield return StartCoroutine(WaitUntilReadyToJump (bossUnit));
+		bossUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
+		yield return StartCoroutine(WaitUntilReadyToJump(enemyTwoUnit));
+		enemyTwoUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
+		yield return StartCoroutine(WaitUntilReadyToJump(enemyOneUnit));
+		enemyOneUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
+		*/
+
+		guideUnit.cityUnit.TutorialPath(guideReturnPath);
+		while (guideUnit.cityUnit.moving)
+		{
+			yield return null;
+		}
+
+		guideUnit.direction = MSValues.Direction.SOUTH;
+		zarkUnit.direction = MSValues.Direction.NORTH;
+
 	}
 
 	IEnumerator PostCombat_HealMobsterTutorial()
@@ -182,7 +720,9 @@ public class MSTutorialManager : MonoBehaviour
 		currUi = hospital.building.gameObj;
 		MSTutorialArrow.instance.Init(hospital.building.sprite.transform, 180, MSValues.Direction.NORTH, .02f);
 		yield return StartCoroutine(WaitForClick());
-		
+
+		MoveUnitsOutOfTheWay();
+
 		//Heal taskbutton
 		yield return StartCoroutine(DoUIStep(
 			MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.HEAL).gameObj,
@@ -202,10 +742,18 @@ public class MSTutorialManager : MonoBehaviour
 
 	}
 
+	void MoveUnitsOutOfTheWay()
+	{
+		
+		TutorialUI.boat.gameObject.SetActive(false);
+	}
+
 	IEnumerator PostCombat_BuildBuildings()
 	{
 		//Chest of cash dialogue
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.CHEST_OF_CASH_DIALOGUE, true, false));
+
+		//TODO: Activate resource bars & Shop Icon
 
 		//Build cash printer dialogue
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BUILD_CASH_PRINTER_DIALOGUE, true));
@@ -280,18 +828,17 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator PostCombat_SendOnFirstMission()
 	{
-		yield return null;
-		//Dialogue about birth cert
-
 		//Attack dialogue
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.GO_RECRUIT_DIALOGUE, true));
-		
+
+		TutorialUI.attackButton.gameObject.SetActive(true);
+
 		//Attack button
 		currUi = TutorialUI.attackButton;
 		MSTutorialArrow.instance.Init(currUi.transform, 150, MSValues.Direction.NORTH);
 		yield return StartCoroutine(WaitForClick());
 		
-		CleanUpUnits();
+		CleanUpTutorial();
 		
 		//Enter button
 		currUi = TutorialUI.enterButton;
@@ -363,9 +910,25 @@ public class MSTutorialManager : MonoBehaviour
 		MSActionManager.Puzzle.OnTurnChange -= TurnHappen;
 	}
 
-	void TurnHappen(int turn)
+	IEnumerator MoveBoat(Vector3 start, Vector3 end)
 	{
-		waitingForTurn = false;
+		float time = (start - end).magnitude / TutorialValues.boatSpeed;
+		float t = 0;
+		while (t < 1)
+		{
+			t += Time.deltaTime / time;
+			TutorialUI.boat.position = Vector3.Lerp(start, end, t);
+			yield return null;
+		}
+		TutorialUI.boat.position = end;
+	}
+
+	void TurnHappen(int turnsLeft)
+	{
+		if (turnsLeft > 0)
+		{
+			waitingForTurn = false;
+		}
 	}
 
 	IEnumerator BuildStructure(StructureInfoProto.StructType structType, ResourceType buildResource)
@@ -405,11 +968,69 @@ public class MSTutorialManager : MonoBehaviour
 }
 
 [Serializable]
+public class TutorialValues
+{
+	public float cameraSize;
+
+	public Vector2 enemyStartPos;
+
+	public Vector2 boatStartPos;
+
+	public Vector2 boatDockPos;
+
+	public Vector2 boatExitPos;
+
+	public Vector2 userMobsterOutsidePos;
+
+	public Vector2 guidOutsidePos;
+
+	public Vector2 zarkOutsidePos;
+
+	public float boatSpeed;
+
+	public float enemyEnterJumpHeight;
+
+	public float enemyEnterJumpTime;
+
+	public Vector2 enemyExitJumpPosition;
+
+	public float hopHeight;
+
+	public float hopTime;
+
+	public float swaggyHopHeight;
+
+	public float swaggyHopTime;
+
+	public float enemyMoveSpeed;
+
+	public float swaggyMoveSpeed;
+
+	public float guidMoveSpeed;
+
+	public float bossStompHeight;
+
+	public float bossStompTime;
+
+	public float puzzlePixelMod;
+}
+
+[Serializable]
 public class TutorialUI
 {
 	public UIWidget dialogueClickbox;
 
 	public UISprite arrow;
+
+	public GameObject[] disableHUD;
+
+	public GameObject[] resourceBars;
+
+	public Transform boat;
+
+	public PZSwapButton swapButton;
+
+	public GameObject swapForZark;
 	
 	public GameObject finishHealButton;
 	public GameObject closeHealMenuButton;

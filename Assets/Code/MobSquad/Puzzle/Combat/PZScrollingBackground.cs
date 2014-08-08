@@ -76,7 +76,16 @@ public class PZScrollingBackground : MonoBehaviour {
 		
 		direction = (backgrounds[0].transf.localPosition - backgrounds[1].transf.localPosition).normalized;
 	}
-	
+
+	public void Scroll(MSUnit[] withUnits)
+	{
+		foreach (var item in withUnits) 
+		{
+			item.transf.localPosition += direction * scrollSpeed * Time.deltaTime;
+		}
+		Scroll(scrollSpeed);
+	}
+
 	public void Scroll(MSUnit withUnit)
 	{
 		withUnit.transf.localPosition += direction * scrollSpeed * Time.deltaTime;

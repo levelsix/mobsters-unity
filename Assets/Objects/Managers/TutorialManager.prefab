@@ -39,11 +39,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fefd7a454224fb6906bf3dfc5eb87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inTutorial: 0
+  inTutorial: 1
+  hijackFlinch: 0
+  firstCombat: 1
   currUi: {fileID: 0}
   TutorialUI:
     dialogueClickbox: {fileID: 0}
     arrow: {fileID: 0}
+    disableHUD:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    resourceBars:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    boat: {fileID: 0}
+    swapButton: {fileID: 0}
+    swapForZark: {fileID: 0}
     finishHealButton: {fileID: 0}
     closeHealMenuButton: {fileID: 0}
     shopButton: {fileID: 0}
@@ -54,6 +78,28 @@ MonoBehaviour:
     leftDialogue: {fileID: 0}
     rightDialogue: {fileID: 0}
     puzzleDialogue: {fileID: 0}
+  TutorialValues:
+    enemyStartPos: {x: 13, y: -9}
+    boatStartPos: {x: 19, y: -10}
+    boatDockPos: {x: 12, y: -10}
+    boatExitPos: {x: 5, y: -10}
+    boatSpeed: 4
+    enemyEnterJumpHeight: 2
+    enemyEnterJumpTime: 1
+    enemyExitJumpPosition: {x: 0, y: 0}
+    hopHeight: 1
+    hopTime: .200000003
+    swaggyHopHeight: 2
+    swaggyHopTime: .5
+    enemyMoveSpeed: 7.5
+    swaggyMoveSpeed: 8
+    guidMoveSpeed: 10
+    bossStompHeight: 1.5
+    bossStompTime: 1
+    puzzlePixelMod: 50
+  startCameraPos: {x: 5.58504581, y: -2.64351797, z: 4.58914185}
+  pierCameraPos: {x: 10.1468897, y: -8.94122314, z: 4.58914185}
+  showdownCameraPos: {x: 7.83254814, y: -2.88078094, z: 4.58914089}
   holdUpEndingCombat: 0
 --- !u!1001 &100100000
 Prefab:
