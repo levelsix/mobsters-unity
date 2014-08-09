@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.4.0</string>
         <key>fileName</key>
-        <string>/Users/LINJAMIN/Desktop/Final Sprites Android/2x Sprite Sheets/Squirrel/Tier 1/Squirrel1T1@2x.tps</string>
+        <string>/Users/LINJAMIN/Desktop/Final Sprites Android/2x Sprite Sheets/Gangsters/Tier 1/Gangster3T1/Gangster3T1@2x.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -38,11 +38,11 @@
         <key>dataFormat</key>
         <string>unity-texture2d</string>
         <key>textureFileName</key>
-        <filename>Squirrel1T1@2x.png</filename>
+        <filename>Gangster3T1@2x.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
-        <enum type="SettingsBase::DitherType">NearestNeighbour</enum>
+        <enum type="SettingsBase::DitherType">FloydSteinbergAlpha</enum>
         <key>backgroundColor</key>
         <uint>0</uint>
         <key>libGdx</key>
@@ -128,15 +128,10 @@
         </struct>
         <key>dataFileNames</key>
         <map type="GFileNameMap">
-            <key>data</key>
-            <struct type="DataFile">
-                <key>name</key>
-                <filename></filename>
-            </struct>
             <key>datafile</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>Squirrel1T1@2x.tpsheet</filename>
+                <filename>Gangster3T1@2x.tpsheet</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -179,66 +174,54 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>Attack/Squirrel1T1AttackF00.png</filename>
-            <filename>Attack/Squirrel1T1AttackF01.png</filename>
-            <filename>Attack/Squirrel1T1AttackF02.png</filename>
-            <filename>Attack/Squirrel1T1AttackF03.png</filename>
-            <filename>Attack/Squirrel1T1AttackF04.png</filename>
-            <filename>Attack/Squirrel1T1AttackF05.png</filename>
-            <filename>Attack/Squirrel1T1AttackF06.png</filename>
-            <filename>Attack/Squirrel1T1AttackF07.png</filename>
-            <filename>Attack/Squirrel1T1AttackF08.png</filename>
-            <filename>Attack/Squirrel1T1AttackF09.png</filename>
-            <filename>Attack/Squirrel1T1AttackF10.png</filename>
-            <filename>Attack/Squirrel1T1AttackF11.png</filename>
-            <filename>Attack/Squirrel1T1AttackF12.png</filename>
-            <filename>Attack/Squirrel1T1AttackF13.png</filename>
-            <filename>Attack/Squirrel1T1AttackF14.png</filename>
-            <filename>Attack/Squirrel1T1FlinchF00.png</filename>
-            <filename>Attack/Squirrel1T1FlinchF01.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN00.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN01.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN02.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN03.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN04.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN05.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN06.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN07.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN08.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN09.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN10.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN11.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN12.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN13.png</filename>
-            <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN14.png</filename>
-            <filename>Attack/Squirrel1T1FlinchN00.png</filename>
-            <filename>Attack/Squirrel1T1FlinchN01.png</filename>
-            <filename>Attack/Squirrel1T1StayN00.png</filename>
-            <filename>Run/Squirrel1T1RunF00.png</filename>
-            <filename>Run/Squirrel1T1RunF01.png</filename>
-            <filename>Run/Squirrel1T1RunF02.png</filename>
-            <filename>Run/Squirrel1T1RunF03.png</filename>
-            <filename>Run/Squirrel1T1RunF04.png</filename>
-            <filename>Run/Squirrel1T1RunF05.png</filename>
-            <filename>Run/Squirrel1T1RunF06.png</filename>
-            <filename>Run/Squirrel1T1RunF07.png</filename>
-            <filename>Run/Squirrel1T1RunF08.png</filename>
-            <filename>Run/Squirrel1T1RunF09.png</filename>
-            <filename>Run/Squirrel1T1RunF10.png</filename>
-            <filename>Run/Squirrel1T1RunF11.png</filename>
-            <filename>Run/Squirrel1T1RunN00.png</filename>
-            <filename>Run/Squirrel1T1RunN01.png</filename>
-            <filename>Run/Squirrel1T1RunN02.png</filename>
-            <filename>Run/Squirrel1T1RunN03.png</filename>
-            <filename>Run/Squirrel1T1RunN04.png</filename>
-            <filename>Run/Squirrel1T1RunN05.png</filename>
-            <filename>Run/Squirrel1T1RunN06.png</filename>
-            <filename>Run/Squirrel1T1RunN07.png</filename>
-            <filename>Run/Squirrel1T1RunN08.png</filename>
-            <filename>Run/Squirrel1T1RunN09.png</filename>
-            <filename>Run/Squirrel1T1RunN10.png</filename>
-            <filename>Run/Squirrel1T1RunN11.png</filename>
-            <filename>Attack/Squirrel1T1KneelN00.png</filename>
+            <filename>Attack/Gangster3T1AttackF00.png</filename>
+            <filename>Attack/Gangster3T1AttackF01.png</filename>
+            <filename>Attack/Gangster3T1AttackF02.png</filename>
+            <filename>Attack/Gangster3T1AttackF03.png</filename>
+            <filename>Attack/Gangster3T1AttackF04.png</filename>
+            <filename>Attack/Gangster3T1AttackF05.png</filename>
+            <filename>Attack/Gangster3T1AttackF06.png</filename>
+            <filename>Attack/Gangster3T1AttackF07.png</filename>
+            <filename>Attack/Gangster3T1AttackF08.png</filename>
+            <filename>Attack/Gangster3T1AttackF09.png</filename>
+            <filename>Attack/Gangster3T1AttackF10.png</filename>
+            <filename>Attack/Gangster3T1AttackF11.png</filename>
+            <filename>Attack/Gangster3T1AttackF12.png</filename>
+            <filename>Attack/Gangster3T1AttackN00.png</filename>
+            <filename>Attack/Gangster3T1AttackN01.png</filename>
+            <filename>Attack/Gangster3T1AttackN02.png</filename>
+            <filename>Attack/Gangster3T1AttackN03.png</filename>
+            <filename>Attack/Gangster3T1AttackN04.png</filename>
+            <filename>Attack/Gangster3T1AttackN05.png</filename>
+            <filename>Attack/Gangster3T1AttackN06.png</filename>
+            <filename>Attack/Gangster3T1AttackN07.png</filename>
+            <filename>Attack/Gangster3T1AttackN08.png</filename>
+            <filename>Attack/Gangster3T1AttackN09.png</filename>
+            <filename>Attack/Gangster3T1AttackN10.png</filename>
+            <filename>Attack/Gangster3T1AttackN11.png</filename>
+            <filename>Attack/Gangster3T1AttackN12.png</filename>
+            <filename>Attack/Gangster3T1FlinchF00.png</filename>
+            <filename>Attack/Gangster3T1FlinchF01.png</filename>
+            <filename>Attack/Gangster3T1FlinchN00.png</filename>
+            <filename>Attack/Gangster3T1FlinchN01.png</filename>
+            <filename>Run/Gangster3T1RunF00.png</filename>
+            <filename>Run/Gangster3T1RunF01.png</filename>
+            <filename>Run/Gangster3T1RunF02.png</filename>
+            <filename>Run/Gangster3T1RunF03.png</filename>
+            <filename>Run/Gangster3T1RunF04.png</filename>
+            <filename>Run/Gangster3T1RunF05.png</filename>
+            <filename>Run/Gangster3T1RunF06.png</filename>
+            <filename>Run/Gangster3T1RunF07.png</filename>
+            <filename>Run/Gangster3T1RunN00.png</filename>
+            <filename>Run/Gangster3T1RunN01.png</filename>
+            <filename>Run/Gangster3T1RunN02.png</filename>
+            <filename>Run/Gangster3T1RunN03.png</filename>
+            <filename>Run/Gangster3T1RunN04.png</filename>
+            <filename>Run/Gangster3T1RunN05.png</filename>
+            <filename>Run/Gangster3T1RunN06.png</filename>
+            <filename>Run/Gangster3T1RunN07.png</filename>
+            <filename>Attack/Gangster3T1KneelF00.png</filename>
+            <filename>Attack/Gangster3T1KneelN00.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

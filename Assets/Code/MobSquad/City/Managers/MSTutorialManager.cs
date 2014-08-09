@@ -344,8 +344,23 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		TutorialUI.boat.gameObject.SetActive(false);
 
-		//TODO: Pool out all of the Units that we made
-		//TODO: Give the player their normal unit, and Zark if necessary
+		RecycleCityUnit(userUnit);
+		RecycleCityUnit(guideUnit);
+		RecycleCityUnit(zarkUnit);
+		RecycleCityUnit(enemyOneUnit);
+		RecycleCityUnit(enemyTwoUnit);
+		RecycleCityUnit(bossUnit);
+
+		PZCombatManager.instance.activeEnemy = bossCombatant;
+		PZCombatManager.instance.backupPvPEnemies[0] = enemyTwoCombatant;
+		PZCombatManager.instance.backupPvPEnemies[1] = enemyOneCombatant;
+
+	}
+
+	void RecycleCityUnit(MSUnit unit)
+	{
+		unit.cityUnit.speed = MSBuildingManager.instance.unitPrefab.cityUnit.speed;
+		unit.Pool();
 	}
 
 	IEnumerator MainTutorial()
@@ -361,11 +376,15 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		MSTownCamera.instance.SlideToPos(startCameraPos, TutorialValues.cameraSize, 0);
 		
+		guideUnit.direction = MSValues.Direction.WEST;
+		guideUnit.anim.SetTrigger("Stay");
+
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HEY_BOSS, true, false));
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.EVIL_DICTATOR, true, false));
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HOPEFULLY_DONT_FIND, true));
-
+		
 		guideUnit.direction = MSValues.Direction.SOUTH;
+		guideUnit.anim.SetTrigger("Stay");
 
 		MSTownCamera.instance.SlideToPos(pierCameraPos, TutorialValues.cameraSize, .2f);
 
@@ -416,6 +435,8 @@ public class MSTutorialManager : MonoBehaviour
 			yield return null;
 		}
 		guideUnit.direction = MSValues.Direction.WEST;
+
+		guideUnit.anim.SetTrigger("Kneel");
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Crouch", guide.displayName, TutorialStrings.SEND_NEPHEW, true));
 
@@ -585,6 +606,8 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator Combat_BringInZark()
 	{
+		userCombatant.unit.anim.SetTrigger("Kneel");
+
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Hurt", userMobster.displayName, TutorialStrings.NOLO, true));
 		
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.POKE, true, false));
@@ -596,6 +619,8 @@ public class MSTutorialManager : MonoBehaviour
 		yield return StartCoroutine(DoUIStep(TutorialUI.swapButton.gameObject, 105, MSValues.Direction.EAST));
 		
 		yield return StartCoroutine(DoUIStep(TutorialUI.swapForZark, 105, MSValues.Direction.NORTH));
+		userCombatant.unit.anim.SetTrigger("Kneel");
+
 		TutorialUI.swapButton.gameObject.SetActive(false);
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.UPDATE_BOOKFACE, true));
@@ -685,7 +710,10 @@ public class MSTutorialManager : MonoBehaviour
 
 		userUnit.transf.localPosition = userUnitReturnPosition;
 		userUnit.cityUnit.moving = false;
-		//userUnit.anim.SetTrigger("Crouch");
+		userUnit.anim.SetTrigger("Kneel");
+		userUnit.sprite.transform.localPosition = new Vector3(userUnit.sprite.transform.localPosition.x,
+		                                                        0,
+		                                                        userUnit.sprite.transform.localPosition.z);
 	}
 
 	IEnumerator WaitUntilReadyToJump(MSUnit unit)
@@ -705,7 +733,7 @@ public class MSTutorialManager : MonoBehaviour
 	IEnumerator PostCombat_DialogueAndRunaway()
 	{
 		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "TutBig", enemyBoss.displayName, TutorialStrings.BEAT_A_CHICKEN, true));
-		
+
 		bossUnit.cityUnit.TutorialPath (enemyBossRetreatPath);
 		bossUnit.cityUnit.jumpNode = new MSGridNode(TutorialValues.enemyExitJumpPosition, MSValues.Direction.SOUTH);
 		yield return new WaitForSeconds(.5f);
@@ -751,7 +779,7 @@ public class MSTutorialManager : MonoBehaviour
 		zarkUnit.direction = MSValues.Direction.NORTH;
 		guideUnit.direction = MSValues.Direction.NORTH;
 
-		//userUnit.anim.SetTrigger("Crouch");
+		userUnit.anim.SetTrigger("Kneel");
 		userUnit.direction = MSValues.Direction.NORTH;
 
 		//Get to the hospital
@@ -828,6 +856,8 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator PostCombat_FacebookLogon()
 	{
+		zarkUnit.anim.SetTrigger("Stay");
+
 		MSTownCamera.instance.DoCenterOnGroundPos(zarkUnit.transf.position, .5f);
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.ISLAND_BASE_DIALOGUE, true, false));
@@ -875,8 +905,10 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator PostCombat_SendOnFirstMission()
 	{
-		//Attack dialogue
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.GO_RECRUIT_DIALOGUE, true));
+		guideUnit.direction = MSValues.Direction.SOUTH;
+		guideUnit.anim.SetTrigger("Stay");
+
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.GO_RECRUIT_DIALOGUE, true));
 
 		TutorialUI.attackButton.gameObject.SetActive(true);
 

@@ -128,7 +128,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 32.2000008
 --- !u!4 &162614
 Transform:
   m_ObjectHideFlags: 0
@@ -2704,6 +2704,10 @@ Prefab:
     - target: {fileID: 400000, guid: 91d41f6d550f44abda0b6f75fcd13449, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 91d41f6d550f44abda0b6f75fcd13449, type: 2}
+      propertyPath: forceNewUser
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 91d41f6d550f44abda0b6f75fcd13449, type: 2}
@@ -5523,7 +5527,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 13.1780825
+  aspectRatio: 14.9863014
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: menutopbar
   mType: 0
@@ -30897,7 +30901,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5008
+  startingRenderQueue: 5009
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: -480, y: 320, z: 960, w: 640}
@@ -35555,7 +35559,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 32.2000008
 --- !u!4 &538976131
 Transform:
   m_ObjectHideFlags: 0
@@ -40216,7 +40220,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.49079752
+  aspectRatio: 1.58742332
   mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
   mSpriteName: blackcolormask
   mType: 1
@@ -63774,6 +63778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc8af8d10b6a4a17a23e32a529bbb8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceNewUser: 1
   debugTextLabel: {fileID: 0}
   ready: 0
 --- !u!1 &910619247
@@ -65861,7 +65866,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5008
+  startingRenderQueue: 5009
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -86331,7 +86336,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5013
+  startingRenderQueue: 5014
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 960, w: 640}
@@ -102286,7 +102291,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 32.2000008
 --- !u!4 &1416763525
 Transform:
   m_ObjectHideFlags: 0
@@ -109594,7 +109599,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5008
+  startingRenderQueue: 5009
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 480, y: 320, z: 960, w: 640}

@@ -49,8 +49,7 @@ public class MSBuildingManager : MonoBehaviour
         }
     }
     
-	[SerializeField]
-	MSUnit unitPrefab;
+	public MSUnit unitPrefab;
 	
 	[SerializeField]
 	Transform unitParent;
