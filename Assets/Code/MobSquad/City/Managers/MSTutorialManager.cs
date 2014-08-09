@@ -361,9 +361,9 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		MSTownCamera.instance.SlideToPos(startCameraPos, TutorialValues.cameraSize, 0);
 		
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.HEY_BOSS, true, false));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.EVIL_DICTATOR, true, false));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.HOPEFULLY_DONT_FIND, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HEY_BOSS, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.EVIL_DICTATOR, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HOPEFULLY_DONT_FIND, true));
 
 		guideUnit.direction = MSValues.Direction.SOUTH;
 
@@ -400,12 +400,12 @@ public class MSTutorialManager : MonoBehaviour
 			yield return null;
 		}
 		
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Character", enemyBoss.displayName, TutorialStrings.PEASANT_SQUAD, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "ArmsCrossed", enemyBoss.displayName, TutorialStrings.PEASANT_SQUAD, true));
 		
 		yield return enemyTwoUnit.DoJump(TutorialValues.hopHeight, TutorialValues.hopTime);
 		yield return enemyTwoUnit.DoJump(TutorialValues.hopHeight, TutorialValues.hopTime);
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyTwo.imagePrefix, enemyTwo.imagePrefix + "Character", enemyTwo.displayName, TutorialStrings.EGGSPECT, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyTwo.imagePrefix, enemyTwo.imagePrefix + "TutBig", enemyTwo.displayName, TutorialStrings.EGGSPECT, true));
 
 		yield return guideUnit.DoJump(TutorialValues.hopHeight, TutorialValues.hopTime);
 
@@ -417,7 +417,7 @@ public class MSTutorialManager : MonoBehaviour
 		}
 		guideUnit.direction = MSValues.Direction.WEST;
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.SEND_NEPHEW, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Crouch", guide.displayName, TutorialStrings.SEND_NEPHEW, true));
 
 		userUnit.cityUnit.TutorialPath(swaggyEnterPath);
 		
@@ -430,7 +430,7 @@ public class MSTutorialManager : MonoBehaviour
 			yield return null;
 		}
 
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.YOLO, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.YOLO, false));
 
 		TutorialUI.fightButton.SetActive(true);
 		currUi = TutorialUI.fightButton;
@@ -467,13 +467,13 @@ public class MSTutorialManager : MonoBehaviour
 
 		yield return PZCombatManager.instance.RunScrollToNextEnemy();
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.WANTS_A_PIECE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.WANTS_A_PIECE, true));
 		
 		yield return enemyOneCombatant.unit.DoJump (TutorialValues.hopHeight * TutorialValues.puzzlePixelMod, TutorialValues.hopTime);
 		yield return enemyOneCombatant.unit.DoJump (TutorialValues.hopHeight * TutorialValues.puzzlePixelMod, TutorialValues.hopTime);
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyOne.imagePrefix, enemyOne.imagePrefix + "Character", enemyOne.displayName, TutorialStrings.AINT_CHICKEN, true));
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyTwo.imagePrefix, enemyTwo.imagePrefix + "Character", enemyTwo.displayName, TutorialStrings.DOT_DOT_DOT, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyOne.imagePrefix, enemyOne.imagePrefix + "TutBig", enemyOne.displayName, TutorialStrings.AINT_CHICKEN, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyTwo.imagePrefix, enemyTwo.imagePrefix + "TutBig", enemyTwo.displayName, TutorialStrings.DOT_DOT_DOT, true));
 
 		enemyTwoCombatant.unit.direction = MSValues.Direction.SOUTH;
 		enemyTwoCombatant.unit.animat = MSUnit.AnimationType.ATTACK;
@@ -485,14 +485,14 @@ public class MSTutorialManager : MonoBehaviour
 		enemyOneCombatant.unit.animat = MSUnit.AnimationType.IDLE;
 		enemyTwoCombatant.unit.animat = MSUnit.AnimationType.IDLE;
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyOne.imagePrefix, enemyOne.imagePrefix + "Character", enemyOne.displayName, TutorialStrings.MAKE_ME_FRY, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyOne.imagePrefix, enemyOne.imagePrefix + "Fist", enemyOne.displayName, TutorialStrings.MAKE_ME_FRY, true));
 
 		bossCombatant.unit.direction = MSValues.Direction.EAST;
 		yield return bossCombatant.unit.DoJump(TutorialValues.bossStompHeight * TutorialValues.puzzlePixelMod, TutorialValues.bossStompTime);
 		enemyOneCombatant.unit.direction = MSValues.Direction.WEST;
 		enemyTwoCombatant.unit.direction = MSValues.Direction.WEST;
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Character", enemyBoss.displayName, TutorialStrings.GO_PEPE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "TutBig", enemyBoss.displayName, TutorialStrings.GO_PEPE, true));
 
 		combatPosition = bossCombatant.transform.localPosition;
 
@@ -529,14 +529,14 @@ public class MSTutorialManager : MonoBehaviour
 		PZPuzzleManager.instance.swapLock = 0;
 
 		PZPuzzleManager.instance.BlockBoard(turn1move1);
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.MOVIN_ORBS, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.MOVIN_ORBS, false));
 		yield return StartCoroutine(WaitForTurn());
 
 		PZPuzzleManager.instance.BlockBoard(turn1move2);
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.SMOOTH_MOVE, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.SMOOTH_MOVE, false));
 		yield return StartCoroutine(WaitForTurn());
 		
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.LAST_MOVE, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.LAST_MOVE, false));
 		yield return StartCoroutine(WaitForTurn());
 
 		PZPuzzleManager.instance.swapLock++;
@@ -550,7 +550,7 @@ public class MSTutorialManager : MonoBehaviour
 		PZCombatManager.instance.activeEnemy = bossCombatant;
 		yield return PZCombatManager.instance.RunScrollToNextEnemy();
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Character", enemyBoss.displayName, TutorialStrings.CHICKENS_WORK, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Facepalm", enemyBoss.displayName, TutorialStrings.CHICKENS_WORK, true));
 
 		PZCombatManager.instance.activeEnemy = enemyTwoCombatant;
 		PZCombatManager.instance.backupPvPEnemies[1] = bossCombatant;
@@ -569,14 +569,14 @@ public class MSTutorialManager : MonoBehaviour
 		PZPuzzleManager.instance.swapLock = 0;
 
 		PZPuzzleManager.instance.BlockBoard(turn2move1);
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.CREATE_POWERUP, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.CREATE_POWERUP, false));
 		yield return StartCoroutine(WaitForTurn());
 		
 		PZPuzzleManager.instance.BlockBoard(turn2move2);
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.SWIPE_POWERUP, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.SWIPE_POWERUP, false));
 		yield return StartCoroutine(WaitForTurn());
 		
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.BALLIN, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.BALLIN, false));
 		yield return StartCoroutine(WaitForTurn());
 
 		PZPuzzleManager.instance.swapLock++;
@@ -585,10 +585,10 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator Combat_BringInZark()
 	{
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Character", userMobster.displayName, TutorialStrings.NOLO, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "Hurt", userMobster.displayName, TutorialStrings.NOLO, true));
 		
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.POKE, true, false));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.HEY_BUDDY, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.POKE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.HEY_BUDDY, true));
 
 		TutorialUI.swapButton.gameObject.SetActive(true);
 		TutorialUI.swapButton.Show();
@@ -598,10 +598,10 @@ public class MSTutorialManager : MonoBehaviour
 		yield return StartCoroutine(DoUIStep(TutorialUI.swapForZark, 105, MSValues.Direction.NORTH));
 		TutorialUI.swapButton.gameObject.SetActive(false);
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.UPDATE_BOOKFACE, true));
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyTwo.imagePrefix, enemyTwo.imagePrefix + "Character", enemyTwo.displayName, TutorialStrings.DOT_DOT_DOT, true));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.ZARKS_STATUS, true, false));
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.TWELVE_LIKES, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.UPDATE_BOOKFACE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyTwo.imagePrefix, enemyTwo.imagePrefix + "TutBig", enemyTwo.displayName, TutorialStrings.DOT_DOT_DOT, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.ZARKS_STATUS, true, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.TWELVE_LIKES, false));
 	}
 
 	IEnumerator Combat_ZarkFights()
@@ -704,7 +704,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator PostCombat_DialogueAndRunaway()
 	{
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Character", enemyBoss.displayName, TutorialStrings.BEAT_A_CHICKEN, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "TutBig", enemyBoss.displayName, TutorialStrings.BEAT_A_CHICKEN, true));
 		
 		bossUnit.cityUnit.TutorialPath (enemyBossRetreatPath);
 		bossUnit.cityUnit.jumpNode = new MSGridNode(TutorialValues.enemyExitJumpPosition, MSValues.Direction.SOUTH);
@@ -744,9 +744,9 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator PostCombat_HealMobsterTutorial()
 	{
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Character", guide.displayName, TutorialStrings.THANKS_ZARK_DIALOGUE, true));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.KINDA_DYING_DIALOGUE, true, false));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.HEAD_TO_HOSPITAL_DIALOGUE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.THANKS_ZARK_DIALOGUE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.KINDA_DYING_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.HEAD_TO_HOSPITAL_DIALOGUE, true));
 
 		zarkUnit.direction = MSValues.Direction.NORTH;
 		guideUnit.direction = MSValues.Direction.NORTH;
@@ -771,7 +771,7 @@ public class MSTutorialManager : MonoBehaviour
 			150, MSValues.Direction.EAST));
 
 		//Healing dialogue
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.TAP_CARD_DIALOGUE, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.TAP_CARD_DIALOGUE, false));
 
 		//Find the Goon to heal
 		yield return StartCoroutine(DoUIStep(MSHealScreen.instance.grid.cards[0].gameObject, 125, MSValues.Direction.EAST));
@@ -796,7 +796,7 @@ public class MSTutorialManager : MonoBehaviour
 	IEnumerator PostCombat_BuildBuildings()
 	{
 		//Chest of cash dialogue
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.CHEST_OF_CASH_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.CHEST_OF_CASH_DIALOGUE, true, false));
 
 		foreach (var item in TutorialUI.resourceBars) 
 		{
@@ -805,24 +805,24 @@ public class MSTutorialManager : MonoBehaviour
 		TutorialUI.shopButton.SetActive(true);
 
 		//Build cash printer dialogue
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BUILD_CASH_PRINTER_DIALOGUE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.BUILD_CASH_PRINTER_DIALOGUE, true));
 
 		yield return StartCoroutine(BuildStructure(StructureInfoProto.StructType.RESOURCE_GENERATOR, ResourceType.OIL));
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.AFTER_CASH_PRINTER_DIALOGUE, true, false));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BUILD_CASH_VAULT_DIALOGUE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.AFTER_CASH_PRINTER_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.BUILD_CASH_VAULT_DIALOGUE, true));
 
 		//Build Vault
 		yield return StartCoroutine(BuildStructure(StructureInfoProto.StructType.RESOURCE_STORAGE, ResourceType.OIL));
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.AFTER_CASH_VAULT_DIALOGUE, true, false));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BEFORE_OIL_SILO_DIALOGUE, true, false));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BUILD_OIL_SILO_DIALOGUE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.AFTER_CASH_VAULT_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.BEFORE_OIL_SILO_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.BUILD_OIL_SILO_DIALOGUE, true));
 		
 		//Build Silo
 		yield return StartCoroutine(BuildStructure(StructureInfoProto.StructType.RESOURCE_STORAGE, ResourceType.CASH));
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.AFTER_OIL_SILO_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.AFTER_OIL_SILO_DIALOGUE, true, false));
 
 	}
 
@@ -830,9 +830,9 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		MSTownCamera.instance.DoCenterOnGroundPos(zarkUnit.transf.position, .5f);
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.ISLAND_BASE_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.ISLAND_BASE_DIALOGUE, true, false));
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.THIS_IS_CRAZY_DIALOGUE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.THIS_IS_CRAZY_DIALOGUE, true));
 
 		MSActionManager.Popup.OnPopup(TutorialUI.facebookPopup);
 		waitForFacebook = true;
@@ -842,11 +842,11 @@ public class MSTutorialManager : MonoBehaviour
 		}
 		if (didJoinFacebook)
 		{
-			yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.FACEBOOK_DID_JOIN_DIALOGUE, true));
+			yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.FACEBOOK_DID_JOIN_DIALOGUE, true));
 		}
 		else
 		{
-			yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.FACEBOOK_NOT_JOIN_DIALOGUE, true));
+			yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.FACEBOOK_NOT_JOIN_DIALOGUE, true));
 		}
 	}
 	
@@ -865,7 +865,7 @@ public class MSTutorialManager : MonoBehaviour
 			yield return null;
 		}
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.BIRTH_CERTIFICATE_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.BIRTH_CERTIFICATE_DIALOGUE, true, false));
 	}
 
 	public void OnUsernameEnter()
@@ -876,7 +876,7 @@ public class MSTutorialManager : MonoBehaviour
 	IEnumerator PostCombat_SendOnFirstMission()
 	{
 		//Attack dialogue
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "Character", zark.displayName, TutorialStrings.GO_RECRUIT_DIALOGUE, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.GO_RECRUIT_DIALOGUE, true));
 
 		TutorialUI.attackButton.gameObject.SetActive(true);
 
