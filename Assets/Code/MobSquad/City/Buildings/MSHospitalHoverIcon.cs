@@ -11,7 +11,6 @@ public class MSHospitalHoverIcon : MSBuildingFrame {
 	public override void CheckTag(){
 		if(bubbleIcon != null)
 		{
-			bubbleIcon.gameObject.SetActive(false);
 			if (MSHospitalManager.instance.healingMonsters.Count == 0) {
 				int monstersNeedHealing = 0;
 				foreach (PZMonster monster in MSMonsterManager.instance.userMonsters) {
@@ -33,6 +32,12 @@ public class MSHospitalHoverIcon : MSBuildingFrame {
 				}
 			}
 		}
+
+		if( bubbleIcon != null && !Precheck())
+		{
+			bubbleIcon.gameObject.SetActive(false);
+		}
+
 	}
 
 	void OnDisable(){

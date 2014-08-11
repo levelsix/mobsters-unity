@@ -7,6 +7,18 @@ public abstract class MSBuildingFrame : MonoBehaviour {
 
 	public abstract void CheckTag ();
 
+	protected bool Precheck()
+	{
+		if(MSTutorialManager.instance.inTutorial)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
 	/// <summary>
 	/// If the building is spawned before all the information we need is ready
 	/// call this to wait a single frame
