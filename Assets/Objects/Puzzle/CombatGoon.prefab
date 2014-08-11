@@ -530,6 +530,9 @@ MonoBehaviour:
   cityUnit: {fileID: 0}
   unitSize: 50
   tutorial: 0
+  testJumpHeight: 3
+  testJumpTime: .5
+  testJump: 0
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -554,7 +557,7 @@ MonoBehaviour:
     level: 0
   hpBar: {fileID: 11400000}
   hpLabel: {fileID: 11400014}
-  shadow: {fileID: 11400008}
+  shadow: {fileID: 21200002}
   damageLabel: {fileID: 11400012}
   damageLabelTweens:
   - {fileID: 11400016}

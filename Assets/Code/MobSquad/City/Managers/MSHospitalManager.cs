@@ -100,6 +100,12 @@ public class MSHospitalManager : MonoBehaviour {
 	
 	public void SendHealRequest ()
 	{
+		if (MSTutorialManager.instance.inTutorial)
+		{
+			healRequestProto = null;
+			return;
+		}
+
 		if (healRequestProto == null)
 		{
 			return;
@@ -247,10 +253,13 @@ public class MSHospitalManager : MonoBehaviour {
 			{
 				PrepareNewHealRequest();
 			}
-			
+
 			monster.healingMonster = new UserMonsterHealingProto();
-			monster.healingMonster.userId = MSWhiteboard.localMup.userId;
-			monster.healingMonster.userMonsterId = monster.userMonster.userMonsterId;
+			if (!MSTutorialManager.instance.inTutorial)
+			{
+				monster.healingMonster.userId = MSWhiteboard.localMup.userId;
+				monster.healingMonster.userMonsterId = monster.userMonster.userMonsterId;
+			}
 			monster.healingMonster.healthProgress = 0;
 			monster.healingMonster.queuedTimeMillis = MSUtil.timeNowMillis;
 			

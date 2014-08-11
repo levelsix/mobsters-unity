@@ -41,6 +41,15 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 			SetAnimation(AnimationType.IDLE);
 		}
 	}
+
+	public float alpha
+	{
+		set
+		{
+			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, value);
+			shadow.color = new Color(shadow.color.r, shadow.color.g, shadow.color.b, value);
+		}
+	}
 	
 	[SerializeField]
 	UILabel nameLabel;
@@ -308,11 +317,9 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		{
 			currTime += Time.deltaTime;
 			t = currTime/time;
-			if (t > .5f)
-			{
-				t = 1 - t;
-			}
-			t*=2;
+
+			t = 1 - (2*t - 1) * (2*t - 1);
+
 			sprite.transform.localPosition = 
 				new Vector3( sprite.transform.localPosition.x,
 		                     Mathf.Lerp(baseHeight,
@@ -324,4 +331,32 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		} while (currTime < time);
 	}
 
+	public Coroutine DoFade(bool fadeIn, float time)
+	{
+		return StartCoroutine(Fade (fadeIn, time));
+	}
+
+	IEnumerator Fade(bool fadeIn, float time)
+	{
+		float t = 0;
+		if (time > 0)
+		{
+			while (t < 1)
+			{
+				t += Time.deltaTime / time;
+				alpha = (fadeIn) ? t : 1-t;
+				yield return null;
+			}
+		}
+		alpha = (fadeIn) ? 1 : 0;
+	}
+
 }
+
+
+
+
+
+
+
+

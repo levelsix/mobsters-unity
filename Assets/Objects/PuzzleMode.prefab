@@ -3729,7 +3729,7 @@ MonoBehaviour:
     level: 0
   hpBar: {fileID: 11400132}
   hpLabel: {fileID: 11400160}
-  shadow: {fileID: 11400018}
+  shadow: {fileID: 0}
   damageLabel: {fileID: 0}
   damageLabelTweens: []
   startingPos: {x: 0, y: 0, z: 0}
@@ -3760,6 +3760,9 @@ MonoBehaviour:
   cityUnit: {fileID: 0}
   unitSize: 50
   tutorial: 0
+  testJumpHeight: 3
+  testJumpTime: .5
+  testJump: 0
 --- !u!114 &11400068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5069,6 +5072,7 @@ MonoBehaviour:
   deployPopup: {fileID: 11400044}
   winLosePopup: {fileID: 0}
   attackWords: {fileID: 0}
+  effectiveness: {fileID: 0}
   attackWordsTweenPos: {fileID: 0}
   boardTint: {fileID: 0}
   boardMove: {fileID: 0}
@@ -5084,6 +5088,7 @@ MonoBehaviour:
   MELEE_ATTACK_DISTANCE: 60
   prizeQuantityLabel: {fileID: 0}
   intro: {fileID: 0}
+  forfeitChance: 0
 --- !u!114 &11400126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5890,6 +5895,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89fc54a9720247e5a145f8a5e405dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  topLeft: {fileID: 0}
+  topRight: {fileID: 0}
+  bottomLeft: {fileID: 0}
+  bottomRight: {fileID: 0}
   backgrounds:
   - {fileID: 11400036}
   - {fileID: 11400112}

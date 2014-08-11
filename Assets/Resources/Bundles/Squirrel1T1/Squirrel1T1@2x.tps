@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.3.3</string>
+        <string>3.4.0</string>
         <key>fileName</key>
         <string>/Users/LINJAMIN/Desktop/Final Sprites Android/2x Sprite Sheets/Squirrel/Tier 1/Squirrel1T1@2x.tps</string>
         <key>autoSDSettings</key>
@@ -154,6 +154,8 @@
         <false/>
         <key>trimSpriteNames</key>
         <false/>
+        <key>prependSmartFolderName</key>
+        <false/>
         <key>cleanTransparentPixels</key>
         <true/>
         <key>globalSpriteSettings</key>
@@ -236,6 +238,7 @@
             <filename>Run/Squirrel1T1RunN09.png</filename>
             <filename>Run/Squirrel1T1RunN10.png</filename>
             <filename>Run/Squirrel1T1RunN11.png</filename>
+            <filename>Attack/Squirrel1T1KneelN00.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

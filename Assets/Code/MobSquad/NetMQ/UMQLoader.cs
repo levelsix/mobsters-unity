@@ -38,8 +38,14 @@ public class UMQLoader : MonoBehaviour {
 		StartupRequestProto startup = new StartupRequestProto();
 		
 		startup.udid = UMQNetworkManager.udid;
-		startup.versionNum = 1.0f;
-		startup.isForceTutorial = false;
+		startup.versionNum = MSValues.version;
+
+		if (PlayerPrefs.HasKey("CleanStart"))
+		{
+			startup.isFreshRestart = true;
+			PlayerPrefs.DeleteKey("CleanStart");
+			PlayerPrefs.Save();
+		}
 
 		if (FB.IsLoggedIn)
 		{
@@ -55,33 +61,31 @@ public class UMQLoader : MonoBehaviour {
 
 		fillBar.fill = .75f;
 		
-		//Debug.Log(tagNum + ": Received StartupResponse");
-		
 		StartupResponseProto response = (StartupResponseProto) UMQNetworkManager.responseDict[tagNum];
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
 		Debug.Log("Startup Status: " + response.startupStatus.ToString());
-
-		MSWhiteboard.tutorialConstants = response.tutorialConstants;
-
-		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
-		{
-			MSActionManager.Popup.OnPopup(createUserPopup.GetComponent<MSPopup>());
-			yield break;
-		}
-
-		fillBar.fill = .9f;
 		
-		Debug.Log("Update Status: " + response.updateStatus.ToString());
-
+		//IMPORTANT: Initialize the constants before ANYTHING with CBKUtil is called
+		//Otherwise, the constructor on CBKUtil will fail and throw errors
+		MSWhiteboard.constants = response.startupConstants;
+		
 		if (response.staticDataStuffProto != null)
 		{
 			MSDataManager.instance.LoadStaticData(response.staticDataStuffProto);
 		}
 
-		//IMPORTANT: Initialize the constants before ANYTHING with CBKUtil is called
-		//Otherwise, the constructor on CBKUtil will fail and throw errors
-		MSWhiteboard.constants = response.startupConstants;
+		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
+		{
+			fillBar.fill = 1;
+			MSWhiteboard.tutorialConstants = response.tutorialConstants;
+			MSTutorialManager.instance.StartBeginningTutorial();
+			yield break;
+		}
+		
+		fillBar.fill = .9f;
+		
+		Debug.Log("Update Status: " + response.updateStatus.ToString());
 
 		MSUtil.LoadLocalUser (response.sender);
 		

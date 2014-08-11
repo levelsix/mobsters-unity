@@ -74,6 +74,8 @@ public class MSTaskBar : MonoBehaviour {
 	
 	void OnBuildingSelect(MSBuilding building)
 	{
+		//Debug.Log("Hurr");
+
 		tweenAlph.PlayReverse();
 		MoveButtons();
 		
@@ -145,6 +147,8 @@ public class MSTaskBar : MonoBehaviour {
 	
 	void SetBuildingButtons(MSBuilding building)
 	{
+		//Debug.Log("Durr?");
+
 		currBuilding = building;
 
 		if (currBuilding == MSBuildingManager.instance.hoveringToBuild)
@@ -154,7 +158,7 @@ public class MSTaskBar : MonoBehaviour {
 
 		if (currBuilding.locallyOwned)
 		{
-
+			Debug.Log("Urrrrrrr");
 			if (!currBuilding.userStructProto.isComplete)
 			{
 				AddButton(MSTaskButton.Mode.FINISH);
@@ -229,6 +233,7 @@ public class MSTaskBar : MonoBehaviour {
 
 	IEnumerator TweenWhenOffScreen(MSBuilding building)
 	{
+		//Debug.Log("Da");
 		foreach (var item in taskButtons) 
 		{
 			while (item.tweeningOut)

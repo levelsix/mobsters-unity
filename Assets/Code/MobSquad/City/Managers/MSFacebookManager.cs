@@ -9,6 +9,8 @@ public class MSFacebookManager : MonoBehaviour {
 	public static MSFacebookManager instance;
 
 	public List<MSFacebookFriend> friends = new List<MSFacebookFriend>();
+
+	public Dictionary<string, Texture2D> loadedProfilePictures = new Dictionary<string, Texture2D>();
 	
 	public static bool hasTriedLogin = false;
 	
@@ -152,7 +154,56 @@ public class MSFacebookManager : MonoBehaviour {
 		*/
 	}
 
-			    
-	
-	
+	public Coroutine RunLoadPhotoForUser(string userId, UITexture texture)
+	{
+		return StartCoroutine(LoadPhotoForUser(userId, texture));
+	}
+
+	IEnumerator LoadPhotoForUser(string userId, UITexture texture)
+	{
+		if (loadedProfilePictures.ContainsKey(userId))
+		{
+			texture.mainTexture = loadedProfilePictures[userId];
+		}
+		else
+		{
+			FBPicRequester requester = new FBPicRequester(userId, texture);
+			while (!requester.finished)
+			{
+				yield return null;
+			}
+		} 
+	}
 }
+
+public class FBPicRequester
+{
+	public bool finished = false;
+	public string facebookId;
+	public UITexture texture;
+	public FBPicRequester (string facebookId, UITexture texture)
+	{
+		finished = false;
+		this.facebookId = facebookId;
+		this.texture = texture;
+		RequestPicture();
+	}
+	void RequestPicture()
+	{
+		FB.API("/" + facebookId + "/picture?height=" + texture.height + "&width=" + texture.width, HttpMethod.GET, PictureCallback);
+	}
+	
+	void PictureCallback(FBResult result)
+	{
+		if (result.Error != null)
+		{
+			Debug.LogError("Failed to get picture");
+			RequestPicture();
+			return;
+		}
+		texture.mainTexture = result.Texture;
+		MSFacebookManager.instance.loadedProfilePictures[facebookId] = result.Texture;
+		finished = true;
+	}
+}
+

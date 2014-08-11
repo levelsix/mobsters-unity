@@ -22,6 +22,11 @@ public class MSResourceBar : MonoBehaviour {
 	{
 		MSActionManager.UI.OnSetResourceMaxima += OnSetResourceMaxima;
 		MSActionManager.UI.OnChangeResource[(int)resourceType-1] += OnChangeResource;
+
+		if (MSResourceManager.instance != null)
+		{
+			Reset();
+		}
 	}
 	
 	void OnDisable()
@@ -53,7 +58,7 @@ public class MSResourceBar : MonoBehaviour {
 		}
 		else if (fillBar.fill > target)
 		{
-			fillBar.fill = Mathf.Max(fillBar.fill - speed * Time.deltaTime, target);
+			fillBar.fill = Mathf.Max(fillBar.fill + speed * Time.deltaTime, target);
 		}
 	}
 }

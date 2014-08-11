@@ -61,7 +61,7 @@ public class MSBuildingCard : MonoBehaviour {
 
 	UIButton button;
 
-	MSFullBuildingProto building;
+	public MSFullBuildingProto building;
 
 	int[] townHalls;
 

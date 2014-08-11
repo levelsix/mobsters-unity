@@ -115,7 +115,7 @@ public class MSGridManager : MonoBehaviour {
 	void Awake () 
 	{
 		instance = this;
-	    Init ();
+	    InitHome ();
 	}
 
 	void Init ()

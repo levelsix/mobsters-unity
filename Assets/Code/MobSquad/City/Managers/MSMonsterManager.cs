@@ -90,6 +90,11 @@ public class MSMonsterManager : MonoBehaviour {
 	{
 		PZMonster mon;
 		_monstersCount = 0;
+		userMonsters.Clear();
+		for (int i = 0; i < TEAM_SLOTS; i++) 
+		{
+			userTeam[i] = null;
+		}
 		foreach (FullUserMonsterProto item in monsters) 
 		{
 			mon = new PZMonster(item);

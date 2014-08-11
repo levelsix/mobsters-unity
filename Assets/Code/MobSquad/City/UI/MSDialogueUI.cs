@@ -18,6 +18,16 @@ public class MSDialogueUI : MonoBehaviour {
 	public UILabel dialogueLabel;
 	public UILabel mobsterNameLabel;
 
+	public void OnEnable()
+	{
+		MSActionManager.UI.OnDialogueClicked += DoPushOut;
+	}
+
+	public void OnDisable()
+	{
+		MSActionManager.UI.OnDialogueClicked -= DoPushOut;
+	}
+
 	/// <summary>
 	/// Wrapper around the coroutine, so that we can make sure that the
 	/// coroutine is running on this component locally.
@@ -26,18 +36,23 @@ public class MSDialogueUI : MonoBehaviour {
 	/// <param name="mobsterImgName">Mobster image name.</param>
 	/// <param name="mobsterName">Mobster name.</param>
 	/// <param name="dialogue">Dialogue.</param>
-	public Coroutine DoDialogue(string mobsterImgName, string mobsterName, string dialogue)
+	public Coroutine RunDialogue(string bundleName, string mobsterImgName, string mobsterName, string dialogue, bool hitbox = true)
     {
-		return StartCoroutine(BringInMobster(mobsterImgName, mobsterName, dialogue));
+		return StartCoroutine(BringInMobster(bundleName, mobsterImgName, mobsterName, dialogue, hitbox));
 	}
 
-	public IEnumerator BringInMobster(string mobsterImgName, string mobsterName, string dialogue)
+	public void DoDialogue(string bundleName, string mobsterImgName, string mobsterName, string dialogue, bool hitbox = true)
 	{
-		MSSpriteUtil.instance.SetSprite(mobsterImgName, mobsterImgName + "Character", mobster);
+		StartCoroutine(BringInMobster(bundleName, mobsterImgName, mobsterName, dialogue, hitbox));
+	}
+
+	IEnumerator BringInMobster(string bundleName, string mobsterImgName, string mobsterName, string dialogue, bool hitbox)
+	{
+		MSSpriteUtil.instance.SetSprite(bundleName, mobsterImgName, mobster);
 
 		mobsterTween.PlayForward();
 
-		MSActionManager.Puzzle.OnGemPressed += PushOut;
+		MSActionManager.Puzzle.OnGemPressed += DoPushOut;
 
 		while (mobsterTween.tweenFactor < 1)
 		{
@@ -45,6 +60,8 @@ public class MSDialogueUI : MonoBehaviour {
 		}
 
 		yield return StartCoroutine(BringInDialogue(mobsterName, dialogue));
+
+		clickbox.SetActive(hitbox);
 	}
 
 	IEnumerator BringInDialogue(string mobsterName, string dialogue)
@@ -52,7 +69,7 @@ public class MSDialogueUI : MonoBehaviour {
 		dialogueLabel.text = dialogue;
 		mobsterNameLabel.text = mobsterName;
 
-		dialogueBoxTween.Sample(0, false);
+		dialogueBoxTween.Sample(0, true);
 		dialogueBoxTween.PlayForward();
 
 		while (dialogueBoxTween.tweenFactor < 1)
@@ -61,12 +78,45 @@ public class MSDialogueUI : MonoBehaviour {
 		}
 	}
 
-	public void PushOut()
+	public void DoPushOut()
 	{
-		MSActionManager.Puzzle.OnGemPressed -= PushOut;
+		StartCoroutine(PushOut());
+	}
+
+	public Coroutine RunPushOut()
+	{
+		return StartCoroutine(PushOut());
+	}
+
+	IEnumerator PushOut()
+	{
+
+		MSActionManager.Puzzle.OnGemPressed -= DoPushOut;
 
 		dialogueBoxTween.PlayReverse();
+		while (dialogueBoxTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
 		mobsterTween.PlayReverse();
+		while (mobsterTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
+	}
+
+	public Coroutine RunDialogueOut()
+	{
+		return StartCoroutine(DialogueOut());
+	}
+
+	IEnumerator DialogueOut()
+	{
+		dialogueBoxTween.PlayReverse();
+		while (dialogueBoxTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
 	}
 
 	public void ForceOut()

@@ -17,7 +17,7 @@ public class MSResourceManager : MonoBehaviour {
 	
 	/// <summary>
 	/// The resources.
-	/// Indexed using the AOC2Values.Buildings.Resources enum
+	/// Indexed by subtracting one from the ResourceType enum
 	/// </summary>
 	public static int[] resources = {0, 0, 0};
 
@@ -331,6 +331,9 @@ public class MSResourceManager : MonoBehaviour {
 		UpdateUserCurrencyRequestProto request = new UpdateUserCurrencyRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.reason = MSChatPopup.RESET_CHEAT;
+
+		PlayerPrefs.SetString("CleanStart", "Yeah");
+		PlayerPrefs.Save();
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_USER_CURRENCY_EVENT, DealWithCheatResponse);
 	}

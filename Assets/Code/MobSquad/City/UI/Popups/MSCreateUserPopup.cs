@@ -13,9 +13,6 @@ public class MSCreateUserPopup : MonoBehaviour {
 	[SerializeField]
 	UILabel errorLabel;
 
-	[SerializeField]
-	UMQLoader loader;
-	
 	void OnEnable()
 	{
 		submitButton.onClick += OnSubmit;
@@ -28,47 +25,86 @@ public class MSCreateUserPopup : MonoBehaviour {
 	
 	void OnSubmit()
 	{
-		if (inputLabel.label.color == inputLabel.activeTextColor)
+		if (inputLabel.label.color == inputLabel.activeTextColor
+		    && submitButton.enabled)
 		{
-			UserCreateRequestProto create = new UserCreateRequestProto();
-			create.udid = UMQNetworkManager.udid;
-			create.name = inputLabel.label.text;
-
-			create.cash = MSWhiteboard.tutorialConstants.cashInit;
-			create.oil = MSWhiteboard.tutorialConstants.oilInit;
-			create.gems = MSWhiteboard.tutorialConstants.gemsInit;
-
-			foreach (var item in MSWhiteboard.tutorialConstants.tutorialStructures) 
-			{
-				//create.structsJustBuilt.Add(item);
-			}
-
-			if (FB.IsLoggedIn)
-			{
-				create.facebookId = FB.UserId;
-			}
-
-			UMQNetworkManager.instance.SendRequest(create, (int)EventProtocolRequest.C_USER_CREATE_EVENT, OnUserCreateResponse);
-			
-			submitButton.able = false;
-			MSActionManager.Popup.CloseAllPopups();
+			StartCoroutine(SendUsernameRequest(inputLabel.label.text));
 		}
 	}
-	
-	void OnUserCreateResponse(int tagNum)
+
+	IEnumerator SendUsernameRequest(string username)
 	{
-		UserCreateResponseProto response = (UserCreateResponseProto)UMQNetworkManager.responseDict[tagNum];
+		submitButton.enabled = false;
+
+		//TODO: Register the user
+		UserCreateRequestProto create = new UserCreateRequestProto();
+		create.udid = UMQNetworkManager.udid;
+		create.name = username;
+		
+		create.cash = MSResourceManager.resources[0];
+		create.oil = MSResourceManager.resources[1];
+		create.gems = MSResourceManager.resources[2];
+
+		foreach (var item in MSBuildingManager.instance.buildingsBuiltInTutorial) 
+		{
+			TutorialStructProto tutStruct = new TutorialStructProto();
+			tutStruct.coordinate = new CoordinateProto();
+			tutStruct.coordinate.x = (int)item.groundPos.x;
+			tutStruct.coordinate.y = (int)item.groundPos.y;
+			tutStruct.structId = item.combinedProto.structInfo.structId;
+			create.structsJustBuilt.Add(tutStruct);
+		}
+
+		if (FB.IsLoggedIn)
+		{
+			create.facebookId = FB.UserId;
+		}
+		
+		int tagNum = UMQNetworkManager.instance.SendRequest(create, (int)EventProtocolRequest.C_USER_CREATE_EVENT, null);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		UserCreateResponseProto response = UMQNetworkManager.responseDict[tagNum] as UserCreateResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		if (response.status == UserCreateResponseProto.UserCreateStatus.SUCCESS)
+		switch (response.status)
 		{
-			loader.StartCoroutine(loader.Start());
+		case UserCreateResponseProto.UserCreateStatus.SUCCESS:
+			yield return StartCoroutine(QuickStartupRequest());
+			MSTutorialManager.instance.OnUsernameEnter();
+			MSActionManager.Popup.CloseAllPopups();
+			break;
+		default:
+			MSActionManager.Popup.DisplayError(response.status.ToString());
+			submitButton.enabled = true;
+			break;
 		}
-		else
+	}
+
+	IEnumerator QuickStartupRequest()
+	{
+		StartupRequestProto request = new StartupRequestProto();
+		request.udid = UMQNetworkManager.udid;
+		request.versionNum = MSValues.version;
+		if (FB.IsLoggedIn)
 		{
-			errorLabel.text = response.status.ToString();
-			MSActionManager.Popup.OnPopup(GetComponent<MSPopup>());
-			submitButton.able = true;
+			request.fbId = FB.UserId;
 		}
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_STARTUP_EVENT, null);
+		while(!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		StartupResponseProto response = UMQNetworkManager.responseDict[tagNum] as StartupResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		MSUtil.LoadLocalUser(response.sender);
+
+		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
+
+		MSChatManager.instance.Init(response);
 	}
 }

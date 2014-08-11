@@ -59,6 +59,11 @@ public class MSObstacle : MonoBehaviour {
 
 	public ObstacleProto obstacle;
 
+	public void Init(MinimumObstacleProto proto)
+	{
+		obstacle = MSDataManager.instance.Get<ObstacleProto>(proto.obstacleId);
+	}
+
 	public void Init(UserObstacleProto proto)
 	{
 		this.userObstacle = proto;

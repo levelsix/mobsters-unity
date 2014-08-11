@@ -17,7 +17,10 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 	MSGridNode target = null;
 	
 	Stack<MSGridNode> path = new Stack<MSGridNode>();
-	
+
+	[HideInInspector]
+	public MSGridNode jumpNode = null;
+
 	const float MIN_DIST = .03f;
 	
 	public bool moving = true;
@@ -59,9 +62,8 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 	public void Init()
 	{
 		hoverIcon.gameObject.SetActive(false);
-		//Put on a random walkable square
-		MSGridNode node = MSGridManager.instance.randomWalkable;
-		trans.position = node.worldPos;
+
+		jumpNode = null;
 
 		if (MSTutorialManager.instance.inTutorial)
 		{
@@ -70,6 +72,9 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		}
 		else
 		{
+			//Put on a random walkable square
+			MSGridNode node = MSGridManager.instance.randomWalkable;
+			trans.position = node.worldPos;
 			path = PlanPath(null, ChooseTarget());
 			MoveNext();
 			trans.position = target.worldPos;
@@ -111,7 +116,16 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 			}
 			trans.Translate(move);
 
-			if (IsPastTarget())
+			if (IsPastTarget(jumpNode))
+			{
+				Debug.Log(name + " jumping\n" + trans.position + "\n" + jumpNode);
+				unit.DoJump(MSTutorialManager.instance.TutorialValues.enemyEnterJumpHeight,
+				            MSTutorialManager.instance.TutorialValues.enemyEnterJumpTime);
+				jumpNode = null;
+				unit.DoFade(false, MSTutorialManager.instance.TutorialValues.enemyEnterJumpTime);
+			}
+
+			if (IsPastTarget(target))
 			{
 				//trans.position = target.worldPos;
 				MoveNext();
@@ -119,22 +133,22 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		}
 	}
 
-	bool IsPastTarget()
+	bool IsPastTarget(MSGridNode node)
 	{
-		if (target == null)
+		if (node == null)
 		{
 			return false;
 		}
 		switch (unit.direction)
 		{
 		case MSValues.Direction.NORTH:
-			return trans.position.z > target.worldPos.z - MIN_DIST;
+			return trans.position.z > node.worldPos.z - MIN_DIST;
 		case MSValues.Direction.SOUTH:
-			return trans.position.z < target.worldPos.z + MIN_DIST;
+			return trans.position.z < node.worldPos.z + MIN_DIST;
 		case MSValues.Direction.WEST:
-			return trans.position.x < target.worldPos.x + MIN_DIST;
+			return trans.position.x < node.worldPos.x + MIN_DIST;
 		case MSValues.Direction.EAST:
-			return trans.position.x > target.worldPos.x - MIN_DIST;
+			return trans.position.x > node.worldPos.x - MIN_DIST;
 		default:
 			return true;
 		}

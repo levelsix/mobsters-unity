@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class MSTutorialArrow : MonoBehaviour {
 
 	public static MSTutorialArrow instance;
@@ -15,7 +16,7 @@ public class MSTutorialArrow : MonoBehaviour {
 		gameObject.SetActive(false);
 	}
 
-	public void Init(Transform parent, float baseDistance, MSValues.Direction direction)
+	public void Init(Transform parent, float baseDistance, MSValues.Direction direction, float scale = 1)
 	{
 		arrowSprite.transform.localPosition = new Vector3(0, baseDistance + tweenDistance);
 		TweenPosition twps = arrowSprite.GetComponent<TweenPosition>();
@@ -24,6 +25,10 @@ public class MSTutorialArrow : MonoBehaviour {
 		twps.from = new Vector3(0, baseDistance + tweenDistance);
 		twps.ResetToBeginning();
 		twps.Play();
+		
+		transform.parent = parent;
+		transform.localPosition = Vector3.zero;
+		transform.localScale = new Vector3(scale, scale, scale);
 
 		switch (direction) 
 		{
@@ -41,10 +46,6 @@ public class MSTutorialArrow : MonoBehaviour {
 			transform.localRotation = Quaternion.identity;
 			break;
 		}
-
-		transform.parent = parent;
-		transform.localPosition = Vector3.zero;
-		transform.localScale = Vector3.one;
 
 		arrowSprite.gameObject.layer = gameObject.layer = parent.gameObject.layer;
 

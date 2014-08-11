@@ -31,7 +31,7 @@ public class MSSceneManager : MonoBehaviour {
 	public bool loadingState = true;
 
 	[SerializeField]
-	float fadeTime = .6f;
+	float fadeTime = 1f;
 
 	void Awake()
 	{
@@ -77,7 +77,7 @@ public class MSSceneManager : MonoBehaviour {
 		float t = 0;
 		while (t < fadeTime)
 		{
-			t += Time.deltaTime;
+			t += Time.deltaTime / Time.timeScale;
 			PZScrollingBackground.instance.SetAlpha((fadeIn) ? t/fadeTime : 1 - t/fadeTime);
 			PZCombatManager.instance.activePlayer.unit.sprite.color = new Color(1,1,1,(fadeIn) ? t/fadeTime : 1 - t/fadeTime);
 			PZCombatManager.instance.activeEnemy.unit.sprite.color = new Color(1,1,1,(fadeIn) ? t/fadeTime : 1 - t/fadeTime);
@@ -105,8 +105,17 @@ public class MSSceneManager : MonoBehaviour {
 	IEnumerator FadeToPuzzle()
 	{
 		puzzleParent.SetActive(true);
-		puzzlePanel.alpha = 1;
+		if (MSTutorialManager.instance.inTutorial)
+		{
+			Time.timeScale = .001f;
+			StartCoroutine(Fade (puzzlePanel, true));
+		}
+		else
+		{
+			puzzlePanel.alpha = 1;
+		}
 		yield return StartCoroutine(FadePuzzleBackground(true));
+		Time.timeScale = 1;
 		cityParent.SetActive(false);
 	}
 
@@ -115,8 +124,9 @@ public class MSSceneManager : MonoBehaviour {
 		float t = 0;
 		while (t < fadeTime)
 		{
-			t += Time.deltaTime;
+			t += Time.deltaTime / Time.timeScale;
 			pan.alpha = (fadeIn ? t/fadeTime : 1 - t/fadeTime);
+			Debug.Log("Fade: " + t);
 			yield return null;
 		}
 	}

@@ -43,6 +43,10 @@ public class UMQNetworkManager : MonoBehaviour {
 	IModel channel = null;
 #endif
 
+#if UNITY_EDITOR
+	[SerializeField] bool forceNewUser = false;
+#endif
+
 	const int HEADER_SIZE = 12;
 	
 	public static UMQNetworkManager instance;
@@ -91,7 +95,20 @@ public class UMQNetworkManager : MonoBehaviour {
 	
 		yield return new WaitForSeconds(.5f);
 
+#if UNITY_EDITOR
+		if (forceNewUser)
+		{
+			udid = MSUtil.timeNowMillis.ToString();
+		}
+		else
+		{
+			udid = SystemInfo.deviceUniqueIdentifier;
+		}
+#else
 		udid = SystemInfo.deviceUniqueIdentifier;
+
+#endif
+
 		
 		sessionID = UnityEngine.Random.Range(0, int.MaxValue);
 		

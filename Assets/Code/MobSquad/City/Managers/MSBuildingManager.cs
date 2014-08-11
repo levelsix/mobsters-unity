@@ -49,8 +49,7 @@ public class MSBuildingManager : MonoBehaviour
         }
     }
     
-	[SerializeField]
-	MSUnit unitPrefab;
+	public MSUnit unitPrefab;
 	
 	[SerializeField]
 	Transform unitParent;
@@ -63,7 +62,9 @@ public class MSBuildingManager : MonoBehaviour
 
 	[SerializeField]
 	UIPanel buildingPanel;
-	
+
+	public List<MSBuilding> buildingsBuiltInTutorial = new List<MSBuilding>();
+
     #endregion
 
     #region Private
@@ -275,9 +276,17 @@ public class MSBuildingManager : MonoBehaviour
 
 	}
 
-	public IEnumerator LoadPlayerCity()
+	public void DoLoadPlayerCity(bool fromBeginning = true)
 	{
-		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker);
+		StartCoroutine(LoadPlayerCity(fromBeginning));
+	}
+
+	public IEnumerator LoadPlayerCity(bool fromBeginning = true)
+	{
+		if (fromBeginning)
+		{
+			MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker);
+		}
 
 		LoadPlayerCityRequestProto request = new LoadPlayerCityRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -367,11 +376,14 @@ public class MSBuildingManager : MonoBehaviour
 			}
 		}
 
-		MSActionManager.Popup.CloseAllPopups();
-
-		if (MSActionManager.Scene.OnCity != null)
+		if (fromBeginning)
 		{
-			MSActionManager.Scene.OnCity();
+			MSActionManager.Popup.CloseAllPopups();
+			
+			if (MSActionManager.Scene.OnCity != null)
+			{
+				MSActionManager.Scene.OnCity();
+			}
 		}
 
 	}
@@ -406,12 +418,13 @@ public class MSBuildingManager : MonoBehaviour
 		}
 	}
 
-	public void MakeTutorialUnit(int monsterId, Vector2 position, int index)
+	public MSUnit MakeTutorialUnit(int monsterId, Vector2 position, int index)
 	{
 		MSUnit unit = MSPoolManager.instance.Get(unitPrefab, Vector3.zero, unitParent) as MSUnit;
 		unit.Init(monsterId);
 		unit.transf.localPosition = MSGridManager.instance.GridToWorld(position);
 		_playerUnits[index] = unit;
+		return unit;
 	}
 
 	public void MoveTutorialUnit(int monsterId, List<MSGridNode> path)
@@ -567,18 +580,36 @@ public class MSBuildingManager : MonoBehaviour
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * x, 0, 
     		MSGridManager.instance.spaceSize * y);
     	
-		//MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position) as MSBuilding;
 	    MSBuilding building = Instantiate(buildingPrefab, position, buildingParent.rotation) as MSBuilding;
     	
     	building.trans.parent = buildingParent;
 		//building.gameObj.layer = MSValues.Layers.DEFAULT;
     	building.Init(proto);
     	
-	    //MSGridManager.instance.AddBuilding(building, x, y, proto.width, proto.height);
-	
+		if (proto.structInfo.structType != StructureInfoProto.StructType.MINI_JOB)
+		{
+	    	MSGridManager.instance.AddBuilding(building, x, y, proto.structInfo.width, proto.structInfo.height);
+		}
 		//buildings.Add(id, building);
 		
     	return building;
+	}
+
+	public MSBuilding MakeTutorialBuilding(TutorialStructProto proto, int i)
+	{
+		MSFullBuildingProto buildingProto = MSDataManager.instance.Get<MSFullBuildingProto>(proto.structId);
+		while (buildingProto.structInfo.level == 0)
+		{
+			buildingProto = buildingProto.successor;
+		}
+
+		MSBuilding building = MakeBuildingAt(buildingProto, (int)proto.coordinate.x, (int)proto.coordinate.y);
+
+		building.confirmationButtons.SetActive(false);
+
+		buildings[i] = building;
+
+		return building;
 	}
 	
 	MSBuilding MakeBuilding(FullUserStructureProto proto)
@@ -606,6 +637,22 @@ public class MSBuildingManager : MonoBehaviour
 		}
 
     	return building;
+	}
+
+	public void MakeTutorialObstacle(MinimumObstacleProto proto)
+	{
+		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coordinate.x, 0,
+		                               MSGridManager.instance.spaceSize * proto.coordinate.y);
+
+		MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position, buildingParent) as MSBuilding;
+
+		building.trans.rotation = buildingParent.rotation;
+		building.Init(proto);
+		
+		ObstacleProto obp = MSDataManager.instance.Get<ObstacleProto>(proto.obstacleId);
+		MSGridManager.instance.AddBuilding(building, (int)proto.coordinate.x, (int)proto.coordinate.y, obp.width, obp.height);
+		
+		obstacles.Add(building);
 	}
 
 	void MakeObstacle(UserObstacleProto proto)
@@ -674,23 +721,35 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			FullDeselect();
 
-			PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
-			request.sender = MSWhiteboard.localMup;
+			if (MSTutorialManager.instance.inTutorial)
+			{
+				buildingsBuiltInTutorial.Add(building);
 
-			request.structCoordinates = new CoordinateProto();
-			request.structCoordinates.x = building.groundPos.x;
-			request.structCoordinates.y = building.groundPos.y;
+				hoveringToBuild.id = buildings.Count;
+				
+				buildings.Add(building.id, building);
 
-			request.structId = building.combinedProto.structInfo.structId;
-			request.timeOfPurchase = MSUtil.timeNowMillis;
+				hoveringToBuild = null;
+			}
+			else
+			{
+				PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
+				request.sender = MSWhiteboard.localMup;
 
-			request.gemsSpent = 0;
-			request.resourceChange = -building.combinedProto.structInfo.buildCost;
+				request.structCoordinates = new CoordinateProto();
+				request.structCoordinates.x = building.groundPos.x;
+				request.structCoordinates.y = building.groundPos.y;
 
-			request.resourceType = building.combinedProto.structInfo.buildResourceType;
-			
-			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_NORM_STRUCTURE_EVENT, PurchaseBuildingResponse);
+				request.structId = building.combinedProto.structInfo.structId;
+				request.timeOfPurchase = MSUtil.timeNowMillis;
 
+				request.gemsSpent = 0;
+				request.resourceChange = -building.combinedProto.structInfo.buildCost;
+
+				request.resourceType = building.combinedProto.structInfo.buildResourceType;
+				
+				UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_NORM_STRUCTURE_EVENT, PurchaseBuildingResponse);
+			}
 			MSActionManager.Popup.CloseAllPopups();
 
 			return true;
@@ -709,7 +768,10 @@ public class MSBuildingManager : MonoBehaviour
 
 			buildings.Add(hoveringToBuild.id, hoveringToBuild);
 
+			MSBuilding temp = hoveringToBuild;
 			hoveringToBuild = null;
+			FullDeselect();
+			SetSelectedBuilding(temp); //Have to do this after hover is null so that TaskBar treats it proper
 		}
 		else
 		{
@@ -864,7 +926,7 @@ public class MSBuildingManager : MonoBehaviour
 		}
 	}
 
-	private void SetSelectedBuilding(MSBuilding building)
+	public void SetSelectedBuilding(MSBuilding building)
 	{
 		if (_selected != null)
 		{
@@ -1139,12 +1201,17 @@ public class MSBuildingManager : MonoBehaviour
 	/// </param>
 	public void OnTap(TCKTouchData touch)
 	{        
-		Debug.Log("Tap");
 		if (hoveringToBuild != null)
 		{
 			return;
 		}
 		Collider hit = SelectSomethingFromScreen(touch.pos);
+
+		if (MSTutorialManager.instance.UiBlock
+		    && MSTutorialManager.instance.currUi != hit.gameObject)
+		{
+			return;
+		}
 		if (hit != null){
 			MSBuilding building = hit.GetComponent<MSBuilding>();
 			if (building != null)
