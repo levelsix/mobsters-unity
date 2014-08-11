@@ -166,37 +166,47 @@ public class PZScrollingBackground : MonoBehaviour {
 		lastTaskActivated = task;
 		
 		string prefix = task.groundImgPrefix;
-		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1left", topLeft);
-//		bottomLeft.MakePixelPerfect();
-		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1right", topRight);
-//		bottomLeft.MakePixelPerfect();
-		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2left", bottomLeft);
-//		bottomLeft.MakePixelPerfect();
-		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2right", bottomRight);
-//		bottomRight.MakePixelPerfect();
+
+		SetSingleBackground(true, true, topLeft);
+		SetSingleBackground(true, false, topRight);
+		SetSingleBackground(false, true, bottomLeft);
+		SetSingleBackground(false, false, bottomRight);
+//		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1left", topLeft);
+//		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1right", topRight);
+//		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2left", bottomLeft);
+//		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2right", bottomRight);
+
+
 	}
 	
 	public void SetSingleBackground(bool top, bool left, SpriteRenderer sprite)
 	{
 		
 		string prefix = lastTaskActivated.groundImgPrefix;
-		
+		string spriteName;
 		if(top && left)
 		{
-			MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1left", sprite);
+			spriteName = "scene1left";
 		}
 		else if (top && !left)
 		{
-			MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1right", sprite);
+			spriteName = "scene1right";
 		}
 		else if (!top && left)
 		{
-			MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2left", sprite);
+			spriteName = "scene2left";
 		}
 		else
 		{
-			MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2right", sprite);
+			spriteName = "scene2right";
 		}
+
+		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix + spriteName, sprite);
+		if(sprite.sprite == null)
+		{
+			MSSpriteUtil.instance.SetSprite("0Scene", "0" + spriteName, sprite);
+		}
+
 	}
 	
 	
