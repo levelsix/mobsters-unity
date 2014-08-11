@@ -172,7 +172,7 @@ public class MSFacebookManager : MonoBehaviour {
 			{
 				yield return null;
 			}
-		}
+		} 
 	}
 }
 
@@ -186,9 +186,9 @@ public class FBPicRequester
 		finished = false;
 		this.facebookId = facebookId;
 		this.texture = texture;
-		RequestPicture(facebookId, texture);
+		RequestPicture();
 	}
-	void RequestPicture(string facebookId, UITexture texture)
+	void RequestPicture()
 	{
 		FB.API("/" + facebookId + "/picture?height=" + texture.height + "&width=" + texture.width, HttpMethod.GET, PictureCallback);
 	}
