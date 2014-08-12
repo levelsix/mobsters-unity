@@ -121,6 +121,8 @@ public class UMQNetworkManager : MonoBehaviour {
 		factoryJava.Call("setUsername", "lvl6client");
 		factoryJava.Call("setPassword", "devclient");
 		factoryJava.Call("setVirtualHost", "devmobsters");
+
+		WriteDebug("Set connection settings...");
 #else
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.HostName = "staging.mobsters.lvl6.com";
@@ -160,7 +162,7 @@ public class UMQNetworkManager : MonoBehaviour {
 #if UNITY_ANDROID && !UNITY_EDITOR
 			javaChannel = javaConnection.Call<AndroidJavaObject>("createChannel");
 			javaChatChannel = javaConnection.Call<AndroidJavaObject>("createChannel");
-			Debug.Log("Created Channel");
+			WriteDebug("Created Channel");
 #else
 			channel = connection.CreateModel();
 #endif
@@ -179,17 +181,17 @@ public class UMQNetworkManager : MonoBehaviour {
 		javaChannel.Call<AndroidJavaObject>("exchangeDeclare", directExchangeName, "direct", true);
 		javaChannel.Call<AndroidJavaObject>("exchangeDeclare", topicExchangeName, "topic", true);
 
-		Debug.Log("Declared Exchanges");
+		WriteDebug("Declared Exchanges");
 
 		javaChannel.Call<AndroidJavaObject>("queueDeclare", udidQueueName, true, false, false, null);
 		javaChannel.Call<AndroidJavaObject>("queueBind", udidQueueName, directExchangeName, udidKey);
 
-		Debug.Log("Bounded with routing key: " + udidKey);
+		WriteDebug("Bounded with routing key: " + udidKey);
 
 		AndroidJavaObject consumer = new AndroidJavaObject("com.rabbitmq.client.QueueingConsumer", javaChannel);
 		javaChannel.Call<AndroidJavaObject>("basicConsume", udidQueueName, false, consumer);
 
-		StartCoroutine(ConsumeJava(consumer));
+		StartCoroutine(ConsumeJava(consumer, udidQueueName));
 #else
 		//Declare our exchanges
 		channel.ExchangeDeclare(directExchangeName, ExchangeType.Direct, true);
@@ -222,8 +224,10 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		AndroidJavaObject consumer = new AndroidJavaObject("com.rabbitmq.client.QueueingConsumer", javaChannel);
 		javaChannel.Call<AndroidJavaObject>("basicConsume", userIdKeyQueueName, false, consumer);
-		
-		StartCoroutine(ConsumeJava(consumer));
+
+		WriteDebug("Declaring and binding to queue: " + userIdKeyQueueName);
+
+		StartCoroutine(ConsumeJava(consumer, userIdKeyQueueName));
 #else
 		channel.QueueDeclare(userIdKeyQueueName, true, false, false, null);
 		channel.QueueBind(userIdKeyQueueName, directExchangeName, userIdKey);
@@ -242,8 +246,10 @@ public class UMQNetworkManager : MonoBehaviour {
 		
 		AndroidJavaObject chatConsumer = new AndroidJavaObject("com.rabbitmq.client.QueueingConsumer", javaChatChannel);
 		javaChatChannel.Call<AndroidJavaObject>("basicConsume", chatQueueName, false, chatConsumer);
-		
-		StartCoroutine(ConsumeJava(chatConsumer));
+
+		WriteDebug("Declaring and binding to queue: " + chatQueueName);
+
+		StartCoroutine(ConsumeJava(chatConsumer, chatQueueName));
 #else
 		IModel chatChannel = connection.CreateModel();
 
@@ -354,10 +360,9 @@ public class UMQNetworkManager : MonoBehaviour {
 	}
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-	IEnumerator ConsumeJava(AndroidJavaObject consumer)
+	IEnumerator ConsumeJava(AndroidJavaObject consumer, string queueName)
 	{
-		Debug.Log("Starting java consume for consumer");
-		//debugTextLabel.text += "H";
+		WriteDebug("Starting java consume for consumer");
 
 		if (consumer.GetRawObject().ToInt32() == 0) Debug.Log("Problem with consumer");
 
@@ -366,7 +371,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		{
 			try
 			{
-				response = consumer.Call<AndroidJavaObject>("nextDelivery", 0L);
+				response = consumer.Call<AndroidJavaObject>("nextDelivery", 10L);
 				if (response.GetRawObject().ToInt32() != 0)
 				{
 					ReceiveResponse(response);
@@ -374,7 +379,8 @@ public class UMQNetworkManager : MonoBehaviour {
 			}
 			catch (Exception e)
 			{
-				string test = e.ToString();
+				string dump = e.ToString();
+				//WriteDebug("Problem receiving response on " + queueName + ": " + e.ToString());
 			}
 			yield return new WaitForSeconds(.5f);
 		}
@@ -499,6 +505,20 @@ public class UMQNetworkManager : MonoBehaviour {
 			ForceLogoutResponseProto logout = proto as ForceLogoutResponseProto;
 			Debug.LogError("Force logout: " + logout.previousLoginTime);
 		}
+		else if (proto is ReceivedGroupChatResponseProto)
+		{
+			MSChatManager.instance.ReceiveGroupChatMessage(proto as ReceivedGroupChatResponseProto);
+		}
+		else if (proto is BeginClanRaidResponseProto && MSClanEventManager.instance != null)
+		{
+			Debug.Log("Fallback: From other");
+			MSClanEventManager.instance.DealWithBeginResponse(proto as BeginClanRaidResponseProto);
+		}
+		else if (proto is AttackClanRaidMonsterResponseProto && MSClanEventManager.instance != null)
+		{
+			Debug.Log("Fallback: From other");
+			MSClanEventManager.instance.DealWithAttackResponse(proto as AttackClanRaidMonsterResponseProto);
+		}
 		else
 		{
 
@@ -525,6 +545,18 @@ public class UMQNetworkManager : MonoBehaviour {
 			}
 
 			requestsOut.Remove(tagNum);
+		}
+	}
+
+	void WriteDebug(string debug)
+	{
+		if (debugTextLabel != null)
+		{
+			debugTextLabel.text += "\n" + debug;
+		}
+		else
+		{
+			Debug.LogWarning(debug);
 		}
 	}
 }

@@ -543,6 +543,15 @@ namespace com.lvl6.proto
       get { return _teamSlotNum; }
       set { _teamSlotNum = value; }
     }
+
+    private bool _isRestrictd = default(bool);
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"isRestrictd", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool isRestrictd
+    {
+      get { return _isRestrictd; }
+      set { _isRestrictd = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

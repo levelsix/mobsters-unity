@@ -478,6 +478,15 @@ namespace com.lvl6.proto
       get { return _boss; }
       set { _boss = value; }
     }
+
+    private string _bossImgName = "";
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"bossImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string bossImgName
+    {
+      get { return _bossImgName; }
+      set { _bossImgName = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

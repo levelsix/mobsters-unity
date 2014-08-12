@@ -360,7 +360,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				processingSwap = false;
 				ResetCombo ();
 				if (!CheckForMatchMoves ()) {
-					InitBoard ();
+					InitBoard (boardWidth, boardHeight);
 				}
 //				Debug.Log ("Board has matches: " + CheckForMatchMoves ());
 			}
