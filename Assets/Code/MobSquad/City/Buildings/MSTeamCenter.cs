@@ -38,6 +38,11 @@ public class MSTeamCenter : MSBuildingFrame {
 			bubbleIcon.spriteName = "teambubble" + count;
 			bubbleIcon.MakePixelPerfect();
 		}
+
+		if(bubbleIcon != null && !Precheck())
+		{
+			bubbleIcon.gameObject.SetActive(false);
+		}
 	}
 
 	void OnTeamChange()

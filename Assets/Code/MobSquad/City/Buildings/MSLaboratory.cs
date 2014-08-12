@@ -20,7 +20,7 @@ public class MSLaboratory : MSBuildingFrame {
 				}
 			}
 
-			if(canEnhance > 1){
+			if(canEnhance > 1 && Precheck()){
 				bubbleIcon.gameObject.SetActive(true);
 				bubbleIcon.spriteName = "enhancebubble";
 				bubbleIcon.MakePixelPerfect();

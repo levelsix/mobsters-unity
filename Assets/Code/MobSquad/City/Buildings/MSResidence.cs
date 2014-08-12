@@ -12,7 +12,7 @@ public class MSResidence : MSBuildingFrame {
 	}
 
 	public override void CheckTag(){
-		if (MSMonsterManager.monstersOwned > MSMonsterManager.instance.totalResidenceSlots) {
+		if (MSMonsterManager.monstersOwned > MSMonsterManager.instance.totalResidenceSlots && Precheck()) {
 			bubbleIcon.gameObject.SetActive(true);
 
 			if(MSMonsterManager.monstersOwned - MSMonsterManager.instance.totalResidenceSlots <= 9)
