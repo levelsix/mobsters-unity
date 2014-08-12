@@ -49,4 +49,13 @@ public class MSChatAvatar : MonoBehaviour {
 			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumbnail);
 		}
 	}
+
+	public void SetDepth(int depth)
+	{
+		if(bg != null)
+		{
+			bg.depth = depth;
+		}
+		thumbnail.depth = depth + 1;
+	}
 }

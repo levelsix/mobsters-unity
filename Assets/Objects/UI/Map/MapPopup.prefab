@@ -790,7 +790,10 @@ MonoBehaviour:
   status: {fileID: 11400006}
   levelTitle: {fileID: 11400010}
   button: {fileID: 11400022}
+  statusLabel: {fileID: 0}
   background: {fileID: 11400004}
+  eventIcon: {fileID: 0}
+  eventIconB: {fileID: 0}
   trans: {fileID: 0}
 --- !u!114 &11400020
 MonoBehaviour:
@@ -807,8 +810,12 @@ MonoBehaviour:
   closeTop: 0
   trans: {fileID: 0}
   gameObj: {fileID: 0}
-  text: {fileID: 0}
+  topLabel: {fileID: 0}
+  middleLabel: {fileID: 0}
+  bottomLabel: {fileID: 0}
+  icon: {fileID: 0}
   bg: {fileID: 0}
+  currMode: 0
 --- !u!114 &11400022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -843,6 +850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEvent: 0
+  locked: 0
 --- !u!114 &11400026
 MonoBehaviour:
   m_ObjectHideFlags: 1

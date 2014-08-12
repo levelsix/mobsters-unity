@@ -23,6 +23,9 @@ public class MSTaskMap : MonoBehaviour {
 	[SerializeField]
 	UI2DSprite pvpHud;
 
+	[SerializeField]
+	MSMapAvatar avatar;
+
 	/// <summary>
 	/// The furthest task the player has unlocked
 	/// </summary>
@@ -92,6 +95,9 @@ public class MSTaskMap : MonoBehaviour {
 			{
 				taskButtons[task.taskId].Status = MSMapTaskButton.TaskStatusType.Undefeated;
 				nextTask = taskButtons[task.taskId];
+
+				avatar.MoveToNewTask(nextTask.mapTask.mapElementId);
+				avatar.SetDepth(nextTask.GetComponent<UISprite>().depth + 2);
 			}
 			else
 			{
