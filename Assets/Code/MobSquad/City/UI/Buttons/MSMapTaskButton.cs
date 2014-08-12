@@ -6,12 +6,12 @@ using com.lvl6.proto;
 
 public class MSMapTaskButton : MonoBehaviour {
 
-	public TaskMapElementProto mapTask;
 
 	Transform trans;
 
 	MSTaskable taskable;
 
+	[SerializeField]
 	TweenScale scaleTween;
 
 	public UIButton button;
@@ -24,6 +24,37 @@ public class MSMapTaskButton : MonoBehaviour {
 
 	[SerializeField]
 	UISprite glowRing;
+
+	[SerializeField]
+	UI2DSprite bossSprite;
+
+	TaskMapElementProto _mapTask;
+	
+	public TaskMapElementProto mapTask
+	{
+		set
+		{
+			_mapTask = value;
+			if(_mapTask.boss)
+			{
+				bossSprite.alpha = 1f;
+				MSSpriteUtil.instance.SetSprite(_mapTask.bossImgName.Substring(0,_mapTask.bossImgName.Length - "Map2.png".Length),
+				                                MSUtil.StripExtensions(_mapTask.bossImgName),
+				                                bossSprite);
+				bossSprite.MarkAsChanged();
+				bossSprite.MakePixelPerfect();
+			}
+			else
+			{
+				bossSprite.alpha = 0f;
+			}
+		}
+		
+		get
+		{
+			return _mapTask;
+		}
+	}
 
 	public enum TaskStatusType
 	{
@@ -57,12 +88,12 @@ public class MSMapTaskButton : MonoBehaviour {
 	void Awake(){
 		trans = transform;
 		button = GetComponent<UIButton> ();
-		scaleTween = GetComponent<TweenScale>();
 	}
 
 	void OnEnable(){
 //		halo.alpha = 0f;
 		levelTitle.alpha = 0f;
+		glowRing.gameObject.SetActive(false);
 		MSActionManager.Map.OnMapTaskClicked += Deselect;
 	}
 
@@ -121,10 +152,13 @@ public class MSMapTaskButton : MonoBehaviour {
 		trans.localPosition = new Vector3(task.xPos, task.yPos, 0f);
 		mapTask = task;
 
+		buttonLabel.alpha = mapTask.boss?0f:1f;
+		
 		buttonLabel.depth = GetComponent<UISprite> ().depth + 1;
 //		halo.depth = buttonLabel.depth - 2;
 //		shadow.depth = buttonLabel.depth - 2;
 		glowRing.depth = buttonLabel.depth - 2;
+		bossSprite.depth = buttonLabel.depth + 1;
 
 		buttonLabel.text = task.mapElementId.ToString();
 		levelTitle.text = MSDataManager.instance.Get<FullTaskProto> (task.taskId).name;
@@ -132,9 +166,13 @@ public class MSMapTaskButton : MonoBehaviour {
 	}
 
 	void Deselect(TaskMapElementProto mapTask, MSMapTaskButton.TaskStatusType status){
-//		halo.alpha = 0f;
-		glowRing.gameObject.SetActive(false);
-		levelTitle.alpha = 0f;
+		if(mapTask.mapElementId != _mapTask.mapElementId)
+		{
+//			halo.alpha = 0f;
+			glowRing.gameObject.SetActive(false);
+			levelTitle.alpha = 0f;
+			TweenScale.Begin(gameObject,0.5f, new Vector3(0.5f,0.5f,0.5f));
+		}
 	}
 
 	public void OnClick(){
