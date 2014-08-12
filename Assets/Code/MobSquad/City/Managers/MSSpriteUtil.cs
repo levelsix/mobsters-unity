@@ -201,7 +201,7 @@ public class MSSpriteUtil : MonoBehaviour {
 
 			bundles[bundleName] = bundle;
 			
-		} // memory is freed from the web stream (www.Dispose() gets called implicitly)
+		}
 	}
 
 	[ContextMenu ("Clean Cache")]

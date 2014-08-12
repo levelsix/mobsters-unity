@@ -1,4 +1,5 @@
 using UnityEngine;
+//using Serialization;
 using System.Collections;
 using System;
 using com.lvl6.proto;
@@ -399,5 +400,35 @@ public static class MSUtil {
 		}
 	}
 
+	public static void Save(string key, object obj)
+	{
+		if (obj == null)
+		{
+			PlayerPrefs.DeleteKey(key);
+		}
+		else
+		{
+			//var data = Convert.ToBase64String(UnitySerializer.Serialize(obj));
+			//PlayerPrefs.SetString(key, data);
+			//PlayerPrefs.Save();
+		}
+	}
+
+	public static T Load<T>(string key) where T : class
+	{
+		T result = default(T);
+		var data = PlayerPrefs.GetString(key);
+		
+		if (!string.IsNullOrEmpty(data))
+		{
+			try
+			{
+				//result = UnitySerializer.Deserialize<T>(Convert.FromBase64String(data));
+			}
+			catch {}
+		}
+		
+		return result;
+	}
 
 }
