@@ -18,19 +18,7 @@ public class MSMapTaskButton : MonoBehaviour {
 	UILabel buttonLabel;
 
 	[SerializeField]
-	UISprite halo;
-
-	[SerializeField]
 	UILabel levelTitle;
-
-	[SerializeField]
-	UISprite shadow;
-
-	[SerializeField]
-	Color unlockedTextColor;
-
-	[SerializeField]
-	Color lockedTextColor;
 
 	public enum TaskStatusType
 	{
@@ -38,6 +26,9 @@ public class MSMapTaskButton : MonoBehaviour {
 		Completed,
 		Undefeated
 	}
+	
+	const string CLOSED_CITY = "lockedcity";
+	const string CLOSED_BOSS = "lockedboss";
 
 	TaskStatusType _status;
 
@@ -48,37 +39,15 @@ public class MSMapTaskButton : MonoBehaviour {
 		set{
 			_status = value;
 			if(value == TaskStatusType.Completed || value == TaskStatusType.Undefeated){
-				if(mapTask.boss)
-				{
-					button.normalSprite = OPEN_BOSS;
-				}
-				else
-				{
-					button.normalSprite = OPEN_CITY;
-				}
-				levelTitle.color = unlockedTextColor;
-				buttonLabel.alpha = 1f;
+				SetOpenSprite();
+				buttonLabel.alpha = 0.5f;
 			}else{
-				if(mapTask.boss)
-				{
-					button.normalSprite = CLOSED_BOSS;
-				}
-				else
-				{
-					button.normalSprite = CLOSED_CITY;
-				}
-				levelTitle.color = lockedTextColor;
+				SetClosedSprite();
 				buttonLabel.alpha = 0f;
 			}
 			levelTitle.alpha = 0f;
 		}
 	}
-
-	const string OPEN_CITY = "opencitypin";
-	const string CLOSED_CITY = "lockedcitypin";
-
-	const string OPEN_BOSS = "bosspin";
-	const string CLOSED_BOSS = "bosspinlocked";
 
 	void Awake(){
 		trans = transform;
@@ -86,13 +55,55 @@ public class MSMapTaskButton : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		halo.alpha = 0f;
+//		halo.alpha = 0f;
 		levelTitle.alpha = 0f;
 		MSActionManager.Map.OnMapTaskClicked += Deselect;
 	}
 
 	void OnDisable(){
 		MSActionManager.Map.OnMapTaskClicked -= Deselect;
+	}
+
+	public void SetOpenSprite()
+	{
+		switch(mapTask.element)
+		{
+		case Element.EARTH:
+			button.normalSprite = "openearth";
+			break;
+		case Element.FIRE:
+			button.normalSprite = "openfire";
+			break;
+		case Element.WATER:
+			button.normalSprite = "openwater";
+			break;
+		case Element.ROCK:
+			button.normalSprite = "openrock";
+			break;
+		case Element.DARK:
+			button.normalSprite = "opendark";
+			break;
+		case Element.LIGHT:
+			button.normalSprite = "openlight";
+			break;
+		case Element.NO_ELEMENT:
+			button.normalSprite = "openrainbow";
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void SetClosedSprite()
+	{
+		if(mapTask.boss)
+		{
+			button.normalSprite = CLOSED_BOSS;
+		}
+		else
+		{
+			button.normalSprite = CLOSED_CITY;
+		}
 	}
 
 	public void initTaskButton(TaskMapElementProto task){
@@ -105,8 +116,8 @@ public class MSMapTaskButton : MonoBehaviour {
 		mapTask = task;
 
 		buttonLabel.depth = GetComponent<UISprite> ().depth + 1;
-		halo.depth = buttonLabel.depth - 2;
-		shadow.depth = buttonLabel.depth - 2;
+//		halo.depth = buttonLabel.depth - 2;
+//		shadow.depth = buttonLabel.depth - 2;
 
 		buttonLabel.text = task.mapElementId.ToString();
 		levelTitle.text = MSDataManager.instance.Get<FullTaskProto> (task.taskId).name;
@@ -114,14 +125,14 @@ public class MSMapTaskButton : MonoBehaviour {
 	}
 
 	void Deselect(TaskMapElementProto mapTask, MSMapTaskButton.TaskStatusType status){
-		halo.alpha = 0f;
+//		halo.alpha = 0f;
 		levelTitle.alpha = 0f;
 	}
 
 	public void OnClick(){
 		MSActionManager.Map.OnMapTaskClicked (mapTask, Status);
 		if (Status != TaskStatusType.Locked) {
-			halo.alpha = 1f;
+//			halo.alpha = 1f;
 		}
 		levelTitle.alpha = 1f;
 	}
