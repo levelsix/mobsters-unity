@@ -880,29 +880,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 400106}
   - 114: {fileID: 11400134}
-  m_Layer: 0
-  m_Name: ProfilePic
+  m_Layer: 5
+  m_Name: FacebookImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &100108
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 400108}
-  - 114: {fileID: 11400182}
-  m_Layer: 0
-  m_Name: FaceBookAvatar
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &100110
 GameObject:
   m_ObjectHideFlags: 1
@@ -2195,22 +2179,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -30, y: 30, z: -540}
   m_LocalScale: {x: .850000024, y: .850000024, z: 1}
   m_Children: []
-  m_Father: {fileID: 400108}
-  m_RootOrder: 0
---- !u!4 &400108
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100108}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30, y: 30, z: -540}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 400106}
   m_Father: {fileID: 400180}
   m_RootOrder: 1
 --- !u!4 &400110
@@ -2674,7 +2645,7 @@ Transform:
   m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children:
   - {fileID: 400148}
-  - {fileID: 400108}
+  - {fileID: 400106}
   m_Father: {fileID: 400098}
   m_RootOrder: 0
 --- !u!54 &5400000
@@ -5653,7 +5624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chatAvatar: {fileID: 11400232}
-  faceAvatar: {fileID: 11400182}
+  faceAvatar: {fileID: 11400134}
 --- !u!114 &11400134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5662,7 +5633,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: d5c5ca47aa5c01740810b7c66662099f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -5684,17 +5655,23 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 60
-  mHeight: 60
+  mWidth: 100
+  mHeight: 100
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mSprite: {fileID: 21300002, guid: c9c056b3c24284651945af439e5f9727, type: 3}
+  mRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  mTexture: {fileID: 0}
   mMat: {fileID: 2100000, guid: 1e17fb359584a4cc4a1d3acbf47e26e7, type: 2}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  nextSprite: {fileID: 0}
+  mShader: {fileID: 0}
+  mFlip: 0
 --- !u!114 &11400136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6653,20 +6630,6 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
---- !u!114 &11400182
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f7cff32e08b54ba9aab48682ccd97fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bg: {fileID: 0}
-  thumbnail: {fileID: 11400134}
-  big: 0
 --- !u!114 &11400184
 MonoBehaviour:
   m_ObjectHideFlags: 1

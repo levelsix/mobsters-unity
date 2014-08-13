@@ -37,12 +37,7 @@ public class MSMapTaskButton : MonoBehaviour {
 			_mapTask = value;
 			if(_mapTask.boss)
 			{
-				bossSprite.alpha = 1f;
-				MSSpriteUtil.instance.SetSprite(_mapTask.bossImgName.Substring(0,_mapTask.bossImgName.Length - "Map2.png".Length),
-				                                MSUtil.StripExtensions(_mapTask.bossImgName),
-				                                bossSprite);
-				bossSprite.MarkAsChanged();
-				bossSprite.MakePixelPerfect();
+				SetBossSprite();
 			}
 			else
 			{
@@ -76,7 +71,7 @@ public class MSMapTaskButton : MonoBehaviour {
 			_status = value;
 			if(value == TaskStatusType.Completed || value == TaskStatusType.Undefeated){
 				SetOpenSprite();
-				buttonLabel.alpha = 0.5f;
+				buttonLabel.alpha = mapTask.boss?0f:0.5f;
 			}else{
 				SetClosedSprite();
 				buttonLabel.alpha = 0f;
@@ -99,6 +94,17 @@ public class MSMapTaskButton : MonoBehaviour {
 
 	void OnDisable(){
 		MSActionManager.Map.OnMapTaskClicked -= Deselect;
+	}
+
+	void SetBossSprite()
+	{
+		bossSprite.alpha = 1f;
+		MSSpriteUtil.instance.SetSprite(_mapTask.bossImgName.Substring(0,_mapTask.bossImgName.Length - "Map2.png".Length),
+		                                MSUtil.StripExtensions(_mapTask.bossImgName),
+		                                bossSprite);
+		bossSprite.MarkAsChanged();
+		bossSprite.MakePixelPerfect();
+		buttonLabel.alpha = 0f;
 	}
 
 	public void SetOpenSprite()
@@ -151,9 +157,7 @@ public class MSMapTaskButton : MonoBehaviour {
 
 		trans.localPosition = new Vector3(task.xPos, task.yPos, 0f);
 		mapTask = task;
-
-		buttonLabel.alpha = mapTask.boss?0f:1f;
-		
+				
 		buttonLabel.depth = GetComponent<UISprite> ().depth + 1;
 //		halo.depth = buttonLabel.depth - 2;
 //		shadow.depth = buttonLabel.depth - 2;

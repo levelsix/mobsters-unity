@@ -180,12 +180,6 @@ public class PZScrollingBackground : MonoBehaviour {
 		SetSingleBackground(true, false, topRight);
 		SetSingleBackground(false, true, bottomLeft);
 		SetSingleBackground(false, false, bottomRight);
-//		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1left", topLeft);
-//		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene1right", topRight);
-//		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2left", bottomLeft);
-//		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix+"scene2right", bottomRight);
-
-
 	}
 	
 	public void SetSingleBackground(bool top, bool left, SpriteRenderer sprite)
