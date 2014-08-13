@@ -75,7 +75,7 @@ public class MSObstacle : MonoBehaviour {
 		}
 	}
 
-	public void StartRemove()
+	public void StartRemove(bool usingGems = false)
 	{
 		if (MSBuildingManager.instance.currentUnderConstruction != null)
 		{
@@ -97,24 +97,45 @@ public class MSObstacle : MonoBehaviour {
 			);
 			return;
 		}
+		
+		BeginObstacleRemovalRequestProto request = new BeginObstacleRemovalRequestProto();
 
-		if (MSResourceManager.instance.Spend(obstacle.removalCostType, obstacle.cost, StartRemove))
-	    {
-			endTime = MSUtil.timeNowMillis + obstacle.secondsToRemove * 1000;
-			Debug.Log("Start remove");
-			StartCoroutine(Check ());
-
-			BeginObstacleRemovalRequestProto request = new BeginObstacleRemovalRequestProto();
-			request.sender = MSWhiteboard.localMup;
-			request.curTime = MSUtil.timeNowMillis;
-			request.resourceChange = -obstacle.cost;
-			request.resourceType = obstacle.removalCostType;
-			request.userObstacleId = userObstacle.userObstacleId;
-
-			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_OBSTACLE_REMOVAL_EVENT, DealWithBeginRemovalResponse);
+		if (usingGems)
+		{
+			int gemsNeeded = Mathf.CeilToInt((obstacle.cost - MSResourceManager.resources[obstacle.removalCostType]) * MSWhiteboard.constants.gemsPerResource);
+			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemsNeeded))
+			{
+				MSResourceManager.instance.SpendAll(obstacle.removalCostType);
+				request.resourceChange = -MSResourceManager.instance.SpendAll(obstacle.removalCostType);
+				request.gemsSpent = Mathf.CeilToInt((obstacle.cost + request.resourceChange) * MSWhiteboard.constants.gemsPerResource);
+			}
+			else
+			{
+				return;
+			}
 		}
-	}
+		else if (MSResourceManager.instance.Spend(obstacle.removalCostType, obstacle.cost, delegate{StartRemove(true);}))
+		{
+			request.resourceChange = -obstacle.cost;
+			request.gemsSpent = 0;
+		}
+		else
+		{
+			return;
+		}
 
+		endTime = MSUtil.timeNowMillis + obstacle.secondsToRemove * 1000;
+		Debug.Log("Start remove");
+		StartCoroutine(Check ());
+		
+		request.sender = MSWhiteboard.localMup;
+		request.curTime = MSUtil.timeNowMillis;
+		request.resourceType = obstacle.removalCostType;
+		request.userObstacleId = userObstacle.userObstacleId;
+		
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_OBSTACLE_REMOVAL_EVENT, DealWithBeginRemovalResponse);
+	}
+	
 	void DealWithBeginRemovalResponse(int tagNum)
 	{
 		BeginObstacleRemovalResponseProto response = UMQNetworkManager.responseDict[tagNum] as BeginObstacleRemovalResponseProto;

@@ -21,7 +21,7 @@ public class MSResourceBar : MonoBehaviour {
 	void OnEnable()
 	{
 		MSActionManager.UI.OnSetResourceMaxima += OnSetResourceMaxima;
-		MSActionManager.UI.OnChangeResource[(int)resourceType-1] += OnChangeResource;
+		MSActionManager.UI.OnChangeResource[resourceType] += OnChangeResource;
 
 		if (MSResourceManager.instance != null)
 		{
@@ -32,7 +32,7 @@ public class MSResourceBar : MonoBehaviour {
 	void OnDisable()
 	{
 		MSActionManager.UI.OnSetResourceMaxima -= OnSetResourceMaxima;
-		MSActionManager.UI.OnChangeResource[(int)resourceType-1] -= OnChangeResource;
+		MSActionManager.UI.OnChangeResource[resourceType] -= OnChangeResource;
 	}
 	
 	void OnSetResourceMaxima(int[] maxes)
@@ -47,7 +47,7 @@ public class MSResourceBar : MonoBehaviour {
 
 	void Reset()
 	{
-		target = ((float)MSResourceManager.resources[(int)resourceType - 1]) / MSResourceManager.maxes[(int)resourceType - 1];
+		target = ((float)MSResourceManager.resources[resourceType]) / MSResourceManager.maxes[(int)resourceType - 1];
 	}
 
 	void Update()

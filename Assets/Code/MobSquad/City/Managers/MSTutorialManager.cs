@@ -258,9 +258,9 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		inTutorial = true;
 
-		MSResourceManager.resources[0] = MSWhiteboard.tutorialConstants.cashInit;
-		MSResourceManager.resources[1] = MSWhiteboard.tutorialConstants.oilInit;
-		MSResourceManager.resources[2] = MSWhiteboard.tutorialConstants.gemsInit;
+		MSResourceManager.resources[ResourceType.CASH] = MSWhiteboard.tutorialConstants.cashInit;
+		MSResourceManager.resources[ResourceType.OIL] = MSWhiteboard.tutorialConstants.oilInit;
+		MSResourceManager.resources[ResourceType.GEMS] = MSWhiteboard.tutorialConstants.gemsInit;
 
 		foreach (var item in TutorialUI.disableHUD) 
 		{

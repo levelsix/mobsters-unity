@@ -25,13 +25,13 @@ public class MSResourceAmountLabel : MonoBehaviour {
 	
 	void OnEnable()
 	{
-		OnChangeResource(MSResourceManager.resources[(int)resource-1]);
-		MSActionManager.UI.OnChangeResource[(int)resource-1] += OnChangeResource;
+		OnChangeResource(MSResourceManager.resources[resource]);
+		MSActionManager.UI.OnChangeResource[resource] += OnChangeResource;
 	}
 	
 	void OnDisable()
 	{
-		MSActionManager.UI.OnChangeResource[(int)resource-1] -= OnChangeResource;
+		MSActionManager.UI.OnChangeResource[resource] -= OnChangeResource;
 	}
 	
 	void OnChangeResource(int amount)

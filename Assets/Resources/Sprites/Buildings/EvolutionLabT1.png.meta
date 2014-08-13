@@ -1,6 +1,8 @@
 fileFormatVersion: 2
-guid: 9174cefc747c5461d979abab37fba7b4
+guid: 2690492a6d72b4ec7b8d66818ab95745
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: EvolutionLabT1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -24,9 +26,9 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 1
     mipBias: -1
-    wrapMode: -1
+    wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -35,7 +37,8 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: .5, y: .5}
-  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 50
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings:

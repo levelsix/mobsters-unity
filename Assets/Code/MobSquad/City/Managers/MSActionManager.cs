@@ -89,7 +89,13 @@ public static class MSActionManager
 	public static class UI
 	{
 		public static Action<Camera> OnCameraResize;
-		public static Action<int>[] OnChangeResource = new Action<int>[3];
+		public static Dictionary<ResourceType, Action<int>> OnChangeResource = new Dictionary<ResourceType, Action<int>>()
+		{
+			{ResourceType.CASH, new Action<int>((x)=>{})},
+			{ResourceType.OIL, new Action<int>((x)=>{})},
+			{ResourceType.GEMS, new Action<int>((x)=>{})}
+		};
+		//public static Action<int>[] OnChangeResource = new Action<int>[3];
 		public static Action<int[]> OnSetResourceMaxima;
         public static Action OnCameraLockButton;
         public static Action OnCameraSnapButton;

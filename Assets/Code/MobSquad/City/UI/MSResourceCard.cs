@@ -156,14 +156,14 @@ public class MSResourceCard : MonoBehaviour {
 		}
 
 		Init ();
-		MSActionManager.UI.OnChangeResource[(int)resourceToFill-1] += Init;
+		MSActionManager.UI.OnChangeResource[resourceToFill] += Init;
 	}
 
 	void OnDisable()
 	{
 		oilMaxLevel = -1;
 		cashMaxLevel = -1;
-		MSActionManager.UI.OnChangeResource[(int)resourceToFill-1] -= Init;
+		MSActionManager.UI.OnChangeResource[resourceToFill] -= Init;
 	}
 
 	void Init(int currAmount)
@@ -175,13 +175,13 @@ public class MSResourceCard : MonoBehaviour {
 	{
 		if (fill) 
 		{
-			amount = Mathf.Max(0, MSResourceManager.maxes [(int)resourceToFill - 1] - MSResourceManager.resources [(int)resourceToFill - 1]);
+			amount = Mathf.Max(0, MSResourceManager.maxes [(int)resourceToFill - 1] - MSResourceManager.resources[resourceToFill]);
 			on = amount > 0;
 		}
 		else 
 		{
 			amount = Mathf.CeilToInt (MSResourceManager.maxes [(int)resourceToFill - 1] * percent);
-			on = MSResourceManager.resources [(int)resourceToFill - 1] + amount < MSResourceManager.maxes [(int)resourceToFill - 1];
+			on = MSResourceManager.resources[resourceToFill] + amount < MSResourceManager.maxes [(int)resourceToFill - 1];
 		}
 		cost = Mathf.CeilToInt (amount * MSWhiteboard.constants.gemsPerResource);
 		costLabel.text = "(G)" + cost;
@@ -203,7 +203,7 @@ public class MSResourceCard : MonoBehaviour {
 	{
 		if (on)
 		{
-			if (MSResourceManager.resources[(int)ResourceType.GEMS-1] >= cost)
+			if (MSResourceManager.resources[ResourceType.GEMS] >= cost)
 			{
 				MSResourceManager.instance.SpendGemsForOtherResource(resourceToFill, amount);
 			}

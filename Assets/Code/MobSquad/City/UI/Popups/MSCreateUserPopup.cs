@@ -41,9 +41,9 @@ public class MSCreateUserPopup : MonoBehaviour {
 		create.udid = UMQNetworkManager.udid;
 		create.name = username;
 		
-		create.cash = MSResourceManager.resources[0];
-		create.oil = MSResourceManager.resources[1];
-		create.gems = MSResourceManager.resources[2];
+		create.cash = MSResourceManager.resources[ResourceType.CASH];
+		create.oil = MSResourceManager.resources[ResourceType.OIL];
+		create.gems = MSResourceManager.resources[ResourceType.GEMS];
 
 		foreach (var item in MSBuildingManager.instance.buildingsBuiltInTutorial) 
 		{
