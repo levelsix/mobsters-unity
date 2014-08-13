@@ -3,32 +3,38 @@ using System.Collections;
 using com.lvl6.proto;
 
 public class MSMapAvatar : MonoBehaviour {
-
-
-
 	[SerializeField]
 	MSChatAvatar chatAvatar;
 
 	[SerializeField]
-	MSChatAvatar faceAvatar;
+	UITexture faceAvatar;
 
 	int curTask = -1;
 
 	void OnEnable()
 	{
-		//TODO: check faceBook for an image
-		//else{
-		faceAvatar.gameObject.SetActive(false);
-		chatAvatar.gameObject.SetActive(true);
-		//TODO: change the avatar to players avatar
+		if(MSFacebookManager.isLoggedIn)
+		{
+			faceAvatar.gameObject.SetActive(true);
+			chatAvatar.gameObject.SetActive(false);
+
+			MSFacebookManager.instance.RunLoadPhotoForUser(FB.UserId.ToString(),faceAvatar);
+		}
+		else
+		{
+			faceAvatar.gameObject.SetActive(false);
+			chatAvatar.gameObject.SetActive(true);
+			chatAvatar.Init(MSWhiteboard.localUser.avatarMonsterId);
+		}
+
 	}
 
 	public void SetDepth(int depth)
 	{
 		UISprite sprite = GetComponent<UISprite>();
-		sprite.depth = depth+2;
+		sprite.depth = depth + 2;
 		chatAvatar.SetDepth(depth);
-		faceAvatar.SetDepth(depth);
+		faceAvatar.depth = depth + 1;
 	}
 
 	public void InitPosition(int taskId)
@@ -36,7 +42,6 @@ public class MSMapAvatar : MonoBehaviour {
 		curTask = taskId;
 		TaskMapElementProto task = MSDataManager.instance.Get<TaskMapElementProto>(taskId);
 		transform.localPosition = new Vector3(task.xPos, task.yPos, 0f);
-		Debug.Log("Init avatar:"+taskId);
 	}
 
 	public void MoveToNewTask(int newTaskId)
