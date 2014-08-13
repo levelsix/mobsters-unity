@@ -118,7 +118,19 @@ public class UMQLoader : MonoBehaviour {
 			
 			MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 
-			StartCoroutine(MSBuildingManager.instance.LoadPlayerCity());
+			yield return MSBuildingManager.instance.RunLoadPlayerCity();
+
+			PZCombatSave save = PZCombatSave.Load();
+
+			if (response.curTask != null && response.curTask.taskId > 0)
+			{
+				PZCombatManager.instance.RunInitLoadedTask(response.curTask, response.curTaskStages);
+				MSActionManager.Scene.OnPuzzle();
+			}
+			else
+			{
+				MSActionManager.Scene.OnCity();
+			}
 		}
 
 	}

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using com.lvl6.proto;
 
 /// <summary>
@@ -60,6 +61,9 @@ public static class MSWhiteboard {
 	
 	public static BeginDungeonRequestProto dungeonToLoad;
 	public static BeginDungeonResponseProto loadedDungeon;
+
+	public static int currTaskId;
+	public static List<TaskStageProto> currTaskStages;
 
 	public static QueueUpResponseProto loadedPvps;
 	

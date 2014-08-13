@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System;
+using com.lvl6.proto;
 
 public class PZPuzzleManager : MonoBehaviour {
 	
@@ -181,6 +182,33 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			MSActionManager.Puzzle.OnComboChange(combo);
 		}
+	}
+
+	public void InitBoardFromSave(PZCombatSave save, MinimumUserTaskProto minTask)
+	{
+		FullTaskProto task = MSDataManager.instance.Get<FullTaskProto>(minTask.taskId);
+
+		ClearBoard();
+
+		boardWidth = task.boardWidth;
+		boardHeight = task.boardHeight;
+		
+		board = new PZGem[boardWidth, boardHeight];
+		
+		boardSprite.width = boardWidth * SPACE_SIZE;
+		boardSprite.height = boardHeight * SPACE_SIZE;
+
+		PZGem gem;
+
+		for (int x = 0; x < boardWidth; x++) {
+			for (int y = 0; y < boardHeight; y++) {
+				gem = MSPoolManager.instance.Get(gemPrefab, Vector3.zero, puzzleParent) as PZGem;
+				gem.SpawnOnMap(save.gemColors[x, y], x);
+				gem.gemType = (PZGem.GemType)save.gemTypes[x,y];
+			}
+		}
+
+		setUpBoard = true;
 	}
 
 	public void InitBoard(int w = STANDARD_BOARD_WIDTH, int h = STANDARD_BOARD_HEIGHT, string boardFile = "")
@@ -362,7 +390,6 @@ public class PZPuzzleManager : MonoBehaviour {
 				if (!CheckForMatchMoves ()) {
 					InitBoard (boardWidth, boardHeight);
 				}
-//				Debug.Log ("Board has matches: " + CheckForMatchMoves ());
 			}
 			processingSwap = false;
 

@@ -1,29 +1,57 @@
 ﻿using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
-using PlayerPrefs = PreviewLabs.PlayerPrefs;
 
 [System.Serializable]
 public class PZCombatSave 
 {
-	public int activePlayerSlot;
+	public long activePlayerUserMonsterId;
 
-	public int activeEnemyTaskStageId;
-	public int activeEnemyHealth;
+	public int activeEnemyHealth = 1;
 
 	public int[,] gemColors;
 	public int[,] gemTypes;
 
-	public BeginDungeonResponseProto ho;
+	public BattleStats battleStats = new BattleStats();
+
+	public float forfeitChance = .5f;
+
+	public int currTurn = 0;
+	public int currPlayerDamage = 0;
 
 	const string key = "CombatSave";
 
-	public PZCombatSave(int activePlayerSlot, PZMonster activeEnemy,
-	                 PZGem[,] board)
-	{
-		this.activePlayerSlot = activePlayerSlot;
+	public PZCombatSave(){}
 
-		ho = MSWhiteboard.loadedDungeon;
+	public PZCombatSave(PZMonster activePlayer, int activeEnemyHealth,
+	                 PZGem[,] board, BattleStats battleStats,
+	                    float forfeitChance, int currTurn, int currPlayerDamage,
+	                    int boardWidth, int boardHeight)
+	{
+		this.activePlayerUserMonsterId = activePlayer.userMonster.userMonsterId;
+
+		this.activeEnemyHealth = activeEnemyHealth;
+
+		gemColors = new int[boardWidth, boardHeight];
+		gemTypes = new int[boardWidth, boardHeight];
+
+		for (int x = 0; x < boardWidth; x++) {
+			for (int y = 0; y < boardHeight; y++) {
+				gemColors[x,y] = board[x,y].colorIndex;
+				gemTypes[x,y] = (int)board[x,y].gemType;
+			}
+		}
+
+		this.battleStats = battleStats;
+
+		this.currTurn = currTurn;
+		this.currPlayerDamage = currPlayerDamage;
+
+		Debug.LogWarning("Saving!" +
+		                 "\nActive player: " + activePlayerUserMonsterId +
+		                 "\nEnemy HP: " + activeEnemyHealth +
+		                 "\nCurr Turn: " + currTurn +
+		                 "\nCurr Player Damage: " + currPlayerDamage);
 
 		MSUtil.Save(key, this);
 	}
@@ -33,22 +61,16 @@ public class PZCombatSave
 	/// </summary>
 	public static PZCombatSave Load()
 	{
+		Debug.Log("Trying to load...");
 		if (PlayerPrefs.HasKey(key))
 		{
+			Debug.Log("Success!");
 			return MSUtil.Load<PZCombatSave>(key);
 		}
 		else
 		{
+			Debug.Log("Fail!");
 			return null;
 		}
-	}
-
-	/// <summary>
-	/// Call this on the win/lose screen appear to wipe all of the
-	/// current save data
-	/// </summary>
-	public static void Wipe()
-	{
-		MSUtil.Save(key, null);
 	}
 }

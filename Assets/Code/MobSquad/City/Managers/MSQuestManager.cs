@@ -317,15 +317,15 @@ public class MSQuestManager : MonoBehaviour {
 		}
 	}
 	
-	void OnTaskCompleted(BeginDungeonResponseProto dungeon)
+	void OnTaskCompleted()
 	{
-		Debug.Log("On task completed in quest manager");
+		//Debug.Log("On task completed in quest manager");
 		List<UserQuestJobProto> updatedJobs = new List<UserQuestJobProto>();
 		UserQuestJobProto userJob;
 		int numMonsters;
 		foreach (MSFullQuest item in currQuests)
 		{
-			Debug.Log("Quest " + item.quest.questId + ": " + item.userQuest.isComplete);
+			//Debug.Log("Quest " + item.quest.questId + ": " + item.userQuest.isComplete);
 			if (item.userQuest.isComplete)
 			{
 				continue;
@@ -333,11 +333,11 @@ public class MSQuestManager : MonoBehaviour {
 			updatedJobs.Clear();
 			foreach (var job in item.quest.jobs) 
 			{
-				Debug.Log("Testing quest " + item.quest.questId + ": Job " + job.questJobId);
+				//Debug.Log("Testing quest " + item.quest.questId + ": Job " + job.questJobId);
 				switch (job.questJobType) {
 				case QuestJobProto.QuestJobType.COMPLETE_TASK:
-					Debug.Log("Complete task job: " + job.staticDataId + ", completed: " + dungeon.taskId);
-					if (dungeon.taskId == job.staticDataId)
+					//Debug.Log("Complete task job: " + job.staticDataId + ", completed: " + dungeon.taskId);
+					if (MSWhiteboard.currTaskId == job.staticDataId)
 					{
 						userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId==job.questJobId);
 						userJob.isComplete = ++userJob.progress >= job.quantity;
@@ -346,7 +346,7 @@ public class MSQuestManager : MonoBehaviour {
 					break;
 				case QuestJobProto.QuestJobType.KILL_SPECIFIC_MONSTER:
 					numMonsters = 0;
-					foreach (var taskStage in dungeon.tsp) {
+					foreach (var taskStage in MSWhiteboard.currTaskStages) {
 						foreach (var taskStageMonster in taskStage.stageMonsters) 
 						{
 							if (taskStageMonster.monsterId == job.staticDataId)
@@ -370,7 +370,7 @@ public class MSQuestManager : MonoBehaviour {
 					if (MSWhiteboard.cityID == job.staticDataId)
 					{
 						numMonsters = 0;
-						foreach (var taskStage in dungeon.tsp) 
+						foreach (var taskStage in MSWhiteboard.currTaskStages) 
 						{
 							numMonsters += taskStage.stageMonsters.Count;
 						}
@@ -383,7 +383,7 @@ public class MSQuestManager : MonoBehaviour {
 					break;
 				case QuestJobProto.QuestJobType.COLLECT_SPECIAL_ITEM:
 					numMonsters = 0;
-					foreach (var taskStage in dungeon.tsp) {
+					foreach (var taskStage in MSWhiteboard.currTaskStages) {
 						foreach (var taskStageMonster in taskStage.stageMonsters) 
 						{
 							if (taskStageMonster.itemId == job.staticDataId)

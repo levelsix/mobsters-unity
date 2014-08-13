@@ -74,6 +74,20 @@ public class PZCombatUnit : MonoBehaviour {
 	[SerializeField]
 	UISprite forfeitSprite;
 
+	public int health
+	{
+		get
+		{
+			return monster.currHP;
+		}
+		set
+		{
+			hpBar.fill = ((float)value) / monster.maxHP;
+			hpLabel.text = value + "/" + monster.maxHP;
+			monster.currHP = value;
+		}
+	}
+
 	[ContextMenu("SetStartPos")]
 	void SetStartingPos()
 	{
@@ -198,6 +212,16 @@ public class PZCombatUnit : MonoBehaviour {
 		
 		element = monster.monster.monsterElement;
 	}
+
+	int CalculateDamage(int damage, Element element)
+	{
+		return (int)(damage * MSUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
+	}
+
+	public int HealthAfterDamage(int damage, Element element)
+	{
+		return Mathf.Max(0, monster.currHP - CalculateDamage(damage, element));
+	}
 	
 	/// <summary>
 	/// Takes the given amount of damage, applying 
@@ -210,8 +234,8 @@ public class PZCombatUnit : MonoBehaviour {
 	/// </param>
 	public IEnumerator TakeDamage(int damage, Element element)
 	{
-		int fullDamage = (int)(damage * MSUtil.GetTypeDamageMultiplier(monster.monster.monsterElement, element));
-		
+		int fullDamage = CalculateDamage (damage, element);
+
 		Debug.Log(name + " taking " + fullDamage + " damage");
 		if(!MSTutorialManager.instance.inTutorial)
 		{
