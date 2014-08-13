@@ -18,8 +18,6 @@ public class PZCombatManager : MonoBehaviour {
 
 	public BattleStats battleStats = new BattleStats();
 
-	public BeginDungeonResponseProto debug;
-
 	public bool pvpMode = false;
 
 	public bool raidMode = false;
@@ -205,6 +203,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	const float FORFEIT_START_CHANCE = 0.25F;
 
+	int savedHealth = -1;
+
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
 	/// </summary>
@@ -298,7 +298,6 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void PreInitTask()
 	{
-
 		prizeQuantityLabel.text = "0";
 
 		PreInit();
@@ -322,21 +321,24 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	public void InitTask()
 	{
-		debug = MSWhiteboard.loadedDungeon;
+		BeginDungeonResponseProto dungeon = MSWhiteboard.loadedDungeon;
+
 		forfeitChance = FORFEIT_START_CHANCE;
 		
 		#if UNITY_IPHONE || UNITY_ANDROID
 		Kamcord.StartRecording();
 		#endif
 
-		MSWhiteboard.currUserTaskId = MSWhiteboard.loadedDungeon.userTaskId;
+		MSWhiteboard.currUserTaskId = dungeon.userTaskId;
+		MSWhiteboard.currTaskId = dungeon.taskId;
+		MSWhiteboard.currTaskStages = dungeon.tsp;
 
-		Debug.LogWarning("Number of stages: " + MSWhiteboard.loadedDungeon.tsp.Count);
+		Debug.LogWarning("Number of stages: " + dungeon.tsp.Count);
 
 		mobsterCounter.MakePixelPerfect();
 
 		PZMonster mon;
-		foreach (TaskStageProto stage in MSWhiteboard.loadedDungeon.tsp)
+		foreach (TaskStageProto stage in dungeon.tsp)
 		{
 			Debug.Log("Stage " + stage.stageId + ", Monster: " + stage.stageMonsters[0].monsterId);
 			mon = new PZMonster(stage.stageMonsters[0]);
@@ -347,6 +349,63 @@ public class PZCombatManager : MonoBehaviour {
 
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
+	}
+
+	public Coroutine RunInitLoadedTask(MinimumUserTaskProto minTask, List<TaskStageProto> stages)
+	{
+		return StartCoroutine(InitLoadedTask(minTask, stages));
+	}
+
+	IEnumerator InitLoadedTask(MinimumUserTaskProto minTask, List<TaskStageProto> stages)
+	{
+		MSWhiteboard.currUserTaskId = minTask.userTaskId;
+		MSWhiteboard.currTaskStages = stages;
+		MSWhiteboard.currTaskId = minTask.taskId;
+
+		PZCombatSave save = PZCombatSave.Load();
+
+#if UNITY_IPHONE || UNITY_ANDROID
+		Kamcord.StartRecording();
+#endif
+		PreInit ();
+		
+		boardMove.Sample(0,false);
+		boardMove.PlayForward();
+		
+		pvpUI.Reset();
+
+		forfeitChance = save.forfeitChance;
+
+		currTurn = save.currTurn;
+		currPlayerDamage = save.currPlayerDamage;
+
+		activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterId == save.activePlayerUserMonsterId));
+
+		savedHealth = save.activeEnemyHealth;
+
+		for (int i = 0; i < stages.Count; i++)
+		{
+			if (stages[i].stageId == minTask.curTaskStageId)
+			{
+				for (int j = i; j < stages.Count; j++)
+				{
+					enemies.Enqueue(new PZMonster(stages[j].stageMonsters[0]));
+				}
+			}
+		}
+
+		PZPuzzleManager.instance.InitBoardFromSave(save, minTask);
+
+		PZScrollingBackground.instance.SetBackgrounds(MSDataManager.instance.Get<FullTaskProto>(minTask.taskId));
+
+		yield return RunScrollToNextEnemy();
+
+		if (currTurn == playerTurns)
+		{
+			Attack();
+			currTurn = 0;
+			currPlayerDamage = 0;
+		}
 	}
 
 	public void InitPvp()
@@ -822,8 +881,19 @@ public class PZCombatManager : MonoBehaviour {
 
 			activeEnemy.GoToStartPos ();
 			activeEnemy.Init (enemies.Dequeue ());
+
+			UpdateUserTaskStage(MSWhiteboard.currTaskStages.Find(x=>x.stageMonsters[0] == activeEnemy.monster.taskMonster).stageId);
+
 			activeEnemy.unit.direction = MSValues.Direction.WEST;
 			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
+
+			if (savedHealth >= 0)
+			{
+				activeEnemy.health = savedHealth;
+				savedHealth = -1;
+			}
+
+			Save();
 
 			mobsterCounter.text = (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
 			mobsterCounter.MakePixelPerfect();
@@ -840,7 +910,7 @@ public class PZCombatManager : MonoBehaviour {
 			{
 				if (MSActionManager.Quest.OnTaskCompleted != null) 
 				{
-						MSActionManager.Quest.OnTaskCompleted (MSWhiteboard.loadedDungeon);
+						MSActionManager.Quest.OnTaskCompleted ();
 				}
 			}
 		}
@@ -987,9 +1057,9 @@ public class PZCombatManager : MonoBehaviour {
 			request.userWon = userWon;
 			request.clientTime = MSUtil.timeNowMillis;
 
-			if (userWon && !MSQuestManager.instance.taskDict.ContainsKey(MSWhiteboard.loadedDungeon.taskId))
+			if (userWon && !MSQuestManager.instance.taskDict.ContainsKey(MSWhiteboard.currTaskId))
 			{
-				int task = MSWhiteboard.loadedDungeon.taskId;
+				int task = MSWhiteboard.currTaskId;
 				MSQuestManager.instance.taskDict[task] = true;
 				request.firstTimeUserWonTask = true;
 				request.userBeatAllCityTasks = MSQuestManager.instance.HasFinishedAllTasksInCity(MSWhiteboard.cityID);
@@ -1038,14 +1108,6 @@ public class PZCombatManager : MonoBehaviour {
 		int damage;
 		Element element;
 		activePlayer.DealDamage(gemsBroken, out damage, out element);
-		
-		//Debug.Log("Damage: " + damage + ", Combo: " + combo);
-		
-		if (combo > 1)
-		{
-			damage = (int)(damage * (1 + (combo-1) / 4f));
-			//Debug.Log("Combo damage: " + damage);
-		}
 
 		currPlayerDamage += damage;
 
@@ -1053,8 +1115,13 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			Attack();
 			currPlayerDamage = 0;
+			currTurn = 0;
 		}
-		
+		else
+		{
+			Save ();
+		}
+
 		if (MSActionManager.Puzzle.OnTurnChange != null)
 		{
 			MSActionManager.Puzzle.OnTurnChange(playerTurns - currTurn);
@@ -1333,18 +1400,48 @@ public class PZCombatManager : MonoBehaviour {
 
 		float score = damage/activePlayer.monster.totalDamage;
 
+		//Do all of the attack damage calculations and save before actually doing the damage
+		int futureEnemyHp = activeEnemy.HealthAfterDamage(damage, element);
+
+		int enemyDamageWithElement = 0;
+		if (futureEnemyHp > 0)
+		{
+			int enemyDamage;
+			if (raidMode)
+			{
+				enemyDamage = Random.Range(activeEnemy.monster.raidMonster.minDmg, activeEnemy.monster.raidMonster.maxDmg);
+			}
+			else
+			{
+				enemyDamage = Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f));
+			}
+			enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement));
+			if (MSTutorialManager.instance.inTutorial)
+			{
+				enemyDamageWithElement = activePlayer.monster.currHP - 14;
+			}
+			else
+			{
+				activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
+			}
+			battleStats.damageTaken += Mathf.Min (enemyDamageWithElement, activePlayer.monster.currHP);
+		}
+
+		Save();
+
 		yield return StartCoroutine(ShowAttackWords(score));
 		
 		yield return StartCoroutine(PlayerShoot(score));
 		
 		yield return StartCoroutine(activeEnemy.TakeDamage(damage, element));
 
-		StartCoroutine(EnemyAttack(damage));
+		if (futureEnemyHp > 0)
+		{
+			StartCoroutine(EnemyAttack(enemyDamageWithElement));
+		}
 		
 		//Debug.Log("Unlock: Done Animating");
 		PZPuzzleManager.instance.swapLock -= 1;
-		
-		currTurn = 0;
 
 		if (MSActionManager.Puzzle.OnTurnChange != null)
 		{
@@ -1363,68 +1460,30 @@ public class PZCombatManager : MonoBehaviour {
 
 	}
 
-	public IEnumerator EnemyAttack(float damage){
-		//Calculate how much damage the enemy will deal.
-		//If the player isn't going to kill the enemy, we want to send whatever updates for this stuff to the server ASAP
-		int enemyDamage, enemyDamageWithElement;
-		if (MSTutorialManager.instance.inTutorial)
+	public IEnumerator EnemyAttack(float damageToDeal)
+	{
+		if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
-			Debug.Log(activePlayer.monster.currHP);
-			enemyDamageWithElement = enemyDamage = activePlayer.monster.currHP - 14; //Want to leave the player barely alive
+			yield return StartCoroutine(activeEnemy.AdvanceTo(activePlayer.transform.localPosition.x + MELEE_ATTACK_DISTANCE, -background.direction, background.scrollSpeed * 4));
 		}
-		else
+		
+		activeEnemy.unit.animat = MSUnit.AnimationType.ATTACK;
+		yield return new WaitForSeconds(.5f);
+		
+		StartCoroutine(activePlayer.TakeDamage((int)damageToDeal, activeEnemy.monster.monster.monsterElement));
+		
+		CheckBleed(activePlayer);
+		
+		yield return new WaitForSeconds(.3f);
+		
+		if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
-			if (raidMode)
-			{
-				enemyDamage = Random.Range(activeEnemy.monster.raidMonster.minDmg, activeEnemy.monster.raidMonster.maxDmg);
-			}
-			else
-			{
-				enemyDamage = Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f));
-			}
-			enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement));
+			yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 4));
+			activeEnemy.unit.direction = MSValues.Direction.WEST;
 		}
-
-		battleStats.damageTaken += Mathf.Min (enemyDamageWithElement, activePlayer.monster.currHP);
-
-		bool playerTakingDamage = damage < activeEnemy.monster.currHP;
-		int fullDamageAfterElements = (int)(damage * MSUtil.GetTypeDamageMultiplier(activeEnemy.monster.monster.monsterElement, activePlayer.monster.monster.monsterElement));
-
-		//Enemy attack back if not dead
-		if (activeEnemy.monster.currHP > 0 )//&& activeEnemy.monster.currHP < activeEnemy.monster.maxHP)
-		{
-			if (raidMode)
-			{
-				MSClanEventManager.instance.SendAttack(fullDamageAfterElements, activePlayer.monster, playerTakingDamage ? enemyDamage : 0);
-			}
-			else if (!MSTutorialManager.instance.inTutorial)//if (playerTakingDamage )
-			{
-				activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
-			}
-
-			if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
-			{
-				yield return StartCoroutine(activeEnemy.AdvanceTo(activePlayer.transform.localPosition.x + MELEE_ATTACK_DISTANCE, -background.direction, background.scrollSpeed * 4));
-			}
-			
-			activeEnemy.unit.animat = MSUnit.AnimationType.ATTACK;
-			yield return new WaitForSeconds(.5f);
-			
-			StartCoroutine(activePlayer.TakeDamage(enemyDamage, activeEnemy.monster.monster.monsterElement));
-			
-			CheckBleed(activePlayer);
-			
-			yield return new WaitForSeconds(.3f);
-			
-			if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
-			{
-				yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 4));
-				activeEnemy.unit.direction = MSValues.Direction.WEST;
-			}
-			
-			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
-			
-		}
+		
+		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
+		
 	}
 
 	public IEnumerator QueueUpPvp()
@@ -1475,7 +1534,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			ReviveInDungeonRequestProto request = new ReviveInDungeonRequestProto();
 			request.sender = MSWhiteboard.localMup;
-			request.userTaskId = MSWhiteboard.loadedDungeon.userTaskId;
+			request.userTaskId = MSWhiteboard.currUserTaskId;
 			request.clientTime = MSUtil.timeNowMillis;
 
 			foreach (var item in playerGoonies) 
@@ -1535,19 +1594,51 @@ public class PZCombatManager : MonoBehaviour {
 		scale.ResetToBeginning();
 		scale.PlayForward();
 	}
-	
-	int[] PickEnemyGems()
+
+	public void SaveAfterDamage(int enemyHealthToBe)
 	{
-		int num = Random.Range(1,4);
-		int type = Random.Range (0,5);
-		
-		int[] gems = new int[5];
-		gems[type] = num;
-		
-		return gems;
+		new PZCombatSave(activePlayer.monster, enemyHealthToBe, PZPuzzleManager.instance.board,
+		                 battleStats, forfeitChance, 0, 0, PZPuzzleManager.instance.boardWidth,
+		                 PZPuzzleManager.instance.boardHeight);
 	}
+
+	public void Save()
+	{
+		new PZCombatSave(activePlayer.monster, activeEnemy.monster.currHP, PZPuzzleManager.instance.board,
+		                 battleStats, forfeitChance, currTurn, currPlayerDamage, 
+		                 PZPuzzleManager.instance.boardWidth, PZPuzzleManager.instance.boardHeight);
+	}
+
+	void UpdateUserTaskStage(int taskStageId)
+	{
+		Debug.Log("Update user task stage: " + taskStageId);
+
+		UpdateMonsterHealthRequestProto request = new UpdateMonsterHealthRequestProto();
+		request.isUpdateTaskStageForUser = true;
+		request.userTaskId = MSWhiteboard.currUserTaskId;
+		request.nuTaskStageId = taskStageId;
+
+		request.sender = MSWhiteboard.localMup;
+		request.umchp.Add(activePlayer.monster.GetCurrentHealthProto());
+		request.clientTime = MSUtil.timeNowMillis;
+
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_MONSTER_HEALTH_EVENT, null);
+	}
+
+	void DealWithUserTaskStageUpdateResponse(int tagNum)
+	{
+		UpdateMonsterHealthResponseProto response = UMQNetworkManager.responseDict[tagNum] as UpdateMonsterHealthResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus.SUCCESS)
+		{
+			Debug.LogError("Problem updating user task stage: " + response.status.ToString());
+		}
+	}
+
 }
 
+[System.Serializable]
 public struct BattleStats
 {
 	public int[] orbs;

@@ -187,7 +187,10 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	void Init(int colr, int column)
 	{
 		colorIndex = colr;
-		baseSprite = PZPuzzleManager.instance.gemTypes[colorIndex];
+		if (colr >= 0) //Chance that a saved game loads a rainbow
+		{
+			baseSprite = PZPuzzleManager.instance.gemTypes[colorIndex];
+		}
 		
 		boardX = column;
 		boardY = PZPuzzleManager.instance.boardHeight;

@@ -62,6 +62,8 @@ public class MSMapButton : MonoBehaviour {
 
 		yield return StartCoroutine(MSBuildingManager.instance.LoadPlayerCity());
 
+		MSActionManager.Scene.OnCity();
+
 		MSActionManager.Popup.CloseAllPopups();
 	}
 	

@@ -158,7 +158,6 @@ public class MSBuildingManager : MonoBehaviour
 	/// </summary>
 	void OnEnable ()
 	{
-		MSActionManager.Loading.LoadBuildings += RequestCity;
 		MSActionManager.Controls.OnTap[0] += OnTap;
 		MSActionManager.Controls.OnKeepDrag[0] += OnDrag;
 		MSActionManager.Controls.OnStartHold[0] += OnStartHold;
@@ -178,7 +177,6 @@ public class MSBuildingManager : MonoBehaviour
 	/// </summary>
 	void OnDisable ()
 	{
-		MSActionManager.Loading.LoadBuildings -= RequestCity;
 		MSActionManager.Controls.OnTap[0] -= OnTap;
 		MSActionManager.Controls.OnKeepDrag[0] -= OnDrag;
 		MSActionManager.Controls.OnStartHold[0] -= OnStartHold;
@@ -196,36 +194,6 @@ public class MSBuildingManager : MonoBehaviour
 	
 	#region Building Generation
 
-	/*
-	public void Start()
-	{
-		if (CBKEventManager.Scene.OnCity != null)
-		{
-			CBKEventManager.Scene.OnCity();
-		}
-
-		BuildPlayerCity(CBKWhiteboard.loadedPlayerCity);
-
-	}
-	*/
-
-	public void RequestCity()
-	{
-		//Debug.Log("Sending city request");
-		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.PLAYER)
-		{
-			StartCoroutine(LoadPlayerCity());
-			//LoadPlayerCityRequestProto load = new LoadPlayerCityRequestProto();
-			//load.sender = CBKWhiteboard.localMup;
-			//load.cityOwnerId = CBKWhiteboard.cityID;
-			//UMQNetworkManager.instance.SendRequest(load, (int)EventProtocolRequest.C_LOAD_PLAYER_CITY_EVENT, LoadPlayerCity);
-		}
-		else
-		{
-			StartCoroutine(LoadNeutralCity(MSWhiteboard.cityID));
-		}
-	}
-	
 	void SyncTasks (int cityId)
 	{
 		foreach (FullTaskProto task in MSDataManager.instance.GetAll(typeof(FullTaskProto)).Values)
@@ -274,6 +242,11 @@ public class MSBuildingManager : MonoBehaviour
 
 		MSActionManager.Popup.CloseAllPopups();
 
+	}
+
+	public Coroutine RunLoadPlayerCity(bool fromBeginning = true)
+	{
+		return StartCoroutine(LoadPlayerCity(fromBeginning));
 	}
 
 	public void DoLoadPlayerCity(bool fromBeginning = true)

@@ -2954,6 +2954,8 @@ MonoBehaviour:
   maxSize: 175
   minSize: 2
   currVal: 0
+  tweenToVal: 0
+  speed: .5
 --- !u!114 &11400032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3737,7 +3739,7 @@ MonoBehaviour:
   renderQueue: 0
   startingRenderQueue: 4031
   mAlpha: 1
-  mClipping: 0
+  mClipping: 3
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 4

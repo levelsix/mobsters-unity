@@ -65,11 +65,26 @@ public class PZPrize : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		sprite2D.alpha = 0f;
-		label.alpha = 0f;
-		rarityTag.alpha = 0f;
-		pieceLabel.alpha = 0f;
-		background.alpha = 0f;
+		if (sprite2D != null)
+		{
+			sprite2D.alpha = 0f;
+		}
+		if (label != null)
+		{
+			label.alpha = 0f;
+		}
+		if (rarityTag != null)
+		{
+			rarityTag.alpha = 0f;
+		}
+		if (pieceLabel != null)
+		{
+			pieceLabel.alpha = 0f;
+		}
+		if (background != null)
+		{
+			background.alpha = 0f;
+		}
 	}
 
 	void init()

@@ -73,7 +73,6 @@ public static class MSActionManager
 	{
 		public static Action<StartupResponseProto> OnStartup;
 
-		public static Action LoadBuildings;
 		public static Action OnBuildingsLoaded;
 	}
 	
@@ -132,7 +131,7 @@ public static class MSActionManager
 	public static class Quest
 	{
 		public static Action<int> OnStructureUpgraded;
-		public static Action<BeginDungeonResponseProto> OnTaskCompleted;
+		public static Action OnTaskCompleted;
 		public static Action<ResourceType, int> OnMoneyCollected;
 
 		public static Action<BattleStats> OnBattleFinish;
