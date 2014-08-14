@@ -13,9 +13,12 @@ public class MSTab : MonoBehaviour {
 
 	[SerializeField]
 	protected string spriteRoot;
-	
-	const string inactiveTab = "popupinactivetab";
-	const string activeTab = "popupactivetab";
+
+	[SerializeField]
+	string inactiveTab = "popupinactivetab";
+
+	[SerializeField]
+	string activeTab = "popupactivetab";
 
 	public virtual void InitActive()
 	{
