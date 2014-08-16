@@ -216,7 +216,6 @@ public class PZCombatManager : MonoBehaviour {
 	void OnEnable()
 	{
 		MSActionManager.Scene.OnCity += OnCity;
-		MSActionManager.Scene.OnCity += delegate { Debug.Log("ONCITY"); };
 		MSActionManager.Puzzle.OnDeploy += OnDeploy;
 		activePlayer.OnDeath += OnPlayerDeath;
 		activeEnemy.OnDeath += OnEnemyDeath;
