@@ -70,7 +70,16 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	MSHireEntry hireEntryPrefab;
 
 	[SerializeField]
-	Transform grid;
+	UIGrid grid;
+
+	[SerializeField]
+	Transform townHallUpgradeUI;
+
+	[SerializeField]
+	UILabel townHallLabel;
+
+	[SerializeField]
+	MSSimplePoolable unlockTile;
 
 	List<MSHireEntry> hireEntries = new List<MSHireEntry>();
 
@@ -84,7 +93,24 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	
 	ResourceType currResource;
 	int currCost;
-	
+
+	void OnEnable()
+	{
+		foreach( MSSimplePoolable poolable in grid.GetAllComponentsInChildren<MSSimplePoolable>())
+		{
+			if(poolable.gameObject.activeSelf)
+			{
+				poolable.Pool();
+			}
+		}
+	}
+
+	void OnDisable()
+	{
+		bottomBar.transform.parent.gameObject.SetActive(true);
+		townHallUpgradeUI.gameObject.SetActive(false);
+	}
+
 	void TryToBuy()
 	{
 		Debug.LogWarning("Trying to buy");
@@ -259,10 +285,9 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			topBarText.text = oldBuilding.residence.numMonsterSlots + " + " + nextBuilding.residence.numMonsterSlots;
 			break;
 		case StructureInfoProto.StructType.TOWN_HALL:
-			topQuality.text = "City Level:";
-			bottomBar.SetActive (false);
-			SetBar (topBarCurrent, topBarFuture, oldBuilding.structInfo.level, nextBuilding.structInfo.level, max.structInfo.level);
-			topBarText.text = oldBuilding.structInfo.level + " + " + nextBuilding.structInfo.level;
+			InitTownHallGrid(oldBuilding, nextBuilding);
+			townHallLabel.text = "Level " + nextBuilding.structInfo.level + " Command Center unlocks";
+			bottomBar.transform.parent.gameObject.SetActive(false);
 			break;
 		}
 	}
@@ -271,6 +296,131 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	{
 		currBar.fill = curr/max;
 		nextBar.fill = next/max;
+	}
+
+	void InitTownHallGrid(MSFullBuildingProto oldBuilding, MSFullBuildingProto newBuilding)
+	{
+		TownHallProto newHall = newBuilding.townHall;
+		TownHallProto oldHall = oldBuilding.townHall;
+		townHallUpgradeUI.gameObject.SetActive(true);
+
+		foreach(MSFullBuildingProto fullBuilding in MSDataManager.instance.GetAll<MSFullBuildingProto>().Values)
+		{
+
+			StructureInfoProto building = fullBuilding.structInfo;
+			if(building.prerequisiteTownHallLvl == newBuilding.structInfo.level &&
+			   (building.successorStructId == 0 || MSDataManager.instance.Get<MSFullBuildingProto>(building.successorStructId).structInfo.prerequisiteTownHallLvl != newBuilding.structInfo.level ))
+				// there are no more evolutions for this building OR the next upgrade requires an even higher town hall level
+				// there for I am processing the highest level building of this structure type available once town hall is upgraded
+			{
+				int oldNum = -1;
+				int newNum = -1;
+				switch(building.structType)
+				{
+				case StructureInfoProto.StructType.EVO:
+					
+					if(newHall.numEvoChambers > oldHall.numEvoChambers)
+					{
+						newNum = newHall.numEvoChambers;
+						oldNum = oldHall.numEvoChambers;
+					}
+					break;
+				case StructureInfoProto.StructType.HOSPITAL:
+					if(newHall.numHospitals > oldHall.numHospitals)
+					{
+						newNum = newHall.numHospitals;
+						oldNum = oldHall.numHospitals;
+					}
+					break;
+				case StructureInfoProto.StructType.LAB:
+
+					if(newHall.numLabs > oldHall.numLabs)
+					{
+						newNum = newHall.numLabs;
+						oldNum = oldHall.numLabs;
+					}
+					break;
+				case StructureInfoProto.StructType.MINI_JOB:
+					continue;
+					break;
+				case StructureInfoProto.StructType.RESIDENCE:
+					if(newHall.numResidences > oldHall.numResidences)
+					{
+						newNum = newHall.numResidences;
+						oldNum = oldHall.numResidences;
+					}
+					break;
+				case StructureInfoProto.StructType.RESOURCE_GENERATOR:
+					if(newHall.numResourceOneGenerators > oldHall.numResourceOneGenerators && building.buildResourceType == ResourceType.OIL)
+						//assuming that cash printer is resource 'one'
+					{
+						newNum = newHall.numResourceOneGenerators;
+						oldNum = oldHall.numResourceOneGenerators;
+					}
+					else if(newHall.numResourceTwoGenerators > oldHall.numResourceTwoGenerators)
+					{
+						newNum = newHall.numResourceTwoGenerators;
+						oldNum = oldHall.numResourceTwoGenerators;
+					}
+					break;
+				case StructureInfoProto.StructType.RESOURCE_STORAGE:
+					if(newHall.numResourceOneStorages > oldHall.numResourceOneStorages)
+						//assuming that oil drills are resource 'two'
+					{
+						newNum = newHall.numResourceOneStorages;
+						oldNum = oldHall.numResourceOneStorages;
+					}
+					else if(newHall.numResourceTwoStorages > oldHall.numResourceTwoStorages)
+					{
+						newNum = newHall.numResourceTwoStorages;
+						oldNum = oldHall.numResourceTwoStorages;
+					}
+					break;
+				case StructureInfoProto.StructType.TEAM_CENTER:
+					break;
+				}
+
+				if(oldNum == 0)
+				{
+					//there were none of this building before so it is brand new.
+					AddTileToGrid(building, true);
+					//is continue is uncommented then a tile will display that there is a new
+					//building and not display a tile for the max lvl
+					//continue;
+				}
+				else if(oldNum > 0 && newNum > 0)
+				{
+					//add a tile that displays how many new buildings you can build
+					AddTileToGrid(building, false, newNum - oldNum);
+				}
+
+				//if we get this far than we've found a new level of a building
+				AddTileToGrid(building, false);
+			}
+		}
+
+		grid.Reposition();
+
+	}
+
+	void AddTileToGrid(StructureInfoProto building, bool isNew, int quantity = 0)
+	{
+		int lvl = building.level;
+		MSUnlockBuildingTile newTile = MSPoolManager.instance.Get<MSUnlockBuildingTile>(unlockTile, grid.transform);
+		newTile.transform.localScale = Vector3.one;
+		if(quantity > 0)
+		{
+			newTile.Init(quantity + "x", building);
+		}
+		else if(lvl > 1)//new lvl of buildling
+		{
+			newTile.Init("LVL " + lvl, building);
+		}
+		else//first building
+		{
+			newTile.Init("NEW!", building);
+		}
+
 	}
 	
 	IEnumerator UpdateRemainingTime()

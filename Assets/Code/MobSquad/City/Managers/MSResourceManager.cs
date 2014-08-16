@@ -291,6 +291,7 @@ public class MSResourceManager : MonoBehaviour {
 		if (response.status == LevelUpResponseProto.LevelUpStatus.SUCCESS)
 		{
 			_level++;
+			MSLevelUpPopup.Init(_level);
 			StaticUserLevelInfoProto nextLevelData = MSDataManager.instance.Get(typeof(StaticUserLevelInfoProto), _level + 1) as StaticUserLevelInfoProto;
 			if (nextLevelData != null)
 			{
