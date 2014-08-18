@@ -12,6 +12,7 @@ GameObject:
   - 82: {fileID: 8200000}
   - 114: {fileID: 11400000}
   - 81: {fileID: 8100000}
+  - 82: {fileID: 8200004}
   m_Layer: 8
   m_Name: SoundManager
   m_TagString: Untagged
@@ -30,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -153,6 +155,64 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!82 &8200004
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -166,6 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicSource: {fileID: 8200000}
   loopSource: {fileID: 8200002}
+  loopMusic: {fileID: 8200004}
   combos:
   - {fileID: 8300000, guid: 2cd7de97975d24fd18dc0b62850e9c72, type: 3}
   - {fileID: 8300000, guid: 6f6fa42f1a3c24e57b853245207edbaf, type: 3}
@@ -185,7 +246,12 @@ MonoBehaviour:
   rocket: {fileID: 8300000, guid: 80a38ef569955449d9dabe3662ffa127, type: 3}
   walking: {fileID: 8300000, guid: 103f64d49057c45788d64badf605462d, type: 3}
   wrongMove: {fileID: 8300000, guid: b382d6b0ae5534d629eb45460cbc999b, type: 3}
+  task_win: {fileID: 8300000, guid: 7545f9a315bd940fbaf551fe4606597c, type: 3}
+  task_lose: {fileID: 8300000, guid: eda863ca093c8422f86b4b83e686ad63, type: 3}
+  battleMusic: {fileID: 8300000, guid: 6f9f5f45defd84e69b2f1f897d6ff078, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: b8c3bf2dd21b944378c763fe98159a45, type: 3}
   playSounds: 0
+  playMusic: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
