@@ -5,8 +5,11 @@ public class MSSoundManager : MonoBehaviour {
 
 	public static MSSoundManager instance;
 
-	public AudioSource basicSource;
-	public AudioSource loopSource;
+	[SerializeField] AudioSource basicSource;
+
+	[SerializeField] AudioSource loopSource;
+
+	[SerializeField] AudioSource loopMusic;
 
 	public AudioClip[] combos;
 	public AudioClip gemPop;
@@ -16,16 +19,18 @@ public class MSSoundManager : MonoBehaviour {
 	public AudioClip walking;
 	public AudioClip wrongMove;
 
+	public AudioClip task_win;
+	public AudioClip task_lose;
+
+	public AudioClip battleMusic;
+	public AudioClip gameplayMusic;
+
 	public const string SOUND_EFFECTS = "soundEffects";
 	public const string MUSIC = "music";
-
-
-#if UNITY_EDITOR
+	
 	public bool playSounds;
 	public bool playMusic;
-#endif
-
-
+	
 	void Awake()
 	{
 		playSounds = (PlayerPrefs.GetInt(SOUND_EFFECTS, 1) == 1);
@@ -33,10 +38,28 @@ public class MSSoundManager : MonoBehaviour {
 		instance = this;
 	}
 
+	void OnEnable()
+	{
+		MSActionManager.Scene.OnCity += delegate { LoopMusic(gameplayMusic); };
+		MSActionManager.Scene.OnPuzzle += delegate { LoopMusic(battleMusic); };
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Scene.OnCity -= delegate { LoopMusic(gameplayMusic); };
+		MSActionManager.Scene.OnPuzzle -= delegate { LoopMusic(battleMusic); };
+	}
+
 	public bool ToggleSoundEffects()
 	{
 		playSounds = !playSounds;
 		PlayerPrefs.SetInt(SOUND_EFFECTS, playSounds?1:0);
+
+		if(!playSounds)
+		{
+			StopLoop();
+		}
+
 		return playSounds;
 	}
 
@@ -44,45 +67,62 @@ public class MSSoundManager : MonoBehaviour {
 	{
 		playMusic = !playMusic;
 		PlayerPrefs.SetInt(MUSIC, playMusic?1:0);
+
+		if(playMusic)
+		{
+			switch(MSWhiteboard.currSceneType)
+			{
+			case MSWhiteboard.SceneType.CITY:
+				LoopMusic(gameplayMusic);
+				break;
+			case MSWhiteboard.SceneType.PUZZLE:
+				LoopMusic(gameplayMusic);
+				break;
+			}
+		}
+		else
+		{
+			StopMusic();
+		}
+
 		return playMusic;
 	}
 
 	public void PlayOneShot(AudioClip clip)
 	{
-#if UNITY_EDITOR
 		if (playSounds)
 		{
 			basicSource.PlayOneShot(clip);
 		}
-#else
-		basicSource.PlayOneShot(clip);
-#endif
 	}
 
 	public void Loop(AudioClip clip)
 	{
-#if UNITY_EDITOR
+
 		if (playSounds)
 		{
 			loopSource.clip = clip;
 			loopSource.Play();
 		}
-#else
-		loopSource.clip = clip;
-		loopSource.Play();
-#endif
 	}
 
 	public void StopLoop()
 	{
-#if UNITY_EDITOR
-		if (playSounds)
-		{
 			loopSource.Stop();
+	}
+
+	public void LoopMusic(AudioClip music)
+	{
+		if(playMusic)
+		{
+			loopMusic.clip = music;
+			loopMusic.Play();
 		}
-#else
-		loopSource.Stop();
-#endif
+	}
+
+	public void StopMusic()
+	{
+		loopMusic.Stop ();
 	}
 
 

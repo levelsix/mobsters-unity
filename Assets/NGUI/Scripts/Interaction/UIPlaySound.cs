@@ -61,7 +61,7 @@ public class UIPlaySound : MonoBehaviour
 
 	void OnClick ()
 	{
-		if (enabled && trigger == Trigger.OnClick)
+		if (enabled && trigger == Trigger.OnClick && MSSoundManager.instance.playSounds)
 			NGUITools.PlaySound(audioClip, volume, pitch);
 	}
 
