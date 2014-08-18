@@ -254,7 +254,8 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		try
 		{
-			string fileText = File.ReadAllText(boardFile);
+
+			string fileText = Resources.Load<TextAsset>(boardFile).text;
 			string[] lines = fileText.Split('\n');
 
 			foreach (var item in lines) 

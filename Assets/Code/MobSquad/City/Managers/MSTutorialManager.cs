@@ -672,7 +672,7 @@ public class MSTutorialManager : MonoBehaviour
 		bossCombatant = PZCombatManager.instance.activeEnemy;
 		enemyOneCombatant.unit.direction = enemyTwoCombatant.unit.direction = bossCombatant.unit.direction = MSValues.Direction.WEST;
 
-		PZPuzzleManager.instance.InitBoard(6, 6, "Tutorial/TutorialBattle1Layout.txt");
+		PZPuzzleManager.instance.InitBoard(6, 6, "Tutorial/TutorialBattle1Layout");
 	}
 
 	public bool SummonNextEnemy()

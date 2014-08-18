@@ -102,7 +102,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		get
 		{
-			return -playerXFromSideThreshold - (150 * (Screen.height / 640f)) ;
+			return playerXPos + 150;
 		}
 	}
 
