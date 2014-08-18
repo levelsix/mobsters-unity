@@ -612,7 +612,7 @@ public class MSMonsterManager : MonoBehaviour {
 		}
 	}
 
-	public void AddToEnhanceQueue(PZMonster monster)
+	public void AddToEnhanceQueue(PZMonster monster, bool useGems = false)
 	{
 		monster.enhancement = new UserEnhancementItemProto();
 		monster.enhancement.userMonsterId = monster.userMonster.userMonsterId;
@@ -623,26 +623,39 @@ public class MSMonsterManager : MonoBehaviour {
 			monster.enhancement.expectedStartTimeMillis = 0;
 			currentEnhancementMonster = monster;
 		}
-		else if (MSResourceManager.instance.Spend(ResourceType.OIL, currentEnhancementMonster.enhanceCost, delegate{AddToEnhanceQueue(monster);}))
+		else if (useGems)
 		{
-			if (enhancementFeeders.Count == 0)
+			int gemCost = Mathf.CeilToInt((currentEnhancementMonster.enhanceCost - MSResourceManager.resources[ResourceType.OIL]) * MSWhiteboard.constants.gemsPerResource);
+			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
 			{
-				monster.enhancement.expectedStartTimeMillis = MSUtil.timeNowMillis;
-			}
-			else
-			{
-				monster.enhancement.expectedStartTimeMillis = enhancementFeeders[enhancementFeeders.Count-1].finishEnhanceTime;
-			}
-			enhancementFeeders.Add(monster);
-			enhanceRequestProto.oilChange -= currentEnhancementMonster.enhanceCost;
-
-			if (MSActionManager.Goon.OnMonsterAddQueue != null)
-			{
-				MSActionManager.Goon.OnMonsterAddQueue(monster);
+				AddToEnhanceQueue(monster, MSResourceManager.instance.SpendAll(ResourceType.OIL), gemCost);
 			}
 		}
+		else if (MSResourceManager.instance.Spend(ResourceType.OIL, currentEnhancementMonster.enhanceCost, delegate{AddToEnhanceQueue(monster, true);}))
+		{
+			AddToEnhanceQueue(monster, currentEnhancementMonster.enhanceCost);
+		}
 
+	}
 
+	void AddToEnhanceQueue(PZMonster monster, int oil, int gems = 0)
+	{
+		if (enhancementFeeders.Count == 0)
+		{
+			monster.enhancement.expectedStartTimeMillis = MSUtil.timeNowMillis;
+		}
+		else
+		{
+			monster.enhancement.expectedStartTimeMillis = enhancementFeeders[enhancementFeeders.Count-1].finishEnhanceTime;
+		}
+		enhancementFeeders.Add(monster);
+		enhanceRequestProto.oilChange -= oil;
+		enhanceRequestProto.gemsSpent += gems;
+		
+		if (MSActionManager.Goon.OnMonsterAddQueue != null)
+		{
+			MSActionManager.Goon.OnMonsterAddQueue(monster);
+		}
 		if (enhanceRequestProto.ueipDelete.Contains(monster.enhancement))
 		{
 			enhanceRequestProto.ueipDelete.Remove(monster.enhancement);

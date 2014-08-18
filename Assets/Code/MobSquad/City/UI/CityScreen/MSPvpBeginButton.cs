@@ -65,17 +65,26 @@ public class MSPvpBeginButton : MonoBehaviour {
 			}
 		}
 
-		if (MSResourceManager.instance.Spend(ResourceType.CASH, PZCombatManager.instance.pvpMatchCost, OnClick))
+		if (MSResourceManager.instance.Spend(ResourceType.CASH, PZCombatManager.instance.pvpMatchCost, LoadWithGems))
 		{
-			Load();
+			Load(PZCombatManager.instance.pvpMatchCost);
 		}
 	}
 
-	void Load()
+	void LoadWithGems()
+	{
+		int gemCost = Mathf.CeilToInt((PZCombatManager.instance.pvpMatchCost - MSResourceManager.resources[ResourceType.CASH]) * MSWhiteboard.constants.gemsPerResource);
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
+		{
+			Load(MSResourceManager.instance.SpendAll(ResourceType.CASH), gemCost);
+		}
+	}
+
+	void Load(int cash, int gems = 0)
 	{
 		MSActionManager.Popup.CloseAllPopups();
 
-		PZCombatManager.instance.InitPvp();
+		PZCombatManager.instance.InitPvp(cash, gems);
 
 		MSActionManager.Scene.OnPuzzle();
 	}

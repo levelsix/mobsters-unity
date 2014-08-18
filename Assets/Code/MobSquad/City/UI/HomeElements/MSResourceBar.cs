@@ -8,10 +8,6 @@ public class MSResourceBar : MonoBehaviour {
 	ResourceType resourceType;
 
 	MSFillBar fillBar;
-
-	[SerializeField] float speed = 1;
-
-	float target = 0;
 	
 	void Awake()
 	{
@@ -47,18 +43,20 @@ public class MSResourceBar : MonoBehaviour {
 
 	void Reset()
 	{
-		target = ((float)MSResourceManager.resources[resourceType]) / MSResourceManager.maxes[(int)resourceType - 1];
+		fillBar.fill = ((float)MSResourceManager.resources[resourceType]) / MSResourceManager.maxes[(int)resourceType - 1];
 	}
 
+	/*
 	void Update()
 	{
 		if (fillBar.fill < target)
 		{
-			fillBar.fill = Mathf.Min(fillBar.fill + speed * Time.deltaTime, target);
+			fillBar.fill = Mathf.Max(fillBar.fill + speed * Time.deltaTime, target);
 		}
 		else if (fillBar.fill > target)
 		{
-			fillBar.fill = Mathf.Max(fillBar.fill + speed * Time.deltaTime, target);
+			fillBar.fill = Mathf.Min(fillBar.fill + speed * Time.deltaTime, target);
 		}
 	}
+	*/
 }

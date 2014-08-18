@@ -1515,7 +1515,7 @@ public class UICamera : MonoBehaviour
 								MSTutorialManager.instance.OnClick();
 								if (MSActionManager.UI.OnDialogueClicked != null)
 								{
-									MSActionManager.UI.OnDialogueClicked();
+									//MSActionManager.UI.OnDialogueClicked();
 								}
 							}
 							else

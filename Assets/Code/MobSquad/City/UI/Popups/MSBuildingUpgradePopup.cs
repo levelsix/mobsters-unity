@@ -85,7 +85,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	ResourceType currResource;
 	int currCost;
 	
-	void TryToBuy()
+	void TryToBuy(bool useGems = false)
 	{
 		Debug.LogWarning("Trying to buy");
 
@@ -109,23 +109,31 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			return;
 		}
 
-		//Spend Money Here
-		if (MSResourceManager.instance.Spend(currResource, currCost, TryToBuy))
+		if (useGems)
 		{
-			if(currBuilding.userStructProto.isComplete)
+			int gemCost = Mathf.CeilToInt((currCost - MSResourceManager.resources[currResource]) * MSWhiteboard.constants.gemsPerResource);
+			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
 			{
-				currBuilding.upgrade.StartUpgrade();
+				Buy (MSResourceManager.instance.SpendAll(currResource), gemCost);
 			}
-			else
-			{
-				currBuilding.upgrade.FinishWithPremium();
-			}
-			if (MSActionManager.Popup.CloseAllPopups != null)
-			{
-				MSActionManager.Popup.CloseAllPopups();
-			}
+		}
+		else if (MSResourceManager.instance.Spend(currResource, currCost, delegate{TryToBuy(true);}))
+		{
+			Buy (currCost);
+		}
+	}
 
-			MSBuildingManager.instance.FullDeselect();
+	void Buy(int baseResource, int gems = 0)
+	{
+		currBuilding.upgrade.StartUpgrade(baseResource, gems);
+		if (MSActionManager.Popup.CloseAllPopups != null)
+		{
+			MSActionManager.Popup.CloseAllPopups();
+		}
+		
+		MSBuildingManager.instance.FullDeselect();
+		if (!MSTutorialManager.instance.inTutorial)
+		{
 			currBuilding.Select();
 		}
 	}
@@ -178,7 +186,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 			SetBuildingBarInfo (building, oldBuilding, nextBuilding);
 
-			upgradeButton.onClick = TryToBuy;
+			upgradeButton.onClick = delegate{TryToBuy(false);};
 			upgradeButton.button.enabled = true;
 		}
 	}

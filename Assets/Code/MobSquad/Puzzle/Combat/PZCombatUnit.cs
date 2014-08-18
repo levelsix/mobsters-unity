@@ -44,6 +44,9 @@ public class PZCombatUnit : MonoBehaviour {
 	UITweener[] damageLabelTweens;
 
 	[SerializeField]
+	UIWidget alphaParent;
+
+	[SerializeField]
 	public Vector3 startingPos;
 
 	public bool alive = false;
@@ -73,6 +76,15 @@ public class PZCombatUnit : MonoBehaviour {
 
 	[SerializeField]
 	UISprite forfeitSprite;
+
+	public float alpha
+	{
+		set
+		{
+			alphaParent.alpha = value;
+			unit.alpha = value;
+		}
+	}
 
 	public int health
 	{
@@ -148,7 +160,7 @@ public class PZCombatUnit : MonoBehaviour {
 	void Init()
 	{
 		unit.spriteBaseName = monster.monster.imagePrefix;
-		shadow.color = unit.sprite.color = new Color (unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 1);
+		alpha = 1;
 		hpBar.fill = ((float)monster.currHP) / monster.maxHP;
 		hpLabel.text = monster.currHP + "/" + monster.maxHP;
 
@@ -236,7 +248,7 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		int fullDamage = CalculateDamage (damage, element);
 
-		Debug.Log(name + " taking " + fullDamage + " damage");
+		//Debug.Log(name + " taking " + fullDamage + " damage");
 		if(!MSTutorialManager.instance.inTutorial)
 		{
 			if(fullDamage > damage)
@@ -316,7 +328,7 @@ public class PZCombatUnit : MonoBehaviour {
 		
 		alive = false;
 
-		shadow.color = unit.sprite.color = new Color(unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 0);
+		alpha = 0;
 
 		MSPoolManager.instance.Get(MSPrefabList.instance.characterDieParticle, unit.transf.position);
 

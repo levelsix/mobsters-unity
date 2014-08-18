@@ -459,6 +459,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			{
 				PZPuzzleManager.instance.DetonateMolotovFromSwap(this, swapee); //Takes care of all MOLOTOV-SPECIAL combos
 				yield break;
+
 			}
 			else if (swapee.gemType == GemType.MOLOTOV)
 			{
@@ -518,6 +519,13 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			StartCoroutine(Swap(MSValues.opp[dir]));
 
 			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.wrongMove);
+		}
+		else
+		{
+			if (MSActionManager.Puzzle.OnGemSwapSuccess != null)
+			{
+				MSActionManager.Puzzle.OnGemSwapSuccess();
+			}
 		}
 	}
 	

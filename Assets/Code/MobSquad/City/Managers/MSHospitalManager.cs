@@ -238,61 +238,75 @@ public class MSHospitalManager : MonoBehaviour {
 	/// Function shorts if there are no available hospitals.
 	/// </summary>
 	/// <param name="monster">Monster.</param>
-	public bool AddToHealQueue(PZMonster monster)
+	public bool AddToHealQueue(PZMonster monster, bool useGems = false)
 	{
 		if (hospitals.Count == 0 || healingMonsters.Count >= queueSize)
 		{
 			MSActionManager.Popup.DisplayError("Healing Queue Full");
 			return false;
 		}
-		
-		if (MSResourceManager.instance.Spend(ResourceType.CASH, monster.healCost, delegate{AddToHealQueue(monster);}))
+
+		if (useGems)
 		{
-			
-			if (healRequestProto == null)
+			int gemCost = Mathf.CeilToInt((monster.healCost - MSResourceManager.resources[ResourceType.CASH]) * MSWhiteboard.constants.gemsPerResource);
+			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
 			{
-				PrepareNewHealRequest();
+				AddToHealQueue(monster, MSResourceManager.instance.SpendAll(ResourceType.CASH), gemCost);
+				return true;
 			}
-
-			monster.healingMonster = new UserMonsterHealingProto();
-			if (!MSTutorialManager.instance.inTutorial)
-			{
-				monster.healingMonster.userId = MSWhiteboard.localMup.userId;
-				monster.healingMonster.userMonsterId = monster.userMonster.userMonsterId;
-			}
-			monster.healingMonster.healthProgress = 0;
-			monster.healingMonster.queuedTimeMillis = MSUtil.timeNowMillis;
-			
-			MSHospitalManager.instance.healingMonsters.Add (monster);
-			
-			monster.healingMonster.priority = MSHospitalManager.instance.healingMonsters.Count;
-			
-			DetermineHealTime(monster, hospitals);
-			
-			if (healRequestProto.umhDelete.Contains(monster.healingMonster))
-			{
-				healRequestProto.umhDelete.Remove(monster.healingMonster);
-				healRequestProto.umhUpdate.Add (monster.healingMonster);
-			}
-			else
-			{
-				healRequestProto.umhNew.Add(monster.healingMonster);
-			}
-			
-			healRequestProto.cashChange += monster.healCost;
-
-			if (MSActionManager.Goon.OnMonsterAddQueue != null)
-			{
-				MSActionManager.Goon.OnMonsterAddQueue(monster);
-			}
-
-			if (MSActionManager.Goon.OnHealQueueChanged != null)
-			{
-				MSActionManager.Goon.OnHealQueueChanged();
-			}
-			
 		}
-		return true;
+		else if (MSResourceManager.instance.Spend(ResourceType.CASH, monster.healCost, delegate{AddToHealQueue(monster, true);}))
+		{
+			AddToHealQueue(monster, monster.healCost);
+			return true;
+		}
+		return false;
+	}
+
+	void AddToHealQueue(PZMonster monster, int cash, int gems = 0)
+	{
+		if (healRequestProto == null)
+		{
+			PrepareNewHealRequest();
+		}
+		
+		monster.healingMonster = new UserMonsterHealingProto();
+		if (!MSTutorialManager.instance.inTutorial)
+		{
+			monster.healingMonster.userId = MSWhiteboard.localMup.userId;
+			monster.healingMonster.userMonsterId = monster.userMonster.userMonsterId;
+		}
+		monster.healingMonster.healthProgress = 0;
+		monster.healingMonster.queuedTimeMillis = MSUtil.timeNowMillis;
+		
+		MSHospitalManager.instance.healingMonsters.Add (monster);
+		
+		monster.healingMonster.priority = MSHospitalManager.instance.healingMonsters.Count;
+		
+		DetermineHealTime(monster, hospitals);
+		
+		if (healRequestProto.umhDelete.Contains(monster.healingMonster))
+		{
+			healRequestProto.umhDelete.Remove(monster.healingMonster);
+			healRequestProto.umhUpdate.Add (monster.healingMonster);
+		}
+		else
+		{
+			healRequestProto.umhNew.Add(monster.healingMonster);
+		}
+		
+		healRequestProto.cashChange -= cash;
+		healRequestProto.gemCostForHealing += gems;
+		
+		if (MSActionManager.Goon.OnMonsterAddQueue != null)
+		{
+			MSActionManager.Goon.OnMonsterAddQueue(monster);
+		}
+		
+		if (MSActionManager.Goon.OnHealQueueChanged != null)
+		{
+			MSActionManager.Goon.OnHealQueueChanged();
+		}
 	}
 
 	public int SimulateHealForRevive(List<PZMonster> monsters, long startTime)

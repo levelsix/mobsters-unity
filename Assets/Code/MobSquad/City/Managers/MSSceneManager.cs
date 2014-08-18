@@ -108,6 +108,7 @@ public class MSSceneManager : MonoBehaviour {
 		if (MSTutorialManager.instance.inTutorial)
 		{
 			Time.timeScale = .001f;
+			yield return null;
 			StartCoroutine(Fade (puzzlePanel, true));
 		}
 		else
@@ -126,7 +127,7 @@ public class MSSceneManager : MonoBehaviour {
 		{
 			t += Time.deltaTime / Time.timeScale;
 			pan.alpha = (fadeIn ? t/fadeTime : 1 - t/fadeTime);
-			Debug.Log("Fade: " + t);
+			Debug.Log("DT: " + Time.deltaTime + ", Fade: " + t);
 			yield return null;
 		}
 	}

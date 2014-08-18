@@ -30,6 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -47,7 +48,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: .5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -105,7 +106,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: .5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -186,6 +187,7 @@ MonoBehaviour:
   walking: {fileID: 8300000, guid: 103f64d49057c45788d64badf605462d, type: 3}
   wrongMove: {fileID: 8300000, guid: b382d6b0ae5534d629eb45460cbc999b, type: 3}
   playSounds: 0
+  playMusic: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

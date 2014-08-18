@@ -65,15 +65,13 @@ public class MSResourceManager : MonoBehaviour {
 		resources[ResourceType.OIL] = oil;
 		resources[ResourceType.GEMS] = premium;
 
-		/* TODO: Fix this ish, brah
-		for (int i = 0; i < resources.Length; i++) 
+		foreach (var item in resources) 
 		{
-			if (MSActionManager.UI.OnChangeResource[i] != null)
+			if (MSActionManager.UI.OnChangeResource[item.Key] != null)
 			{
-				MSActionManager.UI.OnChangeResource[i](resources[i]);
+				MSActionManager.UI.OnChangeResource[item.Key](item.Value);
 			}
 		}
-		*/
 	}
 
 	public void DetermineResourceMaxima()
@@ -203,7 +201,7 @@ public class MSResourceManager : MonoBehaviour {
 			int gemsNeeded = Mathf.CeilToInt(resourceNeeded * MSWhiteboard.constants.gemsPerResource);
 
 			MSPopupManager.instance.CreatePopup("Not enough resources!",
-				"Spend (G)" + gemsNeeded + " to buy the remaining " + ((resource== ResourceType.CASH)?"$":"(O)") + resourceNeeded,
+				"Spend (G)" + gemsNeeded + " to buy the remaining " + ((resource== ResourceType.CASH)?"$":"(O)") + resourceNeeded + "?",
                 new string[] {"No", "Yes"},
 				new string[] {"greymenuoption", "purplemenuoption"},
 				new Action[] { 

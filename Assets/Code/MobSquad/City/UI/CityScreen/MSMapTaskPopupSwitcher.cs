@@ -113,12 +113,12 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 	bool ZeroAnchors(UIWidget widget)
 	{
 		bool wrong = widget.rightAnchor.absolute != 0 || widget.leftAnchor.absolute != 0;
-		Debug.Log("before " + widget.rightAnchor.absolute + ":" + widget.leftAnchor.absolute);
+		//Debug.Log("before " + widget.rightAnchor.absolute + ":" + widget.leftAnchor.absolute);
 		widget.rightAnchor.absolute = 0;
 		widget.leftAnchor.absolute = 0;
 		widget.ResetAnchors();
 		widget.UpdateAnchors();
-		Debug.Log("after " + widget.rightAnchor.absolute + ":" + widget.leftAnchor.absolute);
+		//Debug.Log("after " + widget.rightAnchor.absolute + ":" + widget.leftAnchor.absolute);
 
 		return wrong;
 	}

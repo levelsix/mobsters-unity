@@ -175,6 +175,7 @@ public static class MSActionManager
 		public static Action OnNewPlayerTurn;
 		public static Action OnGemMatch;
 		public static Action OnGemPressed;
+		public static Action OnGemSwapSuccess;
 
 		public static Action ForceHideSwap;
 		public static Action ForceShowSwap;

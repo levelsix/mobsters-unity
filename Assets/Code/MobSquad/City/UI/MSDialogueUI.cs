@@ -17,15 +17,18 @@ public class MSDialogueUI : MonoBehaviour {
 	public UITweener dialogueBoxTween;
 	public UILabel dialogueLabel;
 	public UILabel mobsterNameLabel;
+	public UITweener gradientTween;
 
 	public void OnEnable()
 	{
 		MSActionManager.UI.OnDialogueClicked += DoPushOut;
+		MSActionManager.Puzzle.OnGemSwapSuccess += DoPushOut;
 	}
 
 	public void OnDisable()
 	{
 		MSActionManager.UI.OnDialogueClicked -= DoPushOut;
+		MSActionManager.Puzzle.OnGemSwapSuccess -= DoPushOut;
 	}
 
 	/// <summary>
@@ -52,7 +55,10 @@ public class MSDialogueUI : MonoBehaviour {
 
 		mobsterTween.PlayForward();
 
-		MSActionManager.Puzzle.OnGemPressed += DoPushOut;
+		if (hitbox)
+		{
+			gradientTween.PlayForward();
+		}
 
 		while (mobsterTween.tweenFactor < 1)
 		{
@@ -90,14 +96,12 @@ public class MSDialogueUI : MonoBehaviour {
 
 	IEnumerator PushOut()
 	{
-
-		MSActionManager.Puzzle.OnGemPressed -= DoPushOut;
-
 		dialogueBoxTween.PlayReverse();
 		while (dialogueBoxTween.tweenFactor > 0)
 		{
 			yield return null;
 		}
+		gradientTween.PlayReverse();
 		mobsterTween.PlayReverse();
 		while (mobsterTween.tweenFactor > 0)
 		{
@@ -121,6 +125,7 @@ public class MSDialogueUI : MonoBehaviour {
 
 	public void ForceOut()
 	{
+		gradientTween.Sample(0, true);
 		dialogueBoxTween.Sample(0, true);
 		mobsterTween.Sample(0, true);
 	}
