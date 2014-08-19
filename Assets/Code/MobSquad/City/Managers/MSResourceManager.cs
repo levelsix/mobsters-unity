@@ -14,15 +14,19 @@ using System;
 public class MSResourceManager : MonoBehaviour {
 	
 	public static MSResourceManager instance;
-
+	
 	[SerializeField]
 	MSLevelUpPopup levelUpPopup;
-	
+
 	/// <summary>
 	/// The resources.
 	/// Indexed by subtracting one from the ResourceType enum
 	/// </summary>
-	public static int[] resources = {0, 0, 0};
+	public static Dictionary<ResourceType, int> resources = new Dictionary<ResourceType, int>() {
+		{ResourceType.CASH, 0}, 
+		{ResourceType.OIL, 0},
+		{ResourceType.GEMS, 0}
+	};
 
 	public static int[] maxes = {0, 0, int.MaxValue};
 	
@@ -72,15 +76,15 @@ public class MSResourceManager : MonoBehaviour {
 		_exp = xp;
 		_expForNextLevel = xpNext;
 		
-		resources[0] = cash;
-		resources[1] = oil;
-		resources[2] = premium;
+		resources[ResourceType.CASH] = cash;
+		resources[ResourceType.OIL] = oil;
+		resources[ResourceType.GEMS] = premium;
 
-		for (int i = 0; i < resources.Length; i++) 
+		foreach (var item in resources) 
 		{
-			if (MSActionManager.UI.OnChangeResource[i] != null)
+			if (MSActionManager.UI.OnChangeResource[item.Key] != null)
 			{
-				MSActionManager.UI.OnChangeResource[i](resources[i]);
+				MSActionManager.UI.OnChangeResource[item.Key](item.Value);
 			}
 		}
 	}
@@ -144,12 +148,24 @@ public class MSResourceManager : MonoBehaviour {
 	/// </param>
 	public void Collect(ResourceType resource, int amount)
 	{
-		resources[(int)resource-1] = Mathf.Min(resources[(int)resource-1] + amount, maxes[(int)resource-1]);
+		resources[resource] = Mathf.Min(resources[resource] + amount, maxes[(int)resource-1]);
 		
-		if (MSActionManager.UI.OnChangeResource[(int)resource-1] != null)
+		if (MSActionManager.UI.OnChangeResource[resource] != null)
 		{
-			MSActionManager.UI.OnChangeResource[(int)resource-1](resources[(int)resource-1]);
+			MSActionManager.UI.OnChangeResource[resource](resources[resource]);
 		}
+	}
+
+	/// <summary>
+	/// When the player spends gems and 
+	/// </summary>
+	/// <returns><c>true</c>, if all was spent, <c>false</c> otherwise.</returns>
+	/// <param name="resource">Resource.</param>
+	public int SpendAll(ResourceType resource)
+	{
+		int amount = resources[resource];
+		Spend (resource, amount);
+		return amount;
 	}
 	
 	/// <summary>
@@ -166,54 +182,49 @@ public class MSResourceManager : MonoBehaviour {
 	/// </param>
 	public bool Spend(ResourceType resource, int amount, Action action = null)
 	{
-		if (resources[(int)resource-1] >= amount)
+		if (resources[resource] >= amount)
 		{
-			resources[(int)resource-1] -= amount;
-			if (MSActionManager.UI.OnChangeResource[(int)resource-1] != null)
+			resources[resource] -= amount;
+			if (MSActionManager.UI.OnChangeResource[resource] != null)
 			{
-				MSActionManager.UI.OnChangeResource[(int)resource-1](resources[(int)resource-1]);
+				MSActionManager.UI.OnChangeResource[resource](resources[resource]);
 			}
 			return true;
 		}
-		Debug.LogWarning("Tried to spend " + amount + " " + resource.ToString() + ", only have " + resources[(int)resource-1].ToString());
+		Debug.LogWarning("Tried to spend " + amount + " " + resource.ToString() + ", only have " + resources[resource].ToString());
 
 		if (resource == ResourceType.GEMS)
 		{
 			//Prompt to buy more gems
 			MSPopupManager.instance.CreatePopup("Not Enough Gems",
 				"You don't have enough gems. Want more?",
-			                                    new string[] {"Enter Shop"},
-			new string[] {"purplemenuoption"},
-			new Action[] {
-				delegate 
-				{
-					MSActionManager.Popup.CloseAllPopups(); 
-				}
-			},
-			"purple"
-			);
+	            new string[] {"Enter Shop"},
+				new string[] {"purplemenuoption"},
+				new Action[] {
+					delegate 
+					{
+						MSActionManager.Popup.CloseAllPopups(); 
+					}
+				},
+				"purple"
+				);
 		}
-		else if (amount <= maxes[(int)resource-1]) //We don't want to let users use gem buys to overcome resource limits
+		else //Or do we? if (amount <= maxes[(int)resource-1]) //We don't want to let users use gem buys to overcome resource limits
 		{
 			//Prompt to convert gems to currency
-			int resourceNeeded = amount - resources[(int)resource - 1];
+			int resourceNeeded = amount - resources[resource];
 			int gemsNeeded = Mathf.CeilToInt(resourceNeeded * MSWhiteboard.constants.gemsPerResource);
 
 			MSPopupManager.instance.CreatePopup("Not enough resources!",
-				"Spend (G)" + gemsNeeded + " to buy the remaining " + ((resource== ResourceType.CASH)?"$":"(O)") + resourceNeeded,
+				"Spend (G)" + gemsNeeded + " to buy the remaining " + ((resource== ResourceType.CASH)?"$":"(O)") + resourceNeeded + "?",
                 new string[] {"No", "Yes"},
 				new string[] {"greymenuoption", "purplemenuoption"},
 				new Action[] { 
 					MSActionManager.Popup.CloseTopPopupLayer,
-					delegate{ MSActionManager.Popup.CloseTopPopupLayer(); SpendGemsForOtherResource(resource, resourceNeeded, action);}
+					delegate{ MSActionManager.Popup.CloseTopPopupLayer(); if (action!=null) action();}
 				},
 				"purple"
 			);
-		}
-		else
-		{
-			//Popup that says so
-			MSPopupManager.instance.CreatePopup("Not enough " + resource.ToString().ToLower());
 		}
 
 		return false;
@@ -285,7 +296,7 @@ public class MSResourceManager : MonoBehaviour {
 		_exp += amount;
 		if (_exp > _expForNextLevel)
 		{
-			//StartCoroutine(LevelUp());
+			StartCoroutine(LevelUp());
 		}
 	}
 

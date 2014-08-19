@@ -151,7 +151,7 @@ public class MSEvolutionManager : MonoBehaviour {
 		return tempEvolution;
 	}
 
-	public void StartEvolution()
+	public void StartEvolution(bool useGems = false)
 	{
 		if (tempEvolution == null)
 		{
@@ -176,21 +176,35 @@ public class MSEvolutionManager : MonoBehaviour {
 			);
 		}
 
-		if (MSResourceManager.instance.Spend(ResourceType.OIL, oilCost, StartEvolution))
-	    {
-			currEvolution = tempEvolution;
-
-			currEvolution.startTime = MSUtil.timeNowMillis;
-
-			EvolveMonsterRequestProto request = new EvolveMonsterRequestProto();
-			request.sender = MSWhiteboard.localMup;
-			request.evolution = currEvolution;
-			request.oilChange = oilCost;
-
-			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLVE_MONSTER_EVENT, ReceiveEvolutionStartResponse);
-
-			finishTime = currEvolution.startTime + MSDataManager.instance.Get<MonsterProto>(tempEvoMonster.monster.evolutionMonsterId).minutesToEvolve * 60000;
+		if (useGems)
+		{
+			int gemCost = Mathf.CeilToInt((oilCost - MSResourceManager.resources[ResourceType.OIL]) * MSWhiteboard.constants.gemsPerResource);
+			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
+			{
+				StartEvolution(MSResourceManager.instance.SpendAll(ResourceType.OIL), gemCost);
+			}
 		}
+		else if (MSResourceManager.instance.Spend(ResourceType.OIL, oilCost, delegate{StartEvolution(true);}))
+	    {
+			StartEvolution(oilCost);
+		}
+	}
+
+	void StartEvolution(int oil, int gems = 0)
+	{
+		currEvolution = tempEvolution;
+		
+		currEvolution.startTime = MSUtil.timeNowMillis;
+		
+		EvolveMonsterRequestProto request = new EvolveMonsterRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.evolution = currEvolution;
+		request.oilChange = -oil;
+		request.gemsSpent = gems;
+		
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLVE_MONSTER_EVENT, ReceiveEvolutionStartResponse);
+		
+		finishTime = currEvolution.startTime + MSDataManager.instance.Get<MonsterProto>(tempEvoMonster.monster.evolutionMonsterId).minutesToEvolve * 60000;
 	}
 
 	void ReceiveEvolutionStartResponse(int tagNum)

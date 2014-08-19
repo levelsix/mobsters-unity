@@ -18,19 +18,19 @@ public class MSSoundManager : MonoBehaviour {
 	public AudioClip rocket;
 	public AudioClip walking;
 	public AudioClip wrongMove;
-
+	
 	public AudioClip task_win;
 	public AudioClip task_lose;
 
 	public AudioClip battleMusic;
 	public AudioClip gameplayMusic;
-
+	
 	public const string SOUND_EFFECTS = "soundEffects";
 	public const string MUSIC = "music";
 	
 	public bool playSounds;
 	public bool playMusic;
-	
+
 	void Awake()
 	{
 		playSounds = (PlayerPrefs.GetInt(SOUND_EFFECTS, 1) == 1);
@@ -96,10 +96,9 @@ public class MSSoundManager : MonoBehaviour {
 		}
 	}
 
-	public void Loop(AudioClip clip)
+	public void Loop(AudioClip clip, bool music = false)
 	{
-
-		if (playSounds)
+		if (music ? playMusic : playSounds)
 		{
 			loopSource.clip = clip;
 			loopSource.Play();
@@ -108,6 +107,7 @@ public class MSSoundManager : MonoBehaviour {
 
 	public void StopLoop()
 	{
+
 			loopSource.Stop();
 	}
 

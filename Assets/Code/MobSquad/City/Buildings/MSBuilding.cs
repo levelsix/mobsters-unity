@@ -720,7 +720,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		Deselect();
     }
 
-	public void Confirm()
+	public void Confirm(bool useGems = false)
 	{
 		if(MSBuildingManager.instance.currentUnderConstruction != null)
 		{
@@ -743,7 +743,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			return;
 		}
 
-		if (MSBuildingManager.instance.BuyBuilding(this, Confirm))
+		if (MSBuildingManager.instance.BuyBuilding(this, useGems))
 		{
 			long now = MSUtil.timeNowMillis;
 			userStructProto.lastRetrieved = now;

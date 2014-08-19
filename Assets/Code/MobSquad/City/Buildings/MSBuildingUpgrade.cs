@@ -164,11 +164,11 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	/// <summary>
 	/// Spends the cash and starts the upgrade timer
 	/// </summary>
-	public virtual void StartUpgrade()
+	public virtual void StartUpgrade(int baseResource, int gems = 0)
 	{
 		building.combinedProto = building.combinedProto.successor;
 
-		SendUpgradeRequest();
+		SendUpgradeRequest(baseResource, gems);
 
 		MSBuildingManager.instance.RemoveFromFunctionalityLists(building);
 
@@ -184,14 +184,15 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		StartCoroutine(CheckUpgrade());
 	}
 	
-	void SendUpgradeRequest()
+	void SendUpgradeRequest(int baseResource, int gems = 0)
 	{
 		UpgradeNormStructureRequestProto request = new UpgradeNormStructureRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.userStructId = building.userStructProto.userStructId;
 		request.timeOfUpgrade = MSUtil.timeNowMillis;
 		request.resourceType = building.combinedProto.structInfo.buildResourceType;
-		request.resourceChange = -building.combinedProto.structInfo.buildCost;
+		request.resourceChange = -baseResource;
+		request.gemsSpent = gems;
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPGRADE_NORM_STRUCTURE_EVENT, CheckUpgradeResponse);
 	}
 			

@@ -91,7 +91,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			float xPos = -(Screen.width * (640f / Screen.height) / 2) 
 				+ playerXFromSideThreshold;// * Mathf.Min(1, (Screen.height / 640f));
-			Debug.LogWarning("Player X pos: " + xPos);
+			//Debug.LogWarning("Player X pos: " + xPos);
 			return xPos;
 		}
 	}
@@ -102,7 +102,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		get
 		{
-			return -playerXFromSideThreshold - (150 * (Screen.height / 640f)) ;
+			return playerXPos + 150;
 		}
 	}
 
@@ -408,7 +408,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 	}
 
-	public void InitPvp()
+	public void InitPvp(int cash, int gems = 0)
 	{
 //		mobsterCounter.transform.parent.GetComponent<UIWidget>().alpha = 0f;
 
@@ -427,7 +427,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		nextPvpDefenderIndex = 0;
 
-		StartCoroutine(SpawnPvps());
+		StartCoroutine(SpawnPvps(cash, gems));
 
 		PZPuzzleManager.instance.swapLock += 1;
 	}
@@ -499,19 +499,28 @@ public class PZCombatManager : MonoBehaviour {
 	}
 
 
-	public void SpawnNextPvp()
+	public void SpawnNextPvp(bool useGems)
 	{
-		if (MSResourceManager.instance.Spend(ResourceType.CASH, pvpMatchCost, SpawnNextPvp))
+		if (MSResourceManager.instance.Spend(ResourceType.CASH, pvpMatchCost, SpawnNextPvpWithGems))
 	    {
-			StartCoroutine(SpawnPvps());
+			StartCoroutine(SpawnPvps(pvpMatchCost));
 		}
 	}
 
-	IEnumerator SpawnPvps()
+	void SpawnNextPvpWithGems()
+	{
+		int gemCost = Mathf.CeilToInt((pvpMatchCost - MSResourceManager.resources[ResourceType.CASH]) * MSWhiteboard.constants.gemsPerResource);
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
+		{
+			StartCoroutine(SpawnPvps(MSResourceManager.instance.SpendAll(ResourceType.CASH), gemCost));
+		}
+	}
+
+	IEnumerator SpawnPvps(int cash, int gems = 0)
 	{
 		pvpUI.Retract();
 
-		StartCoroutine(SpendPvpMatchMoney());
+		SpendPvpMatchMoney(cash, gems);
 
 		yield return null;
 		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed));
@@ -627,20 +636,19 @@ public class PZCombatManager : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator SpendPvpMatchMoney()
+	public void SpendPvpMatchMoney(int cash, int gems = 0)
 	{
 		UpdateUserCurrencyRequestProto request = new UpdateUserCurrencyRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.cashSpent = pvpMatchCost;
+		request.cashSpent = cash;
+		request.gemsSpent = gems;
 		request.reason = "pvp";
 
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_USER_CURRENCY_EVENT, null);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_USER_CURRENCY_EVENT, DealWithCurrencyResponse);
+	}
 
-		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
-		{
-			yield return null;
-		}
-
+	void DealWithCurrencyResponse(int tagNum)
+	{
 		UpdateUserCurrencyResponseProto response = UMQNetworkManager.responseDict[tagNum] as UpdateUserCurrencyResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
@@ -872,6 +880,8 @@ public class PZCombatManager : MonoBehaviour {
 			}
 
 			activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
+			
+			MSSoundManager.instance.StopLoop();
 
 			yield break;
 		}
@@ -1111,20 +1121,22 @@ public class PZCombatManager : MonoBehaviour {
 
 		currPlayerDamage += damage;
 
-		if (++currTurn == playerTurns)
+		++currTurn;
+
+		if (MSActionManager.Puzzle.OnTurnChange != null)
+		{
+			MSActionManager.Puzzle.OnTurnChange(playerTurns - currTurn);
+		}
+		
+		if (currTurn == playerTurns)
 		{
 			Attack();
 			currPlayerDamage = 0;
 			currTurn = 0;
 		}
-		else
+		else if (!MSTutorialManager.instance.inTutorial)
 		{
 			Save ();
-		}
-
-		if (MSActionManager.Puzzle.OnTurnChange != null)
-		{
-			MSActionManager.Puzzle.OnTurnChange(playerTurns - currTurn);
 		}
 	}
 
@@ -1395,6 +1407,11 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		boardTint.PlayForward();
 
+		if (MSTutorialManager.instance.inTutorial && riggedAttacks.Count > 0)
+		{
+			damage = riggedAttacks.Dequeue();
+		}
+
 		//Debug.Log("Lock: Animating");
 		PZPuzzleManager.instance.swapLock += 1;
 
@@ -1427,7 +1444,10 @@ public class PZCombatManager : MonoBehaviour {
 			battleStats.damageTaken += Mathf.Min (enemyDamageWithElement, activePlayer.monster.currHP);
 		}
 
-		Save();
+		if (!MSTutorialManager.instance.inTutorial)
+		{
+			Save();
+		}
 
 		yield return StartCoroutine(ShowAttackWords(score));
 		
@@ -1611,7 +1631,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	void UpdateUserTaskStage(int taskStageId)
 	{
-		Debug.Log("Update user task stage: " + taskStageId);
+		//Debug.Log("Update user task stage: " + taskStageId);
 
 		UpdateMonsterHealthRequestProto request = new UpdateMonsterHealthRequestProto();
 		request.isUpdateTaskStageForUser = true;

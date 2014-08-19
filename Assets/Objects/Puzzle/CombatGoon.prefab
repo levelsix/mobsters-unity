@@ -30,7 +30,7 @@ GameObject:
   - 4: {fileID: 400002}
   - 114: {fileID: 11400008}
   m_Layer: 5
-  m_Name: Shadow
+  m_Name: AlphaParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,6 +99,7 @@ GameObject:
   - 212: {fileID: 21200000}
   - 95: {fileID: 9500000}
   - 114: {fileID: 11400028}
+  - 114: {fileID: 11400046}
   m_Layer: 5
   m_Name: CharacterSprite
   m_TagString: Untagged
@@ -131,6 +132,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400014}
   - 212: {fileID: 21200002}
+  - 114: {fileID: 11400048}
   m_Layer: 5
   m_Name: Sprite (shadow)
   m_TagString: Untagged
@@ -563,6 +565,7 @@ MonoBehaviour:
   - {fileID: 11400016}
   - {fileID: 11400018}
   - {fileID: 11400020}
+  alphaParent: {fileID: 11400008}
   startingPos: {x: -690.124207, y: -328.144562, z: 0}
   alive: 0
   moving: 0
@@ -579,7 +582,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Script: {fileID: 11500000, guid: 858a20c1b21a3f94bb5b2d3b901c9aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -601,26 +604,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 66
-  mHeight: 44
+  mWidth: 100
+  mHeight: 100
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.5
-  mAtlas: {fileID: 11400000, guid: cbd01d50678ae4a16911bd5aec07038d, type: 2}
-  mSpriteName: shadow
-  mType: 0
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
-  mFlip: 0
-  mFillCenter: 1
-  centerType: 1
-  leftType: 1
-  rightType: 1
-  bottomType: 1
-  topType: 1
+  aspectRatio: 1
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1409,6 +1399,30 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &11400046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cdfe927ad9c46aaaa02af89b248b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderQueue: 5002
+--- !u!114 &11400048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cdfe927ad9c46aaaa02af89b248b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderQueue: 5001
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1429,7 +1443,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d67ed4de7c00d4aba9809c67dce5aa17, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 406ba5e0db05a437c94030fe1582028c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21200002
 SpriteRenderer:

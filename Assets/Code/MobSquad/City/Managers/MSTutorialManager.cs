@@ -219,20 +219,33 @@ public class MSTutorialManager : MonoBehaviour
 		new Vector2(2, 2), new Vector2(3, 1), new Vector2(3, 2), new Vector2(3, 3)
 	};
 
+	static readonly Vector2 turn1move1hintStart = new Vector2(2, 2);
+	static readonly Vector2 turn1move1hintEnd = new Vector2(3, 2);
+
 	static readonly List<Vector2> turn1move2 = new List<Vector2>()
 	{
 		new Vector2(3, 1), new Vector2(3, 2), new Vector2(3, 3), new Vector2(3, 4)
 	};
+
+	static readonly Vector2 turn1move2hintStart = new Vector2(3, 4);
+	static readonly Vector2 turn1move2hintEnd = new Vector2(3, 3);
 
 	static readonly List<Vector2> turn2move1 = new List<Vector2>()
 	{
 		new Vector2(2, 4), new Vector2(3, 4), new Vector2(4, 4), new Vector2(5, 4), new Vector2(4, 5)
 	};
 
+	static readonly Vector2 turn2move1hintStart = new Vector2(4, 5);
+	static readonly Vector2 turn2move1hintEnd = new Vector2(4, 4);
+
 	static readonly List<Vector2> turn2move2 = new List<Vector2>()
 	{
 		new Vector2(3, 3), new Vector2(4, 3), new Vector2(5, 3), new Vector2(4, 4)
 	};
+
+	static readonly Vector2 turn2move2hintStart = new Vector2(4, 4);
+	static readonly Vector2 turn2move2hintEnd = new Vector2(4, 3);
+
 	#endregion
 
 
@@ -258,9 +271,9 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		inTutorial = true;
 
-		MSResourceManager.resources[0] = MSWhiteboard.tutorialConstants.cashInit;
-		MSResourceManager.resources[1] = MSWhiteboard.tutorialConstants.oilInit;
-		MSResourceManager.resources[2] = MSWhiteboard.tutorialConstants.gemsInit;
+		MSResourceManager.resources[ResourceType.CASH] = MSWhiteboard.tutorialConstants.cashInit;
+		MSResourceManager.resources[ResourceType.OIL] = MSWhiteboard.tutorialConstants.oilInit;
+		MSResourceManager.resources[ResourceType.GEMS] = MSWhiteboard.tutorialConstants.gemsInit;
 
 		foreach (var item in TutorialUI.disableHUD) 
 		{
@@ -359,7 +372,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	void RecycleCityUnit(MSUnit unit)
 	{
-		unit.cityUnit.speed = MSBuildingManager.instance.unitPrefab.cityUnit.speed;
+		//unit.cityUnit.speed = MSBuildingManager.instance.unitPrefab.cityUnit.speed;
 		unit.Pool();
 	}
 
@@ -456,13 +469,14 @@ public class MSTutorialManager : MonoBehaviour
 		TutorialUI.fightButton.SetActive(true);
 		currUi = TutorialUI.fightButton;
 		yield return StartCoroutine(WaitForClick());
+		TutorialUI.leftDialogue.RunPushOut();
 
 		userUnitReturnPosition = userUnit.transf.localPosition;
 
 		userUnit.cityUnit.SetTarget(new MSGridNode(13, 1, MSValues.Direction.SOUTH));
 		userUnit.cityUnit.moving = true;
 		userUnit.DoJump(1.5f, 1);
-		yield return new WaitForSeconds(.7f);
+		yield return new WaitForSeconds(.3f);
 
 		TutorialUI.fightButton.SetActive(false);
 	}
@@ -550,13 +564,15 @@ public class MSTutorialManager : MonoBehaviour
 		PZPuzzleManager.instance.swapLock = 0;
 
 		PZPuzzleManager.instance.BlockBoard(turn1move1);
+		TutorialUI.hintHand.Init(turn1move1hintStart, turn1move1hintEnd);
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.MOVIN_ORBS, false));
 		yield return StartCoroutine(WaitForTurn());
 
 		PZPuzzleManager.instance.BlockBoard(turn1move2);
+		TutorialUI.hintHand.Init(turn1move2hintStart, turn1move2hintEnd);
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.SMOOTH_MOVE, false));
 		yield return StartCoroutine(WaitForTurn());
-		
+
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.LAST_MOVE, false));
 		yield return StartCoroutine(WaitForTurn());
 
@@ -590,10 +606,12 @@ public class MSTutorialManager : MonoBehaviour
 		PZPuzzleManager.instance.swapLock = 0;
 
 		PZPuzzleManager.instance.BlockBoard(turn2move1);
+		TutorialUI.hintHand.Init(turn2move1hintStart, turn2move1hintEnd);
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.CREATE_POWERUP, false));
 		yield return StartCoroutine(WaitForTurn());
 		
 		PZPuzzleManager.instance.BlockBoard(turn2move2);
+		TutorialUI.hintHand.Init(turn2move2hintStart, turn2move2hintEnd);
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.SWIPE_POWERUP, false));
 		yield return StartCoroutine(WaitForTurn());
 		
@@ -660,7 +678,6 @@ public class MSTutorialManager : MonoBehaviour
 		Queue<int> riggs = new Queue<int>();
 		riggs.Enqueue(157);
 		riggs.Enqueue(34);
-		riggs.Enqueue(186);
 
 		PZCombatManager.instance.InitTutorial(enemyBoss, enemyOne, enemyTwo, riggs);
 		MSActionManager.Scene.OnPuzzle();
@@ -672,7 +689,7 @@ public class MSTutorialManager : MonoBehaviour
 		bossCombatant = PZCombatManager.instance.activeEnemy;
 		enemyOneCombatant.unit.direction = enemyTwoCombatant.unit.direction = bossCombatant.unit.direction = MSValues.Direction.WEST;
 
-		PZPuzzleManager.instance.InitBoard(6, 6, "Tutorial/TutorialBattle1Layout.txt");
+		PZPuzzleManager.instance.InitBoard(6, 6, "Tutorial/TutorialBattle1Layout");
 	}
 
 	public bool SummonNextEnemy()
@@ -750,15 +767,6 @@ public class MSTutorialManager : MonoBehaviour
 
 		StartCoroutine(MoveBoat(TutorialValues.boatDockPos, TutorialValues.boatExitPos));
 
-		/*
-		yield return StartCoroutine(WaitUntilReadyToJump (bossUnit));
-		bossUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
-		yield return StartCoroutine(WaitUntilReadyToJump(enemyTwoUnit));
-		enemyTwoUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
-		yield return StartCoroutine(WaitUntilReadyToJump(enemyOneUnit));
-		enemyOneUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
-		*/
-
 		guideUnit.cityUnit.TutorialPath(guideReturnPath);
 		while (guideUnit.cityUnit.moving)
 		{
@@ -803,6 +811,8 @@ public class MSTutorialManager : MonoBehaviour
 
 		//Find the Goon to heal
 		yield return StartCoroutine(DoUIStep(MSHealScreen.instance.grid.cards[0].gameObject, 125, MSValues.Direction.EAST));
+
+		TutorialUI.leftDialogue.RunPushOut();
 
 		//Finish the heal
 		yield return StartCoroutine(DoUIStep(TutorialUI.finishHealButton, 105, MSValues.Direction.NORTH));
@@ -988,6 +998,7 @@ public class MSTutorialManager : MonoBehaviour
 		{
 			yield return null;
 		}
+		Debug.Log("Turned!");
 		MSActionManager.Puzzle.OnTurnChange -= TurnHappen;
 	}
 
@@ -1006,6 +1017,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	void TurnHappen(int turnsLeft)
 	{
+		Debug.Log("Turns left: " + turnsLeft);
 		if (turnsLeft > 0)
 		{
 			waitingForTurn = false;
@@ -1130,6 +1142,8 @@ public class TutorialUI
 	public MSDialogueUI leftDialogue;
 	public MSDialogueUI rightDialogue;
 	public MSDialogueUI puzzleDialogue;
+
+	public PZTutorialHand hintHand;
 }
 
 

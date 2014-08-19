@@ -82,26 +82,43 @@ public class MSClanCreateScreen : MonoBehaviour {
 
 	public void SubmitClan()
 	{
-		if (clanNameBox.label.text.Length > 0 && MSResourceManager.instance.Spend(ResourceType.CASH, MSWhiteboard.constants.clanConstants.coinPriceToCreateClan, SubmitClan))
+		if (clanNameBox.label.text.Length > 0)
 		{
 			if (clanEditting != null && clanEditting.clanId > 0)
 			{
 				MSClanManager.instance.EditClan(clanEditting, descriptionBox.label.text,
 				                                openClan, 1);
 			}
-			else
+			else if (MSResourceManager.instance.Spend(ResourceType.CASH, MSWhiteboard.constants.clanConstants.coinPriceToCreateClan, SubmitClanWithGems))
 			{
 				MSClanManager.instance.StartCoroutine(MSClanManager.instance.CreateClan(
 					clanNameBox.label.text,
 					clanTagBox.label.text,
 					openClan,
 					descriptionBox.label.text,
-					currClanIconId));
+					currClanIconId,
+					MSWhiteboard.constants.clanConstants.coinPriceToCreateClan));
 			}
 		}
 		else
 		{
 			MSPopupManager.instance.CreatePopup("Invalid Name");
+		}
+	}
+
+	void SubmitClanWithGems()
+	{
+		int gemCost = Mathf.CeilToInt((MSWhiteboard.constants.clanConstants.coinPriceToCreateClan - MSResourceManager.resources[ResourceType.CASH]) * MSWhiteboard.constants.gemsPerResource);
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
+		{
+			MSClanManager.instance.StartCoroutine(MSClanManager.instance.CreateClan(
+				clanNameBox.label.text,
+				clanTagBox.label.text,
+				openClan,
+				descriptionBox.label.text,
+				currClanIconId,
+				MSResourceManager.instance.SpendAll(ResourceType.CASH),
+				gemCost));
 		}
 	}
 

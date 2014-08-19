@@ -402,7 +402,7 @@ public static class MSUtil {
 
 	public static void Save(string key, object obj)
 	{
-		Debug.Log("Saving: " + key);
+		//Debug.Log("Saving: " + key);
 		if (obj == null)
 		{
 			PlayerPrefs.DeleteKey(key);

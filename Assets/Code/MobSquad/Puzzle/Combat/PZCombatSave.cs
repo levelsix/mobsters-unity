@@ -47,11 +47,13 @@ public class PZCombatSave
 		this.currTurn = currTurn;
 		this.currPlayerDamage = currPlayerDamage;
 
+		/*
 		Debug.LogWarning("Saving!" +
 		                 "\nActive player: " + activePlayerUserMonsterId +
 		                 "\nEnemy HP: " + activeEnemyHealth +
 		                 "\nCurr Turn: " + currTurn +
 		                 "\nCurr Player Damage: " + currPlayerDamage);
+		*/
 
 		MSUtil.Save(key, this);
 	}

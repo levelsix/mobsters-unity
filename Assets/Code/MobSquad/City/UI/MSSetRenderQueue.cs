@@ -9,8 +9,20 @@ public class MSSetRenderQueue : MonoBehaviour {
 	
 	void Start ()
 	{
+		Reset();
+	}
 
-		Material mMat;
+	void Update()
+	{
+		if (mMat == null || mMat.renderQueue != renderQueue)
+		{
+			Reset();
+		}
+	}
+
+	[ContextMenu ("Reset")]
+	public void Reset()
+	{
 		foreach (var ren in GetComponentsInChildren<Renderer>()) 
 		{
 			mMat = new Material(ren.sharedMaterial);

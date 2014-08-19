@@ -24,7 +24,7 @@ public class MSResourceCollector : MonoBehaviour {
 	{
 		get
 		{
-			return hasMoney && MSResourceManager.resources[(int)_generator.resourceType - 1] < MSResourceManager.maxes[(int)_generator.resourceType - 1];
+			return hasMoney && MSResourceManager.resources[_generator.resourceType] < MSResourceManager.maxes[(int)_generator.resourceType - 1];
 		}
 	}
 
@@ -141,7 +141,7 @@ public class MSResourceCollector : MonoBehaviour {
 	/// </summary>
 	public void Collect()
 	{
-		if (hasMoney && MSResourceManager.resources[(int)_generator.resourceType - 1] < MSResourceManager.maxes[(int)_generator.resourceType - 1])
+		if (hasMoney && MSResourceManager.resources[_generator.resourceType] < MSResourceManager.maxes[(int)_generator.resourceType - 1])
 		{
 			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructId);
 			if (MSActionManager.Quest.OnMoneyCollected != null)

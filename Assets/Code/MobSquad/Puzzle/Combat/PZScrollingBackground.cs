@@ -207,7 +207,7 @@ public class PZScrollingBackground : MonoBehaviour {
 		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix + spriteName, sprite);
 		if(sprite.sprite == null)
 		{
-			MSSpriteUtil.instance.SetSprite("0Scene", "0" + spriteName, sprite);
+			MSSpriteUtil.instance.SetSprite("1Scene", "1" + spriteName, sprite);
 		}
 
 	}

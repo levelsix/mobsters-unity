@@ -301,7 +301,7 @@ public class MSClanManager : MonoBehaviour
 	/// <param name="tag">Tag.</param>
 	/// <param name="requestRequired">If set to <c>true</c> request required.</param>
 	/// <param name="description">Description.</param>
-	public IEnumerator CreateClan(string name, string tag, bool requestRequired, string description, int iconId)
+	public IEnumerator CreateClan(string name, string tag, bool requestRequired, string description, int iconId, int cash, int gems = 0)
 	{
 		CreateClanRequestProto request = new CreateClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -310,6 +310,8 @@ public class MSClanManager : MonoBehaviour
 		request.requestToJoinClanRequired = requestRequired;
 		request.description = description;
 		request.clanIconId = iconId;
+		request.cashChange = -cash;
+		request.gemsSpent = gems;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_CREATE_CLAN_EVENT, null);
 

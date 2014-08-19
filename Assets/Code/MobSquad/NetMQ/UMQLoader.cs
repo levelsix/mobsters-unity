@@ -47,6 +47,15 @@ public class UMQLoader : MonoBehaviour {
 			PlayerPrefs.Save();
 		}
 
+		/*
+		MSFacebookManager.instance.Init();
+
+		while (!MSFacebookManager.hasTriedLogin)
+		{
+			yield return null;
+		}
+		*/
+
 		if (FB.IsLoggedIn)
 		{
 			startup.fbId = FB.UserId;

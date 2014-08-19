@@ -164,8 +164,8 @@ public class MSBuildingManager : MonoBehaviour
 		MSActionManager.Controls.OnReleaseDrag[0] += OnReleaseDrag;
 		MSActionManager.Controls.OnStartDrag[0] += OnStartDrag;
 		MSActionManager.Town.PlaceBuilding += OnPlace;
-		MSActionManager.UI.OnChangeResource[0] += DistributeCash;
-		MSActionManager.UI.OnChangeResource[1] += DistributeOil;
+		MSActionManager.UI.OnChangeResource[ResourceType.CASH] += DistributeCash;
+		MSActionManager.UI.OnChangeResource[ResourceType.OIL] += DistributeOil;
 		MSActionManager.Goon.OnMonsterAddTeam += OnAddTeam;
 		MSActionManager.Goon.OnMonsterRemoveTeam += OnRemoveTeam;
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += OnMonsterRemovedFromPlayerInventory;
@@ -183,8 +183,8 @@ public class MSBuildingManager : MonoBehaviour
 		MSActionManager.Controls.OnStartDrag[0] -= OnStartDrag;
 		MSActionManager.Controls.OnReleaseDrag[0] -= OnReleaseDrag;
 		MSActionManager.Town.PlaceBuilding -= OnPlace;
-		MSActionManager.UI.OnChangeResource[0] -= DistributeCash;
-		MSActionManager.UI.OnChangeResource[1] -= DistributeOil;
+		MSActionManager.UI.OnChangeResource[ResourceType.CASH] -= DistributeCash;
+		MSActionManager.UI.OnChangeResource[ResourceType.OIL] -= DistributeOil;
 		MSActionManager.Goon.OnMonsterAddTeam -= OnAddTeam;
 		MSActionManager.Goon.OnMonsterRemoveTeam -= OnRemoveTeam;
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory -= OnMonsterRemovedFromPlayerInventory;
@@ -515,8 +515,8 @@ public class MSBuildingManager : MonoBehaviour
 			//DebugBuildPier();
 		}
 
-		DistributeCash(MSResourceManager.resources[0]);
-		DistributeOil(MSResourceManager.resources[1]);
+		DistributeCash(MSResourceManager.resources[ResourceType.CASH]);
+		DistributeOil(MSResourceManager.resources[ResourceType.OIL]);
 
 		if (!MSHospitalManager.instance.initialized)
 		{
@@ -683,14 +683,42 @@ public class MSBuildingManager : MonoBehaviour
 		MSTownCamera.instance.DoCenterOnGroundPos(building.trans.position);
 	}
 	
-	public bool BuyBuilding(MSBuilding building, Action callback = null)
+	public bool BuyBuilding(MSBuilding building, bool useGems = false)
 	{
-		if (callback == null) 
-		{
-			callback = delegate {BuyBuilding(building);};
-		}
 		ResourceType costType = building.combinedProto.structInfo.buildResourceType;
-		if (MSResourceManager.instance.Spend(costType, building.combinedProto.structInfo.buildCost, callback))
+		int cost = building.combinedProto.structInfo.buildCost;
+
+		if (useGems)
+		{
+			int gemCost = cost - MSResourceManager.resources[costType];
+			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
+			{
+				PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
+				request.sender = MSWhiteboard.localMup;
+				
+				request.structCoordinates = new CoordinateProto();
+				request.structCoordinates.x = building.groundPos.x;
+				request.structCoordinates.y = building.groundPos.y;
+				
+				request.structId = building.combinedProto.structInfo.structId;
+				request.timeOfPurchase = MSUtil.timeNowMillis;
+				
+				request.gemsSpent = gemCost;
+				request.resourceChange = -MSResourceManager.instance.SpendAll(costType);
+				
+				request.resourceType = building.combinedProto.structInfo.buildResourceType;
+				
+				UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_NORM_STRUCTURE_EVENT, PurchaseBuildingResponse);
+				FullDeselect();
+				MSActionManager.Popup.CloseAllPopups();
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else if (MSResourceManager.instance.Spend(costType, cost, delegate{building.Confirm(true);}))
 		{
 			FullDeselect();
 
