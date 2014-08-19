@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100006
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,32 +135,41 @@ MonoBehaviour:
     m_Curve:
     - time: 0
       value: 0
-      inSlope: 1.98690832
-      outSlope: 1.98690832
+      inSlope: .0555017106
+      outSlope: .0555017106
       tangentMode: 0
-    - time: .300520033
-      value: .501640499
-      inSlope: -.00285988767
-      outSlope: -.00285988767
+    - time: .162527695
+      value: .522803545
+      inSlope: -.0132063245
+      outSlope: -.0132063245
       tangentMode: 0
-    - time: .700644851
-      value: .500113189
-      inSlope: .00205024402
-      outSlope: .00205024402
+    - time: .200627789
+      value: .499735057
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
-    - time: 1
-      value: 1
-      inSlope: 2.83627391
-      outSlope: 2.83627391
+    - time: .801621497
+      value: .500333071
+      inSlope: .0150372023
+      outSlope: .0150372023
+      tangentMode: 0
+    - time: 1.00093377
+      value: .998860836
+      inSlope: -.00325153139
+      outSlope: -.00325153139
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
   ignoreTimeScale: 1
   delay: 0
-  duration: 5
+  duration: 4
   steeperCurves: 0
   tweenGroup: 0
-  onFinished: []
+  onFinished:
+  - mTarget: {fileID: 11400010}
+    mMethodName: TurnOff
+    mParameters: []
+    oneShot: 0
   eventReceiver: {fileID: 0}
   callWhenFinished: 
   from: {x: 0, y: 700, z: 0}

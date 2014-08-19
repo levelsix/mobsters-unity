@@ -15,12 +15,13 @@ public class MSExpBar : MonoBehaviour {
 	void OnEnable()
 	{
 		MSActionManager.Scene.OnCity += UpdateBar;
-
+		MSActionManager.UI.OnLevelUp += UpdateBar;
 	}
 
 	void OnDisable()
 	{
 		MSActionManager.Scene.OnCity -= UpdateBar;
+		MSActionManager.UI.OnLevelUp -= UpdateBar;
 	}
 	
 	void UpdateBar()

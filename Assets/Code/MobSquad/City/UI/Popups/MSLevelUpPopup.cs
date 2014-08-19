@@ -11,25 +11,22 @@ public class MSLevelUpPopup : MonoBehaviour {
 	[SerializeField]
 	TweenPosition tween;
 
-	public static Action<int> Init;
-
-	void Awake()
-	{
-		Init += InitLevelUpScreen;
-	}
-
 	void OnEnable()
 	{
-		transform.localPosition = tween.from;
+		tween.gameObject.transform.position = tween.from;
 	}
 
-	public void InitLevelUpScreen(int level)
+	public void ActivateLevelUpScreen(int level)
 	{
-		enabled = true;
+		gameObject.SetActive(true);
 		this.level.text = level.ToString();
 		tween.ResetToBeginning();
 		tween.PlayForward();
-		tween.AddOnFinished( delegate { enabled = false; });
+	}
+
+	public void TurnOff()
+	{
+		gameObject.SetActive(false);
 	}
 
 }

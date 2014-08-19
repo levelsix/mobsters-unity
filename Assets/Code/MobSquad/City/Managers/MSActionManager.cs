@@ -93,18 +93,14 @@ public static class MSActionManager
 		public static Action<int[]> OnSetResourceMaxima;
         public static Action OnCameraLockButton;
         public static Action OnCameraSnapButton;
-		
 		public static Action<MSFullQuest> OnQuestEntryClicked;
 		public static Action OnReorganizeHealQueue;
-
 		public static Action<ReceivedGroupChatResponseProto> OnGroupChatReceived;
 		public static Action<PrivateChatPostResponseProto> OnPrivateChatReceived;
-
 		public static Action OnRequestsAcceptOrReject;
-
 		public static Action OnDialogueClicked;
-
 		public static Action<int> OnChangeClanIcon;
+		public static Action OnLevelUp;
 	}
 	
 	public static class Goon
