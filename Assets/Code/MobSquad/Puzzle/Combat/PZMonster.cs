@@ -326,6 +326,8 @@ public class PZMonster {
 		}
 	}
 
+	public int speed;
+
 	public int maxHP;
 	public int currHP;
 
@@ -425,7 +427,7 @@ public class PZMonster {
 	void SetupWithUser()
 	{
 		level = userMonster.currentLvl = Math.Min(userMonster.currentLvl, monster.maxLevel);
-
+		speed = SpeedAtLevel(userMonster.currentLvl);
 		maxHP = MaxHPAtLevel(userMonster.currentLvl);
 		currHP = userMonster.currentHealth;
 		SetAttackDamagesForLevel(userMonster.currentLvl);
@@ -434,6 +436,7 @@ public class PZMonster {
 	void SetupWithTask()
 	{
 		currHP = maxHP = MaxHPAtLevel(taskMonster.level);
+		speed = SpeedAtLevel(taskMonster.level);
 		SetAttackDamagesForLevel(taskMonster.level);
 	}
 

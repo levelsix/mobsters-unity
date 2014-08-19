@@ -38,6 +38,8 @@ public class MSHirePopup : MonoBehaviour {
 
 		userStructId = residence.userStructProto.userStructId;
 
+		currResidenceLevel = residence.combinedProto.residence;
+
 		MSFullBuildingProto thisLevel = residence.combinedProto.baseLevel;
 		int i = 0;
 		while (thisLevel != null)

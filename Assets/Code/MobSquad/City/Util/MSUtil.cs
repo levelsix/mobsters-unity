@@ -381,22 +381,31 @@ public static class MSUtil {
 		return copy;
 	}
 
+	public static void ShuffleList<T>(List<T> list)
+	{
+		T temp;
+		for (int i = 0; i < list.Count; i++) 
+		{
+			int j = UnityEngine.Random.Range(0, list.Count);
+			temp = list[i];
+			list[i] = list[j];
+			list[j] = temp;
+		}
+	}
+
 	public static string LeagueRankSuffix(int rank)
 	{
-		switch(rank % 10)
+		if (rank > 19) rank %= 10;
+		switch(rank)
 		{
 		case 1:
 			return "st";
-			break;
 		case 2:
 			return "nd";
-			break;
 		case 3:
 			return "rd";
-			break;
 		default:
 			return "th";
-			break;
 		}
 	}
 

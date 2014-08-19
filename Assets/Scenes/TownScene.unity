@@ -122,13 +122,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 0}
   mPivot: 4
-  mWidth: 322
+  mWidth: 10
   mHeight: 10
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 32.2000008
+  aspectRatio: 1
 --- !u!4 &162614
 Transform:
   m_ObjectHideFlags: 0
@@ -2318,6 +2318,7 @@ MonoBehaviour:
   userTeam:
   - userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -2327,6 +2328,7 @@ MonoBehaviour:
     level: 0
   - userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -2336,6 +2338,7 @@ MonoBehaviour:
     level: 0
   - userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -2347,6 +2350,7 @@ MonoBehaviour:
   currentEnhancementMonster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -2533,7 +2537,7 @@ Prefab:
       objectReference: {fileID: 1147452469}
     - target: {fileID: 400014, guid: c7f44f5adf25d401d9379075903d4d4a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 570
+      value: 481.000031
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7f44f5adf25d401d9379075903d4d4a, type: 2}
@@ -5598,13 +5602,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 0}
   mPivot: 4
-  mWidth: 1140
+  mWidth: 962
   mHeight: 73
   mDepth: 11
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 14.9863014
+  aspectRatio: 13.1780825
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: menutopbar
   mType: 0
@@ -13912,6 +13916,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 210115035}
   - 114: {fileID: 210115036}
+  - 114: {fileID: 210115037}
   m_Layer: 8
   m_Name: CombatManager
   m_TagString: Untagged
@@ -13987,6 +13992,18 @@ MonoBehaviour:
   prizeQuantityLabel: {fileID: 417665456}
   intro: {fileID: 1576648659}
   forfeitChance: 0
+  minTurnSlots: 6
+--- !u!114 &210115037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 210115034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7075cef3a8164581a9d577cf96c253a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &213111746
 GameObject:
   m_ObjectHideFlags: 0
@@ -21670,6 +21687,14 @@ Prefab:
       propertyPath: m_Name
       value: PlayerGoon
       objectReference: {fileID: 0}
+    - target: {fileID: 11400046, guid: 0fc6f22a58d5a4a0d89761dfc134f94b, type: 2}
+      propertyPath: renderQueue
+      value: 5003
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400048, guid: 0fc6f22a58d5a4a0d89761dfc134f94b, type: 2}
+      propertyPath: renderQueue
+      value: 4999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0fc6f22a58d5a4a0d89761dfc134f94b, type: 2}
   m_RootGameObject: {fileID: 2032641517}
@@ -24354,6 +24379,7 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -25306,7 +25332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cdfe927ad9c46aaaa02af89b248b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderQueue: 5001
+  renderQueue: 4999
 --- !u!1 &367375737
 GameObject:
   m_ObjectHideFlags: 0
@@ -31929,10 +31955,10 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5009
+  startingRenderQueue: 5008
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: -568.888916, y: 320, z: 1137.77783, w: 640}
+  mClipRange: {x: -480, y: 320, z: 960, w: 640}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 6
   mSortingOrder: 0
@@ -37021,13 +37047,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 0}
   mPivot: 4
-  mWidth: 322
+  mWidth: 10
   mHeight: 10
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 32.2000008
+  aspectRatio: 1
 --- !u!4 &538976131
 Transform:
   m_ObjectHideFlags: 0
@@ -41677,7 +41703,7 @@ Transform:
   m_PrefabInternal: {fileID: 29907457}
   m_GameObject: {fileID: 609866752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 570, y: 0, z: 0}
+  m_LocalPosition: {x: 481.000031, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1576648658}
@@ -41713,13 +41739,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 0}
   mPivot: 4
-  mWidth: 1150
+  mWidth: 972
   mHeight: 652
   mDepth: 11
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.58742332
+  aspectRatio: 1.49079752
   mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
   mSpriteName: blackcolormask
   mType: 1
@@ -48414,7 +48440,7 @@ Transform:
   m_PrefabInternal: {fileID: 2071987916}
   m_GameObject: {fileID: 695654372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -1.90734863e-06, z: 0}
+  m_LocalPosition: {x: 173, y: -1.90734863e-06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1923339607}
@@ -50877,6 +50903,7 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -51607,7 +51634,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 734895126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -568.888916, y: 320, z: -540.000061}
+  m_LocalPosition: {x: -480, y: 320, z: -540.000061}
   m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
   m_Children:
   - {fileID: 769442478}
@@ -60224,7 +60251,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 849576945}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 568.888916, y: 320, z: -540.000061}
+  m_LocalPosition: {x: 480, y: 320, z: -540.000061}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 738601971}
@@ -62303,6 +62330,14 @@ Prefab:
     - target: {fileID: 11400016, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
       propertyPath: aspectRatio
       value: .0666666701
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
+      propertyPath: tweenToVal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
+      propertyPath: maxSize
+      value: 174
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
@@ -65886,6 +65921,7 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -66415,6 +66451,14 @@ Prefab:
       propertyPath: topAnchor.target
       value: 
       objectReference: {fileID: 2082491268}
+    - target: {fileID: 11400018, guid: a16f65f6f599c4b6b9a8702c379ed50f, type: 2}
+      propertyPath: mWidth
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400018, guid: a16f65f6f599c4b6b9a8702c379ed50f, type: 2}
+      propertyPath: aspectRatio
+      value: 3.63636374
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a16f65f6f599c4b6b9a8702c379ed50f, type: 2}
   m_RootGameObject: {fileID: 466608753}
@@ -67129,6 +67173,7 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -67488,7 +67533,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5009
+  startingRenderQueue: 5008
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -79067,11 +79112,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400054, guid: 4a3c1970a42a043c695430530227550a, type: 2}
       propertyPath: mWidth
-      value: 1138
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 11400054, guid: 4a3c1970a42a043c695430530227550a, type: 2}
       propertyPath: aspectRatio
-      value: 11.3800001
+      value: 9.60000038
       objectReference: {fileID: 0}
     - target: {fileID: 11400036, guid: 4a3c1970a42a043c695430530227550a, type: 2}
       propertyPath: leftAnchor.relative
@@ -81925,7 +81970,7 @@ MonoBehaviour:
   startingRenderQueue: 4004
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: 0, z: 1137.77783, w: 640}
+  mClipRange: {x: 0, y: 0, z: 960, w: 640}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 4
   mSortingOrder: 0
@@ -84976,7 +85021,7 @@ MonoBehaviour:
   startingRenderQueue: 5005
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: 0, z: 1139.77783, w: 642}
+  mClipRange: {x: 0, y: 0, z: 962, w: 642}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 5
   mSortingOrder: 0
@@ -88808,10 +88853,10 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5014
+  startingRenderQueue: 5013
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: 0, z: 1137.77783, w: 640}
+  mClipRange: {x: 0, y: 0, z: 960, w: 640}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 7
   mSortingOrder: 0
@@ -97815,7 +97860,7 @@ MonoBehaviour:
   startingRenderQueue: 4001
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: 0, z: 1137.77783, w: 640}
+  mClipRange: {x: 0, y: 0, z: 960, w: 640}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 0
   mSortingOrder: 0
@@ -103406,7 +103451,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1402411370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -568.888916, y: -320, z: 0}
+  m_LocalPosition: {x: -480, y: -320, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1074821540}
@@ -104949,13 +104994,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 0}
   mPivot: 4
-  mWidth: 322
+  mWidth: 10
   mHeight: 10
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 32.2000008
+  aspectRatio: 1
 --- !u!4 &1416763525
 Transform:
   m_ObjectHideFlags: 0
@@ -112410,10 +112455,10 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5009
+  startingRenderQueue: 5008
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 568.888916, y: 320, z: 1137.77783, w: 640}
+  mClipRange: {x: 480, y: 320, z: 960, w: 640}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 6
   mSortingOrder: 0
@@ -116105,7 +116150,7 @@ MonoBehaviour:
   startingRenderQueue: 4004
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: .344116211, y: -4, z: 866.466064, w: 116}
+  mClipRange: {x: .344116211, y: -4, z: 688.688293, w: 116}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 0
   mSortingOrder: 0
@@ -118571,10 +118616,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b942fba2053a14d328be1d3170b5309b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSize: 178
+  maxSize: 174
   minSize: 2
   currVal: 0
-  tweenToVal: 0
+  tweenToVal: 1
   speed: .5
 --- !u!114 &1624509588
 MonoBehaviour:
@@ -118640,7 +118685,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 2
-  speed: 1
 --- !u!1 &1624510092
 GameObject:
   m_ObjectHideFlags: 0
@@ -127934,7 +127978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cdfe927ad9c46aaaa02af89b248b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderQueue: 5002
+  renderQueue: 5003
 --- !u!114 &1749753662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134026,7 +134070,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1834694727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 568.888916, y: 0, z: 0}
+  m_LocalPosition: {x: 480, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1966781458}
@@ -135550,13 +135594,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 5
-  mWidth: 1138
+  mWidth: 960
   mHeight: 264
   mDepth: 9
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.310606
+  aspectRatio: 3.63636374
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: diagradient
   mType: 1
@@ -135728,6 +135772,7 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -139230,13 +139275,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 0}
   mPivot: 4
-  mWidth: 1138
+  mWidth: 960
   mHeight: 640
   mDepth: -1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.77812505
+  aspectRatio: 1.5
   mSprite: {fileID: 21300000, guid: cec687ba740724794922a3fa07e01c79, type: 3}
   mMat: {fileID: 0}
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
@@ -140603,10 +140648,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b942fba2053a14d328be1d3170b5309b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSize: 178
+  maxSize: 174
   minSize: 2
   currVal: 0
-  tweenToVal: 0
+  tweenToVal: 1
   speed: .5
 --- !u!114 &1923339609
 MonoBehaviour:
@@ -140639,13 +140684,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 2
+  mWidth: 174
   mHeight: 30
   mDepth: 3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .0666666701
+  aspectRatio: 5.80000019
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: cashmiddle
   mType: 1
@@ -140672,7 +140717,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 1
-  speed: 1
 --- !u!1 &1924330847
 GameObject:
   m_ObjectHideFlags: 0
@@ -140921,6 +140965,7 @@ MonoBehaviour:
   goon:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -142689,6 +142734,14 @@ Prefab:
       propertyPath: topAnchor.target
       value: 
       objectReference: {fileID: 2082491268}
+    - target: {fileID: 11400026, guid: 961306d7128b24a819506cbc40c1f975, type: 2}
+      propertyPath: mWidth
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400026, guid: 961306d7128b24a819506cbc40c1f975, type: 2}
+      propertyPath: aspectRatio
+      value: 3.63636374
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 961306d7128b24a819506cbc40c1f975, type: 2}
   m_RootGameObject: {fileID: 1533508203}
@@ -143921,13 +143974,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1138
+  mWidth: 960
   mHeight: 100
   mDepth: -1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 11.3800001
+  aspectRatio: 9.60000038
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: diagradient
   mType: 1
@@ -146272,6 +146325,7 @@ MonoBehaviour:
   goon:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -147131,7 +147185,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2003082298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -568.888916, y: -320, z: -540.000061}
+  m_LocalPosition: {x: -480, y: -320, z: -540.000061}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 696004690}
@@ -147573,13 +147627,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 1138
+  mWidth: 960
   mHeight: 264
   mDepth: 9
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.310606
+  aspectRatio: 3.63636374
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: diagradient
   mType: 1
@@ -148566,7 +148620,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2021132106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -568.888916, y: 320, z: 0}
+  m_LocalPosition: {x: -480, y: 320, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 155436653}
@@ -148872,6 +148926,7 @@ MonoBehaviour:
   goon:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -148955,6 +149010,7 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -151983,19 +152039,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400016, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
       propertyPath: mWidth
-      value: 2
+      value: 174
       objectReference: {fileID: 0}
     - target: {fileID: 11400016, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
       propertyPath: aspectRatio
-      value: .0666666701
+      value: 5.80000019
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 173
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
       propertyPath: m_LocalPosition.y
       value: -1.90734863e-06
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
+      propertyPath: tweenToVal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
+      propertyPath: maxSize
+      value: 174
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 717dc5e4931a64026a714e065ce2e48f, type: 2}
@@ -152685,7 +152749,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2084608084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 568.888916, y: -320, z: -540.000061}
+  m_LocalPosition: {x: 480, y: -320, z: -540.000061}
   m_LocalScale: {x: 1.00007999, y: 1.00007999, z: 1.00007999}
   m_Children:
   - {fileID: 466608754}
@@ -154103,6 +154167,7 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -155719,7 +155784,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2133246977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -570, y: 0, z: 0}
+  m_LocalPosition: {x: -481.000031, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1576648658}
