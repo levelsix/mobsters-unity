@@ -9,11 +9,23 @@ using com.lvl6.proto;
 /// to persist between scenes
 /// </summary>
 public static class MSWhiteboard {
+
+	public static FullUserProto _localUser;
 	
 	/// <summary>
 	/// The local user.
 	/// </summary>
 	public static FullUserProto localUser;
+//	{
+//		get{
+//			Debug.Log("get");
+//			return _localUser;
+//		}
+//		set{
+//			Debug.Log("set");
+//			_localUser = localUser;
+//		}
+//	}
 	
 	/// <summary>
 	/// The local user's MUP
