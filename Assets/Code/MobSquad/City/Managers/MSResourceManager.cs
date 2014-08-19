@@ -14,6 +14,9 @@ using System;
 public class MSResourceManager : MonoBehaviour {
 	
 	public static MSResourceManager instance;
+	
+	[SerializeField]
+	MSLevelUpPopup levelUpPopup;
 
 	/// <summary>
 	/// The resources.
@@ -39,6 +42,8 @@ public class MSResourceManager : MonoBehaviour {
 	
 	int expForNextLevel{get{return _expForNextLevel;}}
 
+	bool checkingEXP = false;
+
 	RetrieveCurrencyFromNormStructureRequestProto retrieveRequest = null;
 
 	/// <summary>
@@ -53,6 +58,16 @@ public class MSResourceManager : MonoBehaviour {
 	void Awake()
 	{
 		instance = this;
+	}
+
+	void OnEnable()
+	{
+		MSActionManager.Scene.OnCity += CheckEXP;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Scene.OnCity -= CheckEXP;
 	}
 	
 	public void Init(int lev, int xp, int xpNext, int cash, int oil, int premium)
@@ -281,13 +296,25 @@ public class MSResourceManager : MonoBehaviour {
 		_exp += amount;
 		if (_exp > _expForNextLevel)
 		{
-			//StartCoroutine(LevelUp());
+			StartCoroutine(LevelUp());
+		}
+	}
+
+	[ContextMenu("check exp")]
+	public void CheckEXP()
+	{
+		if (_exp > _expForNextLevel && !checkingEXP)
+		{
+			Debug.LogWarning("leveling up: " + _exp + " > " + _expForNextLevel);
+			checkingEXP = true;
+			StartCoroutine(LevelUp());
 		}
 	}
 
 	IEnumerator LevelUp()
 	{
 		LevelUpRequestProto request = new LevelUpRequestProto();
+		request.nextLevel = _level + 1;
 		request.sender = MSWhiteboard.localMup;
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LEVEL_UP_EVENT, null);
 		
@@ -302,18 +329,27 @@ public class MSResourceManager : MonoBehaviour {
 		if (response.status == LevelUpResponseProto.LevelUpStatus.SUCCESS)
 		{
 			_level++;
-			StaticUserLevelInfoProto nextLevelData = MSDataManager.instance.Get(typeof(StaticUserLevelInfoProto), _level + 1) as StaticUserLevelInfoProto;
+			levelUpPopup.ActivateLevelUpScreen(_level);
+
+			StaticUserLevelInfoProto nextLevelData = MSDataManager.instance.Get<StaticUserLevelInfoProto>(_level + 1);
+			MSWhiteboard.nextLevelInfo = nextLevelData;
+			MSWhiteboard.localUser.level = _level;
+
 			if (nextLevelData != null)
 			{
 				_expForNextLevel = nextLevelData.requiredExperience;
+			}
+
+			if (MSActionManager.UI.OnLevelUp != null)
+			{
+				MSActionManager.UI.OnLevelUp();
 			}
 		}
 		else
 		{
 			Debug.LogError("Problem leveling up: " + response.status.ToString());
 		}
-		
-		
+		checkingEXP = false;
 	}
 
 	void HandleRetrieveResponse(int tagNum)

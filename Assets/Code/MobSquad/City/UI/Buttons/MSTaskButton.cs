@@ -289,8 +289,8 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	void ClickUpgrade()
 	{
-		base.OnClick();
-		popup.GetComponent<MSBuildingUpgradePopup>().Init(currBuilding);
+			base.OnClick();
+			popup.GetComponent<MSBuildingUpgradePopup>().Init(currBuilding);
 	}
 
 	void ClickHire()

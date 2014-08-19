@@ -251,11 +251,11 @@ public class PZCombatUnit : MonoBehaviour {
 		//Debug.Log(name + " taking " + fullDamage + " damage");
 		if(!MSTutorialManager.instance.inTutorial)
 		{
-			if(fullDamage > damage)
+			if(fullDamage < damage)
 			{
 				PZCombatManager.instance.EffectiveAttack(true);
 			}
-			else if(fullDamage < damage)
+			else if(fullDamage > damage)
 			{
 				PZCombatManager.instance.EffectiveAttack(false);
 			}
