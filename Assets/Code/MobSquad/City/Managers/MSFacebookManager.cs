@@ -77,7 +77,15 @@ public class MSFacebookManager : MonoBehaviour {
 		if (isLoggedIn)
 		{
 			Debug.Log("Logged in as: " + FB.UserId);
+			if(MSActionManager.Facebook.OnLoginSucces != null)
+			{
+				MSActionManager.Facebook.OnLoginSucces();
+			}
 			TryLoadFriends();
+		}
+		if(MSActionManager.Facebook.OnLoginFail != null)
+		{
+			MSActionManager.Facebook.OnLoginFail();
 		}
 		hasTriedLogin = true;
 	}

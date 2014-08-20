@@ -205,6 +205,10 @@ public class PZCombatManager : MonoBehaviour {
 
 	int savedHealth = -1;
 
+	[SerializeField] int minTurnSlots = 6;
+
+
+
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
 	/// </summary>
