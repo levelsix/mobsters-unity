@@ -11,12 +11,18 @@ public class PZDestroySpecial : MonoBehaviour {
 
 	PZGem aboveTarget;
 
+	bool onLock = false;
+
 	void OnEnable(){
 		PZPuzzleManager.instance.specialBoardLock += 1;
+		onLock = true;
 	}
 
 	void OnDisable(){
-		PZPuzzleManager.instance.specialBoardLock -= 1;
+		if (onLock)
+		{
+			DisableLock();
+		}
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -33,6 +39,12 @@ public class PZDestroySpecial : MonoBehaviour {
 			}
 		}
 
+	}
+
+	public void DisableLock()
+	{
+		onLock = false;
+		PZPuzzleManager.instance.specialBoardLock -= 1;
 	}
 
 }

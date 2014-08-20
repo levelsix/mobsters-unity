@@ -142,6 +142,8 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	UILabel mobsterCounter;
 
+	public PZTurnDisplay turnDisplay;
+
 	bool wordsMoving = false;
 
 	int currPlayerDamage = 0;
@@ -378,6 +380,9 @@ public class PZCombatManager : MonoBehaviour {
 		
 		pvpUI.Reset();
 
+		PZCombatScheduler.instance.turns = save.turns;
+		PZCombatScheduler.instance.currInd = save.currTurnIndex;
+
 		forfeitChance = save.forfeitChance;
 
 		currTurn = save.currTurn;
@@ -406,7 +411,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (currTurn == playerTurns)
 		{
-			Attack();
+			PlayerAttack();
 			currTurn = 0;
 			currPlayerDamage = 0;
 		}
@@ -676,18 +681,9 @@ public class PZCombatManager : MonoBehaviour {
 		if (monster != activePlayer.monster)
 		{
 			Debug.Log ("Actually deploying");
-
-			//if (activePlayer.alive)
-			//{
-				StartCoroutine(SwapCharacters(monster));
-			//}
-			//else
-			//{
-			//	activePlayer.Init(monster);
-			//	activePlayer.GoToStartPos();
-			//	CheckBleed(activePlayer);
-			//	StartCoroutine(ScrollToNextEnemy());
-			//}
+			
+			PZCombatScheduler.instance.Schedule(monster, activeEnemy.monster, true);
+			StartCoroutine(SwapCharacters(monster));
 		}
 		else
 		{
@@ -743,7 +739,7 @@ public class PZCombatManager : MonoBehaviour {
 			ActivateLoseMenu();
 		} else {
 			forfeitChance *= 2f;
-			yield return StartCoroutine(EnemyAttack(0));
+			yield return StartCoroutine(EnemyAttack());
 		}
 		PZPuzzleManager.instance.swapLock--;
 	}
@@ -818,17 +814,16 @@ public class PZCombatManager : MonoBehaviour {
 		yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed*3.5f));
 
 		activePlayer.Init(swapTo);
-
+		
+		CheckBleed(activePlayer);
+		
 		yield return null;
 
 		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed*3.5f));
 
-		PZPuzzleManager.instance.swapLock = 0;
-		
-		if (MSActionManager.Puzzle.ForceShowSwap != null)
-		{
-			MSActionManager.Puzzle.ForceShowSwap();
-		}
+		yield return turnDisplay.RunInit(swapTo, activeEnemy.monster);
+
+		RunPickNextTurn(false);
 	}
 
 	public Coroutine RunScrollToNextEnemy()
@@ -842,6 +837,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	IEnumerator ScrollToNextEnemy()
 	{
+		turnDisplay.DoMoveOut();
+
 		if (boardTint.value <= .01f) {
 				boardTint.PlayForward ();
 		}
@@ -883,6 +880,10 @@ public class PZCombatManager : MonoBehaviour {
 				}
 			}
 
+			//turnDisplay.Init(activePlayer.monster, activeEnemy.monster);
+
+			PZCombatScheduler.instance.Schedule(1, 1, false);
+
 			activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 			
 			MSSoundManager.instance.StopLoop();
@@ -895,6 +896,8 @@ public class PZCombatManager : MonoBehaviour {
 
 			activeEnemy.GoToStartPos ();
 			activeEnemy.Init (enemies.Dequeue ());
+
+			PZCombatScheduler.instance.Schedule(activePlayer.monster, activeEnemy.monster, false);
 
 			UpdateUserTaskStage(MSWhiteboard.currTaskStages.Find(x=>x.stageMonsters[0] == activeEnemy.monster.taskMonster).stageId);
 
@@ -909,7 +912,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			Save();
 
-			mobsterCounter.text = (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
+			mobsterCounter.text = "Enemy " + (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
 			mobsterCounter.MakePixelPerfect();
 			TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 1f ,1f);
 			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
@@ -940,6 +943,8 @@ public class PZCombatManager : MonoBehaviour {
 			background.Scroll(activeEnemy.unit);
 			yield return null;
 		}
+		
+		yield return turnDisplay.RunInit(activePlayer.monster, activeEnemy.monster);
 
 		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 
@@ -947,19 +952,67 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (activeEnemy.alive && activePlayer.alive)
 		{
-			if (MSActionManager.Puzzle.ForceShowSwap != null)
-			{
-				MSActionManager.Puzzle.ForceShowSwap();
-			}
-			boardTint.PlayReverse();
+			RunPickNextTurn(false);
 		}
+
+		PZPuzzleManager.instance.swapLock = activeEnemy.alive ? 0 : 1;
+	}
+
+	public Coroutine RunPickNextTurn(bool shiftTurnDisplay)
+	{
+		return StartCoroutine(PickNextTurn(shiftTurnDisplay));
+	}
+
+	IEnumerator PickNextTurn(bool shiftTurnDisplay)
+	{
+		if (activePlayer.alive && activeEnemy.alive)
+		{
+			if (shiftTurnDisplay)
+			{
+				yield return turnDisplay.RunOnNextTurn();
+			}
+			switch (PZCombatScheduler.instance.GetNextMove())
+			{
+			case CombatTurn.PLAYER:
+				StartPlayerTurn();
+				break;
+			case CombatTurn.ENEMY:
+				StartCoroutine(EnemyAttack());
+				break;
+			}
+		}
+		else if (MSTutorialManager.instance.inTutorial)
+		{
+			MSTutorialManager.instance.TurnHappen(3);
+		}
+
+		if (!MSTutorialManager.instance.inTutorial)
+		{
+			Save ();
+		}
+	}
+
+	void StartPlayerTurn()
+	{
+		currTurn = 0;
 
 		if (MSActionManager.Puzzle.OnTurnChange != null)
 		{
 			MSActionManager.Puzzle.OnTurnChange(playerTurns);
 		}
+		if (MSActionManager.Puzzle.OnNewPlayerRound != null)
+		{
+			MSActionManager.Puzzle.OnNewPlayerRound();
+		}
+		
+		if (MSActionManager.Puzzle.ForceShowSwap != null)
+		{
+			MSActionManager.Puzzle.ForceShowSwap();
+		}
 
-		PZPuzzleManager.instance.swapLock = activeEnemy.alive ? 0 : 1;
+		boardTint.PlayReverse();
+
+		PZPuzzleManager.instance.swapLock = 0;
 	}
 
 	IEnumerator DelayedWinLosePopup(float seconds){
@@ -1134,7 +1187,7 @@ public class PZCombatManager : MonoBehaviour {
 		
 		if (currTurn == playerTurns)
 		{
-			Attack();
+			PlayerAttack();
 			currPlayerDamage = 0;
 			currTurn = 0;
 		}
@@ -1144,9 +1197,9 @@ public class PZCombatManager : MonoBehaviour {
 		}
 	}
 
-	public void Attack()
+	public void PlayerAttack()
 	{
-		StartCoroutine(DamageAnimations(currPlayerDamage, activePlayer.monster.monster.monsterElement));
+		StartCoroutine(PlayerAttackAnimationSequence(currPlayerDamage, activePlayer.monster.monster.monsterElement));
 	}
 
 	IEnumerator ShowAttackWords(float score)
@@ -1228,6 +1281,8 @@ public class PZCombatManager : MonoBehaviour {
 		bomb.GetComponent<PZBomb> ().planeTrans = plane;
 	}
 
+	#region Blood
+
 	void CheckBleed(PZCombatUnit player)
 	{
 		float perc = ((float)player.monster.currHP) / player.monster.maxHP;
@@ -1277,6 +1332,8 @@ public class PZCombatManager : MonoBehaviour {
 		bloodSplatter.to = 0;
 		bloodSplatter.value = 0;
 	}
+
+	#endregion
 
 	IEnumerator PlayerShoot(float score)
 	{
@@ -1407,7 +1464,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// <param name='element'>
 	/// Damage element.
 	/// </param>
-	IEnumerator DamageAnimations(int damage, Element element)
+	IEnumerator PlayerAttackAnimationSequence(int damage, Element element)
 	{
 		boardTint.PlayForward();
 
@@ -1416,37 +1473,12 @@ public class PZCombatManager : MonoBehaviour {
 			damage = riggedAttacks.Dequeue();
 		}
 
-		//Debug.Log("Lock: Animating");
 		PZPuzzleManager.instance.swapLock += 1;
 
 		float score = damage/activePlayer.monster.totalDamage;
 
 		//Do all of the attack damage calculations and save before actually doing the damage
 		int futureEnemyHp = activeEnemy.HealthAfterDamage(damage, element);
-
-		int enemyDamageWithElement = 0;
-		if (futureEnemyHp > 0)
-		{
-			int enemyDamage;
-			if (raidMode)
-			{
-				enemyDamage = Random.Range(activeEnemy.monster.raidMonster.minDmg, activeEnemy.monster.raidMonster.maxDmg);
-			}
-			else
-			{
-				enemyDamage = Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f));
-			}
-			enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement));
-			if (MSTutorialManager.instance.inTutorial)
-			{
-				enemyDamageWithElement = activePlayer.monster.currHP - 14;
-			}
-			else
-			{
-				activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
-			}
-			battleStats.damageTaken += Mathf.Min (enemyDamageWithElement, activePlayer.monster.currHP);
-		}
 
 		if (!MSTutorialManager.instance.inTutorial)
 		{
@@ -1459,33 +1491,34 @@ public class PZCombatManager : MonoBehaviour {
 		
 		yield return StartCoroutine(activeEnemy.TakeDamage(damage, element));
 
-		if (futureEnemyHp > 0)
-		{
-			StartCoroutine(EnemyAttack(enemyDamageWithElement));
-		}
-		
-		//Debug.Log("Unlock: Done Animating");
-		PZPuzzleManager.instance.swapLock -= 1;
-
-		if (MSActionManager.Puzzle.OnTurnChange != null)
-		{
-			MSActionManager.Puzzle.OnTurnChange(playerTurns);
-		}
-
-		if (activeEnemy.alive)
-		{
-			if (MSActionManager.Puzzle.OnNewPlayerRound != null)
-			{
-				MSActionManager.Puzzle.OnNewPlayerRound();
-			}
-		}
-
-		boardTint.PlayReverse();
+		RunPickNextTurn(true);
 
 	}
 
-	public IEnumerator EnemyAttack(float damageToDeal)
+	public IEnumerator EnemyAttack()
 	{
+		int enemyDamageWithElement = 0;
+
+		int enemyDamage;
+		if (raidMode)
+		{
+			enemyDamage = Random.Range(activeEnemy.monster.raidMonster.minDmg, activeEnemy.monster.raidMonster.maxDmg);
+		}
+		else
+		{
+			enemyDamage = Mathf.RoundToInt(activeEnemy.monster.totalDamage * Random.Range(1.0f, 4.0f));
+		}
+		enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement));
+		if (MSTutorialManager.instance.inTutorial)
+		{
+			enemyDamageWithElement = activePlayer.monster.currHP - 14;
+		}
+		else
+		{
+			activePlayer.SendDamageUpdateToServer(enemyDamageWithElement);
+		}
+		battleStats.damageTaken += Mathf.Min (enemyDamageWithElement, activePlayer.monster.currHP);
+
 		if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
 			yield return StartCoroutine(activeEnemy.AdvanceTo(activePlayer.transform.localPosition.x + MELEE_ATTACK_DISTANCE, -background.direction, background.scrollSpeed * 4));
@@ -1494,7 +1527,7 @@ public class PZCombatManager : MonoBehaviour {
 		activeEnemy.unit.animat = MSUnit.AnimationType.ATTACK;
 		yield return new WaitForSeconds(.5f);
 		
-		StartCoroutine(activePlayer.TakeDamage((int)damageToDeal, activeEnemy.monster.monster.monsterElement));
+		StartCoroutine(activePlayer.TakeDamage((int)enemyDamageWithElement, activeEnemy.monster.monster.monsterElement));
 		
 		CheckBleed(activePlayer);
 		
@@ -1507,7 +1540,8 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		
 		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
-		
+
+		RunPickNextTurn(true);
 	}
 
 	public IEnumerator QueueUpPvp()

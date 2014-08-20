@@ -399,7 +399,7 @@ public class MSTutorialManager : MonoBehaviour
 		guideUnit.direction = MSValues.Direction.SOUTH;
 		guideUnit.anim.SetTrigger("Stay");
 
-		MSTownCamera.instance.SlideToPos(pierCameraPos, TutorialValues.cameraSize, .2f);
+		MSTownCamera.instance.SlideToPos(pierCameraPos, TutorialValues.cameraSize, TutorialValues.panToBoatTime);
 
 		yield return StartCoroutine (MoveBoat(TutorialValues.boatStartPos, TutorialValues.boatDockPos));
 
@@ -415,7 +415,7 @@ public class MSTutorialManager : MonoBehaviour
 		bossUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
 		bossUnit.DoFade(true, TutorialValues.enemyEnterJumpTime);
 
-		MSTownCamera.instance.SlideToPos(showdownCameraPos, TutorialValues.cameraSize, .2f);
+		MSTownCamera.instance.SlideToPos(showdownCameraPos, TutorialValues.cameraSize, TutorialValues.panFromBoatTime);
 
 		while (enemyOneUnit.cityUnit.moving)
 		{
@@ -563,6 +563,9 @@ public class MSTutorialManager : MonoBehaviour
 		PZCombatManager.instance.boardTint.PlayReverse();
 		PZPuzzleManager.instance.swapLock = 0;
 
+		yield return PZCombatManager.instance.turnDisplay.RunInit(userCombatant.monster, enemyOneCombatant.monster);
+		PZCombatManager.instance.RunPickNextTurn(false);
+
 		PZPuzzleManager.instance.BlockBoard(turn1move1);
 		TutorialUI.hintHand.Init(turn1move1hintStart, turn1move1hintEnd);
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.MOVIN_ORBS, false));
@@ -586,6 +589,7 @@ public class MSTutorialManager : MonoBehaviour
 
 		PZCombatManager.instance.activeEnemy = bossCombatant;
 		yield return PZCombatManager.instance.RunScrollToNextEnemy();
+		PZCombatManager.instance.boardTint.PlayForward();
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Facepalm", enemyBoss.displayName, TutorialStrings.CHICKENS_WORK, true));
 
@@ -604,6 +608,9 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		PZCombatManager.instance.boardTint.PlayReverse();
 		PZPuzzleManager.instance.swapLock = 0;
+		
+		yield return PZCombatManager.instance.turnDisplay.RunInit(userCombatant.monster, enemyTwoCombatant.monster);
+		PZCombatManager.instance.RunPickNextTurn(false);
 
 		PZPuzzleManager.instance.BlockBoard(turn2move1);
 		TutorialUI.hintHand.Init(turn2move1hintStart, turn2move1hintEnd);
@@ -727,6 +734,7 @@ public class MSTutorialManager : MonoBehaviour
 
 		userUnit.transf.localPosition = userUnitReturnPosition;
 		userUnit.cityUnit.moving = false;
+		userUnit.animat = MSUnit.AnimationType.IDLE;
 		userUnit.anim.SetTrigger("Kneel");
 		userUnit.sprite.transform.localPosition = new Vector3(userUnit.sprite.transform.localPosition.x,
 		                                                        0,
@@ -793,7 +801,7 @@ public class MSTutorialManager : MonoBehaviour
 		//Get to the hospital
 		MSHospital hospital = MSHospitalManager.instance.hospitals[0];
 
-		MSTownCamera.instance.DoCenterOnGroundPos(hospital.building.trans.position);
+		MSTownCamera.instance.DoCenterOnGroundPos(hospital.building.trans.position, TutorialValues.panToHospitalTime);
 
 		currUi = hospital.building.gameObj;
 		MSTutorialArrow.instance.Init(hospital.building.sprite.transform, 180, MSValues.Direction.NORTH, .02f);
@@ -868,7 +876,7 @@ public class MSTutorialManager : MonoBehaviour
 	{
 		zarkUnit.anim.SetTrigger("Stay");
 
-		MSTownCamera.instance.DoCenterOnGroundPos(zarkUnit.transf.position, .5f);
+		MSTownCamera.instance.DoCenterOnGroundPos(zarkUnit.transf.position, TutorialValues.panToZarkTime);
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.ISLAND_BASE_DIALOGUE, true, false));
 
@@ -905,7 +913,7 @@ public class MSTutorialManager : MonoBehaviour
 			yield return null;
 		}
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.BIRTH_CERTIFICATE_DIALOGUE, true, false));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.BIRTH_CERTIFICATE_DIALOGUE, true));
 	}
 
 	public void OnUsernameEnter()
@@ -1015,7 +1023,7 @@ public class MSTutorialManager : MonoBehaviour
 		TutorialUI.boat.position = end;
 	}
 
-	void TurnHappen(int turnsLeft)
+	public void TurnHappen(int turnsLeft)
 	{
 		Debug.Log("Turns left: " + turnsLeft);
 		if (turnsLeft > 0)
@@ -1106,6 +1114,14 @@ public class TutorialValues
 	public float bossStompTime;
 
 	public float puzzlePixelMod;
+
+	public float panToBoatTime;
+
+	public float panFromBoatTime;
+
+	public float panToHospitalTime;
+
+	public float panToZarkTime;
 }
 
 [Serializable]

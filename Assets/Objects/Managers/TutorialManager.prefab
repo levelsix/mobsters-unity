@@ -80,8 +80,9 @@ MonoBehaviour:
     leftDialogue: {fileID: 0}
     rightDialogue: {fileID: 0}
     puzzleDialogue: {fileID: 0}
+    hintHand: {fileID: 0}
   TutorialValues:
-    cameraSize: 5.5
+    cameraSize: 5
     enemyStartPos: {x: 13, y: -8}
     boatStartPos: {x: 23, y: -10.5}
     boatDockPos: {x: 18, y: -10.5}
@@ -101,11 +102,15 @@ MonoBehaviour:
     swaggyMoveSpeed: 8
     guidMoveSpeed: 10
     bossStompHeight: 1.5
-    bossStompTime: 1
+    bossStompTime: .600000024
     puzzlePixelMod: 50
+    panToBoatTime: .600000024
+    panFromBoatTime: .600000024
+    panToHospitalTime: .600000024
+    panToZarkTime: 1
   startCameraPos: {x: 5.58504581, y: -2.64351797, z: 4.58914185}
   pierCameraPos: {x: 10.1468897, y: -8.94122314, z: 4.58914185}
-  showdownCameraPos: {x: 7.83254814, y: -2.88078094, z: 4.58914089}
+  showdownCameraPos: {x: 6.75, y: -2.88078094, z: 4.58914089}
   holdUpEndingCombat: 0
 --- !u!1001 &100100000
 Prefab:

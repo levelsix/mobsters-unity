@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using com.lvl6.proto;
 
 [System.Serializable]
@@ -20,6 +21,9 @@ public class PZCombatSave
 	public int currPlayerDamage = 0;
 
 	const string key = "CombatSave";
+
+	public List<CombatTurn> turns;
+	public int currTurnIndex;
 
 	public PZCombatSave(){}
 
@@ -54,6 +58,9 @@ public class PZCombatSave
 		                 "\nCurr Turn: " + currTurn +
 		                 "\nCurr Player Damage: " + currPlayerDamage);
 		*/
+
+		turns = PZCombatScheduler.instance.turns;
+		currTurnIndex = PZCombatScheduler.instance.currInd;
 
 		MSUtil.Save(key, this);
 	}

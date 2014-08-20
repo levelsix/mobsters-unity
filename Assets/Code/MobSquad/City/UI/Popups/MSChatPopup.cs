@@ -82,7 +82,7 @@ public class MSChatPopup : MonoBehaviour {
 			inputField.label.text = inputField.label.text.Substring(0, inputField.label.text.Length - 1);
 		}
 
-		if (inputField.label.text.Length > 3 && inputField.label.text.Substring(0, 3) == "#~#")
+		if (inputField.label.text.Length > 3 && inputField.label.text.Substring(0, 3) == CHEAT_PREFIX)
 		{
 			if (inputField.label.text.StartsWith(CHEAT_PREFIX + OIL_CHEAT))
 			{
