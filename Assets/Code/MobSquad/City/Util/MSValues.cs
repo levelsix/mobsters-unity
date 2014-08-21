@@ -53,9 +53,9 @@ public static class MSValues
 	
 	public enum ChatMode
 	{
-		GLOBAL,
-		CLAN,
-		PRIVATE
+		GLOBAL = 0,
+		CLAN = 1,
+		PRIVATE = 2
 	}
 	
 	public enum Direction

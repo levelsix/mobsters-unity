@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MSBottomChat : MonoBehaviour {
 
+	public static MSBottomChat instance;
+
 	[SerializeField]
 	Transform[] bottomChats;
 
@@ -27,6 +29,9 @@ public class MSBottomChat : MonoBehaviour {
 	[SerializeField]
 	MSChatPopup chatPopup;
 
+	[SerializeField]
+	GameObject noPrivateChats;
+
 	int currentChatIndex;
 
 	float currDrag;
@@ -35,6 +40,11 @@ public class MSBottomChat : MonoBehaviour {
 
 	[SerializeField]
 	float dragThreshold = 100;
+
+	void Awake()
+	{
+		instance = this;
+	}
 
 	public void Hide()
 	{
@@ -127,12 +137,20 @@ public class MSBottomChat : MonoBehaviour {
 		{
 			if (i == currentChatIndex)
 			{
-				dots[i].spriteName = "chatactivedot";
+				dots[i].spriteName = "activechatline";
 			}
 			else
 			{
-				dots[i].spriteName = "chatinactivedot";
+				dots[i].spriteName = "inactivechatline";
 			}
+		}
+	}
+
+	public void AlertDot(MSValues.ChatMode chatType)
+	{
+		if (dots[(int)chatType].spriteName != "activechatline")
+		{
+			dots[(int)chatType].spriteName = "newchatline";
 		}
 	}
 }

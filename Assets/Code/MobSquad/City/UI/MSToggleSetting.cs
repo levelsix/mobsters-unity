@@ -4,7 +4,7 @@ using System.Collections;
 public class MSToggleSetting : MonoBehaviour {
 
 	[SerializeField]
-	UILabel stateLabel;
+	UISprite bg;
 
 	enum Sound
 	{
@@ -14,6 +14,14 @@ public class MSToggleSetting : MonoBehaviour {
 
 	[SerializeField]
 	Sound toggleType;
+
+	[SerializeField]
+	TweenPosition tween;
+
+	const float X_OFF_SET = 20;
+	const float y_OFF_SET = -3;
+	const string ACTIVE_BG = "activetoggle";
+	const string INACTIVE_BG = "inactivetoggle";
 
 	bool _toggle;
 
@@ -26,7 +34,14 @@ public class MSToggleSetting : MonoBehaviour {
 		set
 		{
 			_toggle = value;
-			stateLabel.text = value?"ON":"OFF";
+			if(value)
+			{
+				bg.spriteName = ACTIVE_BG;
+			}
+			else
+			{
+				bg.spriteName = INACTIVE_BG;
+			}
 		}
 	}
 
@@ -40,6 +55,17 @@ public class MSToggleSetting : MonoBehaviour {
 		{
 			toggle = MSSoundManager.instance.playSounds;
 		}
+
+		if(toggle)
+		{
+			tween.from = new Vector3(X_OFF_SET, y_OFF_SET, 0f);
+		}
+		else
+		{
+			tween.from = new Vector3(-X_OFF_SET, y_OFF_SET, 0f);
+		}
+
+		tween.Sample(0f, false);
 	}
 
 	public void OnClick()
@@ -52,5 +78,19 @@ public class MSToggleSetting : MonoBehaviour {
 		{
 			toggle = MSSoundManager.instance.ToggleSoundEffects();
 		}
+
+		if(toggle)
+		{
+			tween.from = new Vector3(X_OFF_SET, y_OFF_SET, 0f);
+			tween.to = new Vector3(-X_OFF_SET, y_OFF_SET, 0f);
+		}
+		else
+		{
+			tween.from = new Vector3(-X_OFF_SET, y_OFF_SET, 0f);
+			tween.to = new Vector3(X_OFF_SET, y_OFF_SET, 0f);
+		}
+
+		tween.ResetToBeginning();
+		tween.PlayForward();
 	}
 }

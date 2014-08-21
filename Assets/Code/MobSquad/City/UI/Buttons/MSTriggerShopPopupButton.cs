@@ -41,10 +41,6 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 		{
 			MSActionManager.Loading.OnBuildingsLoaded += UpdateBadge;
 			MSActionManager.Town.PlaceBuilding += UpdateBadge;
-			if (MSTutorialManager.instance.inTutorial)
-			{
-				UpdateBadge();
-			}
 		}
 
 	}
