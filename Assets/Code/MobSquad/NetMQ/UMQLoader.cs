@@ -123,7 +123,7 @@ public class UMQLoader : MonoBehaviour {
 		else
 		{
 			MSResourceManager.instance.Init(response.sender.level, response.sender.experience, 
-				100/*MSWhiteboard.nextLevelInfo.requiredExperience*/, response.sender.cash, response.sender.oil, response.sender.gems);
+				MSWhiteboard.nextLevelInfo.requiredExperience, response.sender.cash, response.sender.oil, response.sender.gems);
 			
 			MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 
