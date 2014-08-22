@@ -42,7 +42,6 @@ public class MSResidenceManager : MonoBehaviour {
 				"A request from " + MSWhiteboard.localMup.name,
 				RequestCallback
 			);
-				
 		}
 	}
 

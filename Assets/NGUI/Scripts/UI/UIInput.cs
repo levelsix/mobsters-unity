@@ -61,6 +61,8 @@ public class UIInput : MonoBehaviour
 
 	static public UIInput selection;
 
+	static public TouchScreenKeyboard touchScreenKeyboard;
+
 	/// <summary>
 	/// Text label used to display the input's value.
 	/// </summary>
@@ -155,7 +157,7 @@ public class UIInput : MonoBehaviour
 	static protected int mDrawStart = 0;
 
 #if MOBILE
-	static protected TouchScreenKeyboard mKeyboard;
+	static public TouchScreenKeyboard mKeyboard;
 #else
 	protected int mSelectionStart = 0;
 	protected int mSelectionEnd = 0;

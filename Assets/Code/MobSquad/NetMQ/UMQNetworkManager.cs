@@ -559,4 +559,11 @@ public class UMQNetworkManager : MonoBehaviour {
 			Debug.LogWarning(debug);
 		}
 	}
+
+	void OnApplicationQuit()
+	{
+		LogoutRequestProto request = new LogoutRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		SendRequest(request, (int)EventProtocolRequest.C_LOGOUT_EVENT);
+	}
 }

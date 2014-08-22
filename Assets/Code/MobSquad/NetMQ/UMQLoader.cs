@@ -107,6 +107,8 @@ public class UMQLoader : MonoBehaviour {
 		MSRequestManager.instance.Init(response.invitesToMeForSlots);
 
 		MSResidenceManager.instance.AddInvites(response.invitesFromMeForSlots);
+
+		MSNewsPopup.pvpHistory = response.recentNBattles;
 		
 		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
 		MSEvolutionManager.instance.Init(response.evolution);

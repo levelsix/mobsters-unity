@@ -375,14 +375,26 @@ public class MSResourceManager : MonoBehaviour {
 
 	public void CheatReset()
 	{
-		UpdateUserCurrencyRequestProto request = new UpdateUserCurrencyRequestProto();
+		DevRequestProto request = new DevRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.reason = MSChatPopup.RESET_CHEAT;
+		request.devRequest = DevRequest.RESET_ACCOUNT;
 
 		PlayerPrefs.SetString("CleanStart", "Yeah");
 		PlayerPrefs.Save();
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_USER_CURRENCY_EVENT, DealWithCheatResponse);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_DEV_EVENT, DealWithDevResponse);
+	}	
+
+	void DealWithDevResponse(int tagNum)
+	{
+		DevResponseProto response = UMQNetworkManager.responseDict[tagNum] as DevResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != DevResponseProto.DevStatus.SUCCESS)
+		{
+			Debug.LogError("Problem dev cheating: " + response.status.ToString());
+		}
+
 	}
 
 	void DealWithCheatResponse(int tagNum)
@@ -406,7 +418,7 @@ public class MSResourceManager : MonoBehaviour {
 		}
 	}
 
-	void OnDestroy()
+	void OnApplicationQuit()
 	{
 		if (retrieveRequest != null)
 		{
