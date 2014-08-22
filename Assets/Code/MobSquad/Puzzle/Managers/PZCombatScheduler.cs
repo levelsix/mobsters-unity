@@ -13,10 +13,26 @@ public enum CombatTurn {PLAYER, ENEMY};
 /// </summary>
 public class PZCombatScheduler : MonoBehaviour 
 {
-
 	public static PZCombatScheduler instance;
 
-	List<CombatTurn> turns = new List<CombatTurn>();
+	PZMonster player, enemy;
+
+	/// <summary>
+	/// I'm being very trusting by making this public.
+	/// This needs to be saved with the save data and restored on load.
+	/// Those are the only times this should be accessed publicily.
+	/// Don't fuck with this list.
+	/// I trusted you.
+	/// </summary>
+	public List<CombatTurn> turns = new List<CombatTurn>();
+
+	/// <summary>
+	/// The current turn index.
+	/// Don't fuck with this.
+	/// It needs to be public to be saved and loaded.
+	/// I trusted you.
+	/// </summary>
+	public int currInd = 0;
 
 	void Awake()
 	{
@@ -27,14 +43,26 @@ public class PZCombatScheduler : MonoBehaviour
 		instance = this;
 	}
 
-	public void Schedule(PZMonster player, PZMonster enemy, bool justSwapped)
+	public void Schedule(PZMonster player, PZMonster enemy, bool justSwapped = false)
 	{
 		Schedule(player.speed, enemy.speed, justSwapped);
 	}
 
-	void Schedule(int speedA, int speedB, bool justSwapped)
+	/// <summary>
+	/// Once again, I'm trusting you.
+	/// I know that this function says public,
+	/// This should only be called internally, with the exception of the tutorial.
+	/// Goddamn, do I hate tutorial programming.
+	/// But really, I'm trusting you here.
+	/// Please don't let me down.
+	/// </summary>
+	/// <param name="speedA">Speed a.</param>
+	/// <param name="speedB">Speed b.</param>
+	/// <param name="justSwapped">If set to <c>true</c> just swapped.</param>
+	public void Schedule(int speedA, int speedB, bool justSwapped)
 	{
 		turns.Clear();
+		currInd = 0;
 
 		//Insure that we have valid values for speed
 		speedA = Mathf.Max(speedA, 1);
@@ -43,7 +71,7 @@ public class PZCombatScheduler : MonoBehaviour
 		//The number of sets of interleavings 
 		int numInterleavings = Mathf.Min(speedA, speedB);
 
-		bool firstAttackerIsA = justSwapped ? false : ChooseFirst(speedA, speedB);
+		bool firstAttackerIsA = MSTutorialManager.instance.inTutorial ? true : justSwapped ? false : ChooseFirst(speedA, speedB);
 
 #if DEBUG
 		Debug.Log("Scheduler:\nSpeed A: " + speedA + "\nSpeed B: " + speedB
@@ -51,7 +79,7 @@ public class PZCombatScheduler : MonoBehaviour
 #endif
 
 		int numBpA = 1, numBpB = 1;
-		//If one speed is more than 2x the other, it gets 2x the moves on its turn
+		//If one speed is more than 2x the other, it gets 2x the moves on all its turn
 		if (speedA < speedB)
 		{
 			numBpB = speedB/speedA;
@@ -137,6 +165,16 @@ public class PZCombatScheduler : MonoBehaviour
 		{
 			turns.Add(turn);
 		}
+	}
+
+	public CombatTurn GetNextMove()
+	{
+		return turns[currInd++ % turns.Count];
+	}
+
+	public CombatTurn GetNthMove(int n)
+	{
+		return turns[(currInd+n) % turns.Count];
 	}
 
 	[ContextMenu ("Test")]

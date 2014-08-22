@@ -332,7 +332,14 @@ public class MSBuildingUpgrade : MonoBehaviour {
 
 		if (building.selected)
 		{
-			MSBuildingManager.instance.SetSelectedBuilding(building);
+			if (MSTutorialManager.instance.inTutorial)
+			{
+				MSBuildingManager.instance.FullDeselect();
+			}
+			else 
+			{
+				MSBuildingManager.instance.SetSelectedBuilding(building);
+			}
 		}
 
 		if (building.upgrade.OnFinishUpgrade != null)

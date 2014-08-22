@@ -16,6 +16,9 @@ public class MSBottomChatBlock : MonoBehaviour {
 	[SerializeField]
 	int maxMessages = 2;
 
+	[SerializeField]
+	GameObject noChats;
+
 	List<MSBottomChatMessage> messages = new List<MSBottomChatMessage>();
 
 	void Awake()
@@ -43,7 +46,14 @@ public class MSBottomChatBlock : MonoBehaviour {
 		messages.Add(message);
 		grid.Reposition();
 
+		if (noChats != null)
+		{
+			noChats.SetActive(false);
+		}
+
 		CheckOverfull();
+
+		MSBottomChat.instance.AlertDot(chatMode);
 	}
 
 	void AddMessage(GroupChatMessageProto message)
@@ -107,6 +117,11 @@ public class MSBottomChatBlock : MonoBehaviour {
 				AddMessage(response.pcpp[response.pcpp.Count-1]);
 			}
 			break;
+		}
+
+		if (noChats != null)
+		{
+			noChats.SetActive(messages.Count == 0);
 		}
 	}
 

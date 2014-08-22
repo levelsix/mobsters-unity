@@ -13,8 +13,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	[SerializeField]
 	public Camera puzzleCamera;
 
-	[SerializeField]
-	UISprite boardSprite;
+	public UISprite boardSprite;
 
 	[SerializeField]
 	UILabel comboLabel;
