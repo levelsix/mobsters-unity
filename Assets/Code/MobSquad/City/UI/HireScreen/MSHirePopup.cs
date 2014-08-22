@@ -41,6 +41,8 @@ public class MSHirePopup : MonoBehaviour {
 
 	int userStructId;
 
+	FullUserStructureProto userStruct;
+
 	ResidenceProto currResidenceLevel;
 
 	public void Init(MSBuilding residence)
@@ -52,6 +54,7 @@ public class MSHirePopup : MonoBehaviour {
 		userStructId = residence.userStructProto.userStructId;
 
 		currResidenceLevel = residence.combinedProto.residence;
+		userStruct = residence.userStructProto;
 
 		MSFullBuildingProto thisLevel = residence.combinedProto.baseLevel;
 		int i = 0;
@@ -137,6 +140,9 @@ public class MSHirePopup : MonoBehaviour {
 		tabs.TurnOn();
 		tabs.FadeIn();
 		header.FadeOut();
+
+		MSResidenceManager.instance.currBuildingId = userStructId;
+		MSResidenceManager.instance.currFBLvl = userStruct.fbInviteStructLvl;
 	}
 
 }

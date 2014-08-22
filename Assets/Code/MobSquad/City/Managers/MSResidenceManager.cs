@@ -19,7 +19,9 @@ public class MSResidenceManager : MonoBehaviour {
 
 	public static Dictionary<int, MSBuilding> residences = new Dictionary<int, MSBuilding>();
 
-	int currBuildingId;
+	public int currBuildingId;
+
+	public int currFBLvl;
 
 	void Awake()
 	{
@@ -214,5 +216,29 @@ public class MSResidenceManager : MonoBehaviour {
 	public void JustReceivedFriendAccept(AcceptAndRejectFbInviteForSlotsResponseProto response)
 	{
 		AddInvites(response.acceptedInvites);
+	}
+
+	/// <summary>
+	/// Gets a list of invites that have been accepted and are for this facebook level.
+	/// Make sure MSREsidenceManager.instance.currBuildingId is accurate.
+	/// </summary>
+	/// <returns>The accepted invites.</returns>
+	public List<UserFacebookInviteForSlotProto> GetAcceptedInvites()
+	{
+		List<UserFacebookInviteForSlotProto> invites = new List<UserFacebookInviteForSlotProto>();
+		List<UserFacebookInviteForSlotProto> result = new List<UserFacebookInviteForSlotProto>();
+		fbInviteAccepted.TryGetValue(currBuildingId, out invites);
+		if(invites != null)
+		{
+			foreach(UserFacebookInviteForSlotProto invite in invites)
+			{
+				if(invite.structFbLvl == currFBLvl)
+				{
+					result.Add(invite);
+				}
+			}
+		}
+
+		return result;
 	}
 }

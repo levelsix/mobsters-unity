@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using com.lvl6.proto;
 
 public class MSHireFriendsPage : MonoBehaviour {
 	[SerializeField]
@@ -90,6 +91,20 @@ public class MSHireFriendsPage : MonoBehaviour {
 		}
 	}
 
+	public void UpdateAcceptedFriends()
+	{
+		List<UserFacebookInviteForSlotProto> friends = MSResidenceManager.instance.GetAcceptedInvites();
+		Debug.Log("frinds::" + friends.ToString());
+		int index = 0;
+		foreach(UITexture texture in bottomFriends)
+		{
+			if(index < friends.Count)
+			{
+				MSFacebookManager.instance.RunLoadPhotoForUser(friends[index].recipientFacebookId, texture);
+			}
+		}
+	}
+
 	/// <summary>
 	/// this is for if the player clicks on aks friends without being logged into facebook
 	/// they are prompter to log in then this cleans up and laods the friends
@@ -99,11 +114,7 @@ public class MSHireFriendsPage : MonoBehaviour {
 		MSActionManager.Facebook.OnLoadFriends -= DelayedLoading;
 		popup.AskFriends();
 		PopulateFriendList();
-	}
-
-	void FailedLoggin()
-	{
-		//TODO: init a popup to say that loggin failed
+		UpdateAcceptedFriends();
 	}
 
 	void PopulateFriendList()
