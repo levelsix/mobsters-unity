@@ -130,10 +130,11 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	/// </summary>
 	public Color currColor;
 
-	/// <summary>
-	/// The sprite for this building.
-	/// </summary>
+	[SerializeField]
 	public SpriteRenderer sprite;
+
+	[SerializeField]
+	SpriteRenderer gaurdRails;
 	
 	/// <summary>
 	/// An sprite, used only by specific buildings (i.e. hospital) which
@@ -308,7 +309,20 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		_box = GetComponent<BoxCollider>();
         trans = transform;
 		gameObj = gameObject;
+
+		upgrade.OnStartUpgrade += InitGaurdRails;
+		upgrade.OnStartUpgrade += delegate {sprite.GetComponent<Animator>().enabled = false;};
+		upgrade.OnFinishUpgrade += delegate {
+			gaurdRails.gameObject.SetActive(false);
+			sprite.GetComponent<Animator>().enabled = true;
+		};
     }
+
+	void InitGaurdRails()
+	{
+		gaurdRails.sprite = MSSpriteUtil.instance.GetBuildingSprite(width + "x" + length + "poles");
+		gaurdRails.gameObject.SetActive(true);
+	}
 	
 	/// <summary>
 	/// Create a building from an already existing FUSP
@@ -547,17 +561,20 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	public void SetupConstructionSprite()
 	{
 		//TODO: Get construction sprite
-		sprite.color = Color.yellow;
-		baseColor = Color.yellow;
+//		sprite.color = Color.yellow;
+		InitGaurdRails();
+//		baseColor = Color.yellow;
 	}
 	
 	public void SetupSprite(string structName)
 	{
 		overlay.color = new Color(1,1,1,0);
-
-		//sprite.spriteName = CBKUtil.StripExtensions(structName);
-		//CBKAtlasUtil.instance.SetAtlasForSprite(sprite);
 		sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
+		if(userStructProto != null && userStructProto.lastRetrieved == 0)
+		{
+			sprite.GetComponent<Animator>().enabled = false;
+			sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(width+"x"+length+"buildingframe");
+		}
 
 		RuntimeAnimatorController animator = MSSpriteUtil.instance.GetAnimator(MSUtil.StripExtensions(structName));
 		Animator spriteAnimator = sprite.GetComponent<Animator>();
@@ -765,6 +782,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				MSBuildingManager.instance.SetSelectedBuilding(this);
 			}
 		}
+		sprite.GetComponent<Animator>().enabled = false;
+
 	}
 
 	public void Cancel()

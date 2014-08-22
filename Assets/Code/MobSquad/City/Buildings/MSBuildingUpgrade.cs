@@ -172,6 +172,11 @@ public class MSBuildingUpgrade : MonoBehaviour {
 
 		MSBuildingManager.instance.RemoveFromFunctionalityLists(building);
 
+		if(OnStartUpgrade != null)
+		{
+			OnStartUpgrade();
+		}
+
 		StartBuild();
 	}
 
@@ -344,7 +349,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 
 		if (building.upgrade.OnFinishUpgrade != null)
 		{
-			building.upgrade.OnFinishUpgrade();
+//			building.upgrade.OnFinishUpgrade();
 		}
 
 		if (building.GetComponent<MSBuildingFrame> () != null) {
