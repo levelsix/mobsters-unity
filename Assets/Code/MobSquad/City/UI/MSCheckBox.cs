@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class MSCheckBox : MonoBehaviour {
@@ -6,22 +7,31 @@ public class MSCheckBox : MonoBehaviour {
 	[SerializeField]
 	UISprite CheckMark;
 
-	public bool checkMarked;
+	bool _checkMarked;
 
-	void OnEnable(){
-		checkMarked = true;
-		CheckMark.gameObject.SetActive (true);
+	public bool checkMarked
+	{
+		set
+		{
+			_checkMarked = value;
+			CheckMark.gameObject.SetActive(value);
+			if(OnToggle != null)
+			{
+				OnToggle(value);
+			}
+		}
+		get
+		{
+			return _checkMarked;
+		}
 	}
 
+	/// <summary>
+	/// The bool is if the button is being set to checked
+	/// </summary>
+	public Action<bool> OnToggle;
+
 	public void OnClick(){
-		if (checkMarked) {
-			checkMarked = false;
-			CheckMark.gameObject.SetActive(false);
-		}
-		else
-		{
-			checkMarked = true;
-			CheckMark.gameObject.SetActive(true);
-		}
+		checkMarked = !checkMarked;
 	}
 }

@@ -158,7 +158,6 @@ public class MSTaskBar : MonoBehaviour {
 
 		if (currBuilding.locallyOwned)
 		{
-			Debug.Log("Urrrrrrr");
 			if (!currBuilding.userStructProto.isComplete)
 			{
 				AddButton(MSTaskButton.Mode.FINISH);

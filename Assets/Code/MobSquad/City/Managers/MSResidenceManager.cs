@@ -52,7 +52,7 @@ public class MSResidenceManager : MonoBehaviour {
 	/// If so, reports the list of friends to our own server for bookkeeping
 	/// </summary>
 	/// <param name="result">Result.</param>
-	void RequestCallback(FBResult result)
+	public void RequestCallback(FBResult result)
 	{
 		//Debug.Log("Request callback");
 		if (result != null)

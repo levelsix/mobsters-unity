@@ -17,11 +17,14 @@ public class MSTabAdvanced : MSTab {
 	[SerializeField]
 	GameObject tabContents;
 
+	public bool active;
+
 	public void InitActive()
 	{
 		base.InitActive();
 		label.color = activeText;
 		tabContents.SetActive(true);
+		active = true;
 	}
 
 	public void InitInactive()
@@ -29,6 +32,7 @@ public class MSTabAdvanced : MSTab {
 		base.InitInactive();
 		label.color = inactiveText;
 		tabContents.SetActive(false);
+		active = false;
 	}
 
 	public void OnClick()

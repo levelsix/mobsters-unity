@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MSFacebookLoginButton : MonoBehaviour {
 
@@ -11,7 +13,7 @@ public class MSFacebookLoginButton : MonoBehaviour {
 
 	[SerializeField]
 	UITexture faceAvatar;
-
+	
 	void Awake()
 	{
 		UIButton button = loginButton.GetComponent<UIButton>();
@@ -50,6 +52,13 @@ public class MSFacebookLoginButton : MonoBehaviour {
 
 	void OnClick()
 	{
-		MSFacebookManager.instance.Init();
+		if(!MSFacebookManager.isLoggedIn)
+		{
+			MSFacebookManager.instance.Init();
+		}
+		else
+		{
+			Debug.LogError("Login Button used while player is already logged in");
+		}
 	}
 }

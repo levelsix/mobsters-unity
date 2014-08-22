@@ -10,25 +10,49 @@ using com.lvl6.proto;
 /// </summary>
 public class MSFacebookFriend {
 
-	string name;
+	string _name;
 
-	string id;
+	public string name
+	{
+		get
+		{
+			return _name;
+		}
+	}
+
+	string _id;
+
+	public string id
+	{
+		get
+		{
+			return _id;
+		}
+	}
 
 	string pictureURL;
 
-	bool installed = false;
+	bool _installed = false;
+
+	public bool installed
+	{
+		get
+		{
+			return _installed;
+		}
+	}
 
 	public MSFacebookFriend(string name, string id, string pictureURL, bool installed)
 	{
-		this.name = name;
-		this.id = id;
+		this._name = name;
+		this._id = id;
 		this.pictureURL = pictureURL;
-		this.installed = installed;
+		this._installed = installed;
 	}
 
 	public override string ToString ()
 	{
-		return name + " " + id + " " + installed;
+		return _name + " " + _id + " " + _installed;
 	}
 
 }

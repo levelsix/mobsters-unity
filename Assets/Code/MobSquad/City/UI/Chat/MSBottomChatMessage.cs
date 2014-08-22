@@ -30,7 +30,7 @@ public class MSBottomChatMessage : MonoBehaviour {
 	{
 		if (playerName.text.Length + dialogue.text.Length > maxChars)
 		{
-			dialogue.text = dialogue.text.Substring(0, maxChars - playerName.text.Length - 3) + "...";
+			//dialogue.text = dialogue.text.Substring(0, maxChars - playerName.text.Length - 3) + "...";
 		}
 	}
 }

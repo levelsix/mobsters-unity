@@ -77,15 +77,18 @@ public class MSFacebookManager : MonoBehaviour {
 		if (isLoggedIn)
 		{
 			Debug.Log("Logged in as: " + FB.UserId);
+			MSFacebookManager.instance.TryLoadFriends();
 			if(MSActionManager.Facebook.OnLoginSucces != null)
 			{
 				MSActionManager.Facebook.OnLoginSucces();
 			}
-			TryLoadFriends();
 		}
-		if(MSActionManager.Facebook.OnLoginFail != null)
+		else
 		{
-			MSActionManager.Facebook.OnLoginFail();
+			if(MSActionManager.Facebook.OnLoginFail != null)
+			{
+				MSActionManager.Facebook.OnLoginFail();
+			}
 		}
 		hasTriedLogin = true;
 	}
@@ -111,7 +114,7 @@ public class MSFacebookManager : MonoBehaviour {
 		Dictionary<string, object> friendsDict = Json.Deserialize(result.Text) as Dictionary<string, object>;
 
 		List<object> friendsData = friendsDict["data"] as List<object>;
-
+		friends.Clear();
 		string name = "";
 		string id = "";
 		string url = "";
@@ -160,6 +163,11 @@ public class MSFacebookManager : MonoBehaviour {
 			Debug.Log("Key: " + item.Key + ", Value: " + item.Value);
 		}
 		*/
+
+		if(MSActionManager.Facebook.OnLoadFriends != null)
+		{
+			MSActionManager.Facebook.OnLoadFriends();
+		}
 	}
 
 	public Coroutine RunLoadPhotoForUser(string userId, UITexture texture)
