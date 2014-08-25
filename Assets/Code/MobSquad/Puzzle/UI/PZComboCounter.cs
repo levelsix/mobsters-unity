@@ -9,7 +9,12 @@ public class PZComboCounter : MonoBehaviour {
 	[SerializeField]
 	UILabel comboLabel;
 
+	[SerializeField]
+	ParticleSystem flames;
+
 	int lastCombo = 0;
+
+	const int COMBO_FIRE = 5;
 
 	void OnEnable()
 	{
@@ -34,6 +39,11 @@ public class PZComboCounter : MonoBehaviour {
 			{
 				FadeIn();
 			}
+
+			if(combo == COMBO_FIRE)
+			{
+				flames.Play();
+			}
 		}
 
 		lastCombo = combo;
@@ -49,6 +59,7 @@ public class PZComboCounter : MonoBehaviour {
 	{
 		//Debug.Log("Fade out");
 		alphaTween.PlayReverse();
+		flames.Stop();
 	}
 
 }
