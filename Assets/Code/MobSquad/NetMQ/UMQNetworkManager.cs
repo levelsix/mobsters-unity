@@ -91,7 +91,7 @@ public class UMQNetworkManager : MonoBehaviour {
 	}
 	
 	// Use this for initialization
-	IEnumerator Start () {
+	public IEnumerator Start () {
 	
 		yield return new WaitForSeconds(.5f);
 
@@ -453,10 +453,11 @@ public class UMQNetworkManager : MonoBehaviour {
 	IEnumerator WaitRequestTimeout(int tagNum)
 	{
 		requestsOut.Add(tagNum);
-		yield return new WaitForSeconds(30);
+		yield return new WaitForSeconds(5);
 		if (requestsOut.Contains(tagNum))
 		{
 			//Debug.LogWarning("Response never received for request: " + tagNum);
+			MSSceneManager.instance.ReconnectPopup();
 		}
 	}
 

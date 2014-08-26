@@ -48,7 +48,7 @@ public class MSPier : MSBuildingFrame {
 
 	void InitPeir()
 	{
-		if(MSMiniJobManager.instance.currActiveJob != null)
+		if(MSMiniJobManager.instance.currActiveJob != null && MSMiniJobManager.instance.currActiveJob.userMiniJobId > 0)
 		{
 			InitProgressBar(MSMiniJobManager.instance.currActiveJob);
 		}
@@ -60,7 +60,7 @@ public class MSPier : MSBuildingFrame {
 		if(bubbleIcon != null && Precheck())
 		{
 			bubbleIcon.gameObject.SetActive(true);
-			bubbleIcon.spriteName = MSMiniJobManager.instance.currActiveJob.miniJob.quality.ToString().ToLower() + "job";
+			bubbleIcon.spriteName = job.miniJob.quality.ToString().ToLower() + "job";
 			bubbleIcon.MakePixelPerfect();
 		}
 

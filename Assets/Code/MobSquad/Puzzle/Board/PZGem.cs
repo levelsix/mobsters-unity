@@ -227,7 +227,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				PZPuzzleManager.instance.currGems[colorIndex]++;
 			}
 
-			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.gemPop);
+			//MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.gemPop);
 
 			if (colorIndex >= 0)
 			{

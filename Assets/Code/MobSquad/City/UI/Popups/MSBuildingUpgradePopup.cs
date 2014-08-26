@@ -11,7 +11,9 @@ using System;
 /// or paying to rush construction on a building
 /// </summary>
 public class MSBuildingUpgradePopup : MonoBehaviour {
-	
+
+	public static MSBuildingUpgradePopup instance;
+
 	/// <summary>
 	/// The header.
 	/// </summary>
@@ -81,6 +83,9 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	[SerializeField]
 	MSSimplePoolable unlockTile;
 
+	[SerializeField]
+	MSLoadLock loadLock;
+
 	List<MSHireEntry> hireEntries = new List<MSHireEntry>();
 
 	const string cashButtonName = "greenmenuoption";
@@ -94,8 +99,19 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	ResourceType currResource;
 	int currCost;
 
+	bool firstFail = true;
+
+	int tempSpend = 0;
+	int tempSpendGems = 0;
+
+	void Awake()
+	{
+		instance = this;
+	}
+
 	void OnEnable()
 	{
+		firstFail = true;
 		foreach( MSSimplePoolable poolable in grid.GetAllComponentsInChildren<MSSimplePoolable>())
 		{
 			if(poolable.gameObject.activeSelf)
@@ -152,6 +168,15 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	void Buy(int baseResource, int gems = 0)
 	{
 		currBuilding.upgrade.StartUpgrade(baseResource, gems);
+		loadLock.Lock();
+		tempSpend = baseResource;
+		tempSpendGems = gems;
+	}
+
+	public void UnlockAndClose()
+	{
+		loadLock.Unlock();
+
 		if (MSActionManager.Popup.CloseAllPopups != null)
 		{
 			MSActionManager.Popup.CloseAllPopups();
@@ -163,7 +188,29 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			currBuilding.Select();
 		}
 	}
-	
+
+	public void UnlockServerFail()
+	{
+		loadLock.Unlock();
+
+		//Refund the money that they spent
+		MSResourceManager.instance.Collect(currBuilding.combinedProto.structInfo.buildResourceType, tempSpend);
+		MSResourceManager.instance.Collect(ResourceType.GEMS, tempSpendGems);
+
+		if (firstFail)
+		{
+			firstFail = false;
+			MSPopupManager.instance.CreatePopup("Whoops!", "Looks like there was a problem confirming your purchase. Try again?",
+		            new string[] {"Okay"}, 
+						new string[] {"greenmenuoption"}, 
+						new Action[] {MSActionManager.Popup.CloseTopPopupLayer});
+		}
+		else
+		{
+			MSSceneManager.instance.ReconnectPopup();
+		}
+	}
+
 	public void Init(MSBuilding building)
 	{
 		currBuilding = building;

@@ -169,10 +169,6 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		building.combinedProto = building.combinedProto.successor;
 
 		SendUpgradeRequest(baseResource, gems);
-
-		MSBuildingManager.instance.RemoveFromFunctionalityLists(building);
-
-		StartBuild();
 	}
 
 	public virtual void StartBuild()
@@ -193,18 +189,23 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		request.resourceType = building.combinedProto.structInfo.buildResourceType;
 		request.resourceChange = -baseResource;
 		request.gemsSpent = gems;
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPGRADE_NORM_STRUCTURE_EVENT, CheckUpgradeResponse);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPGRADE_NORM_STRUCTURE_EVENT, ReceiveUpgradeResponse);
 	}
 			
-	void CheckUpgradeResponse(int tagNum)
+	void ReceiveUpgradeResponse(int tagNum)
 	{
 		UpgradeNormStructureResponseProto response = (UpgradeNormStructureResponseProto)UMQNetworkManager.responseDict[tagNum];	
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		if (response.status != UpgradeNormStructureResponseProto.UpgradeNormStructureStatus.SUCCESS)
+		if (response.status == UpgradeNormStructureResponseProto.UpgradeNormStructureStatus.SUCCESS)
 		{
-			Debug.LogError("Problem certifying upgrade: " + response.status);
-			//TODO: Rectify discrepencies
+			MSBuildingManager.instance.RemoveFromFunctionalityLists(building);
+			StartBuild();
+			MSBuildingUpgradePopup.instance.UnlockAndClose();
+		}
+		else
+		{
+			MSBuildingUpgradePopup.instance.UnlockServerFail();
 		}
 	}
 	

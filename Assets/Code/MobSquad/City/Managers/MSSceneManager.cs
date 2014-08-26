@@ -4,9 +4,15 @@ using System.Collections;
 /// <summary>
 /// Manages the swap between City mode and Puzzle mode
 /// </summary>
+using System;
+
+
 public class MSSceneManager : MonoBehaviour {
 
 	public static MSSceneManager instance;
+
+	[SerializeField]
+	GameObject gameUIParent;
 
 	[SerializeField]
 	GameObject cityParent;
@@ -89,6 +95,7 @@ public class MSSceneManager : MonoBehaviour {
 	{
 		loadingState = false;
 		cityParent.SetActive(true);
+		gameUIParent.SetActive(true);
 		puzzleParent.SetActive(false);
 		yield return StartCoroutine(Fade (loadingPanel, false));
 		loadingParent.SetActive(false);
@@ -97,6 +104,7 @@ public class MSSceneManager : MonoBehaviour {
 	IEnumerator FadeToCity()
 	{
 		cityParent.SetActive(true);
+		gameUIParent.SetActive(true);
 		StartCoroutine(Fade (puzzlePanel, false));
 		yield return StartCoroutine(FadePuzzleBackground(false));
 		puzzleParent.SetActive(false);
@@ -118,6 +126,7 @@ public class MSSceneManager : MonoBehaviour {
 		yield return StartCoroutine(FadePuzzleBackground(true));
 		Time.timeScale = 1;
 		cityParent.SetActive(false);
+		gameUIParent.SetActive(false);
 	}
 
 	IEnumerator Fade (UIPanel pan, bool fadeIn)
@@ -127,8 +136,27 @@ public class MSSceneManager : MonoBehaviour {
 		{
 			t += Time.deltaTime / Time.timeScale;
 			pan.alpha = (fadeIn ? t/fadeTime : 1 - t/fadeTime);
-			Debug.Log("DT: " + Time.deltaTime + ", Fade: " + t);
+			//Debug.Log("DT: " + Time.deltaTime + ", Fade: " + t);
 			yield return null;
 		}
+	}
+
+	public void ReconnectPopup()
+	{
+		MSPopupManager.instance.CreatePopup("Connection Problems",
+		                                    "Sorry, there seem to problems between you and the server. Reconnect?",
+		                                    new string[] {"Reconnect"},
+		new string[] {"orangemenusprite"},
+		new Action[] {delegate{MSActionManager.Popup.CloseAllPopups();Reconnect();}},
+		"orange"
+		);
+	}
+
+	public void Reconnect()
+	{
+		loadingParent.SetActive(true);
+		loadingPanel.alpha = 1;
+		loadingState = true;
+		StartCoroutine(UMQLoader.instance.Start());
 	}
 }

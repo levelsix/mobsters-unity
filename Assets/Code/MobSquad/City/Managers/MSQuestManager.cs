@@ -69,6 +69,7 @@ public class MSQuestManager : MonoBehaviour {
 #endif
 		}
 
+		taskDict.Clear();
 		foreach (var item in proto.completedTaskIds) 
 		{
 			taskDict.Add(item, true);
