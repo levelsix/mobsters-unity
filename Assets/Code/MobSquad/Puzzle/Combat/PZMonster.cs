@@ -330,6 +330,10 @@ public class PZMonster {
 
 	public int maxHP;
 	public int currHP;
+	/// <summary>
+	/// This is just for convient scratch board math use.
+	/// </summary>
+	public int tempHP;
 
 	/// <summary>
 	/// The minimum damage.

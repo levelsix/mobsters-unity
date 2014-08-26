@@ -22,6 +22,9 @@ public class MSChatAvatar : MonoBehaviour {
 		}
 	}
 
+	[SerializeField]
+	bool square = false;
+
 	Dictionary<Element, string> bgSprites = new Dictionary<Element, string>()
 	{
 		{Element.FIRE, "fireavatar"},
@@ -40,12 +43,31 @@ public class MSChatAvatar : MonoBehaviour {
 		{Element.LIGHT, "lightbigavatar"}
 	};
 
+	/// <summary>
+	/// The square sprites.  These are in menuRef
+	/// </summary>
+	Dictionary<Element, string> squareSprites = new Dictionary<Element, string>()
+	{
+		{Element.FIRE, "fireteam"},
+		{Element.EARTH, "earthteam"},
+		{Element.DARK, "nightteam"},
+		{Element.WATER, "waterteam"},
+		{Element.LIGHT, "lightteam"}
+	};
+
 	public void Init(int monsterId)
 	{
 		MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(monsterId);
 		if(monster != null)
 		{
-			bg.spriteName = big ? bigBgSprites[monster.monsterElement] : bgSprites[monster.monsterElement];
+			if(!square)
+			{
+				bg.spriteName = big ? bigBgSprites[monster.monsterElement] : bgSprites[monster.monsterElement];
+			}
+			else
+			{
+				bg.spriteName = squareSprites[monster.monsterElement];
+			}
 			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumbnail);
 		}
 	}

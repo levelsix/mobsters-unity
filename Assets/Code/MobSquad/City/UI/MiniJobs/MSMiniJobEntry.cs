@@ -97,6 +97,7 @@ public class MSMiniJobEntry : MonoBehaviour {
 			timeLeftLabel.text = "COMPLETE!";
 			button.normalSprite = "greenmenuoption";
 			buttonLabel.text = "Collect!";
+			popup.curJobEntry = this;
 		}
 		else if (currMode == EntryMode.WAITING)
 		{
@@ -184,6 +185,7 @@ public class MSMiniJobEntry : MonoBehaviour {
 		{
 			Collect();
 		}
+		popup.Init();
 	}
 
 	void RushComplete()

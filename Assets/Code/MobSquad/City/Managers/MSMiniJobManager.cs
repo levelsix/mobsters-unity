@@ -26,6 +26,16 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	public UserMiniJobProto currActiveJob = null;
 
+	/// <summary>
+	/// List of mobsters that have been damaged by the completed task
+	/// </summary>
+	public List<PZMonster> teamToDamage;
+
+	/// <summary>
+	/// List of damage dealt to each mobster
+	/// </summary>
+	public List<int> damageDelt = new List<int>();
+
 	public long timeUntilRefresh
 	{
 		get
@@ -288,12 +298,13 @@ public class MSMiniJobManager : MonoBehaviour {
 		request.isSpeedUp = speedUp;
 		request.gemCost = gems;
 
-		List<PZMonster> teamToDamage = new List<PZMonster>();
+		teamToDamage = new List<PZMonster>();
 		foreach (var item in currActiveJob.userMonsterIds) 
 		{
 			teamToDamage.Add(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == item));
 		}
-		DamageMonsters(teamToDamage, currActiveJob.baseDmgReceived);
+//		DamageMonsters(teamToDamage, currActiveJob.baseDmgReceived);
+		DamageMonsters(currActiveJob.baseDmgReceived);
 
 		foreach (var item in teamToDamage) 
 		{
@@ -304,28 +315,81 @@ public class MSMiniJobManager : MonoBehaviour {
 		                                       DealWithJobCompleteResponse);
 	}
 
-	void DamageMonsters(List<PZMonster> monsters, int amount)
+	/// <summary>
+	/// Damages the team monsters.
+	/// </summary>
+	/// <param name="amount">Amount of damage to be split across all participating monsters.</param>
+	/// <param name="damageOff">If set to <c>true</c> Monsters are not damaged, but damageDelt is updated.</param>
+	void DamageMonsters(int amount, bool isDamageOff = false)//, ref List<PZMonster> team)
 	{
-		int amountPerMonster = Mathf.CeilToInt((float)amount / monsters.Count);
+		List<PZMonster> team = teamToDamage;
+
+		List<PZMonster> aliveMonsters = team.FindAll(x=>x.currHP != 0);
+		int amountPerMonster = Mathf.CeilToInt((float)amount / aliveMonsters.Count);
 		int overflow = 0;
-		foreach (var item in monsters) 
+
+		for (int i = 0; i < team.Count; i++)
 		{
-			if (amountPerMonster > item.currHP)
+			PZMonster item = team[i];
+			if((!isDamageOff && item.currHP == 0) || (isDamageOff && item.tempHP == 0))
 			{
-				overflow = amountPerMonster - item.currHP;
-				item.currHP = 0;
+				continue;
+			}
+
+			if ((!isDamageOff && amountPerMonster > item.currHP) || (isDamageOff && amountPerMonster > item.tempHP))
+			{
+
+				damageDelt[i] += isDamageOff?item.tempHP:item.currHP;
+				if(!isDamageOff)
+				{
+					overflow = amountPerMonster - item.currHP;
+					item.currHP = 0;
+				}
+				else
+				{
+					overflow = amountPerMonster - item.tempHP;
+					item.tempHP = 0;
+				}
 			}
 			else
 			{
-				item.currHP -= amountPerMonster;
+				damageDelt[i] += amountPerMonster;
+				if(!isDamageOff)
+				{
+					item.currHP -= amountPerMonster;
+				}
+				else
+				{
+					item.tempHP -= amountPerMonster;
+				}
+			}
+
+			if (overflow > 0)
+			{
+//				monsters = new List<PZMonster>(monsters); //We need to copy the list before removing things
+//				monsters.RemoveAll(x=>x.currHP == 0);
+				DamageMonsters(overflow, isDamageOff);
+				overflow = 0;
 			}
 		}
-		if (overflow > 0)
+//		Debug.Log("current damge taken: " + damageDelt[0] + "," + damageDelt[1] + "," + damageDelt[2]);
+
+	}
+	public void SetTeamAndDamage()
+	{
+		teamToDamage.Clear();
+		damageDelt.Clear();
+		foreach (var item in currActiveJob.userMonsterIds) 
 		{
-			monsters = new List<PZMonster>(monsters); //We need to copy the list before removing things
-			monsters.RemoveAll(x=>x.currHP == 0);
-			DamageMonsters(monsters, overflow);
+			PZMonster monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == item);
+			monster.tempHP = monster.currHP;
+			teamToDamage.Add(monster);
 		}
+		for(int i = 0; i < teamToDamage.Count; i++)
+		{
+			damageDelt.Add(0);
+		}
+		DamageMonsters(currActiveJob.baseDmgReceived, true);
 	}
 
 	void DealWithJobCompleteResponse(int tagNum)
