@@ -815,8 +815,15 @@ public class MSTutorialManager : MonoBehaviour
 		MoveUnitsOutOfTheWay();
 
 		//Heal taskbutton
+		MSTaskButton healButton;
+		do
+		{
+			yield return null;
+			healButton = MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.HEAL);
+		}while(healButton == null);
+
 		yield return StartCoroutine(DoUIStep(
-			MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.HEAL).gameObj,
+			healButton.gameObj,
 			150, MSValues.Direction.EAST));
 
 		//Healing dialogue

@@ -121,6 +121,6 @@ public class MSHealScreen : MSFunctionalScreen
 
 	void OnDisable()
 	{
-		MSHospitalManager.instance.SendHealRequest();
+		MSHospitalManager.instance.DoSendHealRequest();
 	}
 }

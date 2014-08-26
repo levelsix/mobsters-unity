@@ -690,7 +690,7 @@ public class MSBuildingManager : MonoBehaviour
 
 		if (useGems)
 		{
-			int gemCost = cost - MSResourceManager.resources[costType];
+			int gemCost = Mathf.CeilToInt((cost - MSResourceManager.resources[costType]) * MSWhiteboard.constants.gemsPerResource);
 			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
 			{
 				PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();

@@ -62,6 +62,9 @@ public class MSDoEvolveScreen : MSFunctionalScreen
 	[SerializeField]
 	Color finishTextColor;
 
+	[SerializeField]
+	MSLoadLock loadLock;
+
 	#endregion
 
 	[SerializeField]
@@ -94,8 +97,14 @@ public class MSDoEvolveScreen : MSFunctionalScreen
 		return MSEvolutionManager.instance.hasEvolution;
 	}
 
+	void OnEnable()
+	{
+		MSActionManager.Goon.OnEvolutionComplete += OnEvoComplete;
+	}
+
 	void OnDisable()
 	{
+		MSActionManager.Goon.OnEvolutionComplete -= OnEvoComplete;
 		MSEvolutionManager.instance.tempEvolution = null;
 	}
 
@@ -191,16 +200,16 @@ public class MSDoEvolveScreen : MSFunctionalScreen
 		Debug.Log("Button");
 		if (MSEvolutionManager.instance.isEvolving)
 		{
-			MSEvolutionManager.instance.FinishWithGems();
-			MSPopupManager.instance.popups.goonScreen.DoShiftLeft(false);
+			MSEvolutionManager.instance.FinishWithGems(loadLock);
+			//MSPopupManager.instance.popups.goonScreen.DoShiftLeft(false);
 		}
 		else
 		{
-			MSEvolutionManager.instance.StartEvolution();
+			MSEvolutionManager.instance.StartEvolution(loadLock);
 		}
 	}
 
-	void OnEvoComplete()
+	void OnEvoComplete(PZMonster monster)
 	{
 		MSPopupManager.instance.popups.goonScreen.DoShiftLeft(false);
 	}

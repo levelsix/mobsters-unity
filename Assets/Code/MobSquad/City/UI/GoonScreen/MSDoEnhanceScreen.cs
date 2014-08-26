@@ -47,6 +47,9 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	[SerializeField]
 	UILabel costLabel;
 
+	[SerializeField]
+	MSLoadLock loadLock;
+
 	float futureLevel;
 
 	/// <summary>
@@ -96,11 +99,11 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	void OnDisable()
 	{
-		if (feeders.Count == 0 && enhanceMonster != null && enhanceMonster.monster.monsterId > 0)
+		if (feeders.Count == 0 && enhanceMonster != null && enhanceMonster.monster.monsterId > 0 && MSMonsterManager.instance.currEnhancementMonsterOnServer)
 		{
 			MSMonsterManager.instance.RemoveFromEnhanceQueue(enhanceMonster);
 		}
-		MSMonsterManager.instance.SendStartEnhanceRequest();
+		MSMonsterManager.instance.DoSendStartEnhanceRequest();
 	}
 
 	void RefreshStats()
@@ -174,6 +177,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		{
 			timeHelper.ResetAlpha(true);
 			timeLeft.text = MSUtil.TimeStringShort(feeders[feeders.Count-1].enhanceTimeLeft);
+			finishButtonLabel.text = "Finish\n(G) " + MSMath.GemsForTime(feeders[feeders.Count-1].enhanceTimeLeft);
 			RefreshBar();
 		}
 	}
@@ -190,7 +194,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	public void Finish()
 	{
-		MSMonsterManager.instance.SpeedUpEnhance(MSMath.GemsForTime(feeders[feeders.Count-1].enhanceTimeLeft));
+		MSMonsterManager.instance.DoSpeedUpEnhance(MSMath.GemsForTime(feeders[feeders.Count-1].enhanceTimeLeft), loadLock);
 	}
 
 	public void Back()
