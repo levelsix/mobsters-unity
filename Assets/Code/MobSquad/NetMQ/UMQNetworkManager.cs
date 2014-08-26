@@ -453,7 +453,7 @@ public class UMQNetworkManager : MonoBehaviour {
 	IEnumerator WaitRequestTimeout(int tagNum)
 	{
 		requestsOut.Add(tagNum);
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(60);
 		if (requestsOut.Contains(tagNum))
 		{
 			//Debug.LogWarning("Response never received for request: " + tagNum);

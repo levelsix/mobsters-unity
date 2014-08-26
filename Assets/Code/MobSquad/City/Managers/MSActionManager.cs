@@ -224,9 +224,7 @@ public static class MSActionManager
 	public static class Facebook
 	{
 		public static Action OnLoginSucces;
-		/// <summary>
-		/// Not currently in use, implimentation could use a double check
-		/// </summary>
 		public static Action OnLoginFail;
+		public static Action OnLoadFriends;
 	}
 }

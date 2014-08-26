@@ -38,9 +38,12 @@ public class MSResourceManager : MonoBehaviour {
 	
 	int exp{get{return _exp;}}
 	
-	int _expForNextLevel = 0;
-	
-	int expForNextLevel{get{return _expForNextLevel;}}
+	int expForNextLevel{
+		get
+		{
+			return MSWhiteboard.nextLevelInfo.requiredExperience;
+		}
+	}
 
 	bool checkingEXP = false;
 
@@ -70,11 +73,10 @@ public class MSResourceManager : MonoBehaviour {
 		MSActionManager.Scene.OnCity -= CheckEXP;
 	}
 	
-	public void Init(int lev, int xp, int xpNext, int cash, int oil, int premium)
+	public void Init(int lev, int xp, int cash, int oil, int premium)
 	{
 		_level = lev;
 		_exp = xp;
-		_expForNextLevel = xpNext;
 		
 		resources[ResourceType.CASH] = cash;
 		resources[ResourceType.OIL] = oil;
@@ -294,7 +296,7 @@ public class MSResourceManager : MonoBehaviour {
 	public void GainExp(int amount)
 	{
 		_exp += amount;
-		if (_exp > _expForNextLevel)
+		if (MSWhiteboard.nextLevelInfo != null && _exp > expForNextLevel)
 		{
 			StartCoroutine(LevelUp());
 		}
@@ -303,9 +305,9 @@ public class MSResourceManager : MonoBehaviour {
 	[ContextMenu("check exp")]
 	public void CheckEXP()
 	{
-		if (_exp > _expForNextLevel && !checkingEXP)
+		if (MSWhiteboard.nextLevelInfo != null && _exp > expForNextLevel && !checkingEXP)
 		{
-			Debug.LogWarning("leveling up: " + _exp + " > " + _expForNextLevel);
+			Debug.LogWarning("leveling up: " + _exp + " > " + expForNextLevel);
 			checkingEXP = true;
 			StartCoroutine(LevelUp());
 		}
@@ -332,13 +334,7 @@ public class MSResourceManager : MonoBehaviour {
 			levelUpPopup.ActivateLevelUpScreen(_level);
 
 			StaticUserLevelInfoProto nextLevelData = MSDataManager.instance.Get<StaticUserLevelInfoProto>(_level + 1);
-			MSWhiteboard.nextLevelInfo = nextLevelData;
 			MSWhiteboard.localUser.level = _level;
-
-			if (nextLevelData != null)
-			{
-				_expForNextLevel = nextLevelData.requiredExperience;
-			}
 
 			if (MSActionManager.UI.OnLevelUp != null)
 			{

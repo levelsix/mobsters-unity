@@ -20,14 +20,28 @@ public class MSHirePopup : MonoBehaviour {
 	TweenPosition mover;
 
 	[SerializeField]
+	TweenPosition moverB;
+
+	[SerializeField]
 	MSUIHelper back;
+
+	[SerializeField]
+	MSUIHelper backB;
 
 	[SerializeField]
 	UILabel gemCost;
 
+	[SerializeField]
+	MSUIHelper tabs;
+
+	[SerializeField]
+	MSUIHelper header;
+
 	List<MSHireEntry> hireEntries = new List<MSHireEntry>();
 
 	int userStructId;
+
+	FullUserStructureProto userStruct;
 
 	ResidenceProto currResidenceLevel;
 
@@ -35,10 +49,12 @@ public class MSHirePopup : MonoBehaviour {
 	{
 		mover.Sample(0, true);
 		back.gameObject.SetActive(false);
+		backB.gameObject.SetActive(false);
 
 		userStructId = residence.userStructProto.userStructId;
 
 		currResidenceLevel = residence.combinedProto.residence;
+		userStruct = residence.userStructProto;
 
 		MSFullBuildingProto thisLevel = residence.combinedProto.baseLevel;
 		int i = 0;
@@ -88,6 +104,15 @@ public class MSHirePopup : MonoBehaviour {
 		back.FadeOut();
 	}
 
+	public void BackB()
+	{
+		moverB.PlayReverse();
+		back.FadeIn();
+		backB.FadeOut();
+		tabs.FadeOutAndOff();
+		header.FadeIn();
+	}
+
 	public void SelectLevel()
 	{
 		back.TurnOn();
@@ -106,8 +131,18 @@ public class MSHirePopup : MonoBehaviour {
 		}
 	}
 
-	public void SendFriendRequests()
+	public void AskFriends()
 	{
-		MSResidenceManager.instance.OpenRequestDialogue(userStructId);
+		moverB.PlayForward();
+		back.FadeOut();
+		backB.TurnOn();
+		backB.FadeIn();
+		tabs.TurnOn();
+		tabs.FadeIn();
+		header.FadeOut();
+
+		MSResidenceManager.instance.currBuildingId = userStructId;
+		MSResidenceManager.instance.currFBLvl = userStruct.fbInviteStructLvl;
 	}
+
 }
