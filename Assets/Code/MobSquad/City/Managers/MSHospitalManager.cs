@@ -97,18 +97,23 @@ public class MSHospitalManager : MonoBehaviour {
 		healRequestProto.sender = MSWhiteboard.localMupWithResources;
 		healRequestProto.isSpeedup = false;
 	}
-	
-	public void SendHealRequest ()
+
+	public Coroutine DoSendHealRequest()
+	{
+		return StartCoroutine(SendHealRequest());
+	}
+
+	public IEnumerator SendHealRequest ()
 	{
 		if (MSTutorialManager.instance.inTutorial)
 		{
 			healRequestProto = null;
-			return;
+			yield break;
 		}
 
 		if (healRequestProto == null)
 		{
-			return;
+			yield break;
 		}
 		
 		if (healRequestProto.umhNew.Count == 0
@@ -116,19 +121,27 @@ public class MSHospitalManager : MonoBehaviour {
 		    && healRequestProto.umhDelete.Count == 0
 		    && healRequestProto.umchp.Count == 0)
 		{
-			return;
+			yield break;
 		}
 		
 		healRequestProto.sender = MSWhiteboard.localMupWithResources;
 		
-		UMQNetworkManager.instance.SendRequest(healRequestProto, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT, DealWithHealStartResponse);
-		
-		if (MSActionManager.Goon.OnHealQueueChanged != null)
-		{
-			MSActionManager.Goon.OnHealQueueChanged();
-		}
-		
+		int tagNum = UMQNetworkManager.instance.SendRequest(healRequestProto, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT);
+
 		healRequestProto = null;
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		HealMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as HealMonsterResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != HealMonsterResponseProto.HealMonsterStatus.SUCCESS)
+		{
+			Debug.LogError("Problem sending heal request: " + response.status.ToString());
+		}
 	}
 	
 	bool SomeMonsterFinishedHealing()
@@ -177,42 +190,68 @@ public class MSHospitalManager : MonoBehaviour {
 					i++;
 				}
 			}
-			SendHealRequest();
+			DoSendHealRequest();
 		}
 	}
 
-	public void TrySpeedUpHeal()
+	public void TrySpeedUpHeal(MSLoadLock loadLock)
 	{
 		int gemCost = MSMath.GemsForTime(lastFinishTime - MSUtil.timeNowMillis);
-		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost, TrySpeedUpHeal))
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost, delegate{TrySpeedUpHeal(loadLock);}))
 		{
-			SpeedUpHeal(gemCost);
+			StartCoroutine(SpeedUpHeal(gemCost, loadLock));
 		}
 	}
 	
-	void SpeedUpHeal(int cost)
+	IEnumerator SpeedUpHeal(int cost, MSLoadLock loadLock)
 	{
-		if (healRequestProto == null)
+		
+		loadLock.Lock();
+
+		if (healRequestProto != null)
 		{
-			PrepareNewHealRequest();
+			yield return DoSendHealRequest();
 		}
 
-		healRequestProto.isSpeedup = true;
-		healRequestProto.gemsForSpeedup = cost;
+		HealMonsterRequestProto request = new HealMonsterRequestProto();
+		request.sender = MSWhiteboard.localMupWithResources;
 
+		request.isSpeedup = true;
+		request.gemsForSpeedup = cost;
+		
 		UserMonsterCurrentHealthProto health;
-		PZMonster item;
-		while(MSHospitalManager.instance.healingMonsters.Count > 0)
+		foreach (var item in healingMonsters) 
 		{
-			item = MSHospitalManager.instance.healingMonsters[0];
 			health = new UserMonsterCurrentHealthProto();
 			health.userMonsterId = item.userMonster.userMonsterId;
 			health.currentHealth = item.maxHP;
 			healRequestProto.umchp.Add(health);
-			Debug.Log("Healing: " + health.userMonsterId);
-			CompleteHeal(item);
 		}
-		SendHealRequest();
+
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		HealMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as HealMonsterResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status == HealMonsterResponseProto.HealMonsterStatus.SUCCESS)
+		{
+			while(MSHospitalManager.instance.healingMonsters.Count > 0)
+			{
+				CompleteHeal(MSHospitalManager.instance.healingMonsters[0]);
+			}
+		}
+		else
+		{
+			MSPopupManager.instance.CreatePopup("Error", "Sorry, a problem happened with the server!",
+			                                    new string[] {"Okay"}, new string[] {"greenmenuoption"}, new Action[] {MSActionManager.Popup.CloseTopPopupLayer});
+		}
+
+		loadLock.Unlock();
 	}
 	
 	void CompleteHeal(PZMonster monster)
@@ -670,17 +709,6 @@ public class MSHospitalManager : MonoBehaviour {
 			MSActionManager.Goon.OnHealQueueChanged();
 		}
 	}
-	
-	void DealWithHealStartResponse(int tagNum)
-	{
-		HealMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as HealMonsterResponseProto;
-		UMQNetworkManager.responseDict.Remove(tagNum);
-		
-		if (response.status != HealMonsterResponseProto.HealMonsterStatus.SUCCESS)
-		{
-			Debug.LogError("Problem sending heal request: " + response.status.ToString());
-		}
-	}
 
 	void Update()
 	{
@@ -692,7 +720,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 	void OnApplicationQuit()
 	{
-		SendHealRequest();
+		DoSendHealRequest();
 	}
 }
 

@@ -346,7 +346,7 @@ public class MSBottomBar : MonoBehaviour {
 	{
 		switch (mode) {
 		case GoonScreenMode.HEAL:
-			MSHospitalManager.instance.TrySpeedUpHeal();
+			//MSHospitalManager.instance.TrySpeedUpHeal();
 			break;
 		case GoonScreenMode.SELL:
 			List<PZMonster> monsters = new List<PZMonster>();

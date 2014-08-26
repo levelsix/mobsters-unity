@@ -33,6 +33,9 @@ public class MSHealScreen : MSFunctionalScreen
 	[SerializeField]
 	UISprite arrow;
 
+	[SerializeField]
+	MSLoadLock loadLock;
+
 	public List<MSGoonCard> currHeals = new List<MSGoonCard>();
 
 	const string GREEN_ARROW = "hospitalopenarrow";
@@ -108,7 +111,7 @@ public class MSHealScreen : MSFunctionalScreen
 
 	public void Finish()
 	{
-		MSHospitalManager.instance.TrySpeedUpHeal();
+		MSHospitalManager.instance.TrySpeedUpHeal(loadLock);
 	}
 
 	public override bool IsAvailable ()
