@@ -127,6 +127,17 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		townHallUpgradeUI.gameObject.SetActive(false);
 	}
 
+	IEnumerator WaitUntilFinish()
+	{
+		MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
+		while (MSBuildingManager.instance.currentUnderConstruction != null)
+		{
+			yield return null;
+		}
+		MSActionManager.Popup.CloseTopPopupLayer();
+		TryToBuy();
+	}
+	
 	void TryToBuy(bool useGems = false)
 	{
 		Debug.LogWarning("Trying to buy");
@@ -139,14 +150,8 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			                                        + "gems and upgrade this building?",
                 new string[]{"Cancel", "Speed Up"},
 				new string[]{"greymenuoption", "purplemenuoption"},
-				new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
-					delegate
-					{
-						MSActionManager.Popup.CloseTopPopupLayer();
-						MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
-						TryToBuy();
-					}
-			}
+				new WaitFunction[]{MSUtil.QuickCloseTop, WaitUntilFinish},
+				"purple"
 			);
 			return;
 		}

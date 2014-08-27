@@ -612,8 +612,10 @@ public class MSGoonCard : MonoBehaviour {
 
 	void AddToEnhanceQueue()
 	{
-		MSMonsterManager.instance.AddToEnhanceQueue(monster);
-		MoveToEnhanceQueue ();
+		if (MSMonsterManager.instance.AddToEnhanceQueue(monster))
+		{
+			MoveToEnhanceQueue ();
+		}
 	}
 
 	void MoveToEnhanceQueue ()

@@ -45,6 +45,15 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
+
+    private bool _freeBoosterPack = default(bool);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"freeBoosterPack", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool freeBoosterPack
+    {
+      get { return _freeBoosterPack; }
+      set { _freeBoosterPack = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

@@ -442,4 +442,10 @@ public static class MSUtil {
 		return result;
 	}
 
+	public static IEnumerator QuickCloseTop()
+	{
+		MSActionManager.Popup.CloseTopPopupLayer();
+		yield return null;
+	}
+
 }

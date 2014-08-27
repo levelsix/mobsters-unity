@@ -107,32 +107,34 @@ public class MSAchievementManager : MonoBehaviour {
 		}
 	}
 
-	public MSFullAchievement RedeemAchievement(MSFullAchievement achievement)
+	public IEnumerator RedeemAchievement(MSFullAchievement achievement, MSFullAchievement successor, MSLoadLock loadLock)
 	{
 		AchievementRedeemRequestProto request = new AchievementRedeemRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.achievementId = achievement.userAchievement.achievementId;
 		request.clientTime = MSUtil.timeNowMillis;
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ACHIEVEMENT_REDEEM_EVENT, DealWithRedeemAchievementResponse);
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ACHIEVEMENT_REDEEM_EVENT);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		AchievementRedeemResponseProto response = UMQNetworkManager.responseDict[tagNum] as AchievementRedeemResponseProto;
+		UMQNetworkManager.responseDict.Remove (tagNum);
+		
+		if (response.status != AchievementRedeemResponseProto.AchievementRedeemStatus.SUCCESS)
+		{
+			Debug.LogError("Problem redeeming achievement: " + response.status.ToString());
+		}
 
 		currAchievements.Remove(achievement);
 
 		jobBadge.notifications--;
 		achievementBadge.notifications--;
 
-		return currAchievements.Find(x=>x.achievement.achievementId == achievement.achievement.successorId);
-	}
-
-	void DealWithRedeemAchievementResponse(int tagNum)
-	{
-		AchievementRedeemResponseProto response = UMQNetworkManager.responseDict[tagNum] as AchievementRedeemResponseProto;
-		UMQNetworkManager.responseDict.Remove (tagNum);
-
-		if (response.status != AchievementRedeemResponseProto.AchievementRedeemStatus.SUCCESS)
-		{
-			Debug.LogError("Problem redeeming achievement: " + response.status.ToString());
-		}
+		successor = currAchievements.Find(x=>x.achievement.achievementId == achievement.achievement.successorId);
 	}
 
 

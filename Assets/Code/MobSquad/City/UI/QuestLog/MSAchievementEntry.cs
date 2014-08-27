@@ -35,6 +35,9 @@ public class MSAchievementEntry : MonoBehaviour {
 	[SerializeField]
 	MSUIHelper buttonHelper;
 
+	[SerializeField]
+	MSLoadLock loadLock;
+
 	#endregion
 
 	MSFullAchievement fullAchievement;
@@ -86,10 +89,17 @@ public class MSAchievementEntry : MonoBehaviour {
 	/// </summary>
 	public void Redeem()
 	{
-		MSFullAchievement successor = MSAchievementManager.instance.RedeemAchievement(fullAchievement);
+		StartCoroutine(DoRedeem());
+	}
 
+	IEnumerator DoRedeem()
+	{
+		MSFullAchievement successor;
+
+		yield return StartCoroutine(MSAchievementManager.instance.RedeemAchievement(fullAchievement, successor, loadLock));
+		
 		Vector3 offsetVector = new Vector3(GetComponent<UIWidget>().width, 0, 0);
-
+		
 		if (successor != null)
 		{
 			MSAchievementEntry newEntry = MSPopupManager.instance.popups.questPopup.AddAchievement(successor);

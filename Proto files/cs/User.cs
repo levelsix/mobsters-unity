@@ -544,6 +544,15 @@ namespace com.lvl6.proto
       set { _lastMiniJobSpawnedTime = value; }
     }
 
+    private long _lastFreeBoosterPackTime = default(long);
+    [global::ProtoBuf.ProtoMember(52, IsRequired = false, Name=@"lastFreeBoosterPackTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long lastFreeBoosterPackTime
+    {
+      get { return _lastFreeBoosterPackTime; }
+      set { _lastFreeBoosterPackTime = value; }
+    }
+
     private string _udidForHistory = "";
     [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"udidForHistory", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]

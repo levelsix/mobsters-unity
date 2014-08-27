@@ -241,6 +241,9 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	public GameObject confirmationButtons;
 
+	[SerializeField]
+	MSLoadLock confirmationLoadLock;
+
 	long constructionTimeLeft
 	{
 		get
@@ -737,6 +740,17 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		Deselect();
     }
 
+	IEnumerator WaitUntilPurchased()
+	{
+		MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
+		while (MSBuildingManager.instance.currentUnderConstruction != null)
+		{
+			yield return null;
+		}
+		MSActionManager.Popup.CloseTopPopupLayer();
+		Confirm();
+	}
+
 	public void Confirm(bool useGems = false)
 	{
 		if(MSBuildingManager.instance.currentUnderConstruction != null)
@@ -747,14 +761,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	                + "gems and build this structure?",
                 new string[]{"Cancel", "Speed Up"},
 				new string[]{"greymenuoption", "purplemenuoption"},
-				new Action[]{MSActionManager.Popup.CloseTopPopupLayer,
-					delegate
-					{
-						MSActionManager.Popup.CloseTopPopupLayer();
-						MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
-						Confirm();
-					}
-				},
+				new WaitFunction[]{MSUtil.QuickCloseTop, WaitUntilPurchased},
 				"purple"
 			);
 			return;

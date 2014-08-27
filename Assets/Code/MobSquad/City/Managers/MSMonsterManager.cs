@@ -636,7 +636,7 @@ public class MSMonsterManager : MonoBehaviour {
 		loadLock.Unlock();
 	}
 
-	public void AddToEnhanceQueue(PZMonster monster, bool useGems = false)
+	public bool AddToEnhanceQueue(PZMonster monster, Action successCallback = null, bool useGems = false)
 	{
 		monster.enhancement = new UserEnhancementItemProto();
 		monster.enhancement.userMonsterId = monster.userMonster.userMonsterId;
@@ -650,6 +650,18 @@ public class MSMonsterManager : MonoBehaviour {
 		}
 		else
 		{
+			if (enhancementFeeders.Count >= MSBuildingManager.enhanceLabs[0].combinedProto.lab.queueSize)
+			{
+				MSActionManager.Popup.DisplayError("Enhance queue full!");
+				return false;
+			}
+
+			if (!currEnhancementMonsterOnServer)
+			{
+				currEnhancementMonsterOnServer = true;
+				enhanceRequestProto.ueipNew.Add(currentEnhancementMonster.enhancement);
+			}
+
 			if (useGems)
 			{
 				int gemCost = Mathf.CeilToInt((currentEnhancementMonster.enhanceCost - MSResourceManager.resources[ResourceType.OIL]) * MSWhiteboard.constants.gemsPerResource);
@@ -658,17 +670,16 @@ public class MSMonsterManager : MonoBehaviour {
 					AddToEnhanceQueue(monster, MSResourceManager.instance.SpendAll(ResourceType.OIL), gemCost);
 				}
 			}
-			else if (MSResourceManager.instance.Spend(ResourceType.OIL, currentEnhancementMonster.enhanceCost, delegate{AddToEnhanceQueue(monster, true);}))
+			else if (MSResourceManager.instance.Spend(ResourceType.OIL, currentEnhancementMonster.enhanceCost, delegate{AddToEnhanceQueue(monster, successCallback, true);}))
 			{
 				AddToEnhanceQueue(monster, currentEnhancementMonster.enhanceCost);
 			}
-
-			if (!currEnhancementMonsterOnServer)
+			else
 			{
-				currEnhancementMonsterOnServer = true;
-				enhanceRequestProto.ueipNew.Add(currentEnhancementMonster.enhancement);
+				return false;
 			}
 		}
+		return true;
 
 	}
 
@@ -718,14 +729,17 @@ public class MSMonsterManager : MonoBehaviour {
 				break;
 			}
 		}
-		
-		if (enhanceRequestProto.ueipNew.Contains(monster.enhancement))
+
+		if (monster != currentEnhancementMonster || currEnhancementMonsterOnServer)
 		{
-			enhanceRequestProto.ueipNew.Remove(monster.enhancement);
-		}
-		else
-		{
-			enhanceRequestProto.ueipDelete.Add(monster.enhancement);
+			if (enhanceRequestProto.ueipNew.Contains(monster.enhancement))
+			{
+				enhanceRequestProto.ueipNew.Remove(monster.enhancement);
+			}
+			else
+			{
+				enhanceRequestProto.ueipDelete.Add(monster.enhancement);
+			}
 		}
 		
 		//Update the rest of the feeders

@@ -19,6 +19,9 @@ public class MSClanCreateScreen : MonoBehaviour {
 	[SerializeField]
 	UI2DSprite clanIcon;
 
+	[SerializeField]
+	MSLoadLock loadLock;
+
 	public bool openClan;
 
 	int currClanIconId = 1;
@@ -91,7 +94,7 @@ public class MSClanCreateScreen : MonoBehaviour {
 			}
 			else if (MSResourceManager.instance.Spend(ResourceType.CASH, MSWhiteboard.constants.clanConstants.coinPriceToCreateClan, SubmitClanWithGems))
 			{
-				MSClanManager.instance.StartCoroutine(MSClanManager.instance.CreateClan(
+				MSClanManager.instance.StartCoroutine(MSClanManager.instance.CreateClan(loadLock,
 					clanNameBox.label.text,
 					clanTagBox.label.text,
 					openClan,
@@ -102,7 +105,7 @@ public class MSClanCreateScreen : MonoBehaviour {
 		}
 		else
 		{
-			MSPopupManager.instance.CreatePopup("Invalid Name");
+			MSActionManager.Popup.DisplayError("Invalid Clan Name");
 		}
 	}
 
@@ -111,7 +114,7 @@ public class MSClanCreateScreen : MonoBehaviour {
 		int gemCost = Mathf.CeilToInt((MSWhiteboard.constants.clanConstants.coinPriceToCreateClan - MSResourceManager.resources[ResourceType.CASH]) * MSWhiteboard.constants.gemsPerResource);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
 		{
-			MSClanManager.instance.StartCoroutine(MSClanManager.instance.CreateClan(
+			MSClanManager.instance.StartCoroutine(MSClanManager.instance.CreateClan(loadLock,
 				clanNameBox.label.text,
 				clanTagBox.label.text,
 				openClan,

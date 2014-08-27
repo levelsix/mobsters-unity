@@ -295,14 +295,15 @@ public class MSClanManager : MonoBehaviour
 
 	/// <summary>
 	/// Creates the clan.
-	/// PRECONDITION: User needs to have enough free currency to create a clan.
 	/// </summary>
 	/// <param name="name">Name.</param>
 	/// <param name="tag">Tag.</param>
 	/// <param name="requestRequired">If set to <c>true</c> request required.</param>
 	/// <param name="description">Description.</param>
-	public IEnumerator CreateClan(string name, string tag, bool requestRequired, string description, int iconId, int cash, int gems = 0)
+	public IEnumerator CreateClan(MSLoadLock loadLock, string name, string tag, bool requestRequired, string description, int iconId, int cash, int gems = 0)
 	{
+		loadLock.Lock ();
+
 		CreateClanRequestProto request = new CreateClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.name = name;
@@ -333,6 +334,8 @@ public class MSClanManager : MonoBehaviour
 			userClanStatus = UserClanStatus.MEMBER;
 			isLeader = true;
 		}
+
+		loadLock.Unlock();
 	}
 
 	public IEnumerator TransferClanOwnership(int newClanOwnerId)

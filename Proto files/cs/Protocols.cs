@@ -272,6 +272,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_RESTRICT_USER_MONSTER_EVENT", Value=75)]
       C_RESTRICT_USER_MONSTER_EVENT = 75,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_UNRESTRICT_USER_MONSTER_EVENT", Value=76)]
+      C_UNRESTRICT_USER_MONSTER_EVENT = 76,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
             
@@ -504,6 +507,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_RESTRICT_USER_MONSTER_EVENT", Value=75)]
       S_RESTRICT_USER_MONSTER_EVENT = 75,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_UNRESTRICT_USER_MONSTER_EVENT", Value=76)]
+      S_UNRESTRICT_USER_MONSTER_EVENT = 76,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,
