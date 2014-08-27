@@ -14,8 +14,10 @@ public class MSSegmentedMap : MonoBehaviour {
 	public float Height{
 		get{
 			float height = 0;
-			for(int i = 0; i < maps.Length;i++){
-				height += maps[i].height;
+			LineUpMaps();
+			foreach(UI2DSprite map in maps)
+			{
+				height += map.height;
 			}
 			return height;
 		}

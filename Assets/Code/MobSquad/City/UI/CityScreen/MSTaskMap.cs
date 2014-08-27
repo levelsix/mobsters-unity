@@ -70,8 +70,9 @@ public class MSTaskMap : MonoBehaviour {
 		}
 		
 		float mapLength = maps.Height;
-		limitedDrag.min = new Vector2 (0f, -(mapLength - map.height) + (mapLength * (1f - trans.localScale.y)));
-		limitedDrag.max = new Vector2 (0f, -(map.height / 2f) * (1f - trans.localScale.y));
+		Debug.Log("Height:" + mapLength);
+//		limitedDrag.min = new Vector2 (0f, -(mapLength - map.height) + (mapLength * (1f - trans.localScale.y)));
+//		limitedDrag.max = new Vector2 (0f, -(map.height / 2f) * (1f - trans.localScale.y));
 		
 		BoxCollider box = GetComponent<BoxCollider> ();
 		box.size = new Vector3 (map.width, mapLength, 0f);
@@ -110,14 +111,14 @@ public class MSTaskMap : MonoBehaviour {
 			Vector3 newLocation = trans.position;
 			newLocation.y = trans.position.y - nextTask.transform.position.y;
 			trans.position = newLocation;
-			if (trans.localPosition.y < limitedDrag.min.y)
-			{
-				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.min.y, trans.localPosition.z);
-			}
-			else if(trans.localPosition.y > limitedDrag.max.y)
-			{
-				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.max.y, trans.localPosition.z);
-			}
+//			if (trans.localPosition.y < limitedDrag.min.y)
+//			{
+//				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.min.y, trans.localPosition.z);
+//			}
+//			else if(trans.localPosition.y > limitedDrag.max.y)
+//			{
+//				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.max.y, trans.localPosition.z);
+//			}
 		}
 	}
 

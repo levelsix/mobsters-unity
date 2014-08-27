@@ -42,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.2999878, y: -5, z: 0}
+  m_LocalPosition: {x: -1, y: -20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 82, y: 50, z: 0}
+  m_LocalPosition: {x: -100, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
@@ -70,8 +70,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 182, y: 82, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 99, y: 91, z: 0}
+  m_Center: {x: -.5, y: .5, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,28 +100,26 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 3
-  mWidth: 100
-  mHeight: 60
+  mColor: {r: .0945069343, g: .311484545, b: .338235319, a: 1}
+  mPivot: 4
+  mWidth: 82
+  mHeight: 36
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.66666663
+  aspectRatio: 2.27777767
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: e9a52a599d5df4f9dbd7bfaca8e49d23, type: 3}
   mFont: {fileID: 0}
-  mText: 'Swap
-
-    Mobster'
-  mFontSize: 20
+  mText: Team
+  mFontSize: 25
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mEffectColor: {r: 1, g: 1, b: 1, a: .686274529}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 2
@@ -180,15 +178,15 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 182
-  mHeight: 82
+  mWidth: 100
+  mHeight: 92
   mDepth: 1
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.21951222
+  aspectRatio: 1.0869565
   mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
-  mSpriteName: swap
+  mSpriteName: swapbutton
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -236,8 +234,8 @@ MonoBehaviour:
   onFinished: []
   eventReceiver: {fileID: 0}
   callWhenFinished: 
-  from: {x: -95, y: 50, z: 0}
-  to: {x: 82, y: 50, z: 0}
+  from: {x: -100, y: 50, z: 0}
+  to: {x: 50, y: 50, z: 0}
   worldSpace: 0
 --- !u!1001 &100100000
 Prefab:

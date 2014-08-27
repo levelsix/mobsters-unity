@@ -503,7 +503,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		else if (proto is ForceLogoutResponseProto)
 		{
 			ForceLogoutResponseProto logout = proto as ForceLogoutResponseProto;
-			Debug.LogError("Force logout: " + logout.previousLoginTime);
+			Debug.LogWarning("Force logout: " + logout.previousLoginTime);
 		}
 		else if (proto is ReceivedGroupChatResponseProto)
 		{

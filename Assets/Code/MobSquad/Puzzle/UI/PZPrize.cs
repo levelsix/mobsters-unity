@@ -141,6 +141,7 @@ public class PZPrize : MonoBehaviour {
 		init();
 		icon.alpha = 0f;
 		label.text = monster.quality.ToString();
+		label.alpha = 0f;
 		string rarity = monster.quality.ToString().ToLower();
 		if (monster.numPuzzlePieces > 1)
 		{

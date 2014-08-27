@@ -481,12 +481,12 @@ public class MSMiniJobPopup : MonoBehaviour {
 
 	public void ClickCollectButton()
 	{
+//		curJobEntry.OnButtonClick();
+		MSMiniJobManager.instance.RedeemCurrJob();
 		SetupJobGrid();
 		StartCoroutine(RunTimerUntilJobsReset());
 
 		collectionObject.SetActive(false);
 		leftObject.SetActive(true);
-
-		curJobEntry.OnButtonClick();
 	}
 }

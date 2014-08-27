@@ -185,7 +185,7 @@ public class MSMiniJobEntry : MonoBehaviour {
 		{
 			Collect();
 		}
-		popup.Init();
+//		popup.Init();
 	}
 
 	void RushComplete()

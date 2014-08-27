@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using com.lvl6.proto;
 
 public class MSAnimationEvents : MonoBehaviour {
 
@@ -9,7 +10,12 @@ public class MSAnimationEvents : MonoBehaviour {
 
 	int _consecutiveAttacks = 0;
 
+	public static int curDamage;
+	public static Element curElement;
+
 	PZCombatManager _combatManager;
+
+	bool _waitOnEnemyAttack = false;
 
 	public int totalAttacks{
 		set{
@@ -42,13 +48,27 @@ public class MSAnimationEvents : MonoBehaviour {
 	}
 
 	public void endOfAttack(float startTime){
+		//if _totalAttack is == 0 then this is an NPC and not the player
 		if (_totalAttacks > 0) {
 			if (_additionalAttacks > 0) {
 				_additionalAttacks--;
 				animate.Play ("AttackFarLeft", 0, startTime);
 			} else {
 				StartCoroutine (_combatManager.EnemyReturnToStartPosition ());
+				StartCoroutine (_combatManager.ReturnPlayerAfterAttack());
 			}
+		}
+		else
+		{
+			_waitOnEnemyAttack = false;
+		}
+	}
+
+	public IEnumerator WaitForEndOfEnemyAttack(){
+		_waitOnEnemyAttack = true;
+		while(_waitOnEnemyAttack)
+		{
+			yield return null;
 		}
 	}
 }

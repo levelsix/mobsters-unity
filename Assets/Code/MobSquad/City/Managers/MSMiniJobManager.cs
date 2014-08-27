@@ -304,7 +304,12 @@ public class MSMiniJobManager : MonoBehaviour {
 			teamToDamage.Add(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == item));
 		}
 //		DamageMonsters(teamToDamage, currActiveJob.baseDmgReceived);
-		DamageMonsters(currActiveJob.baseDmgReceived);
+		damageDelt.Clear();
+		for(int i = 0; i < teamToDamage.Count; i++)
+		{
+			damageDelt.Add(0);
+		}
+		DamageMonsters(currActiveJob.baseDmgReceived, true);
 
 		foreach (var item in teamToDamage) 
 		{
@@ -338,7 +343,6 @@ public class MSMiniJobManager : MonoBehaviour {
 
 			if ((!isDamageOff && amountPerMonster > item.currHP) || (isDamageOff && amountPerMonster > item.tempHP))
 			{
-
 				damageDelt[i] += isDamageOff?item.tempHP:item.currHP;
 				if(!isDamageOff)
 				{
