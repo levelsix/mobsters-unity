@@ -70,7 +70,6 @@ public class MSTaskMap : MonoBehaviour {
 		}
 		
 		float mapLength = maps.Height;
-		Debug.Log("Height:" + mapLength);
 //		limitedDrag.min = new Vector2 (0f, -(mapLength - map.height) + (mapLength * (1f - trans.localScale.y)));
 //		limitedDrag.max = new Vector2 (0f, -(map.height / 2f) * (1f - trans.localScale.y));
 		

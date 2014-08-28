@@ -83,6 +83,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	List<PZGem> movingGems = new List<PZGem>();
 	List<PZGem> gemsToCheck = new List<PZGem>();
+	PZGem[] hintgems = new PZGem[3];
 	
 	[SerializeField]
 	PZGem gemPrefab;
@@ -140,6 +141,39 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	public float SWAP_TIME = .2f;
 
+	bool _gemHints = false;
+
+	/// <summary>
+	/// gem hints are when the gems animating to show a match.  Set to true to start.
+	/// </summary>
+	bool showGemHints
+	{
+		set
+		{
+			if(value && !_gemHints)
+			{
+				StartCoroutine("HintCycle");//has to be started with a string so I can stop it later.
+			}
+			else if (!value)
+			{
+				foreach(PZGem gem in hintgems)
+				{
+					if(gem!=null)
+					{
+						gem.CancelHintAnimation();
+						StopCoroutine("HintCycle");
+					}
+				}
+			}
+			_gemHints = value;
+		}
+
+		get
+		{
+			return _gemHints;
+		}
+	}
+
 	public void Awake()
 	{
 		instance = this;
@@ -164,6 +198,8 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			riggedBoardStacks[i] = new Stack<int>();
 		}
+
+		MSActionManager.Puzzle.OnGemMatch += delegate { showGemHints = false; Debug.Log("OnGemMatch");};
 	}
 
 	public void Start()
@@ -245,7 +281,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				}
 			}
 		}while(!CheckForMatchMoves());
-		
+		showGemHints = true;
 		setUpBoard = true;
 	}
 
@@ -386,6 +422,7 @@ public class PZPuzzleManager : MonoBehaviour {
 					PZCombatManager.instance.OnBreakGems (currGems, combo);
 				}
 				processingSwap = false;
+				showGemHints = true;
 				ResetCombo ();
 				if (!CheckForMatchMoves ()) {
 					InitBoard (boardWidth, boardHeight);
@@ -878,7 +915,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	bool CheckForMatchMoves()
 	{
 		PZGem gem;
-		
+		Debug.LogError("matchCheck");
 		//Check horizontal possibilities
 		for (int i = 0; i < boardHeight; i++) 
 		{
@@ -889,10 +926,16 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+3,i].colorIndex)
 					{
+						hintgems[0] = board[j,i];
+						hintgems[1] = board[j+2,i];
+						hintgems[2] = board[j+3,i];
 						return true;
 					}
 					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+3,i].colorIndex)
 					{
+						hintgems[0] = board[j,i];
+						hintgems[1] = board[j+1,i];
+						hintgems[2] = board[j+3,i];
 						return true;
 					}
 				}
@@ -900,14 +943,23 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+2,i-1].colorIndex)
 					{
+						hintgems[0] = board[j,i];
+						hintgems[1] = board[j+1,i];
+						hintgems[2] = board[j+2,i-1];
 						return true;
 					}
 					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+1,i-1].colorIndex)
 					{
+						hintgems[0] = board[j,i];
+						hintgems[1] = board[j+2,i];
+						hintgems[2] = board[j+1,i-1];
 						return true;
 					}
 					if (gem.colorIndex == board[j+1,i-1].colorIndex && gem.colorIndex == board[j+2,i-1].colorIndex)
 					{
+						hintgems[0] = board[j,i];
+						hintgems[1] = board[j+1,i-1];
+						hintgems[2] = board[j+2,i-1];
 						return true;
 					}
 				}
@@ -915,14 +967,23 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+2,i+1].colorIndex)
 					{
+						hintgems[0] = board[j,i];
+						hintgems[1] = board[j+1,i];
+						hintgems[2] = board[j+2,i+1];
 						return true;
 					}
 					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+1,i+1].colorIndex)
 					{
+						hintgems[0] = board[j,i];
+						hintgems[1] = board[j+2,i];
+						hintgems[2] = board[j+1,i+1];
 						return true;
 					}
 					if (gem.colorIndex == board[j+2,i+1].colorIndex && gem.colorIndex == board[j+1,i+1].colorIndex)
 					{
+						hintgems[0] = board[j,i];
+						hintgems[1] = board[j+2,i+1];
+						hintgems[2] = board[j+1,i+1];
 						return true;
 					}
 				}
@@ -943,10 +1004,16 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i, j+3].colorIndex)
 					{
+						hintgems[0] = board[i,j];
+						hintgems[1] = board[i,j+2];
+						hintgems[2] = board[i,j+3];
 						return true;
 					}
 					if (gem.colorIndex == board[i, j+1].colorIndex && gem.colorIndex == board[i, j+3].colorIndex)
 					{
+						hintgems[0] = board[i,j];
+						hintgems[1] = board[i,j+1];
+						hintgems[2] = board[i,j+3];
 						return true;
 					}
 				}
@@ -954,14 +1021,23 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[i,j+1].colorIndex && gem.colorIndex == board[i-1,j+2].colorIndex)
 					{
+						hintgems[0] = board[i,j];
+						hintgems[1] = board[i,j+1];
+						hintgems[2] = board[i-1,j+2];
 						return true;
 					}
 					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i-1,j+1].colorIndex)
 					{
+						hintgems[0] = board[i,j];
+						hintgems[1] = board[i,j+2];
+						hintgems[2] = board[i-1,j+1];
 						return true;
 					}
 					if (gem.colorIndex == board[i-1, j+1].colorIndex && gem.colorIndex == board[i-1, j+2].colorIndex)
 					{
+						hintgems[0] = board[i,j];
+						hintgems[1] = board[i-1,j+1];
+						hintgems[2] = board[i-1,j+2];
 						return true;
 					}
 				}
@@ -969,14 +1045,23 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[i,j+1].colorIndex && gem.colorIndex == board[i+1,j+2].colorIndex)
 					{
+						hintgems[0] = board[i,j];
+						hintgems[1] = board[i,j+1];
+						hintgems[2] = board[i+1,j+2];
 						return true;
 					}
 					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i+1,j+1].colorIndex)
 					{
+						hintgems[0] = board[i,j];
+						hintgems[1] = board[i,j+2];
+						hintgems[2] = board[i+1,j+1];
 						return true;
 					}
 					if (gem.colorIndex == board[i+1,j+1].colorIndex && gem.colorIndex == board[i+1,j+2].colorIndex)
 					{
+						hintgems[0] = board[i,j];
+						hintgems[1] = board[i+1,j+1];
+						hintgems[2] = board[i+1,j+2];
 						return true;
 					}
 				}
@@ -1013,6 +1098,36 @@ public class PZPuzzleManager : MonoBehaviour {
 					board[i,j].Block();
 				}
 			}
+		}
+	}
+
+	[ContextMenu ("start hint")]
+	public void StartHint()
+	{
+		showGemHints = true;
+	}
+
+	[ContextMenu ("stop hint")]
+	public void StopHint()
+	{
+//		showingGemHints = false;
+	}
+
+	public IEnumerator HintCycle()
+	{
+		float timeBetweenCycles = 5f;
+		yield return new WaitForSeconds(timeBetweenCycles); //wait on frame for showinggemshint to update
+		while(showGemHints)
+		{
+			foreach(PZGem gem in hintgems)
+			{
+				if(gem != null)
+				{
+					//The hint animation playes the scale and color tween 4 times in a row.
+					gem.HintAnimation();
+				}
+			}
+			yield return new WaitForSeconds(timeBetweenCycles);
 		}
 	}
 

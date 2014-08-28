@@ -119,6 +119,11 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	public int id = 0;
 	static int nextId = 0;
+
+	TweenScale scaleTween;
+	TweenColor colorTween;
+	int curTweenLoop = 0;
+	const int TOTAL_HINT_TWEEN = 4;
 	
 	static readonly Dictionary<MSValues.Direction, Vector3> dirVals = new Dictionary<MSValues.Direction, Vector3>()
 	{
@@ -134,6 +139,9 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		trans = transform;
 		gameObj = gameObject;
 		id = nextId++;
+
+		scaleTween = GetComponent<TweenScale>();
+		colorTween = GetComponent<TweenColor>();
 	}
 	
 	public MSPoolable Make (Vector3 origin)
@@ -575,6 +583,34 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	public override string ToString()
 	{
 		return "Gem " + id + ": " + boardX + "-" + boardY;
+	}
+
+	/// <summary>
+	/// This function calls itself at the end of the animation
+	/// </summary>
+	public void HintAnimation()
+	{
+		if(curTweenLoop < TOTAL_HINT_TWEEN)
+		{
+			scaleTween.ResetToBeginning();
+			scaleTween.PlayForward();
+//			colorTween.ResetToBeginning();
+//			colorTween.PlayForward();
+
+			curTweenLoop++;
+		}
+		else
+		{
+			curTweenLoop = 0;
+		}
+	}
+
+	public void CancelHintAnimation()
+	{
+		scaleTween.enabled = false;
+		colorTween.enabled = false;
+		scaleTween.Sample(0f, false);
+		colorTween.Sample(0f, false);
 	}
 
 	#region Debug
