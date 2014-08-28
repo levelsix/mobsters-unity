@@ -66,6 +66,13 @@ public static class MSValues
 		EAST,
 		NONE
 	}
+
+	public enum Size
+	{
+		BIG,
+		MEDIUM,
+		SMALL
+	}
 	
 	public static readonly Dictionary<Direction, Direction> opp = new Dictionary<Direction, Direction>()
 	{

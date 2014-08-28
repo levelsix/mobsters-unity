@@ -487,7 +487,7 @@ public class PZCombatManager : MonoBehaviour {
 		PZPuzzleManager.instance.swapLock += 1;
 	}
 
-	public void InitTutorial(MonsterProto boss, MonsterProto enemyOne, MonsterProto enemyTwo, Queue<int> riggedDamages)
+	public void InitTutorial(MonsterProto boss, MonsterProto enemyOne, MonsterProto enemyTwo)
 	{
 		PreInit ();
 
@@ -496,7 +496,9 @@ public class PZCombatManager : MonoBehaviour {
 		backupPvPEnemies[0].Init(new PZMonster(enemyTwo, 1));
 		activePlayer.Init(playerGoonies[0]);
 
-		riggedAttacks = riggedDamages;
+		riggedAttacks = new Queue<int>();
+		riggedAttacks.Enqueue(backupPvPEnemies[1].health + 7);
+		riggedAttacks.Enqueue(34);
 
 		boardMove.Sample(0, false);
 

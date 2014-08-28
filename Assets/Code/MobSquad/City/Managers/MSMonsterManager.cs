@@ -23,6 +23,8 @@ public class MSMonsterManager : MonoBehaviour {
 	
 	public PZMonster currentEnhancementMonster;
 
+	public bool currEnhancementMonsterOnServer = false;
+
 	public int totalResidenceSlots;
 
 	public const int TEAM_SLOTS = 3;
@@ -118,6 +120,8 @@ public class MSMonsterManager : MonoBehaviour {
 		{
 			currentEnhancementMonster = userMonsters.Find(x => x.userMonster.userMonsterId == enhancement.baseMonster.userMonsterId);
 			currentEnhancementMonster.enhancement = enhancement.baseMonster;
+
+			currEnhancementMonsterOnServer = true;
 			
 			//Debug.Log("Ehancement Base: " + currentEnhancementMonster.enhancement.userMonsterId);
 			
@@ -462,6 +466,7 @@ public class MSMonsterManager : MonoBehaviour {
 	
 	IEnumerator SendCompleteEnhanceRequest(EnhancementWaitTimeCompleteRequestProto request)
 	{
+		yield return DoSendStartEnhanceRequest();
 
 		Debug.Log("UMCEP: EXP: " + request.umcep.expectedExperience + ", LVL: " + request.umcep.expectedLevel);
 
@@ -486,13 +491,18 @@ public class MSMonsterManager : MonoBehaviour {
 				RemoveFromEnhanceQueue(currentEnhancementMonster);
 			}
 			
-			SendStartEnhanceRequest();
+			DoSendStartEnhanceRequest();
 
 		}
 		
 	}
+
+	public Coroutine DoSendStartEnhanceRequest()
+	{
+		return StartCoroutine(SendStartEnhanceRequest());
+	}
 	
-	public void SendStartEnhanceRequest ()
+	public IEnumerator SendStartEnhanceRequest ()
 	{
 		enhanceRequestProto.sender = MSWhiteboard.localMupWithResources;
 
@@ -500,7 +510,7 @@ public class MSMonsterManager : MonoBehaviour {
 		    && enhanceRequestProto.ueipUpdate.Count == 0
 		    && enhanceRequestProto.ueipDelete.Count == 0)
 		{
-			return;
+			yield break;
 		}
 
 		string str = "Start enhance request:";
@@ -523,19 +533,28 @@ public class MSMonsterManager : MonoBehaviour {
 		if (enhanceRequestProto.ueipNew.Count == 1
 		    && enhanceRequestProto.ueipNew[0].userMonsterId == currentEnhancementMonster.userMonster.userMonsterId)
 		{
-			return;
+			yield break;
 		}
 		
-		UMQNetworkManager.instance.SendRequest(enhanceRequestProto, (int)EventProtocolRequest.C_SUBMIT_MONSTER_ENHANCEMENT_EVENT, DealWithEnhanceStartResponse);
-		
-		if (MSActionManager.Goon.OnEnhanceQueueChanged != null)
-		{
-			MSActionManager.Goon.OnEnhanceQueueChanged();
-		}
+		int tagNum = UMQNetworkManager.instance.SendRequest(enhanceRequestProto, (int)EventProtocolRequest.C_SUBMIT_MONSTER_ENHANCEMENT_EVENT);
 
 		enhanceRequestProto.ueipNew.Clear();
 		enhanceRequestProto.ueipUpdate.Clear();
 		enhanceRequestProto.ueipDelete.Clear();
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		SubmitMonsterEnhancementResponseProto response = UMQNetworkManager.responseDict[tagNum] as SubmitMonsterEnhancementResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != SubmitMonsterEnhancementResponseProto.SubmitMonsterEnhancementStatus.SUCCESS)
+		{
+			Debug.LogError("Problem sending enhance request: " + response.status.ToString ());
+		}
+
 	}
 	
 	int Feed (PZMonster feeder)
@@ -575,41 +594,46 @@ public class MSMonsterManager : MonoBehaviour {
 			}
 		}
 	}
-	
-	public void SpeedUpEnhance(int cost)
+
+	public void DoSpeedUpEnhance(int cost, MSLoadLock loadLock)
 	{
+		StartCoroutine(SpeedUpEnhance(cost, loadLock));
+	}
+
+	public IEnumerator SpeedUpEnhance(int cost, MSLoadLock loadLock)
+	{
+		loadLock.Lock();
+
 		EnhancementWaitTimeCompleteRequestProto request = new EnhancementWaitTimeCompleteRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.isSpeedup = true;
 		request.gemsForSpeedup = cost;
 		
-		PZMonster item;
-		while(enhancementFeeders.Count > 0)
-		{
-			item = enhancementFeeders[0];
-			Feed(item);
-			request.userMonsterIds.Add(item.userMonster.userMonsterId);
-		}
 		request.umcep = currentEnhancementMonster.GetCurrentExpProto();
+		foreach (var item in enhancementFeeders) 
+		{
+			request.userMonsterIds.Add(item.userMonster.userMonsterId);
+			request.umcep.expectedExperience += item.enhanceXP;
+		}
+
+		request.umcep.expectedLevel = (int)currentEnhancementMonster.LevelWithFeeders(enhancementFeeders);
+		request.umcep.expectedHp = currentEnhancementMonster.MaxHPAtLevel(request.umcep.expectedLevel);
+
 		currentEnhancementMonster.enhancement = null;
 		
-		StartCoroutine(SendCompleteEnhanceRequest(request));
-	}
-	
-	void DealWithEnhanceCompleteResponse(int tagNum)
-	{
-		EnhancementWaitTimeCompleteResponseProto response = UMQNetworkManager.responseDict[tagNum] as EnhancementWaitTimeCompleteResponseProto;
-		UMQNetworkManager.responseDict.Remove(tagNum);
-		
-		if (response.status != EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus.SUCCESS)
+		yield return StartCoroutine(SendCompleteEnhanceRequest(request));
+
+		while(enhancementFeeders.Count > 0)
 		{
-			Debug.LogError("Problem completing enhancement: " + response.status.ToString());
+			Feed(enhancementFeeders[0]);
 		}
-		
+
 		if (MSActionManager.Goon.OnEnhanceQueueChanged != null)
 		{
 			MSActionManager.Goon.OnEnhanceQueueChanged();
 		}
+
+		loadLock.Unlock();
 	}
 
 	public void AddToEnhanceQueue(PZMonster monster, bool useGems = false)
@@ -622,18 +646,28 @@ public class MSMonsterManager : MonoBehaviour {
 		{
 			monster.enhancement.expectedStartTimeMillis = 0;
 			currentEnhancementMonster = monster;
+			currEnhancementMonsterOnServer = false;
 		}
-		else if (useGems)
+		else
 		{
-			int gemCost = Mathf.CeilToInt((currentEnhancementMonster.enhanceCost - MSResourceManager.resources[ResourceType.OIL]) * MSWhiteboard.constants.gemsPerResource);
-			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
+			if (useGems)
 			{
-				AddToEnhanceQueue(monster, MSResourceManager.instance.SpendAll(ResourceType.OIL), gemCost);
+				int gemCost = Mathf.CeilToInt((currentEnhancementMonster.enhanceCost - MSResourceManager.resources[ResourceType.OIL]) * MSWhiteboard.constants.gemsPerResource);
+				if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
+				{
+					AddToEnhanceQueue(monster, MSResourceManager.instance.SpendAll(ResourceType.OIL), gemCost);
+				}
 			}
-		}
-		else if (MSResourceManager.instance.Spend(ResourceType.OIL, currentEnhancementMonster.enhanceCost, delegate{AddToEnhanceQueue(monster, true);}))
-		{
-			AddToEnhanceQueue(monster, currentEnhancementMonster.enhanceCost);
+			else if (MSResourceManager.instance.Spend(ResourceType.OIL, currentEnhancementMonster.enhanceCost, delegate{AddToEnhanceQueue(monster, true);}))
+			{
+				AddToEnhanceQueue(monster, currentEnhancementMonster.enhanceCost);
+			}
+
+			if (!currEnhancementMonsterOnServer)
+			{
+				currEnhancementMonsterOnServer = true;
+				enhanceRequestProto.ueipNew.Add(currentEnhancementMonster.enhancement);
+			}
 		}
 
 	}
@@ -769,17 +803,6 @@ public class MSMonsterManager : MonoBehaviour {
 			MSActionManager.Goon.OnEnhanceQueueChanged();
 		}
 		
-	}
-	
-	void DealWithEnhanceStartResponse(int tagNum)
-	{
-		SubmitMonsterEnhancementResponseProto response = UMQNetworkManager.responseDict[tagNum] as SubmitMonsterEnhancementResponseProto;
-		UMQNetworkManager.responseDict.Remove(tagNum);
-		
-		if (response.status != SubmitMonsterEnhancementResponseProto.SubmitMonsterEnhancementStatus.SUCCESS)
-		{
-			Debug.LogError("Problem sending enhance request: " + response.status.ToString ());
-		}
 	}
 	
 	void DealWithCombineResponse(int tagNum)

@@ -4,12 +4,19 @@ using System;
 using com.lvl6.proto;
 
 public class UMQLoader : MonoBehaviour {
+
+	public static UMQLoader instance;
 	
 	[SerializeField]
 	GameObject createUserPopup;
 
 	[SerializeField]
 	MSFillBar fillBar;
+
+	void Awake()
+	{
+		instance = this;
+	}
 
 	// Use this for initialization
 	public IEnumerator Start () {
@@ -96,25 +103,7 @@ public class UMQLoader : MonoBehaviour {
 		
 		Debug.Log("Update Status: " + response.updateStatus.ToString());
 
-		MSUtil.LoadLocalUser (response.sender);
-		
-		MSChatManager.instance.Init(response);
-		
-		MSQuestManager.instance.Init(response);
-
-		MSClanManager.instance.Init(response.userClanInfo);
-
-		MSRequestManager.instance.Init(response.invitesToMeForSlots);
-
-		MSResidenceManager.instance.AddInvites(response.invitesFromMeForSlots);
-		
-		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
-		MSEvolutionManager.instance.Init(response.evolution);
-
-		if (MSActionManager.Loading.OnStartup != null)
-		{
-			MSActionManager.Loading.OnStartup(response);
-		}
+		StartUp(response);
 
 		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
 		{
@@ -123,7 +112,7 @@ public class UMQLoader : MonoBehaviour {
 		else
 		{
 			MSResourceManager.instance.Init(response.sender.level, response.sender.experience, 
-				MSWhiteboard.nextLevelInfo.requiredExperience, response.sender.cash, response.sender.oil, response.sender.gems);
+				response.sender.cash, response.sender.oil, response.sender.gems);
 			
 			MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 
@@ -133,9 +122,9 @@ public class UMQLoader : MonoBehaviour {
 
 			if (response.curTask != null && response.curTask.taskId > 0)
 			{
-				//PZCombatManager.instance.RunInitLoadedTask(response.curTask, response.curTaskStages);
-				//MSActionManager.Scene.OnPuzzle();
-				MSActionManager.Scene.OnCity();
+				PZCombatManager.instance.RunInitLoadedTask(response.curTask, response.curTaskStages);
+				MSActionManager.Scene.OnPuzzle();
+				//MSActionManager.Scene.OnCity();
 			}
 			else
 			{
@@ -143,6 +132,31 @@ public class UMQLoader : MonoBehaviour {
 			}
 		}
 
+	}
+
+	public static void StartUp(StartupResponseProto response)
+	{
+		MSUtil.LoadLocalUser (response.sender);
+		
+		MSChatManager.instance.Init(response);
+		
+		MSQuestManager.instance.Init(response);
+		
+		MSClanManager.instance.Init(response.userClanInfo);
+		
+		MSRequestManager.instance.Init(response.invitesToMeForSlots);
+		
+		MSResidenceManager.instance.AddInvites(response.invitesFromMeForSlots);
+		
+		MSNewsPopup.pvpHistory = response.recentNBattles;
+		
+		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
+		MSEvolutionManager.instance.Init(response.evolution);
+		
+		if (MSActionManager.Loading.OnStartup != null)
+		{
+			MSActionManager.Loading.OnStartup(response);
+		}
 	}
 
 }

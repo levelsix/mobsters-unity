@@ -69,6 +69,7 @@ public class MSQuestManager : MonoBehaviour {
 #endif
 		}
 
+		taskDict.Clear();
 		foreach (var item in proto.completedTaskIds) 
 		{
 			taskDict.Add(item, true);
@@ -234,7 +235,7 @@ public class MSQuestManager : MonoBehaviour {
 	{
 		currQuests.RemoveAll(x=>x.quest.questId == quest.quest.questId);
 		StartCoroutine(RedeemQuest(quest.quest));
-		popup.InitCompletedQuest(quest);
+		//popup.InitCompletedQuest(quest);
 	}
 
 	//TODO

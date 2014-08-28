@@ -396,6 +396,7 @@ public class TCKControlManager : MonoBehaviour
 					}
 				}
 				ProcessHold(touch);
+				//Debug.Log (touch);
 			}
 		}
 		else

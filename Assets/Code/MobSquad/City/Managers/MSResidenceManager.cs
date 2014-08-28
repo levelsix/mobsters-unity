@@ -37,14 +37,13 @@ public class MSResidenceManager : MonoBehaviour {
 			FB.AppRequest(
 				"Please respond to my request!",
 				null,
-				"",
+				null,
 				null,
 				100,
 				"",
 				"A request from " + MSWhiteboard.localMup.name,
 				RequestCallback
 			);
-				
 		}
 	}
 

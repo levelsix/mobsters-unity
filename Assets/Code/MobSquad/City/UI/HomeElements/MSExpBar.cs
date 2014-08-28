@@ -29,8 +29,17 @@ public class MSExpBar : MonoBehaviour {
 		if (!MSTutorialManager.instance.inTutorial)
 		{   
 		    levelLabel.text = MSWhiteboard.localUser.level.ToString();
-		    expLabel.text = MSWhiteboard.localUser.experience + "/" + MSWhiteboard.nextLevelInfo.requiredExperience;
-		    expBar.fill = ((float)MSWhiteboard.localUser.experience) / MSWhiteboard.nextLevelInfo.requiredExperience;
+
+			if (MSWhiteboard.nextLevelInfo != null)
+			{
+			    expLabel.text = MSWhiteboard.localUser.experience + "/" + MSWhiteboard.nextLevelInfo.requiredExperience;
+			    expBar.fill = ((float)MSWhiteboard.localUser.experience) / MSWhiteboard.nextLevelInfo.requiredExperience;
+			}
+			else
+			{
+				expLabel.text = MSWhiteboard.localUser.experience.ToString();
+				expBar.fill = 1;
+			}
 
 		}
 	}

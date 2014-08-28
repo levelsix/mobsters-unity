@@ -3518,8 +3518,8 @@ Transform:
   - {fileID: 400206}
   - {fileID: 400156}
   - {fileID: 400224}
-  - {fileID: 400226}
   - {fileID: 400126}
+  - {fileID: 400226}
   m_Father: {fileID: 400174}
   m_RootOrder: 0
 --- !u!4 &400086
@@ -3806,7 +3806,7 @@ Transform:
   - {fileID: 400012}
   - {fileID: 400132}
   m_Father: {fileID: 400084}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!4 &400128
 Transform:
   m_ObjectHideFlags: 1
@@ -4440,13 +4440,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 540.000061}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400236}
   - {fileID: 400248}
   m_Father: {fileID: 400084}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &400228
 Transform:
   m_ObjectHideFlags: 1
@@ -13589,8 +13589,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494faf88db8c544d68c2df5892ba3d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateLabel: {fileID: 11400408}
+  bg: {fileID: 11400394}
   toggleType: 1
+  tween: {fileID: 0}
 --- !u!114 &11400398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14206,8 +14207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494faf88db8c544d68c2df5892ba3d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateLabel: {fileID: 11400432}
+  bg: {fileID: 11400434}
   toggleType: 0
+  tween: {fileID: 0}
 --- !u!114 &11400426
 MonoBehaviour:
   m_ObjectHideFlags: 1

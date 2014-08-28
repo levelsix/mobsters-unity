@@ -13,6 +13,9 @@ public class MSCreateUserPopup : MonoBehaviour {
 	[SerializeField]
 	UILabel errorLabel;
 
+	[SerializeField]
+	MSLoadLock loadLock;
+
 	void OnEnable()
 	{
 		submitButton.onClick += OnSubmit;
@@ -61,11 +64,15 @@ public class MSCreateUserPopup : MonoBehaviour {
 		}
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(create, (int)EventProtocolRequest.C_USER_CREATE_EVENT, null);
-		
+
+		loadLock.Lock();
+
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
 			yield return null;
 		}
+
+		loadLock.Unlock();
 		
 		UserCreateResponseProto response = UMQNetworkManager.responseDict[tagNum] as UserCreateResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);

@@ -239,7 +239,7 @@ public class MSHireFriendsPage : MonoBehaviour {
 		FB.AppRequest(
 			"This is a test!",//title
 			ids,//list of ids
-			"",//something not implemented on mobile
+			null,//something not implemented on mobile
 			null,//something not implemented on mobile
 			1,//Max number of requests null = no limit(set to for tests so I don't accidently send to all)
 			"",

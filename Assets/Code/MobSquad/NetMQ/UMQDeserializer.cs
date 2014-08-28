@@ -85,7 +85,8 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_ACHIEVEMENT_PROGRESS_EVENT, typeof(AchievementProgressResponseProto)},
 		{EventProtocolResponse.S_ACHIEVEMENT_REDEEM_EVENT, typeof(AchievementRedeemResponseProto)},
 		{EventProtocolResponse.S_SET_AVATAR_MONSTER_EVENT, typeof(SetAvatarMonsterResponseProto)},
-		{EventProtocolResponse.S_RETRIEVE_USERS_FOR_USER_IDS_EVENT, typeof(RetrieveUsersForUserIdsResponseProto)}
+		{EventProtocolResponse.S_RETRIEVE_USERS_FOR_USER_IDS_EVENT, typeof(RetrieveUsersForUserIdsResponseProto)},
+		{EventProtocolResponse.S_DEV_EVENT, typeof(DevResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

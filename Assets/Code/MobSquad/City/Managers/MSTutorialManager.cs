@@ -96,6 +96,12 @@ public class MSTutorialManager : MonoBehaviour
 
 	bool didJoinFacebook = true;
 
+	/// <summary>
+	/// If the player logs onto facebook, and we find another
+	/// account, we short-circuit the tutorial
+	/// </summary>
+	bool facebookHadAccount = false;
+
 	bool waitingForUsername = true;
 
 	/// <summary>
@@ -454,10 +460,11 @@ public class MSTutorialManager : MonoBehaviour
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "Crouch", guide.displayName, TutorialStrings.SEND_NEPHEW, true));
 
 		userUnit.cityUnit.TutorialPath(swaggyEnterPath);
-		
-		yield return userUnit.DoJump(TutorialValues.swaggyHopHeight, TutorialValues.swaggyHopTime);
-		yield return userUnit.DoJump(TutorialValues.swaggyHopHeight, TutorialValues.swaggyHopTime);
-		yield return userUnit.DoJump(TutorialValues.swaggyHopHeight, TutorialValues.swaggyHopTime);
+
+		for (int i = 0; i < TutorialValues.swaggyHopCount; i++) 
+		{
+			yield return userUnit.DoJump(TutorialValues.swaggyHopHeight, TutorialValues.swaggyHopTime);
+		}
 
 		while (userUnit.cityUnit.moving)
 		{
@@ -682,11 +689,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	void Combat_Setup()
 	{
-		Queue<int> riggs = new Queue<int>();
-		riggs.Enqueue(157);
-		riggs.Enqueue(34);
-
-		PZCombatManager.instance.InitTutorial(enemyBoss, enemyOne, enemyTwo, riggs);
+		PZCombatManager.instance.InitTutorial(enemyBoss, enemyOne, enemyTwo);
 		MSActionManager.Scene.OnPuzzle();
 
 		userCombatant = PZCombatManager.instance.activePlayer;
@@ -715,9 +718,11 @@ public class MSTutorialManager : MonoBehaviour
 		yield return StartCoroutine(PostCombat_HealMobsterTutorial());
 		yield return StartCoroutine(PostCombat_BuildBuildings());
 		yield return StartCoroutine(PostCombat_FacebookLogon());
-		yield return StartCoroutine(PostCombat_Username());
-		yield return StartCoroutine(PostCombat_SendOnFirstMission());
-
+		if (!facebookHadAccount)
+		{
+			yield return StartCoroutine(PostCombat_Username());
+			yield return StartCoroutine(PostCombat_SendOnFirstMission());
+		}
 		inTutorial = false;
 
 		foreach (var item in TutorialUI.disableHUD) 
@@ -810,8 +815,15 @@ public class MSTutorialManager : MonoBehaviour
 		MoveUnitsOutOfTheWay();
 
 		//Heal taskbutton
+		MSTaskButton healButton;
+		do
+		{
+			yield return null;
+			healButton = MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.HEAL);
+		}while(healButton == null);
+
 		yield return StartCoroutine(DoUIStep(
-			MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.HEAL).gameObj,
+			healButton.gameObj,
 			150, MSValues.Direction.EAST));
 
 		//Healing dialogue
@@ -888,7 +900,7 @@ public class MSTutorialManager : MonoBehaviour
 		{
 			yield return null;
 		}
-		if (didJoinFacebook)
+		if (didJoinFacebook && !facebookHadAccount)
 		{
 			yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.FACEBOOK_DID_JOIN_DIALOGUE, true));
 		}
@@ -898,10 +910,11 @@ public class MSTutorialManager : MonoBehaviour
 		}
 	}
 	
-	public void OnMakeFacebookDecision(bool didJoin)
+	public void OnMakeFacebookDecision(bool didJoin, bool usedOtherAccount = false)
 	{
 		waitForFacebook = false;
 		didJoinFacebook = didJoin;
+		facebookHadAccount = usedOtherAccount;
 	}
 
 	IEnumerator PostCombat_Username()
@@ -1102,6 +1115,8 @@ public class TutorialValues
 	public float swaggyHopHeight;
 
 	public float swaggyHopTime;
+
+	public float swaggyHopCount;
 
 	public float enemyMoveSpeed;
 

@@ -97,7 +97,7 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		get
 		{
-			return currEvolution != null && currEvolution.startTime > 0;
+			return currEvolution != null && currEvolution.startTime > 0 && finishTime > 0;
 		}
 	}
 
@@ -151,7 +151,7 @@ public class MSEvolutionManager : MonoBehaviour {
 		return tempEvolution;
 	}
 
-	public void StartEvolution(bool useGems = false)
+	public void StartEvolution(MSLoadLock loadLock = null, bool useGems = false)
 	{
 		if (tempEvolution == null)
 		{
@@ -171,7 +171,7 @@ public class MSEvolutionManager : MonoBehaviour {
 	            "Your lab is busy evolving another monster. Spend (g) " + gemsToFinish + " to finish it?",
           	  	new string[] {"No", "Yes"},
 				new string[] {"greymenuoption", "purplemenuoption"},
-				new Action[] {MSActionManager.Popup.CloseTopPopupLayer, delegate{FinishWithGems();StartEvolution();}},
+				new Action[] {MSActionManager.Popup.CloseTopPopupLayer, delegate{FinishWithGems();StartEvolution(loadLock);MSActionManager.Popup.CloseTopPopupLayer();}},
 				"purple"
 			);
 		}
@@ -181,41 +181,56 @@ public class MSEvolutionManager : MonoBehaviour {
 			int gemCost = Mathf.CeilToInt((oilCost - MSResourceManager.resources[ResourceType.OIL]) * MSWhiteboard.constants.gemsPerResource);
 			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
 			{
-				StartEvolution(MSResourceManager.instance.SpendAll(ResourceType.OIL), gemCost);
+				StartCoroutine(StartEvolution(loadLock, MSResourceManager.instance.SpendAll(ResourceType.OIL), gemCost));
 			}
 		}
-		else if (MSResourceManager.instance.Spend(ResourceType.OIL, oilCost, delegate{StartEvolution(true);}))
+		else if (MSResourceManager.instance.Spend(ResourceType.OIL, oilCost, delegate{StartEvolution(loadLock, true);}))
 	    {
-			StartEvolution(oilCost);
+			StartCoroutine(StartEvolution(loadLock, oilCost));
 		}
 	}
 
-	void StartEvolution(int oil, int gems = 0)
+	IEnumerator StartEvolution(MSLoadLock loadLock, int oil, int gems = 0)
 	{
-		currEvolution = tempEvolution;
-		
-		currEvolution.startTime = MSUtil.timeNowMillis;
+		if (loadLock != null)
+		{
+			loadLock.Lock();
+		}
+
+		tempEvolution.startTime = MSUtil.timeNowMillis;
 		
 		EvolveMonsterRequestProto request = new EvolveMonsterRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.evolution = currEvolution;
+		request.evolution = tempEvolution;
 		request.oilChange = -oil;
 		request.gemsSpent = gems;
-		
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLVE_MONSTER_EVENT, ReceiveEvolutionStartResponse);
-		
-		finishTime = currEvolution.startTime + MSDataManager.instance.Get<MonsterProto>(tempEvoMonster.monster.evolutionMonsterId).minutesToEvolve * 60000;
-	}
 
-	void ReceiveEvolutionStartResponse(int tagNum)
-	{
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLVE_MONSTER_EVENT);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		if (loadLock != null)
+		{
+			loadLock.Unlock();
+		}
+
 		EvolveMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as EvolveMonsterResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status == EvolveMonsterResponseProto.EvolveMonsterStatus.SUCCESS)
+		{
+			currEvolution = tempEvolution;
+			finishTime = currEvolution.startTime + MSDataManager.instance.Get<MonsterProto>(tempEvoMonster.monster.evolutionMonsterId).minutesToEvolve * 60000;
 
-		if (response.status != EvolveMonsterResponseProto.EvolveMonsterStatus.SUCCESS)
+		}
+		else
 		{
 			Debug.LogError("Problem evolving monster: " + response.status.ToString());
 		}
+
 	}
 
 	void Update()
@@ -224,37 +239,34 @@ public class MSEvolutionManager : MonoBehaviour {
 		    && currEvolution != null 
 		    && currEvolution.userMonsterIds.Count == 2
 		    && currEvolution.catalystUserMonsterId > 0
+		    && finishTime > 0
 		    && timeLeftMillis <= 0)
 		{
 			StartCoroutine(CompleteEvolution());
 		}
 	}
 
-	public void FinishWithGems()
+	public void FinishWithGems(MSLoadLock loadLock = null)
 	{
 		int gems = Mathf.CeilToInt((timeLeftMillis / 60000f) / MSWhiteboard.constants.minutesPerGem);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gems))
 		{
-			StartCoroutine(CompleteEvolution(gems));
+			StartCoroutine(CompleteEvolution(loadLock, gems));
 		}
 	}
 
-	IEnumerator CompleteEvolution(int gems = 0)
+	IEnumerator CompleteEvolution(MSLoadLock loadLock = null, int gems = 0)
 	{
+		if (loadLock != null)
+		{
+			loadLock.Lock();
+		}
+
 		EvolutionFinishedRequestProto request = new EvolutionFinishedRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.gemsSpent = gems;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_EVOLUTION_FINISHED_EVENT, null);
-
-		foreach (var item in currEvolution.userMonsterIds) 
-		{
-			MSMonsterManager.instance.RemoveMonster(item);
-		}
-
-		MSMonsterManager.instance.RemoveMonster(currEvolution.catalystUserMonsterId);
-		
-		currEvolution = null;
 
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
@@ -266,6 +278,14 @@ public class MSEvolutionManager : MonoBehaviour {
 
 		if (response.status == EvolutionFinishedResponseProto.EvolutionFinishedStatus.SUCCESS)
 		{
+			foreach (var item in currEvolution.userMonsterIds) 
+			{
+				MSMonsterManager.instance.RemoveMonster(item);
+			}
+			
+			MSMonsterManager.instance.RemoveMonster(currEvolution.catalystUserMonsterId);
+			currEvolution = null;
+
 			PZMonster newMonster = MSMonsterManager.instance.UpdateOrAdd(response.evolvedMonster);
 			if (MSActionManager.Goon.OnEvolutionComplete != null)
 			{
@@ -275,6 +295,11 @@ public class MSEvolutionManager : MonoBehaviour {
 		else
 		{
 			Debug.LogError("Problem completing evolution: " + response.status.ToString());
+		}
+		
+		if (loadLock != null)
+		{
+			loadLock.Unlock();
 		}
 	}
 

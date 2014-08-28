@@ -46,5 +46,30 @@ public class MSAttackEntry : MonoBehaviour
 
 	#endregion
 
+	public void Init(PvpHistoryProto proto)
+	{
+		attackerNameLabel.text = proto.attacker.name;
+		timeAgoLabel.text = (proto.attackerWon ? "[ff0000]Defeat  " : "[00ff00]Victory  ")
+			+ "[777777]" + MSUtil.TimeStringShort(MSUtil.timeNowMillis - proto.battleEndTime) + " ago";
+		for (int i = 0; i < proto.attackersMonsters.Count; i++) 
+		{
+			team[i].Init(proto.attackersMonsters[i]);
+		}
+		rankIcon.spriteName = MSDataManager.instance.Get<PvpLeagueProto>(proto.defenderBefore.leagueId).imgPrefix + "icon";
+		rankChangeLabel.text = (proto.attackerWon ? "[ff0000]" : "[00ff00]") + (proto.defenderAfter.rank - proto.defenderBefore.rank );
+		cashLostLabel.text = proto.defenderCashChange.ToString();
+		oilLostLabel.text = proto.defenderOilChange.ToString();
+
+		if (!proto.exactedRevenge)
+		{
+			revengeButton.SetActive(true);
+			revengeLabel.text = "Revenge";
+		}
+		else
+		{
+			revengeButton.SetActive(false);
+			revengeLabel.text = "No revenge\nAvailable";
+		}
+	}
 
 }
