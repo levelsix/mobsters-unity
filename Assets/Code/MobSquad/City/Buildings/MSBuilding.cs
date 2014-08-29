@@ -571,12 +571,17 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		InitGaurdRails();
 //		baseColor = Color.yellow;
 	}
-	
-	public void SetupSprite(string structName)
+
+	/// <summary>
+	/// Setups the sprite.
+	/// </summary>
+	/// <param name="structName">Struct name.</param>
+	/// <param name="buyMenu">If set to <c>true</c> will show building sprite even if it's the first time building</param>
+	public void SetupSprite(string structName, bool ignoreConstructionSprite = false)
 	{
 		overlay.color = new Color(1,1,1,0);
 		sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
-		if(userStructProto != null && userStructProto.lastRetrieved == 0)
+		if(userStructProto != null && userStructProto.lastRetrieved == 0 && !ignoreConstructionSprite)
 		{
 			sprite.GetComponent<Animator>().enabled = false;
 			sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(width+"x"+length+"buildingframe");
@@ -745,6 +750,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	public void Confirm(bool useGems = false)
 	{
+		SetupSprite(MSUtil.StripExtensions( combinedProto.structInfo.imgName));
+		
 		if(MSBuildingManager.instance.currentUnderConstruction != null)
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",  

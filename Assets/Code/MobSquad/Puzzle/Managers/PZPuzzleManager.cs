@@ -199,7 +199,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			riggedBoardStacks[i] = new Stack<int>();
 		}
 
-		MSActionManager.Puzzle.OnGemMatch += delegate { showGemHints = false; Debug.Log("OnGemMatch");};
+		MSActionManager.Puzzle.OnGemMatch += delegate { showGemHints = false;};
 	}
 
 	public void Start()
@@ -915,7 +915,6 @@ public class PZPuzzleManager : MonoBehaviour {
 	bool CheckForMatchMoves()
 	{
 		PZGem gem;
-		Debug.LogError("matchCheck");
 		//Check horizontal possibilities
 		for (int i = 0; i < boardHeight; i++) 
 		{

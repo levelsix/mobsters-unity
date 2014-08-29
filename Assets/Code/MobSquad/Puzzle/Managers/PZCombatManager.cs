@@ -914,7 +914,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			Save();
 
-			mobsterCounter.text = "Enemy " + (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
+			mobsterCounter.text = "ENEMY " + (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
 			mobsterCounter.MakePixelPerfect();
 			TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 1f ,1f);
 			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
