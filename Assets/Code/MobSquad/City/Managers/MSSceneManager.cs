@@ -58,6 +58,7 @@ public class MSSceneManager : MonoBehaviour {
 	
 	void OnCity()
 	{
+		Debug.Log("OnCity Called");
 		if (loadingState)
 		{
 			StartCoroutine(FadeFromLoading());
@@ -88,11 +89,11 @@ public class MSSceneManager : MonoBehaviour {
 
 			alpha = fadeIn ? t/fadeTime : 1 - t/fadeTime;
 			PZScrollingBackground.instance.SetAlpha(alpha);
-			if(PZCombatManager.instance.activePlayer.unit.sprite.color.a >= alpha)
+			if(PZCombatManager.instance.activePlayer.unit.sprite.color.a >= alpha || fadeIn)
 			{
 				PZCombatManager.instance.activePlayer.unit.sprite.color = new Color(1,1,1,alpha);
 			}
-			if(PZCombatManager.instance.activeEnemy.unit.sprite.color.a >= alpha)
+			if(PZCombatManager.instance.activeEnemy.unit.sprite.color.a >= alpha || fadeIn)
 			{
 				PZCombatManager.instance.activeEnemy.unit.sprite.color = new Color(1,1,1,alpha);
 			}

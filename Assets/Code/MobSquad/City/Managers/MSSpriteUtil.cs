@@ -137,6 +137,54 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	}
 
+	public void RunForEachTypeInBuncle<T>(string bundleName, Action<T> ForEach, Action OnFinish = null) where T :class
+	{
+		StartCoroutine(ForEachTypeInBundle<T>(bundleName, ForEach, OnFinish));
+	}
+
+	IEnumerator ForEachTypeInBundle<T>(string bundleName, Action<T> ForEach, Action OnFinish) where T : class
+	{
+		if(AWS_On)
+		{
+			if (!bundles.ContainsKey(bundleName))
+			{
+				yield return StartCoroutine(DownloadAndCache(bundleName));
+				
+			}
+			
+			if (bundles.ContainsKey(bundleName))
+			{
+				UnityEngine.Object[] entireBundleOfTypeT = bundles[bundleName].LoadAll(typeof(T));
+
+				IComparer<UnityEngine.Object> comparer = new MSNaturalSortObject();
+				Array.Sort<UnityEngine.Object>(entireBundleOfTypeT, comparer);
+
+				foreach(UnityEngine.Object bundleItem in entireBundleOfTypeT)
+				{
+					ForEach(bundleItem as T);
+				}
+			}
+		}
+		else
+		{
+			UnityEngine.Object[] entireBundleOfTypeT = Resources.LoadAll("Bundles/"+bundleName, typeof(T));
+
+			IComparer<UnityEngine.Object> comparer = new MSNaturalSortObject();
+			Array.Sort<UnityEngine.Object>(entireBundleOfTypeT, comparer);
+
+			foreach(UnityEngine.Object bundleItem in entireBundleOfTypeT)
+			{
+				ForEach(bundleItem as T);
+			}
+		}
+
+		if(OnFinish != null)
+		{
+			OnFinish();
+		}
+
+	}
+
 	public IEnumerator SetUnitAnimator(MSUnit unit)
 	{
 		yield return StartCoroutine(SetAnimator(unit.spriteBaseName, unit.anim));
