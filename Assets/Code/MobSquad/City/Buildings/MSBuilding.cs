@@ -581,7 +581,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	{
 		overlay.color = new Color(1,1,1,0);
 		sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
-		if(userStructProto != null && userStructProto.lastRetrieved == 0 && !ignoreConstructionSprite)
+		if(userStructProto != null && userStructProto.lastRetrieved == 0 && !ignoreConstructionSprite && !MSTutorialManager.instance.inTutorial)
 		{
 			sprite.GetComponent<Animator>().enabled = false;
 			sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(width+"x"+length+"buildingframe");
