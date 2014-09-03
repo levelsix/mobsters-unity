@@ -51,9 +51,15 @@ public class MSTaskMap : MonoBehaviour {
 		float scale = (width - pvpHud.width) / maps.maps[0].width;
 		trans.localScale = new Vector3(scale, scale, scale);
 
+		maps.LoadAllMaps(FinishInit);
+	}
+
+	//This is called after the map is finished being loaded
+	void FinishInit()
+	{
 		UI2DSprite map = maps.maps [0];
 		TaskParent.localScale = new Vector3(SCALE_TO_FIT_X, SCALE_TO_FIT_Y, 1f);
-		TaskParent.localPosition = new Vector3 (-map.width, -map.height/2f, 0f);
+		TaskParent.localPosition = new Vector3 (-map.width/2f, 0f, 0f);
 		
 		IDictionary tasks = MSDataManager.instance.GetAll<TaskMapElementProto> ();
 		
@@ -70,12 +76,12 @@ public class MSTaskMap : MonoBehaviour {
 		}
 		
 		float mapLength = maps.Height;
-		limitedDrag.min = new Vector2 (0f, -(mapLength - map.height) + (mapLength * (1f - trans.localScale.y)));
-		limitedDrag.max = new Vector2 (0f, -(map.height / 2f) * (1f - trans.localScale.y));
+		//		limitedDrag.min = new Vector2 (0f, -(mapLength - map.height) + (mapLength * (1f - trans.localScale.y)));
+		//		limitedDrag.max = new Vector2 (0f, -(map.height / 2f) * (1f - trans.localScale.y));
 		
 		BoxCollider box = GetComponent<BoxCollider> ();
 		box.size = new Vector3 (map.width, mapLength, 0f);
-		box.center = new Vector3(-map.width/2f,  (mapLength / 2f) - map.height/2f, 0f);
+		box.center = new Vector3(0f,  (mapLength / 2f), 0f);
 	}
 
 	void OnEnable(){
@@ -110,14 +116,14 @@ public class MSTaskMap : MonoBehaviour {
 			Vector3 newLocation = trans.position;
 			newLocation.y = trans.position.y - nextTask.transform.position.y;
 			trans.position = newLocation;
-			if (trans.localPosition.y < limitedDrag.min.y)
-			{
-				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.min.y, trans.localPosition.z);
-			}
-			else if(trans.localPosition.y > limitedDrag.max.y)
-			{
-				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.max.y, trans.localPosition.z);
-			}
+//			if (trans.localPosition.y < limitedDrag.min.y)
+//			{
+//				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.min.y, trans.localPosition.z);
+//			}
+//			else if(trans.localPosition.y > limitedDrag.max.y)
+//			{
+//				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.max.y, trans.localPosition.z);
+//			}
 		}
 	}
 

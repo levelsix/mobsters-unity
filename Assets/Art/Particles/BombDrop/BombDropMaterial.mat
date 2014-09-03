@@ -17,7 +17,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 5d7851cf6384d43efa5a1ed0a970bbbd, type: 3}
+          m_Texture: {fileID: 2800000, guid: 652afbaff99174a70affe907bbe3ca79, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -44,6 +44,10 @@ Material:
     m_Floats:
       data:
         first:
+          name: _Shininess
+        second: .078125
+      data:
+        first:
           name: _InvFade
         second: 1
       data:
@@ -63,3 +67,7 @@ Material:
         first:
           name: _ReflectColor
         second: {r: 1, g: 1, b: 1, a: .5}
+      data:
+        first:
+          name: _EmisColor
+        second: {r: .200000003, g: .200000003, b: .200000003, a: 0}

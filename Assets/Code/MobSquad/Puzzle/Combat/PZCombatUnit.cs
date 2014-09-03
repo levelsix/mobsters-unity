@@ -383,32 +383,41 @@ public class PZCombatUnit : MonoBehaviour {
 
 	public IEnumerator AdvanceTo(float x, Vector3 direction, float speed, bool idleAfter = true)
 	{
+		Transform trans = transform;
 		moving = true;
 		unit.animat = MSUnit.AnimationType.RUN;
-		if (transform.localPosition.x <= x)
+		if (trans.localPosition.x <= x)
 		{
 			unit.direction = MSValues.Direction.EAST;
-			while (transform.localPosition.x < x)
+			while (trans.localPosition.x < x)
 			{
 				transform.localPosition += direction * speed * Time.deltaTime;
+				if(trans.localPosition.x > x)//this is to prevent a single frame where the characters is in the wrong place
+				{
+					trans.localPosition += (x - trans.localPosition.x) * direction;
+				}
 				yield return null;
 			}
 		}
 		else
 		{
 			unit.direction = MSValues.Direction.WEST;
-			while (transform.localPosition.x > x)
+			while (trans.localPosition.x > x)
 			{
-				transform.localPosition -= direction * speed * Time.deltaTime;
+				trans.localPosition -= direction * speed * Time.deltaTime;
+				if(trans.localPosition.x < x)
+				{
+					trans.localPosition += (x - trans.localPosition.x) * direction;
+				}
 				yield return null;
 			}
 		}
-		transform.localPosition += (x - transform.localPosition.x) * direction;
+
 		if (idleAfter)
 		{
 			unit.animat = MSUnit.AnimationType.IDLE;
 		}
-		transform.localPosition = new Vector3 (x, transform.localPosition.y, transform.localPosition.z);
+		trans.localPosition = new Vector3 (x, trans.localPosition.y, trans.localPosition.z);
 		moving = false;
 	}
 

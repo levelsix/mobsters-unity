@@ -3024,6 +3024,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alphaTween: {fileID: 11400028}
   comboLabel: {fileID: 11400070}
+  flames: {fileID: 0}
 --- !u!114 &11400028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3723,6 +3724,7 @@ MonoBehaviour:
     speed: 0
     maxHP: 0
     currHP: 0
+    tempHP: 0
     minDamage: 0
     maxDamage: 0
     attackDamages: []

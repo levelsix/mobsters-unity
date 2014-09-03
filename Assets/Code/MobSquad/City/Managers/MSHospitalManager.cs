@@ -272,6 +272,11 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			MSActionManager.Goon.OnMonsterFinishHeal(monster);
 		}
+
+		if (MSActionManager.Goon.OnHealQueueChanged != null)
+		{
+			MSActionManager.Goon.OnHealQueueChanged();
+		}
 	}
 	
 	

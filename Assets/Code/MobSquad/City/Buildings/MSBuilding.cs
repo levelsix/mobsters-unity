@@ -316,11 +316,17 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		gameObj = gameObject;
 
 		upgrade.OnStartUpgrade += InitGaurdRails;
-		upgrade.OnStartUpgrade += delegate {sprite.GetComponent<Animator>().enabled = false;};
+		upgrade.OnStartUpgrade += delegate {
+			sprite.GetComponent<Animator>().enabled = false;
+			bubbleIcon.alpha = 0f;
+		};
 		upgrade.OnFinishUpgrade += delegate {
+			bubbleIcon.alpha = 1f;
 			gaurdRails.gameObject.SetActive(false);
 			sprite.GetComponent<Animator>().enabled = true;
 		};
+		OnSelect += delegate { this.bubbleIcon.alpha = 0f; };
+		OnDeselect += delegate { this.bubbleIcon.alpha = 1f; };
     }
 
 	void InitGaurdRails()
@@ -570,15 +576,20 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		InitGaurdRails();
 //		baseColor = Color.yellow;
 	}
-	
-	public IEnumerator SetupSprite(string structName)
+
+	/// <summary>
+	/// Setups the sprite.
+	/// </summary>
+	/// <param name="structName">Struct name.</param>
+	/// <param name="buyMenu">If set to <c>true</c> will show building sprite even if it's the first time building</param>
+	public void SetupSprite(string structName, bool ignoreConstructionSprite = false)
 	{
 		loadedSprite = false;
 
 		Debug.Log("Setup sprite: " + structName);
 		overlay.color = new Color(1,1,1,0);
-
-		if(userStructProto != null && userStructProto.lastRetrieved == 0)
+		sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
+		if(userStructProto != null && userStructProto.lastRetrieved == 0 && !ignoreConstructionSprite && !MSTutorialManager.instance.inTutorial)
 		{
 			sprite.GetComponent<Animator>().enabled = false;
 			sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(width+"x"+length+"buildingframe");
@@ -717,22 +728,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	IEnumerator WaitUntilPurchased()
 	{
-		MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
-		while (MSBuildingManager.instance.currentUnderConstruction != null)
-		{
-			yield return null;
-		}
-		MSActionManager.Popup.CloseTopPopupLayer();
-		Confirm(false);
-	}
-
-	public void DoConfirm()
-	{
-		Confirm (false);
-	}
-
-	public void Confirm(bool useGems)
-	{
+		SetupSprite(MSUtil.StripExtensions( combinedProto.structInfo.imgName));
+		
 		if(MSBuildingManager.instance.currentUnderConstruction != null)
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",  

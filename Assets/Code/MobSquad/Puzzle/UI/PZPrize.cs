@@ -20,7 +20,7 @@ public class PZPrize : MonoBehaviour {
 	UISprite icon;
 
 	[SerializeField]
-	UILabel label;
+	public UILabel label;
 
 	[SerializeField]
 	UI2DSprite sprite2D;
@@ -71,7 +71,7 @@ public class PZPrize : MonoBehaviour {
 		}
 		if (label != null)
 		{
-			label.alpha = 0f;
+//			label.alpha = 0f;
 		}
 		if (rarityTag != null)
 		{
@@ -89,7 +89,10 @@ public class PZPrize : MonoBehaviour {
 
 	void init()
 	{
-		border.spriteName = "commmonfound";
+		if(border != null)
+		{
+			border.spriteName = "commmonfound";
+		}
 	}
 
 	public void InitXP(int amount)
@@ -106,7 +109,7 @@ public class PZPrize : MonoBehaviour {
 		init();
 		label.text = amount.ToString();
 		label.color = MSColors.oilTextColor;
-		icon.spriteName = "oil";
+		icon.spriteName = "oilicon";
 		icon.MakePixelPerfect();
 	}
 
@@ -138,6 +141,7 @@ public class PZPrize : MonoBehaviour {
 		init();
 		icon.alpha = 0f;
 		label.text = monster.quality.ToString();
+		label.alpha = 0f;
 		string rarity = monster.quality.ToString().ToLower();
 		if (monster.numPuzzlePieces > 1)
 		{
@@ -170,7 +174,10 @@ public class PZPrize : MonoBehaviour {
 	public void SetToLostPrize()
 	{
 		background.alpha = 1f;
-		border.spriteName = LOST_ITEM_BORDER;
+		if(border != null)
+		{
+			border.spriteName = LOST_ITEM_BORDER;
+		}
 	}
 
 	/// <summary>

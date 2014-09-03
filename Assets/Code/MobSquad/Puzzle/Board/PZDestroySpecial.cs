@@ -19,10 +19,7 @@ public class PZDestroySpecial : MonoBehaviour {
 	}
 
 	void OnDisable(){
-		if (onLock)
-		{
-			DisableLock();
-		}
+		DisableLock();
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -43,8 +40,11 @@ public class PZDestroySpecial : MonoBehaviour {
 
 	public void DisableLock()
 	{
-		onLock = false;
-		PZPuzzleManager.instance.specialBoardLock -= 1;
+		if(onLock)
+		{
+			onLock = false;
+			PZPuzzleManager.instance.specialBoardLock -= 1;
+		}
 	}
 
 }

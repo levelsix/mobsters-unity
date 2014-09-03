@@ -689,6 +689,10 @@ public class MSBuildingManager : MonoBehaviour
 
 		MSBuilding building = MakeBuildingAt(proto, (int)coords.pos.x, (int)coords.pos.y);
 
+		//This prevents the building from looking like scaffolding during placement
+		building.SetupSprite(MSUtil.StripExtensions(building.combinedProto.structInfo.imgName), true);
+		building.sprite.GetComponent<Animator>().enabled = true;
+
 		SelectBuildingToBuild(building);
 
 		hoveringToBuild = building;

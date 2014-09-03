@@ -97,6 +97,33 @@ public class MSMiniJobPopup : MonoBehaviour {
 	[SerializeField]
 	TweenPosition mover;
 
+	#region Collection Screen
+	[SerializeField]
+	MSSimplePoolable prizePrefab;
+
+	[SerializeField]
+	GameObject collectionObject;
+
+	[SerializeField]
+	GameObject leftObject;
+
+	[SerializeField]
+	List<MSMiniJobHurtGoon> hurtGoons = new List<MSMiniJobHurtGoon>();
+
+	[SerializeField]
+	Transform prizeParent;
+
+	List<PZPrize> prizes = new List<PZPrize>();
+
+	public MSMiniJobEntry curJobEntry;
+
+	[SerializeField]
+	int PRIZE_SIZE = 110;
+	
+	[SerializeField]
+	int PRIZE_BUFFER = 5;
+	#endregion
+
 	public List<MSMiniJobEntry> jobEntries = new List<MSMiniJobEntry>();
 
 	public List<MSMiniJobGoonie> goonEntries = new List<MSMiniJobGoonie>();
@@ -125,8 +152,80 @@ public class MSMiniJobPopup : MonoBehaviour {
 	public void Init()
 	{
 		SetupJobGrid();
-
+		InitCollectionScreen();
 		StartCoroutine(RunTimerUntilJobsReset());
+	}
+
+	void InitCollectionScreen()
+	{
+		if(MSMiniJobManager.instance.isCompleted)
+		{
+			MSMiniJobManager.instance.SetTeamAndDamage();
+			foreach(var item in hurtGoons)
+			{
+				item.gameObject.SetActive(false);
+			}
+
+			foreach(PZPrize prize in prizes)
+			{
+				prize.GetComponent<MSSimplePoolable>().Pool();
+			}
+			prizes.Clear();
+
+			if(MSMiniJobManager.instance.currActiveJob.miniJob.cashReward > 0)
+			{
+				PZPrize prize;
+				prize = MSPoolManager.instance.Get<PZPrize>(prizePrefab, prizeParent);
+				prize.InitCash(MSMiniJobManager.instance.currActiveJob.miniJob.cashReward);
+				prizes.Add(prize);
+			}
+
+			if(MSMiniJobManager.instance.currActiveJob.miniJob.oilReward > 0)
+			{
+				PZPrize prize;
+				prize = MSPoolManager.instance.Get<PZPrize>(prizePrefab, prizeParent);
+				prize.InitOil(MSMiniJobManager.instance.currActiveJob.miniJob.cashReward);
+				prizes.Add(prize);
+			}
+
+			if(MSMiniJobManager.instance.currActiveJob.miniJob.gemReward > 0)
+			{
+				PZPrize prize;
+				prize = MSPoolManager.instance.Get<PZPrize>(prizePrefab, prizeParent);
+				prize.InitDiamond(MSMiniJobManager.instance.currActiveJob.miniJob.gemReward);
+				prizes.Add(prize);
+			}
+
+			if(MSMiniJobManager.instance.currActiveJob.miniJob.monsterIdReward > 0)
+			{
+				PZPrize prize;
+				prize = MSPoolManager.instance.Get<PZPrize>(prizePrefab, prizeParent);
+				prize.InitEnemy(MSMiniJobManager.instance.currActiveJob.miniJob.monsterIdReward);
+				prizes.Add(prize);
+			}
+
+			float spaceNeeded = prizes.Count * PRIZE_SIZE + (prizes.Count-1) * PRIZE_BUFFER;
+			for (int i = 0; i < prizes.Count; i++) 
+			{
+				Vector3 endPosition = new Vector3(i * (PRIZE_SIZE + PRIZE_BUFFER) - spaceNeeded/2, 0, 0);
+				prizes[i].transform.localPosition = endPosition;
+				prizes[i].label.alpha = 1f;
+			}
+
+			for(int i = 0; i < MSMiniJobManager.instance.teamToDamage.Count; i++)
+			{
+				hurtGoons[i].Init(MSMiniJobManager.instance.teamToDamage[i] ,MSMiniJobManager.instance.damageDelt[i]);
+			}
+
+			collectionObject.SetActive(true);
+			leftObject.SetActive(false);
+
+		}
+		else
+		{
+			collectionObject.SetActive(false);
+			leftObject.SetActive(true);
+		}
 	}
 
 	void SetupJobGrid()
@@ -378,5 +477,16 @@ public class MSMiniJobPopup : MonoBehaviour {
 			mover.PlayReverse();
 		}
 
+	}
+
+	public void ClickCollectButton()
+	{
+//		curJobEntry.OnButtonClick();
+		MSMiniJobManager.instance.RedeemCurrJob();
+		SetupJobGrid();
+		StartCoroutine(RunTimerUntilJobsReset());
+
+		collectionObject.SetActive(false);
+		leftObject.SetActive(true);
 	}
 }

@@ -894,6 +894,8 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		else if (enemies.Count > 0) 
 		{
+
+
 			activeEnemy.OnClick();
 
 			activeEnemy.GoToStartPos ();
@@ -914,7 +916,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			Save();
 
-			mobsterCounter.text = "Enemy " + (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
+			mobsterCounter.text = "ENEMY " + (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
 			mobsterCounter.MakePixelPerfect();
 			TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 1f ,1f);
 			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
@@ -940,6 +942,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			StartCoroutine(DelayedWinLosePopup(2f));
 		}
+
 		while(activeEnemy.unit.transf.localPosition.x > enemyXPos)
 		{
 			background.Scroll(activeEnemy.unit);
@@ -1357,27 +1360,32 @@ public class PZCombatManager : MonoBehaviour {
 
 		Vector3 enemyPos = activeEnemy.unit.transf.localPosition;
 
-		activePlayer.unit.anim.GetComponent<MSAnimationEvents> ().totalAttacks = shots;
+
+		MSAnimationEvents events = activePlayer.unit.anim.GetComponent<MSAnimationEvents> ();
+		events.totalAttacks = shots;
 		activePlayer.unit.animat = MSUnit.AnimationType.ATTACK;
 
 		for (int i = 0; i < shots; i++) {
 
 			if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 			{
-				yield return StartCoroutine(activePlayer.AdvanceTo(activeEnemy.transform.localPosition.x - 30, -background.direction, background.scrollSpeed * 4));
+				yield return StartCoroutine(activePlayer.AdvanceTo(activeEnemy.transform.localPosition.x - 75, -background.direction, background.scrollSpeed * 4));
 				activePlayer.unit.animat = MSUnit.AnimationType.ATTACK;
 			}
-
-			yield return new WaitForSeconds(shotTime);
-
-			//When the animation gets to the frame where the gun fires, EnemyFlinch() is triggered
-
-			if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
-			{
-				yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
-				activePlayer.unit.direction = MSValues.Direction.EAST;
-			}
 		}
+	}
+
+	public IEnumerator ReturnPlayerAfterAttack()
+	{
+		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		{
+			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
+			activePlayer.unit.direction = MSValues.Direction.EAST;
+		}
+
+		yield return StartCoroutine(activeEnemy.TakeDamage(MSAnimationEvents.curDamage, MSAnimationEvents.curElement));
+		
+		RunPickNextTurn(true);
 	}
 
 	public IEnumerator PlayerFlinch()
@@ -1493,10 +1501,16 @@ public class PZCombatManager : MonoBehaviour {
 		yield return StartCoroutine(ShowAttackWords(score));
 		
 		yield return StartCoroutine(PlayerShoot(score));
-		
-		yield return StartCoroutine(activeEnemy.TakeDamage(damage, element));
 
-		RunPickNextTurn(true);
+		//These variables are stored so we can pass them back later
+		MSAnimationEvents.curDamage = damage;
+		MSAnimationEvents.curElement = element;
+
+		//instead of waiting for the coroutine to end we call the following functions at the action called when the animation is over
+
+//		yield return StartCoroutine(activeEnemy.TakeDamage(damage, element));
+//
+//		RunPickNextTurn(true);
 
 	}
 
@@ -1530,7 +1544,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		
 		activeEnemy.unit.animat = MSUnit.AnimationType.ATTACK;
-		yield return new WaitForSeconds(.5f);
+		yield return StartCoroutine(activeEnemy.unit.anim.GetComponent<MSAnimationEvents>().WaitForEndOfEnemyAttack());
 		
 		StartCoroutine(activePlayer.TakeDamage((int)enemyDamageWithElement, activeEnemy.monster.monster.monsterElement));
 		

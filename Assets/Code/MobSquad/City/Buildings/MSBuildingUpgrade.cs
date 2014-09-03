@@ -122,11 +122,11 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	public void Awake()
 	{
 		building = GetComponent<MSBuilding>();
-	}
-
-	void OnEnable()
-	{
-		OnFinishUpgrade += delegate {StartCoroutine(building.SetupSprite(building.combinedProto.structInfo.imgName));};
+		OnFinishUpgrade += delegate {
+			building.SetupSprite(building.combinedProto.structInfo.imgName);
+			building.sprite.GetComponent<Animator>().enabled = true;
+			FinishUpgrade();
+		};
 	}
 	
 	public void Init(StructureInfoProto sProto, FullUserStructureProto uProto)
@@ -262,7 +262,8 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemsToFinish))
 		{
 			SendPremiumFinishRequest();
-			FinishUpgrade();
+			MSBuildingManager.instance.currentUnderConstruction = null;
+			building.userStructProto.isComplete = true;
 		}
 	}
 	
@@ -315,7 +316,10 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	public void FinishWithWait()
 	{
 		SendWaitFinishRequest();
-		FinishUpgrade();
+		if (building.upgrade.OnFinishUpgrade != null)
+		{
+			building.upgrade.OnFinishUpgrade();
+		}
 	}
 	
 	/// <summary>
@@ -341,11 +345,6 @@ public class MSBuildingUpgrade : MonoBehaviour {
 			{
 				MSBuildingManager.instance.SetSelectedBuilding(building);
 			}
-		}
-
-		if (building.upgrade.OnFinishUpgrade != null)
-		{
-			building.upgrade.OnFinishUpgrade();
 		}
 
 		if (building.GetComponent<MSBuildingFrame> () != null) {
