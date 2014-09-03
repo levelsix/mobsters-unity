@@ -894,12 +894,16 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		else if (enemies.Count > 0) 
 		{
-
-
 			activeEnemy.OnClick();
 
 			activeEnemy.GoToStartPos ();
 			activeEnemy.Init (enemies.Dequeue ());
+
+			while (!MSSpriteUtil.instance.HasBundle(activeEnemy.monster.monster.imagePrefix))
+			{
+				background.Scroll();
+				yield return null;
+			}
 
 			PZCombatScheduler.instance.Schedule(activePlayer.monster, activeEnemy.monster, false);
 

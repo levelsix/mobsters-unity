@@ -161,37 +161,36 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	IEnumerator ForEachTypeInBundle<T>(string bundleName, Action<T> ForEach, Action OnFinish) where T : class
 	{
-		if(AWS_On)
+		if(internalBundles.Contains(bundleName))
+		{
+			UnityEngine.Object[] entireBundleOfTypeT = Resources.LoadAll("Bundles/"+bundleName, typeof(T));
+			
+			IComparer<UnityEngine.Object> comparer = new MSNaturalSortObject();
+			Array.Sort<UnityEngine.Object>(entireBundleOfTypeT, comparer);
+			
+			foreach(UnityEngine.Object bundleItem in entireBundleOfTypeT)
+			{
+				ForEach(bundleItem as T);
+			}
+		}
+		else
 		{
 			if (!bundles.ContainsKey(bundleName))
 			{
 				yield return StartCoroutine(DownloadAndCache(bundleName));
-				
 			}
 			
 			if (bundles.ContainsKey(bundleName))
 			{
 				UnityEngine.Object[] entireBundleOfTypeT = bundles[bundleName].LoadAll(typeof(T));
-
+				
 				IComparer<UnityEngine.Object> comparer = new MSNaturalSortObject();
 				Array.Sort<UnityEngine.Object>(entireBundleOfTypeT, comparer);
-
+				
 				foreach(UnityEngine.Object bundleItem in entireBundleOfTypeT)
 				{
 					ForEach(bundleItem as T);
 				}
-			}
-		}
-		else
-		{
-			UnityEngine.Object[] entireBundleOfTypeT = Resources.LoadAll("Bundles/"+bundleName, typeof(T));
-
-			IComparer<UnityEngine.Object> comparer = new MSNaturalSortObject();
-			Array.Sort<UnityEngine.Object>(entireBundleOfTypeT, comparer);
-
-			foreach(UnityEngine.Object bundleItem in entireBundleOfTypeT)
-			{
-				ForEach(bundleItem as T);
 			}
 		}
 

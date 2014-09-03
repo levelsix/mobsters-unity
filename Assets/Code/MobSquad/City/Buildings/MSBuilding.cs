@@ -582,7 +582,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	/// </summary>
 	/// <param name="structName">Struct name.</param>
 	/// <param name="buyMenu">If set to <c>true</c> will show building sprite even if it's the first time building</param>
-	public void SetupSprite(string structName, bool ignoreConstructionSprite = false)
+	public IEnumerator SetupSprite(string structName, bool ignoreConstructionSprite = false)
 	{
 		loadedSprite = false;
 
@@ -728,8 +728,22 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	IEnumerator WaitUntilPurchased()
 	{
-		SetupSprite(MSUtil.StripExtensions( combinedProto.structInfo.imgName));
-		
+		MSBuildingManager.instance.currentUnderConstruction.CompleteWithGems();
+		while (MSBuildingManager.instance.currentUnderConstruction != null)
+		{
+    		yield return null;
+		}
+		MSActionManager.Popup.CloseTopPopupLayer();
+		DoConfirm();
+	}
+
+	public void DoConfirm()
+	{
+		Confirm(false);
+	}
+
+	public void Confirm(bool useGems)
+	{
 		if(MSBuildingManager.instance.currentUnderConstruction != null)
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",  
