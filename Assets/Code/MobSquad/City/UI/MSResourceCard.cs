@@ -16,6 +16,9 @@ public class MSResourceCard : MonoBehaviour {
 
 	[SerializeField]
 	ResourceType resourceToFill;
+	
+	[SerializeField]
+	MSAssets.IAPSize iapSize;
 
 	[SerializeField]
 	bool fill;
@@ -71,7 +74,6 @@ public class MSResourceCard : MonoBehaviour {
 			_state = value;
 			
 			if(value == State.ACTIVE){
-//				Debug.Log("On" + percent + " : " + amountLabel.text);
 				button.pressed = button.disabledColor;
 				button.normalSprite = FRONT_IMAGE;
 
@@ -80,7 +82,6 @@ public class MSResourceCard : MonoBehaviour {
 				front.SetActive(true);
 				back.SetActive(false);
 			}else{
-//				Debug.Log("Off" + percent + " : " + amountLabel.text + transform.parent.gameObject.name.ToString());
 				button.pressed = button.disabledColor;
 				button.normalSprite = BACK_IMAGE;
 				button.SetState(UIButtonColor.State.Normal, true);
@@ -173,6 +174,11 @@ public class MSResourceCard : MonoBehaviour {
 
 	void Init ()
 	{
+		if (resourceToFill == ResourceType.GEMS)
+		{
+			return;
+		}
+
 		if (fill) 
 		{
 			amount = Mathf.Max(0, MSResourceManager.maxes [(int)resourceToFill - 1] - MSResourceManager.resources[resourceToFill]);
@@ -201,7 +207,11 @@ public class MSResourceCard : MonoBehaviour {
 
 	void OnClick()
 	{
-		if (on)
+		if (resourceToFill == ResourceType.GEMS)
+		{
+			MSSoomlaPurchaseManager.Buy(iapSize);
+		}
+		else if (on)
 		{
 			if (MSResourceManager.resources[ResourceType.GEMS] >= cost)
 			{

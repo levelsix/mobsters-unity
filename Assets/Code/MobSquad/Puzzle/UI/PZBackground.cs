@@ -11,13 +11,12 @@ public class PZBackground : MonoBehaviour {
 
 	SpriteRenderer sprite;
 
-	void Awake()
-	{
-		sprite = GetComponent<SpriteRenderer>();
-	}
-
 	void OnEnable()
 	{
+		if (sprite == null)
+		{
+			sprite = GetComponent<SpriteRenderer>();
+		}
 		PZScrollingBackground.instance.SetSingleBackground(top, left, sprite);
 	}
 }

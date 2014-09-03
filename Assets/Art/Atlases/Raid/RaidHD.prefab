@@ -27,6 +27,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,7 +198,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   mPixelSize: 1
-  mReplacement: {fileID: 0}
+  mReplacement: {fileID: 11400000, guid: 169138dcc30024b9a87b99f06789a016, type: 2}
   mCoordinates: 0
   sprites: []
 --- !u!1001 &100100000

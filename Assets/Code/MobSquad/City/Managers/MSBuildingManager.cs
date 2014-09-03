@@ -349,6 +349,19 @@ public class MSBuildingManager : MonoBehaviour
 			}
 		}
 
+		foreach (var building in buildings.Values) {
+			while (!building.loadedSprite)
+			{
+				yield return null;
+			}
+		}
+		foreach (var obstacle in obstacles) {
+			while (!obstacle.loadedSprite)
+			{
+				yield return null;
+			}
+		}
+
 		if (fromBeginning)
 		{
 			MSActionManager.Popup.CloseAllPopups();
@@ -1066,7 +1079,7 @@ public class MSBuildingManager : MonoBehaviour
 		List<MSBuilding> storages = new List<MSBuilding>();
 		foreach (var item in buildings.Values) 
 		{
-			if (item.combinedProto != null && item.combinedProto.storage != null && item.combinedProto.storage.structInfo.structId > 0
+			if (item.combinedProto != null && item.combinedProto.storage != null //&& item.combinedProto.storage.structInfo.structId > 0
 			    && item.combinedProto.storage.resourceType == resource)
 			{
 				storages.Add(item);

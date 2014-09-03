@@ -15,6 +15,7 @@
 // Note: requires additional types generated from: Clan.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
+// Note: requires additional types generated from: Skill.proto
 // Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: Task.proto
 // Note: requires additional types generated from: User.proto
@@ -228,6 +229,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.AchievementProto> achievements
     {
       get { return _achievements; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.SkillProto> _skills = new global::System.Collections.Generic.List<com.lvl6.proto.SkillProto>();
+    [global::ProtoBuf.ProtoMember(31, Name=@"skills", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.SkillProto> skills
+    {
+      get { return _skills; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

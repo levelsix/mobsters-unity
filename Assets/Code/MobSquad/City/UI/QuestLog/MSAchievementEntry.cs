@@ -94,7 +94,7 @@ public class MSAchievementEntry : MonoBehaviour {
 
 	IEnumerator DoRedeem()
 	{
-		MSFullAchievement successor;
+		MSFullAchievement successor = null;
 
 		yield return StartCoroutine(MSAchievementManager.instance.RedeemAchievement(fullAchievement, successor, loadLock));
 		

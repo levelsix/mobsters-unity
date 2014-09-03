@@ -185,7 +185,7 @@ public class PZScrollingBackground : MonoBehaviour {
 	public void SetSingleBackground(bool top, bool left, SpriteRenderer sprite)
 	{
 		
-		string prefix = lastTaskActivated.groundImgPrefix;
+		string prefix = MSTutorialManager.instance.inTutorial ? "1" : lastTaskActivated.groundImgPrefix;
 		string spriteName;
 		if(top && left)
 		{
@@ -205,10 +205,10 @@ public class PZScrollingBackground : MonoBehaviour {
 		}
 
 		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix + spriteName, sprite);
-		if(sprite.sprite == null)
-		{
-			MSSpriteUtil.instance.SetSprite("1Scene", "1" + spriteName, sprite);
-		}
+		//if(sprite.sprite == null)
+		//{
+		//	MSSpriteUtil.instance.SetSprite("1Scene", "1" + spriteName, sprite);
+		//}
 
 	}
 	

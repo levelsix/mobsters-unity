@@ -2,13 +2,13 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
+using System;
+using Soomla.Store;
 
 /// <summary>
 /// @author Rob Giusti
 /// Keeps track of the local player's resources and experience level
 /// </summary>
-using com.soomla.unity;
-using System;
 
 
 public class MSResourceManager : MonoBehaviour {
@@ -131,8 +131,7 @@ public class MSResourceManager : MonoBehaviour {
 		yield return new WaitForSeconds(COLLECT_TIME_OUT);
 		if (--currCollectRequests == 0)
 		{
-			UMQNetworkManager.instance.SendRequest(retrieveRequest, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, HandleRetrieveResponse);
-			retrieveRequest = null;
+			StartCoroutine(CollectResources());
 		}
 	}
 
@@ -390,7 +389,6 @@ public class MSResourceManager : MonoBehaviour {
 		{
 			Debug.LogError("Problem dev cheating: " + response.status.ToString());
 		}
-
 	}
 
 	void DealWithCheatResponse(int tagNum)
@@ -407,20 +405,36 @@ public class MSResourceManager : MonoBehaviour {
 
 	void OnApplicationPause(bool pauseStatus)
 	{
-		if (retrieveRequest != null)
-		{
-			UMQNetworkManager.instance.SendRequest(retrieveRequest, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, HandleRetrieveResponse);
-			retrieveRequest = null;
-		}
+		StartCoroutine(CollectResources());
 	}
 
 	void OnApplicationQuit()
 	{
-		if (retrieveRequest != null)
+		StartCoroutine(CollectResources());
+	}
+
+	public IEnumerator CollectResources()
+	{
+		if (retrieveRequest == null || retrieveRequest.structRetrievals.Count == 0)
 		{
-			UMQNetworkManager.instance.SendRequest(retrieveRequest, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, HandleRetrieveResponse);
-			retrieveRequest = null;
+			yield break;
+		}
+
+		int tagNum = UMQNetworkManager.instance.SendRequest(retrieveRequest, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT);
+		retrieveRequest = null;
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		RetrieveCurrencyFromNormStructureResponseProto response = UMQNetworkManager.responseDict[tagNum] as RetrieveCurrencyFromNormStructureResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if (response.status != RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.SUCCESS)
+		{
+			MSSceneManager.instance.ReconnectPopup();
 		}
 	}
-	
+
 }

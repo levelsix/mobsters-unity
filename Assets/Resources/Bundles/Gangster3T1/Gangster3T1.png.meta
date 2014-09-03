@@ -50,6 +50,7 @@ TextureImporter:
     21300090: Gangster3T1RunN07
     21300092: Gangster3T1KneelF00
     21300094: Gangster3T1KneelN00
+    21300096: Gangster3T1StayN00
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -98,8 +99,8 @@ TextureImporter:
     - name: Gangster3T1AttackF00
       rect:
         serializedVersion: 2
-        x: 210
-        y: 250
+        x: 134
+        y: 230
         width: 54
         height: 108
       alignment: 9
@@ -168,8 +169,8 @@ TextureImporter:
     - name: Gangster3T1AttackF07
       rect:
         serializedVersion: 2
-        x: 450
-        y: 262
+        x: 296
+        y: 276
         width: 56
         height: 106
       alignment: 9
@@ -198,8 +199,8 @@ TextureImporter:
     - name: Gangster3T1AttackF10
       rect:
         serializedVersion: 2
-        x: 296
-        y: 276
+        x: 210
+        y: 252
         width: 56
         height: 106
       alignment: 9
@@ -218,8 +219,8 @@ TextureImporter:
     - name: Gangster3T1AttackF12
       rect:
         serializedVersion: 2
-        x: 134
-        y: 230
+        x: 354
+        y: 250
         width: 54
         height: 108
       alignment: 9
@@ -348,8 +349,8 @@ TextureImporter:
     - name: Gangster3T1AttackN12
       rect:
         serializedVersion: 2
-        x: 266
-        y: 162
+        x: 190
+        y: 138
         width: 52
         height: 112
       alignment: 9
@@ -358,8 +359,8 @@ TextureImporter:
     - name: Gangster3T1FlinchF00
       rect:
         serializedVersion: 2
-        x: 354
-        y: 250
+        x: 268
+        y: 166
         width: 54
         height: 108
       alignment: 9
@@ -378,8 +379,8 @@ TextureImporter:
     - name: Gangster3T1FlinchN00
       rect:
         serializedVersion: 2
-        x: 190
-        y: 136
+        x: 2
+        y: 24
         width: 52
         height: 112
       alignment: 9
@@ -408,8 +409,8 @@ TextureImporter:
     - name: Gangster3T1RunF01
       rect:
         serializedVersion: 2
-        x: 2
-        y: 24
+        x: 56
+        y: 26
         width: 50
         height: 110
       alignment: 9
@@ -528,8 +529,8 @@ TextureImporter:
     - name: Gangster3T1RunN05
       rect:
         serializedVersion: 2
-        x: 54
-        y: 38
+        x: 108
+        y: 132
         width: 48
         height: 96
       alignment: 9
@@ -574,6 +575,16 @@ TextureImporter:
         height: 90
       alignment: 9
       pivot: {x: .575757563, y: .833333313}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Gangster3T1StayN00
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 246
+        width: 56
+        height: 122
+      alignment: 9
+      pivot: {x: .535714269, y: .491803288}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

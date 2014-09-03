@@ -126,7 +126,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 
 	void OnEnable()
 	{
-		OnFinishUpgrade += delegate {building.SetupSprite(building.combinedProto.structInfo.imgName);};
+		OnFinishUpgrade += delegate {StartCoroutine(building.SetupSprite(building.combinedProto.structInfo.imgName));};
 	}
 	
 	public void Init(StructureInfoProto sProto, FullUserStructureProto uProto)

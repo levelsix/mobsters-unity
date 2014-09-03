@@ -255,6 +255,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			return upgrade.timeRemaining;
 		}
 	}
+
+	public bool loadedSprite = false;
 	
     #endregion
 
@@ -416,7 +418,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		length = (int)proto.yLength;
 
 		floor.gameObject.SetActive(false);
-		SetupSprite(proto.imgId);
+		StartCoroutine(SetupSprite(proto.imgId));
 
 		if (proto.orientation == StructOrientation.POSITION_2)
 		{
@@ -481,7 +483,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			width = combinedProto.structInfo.width;
 			length = combinedProto.structInfo.height;
 			      
-			SetupSprite(combinedProto.structInfo.imgName);
+			StartCoroutine(SetupSprite(combinedProto.structInfo.imgName));
 
 			sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset/25, combinedProto.structInfo.imgVerticalPixelOffset/25);
 
@@ -495,7 +497,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			width = obstacle.obstacle.width;
 			length = obstacle.obstacle.height;
 
-			SetupSprite(obstacle.obstacle.imgName);
+			StartCoroutine(SetupSprite(obstacle.obstacle.imgName));
 
 			sprite.transform.localPosition = new Vector3(0, obstacle.obstacle.imgVerticalPixelOffset/25);
 
@@ -569,49 +571,23 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 //		baseColor = Color.yellow;
 	}
 	
-	public void SetupSprite(string structName)
+	public IEnumerator SetupSprite(string structName)
 	{
+		loadedSprite = false;
+
+		Debug.Log("Setup sprite: " + structName);
 		overlay.color = new Color(1,1,1,0);
-		sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
+
 		if(userStructProto != null && userStructProto.lastRetrieved == 0)
 		{
 			sprite.GetComponent<Animator>().enabled = false;
 			sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(width+"x"+length+"buildingframe");
 		}
 
-		RuntimeAnimatorController animator = MSSpriteUtil.instance.GetAnimator(MSUtil.StripExtensions(structName));
-		Animator spriteAnimator = sprite.GetComponent<Animator>();
-		if (spriteAnimator != null)
-		{
-			if (animator != null)
-			{
-				spriteAnimator.runtimeAnimatorController = MSSpriteUtil.instance.GetAnimator(combinedProto.structInfo.imgName);
-			}
-			else
-			{
-				spriteAnimator.runtimeAnimatorController = null;
-			}
-		}
-
-		/*
-		sprite.atlas = CBKAtlasUtil.instance.GetBuildingAtlas(structName);
-		if (CBKAtlasUtil.instance.LookupBuildingSprite(structName) == null)
-		{
-			sprite.spriteName = "Church";
-		}
-		else
-		{
-			sprite.spriteName = CBKUtil.StripExtensions(CBKAtlasUtil.instance.StripSpaces(structName));
-		}
-		*/
+		yield return StartCoroutine(MSSpriteUtil.instance.SetBuildingAnimator(this, structName));
 
 		sprite.color = Color.white;
 		baseColor = Color.white;
-		
-//		sprite.localSize = new Vector2(4, 4);
-//		sprite.width = sprite.GetAtlasSprite().width;
-//		sprite.height = sprite.GetAtlasSprite().height;
-
 		
 		Transform spriteTrans = sprite.transform;
 		
@@ -621,9 +597,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		shadow.sprite = MSSpriteUtil.instance.GetBuildingSprite(width + "x" + length + "shadow");
 		floor.sprite = MSSpriteUtil.instance.GetBuildingSprite(width + "x" + length + "dark");
 		
-		
-		//spriteTrans.localPosition = new Vector3(0, sprite.height / 100f * (1/Mathf.Sin((90 - Camera.main.transform.parent.localRotation.x) * Mathf.Deg2Rad)), 0);
-		
+		loadedSprite = true;
+
 	}
 	
 	/// <summary>
@@ -748,10 +723,15 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			yield return null;
 		}
 		MSActionManager.Popup.CloseTopPopupLayer();
-		Confirm();
+		Confirm(false);
 	}
 
-	public void Confirm(bool useGems = false)
+	public void DoConfirm()
+	{
+		Confirm (false);
+	}
+
+	public void Confirm(bool useGems)
 	{
 		if(MSBuildingManager.instance.currentUnderConstruction != null)
 		{

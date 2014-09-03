@@ -316,6 +316,7 @@ public class MSMonsterManager : MonoBehaviour {
 		if (response.status != AddMonsterToBattleTeamResponseProto.AddMonsterToBattleTeamStatus.SUCCESS)
 		{
 			Debug.LogError("Problem adding monster to team: " + response.status.ToString());
+			MSSceneManager.instance.ReconnectPopup();
 		}
 	}
 	
@@ -351,6 +352,7 @@ public class MSMonsterManager : MonoBehaviour {
 		if (response.status != RemoveMonsterFromBattleTeamResponseProto.RemoveMonsterFromBattleTeamStatus.SUCCESS)
 		{
 			Debug.LogError("Problem removing monster from team: " + response.status.ToString());
+			MSSceneManager.instance.ReconnectPopup();
 		}
 	}
 	

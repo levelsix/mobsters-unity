@@ -550,6 +550,7 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
     minDamage: 0
@@ -761,10 +762,10 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.15873027
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 8a2e4fb7e2b464759aa30a0aca13ace3, type: 2}
+  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
+  mFont: {fileID: 0}
   mText: 22/36
-  mFontSize: 40
+  mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -1410,7 +1411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cdfe927ad9c46aaaa02af89b248b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderQueue: 5002
+  renderQueue: 5003
 --- !u!114 &11400048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1422,7 +1423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cdfe927ad9c46aaaa02af89b248b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderQueue: 5001
+  renderQueue: 4999
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1443,7 +1444,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300008, guid: 406ba5e0db05a437c94030fe1582028c, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21200002
 SpriteRenderer:

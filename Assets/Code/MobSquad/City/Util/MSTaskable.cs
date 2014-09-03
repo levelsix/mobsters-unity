@@ -227,8 +227,15 @@ public class MSTaskable : MonoBehaviour {
 
 		MSWhiteboard.loadedDungeon = UMQNetworkManager.responseDict[tagNum] as BeginDungeonResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
-		
-		PZCombatManager.instance.InitTask();
+
+		if (MSWhiteboard.loadedDungeon.status == BeginDungeonResponseProto.BeginDungeonStatus.SUCCESS)
+		{
+			PZCombatManager.instance.InitTask();
+		}
+		else
+		{
+			MSSceneManager.instance.ReconnectPopup();
+		}
 
 	}
 

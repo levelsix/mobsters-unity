@@ -2131,7 +2131,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4019
+  startingRenderQueue: 3008
   mAlpha: 1
   mClipping: 2
   mClipRange: {x: -1, y: -45, z: 756, w: 514}
@@ -2241,6 +2241,8 @@ MonoBehaviour:
   label: {fileID: 11400134}
   icon: {fileID: 11400122}
   spriteRoot: achievementsicon
+  inactiveTab: popupinactivetab
+  activeTab: popupactivetab
 --- !u!114 &11400036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2256,6 +2258,8 @@ MonoBehaviour:
   label: {fileID: 11400128}
   icon: {fileID: 11400136}
   spriteRoot: questicon
+  inactiveTab: popupinactivetab
+  activeTab: popupactivetab
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2890,7 +2894,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4019
+  startingRenderQueue: 3008
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -36, z: 756, w: 272}
@@ -3057,7 +3061,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4019
+  startingRenderQueue: 3008
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -45, z: 758, w: 514}
@@ -3807,7 +3811,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4019
+  startingRenderQueue: 3008
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -45, z: 756, w: 514}
@@ -4449,8 +4453,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 8832014b30b624818b9714b40d79d7b2, type: 2}
+  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
+  mFont: {fileID: 0}
   mText: 99
   mFontSize: 27
   mFontStyle: 0
@@ -4637,8 +4641,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 8832014b30b624818b9714b40d79d7b2, type: 2}
+  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
+  mFont: {fileID: 0}
   mText: 99
   mFontSize: 27
   mFontStyle: 0
@@ -4696,7 +4700,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4013
+  startingRenderQueue: 3004
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 1200, w: 640}

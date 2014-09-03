@@ -107,8 +107,7 @@ public class MSSoundManager : MonoBehaviour {
 
 	public void StopLoop()
 	{
-
-			loopSource.Stop();
+		loopSource.Stop();
 	}
 
 	public void LoopMusic(AudioClip music)

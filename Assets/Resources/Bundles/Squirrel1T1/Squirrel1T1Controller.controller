@@ -39,7 +39,7 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: Stay
-    m_Type: 9
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -188,7 +188,7 @@ Transition:
   m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_Conditions:
-  - m_ConditionMode: 1
+  - m_ConditionMode: 2
     m_ConditionEvent: Stay
     m_EventTreshold: 0
     m_ExitTime: 1
@@ -629,14 +629,6 @@ StateMachine:
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
     data:
-      first: {fileID: 110275163}
-      second:
-      - {fileID: 110134652}
-    data:
-      first: {fileID: 110255374}
-      second:
-      - {fileID: 110161532}
-    data:
       first: {fileID: 110265235}
       second:
       - {fileID: 110100000}
@@ -678,6 +670,14 @@ StateMachine:
       second:
       - {fileID: 110113306}
       - {fileID: 110197936}
+    data:
+      first: {fileID: 110255374}
+      second:
+      - {fileID: 110161532}
+    data:
+      first: {fileID: 110275163}
+      second:
+      - {fileID: 110134652}
   m_MotionSetCount: 1
   m_AnyStatePosition: {x: -300, y: -120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}

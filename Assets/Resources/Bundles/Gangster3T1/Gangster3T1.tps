@@ -222,6 +222,7 @@
             <filename>Run/Gangster3T1RunN07.png</filename>
             <filename>Attack/Gangster3T1KneelF00.png</filename>
             <filename>Attack/Gangster3T1KneelN00.png</filename>
+            <filename>Attack/Gangster3T1StayN00.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

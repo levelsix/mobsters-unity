@@ -1,4 +1,4 @@
-﻿#define DEBUG
+﻿//#define DEBUG
 
 using UnityEngine;
 using System.Collections;
@@ -107,7 +107,7 @@ public class PZCombatScheduler : MonoBehaviour
 		speedB -= numInterleavings * numBpB;
 
 		#if DEBUG
-		string turnsD = "Turns beofre extra turns:";
+		string turnsD = "Turns before extra turns:";
 		foreach (var item in turns) 
 		{
 			turnsD += "\n" + item.ToString();

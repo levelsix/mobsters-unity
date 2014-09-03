@@ -141,7 +141,7 @@ MonoBehaviour:
     m_PostInfinity: 2
   ignoreTimeScale: 1
   delay: 0
-  duration: 4
+  duration: 2
   steeperCurves: 0
   tweenGroup: 0
   onFinished:
@@ -171,26 +171,26 @@ MonoBehaviour:
     m_Curve:
     - time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
     - time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 10
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
   ignoreTimeScale: 1
   delay: 0
-  duration: 4
+  duration: 2
   steeperCurves: 0
   tweenGroup: 0
   onFinished: []
   eventReceiver: {fileID: 0}
   callWhenFinished: 
-  from: {x: 0, y: 3, z: 0}
-  to: {x: 0, y: 7, z: 0}
+  from: {x: 0, y: 2, z: 0}
+  to: {x: 0, y: 4, z: 0}
   worldSpace: 0
 --- !u!114 &11400008
 MonoBehaviour:

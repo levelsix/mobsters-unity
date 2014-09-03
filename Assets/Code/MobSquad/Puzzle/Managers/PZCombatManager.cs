@@ -945,10 +945,13 @@ public class PZCombatManager : MonoBehaviour {
 			background.Scroll(activeEnemy.unit);
 			yield return null;
 		}
-		
-		yield return turnDisplay.RunInit(activePlayer.monster, activeEnemy.monster);
 
 		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
+
+		if (activeEnemy.alive && activePlayer.alive)
+		{
+			yield return turnDisplay.RunInit(activePlayer.monster, activeEnemy.monster);
+		}
 
 		MSSoundManager.instance.StopLoop();
 
@@ -1580,6 +1583,7 @@ public class PZCombatManager : MonoBehaviour {
 		if (MSWhiteboard.loadedPvps.status != QueueUpResponseProto.QueueUpStatus.SUCCESS)
 		{
 			Debug.LogError("Problem queueing up: " + MSWhiteboard.loadedPvps.status.ToString());
+			MSSceneManager.instance.ReconnectPopup();
 		}
 
 		nextPvpDefenderIndex = 0;

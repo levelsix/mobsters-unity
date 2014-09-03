@@ -28,6 +28,11 @@ public class UMQLoader : MonoBehaviour {
 
 		Application.targetFrameRate = 60;
 
+		foreach (var item in MSSpriteUtil.instance.immediateBundles) 
+		{
+			item.Download();
+		}
+
 		//Debug.Log("Loader hanging out");
 
 		//Hang here while we set up the connetion
@@ -119,6 +124,14 @@ public class UMQLoader : MonoBehaviour {
 			yield return MSBuildingManager.instance.RunLoadPlayerCity();
 
 			PZCombatSave save = PZCombatSave.Load();
+
+			foreach (var item in MSSpriteUtil.instance.immediateBundles) 
+			{
+				while (!item.loaded)
+				{
+					yield return null;
+				}
+			}
 
 			if (response.curTask != null && response.curTask.taskId > 0)
 			{

@@ -649,7 +649,7 @@ Animator:
   m_GameObject: {fileID: 100010}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8f0e45556f9e04d89aee6525fe3f1032, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -854,6 +854,7 @@ MonoBehaviour:
   arrowScaleTween: {fileID: 0}
   locallyOwned: 1
   confirmationButtons: {fileID: 100016}
+  confirmationLoadLock: {fileID: 0}
   X_DRAG_FUDGE: 1.25
 --- !u!114 &11400010
 MonoBehaviour:
@@ -1143,7 +1144,7 @@ MonoBehaviour:
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 11400008}
-    mMethodName: Confirm
+    mMethodName: DoConfirm
     mParameters: []
     oneShot: 0
 --- !u!114 &11400024
@@ -1404,10 +1405,10 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 8832014b30b624818b9714b40d79d7b2, type: 2}
+  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
+  mFont: {fileID: 0}
   mText: 1H 32M
-  mFontSize: 27
+  mFontSize: 18
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1

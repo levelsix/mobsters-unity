@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0c51bb0b6e93049af5e88f93826e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 41c928ad454fe4d85a4e1a26e296b6d0, type: 2}
+  material: {fileID: 0}
   mSprites:
   - name: arrow
     x: 475
@@ -900,7 +900,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   mPixelSize: 1
-  mReplacement: {fileID: 0}
+  mReplacement: {fileID: 11400000, guid: cac4c553b76da41f780d5a4f289b8249, type: 2}
   mCoordinates: 0
   sprites: []
 --- !u!1001 &100100000

@@ -52,12 +52,16 @@ public class MSMapTaskPopup : MonoBehaviour {
 	[HideInInspector]
 	public Transform trans;
 
+	[SerializeField]
+	UISprite pvpBg;
+
 	void Awake()
 	{
 		trans = transform;
 		EventDelegate.Add(button.onClick, delegate {
 			PZScrollingBackground.instance.SetBackgrounds(task);
 		});
+		background.width = (int)(MSMath.uiScreenWidth - pvpBg.width);
 	}
 
 	public void init(TaskMapElementProto mapTask, MSMapTaskButton.TaskStatusType statusType)

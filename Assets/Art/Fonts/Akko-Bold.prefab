@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: Akko-Bold
   m_TagString: Untagged
@@ -27,6 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38,11 +40,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4eb3a400afab046abb8471a9d746d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMat: {fileID: 2100000, guid: 8a46333b1b387403c936791894cf6d23, type: 2}
+  mMat: {fileID: 0}
   mUVRect:
     serializedVersion: 2
-    x: .283203125
-    y: .360351562
+    x: .544433594
+    y: .2421875
     width: .159667969
     height: .0625
   mFont:
@@ -968,6 +970,18 @@ MonoBehaviour:
   mDynamicFont: {fileID: 0}
   mDynamicFontSize: 16
   mDynamicFontStyle: 0
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52cff68b6e2bb41d1b08987f1a79bdce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fontSpriteName: Akko-Bold
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

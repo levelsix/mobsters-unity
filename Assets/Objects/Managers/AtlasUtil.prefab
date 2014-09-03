@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AtlasUtil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,6 +27,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -38,13 +39,92 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ebbdbdcd50342e2bc60b32745b3344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xmls:
-  - Luchador
-  - Rapper
-  - Cheerleader
-  - GangsterMafia
-  - Clown
-  - Buildings
+  immediateBundles:
+  - referenceAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
+    atlasName: AtlasHUD
+    fonts: []
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+    atlasName: AtlasChat
+    fonts:
+    - {fileID: 11400002, guid: 9cadb635568be42d08541de5ecc87110, type: 2}
+    - {fileID: 11400002, guid: e679eb4867ce2426a9a5da86c09140e2, type: 2}
+    - {fileID: 11400002, guid: 9aade3e9ba16d438f88b437a6b76581a, type: 2}
+    - {fileID: 11400002, guid: 33a97c5dc58284df8aa1aa59e6b23819, type: 2}
+    - {fileID: 11400002, guid: f695474f783c14a17929e2c84d829ed6, type: 2}
+    - {fileID: 11400002, guid: 9a8f43ef88c324403a2b5b428abfdd15, type: 2}
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: 0bf4920dc60f6434cba799a772958462, type: 2}
+    atlasName: AtlasMenusHD
+    fonts:
+    - {fileID: 11400002, guid: f027e6347065747849199e4df2ebb2a2, type: 2}
+    - {fileID: 11400002, guid: 8b255364756fd499a95751ae6f020698, type: 2}
+    - {fileID: 11400002, guid: b551a3f4256134269861acec9ca9e927, type: 2}
+    - {fileID: 11400002, guid: 6103dc100ea8d4f3cb1319f31abe8d5f, type: 2}
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: cbd01d50678ae4a16911bd5aec07038d, type: 2}
+    atlasName: AtlasPuzzle
+    fonts:
+    - {fileID: 11400002, guid: 76143bd04ee384712a6d414805df478b, type: 2}
+    - {fileID: 11400002, guid: 4e0109d4b54444399bdb5d850a0a3bfc, type: 2}
+    - {fileID: 11400002, guid: 0374e29ad4b2d4b6ba543bb703766df7, type: 2}
+    - {fileID: 11400002, guid: b1db628c71a344f2e9ba8c86e8fea08f, type: 2}
+    - {fileID: 11400002, guid: c43e79add523947b19511d12a1b20cab, type: 2}
+    - {fileID: 11400002, guid: fa47be72d4c12443da44cf3038709fb9, type: 2}
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: 0d9e9a6defcc74e97847a3bfeea48f72, type: 2}
+    atlasName: AtlasCity
+    fonts:
+    - {fileID: 11400002, guid: 302900f382dbc47f4819bceb4ded80c1, type: 2}
+    - {fileID: 11400002, guid: c20aa0d7ff23a43d38aeca99c1401c6b, type: 2}
+    - {fileID: 11400002, guid: 471d1a9b4e4bf46cfa1275548a6f9eda, type: 2}
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: 8d0d1f3bcec9b4a3291c402b239699a9, type: 2}
+    atlasName: AtlasGacha
+    fonts: []
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: b29d208d2f47e4ba2bf8e5b45cafac71, type: 2}
+    atlasName: AtlasGenericPopup
+    fonts:
+    - {fileID: 11400002, guid: 27934fd2f6e3544eb9f459a05c4d598b, type: 2}
+    - {fileID: 11400002, guid: 7e54a0c5ce3e947569f8d47393148ff3, type: 2}
+    - {fileID: 11400002, guid: 886d66dd3b734428c8b50a0873bc1b54, type: 2}
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: 0bec254348f914cadbe9d110a60c018e, type: 2}
+    atlasName: AtlasGoonInfo
+    fonts:
+    - {fileID: 11400002, guid: dcc88f090f15142f5b10503468e6245e, type: 2}
+    - {fileID: 11400002, guid: ae4e5a2a0f23f4bf09d1e0ffb522a5eb, type: 2}
+    - {fileID: 11400002, guid: fe44576a1b311430ab34ddb33f2f98fc, type: 2}
+    - {fileID: 11400002, guid: ce04e91c938e34dd0ad8900c541f45cf, type: 2}
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: 096b3d5dfb1ab4bd298e86c644d7860f, type: 2}
+    atlasName: AtlasGoonMenu
+    fonts: []
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: df28a3f8558934e26b24d6c6d5e94fad, type: 2}
+    atlasName: AtlasProfile
+    fonts: []
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: 7a96f4cab77584d12be676fa3ce0347f, type: 2}
+    atlasName: AtlasMap
+    fonts: []
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: bf8a6748d401f40e8a1171a547c509dc, type: 2}
+    atlasName: AtlasShop
+    fonts: []
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: b8a4780662dd544e1b92d6264ccf5aa4, type: 2}
+    atlasName: AtlasRaid
+    fonts: []
+    loaded: 0
+  - referenceAtlas: {fileID: 11400000, guid: c41faf2f54c304b3cbfb21d55c8b637a, type: 2}
+    atlasName: AtlasNews
+    fonts: []
+    loaded: 0
+  defaultAnimator: {fileID: 0}
+  defaultSprite: {fileID: 0}
+  AWS_On: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

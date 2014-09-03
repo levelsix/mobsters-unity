@@ -396,14 +396,14 @@ public class MSTutorialManager : MonoBehaviour
 		MSTownCamera.instance.SlideToPos(startCameraPos, TutorialValues.cameraSize, 0);
 		
 		guideUnit.direction = MSValues.Direction.WEST;
-		guideUnit.anim.SetTrigger("Stay");
+		guideUnit.animat = MSUnit.AnimationType.STAY;
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HEY_BOSS, true, false));
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.EVIL_DICTATOR, true, false));
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HOPEFULLY_DONT_FIND, true));
 		
 		guideUnit.direction = MSValues.Direction.SOUTH;
-		guideUnit.anim.SetTrigger("Stay");
+		guideUnit.animat = MSUnit.AnimationType.IDLE;
 
 		MSTownCamera.instance.SlideToPos(pierCameraPos, TutorialValues.cameraSize, TutorialValues.panToBoatTime);
 
@@ -471,11 +471,14 @@ public class MSTutorialManager : MonoBehaviour
 			yield return null;
 		}
 
+		userUnit.animat = MSUnit.AnimationType.STAY;
+
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.YOLO, false));
 
 		TutorialUI.fightButton.SetActive(true);
 		currUi = TutorialUI.fightButton;
 		yield return StartCoroutine(WaitForClick());
+		userUnit.animat = MSUnit.AnimationType.IDLE;
 		TutorialUI.leftDialogue.RunPushOut();
 
 		userUnitReturnPosition = userUnit.transf.localPosition;
@@ -531,6 +534,7 @@ public class MSTutorialManager : MonoBehaviour
 
 		bossCombatant.unit.direction = MSValues.Direction.EAST;
 		yield return bossCombatant.unit.DoJump(TutorialValues.bossStompHeight * TutorialValues.puzzlePixelMod, TutorialValues.bossStompTime);
+		yield return TutorialUI.cameraShake.RunShake();
 		enemyOneCombatant.unit.direction = MSValues.Direction.WEST;
 		enemyTwoCombatant.unit.direction = MSValues.Direction.WEST;
 
@@ -689,8 +693,8 @@ public class MSTutorialManager : MonoBehaviour
 
 	void Combat_Setup()
 	{
-		PZCombatManager.instance.InitTutorial(enemyBoss, enemyOne, enemyTwo);
 		MSActionManager.Scene.OnPuzzle();
+		PZCombatManager.instance.InitTutorial(enemyBoss, enemyOne, enemyTwo);
 
 		userCombatant = PZCombatManager.instance.activePlayer;
 
@@ -886,7 +890,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator PostCombat_FacebookLogon()
 	{
-		zarkUnit.anim.SetTrigger("Stay");
+		zarkUnit.animat = MSUnit.AnimationType.STAY;
 
 		MSTownCamera.instance.DoCenterOnGroundPos(zarkUnit.transf.position, TutorialValues.panToZarkTime);
 
@@ -937,7 +941,7 @@ public class MSTutorialManager : MonoBehaviour
 	IEnumerator PostCombat_SendOnFirstMission()
 	{
 		guideUnit.direction = MSValues.Direction.SOUTH;
-		guideUnit.anim.SetTrigger("Stay");
+		guideUnit.animat = MSUnit.AnimationType.STAY;
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.GO_RECRUIT_DIALOGUE, true));
 
@@ -1175,6 +1179,8 @@ public class TutorialUI
 	public MSDialogueUI puzzleDialogue;
 
 	public PZTutorialHand hintHand;
+
+	public MSCameraShake cameraShake;
 }
 
 

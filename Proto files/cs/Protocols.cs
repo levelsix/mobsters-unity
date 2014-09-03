@@ -39,6 +39,7 @@
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
 // Note: requires additional types generated from: SharedEnumConfig.proto
+// Note: requires additional types generated from: Skill.proto
 // Note: requires additional types generated from: StaticData.proto
 // Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: Task.proto
@@ -275,6 +276,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_UNRESTRICT_USER_MONSTER_EVENT", Value=76)]
       C_UNRESTRICT_USER_MONSTER_EVENT = 76,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_ENHANCE_MONSTER_EVENT", Value=77)]
+      C_ENHANCE_MONSTER_EVENT = 77,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
             
@@ -510,6 +514,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UNRESTRICT_USER_MONSTER_EVENT", Value=76)]
       S_UNRESTRICT_USER_MONSTER_EVENT = 76,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_ENHANCE_MONSTER_EVENT", Value=77)]
+      S_ENHANCE_MONSTER_EVENT = 77,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

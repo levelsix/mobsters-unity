@@ -23,6 +23,8 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	#endregion
 
+	public BundleAtlas[] immediateBundles;
+
 	public static MSSpriteUtil instance;
 
 	static Dictionary<string, AssetBundle> bundles = new Dictionary<string, AssetBundle>();
@@ -31,14 +33,24 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	[SerializeField] Sprite defaultSprite;
 
-	const string AWS = "https://s3-us-west-1.amazonaws.com/lvl6mobsters/Android/";
+	public HashSet<string> internalBundles = new HashSet<string>();
 
-	[SerializeField] bool AWS_On = false;
+	const string AWS = "https://s3-us-west-1.amazonaws.com/lvl6mobsters/Android/";
 	
 	public void Awake()
 	{
 		instance = this;
-		Caching.CleanCache();
+
+		BuildInternalBundleList();
+	}
+
+	void BuildInternalBundleList()
+	{
+		DirectoryInfo[] dirs = (new DirectoryInfo("Assets/Resources/Bundles")).GetDirectories();
+		foreach (var item in dirs) 
+		{
+			internalBundles.Add(item.Name);
+		}
 	}
 
 	public Sprite GetSprite(string spritePath)
@@ -69,7 +81,16 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	public IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, SpriteRenderer sprite)
 	{
-		if (AWS_On)
+		if (internalBundles.Contains(bundleName))
+		{
+			string path = "Bundles/" + bundleName + "/" + spriteName;
+			sprite.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
+			if (sprite.sprite == null)
+			{
+				Debug.Log("Failed to get " + path);
+			}
+		}
+		else
 		{
 			if (!bundles.ContainsKey(bundleName))
 			{
@@ -83,15 +104,6 @@ public class MSSpriteUtil : MonoBehaviour {
 				sprite.sprite = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
 			}
 		}
-		else
-		{
-			string path = "Bundles/" + bundleName + "/" + spriteName;
-			sprite.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
-			if (sprite.sprite == null)
-			{
-				Debug.Log("Failed to get " + path);
-			}
-		}
 	}
 
 	public void SetSprite(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha = 1f)
@@ -101,25 +113,7 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha)
 	{
-		if (AWS_On)
-		{
-			sprite.alpha = 0;
-			//Debug.Log("Setting sprite: " + spriteName);
-			if (!bundles.ContainsKey(bundleName))
-			{
-				sprite.sprite2D = defaultSprite;
-				yield return StartCoroutine(DownloadAndCache(bundleName));
-				
-			}
-
-			if (bundles.ContainsKey(bundleName))
-			{
-				sprite.sprite2D = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
-				sprite.MakePixelPerfect();
-				sprite.alpha = finalAlpha;
-			}
-		}
-		else
+		if (internalBundles.Contains(bundleName))
 		{
 			string path = "Bundles/" + bundleName + "/" + spriteName;
 			sprite.sprite2D = Resources.Load(path, typeof(Sprite)) as Sprite;
@@ -134,29 +128,71 @@ public class MSSpriteUtil : MonoBehaviour {
 				sprite.MakePixelPerfect();
 			}
 		}
+		else
+		{
+			sprite.alpha = 0;
+			//Debug.Log("Setting sprite: " + spriteName);
+			if (!bundles.ContainsKey(bundleName))
+			{
+				sprite.sprite2D = defaultSprite;
+				yield return StartCoroutine(DownloadAndCache(bundleName));
+				
+			}
+			
+			if (bundles.ContainsKey(bundleName))
+			{
+				while (bundles[bundleName] == null)
+				{
+					yield return null;
+				}
+				
+				sprite.sprite2D = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
+				sprite.MakePixelPerfect();
+				sprite.alpha = finalAlpha;
+			}
+		}
 
 	}
 
 	public IEnumerator SetUnitAnimator(MSUnit unit)
 	{
-		yield return StartCoroutine(SetAnimator(unit.spriteBaseName, unit.anim));
+		yield return StartCoroutine(SetAnimator(unit.spriteBaseName, unit.anim, "Controller"));
 
 		unit.ResetAnimation();
 	}
 
-	public IEnumerator SetAnimator(string baseName, Animator animator)
+	public IEnumerator SetBuildingAnimator(MSBuilding building, string structName)
 	{
-		if (!bundles.ContainsKey(baseName))
-		{
-			animator.runtimeAnimatorController = null;
-			yield return StartCoroutine(DownloadAndCache(baseName));
-		}
+		yield return StartCoroutine(SetAnimator(MSUtil.StripExtensions(structName), building.sprite.GetComponent<Animator>()));
+	}
 
-		if (bundles.ContainsKey(baseName))
+	public IEnumerator SetAnimator(string baseName, Animator animator, string controllerSuffix = "")
+	{
+		if (internalBundles.Contains(baseName))
 		{
-			animator.runtimeAnimatorController = bundles[baseName].Load(baseName + "Controller", typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
-			animator.GetComponent<SpriteRenderer>().color = Color.white;
-			//Debug.Log("Assigned it: " + animator.runtimeAnimatorController);
+			string path = "Bundles/" + baseName + "/" + baseName + controllerSuffix;
+			animator.runtimeAnimatorController = (Resources.Load(path)) as RuntimeAnimatorController;
+		}
+		else
+		{
+			if (!bundles.ContainsKey(baseName))
+			{
+				animator.runtimeAnimatorController = null;
+				yield return StartCoroutine(DownloadAndCache(baseName));
+			}
+
+			if (bundles.ContainsKey(baseName))
+			{
+				//If something else has marked this bundle as downloading, but hasn't finished, we'll hang here
+				while (bundles[baseName] == null)
+				{
+					yield return null;
+				}
+
+				animator.runtimeAnimatorController = bundles[baseName].Load(baseName + controllerSuffix, typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
+				animator.GetComponent<SpriteRenderer>().color = Color.white;
+				Debug.Log("Assigned it: " + animator.runtimeAnimatorController);
+			}
 		}
 	}
 
@@ -165,9 +201,19 @@ public class MSSpriteUtil : MonoBehaviour {
 		return Resources.Load("Sprites/Buildings/" + MSUtil.StripExtensions(spriteName), typeof(Sprite)) as Sprite;
 	}
 
+	public UIAtlas GetAtlas(string atlasName)
+	{
+		return bundles[atlasName].Load(atlasName, typeof(UIAtlas)) as UIAtlas;
+	}
+
 	public bool HasBundle (string bundleName)
 	{
 		return bundles.ContainsKey(bundleName);
+	}
+
+	public Coroutine RunDownloadAndCache(string bundleName)
+	{
+		return StartCoroutine(DownloadAndCache(bundleName));
 	}
 
 	/// <summary>
@@ -181,23 +227,29 @@ public class MSSpriteUtil : MonoBehaviour {
 		while (!Caching.ready)
 			yield return null;
 		
-		//Debug.Log ("Grabbing bundle: " + bundleName);
+		Debug.Log ("Grabbing bundle: " + bundleName);
+
+		if (bundles.ContainsKey(bundleName))
+		{
+			while (bundles[bundleName] == null)
+			{
+				yield return null;
+			}
+			yield break;
+		}
+		
+		bundles[bundleName] = null;
 		
 		// Load the AssetBundle file from Cache if it exists with the same version or download and store it in the cache
 		using(WWW www = WWW.LoadFromCacheOrDownload (AWS + bundleName + ".unity3d", 1)){
 			yield return www;
-			
-			if (bundles.ContainsKey(bundleName))
-			{
-				yield break;
-			}
 
 			if (www.error != null)
 				yield break;
 				//throw new Exception("WWW download of " + bundleName + " had an error:" + www.error);
 			AssetBundle bundle = www.assetBundle;
 
-			//Debug.Log("Loaded bundle: " + bundleName);
+			Debug.Log("Loaded bundle: " + bundleName);
 
 			bundles[bundleName] = bundle;
 			
@@ -208,5 +260,39 @@ public class MSSpriteUtil : MonoBehaviour {
 	void CleanCache()
 	{
 		Caching.CleanCache();
+	}
+}
+
+[System.Serializable]
+public class BundleAtlas
+{
+	[SerializeField] UIAtlas referenceAtlas;
+	[SerializeField] string atlasName;
+
+	[SerializeField] MSResetFont[] fonts;
+
+	public bool loaded = false;
+
+	public void Download()
+	{
+		MSSpriteUtil.instance.StartCoroutine(DoDownload());
+	}
+
+	IEnumerator DoDownload()
+	{
+		if (MSSpriteUtil.instance.internalBundles.Contains(atlasName))
+		{
+			referenceAtlas.replacement = (Resources.Load<UIAtlas>("Bundles/" + atlasName + "/" + atlasName));
+		}
+		else
+		{
+			yield return MSSpriteUtil.instance.RunDownloadAndCache(atlasName);
+			referenceAtlas.replacement = MSSpriteUtil.instance.GetAtlas(atlasName);
+		}
+		loaded = true;
+		foreach (var item in fonts) 
+		{
+			item.SetAtlas(referenceAtlas);
+		}
 	}
 }

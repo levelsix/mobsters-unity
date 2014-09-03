@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: GothamUltraNumbers18_GoonInfo
   m_TagString: Untagged
@@ -693,12 +694,24 @@ MonoBehaviour:
       advance: 10
       channel: 15
       kerning: 
-  mAtlas: {fileID: 11400000, guid: b0fa11320fc1e4a2ab89cd17c8ac14cc, type: 2}
+  mAtlas: {fileID: 11400000, guid: 0bec254348f914cadbe9d110a60c018e, type: 2}
   mReplacement: {fileID: 0}
   mSymbols: []
   mDynamicFont: {fileID: 0}
   mDynamicFontSize: 16
   mDynamicFontStyle: 0
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52cff68b6e2bb41d1b08987f1a79bdce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fontSpriteName: GothamUltraNumbers18_GoonInfo
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

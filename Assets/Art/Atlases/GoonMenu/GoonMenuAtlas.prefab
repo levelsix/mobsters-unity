@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0c51bb0b6e93049af5e88f93826e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: d64f095246ebe4e40b8c0538e025e984, type: 2}
+  material: {fileID: 0}
   mSprites:
   - name: attackbarcapmj
     x: 1018
@@ -965,7 +965,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   mPixelSize: 1
-  mReplacement: {fileID: 0}
+  mReplacement: {fileID: 11400000, guid: c072464fe6c7447d18757cba47ffad15, type: 2}
   mCoordinates: 0
   sprites: []
 --- !u!1001 &100100000

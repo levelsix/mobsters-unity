@@ -213,42 +213,45 @@ public class MSHospitalManager : MonoBehaviour {
 			yield return DoSendHealRequest();
 		}
 
-		HealMonsterRequestProto request = new HealMonsterRequestProto();
-		request.sender = MSWhiteboard.localMupWithResources;
-
-		request.isSpeedup = true;
-		request.gemsForSpeedup = cost;
-		
-		UserMonsterCurrentHealthProto health;
-		foreach (var item in healingMonsters) 
+		if (!MSTutorialManager.instance.inTutorial)
 		{
-			health = new UserMonsterCurrentHealthProto();
-			health.userMonsterId = item.userMonster.userMonsterId;
-			health.currentHealth = item.maxHP;
-			healRequestProto.umchp.Add(health);
-		}
+			HealMonsterRequestProto request = new HealMonsterRequestProto();
+			request.sender = MSWhiteboard.localMupWithResources;
 
-		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT);
-
-		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
-		{
-			yield return null;
-		}
-
-		HealMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as HealMonsterResponseProto;
-		UMQNetworkManager.responseDict.Remove(tagNum);
-
-		if (response.status == HealMonsterResponseProto.HealMonsterStatus.SUCCESS)
-		{
-			while(MSHospitalManager.instance.healingMonsters.Count > 0)
+			request.isSpeedup = true;
+			request.gemsForSpeedup = cost;
+			
+			UserMonsterCurrentHealthProto health;
+			foreach (var item in healingMonsters) 
 			{
-				CompleteHeal(MSHospitalManager.instance.healingMonsters[0]);
+				health = new UserMonsterCurrentHealthProto();
+				health.userMonsterId = item.userMonster.userMonsterId;
+				health.currentHealth = item.maxHP;
+				healRequestProto.umchp.Add(health);
 			}
-		}
-		else
-		{
-			MSPopupManager.instance.CreatePopup("Error", "Sorry, a problem happened with the server!",
-			                                    new string[] {"Okay"}, new string[] {"greenmenuoption"}, new Action[] {MSActionManager.Popup.CloseTopPopupLayer});
+
+			int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT);
+
+			while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+			{
+				yield return null;
+			}
+
+			HealMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as HealMonsterResponseProto;
+			UMQNetworkManager.responseDict.Remove(tagNum);
+
+			if (response.status == HealMonsterResponseProto.HealMonsterStatus.SUCCESS)
+			{
+				while(MSHospitalManager.instance.healingMonsters.Count > 0)
+				{
+					CompleteHeal(MSHospitalManager.instance.healingMonsters[0]);
+				}
+			}
+			else
+			{
+				MSPopupManager.instance.CreatePopup("Error", "Sorry, a problem happened with the server!",
+				                                    new string[] {"Okay"}, new string[] {"greenmenuoption"}, new Action[] {MSActionManager.Popup.CloseTopPopupLayer});
+			}
 		}
 
 		loadLock.Unlock();

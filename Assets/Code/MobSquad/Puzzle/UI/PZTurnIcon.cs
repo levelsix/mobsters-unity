@@ -19,9 +19,13 @@ public class PZTurnIcon : MonoBehaviour
 
 	[SerializeField] TweenScale tweenScale;
 
+	[SerializeField] Vector3 thumbPos;
+
 	public void Init(PZMonster monster)
 	{
 		bgSprite.spriteName = MSGoonCard.smallBackgrounds[monster.monster.monsterElement];
+		thumb.transform.localScale = Vector3.one;
+		thumb.transform.localPosition = thumbPos;
 		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", thumb);
 	}
 
@@ -50,7 +54,8 @@ public class PZTurnIcon : MonoBehaviour
 		{
 			yield return null;
 		}
+		thumb.transform.localScale = Vector3.one;
+		thumb.transform.localPosition = thumbPos;
 		thumb.MakePixelPerfect();
 	}
-	
 }

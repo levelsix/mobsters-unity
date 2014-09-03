@@ -25,11 +25,11 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		set
 		{
 			_spriteBaseName = value;
-			anim.runtimeAnimatorController = MSSpriteUtil.instance.GetUnitAnimator(MSUtil.StripExtensions(value));
-			//StartCoroutine(MSSpriteUtil.instance.SetUnitAnimator(this));
+			//anim.runtimeAnimatorController = MSSpriteUtil.instance.GetUnitAnimator(MSUtil.StripExtensions(value));
+			StartCoroutine(MSSpriteUtil.instance.SetUnitAnimator(this));
 
 
-			if (MSSpriteUtil.instance.HasBundle(value))
+			if (MSSpriteUtil.instance.HasBundle(value) || MSSpriteUtil.instance.internalBundles.Contains(value))
 			{
 				sprite.color = Color.white;
 			}
@@ -80,7 +80,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	public FullTaskProto task;
 	public MinimumUserTaskProto userTask;
 	
-	public enum AnimationType {IDLE, RUN, ATTACK, FLINCH};
+	public enum AnimationType {IDLE, RUN, ATTACK, FLINCH, STAY};
 	
 	private AnimationType _animat = AnimationType.IDLE;
 
@@ -268,9 +268,13 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 				anim.SetBool("Running", false);
 				anim.SetBool("Flinch", false);
 				anim.SetBool("Attack", false);
+				anim.SetBool("Stay", false);
 				break;
 			case AnimationType.RUN:
 				anim.SetBool("Running", true);
+				break;
+			case AnimationType.STAY:
+				anim.SetBool("Stay", true);
 				break;
 			default:
 				break;

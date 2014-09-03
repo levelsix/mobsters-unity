@@ -109,6 +109,8 @@ public class MSAchievementManager : MonoBehaviour {
 
 	public IEnumerator RedeemAchievement(MSFullAchievement achievement, MSFullAchievement successor, MSLoadLock loadLock)
 	{
+		loadLock.Lock();
+
 		AchievementRedeemRequestProto request = new AchievementRedeemRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.achievementId = achievement.userAchievement.achievementId;
@@ -135,6 +137,8 @@ public class MSAchievementManager : MonoBehaviour {
 		achievementBadge.notifications--;
 
 		successor = currAchievements.Find(x=>x.achievement.achievementId == achievement.achievement.successorId);
+
+		loadLock.Unlock();
 	}
 
 
