@@ -22,9 +22,10 @@ public class PZRetreatButton : MonoBehaviour {
 		MSActionManager.Popup.OnPopup(retreatPopup);
 	}
 
-	void Update()
-	{
-		button.enabled = PZPuzzleManager.instance.swapLock <= 0 || PZDeployPopup.acting;
-		sprite.alpha = (button.enabled) ? 1 : 0;
-	}
+	//Kenny removed this cause UI change. So this button should always show.
+//	void Update()
+//	{
+//		button.enabled = PZPuzzleManager.instance.swapLock <= 0 || PZDeployPopup.acting;
+//		sprite.alpha = (button.enabled) ? 1 : 0;
+//	}
 }

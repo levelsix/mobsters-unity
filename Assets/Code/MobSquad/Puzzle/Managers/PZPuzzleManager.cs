@@ -1161,6 +1161,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	/// </summary>
 	[ContextMenu ("checkFallAll")]
 	public void ReCheckBoard(){
+		int columnCount = 0;
 		for (int i = 0; i < boardHeight; i++) 
 		{
 			for (int j = 0; j < boardWidth; j++) 
@@ -1172,8 +1173,14 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 		}
 		for(int i = 0; i < columnQueues.Length; i++){
-			while(columnQueues[i].Count > 0){
+			columnCount = columnQueues[i].Count;
+			for(int j = 0; j < columnCount; j++)
+			{
 				columnQueues[i][0].CheckFall();
+			}
+			if(columnQueues[i].Count > 0)
+			{
+				Debug.LogError("Gems could not drop into board");
 			}
 		}
 	}
