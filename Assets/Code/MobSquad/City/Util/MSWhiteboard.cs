@@ -10,7 +10,8 @@ using com.lvl6.proto;
 /// </summary>
 public static class MSWhiteboard {
 
-	public static FullUserProto _localUser;
+	//K what this makes no sense and isn't used so I'm removing it
+//	public static FullUserProto _localUser;
 	
 	/// <summary>
 	/// The local user.

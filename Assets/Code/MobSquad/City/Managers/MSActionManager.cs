@@ -108,6 +108,12 @@ public static class MSActionManager
 		public static Action<int> OnChangeClanIcon;
 		public static Action OnLevelUp;
 	}
+
+	public static class Gacha
+	{
+		public static Action OnPurchaseBoosterSucces;
+		public static Action OnPurchaseBoosterFail;
+	}
 	
 	public static class Goon
 	{

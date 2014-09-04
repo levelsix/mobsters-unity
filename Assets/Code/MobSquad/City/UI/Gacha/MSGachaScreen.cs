@@ -66,8 +66,15 @@ public class MSGachaScreen : MonoBehaviour {
 		{
 			item.Init(PickGoonLeft());
 		}
-		
-		oneSpinCostLabel.text = pack.gemPrice.ToString();
+
+		if( MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
+		{
+			oneSpinCostLabel.text = "Free";
+		}
+		else
+		{
+			oneSpinCostLabel.text = pack.gemPrice.ToString();
+		}
 		tenSpinCostLabel.text = (pack.gemPrice * 10).ToString();
 	}
 	
