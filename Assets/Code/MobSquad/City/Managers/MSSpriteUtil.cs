@@ -255,7 +255,7 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	public bool HasBundle (string bundleName)
 	{
-		return bundles.ContainsKey(bundleName);
+		return internalBundles.Contains(bundleName) || (bundles.ContainsKey(bundleName) && bundles[bundleName] != null);
 	}
 
 	public Coroutine RunDownloadAndCache(string bundleName)

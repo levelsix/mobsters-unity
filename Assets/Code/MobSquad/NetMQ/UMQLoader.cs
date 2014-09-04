@@ -110,39 +110,45 @@ public class UMQLoader : MonoBehaviour {
 
 		StartUp(response);
 
-		if (response.startupStatus == StartupResponseProto.StartupStatus.USER_NOT_IN_DB)
+		MSResourceManager.instance.Init(response.sender.level, response.sender.experience, 
+				response.sender.cash, response.sender.oil, response.sender.gems);
+			
+		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
+
+		foreach (var item in MSMonsterManager.instance.userMonsters) 
 		{
-			MSActionManager.Popup.OnPopup(createUserPopup.GetComponent<MSPopup>());
+			MSSpriteUtil.instance.RunDownloadAndCache(item.monster.imagePrefix);
+		}
+
+		yield return MSBuildingManager.instance.RunLoadPlayerCity();
+
+		foreach (var item in MSMonsterManager.instance.userMonsters) 
+		{
+			while (!MSSpriteUtil.instance.HasBundle(item.monster.imagePrefix))
+			{
+				yield return null;
+			}
+		}
+
+		PZCombatSave save = PZCombatSave.Load();
+
+		foreach (var item in MSSpriteUtil.instance.immediateBundles) 
+		{
+			while (!item.loaded)
+			{
+				yield return null;
+			}
+		}
+
+		if (response.curTask != null && response.curTask.taskId > 0)
+		{
+			MSActionManager.Scene.OnPuzzle();
+			PZCombatManager.instance.RunInitLoadedTask(response.curTask, response.curTaskStages);
+			//MSActionManager.Scene.OnCity();
 		}
 		else
 		{
-			MSResourceManager.instance.Init(response.sender.level, response.sender.experience, 
-				response.sender.cash, response.sender.oil, response.sender.gems);
-			
-			MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
-
-			yield return MSBuildingManager.instance.RunLoadPlayerCity();
-
-			PZCombatSave save = PZCombatSave.Load();
-
-			foreach (var item in MSSpriteUtil.instance.immediateBundles) 
-			{
-				while (!item.loaded)
-				{
-					yield return null;
-				}
-			}
-
-			if (response.curTask != null && response.curTask.taskId > 0)
-			{
-				PZCombatManager.instance.RunInitLoadedTask(response.curTask, response.curTaskStages);
-				MSActionManager.Scene.OnPuzzle();
-				//MSActionManager.Scene.OnCity();
-			}
-			else
-			{
-				MSActionManager.Scene.OnCity();
-			}
+			MSActionManager.Scene.OnCity();
 		}
 
 	}

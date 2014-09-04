@@ -167,6 +167,11 @@ public class PZCombatScheduler : MonoBehaviour
 		}
 	}
 
+	public CombatTurn GetCurrentMove()
+	{
+		return turns[currInd % turns.Count];
+	}
+
 	public CombatTurn GetNextMove()
 	{
 		return turns[currInd++ % turns.Count];
