@@ -326,6 +326,19 @@ public class PZMonster {
 		}
 	}
 
+	SkillProto _offsenisveSkill;
+	public SkillProto offensiveSkill
+	{
+		get
+		{
+			if (_offsenisveSkill == null || _offsenisveSkill.skillId == 0)
+			{
+				_offsenisveSkill = MSDataManager.instance.Get<SkillProto>(monster.baseOffensiveSkillId);
+			}
+			return _offsenisveSkill;
+		}
+	}
+
 	public int speed;
 
 	public int maxHP;

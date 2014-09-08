@@ -22,10 +22,18 @@ public class MSClanTab : MSTab {
 
 	Dictionary<ClanPopupMode, string> iconDict = new Dictionary<ClanPopupMode, string>()
 	{
-		{ClanPopupMode.BROWSE, "clansbrowse"},
-		{ClanPopupMode.DETAILS, "clansbrowse"},
-		{ClanPopupMode.CREATE, "clanscreate"},
+		{ClanPopupMode.BROWSE, "clanbrowse"},
+		{ClanPopupMode.DETAILS, "myclan"},
+		{ClanPopupMode.CREATE, "clancreate"},
 		{ClanPopupMode.RAIDS, "clansbrowse"}
+	};
+
+	Dictionary<ClanPopupMode, string> tabLabels = new Dictionary<ClanPopupMode, string>()
+	{
+		{ClanPopupMode.BROWSE, "BROWSE"},
+		{ClanPopupMode.DETAILS, "MY SQUAD"},
+		{ClanPopupMode.CREATE, "CREATE SQUAD"},
+		{ClanPopupMode.RAIDS, "RAIDS"}
 	};
 
 	public void Init(ClanPopupMode mode, bool activate)
@@ -33,7 +41,7 @@ public class MSClanTab : MSTab {
 		spriteRoot = iconDict[mode];
 		clanMode = mode;
 		inactive = !activate;
-		label.text = clanMode.ToString();
+		label.text = tabLabels[mode];
 		if (activate)
 		{
 			InitActive();

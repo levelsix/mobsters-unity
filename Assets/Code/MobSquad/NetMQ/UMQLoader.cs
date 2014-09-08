@@ -159,7 +159,7 @@ public class UMQLoader : MonoBehaviour {
 		
 		MSChatManager.instance.Init(response);
 		
-		MSQuestManager.instance.Init(response);
+		//MSQuestManager.instance.Init(response);
 		
 		MSClanManager.instance.Init(response.userClanInfo);
 		

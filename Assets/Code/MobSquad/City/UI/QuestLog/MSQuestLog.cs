@@ -110,8 +110,8 @@ public class MSQuestLog : MonoBehaviour {
 	
 	void Init()
 	{
-		TabToList();
-		SetupQuestList();
+		TabToAchievements();
+		//SetupQuestList();
 		InitAchievements();
 	}
 
@@ -164,8 +164,8 @@ public class MSQuestLog : MonoBehaviour {
 
 	public void TabToAchievements()
 	{
-		listTab.InitInactive();
-		questHelper.TurnOff();
+		//listTab.InitInactive();
+		//questHelper.TurnOff();
 		
 		achievementTab.InitActive();
 		achievementHelper.TurnOn();

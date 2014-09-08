@@ -275,6 +275,24 @@ namespace com.lvl6.proto
       get { return _shadowScaleFactor; }
       set { _shadowScaleFactor = value; }
     }
+
+    private int _baseOffensiveSkillId = default(int);
+    [global::ProtoBuf.ProtoMember(30, IsRequired = false, Name=@"baseOffensiveSkillId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int baseOffensiveSkillId
+    {
+      get { return _baseOffensiveSkillId; }
+      set { _baseOffensiveSkillId = value; }
+    }
+
+    private int _baseDefensiveSkillId = default(int);
+    [global::ProtoBuf.ProtoMember(31, IsRequired = false, Name=@"baseDefensiveSkillId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int baseDefensiveSkillId
+    {
+      get { return _baseDefensiveSkillId; }
+      set { _baseDefensiveSkillId = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"AnimationType")]
     public enum AnimationType
     {

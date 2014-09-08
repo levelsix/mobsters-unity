@@ -21,12 +21,22 @@ public class PZTurnIcon : MonoBehaviour
 
 	[SerializeField] Vector3 thumbPos;
 
+	[SerializeField] UILabel debugLabel;
+
 	public void Init(PZMonster monster)
 	{
 		bgSprite.spriteName = MSGoonCard.smallBackgrounds[monster.monster.monsterElement];
+		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", thumb, 1, AfterSpriteSet);
 		thumb.transform.localScale = Vector3.one;
 		thumb.transform.localPosition = thumbPos;
-		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", thumb);
+
+	}
+
+	void AfterSpriteSet()
+	{
+		thumb.transform.localScale = Vector3.one;
+		thumb.transform.localPosition = thumbPos;
+		thumb.MakePixelPerfect();
 	}
 
 	public void Leave()
@@ -57,5 +67,10 @@ public class PZTurnIcon : MonoBehaviour
 		thumb.transform.localScale = Vector3.one;
 		thumb.transform.localPosition = thumbPos;
 		thumb.MakePixelPerfect();
+	}
+
+	void Update()
+	{
+		debugLabel.text = thumb.transform.localPosition + "\n" + thumb.transform.localScale + "\n" + thumb.width + ", " + thumb.height;
 	}
 }

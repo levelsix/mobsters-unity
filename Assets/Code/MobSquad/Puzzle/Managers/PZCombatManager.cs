@@ -839,6 +839,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	IEnumerator ScrollToNextEnemy()
 	{
+		Debug.Log("Start scroll");
+
 		turnDisplay.DoMoveOut();
 
 		if (boardTint.value <= .01f) {
@@ -952,6 +954,8 @@ public class PZCombatManager : MonoBehaviour {
 			background.Scroll(activeEnemy.unit);
 			yield return null;
 		}
+
+
 
 		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 
@@ -1385,6 +1389,10 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
 			activePlayer.unit.direction = MSValues.Direction.EAST;
+		}
+		else
+		{
+			activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 		}
 
 		yield return StartCoroutine(activeEnemy.TakeDamage(MSAnimationEvents.curDamage, MSAnimationEvents.curElement));

@@ -12,6 +12,7 @@ public class PZCombatSave
 
 	public int[,] gemColors;
 	public int[,] gemTypes;
+	public bool[,] jelly;
 
 	public BattleStats battleStats = new BattleStats();
 
@@ -38,11 +39,13 @@ public class PZCombatSave
 
 		gemColors = new int[boardWidth, boardHeight];
 		gemTypes = new int[boardWidth, boardHeight];
+		jelly = new bool[boardWidth, boardHeight];
 
 		for (int x = 0; x < boardWidth; x++) {
 			for (int y = 0; y < boardHeight; y++) {
 				gemColors[x,y] = board[x,y].colorIndex;
 				gemTypes[x,y] = (int)board[x,y].gemType;
+				jelly[x,y] = PZPuzzleManager.instance.jellyBoard[x,y] != null;
 			}
 		}
 

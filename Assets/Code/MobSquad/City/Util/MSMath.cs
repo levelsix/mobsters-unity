@@ -43,6 +43,7 @@ public static class MSMath {
     /// </param>
 	public static int GemsForTime(long time)
 	{
+		if (time < 60 * 1000 * MSWhiteboard.constants.maxMinutesForFreeSpeedUp) return 0;
 		return 1 + (int)Mathf.Ceil((float)(time / 1000 / SECONDS_PER_GEM));
 	}
 	

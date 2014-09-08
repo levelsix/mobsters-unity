@@ -201,6 +201,6 @@ public class PZPrize : MonoBehaviour {
 		tweenAlpha.ResetToBeginning ();
 		tweenAlpha.PlayForward ();
 
-		Debug.LogWarning (time);
+		//Debug.LogWarning (time);
 	}
 }

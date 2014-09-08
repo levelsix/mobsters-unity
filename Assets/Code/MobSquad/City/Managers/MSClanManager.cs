@@ -175,7 +175,7 @@ public class MSClanManager : MonoBehaviour
 		
 		if (response.status != RetrieveClanInfoResponseProto.RetrieveClanInfoStatus.SUCCESS)
 		{
-			Debug.LogError("Problem searching clans: " + response.status.ToString());
+			Debug.LogError("Problem searching squads: " + response.status.ToString());
 		}
 		else
 		{
@@ -189,42 +189,42 @@ public class MSClanManager : MonoBehaviour
 	/// </summary>
 	/// <returns>The or apply to clan.</returns>
 	/// <param name="clanId">Clan identifier.</param>
-	public void JoinOrApplyToClan(int clanId)
+	public IEnumerator JoinOrApplyToClan(int clanId)
 	{
 		RequestJoinClanRequestProto request = new RequestJoinClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.clanId = clanId;
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REQUEST_JOIN_CLAN_EVENT, DealWithJoinApplyResponse);
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REQUEST_JOIN_CLAN_EVENT);
 
-	}
-
-	public void DealWithJoinApplyResponse(int tagNum)
-	{
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
 
 		RequestJoinClanResponseProto response = UMQNetworkManager.responseDict[tagNum] as RequestJoinClanResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
 		switch (response.status) 
 		{
-		case RequestJoinClanResponseProto.RequestJoinClanStatus.SUCCESS_REQUEST:
-			pendingClanInvites.Add (response.clanId);
-			break;
-		case RequestJoinClanResponseProto.RequestJoinClanStatus.SUCCESS_JOIN:
+			case RequestJoinClanResponseProto.RequestJoinClanStatus.SUCCESS_REQUEST:
+				pendingClanInvites.Add (response.clanId);
+				break;
+			case RequestJoinClanResponseProto.RequestJoinClanStatus.SUCCESS_JOIN:
 
-			userClanId = response.clanId;
-			userClanStatus = response.requester.clanStatus;
+				userClanId = response.clanId;
+				userClanStatus = response.requester.clanStatus;
 
-			pendingClanInvites.Clear();
+				pendingClanInvites.Clear();
 
-			if (MSActionManager.Clan.OnPlayerClanChange != null)
-			{
-				MSActionManager.Clan.OnPlayerClanChange(userClanId, userClanStatus, response.minClan.clanIconId);
-			}
-			break;
-		default:
-			Debug.LogError("Problem joining clan: " + response.status.ToString());
-			break;
+				if (MSActionManager.Clan.OnPlayerClanChange != null)
+				{
+					MSActionManager.Clan.OnPlayerClanChange(userClanId, userClanStatus, response.minClan.clanIconId);
+				}
+				break;
+			default:
+				Debug.LogError("Problem joining squad: " + response.status.ToString());
+				break;
 		}
 	}
 
@@ -266,7 +266,7 @@ public class MSClanManager : MonoBehaviour
 	/// Leaves the current clan.
 	/// PRECONDITION: User must be part of a clan
 	/// </summary>
-	public void LeaveClan()
+	public IEnumerator LeaveClan()
 	{
 		LeaveClanRequestProto request = new LeaveClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -279,17 +279,19 @@ public class MSClanManager : MonoBehaviour
 			MSActionManager.Clan.OnPlayerClanChange(userClanId, UserClanStatus.MEMBER, 0);
 		}
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LEAVE_CLAN_EVENT, DealWithLeaveClanResponse);
-	}
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LEAVE_CLAN_EVENT);
+	
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
 
-	public void DealWithLeaveClanResponse(int tagNum)
-	{
 		LeaveClanResponseProto response = UMQNetworkManager.responseDict[tagNum] as LeaveClanResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
 		if (response.status != LeaveClanResponseProto.LeaveClanStatus.SUCCESS)
 		{
-			Debug.LogError("Problem leaving clan: " + response.status.ToString());
+			Debug.LogError("Problem leaving squad: " + response.status.ToString());
 		}
 	}
 
@@ -326,13 +328,18 @@ public class MSClanManager : MonoBehaviour
 
 		if (response.status != CreateClanResponseProto.CreateClanStatus.SUCCESS)
 		{
-			Debug.LogError("Problem creating clan: " + response.status.ToString());
+			Debug.LogError("Problem creating squad: " + response.status.ToString());
 		}
 		else
 		{
 			userClanId = response.clanInfo.clanId;
-			userClanStatus = UserClanStatus.MEMBER;
+			userClanStatus = UserClanStatus.LEADER;
 			isLeader = true;
+
+			if (MSActionManager.Clan.OnPlayerClanChange != null)
+			{
+				MSActionManager.Clan.OnPlayerClanChange(userClanId, userClanStatus, iconId);
+			}
 		}
 
 		loadLock.Unlock();
@@ -356,7 +363,7 @@ public class MSClanManager : MonoBehaviour
 
 		if (response.status != TransferClanOwnershipResponseProto.TransferClanOwnershipStatus.SUCCESS)
 		{
-			Debug.LogError("Problem transfering clan ownership: " + response.status.ToString());
+			Debug.LogError("Problem transfering squad ownership: " + response.status.ToString());
 		}
 		else
 		{

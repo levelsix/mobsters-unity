@@ -208,13 +208,13 @@ public class MSHospitalManager : MonoBehaviour {
 		
 		loadLock.Lock();
 
-		if (healRequestProto != null)
-		{
-			yield return DoSendHealRequest();
-		}
-
 		if (!MSTutorialManager.instance.inTutorial)
 		{
+			if (healRequestProto != null)
+			{
+				yield return DoSendHealRequest();
+			}
+
 			HealMonsterRequestProto request = new HealMonsterRequestProto();
 			request.sender = MSWhiteboard.localMupWithResources;
 
@@ -251,6 +251,13 @@ public class MSHospitalManager : MonoBehaviour {
 			{
 				MSPopupManager.instance.CreatePopup("Error", "Sorry, a problem happened with the server!",
 				                                    new string[] {"Okay"}, new string[] {"greenmenuoption"}, new Action[] {MSActionManager.Popup.CloseTopPopupLayer});
+			}
+		}
+		else
+		{
+			while(MSHospitalManager.instance.healingMonsters.Count > 0)
+			{
+				CompleteHeal(MSHospitalManager.instance.healingMonsters[0]);
 			}
 		}
 

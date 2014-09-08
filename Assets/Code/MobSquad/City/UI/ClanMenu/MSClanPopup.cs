@@ -72,8 +72,8 @@ public class MSClanPopup : MonoBehaviour
 	{
 		if (MSClanManager.userClanId > 0)
 		{
-			leftTab.Init(ClanPopupMode.DETAILS, true);
-			rightTab.Init(ClanPopupMode.BROWSE, false);
+			rightTab.Init(ClanPopupMode.DETAILS, true);
+			leftTab.Init(ClanPopupMode.BROWSE, false);
 		}
 		else
 		{
@@ -207,5 +207,6 @@ public class MSClanPopup : MonoBehaviour
 		{
 			GoToDetails(clanId, false);
 		}
+		RefreshTabs();
 	}
 }

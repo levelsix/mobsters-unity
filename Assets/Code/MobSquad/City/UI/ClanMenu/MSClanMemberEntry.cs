@@ -110,10 +110,11 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 		this.listScreen = listScreen;
 
 		//Only have the settings button open if the player is a leader or a JR leader and the other player is lower
-		openSettingsButton.SetActive (user.minUserProtoWithLevel.minUserProto.userId != MSWhiteboard.localMup.userId
+		openSettingsButton.SetActive (MSWhiteboard.localUser.clan != null && MSWhiteboard.localUser.clan.clanId == user.minUserProtoWithLevel.minUserProto.clan.clanId
+			&& user.minUserProtoWithLevel.minUserProto.userId != MSWhiteboard.localMup.userId
 			&& (MSClanManager.instance.playerClan.status == UserClanStatus.LEADER
 		    || (MSClanManager.instance.playerClan.status == UserClanStatus.JUNIOR_LEADER
-		    && (int)user.clanStatus >= 3)));
+		    && (int)user.clanStatus < (int)MSClanManager.instance.playerClan.status)));
 
 		settingsRoot.ResetAlpha(false);
 		isFading = false;

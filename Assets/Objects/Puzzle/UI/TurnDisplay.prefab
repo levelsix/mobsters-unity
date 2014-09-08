@@ -141,7 +141,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 93.0199966, y: 9, z: 0}
+  m_LocalPosition: {x: 92.2999878, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400006}
@@ -201,8 +201,40 @@ MonoBehaviour:
   newIconPosition: {x: 360, y: 0, z: 0}
   numTurnsToDisplay: 3
   turnGrid: {fileID: 11400004}
-  currentBorder: {fileID: 11400010}
+  currentBorder: {fileID: 400012}
   timeBetweenFlips: .100000001
+  jumpTargetY: 40
+  timeForJump: 1
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: -.00625000149
+      inSlope: 3.40146685
+      outSlope: 3.40146685
+      tangentMode: 10
+    - time: .295891881
+      value: 1.00021636
+      inSlope: -.000673055649
+      outSlope: -.000673055649
+      tangentMode: 10
+    - time: .591666698
+      value: -.00624999963
+      inSlope: -.381798625
+      outSlope: -.381798625
+      tangentMode: 10
+    - time: .788899124
+      value: .514288902
+      inSlope: .102427483
+      outSlope: .102427483
+      tangentMode: 10
+    - time: 1.00014043
+      value: 5.13540581e-05
+      inSlope: -2.43436074
+      outSlope: -2.43436074
+      tangentMode: 10
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
