@@ -46,6 +46,21 @@ public class MSPopupSwapper : MonoBehaviour {
 	/// </summary>
 	public Vector3 Tween = new Vector3(0f, 0f, 0f);
 
+	[SerializeField]
+	bool SetOriginAtAwake = false;
+
+	void Awake()
+	{
+		if(SetOriginAtAwake)
+		{
+			originA = popupA.transform.localPosition;
+			unsetA = false;
+
+			originB = popupB.transform.localPosition;
+			unsetB = false;
+		}
+	}
+
 	public void Swap(bool resetOrigin = false){
 		switch(activePopup){
 		case Popup.None:

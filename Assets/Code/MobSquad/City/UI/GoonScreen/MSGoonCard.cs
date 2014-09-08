@@ -192,6 +192,7 @@ public class MSGoonCard : MonoBehaviour {
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += CheckRemovedMonster;
 		MSActionManager.Goon.OnEnhanceQueueChanged += OnEnhancementQueueChanged;
 		MSActionManager.Goon.OnMonsterFinishHeal += OnMonsterFinishHeal;
+		MSActionManager.Goon.OnFinnishFeeding += OnMonsterFinishFeed;
 	}
 
 	void OnDisable()
@@ -199,6 +200,7 @@ public class MSGoonCard : MonoBehaviour {
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory -= CheckRemovedMonster;
 		MSActionManager.Goon.OnEnhanceQueueChanged -= OnEnhancementQueueChanged;
 		MSActionManager.Goon.OnMonsterFinishHeal -= OnMonsterFinishHeal;
+		MSActionManager.Goon.OnFinnishFeeding -= OnMonsterFinishFeed;
 	}
 
 	public void Init(PZMonster goon, GoonScreenMode mode)
@@ -808,7 +810,15 @@ public class MSGoonCard : MonoBehaviour {
 	public IEnumerator PhaseOut()
 	{
 		transform.parent = transform.parent.parent;
-		TweenAlpha tween = TweenAlpha.Begin(cardBackground.gameObject, .5f, 0);
+		TweenAlpha tween;
+		if(cardBackground.alpha != 0)
+		{
+			tween = TweenAlpha.Begin(cardBackground.gameObject, .3f, 0);
+		}
+		else
+		{
+			tween = TweenAlpha.Begin(smallBG.gameObject, .3f, 0);
+		}
 		while (tween.tweenFactor < 1)
 		{
 			yield return null;
@@ -847,18 +857,19 @@ public class MSGoonCard : MonoBehaviour {
 			smallBarLabel.text = MSUtil.TimeStringShort(monster.healTimeLeftMillis);
 			break;
 		case MonsterStatus.ENHANCING:
-			if (monster.enhancement.expectedStartTimeMillis <= MSUtil.timeNowMillis)
-			{
-				smallBarRoot.SetActive(true);
-				smallBottomLabel.text = " ";
-				smallBar.fill = 1 - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance);
-				smallBarLabel.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
-			}
-			else
-			{
-				smallBarRoot.SetActive(false);
-				smallBottomLabel.text = monster.enhanceXP + "xp";
-			}
+			//enhancing no longer uses a timer
+//			if (monster.enhancement.expectedStartTimeMillis <= MSUtil.timeNowMillis)
+//			{
+//				smallBarRoot.SetActive(false);
+//				smallBottomLabel.text = " ";
+//				smallBar.fill = 1;// - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance); enhance no longer uses a timer
+//				smallBarLabel.text = "no more timer";//MSUtil.TimeStringShort(monster.enhanceTimeLeft);
+//			}
+//			else
+//			{
+			smallBarRoot.SetActive(false);
+			smallBottomLabel.text = monster.enhanceXP + "xp";
+//			}
 			break;
 		}
 	}

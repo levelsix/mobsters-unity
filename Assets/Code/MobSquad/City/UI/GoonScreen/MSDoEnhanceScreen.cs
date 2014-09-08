@@ -13,12 +13,6 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	public MSMobsterGrid grid;
 
 	[SerializeField]
-	UILabel timeLeft;
-
-	[SerializeField]
-	MSUIHelper timeHelper;
-
-	[SerializeField]
 	UILabel currExpNeeded;
 
 	[SerializeField]
@@ -31,6 +25,9 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	[SerializeField]
 	UILabel levelLabel;
+
+	[SerializeField]
+	UILabel resultLevel;
 
 	[SerializeField]
 	MSFillBar bottomBar;
@@ -103,11 +100,22 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		{
 			MSMonsterManager.instance.RemoveFromEnhanceQueue(enhanceMonster);
 		}
-		MSMonsterManager.instance.DoSendStartEnhanceRequest();
+		//no longer uses the timer way
+//		MSMonsterManager.instance.DoSendStartEnhanceRequest();
+		MSMonsterManager.instance.ClearEnhanceQueue();
 	}
 
 	void RefreshStats()
 	{
+		int totalCost = 0;
+		foreach(PZMonster monster in feeders)
+		{
+			totalCost += monster.enhanceXP;
+		}
+
+		finishButtonLabel.text = "Enhance\n(o) " + totalCost;
+		
+
 		//Get future level
 		futureLevel = enhanceMonster.LevelWithFeeders(feeders);
 
@@ -131,6 +139,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		int next = Mathf.FloorToInt(futureLevel + 1);
 		int xpNext = enhanceMonster.XpForLevel(next) - enhanceMonster.ExpWithFeeders(feeders);
 
+		resultLevel.text = "Level " + Mathf.FloorToInt(futureLevel);
 		currExpNeeded.text = xpNext + "xp";
 		neededForLevel.text = "Needed for level " + next;
 
@@ -144,7 +153,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		if (feeders.Count > 0)
 		{
 			float currXp = enhanceMonster.userMonster.currentExp + 
-				feeders[0].enhanceProgress * feeders[0].enhanceXP;
+				/*feeders[0].enhanceProgress*/1 * feeders[0].enhanceXP;
 			float currLevel = enhanceMonster.LevelForMonster(currXp);
 			levelLabel.text = "Level " + ((int)currLevel) + ":";
 			topBar.fill = currLevel % 1;
@@ -167,20 +176,22 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		}
 	}
 
-	void Update()
-	{
-		if (feeders.Count == 0)
-		{
-			timeHelper.ResetAlpha(false);
-		}
-		else
-		{
-			timeHelper.ResetAlpha(true);
-			timeLeft.text = MSUtil.TimeStringShort(feeders[feeders.Count-1].enhanceTimeLeft);
-			finishButtonLabel.text = "Finish\n(G) " + MSMath.GemsForTime(feeders[feeders.Count-1].enhanceTimeLeft);
-			RefreshBar();
-		}
-	}
+	//no longer uses a timer
+//	void Update()
+//	{
+//		if (feeders.Count == 0)
+//		{
+//			timeHelper.ResetAlpha(false);
+//		}
+//		else
+//		{
+//			timeHelper.ResetAlpha(true);
+//			timeLeft.text = MSUtil.TimeStringShort(feeders[feeders.Count-1].enhanceTimeLeft);
+//			finishButtonLabel.text = "Finish\n(G) " + MSMath.GemsForTime(feeders[feeders.Count-1].enhanceTimeLeft);
+//			RefreshBar();
+//		}
+//	}
+
 
 	public void AddMonster(MSGoonCard card)
 	{
@@ -194,7 +205,19 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	public void Finish()
 	{
-		MSMonsterManager.instance.DoSpeedUpEnhance(MSMath.GemsForTime(feeders[feeders.Count-1].enhanceTimeLeft), loadLock);
+		//no longer uses a timer
+		//MSMonsterManager.instance.DoSpeedUpEnhance(MSMath.GemsForTime(feeders[feeders.Count-1].enhanceTimeLeft), loadLock);
+		int totalCost = 0;
+		foreach(PZMonster monster in feeders)
+		{
+			totalCost += monster.enhanceXP;
+		}
+		if(MSResourceManager.instance.Spend(ResourceType.OIL, totalCost, delegate {
+			MSMonsterManager.instance.DoEnhanceRequest(0, Mathf.CeilToInt(totalCost * MSWhiteboard.constants.gemsPerResource),loadLock);
+		}))
+		{
+			MSMonsterManager.instance.DoEnhanceRequest(totalCost, 0, loadLock);
+		}
 	}
 
 	public void Back()

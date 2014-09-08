@@ -7,6 +7,9 @@ using com.lvl6.proto;
 public class MSTaskMap : MonoBehaviour {
 
 	Vector3 worldPosition;
+
+	[SerializeField]
+	MSMapTaskPopupSwitcher switcher;
 	
 	[SerializeField]
 	MSSimplePoolable mapTaskButton;
@@ -133,6 +136,11 @@ public class MSTaskMap : MonoBehaviour {
 		{
 			nextTask.OnClick();
 		}
+	}
+
+	public void OnClick()
+	{
+		switcher.activateEventPopup();
 	}
 
 }

@@ -197,7 +197,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: diamond
   mType: 0
   mFillDirection: 4
@@ -247,7 +247,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 4
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: topbarbg
   mType: 1
   mFillDirection: 4
@@ -298,8 +298,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.33333325
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 43accbc6354884bcaab9cbea7b540cd3, type: 2}
   mText: "9,999\x03"
   mFontSize: 22
   mFontStyle: 0
@@ -335,7 +335,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource: 3
   time: 1
-  target: 0
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -351,8 +350,10 @@ MonoBehaviour:
   closeTop: 0
   funds: {fileID: 0}
   monsters: {fileID: 0}
-  Building: {fileID: 0}
-  activeButton: 0
+  building: {fileID: 0}
+  badge: {fileID: 0}
+  shortCutButton: 1
+  shortCutTo: 0
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -427,7 +428,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: addgems
   mType: 1
   mFillDirection: 4

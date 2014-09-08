@@ -378,12 +378,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec7972db29424843adc59d1b93e41c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tweenTime: .5
+  tweenTime: .300000012
   popupA: {fileID: 100000}
   popupB: {fileID: 100006}
   activePopup: 0
   waitThenReverse: 1
   Tween: {x: 0, y: -110, z: 0}
+  SetOriginAtAwake: 1
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,10 +420,10 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5006
+  startingRenderQueue: 5015
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: 0, z: 960, w: 640}
+  mClipRange: {x: -.589324951, y: 0, z: 960.589294, w: 640}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 7
   mSortingOrder: 0
