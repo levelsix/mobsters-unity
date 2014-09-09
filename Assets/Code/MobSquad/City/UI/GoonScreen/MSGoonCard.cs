@@ -116,6 +116,9 @@ public class MSGoonCard : MonoBehaviour {
 	[SerializeField]
 	UILabel mediumScientistCount;
 
+	[SerializeField]
+	GameObject lockIcon;
+
 	#endregion
 	
 	#endregion
@@ -332,7 +335,18 @@ public class MSGoonCard : MonoBehaviour {
 		mediumRemove.SetActive(false);
 		mediumBottomBG.SetActive(true);
 		mediumRibbonHelper.SetActive(true);
-		mediumBottomlabel.text = goon.enhanceXP + "xp";
+
+		if (goon.restricted)
+		{
+			mediumBottomlabel.text = "Locked";
+			lockIcon.SetActive(true);
+			TintElements(true);
+		}
+		else
+		{
+			TintElements(false);
+			mediumBottomlabel.text = goon.enhanceXP + "xp";
+		}
 
 		//Small gets fiddled with on Update
 
@@ -427,10 +441,24 @@ public class MSGoonCard : MonoBehaviour {
 
 		infoButton.SetActive(false);
 
-		SetName();
+		if (goon.restricted)
+		{
+			TintElements(true);
+			lockIcon.SetActive(true);
+			bottomCardLabel.text = "Locked";
+			healCostLabel.text = " ";
+			name = "0";
+		}
+		else
+		{
+			TintElements(false);
 
-		healCostLabel.text = "$" + goon.sellValue;
-		healCostLabel.color = Color.green;
+			name = goon.sellValue.ToString();
+
+			healCostLabel.text = "$" + goon.sellValue;
+			healCostLabel.color = Color.green;
+		}
+
 	}
 
 	void SetEnhancementBonusText()
@@ -447,6 +475,7 @@ public class MSGoonCard : MonoBehaviour {
 
 	void Setup(PZMonster goon)
 	{
+		lockIcon.SetActive(false);
 		bigHelper.ResetAlpha(true);
 		mediumHelper.ResetAlpha(false);
 		smallHelper.ResetAlpha(false);
@@ -693,6 +722,8 @@ public class MSGoonCard : MonoBehaviour {
 
 	void AddToSellQueue()
 	{
+		if (monster.restricted) return;
+
 		//Look for another monster that's not this monster, is complete, and isn't in the sell queue.
 		//If we can't find that, we can't sell this monster because it's our last.
 		if (MSMonsterManager.instance.userMonsters.Find(x => (x != monster && x.userMonster.isComplete)

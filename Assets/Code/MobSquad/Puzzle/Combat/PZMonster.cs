@@ -137,6 +137,7 @@ public class PZMonster {
 	{
 		get
 		{
+			if (restricted) return 0;
 			int xp = userMonster.currentLvl * monster.lvlInfo[0].feederExp;
 			if (MSMonsterManager.instance.currentEnhancementMonster != null
 			    && MSMonsterManager.instance.currentEnhancementMonster.monster.monsterElement
@@ -236,6 +237,7 @@ public class PZMonster {
 	{
 		get
 		{
+			if (restricted) return 0;
 			return Mathf.CeilToInt((userMonster.currentLvl + userMonster.currentExp) 
 				* ((float)userMonster.numPieces) / monster.numPuzzlePieces);
 		}
@@ -336,6 +338,26 @@ public class PZMonster {
 				_offsenisveSkill = MSDataManager.instance.Get<SkillProto>(monster.baseOffensiveSkillId);
 			}
 			return _offsenisveSkill;
+		}
+	}
+
+	public bool restricted
+	{
+		get
+		{
+			return userMonster.isRestrictd;
+		}
+		set
+		{
+			userMonster.isRestrictd = value;
+			if (userMonster.isRestrictd)
+			{
+				MSMonsterManager.instance.RestrictMonster(userMonster.userMonsterId);
+			}
+			else
+			{
+				MSMonsterManager.instance.UnrestrictMonster(userMonster.userMonsterId);
+			}
 		}
 	}
 

@@ -273,17 +273,17 @@ public class MSClanManager : MonoBehaviour
 
 		userClanId = 0;
 		playerClan = null;
-		
-		if (MSActionManager.Clan.OnPlayerClanChange != null)
-		{
-			MSActionManager.Clan.OnPlayerClanChange(userClanId, UserClanStatus.MEMBER, 0);
-		}
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LEAVE_CLAN_EVENT);
 	
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
 			yield return null;
+		}
+		
+		if (MSActionManager.Clan.OnPlayerClanChange != null)
+		{
+			MSActionManager.Clan.OnPlayerClanChange(userClanId, UserClanStatus.MEMBER, 0);
 		}
 
 		LeaveClanResponseProto response = UMQNetworkManager.responseDict[tagNum] as LeaveClanResponseProto;

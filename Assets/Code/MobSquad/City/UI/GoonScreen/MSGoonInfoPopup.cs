@@ -54,9 +54,18 @@ public class MSGoonInfoPopup : MonoBehaviour {
 	UIButton heartButton;
 
 	[SerializeField]
+	UIButton restrictedButton;
+
+	[SerializeField]
 	MSUIHelper heartHelper;
 
+	[SerializeField]
+	MSUIHelper restrictedHelper;
+
 	PZMonster currMonster;
+
+	const string RESTRICTED_SPRITENAME = "lockedactive";
+	const string UNRESTRICTED_SPRITENAME = "lockedinactive";
 
 	public void Init(PZMonster monster)
 	{
@@ -90,11 +99,14 @@ public class MSGoonInfoPopup : MonoBehaviour {
 		heartHelper.TurnOn();
 		heartHelper.ResetAlpha(true);
 
+		restrictedHelper.TurnOn();
+		restrictedHelper.ResetAlpha(true);
+
 		backButton.TurnOff();
 		backButton.ResetAlpha(false);
 
-		heartButton.normalSprite = heartButton.GetComponent<UISprite>().spriteName = (currMonster.monster.monsterId == MSWhiteboard.localUser.avatarMonsterId) ?
-			"activeheart" : "inactiveheart";
+		SetHeartSprite();
+		SetRestrictSprite();
 	}
 
 	public void SetMobsterAsAvatar()
@@ -111,10 +123,27 @@ public class MSGoonInfoPopup : MonoBehaviour {
 					delegate { 
 						MSActionManager.Popup.CloseTopPopupLayer();
 						MSMonsterManager.instance.SetMobsterAsAvatar(currMonster.monster.monsterId);
+						SetHeartSprite();
 					}
 				}
 			);
 		}
+	}
 
+	public void FlipRestricted()
+	{
+		currMonster.restricted = !currMonster.restricted;
+		SetRestrictSprite();
+	}
+
+	void SetHeartSprite()
+	{
+		heartButton.normalSprite = heartButton.GetComponent<UISprite>().spriteName = (currMonster.monster.monsterId == MSWhiteboard.localUser.avatarMonsterId) ?
+			"avataractive" : "avatarinactive";
+	}
+
+	void SetRestrictSprite()
+	{
+		restrictedButton.normalSprite = restrictedButton.GetComponent<UISprite>().spriteName = currMonster.restricted ? RESTRICTED_SPRITENAME : UNRESTRICTED_SPRITENAME;
 	}
 }

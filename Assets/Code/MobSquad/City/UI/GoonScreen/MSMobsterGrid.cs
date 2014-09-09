@@ -15,6 +15,8 @@ public class MSMobsterGrid : MonoBehaviour {
 
 	[SerializeField] bool evoReady = false;
 
+	GoonScreenMode mode;
+
 	public int Count
 	{
 		get
@@ -25,6 +27,7 @@ public class MSMobsterGrid : MonoBehaviour {
 
 	public void Init(GoonScreenMode mode)
 	{
+		this.mode = mode;
 		RecycleCards();
 		foreach (var mobster in MSMonsterManager.instance.userMonsters) 
 		{
@@ -108,6 +111,7 @@ public class MSMobsterGrid : MonoBehaviour {
 
 	public void Reposition()
 	{
+		SetSort();
 		grid.Reposition();
 		if (noMobstersLabel != null)
 		{
@@ -122,6 +126,23 @@ public class MSMobsterGrid : MonoBehaviour {
 		}
 	}
 
+	void SetSort()
+	{
+		switch (mode) {
+		case GoonScreenMode.SELL:
+			grid.sorting = UIGrid.Sorting.Custom;
+			grid.onCustomSort = ReverseCompareSellPrices;
+			break;
+		case GoonScreenMode.DO_ENHANCE:
+			grid.sorting = UIGrid.Sorting.Custom;
+			grid.onCustomSort = ReverseCompareExp;
+			break;
+		default:
+			grid.sorting = UIGrid.Sorting.Alphabetic;
+			break;
+		}
+	}
+
 	bool IsMonsterEvoBuddy(PZMonster mon)
 	{
 		foreach (var item in cards) 
@@ -133,4 +154,7 @@ public class MSMobsterGrid : MonoBehaviour {
 		}
 		return false;
 	}
+
+	int ReverseCompareSellPrices(Transform a, Transform b){return a.GetComponent<MSGoonCard>().monster.sellValue.CompareTo(b.GetComponent<MSGoonCard>().monster.sellValue) * -1;}
+	int ReverseCompareExp(Transform a, Transform b){return a.GetComponent<MSGoonCard>().monster.enhanceXP.CompareTo(b.GetComponent<MSGoonCard>().monster.enhanceXP) * -1;}
 }
