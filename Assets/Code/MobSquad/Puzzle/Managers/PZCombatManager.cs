@@ -777,7 +777,7 @@ public class PZCombatManager : MonoBehaviour {
 					}
 					else if (item.taskMonster.puzzlePieceDropped)
 					{
-						pieces.Add(item.monster);
+						pieces.Add( MSDataManager.instance.Get<MonsterProto>(item.monster.monsterId));
 					}
 				}
 			}
