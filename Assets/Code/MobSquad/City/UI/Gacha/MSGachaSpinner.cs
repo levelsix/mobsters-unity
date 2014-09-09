@@ -57,7 +57,11 @@ public class MSGachaSpinner : MonoBehaviour {
 	
 	public void SpinOnce()
 	{
-		if (MSResourceManager.instance.Spend(ResourceType.GEMS, boosterPack.gemPrice))
+		if( MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
+		{
+			StartCoroutine(SpinTimes(1));
+		}
+		else if (MSResourceManager.instance.Spend(ResourceType.GEMS, boosterPack.gemPrice))
 		{
 			StartCoroutine(SpinTimes(1));
 		}
@@ -128,6 +132,7 @@ public class MSGachaSpinner : MonoBehaviour {
 		request.sender = MSWhiteboard.localMup;
 		request.boosterPackId = boosterPack.boosterPackId;
 		request.clientTime = MSUtil.timeNowMillis;
+		request.freeBoosterPack = MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_BOOSTER_PACK_EVENT, null);
 		
@@ -156,10 +161,19 @@ public class MSGachaSpinner : MonoBehaviour {
 			
 			reveal.Init(response.prize);
 			Debug.Log("Prize: " + response.prize.boosterItemId + ", " + response.prize.isComplete + ", " + response.prize.monsterId);
+
+			if(MSActionManager.Gacha.OnPurchaseBoosterSucces != null)
+			{
+				MSActionManager.Gacha.OnPurchaseBoosterSucces();
+			}
 		}
 		else
 		{
 			Debug.LogWarning("Purchase booster fail: " + response.status.ToString());
+			if(MSActionManager.Gacha.OnPurchaseBoosterFail != null)
+			{
+				MSActionManager.Gacha.OnPurchaseBoosterFail();
+			}
 		}
 		
 		MSGachaItem theOne = lastToLoop;

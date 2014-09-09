@@ -23,7 +23,14 @@ public class MSTabButton : MonoBehaviour {
 	[SerializeField]
 	MSPopup popup;
 	
+	[SerializeField]
 	public MSBadge badge;
+
+	/// <summary>
+	/// This badge is in case a tab needs to display a badge in two locations at the same time
+	/// </summary>
+	[SerializeField]
+	public MSBadge secondaryBadge;
 
 	enum Tab{
 		BUILDING,

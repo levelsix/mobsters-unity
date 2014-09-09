@@ -158,48 +158,48 @@ public class PZMonster {
 		}
 	}
 	
-	public long enhanceTimeLeft
-	{
-		get
-		{
-			if (enhancement == null)
-			{
-				return 0;
-			}
-			return finishEnhanceTime - MSUtil.timeNowMillis;
-		}
-	}
+//	public long enhanceTimeLeft
+//	{
+//		get
+//		{
+//			if (enhancement == null)
+//			{
+//				return 0;
+//			}
+//			return finishEnhanceTime - MSUtil.timeNowMillis;
+//		}
+//	}
 
-	public float enhanceProgress
-	{
-		get
-		{
-			return 1 - ((float)enhanceTimeLeft) / ((float)timeToUseEnhance);
-		}
-	}
+//	public float enhanceProgress
+//	{
+//		get
+//		{
+//			return 1 - ((float)enhanceTimeLeft) / ((float)timeToUseEnhance);
+//		}
+//	}
 	
-	public long timeToUseEnhance
-	{
-		get
-		{
-			return (long)(enhanceXP/MSBuildingManager.enhanceLabs[0].combinedProto.lab.pointsPerSecond) * 1000;
-		}
-	}
+//	public long timeToUseEnhance
+//	{
+//		get
+//		{
+//			return (long)(enhanceXP/MSBuildingManager.enhanceLabs[0].combinedProto.lab.pointsPerSecond) * 1000;
+//		}
+//	}
 	
-	public long finishEnhanceTime
-	{
-		get
-		{
-			if (enhancement == null || enhancement.expectedStartTimeMillis == 0) 
-			{
-				return 0;
-			}
-			else
-			{
-				return enhancement.expectedStartTimeMillis + timeToUseEnhance;
-			}
-		}
-	}
+//	public long finishEnhanceTime
+//	{
+//		get
+//		{
+//			if (enhancement == null || enhancement.expectedStartTimeMillis == 0) 
+//			{
+//				return 0;
+//			}
+//			else
+//			{
+//				return enhancement.expectedStartTimeMillis + timeToUseEnhance;
+//			}
+//		}
+//	}
 	
 	public long finishCombineTime
 	{

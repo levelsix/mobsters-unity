@@ -311,13 +311,13 @@ public class MSBottomBar : MonoBehaviour {
 				buttonHeader.text = "FINISH";
 				timeLeftHeader.text = "Time Left";
 				break;
-			case GoonScreenMode.DO_ENHANCE:
-				timeLeft = MSMonsterManager.instance.lastEnhance - MSUtil.timeNowMillis;
-				timeLeftLabel.text = MSUtil.TimeStringShort(timeLeft);
-				buttonHeader.text = "FINISH";
-				rightSideButton.label.text = "(g) " + MSMath.GemsForTime(timeLeft);
-				timeLeftHeader.text = "Time Left";
-				break;
+//			case GoonScreenMode.DO_ENHANCE:
+//				timeLeft = MSMonsterManager.instance.lastEnhance - MSUtil.timeNowMillis;
+//				timeLeftLabel.text = MSUtil.TimeStringShort(timeLeft);
+//				buttonHeader.text = "FINISH";
+//				rightSideButton.label.text = "(g) " + MSMath.GemsForTime(timeLeft);
+//				timeLeftHeader.text = "Time Left";
+//				break;
 			case GoonScreenMode.SELL:
 				rightSideButton.label.text = "$" + currSellValue;
 				buttonHeader.text = "SELL";

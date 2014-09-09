@@ -95,14 +95,20 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 		switch(pEvent.type)
 		{
 		case PersistentEventProto.EventType.ENHANCE:
-			enhanceEvent.init(pEvent);
-			swapper.SwapIn(enhanceEvent.gameObject, delegate {}, ZeroAnchors(enhanceEvent.GetComponent<UISprite>()));
-			curPopup = Popup.ENHANCE;
+			if(curPopup != Popup.ENHANCE)
+			{
+				enhanceEvent.init(pEvent);
+				swapper.SwapIn(enhanceEvent.gameObject, delegate {}, ZeroAnchors(enhanceEvent.GetComponent<UISprite>()));
+				curPopup = Popup.ENHANCE;
+			}
 			break;
 		case PersistentEventProto.EventType.EVOLUTION:
-			evolutionEvent.init(pEvent);
-			swapper.SwapIn(evolutionEvent.gameObject, delegate {}, ZeroAnchors(evolutionEvent.GetComponent<UISprite>()));
-			curPopup = Popup.EVO;
+			if(curPopup != Popup.EVO)
+			{
+				evolutionEvent.init(pEvent);
+				swapper.SwapIn(evolutionEvent.gameObject, delegate {}, ZeroAnchors(evolutionEvent.GetComponent<UISprite>()));
+				curPopup = Popup.EVO;
+			}
 			break;
 		default:
 			Debug.LogError("An unknown event type was detected!Type:" + pEvent.type.ToString());

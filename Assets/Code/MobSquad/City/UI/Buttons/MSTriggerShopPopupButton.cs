@@ -35,12 +35,16 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 	[SerializeField]
 	Button shortCutTo;
 
+	const string redBadge = "badgeicon";
+	const string blueBadge = "basic1spin";
+
 	void OnEnable()
 	{
 		if(!shortCutButton)
 		{
 			MSActionManager.Loading.OnBuildingsLoaded += UpdateBadge;
 			MSActionManager.Town.PlaceBuilding += UpdateBadge;
+			MSActionManager.Gacha.OnPurchaseBoosterSucces += UpdateBadge;
 			if (MSTutorialManager.instance != null && MSTutorialManager.instance.inTutorial && badge != null)
 			{
 				UpdateBadge();
@@ -55,6 +59,7 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 		{
 			MSActionManager.Loading.OnBuildingsLoaded -= UpdateBadge;
 			MSActionManager.Town.PlaceBuilding -= UpdateBadge;
+			MSActionManager.Gacha.OnPurchaseBoosterSucces -= UpdateBadge;
 		}
 	}
 
@@ -81,10 +86,24 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 	}
 
 	void UpdateBadge(){
-		//TODO: add free gatcha stuff
-		int availableBuildings = MSBuildingManager.instance.CapacityForBuildings();//add free gacha count
-		badge.notifications = availableBuildings;
+		int availableBuildings = MSBuildingManager.instance.CapacityForBuildings();
+		if( MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
+		{
+			badge.sprite.spriteName = blueBadge;
+			badge.notifications = 1;
+			monsters.badge.notifications = 1;
+			monsters.secondaryBadge.notifications = 1;
+		}
+		else
+		{
+			monsters.badge.notifications = 0;
+			monsters.secondaryBadge.notifications = 0;
+			
+			badge.sprite.spriteName = redBadge;
+			badge.notifications = availableBuildings;
+		}
 
 		building.badge.notifications = availableBuildings;
+
 	}
 }

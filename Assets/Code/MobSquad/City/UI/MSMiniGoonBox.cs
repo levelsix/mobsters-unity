@@ -157,16 +157,17 @@ public class MSMiniGoonBox : MonoBehaviour {
 			if (bar != null) bar.fill = monster.healProgressPercentage;
 			label.text = MSUtil.TimeStringShort(monster.healTimeLeftMillis);
 		}
-		else if (monster.isEnhancing)
-		{
-			if (MSUtil.timeNowMillis < monster.enhancement.expectedStartTimeMillis)
-			{
-				barBG.alpha = 0;
-				return;
-			}
-			if (bar != null) bar.fill = monster.enhanceProgress;
-			label.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
-		}
+		//there is no longer a timer for enhancing
+//		else if (monster.isEnhancing)
+//		{
+//			if (MSUtil.timeNowMillis < monster.enhancement.expectedStartTimeMillis)
+//			{
+//				barBG.alpha = 0;
+//				return;
+//			}
+//			if (bar != null) bar.fill = monster.enhanceProgress;
+//			label.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
+//		}
 		else if (barBG != null)
 		{
 			barBG.alpha = 0;

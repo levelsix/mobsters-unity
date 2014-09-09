@@ -10,9 +10,11 @@ using com.lvl6.proto;
 /// </summary>
 public class MSBadge : MonoBehaviour {
 
-	[SerializeField] UILabel label;
+	[SerializeField] 
+	UILabel label;
 
-	[SerializeField] UISprite sprite;
+	[SerializeField]
+	public UISprite sprite;
 
 	int _nots = 0;
 

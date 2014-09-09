@@ -108,6 +108,12 @@ public static class MSActionManager
 		public static Action<int> OnChangeClanIcon;
 		public static Action OnLevelUp;
 	}
+
+	public static class Gacha
+	{
+		public static Action OnPurchaseBoosterSucces;
+		public static Action OnPurchaseBoosterFail;
+	}
 	
 	public static class Goon
 	{
@@ -121,6 +127,7 @@ public static class MSActionManager
 		public static Action<PZMonster> OnMonsterFinishHeal;
 		public static Action<long> OnMonsterRemovedFromPlayerInventory;
 		public static Action<PZMonster> OnEvolutionComplete;
+		public static Action<PZMonster> OnFinnishFeeding;
 
 		public static Action OnMonsterListChanged;
 	}
