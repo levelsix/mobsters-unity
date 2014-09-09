@@ -35,6 +35,8 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	public HashSet<string> internalBundles = new HashSet<string>();
 
+	public List<string> internalBundleNames;
+
 	const string AWS = "https://s3-us-west-1.amazonaws.com/lvl6mobsters/Android/";
 	
 	public void Awake()
@@ -46,11 +48,20 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	void BuildInternalBundleList()
 	{
-		DirectoryInfo[] dirs = (new DirectoryInfo("Assets/Resources/Bundles")).GetDirectories();
+#if UNITY_ANDROID && !UNITY_EDITOR
+		foreach (var item in internalBundleNames) {
+			internalBundles.Add(item);
+		}
+#else
+		DirectoryInfo[] dirs = (new DirectoryInfo(Application.dataPath + "/Resources/Bundles")).GetDirectories();
+		string str = "Internal Bundles:";
 		foreach (var item in dirs) 
 		{
 			internalBundles.Add(item.Name);
+			str += "\n" + item.Name;
 		}
+		Debug.Log(str);
+#endif
 	}
 
 	public Sprite GetSprite(string spritePath)
@@ -106,12 +117,12 @@ public class MSSpriteUtil : MonoBehaviour {
 		}
 	}
 
-	public void SetSprite(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha = 1f)
+	public void SetSprite(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha = 1f, Action after = null)
 	{
-		StartCoroutine(SetSpriteCoroutine(bundleName, spriteName, sprite, finalAlpha));
+		StartCoroutine(SetSpriteCoroutine(bundleName, spriteName, sprite, finalAlpha, after));
 	}
 
-	IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha)
+	IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha, Action after = null)
 	{
 		if (internalBundles.Contains(bundleName))
 		{
@@ -124,7 +135,7 @@ public class MSSpriteUtil : MonoBehaviour {
 			}
 			else
 			{
-				sprite.alpha = 1;
+				sprite.alpha = finalAlpha;
 				sprite.MakePixelPerfect();
 			}
 		}
@@ -152,6 +163,10 @@ public class MSSpriteUtil : MonoBehaviour {
 			}
 		}
 
+		if (after != null)
+		{
+			after();
+		}
 	}
 
 	public void RunForEachTypeInBuncle<T>(string bundleName, Action<T> ForEach, Action OnFinish = null) where T :class
@@ -255,7 +270,7 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	public bool HasBundle (string bundleName)
 	{
-		return bundles.ContainsKey(bundleName);
+		return internalBundles.Contains(bundleName) || (bundles.ContainsKey(bundleName) && bundles[bundleName] != null);
 	}
 
 	public Coroutine RunDownloadAndCache(string bundleName)

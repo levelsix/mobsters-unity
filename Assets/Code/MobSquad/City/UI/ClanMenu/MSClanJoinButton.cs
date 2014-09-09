@@ -22,6 +22,9 @@ public class MSClanJoinButton : MonoBehaviour {
 	[SerializeField]
 	UILabel label;
 
+	[SerializeField]
+	MSLoadLock loadLock;
+
 	const string greenButton = "greensmallbutton";
 	const string redButton = "redsmallbutton";
 
@@ -34,6 +37,7 @@ public class MSClanJoinButton : MonoBehaviour {
 		this.clan = clan.clan;
 
 		button.enabled = true;
+		gameObject.SetActive (true);
 		if (MSClanManager.instance.isInClan)
 		{
 			if (MSClanManager.userClanId == clan.clan.clanId)
@@ -47,7 +51,7 @@ public class MSClanJoinButton : MonoBehaviour {
 		}
 		else if (clan.clanSize >= MSWhiteboard.constants.clanConstants.maxClanSize)
 		{
-			SetDisabled(true);
+			SetFull();
 		}
 		else
 		{
@@ -84,12 +88,16 @@ public class MSClanJoinButton : MonoBehaviour {
 		mode = JoinButtonMode.REQUEST;
 	}
 
-	void SetDisabled(bool full = false)
+	void SetFull()
 	{
 		button.enabled = false;
-		if (full) label.text = "FULL";
-		else label.text = "";
+		label.text = "FULL";
 		mode = JoinButtonMode.DISABLED;
+	}
+
+	void SetDisabled()
+	{
+		gameObject.SetActive(false);
 	}
 
 	void OnClick()
@@ -98,26 +106,34 @@ public class MSClanJoinButton : MonoBehaviour {
 		{
 		case JoinButtonMode.JOIN:
 		case JoinButtonMode.REQUEST:
-			DoJoinOrRequest();
+			StartCoroutine(DoJoinOrRequest());
 			break;
 		case JoinButtonMode.LEAVE:
-			DoLeave();
+			StartCoroutine(DoLeave());
 			break;
 		default:
 			break;
 		}
 	}
 
-	void DoLeave()
+	IEnumerator DoLeave()
 	{
-		MSClanManager.instance.LeaveClan();
+		if (loadLock != null) loadLock.Lock();
+
+		yield return StartCoroutine(MSClanManager.instance.LeaveClan());
+
+		if (loadLock != null) loadLock.Unlock();
 	}
 
-	void DoJoinOrRequest()
+	IEnumerator DoJoinOrRequest()
 	{
+		if (loadLock != null) loadLock.Lock();
+
 		if (!MSClanManager.instance.HasRequestedClan(clan.clanId))
 		{
-			MSClanManager.instance.JoinOrApplyToClan(clan.clanId);
+			 yield return StartCoroutine(MSClanManager.instance.JoinOrApplyToClan(clan.clanId));
 		}
+
+		if (loadLock != null) loadLock.Unlock();
 	}
 }

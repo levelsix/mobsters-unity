@@ -239,6 +239,60 @@ public class MSMonsterManager : MonoBehaviour {
 		}
 	}
 
+	public Coroutine RestrictMonster(long userMonsterId)
+	{
+		return StartCoroutine(Restrict(userMonsterId));
+	}
+
+	IEnumerator Restrict(long userMonsterId)
+	{
+		RestrictUserMonsterRequestProto request = new RestrictUserMonsterRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.userMonsterIds.Add(userMonsterId);
+		
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RESTRICT_USER_MONSTER_EVENT);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		RestrictUserMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as RestrictUserMonsterResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != RestrictUserMonsterResponseProto.RestrictUserMonsterStatus.SUCCESS)
+		{
+			Debug.LogError("Problem restricting monster: " + response.status.ToString());
+		}
+	}
+
+	public Coroutine UnrestrictMonster(long userMonsterId)
+	{
+		return StartCoroutine(Unrestrict(userMonsterId));
+	}
+	
+	IEnumerator Unrestrict(long userMonsterId)
+	{
+		UnrestrictUserMonsterRequestProto request = new UnrestrictUserMonsterRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.userMonsterIds.Add(userMonsterId);
+		
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UNRESTRICT_USER_MONSTER_EVENT);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		UnrestrictUserMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as UnrestrictUserMonsterResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != UnrestrictUserMonsterResponseProto.UnrestrictUserMonsterStatus.SUCCESS)
+		{
+			Debug.LogError("Problem unrestricting monster: " + response.status.ToString());
+		}
+	}
+
 	#region Selling
 
 	public void SellMonsters(List<PZMonster> monsters)

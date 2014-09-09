@@ -752,6 +752,15 @@ namespace com.lvl6.proto
       get { return _taskMapConstants; }
       set { _taskMapConstants = value; }
     }
+
+    private int _maxMinutesForFreeSpeedUp = default(int);
+    [global::ProtoBuf.ProtoMember(30, IsRequired = false, Name=@"maxMinutesForFreeSpeedUp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxMinutesForFreeSpeedUp
+    {
+      get { return _maxMinutesForFreeSpeedUp; }
+      set { _maxMinutesForFreeSpeedUp = value; }
+    }
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnimatedSpriteOffsetProto")]
   public partial class AnimatedSpriteOffsetProto : global::ProtoBuf.IExtensible
   {

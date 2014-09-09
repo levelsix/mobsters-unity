@@ -6,7 +6,6 @@ using com.lvl6.proto;
 
 public class MSMapTaskButton : MonoBehaviour {
 
-
 	Transform trans;
 
 	MSTaskable taskable;
@@ -15,6 +14,8 @@ public class MSMapTaskButton : MonoBehaviour {
 	TweenScale scaleTween;
 
 	public UIButton button;
+
+	UISprite buttonSprite;
 
 	[SerializeField]
 	UILabel buttonLabel;
@@ -83,12 +84,14 @@ public class MSMapTaskButton : MonoBehaviour {
 	void Awake(){
 		trans = transform;
 		button = GetComponent<UIButton> ();
+		buttonSprite = GetComponent<UISprite>();
 	}
 
 	void OnEnable(){
 //		halo.alpha = 0f;
 		levelTitle.alpha = 0f;
 		glowRing.gameObject.SetActive(false);
+		collider.enabled = false;
 		MSActionManager.Map.OnMapTaskClicked += Deselect;
 	}
 
@@ -189,5 +192,17 @@ public class MSMapTaskButton : MonoBehaviour {
 
 		scaleTween.ResetToBeginning();
 		scaleTween.PlayForward();
+	}
+
+	void Update()
+	{
+		if (collider.enabled && !buttonSprite.isVisible)
+		{
+			collider.enabled = false;
+		}
+		else if (!collider.enabled && buttonSprite.isVisible)
+		{
+			collider.enabled = true;
+		}
 	}
 }

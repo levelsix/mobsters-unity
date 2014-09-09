@@ -122,6 +122,15 @@ namespace com.lvl6.proto
       get { return _skillValue; }
       set { _skillValue = value; }
     }
+
+    private string _shorterName = "";
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"shorterName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string shorterName
+    {
+      get { return _shorterName; }
+      set { _shorterName = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

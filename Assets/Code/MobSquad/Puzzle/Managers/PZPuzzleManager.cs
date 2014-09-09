@@ -89,6 +89,8 @@ public class PZPuzzleManager : MonoBehaviour {
 	PZGem gemPrefab;
 	
 	public PZGem[,] board;
+
+	public PZJelly[,] jellyBoard;
 	
 	[SerializeField]
 	public string[] gemTypes;
@@ -130,6 +132,9 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	[SerializeField]
 	PZMolotovPart molotovPartPrefab;
+
+	[SerializeField]
+	PZJelly jellyPrefab;
 
 	public float BASE_FALL_SPEED = -250;
 	
@@ -179,6 +184,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		instance = this;
 		
 		board = new PZGem[boardWidth, boardHeight];
+		jellyBoard = new PZJelly[boardWidth, boardHeight];
 		
 		currGems = new int[GEM_TYPES];
 
@@ -229,17 +235,26 @@ public class PZPuzzleManager : MonoBehaviour {
 		boardHeight = task.boardHeight;
 		
 		board = new PZGem[boardWidth, boardHeight];
+		jellyBoard = new PZJelly[boardWidth, boardHeight];
 		
 		boardSprite.width = boardWidth * SPACE_SIZE;
 		boardSprite.height = boardHeight * SPACE_SIZE;
 
 		PZGem gem;
 
-		for (int x = 0; x < boardWidth; x++) {
-			for (int y = 0; y < boardHeight; y++) {
+		for (int x = 0; x < boardWidth; x++) 
+		{
+			for (int y = 0; y < boardHeight; y++) 
+			{
 				gem = MSPoolManager.instance.Get(gemPrefab, Vector3.zero, puzzleParent) as PZGem;
 				gem.SpawnOnMap(save.gemColors[x, y], x);
 				gem.gemType = (PZGem.GemType)save.gemTypes[x,y];
+				if (save.jelly[x,y])
+				{
+					PZJelly jelly = MSPoolManager.instance.Get<PZJelly>(jellyPrefab, puzzleParent);
+					jelly.InitOnBoard(1, x, y);
+					jellyBoard[x,y] = jelly;
+				}
 			}
 		}
 
@@ -255,6 +270,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		boardHeight = h;
 
 		board = new PZGem[w, h];
+		jellyBoard = new PZJelly[w, h];
 
 		boardSprite.width = w * SPACE_SIZE;
 		boardSprite.height = h * SPACE_SIZE;
@@ -317,6 +333,12 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					board[j,i].Pool();
 					board[j,i] = null;
+
+					if (jellyBoard[j,i] != null)
+					{
+						jellyBoard[j,i].Pool();
+						jellyBoard[j,i] = null;
+					}
 				}
 			}
 		}
@@ -1134,6 +1156,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	public void PrintBoard()
 	{
 		string str = "Board";
+		string gem = "";
 		for (int i = boardHeight-1; i >= 0; i--) 
 		{
 			str += "\n";
@@ -1141,16 +1164,27 @@ public class PZPuzzleManager : MonoBehaviour {
 			{
 				if (board[j,i] == null)
 				{
-					str += "e ";
+					gem = "e";
 				}
 				else if (board[j,i].colorIndex < 0)
 				{
-					str += "n ";
+					gem = "n";
 				}
 				else
 				{
-					str += board[j,i].colorIndex + " ";
+					gem = board[j,i].colorIndex.ToString();
 				}
+
+				if (jellyBoard[j,i] != null)
+				{
+					gem = "(" + gem + ") ";
+				}
+				else
+				{
+					gem = " " + gem + "  ";
+				}
+
+				str += gem;
 			}
 		}
 		Debug.Log(str);
@@ -1183,5 +1217,62 @@ public class PZPuzzleManager : MonoBehaviour {
 				Debug.LogError("Gems could not drop into board");
 			}
 		}
+	}
+
+	public void ThrowJellies(int num)
+	{
+		for (int i = 0; i < num; i++) 
+		{
+			ThrowJelly();
+		}
+	}
+
+	[ContextMenu ("Throw Jelly")]
+	public void ThrowJelly()
+	{
+		Vector2 jellyBoardPos = FindJellyPosition();
+		if (jellyBoardPos.x > -1 && jellyBoardPos.y > -1)
+		{
+			int boardX = (int)jellyBoardPos.x;
+			int boardY = (int)jellyBoardPos.y;
+
+			//Init Jelly
+			PZJelly jelly = MSPoolManager.instance.Get<PZJelly>(jellyPrefab, puzzleParent);
+			jelly.Init(PZCombatManager.instance.activeEnemy.transform.position, boardX, boardY);
+			jellyBoard[boardX, boardY] = jelly;
+		}
+		else
+		{
+			Debug.Log("Not enough room for jelly!");
+		}
+	}
+
+	Vector2 FindJellyPosition()
+	{
+		int boardX = UnityEngine.Random.Range(0, boardWidth);
+		int boardY = UnityEngine.Random.Range(0, boardHeight);
+		int xMod = 1;
+		int yMod = 1;
+
+		if (jellyBoard[boardX, boardY] == null) return new Vector2(boardX, boardY);
+		while (xMod < boardWidth && yMod < boardWidth)
+		{
+			for (int x = -xMod; x <= xMod; x++) 
+			{
+				if (boardX+x < 0 || boardX+x >= boardWidth) continue;
+				if (boardY+yMod < boardHeight && jellyBoard[boardX+x, boardY+yMod] == null) return new Vector2(boardX+x, boardY+yMod);
+				if (boardY-yMod >= 0 && jellyBoard[boardX+x, boardY-yMod] == null) return new Vector2(boardX+x, boardY-yMod);
+			}
+			for (int y = -yMod+1; y < yMod; y++) 
+			{
+				if (boardY+y < 0 || boardY+y >= boardHeight) continue;
+				if (boardX+xMod < boardWidth && jellyBoard[boardX+xMod, boardY+y] == null) return new Vector2(boardX+xMod, boardY+y);
+				if (boardX-xMod >= 0 && jellyBoard[boardX-xMod, boardY+y] == null) return new Vector2(boardX-xMod, boardY+y);
+			}
+			xMod++;
+			yMod++;
+		}
+
+		return new Vector2(-1, -1); //This is the error signal!
 	}
 }

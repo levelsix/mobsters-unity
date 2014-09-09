@@ -100,7 +100,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	
 	const float DRAG_THRESHOLD = 70;
 	
-	const float SPACE_SIZE = 72;
+	public const float SPACE_SIZE = 72;
 	
 	public int colorIndex = 0;
 
@@ -230,9 +230,17 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		{
 			if (colorIndex >= 0)
 			{
-				PZDamageNumber damNum = MSPoolManager.instance.Get(PZPuzzleManager.instance.damageNumberPrefab, transf.position) as PZDamageNumber;
-				damNum.Init(this);
-				PZPuzzleManager.instance.currGems[colorIndex]++;
+				PZJelly jelly = PZPuzzleManager.instance.jellyBoard[boardX, boardY];
+				if (jelly != null) //If there's a jelly, prevent the gem from being worth a shit and damage it instead
+				{
+					jelly.Damage();
+				}
+				else
+				{
+					PZDamageNumber damNum = MSPoolManager.instance.Get(PZPuzzleManager.instance.damageNumberPrefab, transf.position) as PZDamageNumber;
+					damNum.Init(this);
+					PZPuzzleManager.instance.currGems[colorIndex]++;
+				}
 			}
 
 			//MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.gemPop);

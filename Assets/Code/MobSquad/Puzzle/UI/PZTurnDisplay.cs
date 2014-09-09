@@ -19,9 +19,15 @@ public class PZTurnDisplay : MonoBehaviour
 
 	[SerializeField] UIGrid turnGrid;
 
-	[SerializeField] TweenPosition currentBorder;
+	[SerializeField] Transform currentBorder;
 
 	[SerializeField] float timeBetweenFlips;
+
+	[SerializeField] float jumpTargetY;
+
+	[SerializeField] float timeForJump;
+
+	[SerializeField] AnimationCurve animationCurve;
 
 	List<PZTurnIcon> icons = new List<PZTurnIcon>();
 
@@ -167,17 +173,19 @@ public class PZTurnDisplay : MonoBehaviour
 
 	IEnumerator MakeCurrentIconJump()
 	{
-		currentBorder.ResetToBeginning();
-		currentBorder.Play();
+		currentBorder.parent = currentIcon.transform;
+		currentBorder.transform.localPosition = Vector3.zero;
 
-		TweenPosition tween = TweenPosition.Begin(currentIcon.gameObject, currentBorder.duration, new Vector3(0, currentBorder.to.y));
+		TweenPosition tween = TweenPosition.Begin(currentIcon.gameObject, timeForJump, new Vector3(0, jumpTargetY));
 		tween.from = Vector3.zero;
-		tween.animationCurve = currentBorder.animationCurve;
+		tween.animationCurve = animationCurve;
 
 		while (tween.tweenFactor < 1)
 		{
 			yield return null;
 		}
+
+		currentBorder.parent = currentBorder.parent.parent.parent;
 	}
 
 	void Recycle()

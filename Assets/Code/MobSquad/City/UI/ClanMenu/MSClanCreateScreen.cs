@@ -20,6 +20,9 @@ public class MSClanCreateScreen : MonoBehaviour {
 	UI2DSprite clanIcon;
 
 	[SerializeField]
+	UILabel clanCostLabel;
+
+	[SerializeField]
 	MSLoadLock loadLock;
 
 	public bool openClan;
@@ -53,6 +56,7 @@ public class MSClanCreateScreen : MonoBehaviour {
 		clanEditting = clan;
 		OnChangeClanIcon(clan.clanIconId);
 		Init ();
+		clanCostLabel.text = "Confirm";
 	}
 
 	void Init()
@@ -68,6 +72,8 @@ public class MSClanCreateScreen : MonoBehaviour {
 		
 		changeClanTypeButton.label.text = OPEN_CLAN_BUTTON_LABEL;
 		openClan = true;
+
+		clanCostLabel.text = "$" + MSWhiteboard.constants.clanConstants.coinPriceToCreateClan;
 	}
 
 	public void ChangeClanType()

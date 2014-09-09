@@ -41,11 +41,9 @@ public class PZMatchParticle : MonoBehaviour {
 
 	public void Init()
 	{
-
 		trans.parent = PZCombatManager.instance.activePlayer.transform;
 		trans.localScale = Vector3.one;
-
-
+		
 		dest = Vector3.zero;
 
 		startVelocity = new Vector3(Random.Range(-1f,1f), Random.Range(-1f,1f)).normalized * startForce;
