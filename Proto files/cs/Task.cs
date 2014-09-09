@@ -217,6 +217,15 @@ namespace com.lvl6.proto
       set { _monsterType = value; }
     }
 
+    private int _level = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"level", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int level
+    {
+      get { return _level; }
+      set { _level = value; }
+    }
+
     private int _expReward = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"expReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -262,15 +271,6 @@ namespace com.lvl6.proto
       set { _puzzlePieceMonsterId = value; }
     }
 
-    private int _level = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"level", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int level
-    {
-      get { return _level; }
-      set { _level = value; }
-    }
-
     private int _itemId = default(int);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"itemId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -296,6 +296,15 @@ namespace com.lvl6.proto
     {
       get { return _defensiveSkillId; }
       set { _defensiveSkillId = value; }
+    }
+
+    private int _puzzlePieceMonsterDropLvl = default(int);
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"puzzlePieceMonsterDropLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int puzzlePieceMonsterDropLvl
+    {
+      get { return _puzzlePieceMonsterDropLvl; }
+      set { _puzzlePieceMonsterDropLvl = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"MonsterType")]
     public enum MonsterType

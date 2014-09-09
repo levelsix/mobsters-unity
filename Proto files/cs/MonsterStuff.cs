@@ -570,6 +570,24 @@ namespace com.lvl6.proto
       get { return _isRestrictd; }
       set { _isRestrictd = value; }
     }
+
+    private int _offensiveSkillId = default(int);
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"offensiveSkillId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int offensiveSkillId
+    {
+      get { return _offensiveSkillId; }
+      set { _offensiveSkillId = value; }
+    }
+
+    private int _defensiveSkillId = default(int);
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"defensiveSkillId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int defensiveSkillId
+    {
+      get { return _defensiveSkillId; }
+      set { _defensiveSkillId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
