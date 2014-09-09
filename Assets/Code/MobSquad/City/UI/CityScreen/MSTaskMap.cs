@@ -30,6 +30,12 @@ public class MSTaskMap : MonoBehaviour {
 	MSMapAvatar avatar;
 
 	/// <summary>
+	/// The right half of the cityMap UI screen
+	/// </summary>
+	[SerializeField]
+	Transform right;
+
+	/// <summary>
 	/// The furthest task the player has unlocked
 	/// </summary>
 	MSMapTaskButton nextTask;
@@ -50,9 +56,17 @@ public class MSTaskMap : MonoBehaviour {
 		trans = transform;
 		limitedDrag = GetComponent<MSDragDropLimited>();
 
+//		//We need to set the parent to be in just the right place so the map slides in just right
+//		//We're also making the assumption here that the parent is infact mapParent
+		Transform parent = trans.parent;
+		parent.position = new Vector3(right.position.x, right.position.y, 0f);
+		parent.localPosition = new Vector3(parent.localPosition.x + 700, parent.localPosition.y, parent.localPosition.z);
+
 		float width = MSMath.uiScreenWidth;
 		float scale = (width - pvpHud.width) / maps.maps[0].width;
 		trans.localScale = new Vector3(scale, scale, scale);
+		trans.localPosition = new Vector3(-(maps.maps[0].width * scale) / 2f, trans.localPosition.y, 0f);
+
 
 		maps.LoadAllMaps(FinishInit);
 	}
@@ -79,8 +93,6 @@ public class MSTaskMap : MonoBehaviour {
 		}
 		
 		float mapLength = maps.Height;
-		//		limitedDrag.min = new Vector2 (0f, -(mapLength - map.height) + (mapLength * (1f - trans.localScale.y)));
-		//		limitedDrag.max = new Vector2 (0f, -(map.height / 2f) * (1f - trans.localScale.y));
 		
 		BoxCollider box = GetComponent<BoxCollider> ();
 		box.size = new Vector3 (map.width, mapLength, 0f);
@@ -119,14 +131,6 @@ public class MSTaskMap : MonoBehaviour {
 			Vector3 newLocation = trans.position;
 			newLocation.y = trans.position.y - nextTask.transform.position.y;
 			trans.position = newLocation;
-//			if (trans.localPosition.y < limitedDrag.min.y)
-//			{
-//				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.min.y, trans.localPosition.z);
-//			}
-//			else if(trans.localPosition.y > limitedDrag.max.y)
-//			{
-//				trans.localPosition = new Vector3(trans.localPosition.x, limitedDrag.max.y, trans.localPosition.z);
-//			}
 		}
 	}
 
