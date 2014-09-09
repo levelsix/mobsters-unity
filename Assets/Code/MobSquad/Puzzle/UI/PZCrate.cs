@@ -49,11 +49,12 @@ public class PZCrate : MonoBehaviour {
 	/// <summary>
 	/// Initialize the crate to have a different sprite based on what is being dropped by the monster.
 	/// </summary>
-	/// <param name="monster">The monster that is dropping the item.</param>
-	public void initCrate(PZMonster monster){
+	/// <param name="taskMonster">dropped item info.</param>
+	public void initCrate(TaskStageMonsterProto taskMonster){
 		foreach (Transform trans in GetComponentsInChildren<Transform> ()) {
 			trans.position = Vector3.zero;
 		}
+		MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(taskMonster.puzzlePieceMonsterId);
 
 		sprite.transform.localScale = Vector3.one;
 
@@ -61,14 +62,14 @@ public class PZCrate : MonoBehaviour {
 		bounceTween.PlayForward ();
 
 
-		if (monster.taskMonster.itemId > 0) {
-			string name = MSDataManager.instance.Get<ItemProto>(monster.taskMonster.itemId).imgName;
+		if (taskMonster.itemId > 0) {
+			string name = MSDataManager.instance.Get<ItemProto>(taskMonster.itemId).imgName;
 			name = name.Substring(0, name.Length - ".png".Length);
 			sprite.spriteName = name;
-		}else if (monster.monster.numPuzzlePieces > 1) {
-			sprite.spriteName = "gacha" + monster.monster.quality.ToString().ToLower() + "piece";
+		}else if (monster.numPuzzlePieces > 1) {
+			sprite.spriteName = "gacha" + monster.quality.ToString().ToLower() + "piece";
 		} else {
-			sprite.spriteName = "gacha" + monster.monster.quality.ToString().ToLower() + "ball";
+			sprite.spriteName = "gacha" + monster.quality.ToString().ToLower() + "ball";
 		}
 
 		sprite.MakePixelPerfect ();
