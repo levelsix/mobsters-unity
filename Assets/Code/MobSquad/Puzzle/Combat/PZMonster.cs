@@ -158,49 +158,6 @@ public class PZMonster {
 		}
 	}
 	
-//	public long enhanceTimeLeft
-//	{
-//		get
-//		{
-//			if (enhancement == null)
-//			{
-//				return 0;
-//			}
-//			return finishEnhanceTime - MSUtil.timeNowMillis;
-//		}
-//	}
-
-//	public float enhanceProgress
-//	{
-//		get
-//		{
-//			return 1 - ((float)enhanceTimeLeft) / ((float)timeToUseEnhance);
-//		}
-//	}
-	
-//	public long timeToUseEnhance
-//	{
-//		get
-//		{
-//			return (long)(enhanceXP/MSBuildingManager.enhanceLabs[0].combinedProto.lab.pointsPerSecond) * 1000;
-//		}
-//	}
-	
-//	public long finishEnhanceTime
-//	{
-//		get
-//		{
-//			if (enhancement == null || enhancement.expectedStartTimeMillis == 0) 
-//			{
-//				return 0;
-//			}
-//			else
-//			{
-//				return enhancement.expectedStartTimeMillis + timeToUseEnhance;
-//			}
-//		}
-//	}
-	
 	public long finishCombineTime
 	{
 		get
@@ -328,19 +285,6 @@ public class PZMonster {
 		}
 	}
 
-	SkillProto _offsenisveSkill;
-	public SkillProto offensiveSkill
-	{
-		get
-		{
-			if (_offsenisveSkill == null || _offsenisveSkill.skillId == 0)
-			{
-				_offsenisveSkill = MSDataManager.instance.Get<SkillProto>(monster.baseOffensiveSkillId);
-			}
-			return _offsenisveSkill;
-		}
-	}
-
 	public bool restricted
 	{
 		get
@@ -360,6 +304,9 @@ public class PZMonster {
 			}
 		}
 	}
+
+	SkillProto offensiveSkill;
+	SkillProto defensiveSkill;
 
 	public int speed;
 
@@ -392,7 +339,10 @@ public class PZMonster {
 	{
 		this.userMonster = userMonster;
 		this.monster = MSDataManager.instance.Get(typeof(MonsterProto), userMonster.monsterId) as MonsterProto;
-		
+
+		SetOffensiveSkill(userMonster.offensiveSkillId);
+		SetDefensiveSkill(userMonster.defensiveSkillId);
+
 		SetupWithUser();
 	}
 
@@ -403,6 +353,8 @@ public class PZMonster {
 		currHP = maxHP = MaxHPAtLevel(pvpMonster.monsterLvl);
 		SetAttackDamagesForLevel(pvpMonster.monsterLvl);
 
+		SetDefensiveSkill(monster.baseDefensiveSkillId);
+
 		level = pvpMonster.monsterLvl;
 	}
 	
@@ -410,6 +362,9 @@ public class PZMonster {
 	{
 		this.monster = monster;
 		this.userMonster = userMonster;
+
+		SetOffensiveSkill(userMonster.offensiveSkillId);
+		SetDefensiveSkill(userMonster.defensiveSkillId);
 		
 		SetupWithUser();
 	}
@@ -418,6 +373,8 @@ public class PZMonster {
 	{
 		this.taskMonster = taskMonster;
 		this.monster = MSDataManager.instance.Get(typeof(MonsterProto), taskMonster.monsterId) as MonsterProto;
+
+		SetDefensiveSkill(taskMonster.defensiveSkillId);
 
 		level = taskMonster.level;
 
@@ -428,6 +385,8 @@ public class PZMonster {
 	{
 		this.monster = monster;
 		this.taskMonster = taskMonster;
+
+		SetDefensiveSkill(taskMonster.defensiveSkillId);
 
 		level = taskMonster.level;
 		
@@ -453,6 +412,9 @@ public class PZMonster {
 
 		currHP = maxHP = MSMath.MaxHPAtLevel(monster, level);
 		SetAttackDamagesForLevel(level);
+
+		SetOffensiveSkill(monster.baseOffensiveSkillId);
+		SetDefensiveSkill(monster.baseDefensiveSkillId);
 
 		this.level = level;
 	}
@@ -596,6 +558,29 @@ public class PZMonster {
 		mumsp.userMonsterId = userMonster.userMonsterId;
 		mumsp.cashAmount = sellValue;
 		return mumsp;
+	}
+
+	public void SetOffensiveSkill(int skillId)
+	{
+		if (skillId > 0)
+		{
+			offensiveSkill = MSDataManager.instance.Get<SkillProto>(skillId);
+		}
+		else
+		{
+			offensiveSkill = null;
+		}
+	}
+	public void SetDefensiveSkill(int skillId)
+	{
+		if (skillId > 0)
+		{
+			defensiveSkill = MSDataManager.instance.Get<SkillProto>(skillId);
+		}
+		else
+		{
+			defensiveSkill = null;
+		}
 	}
 	
 	#region Experience

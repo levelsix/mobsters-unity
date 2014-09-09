@@ -21,7 +21,7 @@ public class PZTurnIcon : MonoBehaviour
 
 	[SerializeField] Vector3 thumbPos;
 
-	[SerializeField] UILabel debugLabel;
+	//[SerializeField] UILabel debugLabel;
 
 	public void Init(PZMonster monster)
 	{
@@ -71,6 +71,6 @@ public class PZTurnIcon : MonoBehaviour
 
 	void Update()
 	{
-		debugLabel.text = thumb.transform.localPosition + "\n" + thumb.transform.localScale + "\n" + thumb.width + ", " + thumb.height;
+		//debugLabel.text = thumb.transform.localPosition + "\n" + thumb.transform.localScale + "\n" + thumb.width + ", " + thumb.height;
 	}
 }
