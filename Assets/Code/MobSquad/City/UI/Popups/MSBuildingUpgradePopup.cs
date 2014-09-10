@@ -313,10 +313,10 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 				topBarText.text = nextBuilding.hospital.queueSize.ToString ();
 			}
 			if (nextBuilding.hospital.healthPerSecond > oldBuilding.hospital.healthPerSecond) {
-				topBarText.text = oldBuilding.hospital.healthPerSecond + " + " + (nextBuilding.hospital.healthPerSecond - oldBuilding.hospital.healthPerSecond) + " Health Per Sec";
+				botBarText.text = oldBuilding.hospital.healthPerSecond + " + " + (nextBuilding.hospital.healthPerSecond - oldBuilding.hospital.healthPerSecond) + " Health Per Sec";
 			}
 			else {
-				topBarText.text = oldBuilding.hospital.healthPerSecond + " Health Per Sec";
+				botBarText.text = oldBuilding.hospital.healthPerSecond + " Health Per Sec";
 			}
 			break;
 		case StructureInfoProto.StructType.LAB:
@@ -332,22 +332,28 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 				topBarText.text = nextBuilding.lab.queueSize.ToString ();
 			}
 			if (nextBuilding.lab.pointsPerSecond > oldBuilding.lab.pointsPerSecond) {
-				topBarText.text = oldBuilding.lab.pointsPerSecond + " + " + (nextBuilding.lab.pointsPerSecond - oldBuilding.lab.pointsPerSecond) + " Points Per Sec";
+				botBarText.text = oldBuilding.lab.pointsPerSecond + " + " + (nextBuilding.lab.pointsPerSecond - oldBuilding.lab.pointsPerSecond) + " Points Per Sec";
 			}
 			else {
-				topBarText.text = oldBuilding.lab.pointsPerSecond + " Points Per Sec";
+				botBarText.text = oldBuilding.lab.pointsPerSecond + " Points Per Sec";
 			}
 			break;
 		case StructureInfoProto.StructType.RESIDENCE:
 			topQuality.text = "Slots:";
 			bottomBar.SetActive (false);
 			SetBar (topBarCurrent, topBarFuture, oldBuilding.residence.numMonsterSlots, nextBuilding.residence.numMonsterSlots, max.residence.numMonsterSlots);
-			topBarText.text = oldBuilding.residence.numMonsterSlots + " + " + nextBuilding.residence.numMonsterSlots;
+			topBarText.text = oldBuilding.residence.numMonsterSlots + " + " + (nextBuilding.residence.numMonsterSlots - oldBuilding.residence.numMonsterSlots);
 			break;
 		case StructureInfoProto.StructType.TOWN_HALL:
 			InitTownHallGrid(oldBuilding, nextBuilding);
 			townHallLabel.text = "Level " + nextBuilding.structInfo.level + " Command Center unlocks";
 			bottomBar.transform.parent.gameObject.SetActive(false);
+			break;
+		case StructureInfoProto.StructType.MINI_JOB:
+			bottomBar.SetActive(false);
+			SetBar(topBarCurrent, topBarFuture, oldBuilding.miniJobCenter.generatedJobLimit, nextBuilding.miniJobCenter.generatedJobLimit, max.miniJobCenter.generatedJobLimit);
+			topQuality.text = "MiniJobs:";
+			topBarText.text = oldBuilding.miniJobCenter.generatedJobLimit + " + " + (nextBuilding.miniJobCenter.generatedJobLimit - oldBuilding.miniJobCenter.generatedJobLimit);
 			break;
 		}
 	}
@@ -401,6 +407,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 					}
 					break;
 				case StructureInfoProto.StructType.MINI_JOB:
+
 					continue;
 					break;
 				case StructureInfoProto.StructType.RESIDENCE:
