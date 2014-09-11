@@ -130,8 +130,6 @@ public class UMQLoader : MonoBehaviour {
 			}
 		}
 
-		PZCombatSave save = PZCombatSave.Load();
-
 		foreach (var item in MSSpriteUtil.instance.immediateBundles) 
 		{
 			while (!item.loaded)
@@ -144,7 +142,6 @@ public class UMQLoader : MonoBehaviour {
 		{
 			MSActionManager.Scene.OnPuzzle();
 			PZCombatManager.instance.RunInitLoadedTask(response.curTask, response.curTaskStages);
-			//MSActionManager.Scene.OnCity();
 		}
 		else
 		{

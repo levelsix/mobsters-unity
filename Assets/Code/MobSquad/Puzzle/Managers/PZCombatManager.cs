@@ -142,6 +142,12 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	UILabel mobsterCounter;
 
+	[SerializeField]
+	PZSkillIndicator playerSkillIndicator;
+
+	[SerializeField]
+	PZSkillIndicator enemySkillIndicator;
+
 	public PZTurnDisplay turnDisplay;
 
 	bool wordsMoving = false;
@@ -209,7 +215,22 @@ public class PZCombatManager : MonoBehaviour {
 
 	[SerializeField] int minTurnSlots = 6;
 
+	/// <summary>
+	/// The player skill points.
+	/// </summary>
+	int playerSkillPoints = 0;
+
+	/// <summary>
+	/// If the enemy has a skill, it charges up every turn
+	/// When this hits the right number, their skill activates
+	/// </summary>
 	int enemySkillTurns = 0;
+
+	/// <summary>
+	/// Whether we're currently in a quick-attack.
+	/// Used to stop ReturnFromPlayerAttack to skip the rest of the player turn.
+	/// </summary>
+	bool quickAttack = false;
 
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
@@ -390,6 +411,8 @@ public class PZCombatManager : MonoBehaviour {
 
 		activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterId == save.activePlayerUserMonsterId));
 
+		playerSkillPoints = save.playerSkillPoints;
+
 		savedHealth = save.activeEnemyHealth;
 
 		for (int i = 0; i < stages.Count; i++)
@@ -407,6 +430,8 @@ public class PZCombatManager : MonoBehaviour {
 
 		PZScrollingBackground.instance.SetBackgrounds(MSDataManager.instance.Get<FullTaskProto>(minTask.taskId));
 
+		enemySkillTurns = save.enemySkillPoints;
+
 		yield return RunScrollToNextEnemy(true);
 
 		if (currTurn == playerTurns)
@@ -414,6 +439,10 @@ public class PZCombatManager : MonoBehaviour {
 			PlayerAttack();
 			currTurn = 0;
 			currPlayerDamage = 0;
+		}
+		else
+		{
+			RunPickNextTurn(false);
 		}
 	}
 
@@ -672,9 +701,6 @@ public class PZCombatManager : MonoBehaviour {
 
 	void OnDeploy(PZMonster monster)
 	{
-		//CBKEventManager.Popup.CloseAllPopups();
-		//Debug.Log("Deploying " + monster.userMonster.userId);
-
 		if (!MSTutorialManager.instance.inTutorial)
 		{
 			boardTint.PlayReverse();
@@ -686,6 +712,11 @@ public class PZCombatManager : MonoBehaviour {
 			
 			PZCombatScheduler.instance.Schedule(monster, activeEnemy.monster, true);
 			StartCoroutine(SwapCharacters(monster));
+
+			playerSkillIndicator.Init(monster.offensiveSkill, monster.monster.monsterElement,
+			                          monster.offensiveSkill.orbCost);
+
+			playerSkillPoints = 0;
 		}
 		else
 		{
@@ -976,7 +1007,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		MSSoundManager.instance.StopLoop();
 
-		if (activeEnemy.alive && activePlayer.alive)
+		if (!fromLoad && activeEnemy.alive && activePlayer.alive)
 		{
 			RunPickNextTurn(false);
 		}
@@ -1363,6 +1394,47 @@ public class PZCombatManager : MonoBehaviour {
 
 	#region Skills
 
+	void RunPlayerSkill()
+	{
+		StartCoroutine(PlayerSkill());
+	}
+
+	IEnumerator PlayerSkill()
+	{
+		if (activePlayer.monster.offensiveSkill != null
+		    && activePlayer.monster.offensiveSkill.skillId > 0)
+		{
+			switch (activePlayer.monster.offensiveSkill.type)
+			{
+			case SkillType.QUICK_ATTACK:
+				yield return StartCoroutine(QuickAttack((int)activePlayer.monster.offensiveSkill.properties.Find(x=>x.name == "DAMAGE").skillValue));
+				break;
+			}
+		}
+	}
+
+	[ContextMenu ("Quick Attack Test")]
+	public void TestQuickAtack()
+	{
+		StartCoroutine(QuickAttack(20));
+	}
+
+	IEnumerator QuickAttack(int damage)
+	{
+		PZPuzzleManager.instance.swapLock++;
+
+		MSAnimationEvents.curDamage = damage;
+		MSAnimationEvents.curElement = activePlayer.monster.monster.monsterElement;
+
+		quickAttack = true;
+		StartCoroutine(PlayerShoot(damage/activePlayer.monster.totalDamage));
+		while (quickAttack)
+		{
+			yield return null;
+		}
+		PZPuzzleManager.instance.swapLock = 0;
+	}
+
 	IEnumerator EnemySkillOnTurn()
 	{
 		if (activeEnemy.monster.defensiveSkill != null
@@ -1447,8 +1519,15 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 		yield return StartCoroutine(activeEnemy.TakeDamage(MSAnimationEvents.curDamage, MSAnimationEvents.curElement));
-		
-		RunPickNextTurn(true);
+
+		if (quickAttack)
+		{
+			quickAttack = false;
+		}
+		else
+		{
+			RunPickNextTurn(true);
+		}
 	}
 
 	public IEnumerator PlayerFlinch()
@@ -1742,14 +1821,15 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		new PZCombatSave(activePlayer.monster, enemyHealthToBe, PZPuzzleManager.instance.board,
 		                 battleStats, forfeitChance, 0, 0, PZPuzzleManager.instance.boardWidth,
-		                 PZPuzzleManager.instance.boardHeight);
+		                 PZPuzzleManager.instance.boardHeight, playerSkillPoints, enemySkillTurns);
 	}
 
 	public void Save()
 	{
 		new PZCombatSave(activePlayer.monster, activeEnemy.monster.currHP, PZPuzzleManager.instance.board,
 		                 battleStats, forfeitChance, currTurn, currPlayerDamage, 
-		                 PZPuzzleManager.instance.boardWidth, PZPuzzleManager.instance.boardHeight);
+		                 PZPuzzleManager.instance.boardWidth, PZPuzzleManager.instance.boardHeight,
+		                 playerSkillPoints, enemySkillTurns);
 	}
 
 	void UpdateUserTaskStage(int taskStageId)

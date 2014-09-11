@@ -26,12 +26,15 @@ public class PZCombatSave
 	public List<CombatTurn> turns;
 	public int currTurnIndex;
 
+	public int playerSkillPoints;
+	public int enemySkillPoints;
+
 	public PZCombatSave(){}
 
 	public PZCombatSave(PZMonster activePlayer, int activeEnemyHealth,
 	                 PZGem[,] board, BattleStats battleStats,
 	                    float forfeitChance, int currTurn, int currPlayerDamage,
-	                    int boardWidth, int boardHeight)
+	                    int boardWidth, int boardHeight, int playerSkillPoints, int enemySkillPoints)
 	{
 		this.activePlayerUserMonsterId = activePlayer.userMonster.userMonsterId;
 
@@ -64,6 +67,9 @@ public class PZCombatSave
 
 		turns = PZCombatScheduler.instance.turns;
 		currTurnIndex = PZCombatScheduler.instance.currInd;
+
+		this.playerSkillPoints = playerSkillPoints;
+		this.enemySkillPoints = enemySkillPoints;
 
 		MSUtil.Save(key, this);
 	}
