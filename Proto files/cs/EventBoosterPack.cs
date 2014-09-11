@@ -46,13 +46,13 @@ namespace com.lvl6.proto
       set { _clientTime = value; }
     }
 
-    private bool _freeBoosterPack = default(bool);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"freeBoosterPack", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private bool _dailyFreeBoosterPack = default(bool);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"dailyFreeBoosterPack", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
-    public bool freeBoosterPack
+    public bool dailyFreeBoosterPack
     {
-      get { return _freeBoosterPack; }
-      set { _freeBoosterPack = value; }
+      get { return _dailyFreeBoosterPack; }
+      set { _dailyFreeBoosterPack = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

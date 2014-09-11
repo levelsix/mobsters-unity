@@ -159,11 +159,11 @@ public class PZPrize : MonoBehaviour {
 		label.text = item.name;
 		if (border != null)
 		{
-			if (item.borderImgName != null) {
-				border.spriteName = item.borderImgName;
-			} else {
-				border.spriteName = "";
-			}
+			//if (item.borderImgName != null) {
+			//	border.spriteName = item.borderImgName;
+			//} else {
+			//	border.spriteName = "";
+			//}
 		}
 		icon.spriteName = item.imgName.Substring (0, item.imgName.Length - ".png".Length);
 	}

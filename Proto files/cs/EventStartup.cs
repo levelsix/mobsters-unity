@@ -15,6 +15,7 @@
 // Note: requires additional types generated from: City.proto
 // Note: requires additional types generated from: Clan.proto
 // Note: requires additional types generated from: InAppPurchase.proto
+// Note: requires additional types generated from: Item.proto
 // Note: requires additional types generated from: MiniJobConfig.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
@@ -414,6 +415,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.UserMiniJobProto> userMiniJobProtos
     {
       get { return _userMiniJobProtos; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserItemProto> _userItems = new global::System.Collections.Generic.List<com.lvl6.proto.UserItemProto>();
+    [global::ProtoBuf.ProtoMember(40, Name=@"userItems", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserItemProto> userItems
+    {
+      get { return _userItems; }
     }
   
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]

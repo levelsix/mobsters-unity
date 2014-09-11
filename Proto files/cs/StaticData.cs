@@ -13,6 +13,7 @@
 // Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: City.proto
 // Note: requires additional types generated from: Clan.proto
+// Note: requires additional types generated from: Item.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
 // Note: requires additional types generated from: Skill.proto
