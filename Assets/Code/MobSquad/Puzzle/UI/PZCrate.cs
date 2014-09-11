@@ -15,6 +15,14 @@ public class PZCrate : MonoBehaviour {
 	float startHeight = 50f;
 
 	[SerializeField]
+	/// <summary>
+	/// The distance that this crate should fall below 0.
+	/// This had to be added because do to parenting issues moving a crate
+	/// is fantastically difficult
+	/// </summary>
+	float fallBelowZero = -75;
+
+	[SerializeField]
 	float gravity = -0.8f;
 
 	[SerializeField]
@@ -108,27 +116,27 @@ public class PZCrate : MonoBehaviour {
 	IEnumerator Bounce()
 	{
 		Transform spriteT = sprite.transform;
-		spriteT.localPosition = new Vector3(0f, startHeight, 0f);
+		spriteT.localPosition = new Vector3(0f, startHeight + fallBelowZero, 0f);
 		while(true){
 			bounceVelocity += gravity;
 			spriteT.localPosition = new Vector3(0f, spriteT.localPosition.y + bounceVelocity, 0f);
 			Debug.Log(spriteT.localPosition);
-			if(spriteT.localPosition.y < 0)
+			if(spriteT.localPosition.y < fallBelowZero)
 			{
 				//missMovement is to catch an excess movement that would have caused the ball to go through the ground.
 				//If we just remove it then the ground will seem sticky because the bounce will always spend a frame starting from the ground
 				//I also am only messure the percentage missed, not the actually distance missed.
-				float missMovement = -spriteT.localPosition.y / bounceVelocity;
+				float missMovement = (fallBelowZero - spriteT.localPosition.y) / bounceVelocity;
 				bounceVelocity *= -restitution;
 				if(bounceVelocity < bounceEnd)
 				{
-					spriteT.localPosition = new Vector3(0f,0f,0f);
+					spriteT.localPosition = new Vector3(0f,fallBelowZero,0f);
 					break;
 				}
 				else
 				{
 					float missedDistance = missMovement * bounceVelocity;
-					spriteT.localPosition = new Vector3(0f, bounceVelocity + missedDistance, 0f);
+					spriteT.localPosition = new Vector3(0f, bounceVelocity + missedDistance + fallBelowZero, 0f);
 				}
 			}
 			yield return null;

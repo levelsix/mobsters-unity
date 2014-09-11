@@ -339,7 +339,7 @@ public class PZCombatUnit : MonoBehaviour {
 			MonsterProto newMonster = MSDataManager.instance.Get<MonsterProto>(monster.taskMonster.puzzlePieceMonsterId);
 			PZCombatManager.instance.crate.InitCrate(monster.taskMonster);
 			crate.parent = unit.transf.parent;
-			crate.transform.position = new Vector3(unit.transf.position.x, unit.transf.position.y - 100, unit.transf.position.z);
+			crate.transform.position = new Vector3(unit.transf.position.x, unit.transf.position.y, unit.transf.position.z);
 			crate.transform.localScale = Vector3.one;
 		}
 
