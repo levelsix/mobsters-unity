@@ -41,9 +41,9 @@ public static class MSMath {
     /// <param name='time'>
     /// Time, in seconds
     /// </param>
-	public static int GemsForTime(long time)
+	public static int GemsForTime(long time, bool canBeFree = true)
 	{
-		if (time < 60 * 1000 * MSWhiteboard.constants.maxMinutesForFreeSpeedUp) return 0;
+		if (canBeFree && time < 60 * 1000 * MSWhiteboard.constants.maxMinutesForFreeSpeedUp) return 0;
 		return 1 + (int)Mathf.Ceil((float)(time / 1000 / SECONDS_PER_GEM));
 	}
 	

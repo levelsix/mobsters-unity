@@ -52,6 +52,8 @@ public class MSAchievementManager : MonoBehaviour {
 
 	void OnStartup(StartupResponseProto startup)
 	{
+		currAchievements.Clear();
+
 		progressRequest.sender = MSWhiteboard.localMup;
 		foreach (var item in startup.userAchievements)
 		{

@@ -268,7 +268,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 				anim.SetBool("Running", false);
 				anim.SetBool("Flinch", false);
 				anim.SetBool("Attack", false);
-				anim.SetBool("Stay", false);
+				if (MSTutorialManager.instance.inTutorial) anim.SetBool("Stay", false);
 				break;
 			case AnimationType.RUN:
 				anim.SetBool("Running", true);

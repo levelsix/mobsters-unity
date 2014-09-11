@@ -209,7 +209,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	[SerializeField] int minTurnSlots = 6;
 
-
+	int enemySkillTurns = 0;
 
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
@@ -407,7 +407,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		PZScrollingBackground.instance.SetBackgrounds(MSDataManager.instance.Get<FullTaskProto>(minTask.taskId));
 
-		yield return RunScrollToNextEnemy();
+		yield return RunScrollToNextEnemy(true);
 
 		if (currTurn == playerTurns)
 		{
@@ -828,16 +828,16 @@ public class PZCombatManager : MonoBehaviour {
 		RunPickNextTurn(false);
 	}
 
-	public Coroutine RunScrollToNextEnemy()
+	public Coroutine RunScrollToNextEnemy(bool fromLoad = false)
 	{
-		return StartCoroutine(ScrollToNextEnemy());
+		return StartCoroutine(ScrollToNextEnemy(fromLoad));
 	}
 
 	/// <summary>
 	/// Spawns a new enemy and scrolls the background until
 	/// that enemy is in its place.
 	/// </summary>
-	IEnumerator ScrollToNextEnemy()
+	IEnumerator ScrollToNextEnemy(bool fromLoad = false)
 	{
 		Debug.Log("Start scroll");
 
@@ -896,6 +896,8 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		else if (enemies.Count > 0) 
 		{
+			enemySkillTurns = 0;
+
 			activeEnemy.OnClick();
 
 			activeEnemy.GoToStartPos ();
@@ -907,7 +909,10 @@ public class PZCombatManager : MonoBehaviour {
 				yield return null;
 			}
 
-			PZCombatScheduler.instance.Schedule(activePlayer.monster, activeEnemy.monster, false);
+			if (!fromLoad)
+			{
+				PZCombatScheduler.instance.Schedule(activePlayer.monster, activeEnemy.monster, false);
+			}
 
 			UpdateUserTaskStage(MSWhiteboard.currTaskStages.Find(x=>x.stageMonsters[0] == activeEnemy.monster.taskMonster).stageId);
 
@@ -961,6 +966,11 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (activeEnemy.alive && activePlayer.alive)
 		{
+			if (!fromLoad)
+			{
+				yield return StartCoroutine(EnemySkillOnBegin());
+			}
+
 			yield return turnDisplay.RunInit(activePlayer.monster, activeEnemy.monster);
 		}
 
@@ -1351,13 +1361,54 @@ public class PZCombatManager : MonoBehaviour {
 
 	#endregion
 
+	#region Skills
+
+	IEnumerator EnemySkillOnTurn()
+	{
+		if (activeEnemy.monster.defensiveSkill != null
+		    && activeEnemy.monster.defensiveSkill.skillId > 0
+			&& ++enemySkillTurns >= activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name=="SPAWN_TURNS").skillValue)
+		{
+			switch (activeEnemy.monster.defensiveSkill.type)
+			{
+			case SkillType.JELLY:
+				for (int i = 0; i < activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "INITIAL_COUNT").skillValue; i++) {
+					PZPuzzleManager.instance.ThrowJelly();
+					yield return null;
+				}
+				break;
+			}
+			enemySkillTurns = 0;
+		}
+	}
+
+	IEnumerator EnemySkillOnBegin()
+	{
+		if (activeEnemy.monster.defensiveSkill != null
+		    && activeEnemy.monster.defensiveSkill.skillId > 0)
+		{
+			switch (activeEnemy.monster.defensiveSkill.type)
+			{
+			case SkillType.JELLY:
+				for (int i = 0; i < activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "INITIAL_COUNT").skillValue; i++) 
+				{
+					PZPuzzleManager.instance.ThrowJelly();
+					yield return null;
+				}
+				break;
+			}
+		}
+	}
+
+	#endregion
+
 	IEnumerator PlayerShoot(float score)
 	{
 		enemyStartPosition =  activeEnemy.unit.transf.localPosition;
 
 		float strength = Mathf.Min(1, score/MAKE_IT_RAIN_SCORE);
 
-		int shots = Mathf.RoundToInt(strength * MAX_SHOTS);
+		int shots = Mathf.Max(1, Mathf.RoundToInt(strength * MAX_SHOTS));
 		float shotTime = 0.4166f;
 
 		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
@@ -1373,8 +1424,8 @@ public class PZCombatManager : MonoBehaviour {
 		events.totalAttacks = shots;
 		activePlayer.unit.animat = MSUnit.AnimationType.ATTACK;
 
-		for (int i = 0; i < shots; i++) {
-
+		for (int i = 0; i < shots; i++) 
+		{
 			if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 			{
 				yield return StartCoroutine(activePlayer.AdvanceTo(activeEnemy.transform.localPosition.x - 75, -background.direction, background.scrollSpeed * 4));
@@ -1528,6 +1579,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	public IEnumerator EnemyAttack()
 	{
+		yield return StartCoroutine(EnemySkillOnTurn());
+
 		int enemyDamageWithElement = 0;
 
 		int enemyDamage;

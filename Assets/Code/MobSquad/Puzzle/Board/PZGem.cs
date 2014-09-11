@@ -97,6 +97,8 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	public bool enqueued = false;
 	
 	public int boardX, boardY;
+
+	int prefallBoardX, prefallBoardY;
 	
 	const float DRAG_THRESHOLD = 70;
 	
@@ -230,12 +232,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		{
 			if (colorIndex >= 0)
 			{
-				PZJelly jelly = PZPuzzleManager.instance.jellyBoard[boardX, boardY];
-				if (jelly != null) //If there's a jelly, prevent the gem from being worth a shit and damage it instead
-				{
-					jelly.Damage();
-				}
-				else
+				if (!PZPuzzleManager.instance.ClearJelly(prefallBoardX, prefallBoardY, id)) //If there's a jelly, prevent the gem from being worth a shit and damage it instead
 				{
 					PZDamageNumber damNum = MSPoolManager.instance.Get(PZPuzzleManager.instance.damageNumberPrefab, transf.position) as PZDamageNumber;
 					damNum.Init(this);
@@ -277,6 +274,12 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			SpawnAbove(PZPuzzleManager.instance.PickColor(boardX), boardX); //Respawn at top of board
 
 		}
+	}
+
+	public void SetPrefallPosition()
+	{
+		prefallBoardX = boardX;
+		prefallBoardY = boardY;
 	}
 
 	[ContextMenu("CheckFall")]

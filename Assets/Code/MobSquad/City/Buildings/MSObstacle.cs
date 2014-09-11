@@ -19,7 +19,7 @@ public class MSObstacle : MonoBehaviour {
 	{
 		get
 		{
-			return MSMath.GemsForTime(endTime - MSUtil.timeNowMillis);
+			return MSMath.GemsForTime(endTime - MSUtil.timeNowMillis, false);
 		}
 	}
 
@@ -166,7 +166,7 @@ public class MSObstacle : MonoBehaviour {
 	{
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemsToFinish))
 		{
-//			FinishRemove(gemsToFinish);
+			FinishRemove(gemsToFinish);
 		}
 	}
 
@@ -193,6 +193,7 @@ public class MSObstacle : MonoBehaviour {
 		{
 			building.Deselect();
 		}
+		MSGridManager.instance.RemoveBuilding(building);
 		building.Pool();
 	}
 

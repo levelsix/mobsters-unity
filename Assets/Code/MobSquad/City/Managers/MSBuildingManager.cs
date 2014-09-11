@@ -561,7 +561,7 @@ public class MSBuildingManager : MonoBehaviour
 		BuyBuilding(pier);
 	}
 
-	MSBuilding MakeBuildingAt (MSFullBuildingProto proto, int x, int y)
+	MSBuilding MakeBuildingAt (MSFullBuildingProto proto, int x, int y, bool hover = false)
 	{
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * x, 0, 
     		MSGridManager.instance.spaceSize * y);
@@ -572,7 +572,7 @@ public class MSBuildingManager : MonoBehaviour
 		//building.gameObj.layer = MSValues.Layers.DEFAULT;
     	building.Init(proto);
     	
-		if (proto.structInfo.structType != StructureInfoProto.StructType.MINI_JOB)
+		if (!hover && proto.structInfo.structType != StructureInfoProto.StructType.MINI_JOB)
 		{
 	    	MSGridManager.instance.AddBuilding(building, x, y, proto.structInfo.width, proto.structInfo.height);
 		}
@@ -687,7 +687,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSGridNode coords = MSGridManager.instance.ScreenToPoint(new Vector3(Screen.width/2, Screen.height/2));
 		coords = FindSpaceInRange(proto.structInfo.width, proto.structInfo.height, coords);
 
-		MSBuilding building = MakeBuildingAt(proto, (int)coords.pos.x, (int)coords.pos.y);
+		MSBuilding building = MakeBuildingAt(proto, (int)coords.pos.x, (int)coords.pos.y, true);
 
 		//This prevents the building from looking like scaffolding during placement
 		building.SetupSprite(MSUtil.StripExtensions(building.combinedProto.structInfo.imgName), true);
@@ -821,7 +821,7 @@ public class MSBuildingManager : MonoBehaviour
 	{
 		if (range > 36)
 		{
-			throw new System.Exception("Not enough room to place the building. Throw a popup and refund.");
+			return new MSGridNode(0, 0);
 		}
 		for (int i = 0; i <= range; i++) 
 		{

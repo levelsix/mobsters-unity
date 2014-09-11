@@ -50,7 +50,7 @@ public class MSMiniJobManager : MonoBehaviour {
 	{
 		get
 		{
-			return MSMath.GemsForTime(timeLeft);
+			return MSMath.GemsForTime(timeLeft, false);
 		}
 	}
 
@@ -248,7 +248,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	public void CompleteCurrentJobWithGems()
 	{
-		int numGems = MSMath.GemsForTime(timeLeft);
+		int numGems = MSMath.GemsForTime(timeLeft, false);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, numGems))
 		{
 			StartCoroutine(CompleteCurrentJob(true, numGems));

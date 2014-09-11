@@ -89,7 +89,8 @@ public class PZJelly : MonoBehaviour {
 
 		health = STARTING_HEALTH;
 
-		transform.position = transform.InverseTransformPoint(inPos);
+		transform.position = inPos;
+		Debug.Log("Jelly @ " + transform.localPosition);
 
 		tweenScale.ResetToBeginning();
 		tweenScale.PlayForward();

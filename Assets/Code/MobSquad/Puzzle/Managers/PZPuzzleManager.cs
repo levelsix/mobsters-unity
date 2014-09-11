@@ -1219,6 +1219,20 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 	}
 
+	#region Jelly
+
+	public bool ClearJelly(int x, int y, int gemId)
+	{
+		if (jellyBoard[x,y] != null)
+		{
+			jellyBoard[x,y].Damage();
+			Debug.Log(gemId + " damaged jelly at " + x + ", " + y);
+			return true;
+		}
+		Debug.Log("No jelly for " + gemId + " at " + x + ", " + y);
+		return false;
+	}
+
 	public void ThrowJellies(int num)
 	{
 		for (int i = 0; i < num; i++) 
@@ -1275,4 +1289,6 @@ public class PZPuzzleManager : MonoBehaviour {
 
 		return new Vector2(-1, -1); //This is the error signal!
 	}
+
+	#endregion
 }

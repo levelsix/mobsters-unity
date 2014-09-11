@@ -447,7 +447,7 @@ public class MSMiniJobPopup : MonoBehaviour {
 		while (MSMiniJobManager.instance.currActiveJob.timeCompleted == 0)
 		{
 			buttonSprite.normalSprite = "purplemenuoption";
-			buttonLabel.text = "Finish\n(g) " + MSMath.GemsForTime(MSMiniJobManager.instance.timeLeft);
+			buttonLabel.text = "Finish\n(g) " + MSMath.GemsForTime(MSMiniJobManager.instance.timeLeft, false);
 			currJobTime.text = MSUtil.TimeStringShort(MSMiniJobManager.instance.timeLeft);
 			currJobTime.color = Color.black;
 			yield return new WaitForSeconds(1);
