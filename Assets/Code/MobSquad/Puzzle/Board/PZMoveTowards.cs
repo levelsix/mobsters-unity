@@ -10,7 +10,7 @@ public class PZMoveTowards : MonoBehaviour {
 	float lerpTime;
 
 	[SerializeField]
-	float totalTime;
+	public float totalTime;
 	
 	Vector3 velocity;
 	
