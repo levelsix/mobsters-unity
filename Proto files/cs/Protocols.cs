@@ -24,6 +24,7 @@
 // Note: requires additional types generated from: EventDev.proto
 // Note: requires additional types generated from: EventDungeon.proto
 // Note: requires additional types generated from: EventInAppPurchase.proto
+// Note: requires additional types generated from: EventItem.proto
 // Note: requires additional types generated from: EventMiniJob.proto
 // Note: requires additional types generated from: EventMonster.proto
 // Note: requires additional types generated from: EventPvp.proto
@@ -35,6 +36,7 @@
 // Note: requires additional types generated from: EventTournament.proto
 // Note: requires additional types generated from: EventUser.proto
 // Note: requires additional types generated from: InAppPurchase.proto
+// Note: requires additional types generated from: Item.proto
 // Note: requires additional types generated from: MiniJobConfig.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
@@ -279,6 +281,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_ENHANCE_MONSTER_EVENT", Value=77)]
       C_ENHANCE_MONSTER_EVENT = 77,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_TRADE_ITEM_FOR_BOOSTER_EVENT", Value=78)]
+      C_TRADE_ITEM_FOR_BOOSTER_EVENT = 78,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
             
@@ -517,6 +522,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_ENHANCE_MONSTER_EVENT", Value=77)]
       S_ENHANCE_MONSTER_EVENT = 77,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_TRADE_ITEM_FOR_BOOSTER_EVENT", Value=78)]
+      S_TRADE_ITEM_FOR_BOOSTER_EVENT = 78,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

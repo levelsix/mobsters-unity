@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: EventDungeon.proto
+// Note: requires additional types generated from: Item.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: Task.proto
@@ -296,6 +297,24 @@ namespace com.lvl6.proto
     {
       get { return _userWon; }
       set { _userWon = value; }
+    }
+
+    private com.lvl6.proto.UserItemProto _userItem = null;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userItem", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserItemProto userItem
+    {
+      get { return _userItem; }
+      set { _userItem = value; }
+    }
+
+    private string _taskMapSectionName = "";
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"taskMapSectionName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string taskMapSectionName
+    {
+      get { return _taskMapSectionName; }
+      set { _taskMapSectionName = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"EndDungeonStatus")]
     public enum EndDungeonStatus
