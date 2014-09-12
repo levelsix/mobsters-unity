@@ -109,7 +109,7 @@ public class MSAchievementManager : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator RedeemAchievement(MSFullAchievement achievement, MSFullAchievement successor, MSLoadLock loadLock)
+	public IEnumerator RedeemAchievement(MSFullAchievement achievement, MSLoadLock loadLock)
 	{
 		loadLock.Lock();
 
@@ -132,13 +132,15 @@ public class MSAchievementManager : MonoBehaviour {
 		{
 			Debug.LogError("Problem redeeming achievement: " + response.status.ToString());
 		}
+		else
+		{
+			MSResourceManager.instance.Collect(ResourceType.GEMS, achievement.achievement.gemReward);
+		}
 
 		currAchievements.Remove(achievement);
 
 		jobBadge.notifications--;
 		achievementBadge.notifications--;
-
-		successor = currAchievements.Find(x=>x.achievement.achievementId == achievement.achievement.successorId);
 
 		loadLock.Unlock();
 	}

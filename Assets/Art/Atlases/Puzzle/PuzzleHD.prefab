@@ -80,6 +80,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 1
     paddingBottom: 0
+  - name: BackgroundSlice
+    x: 1034
+    y: 1619
+    width: 22
+    height: 22
+    borderLeft: 9
+    borderRight: 9
+    borderTop: 9
+    borderBottom: 9
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: ballin
     x: 1657
     y: 1516
@@ -444,6 +457,32 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: currentborder
+    x: 967
+    y: 1724
+    width: 86
+    height: 86
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: darksmallsquare
+    x: 1165
+    y: 466
+    width: 84
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: deploybg
     x: 560
     y: 1581
@@ -650,6 +689,19 @@ MonoBehaviour:
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: earthsmallsquare
+    x: 1566
+    y: 1516
+    width: 84
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
   - name: earthupdown
@@ -899,6 +951,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: firesmallsquare
+    x: 1165
+    y: 126
+    width: 84
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: fireupdown
     x: 806
     y: 190
@@ -1079,6 +1144,19 @@ MonoBehaviour:
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: greysmallsquare
+    x: 1165
+    y: 381
+    width: 84
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
   - name: hammertime
@@ -1341,6 +1419,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: lightsmallsquare
+    x: 1165
+    y: 211
+    width: 84
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: lightupdown
     x: 967
     y: 1581
@@ -1584,6 +1675,19 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: movesqueuebgSliced
+    x: 1886
+    y: 1501
+    width: 158
+    height: 81
+    borderLeft: 23
+    borderRight: 106
+    borderTop: 21
+    borderBottom: 47
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
@@ -2017,6 +2121,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: runawaybg
+    x: 1632
+    y: 1036
+    width: 86
+    height: 41
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: runawayfailed
     x: 1344
     y: 1046
@@ -2108,6 +2225,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: swapbutton
+    x: 1050
+    y: 5
+    width: 99
+    height: 91
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 1
   - name: teamhealthbarbg
     x: 962
     y: 1497
@@ -2316,6 +2446,19 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 0
     paddingBottom: 0
+  - name: watersmallsquare
+    x: 1165
+    y: 296
+    width: 84
+    height: 84
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: waterupdown
     x: 1260
     y: 547
@@ -2445,149 +2588,6 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
-    paddingBottom: 0
-  - name: BackgroundSlice
-    x: 1034
-    y: 1619
-    width: 22
-    height: 22
-    borderLeft: 9
-    borderRight: 9
-    borderTop: 9
-    borderBottom: 9
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: swapbutton
-    x: 1050
-    y: 5
-    width: 99
-    height: 91
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 1
-  - name: currentborder
-    x: 967
-    y: 1724
-    width: 86
-    height: 86
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: movesqueuebgSliced
-    x: 1886
-    y: 1501
-    width: 158
-    height: 81
-    borderLeft: 23
-    borderRight: 106
-    borderTop: 21
-    borderBottom: 47
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: firesmallsquare
-    x: 1165
-    y: 126
-    width: 84
-    height: 84
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: lightsmallsquare
-    x: 1165
-    y: 211
-    width: 84
-    height: 84
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: watersmallsquare
-    x: 1165
-    y: 296
-    width: 84
-    height: 84
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: greysmallsquare
-    x: 1165
-    y: 381
-    width: 84
-    height: 84
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: darksmallsquare
-    x: 1165
-    y: 466
-    width: 84
-    height: 84
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: earthsmallsquare
-    x: 1566
-    y: 1516
-    width: 84
-    height: 84
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: runawaybg
-    x: 1632
-    y: 1036
-    width: 86
-    height: 41
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
     paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 11400000, guid: a1e354e976e1044aeb53434e3607b221, type: 2}

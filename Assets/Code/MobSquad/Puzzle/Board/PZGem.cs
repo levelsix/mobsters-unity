@@ -237,6 +237,13 @@ public class PZGem : MonoBehaviour, MSPoolable {
 					PZDamageNumber damNum = MSPoolManager.instance.Get(PZPuzzleManager.instance.damageNumberPrefab, transf.position) as PZDamageNumber;
 					damNum.Init(this);
 					PZPuzzleManager.instance.currGems[colorIndex]++;
+					CreateMatchParticle();
+				}
+				
+				if (colorIndex+1 == (int)PZCombatManager.instance.activePlayer.monster.monster.monsterElement)
+				{
+					PZCombatManager.instance.playerSkillPoints++;
+					PZCombatManager.instance.playerSkillIndicator.SetPoints(PZCombatManager.instance.playerSkillPoints);
 				}
 			}
 
@@ -244,7 +251,6 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 			if (colorIndex >= 0)
 			{
-				CreateMatchParticle();
 				CreateSparkle();
 			}
 

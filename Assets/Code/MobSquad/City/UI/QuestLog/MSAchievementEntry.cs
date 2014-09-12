@@ -47,6 +47,8 @@ public class MSAchievementEntry : MonoBehaviour {
 
 	public void Init(MSFullAchievement fullAch)
 	{
+		name = fullAch.achievement.name;
+
 		fullAchievement = fullAch;
 
 		rankNumber.text = fullAch.achievement.lvl.ToString();
@@ -94,25 +96,26 @@ public class MSAchievementEntry : MonoBehaviour {
 
 	IEnumerator DoRedeem()
 	{
-		MSFullAchievement successor = null;
-
-		yield return StartCoroutine(MSAchievementManager.instance.RedeemAchievement(fullAchievement, successor, loadLock));
+		yield return StartCoroutine(MSAchievementManager.instance.RedeemAchievement(fullAchievement, loadLock));
 		
 		Vector3 offsetVector = new Vector3(GetComponent<UIWidget>().width, 0, 0);
-		
-		if (successor != null)
+
+		if (fullAchievement.successor != null)
 		{
-			MSAchievementEntry newEntry = MSPopupManager.instance.popups.questPopup.AddAchievement(successor);
+			MSAchievementEntry newEntry = MSPopupManager.instance.popups.questPopup.AddAchievement(fullAchievement.successor);
 			newEntry.transform.localPosition = transform.localPosition + offsetVector;
 			TweenPosition.Begin(newEntry.gameObject, .3f, transform.localPosition);
+			
+			transform.parent = transform.parent.parent;
+			TweenPosition.Begin(gameObject, .3f, transform.localPosition - offsetVector);
 		}
 		else
 		{
+			transform.parent = transform.parent.parent;
+			TweenPosition.Begin(gameObject, .3f, transform.localPosition - offsetVector);
+
 			MSPopupManager.instance.popups.questPopup.achievementGrid.animateSmoothly = true;
 			MSPopupManager.instance.popups.questPopup.achievementGrid.Reposition();
 		}
-		
-		transform.parent = transform.parent.parent;
-		TweenPosition.Begin(gameObject, .3f, transform.localPosition - offsetVector);
 	}
 }

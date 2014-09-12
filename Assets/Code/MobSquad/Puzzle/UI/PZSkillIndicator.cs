@@ -39,20 +39,34 @@ public class PZSkillIndicator : MonoBehaviour {
 	const string enemySpritePrefix = "enemy";
 	const string yourSpritePrefix = "your";
 
-	public void Init(SkillProto skill, Element userElement, int pointsNeeded)
+	public void Init(SkillProto skill, Element userElement)
 	{
 		if (helper == null) helper = GetComponent<MSUIHelper>();
 
 		if (skill != null && skill.skillId > 0)
 		{
-			maxPoints = pointsNeeded;
+			Debug.Log("Skill!: " + skill.name);
+			if (skill.orbCost > 0)
+			{
+				maxPoints = skill.orbCost;
+			}
+			else
+			{
+				if (skill.type == SkillType.JELLY)
+				{
+					maxPoints = (int)skill.properties.Find(x=>x.name == "SPAWN_TURNS").skillValue;
+				}
+			}
 			monsterElement = userElement;
 			bwIcon.spriteName = fillIcon.spriteName = skillSprites[skill.type];
+			bwIcon.MakePixelPerfect();
+			fillIcon.MakePixelPerfect();
 			SetPoints(0);
 			helper.FadeIn();
 		}
 		else
 		{
+			Debug.Log("No skill");
 			maxPoints = 0;
 			helper.FadeOut();
 		}
@@ -72,6 +86,9 @@ public class PZSkillIndicator : MonoBehaviour {
 		{
 			spriteName = "inactive";
 		}
+		spriteName += (enemy ? enemySpritePrefix : yourSpritePrefix) + "skill";
+
+		label.spriteName = spriteName;
 	}
 
 	public void FadeOut()
@@ -79,5 +96,12 @@ public class PZSkillIndicator : MonoBehaviour {
 		if (helper == null) helper = GetComponent<MSUIHelper>();
 
 		helper.FadeOut();
+	}
+
+	public void Off()
+	{
+		if (helper == null) helper = GetComponent<MSUIHelper>();
+
+		helper.ResetAlpha(false);
 	}
 }
