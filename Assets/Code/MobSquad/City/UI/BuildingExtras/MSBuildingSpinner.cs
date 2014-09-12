@@ -27,6 +27,7 @@ public class MSBuildingSpinner : MonoBehaviour {
 	void Awake()
 	{
 		rotate = GetComponent<TweenRotation>();
+		building.spinner = this;
 	}
 
 	void OnEnable()
@@ -34,7 +35,7 @@ public class MSBuildingSpinner : MonoBehaviour {
 		SetAlpha (0f);
 		if (building.upgrade != null)
 		{
-			building.upgrade.OnFinishUpgrade += OnUpgradeFinish;
+			building.upgrade.OnFinishUpgrade += FinishSpinnerAnimation;
 		}
 	}
 
@@ -42,17 +43,17 @@ public class MSBuildingSpinner : MonoBehaviour {
 	{
 		if (building.upgrade != null)
 		{
-			building.upgrade.OnFinishUpgrade -= OnUpgradeFinish;
+			building.upgrade.OnFinishUpgrade -= FinishSpinnerAnimation;
 		}
 	}
 
 	[ContextMenu ("Play")]
-	void OnUpgradeFinish()
+	public void FinishSpinnerAnimation()
 	{
-		StartCoroutine(DoAnimations());
+		StartCoroutine(PlayAnimations());
 	}
 
-	IEnumerator DoAnimations()
+	public IEnumerator PlayAnimations()
 	{
 		sprite.sortingOrder = building.sprite.sortingOrder-1;
 

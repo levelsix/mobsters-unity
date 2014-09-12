@@ -66,7 +66,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			label.text = building.upgrade.timeLeftString;
 			bar.fill = building.upgrade.progress;
 		}
-		else if (building.obstacle != null && building.obstacle.isRemoving)
+		else if (building.obstacle != null && building.obstacle.isRemoving && !building.obstacle.finished)
 		{
 			foreach (var item in caps) 
 			{
@@ -89,23 +89,32 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			label.text = MSUtil.TimeStringShort(building.hospital.goon.healTimeLeftMillis);
 			bar.fill = building.hospital.goon.healProgressPercentage;
 		}
+		//This if statement is for if a building suddenly is no longer under construction the bar fills quickly
 		else if(bar.fill < 1f && bg.alpha > 0f)
 		{
 			if(newTime == 0){
-				newTime = building.upgrade.timeRemaining;
+				if(building.obstacle == null)
+				{
+					newTime = building.upgrade.timeRemaining;
+				}
+				else
+				{
+					newTime = building.obstacle.millisLeft;
+				}
 			}
 
 			building.hoverIcon.gameObject.SetActive(false);
 			
-			bar.fill = bar.fill + 1f * Time.deltaTime;
-			
+			bar.fill += 1f * Time.deltaTime;
+
 			label.text = MSUtil.TimeStringShort((long)(newTime * (1f - bar.fill)));
+
 			if(bar.fill >= 1f)
 			{
 				bar.fill = 1f;
 			}
 		}
-		else if(bar.fill >= 1f && upgrading)
+		else if(bar.fill >= 1f && (upgrading || (building.obstacle != null && building.obstacle.isRemoving)))
 		{
 			newTime = 0;
 
@@ -113,7 +122,11 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 			bg.alpha = 0;
 
-			if (building.upgrade.OnFinishUpgrade != null)
+			if(building.obstacle != null)
+			{
+				StartCoroutine(building.obstacle.EndingAnimation());
+			}
+			else if (building.upgrade.OnFinishUpgrade != null)
 			{
 				building.upgrade.OnFinishUpgrade();
 			}

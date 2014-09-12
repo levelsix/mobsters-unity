@@ -13,7 +13,11 @@ public class MSObstacle : MonoBehaviour {
 
 	long endTime = 0;
 
+	public bool finishedWithGems = false;
+
 	public bool isRemoving;
+
+	public bool finished = false;
 
 	public int gemsToFinish
 	{
@@ -153,7 +157,7 @@ public class MSObstacle : MonoBehaviour {
 		MSBuildingManager.instance.currentUnderConstruction = GetComponent<MSBuilding>();
 		while (true)
 		{
-			if (MSUtil.timeNowMillis > endTime)
+			if (MSUtil.timeNowMillis > endTime && !finishedWithGems)
 			{
 				FinishRemove();
 				yield break;
@@ -166,11 +170,12 @@ public class MSObstacle : MonoBehaviour {
 	{
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemsToFinish))
 		{
-//			FinishRemove(gemsToFinish);
+			finishedWithGems = true;
+			FinishRemove(gemsToFinish, true);
 		}
 	}
 
-	void FinishRemove(int gems = 0)
+	void FinishRemove(int gems = 0, bool spentGems = false)
 	{
 		if (MSActionManager.Town.OnObstacleRemoved != null)
 		{
@@ -180,7 +185,7 @@ public class MSObstacle : MonoBehaviour {
 		ObstacleRemovalCompleteRequestProto request = new ObstacleRemovalCompleteRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.curTime = MSUtil.timeNowMillis;
-		request.speedUp = gems > 0;
+		request.speedUp = spentGems;
 		request.gemsSpent = gems;
 		request.userObstacleId = userObstacle.userObstacleId;
 		request.atMaxObstacles = (MSWhiteboard.constants.maxObstacles == MSBuildingManager.instance.obstacles.Count);
@@ -188,12 +193,49 @@ public class MSObstacle : MonoBehaviour {
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_OBSTACLE_REMOVAL_COMPLETE_EVENT, DealWithFinishRemovalResponse);
 
 		MSBuildingManager.instance.currentUnderConstruction = null;
+
+		//turning finished to false true the progress bar to disapear
+		finished = true;
+	}
+	
+	public IEnumerator EndingAnimation()
+	{
 		MSBuilding building = GetComponent<MSBuilding>();
+		if(building.spinner != null)
+		{
+			StartCoroutine(ManualAlphaTween(1f, building.shadow));
+			StartCoroutine(ManualAlphaTween(1f, building.floor));
+			yield return StartCoroutine(ManualAlphaTween(1f, building.sprite));
+//			yield return StartCoroutine(building.spinner.PlayAnimations()); //wups looks like the spinner isn't supposed to appear
+		}
+		else
+		{
+			yield return new WaitForSeconds(1f);
+		}
+
 		if (building.selected)
 		{
 			building.Deselect();
 		}
+		building.sprite.color = new Color(building.sprite.color.r, building.sprite.color.g, building.sprite.color.b, 1f);
+		isRemoving = false;
 		building.Pool();
+		if (building.selected)
+		{
+			building.Deselect();
+		}
+	}
+
+	IEnumerator ManualAlphaTween(float duration, SpriteRenderer sprite)
+	{
+		float curTime = 0;
+		while(curTime < duration)
+		{
+			float alpha = (duration - curTime) / duration;
+			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, alpha);
+			yield return null;
+			curTime += Time.deltaTime;
+		}
 	}
 
 	void DealWithFinishRemovalResponse(int tagNum)
@@ -206,4 +248,5 @@ public class MSObstacle : MonoBehaviour {
 			Debug.LogError("Problem finishing obstacle removal: " + response.status.ToString());
 		}
 	}
+
 }
