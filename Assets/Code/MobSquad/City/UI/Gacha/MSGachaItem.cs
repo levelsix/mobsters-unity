@@ -83,11 +83,11 @@ public class MSGachaItem : MonoBehaviour {
 			string rarity = monster.quality.ToString().ToLower();
 			if (item.isComplete)
 			{
-				icon.spriteName = rarity + "ball";
+				icon.spriteName = "gacha" + rarity + "ball";
 			}
 			else
 			{
-				icon.spriteName = rarity + "piece";
+				icon.spriteName = "gacha" + rarity + "piece";
 			}
 			icon.MakePixelPerfect();
 			label.color = MSColors.qualityColors[monster.quality];
@@ -102,11 +102,11 @@ public class MSGachaItem : MonoBehaviour {
 			string rarity = item.quality.ToString().ToLower();
 			if (item.isComplete)
 			{
-				icon.spriteName = rarity + "ball";
+				icon.spriteName = "gacha" + rarity + "ball";
 			}
 			else
 			{
-				icon.spriteName = rarity + "piece";
+				icon.spriteName = "gacha" + rarity + "piece";
 			}
 			label.color = MSColors.qualityColors[item.quality];
 		}

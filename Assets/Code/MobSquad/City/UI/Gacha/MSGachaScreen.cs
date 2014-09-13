@@ -12,27 +12,30 @@ public class MSGachaScreen : MonoBehaviour {
 	MSGachaFeaturedMobster[] featuredMobsters;
 	
 	[SerializeField]
-	MSGachaTab gachaTabPrefab;
-	
+	MSGachaTab basicGrab;
+
 	[SerializeField]
-	UIGrid gachaTabGrid;
+	MSGachaTab goonieGrab;
 	
 	[SerializeField]
 	UILabel oneSpinCostLabel;
 	
 	[SerializeField]
 	UILabel tenSpinCostLabel;
-	
-	List<MSGachaTab> gachaTabs = new List<MSGachaTab>();
+
+	[SerializeField]
+	UISprite buttonBack;
 	
 	public BoosterPackProto currPack;
 	
 	int nextLeftIndex;
 	int nextRightIndex;
+
+	const int BASIC_GRAB_ID = 1;
 	
 	public void OnEnable()
 	{
-		RecycleTabs();
+//		RecycleTabs();
 		
 		currPack = null;
 		foreach (BoosterPackProto booster in MSDataManager.instance.GetAll<BoosterPackProto>().Values) 
@@ -40,12 +43,16 @@ public class MSGachaScreen : MonoBehaviour {
 			if (currPack == null || currPack.boosterPackId == 0)
 			{
 				currPack = booster;
+				basicGrab.Init(booster, this);
 			}
-			AddTab(booster);
+			else
+			{
+				goonieGrab.Init(booster, this);
+			}
+//			AddTab(booster);
 		}
 		Init (currPack); //Gotta call this after, else the tabs won't init properly
 		
-		gachaTabGrid.Reposition();
 	}
 	
 	public void Init(BoosterPackProto pack)
@@ -53,21 +60,19 @@ public class MSGachaScreen : MonoBehaviour {
 		currPack = pack;
 		
 		spinner.Init(pack);
+
+		buttonBack.spriteName = MSUtil.StripExtensions( pack.machineImgName);
 		
 		nextLeftIndex = LoopDisplayItemIndex(-1);
 		nextRightIndex = LoopDisplayItemIndex(2);
-		
-		foreach (var item in gachaTabs) 
-		{
-			item.OnNewBoosterActive(pack);
-		}
 		
 		foreach (var item in featuredMobsters) 
 		{
 			item.Init(PickGoonLeft());
 		}
 
-		if( MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
+		//Only the basic grab can be free.  Basic grab is ID 1
+		if( MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000 && pack.boosterPackId == BASIC_GRAB_ID)
 		{
 			oneSpinCostLabel.text = "Free";
 		}
@@ -75,6 +80,7 @@ public class MSGachaScreen : MonoBehaviour {
 		{
 			oneSpinCostLabel.text = pack.gemPrice.ToString();
 		}
+		//Ten spin button is disabled for now
 		tenSpinCostLabel.text = (pack.gemPrice * 10).ToString();
 	}
 	
@@ -111,24 +117,24 @@ public class MSGachaScreen : MonoBehaviour {
 	
 	#endregion
 	
-	#region Tabs
-	
-	void AddTab(BoosterPackProto booster)
-	{
-		MSGachaTab tab = (MSPoolManager.instance.Get(gachaTabPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, gachaTabGrid.transform) 
-		                  as MSSimplePoolable).GetComponent<MSGachaTab>();
-		tab.transform.localScale = Vector3.one;
-		tab.Init (booster, this);
-		gachaTabs.Add(tab);
-	}
-	
-	void RecycleTabs()
-	{
-		foreach (var item in gachaTabs) 
-		{
-			item.GetComponent<MSSimplePoolable>().Pool();
-		}
-	}
-	
-	#endregion
+//	#region Tabs
+//	
+//	void AddTab(BoosterPackProto booster)
+//	{
+//		MSGachaTab tab = (MSPoolManager.instance.Get(gachaTabPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, gachaTabGrid.transform) 
+//		                  as MSSimplePoolable).GetComponent<MSGachaTab>();
+//		tab.transform.localScale = Vector3.one;
+//		tab.Init (booster, this);
+//		gachaTabs.Add(tab);
+//	}
+//	
+//	void RecycleTabs()
+//	{
+//		foreach (var item in gachaTabs) 
+//		{
+//			item.GetComponent<MSSimplePoolable>().Pool();
+//		}
+//	}
+//	
+//	#endregion
 }

@@ -6,24 +6,23 @@ using com.lvl6.proto;
 [RequireComponent(typeof(MSSimplePoolable))]
 public class MSGachaTab : MonoBehaviour 
 {
+	[SerializeField]
+	MSTab otherTab;
+
 	MSTab tab;
 	
 	MSGachaScreen screen;
 	
 	BoosterPackProto booster;
 	
-	void Awake()
-	{
-		tab = GetComponent<MSTab>();
-	}
-	
 	public void Init(BoosterPackProto booster, MSGachaScreen gachaScreen)
 	{
+		tab = GetComponent<MSTab>();
+
 		screen = gachaScreen;
 		this.booster = booster;
 		
 		tab.label.text = booster.boosterPackName;
-		//TODO: tab.spriteroot = booster.tabicon;
 	}
 	
 	public void OnNewBoosterActive(BoosterPackProto booster)
@@ -40,6 +39,11 @@ public class MSGachaTab : MonoBehaviour
 	
 	void OnClick()
 	{
-		screen.Init(booster);
+		if(!tab.active)
+		{
+			screen.Init(booster);
+			tab.InitActive();
+			otherTab.InitInactive();
+		}
 	}
 }

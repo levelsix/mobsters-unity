@@ -61,6 +61,7 @@ public class MSGachaFeaturedMobster : MonoBehaviour {
 			elementSprite.spriteName = monster.monsterElement.ToString().ToLower() + "orb";
 			elementName.text = monster.monsterElement.ToString();
 			elementName.color = MSColors.elementColors[monster.monsterElement];
+			elementSprite.MakePixelPerfect();
 			
 			maxHp.text = MSMath.MaxHPAtLevel(monster, monster.maxLevel).ToString("n0");
 			
