@@ -21,7 +21,7 @@ public class MSPlacementGrid : MonoBehaviour {
 		building = GetComponent<MSBuilding> ();
 		trans = transform;
 
-//		building.OnSelect += OnBuildingSelect;
+		building.OnSelect += OnBuildingSelect;
 		building.OnDeselect += OnBuildingDeselect;
 
 		MSActionManager.Town.OnBuildingDragStart += OnDragStart;
@@ -62,7 +62,7 @@ public class MSPlacementGrid : MonoBehaviour {
 		}
 	}
 
-	public void updateSprites(){
+	public void UpdateSprites(){
 		foreach (var tile in tiles) {
 			MSGridManager gridMan = MSGridManager.instance;
 			if(gridMan.IsOpen(gridMan.PointToGridCoords(tile.transf.position))){

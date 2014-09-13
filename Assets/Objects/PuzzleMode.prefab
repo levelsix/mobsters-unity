@@ -5093,6 +5093,8 @@ MonoBehaviour:
   bloodSplatter: {fileID: 0}
   pvpUI: {fileID: 0}
   mobsterCounter: {fileID: 0}
+  playerSkillIndicator: {fileID: 0}
+  enemySkillIndicator: {fileID: 0}
   turnDisplay: {fileID: 0}
   currTurn: 0
   playerTurns: 3
@@ -5104,6 +5106,7 @@ MonoBehaviour:
   intro: {fileID: 0}
   forfeitChance: 0
   minTurnSlots: 6
+  playerSkillPoints: 0
 --- !u!114 &11400126
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -131,7 +131,11 @@ public class SpringPosition : MonoBehaviour
 	static public SpringPosition Begin (GameObject go, Vector3 pos, float strength)
 	{
 		SpringPosition sp = go.GetComponent<SpringPosition>();
-		if (sp == null) sp = go.AddComponent<SpringPosition>();
+		if (sp == null)
+		{
+			sp = go.AddComponent<SpringPosition>();
+			Debug.LogWarning("Added a SpringPosition to " + go.name);
+		}
 		sp.target = pos;
 		sp.strength = strength;
 		sp.onFinished = null;

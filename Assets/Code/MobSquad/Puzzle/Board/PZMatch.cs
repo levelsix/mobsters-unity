@@ -94,13 +94,19 @@ public class PZMatch {
 	public void Destroy()
 	{	
 		gems.Sort((gem1, gem2) => -gem1.dragged.CompareTo(gem2.dragged));
-		
+
+		foreach (var item in gems) 
+		{
+			item.SetPrefallPosition();
+		}
+
 		int i = 0;
 		if (!special) //Don't make special gems if this is the result of a special detonation
 		{
 			if (multi > 0)
 			{
 				//Make special bomb gem, and save gem
+				PZPuzzleManager.instance.ClearJelly(gems[i].boardX, gems[i].boardY, gems[i].id);
 				gems[i++].gemType = PZGem.GemType.BOMB;
 				//PZPuzzleManager.instance.gemsOnBoardByType[gems[i].colorIndex]++;
 			}
@@ -109,12 +115,14 @@ public class PZMatch {
 				if (gems.Count == 4)
 				{
 					//Make special rocket gem, and save gem
+					PZPuzzleManager.instance.ClearJelly(gems[i].boardX, gems[i].boardY, gems[i].id);
 					gems[i++].gemType = PZGem.GemType.ROCKET;
 					//PZPuzzleManager.instance.gemsOnBoardByType[gems[i].colorIndex]++;
 				}
 				else
 				{
 					//Make special molly gem, and save gem
+					PZPuzzleManager.instance.ClearJelly(gems[i].boardX, gems[i].boardY, gems[i].id);
 					PZGem molly = gems[i++];
 					molly.gemType = PZGem.GemType.MOLOTOV;
 					molly.colorIndex = -1;

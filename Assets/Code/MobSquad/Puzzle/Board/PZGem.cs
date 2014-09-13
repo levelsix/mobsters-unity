@@ -44,7 +44,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	/// </summary>
 	public UISprite sprite;
 	
-	public enum GemType {NORMAL, ROCKET, BOMB, MOLOTOV};
+	public enum GemType {NORMAL, ROCKET, BOMB, MOLOTOV, CAKE};
 	
 	private GemType _gemType;
 	
@@ -97,6 +97,26 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	public bool enqueued = false;
 	
 	public int boardX, boardY;
+
+	Vector3 boardPos
+	{
+		get
+		{
+			return new Vector3(boardX, boardY) * SPACE_SIZE;
+		}
+	}
+
+	int prefallBoardX, prefallBoardY;
+
+	int shuffleX, shuffleY;
+
+	Vector3 shufflePos
+	{
+		get
+		{
+			return new Vector3(shuffleX, shuffleY) * SPACE_SIZE;
+		}
+	}
 	
 	const float DRAG_THRESHOLD = 70;
 	
@@ -230,16 +250,18 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		{
 			if (colorIndex >= 0)
 			{
-				PZJelly jelly = PZPuzzleManager.instance.jellyBoard[boardX, boardY];
-				if (jelly != null) //If there's a jelly, prevent the gem from being worth a shit and damage it instead
-				{
-					jelly.Damage();
-				}
-				else
+				if (!PZPuzzleManager.instance.ClearJelly(prefallBoardX, prefallBoardY, id)) //If there's a jelly, prevent the gem from being worth a shit and damage it instead
 				{
 					PZDamageNumber damNum = MSPoolManager.instance.Get(PZPuzzleManager.instance.damageNumberPrefab, transf.position) as PZDamageNumber;
 					damNum.Init(this);
 					PZPuzzleManager.instance.currGems[colorIndex]++;
+					CreateMatchParticle();
+				}
+				
+				if (colorIndex+1 == (int)PZCombatManager.instance.activePlayer.monster.monster.monsterElement)
+				{
+					PZCombatManager.instance.playerSkillPoints++;
+					PZCombatManager.instance.playerSkillIndicator.SetPoints(PZCombatManager.instance.playerSkillPoints);
 				}
 			}
 
@@ -247,7 +269,6 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 			if (colorIndex >= 0)
 			{
-				CreateMatchParticle();
 				CreateSparkle();
 			}
 
@@ -277,6 +298,12 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			SpawnAbove(PZPuzzleManager.instance.PickColor(boardX), boardX); //Respawn at top of board
 
 		}
+	}
+
+	public void SetPrefallPosition()
+	{
+		prefallBoardX = boardX;
+		prefallBoardY = boardY;
 	}
 
 	[ContextMenu("CheckFall")]
@@ -619,6 +646,23 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		colorTween.enabled = false;
 		scaleTween.Sample(0f, false);
 		colorTween.Sample(0f, false);
+	}
+
+	public void SetShufflePosition(int x, int y)
+	{
+		shuffleX = x;
+		shuffleY = y;
+	}
+
+	public void SetShuffleProgress(float t)
+	{
+		transf.localPosition = Vector3.Lerp(boardPos, shufflePos, t);
+
+		if (t >= 1)
+		{
+			boardX = shuffleX;
+			boardY = shuffleY;
+		}
 	}
 
 	#region Debug

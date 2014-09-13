@@ -16,7 +16,7 @@ public class MSResourceCollector : MonoBehaviour {
 	{
 		get
 		{
-			return currMoney >= MONEY_THRESHOLD;
+			return currMoney >= moneyThreshold;
 		}
 	}
 
@@ -90,7 +90,13 @@ public class MSResourceCollector : MonoBehaviour {
 	/// <summary>
 	/// A building needs to have at least this much money to be collected from
 	/// </summary>
-	const int MONEY_THRESHOLD = 1;
+	int moneyThreshold
+	{
+		get
+		{
+			return (int)_generator.productionRate/10;
+		}
+	}
 	
     void Awake()
     {

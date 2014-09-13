@@ -14,6 +14,14 @@ public class MSFullAchievement
 	public UserAchievementProto userAchievement;
 	public AchievementProto achievement;
 
+	public MSFullAchievement successor
+	{
+		get
+		{
+			return MSAchievementManager.instance.currAchievements.Find(x=>x.achievement.achievementId == achievement.successorId);
+		}
+	}
+
 	/// <summary>
 	/// Initializes a new full achievement according to the achievement id.
 	/// Used when we complete an achievement, and need to add its successor

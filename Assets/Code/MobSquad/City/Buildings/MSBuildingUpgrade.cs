@@ -108,7 +108,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			return Mathf.CeilToInt((timeRemaining / 60000f / MSWhiteboard.constants.minutesPerGem));
+			return MSMath.GemsForTime(timeRemaining);
 		}
 	}
 
@@ -206,6 +206,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		else
 		{
 			MSBuildingUpgradePopup.instance.UnlockServerFail();
+			Debug.LogError("Problem upgrading building: " + response.status.ToString());
 		}
 	}
 	

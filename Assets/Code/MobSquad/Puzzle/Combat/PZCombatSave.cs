@@ -26,12 +26,15 @@ public class PZCombatSave
 	public List<CombatTurn> turns;
 	public int currTurnIndex;
 
+	public int playerSkillPoints;
+	public int enemySkillPoints;
+
 	public PZCombatSave(){}
 
 	public PZCombatSave(PZMonster activePlayer, int activeEnemyHealth,
 	                 PZGem[,] board, BattleStats battleStats,
 	                    float forfeitChance, int currTurn, int currPlayerDamage,
-	                    int boardWidth, int boardHeight)
+	                    int boardWidth, int boardHeight, int playerSkillPoints, int enemySkillPoints)
 	{
 		this.activePlayerUserMonsterId = activePlayer.userMonster.userMonsterId;
 
@@ -54,16 +57,20 @@ public class PZCombatSave
 		this.currTurn = currTurn;
 		this.currPlayerDamage = currPlayerDamage;
 
-		/*
-		Debug.LogWarning("Saving!" +
-		                 "\nActive player: " + activePlayerUserMonsterId +
-		                 "\nEnemy HP: " + activeEnemyHealth +
-		                 "\nCurr Turn: " + currTurn +
-		                 "\nCurr Player Damage: " + currPlayerDamage);
-		*/
+
+		Debug.LogWarning("Saving!"
+		                 //+ "\nActive player: " + activePlayerUserMonsterId +
+		                 //+ "\nEnemy HP: " + activeEnemyHealth +
+		                 + "\nCurr Turn: " + currTurn
+		                 //+ "\nCurr Player Damage: " + currPlayerDamage
+		                 );
+
 
 		turns = PZCombatScheduler.instance.turns;
 		currTurnIndex = PZCombatScheduler.instance.currInd;
+
+		this.playerSkillPoints = playerSkillPoints;
+		this.enemySkillPoints = enemySkillPoints;
 
 		MSUtil.Save(key, this);
 	}

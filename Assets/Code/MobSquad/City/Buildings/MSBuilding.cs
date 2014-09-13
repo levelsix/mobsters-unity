@@ -680,7 +680,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		SetGridFromTrans ();
 		MSPlacementGrid grid = GetComponent<MSPlacementGrid> ();
 		if (grid != null && tempPosition != trans.position) {
-			grid.updateSprites();
+			grid.UpdateSprites();
 		}
 		
 		if (MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
@@ -746,6 +746,13 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	public void Confirm(bool useGems)
 	{
+		if (!MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
+		{
+			MSActionManager.Popup.DisplayError("You can't build a building there, silly!");
+			return;
+		}
+
+
 		if(MSBuildingManager.instance.currentUnderConstruction != null)
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",  

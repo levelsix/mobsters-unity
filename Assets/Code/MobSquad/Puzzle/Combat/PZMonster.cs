@@ -305,8 +305,8 @@ public class PZMonster {
 		}
 	}
 
-	SkillProto offensiveSkill;
-	SkillProto defensiveSkill;
+	public SkillProto offensiveSkill;
+	public SkillProto defensiveSkill;
 
 	public int speed;
 

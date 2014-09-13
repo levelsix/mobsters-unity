@@ -279,5 +279,9 @@ public class MSDataManager : MonoBehaviour {
 		{
 			Load (item, item.achievementId);
 		}
+		foreach (var item in data.skills) 
+		{
+			Load (item, item.skillId);
+		}
 	}
 }
