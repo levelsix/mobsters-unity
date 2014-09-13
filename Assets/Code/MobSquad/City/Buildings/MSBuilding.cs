@@ -59,6 +59,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	[HideInInspector]
 	public MSObstacle obstacle;
 
+	public MSBuildingSpinner spinner;
+
 	public TweenScale tweenScale;
 
     /// <summary>
@@ -217,10 +219,10 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	private BoxCollider _box;
 
 	[SerializeField]
-	SpriteRenderer floor;
+	public SpriteRenderer floor;
 
 	[SerializeField]
-	SpriteRenderer shadow;
+	public SpriteRenderer shadow;
 
 	[SerializeField]
 	public UISprite hoverIcon;

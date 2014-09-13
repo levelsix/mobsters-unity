@@ -2904,7 +2904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100352
 GameObject:
   m_ObjectHideFlags: 1
@@ -7931,6 +7931,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5060f48419640ed8e4de6e38971be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  midDivider: {fileID: 100212}
+  endDivider: {fileID: 100024}
   buildingCardPrefab: {fileID: 11400034, guid: b3db8f87e2a5540978e26190cf300a28, type: 2}
   table: {fileID: 11400256}
   cards: []

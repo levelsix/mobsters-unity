@@ -45,7 +45,10 @@ public class MSBuildingCard : MonoBehaviour {
 
 	bool flipped = false;
 
-	bool on{
+	/// <summary>
+	/// whether or not the card is available for purchase.
+	/// </summary>
+	public bool on{
 		set{
 			if(value){
 				state = State.ACTIVE;
@@ -267,38 +270,41 @@ public class MSBuildingCard : MonoBehaviour {
 		return lowestLevel == 999 ? -1 : lowestLevel;
 	}
 
-	void SetName()
+	/// <summary>
+	/// Sets the name of this gameobject to reflect which building is on the card
+	/// </summary>
+	public void SetName()
 	{
 		switch (building.structInfo.structType) 
 		{
 		case StructureInfoProto.StructType.RESOURCE_GENERATOR:
 			if (building.generator.resourceType == ResourceType.CASH)
 			{
-				name = "1 Cash Printer";
+				name = "Cash Printer";
 			}
 			else
 			{
-				name = "3 Oil Drill";
+				name = "Oil Drill";
 			}
 			break;
 		case StructureInfoProto.StructType.RESOURCE_STORAGE:
 			if (building.storage.resourceType == ResourceType.CASH)
 			{
-				name = "2 Cash Vault";
+				name = "Cash Vault";
 			}
 			else
 			{
-				name = "4 Oil Storage";
+				name = "Oil Storage";
 			}
 			break;
 		case StructureInfoProto.StructType.HOSPITAL:
-			name = "6 Hospital";
+			name = "Hospital";
 			break;
 		case StructureInfoProto.StructType.RESIDENCE:
-			name = "7 Residence";
+			name = "Residence";
 			break;
 		default:
-			name = "8 Lab";
+			name = "Lab";
 			break;
 		}
 	}

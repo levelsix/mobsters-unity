@@ -251,7 +251,7 @@ public class UIGrid : UIWidgetContainer
 	}
 
 	// Various generic sorting functions
-	static public int SortByName (Transform a, Transform b) { return string.Compare(a.name, b.name); }
+	static public int SortByName (Transform a, Transform b) { return MSNaturalSortObject.Compare(a.name, b.name); }//Kenny replaced string.compare with MSNaturalSortObject.Compare
 	static public int SortHorizontal (Transform a, Transform b) { return a.localPosition.x.CompareTo(b.localPosition.x); }
 	static public int SortVertical (Transform a, Transform b) { return b.localPosition.y.CompareTo(a.localPosition.y); }
 
