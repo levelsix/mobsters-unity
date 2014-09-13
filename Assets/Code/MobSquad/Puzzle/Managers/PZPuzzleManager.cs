@@ -47,7 +47,6 @@ public class PZPuzzleManager : MonoBehaviour {
 		set
 		{
 			_swapLock = value;
-			//Debug.Log("Swaplock: " + _swapLock);
 		}
 	}
 
@@ -296,7 +295,7 @@ public class PZPuzzleManager : MonoBehaviour {
 					gem.SpawnOnMap(PickColor(i, j), j);
 				}
 			}
-		}while(!CheckForMatchMoves());
+		}while(!CheckForMatchMoves(board));
 		showGemHints = true;
 		setUpBoard = true;
 	}
@@ -446,8 +445,9 @@ public class PZPuzzleManager : MonoBehaviour {
 				processingSwap = false;
 				showGemHints = true;
 				ResetCombo ();
-				if (!CheckForMatchMoves ()) {
-					InitBoard (boardWidth, boardHeight);
+				if (!CheckForMatchMoves (board)) 
+				{
+					Shuffle();
 				}
 			}
 			processingSwap = false;
@@ -934,7 +934,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	/// <returns>
 	/// The for matches.
 	/// </returns>
-	bool CheckForMatchMoves()
+	bool CheckForMatchMoves(PZGem[,] board)
 	{
 		PZGem gem;
 		//Check horizontal possibilities
@@ -1216,6 +1216,181 @@ public class PZPuzzleManager : MonoBehaviour {
 			{
 				Debug.LogError("Gems could not drop into board");
 			}
+		}
+	}
+
+	bool HasMatches(PZGem[,] thisBoard)
+	{
+		List<PZGem> currGems = new List<PZGem>();
+		PZGem curr;
+
+		//Determine horizontal matches
+		for (int i = 0; i < boardWidth; i++) 
+		{
+			currGems.Add(thisBoard[i, 0]);
+			for (int j = 1; j < boardHeight; j++) 
+			{
+				curr = thisBoard[i,j];
+				
+				if (currGems[0].colorIndex != curr.colorIndex)
+				{
+					if (currGems.Count >= 3)
+					{
+						foreach (PZGem item in currGems)
+						{
+							if (item.gemType != PZGem.GemType.ROCKET)
+							{
+								item.horizontal = true;
+							}
+						}
+						return true;
+					}
+					currGems.Clear ();
+				}
+				currGems.Add(curr);
+			}
+			if (currGems.Count >= 3)
+			{
+				foreach (PZGem item in currGems)
+				{
+					if (item.gemType != PZGem.GemType.ROCKET)
+					{
+						item.horizontal = true;
+					}
+				}
+				return true;
+			}
+			
+			currGems.Clear ();
+		}
+		
+		for (int i = 0; i < boardHeight; i++) {
+			currGems.Add (thisBoard[0,i]);
+			for (int j = 1; j < boardWidth; j++) {
+				curr = thisBoard[j,i];
+				if (currGems[0].colorIndex != curr.colorIndex)
+				{
+					if (currGems.Count >= 3)
+					{
+						foreach (PZGem item in currGems)
+						{
+							if (item.gemType != PZGem.GemType.ROCKET)
+							{
+								item.horizontal = false;
+							}
+						}
+						return true;
+					}
+					currGems.Clear ();
+				}
+				currGems.Add(curr);
+			}
+			if (currGems.Count >= 3)
+			{
+				foreach (PZGem item in currGems)
+				{
+					if (item.gemType != PZGem.GemType.ROCKET)
+					{
+						item.horizontal = false;
+					}
+				}
+				return true;
+			}
+			currGems.Clear ();
+		}
+
+		return false;
+	}
+
+	[SerializeField] float shuffleTime;
+
+	[ContextMenu ("Test Shuffle")]
+	public void Shuffle()
+	{
+		StartCoroutine(Suffle());
+	}
+
+	public IEnumerator Suffle()
+	{
+		swapLock++;
+
+		List<PZGem> gems = new List<PZGem>(); //This is our list of target positions. As we pick one, it gets removed from the list.
+
+		PZGem[,] newBoard = new PZGem[boardWidth, boardHeight];
+
+		int x, y;
+
+		do
+		{
+			gems.Clear();
+			for (x = 0; x < boardWidth; x++) {
+				for (y = 0; y < boardHeight; y++) 
+				{
+					gems.Add(board[x,y]);
+				}
+			}
+
+			for (x = 0; x < boardWidth; x++) 
+			{
+				for (y = 0; y < boardHeight; y++) 
+				{
+					PZGem currGem = board[x,y];
+					if (currGem.gemType == PZGem.GemType.CAKE)
+					{
+						gems.Remove(currGem);
+						newBoard[currGem.boardX, currGem.boardY] = currGem;
+					}
+					else
+					{
+						PZGem target;
+						do
+						{
+							target = gems[UnityEngine.Random.Range(0, gems.Count)];
+						} while (gems.Count > 1  //If this is the last gem, and its target is itself, we've got to let it pass
+						         && target == currGem 
+						         && target.gemType != PZGem.GemType.CAKE);
+						gems.Remove(target);
+						currGem.SetShufflePosition(target.boardX, target.boardY);
+						newBoard[target.boardX, target.boardY] = currGem;
+					}
+				}
+			}
+		}while(HasMatches(newBoard) || !CheckForMatchMoves(newBoard));
+
+		float currTime = 0;
+		do
+		{
+			currTime += Time.deltaTime;
+			for (x = 0; x < boardWidth; x++) 
+			{
+				for (y = 0; y < boardHeight; y++) 
+				{
+					board[x,y].SetShuffleProgress(currTime/shuffleTime);
+				}
+			}
+			yield return null;
+		}while (currTime < shuffleTime);
+
+		board = newBoard;
+
+		swapLock--;
+	}
+
+	void PlaceRandomly(PZGem gem, PZGem[,] board)
+	{
+		if (gem.gemType == PZGem.GemType.CAKE)
+		{
+			PZGem temp = board[gem.boardX, gem.boardY];
+			board[gem.boardX, gem.boardY] = gem;
+			if (gem != null) PlaceRandomly(gem, board);
+		}
+
+		int boardX = UnityEngine.Random.Range(0, boardWidth);
+		int boardY = UnityEngine.Random.Range(0, boardHeight);
+		if (board[boardX, boardY] == null)
+		{
+			board[boardX, boardY] = gem;
+			gem.SetShufflePosition(boardX, boardY);
 		}
 	}
 

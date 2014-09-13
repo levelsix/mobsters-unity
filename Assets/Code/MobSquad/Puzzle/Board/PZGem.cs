@@ -44,7 +44,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	/// </summary>
 	public UISprite sprite;
 	
-	public enum GemType {NORMAL, ROCKET, BOMB, MOLOTOV};
+	public enum GemType {NORMAL, ROCKET, BOMB, MOLOTOV, CAKE};
 	
 	private GemType _gemType;
 	
@@ -98,7 +98,25 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	
 	public int boardX, boardY;
 
+	Vector3 boardPos
+	{
+		get
+		{
+			return new Vector3(boardX, boardY) * SPACE_SIZE;
+		}
+	}
+
 	int prefallBoardX, prefallBoardY;
+
+	int shuffleX, shuffleY;
+
+	Vector3 shufflePos
+	{
+		get
+		{
+			return new Vector3(shuffleX, shuffleY) * SPACE_SIZE;
+		}
+	}
 	
 	const float DRAG_THRESHOLD = 70;
 	
@@ -628,6 +646,23 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		colorTween.enabled = false;
 		scaleTween.Sample(0f, false);
 		colorTween.Sample(0f, false);
+	}
+
+	public void SetShufflePosition(int x, int y)
+	{
+		shuffleX = x;
+		shuffleY = y;
+	}
+
+	public void SetShuffleProgress(float t)
+	{
+		transf.localPosition = Vector3.Lerp(boardPos, shufflePos, t);
+
+		if (t >= 1)
+		{
+			boardX = shuffleX;
+			boardY = shuffleY;
+		}
 	}
 
 	#region Debug

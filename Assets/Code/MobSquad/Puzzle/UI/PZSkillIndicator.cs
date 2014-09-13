@@ -45,6 +45,7 @@ public class PZSkillIndicator : MonoBehaviour {
 
 		if (skill != null && skill.skillId > 0)
 		{
+			collider.enabled = skill.activationType == SkillActivationType.USER_ACTIVATED;
 			Debug.Log("Skill!: " + skill.name);
 			if (skill.orbCost > 0)
 			{
@@ -66,6 +67,7 @@ public class PZSkillIndicator : MonoBehaviour {
 		}
 		else
 		{
+			collider.enabled = false;
 			Debug.Log("No skill");
 			maxPoints = 0;
 			helper.FadeOut();
@@ -103,5 +105,10 @@ public class PZSkillIndicator : MonoBehaviour {
 		if (helper == null) helper = GetComponent<MSUIHelper>();
 
 		helper.ResetAlpha(false);
+	}
+
+	void OnClick()
+	{
+		PZCombatManager.instance.RunPlayerSkill();
 	}
 }

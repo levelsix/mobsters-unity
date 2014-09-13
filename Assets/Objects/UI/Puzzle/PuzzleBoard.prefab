@@ -59,6 +59,7 @@ GameObject:
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400052}
   - 114: {fileID: 11400066}
+  - 65: {fileID: 6500000}
   m_Layer: 5
   m_Name: EnemySkill
   m_TagString: Untagged
@@ -553,6 +554,7 @@ GameObject:
   - 114: {fileID: 11400094}
   - 114: {fileID: 11400088}
   - 114: {fileID: 11400068}
+  - 65: {fileID: 6500002}
   m_Layer: 5
   m_Name: PlayerSkill
   m_TagString: Untagged
@@ -1001,6 +1003,30 @@ Transform:
   - {fileID: 400058}
   m_Father: {fileID: 400004}
   m_RootOrder: 11
+--- !u!65 &6500000
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 63, y: 63, z: 0}
+  m_Center: {x: -.5, y: -.5, z: 0}
+--- !u!65 &6500002
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100066}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 63, y: 63, z: 0}
+  m_Center: {x: -.5, y: -.5, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1197,7 +1223,7 @@ MonoBehaviour:
   mWidth: 64
   mHeight: 64
   mDepth: 101
-  autoResizeBoxCollider: 0
+  autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
@@ -2986,7 +3012,7 @@ MonoBehaviour:
   mWidth: 64
   mHeight: 64
   mDepth: 101
-  autoResizeBoxCollider: 0
+  autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1

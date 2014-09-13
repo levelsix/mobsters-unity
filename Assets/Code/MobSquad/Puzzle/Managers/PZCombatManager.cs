@@ -465,11 +465,6 @@ public class PZCombatManager : MonoBehaviour {
 		else
 		{
 			RunPickNextTurn(false);
-			currTurn = save.currTurn;
-			if (MSActionManager.Puzzle.OnTurnChange != null)
-			{
-				MSActionManager.Puzzle.OnTurnChange(currTurn);
-			}
 		}
 	}
 
@@ -1080,11 +1075,11 @@ public class PZCombatManager : MonoBehaviour {
 
 	void StartPlayerTurn()
 	{
-		currTurn = 0;
+		if (currTurn == playerTurns) currTurn = 0;
 
 		if (MSActionManager.Puzzle.OnTurnChange != null)
 		{
-			MSActionManager.Puzzle.OnTurnChange(playerTurns);
+			MSActionManager.Puzzle.OnTurnChange(playerTurns-currTurn);
 		}
 		if (MSActionManager.Puzzle.OnNewPlayerRound != null)
 		{
@@ -1427,7 +1422,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	#region Skills
 
-	void RunPlayerSkill()
+	public void RunPlayerSkill()
 	{
 		StartCoroutine(PlayerSkill());
 	}
