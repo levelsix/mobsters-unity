@@ -141,12 +141,31 @@ public class MSMiniJobPopup : MonoBehaviour {
 	static readonly Color greyTextColor = new Color(.5f, .5f, .5f);
 	static readonly Color whiteTextColor = Color.white;
 
+	void Awake()
+	{
+		MSActionManager.MiniJob.OnMiniJobComplete += CheckPageChange;
+		Debug.LogError("added");
+	}
 
 	void OnEnable()
 	{
 		mover.Sample(0, true);
 
 		Init ();
+
+	}
+	
+	/// <summary>
+	/// Check if the minijob menu is open.  If it is, change to the collection screen
+	/// </summary>
+	public void CheckPageChange()
+	{
+		Debug.LogError("called");
+		if (gameObject.activeSelf)
+		{
+			Debug.LogError("function");
+			Init();
+		}
 	}
 
 	public void Init()
