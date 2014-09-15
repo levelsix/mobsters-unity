@@ -20,6 +20,8 @@ public class MSTab : MonoBehaviour {
 	[SerializeField]
 	string activeTab = "popupactivetab";
 
+	public bool active;
+
 	public virtual void InitActive()
 	{
 		button.normalSprite = activeTab;
@@ -27,6 +29,7 @@ public class MSTab : MonoBehaviour {
 		icon.spriteName = spriteRoot + "active";
 		icon.MakePixelPerfect();
 		label.color = MSColors.activeTabTextColor;
+		active = true;
 	}
 
 	public virtual void InitInactive()
@@ -36,5 +39,6 @@ public class MSTab : MonoBehaviour {
 		icon.spriteName = spriteRoot + "inactive";
 		icon.MakePixelPerfect();
 		label.color = MSColors.inactiveTabTextColor;
+		active = false;
 	}
 }
