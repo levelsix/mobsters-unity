@@ -491,7 +491,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			width = combinedProto.structInfo.width;
 			length = combinedProto.structInfo.height;
 			      
-			StartCoroutine(SetupSprite(combinedProto.structInfo.imgName));
+			MSBuildingManager.instance.StartCoroutine(SetupSprite(combinedProto.structInfo.imgName));
 
 			sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset/25, combinedProto.structInfo.imgVerticalPixelOffset/25);
 
@@ -505,7 +505,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			width = obstacle.obstacle.width;
 			length = obstacle.obstacle.height;
 
-			StartCoroutine(SetupSprite(obstacle.obstacle.imgName));
+			MSBuildingManager.instance.StartCoroutine(SetupSprite(obstacle.obstacle.imgName));
 
 			sprite.transform.localPosition = new Vector3(0, obstacle.obstacle.imgVerticalPixelOffset/25);
 
