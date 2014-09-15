@@ -36,7 +36,7 @@ public class PZWinLosePopup : MonoBehaviour {
 	GameObject reviveButton;
 
 	[SerializeField]
-	GameObject manageButton;
+	GameObject hint;
 
 	[SerializeField]
 	PZPrize prizePrefab;
@@ -61,7 +61,7 @@ public class PZWinLosePopup : MonoBehaviour {
 	/// </summary>
 	void GenInit(){
 		doneButton.transform.localScale = new Vector3 (0f, 0f, 0f);
-		manageButton.transform.localPosition = manageButton.GetComponent<TweenPosition> ().from;
+		hint.transform.localPosition = hint.GetComponent<TweenPosition> ().from;
 		titlePow.transform.localPosition = titlePow.transform.GetComponent<TweenPosition> ().from;
 		title.GetComponent<TweenScale> ().enabled = false;
 		title.transform.localScale = title.GetComponent<TweenScale> ().from;
@@ -237,8 +237,8 @@ public class PZWinLosePopup : MonoBehaviour {
 		doneScale.PlayForward ();
 		yield return new WaitForSeconds(0.2f);
 
-		manageButton.GetComponent<TweenPosition> ().ResetToBeginning ();
-		manageButton.GetComponent<TweenPosition> ().PlayForward ();
+		hint.GetComponent<TweenPosition> ().ResetToBeginning ();
+		hint.GetComponent<TweenPosition> ().PlayForward ();
 		yield return new WaitForSeconds(0.2f);
 
 		title.GetComponent<TweenScale> ().ResetToBeginning ();

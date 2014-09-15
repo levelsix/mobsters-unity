@@ -154,7 +154,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		set
 		{
-			if(value && !_gemHints)
+			if(value && !_gemHints && !MSTutorialManager.instance.inTutorial)
 			{
 				StartCoroutine("HintCycle");//has to be started with a string so I can stop it later.
 			}
@@ -165,8 +165,8 @@ public class PZPuzzleManager : MonoBehaviour {
 					if(gem!=null)
 					{
 						gem.CancelHintAnimation();
-						StopCoroutine("HintCycle");
 					}
+					StopCoroutine("HintCycle");
 				}
 			}
 			_gemHints = value;
@@ -1132,6 +1132,22 @@ public class PZPuzzleManager : MonoBehaviour {
 	public void StopHint()
 	{
 //		showingGemHints = false;
+	}
+
+	/// <summary>
+	/// inturupts any currently playing hint animation to play
+	/// hint animation on the first 3 gem locations given
+	/// </summary>
+	/// <param name="gems">List of Board locations to hint</param>
+	public void CustomHintGems(List<Vector2> gems)
+	{
+		showGemHints = false;
+		_gemHints = true;
+		for(int i  = 0; i < hintgems.Length; i++)
+		{
+			hintgems[i] = board[(int)gems[i].x, (int)gems[i].y];
+		}
+		StartCoroutine("HintCycle");
 	}
 
 	public IEnumerator HintCycle()
