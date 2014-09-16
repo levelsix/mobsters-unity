@@ -526,7 +526,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.643880963, y: -330.356171, z: 5767.27051}
+  m_LocalPosition: {x: 0, y: -320, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400026}
@@ -1410,10 +1410,10 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 4
+  mPivot: 1
   mWidth: 72
   mHeight: 16
-  mDepth: 0
+  mDepth: 16
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -1422,7 +1422,7 @@ MonoBehaviour:
   mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
   mFont: {fileID: 0}
   mText: HINTS!!!!
-  mFontSize: 16
+  mFontSize: 25
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -1717,8 +1717,8 @@ MonoBehaviour:
   onFinished: []
   eventReceiver: {fileID: 0}
   callWhenFinished: 
-  from: {x: 0, y: -.0900000036, z: -18}
-  to: {x: 0, y: .100000001, z: -18}
+  from: {x: 0, y: 0, z: 0}
+  to: {x: 0, y: 50, z: 0}
   worldSpace: 0
 --- !u!114 &11400068
 MonoBehaviour:
@@ -1819,7 +1819,7 @@ MonoBehaviour:
   side: 7
   runOnlyOnce: 1
   relativeOffset: {x: 0, y: 0}
-  pixelOffset: {x: 0, y: -10}
+  pixelOffset: {x: 0, y: 0}
   widgetContainer: {fileID: 0}
 --- !u!114 &11400074
 MonoBehaviour:

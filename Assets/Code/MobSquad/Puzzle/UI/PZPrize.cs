@@ -152,6 +152,7 @@ public class PZPrize : MonoBehaviour {
 		sprite2D.depth = icon.depth + 1;
 		rarityTag.alpha = 1f;
 		rarityTag.spriteName = "battle" + rarity + "tag";
+		rarityTag.MakePixelPerfect();
 	}
 
 	public void InitItem(ItemProto item){

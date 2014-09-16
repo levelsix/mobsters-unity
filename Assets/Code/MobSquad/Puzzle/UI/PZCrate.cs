@@ -120,7 +120,6 @@ public class PZCrate : MonoBehaviour {
 		while(true){
 			bounceVelocity += gravity;
 			spriteT.localPosition = new Vector3(0f, spriteT.localPosition.y + bounceVelocity, 0f);
-			Debug.Log(spriteT.localPosition);
 			if(spriteT.localPosition.y < fallBelowZero)
 			{
 				//missMovement is to catch an excess movement that would have caused the ball to go through the ground.

@@ -77,6 +77,7 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	Transform combatParent;
 
+	[HideInInspector]
 	public PZCrate crate;
 
 	List<int> playersSeen = new List<int>();
