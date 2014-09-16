@@ -251,7 +251,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				if (save.jelly[x,y])
 				{
 					PZJelly jelly = MSPoolManager.instance.Get<PZJelly>(jellyPrefab, puzzleParent);
-					jelly.InitOnBoard(1, x, y);
+					jelly.InitOnBoard(x, y);
 					jellyBoard[x,y] = jelly;
 				}
 			}
@@ -1122,6 +1122,31 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 	}
 
+	public void UnblockBoard()
+	{
+		for (int i = 0; i < boardWidth; i++) 
+		{
+			for (int j = 0; j < boardHeight; j++) 
+			{
+				board[i,j].Unblock();
+			}
+		}
+	}
+
+	public void UnblockBoard(List<Vector2> spaces)
+	{
+		for (int i = 0; i < boardWidth; i++) 
+		{
+			for (int j = 0; j < boardHeight; j++) 
+			{
+				if (spaces.Contains(new Vector2(i,j)))
+				{
+					board[i,j].Unblock();
+				}
+			}
+		}
+	}
+
 	[ContextMenu ("start hint")]
 	public void StartHint()
 	{
@@ -1408,16 +1433,18 @@ public class PZPuzzleManager : MonoBehaviour {
 		return false;
 	}
 
-	public void ThrowJellies(int num)
+	public List<Vector2> SpawnJellies(int num)
 	{
+		List<Vector2> jellyPoses = new List<Vector2>();
 		for (int i = 0; i < num; i++) 
 		{
-			ThrowJelly();
+			jellyPoses.Add(SpawnJelly());
 		}
+		return jellyPoses;
 	}
 
 	[ContextMenu ("Throw Jelly")]
-	public void ThrowJelly()
+	public Vector2 SpawnJelly()
 	{
 		Vector2 jellyBoardPos = FindJellyPosition();
 		if (jellyBoardPos.x > -1 && jellyBoardPos.y > -1)
@@ -1427,13 +1454,14 @@ public class PZPuzzleManager : MonoBehaviour {
 
 			//Init Jelly
 			PZJelly jelly = MSPoolManager.instance.Get<PZJelly>(jellyPrefab, puzzleParent);
-			jelly.Init(PZCombatManager.instance.activeEnemy.transform.position, boardX, boardY);
+			jelly.InitOnBoard(boardX, boardY);
 			jellyBoard[boardX, boardY] = jelly;
 		}
 		else
 		{
 			Debug.Log("Not enough room for jelly!");
 		}
+		return jellyBoardPos;
 	}
 
 	Vector2 FindJellyPosition()

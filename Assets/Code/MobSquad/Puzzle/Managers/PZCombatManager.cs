@@ -1480,14 +1480,18 @@ public class PZCombatManager : MonoBehaviour {
 		    && activeEnemy.monster.defensiveSkill.skillId > 0
 			&& enemySkillTurns >= activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name=="SPAWN_TURNS").skillValue)
 		{
-			//TODO: Trigger animator
+			yield return activeEnemy.unit.DoJump(50, .2f);
+			yield return activeEnemy.unit.DoJump(50, .2f);
+
 			switch (activeEnemy.monster.defensiveSkill.type)
 			{
 			case SkillType.JELLY:
-				for (int i = 0; i < activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "SPAWN_COUNT").skillValue; i++) {
-					PZPuzzleManager.instance.ThrowJelly();
-					yield return null;
-				}
+				boardTint.gameObject.SetActive(false);
+				List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "SPAWN_COUNT").skillValue);
+				PZPuzzleManager.instance.BlockBoard(spaces);
+				yield return new WaitForSeconds(1);
+				PZPuzzleManager.instance.UnblockBoard();
+				boardTint.gameObject.SetActive(true);
 				break;
 			}
 
@@ -1501,14 +1505,18 @@ public class PZCombatManager : MonoBehaviour {
 		if (activeEnemy.monster.defensiveSkill != null
 		    && activeEnemy.monster.defensiveSkill.skillId > 0)
 		{
+			yield return activeEnemy.unit.DoJump(50, .2f);
+			yield return activeEnemy.unit.DoJump(50, .2f);
+
 			switch (activeEnemy.monster.defensiveSkill.type)
 			{
 			case SkillType.JELLY:
-				for (int i = 0; i < activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "INITIAL_COUNT").skillValue; i++) 
-				{
-					PZPuzzleManager.instance.ThrowJelly();
-					yield return null;
-				}
+				boardTint.gameObject.SetActive(false);
+				List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "INITIAL_COUNT").skillValue);
+				PZPuzzleManager.instance.BlockBoard(spaces);
+				yield return new WaitForSeconds(1);
+				PZPuzzleManager.instance.UnblockBoard();
+				boardTint.gameObject.SetActive(true);
 				break;
 			}
 		}

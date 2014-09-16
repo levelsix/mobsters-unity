@@ -600,7 +600,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		MSActionManager.Puzzle.OnGemMatch += Unblock;
 	}
 
-	void Unblock()
+	public void Unblock()
 	{
 		blocker.gameObject.SetActive(false);
 		MSActionManager.Puzzle.OnGemMatch -= Unblock;
