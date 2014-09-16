@@ -298,6 +298,15 @@ namespace com.lvl6.proto
       set { _defensiveSkillId = value; }
     }
 
+    private int _offensiveSkillId = default(int);
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"offensiveSkillId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int offensiveSkillId
+    {
+      get { return _offensiveSkillId; }
+      set { _offensiveSkillId = value; }
+    }
+
     private int _puzzlePieceMonsterDropLvl = default(int);
     [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"puzzlePieceMonsterDropLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -522,6 +531,42 @@ namespace com.lvl6.proto
     {
       get { return _bossImgName; }
       set { _bossImgName = value; }
+    }
+
+    private int _itemDropId = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"itemDropId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int itemDropId
+    {
+      get { return _itemDropId; }
+      set { _itemDropId = value; }
+    }
+
+    private string _sectionName = "";
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"sectionName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string sectionName
+    {
+      get { return _sectionName; }
+      set { _sectionName = value; }
+    }
+
+    private int _cashReward = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"cashReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int cashReward
+    {
+      get { return _cashReward; }
+      set { _cashReward = value; }
+    }
+
+    private int _oilReward = default(int);
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"oilReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int oilReward
+    {
+      get { return _oilReward; }
+      set { _oilReward = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

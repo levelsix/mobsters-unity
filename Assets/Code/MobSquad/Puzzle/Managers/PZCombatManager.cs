@@ -147,6 +147,12 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	PZSkillIndicator enemySkillIndicator;
 
+	[SerializeField]
+	PZSkillAnimator enemySkillAnimator;
+
+	[SerializeField]
+	PZSkillAnimator playerSkillAnimator;
+
 	public PZTurnDisplay turnDisplay;
 
 	bool wordsMoving = false;
@@ -1432,6 +1438,8 @@ public class PZCombatManager : MonoBehaviour {
 		if (activePlayer.monster.offensiveSkill != null
 		    && activePlayer.monster.offensiveSkill.skillId > 0)
 		{
+			playerSkillAnimator.Animate(activePlayer.monster.monster, activePlayer.monster.offensiveSkill);
+
 			switch (activePlayer.monster.offensiveSkill.type)
 			{
 			case SkillType.QUICK_ATTACK:
@@ -1480,8 +1488,8 @@ public class PZCombatManager : MonoBehaviour {
 		    && activeEnemy.monster.defensiveSkill.skillId > 0
 			&& enemySkillTurns >= activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name=="SPAWN_TURNS").skillValue)
 		{
-			yield return activeEnemy.unit.DoJump(50, .2f);
-			yield return activeEnemy.unit.DoJump(50, .2f);
+			yield return activeEnemy.unit.DoJump(50, .35f);
+			yield return activeEnemy.unit.DoJump(50, .35f);
 
 			switch (activeEnemy.monster.defensiveSkill.type)
 			{
@@ -1505,8 +1513,10 @@ public class PZCombatManager : MonoBehaviour {
 		if (activeEnemy.monster.defensiveSkill != null
 		    && activeEnemy.monster.defensiveSkill.skillId > 0)
 		{
-			yield return activeEnemy.unit.DoJump(50, .2f);
-			yield return activeEnemy.unit.DoJump(50, .2f);
+			yield return activeEnemy.unit.DoJump(50, .35f);
+			yield return activeEnemy.unit.DoJump(50, .35f);
+
+			yield return enemySkillAnimator.Animate(activeEnemy.monster.monster, activeEnemy.monster.defensiveSkill);
 
 			switch (activeEnemy.monster.defensiveSkill.type)
 			{

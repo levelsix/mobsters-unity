@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: EventItem.proto
+// Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
@@ -72,14 +73,21 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-
-    private com.lvl6.proto.FullUserMonsterProto _fump = null;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"fump", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.FullUserMonsterProto fump
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _updatedOrNew = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"updatedOrNew", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> updatedOrNew
     {
-      get { return _fump; }
-      set { _fump = value; }
+      get { return _updatedOrNew; }
+    }
+  
+
+    private com.lvl6.proto.BoosterItemProto _prize = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"prize", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.BoosterItemProto prize
+    {
+      get { return _prize; }
+      set { _prize = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"TradeItemForBoosterStatus")]
     public enum TradeItemForBoosterStatus
@@ -89,7 +97,10 @@ namespace com.lvl6.proto
       SUCCESS = 1,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
-      FAIL_OTHER = 2
+      FAIL_OTHER = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_ITEM", Value=3)]
+      FAIL_INSUFFICIENT_ITEM = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;
