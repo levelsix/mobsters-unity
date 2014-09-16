@@ -597,7 +597,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(width+"x"+length+"buildingframe");
 		}
 
-		yield return StartCoroutine(MSSpriteUtil.instance.SetBuildingAnimator(this, structName));
+		yield return MSBuildingManager.instance.StartCoroutine(MSSpriteUtil.instance.SetBuildingAnimator(this, structName));
 
 		sprite.color = Color.white;
 		baseColor = Color.white;
@@ -803,14 +803,17 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	
 	void SendBuildingMovedRequest()
 	{
-		MoveOrRotateNormStructureRequestProto request = new MoveOrRotateNormStructureRequestProto();
-		request.sender = MSWhiteboard.localMup;
-		request.userStructId = userStructProto.userStructId;
-		request.type = MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
-		request.curStructCoordinates = new CoordinateProto();
-		request.curStructCoordinates.x = _currPos.pos.x;
-		request.curStructCoordinates.y = _currPos.pos.y;
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT, LoadBuildingMovedResponse);
+		if (!MSTutorialManager.instance.inTutorial)
+		{
+			MoveOrRotateNormStructureRequestProto request = new MoveOrRotateNormStructureRequestProto();
+			request.sender = MSWhiteboard.localMup;
+			request.userStructId = userStructProto.userStructId;
+			request.type = MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
+			request.curStructCoordinates = new CoordinateProto();
+			request.curStructCoordinates.x = _currPos.pos.x;
+			request.curStructCoordinates.y = _currPos.pos.y;
+			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT, LoadBuildingMovedResponse);
+		}
 	}
 	
 	void LoadBuildingMovedResponse(int tagNum)

@@ -1006,12 +1006,12 @@ public class MSTutorialManager : MonoBehaviour
 	IEnumerator WaitForClick()
 	{
 		clicked = false;
-		Debug.Log("Not clicked");
+		//Debug.Log("Not clicked");
 		while (!clicked)
 		{
 			yield return null;
 		}
-		Debug.Log("Clicked");
+		//Debug.Log("Clicked");
 		currUi = null;
 	}
 
@@ -1023,7 +1023,7 @@ public class MSTutorialManager : MonoBehaviour
 		{
 			yield return null;
 		}
-		Debug.Log("Turned!");
+		//Debug.Log("Turned!");
 		MSActionManager.Puzzle.OnTurnChange -= TurnHappen;
 	}
 

@@ -153,6 +153,7 @@ public class MSSceneManager : MonoBehaviour {
 
 	public void ReconnectPopup()
 	{
+		Debug.LogWarning("Launching reconnect popup..."); //Make sure to keep this log so that we get stack traces
 		MSPopupManager.instance.CreatePopup("Connection Problems",
 		                                    "Sorry, there seem to problems between you and the server. Reconnect?",
 		                                    new string[] {"Reconnect"},

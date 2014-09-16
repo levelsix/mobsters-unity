@@ -11,6 +11,8 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 {
 	public static MSTownCamera instance;
 
+	public GameObject groundParent;
+
 	/// <summary>
 	/// The smallest orthographic size of the camera.
 	/// Once this value is decided, we can make it a constant
@@ -131,8 +133,8 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 
 	void SetBounds ()
 	{
-		maxY = MSCityBackground.mapHeight - cam.orthographicSize - .5f;
-		maxX = MSCityBackground.mapWidth - (cam.orthographicSize * Screen.width / Screen.height);
+		maxY = (1828)/100f - cam.orthographicSize - .5f;
+		maxX = (2048 + 256)/100f - (cam.orthographicSize * Screen.width / Screen.height);
 	}
 	
 	public void ClampCamera()

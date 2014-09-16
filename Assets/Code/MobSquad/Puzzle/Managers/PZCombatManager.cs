@@ -367,7 +367,7 @@ public class PZCombatManager : MonoBehaviour {
 		forfeitChance = FORFEIT_START_CHANCE;
 		
 		#if UNITY_IPHONE || UNITY_ANDROID
-		Kamcord.StartRecording();
+		//Kamcord.StartRecording();
 		#endif
 
 		MSWhiteboard.currUserTaskId = dungeon.userTaskId;
@@ -409,7 +409,7 @@ public class PZCombatManager : MonoBehaviour {
 		PZCombatSave save = PZCombatSave.Load();
 
 #if UNITY_IPHONE || UNITY_ANDROID
-		Kamcord.StartRecording();
+		//Kamcord.StartRecording();
 #endif
 		PreInit ();
 		
@@ -1146,7 +1146,7 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator SendEndResult(bool userWon)
 	{
 #if UNITY_ANDROID || UNITY_IPHONE
-		Kamcord.StopRecording();
+		//Kamcord.StopRecording();
 #endif
 
 		if (MSActionManager.Quest.OnBattleFinish != null)
@@ -1665,9 +1665,16 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		boardTint.PlayForward();
 
-		if (MSTutorialManager.instance.inTutorial && riggedAttacks.Count > 0)
+		if (MSTutorialManager.instance.inTutorial)
 		{
-			damage = riggedAttacks.Dequeue();
+			if (riggedAttacks.Count > 0)
+			{
+				damage = riggedAttacks.Dequeue();
+			}
+			else if (damage < activeEnemy.health)
+			{
+				damage = (int)(activeEnemy.health * 1.2f);
+			}
 		}
 
 		PZPuzzleManager.instance.swapLock += 1;

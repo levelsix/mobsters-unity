@@ -1401,10 +1401,10 @@ public class PZPuzzleManager : MonoBehaviour {
 		if (jellyBoard[x,y] != null)
 		{
 			jellyBoard[x,y].Damage();
-			Debug.Log(gemId + " damaged jelly at " + x + ", " + y);
+			//Debug.Log(gemId + " damaged jelly at " + x + ", " + y);
 			return true;
 		}
-		Debug.Log("No jelly for " + gemId + " at " + x + ", " + y);
+		//Debug.Log("No jelly for " + gemId + " at " + x + ", " + y);
 		return false;
 	}
 

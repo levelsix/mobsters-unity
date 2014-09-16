@@ -9,6 +9,8 @@ public class MSResourceStorage : MonoBehaviour {
 
 	Animator animator;
 
+	public float currFill;
+
 	void Awake()
 	{
 		building = GetComponent<MSBuilding>();
@@ -20,7 +22,8 @@ public class MSResourceStorage : MonoBehaviour {
 	{
 		if (animator != null && animator.runtimeAnimatorController != null)
 		{
-			animator.SetFloat("Amount", resource/building.combinedProto.storage.capacity);
+			currFill = resource/building.combinedProto.storage.capacity;
+			animator.SetFloat("Amount", currFill);
 		}
 	}
 

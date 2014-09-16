@@ -107,11 +107,11 @@ public class UMQLoader : MonoBehaviour {
 		fillBar.fill = .9f;
 		
 		Debug.Log("Update Status: " + response.updateStatus.ToString());
+		
+		MSResourceManager.instance.Init(response.sender.level, response.sender.experience, 
+		                                response.sender.cash, response.sender.oil, response.sender.gems);
 
 		StartUp(response);
-
-		MSResourceManager.instance.Init(response.sender.level, response.sender.experience, 
-				response.sender.cash, response.sender.oil, response.sender.gems);
 			
 		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 
@@ -156,7 +156,7 @@ public class UMQLoader : MonoBehaviour {
 		
 		MSChatManager.instance.Init(response);
 		
-		//MSQuestManager.instance.Init(response);
+		MSQuestManager.instance.Init(response);
 		
 		MSClanManager.instance.Init(response.userClanInfo);
 		

@@ -66,11 +66,13 @@ public class MSResourceManager : MonoBehaviour {
 	void OnEnable()
 	{
 		MSActionManager.Scene.OnCity += CheckEXP;
+		MSActionManager.Scene.OnCity += DetermineResourceMaxima;
 	}
 
 	void OnDisable()
 	{
 		MSActionManager.Scene.OnCity -= CheckEXP;
+		MSActionManager.Scene.OnCity -= DetermineResourceMaxima;
 	}
 	
 	public void Init(int lev, int xp, int cash, int oil, int premium)
