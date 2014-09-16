@@ -57,6 +57,10 @@ public class MSPlacementGrid : MonoBehaviour {
 	}
 
 	void OnDragStart(){
+		if(tiles.Count > 0)
+		{
+			building.bubbleIcon.alpha = 0f;
+		}
 		foreach (var tile in tiles) {
 			tile.gameObject.SetActive(true);
 		}
@@ -74,6 +78,7 @@ public class MSPlacementGrid : MonoBehaviour {
 	}
 
 	void OnDragEnd(){
+		building.bubbleIcon.alpha = 1f;
 		foreach (var tile in tiles) {
 			tile.gameObject.SetActive(false);
 		}

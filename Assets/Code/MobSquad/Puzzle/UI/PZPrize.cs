@@ -89,6 +89,7 @@ public class PZPrize : MonoBehaviour {
 
 	void init()
 	{
+		icon.alpha = 1f;
 		if(border != null)
 		{
 			border.spriteName = "commmonfound";
