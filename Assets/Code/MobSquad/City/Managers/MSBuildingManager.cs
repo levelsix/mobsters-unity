@@ -355,6 +355,10 @@ public class MSBuildingManager : MonoBehaviour
 				yield return null;
 			}
 		}
+		
+		DistributeCash(MSResourceManager.resources[ResourceType.CASH]);
+		DistributeOil(MSResourceManager.resources[ResourceType.OIL]);
+
 		foreach (var obstacle in obstacles) {
 			while (!obstacle.loadedSprite)
 			{
@@ -517,8 +521,12 @@ public class MSBuildingManager : MonoBehaviour
 			}
 		}
 
-		MSActionManager.Loading.OnBuildingsLoaded();
+		if (MSActionManager.Loading.OnBuildingsLoaded != null)
+		{
+			MSActionManager.Loading.OnBuildingsLoaded();
+		}
 
+		Debug.Log(response.obstacles.Count + " obstacles");
 		for (int i = 0; i < response.obstacles.Count; i++) 
 		{
 			MakeObstacle(response.obstacles[i]);
@@ -527,9 +535,6 @@ public class MSBuildingManager : MonoBehaviour
 		{
 			//DebugBuildPier();
 		}
-
-		DistributeCash(MSResourceManager.resources[ResourceType.CASH]);
-		DistributeOil(MSResourceManager.resources[ResourceType.OIL]);
 
 		if (!MSHospitalManager.instance.initialized)
 		{
@@ -1156,6 +1161,8 @@ public class MSBuildingManager : MonoBehaviour
 	void DistributeResource(ResourceType resource, float total)
 	{
 		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) return;
+
+		Debug.Log("Distributing: " + resource + ": " + total);
 
 		List<MSBuilding> storages = GetStorages(resource);
 		storages.Sort( (x,y)=>x.combinedProto.storage.capacity.CompareTo(y.combinedProto.storage.capacity));

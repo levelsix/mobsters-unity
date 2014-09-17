@@ -191,19 +191,43 @@ public static class MSMath {
 		return (((int)(color.r * 255) << 16) | ((int)(color.g * 255) << 8) | ((int)(color.b * 255)));
 	}
 	
-	public static int DamageAtLevel(int baseDamage, int level, float exponent)
+	public static int DamageAtLevel(int baseDmg, int finalDmg, int level, int maxLevel, float dmgExponentBase)
 	{
-		return Mathf.FloorToInt(baseDamage * Mathf.Pow(exponent, level-1));
+
+		return (int)(baseDmg + (finalDmg-baseDmg) 
+		              * Mathf.Pow((level-1)/((float)(maxLevel-1)), dmgExponentBase));
 	}
 	
 	public static int AttackAtLevel(MonsterProto monster, int level)
 	{
-		return DamageAtLevel(monster.lvlInfo[0].fireDmg, level, monster.lvlInfo[0].dmgExponentBase)
-			+ DamageAtLevel(monster.lvlInfo[0].grassDmg, level, monster.lvlInfo[0].dmgExponentBase)
-				+ DamageAtLevel(monster.lvlInfo[0].waterDmg, level, monster.lvlInfo[0].dmgExponentBase)
-				+ DamageAtLevel(monster.lvlInfo[0].lightningDmg, level, monster.lvlInfo[0].dmgExponentBase)
-				+ DamageAtLevel(monster.lvlInfo[0].darknessDmg, level, monster.lvlInfo[0].dmgExponentBase)
-				+ DamageAtLevel(monster.lvlInfo[0].rockDmg, level, monster.lvlInfo[0].dmgExponentBase);
+		if (monster.lvlInfo.Count == 0)
+		{
+			return 1;
+		}
+		MonsterLevelInfoProto baseLevelInfo = monster.lvlInfo[0];
+		MonsterLevelInfoProto maxLevelInfo = monster.lvlInfo[monster.lvlInfo.Count-1];
+
+
+		return DamageAtLevel(baseLevelInfo.fireDmg, maxLevelInfo.fireDmg, level, monster.maxLevel, maxLevelInfo.dmgExponentBase)
+				+ DamageAtLevel(baseLevelInfo.grassDmg, maxLevelInfo.grassDmg, level, monster.maxLevel, maxLevelInfo.dmgExponentBase)
+				+ DamageAtLevel(baseLevelInfo.waterDmg, maxLevelInfo.waterDmg, level, monster.maxLevel, maxLevelInfo.dmgExponentBase)
+				+ DamageAtLevel(baseLevelInfo.lightningDmg, maxLevelInfo.lightningDmg, level, monster.maxLevel, maxLevelInfo.dmgExponentBase)
+				+ DamageAtLevel(baseLevelInfo.darknessDmg, maxLevelInfo.darknessDmg, level, monster.maxLevel, maxLevelInfo.dmgExponentBase)
+				+ DamageAtLevel(baseLevelInfo.rockDmg, maxLevelInfo.rockDmg, level, monster.maxLevel, maxLevelInfo.dmgExponentBase);
+	}
+
+	public static int SpeedAtLevel(MonsterProto monster, int level)
+	{
+		if (monster.lvlInfo.Count == 0)
+		{
+			return 1;
+		}
+		
+		MonsterLevelInfoProto baseLevelInfo = monster.lvlInfo[0];
+		MonsterLevelInfoProto maxLevelInfo = monster.lvlInfo[monster.lvlInfo.Count-1];
+		
+		return (int)(baseLevelInfo.speed + (maxLevelInfo.speed - baseLevelInfo.speed)
+		             * ((level-1) / (monster.maxLevel-1)));
 	}
 	
 	public static int MaxHPAtLevel(MonsterProto monster, int level)
@@ -212,7 +236,12 @@ public static class MSMath {
 		{
 			return 1;
 		}
-		
+
+		MonsterLevelInfoProto baseLevelInfo = monster.lvlInfo[0];
+		MonsterLevelInfoProto maxLevelInfo = monster.lvlInfo[monster.lvlInfo.Count-1];
+
+		return (int)(baseLevelInfo.hp + (maxLevelInfo.hp - baseLevelInfo.hp)
+		             * Mathf.Pow((level-1)/((float)(monster.maxLevel-1)), maxLevelInfo.hpExponentBase));
 		return Mathf.FloorToInt(monster.lvlInfo[0].hp * Mathf.Pow(monster.lvlInfo[0].hpExponentBase, level-1));
 	}
 

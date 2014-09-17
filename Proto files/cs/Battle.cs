@@ -223,15 +223,6 @@ namespace com.lvl6.proto
       set { _imgPrefix = value; }
     }
 
-    private int _numRanks = default(int);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"numRanks", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int numRanks
-    {
-      get { return _numRanks; }
-      set { _numRanks = value; }
-    }
-
     private string _description = "";
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"description", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -239,24 +230,6 @@ namespace com.lvl6.proto
     {
       get { return _description; }
       set { _description = value; }
-    }
-
-    private int _minElo = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"minElo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int minElo
-    {
-      get { return _minElo; }
-      set { _minElo = value; }
-    }
-
-    private int _maxElo = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"maxElo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int maxElo
-    {
-      get { return _maxElo; }
-      set { _maxElo = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

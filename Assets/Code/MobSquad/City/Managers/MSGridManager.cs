@@ -308,6 +308,7 @@ public class MSGridManager : MonoBehaviour {
     /// <param name="y">The lowest y positing in grid coordinates</param>
     public void AddBuilding(MSBuilding building, int x, int y, int xLength, int yLength)
     {
+		Debug.Log("Grid Manager adding: " + building.name + ", id: " + building.id);
         _grid[x, y] = building;
         building.groundPos = new Vector2(x, y);
 
@@ -329,13 +330,16 @@ public class MSGridManager : MonoBehaviour {
     /// <param name="building">The building being removed from the grid</param>
     public void RemoveBuilding(MSBuilding building)
     {
-		//Debug.LogWarning("Removing " + building.name + ", id: " + building.id);
+		Debug.Log("Grid Manager removing:  " + building.name + ", id: " + building.id);
         for (int i = 0; i < building.width; i++)
         {
             for (int j = 0; j < building.length; j++)
             {
-                _grid[(int)building.groundPos.x + i, (int)building.groundPos.y + j] = null;
-				walkableSpaces.Add(new MSWalkableSpace(new Vector2(building.groundPos.x + i, building.groundPos.y + j)));
+				if (_grid[(int)building.groundPos.x + i, (int)building.groundPos.y + j] == building)
+				{
+	                _grid[(int)building.groundPos.x + i, (int)building.groundPos.y + j] = null;
+					walkableSpaces.Add(new MSWalkableSpace(new Vector2(building.groundPos.x + i, building.groundPos.y + j)));
+				}
             }
         }
     }

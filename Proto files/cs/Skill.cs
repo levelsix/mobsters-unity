@@ -85,6 +85,24 @@ namespace com.lvl6.proto
       get { return _properties; }
     }
   
+
+    private string _desc = "";
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"desc", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string desc
+    {
+      get { return _desc; }
+      set { _desc = value; }
+    }
+
+    private string _iconImgName = "";
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"iconImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string iconImgName
+    {
+      get { return _iconImgName; }
+      set { _iconImgName = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -150,7 +168,22 @@ namespace com.lvl6.proto
       JELLY = 3,
             
       [global::ProtoBuf.ProtoEnum(Name=@"QUICK_ATTACK", Value=4)]
-      QUICK_ATTACK = 4
+      QUICK_ATTACK = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"BOMBS", Value=5)]
+      BOMBS = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SHIELD", Value=6)]
+      SHIELD = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"POISON", Value=7)]
+      POISON = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ROID_RAGE", Value=8)]
+      ROID_RAGE = 8,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"MOMENTUM", Value=9)]
+      MOMENTUM = 9
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"SkillActivationType")]

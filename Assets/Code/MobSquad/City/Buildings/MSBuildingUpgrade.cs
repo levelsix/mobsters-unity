@@ -270,13 +270,16 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	
 	void SendPremiumFinishRequest()
 	{
-		FinishNormStructWaittimeWithDiamondsRequestProto request = new FinishNormStructWaittimeWithDiamondsRequestProto();
-		request.sender = MSWhiteboard.localMup;
-		request.userStructId = building.userStructProto.userStructId;
-		request.timeOfSpeedup = MSUtil.timeNowMillis;
-		request.gemCostToSpeedup = gemsToFinish;
-		UMQNetworkManager.instance.SendRequest(request, 
-			(int)EventProtocolRequest.C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT, LoadPremiumFinishResponse);
+		if (!MSTutorialManager.instance.inTutorial)
+		{
+			FinishNormStructWaittimeWithDiamondsRequestProto request = new FinishNormStructWaittimeWithDiamondsRequestProto();
+			request.sender = MSWhiteboard.localMup;
+			request.userStructId = building.userStructProto.userStructId;
+			request.timeOfSpeedup = MSUtil.timeNowMillis;
+			request.gemCostToSpeedup = gemsToFinish;
+			UMQNetworkManager.instance.SendRequest(request, 
+				(int)EventProtocolRequest.C_FINISH_NORM_STRUCT_WAITTIME_WITH_DIAMONDS_EVENT, LoadPremiumFinishResponse);
+		}
 	}
 	
 	void LoadPremiumFinishResponse(int tagNum)

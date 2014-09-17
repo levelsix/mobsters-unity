@@ -371,7 +371,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		{
 			try
 			{
-				response = consumer.Call<AndroidJavaObject>("nextDelivery", 10L);
+				response = consumer.Call<AndroidJavaObject>("nextDelivery", 0L);
 				if (response.GetRawObject().ToInt32() != 0)
 				{
 					ReceiveResponse(response);

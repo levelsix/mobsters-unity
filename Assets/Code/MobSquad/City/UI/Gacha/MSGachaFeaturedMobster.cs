@@ -64,7 +64,7 @@ public class MSGachaFeaturedMobster : MonoBehaviour {
 			elementSprite.MakePixelPerfect();
 			
 			maxHp.text = MSMath.MaxHPAtLevel(monster, monster.maxLevel).ToString("n0");
-			
+			maxSpeed.text = MSMath.SpeedAtLevel(monster, monster.maxLevel).ToString("n0");
 			maxAttack.text = MSMath.AttackAtLevel(monster, monster.maxLevel).ToString("#,##0");
 		}
 		else

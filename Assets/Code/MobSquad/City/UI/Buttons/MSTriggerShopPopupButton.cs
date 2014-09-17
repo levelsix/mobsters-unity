@@ -87,7 +87,7 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 
 	void UpdateBadge(){
 		int availableBuildings = MSBuildingManager.instance.CapacityForBuildings();
-		if( MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
+		if(!MSTutorialManager.instance.inTutorial && MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
 		{
 			badge.sprite.spriteName = blueBadge;
 			badge.notifications = 1;

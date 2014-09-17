@@ -148,6 +148,12 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	PZSkillIndicator enemySkillIndicator;
 
+	[SerializeField]
+	PZSkillAnimator enemySkillAnimator;
+
+	[SerializeField]
+	PZSkillAnimator playerSkillAnimator;
+
 	public PZTurnDisplay turnDisplay;
 
 	bool wordsMoving = false;
@@ -368,7 +374,7 @@ public class PZCombatManager : MonoBehaviour {
 		forfeitChance = FORFEIT_START_CHANCE;
 		
 		#if UNITY_IPHONE || UNITY_ANDROID
-		Kamcord.StartRecording();
+		//Kamcord.StartRecording();
 		#endif
 
 		MSWhiteboard.currUserTaskId = dungeon.userTaskId;
@@ -410,7 +416,7 @@ public class PZCombatManager : MonoBehaviour {
 		PZCombatSave save = PZCombatSave.Load();
 
 #if UNITY_IPHONE || UNITY_ANDROID
-		Kamcord.StartRecording();
+		//Kamcord.StartRecording();
 #endif
 		PreInit ();
 		
@@ -1147,7 +1153,7 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator SendEndResult(bool userWon)
 	{
 #if UNITY_ANDROID || UNITY_IPHONE
-		Kamcord.StopRecording();
+		//Kamcord.StopRecording();
 #endif
 
 		if (MSActionManager.Quest.OnBattleFinish != null)
@@ -1433,6 +1439,8 @@ public class PZCombatManager : MonoBehaviour {
 		if (activePlayer.monster.offensiveSkill != null
 		    && activePlayer.monster.offensiveSkill.skillId > 0)
 		{
+			playerSkillAnimator.Animate(activePlayer.monster.monster, activePlayer.monster.offensiveSkill);
+
 			switch (activePlayer.monster.offensiveSkill.type)
 			{
 			case SkillType.QUICK_ATTACK:
@@ -1481,14 +1489,18 @@ public class PZCombatManager : MonoBehaviour {
 		    && activeEnemy.monster.defensiveSkill.skillId > 0
 			&& enemySkillTurns >= activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name=="SPAWN_TURNS").skillValue)
 		{
-			//TODO: Trigger animator
+			yield return activeEnemy.unit.DoJump(50, .35f);
+			yield return activeEnemy.unit.DoJump(50, .35f);
+
 			switch (activeEnemy.monster.defensiveSkill.type)
 			{
 			case SkillType.JELLY:
-				for (int i = 0; i < activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "SPAWN_COUNT").skillValue; i++) {
-					PZPuzzleManager.instance.ThrowJelly();
-					yield return null;
-				}
+				boardTint.gameObject.SetActive(false);
+				List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "SPAWN_COUNT").skillValue);
+				PZPuzzleManager.instance.BlockBoard(spaces);
+				yield return new WaitForSeconds(1);
+				PZPuzzleManager.instance.UnblockBoard();
+				boardTint.gameObject.SetActive(true);
 				break;
 			}
 
@@ -1502,14 +1514,20 @@ public class PZCombatManager : MonoBehaviour {
 		if (activeEnemy.monster.defensiveSkill != null
 		    && activeEnemy.monster.defensiveSkill.skillId > 0)
 		{
+			yield return activeEnemy.unit.DoJump(50, .35f);
+			yield return activeEnemy.unit.DoJump(50, .35f);
+
+			yield return enemySkillAnimator.Animate(activeEnemy.monster.monster, activeEnemy.monster.defensiveSkill);
+
 			switch (activeEnemy.monster.defensiveSkill.type)
 			{
 			case SkillType.JELLY:
-				for (int i = 0; i < activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "INITIAL_COUNT").skillValue; i++) 
-				{
-					PZPuzzleManager.instance.ThrowJelly();
-					yield return null;
-				}
+				boardTint.gameObject.SetActive(false);
+				List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "INITIAL_COUNT").skillValue);
+				PZPuzzleManager.instance.BlockBoard(spaces);
+				yield return new WaitForSeconds(1);
+				PZPuzzleManager.instance.UnblockBoard();
+				boardTint.gameObject.SetActive(true);
 				break;
 			}
 		}
@@ -1666,9 +1684,16 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		boardTint.PlayForward();
 
-		if (MSTutorialManager.instance.inTutorial && riggedAttacks.Count > 0)
+		if (MSTutorialManager.instance.inTutorial)
 		{
-			damage = riggedAttacks.Dequeue();
+			if (riggedAttacks.Count > 0)
+			{
+				damage = riggedAttacks.Dequeue();
+			}
+			else if (damage < activeEnemy.health)
+			{
+				damage = (int)(activeEnemy.health * 1.2f);
+			}
 		}
 
 		PZPuzzleManager.instance.swapLock += 1;

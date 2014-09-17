@@ -15,6 +15,8 @@ public class PZRocket : MonoBehaviour {
 
 	MSSimplePoolable pool;
 
+	PZDestroySpecial destroySpecial;
+
 	UISprite sprite;
 
 	UISprite board
@@ -30,6 +32,7 @@ public class PZRocket : MonoBehaviour {
 		trans = transform;
 		pool = GetComponent<MSSimplePoolable>();
 		sprite = GetComponent<UISprite>();
+		destroySpecial = GetComponent<PZDestroySpecial>();
 	}
 
 	public void Init(MSValues.Direction dir)
@@ -41,31 +44,32 @@ public class PZRocket : MonoBehaviour {
 	void Update()
 	{
 		trans.localPosition += MSValues.dirVectors[dir] * speed * Time.deltaTime;
-
+		// you cannot add or subtract board height from global coordinates.  Height is still in local units.
+		// instead convert the rocket's position into the board's local coordinates.
 		switch(dir)
 		{
 		case MSValues.Direction.NORTH:
-			if (trans.position.y > board.transform.position.y + board.height)
+			if (board.transform.InverseTransformPoint(trans.position).y > board.transform.localPosition.y + board.height)
 			{
-				GetComponent<PZDestroySpecial>().DisableLock();
+				destroySpecial.DisableLock();
 			}
 			break;
 		case MSValues.Direction.SOUTH:
 			if (trans.position.y < board.transform.position.y)
 			{
-				GetComponent<PZDestroySpecial>().DisableLock();
+				destroySpecial.DisableLock();
 			}
 			break;
 		case MSValues.Direction.EAST:
 			if (trans.position.x > board.transform.position.x)
 			{
-				GetComponent<PZDestroySpecial>().DisableLock();
+				destroySpecial.DisableLock();
 			}
 			break;
 		case MSValues.Direction.WEST:
-			if (trans.position.x < board.transform.position.x - board.width)
+			if (board.transform.InverseTransformPoint(trans.position).x < board.transform.localPosition.x - board.width)
 			{
-				GetComponent<PZDestroySpecial>().DisableLock();
+				destroySpecial.DisableLock();
 			}
 			break;
 		}

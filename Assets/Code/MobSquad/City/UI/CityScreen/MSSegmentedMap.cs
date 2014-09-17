@@ -48,6 +48,8 @@ public class MSSegmentedMap : MonoBehaviour {
 		GameObject newSegment = new GameObject("MapSegment");
 		newSegment.transform.parent = trans;
 
+		newSegment.layer = MSValues.Layers.UI;
+
 		UI2DSprite newSprite = newSegment.AddComponent<UI2DSprite>();
 		newSprite.sprite2D = sprite;
 		maps.Add(newSprite);

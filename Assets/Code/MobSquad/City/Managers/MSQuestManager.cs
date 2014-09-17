@@ -54,6 +54,7 @@ public class MSQuestManager : MonoBehaviour {
 	
 	public void Init(StartupResponseProto proto)
 	{
+		/*
 		foreach (FullQuestProto item in proto.staticDataStuffProto.availableQuests) 
 		{
 #if DEBUG2
@@ -68,6 +69,7 @@ public class MSQuestManager : MonoBehaviour {
 			Debug.Log ("In Progress Quest: " + item.questId);
 #endif
 		}
+		*/
 
 		taskDict.Clear();
 		foreach (var item in proto.completedTaskIds) 
