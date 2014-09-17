@@ -16,6 +16,9 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	public static PZCombatManager instance;
 
+	[SerializeField]
+	Camera camera;
+
 	public BattleStats battleStats = new BattleStats();
 
 	public bool pvpMode = false;
@@ -1359,11 +1362,15 @@ public class PZCombatManager : MonoBehaviour {
 
 		for (int i = 0; i < NUM_BOMBS; i++) 
 		{
-			BombAt(activeEnemy.unit.transf.localPosition.x - BOMB_SPACING * NUM_BOMBS / 2f + BOMB_SPACING * i, plane);
+			PZBomb bomb = BombAt(activeEnemy.unit.transf.localPosition.x - BOMB_SPACING * NUM_BOMBS / 2f + BOMB_SPACING * i, plane);
+			if(i == 0)
+			{
+				bomb.camera = camera;
+			}
 		}
 	}
 
-	void BombAt(float x, Transform plane)
+	PZBomb BombAt(float x, Transform plane)
 	{
 		Transform bomb = (MSPoolManager.instance.Get(MSPrefabList.instance.bombPrefab, Vector3.zero, combatParent) as MonoBehaviour).transform;
 		bomb.localPosition = new Vector3(x, Screen.height/2 + BOMB_SPACING);
@@ -1371,6 +1378,7 @@ public class PZCombatManager : MonoBehaviour {
 		bomb.GetComponent<PZBomb>().targetHeight = activeEnemy.unit.transf.localPosition.y + 
 			(background.direction.y / background.direction.x) * (x - activeEnemy.unit.transf.localPosition.x);
 		bomb.GetComponent<PZBomb> ().planeTrans = plane;
+		return bomb.GetComponent<PZBomb>();
 	}
 
 	#region Blood

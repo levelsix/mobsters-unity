@@ -1255,6 +1255,10 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 			if(columnQueues[i].Count > 0)
 			{
+				///Reasons this happened: checkFall was called on gems top to bottom, instead of the
+				/// correct direction of bottom to top.  It could also be cause by  gems being locked in
+				/// place by one of the many lock mechanisms we use.
+				///This error will print once for every collumn for that did not fall correctly.
 				Debug.LogError("Gems could not drop into board");
 			}
 		}
