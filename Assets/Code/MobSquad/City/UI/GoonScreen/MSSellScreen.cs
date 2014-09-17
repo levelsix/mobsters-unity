@@ -86,6 +86,7 @@ public class MSSellScreen : MSFunctionalScreen {
 			grid.PhaseOutCard(item);
 			monsters.Add(item.monster);
 		}
+		currSells.Clear();
 		MSMonsterManager.instance.SellMonsters(monsters);
 
 		emptyQueueRoot.FadeIn();
