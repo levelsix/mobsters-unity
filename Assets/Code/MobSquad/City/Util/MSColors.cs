@@ -21,7 +21,8 @@ public static class MSColors {
 
 	public static readonly Dictionary<Quality, Color> qualityColors = new Dictionary<Quality, Color>()
 	{
-		{Quality.COMMON, new Color(.607f, .592f, .407f)},
+//		{Quality.COMMON, new Color(.607f, .592f, .407f)}, old tan colored common
+		{Quality.COMMON, new Color(.412f, .412f, .412f)},
 		{Quality.RARE, new Color(.043f, .584f, .929f)},
 		{Quality.SUPER, Color.blue},
 		{Quality.ULTRA, new Color(1, .752f, .004f)},

@@ -31,7 +31,7 @@ public class MSMapTaskPopup : MonoBehaviour {
 
 	FullTaskProto task;
 
-	const string CANCEL_BUTTON = "cancel";
+	const string CANCEL_BUTTON = "greysmallbutton";
 
 	const string ACCEPT_BUTTON = "acceptrequest";
 

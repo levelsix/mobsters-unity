@@ -42,19 +42,6 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: a8ffee740f2034fd18304046c19bfab7, type: 2}
   mSprites:
   - name: 1starmachineactive
-    x: 990
-    y: 1008
-    width: 16
-    height: 16
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: 1starmachineinactive
     x: 242
     y: 4
     width: 16
@@ -67,9 +54,22 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 0
     paddingBottom: 0
+  - name: 1starmachineinactive
+    x: 990
+    y: 1008
+    width: 16
+    height: 16
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
   - name: 3starmachineactive
-    x: 801
-    y: 688
+    x: 660
+    y: 683
     width: 50
     height: 16
     borderLeft: 0
@@ -81,8 +81,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: 3starmachineinactive
-    x: 660
-    y: 683
+    x: 801
+    y: 688
     width: 50
     height: 16
     borderLeft: 0
@@ -237,8 +237,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: epicpiece
-    x: 274
-    y: 39
+    x: 660
+    y: 889
     width: 69
     height: 63
     borderLeft: 0
@@ -290,7 +290,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: gachaepicball
     x: 801
-    y: 892
+    y: 831
     width: 60
     height: 60
     borderLeft: 0
@@ -302,7 +302,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gachalegendball
-    x: 862
+    x: 923
     y: 892
     width: 60
     height: 60
@@ -328,7 +328,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gachasuperball
-    x: 923
+    x: 862
     y: 892
     width: 60
     height: 60
@@ -342,7 +342,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: gachaultraball
     x: 801
-    y: 831
+    y: 892
     width: 60
     height: 60
     borderLeft: 0
@@ -471,8 +471,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: rockorb
-    x: 923
-    y: 715
+    x: 801
+    y: 705
     width: 60
     height: 58
     borderLeft: 0
@@ -523,8 +523,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: ultrapiece
-    x: 660
-    y: 889
+    x: 274
+    y: 39
     width: 69
     height: 63
     borderLeft: 0
@@ -575,8 +575,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: gachaecpicpiece
-    x: 801
-    y: 705
+    x: 923
+    y: 715
     width: 60
     height: 58
     borderLeft: 0
@@ -588,7 +588,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gachaultrapiece
-    x: 862
+    x: 923
     y: 774
     width: 60
     height: 58
@@ -614,7 +614,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gachacommonpiece
-    x: 923
+    x: 862
     y: 774
     width: 60
     height: 58
@@ -627,7 +627,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gachasuperpiece
-    x: 862
+    x: 924
     y: 833
     width: 61
     height: 58
@@ -640,7 +640,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gachararepiece
-    x: 924
+    x: 862
     y: 833
     width: 61
     height: 58

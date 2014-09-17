@@ -42,8 +42,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 6e77b3753c64d40b3835ec6c32c4e41a, type: 2}
   mSprites:
   - name: activecityglow
-    x: 967
-    y: 874
+    x: 285
+    y: 2
     width: 56
     height: 30
     borderLeft: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: darkfeederevent
-    x: 0
+    x: 178
     y: 11
     width: 106
     height: 81
@@ -81,7 +81,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: earthdailylab
-    x: 988
+    x: 994
     y: 730
     width: 2
     height: 100
@@ -94,7 +94,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthfeederevent
-    x: 178
+    x: 0
     y: 93
     width: 106
     height: 81
@@ -107,7 +107,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: FatBoydark
-    x: 356
+    x: 0
     y: 355
     width: 177
     height: 179
@@ -120,7 +120,7 @@ MonoBehaviour:
     paddingTop: 21
     paddingBottom: 0
   - name: FatBoyearth
-    x: 178
+    x: 0
     y: 175
     width: 177
     height: 179
@@ -146,7 +146,7 @@ MonoBehaviour:
     paddingTop: 21
     paddingBottom: 0
   - name: FatBoylight
-    x: 0
+    x: 178
     y: 175
     width: 177
     height: 179
@@ -159,7 +159,7 @@ MonoBehaviour:
     paddingTop: 21
     paddingBottom: 0
   - name: FatBoywater
-    x: 0
+    x: 356
     y: 355
     width: 177
     height: 179
@@ -185,7 +185,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: firedailylab
-    x: 985
+    x: 991
     y: 730
     width: 2
     height: 100
@@ -198,7 +198,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: firefeederevent
-    x: 178
+    x: 0
     y: 11
     width: 106
     height: 81
@@ -224,7 +224,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lightdailylab
-    x: 982
+    x: 988
     y: 730
     width: 2
     height: 100
@@ -237,8 +237,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightfeederevent
-    x: 356
-    y: 91
+    x: 178
+    y: 93
     width: 106
     height: 81
     borderLeft: 0
@@ -250,19 +250,6 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockedboss
-    x: 722
-    y: 639
-    width: 88
-    height: 71
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: lockedcity
     x: 934
     y: 564
     width: 88
@@ -275,9 +262,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 1
     paddingBottom: 0
+  - name: lockedcity
+    x: 770
+    y: 639
+    width: 88
+    height: 71
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: lockedcitypin
     x: 967
-    y: 905
+    y: 853
     width: 42
     height: 59
     borderLeft: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockeddailylab
-    x: 979
+    x: 985
     y: 730
     width: 2
     height: 100
@@ -302,7 +302,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: multiplayerheader
-    x: 997
+    x: 1000
     y: 750
     width: 2
     height: 80
@@ -328,7 +328,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightdailylab
-    x: 994
+    x: 982
     y: 730
     width: 2
     height: 100
@@ -342,7 +342,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: opencitypin
     x: 967
-    y: 965
+    y: 913
     width: 42
     height: 59
     borderLeft: 0
@@ -354,46 +354,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: openearth
-    x: 657
-    y: 538
-    width: 69
-    height: 61
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: openfire
-    x: 727
-    y: 538
-    width: 69
-    height: 61
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: openlight
-    x: 797
-    y: 538
-    width: 69
-    height: 61
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: opennight
-    x: 107
+    x: 285
     y: 113
     width: 69
     height: 61
@@ -405,20 +366,7 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
-  - name: openrainbow
-    x: 633
-    y: 639
-    width: 88
-    height: 71
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: openwater
+  - name: openfire
     x: 107
     y: 31
     width: 69
@@ -431,9 +379,61 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
+  - name: openlight
+    x: 107
+    y: 113
+    width: 69
+    height: 61
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: opennight
+    x: 848
+    y: 538
+    width: 69
+    height: 61
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: openrainbow
+    x: 534
+    y: 99
+    width: 88
+    height: 71
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: openwater
+    x: 778
+    y: 538
+    width: 69
+    height: 61
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: profilecircle
-    x: 867
-    y: 540
+    x: 285
+    y: 33
     width: 59
     height: 59
     borderLeft: 0
@@ -484,8 +484,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: Scientistdark
-    x: 534
-    y: 353
+    x: 862
+    y: 649
     width: 116
     height: 181
     borderLeft: 0
@@ -510,8 +510,8 @@ MonoBehaviour:
     paddingTop: 19
     paddingBottom: 0
   - name: Scientistfire
-    x: 850
-    y: 843
+    x: 534
+    y: 353
     width: 116
     height: 181
     borderLeft: 0
@@ -523,19 +523,6 @@ MonoBehaviour:
     paddingTop: 19
     paddingBottom: 0
   - name: Scientistlight
-    x: 862
-    y: 649
-    width: 116
-    height: 181
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 51
-    paddingRight: 33
-    paddingTop: 19
-    paddingBottom: 0
-  - name: Scientistwater
     x: 534
     y: 171
     width: 116
@@ -548,8 +535,21 @@ MonoBehaviour:
     paddingRight: 33
     paddingTop: 19
     paddingBottom: 0
+  - name: Scientistwater
+    x: 850
+    y: 843
+    width: 116
+    height: 181
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 51
+    paddingRight: 33
+    paddingTop: 19
+    paddingBottom: 0
   - name: waterdailylab
-    x: 991
+    x: 979
     y: 730
     width: 2
     height: 100
@@ -562,8 +562,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: waterfeederevent
-    x: 0
-    y: 93
+    x: 356
+    y: 91
     width: 106
     height: 81
     borderLeft: 0
@@ -583,6 +583,58 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: closepopupx
+    x: 967
+    y: 973
+    width: 50
+    height: 51
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: acceptrequest
+    x: 657
+    y: 542
+    width: 120
+    height: 57
+    borderLeft: 10
+    borderRight: 10
+    borderTop: 10
+    borderBottom: 10
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: greysmallbutton
+    x: 633
+    y: 650
+    width: 136
+    height: 60
+    borderLeft: 10
+    borderRight: 10
+    borderTop: 10
+    borderBottom: 10
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: chatblackbg
+    x: 997
+    y: 747
+    width: 2
+    height: 83
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 1
+    borderBottom: 1
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 1
