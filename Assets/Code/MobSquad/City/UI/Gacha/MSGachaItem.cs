@@ -69,6 +69,18 @@ public class MSGachaItem : MonoBehaviour {
 	
 	public void Setup(BoosterItemProto item)
 	{
+		if(item == null)
+		{
+			Debug.LogError("no item found");
+		}
+		else
+		{
+			if(item.monsterId == null)
+			{
+				Debug.LogError("no id found");
+			}
+		}
+
 		if (item.monsterId == 0)
 		{
 			icon.spriteName = "diamond";
