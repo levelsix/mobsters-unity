@@ -18,11 +18,18 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 	[SerializeField] UILabel label;
 
+	[SerializeField] UILabel freeLabel;
+
 	public MSFillBar bar;
 
 	[SerializeField] MSBuilding building;
 
 	float newTime = 0;
+
+	const float CYCLE_TIME = 3f;
+	const float FADE_TIME = 0.3f;
+
+	IEnumerator fadeRoutine;
 
 	bool isConstructing
 	{
@@ -61,6 +68,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 				item.spriteName = "buildingcap";
 			}
 			barSprite.spriteName = "buildingmiddle";
+			CheckFreeBar();
 			
 			bg.alpha = 1;
 			label.text = building.upgrade.timeLeftString;
@@ -73,6 +81,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 				item.spriteName = "buildingcap";
 			}
 			barSprite.spriteName = "buildingmiddle";
+			CheckFreeBar();
 			
 			bg.alpha = 1;
 			label.text = MSUtil.TimeStringShort(building.obstacle.millisLeft);
@@ -85,6 +94,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 				item.spriteName = "healingcap";
 			}
 			barSprite.spriteName = "healingmiddle";
+			CheckFreeBar();
 			bg.alpha = 1;
 			label.text = MSUtil.TimeStringShort(building.hospital.goon.healTimeLeftMillis);
 			bar.fill = building.hospital.goon.healProgressPercentage;
@@ -92,6 +102,15 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		//This if statement is for if a building suddenly is no longer under construction the bar fills quickly
 		else if(bar.fill < 1f && bg.alpha > 0f)
 		{
+
+			if(fadeRoutine != null)
+			{
+				StopCoroutine(fadeRoutine);
+				freeLabel.alpha = 0f;
+				label.alpha = 1f;
+				fadeRoutine = null;
+			}
+
 			if(newTime == 0){
 				if(building.obstacle == null)
 				{
@@ -116,6 +135,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		}
 		else if(bar.fill >= 1f && (upgrading || (building.obstacle != null && building.obstacle.isRemoving)))
 		{
+
 			newTime = 0;
 
 			upgrading = false;
@@ -135,5 +155,80 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		{
 			bg.alpha = 0;
 		}
+	}
+
+	// TODO: change to return a bool on succesfully set bar to freebar
+	void CheckFreeBar()
+	{
+		//hospital logic
+		if(building.hospital != null && MSMath.GemsForTime(MSHealScreen.instance.timeLeft, true) == 0)
+		{
+			SetBarFree();
+		}
+
+		else if(MSMath.GemsForTime( building.upgrade.timeRemaining, true) == 0 && building.obstacle == null)
+		{
+			SetBarFree();
+		}
+		else
+		{
+			freeLabel.alpha = 0f;
+		}
+	}
+
+	void SetBarFree()
+	{
+		foreach (var item in caps) 
+		{
+			item.spriteName = "instantcap";
+		}
+		barSprite.spriteName = "instantmiddle";
+
+		if(fadeRoutine == null)
+		{
+			fadeRoutine = TextFadeAnimation();
+			StartCoroutine(fadeRoutine);
+		}
+	}
+
+	IEnumerator TextFadeAnimation()
+	{
+		bool showingFree = false;
+		float fadeTime = 0;
+		float cycleTime = 0;
+		while(bg.alpha != 0)
+		{
+
+			if(cycleTime < CYCLE_TIME)
+			{
+				cycleTime += Time.deltaTime;
+			}
+			else if(fadeTime < FADE_TIME)
+			{
+				fadeTime += Time.deltaTime;
+				if(showingFree)
+				{
+					label.alpha = fadeTime / FADE_TIME;
+					freeLabel.alpha = 1f - fadeTime / FADE_TIME;
+				}
+				else
+				{
+					freeLabel.alpha = fadeTime / FADE_TIME;
+					label.alpha = 1f - fadeTime / FADE_TIME;
+				}
+			}
+			else
+			{
+				showingFree = !showingFree;
+				fadeTime = 0f;
+				cycleTime = 0f;
+			}
+
+			yield return null;
+		}
+
+		freeLabel.alpha = 0f;
+		label.alpha = 1f;
+		fadeRoutine = null;
 	}
 }
