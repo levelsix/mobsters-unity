@@ -219,12 +219,12 @@ public class MSResourceCard : MonoBehaviour {
 			}
 			else
 			{
-				MSActionManager.Popup.DisplayError("Not enough Gems");
+				MSActionManager.Popup.DisplayRedError("Not enough Gems");
 			}
 		}
 		else
 		{
-			MSActionManager.Popup.DisplayError("Storage is too full");
+			MSActionManager.Popup.DisplayRedError("Storage is too full");
 		}
 	}
 }

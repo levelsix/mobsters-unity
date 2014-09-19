@@ -818,7 +818,7 @@ public class MSMonsterManager : MonoBehaviour {
 		{
 			if (enhancementFeeders.Count >= MSBuildingManager.enhanceLabs[0].combinedProto.lab.queueSize)
 			{
-				MSActionManager.Popup.DisplayError("Enhance queue full!");
+				MSActionManager.Popup.DisplayRedError("Enhance queue full!");
 				return false;
 			}
 

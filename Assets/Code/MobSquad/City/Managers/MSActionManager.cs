@@ -83,7 +83,8 @@ public static class MSActionManager
 		public static Action CloseTopPopupLayer;
 		public static Action CloseAllPopups;
 
-		public static Action<string> DisplayError;
+		public static Action<string> DisplayRedError;
+		public static Action<string> DisplayGreenError;
 	}
 	
 	public static class UI
@@ -179,6 +180,7 @@ public static class MSActionManager
 		public static Action OnGemMatch;
 		public static Action OnGemPressed;
 		public static Action OnGemSwapSuccess;
+		public static Action OnResultScreen;
 
 		public static Action ForceHideSwap;
 		public static Action ForceShowSwap;

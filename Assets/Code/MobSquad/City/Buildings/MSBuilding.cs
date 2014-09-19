@@ -746,7 +746,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	{
 		if (!MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 		{
-			MSActionManager.Popup.DisplayError("You can't build a building there, silly!");
+			MSActionManager.Popup.DisplayRedError("You can't build a building there, silly!");
 			return;
 		}
 

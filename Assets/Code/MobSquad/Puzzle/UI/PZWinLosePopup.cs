@@ -60,6 +60,11 @@ public class PZWinLosePopup : MonoBehaviour {
 	/// initialization of positions for elements required in both win and lose animations
 	/// </summary>
 	void GenInit(){
+		if(MSActionManager.Puzzle.OnResultScreen != null)
+		{
+			MSActionManager.Puzzle.OnResultScreen();
+		}
+
 		doneButton.transform.localScale = new Vector3 (0f, 0f, 0f);
 		hint.transform.localPosition = hint.GetComponent<TweenPosition> ().from;
 		titlePow.transform.localPosition = titlePow.transform.GetComponent<TweenPosition> ().from;

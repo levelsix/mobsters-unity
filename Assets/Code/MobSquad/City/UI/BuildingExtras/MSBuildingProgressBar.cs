@@ -70,7 +70,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			barSprite.spriteName = "buildingmiddle";
 			CheckFreeBar();
 			
-			bg.alpha = 1;
+			bg.gameObject.SetActive(true);
 			label.text = building.upgrade.timeLeftString;
 			bar.fill = building.upgrade.progress;
 		}
@@ -83,7 +83,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			barSprite.spriteName = "buildingmiddle";
 			CheckFreeBar();
 			
-			bg.alpha = 1;
+			bg.gameObject.SetActive(true);
 			label.text = MSUtil.TimeStringShort(building.obstacle.millisLeft);
 			bar.fill = building.obstacle.progress;
 		}
@@ -95,18 +95,18 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			}
 			barSprite.spriteName = "healingmiddle";
 			CheckFreeBar();
-			bg.alpha = 1;
+			bg.gameObject.SetActive(true);
 			label.text = MSUtil.TimeStringShort(building.hospital.goon.healTimeLeftMillis);
 			bar.fill = building.hospital.goon.healProgressPercentage;
 		}
 		//This if statement is for if a building suddenly is no longer under construction the bar fills quickly
-		else if(bar.fill < 1f && bg.alpha > 0f)
+		else if(bar.fill < 1f && bg.gameObject.activeSelf)
 		{
 
 			if(fadeRoutine != null)
 			{
 				StopCoroutine(fadeRoutine);
-				freeLabel.alpha = 0f;
+				freeLabel.gameObject.SetActive(false);
 				label.alpha = 1f;
 				fadeRoutine = null;
 			}
@@ -139,8 +139,8 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			newTime = 0;
 
 			upgrading = false;
-
-			bg.alpha = 0;
+			
+			bg.gameObject.SetActive(false);
 
 			if(building.obstacle != null)
 			{
@@ -151,9 +151,9 @@ public class MSBuildingProgressBar : MonoBehaviour {
 				building.upgrade.OnFinishUpgrade();
 			}
 		}
-		else
+		else if (bg.gameObject.activeSelf)
 		{
-			bg.alpha = 0;
+			bg.gameObject.SetActive(false);
 		}
 	}
 
@@ -172,7 +172,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		}
 		else
 		{
-			freeLabel.alpha = 0f;
+			freeLabel.gameObject.SetActive(false);
 		}
 	}
 
@@ -196,7 +196,8 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		bool showingFree = false;
 		float fadeTime = 0;
 		float cycleTime = 0;
-		while(bg.alpha != 0)
+		freeLabel.gameObject.SetActive(true);
+		while(bg.gameObject.activeSelf)
 		{
 
 			if(cycleTime < CYCLE_TIME)
@@ -226,8 +227,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 			yield return null;
 		}
-
-		freeLabel.alpha = 0f;
+		freeLabel.gameObject.SetActive(false);
 		label.alpha = 1f;
 		fadeRoutine = null;
 	}

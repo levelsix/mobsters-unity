@@ -85,7 +85,7 @@ public class MSCreateUserPopup : MonoBehaviour {
 			MSActionManager.Popup.CloseAllPopups();
 			break;
 		default:
-			MSActionManager.Popup.DisplayError(response.status.ToString());
+			MSActionManager.Popup.DisplayRedError(response.status.ToString());
 			submitButton.enabled = true;
 			break;
 		}

@@ -586,7 +586,7 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			if (MSMonsterManager.instance.AddToTeam(monster) == 0)
 			{
-				MSActionManager.Popup.DisplayError("Team is already full!");
+				MSActionManager.Popup.DisplayRedError("Team is already full!");
 			}
 			else
 			{

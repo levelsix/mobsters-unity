@@ -357,7 +357,7 @@ public class MSBuildingCard : MonoBehaviour {
 			BuyBuilding();
 		}
 		else if(!on){
-			MSActionManager.Popup.DisplayError(backDescription.text);
+			MSActionManager.Popup.DisplayRedError(backDescription.text);
 		}
 	}
 

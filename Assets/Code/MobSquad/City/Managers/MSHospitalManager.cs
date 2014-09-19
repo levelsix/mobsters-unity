@@ -296,7 +296,7 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		if (hospitals.Count == 0 || healingMonsters.Count >= queueSize)
 		{
-			MSActionManager.Popup.DisplayError("Healing Queue Full");
+			MSActionManager.Popup.DisplayRedError("Healing Queue Full");
 			return false;
 		}
 
