@@ -308,7 +308,7 @@ public class PZMonster {
 	public SkillProto offensiveSkill;
 	public SkillProto defensiveSkill;
 
-	public int speed;
+	public float speed;
 
 	public int maxHP;
 	public int currHP;
@@ -374,23 +374,12 @@ public class PZMonster {
 		this.taskMonster = taskMonster;
 		this.monster = MSDataManager.instance.Get(typeof(MonsterProto), taskMonster.monsterId) as MonsterProto;
 
-		SetDefensiveSkill(taskMonster.defensiveSkillId);
-
 		level = taskMonster.level;
 
 		SetupWithTask();
-	}
-	
-	public PZMonster(MonsterProto monster, TaskStageMonsterProto taskMonster)
-	{
-		this.monster = monster;
-		this.taskMonster = taskMonster;
 
+		//Since skills can fuck with other stats, do that last
 		SetDefensiveSkill(taskMonster.defensiveSkillId);
-
-		level = taskMonster.level;
-		
-		SetupWithTask();
 	}
 
 	public PZMonster(ClanRaidStageMonsterProto raidMonster)
@@ -533,14 +522,14 @@ public class PZMonster {
 			* Mathf.Pow((level-1)/((float)(monster.maxLevel-1)), maxLevelInfo.hpExponentBase));
 	}
 
-	public int SpeedAtLevel(int level)
+	public float SpeedAtLevel(int level)
 	{
 		if (monster.lvlInfo.Count == 0)
 		{
 			return 1;
 		}
 		
-		return (int)(baseLevelInfo.speed + (maxLevelInfo.speed - baseLevelInfo.speed)
+		return (baseLevelInfo.speed + (maxLevelInfo.speed - baseLevelInfo.speed)
 		             * ((level-1) / (monster.maxLevel-1)));
 	}
 
@@ -576,6 +565,12 @@ public class PZMonster {
 		if (skillId > 0)
 		{
 			defensiveSkill = MSDataManager.instance.Get<SkillProto>(skillId);
+			switch (defensiveSkill.type) 
+			{
+			case SkillType.CAKE_DROP:
+				speed = defensiveSkill.properties.Find(x=>x.name == "INITIAL_SPEED").skillValue;
+				break;
+			}
 		}
 		else
 		{

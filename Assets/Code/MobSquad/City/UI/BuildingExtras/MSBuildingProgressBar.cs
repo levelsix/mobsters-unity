@@ -10,7 +10,7 @@ using com.lvl6.proto;
 /// </summary>
 public class MSBuildingProgressBar : MonoBehaviour {
 
-	[SerializeField] UISprite bg;
+	[SerializeField] GameObject bg;
 
 	[SerializeField] UISprite[] caps;
 
@@ -62,7 +62,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			}
 			barSprite.spriteName = "buildingmiddle";
 			
-			bg.alpha = 1;
+			bg.SetActive(true);
 			label.text = building.upgrade.timeLeftString;
 			bar.fill = building.upgrade.progress;
 		}
@@ -74,7 +74,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			}
 			barSprite.spriteName = "buildingmiddle";
 			
-			bg.alpha = 1;
+			bg.SetActive(true);
 			label.text = MSUtil.TimeStringShort(building.obstacle.millisLeft);
 			bar.fill = building.obstacle.progress;
 		}
@@ -85,12 +85,12 @@ public class MSBuildingProgressBar : MonoBehaviour {
 				item.spriteName = "healingcap";
 			}
 			barSprite.spriteName = "healingmiddle";
-			bg.alpha = 1;
+			bg.SetActive(true);
 			label.text = MSUtil.TimeStringShort(building.hospital.goon.healTimeLeftMillis);
 			bar.fill = building.hospital.goon.healProgressPercentage;
 		}
 		//This if statement is for if a building suddenly is no longer under construction the bar fills quickly
-		else if(bar.fill < 1f && bg.alpha > 0f)
+		else if(bar.fill < 1f && bg.activeSelf)
 		{
 			if(newTime == 0){
 				if(building.obstacle == null)
@@ -120,7 +120,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 			upgrading = false;
 
-			bg.alpha = 0;
+			bg.SetActive(false);
 
 			if(building.obstacle != null)
 			{
@@ -131,9 +131,9 @@ public class MSBuildingProgressBar : MonoBehaviour {
 				building.upgrade.OnFinishUpgrade();
 			}
 		}
-		else
+		else if (bg.activeSelf);
 		{
-			bg.alpha = 0;
+			bg.SetActive(false);
 		}
 	}
 }

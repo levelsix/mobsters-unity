@@ -8,7 +8,7 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// MSDragDropLimited
 /// </summary>
-public class MSDragDropLimited : UIDragDropItem {
+public class MSDragDropLimited : UIDragObject {
 
 	public Vector2 max;
 
@@ -27,14 +27,10 @@ public class MSDragDropLimited : UIDragDropItem {
 		}
 	}
 
-	protected override void OnDragDropMove (Vector3 delta)
+	protected override void OnDrag (Vector2 delta)
 	{
-		if (trans == null)
-		{
-			trans = transform;
-		}
-		base.OnDragDropMove (delta);
-		trans.localPosition = new Vector3(Mathf.Clamp(trans.localPosition.x, min.x, max.x), Mathf.Clamp(trans.localPosition.y, min.y, max.y));
+		base.OnDrag (delta);
+		transform.localPosition = new Vector3(Mathf.Clamp(transform.localPosition.x, min.x, max.x), Mathf.Clamp(transform.localPosition.y, min.y, max.y));
 	}
 
 	public void GoToMin()

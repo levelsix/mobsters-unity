@@ -321,7 +321,7 @@ public class PZCombatUnit : MonoBehaviour {
 		}
 	}
 	
-	public IEnumerator Die()
+	public IEnumerator Die(bool callOnDeath = true)
 	{
 		//Debug.Log("Lock");
 		PZPuzzleManager.instance.swapLock += 1;
@@ -347,9 +347,12 @@ public class PZCombatUnit : MonoBehaviour {
 
 		PZPuzzleManager.instance.swapLock -= 1;
 
-		if (OnDeath != null)
+		if (callOnDeath)
 		{
-			OnDeath();
+			if (OnDeath != null)
+			{
+				OnDeath();
+			}
 		}
 
 	}

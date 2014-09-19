@@ -36,6 +36,7 @@ public class PZMoveTowards : MonoBehaviour {
 		return StartCoroutine(MoveTowards());
 	}
 
+
 	IEnumerator MoveTowards()
 	{
 		float curr = 0;

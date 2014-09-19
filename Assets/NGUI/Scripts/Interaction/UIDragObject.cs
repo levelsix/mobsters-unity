@@ -178,7 +178,7 @@ public class UIDragObject : MonoBehaviour
 	/// Drag the object along the plane.
 	/// </summary>
 
-	void OnDrag (Vector2 delta)
+	protected virtual void OnDrag (Vector2 delta)
 	{
 		if (mPressed && mTouchID == UICamera.currentTouchID && enabled && NGUITools.GetActive(gameObject) && target != null)
 		{

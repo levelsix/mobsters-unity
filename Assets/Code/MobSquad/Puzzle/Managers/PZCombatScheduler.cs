@@ -1,4 +1,4 @@
-﻿//#define DEBUG
+﻿#define DEBUG
 
 using UnityEngine;
 using System.Collections;
@@ -15,6 +15,9 @@ public class PZCombatScheduler : MonoBehaviour
 {
 	public static PZCombatScheduler instance;
 
+	/// <summary>
+	/// Keep these pointers around for cake farts
+	/// </summary>
 	PZMonster player, enemy;
 
 	/// <summary>
@@ -43,9 +46,11 @@ public class PZCombatScheduler : MonoBehaviour
 		instance = this;
 	}
 
-	public void Schedule(PZMonster player, PZMonster enemy, bool justSwapped = false)
+	public void Schedule(PZMonster player, PZMonster enemy, int rigTurn = 0)
 	{
-		Schedule(player.speed, enemy.speed, justSwapped);
+		this.player = player;
+		this.enemy = enemy;
+		Schedule((int)player.speed, (int)enemy.speed, rigTurn);
 	}
 
 	/// <summary>
@@ -58,8 +63,8 @@ public class PZCombatScheduler : MonoBehaviour
 	/// </summary>
 	/// <param name="speedA">Speed a.</param>
 	/// <param name="speedB">Speed b.</param>
-	/// <param name="justSwapped">If set to <c>true</c> just swapped.</param>
-	public void Schedule(int speedA, int speedB, bool justSwapped)
+	/// <param name="rigswap">Positive rigs player turn, negative rigs enemy turn, 0 rolls random</param>
+	public void Schedule(int speedA, int speedB, int rigTurn)
 	{
 		turns.Clear();
 		currInd = 0;
@@ -71,11 +76,12 @@ public class PZCombatScheduler : MonoBehaviour
 		//The number of sets of interleavings 
 		int numInterleavings = Mathf.Min(speedA, speedB);
 
-		bool firstAttackerIsA = MSTutorialManager.instance.inTutorial ? true : justSwapped ? false : ChooseFirst(speedA, speedB);
+		bool firstAttackerIsA = rigTurn > 0 ? true : (rigTurn < 0 ? false : ChooseFirst(speedA, speedB));
 
 #if DEBUG
 		Debug.Log("Scheduler:\nSpeed A: " + speedA + "\nSpeed B: " + speedB
-		          + "\nInterleavings: " + numInterleavings + "\nA first? " + firstAttackerIsA);
+		          + "\nInterleavings: " + numInterleavings + "\nA first? " + firstAttackerIsA +
+		          "Rigged?: " + rigTurn);
 #endif
 
 		int numBpA = 1, numBpB = 1;
@@ -167,6 +173,13 @@ public class PZCombatScheduler : MonoBehaviour
 		}
 	}
 
+	public void CakeReset(float speedMux)
+	{
+		enemy.speed *= speedMux;
+		Schedule (player, enemy, 1);
+		PZTurnDisplay.instance.RunInit(player, enemy);
+	}
+
 	public CombatTurn GetCurrentMove()
 	{
 		return turns[currInd % turns.Count];
@@ -185,9 +198,9 @@ public class PZCombatScheduler : MonoBehaviour
 	[ContextMenu ("Test")]
 	public void Test()
 	{
-		Schedule (1, 1, false);
-		Schedule (4, 8, false);
-		Schedule (5, 5, true);
-		Schedule (-5, 8, false);
+		Schedule (1, 1, 0);
+		Schedule (4, 8, 1);
+		Schedule (5, 5, -1);
+		Schedule (-5, 8, 0);
 	}
 }

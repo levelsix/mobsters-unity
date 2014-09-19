@@ -364,7 +364,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 339, y: 18, z: 0}
+  m_LocalPosition: {x: 377.000031, y: 18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400030}
@@ -506,7 +506,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.46426392, y: 60, z: 0}
+  m_LocalPosition: {x: .844116211, y: 60, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400028}
@@ -1261,7 +1261,7 @@ MonoBehaviour:
   startingRenderQueue: 4005
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: 0, z: 736, w: 100}
+  mClipRange: {x: 0, y: 0, z: 812.000061, w: 100}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 0
   mSortingOrder: 0
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   - {fileID: 11400018}
   centerer: {fileID: 11400030}
   chatPopup: {fileID: 0}
-  noPrivateChats: {fileID: 0}
+  noPrivateChats: {fileID: 100032}
   dragThreshold: 100
 --- !u!114 &11400040
 MonoBehaviour:
@@ -1546,13 +1546,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1093
+  mWidth: 1138
   mHeight: 100
   mDepth: -1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 10.9300003
+  aspectRatio: 11.3800001
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: diagradient
   mType: 1
@@ -1661,11 +1661,11 @@ MonoBehaviour:
   leftAnchor:
     target: {fileID: 0}
     relative: 1
-    absolute: 30
+    absolute: 15
   rightAnchor:
     target: {fileID: 0}
     relative: 0
-    absolute: -30
+    absolute: -15
   bottomAnchor:
     target: {fileID: 0}
     relative: 0
@@ -1677,13 +1677,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 736
+  mWidth: 812
   mHeight: 100
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 7.80999994
+  aspectRatio: 8.11999989
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: ChatSliced
   mType: 1

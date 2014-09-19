@@ -63,6 +63,14 @@ public class MSChatPopup : MonoBehaviour {
 	const string PURGE_CHEAT = "purgecash";
 	const string SKIP_QUESTS_CHEAT = "quickquests";
 
+	//Skill cheats
+	const string SET_SKILL_CHEAT = "skill";
+	const string GOO_SKILL = "goo";
+	const string CAKE_SKILL = "cake";
+	const string QUICK_SKILL = "atk";
+	const string BOMB_SKILL = "bomb";
+	const string POISON_SKILL = "poison";
+
 	//Not implemented Cheats
 	const string UNLOCK_BUILDINGS_CHEAT = "unlockdown"; //Currently unlocks tasks instead of buildings
 	const string UNMUTE_CHEAT = "allears";
@@ -155,6 +163,28 @@ public class MSChatPopup : MonoBehaviour {
 			{
 				Caching.CleanCache();
 				Debug.Log("Cleaning Cache");
+			}
+			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + SET_SKILL_CHEAT))
+			{
+				int skill = 0;
+				if (inputField.label.text.EndsWith(GOO_SKILL))
+				{
+					skill = 2;
+				}
+				else if (inputField.label.text.EndsWith(CAKE_SKILL))
+				{
+					skill = 3;
+				}
+
+
+				if (inputField.label.text.StartsWith(CHEAT_PREFIX + SET_SKILL_CHEAT + "e"))
+				{
+					PZCombatManager.instance.forceEnemySkill = skill;
+				}
+				else
+				{
+					PZCombatManager.instance.forcePlayerSkill = skill;
+				}
 			}
 		}
 		else if (inputField.label.text.Length > 0)

@@ -246,6 +246,19 @@ public class PZCombatManager : MonoBehaviour {
 		}
 	}
 
+	public int forceEnemySkill;
+	public int forcePlayerSkill;
+
+	bool enemyCakeKid
+	{
+		get
+		{
+			return activeEnemy.monster != null
+				&& activeEnemy.monster.defensiveSkill != null
+					&& activeEnemy.monster.defensiveSkill.type == SkillType.CAKE_DROP;
+		}
+	}
+
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
 	/// </summary>
@@ -737,8 +750,15 @@ public class PZCombatManager : MonoBehaviour {
 		if (monster != activePlayer.monster)
 		{
 			Debug.Log ("Actually deploying");
-			
-			PZCombatScheduler.instance.Schedule(monster, activeEnemy.monster, true);
+			int rigTurn = 0;
+			if (activePlayer.alive) rigTurn = -1;
+			if (MSTutorialManager.instance.inTutorial) rigTurn = 1;
+
+			if (!enemyCakeKid)
+			{
+				PZCombatScheduler.instance.Schedule(monster, activeEnemy.monster, rigTurn);
+			}
+
 			StartCoroutine(SwapCharacters(monster));
 
 			playerSkillIndicator.Init(monster.offensiveSkill, monster.monster.monsterElement);
@@ -759,6 +779,7 @@ public class PZCombatManager : MonoBehaviour {
 		battleStats.monstersDefeated++;
 		defeatedEnemies.Add(activeEnemy.monster);
 		StartCoroutine(ScrollToNextEnemy());
+		PZPuzzleManager.instance.ResetCakes();
 	}
 	
 	void OnPlayerDeath()
@@ -944,7 +965,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			//turnDisplay.Init(activePlayer.monster, activeEnemy.monster);
 
-			PZCombatScheduler.instance.Schedule(1, 1, false);
+			PZCombatScheduler.instance.Schedule(1, 1, 1);
 
 			activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 			
@@ -961,6 +982,11 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.GoToStartPos ();
 			activeEnemy.Init (enemies.Dequeue ());
 
+			if (forceEnemySkill > 0)
+			{
+				activeEnemy.monster.SetDefensiveSkill(forceEnemySkill);
+			}
+
 			enemySkillIndicator.Init(activeEnemy.monster.defensiveSkill, activeEnemy.monster.monster.monsterElement);
 			enemySkillIndicator.SetPoints(0);
 
@@ -972,7 +998,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			if (!fromLoad)
 			{
-				PZCombatScheduler.instance.Schedule(activePlayer.monster, activeEnemy.monster, false);
+				PZCombatScheduler.instance.Schedule(activePlayer.monster, activeEnemy.monster, enemyCakeKid ? 1 : 0);
 			}
 
 			UpdateUserTaskStage(MSWhiteboard.currTaskStages.Find(x=>x.stageMonsters[0] == activeEnemy.monster.taskMonster).stageId);
@@ -1003,7 +1029,7 @@ public class PZCombatManager : MonoBehaviour {
 			{
 				if (MSActionManager.Quest.OnTaskCompleted != null) 
 				{
-						MSActionManager.Quest.OnTaskCompleted ();
+					MSActionManager.Quest.OnTaskCompleted ();
 				}
 			}
 		}
@@ -1484,9 +1510,11 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator EnemySkillOnTurn()
 	{
 		enemySkillIndicator.SetPoints(++enemySkillTurns);
-		if (activeEnemy.monster.defensiveSkill != null
+		if (
+			activeEnemy.monster.defensiveSkill != null
 		    && activeEnemy.monster.defensiveSkill.skillId > 0
-			&& enemySkillTurns >= activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name=="SPAWN_TURNS").skillValue)
+			//&& enemySkillTurns >= activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name=="SPAWN_TURNS").skillValue
+		    )
 		{
 			yield return activeEnemy.unit.DoJump(50, .35f);
 			yield return activeEnemy.unit.DoJump(50, .35f);
@@ -1527,6 +1555,18 @@ public class PZCombatManager : MonoBehaviour {
 				yield return new WaitForSeconds(1);
 				PZPuzzleManager.instance.UnblockBoard();
 				boardTint.gameObject.SetActive(true);
+				break;
+			case SkillType.CAKE_DROP:
+				PZPuzzleManager.instance.SetupForCakes(activeEnemy.monster.defensiveSkill);
+
+				boardTint.gameObject.SetActive(false);
+				PZPuzzleManager.instance.BlockBoard(null);
+				yield return PZPuzzleManager.instance.BakeCake();
+				PZPuzzleManager.instance.cakes[0].Block(.3f);
+				yield return new WaitForSeconds(.3f);
+				PZPuzzleManager.instance.UnblockBoard();
+				boardTint.gameObject.SetActive(true);
+				yield return new WaitForSeconds(.8f);
 				break;
 			}
 		}
@@ -1749,29 +1789,38 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		battleStats.damageTaken += Mathf.Min (enemyDamageWithElement, activePlayer.monster.currHP);
 
-		if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		if (enemyCakeKid || activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
 			yield return StartCoroutine(activeEnemy.AdvanceTo(activePlayer.transform.localPosition.x + MELEE_ATTACK_DISTANCE, -background.direction, background.scrollSpeed * 4));
 		}
-		
-		activeEnemy.unit.animat = MSUnit.AnimationType.ATTACK;
-		yield return StartCoroutine(activeEnemy.unit.anim.GetComponent<MSAnimationEvents>().WaitForEndOfEnemyAttack());
-		
-		StartCoroutine(activePlayer.TakeDamage((int)enemyDamageWithElement, activeEnemy.monster.monster.monsterElement));
-		
-		CheckBleed(activePlayer);
-		
-		yield return new WaitForSeconds(.3f);
-		
-		if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
-		{
-			yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 4));
-			activeEnemy.unit.direction = MSValues.Direction.WEST;
-		}
-		
-		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 
-		RunPickNextTurn(true);
+		if (enemyCakeKid)
+		{
+			StartCoroutine(activeEnemy.Die(false));
+			StartCoroutine(activePlayer.Die(true));
+			activePlayer.SendDamageUpdateToServer(99999);
+		}
+		else
+		{
+			activeEnemy.unit.animat = MSUnit.AnimationType.ATTACK;
+			yield return StartCoroutine(activeEnemy.unit.anim.GetComponent<MSAnimationEvents>().WaitForEndOfEnemyAttack());
+			
+			StartCoroutine(activePlayer.TakeDamage((int)enemyDamageWithElement, activeEnemy.monster.monster.monsterElement));
+			
+			CheckBleed(activePlayer);
+			
+			yield return new WaitForSeconds(.3f);
+			
+			if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+			{
+				yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 4));
+				activeEnemy.unit.direction = MSValues.Direction.WEST;
+			}
+			
+			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
+
+			RunPickNextTurn(true);
+		}
 	}
 
 	public IEnumerator QueueUpPvp()

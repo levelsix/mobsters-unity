@@ -81,8 +81,12 @@ public class PZPuzzleManager : MonoBehaviour {
 	public Transform puzzleParent;
 	
 	List<PZGem> movingGems = new List<PZGem>();
-	List<PZGem> gemsToCheck = new List<PZGem>();
 	PZGem[] hintgems = new PZGem[3];
+
+	public List<PZGem> cakes = new List<PZGem>();
+
+	public int maxCakes;
+	public float currCakeChance;
 	
 	[SerializeField]
 	PZGem gemPrefab;
@@ -248,6 +252,10 @@ public class PZPuzzleManager : MonoBehaviour {
 				gem = MSPoolManager.instance.Get(gemPrefab, Vector3.zero, puzzleParent) as PZGem;
 				gem.SpawnOnMap(save.gemColors[x, y], x);
 				gem.gemType = (PZGem.GemType)save.gemTypes[x,y];
+				if (gem.gemType == PZGem.GemType.CAKE)
+				{
+					cakes.Add(gem);
+				}
 				if (save.jelly[x,y])
 				{
 					PZJelly jelly = MSPoolManager.instance.Get<PZJelly>(jellyPrefab, puzzleParent);
@@ -324,6 +332,7 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	public void ClearBoard ()
 	{
+		cakes.Clear();
 		if (setUpBoard)
 		{
 			for (int i = 0; i < boardHeight; i++) 
@@ -388,7 +397,43 @@ public class PZPuzzleManager : MonoBehaviour {
 				break;
 			}
 		}
-		//gemsOnBoardByType[picked]++;
+		return picked;
+	}
+
+	public int PickRevertCakeColor(int row, int col)
+	{
+		int picked;
+		int rowColL = -1;
+		if (row >= 2)
+		{
+			rowColL = board[col,row-2].colorIndex;
+		}
+		int rowColR = 1;
+		if (row < boardWidth - 2)
+		{
+			rowColR = board[col, row+2].colorIndex;
+		}
+		int colColD = -1;
+		if (col >= 2)
+		{
+			colColD = board[col-2,row].colorIndex;
+		}
+		int colColU = -1;
+		if (col < boardHeight - 2)
+		{
+			colColU = board[col+2, row].colorIndex;
+		}
+		while(true)
+		{
+			picked = UnityEngine.Random.Range(0,gemTypes.Length);
+			if (picked != rowColL 
+			    && picked != colColD 
+			    && picked != rowColR 
+			    && picked != colColU)
+			{
+				break;
+			}
+		}
 		return picked;
 	}
 
@@ -417,23 +462,34 @@ public class PZPuzzleManager : MonoBehaviour {
 		movingGems.Remove(gem);
 		//Debug.Log("Unlock");
 		swapLock -= 1;
-		if (!gemsToCheck.Contains(gem))
-		{
-			gemsToCheck.Add(gem);
-		}
 
-		CheckIfTurnFinished();
-		
-		//After the board is checked, if nothing is falling, unlock the board
-		
+		StartCoroutine(CheckIfTurnFinished());
 	}
 
-	void CheckIfTurnFinished ()
+	IEnumerator CheckIfTurnFinished ()
 	{
 		if (movingGems.Count == 0) 
 		{
+			bool hasCakes = false;
+			foreach (var item in cakes) 
+			{
+				if (item.CheckCake())
+				{
+					item.RunEatCake();
+					hasCakes = true;
+				}
+			}
+			if (hasCakes)
+			{
+				foreach (var item in cakes) 
+				{
+					while (item.isCaking) yield return null;
+				}
+				PZCombatScheduler.instance.CakeReset(PZCombatManager.instance.activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "SPEED_MULTIPLIER").skillValue);
+			}
+
 			CheckWholeBoard ();
-			gemsToCheck.Clear ();
+
 			if (movingGems.Count == 0) {
 				if (combo == 0) {
 					lastSwapSuccessful = false;
@@ -445,6 +501,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				processingSwap = false;
 				showGemHints = true;
 				ResetCombo ();
+
 				if (!CheckForMatchMoves (board)) 
 				{
 					Shuffle();
@@ -452,9 +509,9 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 			processingSwap = false;
 
-			if (MSActionManager.Puzzle.OnNewPlayerTurn != null)
+			if (MSActionManager.Puzzle.OnDragFinished != null)
 			{
-				MSActionManager.Puzzle.OnNewPlayerTurn();
+				MSActionManager.Puzzle.OnDragFinished();
 			}
 		}
 	}
@@ -472,7 +529,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			{
 				curr = board[i,j];
 				
-				if (currGems[0].colorIndex != curr.colorIndex)
+				if (curr.colorIndex < 0 || currGems[0].colorIndex != curr.colorIndex)
 				{
 					if (currGems.Count >= 3)
 					{
@@ -508,7 +565,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			currGems.Add (board[0,i]);
 			for (int j = 1; j < boardWidth; j++) {
 				curr = board[j,i];
-				if (currGems[0].colorIndex != curr.colorIndex)
+				if (curr.colorIndex < 0 || currGems[0].colorIndex != curr.colorIndex)
 				{
 					if (currGems.Count >= 3)
 					{
@@ -943,6 +1000,11 @@ public class PZPuzzleManager : MonoBehaviour {
 			for (int j = 0; j < boardWidth-2; j++) 
 			{
 				gem = board[j, i];
+				if (gem.gemType == PZGem.GemType.MOLOTOV)
+				{
+					return true;
+				}
+				if (gem.colorIndex < 0) continue;
 				if (j < boardWidth-3)
 				{
 					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+3,i].colorIndex)
@@ -1017,10 +1079,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			for (int j = 0; j < boardHeight-2; j++) 
 			{
 				gem = board[i,j];
-				if (gem.gemType == PZGem.GemType.MOLOTOV)
-				{
-					return true;
-				}
+				if (gem.colorIndex < 0) continue;
 				if (j < boardHeight-3)
 				{
 					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i, j+3].colorIndex)
@@ -1108,15 +1167,15 @@ public class PZPuzzleManager : MonoBehaviour {
 		return 0;
 	}
 
-	public void BlockBoard(List<Vector2> exceptSpaces)
+	public void BlockBoard(List<Vector2> exceptSpaces = null, float tweenTime = 0)
 	{
 		for (int i = 0; i < boardWidth; i++) 
 		{
 			for (int j = 0; j < boardHeight; j++) 
 			{
-				if (!exceptSpaces.Contains(new Vector2(i,j)))
+				if (exceptSpaces == null || !exceptSpaces.Contains(new Vector2(i,j)))
 				{
-					board[i,j].Block();
+					board[i,j].Block(tweenTime);
 				}
 			}
 		}
@@ -1362,6 +1421,7 @@ public class PZPuzzleManager : MonoBehaviour {
 					PZGem currGem = board[x,y];
 					if (currGem.gemType == PZGem.GemType.CAKE)
 					{
+						currGem.SetShufflePosition(currGem.boardX, currGem.boardY);
 						gems.Remove(currGem);
 						newBoard[currGem.boardX, currGem.boardY] = currGem;
 					}
@@ -1371,9 +1431,9 @@ public class PZPuzzleManager : MonoBehaviour {
 						do
 						{
 							target = gems[UnityEngine.Random.Range(0, gems.Count)];
-						} while (gems.Count > 1  //If this is the last gem, and its target is itself, we've got to let it pass
-						         && target == currGem 
-						         && target.gemType != PZGem.GemType.CAKE);
+						} while ((gems.Count > 1  //If this is the last gem, and its target is itself, we've got to let it pass
+						         && target == currGem )
+						         || target.gemType == PZGem.GemType.CAKE);
 						gems.Remove(target);
 						currGem.SetShufflePosition(target.boardX, target.boardY);
 						newBoard[target.boardX, target.boardY] = currGem;
@@ -1491,6 +1551,42 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 
 		return new Vector2(-1, -1); //This is the error signal!
+	}
+
+	#endregion
+
+	#region Cake
+
+	public void SetupForCakes(SkillProto skill)
+	{
+		maxCakes = (int)skill.properties.Find(x=>x.name == "MAX_CAKES").skillValue;
+		currCakeChance = skill.properties.Find (x=>x.name == "CAKE_CHANCE").skillValue;
+	}
+
+	public Coroutine BakeCake()
+	{
+		return StartCoroutine(DoBakeCake());
+	}
+
+	IEnumerator DoBakeCake()
+	{
+		int boardX = UnityEngine.Random.Range(0, boardWidth);
+		PZGem gem = board[boardX, boardHeight-1];
+		cakes.Add(gem);
+		yield return StartCoroutine(gem.TweenUnblock(.5f));
+		yield return new WaitForSeconds(.5f);
+		yield return gem.RunBecomeCake();
+	}
+
+	public void ResetCakes()
+	{
+		foreach (var item in cakes) 
+		{
+			item.RunRevertFromCake();
+		}
+		cakes.Clear();
+		maxCakes = 0;
+		currCakeChance = 0;
 	}
 
 	#endregion

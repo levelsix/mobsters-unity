@@ -36,6 +36,8 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		}
 	}
 
+	PZMoveTowards moveTowards;
+
 	string baseSprite = "";
 	
 	/// <summary>
@@ -80,13 +82,12 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				case GemType.NORMAL:
 					sprite.spriteName = baseSprite + "orb";
 					break;
+				case GemType.CAKE:
+					sprite.spriteName = "cakeorb";
+					break;
 			}
 
-			if (sprite.GetAtlasSprite() != null)
-			{
-				sprite.width = sprite.GetAtlasSprite().width;
-				sprite.height = sprite.GetAtlasSprite().height;
-			}
+			sprite.MakePixelPerfect();
 
 			_gemType = value;
 		}
@@ -140,7 +141,9 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	public int id = 0;
 	static int nextId = 0;
 
-	TweenScale scaleTween;
+	[SerializeField] TweenScale cakeScaleTween;
+
+	[SerializeField] TweenScale hintScaleTween;
 	TweenColor colorTween;
 	int curTweenLoop = 0;
 	const int TOTAL_HINT_TWEEN = 4;
@@ -158,9 +161,9 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		sprite = GetComponent<UISprite>();
 		trans = transform;
 		gameObj = gameObject;
+		moveTowards = GetComponent<PZMoveTowards>();
 		id = nextId++;
 
-		scaleTween = GetComponent<TweenScale>();
 		colorTween = GetComponent<TweenColor>();
 	}
 	
@@ -173,12 +176,12 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	void OnEnable()
 	{
-		MSActionManager.Puzzle.OnNewPlayerTurn += OnNewTurn;
+		MSActionManager.Puzzle.OnDragFinished += OnNewTurn;
 	}
 
 	void OnDisable()
 	{
-		MSActionManager.Puzzle.OnNewPlayerTurn -= OnNewTurn;
+		MSActionManager.Puzzle.OnDragFinished -= OnNewTurn;
 	}
 
 	public void SpawnOnMap(int colr, int column)
@@ -202,6 +205,12 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	public void SpawnAbove(int colr, int column)
 	{
 		Init (colr, column);
+		if (PZPuzzleManager.instance.maxCakes > PZPuzzleManager.instance.cakes.Count && UnityEngine.Random.value < PZPuzzleManager.instance.currCakeChance)
+		{
+			gemType = GemType.CAKE;
+			PZPuzzleManager.instance.cakes.Add(this);
+			colorIndex = -1;
+		}
 
 		PZPuzzleManager.instance.OnStartMoving(this);
 
@@ -215,16 +224,22 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	void Init(int colr, int column)
 	{
 		colorIndex = colr;
-		if (colr >= 0) //Chance that a saved game loads a rainbow
-		{
-			baseSprite = PZPuzzleManager.instance.gemTypes[colorIndex];
-		}
-		
+		SetBaseSprite ();
+
 		boardX = column;
 		boardY = PZPuzzleManager.instance.boardHeight;
 
 		trans.localScale = Vector3.one;
+
 		gemType = GemType.NORMAL;
+	}
+
+	void SetBaseSprite()
+	{
+		if (colorIndex >= 0)
+		{
+			baseSprite = PZPuzzleManager.instance.gemTypes[Mathf.Abs(colorIndex)]; //Need to make sure that orbs that are cakes can turn back into their colors
+		}
 	}
 
 	void CreateMatchParticle()
@@ -244,9 +259,30 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		sys.startColor = newStartColor;
 	}
 
+	void RemoveAndReset ()
+	{
+		if (boardX < PZPuzzleManager.instance.boardWidth && boardY < PZPuzzleManager.instance.boardHeight) {
+			PZPuzzleManager.instance.board [boardX, boardY] = null;
+			//Remove from board
+		}
+		Detonate ();
+		for (int j = boardY; j < PZPuzzleManager.instance.boardHeight; j++)//Tell everything that was above this to fall
+		{
+			if (PZPuzzleManager.instance.board [boardX, j] != null) {
+				PZPuzzleManager.instance.board [boardX, j].CheckFall ();
+			}
+		}
+		while (PZPuzzleManager.instance.columnQueues [boardX].Count > 0) {
+			if (!PZPuzzleManager.instance.columnQueues [boardX] [0].CheckFall ()) {
+				break;
+			}
+		}
+		SpawnAbove (PZPuzzleManager.instance.PickColor (boardX), boardX);
+	}
+
 	public void Destroy()
 	{
-		if (!lockedBySpecial) //Specials need to disable this lock before destroying the gem
+		if (gemType != GemType.CAKE && !lockedBySpecial) //Specials need to disable this lock before destroying the gem
 		{
 			if (colorIndex >= 0)
 			{
@@ -272,31 +308,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				CreateSparkle();
 			}
 
-			if (boardX < PZPuzzleManager.instance.boardWidth && boardY < PZPuzzleManager.instance.boardHeight)
-			{
-				PZPuzzleManager.instance.board[boardX, boardY] = null; //Remove from board
-			}
-			
-			Detonate();
-
-			for (int j = boardY; j < PZPuzzleManager.instance.boardHeight; j++) //Tell everything that was above this to fall
-			{
-				if (PZPuzzleManager.instance.board[boardX, j] != null)
-				{
-					PZPuzzleManager.instance.board[boardX, j].CheckFall();
-				}
-			}
-
-			while(PZPuzzleManager.instance.columnQueues[boardX].Count > 0)
-			{
-				if (!PZPuzzleManager.instance.columnQueues[boardX][0].CheckFall())
-				{
-					break;
-				}
-			}
-
-			SpawnAbove(PZPuzzleManager.instance.PickColor(boardX), boardX); //Respawn at top of board
-
+			RemoveAndReset ();
 		}
 	}
 
@@ -399,6 +411,8 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 		moving = false;
 		PZPuzzleManager.instance.OnStopMoving(this);
+
+		if (gemType == GemType.CAKE) CheckCake();
 	}
 
 	public void Detonate()
@@ -594,16 +608,30 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		PZPuzzleManager.instance.OnStopMoving(this);
 	}
 
-	public void Block()
+	public void Block(float tweenTime = 0)
 	{
 		blocker.gameObject.SetActive(true);
+		blocker.alpha = 0;
+		TweenAlpha.Begin(blocker.gameObject, tweenTime, .5f);
 		MSActionManager.Puzzle.OnGemMatch += Unblock;
 	}
 
 	public void Unblock()
 	{
-		blocker.gameObject.SetActive(false);
+		Unblock(0);
+	}
+
+	public void Unblock(float tweenTime)
+	{
+		StartCoroutine(TweenUnblock(tweenTime));
+	}
+
+	public IEnumerator TweenUnblock(float tweenTime = 0)
+	{
 		MSActionManager.Puzzle.OnGemMatch -= Unblock;
+		TweenAlpha alph = TweenAlpha.Begin(blocker.gameObject, tweenTime, 0);
+		while (alph.tweenFactor < 1) yield return null;
+		blocker.gameObject.SetActive(false);
 	}
 		
 	public void Pool()
@@ -627,8 +655,8 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	{
 		if(curTweenLoop < TOTAL_HINT_TWEEN)
 		{
-			scaleTween.ResetToBeginning();
-			scaleTween.PlayForward();
+			hintScaleTween.ResetToBeginning();
+			hintScaleTween.PlayForward();
 //			colorTween.ResetToBeginning();
 //			colorTween.PlayForward();
 
@@ -642,9 +670,9 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	public void CancelHintAnimation()
 	{
-		scaleTween.enabled = false;
+		hintScaleTween.enabled = false;
 		colorTween.enabled = false;
-		scaleTween.Sample(0f, false);
+		hintScaleTween.Sample(0f, false);
 		colorTween.Sample(0f, false);
 	}
 
@@ -664,6 +692,95 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			boardY = shuffleY;
 		}
 	}
+
+	#region Cake
+
+	[ContextMenu ("Bake Cake")]
+	public void DoBecomeCake()
+	{
+		StartCoroutine(BecomeCake());
+	}
+
+	public Coroutine RunBecomeCake()
+	{
+		return StartCoroutine(BecomeCake());
+	}
+
+	IEnumerator BecomeCake()
+	{
+		colorIndex = -1; //To keep the number around, but make sure that it doesn't get made a part of matches
+		cakeScaleTween.PlayForward();
+		while (cakeScaleTween.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		gemType = GemType.CAKE;
+		cakeScaleTween.PlayReverse();
+		while (cakeScaleTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
+	}
+
+	[ContextMenu ("Revert from Cake")]
+	public Coroutine RunRevertFromCake()
+	{
+		return StartCoroutine(RevertFromCake());
+	}
+
+	IEnumerator RevertFromCake()
+	{
+		cakeScaleTween.PlayForward();
+		while (cakeScaleTween.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		colorIndex = PZPuzzleManager.instance.PickRevertCakeColor(boardX, boardY);
+		SetBaseSprite();
+		gemType = GemType.NORMAL;
+		cakeScaleTween.PlayReverse();
+		while (cakeScaleTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
+	}
+
+	/// <summary>
+	/// Checks whether the cake has hit the bottom of the board
+	/// Precondition: Gem has finished falling
+	/// </summary>
+	public bool CheckCake()
+	{
+		for (int i = boardY-1; i >= 0; i--) 
+		{
+			if (PZPuzzleManager.instance.board[boardX, i].gemType != GemType.CAKE)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public bool isCaking = false;
+
+	public Coroutine RunEatCake()
+	{
+		return StartCoroutine(EatCake());
+	}
+
+	IEnumerator EatCake()
+	{
+		PZPuzzleManager.instance.swapLock++;
+		isCaking = true;
+		yield return moveTowards.RunMoveTowards(transform.InverseTransformPoint(PZCombatManager.instance.activeEnemy.transform.position), Vector3.left);
+		//Enemy Eat Animation
+		RemoveAndReset();
+		PZPuzzleManager.instance.swapLock--;
+		isCaking = false;
+	}
+
+
+	#endregion
 
 	#region Debug
 

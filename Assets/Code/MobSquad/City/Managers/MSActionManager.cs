@@ -175,7 +175,7 @@ public static class MSActionManager
 		public static Action<int> OnTurnChange;
 		public static Action<int> OnComboChange;
 		public static Action OnNewPlayerRound;
-		public static Action OnNewPlayerTurn;
+		public static Action OnDragFinished;
 		public static Action OnGemMatch;
 		public static Action OnGemPressed;
 		public static Action OnGemSwapSuccess;

@@ -42,7 +42,7 @@ public class MSMapTaskButton : MonoBehaviour {
 			}
 			else
 			{
-				bossSprite.alpha = 0f;
+				bossSprite.gameObject.SetActive(false);
 			}
 		}
 		
@@ -72,12 +72,12 @@ public class MSMapTaskButton : MonoBehaviour {
 			_status = value;
 			if(value == TaskStatusType.Completed || value == TaskStatusType.Undefeated){
 				SetOpenSprite();
-				buttonLabel.alpha = mapTask.boss?0f:0.5f;
+				buttonLabel.gameObject.SetActive(!mapTask.boss);
 			}else{
 				SetClosedSprite();
-				buttonLabel.alpha = 0f;
+				buttonLabel.gameObject.SetActive(false);
 			}
-			levelTitle.alpha = 0f;
+			levelTitle.gameObject.SetActive(false);
 		}
 	}
 
@@ -89,7 +89,7 @@ public class MSMapTaskButton : MonoBehaviour {
 
 	void OnEnable(){
 //		halo.alpha = 0f;
-		levelTitle.alpha = 0f;
+		levelTitle.gameObject.SetActive(false);
 		glowRing.gameObject.SetActive(false);
 		collider.enabled = false;
 		MSActionManager.Map.OnMapTaskClicked += Deselect;
@@ -101,13 +101,13 @@ public class MSMapTaskButton : MonoBehaviour {
 
 	void SetBossSprite()
 	{
-		bossSprite.alpha = 1f;
+		bossSprite.gameObject.SetActive(true);
 		MSSpriteUtil.instance.SetSprite(_mapTask.bossImgName.Substring(0,_mapTask.bossImgName.Length - "Map2.png".Length),
 		                                MSUtil.StripExtensions(_mapTask.bossImgName),
 		                                bossSprite);
 		bossSprite.MarkAsChanged();
 		bossSprite.MakePixelPerfect();
-		buttonLabel.alpha = 0f;
+		buttonLabel.gameObject.SetActive(false);
 	}
 
 	public void SetOpenSprite()
@@ -177,7 +177,7 @@ public class MSMapTaskButton : MonoBehaviour {
 		{
 //			halo.alpha = 0f;
 			glowRing.gameObject.SetActive(false);
-			levelTitle.alpha = 0f;
+			levelTitle.gameObject.SetActive(false);
 			TweenScale.Begin(gameObject,0.5f, new Vector3(0.5f,0.5f,0.5f));
 		}
 	}
@@ -188,7 +188,7 @@ public class MSMapTaskButton : MonoBehaviour {
 //			halo.alpha = 1f;
 			glowRing.gameObject.SetActive(true);
 		}
-		levelTitle.alpha = 1f;
+		levelTitle.gameObject.SetActive(true);
 
 		scaleTween.ResetToBeginning();
 		scaleTween.PlayForward();

@@ -279,21 +279,20 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &100032
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400032}
   - 114: {fileID: 11400032}
-  - 114: {fileID: 11400046}
   m_Layer: 0
-  m_Name: ProgressBar
+  m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100034
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +344,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &100040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400040}
+  - 114: {fileID: 11400046}
+  m_Layer: 0
+  m_Name: ProgressBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -357,12 +372,12 @@ Transform:
   m_Children:
   - {fileID: 400016}
   - {fileID: 400022}
-  - {fileID: 400032}
   - {fileID: 400008}
   - {fileID: 400034}
   - {fileID: 400010}
   - {fileID: 400002}
   - {fileID: 400036}
+  - {fileID: 400040}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &400002
@@ -376,7 +391,7 @@ Transform:
   m_LocalScale: {x: .0199999996, y: .0199999996, z: .0199999996}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!4 &400004
 Transform:
   m_ObjectHideFlags: 1
@@ -412,7 +427,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!4 &400010
 Transform:
   m_ObjectHideFlags: 1
@@ -428,7 +443,7 @@ Transform:
   - {fileID: 400020}
   - {fileID: 400038}
   m_Father: {fileID: 400000}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!4 &400012
 Transform:
   m_ObjectHideFlags: 1
@@ -565,8 +580,8 @@ Transform:
   m_Children:
   - {fileID: 400028}
   - {fileID: 400030}
-  m_Father: {fileID: 400000}
-  m_RootOrder: 2
+  m_Father: {fileID: 400040}
+  m_RootOrder: 0
 --- !u!4 &400034
 Transform:
   m_ObjectHideFlags: 1
@@ -579,7 +594,7 @@ Transform:
   m_Children:
   - {fileID: 400006}
   m_Father: {fileID: 400000}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!4 &400036
 Transform:
   m_ObjectHideFlags: 1
@@ -591,7 +606,7 @@ Transform:
   m_LocalScale: {x: .0199999996, y: .0199999977, z: .0199999996}
   m_Children: []
   m_Father: {fileID: 400000}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!4 &400038
 Transform:
   m_ObjectHideFlags: 1
@@ -604,6 +619,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400010}
   m_RootOrder: 3
+--- !u!4 &400040
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100040}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 400032}
+  m_Father: {fileID: 400000}
+  m_RootOrder: 7
 --- !u!65 &6500000
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -822,6 +850,7 @@ MonoBehaviour:
   combinedProto:
     id: 0
   obstacle: {fileID: 0}
+  spinner: {fileID: 0}
   tweenScale: {fileID: 11400054}
   groundPos: {x: 12, y: 19}
   width: 2
@@ -855,6 +884,7 @@ MonoBehaviour:
   locallyOwned: 1
   confirmationButtons: {fileID: 100016}
   confirmationLoadLock: {fileID: 0}
+  loadedSprite: 0
   X_DRAG_FUDGE: 1.25
 --- !u!114 &11400010
 MonoBehaviour:
@@ -1623,13 +1653,13 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100032}
+  m_GameObject: {fileID: 100040}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b57845c06d444cb7a580607ebf12dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bg: {fileID: 11400032}
+  bg: {fileID: 100032}
   caps:
   - {fileID: 11400042}
   - {fileID: 11400036}

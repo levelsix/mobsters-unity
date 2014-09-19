@@ -68,7 +68,7 @@ public class MSProfileStats: MonoBehaviour {
 			break;
 		}
 
-		if (user.clan.clanId > 0)
+		if (user.clan != null && user.clan.clanId > 0)
 		{
 			MSSpriteUtil.instance.SetSprite("clanicon", "clanicon" + user.clan.clanIconId, clanLogo); 
 			clanName.text = user.clan.name;

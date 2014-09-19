@@ -9,6 +9,8 @@ using com.lvl6.proto;
 /// </summary>
 public class PZTurnDisplay : MonoBehaviour 
 {
+	public static PZTurnDisplay instance;
+
 	[SerializeField] TweenPosition moveInTween;
 
 	[SerializeField] PZTurnIcon iconPrefab;
@@ -44,6 +46,11 @@ public class PZTurnDisplay : MonoBehaviour
 	}
 
 	PZMonster player, enemy;
+
+	void Awake()
+	{
+		instance = this;
+	}
 
 	public Coroutine RunInit(PZMonster player, PZMonster enemy)
 	{
