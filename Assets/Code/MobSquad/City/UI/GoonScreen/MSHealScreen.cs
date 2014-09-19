@@ -36,6 +36,8 @@ public class MSHealScreen : MSFunctionalScreen
 	[SerializeField]
 	MSLoadLock loadLock;
 
+	public long timeLeft;
+
 	public List<MSGoonCard> currHeals = new List<MSGoonCard>();
 
 	const string GREEN_ARROW = "hospitalopenarrow";
@@ -99,7 +101,7 @@ public class MSHealScreen : MSFunctionalScreen
 
 	void RefreshStats()
 	{
-		long timeLeft = 0;
+		timeLeft = 0;
 		foreach (var item in currHeals) 
 		{
 			timeLeft = Math.Max(item.monster.healTimeLeftMillis, timeLeft);

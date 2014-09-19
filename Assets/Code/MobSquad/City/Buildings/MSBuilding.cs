@@ -228,7 +228,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	public UISprite hoverIcon;
 
 	[SerializeField]
-	UISprite bubbleIcon;
+	public UISprite bubbleIcon;
 
 	[SerializeField]
 	UITweener lockTween;
@@ -327,8 +327,6 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			gaurdRails.gameObject.SetActive(false);
 			sprite.GetComponent<Animator>().enabled = true;
 		};
-		OnSelect += delegate { this.bubbleIcon.alpha = 0f; };
-		OnDeselect += delegate { this.bubbleIcon.alpha = 1f; };
     }
 
 	void InitGaurdRails()

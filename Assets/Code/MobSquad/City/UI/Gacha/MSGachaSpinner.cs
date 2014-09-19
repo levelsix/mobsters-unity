@@ -132,6 +132,7 @@ public class MSGachaSpinner : MonoBehaviour {
 		request.sender = MSWhiteboard.localMup;
 		request.boosterPackId = boosterPack.boosterPackId;
 		request.clientTime = MSUtil.timeNowMillis;
+		request.dailyFreeBoosterPack = MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000;
 		//request.freeBoosterPack = MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_BOOSTER_PACK_EVENT, null);

@@ -7,14 +7,14 @@ public class PZRetreatButton : MonoBehaviour {
 	[SerializeField]
 	MSPopup retreatPopup;
 
-	UIButton button;
-
-	UISprite sprite;
+//	UIButton button;
+//
+//	UISprite sprite;
 
 	void Awake()
 	{
-		button = GetComponent<UIButton>();
-		sprite = GetComponent<UISprite>();
+//		button = GetComponent<UIButton>();
+//		sprite = GetComponent<UISprite>();
 	}
 
 	void OnClick()

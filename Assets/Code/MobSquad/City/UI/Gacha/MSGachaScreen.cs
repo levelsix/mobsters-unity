@@ -52,7 +52,14 @@ public class MSGachaScreen : MonoBehaviour {
 //			AddTab(booster);
 		}
 		Init (currPack); //Gotta call this after, else the tabs won't init properly
+
+		MSActionManager.Gacha.OnPurchaseBoosterSucces += delegate { oneSpinCostLabel.text = currPack.gemPrice.ToString(); };
 		
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Gacha.OnPurchaseBoosterSucces -= delegate { oneSpinCostLabel.text = currPack.gemPrice.ToString(); };
 	}
 	
 	public void Init(BoosterPackProto pack)

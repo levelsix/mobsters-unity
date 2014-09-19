@@ -751,6 +751,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	/// </summary>
 	public bool CheckCake()
 	{
+		if (dragged) return false;
 		for (int i = boardY-1; i >= 0; i--) 
 		{
 			if (PZPuzzleManager.instance.board[boardX, i].gemType != GemType.CAKE)

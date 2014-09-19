@@ -25,9 +25,13 @@ public class PZDestroySpecial : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		PZGem gem = other.GetComponent<PZGem>();
+		if(gem != null)
+		{
+			//this was outside of the below if statement, I don't know why but I moved it into this one to prevent null refs
+			gem.SetPrefallPosition();
+		}
 		if (gem != null && gem.lockedBySpecial && (target == null || gem == target))
 		{
-			gem.SetPrefallPosition();
 			gem.lockedBySpecial = false;
 			MSPoolManager.instance.Get(MSPrefabList.instance.orbBlowUpParticle, gem.transf.position);
 			gem.Destroy();

@@ -11,6 +11,11 @@ public class PZBomb : MonoBehaviour {
 
 	public float targetHeight;
 
+	/// <summary>
+	/// the game's main camera.  This is needed for shaking the camera
+	/// </summary>
+	public Camera camera;
+
 	[SerializeField]
 	float gravity;
 
@@ -63,6 +68,10 @@ public class PZBomb : MonoBehaviour {
 			yield return null;
 		}
 		MSPoolManager.instance.Get(MSPrefabList.instance.bombDropParticle, trans.position);
+		if(camera != null)
+		{
+			camera.GetComponent<MSCameraShake>().Shake();
+		}
 		pool.Pool();
 	}
 }

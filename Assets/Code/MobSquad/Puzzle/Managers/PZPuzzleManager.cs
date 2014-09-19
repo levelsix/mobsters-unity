@@ -158,7 +158,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		set
 		{
-			if(value && !_gemHints)
+			if(value && !_gemHints && !MSTutorialManager.instance.inTutorial)
 			{
 				StartCoroutine("HintCycle");//has to be started with a string so I can stop it later.
 			}
@@ -169,8 +169,8 @@ public class PZPuzzleManager : MonoBehaviour {
 					if(gem!=null)
 					{
 						gem.CancelHintAnimation();
-						StopCoroutine("HintCycle");
 					}
+					StopCoroutine("HintCycle");
 				}
 			}
 			_gemHints = value;
@@ -1218,6 +1218,22 @@ public class PZPuzzleManager : MonoBehaviour {
 //		showingGemHints = false;
 	}
 
+	/// <summary>
+	/// inturupts any currently playing hint animation to play
+	/// hint animation on the first 3 gem locations given
+	/// </summary>
+	/// <param name="gems">List of Board locations to hint</param>
+	public void CustomHintGems(List<Vector2> gems)
+	{
+		showGemHints = false;
+		_gemHints = true;
+		for(int i  = 0; i < hintgems.Length; i++)
+		{
+			hintgems[i] = board[(int)gems[i].x, (int)gems[i].y];
+		}
+		StartCoroutine("HintCycle");
+	}
+
 	public IEnumerator HintCycle()
 	{
 		float timeBetweenCycles = 5f;
@@ -1298,6 +1314,10 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 			if(columnQueues[i].Count > 0)
 			{
+				///Reasons this happened: checkFall was called on gems top to bottom, instead of the
+				/// correct direction of bottom to top.  It could also be cause by  gems being locked in
+				/// place by one of the many lock mechanisms we use.
+				///This error will print once for every collumn for that did not fall correctly.
 				Debug.LogError("Gems could not drop into board");
 			}
 		}

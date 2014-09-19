@@ -9,6 +9,9 @@ public class MSTaskMap : MonoBehaviour {
 	Vector3 worldPosition;
 
 	[SerializeField]
+	UIScrollView scrollView;
+
+	[SerializeField]
 	MSMapTaskPopupSwitcher switcher;
 	
 	[SerializeField]
@@ -131,6 +134,7 @@ public class MSTaskMap : MonoBehaviour {
 			Vector3 newLocation = trans.position;
 			newLocation.y = trans.position.y - nextTask.transform.position.y;
 			trans.position = newLocation;
+			scrollView.Scroll(1f);
 		}
 	}
 
