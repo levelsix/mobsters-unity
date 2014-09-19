@@ -155,13 +155,13 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		if (tempEvolution == null)
 		{
-			MSActionManager.Popup.DisplayError("ERROR: No evolution to start");
+			MSActionManager.Popup.DisplayRedError("ERROR: No evolution to start");
 			return;
 		}
 
 		if (!ready)
 		{
-			MSActionManager.Popup.DisplayError("ERROR: Not enough stuff for evolution");
+			MSActionManager.Popup.DisplayRedError("ERROR: Not enough stuff for evolution");
 			return;
 		}
 

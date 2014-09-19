@@ -111,7 +111,7 @@ public class MSClanCreateScreen : MonoBehaviour {
 		}
 		else
 		{
-			MSActionManager.Popup.DisplayError("Invalid Clan Name");
+			MSActionManager.Popup.DisplayRedError("Invalid Clan Name");
 		}
 	}
 
