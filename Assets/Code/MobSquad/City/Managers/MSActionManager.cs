@@ -179,6 +179,7 @@ public static class MSActionManager
 		public static Action OnGemMatch;
 		public static Action OnGemPressed;
 		public static Action OnGemSwapSuccess;
+		public static Action OnResultScreen;
 
 		public static Action ForceHideSwap;
 		public static Action ForceShowSwap;
