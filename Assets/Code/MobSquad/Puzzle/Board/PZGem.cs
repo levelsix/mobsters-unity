@@ -670,6 +670,8 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	public void CancelHintAnimation()
 	{
+		curTweenLoop = 0;
+
 		hintScaleTween.enabled = false;
 		colorTween.enabled = false;
 		hintScaleTween.Sample(0f, false);

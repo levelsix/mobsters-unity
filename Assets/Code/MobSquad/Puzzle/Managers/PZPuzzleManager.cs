@@ -151,6 +151,8 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	bool _gemHints = false;
 
+	IEnumerator hintCycle;
+
 	/// <summary>
 	/// gem hints are when the gems animating to show a match.  Set to true to start.
 	/// </summary>
@@ -160,9 +162,9 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			if(value && !_gemHints && !MSTutorialManager.instance.inTutorial)
 			{
-				StartCoroutine("HintCycle");//has to be started with a string so I can stop it later.
+				StartCoroutine(hintCycle);//has to be started with a string so I can stop it later.
 			}
-			else if (!value)
+			else if (!value && _gemHints)
 			{
 				foreach(PZGem gem in hintgems)
 				{
@@ -170,7 +172,8 @@ public class PZPuzzleManager : MonoBehaviour {
 					{
 						gem.CancelHintAnimation();
 					}
-					StopCoroutine("HintCycle");
+					StopCoroutine(hintCycle);
+					hintCycle = HintCycle();
 				}
 			}
 			_gemHints = value;
@@ -208,7 +211,9 @@ public class PZPuzzleManager : MonoBehaviour {
 			riggedBoardStacks[i] = new Stack<int>();
 		}
 
-		MSActionManager.Puzzle.OnGemMatch += delegate { showGemHints = false;};
+		hintCycle = HintCycle();
+		MSActionManager.Puzzle.OnGemMatch += delegate { showGemHints = false; };
+		MSActionManager.Puzzle.OnTurnChange += CheckStartHintGems;
 	}
 
 	public void Start()
@@ -304,7 +309,6 @@ public class PZPuzzleManager : MonoBehaviour {
 				}
 			}
 		}while(!CheckForMatchMoves(board));
-		showGemHints = true;
 		setUpBoard = true;
 	}
 
@@ -499,7 +503,6 @@ public class PZPuzzleManager : MonoBehaviour {
 					PZCombatManager.instance.OnBreakGems (currGems, combo);
 				}
 				processingSwap = false;
-				showGemHints = true;
 				ResetCombo ();
 
 				if (!CheckForMatchMoves (board)) 
@@ -1215,7 +1218,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	[ContextMenu ("stop hint")]
 	public void StopHint()
 	{
-//		showingGemHints = false;
+		showGemHints = false;
 	}
 
 	/// <summary>
@@ -1231,7 +1234,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			hintgems[i] = board[(int)gems[i].x, (int)gems[i].y];
 		}
-		StartCoroutine("HintCycle");
+		StartCoroutine(hintCycle);
 	}
 
 	public IEnumerator HintCycle()
@@ -1249,6 +1252,18 @@ public class PZPuzzleManager : MonoBehaviour {
 				}
 			}
 			yield return new WaitForSeconds(timeBetweenCycles);
+		}
+	}
+
+	void CheckStartHintGems(int turnsLeft)
+	{
+		if(turnsLeft > 0)
+		{
+			showGemHints = true;
+		}
+		else
+		{
+			showGemHints = false;
 		}
 	}
 
