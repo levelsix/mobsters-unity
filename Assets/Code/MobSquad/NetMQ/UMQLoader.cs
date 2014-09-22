@@ -111,7 +111,7 @@ public class UMQLoader : MonoBehaviour {
 		MSResourceManager.instance.Init(response.sender.level, response.sender.experience, 
 		                                response.sender.cash, response.sender.oil, response.sender.gems);
 
-		StartUp(response);
+ 		StartUp(response);
 			
 		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 
@@ -124,10 +124,10 @@ public class UMQLoader : MonoBehaviour {
 
 		foreach (var item in MSMonsterManager.instance.userMonsters) 
 		{
-			while (!MSSpriteUtil.instance.HasBundle(item.monster.imagePrefix))
-			{
-				yield return null;
-			}
+			//while (!MSSpriteUtil.instance.HasBundle(item.monster.imagePrefix))
+			//{
+			//	yield return null;
+			//}
 		}
 
 		foreach (var item in MSSpriteUtil.instance.immediateBundles) 

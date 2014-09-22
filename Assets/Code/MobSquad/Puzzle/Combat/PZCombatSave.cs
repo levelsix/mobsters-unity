@@ -21,13 +21,13 @@ public class PZCombatSave
 	public int currTurn = 0;
 	public int currPlayerDamage = 0;
 
-	const string key = "CombatSave";
-
 	public List<CombatTurn> turns;
 	public int currTurnIndex;
 
 	public int playerSkillPoints;
 	public int enemySkillPoints;
+	
+	const string key = "CombatSave";
 
 	public PZCombatSave(){}
 
@@ -47,7 +47,14 @@ public class PZCombatSave
 		for (int x = 0; x < boardWidth; x++) {
 			for (int y = 0; y < boardHeight; y++) {
 				gemColors[x,y] = board[x,y].colorIndex;
-				gemTypes[x,y] = (int)board[x,y].gemType;
+				if (board[x,y].gemType == PZGem.GemType.ROCKET)
+				{
+					gemTypes[x,y] = (int)(board[x,y].horizontal ? PZGem.GemType.HORIZONTAL_ROCKET : PZGem.GemType.VERTICAL_ROCKET);
+				}
+				else
+				{
+					gemTypes[x,y] = (int)board[x,y].gemType;
+				}
 				jelly[x,y] = PZPuzzleManager.instance.jellyBoard[x,y] != null;
 			}
 		}
@@ -72,6 +79,26 @@ public class PZCombatSave
 		this.playerSkillPoints = playerSkillPoints;
 		this.enemySkillPoints = enemySkillPoints;
 
+		MSUtil.Save(key, this);
+	}
+
+	public void SaveBoard(PZGem[,] board, int boardHeight, int boardWidth)
+	{
+		gemColors = new int[boardWidth, boardHeight];
+		gemTypes = new int[boardWidth, boardHeight];
+		jelly = new bool[boardWidth, boardHeight];
+
+		for (int x = 0; x < boardWidth; x++) {
+			for (int y = 0; y < boardHeight; y++) {
+				gemColors[x,y] = board[x,y].colorIndex;
+				gemTypes[x,y] = (int)board[x,y].gemType;
+				jelly[x,y] = PZPuzzleManager.instance.jellyBoard[x,y] != null;
+			}
+		}
+	}
+
+	public void Save()
+	{
 		MSUtil.Save(key, this);
 	}
 

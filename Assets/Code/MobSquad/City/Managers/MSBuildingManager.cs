@@ -365,11 +365,11 @@ public class MSBuildingManager : MonoBehaviour
 				yield return null;
 			}
 		}
+		
+		MSActionManager.Popup.CloseAllPopups();
 
-		if (fromBeginning)
+		if (!fromBeginning)
 		{
-			MSActionManager.Popup.CloseAllPopups();
-			
 			if (MSActionManager.Scene.OnCity != null)
 			{
 				MSActionManager.Scene.OnCity();

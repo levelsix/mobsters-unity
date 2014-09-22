@@ -45,8 +45,17 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	/// when necessary
 	/// </summary>
 	public UISprite sprite;
+
 	
-	public enum GemType {NORMAL, ROCKET, BOMB, MOLOTOV, CAKE};
+	public enum GemType {
+		NORMAL,
+		ROCKET, //This is the mainly used version of Rockets
+		HORIZONTAL_ROCKET, //This and VERTICAL_ROCKET exist pretty much entirely for saving
+		VERTICAL_ROCKET, //Gems get converted in/out of these versions during saving/loading
+		BOMB, 
+		MOLOTOV,
+		CAKE
+	};
 	
 	private GemType _gemType;
 	
@@ -84,6 +93,14 @@ public class PZGem : MonoBehaviour, MSPoolable {
 					break;
 				case GemType.CAKE:
 					sprite.spriteName = "cakeorb";
+					break;
+				case GemType.HORIZONTAL_ROCKET:
+					horizontal = true;
+					gemType = GemType.ROCKET;
+					break;
+				case GemType.VERTICAL_ROCKET:
+					horizontal = false;
+					gemType = GemType.ROCKET;
 					break;
 			}
 
