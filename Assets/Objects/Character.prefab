@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400006}
-  - 65: {fileID: 6500000}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -150,18 +149,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400000}
   m_RootOrder: 0
---- !u!65 &6500000
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.39999998, y: 2.79999995, z: 1.39999998}
-  m_Center: {x: .699999988, y: 1.39999998, z: .699999988}
 --- !u!95 &9500000
 Animator:
   serializedVersion: 3
@@ -341,8 +328,8 @@ MonoBehaviour:
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   selectColor: {r: .352941155, g: .352941155, b: .352941155, a: 1}
   jumpNode:
-    x: 0
     z: 0
+    coords: {x: 0, y: 0}
     heur: 0
     dist: 0
     direction: 4

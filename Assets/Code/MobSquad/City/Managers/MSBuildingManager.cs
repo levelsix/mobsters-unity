@@ -367,15 +367,6 @@ public class MSBuildingManager : MonoBehaviour
 		}
 		
 		MSActionManager.Popup.CloseAllPopups();
-
-		if (!fromBeginning)
-		{
-			if (MSActionManager.Scene.OnCity != null)
-			{
-				MSActionManager.Scene.OnCity();
-			}
-		}
-
 	}
 
 	/// <summary>

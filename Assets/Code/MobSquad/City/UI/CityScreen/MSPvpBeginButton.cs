@@ -83,10 +83,10 @@ public class MSPvpBeginButton : MonoBehaviour {
 	void Load(int cash, int gems = 0)
 	{
 		MSActionManager.Popup.CloseAllPopups();
+		
+		MSActionManager.Scene.OnPuzzle();
 
 		PZCombatManager.instance.InitPvp(cash, gems);
-
-		MSActionManager.Scene.OnPuzzle();
 	}
 
 }

@@ -108,8 +108,7 @@ public class PZTurnDisplay : MonoBehaviour
 	{
 		for (int i = 0; i < numTurnsToDisplay; i++) 
 		{
-			icons[i].RunFlip(PZCombatScheduler.instance.GetNthMove(i) == CombatTurn.PLAYER ? 
-			                player : enemy);
+			icons[i].RunFlip(PZCombatScheduler.instance.GetNthMove(i) == CombatTurn.ENEMY);
 			yield return new WaitForSeconds(timeBetweenFlips);
 		}
 	}
@@ -145,7 +144,7 @@ public class PZTurnDisplay : MonoBehaviour
 		PZTurnIcon icon = MSPoolManager.instance.Get<PZTurnIcon>(iconPrefab, turnGrid.transform);
 		icon.transform.localScale = Vector3.one;
 		icon.transform.localPosition = newIconPosition;
-		icon.Init(PZCombatScheduler.instance.GetNthMove(turnsFromNow) == CombatTurn.PLAYER ? player : enemy);
+		icon.Init(PZCombatScheduler.instance.GetNthMove(turnsFromNow) == CombatTurn.ENEMY);
 		icon.name = turnsFromNow.ToString();
 		icons.Add (icon);
 	}

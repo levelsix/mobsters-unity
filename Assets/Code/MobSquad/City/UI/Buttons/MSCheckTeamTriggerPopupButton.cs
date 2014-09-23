@@ -18,28 +18,22 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 		if(teamCount == 0)
 		{
 			NoTeamFail();
+			return;
 		}
 		else if(teamCount < MSMonsterManager.instance.userTeam.Length)
 		{
 			int healthyCount = 0;
 			foreach(PZMonster monster in MSMonsterManager.instance.userMonsters)
 			{
-				if(monster.currHP > 0)
+				if(monster.userMonster.teamSlotNum == 0 && monster.currHP > 0)
 				{
-					healthyCount++;
+					CouldHaveMoreOnTeamFail();
+					return;
 				}
 			}
+		}
+		base.OnClick ();
 
-			if(healthyCount != 0)
-			{
-				CouldHaveMoreOnTeamFail();
-			}
-		}
-		else if(teamCount == MSMonsterManager.instance.userTeam.Length)
-		{
-			base.OnClick ();
-			return;
-		}
 	}
 
 	void NoTeamFail()
@@ -48,7 +42,7 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 		MSTownCamera.instance.DoCenterOnGroundPos(MSBuildingManager.teamCenter.trans.position, .4f);
 
 		//Popup error message
-		MSActionManager.Popup.DisplayRedError("You have no Mobsters on your team. Manage your team now.");
+		MSActionManager.Popup.DisplayRedError("You have no toons on your team. Manage your team now.");
 	}
 
 	void CouldHaveMoreOnTeamFail()

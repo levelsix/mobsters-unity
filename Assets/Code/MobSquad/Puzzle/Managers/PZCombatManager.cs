@@ -517,6 +517,8 @@ public class PZCombatManager : MonoBehaviour {
 
 		activePlayer.Init(playerGoonies.Find(x=>x.currHP>0));
 		activePlayer.GoToStartPos();
+		
+		playerSkillIndicator.Init(activePlayer.monster.offensiveSkill, activePlayer.monster.monster.monsterElement);
 
 		nextPvpDefenderIndex = 0;
 
@@ -698,8 +700,13 @@ public class PZCombatManager : MonoBehaviour {
 			enemies.Enqueue(backupPvPEnemies[1].monster);
 		}
 
+		PZCombatScheduler.instance.Schedule(activePlayer.monster, activeEnemy.monster);
+		turnDisplay.RunInit(activePlayer.monster, activeEnemy.monster);
+
 		pvpUI.Retract();
 		PZPuzzleManager.instance.InitBoard();
+
+		enemySkillIndicator.Init(activeEnemy.monster.defensiveSkill, activeEnemy.monster.monster.monsterElement);
 
 		boardMove.Sample(0, false);
 		boardMove.delay = 1f;
@@ -1019,7 +1026,10 @@ public class PZCombatManager : MonoBehaviour {
 				PZCombatScheduler.instance.Schedule(activePlayer.monster, activeEnemy.monster, enemyCakeKid ? 1 : 0);
 			}
 
-			UpdateUserTaskStage(MSWhiteboard.currTaskStages.Find(x=>x.stageMonsters[0] == activeEnemy.monster.taskMonster).stageId);
+			if (!pvpMode)
+			{
+				UpdateUserTaskStage(MSWhiteboard.currTaskStages.Find(x=>x.stageMonsters[0] == activeEnemy.monster.taskMonster).stageId);
+			}
 
 			activeEnemy.unit.direction = MSValues.Direction.WEST;
 			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
