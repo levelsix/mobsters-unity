@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: GothamBlack
+  m_Name: Map-GothamBlack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,13 +39,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4eb3a400afab046abb8471a9d746d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMat: {fileID: 0}
+  mMat: {fileID: 2100000, guid: 6e77b3753c64d40b3835ec6c32c4e41a, type: 2}
   mUVRect:
     serializedVersion: 2
-    x: .5
-    y: .239257812
-    width: .25
-    height: .0625
+    x: 0
+    y: .819335938
+    width: .125
+    height: .125
   mFont:
     mSize: 28
     mBase: 0
