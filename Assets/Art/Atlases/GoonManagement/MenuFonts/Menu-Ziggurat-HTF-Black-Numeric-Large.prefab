@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: Map-Ziggurat-HTF-Black-Numeric-Large
+  m_Name: Menu-Ziggurat-HTF-Black-Numeric-Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,131 +39,131 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4eb3a400afab046abb8471a9d746d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMat: {fileID: 2100000, guid: 6e77b3753c64d40b3835ec6c32c4e41a, type: 2}
+  mMat: {fileID: 2100000, guid: 8a46333b1b387403c936791894cf6d23, type: 2}
   mUVRect:
     serializedVersion: 2
-    x: .359863281
-    y: .391601562
-    width: .125
-    height: .125
+    x: .210449219
+    y: .677246094
+    width: .0625
+    height: .0625
   mFont:
-    mSize: 68
+    mSize: 41
     mBase: 0
-    mWidth: 256
+    mWidth: 128
     mHeight: 128
-    mSpriteName: Map-Ziggurat-HTF-Black-Numeric-Large
+    mSpriteName: Menu-Ziggurat-HTF-Black-Numeric-Large
     mSaved:
     - index: 32
       x: 0
-      y: 19
+      y: 1
       width: 0
-      height: -19
+      height: -1
       offsetX: 0
-      offsetY: 19
-      advance: 16
+      offsetY: 1
+      advance: 10
       channel: 15
       kerning: 
     - index: 48
       x: 0
-      y: 73
-      width: 50
-      height: 55
+      y: 97
+      width: 31
+      height: 31
       offsetX: 1
-      offsetY: 6
-      advance: 54
+      offsetY: 5
+      advance: 32
       channel: 15
       kerning: 
     - index: 49
-      x: 191
-      y: 22
-      width: 34
-      height: 52
-      offsetX: 2
-      offsetY: 8
-      advance: 37
+      x: 30
+      y: 1
+      width: 21
+      height: 31
+      offsetX: 1
+      offsetY: 5
+      advance: 22
       channel: 15
       kerning: 
     - index: 50
-      x: 193
-      y: 75
-      width: 44
-      height: 53
-      offsetX: 4
-      offsetY: 7
-      advance: 53
+      x: 0
+      y: 1
+      width: 28
+      height: 31
+      offsetX: 3
+      offsetY: 5
+      advance: 32
       channel: 15
       kerning: 
     - index: 51
-      x: 51
-      y: 74
-      width: 47
-      height: 54
-      offsetX: 2
-      offsetY: 7
-      advance: 52
+      x: 95
+      y: 97
+      width: 29
+      height: 31
+      offsetX: 1
+      offsetY: 5
+      advance: 32
       channel: 15
       kerning: 
     - index: 52
-      x: 0
-      y: 20
-      width: 50
-      height: 52
+      x: 32
+      y: 97
+      width: 31
+      height: 31
       offsetX: 0
-      offsetY: 8
-      advance: 53
+      offsetY: 5
+      advance: 32
       channel: 15
       kerning: 
     - index: 53
-      x: 147
-      y: 75
-      width: 45
-      height: 53
-      offsetX: 2
-      offsetY: 8
-      advance: 49
+      x: 30
+      y: 65
+      width: 28
+      height: 31
+      offsetX: 1
+      offsetY: 5
+      advance: 30
       channel: 15
       kerning: 
     - index: 54
-      x: 51
-      y: 19
-      width: 47
-      height: 54
+      x: 64
+      y: 97
+      width: 30
+      height: 31
       offsetX: 1
-      offsetY: 7
-      advance: 49
+      offsetY: 5
+      advance: 30
       channel: 15
       kerning: 
     - index: 55
-      x: 147
-      y: 22
-      width: 43
-      height: 52
-      offsetX: 3
-      offsetY: 8
-      advance: 47
+      x: 30
+      y: 33
+      width: 27
+      height: 31
+      offsetX: 2
+      offsetY: 5
+      advance: 28
       channel: 15
       kerning: 
     - index: 56
-      x: 99
-      y: 74
-      width: 47
-      height: 54
-      offsetX: 1
-      offsetY: 7
-      advance: 49
+      x: 0
+      y: 65
+      width: 29
+      height: 31
+      offsetX: 0
+      offsetY: 5
+      advance: 30
       channel: 15
       kerning: 
     - index: 57
-      x: 99
-      y: 19
-      width: 47
-      height: 54
+      x: 0
+      y: 33
+      width: 29
+      height: 31
       offsetX: 2
-      offsetY: 7
-      advance: 51
+      offsetY: 5
+      advance: 31
       channel: 15
       kerning: 
-  mAtlas: {fileID: 11400000, guid: dfbe94eaec2e144dbadc6be5a6b96f8f, type: 2}
+  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mReplacement: {fileID: 0}
   mSymbols: []
   mDynamicFont: {fileID: 0}
