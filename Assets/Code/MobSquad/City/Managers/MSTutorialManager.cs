@@ -378,7 +378,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	void RecycleCityUnit(MSUnit unit)
 	{
-		//unit.cityUnit.speed = MSBuildingManager.instance.unitPrefab.cityUnit.speed;
+		unit.cityUnit.speed = MSBuildingManager.instance.unitPrefab.cityUnit.speed;
 		unit.Pool();
 	}
 
