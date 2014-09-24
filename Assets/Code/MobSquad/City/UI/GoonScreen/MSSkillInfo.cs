@@ -5,7 +5,7 @@ using com.lvl6.proto;
 public class MSSkillInfo : MonoBehaviour {
 
 	[SerializeField]
-	UISprite skillIcon;
+	UI2DSprite skillIcon;
 
 	[SerializeField]
 	UISprite iconBg;
@@ -22,25 +22,39 @@ public class MSSkillInfo : MonoBehaviour {
 	[SerializeField]
 	Color inactiveTextColor;
 
+	[SerializeField]
+	MSSkillInfo otherSkill;
+
 	SkillProto skill;
 
 	const string ACTIVE_BG = "activeskill";
-	const string INACTIVE_BG = "insactiveskill";
+	const string INACTIVE_BG = "inactiveskill";
+	const string NO_SKILL = "noskillcircle";
 
-	public void Init(SkillProto skill, bool active = true)
+	public void Init(int skillId, bool active = true)
 	{
-		this.skill = skill;
+		skill = MSDataManager.instance.Get<SkillProto>(skillId);;
 
-		skillName.text = skill.name;
-		//skillIcon.spriteName = 
-
-		if (active)
+		if (skill != null)
 		{
-			Activate();
+			skillName.text = skill.name;
+			string skillBundleName = skill.iconImgName.Substring(0, skill.iconImgName.Length-8);
+			MSSpriteUtil.instance.SetSprite(skillBundleName, skillBundleName+"icon", skillIcon);
+			if (active)
+			{
+				Activate();
+			}
+			else
+			{
+				Deactivate();
+			}
 		}
 		else
 		{
 			Deactivate();
+			skillIcon.sprite2D = null;
+			iconBg.spriteName = NO_SKILL;
+			skillName.text = "No Skill";
 		}
 	}
 
@@ -48,12 +62,24 @@ public class MSSkillInfo : MonoBehaviour {
 	{
 		skillName.color = activeTextColor;
 		iconBg.spriteName = ACTIVE_BG;
-		//description.text = skill.description;
+
+		skillIcon.color = Color.white;
+		description.text = skill.desc;
 	}
 
 	public void Deactivate()
 	{
 		skillName.color = inactiveTextColor;
 		iconBg.spriteName = INACTIVE_BG;
+		skillIcon.color = Color.black;
+	}
+
+	void OnClick()
+	{
+		if (skill != null)
+		{
+			Activate();
+			otherSkill.Deactivate();
+		}
 	}
 }

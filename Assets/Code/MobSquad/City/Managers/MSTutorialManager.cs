@@ -163,14 +163,14 @@ public class MSTutorialManager : MonoBehaviour
 	#region Unit Paths
 	static readonly List<MSGridNode> enemyOneEnterPath = new List<MSGridNode>()
 	{
-		new MSGridNode(13, 1, MSValues.Direction.NORTH),
-		new MSGridNode(12, 1, MSValues.Direction.WEST)
+		new MSGridNode(13, .5f, MSValues.Direction.NORTH),
+		new MSGridNode(11.5f, .5f, MSValues.Direction.WEST)
 	};
 
 	static readonly List<MSGridNode> enemyTwoEnterPath = new List<MSGridNode>()
 	{
-		new MSGridNode(13, 1, MSValues.Direction.NORTH),
-		new MSGridNode(14, 1, MSValues.Direction.EAST)
+		new MSGridNode(13, .5f, MSValues.Direction.NORTH),
+		new MSGridNode(14.5f, .5f, MSValues.Direction.EAST)
 	};
 
 	static readonly List<MSGridNode> enemyBossEnterPath = new List<MSGridNode>()
@@ -378,7 +378,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	void RecycleCityUnit(MSUnit unit)
 	{
-		//unit.cityUnit.speed = MSBuildingManager.instance.unitPrefab.cityUnit.speed;
+		unit.cityUnit.speed = MSBuildingManager.instance.unitPrefab.cityUnit.speed;
 		unit.Pool();
 	}
 
@@ -530,7 +530,7 @@ public class MSTutorialManager : MonoBehaviour
 		enemyOneCombatant.unit.animat = MSUnit.AnimationType.IDLE;
 		enemyTwoCombatant.unit.animat = MSUnit.AnimationType.IDLE;
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyOne.imagePrefix, enemyOne.imagePrefix + "Fist", enemyOne.displayName, TutorialStrings.MAKE_ME_FRY, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyOne.imagePrefix, enemyOne.imagePrefix + "TutBig", enemyOne.displayName, TutorialStrings.MAKE_ME_FRY, true));
 
 		bossCombatant.unit.direction = MSValues.Direction.EAST;
 		yield return bossCombatant.unit.DoJump(TutorialValues.bossStompHeight * TutorialValues.puzzlePixelMod, TutorialValues.bossStompTime);

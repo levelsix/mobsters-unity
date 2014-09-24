@@ -107,8 +107,9 @@ public class MSSpriteUtil : MonoBehaviour {
 			{
 				sprite.sprite = defaultSprite;
 				yield return StartCoroutine(DownloadAndCache(bundleName));
-				
 			}
+
+			while (bundles[bundleName] == null) yield return null;
 			
 			if (bundles.ContainsKey (bundleName))
 			{

@@ -136,7 +136,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 	public void Init(MinimumUserMonsterProto pvpMonster)
 	{
-		if (pvpMonster != null)
+		if (pvpMonster != null && pvpMonster.monsterId > 0)
 		{
 			alive = true;
 			this.monster = new PZMonster(pvpMonster);
@@ -144,9 +144,7 @@ public class PZCombatUnit : MonoBehaviour {
 		}
 		else
 		{
-			this.monster = null;
-			alive = false;
-			unit.sprite.color = new Color (unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 0);
+			DeInit();
 		}
 	}
 
@@ -155,6 +153,7 @@ public class PZCombatUnit : MonoBehaviour {
 		this.monster = null;
 		alive = false;
 		unit.sprite.color = new Color (unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 0);
+		alpha = 0;
 	}
 
 	void Init()

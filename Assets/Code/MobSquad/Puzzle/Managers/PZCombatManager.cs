@@ -159,6 +159,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	public PZTurnDisplay turnDisplay;
 
+	PZCombatSave save;
+
 	bool wordsMoving = false;
 
 	int currPlayerDamage = 0;
@@ -263,6 +265,8 @@ public class PZCombatManager : MonoBehaviour {
 		}
 	}
 
+	bool combatActive = false;
+
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
 	/// </summary>
@@ -297,6 +301,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		pvpMode = false;
 		raidMode = false;
+		combatActive = false;
 	}
 	
 	void ResetBattleStats()
@@ -385,6 +390,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	public void InitTask()
 	{
+		combatActive = true;
+
 		BeginDungeonResponseProto dungeon = MSWhiteboard.loadedDungeon;
 
 		forfeitChance = FORFEIT_START_CHANCE;
@@ -422,6 +429,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator InitLoadedTask(MinimumUserTaskProto minTask, List<TaskStageProto> stages)
 	{
+		combatActive = true;
+
 		playerSkillIndicator.Off();
 		enemySkillIndicator.Off();
 
@@ -429,7 +438,7 @@ public class PZCombatManager : MonoBehaviour {
 		MSWhiteboard.currTaskStages = stages;
 		MSWhiteboard.currTaskId = minTask.taskId;
 
-		PZCombatSave save = PZCombatSave.Load();
+		save = PZCombatSave.Load();
 
 #if UNITY_IPHONE || UNITY_ANDROID
 		//Kamcord.StartRecording();
@@ -494,6 +503,7 @@ public class PZCombatManager : MonoBehaviour {
 	public void InitPvp(int cash, int gems = 0)
 	{
 //		mobsterCounter.transform.parent.GetComponent<UIWidget>().alpha = 0f;
+		combatActive = true;
 
 		PreInit ();
 
@@ -507,6 +517,8 @@ public class PZCombatManager : MonoBehaviour {
 
 		activePlayer.Init(playerGoonies.Find(x=>x.currHP>0));
 		activePlayer.GoToStartPos();
+		
+		playerSkillIndicator.Init(activePlayer.monster.offensiveSkill, activePlayer.monster.monster.monsterElement);
 
 		nextPvpDefenderIndex = 0;
 
@@ -517,6 +529,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void InitRaid()
 	{
+		combatActive = true;
+
 		PreInit();
 		
 		PZMonster mon;
@@ -564,6 +578,8 @@ public class PZCombatManager : MonoBehaviour {
 	public void InitTutorial(MonsterProto boss, MonsterProto enemyOne, MonsterProto enemyTwo)
 	{
 		PreInit ();
+
+		combatActive = true;
 
 		activeEnemy.Init(new PZMonster(boss, 1));
 		backupPvPEnemies[1].Init(new PZMonster(enemyOne, 1));
@@ -684,8 +700,13 @@ public class PZCombatManager : MonoBehaviour {
 			enemies.Enqueue(backupPvPEnemies[1].monster);
 		}
 
+		PZCombatScheduler.instance.Schedule(activePlayer.monster, activeEnemy.monster);
+		turnDisplay.RunInit(activePlayer.monster, activeEnemy.monster);
+
 		pvpUI.Retract();
 		PZPuzzleManager.instance.InitBoard();
+
+		enemySkillIndicator.Init(activeEnemy.monster.defensiveSkill, activeEnemy.monster.monster.monsterElement);
 
 		boardMove.Sample(0, false);
 		boardMove.delay = 1f;
@@ -1005,7 +1026,10 @@ public class PZCombatManager : MonoBehaviour {
 				PZCombatScheduler.instance.Schedule(activePlayer.monster, activeEnemy.monster, enemyCakeKid ? 1 : 0);
 			}
 
-			UpdateUserTaskStage(MSWhiteboard.currTaskStages.Find(x=>x.stageMonsters[0] == activeEnemy.monster.taskMonster).stageId);
+			if (!pvpMode)
+			{
+				UpdateUserTaskStage(MSWhiteboard.currTaskStages.Find(x=>x.stageMonsters[0] == activeEnemy.monster.taskMonster).stageId);
+			}
 
 			activeEnemy.unit.direction = MSValues.Direction.WEST;
 			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
@@ -1016,7 +1040,7 @@ public class PZCombatManager : MonoBehaviour {
 				savedHealth = -1;
 			}
 
-			Save();
+			//Save();
 
 			mobsterCounter.text = "ENEMY " + (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
 			mobsterCounter.MakePixelPerfect();
@@ -1105,7 +1129,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (!MSTutorialManager.instance.inTutorial)
 		{
-			Save ();
+			//Save ();
 		}
 	}
 
@@ -1314,7 +1338,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		else if (!MSTutorialManager.instance.inTutorial)
 		{
-			Save ();
+			//Save ();
 		}
 	}
 
@@ -1583,6 +1607,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	#endregion
 
+	#region Attacks & Animations
+
 	IEnumerator PlayerShoot(float score)
 	{
 		enemyStartPosition =  activeEnemy.unit.transf.localPosition;
@@ -1753,7 +1779,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (!MSTutorialManager.instance.inTutorial)
 		{
-			Save();
+			//Save();
 		}
 
 		yield return StartCoroutine(ShowAttackWords(score));
@@ -1872,6 +1898,8 @@ public class PZCombatManager : MonoBehaviour {
 		nextPvpDefenderIndex = 0;
 	}
 
+	#endregion
+
 	void ReviveWithGems()
 	{
 		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis);
@@ -1942,13 +1970,6 @@ public class PZCombatManager : MonoBehaviour {
 		scale.PlayForward();
 	}
 
-	public void SaveAfterDamage(int enemyHealthToBe)
-	{
-		new PZCombatSave(activePlayer.monster, enemyHealthToBe, PZPuzzleManager.instance.board,
-		                 battleStats, forfeitChance, 0, 0, PZPuzzleManager.instance.boardWidth,
-		                 PZPuzzleManager.instance.boardHeight, playerSkillPoints, enemySkillTurns);
-	}
-
 	public void Save()
 	{
 		new PZCombatSave(activePlayer.monster, activeEnemy.monster.currHP, PZPuzzleManager.instance.board,
@@ -1981,6 +2002,22 @@ public class PZCombatManager : MonoBehaviour {
 		if (response.status != UpdateMonsterHealthResponseProto.UpdateMonsterHealthStatus.SUCCESS)
 		{
 			Debug.LogError("Problem updating user task stage: " + response.status.ToString());
+		}
+	}
+
+	void OnApplicationPause(bool pause)
+	{
+		if (pause && combatActive && !pvpMode)
+		{
+			Save();
+		}
+	}
+
+	void OnApplicationQuit()
+	{
+		if (combatActive && !pvpMode)
+		{
+			Save();
 		}
 	}
 

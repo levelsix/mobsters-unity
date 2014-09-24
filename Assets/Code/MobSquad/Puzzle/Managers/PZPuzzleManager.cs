@@ -257,9 +257,11 @@ public class PZPuzzleManager : MonoBehaviour {
 				gem = MSPoolManager.instance.Get(gemPrefab, Vector3.zero, puzzleParent) as PZGem;
 				gem.SpawnOnMap(save.gemColors[x, y], x);
 				gem.gemType = (PZGem.GemType)save.gemTypes[x,y];
-				if (gem.gemType == PZGem.GemType.CAKE)
+				switch(gem.gemType)
 				{
+				case PZGem.GemType.CAKE:
 					cakes.Add(gem);
+					break;
 				}
 				if (save.jelly[x,y])
 				{
@@ -577,7 +579,6 @@ public class PZPuzzleManager : MonoBehaviour {
 							if (item.gemType != PZGem.GemType.ROCKET)
 							{
 								item.horizontal = false;
-								//Debug.Log(item);
 							}
 						}
 						matchList.Add(new PZMatch(currGems));

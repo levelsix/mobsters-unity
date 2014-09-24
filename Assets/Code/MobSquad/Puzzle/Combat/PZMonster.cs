@@ -352,7 +352,7 @@ public class PZMonster {
 
 		currHP = maxHP = MaxHPAtLevel(pvpMonster.monsterLvl);
 		SetAttackDamagesForLevel(pvpMonster.monsterLvl);
-
+		speed = SpeedAtLevel(pvpMonster.monsterLvl);
 		SetDefensiveSkill(monster.baseDefensiveSkillId);
 
 		level = pvpMonster.monsterLvl;

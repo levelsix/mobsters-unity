@@ -18,9 +18,10 @@ public class UILabel : UIWidget
 {
 	public enum Effect
 	{
-		None,
-		Shadow,
-		Outline,
+		None = 0,
+		Shadow = 1,
+		Outline = 2,
+		ShadowAndOutline = 3
 	}
 
 	public enum Overflow
@@ -46,11 +47,11 @@ public class UILabel : UIWidget
 	public Crispness keepCrispWhenShrunk = Crispness.OnDesktop;
 
 	[HideInInspector][SerializeField] Font mTrueTypeFont;
-	[HideInInspector][SerializeField] UIFont mFont;
+	[HideInInspector][SerializeField] protected UIFont mFont;
 #if !UNITY_3_5
 	[MultilineAttribute(6)]
 #endif
-	[HideInInspector][SerializeField] string mText = "";
+	[HideInInspector][SerializeField] protected string mText = "";
 	[HideInInspector][SerializeField] int mFontSize = 16;
 	[HideInInspector][SerializeField] FontStyle mFontStyle = FontStyle.Normal;
 	[HideInInspector][SerializeField] Alignment mAlignment = Alignment.Automatic;
@@ -755,9 +756,9 @@ public class UILabel : UIWidget
 	/// </summary>
 
 #if DYNAMIC_FONT
-	bool isValid { get { return mFont != null || mTrueTypeFont != null; } }
+	protected bool isValid { get { return mFont != null || mTrueTypeFont != null; } }
 #else
-	bool isValid { get { return mFont != null; } }
+	protected bool isValid { get { return mFont != null; } }
 #endif
 
 #if DYNAMIC_FONT

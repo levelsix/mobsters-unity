@@ -22,9 +22,6 @@ public class MSHealScreen : MSFunctionalScreen
 	UILabel slotsLeftLabel;
 
 	[SerializeField]
-	MSUIHelper slotsLeftRoot;
-
-	[SerializeField]
 	UILabel timeLeftLabel;
 
 	[SerializeField]
@@ -43,6 +40,12 @@ public class MSHealScreen : MSFunctionalScreen
 	const string GREEN_ARROW = "hospitalopenarrow";
 	const string RED_ARROW = "fullhospitalarrow";
 
+	[SerializeField]
+	Color slotsOpenLabelColor;
+
+	[SerializeField]
+	Color slotsFullLabelColor;
+
 	void Awake()
 	{
 		instance = this;
@@ -58,8 +61,8 @@ public class MSHealScreen : MSFunctionalScreen
 
 		emptyQueueRoot.ResetAlpha(MSHospitalManager.instance.healingMonsters.Count == 0);
 		queueRoot.ResetAlpha(MSHospitalManager.instance.healingMonsters.Count > 0);
-
-		StartCoroutine(KeepRefreshing());
+		
+		RefreshSlots();
 	}
 
 	public void Add(MSGoonCard card)
@@ -71,8 +74,7 @@ public class MSHealScreen : MSFunctionalScreen
 		}
 		
 		currHeals.Add(card);
-
-		RefreshStats();
+		RefreshSlots();
 	}
 
 	public void Remove(MSGoonCard card)
@@ -84,22 +86,27 @@ public class MSHealScreen : MSFunctionalScreen
 			emptyQueueRoot.FadeIn();
 			queueRoot.FadeOut();
 		}
+		RefreshSlots();
+	}
+
+	void RefreshSlots()
+	{
+		int slotsRemaining = MSHospitalManager.instance.queueSize - currHeals.Count;
+		if (slotsRemaining <= 0)
+		{
+			slotsLeftLabel.text = "HOSPITAL\nFULL";
+			slotsLeftLabel.color = slotsFullLabelColor;
+			arrow.spriteName = RED_ARROW;
+		}
 		else
 		{
-			RefreshStats();
+			slotsLeftLabel.text = slotsRemaining + " SLOT" + (slotsRemaining>1?"S":"") + "\nOPEN";
+			slotsLeftLabel.color = slotsOpenLabelColor;
+			arrow.spriteName = GREEN_ARROW;
 		}
 	}
 
-	IEnumerator KeepRefreshing()
-	{
-		while(true)
-		{
-			RefreshStats();
-			yield return new WaitForSeconds(.5f);
-		}
-	}
-
-	void RefreshStats()
+	void Update()
 	{
 		timeLeft = 0;
 		foreach (var item in currHeals) 

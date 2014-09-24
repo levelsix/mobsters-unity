@@ -127,7 +127,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 
 			if (IsPastTarget(target))
 			{
-				//trans.position = target.worldPos;
+				trans.position = target.worldPos;
 				MoveNext();
 			}
 		}
@@ -170,7 +170,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 			else if (target == null || !MSGridManager.instance.IsWalkable(target.pos))
 			{
 				target = new MSGridNode(1,1);
-				trans.localPosition = Vector3.zero;
+				//trans.localPosition = Vector3.zero;
 			}
 			path = PlanPath(target, ChooseTarget());
 		}

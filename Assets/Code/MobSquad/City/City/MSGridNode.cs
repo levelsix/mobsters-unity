@@ -13,10 +13,24 @@ public class MSGridNode : IComparable {
 	/// </summary>
 	public MSGridNode parent;
 	
+	public int x
+	{
+		get
+		{
+			return (int)coords.x;
+		}
+		set
+		{
+			coords.x = value;
+		}
+	}
+
 	/// <summary>
 	/// Grid coordinates
 	/// </summary>
-	public int x, z;
+	public int z;
+
+	public Vector2 coords;
 	
 	/// <summary>
 	/// The heuristic value of this node
@@ -82,8 +96,8 @@ public class MSGridNode : IComparable {
 	public Vector3 worldPos{
 		get
 		{
-			return new Vector3(x * MSGridManager.instance.spaceSize, 0,
-				z * MSGridManager.instance.spaceSize);
+			return new Vector3((coords.x+MSGridManager.GRID_OFFSET) * MSGridManager.instance.spaceSize, 0,
+				(coords.y+MSGridManager.GRID_OFFSET) * MSGridManager.instance.spaceSize);
 		}
 	}
 	
@@ -93,10 +107,11 @@ public class MSGridNode : IComparable {
 		z = 0;
 	}
 	
-	public MSGridNode(int _x, int _y, MSValues.Direction direction = MSValues.Direction.NORTH)
+	public MSGridNode(float _x, float _y, MSValues.Direction direction = MSValues.Direction.NORTH)
 	{
-		x = _x;
-		z = _y;
+		x = (int)_x;
+		z = (int)_y;
+		coords = new Vector2(_x, _y);
 		this.direction = direction;
 	}
 	
@@ -104,6 +119,7 @@ public class MSGridNode : IComparable {
 	{
 		x = (int)_pos.x;
 		z = (int)_pos.y;
+		coords = _pos;
 		this.direction = direction;
 	}
 	

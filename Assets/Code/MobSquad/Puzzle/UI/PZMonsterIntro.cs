@@ -79,7 +79,11 @@ public class PZMonsterIntro : MonoBehaviour {
 
 		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", thumbNail);
 
-		if(curMonster.taskMonster.monsterType == TaskStageMonsterProto.MonsterType.BOSS)
+		if (curMonster.taskMonster == null)
+		{
+			rarityTag.spriteName = "";
+		}
+		else if(curMonster.taskMonster.monsterType == TaskStageMonsterProto.MonsterType.BOSS)
 		{
 			topLabel.text = "BOSS";
 			topColor.ResetToBeginning();

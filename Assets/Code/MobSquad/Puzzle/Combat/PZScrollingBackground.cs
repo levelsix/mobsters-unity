@@ -185,7 +185,7 @@ public class PZScrollingBackground : MonoBehaviour {
 	public void SetSingleBackground(bool top, bool left, SpriteRenderer sprite)
 	{
 		
-		string prefix = MSTutorialManager.instance.inTutorial ? "1" : lastTaskActivated.groundImgPrefix;
+		string prefix = (MSTutorialManager.instance.inTutorial || PZCombatManager.instance.pvpMode) ? "1" : lastTaskActivated.groundImgPrefix;
 		string spriteName;
 		if(top && left)
 		{

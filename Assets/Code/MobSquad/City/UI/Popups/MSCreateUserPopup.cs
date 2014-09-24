@@ -71,8 +71,6 @@ public class MSCreateUserPopup : MonoBehaviour {
 		{
 			yield return null;
 		}
-
-		loadLock.Unlock();
 		
 		UserCreateResponseProto response = UMQNetworkManager.responseDict[tagNum] as UserCreateResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
@@ -89,6 +87,8 @@ public class MSCreateUserPopup : MonoBehaviour {
 			submitButton.enabled = true;
 			break;
 		}
+
+		loadLock.Unlock();
 	}
 
 	IEnumerator QuickStartupRequest()

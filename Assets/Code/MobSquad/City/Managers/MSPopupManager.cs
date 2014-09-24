@@ -157,6 +157,7 @@ public class MSPopupManager : MonoBehaviour {
 	/// </param>
 	void OnPopup(MSPopup popup)
 	{
+		Debug.Log("Pop it, like a wheelie should");
 		if (popup is MSMenuPopup && top is MSMenuPopup)
 		{
 			(top as MSMenuPopup).SlideOut();
