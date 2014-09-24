@@ -28,7 +28,7 @@ public class MSSkillInfo : MonoBehaviour {
 	SkillProto skill;
 
 	const string ACTIVE_BG = "activeskill";
-	const string INACTIVE_BG = "insactiveskill";
+	const string INACTIVE_BG = "inactiveskill";
 	const string NO_SKILL = "noskillcircle";
 
 	public void Init(int skillId, bool active = true)

@@ -1221,6 +1221,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400148}
   - 114: {fileID: 11400184}
+  - 65: {fileID: 6500016}
   m_Layer: 5
   m_Name: DefSkill
   m_TagString: Untagged
@@ -1429,6 +1430,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400174}
   - 114: {fileID: 11400186}
+  - 65: {fileID: 6500018}
   m_Layer: 5
   m_Name: OffSkill
   m_TagString: Untagged
@@ -2762,6 +2764,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 44, y: 44, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6500016
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100148}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 180, y: 136.399994, z: 1}
+  m_Center: {x: 0, y: 55.3199997, z: 0}
+--- !u!65 &6500018
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100174}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 180, y: 136.399994, z: 1}
+  m_Center: {x: 0, y: 55.3199997, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1

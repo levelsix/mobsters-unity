@@ -89,8 +89,10 @@ public class MSGoonInfoPopup : MonoBehaviour {
 		healthBar.fill = ((float)monster.userMonster.currentHealth) / monster.maxHP;
 
 		qualitySprite.spriteName = "battle" + monster.monster.quality.ToString().ToLower() + "tag";
+		qualitySprite.MakePixelPerfect();
 
 		elementSprite.spriteName = monster.monster.monsterElement.ToString().ToLower() + "orb";
+		elementSprite.MakePixelPerfect();
 
 		elementLabel.text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(monster.monster.monsterElement.ToString());
 
