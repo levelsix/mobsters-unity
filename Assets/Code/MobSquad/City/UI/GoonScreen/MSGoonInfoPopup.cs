@@ -39,9 +39,6 @@ public class MSGoonInfoPopup : MonoBehaviour {
 	UILabel attackLabel;
 
 	[SerializeField]
-	UILabel descriptionLabel;
-
-	[SerializeField]
 	UILabel[] damageLabels;
 
 	[SerializeField]
@@ -61,6 +58,18 @@ public class MSGoonInfoPopup : MonoBehaviour {
 
 	[SerializeField]
 	MSUIHelper restrictedHelper;
+
+	[SerializeField]
+	GameObject noSkills;
+
+	[SerializeField]
+	GameObject hasSkills;
+
+	[SerializeField]
+	MSSkillInfo offensiveSkill;
+
+	[SerializeField]
+	MSSkillInfo defensiveSkill;
 
 	PZMonster currMonster;
 
@@ -107,6 +116,33 @@ public class MSGoonInfoPopup : MonoBehaviour {
 
 		SetHeartSprite();
 		SetRestrictSprite();
+
+		if (monster.offensiveSkill != null || monster.defensiveSkill != null)
+		{
+			hasSkills.SetActive(true);
+			noSkills.SetActive(false);
+			if (monster.offensiveSkill != null)
+			{
+				offensiveSkill.Init(monster.offensiveSkill.skillId, true);
+			}
+			else
+			{
+				offensiveSkill.Init(0, false);
+			}
+			if (monster.defensiveSkill != null)
+			{
+				defensiveSkill.Init(monster.defensiveSkill.skillId, monster.offensiveSkill == null);
+			}
+			else
+			{
+				defensiveSkill.Init(0, false);
+			}
+		}
+		else
+		{
+			hasSkills.SetActive(false);
+			noSkills.SetActive(true);
+		}
 	}
 
 	public void SetMobsterAsAvatar()
