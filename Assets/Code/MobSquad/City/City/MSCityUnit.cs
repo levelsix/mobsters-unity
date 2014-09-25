@@ -72,6 +72,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		}
 		else
 		{
+			moving = true;
 			//Put on a random walkable square
 			MSGridNode node = MSGridManager.instance.randomWalkable;
 			trans.position = node.worldPos;
@@ -118,6 +119,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 
 			if (IsPastTarget(jumpNode))
 			{
+				IsPastTarget(jumpNode);
 				Debug.Log(name + " jumping\n" + trans.position + "\n" + jumpNode);
 				unit.DoJump(MSTutorialManager.instance.TutorialValues.enemyEnterJumpHeight,
 				            MSTutorialManager.instance.TutorialValues.enemyEnterJumpTime);
@@ -139,7 +141,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		{
 			return false;
 		}
-		switch (unit.direction)
+		switch (node.direction)
 		{
 		case MSValues.Direction.NORTH:
 			return trans.position.z > node.worldPos.z - MIN_DIST;
@@ -150,7 +152,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 		case MSValues.Direction.EAST:
 			return trans.position.x > node.worldPos.x - MIN_DIST;
 		default:
-			return true;
+			return false;
 		}
 	}
 	

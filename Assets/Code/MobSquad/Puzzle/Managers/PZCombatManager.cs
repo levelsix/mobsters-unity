@@ -1779,10 +1779,8 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (!MSTutorialManager.instance.inTutorial)
 		{
-			//Save();
+			yield return StartCoroutine(ShowAttackWords(score));
 		}
-
-		yield return StartCoroutine(ShowAttackWords(score));
 		
 		yield return StartCoroutine(PlayerShoot(score));
 

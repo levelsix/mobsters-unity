@@ -25,7 +25,7 @@ public static class TutorialStrings
 	public const string AINT_CHICKEN = "Lemme at 'em boss, I ain't chicken.";
 	public const string DOT_DOT_DOT = "......";
 	public const string MAKE_ME_FRY = "OW! Can't take a joke chicken? Don't make me fry...";
-	public const string GO_PEPE = "Enough you two! Take care of this degenerate, Pepe!";
+	public const string GO_PEPE = "Enough you two! Take care of this degenerate, Pete!";
 
 	public const string MOVIN_ORBS = "Yo dawg, movin' orbs ain't my style. Help a brotha out.";
 	public const string SMOOTH_MOVE = "Smooth move homie! The more orbs you break, the stronger I get.";
@@ -343,6 +343,9 @@ public class MSTutorialManager : MonoBehaviour
 			case StructureInfoProto.StructType.RESIDENCE:
 				MSBuildingManager.residences.Add (building);
 				break;
+			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
+				MSBuildingManager.collectors.Add(building);
+				break;
 			default:
 				break;
 			}
@@ -378,7 +381,8 @@ public class MSTutorialManager : MonoBehaviour
 
 	void RecycleCityUnit(MSUnit unit)
 	{
-		unit.cityUnit.speed = MSBuildingManager.instance.unitPrefab.cityUnit.speed;
+		unit.cityUnit.speed = 3;
+		unit.cityUnit.jumpNode = null;
 		unit.Pool();
 	}
 
@@ -878,6 +882,9 @@ public class MSTutorialManager : MonoBehaviour
 		yield return StartCoroutine(BuildStructure(StructureInfoProto.StructType.RESOURCE_STORAGE, ResourceType.OIL));
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.AFTER_CASH_VAULT_DIALOGUE, true, false));
+
+		MSTownCamera.instance.DoCenterOnGroundPos(MSBuildingManager.collectors[0].trans.position, TutorialValues.panToHospitalTime);
+
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.BEFORE_OIL_SILO_DIALOGUE, true, false));
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.BUILD_OIL_SILO_DIALOGUE, true));
 		
@@ -959,9 +966,9 @@ public class MSTutorialManager : MonoBehaviour
 		MSTutorialArrow.instance.Init(currUi.transform, 150, MSValues.Direction.NORTH);
 		yield return StartCoroutine(WaitForClick());
 
-		MSBuildingManager.instance.DoLoadPlayerCity(false);
-
 		inTutorial = false;
+
+		MSBuildingManager.instance.DoLoadPlayerCity(false);
 	}
 
 	#endregion

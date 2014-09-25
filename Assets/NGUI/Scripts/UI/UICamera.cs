@@ -1513,14 +1513,15 @@ public class UICamera : MonoBehaviour
 								Debug.Log("Tutorial clicked right thing");
 								Notify(currentTouch.pressed, "OnClick", null);
 								MSTutorialManager.instance.OnClick();
-								if (MSActionManager.UI.OnDialogueClicked != null)
-								{
-									//MSActionManager.UI.OnDialogueClicked();
-								}
+							}
+							else if (currentTouch.pressed.GetComponent<MSDialogueUI>() != null)
+							{
+								currentTouch.pressed.GetComponent<MSDialogueUI>().DoPushOut();
 							}
 							else
 							{
 								Debug.Log(currentTouch.pressed.name + " isn't the Tutorial thing");
+
 							}
 						}
 						else

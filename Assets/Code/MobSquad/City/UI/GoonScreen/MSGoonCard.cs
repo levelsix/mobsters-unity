@@ -273,8 +273,8 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			transform.parent = MSTeamScreen.instance.playerTeam[goon.userMonster.teamSlotNum-1].transform;
 			transform.localPosition = Vector3.zero;
-			bigHelper.ResetAlpha(false);
-			mediumHelper.ResetAlpha(true);
+			bigHelper.gameObject.SetActive(false);
+			mediumHelper.gameObject.SetActive(true);
 			foreach (var widget in GetComponentsInChildren<UIWidget>()) 
 			{
 				widget.ParentHasChanged();
@@ -331,8 +331,8 @@ public class MSGoonCard : MonoBehaviour {
 		
 		SetName ();
 
-		bigHelper.ResetAlpha(false);
-		mediumHelper.ResetAlpha(true);
+		bigHelper.gameObject.SetActive(false);
+		mediumHelper.gameObject.SetActive(true);
 
 		mediumRemove.SetActive(false);
 		mediumBottomBG.SetActive(true);
@@ -478,9 +478,10 @@ public class MSGoonCard : MonoBehaviour {
 	void Setup(PZMonster goon)
 	{
 		lockIcon.SetActive(false);
+		bigHelper.gameObject.SetActive(true);
 		bigHelper.ResetAlpha(true);
-		mediumHelper.ResetAlpha(false);
-		smallHelper.ResetAlpha(false);
+		mediumHelper.gameObject.SetActive(false);
+		smallHelper.gameObject.SetActive(false);
 		dots.ResetAlpha(false);
 
 		bottomHolder.SetActive(true);
@@ -592,7 +593,8 @@ public class MSGoonCard : MonoBehaviour {
 			{
 				transform.parent = MSTeamScreen.instance.playerTeam[monster.userMonster.teamSlotNum-1].transform;
 				SpringPosition.Begin(gameObject, Vector3.zero, 15);
-				bigHelper.FadeOut();
+				bigHelper.FadeOutAndOff();
+				mediumHelper.ResetAlpha(false);
 				mediumHelper.FadeIn();
 				MSTeamScreen.instance.mobsterGrid.Reposition();
 				foreach (var widget in GetComponentsInChildren<UIWidget>()) 
@@ -613,8 +615,9 @@ public class MSGoonCard : MonoBehaviour {
 			widget.ParentHasChanged();
 		}
 
+		bigHelper.ResetAlpha(false);
 		bigHelper.FadeIn();
-		mediumHelper.FadeOut();
+		mediumHelper.FadeOutAndOff();
 
 		MSMonsterManager.instance.RemoveFromTeam(monster);
 	}
@@ -659,8 +662,9 @@ public class MSGoonCard : MonoBehaviour {
 		foreach (var widget in GetComponentsInChildren<UIWidget> ()) {
 			widget.ParentHasChanged ();
 		}
-		mediumHelper.FadeOut ();
-		smallHelper.FadeIn ();
+		mediumHelper.FadeOutAndOff();
+		smallHelper.ResetAlpha(false);
+		smallHelper.FadeIn();
 	}
 
 	void RemoveFromEnhanceQueue()
@@ -676,9 +680,10 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			widget.ParentHasChanged();
 		}
-		
+
+		mediumHelper.ResetAlpha(false);
 		mediumHelper.FadeIn();
-		smallHelper.FadeOut();
+		smallHelper.FadeOutAndOff();
 	}
 	
 	void AddToHealQueue()
@@ -699,7 +704,8 @@ public class MSGoonCard : MonoBehaviour {
 			widget.ParentHasChanged();
 		}
 		
-		bigHelper.FadeOut();
+		bigHelper.FadeOutAndOff();
+		smallHelper.ResetAlpha(true);
 		smallHelper.FadeIn();
 	}
 
@@ -717,9 +723,10 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			widget.ParentHasChanged();
 		}
-		
+
+		bigHelper.ResetAlpha(false);
 		bigHelper.FadeIn();
-		smallHelper.FadeOut();
+		smallHelper.FadeOutAndOff();
 	}
 
 	void AddToSellQueue()
@@ -745,7 +752,8 @@ public class MSGoonCard : MonoBehaviour {
 			widget.ParentHasChanged();
 		}
 		
-		bigHelper.FadeOut();
+		bigHelper.FadeOutAndOff();
+		smallHelper.ResetAlpha(false);
 		smallHelper.FadeIn();
 	}
 
@@ -761,9 +769,10 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			widget.ParentHasChanged();
 		}
-		
+
+		bigHelper.ResetAlpha(false);
 		bigHelper.FadeIn();
-		smallHelper.FadeOut();
+		smallHelper.FadeOutAndOff();
 	}
 
 	void PickForEvolve()

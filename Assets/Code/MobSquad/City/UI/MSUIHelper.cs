@@ -39,6 +39,7 @@ public class MSUIHelper : MonoBehaviour {
 
 	public TweenAlpha FadeIn()
 	{
+		gameObject.SetActive(true);
 		return TweenAlpha.Begin(gameObject, fadeTime, 1);
 	}
 	

@@ -99,6 +99,8 @@ public class MSBuildingManager : MonoBehaviour
 
 	public static List<MSBuilding> residences = new List<MSBuilding>();
 
+	public static List<MSBuilding> collectors = new List<MSBuilding>();
+
 	public static MSBuilding townHall;
 
 	public static MSBuilding teamCenter;
@@ -403,7 +405,7 @@ public class MSBuildingManager : MonoBehaviour
 	{
 		MSUnit unit = MSPoolManager.instance.Get(unitPrefab, Vector3.zero, unitParent) as MSUnit;
 		unit.Init(monsterId);
-		unit.transf.localPosition = MSGridManager.instance.GridToWorld(position);
+		unit.transf.localPosition = MSGridManager.instance.GridToWorld(position, false);
 		_playerUnits[index] = unit;
 		return unit;
 	}
@@ -1224,7 +1226,8 @@ public class MSBuildingManager : MonoBehaviour
 		Collider hit = SelectSomethingFromScreen(touch.pos);
 
 		if (MSTutorialManager.instance.UiBlock
-		    && MSTutorialManager.instance.currUi != hit.gameObject)
+		    && (hit == null
+		    || MSTutorialManager.instance.currUi != hit.gameObject))
 		{
 			return;
 		}

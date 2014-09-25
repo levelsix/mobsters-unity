@@ -42,7 +42,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: d64f095246ebe4e40b8c0538e025e984, type: 2}
   mSprites:
   - name: attackbarcapmj
-    x: 1013
+    x: 1018
     y: 1012
     width: 4
     height: 12
@@ -68,8 +68,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: BackgroundSlice
-    x: 149
-    y: 412
+    x: 345
+    y: 1
     width: 22
     height: 22
     borderLeft: 9
@@ -81,8 +81,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: bigsquarebottom
-    x: 810
-    y: 607
+    x: 748
+    y: 276
     width: 148
     height: 38
     borderLeft: 0
@@ -93,9 +93,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: bigsquareempty
+    x: 0
+    y: 129
+    width: 148
+    height: 148
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: closepopupx
-    x: 923
-    y: 428
+    x: 663
+    y: 46
     width: 50
     height: 51
     borderLeft: 0
@@ -107,8 +120,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: closex
-    x: 149
-    y: 478
+    x: 978
+    y: 693
     width: 33
     height: 33
     borderLeft: 0
@@ -120,8 +133,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: commonband
-    x: 116
-    y: 70
+    x: 187
+    y: 287
     width: 66
     height: 66
     borderLeft: 0
@@ -133,8 +146,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: darkmediumsquare
-    x: 450
-    y: 371
+    x: 566
+    y: 206
     width: 96
     height: 96
     borderLeft: 0
@@ -146,8 +159,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: darksmallsquare
-    x: 450
-    y: 7
+    x: 748
+    y: 315
     width: 84
     height: 84
     borderLeft: 0
@@ -159,7 +172,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: darksquare
-    x: 187
+    x: 256
     y: 131
     width: 148
     height: 148
@@ -171,9 +184,61 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: detailshadow
+    x: 405
+    y: 184
+    width: 151
+    height: 74
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 1
+  - name: diamond
+    x: 888
+    y: 507
+    width: 74
+    height: 70
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: diamondsmall
+    x: 901
+    y: 581
+    width: 37
+    height: 35
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: -7
+    paddingBottom: 0
+  - name: diamondverysmall
+    x: 376
+    y: 56
+    width: 18
+    height: 17
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: earthmediumsquare
-    x: 336
-    y: 135
+    x: 566
+    y: 303
     width: 96
     height: 96
     borderLeft: 0
@@ -185,8 +250,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthsmallsquare
-    x: 450
-    y: 92
+    x: 918
+    y: 315
     width: 84
     height: 84
     borderLeft: 0
@@ -198,8 +263,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthsquare
-    x: 187
-    y: 429
+    x: 554
+    y: 578
     width: 148
     height: 148
     borderLeft: 0
@@ -224,8 +289,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: enhanceheaderimage
-    x: 0
-    y: 21
+    x: 128
+    y: 13
     width: 115
     height: 115
     borderLeft: 0
@@ -237,8 +302,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: enhancelabmenuheader
-    x: 336
-    y: 343
+    x: 149
+    y: 166
     width: 105
     height: 111
     borderLeft: 0
@@ -249,9 +314,22 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 0
     paddingBottom: 1
+  - name: enhancesquirrel
+    x: 0
+    y: 278
+    width: 186
+    height: 142
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 1
   - name: enhancetime
-    x: 992
-    y: 727
+    x: 998
+    y: 741
     width: 23
     height: 23
     borderLeft: 0
@@ -263,8 +341,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: epicband
-    x: 887
-    y: 498
+    x: 663
+    y: 163
     width: 66
     height: 66
     borderLeft: 0
@@ -276,8 +354,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: evolutionlabmenuheader
-    x: 336
-    y: 455
+    x: 864
+    y: 617
     width: 113
     height: 109
     borderLeft: 0
@@ -288,9 +366,35 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 0
     paddingBottom: 1
+  - name: evolveequals
+    x: 939
+    y: 584
+    width: 37
+    height: 32
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: evolveplus
+    x: 984
+    y: 868
+    width: 37
+    height: 37
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: firemediumsquare
-    x: 336
-    y: 38
+    x: 760
+    y: 400
     width: 96
     height: 96
     borderLeft: 0
@@ -302,8 +406,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: firesmallsquare
-    x: 547
-    y: 480
+    x: 663
+    y: 230
     width: 84
     height: 84
     borderLeft: 0
@@ -315,7 +419,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: firesquare
-    x: 187
+    x: 256
     y: 578
     width: 148
     height: 148
@@ -327,9 +431,61 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: fullhospitalarrow
+    x: 627
+    y: 727
+    width: 370
+    height: 77
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: GoonMenuGothamUltra24
+    x: 0
+    y: 421
+    width: 255
+    height: 127
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: GoonMenuGothamUltraItalic16
+    x: 0
+    y: 1
+    width: 127
+    height: 127
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: GoonMenuZigg28
+    x: 0
+    y: 549
+    width: 255
+    height: 255
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: greenmenuoption
-    x: 336
-    y: 565
+    x: 703
+    y: 646
     width: 160
     height: 80
     borderLeft: 0
@@ -342,7 +498,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: greyband
     x: 954
-    y: 498
+    y: 430
     width: 66
     height: 66
     borderLeft: 0
@@ -354,8 +510,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: greymediumsquare
-    x: 450
-    y: 468
+    x: 566
+    y: 400
     width: 96
     height: 96
     borderLeft: 0
@@ -367,8 +523,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: greymenuoption
-    x: 497
-    y: 565
+    x: 405
+    y: 497
     width: 160
     height: 80
     borderLeft: 0
@@ -380,8 +536,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: greysmallsquare
-    x: 717
-    y: 480
+    x: 833
+    y: 315
     width: 84
     height: 84
     borderLeft: 0
@@ -393,8 +549,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: greysquare
-    x: 0
-    y: 137
+    x: 405
+    y: 578
     width: 148
     height: 148
     borderLeft: 0
@@ -406,8 +562,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: homemenuback
-    x: 149
-    y: 438
+    x: 998
+    y: 765
     width: 25
     height: 39
     borderLeft: 0
@@ -432,8 +588,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: homenavrnextarrow
-    x: 959
-    y: 570
+    x: 963
+    y: 502
     width: 47
     height: 75
     borderLeft: 0
@@ -445,8 +601,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: hospitalmenuheader
-    x: 336
-    y: 232
+    x: 405
+    y: 73
     width: 87
     height: 110
     borderLeft: 0
@@ -458,7 +614,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: hospitalopenarrow
-    x: 0
+    x: 256
     y: 727
     width: 370
     height: 77
@@ -471,7 +627,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: hpbarcapmj
-    x: 1018
+    x: 1013
     y: 1012
     width: 4
     height: 12
@@ -497,8 +653,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: infoi
-    x: 149
-    y: 545
+    x: 864
+    y: 578
     width: 36
     height: 38
     borderLeft: 0
@@ -510,8 +666,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: legendband
-    x: 681
-    y: 413
+    x: 493
+    y: 50
     width: 66
     height: 66
     borderLeft: 0
@@ -523,8 +679,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightmediumsquare
-    x: 450
-    y: 177
+    x: 663
+    y: 400
     width: 96
     height: 96
     borderLeft: 0
@@ -536,8 +692,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightsmallsquare
-    x: 632
-    y: 480
+    x: 663
+    y: 315
     width: 84
     height: 84
     borderLeft: 0
@@ -549,10 +705,23 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightsquare
-    x: 0
-    y: 435
+    x: 256
+    y: 429
     width: 148
     height: 148
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: lockedmobster
+    x: 816
+    y: 591
+    width: 46
+    height: 54
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -575,8 +744,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: mediumsquarebottom
-    x: 336
-    y: 9
+    x: 149
+    y: 137
     width: 96
     height: 28
     borderLeft: 0
@@ -602,7 +771,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: mjrequiredbg
     x: 748
-    y: 463
+    y: 225
     width: 174
     height: 16
     borderLeft: 0
@@ -613,9 +782,87 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: moneysmall
+    x: 493
+    y: 4
+    width: 47
+    height: 45
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: moneystack
+    x: 566
+    y: 115
+    width: 93
+    height: 90
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: moneyverysmall
+    x: 376
+    y: 74
+    width: 22
+    height: 23
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: oilicon
+    x: 663
+    y: 98
+    width: 54
+    height: 64
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: oilsmall
+    x: 376
+    y: 98
+    width: 27
+    height: 32
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: -7
+    paddingBottom: 0
+  - name: oilverysmall
+    x: 376
+    y: 39
+    width: 13
+    height: 16
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: orangemenuoption
-    x: 819
-    y: 646
+    x: 405
+    y: 416
     width: 160
     height: 80
     borderLeft: 0
@@ -627,7 +874,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: popupline
-    x: 848
+    x: 850
     y: 914
     width: 2
     height: 1
@@ -641,7 +888,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: popuplinehorizontal
     x: 848
-    y: 911
+    y: 913
     width: 1
     height: 2
     borderLeft: 1
@@ -653,8 +900,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: purplemenuoption
-    x: 658
-    y: 646
+    x: 727
+    y: 497
     width: 160
     height: 80
     borderLeft: 0
@@ -666,8 +913,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: purplepressed
-    x: 742
-    y: 729
+    x: 405
+    y: 259
     width: 160
     height: 75
     borderLeft: 0
@@ -679,8 +926,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: rareband
-    x: 116
-    y: 3
+    x: 187
+    y: 354
     width: 66
     height: 66
     borderLeft: 0
@@ -692,8 +939,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: redmenuoption
-    x: 336
-    y: 646
+    x: 566
+    y: 497
     width: 160
     height: 80
     borderLeft: 0
@@ -705,7 +952,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: residencemenuheader
-    x: 187
+    x: 256
     y: 24
     width: 119
     height: 106
@@ -715,6 +962,19 @@ MonoBehaviour:
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: scievobox
+    x: 984
+    y: 806
+    width: 30
+    height: 22
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
   - name: sellbarbg
@@ -744,8 +1004,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: sortbutton
-    x: 903
-    y: 751
+    x: 703
+    y: 592
     width: 112
     height: 53
     borderLeft: 0
@@ -757,8 +1017,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: sortbuttonsmall
-    x: 810
-    y: 573
+    x: 748
+    y: 242
     width: 144
     height: 33
     borderLeft: 0
@@ -770,8 +1030,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: superband
-    x: 614
-    y: 413
+    x: 405
+    y: 6
     width: 66
     height: 66
     borderLeft: 0
@@ -783,8 +1043,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: teamhealthbarbg
-    x: 903
-    y: 734
+    x: 256
+    y: 7
     width: 88
     height: 16
     borderLeft: 5
@@ -822,8 +1082,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 3
   - name: ultraband
-    x: 547
-    y: 413
+    x: 493
+    y: 117
     width: 66
     height: 66
     borderLeft: 0
@@ -835,8 +1095,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: watermediumsquare
-    x: 450
-    y: 274
+    x: 857
+    y: 400
     width: 96
     height: 96
     borderLeft: 0
@@ -848,8 +1108,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: watersmallsquare
-    x: 802
-    y: 480
+    x: 566
+    y: 30
     width: 84
     height: 84
     borderLeft: 0
@@ -861,46 +1121,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: watersquare
-    x: 0
-    y: 286
-    width: 148
-    height: 148
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: yellowmenuoption
-    x: 497
-    y: 646
-    width: 160
-    height: 80
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: enhancesquirrel
-    x: 0
-    y: 584
-    width: 186
-    height: 142
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 1
-  - name: bigsquareempty
-    x: 187
+    x: 256
     y: 280
     width: 148
     height: 148
@@ -912,24 +1133,11 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: evolveequals
-    x: 149
-    y: 512
-    width: 37
-    height: 32
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: scievobox
-    x: 984
-    y: 806
-    width: 30
-    height: 22
+  - name: yellowmenuoption
+    x: 405
+    y: 335
+    width: 160
+    height: 80
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -937,58 +1145,6 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
-    paddingBottom: 0
-  - name: evolveplus
-    x: 984
-    y: 868
-    width: 37
-    height: 37
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: detailshadow
-    x: 658
-    y: 571
-    width: 151
-    height: 74
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 1
-  - name: lockedmobster
-    x: 974
-    y: 425
-    width: 46
-    height: 54
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: fullhospitalarrow
-    x: 371
-    y: 727
-    width: 370
-    height: 77
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
     paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}

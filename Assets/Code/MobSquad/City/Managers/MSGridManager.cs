@@ -295,9 +295,9 @@ public class MSGridManager : MonoBehaviour {
 	/// <param name='pos'>
 	/// Position on grid
 	/// </param>
-	public Vector3 GridToWorld(Vector2 pos)
+	public Vector3 GridToWorld(Vector2 pos, bool gridOffset = true)
 	{
-		return new Vector3((pos.x + GRID_OFFSET) * spaceSize, 0, (pos.y + GRID_OFFSET) * spaceSize);
+		return new Vector3((pos.x + (gridOffset?GRID_OFFSET:0)) * spaceSize, 0, (pos.y + (gridOffset?GRID_OFFSET:0)) * spaceSize);
 	}
 	
 	/// <summary>

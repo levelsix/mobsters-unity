@@ -95,7 +95,8 @@ public class MSMapTaskPopup : MonoBehaviour {
 
 	public void init(PersistentEventProto pEvent)
 	{
-		init (MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId), pEvent.monsterElement);
+		task = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId);
+		init (task, pEvent.monsterElement);
 		float minutes = pEvent.startHour * 60 + pEvent.eventDurationMinutes - DateTime.Now.Hour * 60 + DateTime.Now.Minute;
 		float hours = Mathf.Floor(minutes / 60);
 		minutes -= Mathf.Floor(hours * 60);

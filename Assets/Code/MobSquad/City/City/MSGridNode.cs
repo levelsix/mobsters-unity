@@ -96,8 +96,8 @@ public class MSGridNode : IComparable {
 	public Vector3 worldPos{
 		get
 		{
-			return new Vector3((coords.x+MSGridManager.GRID_OFFSET) * MSGridManager.instance.spaceSize, 0,
-				(coords.y+MSGridManager.GRID_OFFSET) * MSGridManager.instance.spaceSize);
+			return new Vector3((coords.x) * MSGridManager.instance.spaceSize, 0,
+				(coords.y) * MSGridManager.instance.spaceSize);
 		}
 	}
 	
