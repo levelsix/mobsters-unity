@@ -378,7 +378,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -410, y: -22, z: 0}
+  m_LocalPosition: {x: -408, y: -28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400004}
@@ -391,7 +391,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -25.3587036, z: 0}
+  m_LocalPosition: {x: 0, y: -44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400012}
@@ -403,7 +403,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -358, y: 7.73023605, z: 0}
+  m_LocalPosition: {x: -364, y: 27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400010}
@@ -492,7 +492,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 6.10351562e-05}
+  m_LocalPosition: {x: -1033.96741, y: -78.0420837, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
@@ -777,14 +777,14 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400008}
     relative: 0
     absolute: 0
   topAnchor:
     target: {fileID: 0}
     relative: 1
     absolute: 0
-  updateAnchors: 1
+  updateAnchors: 0
   mColor: {r: .211764708, g: .211764708, b: .211764708, a: 1}
   mPivot: 3
   mWidth: 78
@@ -793,7 +793,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.5454545
+  aspectRatio: 3.71428561
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
   mFont: {fileID: 0}
@@ -831,9 +831,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
+    target: {fileID: 400008}
+    relative: 1
+    absolute: 14
   rightAnchor:
     target: {fileID: 0}
     relative: 1
@@ -843,12 +843,12 @@ MonoBehaviour:
     relative: 0
     absolute: 0
   topAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400008}
     relative: 1
-    absolute: 0
-  updateAnchors: 1
+    absolute: -5
+  updateAnchors: 0
   mColor: {r: .0862745121, g: .627451003, b: .823529422, a: 1}
-  mPivot: 3
+  mPivot: 0
   mWidth: 144
   mHeight: 24
   mDepth: 2
@@ -1119,6 +1119,7 @@ MonoBehaviour:
   bg: {fileID: 11400032}
   thumbnail: {fileID: 11400024}
   big: 0
+  square: 0
 --- !u!114 &11400030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1288,7 +1289,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: .784313738}
+  mColor: {r: 1, g: 1, b: 1, a: .701960802}
   mPivot: 4
   mWidth: 920
   mHeight: 107
@@ -1338,7 +1339,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mColor: {r: 0, g: .34105131, b: .588235259, a: 1}
   mPivot: 4
   mWidth: 88
   mHeight: 22
@@ -1357,7 +1358,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .576470613}
+  mEffectColor: {r: 1, g: 1, b: 1, a: .549019635}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 2
@@ -1412,8 +1413,10 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
+    tempHP: 0
     minDamage: 0
     maxDamage: 0
     attackDamages: []
@@ -1541,8 +1544,10 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
+    tempHP: 0
     minDamage: 0
     maxDamage: 0
     attackDamages: []
@@ -1798,8 +1803,10 @@ MonoBehaviour:
   monster:
     userHospitalID: 0
     hospitalTimes: []
+    speed: 0
     maxHP: 0
     currHP: 0
+    tempHP: 0
     minDamage: 0
     maxDamage: 0
     attackDamages: []

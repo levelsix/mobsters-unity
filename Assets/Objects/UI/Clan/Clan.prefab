@@ -3026,7 +3026,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1244, y: 768, z: 0}
+  m_Size: {x: 1153, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500040
 BoxCollider:
@@ -3303,6 +3303,7 @@ MonoBehaviour:
   button: {fileID: 11400186}
   label: {fileID: 11400180}
   loadLock: {fileID: 11400266}
+  genericPopup: {fileID: 0}
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4076,7 +4077,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4019
+  startingRenderQueue: 4010
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -42, z: 920, w: 508}
@@ -4187,6 +4188,7 @@ MonoBehaviour:
   spriteRoot: 
   inactiveTab: popupinactivetab
   activeTab: popupactivetab
+  active: 0
   other: {fileID: 11400086}
   pop: {fileID: 11400178}
   inactive: 1
@@ -4397,13 +4399,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400076}
     relative: 1
-    absolute: 0
+    absolute: 13
+  rightAnchor:
+    target: {fileID: 400154}
+    relative: 0
+    absolute: -45
   bottomAnchor:
     target: {fileID: 0}
     relative: 0
@@ -4412,18 +4414,18 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
-  updateAnchors: 1
+  updateAnchors: 0
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 0
-  mWidth: 500
+  mWidth: 595
   mHeight: 36
   mDepth: 29
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 13.8888893
+  aspectRatio: 16.5277786
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
+  mTrueTypeFont: {fileID: 12800000, guid: 91bac43076dd34330a6f3acd2e0c15e9, type: 3}
   mFont: {fileID: 0}
   mText: Best clan in the da game, nbd. Crushin noobs for breakfast whatevs
   mFontSize: 18
@@ -4665,6 +4667,7 @@ MonoBehaviour:
   spriteRoot: 
   inactiveTab: popupinactivetab
   activeTab: popupactivetab
+  active: 0
   other: {fileID: 11400058}
   pop: {fileID: 11400178}
   inactive: 1
@@ -4748,7 +4751,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .611764729, g: .611764729, b: .611764729, a: 1}
   mPivot: 3
-  mWidth: 136
+  mWidth: 156
   mHeight: 24
   mDepth: 18
   autoResizeBoxCollider: 0
@@ -5666,7 +5669,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4026
+  startingRenderQueue: 5012
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -62, z: 920, w: 320}
@@ -6148,7 +6151,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4026
+  startingRenderQueue: 5012
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 920, y: -42, z: 920, w: 408}
@@ -7155,7 +7158,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4014
+  startingRenderQueue: 4006
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -7757,13 +7760,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1244
+  mWidth: 1153
   mHeight: 768
   mDepth: 50
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.61979163
+  aspectRatio: 1.50130212
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1

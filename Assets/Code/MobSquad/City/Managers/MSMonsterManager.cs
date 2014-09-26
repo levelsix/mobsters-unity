@@ -295,15 +295,33 @@ public class MSMonsterManager : MonoBehaviour {
 
 	#region Selling
 
-	public void SellMonsters(List<PZMonster> monsters)
+	public void SellRequest(List<PZMonster> monsters)
 	{
 		SellUserMonsterRequestProto sellRequest = new SellUserMonsterRequestProto();
 		sellRequest.sender = MSWhiteboard.localMupWithResources;
+		foreach (var item in monsters) 
+		{
+			sellRequest.sales.Add(item.GetSellProto());
+		}
+
+		UMQNetworkManager.instance.SendRequest(sellRequest, (int)EventProtocolRequest.C_SELL_USER_MONSTER_EVENT, DealWithSellResponse);
+		
+	}
+
+
+	/// <summary>
+	/// This now only get called after the server response for sell comes back with success
+	/// </summary>
+	/// <param name="monsters">Monsters.</param>
+	public void SellMonsters(List<PZMonster> monsters)
+	{
+//		SellUserMonsterRequestProto sellRequest = new SellUserMonsterRequestProto();
+//		sellRequest.sender = MSWhiteboard.localMupWithResources;
 
 		foreach (var item in monsters) 
 		{
 			MSResourceManager.instance.Collect(ResourceType.CASH, item.sellValue);
-			sellRequest.sales.Add(item.GetSellProto());
+//			sellRequest.sales.Add(item.GetSellProto());
 			RemoveMonster(item.userMonster.userMonsterId);
 		}
 
@@ -312,7 +330,6 @@ public class MSMonsterManager : MonoBehaviour {
 			MSActionManager.Quest.OnMonstersSold(monsters.Count);
 		}
 
-		UMQNetworkManager.instance.SendRequest(sellRequest, (int)EventProtocolRequest.C_SELL_USER_MONSTER_EVENT, DealWithSellResponse);
 	}
 
 	void DealWithSellResponse(int tagNum)
@@ -323,6 +340,13 @@ public class MSMonsterManager : MonoBehaviour {
 		if (response.status != SellUserMonsterResponseProto.SellUserMonsterStatus.SUCCESS)
 		{
 			Debug.LogError("Problem selling monsters: " + response.status.ToString());
+		}
+		else
+		{
+			if(MSActionManager.Goon.OnFinishSelling != null)
+			{
+				MSActionManager.Goon.OnFinishSelling();
+			}
 		}
 	}
 
@@ -652,9 +676,9 @@ public class MSMonsterManager : MonoBehaviour {
 		currentEnhancementMonster.GainXP(feeder.enhanceXP);
 		enhancementFeeders.Remove(feeder);
 		RemoveMonster(feeder.userMonster.userMonsterId);
-		if(MSActionManager.Goon.OnFinnishFeeding != null)
+		if(MSActionManager.Goon.OnFinishFeeding != null)
 		{
-			MSActionManager.Goon.OnFinnishFeeding(feeder);
+			MSActionManager.Goon.OnFinishFeeding(feeder);
 		}
 		return feeder.enhanceXP;
 	}
