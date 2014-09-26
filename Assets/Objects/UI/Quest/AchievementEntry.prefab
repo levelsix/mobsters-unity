@@ -435,7 +435,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.75, y: 15.7849998, z: -3.05175781e-05}
+  m_LocalPosition: {x: 37.1765213, y: 136.868347, z: -.009765625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400048}
@@ -858,31 +858,31 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 68
-  mHeight: 24
+  mWidth: 106
+  mHeight: 22
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.83333325
+  aspectRatio: 4.81818199
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 11a0b204ca7e8435ebc45247e58fd91a, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 126ed004349bf4d91a5d363579fd4421, type: 2}
   mText: COLLECT
-  mFontSize: 24
+  mFontSize: 22
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .53725493}
+  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
-  mGradientTop: {r: 1, g: 1, b: 1, a: 1}
-  mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
+  mGradientTop: {r: .57333672, g: .683823526, b: 0, a: 1}
+  mGradientBottom: {r: .112082675, g: .345588207, b: 0, a: 1}
   mSpacingX: 0
   mSpacingY: 0
   mShrinkToFit: 0
@@ -979,7 +979,7 @@ MonoBehaviour:
   aspectRatio: 7.375
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 27c87dc81c0804c03bb78fb9b50c9bc2, type: 2}
   mText: $450 / $5000
   mFontSize: 16
   mFontStyle: 0
@@ -1356,8 +1356,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 19.666666
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 91bac43076dd34330a6f3acd2e0c15e9, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: e51668310b5cb4d9bbad83588b939a3c, type: 2}
   mText: Collect $5,000 from your cash printers.
   mFontSize: 18
   mFontStyle: 0
@@ -1410,16 +1410,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .0117647061, g: .196078435, b: .196078435, a: 1}
   mPivot: 3
-  mWidth: 196
+  mWidth: 194
   mHeight: 24
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 8.16666698
+  aspectRatio: 8.08333302
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 76ed6b8b3463043948c681a0b12cc152, type: 2}
   mText: Greed Is Good
   mFontSize: 24
   mFontStyle: 0
@@ -1572,16 +1572,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .654901981, g: .309803933, b: .894117653, a: 1}
   mPivot: 4
-  mWidth: 100
-  mHeight: 100
+  mWidth: 48
+  mHeight: 24
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 2
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 126ed004349bf4d91a5d363579fd4421, type: 2}
   mText: 250
   mFontSize: 24
   mFontStyle: 0
@@ -1592,7 +1592,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 0
+  mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -1642,8 +1642,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 126ed004349bf4d91a5d363579fd4421, type: 2}
   mText: REWARD
   mFontSize: 14
   mFontStyle: 0
@@ -1904,8 +1904,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: .785714269
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: d43fd88879d9f44228e33f7e62e64775, type: 2}
   mText: 2
   mFontSize: 28
   mFontStyle: 0
@@ -1966,8 +1966,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.75
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 76ed6b8b3463043948c681a0b12cc152, type: 2}
   mText: RANK
   mFontSize: 16
   mFontStyle: 0
