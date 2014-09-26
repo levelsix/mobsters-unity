@@ -623,7 +623,7 @@ public class MSBuildingManager : MonoBehaviour
     	return building;
 	}
 
-	public void MakeTutorialObstacle(MinimumObstacleProto proto)
+	public MSBuilding MakeTutorialObstacle(MinimumObstacleProto proto)
 	{
 		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coordinate.x, 0,
 		                               MSGridManager.instance.spaceSize * proto.coordinate.y);
@@ -637,6 +637,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSGridManager.instance.AddBuilding(building, (int)proto.coordinate.x, (int)proto.coordinate.y, obp.width, obp.height);
 		
 		obstacles.Add(building);
+		return building;
 	}
 
 	void MakeObstacle(UserObstacleProto proto)

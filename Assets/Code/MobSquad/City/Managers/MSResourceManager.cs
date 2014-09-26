@@ -95,7 +95,14 @@ public class MSResourceManager : MonoBehaviour {
 
 	public void DetermineResourceMaxima()
 	{
-		maxes[0] = maxes[1] = BASE_RESOURCE_AMOUNT;
+		if (MSBuildingManager.townHall != null)
+		{
+			maxes[0] = maxes[1] = MSBuildingManager.townHall.combinedProto.townHall.resourceCapacity;
+		}
+		else
+		{
+			maxes[0] = maxes[1] = 1000;
+		}
 		foreach (ResourceStorageProto item in MSBuildingManager.instance.GetAllStorages()) 
 		{
 			maxes[(int)item.resourceType-1] += item.capacity;

@@ -254,7 +254,7 @@ public class MSSpriteUtil : MonoBehaviour {
 
 				animator.runtimeAnimatorController = bundles[baseName].Load(baseName + controllerSuffix, typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
 				animator.GetComponent<SpriteRenderer>().color = Color.white;
-				Debug.Log("Assigned it: " + animator.runtimeAnimatorController);
+				//Debug.Log("Assigned it: " + animator.runtimeAnimatorController);
 			}
 		}
 	}

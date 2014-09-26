@@ -269,11 +269,10 @@ public class MSTutorialManager : MonoBehaviour
 	[ContextMenu ("Start First Tutorial")]
 	public void StartBeginningTutorial()
 	{
-		SetupTutorial();
-		StartCoroutine(MainTutorial());
+		StartCoroutine(SetupTutorial());
 	}
 
-	void SetupTutorial()
+	IEnumerator SetupTutorial()
 	{
 		inTutorial = true;
 
@@ -285,8 +284,6 @@ public class MSTutorialManager : MonoBehaviour
 		{
 			item.SetActive(false);
 		}
-
-		MSActionManager.Scene.OnCity();
 
 		//Make tutorial units
 		userMobster = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.startingMonsterId);
@@ -310,10 +307,6 @@ public class MSTutorialManager : MonoBehaviour
 		enemyTwoUnit = MSBuildingManager.instance.MakeTutorialUnit (enemyTwo.monsterId, TutorialValues.enemyStartPos, 4);
 		bossUnit = MSBuildingManager.instance.MakeTutorialUnit (enemyBoss.monsterId, TutorialValues.enemyStartPos, 5);
 
-		enemyOneUnit.cityUnit.speed = enemyTwoUnit.cityUnit.speed = bossUnit.cityUnit.speed = TutorialValues.enemyMoveSpeed;
-		enemyOneUnit.alpha = 0;
-		enemyTwoUnit.alpha = 0;
-		bossUnit.alpha = 0;
 
 		PZMonster userMonster = new PZMonster(userMobster, 1);
 		userMonster.userMonster = new FullUserMonsterProto();
@@ -325,6 +318,7 @@ public class MSTutorialManager : MonoBehaviour
 		MSMonsterManager.instance.userTeam[1] = new PZMonster(zark, 15);
 
 		//Make tutorial buildings
+		List<MSBuilding> buildings = new List<MSBuilding>();
 		for (int i = 0; i < MSWhiteboard.tutorialConstants.tutorialStructures.Count; i++) 
 		{
 			TutorialStructProto tutStruct = MSWhiteboard.tutorialConstants.tutorialStructures[i];
@@ -350,16 +344,36 @@ public class MSTutorialManager : MonoBehaviour
 				break;
 			}
 			building.userStructProto.isComplete = true;
+			buildings.Add(building);
 		}
 		foreach (var item in MSWhiteboard.tutorialConstants.tutorialObstacles) 
 		{
-			MSBuildingManager.instance.MakeTutorialObstacle(item);
+			buildings.Add(MSBuildingManager.instance.MakeTutorialObstacle(item));
+		}
+
+		foreach (var item in buildings) 
+		{
+			while (!item.loadedSprite)
+			{
+				yield return null;
+			}
 		}
 
 		MSMonsterManager.instance.totalResidenceSlots = MSBuildingManager.instance.GetMonsterSlotCount();
 
 		TutorialUI.boat.position = MSGridManager.instance.GridToWorld(TutorialValues.boatStartPos);
 		TutorialUI.boat.gameObject.SetActive(true);
+
+		enemyOneUnit.cityUnit.speed = enemyTwoUnit.cityUnit.speed = bossUnit.cityUnit.speed = TutorialValues.enemyMoveSpeed;
+		enemyOneUnit.alpha = 0;
+		enemyTwoUnit.alpha = 0;
+		bossUnit.alpha = 0;
+
+		MSActionManager.Scene.OnCity();
+
+		
+		StartCoroutine(MainTutorial());
+
 	}
 
 	void CleanUpTutorial()
@@ -402,6 +416,8 @@ public class MSTutorialManager : MonoBehaviour
 		guideUnit.direction = MSValues.Direction.WEST;
 		guideUnit.animat = MSUnit.AnimationType.STAY;
 
+		currUi = TutorialUI.leftDialogue.clickbox;
+
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HEY_BOSS, true, false));
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.EVIL_DICTATOR, true, false));
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HOPEFULLY_DONT_FIND, true));
@@ -441,7 +457,7 @@ public class MSTutorialManager : MonoBehaviour
 		{
 			yield return null;
 		}
-		
+
 		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "ArmsCrossed", enemyBoss.displayName, TutorialStrings.PEASANT_SQUAD, true));
 		
 		yield return enemyTwoUnit.DoJump(TutorialValues.hopHeight, TutorialValues.hopTime);
@@ -870,6 +886,8 @@ public class MSTutorialManager : MonoBehaviour
 		}
 		TutorialUI.shopButton.SetActive(true);
 
+		MSResourceManager.instance.DetermineResourceMaxima();
+
 		//Build cash printer dialogue
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.BUILD_CASH_PRINTER_DIALOGUE, true));
 
@@ -905,6 +923,7 @@ public class MSTutorialManager : MonoBehaviour
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.THIS_IS_CRAZY_DIALOGUE, true));
 
+		currUi = null;
 		MSActionManager.Popup.OnPopup(TutorialUI.facebookPopup);
 		waitForFacebook = true;
 		while (waitForFacebook)
@@ -930,6 +949,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator PostCombat_Username()
 	{
+		currUi = null;
 		waitingForUsername = true;
 		MSActionManager.Popup.OnPopup(TutorialUI.usernamePopup);
 		while (waitingForUsername)
@@ -965,7 +985,7 @@ public class MSTutorialManager : MonoBehaviour
 		currUi = TutorialUI.enterButton;
 		MSTutorialArrow.instance.Init(currUi.transform, 150, MSValues.Direction.NORTH);
 		yield return StartCoroutine(WaitForClick());
-
+		currUi = null;
 		inTutorial = false;
 
 		MSBuildingManager.instance.DoLoadPlayerCity(false);
@@ -986,6 +1006,7 @@ public class MSTutorialManager : MonoBehaviour
 		yield return dialogueUI.RunDialogue(bundleName, imageName, mobsterName, dialogue, wait);
 		if (wait)
 		{
+			currUi = dialogueUI.clickbox;
 			MSActionManager.UI.OnDialogueClicked += OnClick;
 			yield return StartCoroutine(WaitForClick());
 			MSActionManager.UI.OnDialogueClicked -= OnClick;
@@ -1019,11 +1040,12 @@ public class MSTutorialManager : MonoBehaviour
 			yield return null;
 		}
 		//Debug.Log("Clicked");
-		currUi = null;
+		//currUi = null;
 	}
 
 	IEnumerator WaitForTurn()
 	{
+		currUi = null;
 		waitingForTurn = true;
 		MSActionManager.Puzzle.OnTurnChange += TurnHappen;
 		while (waitingForTurn)

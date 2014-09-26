@@ -115,7 +115,15 @@ public class MSHealScreen : MSFunctionalScreen
 		}
 
 		timeLeftLabel.text = MSUtil.TimeStringShort(timeLeft);
-		finishNowLabel.text = "Finish\n(G)" + MSMath.GemsForTime(timeLeft); 
+		int gems = MSMath.GemsForTime(timeLeft);
+		if (gems > 0)
+		{
+			finishNowLabel.text = "Finish\n(g) " + gems;
+		}
+		else
+		{
+			finishNowLabel.text = "Finish\nFree!";
+		}
 	}
 
 	public void Finish()

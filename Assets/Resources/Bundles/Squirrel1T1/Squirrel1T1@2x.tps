@@ -42,7 +42,7 @@
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
-        <enum type="SettingsBase::DitherType">NearestNeighbour</enum>
+        <enum type="SettingsBase::DitherType">FloydSteinbergAlpha</enum>
         <key>backgroundColor</key>
         <uint>0</uint>
         <key>libGdx</key>
@@ -213,7 +213,6 @@
             <filename>Attack/Squirrel1T1FlinchFSquirrel1T1AttackN14.png</filename>
             <filename>Attack/Squirrel1T1FlinchN00.png</filename>
             <filename>Attack/Squirrel1T1FlinchN01.png</filename>
-            <filename>Attack/Squirrel1T1StayN00.png</filename>
             <filename>Run/Squirrel1T1RunF00.png</filename>
             <filename>Run/Squirrel1T1RunF01.png</filename>
             <filename>Run/Squirrel1T1RunF02.png</filename>
@@ -239,6 +238,7 @@
             <filename>Run/Squirrel1T1RunN10.png</filename>
             <filename>Run/Squirrel1T1RunN11.png</filename>
             <filename>Attack/Squirrel1T1KneelN00.png</filename>
+            <filename>Attack/Squirrel1T1StayN00.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

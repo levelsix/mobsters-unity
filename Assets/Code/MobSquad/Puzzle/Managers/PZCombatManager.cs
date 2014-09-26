@@ -1151,7 +1151,10 @@ public class PZCombatManager : MonoBehaviour {
 			MSActionManager.Puzzle.ForceShowSwap();
 		}
 
-		boardTint.PlayReverse();
+		if (!MSTutorialManager.instance.inTutorial)
+		{
+			boardTint.PlayReverse();
+		}
 
 		PZPuzzleManager.instance.swapLock = 0;
 	}

@@ -216,7 +216,13 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 		trans.localPosition = new Vector3(boardX * SPACE_SIZE, boardY * SPACE_SIZE, -1) ;
 
-		PZPuzzleManager.instance.board[boardX, boardY] = this;
+		try
+		{
+			PZPuzzleManager.instance.board[boardX, boardY] = this;
+		}catch (System.IndexOutOfRangeException e)
+		{
+			Debug.Log("RAWB: " + e.ToString() + "\n" + boardX + ", " + boardY);
+		}
 	}
 
 	public void SpawnAbove(int colr, int column)

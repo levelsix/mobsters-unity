@@ -507,7 +507,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				processingSwap = false;
 				ResetCombo ();
 
-				if (!CheckForMatchMoves (board)) 
+				if (lastSwapSuccessful && !CheckForMatchMoves (board)) 
 				{
 					Shuffle();
 				}
@@ -1210,6 +1210,8 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 	}
 
+	#region Hints
+
 	[ContextMenu ("start hint")]
 	public void StartHint()
 	{
@@ -1267,6 +1269,8 @@ public class PZPuzzleManager : MonoBehaviour {
 			showGemHints = false;
 		}
 	}
+
+	#endregion
 
 	[ContextMenu ("Print board")]
 	public void PrintBoard()
