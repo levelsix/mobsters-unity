@@ -293,6 +293,10 @@ public class MSClanManager : MonoBehaviour
 		{
 			Debug.LogError("Problem leaving squad: " + response.status.ToString());
 		}
+		else
+		{
+			Debug.LogError("success leaving squad");
+		}
 	}
 
 	/// <summary>
