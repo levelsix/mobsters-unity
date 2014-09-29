@@ -109,6 +109,18 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			_gemType = value;
 		}
 	}
+
+	/// <summary>
+	/// Gets a value indicating whether this <see cref="PZGem"/> can combo with moltov.
+	/// </summary>
+	/// <value><c>true</c> if swapping with a moltov results in a special effect; otherwise, <c>false</c>.</value>
+	public bool canComboWithMoltov
+	{
+		get
+		{
+			return _gemType == GemType.BOMB || _gemType == GemType.MOLOTOV || _gemType == GemType.ROCKET;
+		}
+	}
 	
 	public bool horizontal = true;
 
