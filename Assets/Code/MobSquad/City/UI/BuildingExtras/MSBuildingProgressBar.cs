@@ -24,7 +24,21 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 	[SerializeField] MSBuilding building;
 
-	float newTime = 0;
+	long _newTime = 0;
+
+	long newTime{
+		get
+		{
+			return _newTime;
+		}
+		set
+		{
+			_newTime = value;
+			newTimeChecker = (int)value;
+		}
+	}
+
+	int newTimeChecker = 0;
 
 	const float CYCLE_TIME = 3f;
 	const float FADE_TIME = 0.3f;
@@ -112,13 +126,13 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			}
 
 			if(newTime == 0){
-				if(building.obstacle == null)
+				if(building.obstacle != null)
 				{
-					newTime = building.upgrade.timeRemaining;
+					newTime = building.obstacle.millisLeft;
 				}
 				else
 				{
-					newTime = building.obstacle.millisLeft;
+					newTime = building.upgrade.timeRemaining;
 				}
 			}
 
@@ -126,12 +140,12 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			
 			bar.fill += 1f * Time.deltaTime;
 
-			label.text = MSUtil.TimeStringShort((long)(newTime * (1f - bar.fill)));
-
 			if(bar.fill >= 1f)
 			{
 				bar.fill = 1f;
 			}
+
+			label.text = MSUtil.TimeStringShort((long)(newTime * (1f - bar.fill)));
 		}
 		else if(bar.fill >= 1f && (upgrading || (building.obstacle != null && building.obstacle.isRemoving)))
 		{
@@ -153,6 +167,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		}
 		else if (bg.gameObject.activeSelf)
 		{
+			newTime = 0;
 			bg.gameObject.SetActive(false);
 		}
 	}
@@ -161,7 +176,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 	void CheckFreeBar()
 	{
 		//hospital logic
-		if(building.hospital != null && MSMath.GemsForTime(MSHealScreen.instance.timeLeft, true) == 0)
+		if(building.hospital != null && MSHealScreen.instance != null && MSMath.GemsForTime(MSHealScreen.instance.timeLeft, true) == 0)
 		{
 			SetBarFree();
 		}
