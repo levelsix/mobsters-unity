@@ -414,7 +414,7 @@ public class UMQNetworkManager : MonoBehaviour {
 			response = consumer.Queue.DequeueNoWait(null);
 			if (response != null)
 			{
-				ReceiveChatResponse((BasicDeliverEventArgs)response);
+				ReceiveResponse((BasicDeliverEventArgs)response);
 			}
 			yield return new WaitForSeconds(.5f);
 		}
