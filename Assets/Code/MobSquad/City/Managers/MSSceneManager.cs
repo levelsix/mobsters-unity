@@ -168,6 +168,12 @@ public class MSSceneManager : MonoBehaviour {
 		loadingParent.SetActive(true);
 		loadingPanel.alpha = 1;
 		loadingState = true;
-		StartCoroutine(UMQLoader.instance.Start());
+		//StartCoroutine(UMQLoader.instance.Start());
+		Reload();
+	}
+
+	public void Reload()
+	{
+		Application.LoadLevel(Application.loadedLevel);
 	}
 }

@@ -125,6 +125,11 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 		sender = proto.sender;
 		Init(MSUtil.timeNowMillis, proto.sender.minUserProto.name, proto.chatMessage, proto.sender.minUserProto.avatarMonsterId, proto.isAdmin);
 	}
+
+	public void InitCheat(string message)
+	{
+		//sender = MSWhiteboard.localMup;
+	}
 	
 	/// <summary>
 	/// Sets up a chat bubble

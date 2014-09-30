@@ -930,7 +930,7 @@ public class MSTutorialManager : MonoBehaviour
 		{
 			yield return null;
 		}
-		if (didJoinFacebook && !facebookHadAccount)
+		if (didJoinFacebook)
 		{
 			yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.FACEBOOK_DID_JOIN_DIALOGUE, true));
 		}
@@ -940,11 +940,10 @@ public class MSTutorialManager : MonoBehaviour
 		}
 	}
 	
-	public void OnMakeFacebookDecision(bool didJoin, bool usedOtherAccount = false)
+	public void OnMakeFacebookDecision(bool didJoin)
 	{
 		waitForFacebook = false;
 		didJoinFacebook = didJoin;
-		facebookHadAccount = usedOtherAccount;
 	}
 
 	IEnumerator PostCombat_Username()
@@ -987,6 +986,7 @@ public class MSTutorialManager : MonoBehaviour
 		yield return StartCoroutine(WaitForClick());
 		currUi = null;
 		inTutorial = false;
+		MSTutorialArrow.instance.gameObject.SetActive(false);
 
 		MSBuildingManager.instance.DoLoadPlayerCity(false);
 	}

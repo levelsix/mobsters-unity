@@ -50,10 +50,11 @@ public class UMQNetworkManager : MonoBehaviour {
 	const int HEADER_SIZE = 12;
 	
 	public static UMQNetworkManager instance;
+
+	[HideInInspector]
+	public string udid = "admin2";
 	
-	public static string udid = "admin2";
-	
-	public static Dictionary<int, Action<int>> actionDict = new Dictionary<int, Action<int>>();
+	Dictionary<int, Action<int>> actionDict = new Dictionary<int, Action<int>>();
 	public static Dictionary<int, object> responseDict = new Dictionary<int, object>();
 	
 	[SerializeField]
@@ -77,6 +78,7 @@ public class UMQNetworkManager : MonoBehaviour {
 	
 	void Awake()
 	{
+		/*
 		if (instance != null)
 		{
 			Destroy(gameObject);
@@ -86,6 +88,9 @@ public class UMQNetworkManager : MonoBehaviour {
 			DontDestroyOnLoad(gameObject);
 			instance = this;
 		}
+		*/
+
+		instance = this;
 
 		attempts = 0;
 	}

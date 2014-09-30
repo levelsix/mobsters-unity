@@ -21,7 +21,7 @@ public class MSFacebookPopup : MonoBehaviour
 	{
 		MSFacebookManager.instance.Init();
 		
-		while (!FB.isInitCalled || (!FB.hasFailed && !MSFacebookManager.hasTriedLogin))
+		while (!FB.isInitCalled || (!FB.hasFailed && !MSFacebookManager.instance.hasTriedLogin))
 		{
 			yield return null;
 		}
@@ -29,8 +29,6 @@ public class MSFacebookPopup : MonoBehaviour
 		if (FB.IsLoggedIn)
 		{
 			yield return StartCoroutine(TryStartupWithFacebook());
-
-			MSActionManager.Popup.CloseAllPopups();
 			
 			MSTutorialManager.instance.OnMakeFacebookDecision(true);
 		}
@@ -42,7 +40,7 @@ public class MSFacebookPopup : MonoBehaviour
             "This is a once in a lifetime opportunity that you'll tell your grandchildren about. Please reconsider!",
             new string[] {"Skip", "Connect"},
 			new string[] {"greymenuoption", "orangemenuoption"},
-			new System.Action[] {RespondNo, TryToConnectToFacebook},
+			new System.Action[] {RespondNo, delegate{ MSActionManager.Popup.CloseTopPopupLayer(); TryToConnectToFacebook();} },
 			"orange"
 		);
 	}
@@ -53,7 +51,7 @@ public class MSFacebookPopup : MonoBehaviour
 		request.fbId = FB.UserId;
 		request.versionNum = MSValues.version;
 		request.isFreshRestart = true;
-		request.udid = UMQNetworkManager.udid;
+		request.udid = UMQNetworkManager.instance.udid;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_STARTUP_EVENT);
 
@@ -65,6 +63,7 @@ public class MSFacebookPopup : MonoBehaviour
 		startupResponse = UMQNetworkManager.responseDict[tagNum] as StartupResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
+		Debug.Log("Startup Test: " + startupResponse.startupStatus);
 		if (startupResponse.startupStatus == StartupResponseProto.StartupStatus.USER_IN_DB)
 		{
 			MSPopupManager.instance.CreatePopup("Account Already Used",
@@ -74,18 +73,30 @@ public class MSFacebookPopup : MonoBehaviour
 				new string[] {"greymenuoption", "orangemenuoption"},
 				new System.Action[] { 
 					delegate {
-						MSTutorialManager.instance.OnMakeFacebookDecision(true, false);
-						MSActionManager.Popup.CloseTopPopupLayer();
+						MSTutorialManager.instance.OnMakeFacebookDecision(false);
+						FB.Logout();
+						MSActionManager.Popup.CloseAllPopups();
+						PlayerPrefs.SetInt(MSFacebookManager.FB_KEY, 0);
+						PlayerPrefs.Save();
 					}, 
 					delegate {
-						MSTutorialManager.instance.OnMakeFacebookDecision(true, true);
-						UMQLoader.StartUp(startupResponse);
-						MSActionManager.Popup.CloseTopPopupLayer();
+						MSSceneManager.instance.Reload();
+						PlayerPrefs.SetInt(MSFacebookManager.FB_KEY, 1);
+						PlayerPrefs.Save();
 					}
 				},
 				"orange"
 			);
 
+			while (MSPopupManager.instance.top != null)
+			{
+				yield return null;
+			}
+		}
+		else
+		{
+			PlayerPrefs.SetInt(MSFacebookManager.FB_KEY, 1);
+			PlayerPrefs.Save();
 		}
 	}
 

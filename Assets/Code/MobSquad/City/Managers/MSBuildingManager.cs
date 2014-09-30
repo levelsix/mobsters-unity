@@ -1032,7 +1032,7 @@ public class MSBuildingManager : MonoBehaviour
 	/// <returns>bool</returns>
 	public int CapacityForBuildings(){
 		TownHallProto hallProto = townHall.combinedProto.townHall;
-		int maxBuilding = hallProto.numEvoChambers + hallProto.numHospitals + hallProto.numLabs + hallProto.numResidences +
+		int maxBuilding = hallProto.numEvoChambers + hallProto.numHospitals + 1 + hallProto.numResidences +
 				hallProto.numResourceOneGenerators + hallProto.numResourceOneStorages + hallProto.numResourceTwoGenerators + hallProto.numResourceTwoStorages;
 
 //		Debug.Log ("numEvoChambers "+hallProto.numEvoChambers);

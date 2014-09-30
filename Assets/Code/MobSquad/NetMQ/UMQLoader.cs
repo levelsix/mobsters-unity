@@ -49,8 +49,18 @@ public class UMQLoader : MonoBehaviour {
 		
 		StartupRequestProto startup = new StartupRequestProto();
 		
-		startup.udid = UMQNetworkManager.udid;
+		startup.udid = UMQNetworkManager.instance.udid;
 		startup.versionNum = MSValues.version;
+		
+		if (MSFacebookManager.instance.hasFacebook)
+		{
+			MSFacebookManager.instance.Init();
+			while (!MSFacebookManager.instance.hasTriedLogin)
+			{
+				yield return null;
+			}
+			startup.fbId = FB.UserId;
+		}
 
 		if (PlayerPrefs.HasKey("CleanStart"))
 		{
@@ -58,15 +68,6 @@ public class UMQLoader : MonoBehaviour {
 			PlayerPrefs.DeleteKey("CleanStart");
 			PlayerPrefs.Save();
 		}
-
-		/*
-		MSFacebookManager.instance.Init();
-
-		while (!MSFacebookManager.hasTriedLogin)
-		{
-			yield return null;
-		}
-		*/
 
 		if (FB.IsLoggedIn)
 		{

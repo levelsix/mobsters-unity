@@ -41,7 +41,7 @@ public class MSCreateUserPopup : MonoBehaviour {
 
 		//TODO: Register the user
 		UserCreateRequestProto create = new UserCreateRequestProto();
-		create.udid = UMQNetworkManager.udid;
+		create.udid = UMQNetworkManager.instance.udid;
 		create.name = username;
 		
 		create.cash = MSResourceManager.resources[ResourceType.CASH];
@@ -94,7 +94,7 @@ public class MSCreateUserPopup : MonoBehaviour {
 	IEnumerator QuickStartupRequest()
 	{
 		StartupRequestProto request = new StartupRequestProto();
-		request.udid = UMQNetworkManager.udid;
+		request.udid = UMQNetworkManager.instance.udid;
 		request.versionNum = MSValues.version;
 		if (FB.IsLoggedIn)
 		{

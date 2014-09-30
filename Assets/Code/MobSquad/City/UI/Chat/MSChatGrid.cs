@@ -122,6 +122,10 @@ public class MSChatGrid : MonoBehaviour {
 			table.animateSmoothly = true;
 			table.Reposition();
 		}
+	}
+
+	public void SpawnBubbleForCheat(string cheatMessage)
+	{
 
 	}
 	

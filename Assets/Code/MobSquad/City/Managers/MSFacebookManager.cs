@@ -12,7 +12,7 @@ public class MSFacebookManager : MonoBehaviour {
 
 	public Dictionary<string, Texture2D> loadedProfilePictures = new Dictionary<string, Texture2D>();
 	
-	public static bool hasTriedLogin = false;
+	public bool hasTriedLogin = false;
 	
 	public static bool isLoggedIn = false;
 	
@@ -20,11 +20,17 @@ public class MSFacebookManager : MonoBehaviour {
 	
 	const string COLLECT_FROM_BUILDING_DESCRIPTION_FRONT = "I just collected money from my ";
 	const string COLLECT_FROM_BUILDING_DESCRIPTION_BACK = "!";
+
+	public const string FB_KEY = "SAVE_KEY_FACEBOOK";
+
+	public bool hasFacebook = false;
 	
 	public void Awake()
 	{
 		instance = this;
 		DontDestroyOnLoad(gameObject);
+
+		hasFacebook = PlayerPrefs.GetInt(FB_KEY, 0) == 1;
 	}
 	
 	public void OnEnable()
