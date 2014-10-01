@@ -163,9 +163,23 @@ public class PZCombatUnit : MonoBehaviour {
 		hpBar.fill = ((float)monster.currHP) / monster.maxHP;
 		hpLabel.text = monster.currHP + "/" + monster.maxHP;
 
-		unitName.text = monster.monster.shorterName;
+		if(monster.monster.shorterName != null && monster.monster.shorterName.Length != 0)
+		{
+			unitName.text = monster.monster.shorterName;
+			Debug.Log("name set to [" + monster.monster.shorterName +"]");
+		}
+		else
+		{
+			//if there isn't a short version on hand we display the longer name
+			unitName.text = monster.monster.displayName;
+		}
+
 		unitLevelInfo.text = "L" + monster.level;
 		unitRarity.spriteName = "";
+
+		unitName.MarkAsChanged();
+		unitLevelInfo.MarkAsChanged();
+		unitRarity.MarkAsChanged();
 
 		if (monster.monster.quality != Quality.COMMON)
 		{
