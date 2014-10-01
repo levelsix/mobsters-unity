@@ -97,6 +97,8 @@ public class MSResourceCollector : MonoBehaviour {
 			return (int)_generator.productionRate/10;
 		}
 	}
+
+	const float FLOAT_ICON_MISSION_HEIGHT = 1.75f;
 	
     void Awake()
     {
@@ -212,6 +214,7 @@ public class MSResourceCollector : MonoBehaviour {
 			if (hasMoney)
 			{
 				_building.hoverIcon.gameObject.SetActive(true);
+				_building.hoverIcon.transform.localPosition = new Vector3(0, FLOAT_ICON_MISSION_HEIGHT);
 				if(canCollect){
 					_building.hoverIcon.spriteName = (_generator.resourceType == ResourceType.CASH) ? "cashready" : "oilready";
 				}else{

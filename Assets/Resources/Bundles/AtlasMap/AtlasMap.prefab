@@ -41,6 +41,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 6e77b3753c64d40b3835ec6c32c4e41a, type: 2}
   mSprites:
+  - name: acceptrequest
+    x: 1275
+    y: 931
+    width: 120
+    height: 57
+    borderLeft: 10
+    borderRight: 10
+    borderTop: 10
+    borderBottom: 10
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: activecityglow
     x: 51
     y: 27
@@ -53,6 +66,32 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
+    paddingBottom: 0
+  - name: chatblackbg
+    x: 452
+    y: 178
+    width: 2
+    height: 83
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 1
+    borderBottom: 1
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: closepopupx
+    x: 0
+    y: 6
+    width: 50
+    height: 51
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
     paddingBottom: 0
   - name: darkfeederevent
     x: 1522
@@ -81,7 +120,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: earthdailylab
-    x: 434
+    x: 443
     y: 161
     width: 2
     height: 100
@@ -107,8 +146,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: FatBoydark
-    x: 256
-    y: 262
+    x: 915
+    y: 624
     width: 177
     height: 179
     borderLeft: 0
@@ -120,8 +159,8 @@ MonoBehaviour:
     paddingTop: 21
     paddingBottom: 0
   - name: FatBoyearth
-    x: 256
-    y: 82
+    x: 737
+    y: 624
     width: 177
     height: 179
     borderLeft: 0
@@ -146,8 +185,8 @@ MonoBehaviour:
     paddingTop: 21
     paddingBottom: 0
   - name: FatBoylight
-    x: 737
-    y: 624
+    x: 256
+    y: 82
     width: 177
     height: 179
     borderLeft: 0
@@ -159,8 +198,8 @@ MonoBehaviour:
     paddingTop: 21
     paddingBottom: 0
   - name: FatBoywater
-    x: 915
-    y: 624
+    x: 256
+    y: 262
     width: 177
     height: 179
     borderLeft: 0
@@ -185,7 +224,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: firedailylab
-    x: 449
+    x: 440
     y: 161
     width: 2
     height: 100
@@ -211,7 +250,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: glowring
-    x: 1736
+    x: 1830
     y: 945
     width: 98
     height: 79
@@ -223,8 +262,73 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 1
     paddingBottom: 0
+  - name: GothamBlack
+    x: 0
+    y: 58
+    width: 255
+    height: 127
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: Gotham-Medium
+    x: 481
+    y: 193
+    width: 254
+    height: 127
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 2
+    paddingTop: 1
+    paddingBottom: 0
+  - name: GothamNarrow-Ultra
+    x: 481
+    y: 321
+    width: 254
+    height: 127
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 2
+    paddingTop: 1
+    paddingBottom: 0
+  - name: GothamNarrow-UltraItalic
+    x: 481
+    y: 669
+    width: 255
+    height: 254
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 2
+    paddingBottom: 0
+  - name: greysmallbutton
+    x: 1138
+    y: 928
+    width: 136
+    height: 60
+    borderLeft: 10
+    borderRight: 10
+    borderTop: 10
+    borderBottom: 10
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: lightdailylab
-    x: 446
+    x: 437
     y: 161
     width: 2
     height: 100
@@ -250,8 +354,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockedboss
-    x: 1835
-    y: 953
+    x: 975
+    y: 552
     width: 88
     height: 71
     borderLeft: 0
@@ -263,8 +367,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockedcity
-    x: 1924
-    y: 953
+    x: 737
+    y: 78
     width: 88
     height: 71
     borderLeft: 0
@@ -277,7 +381,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: lockedcitypin
     x: 434
-    y: 322
+    y: 382
     width: 42
     height: 59
     borderLeft: 0
@@ -289,7 +393,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockeddailylab
-    x: 443
+    x: 434
     y: 161
     width: 2
     height: 100
@@ -300,6 +404,32 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
+    paddingBottom: 0
+  - name: Map-Ziggurat-HTF-Black -Numeric-Large
+    x: 481
+    y: 449
+    width: 240
+    height: 219
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 16
+    paddingTop: 37
+    paddingBottom: 0
+  - name: Map-Ziggurat-HTF-Black-Numeric-Large
+    x: 737
+    y: 514
+    width: 237
+    height: 109
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 19
+    paddingTop: 19
     paddingBottom: 0
   - name: multiplayerheader
     x: 476
@@ -328,7 +458,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightdailylab
-    x: 440
+    x: 446
     y: 161
     width: 2
     height: 100
@@ -342,7 +472,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: opencitypin
     x: 434
-    y: 382
+    y: 322
     width: 42
     height: 59
     borderLeft: 0
@@ -406,8 +536,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: openrainbow
-    x: 975
-    y: 552
+    x: 1929
+    y: 953
     width: 88
     height: 71
     borderLeft: 0
@@ -420,7 +550,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: openwater
     x: 737
-    y: 88
+    y: 16
     width: 69
     height: 61
     borderLeft: 0
@@ -432,8 +562,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: profilecircle
-    x: 737
-    y: 28
+    x: 971
+    y: 272
     width: 59
     height: 59
     borderLeft: 0
@@ -498,7 +628,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: Scientistearth
     x: 854
-    y: 332
+    y: 150
     width: 116
     height: 181
     borderLeft: 0
@@ -510,7 +640,7 @@ MonoBehaviour:
     paddingTop: 19
     paddingBottom: 0
   - name: Scientistfire
-    x: 737
+    x: 854
     y: 332
     width: 116
     height: 181
@@ -523,8 +653,8 @@ MonoBehaviour:
     paddingTop: 19
     paddingBottom: 0
   - name: Scientistlight
-    x: 854
-    y: 150
+    x: 737
+    y: 332
     width: 116
     height: 181
     borderLeft: 0
@@ -548,8 +678,21 @@ MonoBehaviour:
     paddingRight: 33
     paddingTop: 19
     paddingBottom: 0
+  - name: singleplayerheader
+    x: 1138
+    y: 989
+    width: 276
+    height: 35
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: waterdailylab
-    x: 437
+    x: 449
     y: 161
     width: 2
     height: 100
@@ -574,77 +717,12 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 1
     paddingBottom: 0
-  - name: singleplayerheader
-    x: 1138
-    y: 989
-    width: 276
-    height: 35
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: closepopupx
-    x: 0
-    y: 6
-    width: 50
-    height: 51
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: acceptrequest
-    x: 1275
-    y: 931
-    width: 120
-    height: 57
-    borderLeft: 10
-    borderRight: 10
-    borderTop: 10
-    borderBottom: 10
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: greysmallbutton
-    x: 1138
-    y: 928
-    width: 136
-    height: 60
-    borderLeft: 10
-    borderRight: 10
-    borderTop: 10
-    borderBottom: 10
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: chatblackbg
-    x: 452
-    y: 178
-    width: 2
-    height: 83
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 1
-    borderBottom: 1
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
   - name: Ziggurat-HTF-Black
     x: 0
     y: 186
     width: 255
     height: 255
-    borderLeft: 0
+    borderLeft: -3
     borderRight: 0
     borderTop: 0
     borderBottom: 0
@@ -652,83 +730,31 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
-  - name: Gotham-Medium
-    x: 481
-    y: 193
-    width: 254
-    height: 127
+  - name: oilicon
+    x: 971
+    y: 207
+    width: 54
+    height: 64
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
-    paddingRight: 2
-    paddingTop: 1
+    paddingRight: 0
+    paddingTop: 0
     paddingBottom: 0
-  - name: GothamNarrow-Ultra
-    x: 481
-    y: 321
-    width: 254
-    height: 127
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 2
-    paddingTop: 1
-    paddingBottom: 0
-  - name: GothamNarrow-UltraItalic
-    x: 481
-    y: 669
-    width: 255
-    height: 254
+  - name: moneystack
+    x: 1736
+    y: 934
+    width: 93
+    height: 90
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 1
-    paddingTop: 2
-    paddingBottom: 0
-  - name: GothamBlack
-    x: 0
-    y: 58
-    width: 255
-    height: 127
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: Map-Ziggurat-HTF-Black -Numeric-Large
-    x: 481
-    y: 449
-    width: 240
-    height: 219
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 16
-    paddingTop: 37
-    paddingBottom: 0
-  - name: Map-Ziggurat-HTF-Black-Numeric-Large
-    x: 737
-    y: 514
-    width: 237
-    height: 109
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 19
-    paddingTop: 19
+    paddingTop: 0
     paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}

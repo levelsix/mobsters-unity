@@ -20,8 +20,8 @@ public class MSMapTaskButton : MonoBehaviour {
 	[SerializeField]
 	UILabel buttonLabel;
 
-	[SerializeField]
-	UILabel levelTitle;
+//	[SerializeField]
+//	UILabel levelTitle;
 
 	[SerializeField]
 	UISprite glowRing;
@@ -77,7 +77,7 @@ public class MSMapTaskButton : MonoBehaviour {
 				SetClosedSprite();
 				buttonLabel.gameObject.SetActive(false);
 			}
-			levelTitle.gameObject.SetActive(false);
+//			levelTitle.gameObject.SetActive(false);
 		}
 	}
 
@@ -89,7 +89,7 @@ public class MSMapTaskButton : MonoBehaviour {
 
 	void OnEnable(){
 //		halo.alpha = 0f;
-		levelTitle.gameObject.SetActive(false);
+//		levelTitle.gameObject.SetActive(false);
 		glowRing.gameObject.SetActive(false);
 		collider.enabled = false;
 		MSActionManager.Map.OnMapTaskClicked += Deselect;
@@ -168,8 +168,8 @@ public class MSMapTaskButton : MonoBehaviour {
 		bossSprite.depth = buttonLabel.depth + 1;
 
 		buttonLabel.text = task.mapElementId.ToString();
-		levelTitle.text = MSDataManager.instance.Get<FullTaskProto> (task.taskId).name;
-		levelTitle.depth = buttonLabel.depth;
+//		levelTitle.text = MSDataManager.instance.Get<FullTaskProto> (task.taskId).name;
+//		levelTitle.depth = buttonLabel.depth;
 	}
 
 	void Deselect(TaskMapElementProto mapTask, MSMapTaskButton.TaskStatusType status){
@@ -177,7 +177,7 @@ public class MSMapTaskButton : MonoBehaviour {
 		{
 //			halo.alpha = 0f;
 			glowRing.gameObject.SetActive(false);
-			levelTitle.gameObject.SetActive(false);
+//			levelTitle.gameObject.SetActive(false);
 			TweenScale.Begin(gameObject,0.5f, new Vector3(0.5f,0.5f,0.5f));
 		}
 	}
@@ -188,7 +188,7 @@ public class MSMapTaskButton : MonoBehaviour {
 //			halo.alpha = 1f;
 			glowRing.gameObject.SetActive(true);
 		}
-		levelTitle.gameObject.SetActive(true);
+//		levelTitle.gameObject.SetActive(true);
 
 		scaleTween.ResetToBeginning();
 		scaleTween.PlayForward();
