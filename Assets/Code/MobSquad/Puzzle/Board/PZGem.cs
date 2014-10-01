@@ -541,7 +541,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		}
 		if (!swapee.moving && !swapee.blocker.gameObject.activeSelf)
 		{
-			if (gemType == GemType.MOLOTOV)
+			if (gemType == GemType.MOLOTOV && swapee.canComboWithMoltov)
 			{
 				PZPuzzleManager.instance.DetonateMolotovFromSwap(this, swapee); //Takes care of all MOLOTOV-SPECIAL combos
 				yield break;
