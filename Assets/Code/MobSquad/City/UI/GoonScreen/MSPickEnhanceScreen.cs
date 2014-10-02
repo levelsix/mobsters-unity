@@ -25,6 +25,7 @@ public class MSPickEnhanceScreen : MSFunctionalScreen
 	public override bool IsAvailable ()
 	{
 		return MSBuildingManager.enhanceLabs.Count > 0
+			&& MSBuildingManager.enhanceLabs.Find(x=>x.combinedProto.structInfo.level > 0)
 			&& !MSMonsterManager.instance.isEnhancing;
 	}
 

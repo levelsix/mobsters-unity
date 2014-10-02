@@ -20,6 +20,9 @@ public class MSSellScreen : MSFunctionalScreen {
 	[SerializeField]
 	UILabel currValue;
 
+	[SerializeField]
+	MSLoadLock sellLock;
+
 	public List<MSGoonCard> currSells = new List<MSGoonCard>();
 	
 	public override bool IsAvailable()
@@ -30,6 +33,16 @@ public class MSSellScreen : MSFunctionalScreen {
 	void Awake()
 	{
 		instance = this;
+	}
+
+	void OnEnable()
+	{
+		MSActionManager.Goon.OnFinishSelling += UnlockAfterSellResponse;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Goon.OnFinishSelling -= UnlockAfterSellResponse;
 	}
 
 	public override void Init()
@@ -83,11 +96,23 @@ public class MSSellScreen : MSFunctionalScreen {
 		List<PZMonster> monsters = new List<PZMonster>();
 		foreach (var item in currSells) 
 		{
-			grid.PhaseOutCard(item);
 			monsters.Add(item.monster);
 		}
-		currSells.Clear();
+		sellLock.Lock();
+		MSMonsterManager.instance.SellRequest(monsters);
+	}
+
+	void UnlockAfterSellResponse()
+	{
+		List<PZMonster> monsters = new List<PZMonster>();
+		foreach (var item in currSells) 
+		{
+			monsters.Add(item.monster);
+			grid.PhaseOutCard(item);
+		}
 		MSMonsterManager.instance.SellMonsters(monsters);
+		currSells.Clear();
+		sellLock.Unlock();
 
 		emptyQueueRoot.FadeIn();
 		queueRoot.FadeOut();

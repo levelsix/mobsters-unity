@@ -2,6 +2,7 @@ using UnityEngine;
 using Serialization;
 using System.Collections;
 using System;
+using System.Globalization;
 using com.lvl6.proto;
 using System.Collections.Generic;
 using System.IO;
@@ -446,6 +447,21 @@ public static class MSUtil {
 	{
 		MSActionManager.Popup.CloseTopPopupLayer();
 		yield return null;
+	}
+	/// <summary>
+	/// turns "title case" to "Title Case"
+	/// </summary>
+	/// <param name="text">Text.</param>
+	public static string ToTitleCase(string text)
+	{
+		///Stole this code from:
+		/// http://stackoverflow.com/questions/913090/how-to-capitalize-the-first-character-of-each-word-or-the-first-character-of-a
+
+		// Creates a TextInfo based on the "en-US" culture.
+		TextInfo textInfo = new CultureInfo("en-US",false).TextInfo;
+		
+		// Changes a string to titlecase.
+		return textInfo.ToTitleCase( text ); 
 	}
 
 }

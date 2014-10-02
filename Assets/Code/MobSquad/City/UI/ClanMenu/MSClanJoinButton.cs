@@ -25,6 +25,9 @@ public class MSClanJoinButton : MonoBehaviour {
 	[SerializeField]
 	MSLoadLock loadLock;
 
+	[SerializeField]
+	MSPopup genericPopup;
+
 	const string greenButton = "greensmallbutton";
 	const string redButton = "redsmallbutton";
 
@@ -69,7 +72,7 @@ public class MSClanJoinButton : MonoBehaviour {
 
 	void SetLeave()
 	{
-		button.normalSprite = redButton;
+		button.normalSprite = greenButton;
 		label.text = leaveLabel;
 		mode = JoinButtonMode.LEAVE;
 	}
@@ -109,11 +112,32 @@ public class MSClanJoinButton : MonoBehaviour {
 			StartCoroutine(DoJoinOrRequest());
 			break;
 		case JoinButtonMode.LEAVE:
-			StartCoroutine(DoLeave());
+			ConfirmLeavePopup();
 			break;
 		default:
 			break;
 		}
+	}
+
+	void ConfirmLeavePopup()
+	{
+		genericPopup.GetComponent<MSGenericPopup>().Init(
+			"Leave?",
+			"Are you sure you would like to leave this squad?",
+			new string[] {"Cancle","Leave"},
+			new string[] {"greymenuoption","greenmenuoption"},
+			new Action[] {
+				genericPopup.Close,
+				delegate
+				{
+					StartCoroutine(DoLeave());
+					genericPopup.Close();
+				}
+			},
+			"green");
+		//end Init call
+
+		genericPopup.Popup();
 	}
 
 	IEnumerator DoLeave()

@@ -81,7 +81,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	public Transform puzzleParent;
 	
 	List<PZGem> movingGems = new List<PZGem>();
-	PZGem[] hintgems = new PZGem[3];
+	List<PZGem> hintgems = new List<PZGem>();
 
 	public List<PZGem> cakes = new List<PZGem>();
 
@@ -1004,6 +1004,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	bool CheckForMatchMoves(PZGem[,] board)
 	{
 		PZGem gem;
+		hintgems.Clear();
 		//Check horizontal possibilities
 		for (int i = 0; i < boardHeight; i++) 
 		{
@@ -1012,6 +1013,37 @@ public class PZPuzzleManager : MonoBehaviour {
 				gem = board[j, i];
 				if (gem.gemType == PZGem.GemType.MOLOTOV)
 				{
+					if(j + 1 < boardWidth && board[j+1, i].canComboWithMoltov)
+					{
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j+1,i]);
+					}
+					else if(j - 1 > 0 && board[j-1, i].canComboWithMoltov)
+					{
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j-1,i]);
+					}
+					else if(i + 1 < boardHeight && board[j,i+1].canComboWithMoltov)
+					{
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j,i+1]);
+					}
+					else if(i - 1 > 0 && board[j,i-1].canComboWithMoltov)
+					{
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j,i-1]);
+					}
+					//if we get this far there are no special gems around the moltov
+					else if(j + 1 < boardWidth)
+					{
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j+1,i]);
+					}
+					else
+					{
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j-1,i]);
+					}
 					return true;
 				}
 				if (gem.colorIndex < 0) continue;
@@ -1019,16 +1051,16 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+3,i].colorIndex)
 					{
-						hintgems[0] = board[j,i];
-						hintgems[1] = board[j+2,i];
-						hintgems[2] = board[j+3,i];
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j+2,i]);
+						hintgems.Add(board[j+3,i]);
 						return true;
 					}
 					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+3,i].colorIndex)
 					{
-						hintgems[0] = board[j,i];
-						hintgems[1] = board[j+1,i];
-						hintgems[2] = board[j+3,i];
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j+1,i]);
+						hintgems.Add(board[j+3,i]);
 						return true;
 					}
 				}
@@ -1036,23 +1068,23 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+2,i-1].colorIndex)
 					{
-						hintgems[0] = board[j,i];
-						hintgems[1] = board[j+1,i];
-						hintgems[2] = board[j+2,i-1];
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j+1,i]);
+						hintgems.Add(board[j+2,i-1]);
 						return true;
 					}
 					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+1,i-1].colorIndex)
 					{
-						hintgems[0] = board[j,i];
-						hintgems[1] = board[j+2,i];
-						hintgems[2] = board[j+1,i-1];
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j+2,i]);
+						hintgems.Add(board[j+1,i-1]);
 						return true;
 					}
 					if (gem.colorIndex == board[j+1,i-1].colorIndex && gem.colorIndex == board[j+2,i-1].colorIndex)
 					{
-						hintgems[0] = board[j,i];
-						hintgems[1] = board[j+1,i-1];
-						hintgems[2] = board[j+2,i-1];
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j+1,i-1]);
+						hintgems.Add(board[j+2,i-1]);
 						return true;
 					}
 				}
@@ -1060,23 +1092,23 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+2,i+1].colorIndex)
 					{
-						hintgems[0] = board[j,i];
-						hintgems[1] = board[j+1,i];
-						hintgems[2] = board[j+2,i+1];
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j+1,i]);
+						hintgems.Add(board[j+2,i+1]);
 						return true;
 					}
 					if (gem.colorIndex == board[j+2,i].colorIndex && gem.colorIndex == board[j+1,i+1].colorIndex)
 					{
-						hintgems[0] = board[j,i];
-						hintgems[1] = board[j+2,i];
-						hintgems[2] = board[j+1,i+1];
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j+2,i]);
+						hintgems.Add(board[j+1,i+1]);
 						return true;
 					}
 					if (gem.colorIndex == board[j+2,i+1].colorIndex && gem.colorIndex == board[j+1,i+1].colorIndex)
 					{
-						hintgems[0] = board[j,i];
-						hintgems[1] = board[j+2,i+1];
-						hintgems[2] = board[j+1,i+1];
+						hintgems.Add(board[j,i]);
+						hintgems.Add(board[j+2,i+1]);
+						hintgems.Add(board[j+1,i+1]);
 						return true;
 					}
 				}
@@ -1094,16 +1126,16 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i, j+3].colorIndex)
 					{
-						hintgems[0] = board[i,j];
-						hintgems[1] = board[i,j+2];
-						hintgems[2] = board[i,j+3];
+						hintgems.Add(board[i,j]);
+						hintgems.Add(board[i,j+2]);
+						hintgems.Add(board[i,j+3]);
 						return true;
 					}
 					if (gem.colorIndex == board[i, j+1].colorIndex && gem.colorIndex == board[i, j+3].colorIndex)
 					{
-						hintgems[0] = board[i,j];
-						hintgems[1] = board[i,j+1];
-						hintgems[2] = board[i,j+3];
+						hintgems.Add(board[i,j]);
+						hintgems.Add(board[i,j+1]);
+						hintgems.Add(board[i,j+3]);
 						return true;
 					}
 				}
@@ -1111,23 +1143,23 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[i,j+1].colorIndex && gem.colorIndex == board[i-1,j+2].colorIndex)
 					{
-						hintgems[0] = board[i,j];
-						hintgems[1] = board[i,j+1];
-						hintgems[2] = board[i-1,j+2];
+						hintgems.Add(board[i,j]);
+						hintgems.Add(board[i,j+1]);
+						hintgems.Add(board[i-1,j+2]);
 						return true;
 					}
 					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i-1,j+1].colorIndex)
 					{
-						hintgems[0] = board[i,j];
-						hintgems[1] = board[i,j+2];
-						hintgems[2] = board[i-1,j+1];
+						hintgems.Add(board[i,j]);
+						hintgems.Add(board[i,j+2]);
+						hintgems.Add(board[i-1,j+1]);
 						return true;
 					}
 					if (gem.colorIndex == board[i-1, j+1].colorIndex && gem.colorIndex == board[i-1, j+2].colorIndex)
 					{
-						hintgems[0] = board[i,j];
-						hintgems[1] = board[i-1,j+1];
-						hintgems[2] = board[i-1,j+2];
+						hintgems.Add(board[i,j]);
+						hintgems.Add(board[i-1,j+1]);
+						hintgems.Add(board[i-1,j+2]);
 						return true;
 					}
 				}
@@ -1135,23 +1167,23 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					if (gem.colorIndex == board[i,j+1].colorIndex && gem.colorIndex == board[i+1,j+2].colorIndex)
 					{
-						hintgems[0] = board[i,j];
-						hintgems[1] = board[i,j+1];
-						hintgems[2] = board[i+1,j+2];
+						hintgems.Add(board[i,j]);
+						hintgems.Add(board[i,j+1]);
+						hintgems.Add(board[i+1,j+2]);
 						return true;
 					}
 					if (gem.colorIndex == board[i,j+2].colorIndex && gem.colorIndex == board[i+1,j+1].colorIndex)
 					{
-						hintgems[0] = board[i,j];
-						hintgems[1] = board[i,j+2];
-						hintgems[2] = board[i+1,j+1];
+						hintgems.Add(board[i,j]);
+						hintgems.Add(board[i,j+2]);
+						hintgems.Add(board[i+1,j+1]);
 						return true;
 					}
 					if (gem.colorIndex == board[i+1,j+1].colorIndex && gem.colorIndex == board[i+1,j+2].colorIndex)
 					{
-						hintgems[0] = board[i,j];
-						hintgems[1] = board[i+1,j+1];
-						hintgems[2] = board[i+1,j+2];
+						hintgems.Add(board[i,j]);
+						hintgems.Add(board[i+1,j+1]);
+						hintgems.Add(board[i+1,j+2]);
 						return true;
 					}
 				}
@@ -1239,9 +1271,17 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		showGemHints = false;
 		_gemHints = true;
-		for(int i  = 0; i < hintgems.Length; i++)
+		hintgems.Clear();
+		foreach(Vector2 gemPos in gems)
 		{
-			hintgems[i] = board[(int)gems[i].x, (int)gems[i].y];
+			if(gemPos.x > boardWidth || gemPos.x < 0 || gemPos.y > boardHeight || gemPos.y < 0)
+			{
+				Debug.LogError("invalid gem position was given in CustomHintGems. Position: ["+gemPos.x+","+gemPos.y+"].");
+			}
+			else
+			{
+				hintgems.Add(board[(int)gemPos.x, (int)gemPos.y]);
+			}
 		}
 		StartCoroutine(hintCycle);
 	}

@@ -186,7 +186,8 @@ public class MSTaskBar : MonoBehaviour {
 				{
 					AddButton(MSTaskButton.Mode.TEAM);
 				}
-				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.LAB)
+				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.LAB
+				         && currBuilding.combinedProto.structInfo.level > 0)
 				{
 					AddButton(MSTaskButton.Mode.ENHANCE);
 				}

@@ -140,7 +140,10 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 
 	public void ResetRoleLabel()
 	{	
-		leaderLabel.text = clanMember.clanStatus.ToString();
+		string temp = clanMember.clanStatus.ToString();
+		temp = temp.ToLower().Replace('_', ' ');
+		temp = MSUtil.ToTitleCase(temp);
+		leaderLabel.text = temp;
 	}
 
 	public void OpenSettings()

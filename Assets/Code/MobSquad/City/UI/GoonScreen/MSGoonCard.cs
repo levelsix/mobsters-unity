@@ -195,7 +195,7 @@ public class MSGoonCard : MonoBehaviour {
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += CheckRemovedMonster;
 		MSActionManager.Goon.OnEnhanceQueueChanged += OnEnhancementQueueChanged;
 		MSActionManager.Goon.OnMonsterFinishHeal += OnMonsterFinishHeal;
-		MSActionManager.Goon.OnFinnishFeeding += OnMonsterFinishFeed;
+		MSActionManager.Goon.OnFinishFeeding += OnMonsterFinishFeed;
 	}
 
 	void OnDisable()
@@ -203,7 +203,7 @@ public class MSGoonCard : MonoBehaviour {
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory -= CheckRemovedMonster;
 		MSActionManager.Goon.OnEnhanceQueueChanged -= OnEnhancementQueueChanged;
 		MSActionManager.Goon.OnMonsterFinishHeal -= OnMonsterFinishHeal;
-		MSActionManager.Goon.OnFinnishFeeding -= OnMonsterFinishFeed;
+		MSActionManager.Goon.OnFinishFeeding -= OnMonsterFinishFeed;
 	}
 
 	public void Init(PZMonster goon, GoonScreenMode mode)

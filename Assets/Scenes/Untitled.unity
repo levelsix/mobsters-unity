@@ -90,7 +90,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &505516209
 Transform:
   m_ObjectHideFlags: 0
@@ -133,8 +133,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1024
-  mHeight: 600
+  mWidth: 1020
+  mHeight: 602
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 1359026101}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00333333341, y: .00333333341, z: .00333333341}
+  m_LocalScale: {x: .00332225906, y: .00332225906, z: .00332225906}
   m_Children:
   - {fileID: 1530776126}
   - {fileID: 505516209}
@@ -342,7 +342,7 @@ Camera:
   far clip plane: 10
   field of view: 60
   orthographic: 1
-  orthographic size: 1.50999999
+  orthographic size: 1
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -361,7 +361,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1530776122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1359026102}
@@ -376,7 +376,8 @@ GameObject:
   - 4: {fileID: 1714632119}
   - 212: {fileID: 1714632118}
   - 95: {fileID: 1714632117}
-  m_Layer: 5
+  - 114: {fileID: 1714632120}
+  m_Layer: 0
   m_Name: Gangster3T1AttackF00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +393,7 @@ Animator:
   m_GameObject: {fileID: 1714632116}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fb90ba3829c574e2db899e2d4531edc7, type: 2}
+  m_Controller: {fileID: 9100000, guid: cbbeb98bfa552450c8a03e589ac90490, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -431,3 +432,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1714632120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1714632116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 961e738f1422842c8a0d65116f3995d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

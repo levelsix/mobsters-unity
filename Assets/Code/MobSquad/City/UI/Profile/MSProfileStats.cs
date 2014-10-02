@@ -42,6 +42,14 @@ public class MSProfileStats: MonoBehaviour {
 
 	#endregion
 
+	void Awake()
+	{
+		UIButton button = clanName.GetComponent<UIButton>();
+		button.hover = clanTextColor;
+		button.defaultColor = clanTextColor;
+		button.pressed = new Color(clanTextColor.r, clanTextColor.g - 0.2f, clanTextColor.b);
+	}
+
 	public void Init(FullUserProto user)
 	{
 		PvpLeagueProto pvpLeague = MSDataManager.instance.Get<PvpLeagueProto>(user.pvpLeagueInfo.leagueId);
@@ -73,6 +81,7 @@ public class MSProfileStats: MonoBehaviour {
 			MSSpriteUtil.instance.SetSprite("clanicon", "clanicon" + user.clan.clanIconId, clanLogo); 
 			clanName.text = user.clan.name;
 			clanName.color = clanTextColor;
+			clanName.GetComponent<UIButton>().enabled = true;
 		}
 		else
 		{
@@ -80,6 +89,7 @@ public class MSProfileStats: MonoBehaviour {
 			clanLogo.alpha = 0;
 			clanName.text = "No Clan";
 			clanName.color = Color.black;
+			clanName.GetComponent<UIButton>().enabled = false;
 		}
 
 		levelLabel.text = user.level.ToString();

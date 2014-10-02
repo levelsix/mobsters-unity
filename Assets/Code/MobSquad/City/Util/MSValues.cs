@@ -12,6 +12,8 @@ public static class MSValues
 {
 	public static float version = 1.0f;
 
+	public static string monsterName = "toon";
+
 	public static class Layers
 	{
 		public static int DEFAULT = 0;

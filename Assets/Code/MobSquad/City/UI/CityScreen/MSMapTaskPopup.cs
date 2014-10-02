@@ -5,11 +5,15 @@ using System;
 using com.lvl6.proto;
 
 public class MSMapTaskPopup : MonoBehaviour {
+
 	[SerializeField]
 	UILabel level;
 
 	[SerializeField]
-	UILabel status;
+	UILabel cashLabel;
+
+	[SerializeField]
+	UILabel oilLabel;
 
 	[SerializeField]
 	UILabel levelTitle;
@@ -18,16 +22,7 @@ public class MSMapTaskPopup : MonoBehaviour {
 	UIButton button;
 
 	[SerializeField]
-	UILabel statusLabel;
-
-	[SerializeField]
 	UISprite background;
-
-	[SerializeField]
-	UISprite eventIcon;
-
-	[SerializeField]
-	UISprite eventIconB;
 
 	FullTaskProto task;
 
@@ -55,6 +50,18 @@ public class MSMapTaskPopup : MonoBehaviour {
 	[SerializeField]
 	UISprite pvpBg;
 
+	[SerializeField]
+	UILabel eventStatus;
+
+	[SerializeField]
+	UILabel statusLabel;
+
+	[SerializeField]
+	UISprite eventIcon;
+	
+	[SerializeField]
+	UISprite eventIconB;
+
 	void Awake()
 	{
 		trans = transform;
@@ -72,21 +79,26 @@ public class MSMapTaskPopup : MonoBehaviour {
 		levelTitle.text = task.name;
 		level.text = "Level " + mapTask.mapElementId;
 
+		cashLabel.text = mapTask.cashReward.ToString();
+		oilLabel.text = mapTask.oilReward.ToString();
+		cashLabel.MarkAsChanged();
+		oilLabel.MarkAsChanged();
+
 		button.enabled = true;
 
 		if (statusType == MSMapTaskButton.TaskStatusType.Completed)
 		{
 			button.normalSprite = ACCEPT_BUTTON;
-			status.text = "Completed";
+//			status.text = "Completed";
 		} 
 		else if(statusType == MSMapTaskButton.TaskStatusType.Undefeated)
 		{
 			button.normalSprite = ACCEPT_BUTTON;
-			status.text = "Undefeated";
+//			status.text = "Undefeated";
 		}
 		else 
 		{
-			status.text = "Locked";
+//			status.text = "Locked";
 			background.spriteName = LOCKED_BACKGROUND;
 			button.normalSprite = CANCEL_BUTTON;
 			button.GetComponent<MSTaskable> ().locked = true;
@@ -100,7 +112,7 @@ public class MSMapTaskPopup : MonoBehaviour {
 		float minutes = pEvent.startHour * 60 + pEvent.eventDurationMinutes - DateTime.Now.Hour * 60 + DateTime.Now.Minute;
 		float hours = Mathf.Floor(minutes / 60);
 		minutes -= Mathf.Floor(hours * 60);
-		status.text = hours + "H " + minutes + "M";
+		eventStatus.text = hours + "H " + minutes + "M";
 
 		levelTitle.text = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId).name;
 
