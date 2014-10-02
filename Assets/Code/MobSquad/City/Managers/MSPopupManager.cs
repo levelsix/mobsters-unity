@@ -74,6 +74,14 @@ public class MSPopupManager : MonoBehaviour {
 			return _currPops[_currPops.Count-1];
 		}
 	}
+
+	public int topLayer
+	{
+		get
+		{
+			return _currPops.Count;
+		}
+	}
 	
 	/// <summary>
 	/// Awake this instance.
@@ -188,6 +196,10 @@ public class MSPopupManager : MonoBehaviour {
 			MSPopup closing = top;
 			_currPops.RemoveAt(_currPops.Count-1);
 			closing.Close(false);
+			if (MSActionManager.Popup.OnPopupLayerClosed != null)
+			{
+				MSActionManager.Popup.OnPopupLayerClosed(_currPops.Count+1); //Needs to send int for layer that *was* closed
+			}
 		}
 	}
 	

@@ -142,7 +142,7 @@ public class PZTurnDisplay : MonoBehaviour
 	void AddIcon(int turnsFromNow)
 	{
 		PZTurnIcon icon = MSPoolManager.instance.Get<PZTurnIcon>(iconPrefab, turnGrid.transform);
-		icon.transform.localScale = Vector3.one;
+		icon.transform.localScale = new Vector3(-1, 1, 1);
 		icon.transform.localPosition = newIconPosition;
 		icon.Init(PZCombatScheduler.instance.GetNthMove(turnsFromNow) == CombatTurn.ENEMY);
 		icon.name = turnsFromNow.ToString();

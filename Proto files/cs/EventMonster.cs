@@ -549,6 +549,33 @@ namespace com.lvl6.proto
       get { return _nuTaskStageId; }
       set { _nuTaskStageId = value; }
     }
+
+    private long _droplessTsfuId = default(long);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"droplessTsfuId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long droplessTsfuId
+    {
+      get { return _droplessTsfuId; }
+      set { _droplessTsfuId = value; }
+    }
+
+    private bool _changeNuPvpDmgMultiplier = default(bool);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"changeNuPvpDmgMultiplier", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool changeNuPvpDmgMultiplier
+    {
+      get { return _changeNuPvpDmgMultiplier; }
+      set { _changeNuPvpDmgMultiplier = value; }
+    }
+
+    private float _nuPvpDmgMultiplier = default(float);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"nuPvpDmgMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float nuPvpDmgMultiplier
+    {
+      get { return _nuPvpDmgMultiplier; }
+      set { _nuPvpDmgMultiplier = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

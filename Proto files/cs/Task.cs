@@ -190,6 +190,15 @@ namespace com.lvl6.proto
     public TaskStageMonsterProto() {}
     
 
+    private long _tsfuId = default(long);
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"tsfuId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long tsfuId
+    {
+      get { return _tsfuId; }
+      set { _tsfuId = value; }
+    }
+
     private int _tsmId = default(int);
     [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"tsmId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -567,6 +576,15 @@ namespace com.lvl6.proto
     {
       get { return _oilReward; }
       set { _oilReward = value; }
+    }
+
+    private string _characterImgName = "";
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"characterImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string characterImgName
+    {
+      get { return _characterImgName; }
+      set { _characterImgName = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

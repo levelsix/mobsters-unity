@@ -72,6 +72,10 @@ public class MSSceneManager : MonoBehaviour {
 	
 	void OnPuzzle()
 	{
+		if (loadingState)
+		{
+			StartCoroutine(FadeFromLoading(true));
+		}
 		if (cityState)
 		{
 			StartCoroutine(FadeToPuzzle());
@@ -101,12 +105,12 @@ public class MSSceneManager : MonoBehaviour {
 		}
 	}
 
-	IEnumerator FadeFromLoading()
+	IEnumerator FadeFromLoading(bool puzzle = false)
 	{
 		loadingState = false;
 		cityParent.SetActive(true);
-		gameUIParent.SetActive(true);
-		puzzleParent.SetActive(false);
+		gameUIParent.SetActive(!puzzle);
+		puzzleParent.SetActive(puzzle);
 		yield return StartCoroutine(Fade (loadingPanel, false));
 		loadingParent.SetActive(false);
 	}

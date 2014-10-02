@@ -69,7 +69,7 @@ public class PZMatchParticle : MonoBehaviour {
 			trans.localPosition = Vector3.Lerp(midPos, dest, (curr-lerpTime)/(totalTime-lerpTime));
 			yield return null;
 		}
-		yield return new WaitForSeconds(.15f);
+		yield return new WaitForSeconds(GetComponent<TrailRenderer>().time);
 		pool.Pool();
 	}
 }

@@ -23,7 +23,7 @@ public class MSObstacle : MonoBehaviour {
 	{
 		get
 		{
-			return MSMath.GemsForTime(endTime - MSUtil.timeNowMillis);
+			return MSMath.GemsForTime(endTime - MSUtil.timeNowMillis, false);
 		}
 	}
 

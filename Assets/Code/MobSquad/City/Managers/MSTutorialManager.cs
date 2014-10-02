@@ -427,6 +427,7 @@ public class MSTutorialManager : MonoBehaviour
 
 		MSTownCamera.instance.SlideToPos(pierCameraPos, TutorialValues.cameraSize, TutorialValues.panToBoatTime);
 
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.boatScene);
 		yield return StartCoroutine (MoveBoat(TutorialValues.boatStartPos, TutorialValues.boatDockPos));
 
 		enemyOneUnit.cityUnit.TutorialPath(enemyOneEnterPath);

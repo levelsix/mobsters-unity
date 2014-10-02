@@ -671,6 +671,15 @@ namespace com.lvl6.proto
       set { _minutesPerGem = value; }
     }
 
+    private float _gemsPerResource = default(float);
+    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"gemsPerResource", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float gemsPerResource
+    {
+      get { return _gemsPerResource; }
+      set { _gemsPerResource = value; }
+    }
+
     private int _pvpRequiredMinLvl = default(int);
     [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"pvpRequiredMinLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -680,13 +689,13 @@ namespace com.lvl6.proto
       set { _pvpRequiredMinLvl = value; }
     }
 
-    private float _gemsPerResource = default(float);
-    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"gemsPerResource", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    private float _monsterDmgMultiplier = default(float);
+    [global::ProtoBuf.ProtoMember(31, IsRequired = false, Name=@"monsterDmgMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
-    public float gemsPerResource
+    public float monsterDmgMultiplier
     {
-      get { return _gemsPerResource; }
-      set { _gemsPerResource = value; }
+      get { return _monsterDmgMultiplier; }
+      set { _monsterDmgMultiplier = value; }
     }
 
     private float _continueBattleGemCostMultiplier = default(float);

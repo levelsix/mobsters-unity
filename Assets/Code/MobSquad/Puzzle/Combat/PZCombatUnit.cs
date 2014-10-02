@@ -288,6 +288,7 @@ public class PZCombatUnit : MonoBehaviour {
 		float currFrame = 0;
 		while (currFrame < frames)
 		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.damageClick);
 			currFrame++;
 			hpBar.fill = Mathf.Lerp(hpBeforeDamage/maxHP, hpAfterDamage/maxHP, currFrame/frames);
 			hpLabel.text = ((int)Mathf.Lerp(hpBeforeDamage, hpAfterDamage, currFrame/frames)) + "/" + maxHP;
@@ -322,6 +323,8 @@ public class PZCombatUnit : MonoBehaviour {
 	
 	public IEnumerator Die(bool callOnDeath = true)
 	{
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.characterDie);
+
 		//Debug.Log("Lock");
 		PZPuzzleManager.instance.swapLock += 1;
 		

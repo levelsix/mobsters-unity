@@ -743,6 +743,15 @@ namespace com.lvl6.proto
       get { return _shieldEndTime; }
       set { _shieldEndTime = value; }
     }
+
+    private float _monsterDmgMultiplier = default(float);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"monsterDmgMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float monsterDmgMultiplier
+    {
+      get { return _monsterDmgMultiplier; }
+      set { _monsterDmgMultiplier = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

@@ -443,6 +443,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		switch (gemType) {
 		case GemType.ROCKET:
 			Debug.LogWarning("Detonating Rocket: " + boardX + ", " + boardY);
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.rocket);
 			PZPuzzleManager.instance.DetonateRocket(this);
 			break;
 		case GemType.MOLOTOV:
@@ -572,6 +573,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			}
 			else
 			{
+				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.gemSwap);
 				swapee.StartCoroutine(swapee.Swap(MSValues.opp[dir]));
 				StartCoroutine(Swap(dir));
 				//Debug.Log("Swapping: " + ToString() + " with " + swapee.ToString());

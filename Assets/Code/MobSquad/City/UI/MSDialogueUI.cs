@@ -72,6 +72,7 @@ public class MSDialogueUI : MonoBehaviour {
 
 	IEnumerator BringInDialogue(string mobsterName, string dialogue)
 	{
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.dialogueBox);
 		dialogueLabel.text = dialogue;
 		mobsterNameLabel.text = mobsterName;
 

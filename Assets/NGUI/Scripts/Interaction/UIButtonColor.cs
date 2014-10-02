@@ -180,8 +180,10 @@ public class UIButtonColor : UIWidgetContainer
 	{
 		if (isEnabled)
 		{
+			/*
 			if (!mInitDone) OnInit();
 			if (tweenTarget != null) SetState(isOver ? State.Hover : State.Normal, false);
+			*/
 		}
 	}
 
@@ -201,7 +203,7 @@ public class UIButtonColor : UIWidgetContainer
 				{
 					SetState(State.Pressed, false);
 				}
-				else if (UICamera.currentTouch.current == gameObject)
+				/*else if (UICamera.currentTouch.current == gameObject)
 				{
 					if (UICamera.currentScheme == UICamera.ControlScheme.Controller)
 					{
@@ -212,7 +214,7 @@ public class UIButtonColor : UIWidgetContainer
 						SetState(State.Hover, false);
 					}
 					else SetState(State.Normal, false);
-				}
+				}*/
 				else SetState(State.Normal, false);
 			}
 		}

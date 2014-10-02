@@ -597,6 +597,15 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 		yield return MSBuildingManager.instance.StartCoroutine(MSSpriteUtil.instance.SetBuildingAnimator(this, structName));
 
+		if (obstacle == null)
+		{
+			sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset/25, -sprite.sprite.rect.size.y/100f);
+		}
+		else
+		{
+			sprite.transform.localPosition = new Vector3(0, -sprite.sprite.rect.size.y/100f);
+		}
+
 		sprite.color = Color.white;
 		baseColor = Color.white;
 		
@@ -699,6 +708,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	public void Drop()
 	{
 		_tempPos = trans.position;	
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingMove);
 	}
 
     /// <summary>
@@ -724,6 +734,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		}
 		MSActionManager.Town.PlaceBuilding -= Place;
 		Deselect();
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingDrop);
     }
 
 	IEnumerator WaitUntilPurchased()
@@ -747,6 +758,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		if (!MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 		{
 			MSActionManager.Popup.DisplayRedError("You can't build a building there, silly!");
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingCantPlace);
 			return;
 		}
 
@@ -841,8 +853,10 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		{
 			collector.Collect();
 		}
-		else if (!selected)
+		else //if (!selected)
 		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingSelect);
+
 			tweenScale.ResetToBeginning();
 			tweenScale.PlayForward();
 

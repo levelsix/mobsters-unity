@@ -226,7 +226,7 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	public IEnumerator SetBuildingAnimator(MSBuilding building, string structName)
 	{
-		yield return StartCoroutine(SetAnimator(MSUtil.StripExtensions(structName), building.sprite.GetComponent<Animator>()));
+		yield return StartCoroutine(SetAnimator(MSUtil.StripExtensions(structName), building.sprite.GetComponent<Animator>(), "Controller"));
 	}
 
 	public IEnumerator SetAnimator(string baseName, Animator animator, string controllerSuffix = "")
@@ -235,6 +235,11 @@ public class MSSpriteUtil : MonoBehaviour {
 		{
 			string path = "Bundles/" + baseName + "/" + baseName + controllerSuffix;
 			animator.runtimeAnimatorController = (Resources.Load(path)) as RuntimeAnimatorController;
+			if (animator.runtimeAnimatorController == null)
+			{
+				Debug.LogWarning("Problem getting animator for path: " + path);
+			}
+			animator.GetComponent<SpriteRenderer>().color = Color.white;
 		}
 		else
 		{

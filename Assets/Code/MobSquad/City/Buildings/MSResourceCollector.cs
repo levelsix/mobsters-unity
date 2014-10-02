@@ -149,6 +149,15 @@ public class MSResourceCollector : MonoBehaviour {
 	{
 		if (hasMoney && MSResourceManager.resources[_generator.resourceType] < MSResourceManager.maxes[(int)_generator.resourceType - 1])
 		{
+			if (_generator.resourceType == ResourceType.CASH)
+			{
+				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.collectCash);
+			}
+			else
+			{
+				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.collectOil);
+			}
+
 			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructId);
 			if (MSActionManager.Quest.OnMoneyCollected != null)
 			{
@@ -163,7 +172,6 @@ public class MSResourceCollector : MonoBehaviour {
 				}else{
 					label.setFontOil();
 				}
-
 			}
 
 			_building.userStructProto.lastRetrieved = MSUtil.timeNowMillis;

@@ -103,10 +103,15 @@ public class MSTaskMap : MonoBehaviour {
 	}
 
 	void OnEnable(){
+		StartCoroutine(SetupTasks());
+	}
+
+	IEnumerator SetupTasks(){
 		nextTask = null;
 
 		IDictionary tasks = MSDataManager.instance.GetAll<TaskMapElementProto> ();
-				
+		
+		yield return null;
 		FullTaskProto taskProto;
 		foreach (TaskMapElementProto task in tasks.Values){
 			taskProto = MSDataManager.instance.Get<FullTaskProto>(task.taskId);

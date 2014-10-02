@@ -42,6 +42,7 @@ public class PZComboCounter : MonoBehaviour {
 
 			if(combo == COMBO_FIRE)
 			{
+				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.comboFire);
 				flames.Play();
 			}
 		}

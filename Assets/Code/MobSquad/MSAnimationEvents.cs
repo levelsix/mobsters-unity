@@ -17,8 +17,10 @@ public class MSAnimationEvents : MonoBehaviour {
 
 	bool _waitOnEnemyAttack = false;
 
-	public int totalAttacks{
-		set{
+	public int totalAttacks
+	{
+		set
+		{
 			_totalAttacks = value;
 			_additionalAttacks = value - 1;
 			_consecutiveAttacks = 0;
@@ -34,7 +36,8 @@ public class MSAnimationEvents : MonoBehaviour {
 		_combatManager = PZCombatManager.instance;
 	}
 
-	public void shotFired(){
+	public void shotFired()
+	{
 		//if _totalAttack is == 0 then this is an NPC and not the player
 		if (_totalAttacks > 0) {
 			//this stop coroutine line probably doesn't do anything.  90% sure.
@@ -47,7 +50,8 @@ public class MSAnimationEvents : MonoBehaviour {
 		}
 	}
 
-	public void endOfAttack(float startTime){
+	public void endOfAttack(float startTime)
+	{
 		//if _totalAttack is == 0 then this is an NPC and not the player
 		if (_totalAttacks > 0) {
 			if (_additionalAttacks > 0) {

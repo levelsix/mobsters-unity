@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,6 +227,7 @@ GameObject:
   - 114: {fileID: 11400042}
   - 54: {fileID: 5400002}
   - 114: {fileID: 11400040}
+  - 114: {fileID: 11400526}
   m_Layer: 5
   m_Name: MobsterGridPanel
   m_TagString: Untagged
@@ -890,6 +891,7 @@ GameObject:
   - 114: {fileID: 11400160}
   - 54: {fileID: 5400006}
   - 114: {fileID: 11400162}
+  - 114: {fileID: 11400522}
   m_Layer: 5
   m_Name: MobsterGridPanel
   m_TagString: Untagged
@@ -990,6 +992,7 @@ GameObject:
   - 114: {fileID: 11400176}
   - 54: {fileID: 5400008}
   - 114: {fileID: 11400174}
+  - 114: {fileID: 11400520}
   m_Layer: 5
   m_Name: MobsterGridPanel
   m_TagString: Untagged
@@ -1368,6 +1371,7 @@ GameObject:
   - 114: {fileID: 11400238}
   - 54: {fileID: 5400010}
   - 114: {fileID: 11400236}
+  - 114: {fileID: 11400530}
   m_Layer: 5
   m_Name: MobsterGridPanel
   m_TagString: Untagged
@@ -1838,6 +1842,7 @@ GameObject:
   - 54: {fileID: 5400012}
   - 114: {fileID: 11400294}
   - 114: {fileID: 11400378}
+  - 114: {fileID: 11400524}
   m_Layer: 5
   m_Name: MobsterGridPanel
   m_TagString: Untagged
@@ -2213,6 +2218,7 @@ GameObject:
   - 114: {fileID: 11400366}
   - 54: {fileID: 5400016}
   - 114: {fileID: 11400364}
+  - 114: {fileID: 11400528}
   m_Layer: 5
   m_Name: MobsterGridPanel
   m_TagString: Untagged
@@ -16709,6 +16715,72 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
+--- !u!114 &11400520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72edbbb404e45c8b817c7973760a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400522
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72edbbb404e45c8b817c7973760a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72edbbb404e45c8b817c7973760a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400526
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72edbbb404e45c8b817c7973760a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72edbbb404e45c8b817c7973760a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72edbbb404e45c8b817c7973760a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11400614
 MonoBehaviour:
   m_ObjectHideFlags: 1

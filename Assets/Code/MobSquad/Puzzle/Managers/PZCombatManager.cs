@@ -370,6 +370,7 @@ public class PZCombatManager : MonoBehaviour {
 		
 		boardMove.Sample(0,false);
 		boardMove.PlayForward();
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.boardSlideIn);
 		
 		pvpUI.Reset();
 		pvpMode = false;
@@ -447,6 +448,7 @@ public class PZCombatManager : MonoBehaviour {
 		
 		boardMove.Sample(0,false);
 		boardMove.PlayForward();
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.boardSlideIn);
 		
 		pvpUI.Reset();
 
@@ -549,6 +551,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		boardMove.Sample(0,false);
 		boardMove.PlayForward();
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.boardSlideIn);
 		
 		pvpUI.Reset();
 		pvpMode = false;
@@ -684,7 +687,6 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void StartPvp()
 	{
-
 		StartCoroutine(SendBeginPvpRequest());
 
 		//StartCoroutine(RetreatPvpsForBattle());
@@ -711,6 +713,7 @@ public class PZCombatManager : MonoBehaviour {
 		boardMove.Sample(0, false);
 		boardMove.delay = 1f;
 		boardMove.PlayForward();
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.boardSlideIn);
 		boardMove.delay = 0f;
 
 		boardTint.Sample(1, false);
@@ -1360,6 +1363,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			attackWords.MakeItRain();
 			attackWords.GetComponent<PZRainbow>().Play();
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.makeItRain);
 		}
 		else
 		{
@@ -1708,8 +1712,6 @@ public class PZCombatManager : MonoBehaviour {
 		
 		MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, activeEnemy.unit.transf.position);
 
-		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
-		
 		while (activeEnemy.unit.transf.localPosition.x < enemyPos.x + recoilDistance )//* (totalShots+1))
 		{
 			activeEnemy.unit.transf.localPosition += Time.deltaTime * recoilDistance / recoilTime * -background.direction;

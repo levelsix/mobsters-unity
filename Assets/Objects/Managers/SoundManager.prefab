@@ -227,6 +227,10 @@ MonoBehaviour:
   basicSource: {fileID: 8200000}
   loopSource: {fileID: 8200002}
   loopMusic: {fileID: 8200004}
+  battleMusic: {fileID: 8300000, guid: ead82b585f5434a51a1e9fa1a225723f, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: 9fe61132d7c344f04b5e5ca59194cf48, type: 3}
+  genericPopup: {fileID: 8300000, guid: b67adca1c10f946f6b8b3669334fd1e1, type: 3}
+  generalClick: {fileID: 8300000, guid: d1c873935c3394ac09d4a9ee1a7bb423, type: 3}
   combos:
   - {fileID: 8300000, guid: 2cd7de97975d24fd18dc0b62850e9c72, type: 3}
   - {fileID: 8300000, guid: 6f6fa42f1a3c24e57b853245207edbaf, type: 3}
@@ -240,16 +244,39 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4a0605c2e23694c189bd06d9188308db, type: 3}
   - {fileID: 8300000, guid: 12559b81e0afb4164bc4f45ba06c74af, type: 3}
   - {fileID: 8300000, guid: 231d18a1acd74425097d7f48ab175446, type: 3}
-  gemPop: {fileID: 8300000, guid: 048f195c12af244f18ee4a9c1210f308, type: 3}
-  pistol: {fileID: 8300000, guid: 2238e8984a73348be83b01869e5268ba, type: 3}
-  plane: {fileID: 8300000, guid: 6af8cbbd1eebb42fcb2ab3ddfe49ce83, type: 3}
-  rocket: {fileID: 8300000, guid: 80a38ef569955449d9dabe3662ffa127, type: 3}
-  walking: {fileID: 8300000, guid: 103f64d49057c45788d64badf605462d, type: 3}
+  gemSwap: {fileID: 8300000, guid: a5ebae0c3ec524821b3f2667cb1732f3, type: 3}
   wrongMove: {fileID: 8300000, guid: b382d6b0ae5534d629eb45460cbc999b, type: 3}
+  gemPop: {fileID: 8300000, guid: aa60932c7cd804de6aaf16341f1c1b40, type: 3}
+  rocket: {fileID: 8300000, guid: 80a38ef569955449d9dabe3662ffa127, type: 3}
+  comboFire: {fileID: 8300000, guid: b72e366f8460e49d1abff4bc5f27ce4a, type: 3}
+  pistol: {fileID: 8300000, guid: db8f8fd2b51ac41d0b7358a90b8ad14c, type: 3}
+  machineGun: {fileID: 8300000, guid: a1ad4d230827f41dfb524739e8cf3233, type: 3}
+  meleeHit: {fileID: 8300000, guid: 01ae843cdb73c423fba9235380786e59, type: 3}
+  damageClick: {fileID: 8300000, guid: 4dad02ac4de4743409c1f728cdbd8d5e, type: 3}
+  characterDie: {fileID: 8300000, guid: 37be106871a9e48ef89b1f5ea8322af8, type: 3}
+  makeItRain: {fileID: 8300000, guid: f7d74f7e5170c4c77a6f9c45425b9dac, type: 3}
+  plane: {fileID: 8300000, guid: 52ce5d5683dc54e7190000d2f6bc13e0, type: 3}
+  bombDrop: {fileID: 0}
+  walking: {fileID: 8300000, guid: 103f64d49057c45788d64badf605462d, type: 3}
+  boardSlideIn: {fileID: 8300000, guid: 8026d27ecd1014e28b0d7f4ad22df4e9, type: 3}
+  swapCharacterSlideIn: {fileID: 8300000, guid: 0f0cc84224b4948a1a959a775c44063d,
+    type: 3}
+  clickSwap: {fileID: 8300000, guid: 2a1d8d7fb9f764336a02d8b1ceadfdc3, type: 3}
   task_win: {fileID: 8300000, guid: 7545f9a315bd940fbaf551fe4606597c, type: 3}
   task_lose: {fileID: 8300000, guid: eda863ca093c8422f86b4b83e686ad63, type: 3}
-  battleMusic: {fileID: 8300000, guid: ead82b585f5434a51a1e9fa1a225723f, type: 3}
-  gameplayMusic: {fileID: 8300000, guid: 9fe61132d7c344f04b5e5ca59194cf48, type: 3}
+  buildingSelect: {fileID: 8300000, guid: db3b8b74a102d46f9a5bd62c0ed47490, type: 3}
+  buildingMove: {fileID: 8300000, guid: 36bb1836a818a423480766e6b436a5ae, type: 3}
+  buildingDrop: {fileID: 8300000, guid: 770fadfeee70247a798b2030ed7d550c, type: 3}
+  buildingComplete: {fileID: 8300000, guid: c0bbe5e6210da4c73a92450181da7251, type: 3}
+  buildingFinishNow: {fileID: 8300000, guid: ccfc73885f9cb4c849bc2a05978927a3, type: 3}
+  buildingCantPlace: {fileID: 8300000, guid: c96038747831f4005a5c4309d4ff2137, type: 3}
+  buildingCancel: {fileID: 8300000, guid: 900960ddffdae474c92bdd7024a52468, type: 3}
+  clickDeselect: {fileID: 8300000, guid: 4c5de5636105549c08dbe4873e42870b, type: 3}
+  collectCash: {fileID: 8300000, guid: 83326960975934ac6ae301a5582e3754, type: 3}
+  collectOil: {fileID: 8300000, guid: f7b9a968b5f544cfcaae1eea1112b052, type: 3}
+  jump: {fileID: 8300000, guid: db8f8fd2b51ac41d0b7358a90b8ad14c, type: 3}
+  dialogueBox: {fileID: 8300000, guid: 1aebdc144ae12477a9088a1828ecad2f, type: 3}
+  boatScene: {fileID: 8300000, guid: 2ac1dcab53f5848048260b4c1e020fd4, type: 3}
   playSounds: 0
   playMusic: 1
 --- !u!1001 &100100000

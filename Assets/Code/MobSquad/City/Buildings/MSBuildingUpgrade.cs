@@ -262,6 +262,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemsToFinish))
 		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingFinishNow);
 			SendPremiumFinishRequest();
 			MSBuildingManager.instance.currentUnderConstruction = null;
 			building.userStructProto.isComplete = true;
@@ -331,6 +332,8 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	/// </summary>
 	public virtual void FinishUpgrade()
 	{
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingComplete);
+
 		MSBuildingManager.instance.currentUnderConstruction = null;
 
 		building.userStructProto.isComplete = true;

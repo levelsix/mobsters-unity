@@ -69,7 +69,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			{
 				comboLabel.text = _combo.ToString();
 
-				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.combos[Mathf.Min(_combo,MSSoundManager.instance.combos.Length)-1]);
+				//MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.combos[Mathf.Min(_combo,MSSoundManager.instance.combos.Length)-1]);
 			}
 			else
 			{
@@ -664,16 +664,19 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 	}
 
-	void DestroyMatches (List<PZMatch> matchList)
+	bool DestroyMatches (List<PZMatch> matchList)
 	{
+		bool didDestroy = false;
 		//Process and destroy each match
 		foreach (PZMatch match in matchList)
 		{
 			if (match.gems.Count > 0)
 			{
 				match.Destroy();
+				didDestroy = true;
 			}
 		}
+		return didDestroy;
 	}
 
 	void IncrementCombo (List<PZMatch> matchList)
@@ -717,8 +720,11 @@ public class PZPuzzleManager : MonoBehaviour {
 		DetonateSpecialsInMatches (matchList);
 		
 		IncrementCombo (matchList);
-		
-		DestroyMatches (matchList);
+
+		if (DestroyMatches (matchList))
+		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.gemPop);
+		}
 	}
 	
 	/// <summary>

@@ -164,7 +164,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 249, y: 0, z: 0}
+  m_LocalPosition: {x: 1.00001526, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400014}
@@ -581,13 +581,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1140
+  mWidth: 1201
   mHeight: 704
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.61931813
+  aspectRatio: 1.70596588
   mAtlas: {fileID: 11400000, guid: 597d6c55e999c459b880e4e58ac2733d, type: 2}
   mSpriteName: 1splashbg
   mType: 1
@@ -639,7 +639,7 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 5.43181801
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
+  mTrueTypeFont: {fileID: 12800000, guid: 52de9300462594231a781eadb28fde93, type: 3}
   mFont: {fileID: 0}
   mText: 'Tip: Never let your carpenter go idle, always be building a bigger & better
     city!'
@@ -658,7 +658,7 @@ MonoBehaviour:
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
   mSpacingX: 0
-  mSpacingY: 0
+  mSpacingY: 5
   mShrinkToFit: 0
   mMaxLineWidth: 0
   mMaxLineHeight: 0
@@ -760,7 +760,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 110
+  mWidth: 94
   mHeight: 22
   mDepth: 4
   autoResizeBoxCollider: 0
@@ -768,7 +768,7 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 5
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
+  mTrueTypeFont: {fileID: 12800000, guid: e57d068ec7dbe45dbbdbcfa5f2f1d0d0, type: 3}
   mFont: {fileID: 0}
   mText: Loading...
   mFontSize: 22
@@ -877,7 +877,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5012
+  startingRenderQueue: 5018
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 0, w: 0}

@@ -10,20 +10,69 @@ public class MSSoundManager : MonoBehaviour {
 	[SerializeField] AudioSource loopSource;
 
 	[SerializeField] AudioSource loopMusic;
+	
+	public AudioClip battleMusic;
+	public AudioClip gameplayMusic;
+
+	public AudioClip genericPopup;
+
+	public AudioClip generalClick;
+
+	#region Puzzle Sfx
 
 	public AudioClip[] combos;
-	public AudioClip gemPop;
-	public AudioClip pistol;
-	public AudioClip plane;
-	public AudioClip rocket;
-	public AudioClip walking;
+
+	public AudioClip gemSwap;
 	public AudioClip wrongMove;
+
+	public AudioClip gemPop;
+	public AudioClip rocket;
+	public AudioClip comboFire;
+
+	public AudioClip pistol;
+	public AudioClip machineGun;
+	public AudioClip meleeHit;
+	public AudioClip damageClick;
+	public AudioClip characterDie;
+
+	public AudioClip makeItRain;
+	public AudioClip plane;
+	public AudioClip bombDrop;
+
+	public AudioClip walking;
+
+	public AudioClip boardSlideIn;
+	public AudioClip swapCharacterSlideIn;
+	public AudioClip clickSwap;
 	
 	public AudioClip task_win;
 	public AudioClip task_lose;
 
-	public AudioClip battleMusic;
-	public AudioClip gameplayMusic;
+	#endregion
+
+	#region City Sfx
+
+	public AudioClip buildingSelect;
+	public AudioClip buildingMove;
+	public AudioClip buildingDrop;
+	public AudioClip buildingComplete;
+	public AudioClip buildingFinishNow;
+	public AudioClip buildingCantPlace;
+	public AudioClip buildingCancel;
+	public AudioClip clickDeselect;
+
+	public AudioClip collectCash;
+	public AudioClip collectOil;
+	
+	#endregion
+
+	#region Tutorial Sfx
+	
+	public AudioClip jump;
+	public AudioClip dialogueBox;
+	public AudioClip boatScene;
+
+	#endregion
 	
 	public const string SOUND_EFFECTS = "soundEffects";
 	public const string MUSIC = "music";
@@ -92,6 +141,7 @@ public class MSSoundManager : MonoBehaviour {
 	{
 		if (playSounds)
 		{
+			Debug.Log("Playing sound: " + clip.name);
 			basicSource.PlayOneShot(clip);
 		}
 	}

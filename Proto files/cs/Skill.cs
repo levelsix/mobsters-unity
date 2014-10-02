@@ -103,6 +103,15 @@ namespace com.lvl6.proto
       get { return _iconImgName; }
       set { _iconImgName = value; }
     }
+
+    private string _logoImgName = "";
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"logoImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string logoImgName
+    {
+      get { return _logoImgName; }
+      set { _logoImgName = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

@@ -396,6 +396,15 @@ namespace com.lvl6.proto
       get { return _pointsPerSecond; }
       set { _pointsPerSecond = value; }
     }
+
+    private float _pointsMultiplier = default(float);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"pointsMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float pointsMultiplier
+    {
+      get { return _pointsMultiplier; }
+      set { _pointsMultiplier = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

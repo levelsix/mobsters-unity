@@ -196,7 +196,14 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 			}
 			else
 			{
-				middleLabel.text = "(g) " + currBuilding.upgrade.gemsToFinish;
+				if (currBuilding.upgrade.gemsToFinish <= 0)
+				{
+					middleLabel.text = "Free!";
+				}
+				else
+				{
+					middleLabel.text = "(g) " + currBuilding.upgrade.gemsToFinish;
+				}
 			}
 			icon.alpha = 0;
 			bottomLabel.effectColor = new Color(3/255f, 3/255f, 3/255f);

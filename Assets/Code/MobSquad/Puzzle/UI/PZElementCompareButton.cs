@@ -38,10 +38,10 @@ public class PZElementCompareButton : MonoBehaviour {
 		MSActionManager.Controls.OnAnyTap [0] -= GlobalOnClick;
 	}
 
-	void Update(){
+	void Update()
+	{
 		button.enabled = PZPuzzleManager.instance.swapLock <= 0 || PZDeployPopup.acting;
 		buttonSprite.alpha = (button.enabled) ? 1 : 0;
-
 	}
 	
 	void OnClick()
@@ -58,7 +58,7 @@ public class PZElementCompareButton : MonoBehaviour {
 
 	void OpenImage(){
 		elementSprite.transform.localScale = Vector3.zero;
-		elementSprite.alpha = 0f;
+		//elementSprite.alpha = 0f;
 		TweenScale.Begin (element, ANIMATION_LENGTH, Vector3.one);
 		TweenAlpha.Begin (element, ANIMATION_LENGTH, 1f);
 	}

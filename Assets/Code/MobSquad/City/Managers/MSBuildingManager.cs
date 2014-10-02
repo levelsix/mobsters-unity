@@ -1236,14 +1236,7 @@ public class MSBuildingManager : MonoBehaviour
 			MSBuilding building = hit.GetComponent<MSBuilding>();
 			if (building != null)
 			{
-				if (building != _selected)
-				{
-					SetSelectedBuilding(building);
-				}
-				else if (building.OnSelect != null)
-				{
-					building.OnSelect();
-				}
+				SetSelectedBuilding(building);
 			}
 			else
 			{
@@ -1256,6 +1249,10 @@ public class MSBuildingManager : MonoBehaviour
 		}
 		else //if (hit.GetComponent<CBKGround>() != null)
 		{
+			if (_selected != null)
+			{
+				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.clickDeselect);
+			}
 			FullDeselect();
 			if(MSWhiteboard.currSceneType == MSWhiteboard.SceneType.CITY){
 				Vector3 gridLocation = MSGridManager.instance.PointToGridCoords(MSGridManager.instance.ScreenToGround(touch.pos, true));

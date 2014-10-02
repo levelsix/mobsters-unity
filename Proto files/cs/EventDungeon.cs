@@ -245,6 +245,13 @@ namespace com.lvl6.proto
       get { return _userBeatAllCityTasks; }
       set { _userBeatAllCityTasks = value; }
     }
+    private readonly global::System.Collections.Generic.List<long> _droplessTsfuIds = new global::System.Collections.Generic.List<long>();
+    [global::ProtoBuf.ProtoMember(7, Name=@"droplessTsfuIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<long> droplessTsfuIds
+    {
+      get { return _droplessTsfuIds; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

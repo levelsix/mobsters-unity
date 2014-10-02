@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400004}
+  - 114: {fileID: 11400068}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -89,7 +90,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 92.3000031, y: 10, z: 0}
+  m_LocalPosition: {x: 90, y: 10, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400006}
@@ -101,7 +102,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -142, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400006}
@@ -113,7 +114,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 92.8000031, y: -49.4000015, z: 0}
+  m_LocalPosition: {x: 91, y: -49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400006}
@@ -125,7 +126,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 196.320007, y: -100, z: 0}
+  m_LocalPosition: {x: 164, y: -100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400004}
@@ -141,7 +142,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 92.2999878, y: 10, z: 0}
+  m_LocalPosition: {x: 90, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400006}
@@ -182,8 +183,8 @@ MonoBehaviour:
   onFinished: []
   eventReceiver: {fileID: 0}
   callWhenFinished: 
-  from: {x: 196.320007, y: 80, z: 0}
-  to: {x: 196.320007, y: -100, z: 0}
+  from: {x: 164, y: 80, z: 0}
+  to: {x: 164, y: -100, z: 0}
   worldSpace: 0
 --- !u!114 &11400002
 MonoBehaviour:
@@ -204,34 +205,44 @@ MonoBehaviour:
   currentBorder: {fileID: 400012}
   timeBetweenFlips: .100000001
   jumpTargetY: 40
-  timeForJump: 1
+  timeForJump: .699999988
   animationCurve:
     serializedVersion: 2
     m_Curve:
     - time: 0
       value: -.00625000149
-      inSlope: 3.40146685
-      outSlope: 3.40146685
+      inSlope: 4.0007081
+      outSlope: 4.0007081
       tangentMode: 10
-    - time: .295891881
+    - time: .251572073
       value: 1.00021636
-      inSlope: -.000673055649
-      outSlope: -.000673055649
+      inSlope: -.0119059086
+      outSlope: -.0119059086
       tangentMode: 10
-    - time: .591666698
-      value: -.00624999963
-      inSlope: -.381798625
-      outSlope: -.381798625
+    - time: .500112891
+      value: -4.10869834e-05
+      inSlope: -2.59592414
+      outSlope: 2.34323955
+      tangentMode: 1
+    - time: .650030375
+      value: .500897706
+      inSlope: .0031015873
+      outSlope: .0031015873
       tangentMode: 10
-    - time: .788899124
-      value: .514288902
-      inSlope: .102427483
-      outSlope: .102427483
+    - time: .800228119
+      value: -4.58154827e-05
+      inSlope: -2.6925633
+      outSlope: 2.49316311
+      tangentMode: 1
+    - time: .901337147
+      value: .25089407
+      inSlope: -.0305370092
+      outSlope: -.0305370092
       tangentMode: 10
-    - time: 1.00014043
-      value: 5.13540581e-05
-      inSlope: -2.43436074
-      outSlope: -2.43436074
+    - time: .999999702
+      value: 3.26945155e-07
+      inSlope: -2.54294801
+      outSlope: -2.54294801
       tangentMode: 10
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -285,14 +296,14 @@ MonoBehaviour:
     absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 4
-  mWidth: 284
+  mPivot: 3
+  mWidth: 282
   mHeight: 124
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.29032254
+  aspectRatio: 2.27419353
   mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
   mSpriteName: movesqueuebgSliced
   mType: 1
@@ -318,21 +329,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
+    target: {fileID: 400002}
+    relative: 1
+    absolute: -88
   rightAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400002}
     relative: 1
-    absolute: 0
+    absolute: -10
   bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400002}
     relative: 0
-    absolute: 0
+    absolute: 4
   topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
+    target: {fileID: 400002}
+    relative: 0
+    absolute: 22
   updateAnchors: 1
   mColor: {r: .749019623, g: 1, b: .360784322, a: 1}
   mPivot: 4
@@ -356,7 +367,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: .517647088}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -434,21 +445,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
+    target: {fileID: 400000}
+    relative: 1
+    absolute: -35
   rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400000}
     relative: 0
-    absolute: 0
+    absolute: 35
+  bottomAnchor:
+    target: {fileID: 400000}
+    relative: 0
+    absolute: -42
   topAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400000}
     relative: 1
-    absolute: 0
+    absolute: 42
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -472,6 +483,43 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
+--- !u!114 &11400068
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858a20c1b21a3f94bb5b2d3b901c9aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 400002}
+    relative: 1
+    absolute: -58
+  rightAnchor:
+    target: {fileID: 400002}
+    relative: 1
+    absolute: -42
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 16
+  mHeight: 2
+  mDepth: 0
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 8
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

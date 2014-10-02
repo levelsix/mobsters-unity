@@ -315,6 +315,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 
 	IEnumerator Jump(float jumpHeight, float time)
 	{
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.jump);
 		float baseHeight = sprite.transform.localPosition.y;
 		float currTime = 0, t = 0;
 		do

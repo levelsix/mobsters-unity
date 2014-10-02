@@ -11,6 +11,8 @@ public class MSSegmentedMap : MonoBehaviour {
 	/// </summary>
 	public List<UI2DSprite> maps = new List<UI2DSprite>();
 
+	[SerializeField] UI2DSprite mapSegmentPrefab;
+
 	static private int MAP_DEPTH = 1;
 
 	public float Height{
@@ -45,14 +47,10 @@ public class MSSegmentedMap : MonoBehaviour {
 
 	void CreateMapSegment(Sprite sprite)
 	{
-		GameObject newSegment = new GameObject("MapSegment");
-		newSegment.transform.parent = trans;
-
-		newSegment.layer = MSValues.Layers.UI;
-
-		UI2DSprite newSprite = newSegment.AddComponent<UI2DSprite>();
-		newSprite.sprite2D = sprite;
-		maps.Add(newSprite);
+		UI2DSprite newSegment = MSPoolManager.instance.Get<UI2DSprite>(mapSegmentPrefab, trans);
+		newSegment.sprite2D = sprite;
+		newSegment.transform.localScale = Vector3.one;
+		maps.Add(newSegment);
 	}
 
 	[ContextMenu("Line up maps")]
