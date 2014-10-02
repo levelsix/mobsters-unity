@@ -47,6 +47,9 @@ MonoBehaviour:
   processingSwap: 0
   lastSwapSuccessful: 1
   puzzleParent: {fileID: 0}
+  cakes: []
+  maxCakes: 0
+  currCakeChance: 0
   gemPrefab: {fileID: 11400000, guid: 0e7ac0e626e3d49a182637a99a1e4a5b, type: 2}
   gemTypes:
   - fire
@@ -63,10 +66,10 @@ MonoBehaviour:
   rocketPrefab: {fileID: 11400000, guid: ac52f9ee03f3e4a2687ddb81918e52e4, type: 2}
   molotovPartPrefab: {fileID: 11400004, guid: 21b4370dac4cf4cfe99d801abf9a2245, type: 2}
   jellyPrefab: {fileID: 11400000, guid: 670ec31f4077e4294962cd1d6b548846, type: 2}
-  BASE_FALL_SPEED: -300
-  BASE_BOUNCE_SPEED: 80
-  SECOND_BOUNCE_MODIFIER: .25
-  GRAVITY: -800
+  BASE_FALL_SPEED: -200
+  BASE_BOUNCE_SPEED: 300
+  SECOND_BOUNCE_MODIFIER: .400000006
+  GRAVITY: -1500
   SWAP_TIME: .200000003
   shuffleTime: 1
 --- !u!1001 &100100000

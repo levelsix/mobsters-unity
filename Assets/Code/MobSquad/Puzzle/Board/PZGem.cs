@@ -111,7 +111,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	}
 
 	/// <summary>
-	/// Gets a value indicating whether this <see cref="PZGem"/> can combo with moltov.
+	/// indicates if this <see cref="PZGem"/> cause a special effect when swapped with a moltov.
 	/// </summary>
 	/// <value><c>true</c> if swapping with a moltov results in a special effect; otherwise, <c>false</c>.</value>
 	public bool canComboWithMoltov
@@ -293,14 +293,17 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		newStartColor.a = sys.startColor.a;
 		sys.startColor = newStartColor;
 	}
-
-	void RemoveAndReset ()
+	
+	void RemoveAndReset (bool detonate = true)
 	{
 		if (boardX < PZPuzzleManager.instance.boardWidth && boardY < PZPuzzleManager.instance.boardHeight) {
 			PZPuzzleManager.instance.board [boardX, boardY] = null;
 			//Remove from board
 		}
-		Detonate ();
+		if(detonate)
+		{
+			Detonate ();
+		}
 		for (int j = boardY; j < PZPuzzleManager.instance.boardHeight; j++)//Tell everything that was above this to fall
 		{
 			if (PZPuzzleManager.instance.board [boardX, j] != null) {
@@ -315,7 +318,11 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		SpawnAbove (PZPuzzleManager.instance.PickColor (boardX), boardX);
 	}
 
-	public void Destroy()
+	/// <summary>
+	/// Remove gem from board
+	/// </summary>
+	/// <param name="detonate">If set to <c>true</c> detonate will also be called, which sets off special gem powers.</param>
+	public void Destroy(bool detonate = true)
 	{
 		if (gemType != GemType.CAKE && !lockedBySpecial) //Specials need to disable this lock before destroying the gem
 		{
@@ -343,7 +350,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				CreateSparkle();
 			}
 
-			RemoveAndReset ();
+			RemoveAndReset (detonate);
 		}
 	}
 
@@ -548,7 +555,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		}
 		if (!swapee.moving && !swapee.blocker.gameObject.activeSelf)
 		{
-			if (gemType == GemType.MOLOTOV && swapee.canComboWithMoltov)
+			if (gemType == GemType.MOLOTOV)
 			{
 				PZPuzzleManager.instance.DetonateMolotovFromSwap(this, swapee); //Takes care of all MOLOTOV-SPECIAL combos
 				yield break;
@@ -559,7 +566,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				PZPuzzleManager.instance.DetonateMolotovFromSwap(swapee, this);
 				yield break;
 			}
-			else if (gemType != GemType.NORMAL && swapee.gemType != GemType.NORMAL) //Only cases left are BOMB-BOMB, ROCKET-ROCKET, and BOMB-ROCKET
+			else if (gemType != GemType.NORMAL && swapee.gemType != GemType.NORMAL)
 			{
 				if (gemType == swapee.gemType)
 				{
@@ -570,14 +577,11 @@ public class PZGem : MonoBehaviour, MSPoolable {
 					}
 					else //ROCKET-ROCKET
 					{
-						horizontal = true;
-						PZPuzzleManager.instance.DetonateRocket(this);
-						swapee.horizontal = false;
-						PZPuzzleManager.instance.DetonateRocket(swapee);
+						PZPuzzleManager.instance.DetonateDoubleRocket(this, swapee);
 						yield break;
 					}
 				}
-				else //BOMB-ROCKET
+				else //BOMB-ROCKET or ROCKET-BOMB
 				{
 					PZPuzzleManager.instance.DetonateBombFromSwap(this, swapee);
 					yield break;
