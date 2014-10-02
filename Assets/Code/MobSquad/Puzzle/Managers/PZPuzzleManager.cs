@@ -489,7 +489,10 @@ public class PZPuzzleManager : MonoBehaviour {
 			{
 				foreach (var item in cakes) 
 				{
-					while (item.isCaking) yield return null;
+					while (item.isCaking)
+					{
+						yield return null;
+					}
 				}
 				PZCombatScheduler.instance.CakeReset(PZCombatManager.instance.activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "SPEED_MULTIPLIER").skillValue);
 			}
@@ -748,6 +751,22 @@ public class PZPuzzleManager : MonoBehaviour {
 	}
 
 	/// <summary>
+	/// For when a rocket is swapped into another rocket.
+	/// </summary>
+	/// <param name="source">Source.</param>
+	/// <param name="destination">Destination.</param>
+	public void DetonateDoubleRocket(PZGem source, PZGem destination)
+	{
+		//may seem trivial but increment combo should stay private
+		List<PZMatch> rocketMatches = new List<PZMatch>();
+		source.horizontal = true;
+		rocketMatches.Add(PZPuzzleManager.instance.DetonateRocket(source));
+		destination.horizontal = false;
+		rocketMatches.Add(PZPuzzleManager.instance.DetonateRocket(destination));
+		IncrementCombo(rocketMatches);
+	}
+
+	/// <summary>
 	/// For when a bomb is swapped with iether a rocket or another bomb
 	/// </summary>
 	/// <param name="source">Gem being dragged</param>
@@ -755,6 +774,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	public void DetonateBombFromSwap(PZGem source, PZGem destination){
 		PZGem gem;
 		if (source.gemType == PZGem.GemType.ROCKET || destination.gemType == PZGem.GemType.ROCKET) {
+			List<PZMatch> rocketMatches = new List<PZMatch>();
 
 			PZGem rocket = source.gemType == PZGem.GemType.ROCKET ? source : destination;
 			Vector2 offset = rocket.horizontal? new Vector2(0,1) : new Vector2(1,0);
@@ -762,21 +782,25 @@ public class PZPuzzleManager : MonoBehaviour {
 			if(rocket.boardX + offset.x < boardWidth && rocket.boardY + offset.y < boardHeight){
 				gem = board[rocket.boardX + (int)offset.x,rocket.boardY + (int)offset.y];
 				gem.gemType = PZGem.GemType.ROCKET;
-				gem.Detonate();
+				gem.horizontal = rocket.horizontal;
+				rocketMatches.Add(DetonateRocket(gem));
 			}
 
-			rocket.Detonate();
+			rocketMatches.Add(DetonateRocket(rocket));
 
 			if(rocket.boardX - offset.x >= 0 && rocket.boardY - offset.y >= 0){
 				gem = board[rocket.boardX - (int)offset.x,rocket.boardY - (int)offset.y];
 				gem.gemType = PZGem.GemType.ROCKET;
-				gem.Detonate();
+				gem.horizontal = rocket.horizontal;
+				rocketMatches.Add(DetonateRocket(gem));
 			}
+			IncrementCombo(rocketMatches);
 
 		} else { //else bomb-bomb swap
 			int originx = destination.boardX;
 			int originy = destination.boardY;
 			PZMatch bombMatch = new PZMatch();
+			bombMatch.special = true;
 
 			if(originx + 1 < boardWidth){
 				gem = board[originx + 1,originy];
@@ -798,16 +822,31 @@ public class PZPuzzleManager : MonoBehaviour {
 			source.gemType = PZGem.GemType.NORMAL;
 			destination.gemType = PZGem.GemType.NORMAL;
 			bombMatch.Destroy();
+			IncrementCombo(new List<PZMatch>{ bombMatch });
 			
 		}
 	}
 	
 	public void DetonateMolotovFromSwap(PZGem molly, PZGem other)
 	{
-		if (molly == other)
+		if(!other.canComboWithMoltov && other.gemType != PZGem.GemType.NORMAL)
 		{
-			molly.colorIndex = UnityEngine.Random.Range(0, GEM_TYPES);
+			return;
 		}
+		if(molly != other && other.gemType == PZGem.GemType.MOLOTOV)
+		{
+			StartCoroutine(DetonateDoubleMoltov(molly, other));
+			return;
+		}
+		else if(molly == other)
+		{
+			return;
+		}
+
+//		if (molly == other)
+//		{
+//			molly.colorIndex = UnityEngine.Random.Range(0, GEM_TYPES);
+//		}
 
 		List<PZMatch> matchList = new List<PZMatch>();
 		PZMatch matching = GetMolotovGroup(molly, other.colorIndex);
@@ -841,6 +880,36 @@ public class PZPuzzleManager : MonoBehaviour {
 
 
 
+	}
+
+	IEnumerator DetonateDoubleMoltov(PZGem source, PZGem destination)
+	{
+		PZMatch fullBoard = new PZMatch();
+
+		foreach(PZGem gem in board)
+		{
+			gem.lockedBySpecial = true;
+			fullBoard.gems.Add(gem);
+		}
+
+		specialBoardLock++;
+		for(int i = 0; i < boardWidth; i++)
+		{
+			for(int j = 0; j < boardHeight; j++)
+			{
+				Debug.Log("board["+i+","+j+"]");
+				PZGem gem = board[i,j];
+				if( gem!= null)
+				{
+					gem.lockedBySpecial = false;
+					gem.Destroy(false);
+					yield return new WaitForSeconds(0.05f);
+				}
+			}
+		}
+		specialBoardLock--;
+
+		IncrementCombo(new List<PZMatch>{ fullBoard });
 	}
 	
 	PZMatch GetMolotovGroup(PZGem molly, int colorIndex)
