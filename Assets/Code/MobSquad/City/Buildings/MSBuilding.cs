@@ -926,8 +926,14 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		hoverIcon.gameObject.SetActive(false);
 	}
 
-	public void SetArrow()
+	public void SetArrow(bool removeArrowOnNextClick = false)
 	{
+		if(removeArrowOnNextClick && hoverIcon.GetComponent<MSFadeOnTap>() != null && hoverIcon.GetComponent<MSHideObjectsWhileActive>() != null)
+		{
+			hoverIcon.GetComponent<MSFadeOnTap>().enabled = true;
+			hoverIcon.GetComponent<MSHideObjectsWhileActive>().AddItemToBeHidden(bubbleIcon.gameObject);
+		}
+
 		hoverIcon.gameObject.SetActive(true);
 		hoverIcon.spriteName = ARROW_SPRITE_NAME;
 		hoverIcon.MakePixelPerfect();

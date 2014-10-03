@@ -45,6 +45,7 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 	{
 		//Center on team center
 		MSTownCamera.instance.DoCenterOnGroundPos(MSBuildingManager.teamCenter.trans.position, .4f);
+		MSBuildingManager.teamCenter.SetArrow(true);
 
 		//Popup error message
 		MSActionManager.Popup.DisplayRedError("You have no toons on your team. Manage your team now.");
@@ -54,6 +55,7 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 	{
 		//Center on team center
 		MSTownCamera.instance.DoCenterOnGroundPos(MSBuildingManager.teamCenter.trans.position, .4f);
+		MSBuildingManager.teamCenter.SetArrow(true);
 		
 		//Popup error message
 		MSActionManager.Popup.DisplayGreenError("You have healthy toons available! Manage your team now.");
@@ -62,7 +64,10 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 	void ResidenceFullFail()
 	{
 		MSTownCamera.instance.DoCenterOnGroundPos(MSBuildingManager.residences[0].trans.position, .4f);
+		MSBuildingManager.residences[0].SetArrow(true);
 		MSActionManager.Popup.DisplayRedError("Your residences are full. Sell " + MSValues.monsterName + "s to free up space.");
 	}
+
+
 
 }
