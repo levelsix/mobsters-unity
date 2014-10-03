@@ -60,7 +60,7 @@ public class MSHideObjectsWhileActive : MonoBehaviour {
 			else
 			{
 				originalActiveState[i] = thingsToHide[i].activeSelf;
-				thingsToHide[i].SetActive(false);
+				thingsToHide[i].SetActive(true);
 			}
 		}
 
