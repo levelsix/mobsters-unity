@@ -446,6 +446,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		{
 			sprite.sortingOrder = ((int)(proto.coords.x + proto.coords.y + Mathf.Min(proto.xLength, proto.yLength)/2) * -1 - 10) * 3;
 		}
+		gaurdRails.sortingOrder = sprite.sortingOrder + 1;
 		overlayUnit.sprite.sortingOrder = sprite.sortingOrder + 1;
 		overlay.sortingOrder = sprite.sortingOrder + 2;
 
@@ -650,6 +651,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		{
 			sprite.sortingOrder = 3 * ((int)(_currPos.pos.x + _currPos.pos.y + Mathf.Min(width, length)/2) * -1 - 10);
 		}
+		gaurdRails.sortingOrder = sprite.sortingOrder + 1;
 		overlayUnit.sprite.sortingOrder = sprite.sortingOrder + 1;
 		overlay.sortingOrder = sprite.sortingOrder + 2;
 
