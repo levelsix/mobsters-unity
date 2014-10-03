@@ -136,6 +136,7 @@ public class MSPopupManager : MonoBehaviour {
 		MSGenericPopup popup = GrabGeneric();
 
 		popup.Init(text);
+		popup.gameObject.SetActive(false);
 
 		InitPopup (popup);
 	}
@@ -145,6 +146,7 @@ public class MSPopupManager : MonoBehaviour {
 		MSGenericPopup popup = GrabGeneric();
 
 		popup.Init(title, text);
+		popup.gameObject.SetActive(false);
 
 		InitPopup(popup);
 	}
@@ -154,6 +156,7 @@ public class MSPopupManager : MonoBehaviour {
 		MSGenericPopup popup = GrabGeneric();
 
 		popup.Init(text, buttonLabels, buttonSprites, buttonActions);
+		popup.gameObject.SetActive(false);
 		
 		InitPopup (popup);
 	}
@@ -163,6 +166,7 @@ public class MSPopupManager : MonoBehaviour {
 		MSGenericPopup popup = GrabGeneric();
 
 		popup.Init(title, text, buttonLabels, buttonSprites, buttonActions, topColor);
+		popup.gameObject.SetActive(false);
 		
 		InitPopup (popup);
 	}
@@ -172,7 +176,8 @@ public class MSPopupManager : MonoBehaviour {
 		MSGenericPopup popup = GrabGeneric();
 
 		popup.Init(title, text, buttonLabels, buttonSprites, waitFunctions, topColor);
-		
+		popup.gameObject.SetActive(false);
+
 		InitPopup (popup);
 	}
 	

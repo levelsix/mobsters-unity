@@ -1386,6 +1386,7 @@ MonoBehaviour:
   - {fileID: 11400004}
   - {fileID: 11400026}
   topper: {fileID: 11400024}
+  background: {fileID: 11400012}
 --- !u!114 &11400042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1440,6 +1441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultTweens: 1
   inTweens:
   - {fileID: 11400020}
   - {fileID: 11400018}

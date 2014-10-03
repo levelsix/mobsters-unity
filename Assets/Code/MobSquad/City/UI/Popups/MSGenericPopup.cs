@@ -25,6 +25,9 @@ public class MSGenericPopup : MonoBehaviour {
 
 	[SerializeField]
 	UISprite topper;
+
+	[SerializeField]
+	UISprite background;
 	
 	const float BUTTON_WIDTH = 190;
 	

@@ -793,11 +793,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 			confirmationButtons.SetActive(false);
 
-			if (MSTutorialManager.instance.inTutorial)
-			{
-				MSBuildingManager.instance.FullDeselect();
-				MSBuildingManager.instance.SetSelectedBuilding(this);
-			}
+			MSBuildingManager.instance.FullDeselect();
+			MSBuildingManager.instance.SetSelectedBuilding(this);
 		}
 		sprite.GetComponent<Animator>().enabled = false;
 
