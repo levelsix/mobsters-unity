@@ -115,6 +115,25 @@ public class MSPoolManager : MonoBehaviour {
 		pools[pooled.prefab].Add(pooled);
 		pooled.transf.parent = transform;
 	}
+
+	public void Warm(MonoBehaviour poolable)
+	{
+		MSSimplePoolable simPo = poolable.GetComponent<MSSimplePoolable>();
+		if (simPo == null)
+		{
+			Debug.LogError("Trying to warm " + poolable.name + " but it isn't poolable.");
+			return;
+		}
+		Pool(simPo.Make(Vector3.zero));
+	}
+
+	public void Warm(MonoBehaviour poolable, int count)
+	{
+		for (int i = 0; i < count; i++) 
+		{
+			Warm (poolable);
+		}
+	}
 	
 	/// <summary>
 	/// "Warm" the specified poolable by creating it

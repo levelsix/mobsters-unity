@@ -15,10 +15,16 @@ public class MSBottomChatMessage : MonoBehaviour {
 	[SerializeField]
 	UILabel dialogue;
 
-	const int maxChars = 60;
+	[SerializeField]
+	int chopWidth;
 
-	public void Init(int avatarId, string name, string content)
+	UIWidget myWidget;
+
+	public void Init(int avatarId, string name, string content, int width)
 	{
+		if (myWidget == null) myWidget = GetComponent<UIWidget>();
+		myWidget.width = width;
+
 		avatar.Init (avatarId);
 		playerName.text = name + ":";
 		dialogue.text = content;
@@ -28,9 +34,23 @@ public class MSBottomChatMessage : MonoBehaviour {
 	[ContextMenu ("Chop")]
 	public void Chop()
 	{
-		if (playerName.text.Length + dialogue.text.Length > maxChars)
+		while (playerName.printedSize.x + dialogue.printedSize.x > myWidget.width - chopWidth)
 		{
-			//dialogue.text = dialogue.text.Substring(0, maxChars - playerName.text.Length - 3) + "...";
+			if (dialogue.text.Length > 4)
+			{
+				dialogue.text = dialogue.text.Remove(dialogue.text.Length-4);
+				if (dialogue.text[dialogue.text.Length-1] == ' ')
+				{
+					dialogue.text = dialogue.text.Remove(dialogue.text.Length-1);
+				}
+				dialogue.text += "...";
+			}
+			else
+			{
+				playerName.text = playerName.text.Remove(playerName.text.Length - 5) + "...:";
+			}
 		}
 	}
+
+
 }

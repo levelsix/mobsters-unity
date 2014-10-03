@@ -7,6 +7,12 @@ public class PZDeployPopup : MonoBehaviour {
 
 	[SerializeField]
 	PZDeployCard[] slots;
+
+	[SerializeField]
+	PZSwapButton swapButton;
+
+	[SerializeField]
+	Camera cam;
 	
 	const int NUM_SLOTS = 3;
 
@@ -21,28 +27,22 @@ public class PZDeployPopup : MonoBehaviour {
 
 	void OnEnable()
 	{
-		MSActionManager.Puzzle.OnDeploy += OnDeploy;
-		MSActionManager.Scene.OnPuzzle += OnPuzzle;
+		MSActionManager.Controls.OnAnyTap[0] += OnGlobalTap;
 	}
 	
 	void OnDisable()
 	{
-		MSActionManager.Puzzle.OnDeploy -= OnDeploy;
-		MSActionManager.Scene.OnPuzzle -= OnPuzzle;
+		MSActionManager.Controls.OnAnyTap[0] -= OnGlobalTap;
 	}
 
-	void OnPuzzle()
+	void OnGlobalTap(TCKTouchData data)
 	{
-		if (!PZCombatManager.instance.pvpMode)
+		if (acting)
 		{
-			//tween.PlayForward();
+			acting = false;
+			tween.PlayReverse();
+			swapButton.Show();
 		}
-	}
-
-	void OnDeploy(PZMonster monster)
-	{
-		acting = false;
-		tween.PlayReverse();
 	}
 
 	public void Init()
@@ -50,28 +50,9 @@ public class PZDeployPopup : MonoBehaviour {
 		Init (MSMonsterManager.instance.userTeam);
 	}
 
-	public void Init(UserCurrentMonsterTeamProto userMonsters)
-	{
-		tween.PlayForward();
-		acting = true;
-		for (int i = 0; i < userMonsters.currentTeam.Count; i++) 
-		{
-			PZMonster monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == userMonsters.currentTeam[i].userMonsterId);
-			if (monster != null)
-			{
-				slots[i].Init(monster);
-			}
-			else
-			{
-				slots[i].InitEmpty();
-			}
-		}
-	}
-
 	public void Init(PZMonster[] userMonsters)
 	{
 		tween.PlayForward();
-		acting = true;
 		for (int i = 0; i < userMonsters.Length; i++) 
 		{
 			if (userMonsters[i] != null && userMonsters[i].monster != null && userMonsters[i].monster.monsterId > 0)
@@ -83,5 +64,12 @@ public class PZDeployPopup : MonoBehaviour {
 				slots[i].InitEmpty();
 			}
 		}
+		StartCoroutine(StartActingInAFrame());
+	}
+
+	IEnumerator StartActingInAFrame()
+	{
+		yield return null;
+		acting = true;
 	}
 }

@@ -19,6 +19,11 @@ public class MSBottomChatBlock : MonoBehaviour {
 	[SerializeField]
 	GameObject noChats;
 
+	[SerializeField]
+	UISprite bottomChatBox;
+
+	UIWidget myWidget;
+
 	List<MSBottomChatMessage> messages = new List<MSBottomChatMessage>();
 
 	void Awake()
@@ -37,11 +42,14 @@ public class MSBottomChatBlock : MonoBehaviour {
 
 	void AddMessage(int avatarId, string senderName, string messageContent)
 	{
+		if (myWidget == null) myWidget = GetComponent<UIWidget>();
+		myWidget.width = bottomChatBox.width;
+
 		MSBottomChatMessage message = (MSPoolManager.instance.Get(bottomChatMessagePrefab.GetComponent<MSSimplePoolable>(),
 		                                                         Vector3.zero,
 		                                                          grid.transform) as MSSimplePoolable).GetComponent<MSBottomChatMessage>();
 		message.transform.localScale = Vector3.one;
-		message.Init(avatarId, senderName, messageContent);
+		message.Init(avatarId, senderName, messageContent, myWidget.width);
 		message.GetComponent<MSUIHelper>().ResetAlpha(true);
 		messages.Add(message);
 		grid.Reposition();

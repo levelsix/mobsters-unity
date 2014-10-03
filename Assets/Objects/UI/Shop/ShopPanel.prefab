@@ -1586,6 +1586,7 @@ GameObject:
   - 114: {fileID: 11400288}
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400386}
+  - 114: {fileID: 11400394}
   m_Layer: 5
   m_Name: BlackBackDrop
   m_TagString: Untagged
@@ -11379,11 +11380,7 @@ MonoBehaviour:
   pressedSprite: 
   disabledSprite: 
   pixelSnap: 0
-  onClick:
-  - mTarget: {fileID: 11400168}
-    mMethodName: CloseAll
-    mParameters: []
-    oneShot: 0
+  onClick: []
 --- !u!114 &11400284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13706,6 +13703,18 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
+--- !u!114 &11400394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d9efed755fa4b80a25f9b65f83a4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  all: 1
 --- !u!114 &11400396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16583,6 +16592,7 @@ MonoBehaviour:
   loginButton: {fileID: 11400450}
   avatar: {fileID: 100362}
   faceAvatar: {fileID: 11400544}
+  loadLock: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

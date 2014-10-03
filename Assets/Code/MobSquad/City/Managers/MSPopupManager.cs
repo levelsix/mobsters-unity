@@ -7,6 +7,13 @@ public class MSPopupManager : MonoBehaviour {
 
 	public static MSPopupManager instance;
 
+	[SerializeField] MSGenericPopup genericPopupPrefab;
+
+	[SerializeField] Transform genericParent;
+
+	[SerializeField] UITweener[] defaultInTweens;
+	[SerializeField] UITweener[] defaultOutTweens;
+
 	[System.Serializable]
 	public class Popups
 	{
@@ -22,21 +29,10 @@ public class MSPopupManager : MonoBehaviour {
 		public MSGenericPopup puzzleGeneric;
 		public MSGoonInfoPopup goonInfoPopup;
 		public MSProfilePopup profilePopup;
+		public MSBuildingMenu buildingMenu;
 	}
 
 	public Popups popups;
-	
-	MSGenericPopup popup
-	{
-		get
-		{
-			if (MSWhiteboard.currSceneType == MSWhiteboard.SceneType.CITY)
-			{
-				return popups.cityGeneric;
-			}
-			return popups.puzzleGeneric;
-		}
-	}
 	
 	/// <summary>
 	/// The stack of current popup menus.
@@ -91,6 +87,11 @@ public class MSPopupManager : MonoBehaviour {
 	{
 		instance = this;
 	}
+
+	void Start()
+	{
+		MSPoolManager.instance.Warm(genericPopupPrefab, 2);
+	}
 	
 	/// <summary>
 	/// Raises the enable event.
@@ -115,6 +116,15 @@ public class MSPopupManager : MonoBehaviour {
 		MSActionManager.Popup.ClosePopupLayer -= ClosePopupLayer;
 		MSActionManager.Popup.CloseTopPopupLayer -= CloseTopLayer;
 	}
+
+	MSGenericPopup GrabGeneric()
+	{
+		MSGenericPopup pop = MSPoolManager.instance.Get<MSGenericPopup>(genericPopupPrefab, genericParent);
+		pop.transform.localScale = Vector3.one;
+		pop.transform.localPosition = Vector3.zero;
+		pop.transform.localRotation = Quaternion.identity;
+		return pop;
+	}
 	
 	void InitPopup (MSGenericPopup pop)
 	{
@@ -123,6 +133,8 @@ public class MSPopupManager : MonoBehaviour {
 
 	public void CreatePopup(string text)
 	{
+		MSGenericPopup popup = GrabGeneric();
+
 		popup.Init(text);
 
 		InitPopup (popup);
@@ -130,6 +142,8 @@ public class MSPopupManager : MonoBehaviour {
 
 	public void CreatePopup(string title, string text)
 	{
+		MSGenericPopup popup = GrabGeneric();
+
 		popup.Init(title, text);
 
 		InitPopup(popup);
@@ -137,6 +151,8 @@ public class MSPopupManager : MonoBehaviour {
 	
 	public void CreatePopup(string text, string[] buttonLabels, string[] buttonSprites, Action[] buttonActions)
 	{
+		MSGenericPopup popup = GrabGeneric();
+
 		popup.Init(text, buttonLabels, buttonSprites, buttonActions);
 		
 		InitPopup (popup);
@@ -144,6 +160,8 @@ public class MSPopupManager : MonoBehaviour {
 
 	public void CreatePopup(string title, string text, string[] buttonLabels, string[] buttonSprites, Action[] buttonActions, string topColor = "green")
 	{
+		MSGenericPopup popup = GrabGeneric();
+
 		popup.Init(title, text, buttonLabels, buttonSprites, buttonActions, topColor);
 		
 		InitPopup (popup);
@@ -151,6 +169,8 @@ public class MSPopupManager : MonoBehaviour {
 
 	public void CreatePopup(string title, string text, string[] buttonLabels, string[] buttonSprites, WaitFunction[] waitFunctions, string topColor = "green")
 	{
+		MSGenericPopup popup = GrabGeneric();
+
 		popup.Init(title, text, buttonLabels, buttonSprites, waitFunctions, topColor);
 		
 		InitPopup (popup);

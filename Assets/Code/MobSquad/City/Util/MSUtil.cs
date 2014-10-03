@@ -334,6 +334,14 @@ public static class MSUtil {
 
 	#endregion
 
+	public static float screenRatio
+	{
+		get
+		{
+			return ((float)Screen.width) / Screen.height;
+		}
+	}
+
 	public static string StripExtensions(string file)
 	{
 		return StripSpaces(Path.GetFileNameWithoutExtension(file));

@@ -599,11 +599,13 @@ public class MSTutorialManager : MonoBehaviour
 		PZCombatManager.instance.RunPickNextTurn(false);
 
 		PZPuzzleManager.instance.BlockBoard(turn1move1);
+		PZPuzzleManager.instance.CustomHintGems(turn1move1);
 		TutorialUI.hintHand.Init(turn1move1hintStart, turn1move1hintEnd);
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.MOVIN_ORBS, false));
 		yield return StartCoroutine(WaitForTurn());
 
 		PZPuzzleManager.instance.BlockBoard(turn1move2);
+		PZPuzzleManager.instance.CustomHintGems(turn1move2);
 		TutorialUI.hintHand.Init(turn1move2hintStart, turn1move2hintEnd);
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.SMOOTH_MOVE, false));
 		yield return StartCoroutine(WaitForTurn());
@@ -645,11 +647,13 @@ public class MSTutorialManager : MonoBehaviour
 		PZCombatManager.instance.RunPickNextTurn(false);
 
 		PZPuzzleManager.instance.BlockBoard(turn2move1);
+		PZPuzzleManager.instance.CustomHintGems(turn2move1);
 		TutorialUI.hintHand.Init(turn2move1hintStart, turn2move1hintEnd);
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.CREATE_POWERUP, false));
 		yield return StartCoroutine(WaitForTurn());
 		
 		PZPuzzleManager.instance.BlockBoard(turn2move2);
+		PZPuzzleManager.instance.CustomHintGems(turn2move2);
 		TutorialUI.hintHand.Init(turn2move2hintStart, turn2move2hintEnd);
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.SWIPE_POWERUP, false));
 		yield return StartCoroutine(WaitForTurn());

@@ -25,10 +25,6 @@ public class PZTurnIcon : MonoBehaviour
 
 	[SerializeField] GameObject enemySprite;
 
-	//[SerializeField] UILabel debugLabel;
-
-
-
 	public void Init(bool enemy)
 	{
 		PZMonster monster = enemy ? PZCombatManager.instance.activeEnemy.monster : PZCombatManager.instance.activePlayer.monster;

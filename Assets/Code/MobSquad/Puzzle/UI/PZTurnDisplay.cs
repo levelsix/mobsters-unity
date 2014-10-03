@@ -19,6 +19,8 @@ public class PZTurnDisplay : MonoBehaviour
 
 	[SerializeField] int numTurnsToDisplay;
 
+	[SerializeField] int pixelsPerTurn;
+
 	[SerializeField] UIGrid turnGrid;
 
 	[SerializeField] Transform currentBorder;
@@ -30,6 +32,8 @@ public class PZTurnDisplay : MonoBehaviour
 	[SerializeField] float timeForJump;
 
 	[SerializeField] AnimationCurve animationCurve;
+
+	[SerializeField] UISprite background;
 
 	List<PZTurnIcon> icons = new List<PZTurnIcon>();
 
@@ -52,6 +56,23 @@ public class PZTurnDisplay : MonoBehaviour
 		instance = this;
 	}
 
+	void SetSize()
+	{
+		if (MSUtil.screenRatio <= 3.1f/2f)
+		{
+			numTurnsToDisplay = 3;
+		}
+		else
+		{
+			numTurnsToDisplay = 4;
+		}
+		if (PZPuzzleManager.instance.boardWidth <= 6)
+		{
+			numTurnsToDisplay++;
+		}
+		background.width = numTurnsToDisplay * pixelsPerTurn + 10;
+	}
+
 	public Coroutine RunInit(PZMonster player, PZMonster enemy)
 	{
 		return StartCoroutine(Init (player, enemy));
@@ -59,6 +80,8 @@ public class PZTurnDisplay : MonoBehaviour
 
 	IEnumerator Init(PZMonster player, PZMonster enemy)
 	{
+		SetSize();
+		turnGrid.onCustomSort = MSNaturalSortObject.Compare;
 		this.player = player;
 		this.enemy = enemy;
 		if (_isItIn)
@@ -145,7 +168,7 @@ public class PZTurnDisplay : MonoBehaviour
 		icon.transform.localScale = new Vector3(-1, 1, 1);
 		icon.transform.localPosition = newIconPosition;
 		icon.Init(PZCombatScheduler.instance.GetNthMove(turnsFromNow) == CombatTurn.ENEMY);
-		icon.name = turnsFromNow.ToString();
+		icon.name = (PZCombatScheduler.instance.currInd + turnsFromNow).ToString();
 		icons.Add (icon);
 	}
 
