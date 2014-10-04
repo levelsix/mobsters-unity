@@ -17,14 +17,14 @@ public class MSTabAdvanced : MSTab {
 	[SerializeField]
 	GameObject tabContents;
 	
-	public void InitActive()
+	override public void InitActive()
 	{
 		base.InitActive();
 		label.color = activeText;
 		tabContents.SetActive(true);
 	}
 
-	public void InitInactive()
+	override public void InitInactive()
 	{
 		base.InitInactive();
 		label.color = inactiveText;

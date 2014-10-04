@@ -31,8 +31,8 @@ public class UICenterOnChild : MonoBehaviour
 
 	public SpringPanel.OnFinished onFinished;
 
-	UIScrollView mScrollView;
-	GameObject mCenteredObject;
+	protected UIScrollView mScrollView;
+	protected GameObject mCenteredObject;
 
 	/// <summary>
 	/// Game object that the draggable panel is currently centered on.
@@ -41,7 +41,7 @@ public class UICenterOnChild : MonoBehaviour
 	public GameObject centeredObject { get { return mCenteredObject; } }
 
 	void OnEnable () { Recenter(); }
-	void OnDragFinished () { if (enabled) Recenter(); }
+	protected void OnDragFinished () { if (enabled) Recenter(); }
 
 	/// <summary>
 	/// Ensure that the threshold is always positive.
@@ -56,7 +56,7 @@ public class UICenterOnChild : MonoBehaviour
 	/// Recenter the draggable list on the center-most child.
 	/// </summary>
 
-	public void Recenter ()
+	virtual public void Recenter ()
 	{
 		if (mScrollView == null)
 		{
@@ -159,7 +159,7 @@ public class UICenterOnChild : MonoBehaviour
 	/// Center the panel on the specified target.
 	/// </summary>
 
-	void CenterOn (Transform target, Vector3 panelCenter)
+	virtual protected void CenterOn (Transform target, Vector3 panelCenter)
 	{
 		if (target != null && mScrollView != null && mScrollView.panel != null)
 		{
@@ -189,6 +189,7 @@ public class UICenterOnChild : MonoBehaviour
 
 	public void CenterOn (Transform target)
 	{
+		Debug.Log("simple center on");
 		if (mScrollView != null && mScrollView.panel != null)
 		{
 			Vector3[] corners = mScrollView.panel.worldCorners;

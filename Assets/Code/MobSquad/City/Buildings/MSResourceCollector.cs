@@ -223,7 +223,7 @@ public class MSResourceCollector : MonoBehaviour {
 			{
 				_building.hoverIcon.gameObject.SetActive(true);
 				_building.hoverIcon.transform.localPosition = new Vector3(0, FLOAT_ICON_MISSION_HEIGHT);
-				if(canCollect){
+				if(canCollect && !MSTutorialManager.instance.inTutorial){
 					_building.hoverIcon.spriteName = (_generator.resourceType == ResourceType.CASH) ? "cashready" : "oilready";
 				}else{
 					_building.hoverIcon.spriteName = (_generator.resourceType == ResourceType.CASH) ? "cashoverflow" : "oiloverflow";
