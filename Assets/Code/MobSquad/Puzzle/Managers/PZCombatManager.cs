@@ -430,6 +430,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator InitLoadedTask(MinimumUserTaskProto minTask, List<TaskStageProto> stages)
 	{
+		FullTaskProto fullTask = MSDataManager.instance.Get<FullTaskProto>(minTask.taskId);
+
 		combatActive = true;
 
 		playerSkillIndicator.Off();
@@ -452,17 +454,35 @@ public class PZCombatManager : MonoBehaviour {
 		
 		pvpUI.Reset();
 
-		PZCombatScheduler.instance.turns = save.turns;
-		PZCombatScheduler.instance.currInd = save.currTurnIndex-1;
+		if (save != null)
+		{
+			activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterId == save.activePlayerUserMonsterId));
+			PZCombatScheduler.instance.turns = save.turns;
+			PZCombatScheduler.instance.currInd = save.currTurnIndex-1;
+			
+			forfeitChance = save.forfeitChance;
+			
+			currTurn = save.currTurn;
+			currPlayerDamage = save.currPlayerDamage;
 
-		forfeitChance = save.forfeitChance;
+			savedHealth = save.activeEnemyHealth;
+			
+			PZPuzzleManager.instance.InitBoardFromSave(save, minTask);
 
-		currTurn = save.currTurn;
-		currPlayerDamage = save.currPlayerDamage;
+			enemySkillTurns = save.enemySkillPoints;
+		}
+		else
+		{
+			activePlayer.Init(playerGoonies.Find(x=>x.currHP>0));
+			forfeitChance = FORFEIT_START_CHANCE;
 
-		activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterId == save.activePlayerUserMonsterId));
+			currTurn = 0;
+			currPlayerDamage = 0;
+			savedHealth = 0;
+			enemySkillTurns = 0;
 
-		savedHealth = save.activeEnemyHealth;
+			PZPuzzleManager.instance.InitBoard(fullTask.boardWidth, fullTask.boardHeight);
+		}
 
 		for (int i = 0; i < stages.Count; i++)
 		{
@@ -475,20 +495,24 @@ public class PZCombatManager : MonoBehaviour {
 			}
 		}
 
-		PZPuzzleManager.instance.InitBoardFromSave(save, minTask);
-
-		PZScrollingBackground.instance.SetBackgrounds(MSDataManager.instance.Get<FullTaskProto>(minTask.taskId));
-
-		enemySkillTurns = save.enemySkillPoints;
+		PZScrollingBackground.instance.SetBackgrounds(fullTask);
 		
 		yield return null;
 		
 		playerSkillIndicator.Init(activePlayer.monster.offensiveSkill, activePlayer.monster.monster.monsterElement);
-		
-		playerSkillPoints = save.playerSkillPoints;
-		playerSkillIndicator.SetPoints(save.playerSkillPoints);
 
-		yield return RunScrollToNextEnemy(true);
+		if (save != null)
+		{
+			playerSkillPoints = save.playerSkillPoints;
+			playerSkillIndicator.SetPoints(save.playerSkillPoints);
+		}
+		else
+		{
+			playerSkillPoints = 0;
+			playerSkillIndicator.SetPoints(0);
+		}
+
+		yield return RunScrollToNextEnemy(save!=null);
 
 		if (currTurn == playerTurns)
 		{
@@ -496,7 +520,7 @@ public class PZCombatManager : MonoBehaviour {
 			currTurn = 0;
 			currPlayerDamage = 0;
 		}
-		else
+		else if (save != null)
 		{
 			RunPickNextTurn(false);
 		}

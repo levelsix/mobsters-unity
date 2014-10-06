@@ -20,6 +20,17 @@ public class MSFillBar : MonoBehaviour {
 	[SerializeField]
 	float speed = .5f;
 
+	/// <summary>
+	/// The width guide.
+	/// If this is set, this bar will set
+	/// maxSize = widthGuide.width + widthAdjustment
+	/// </summary>
+	[SerializeField]
+	UIWidget widthGuide;
+
+	[SerializeField]
+	int widthAdjustment;
+
 	float targetVal;
 
 	public float fill
@@ -51,6 +62,14 @@ public class MSFillBar : MonoBehaviour {
 		get
 		{
 			return maxSize;
+		}
+	}
+
+	void Start()
+	{
+		if (widthGuide != null)
+		{
+			maxSize = widthGuide.width + widthAdjustment;
 		}
 	}
 

@@ -389,6 +389,8 @@ MonoBehaviour:
   currVal: 0
   tweenToVal: 0
   speed: .5
+  widthGuide: {fileID: 11400000}
+  widthAdjustment: -3
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -434,17 +436,17 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 20
-  mHeight: 40
+  mHeight: 24
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .5
+  aspectRatio: .833333313
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 8b255364756fd499a95751ae6f020698, type: 2}
-  mText: 11
-  mFontSize: 40
+  mFont: {fileID: 11400000, guid: afca7de2ee9d6487a85e6ecdd5c5b862, type: 2}
+  mText: 4
+  mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1

@@ -123,7 +123,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -207.600006, y: -50, z: 0}
+  m_LocalPosition: {x: 470, y: -50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400012}
@@ -139,7 +139,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -171, y: -0, z: 0}
+  m_LocalPosition: {x: -187.97937, y: 1.4960022, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -151,7 +151,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -78.7200012, y: 0, z: 0}
+  m_LocalPosition: {x: -83.458725, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -163,7 +163,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -153.800003, y: 28.7999992, z: 0}
+  m_LocalPosition: {x: -175.97937, y: 28.497406, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -175,7 +175,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 172.982819, y: -.00397777557, z: 0}
+  m_LocalPosition: {x: 194.037048, y: -.00392341614, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400012}
@@ -187,7 +187,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -181.220001, y: .920000017, z: 0}
+  m_LocalPosition: {x: -201.97937, y: .920000076, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400014}
@@ -201,7 +201,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.03125, y: -.00399780273, z: 0}
+  m_LocalPosition: {x: -3.97729492, y: -.00392341614, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400012}
@@ -219,12 +219,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftAnchor:
     target: {fileID: 0}
-    relative: 0
-    absolute: 0
+    relative: 1
+    absolute: 10
   rightAnchor:
     target: {fileID: 0}
-    relative: 1
-    absolute: 0
+    relative: .5
+    absolute: -10
   bottomAnchor:
     target: {fileID: 0}
     relative: 0
@@ -236,13 +236,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 5
-  mWidth: 192
+  mWidth: 212
   mHeight: 35
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.48571444
+  aspectRatio: 6.05714273
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: topbarbg
   mType: 1
@@ -268,33 +268,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400000}
     relative: 0
-    absolute: 0
+    absolute: 2
   rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400000}
     relative: 0
-    absolute: 0
+    absolute: 46
+  bottomAnchor:
+    target: {fileID: 400000}
+    relative: 0
+    absolute: -8
   topAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400000}
     relative: 1
-    absolute: 0
+    absolute: 11
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 94
-  mHeight: 116
+  mWidth: 44
+  mHeight: 54
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
-  keepAspectRatio: 1
-  aspectRatio: .8125
+  keepAspectRatio: 0
+  aspectRatio: .814814806
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
-  mSpriteName: moneystack
+  mSpriteName: oilicon
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9164a0dbc458d4390ad34773a6224dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resource: 1
+  resource: 2
   time: 1
 --- !u!114 &11400006
 MonoBehaviour:
@@ -331,13 +331,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400004}
     relative: 1
-    absolute: 0
+    absolute: 10
+  rightAnchor:
+    target: {fileID: 400000}
+    relative: 1
+    absolute: -11
   bottomAnchor:
     target: {fileID: 0}
     relative: 0
@@ -349,16 +349,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 136
+  mWidth: 145
   mHeight: 62
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.19354844
+  aspectRatio: 2.33870959
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 0597cf853468f415bb3a618c6ab2ed9d, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: ced1eda36375d45589bdad391c1a2b66, type: 2}
   mText: $9,999,999
   mFontSize: 18
   mFontStyle: 0
@@ -393,34 +393,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400000}
     relative: 0
-    absolute: 0
+    absolute: 36
   rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400000}
     relative: 0
-    absolute: 0
-  topAnchor:
-    target: {fileID: 0}
+    absolute: 134
+  bottomAnchor:
+    target: {fileID: 400000}
     relative: 1
-    absolute: 0
+    absolute: 3
+  topAnchor:
+    target: {fileID: 400000}
+    relative: 1
+    absolute: 19
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 102
+  mWidth: 98
   mHeight: 16
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.375
+  aspectRatio: 6.125
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 0597cf853468f415bb3a618c6ab2ed9d, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: ced1eda36375d45589bdad391c1a2b66, type: 2}
   mText: 'Max: 15,000'
   mFontSize: 16
   mFontStyle: 0
@@ -431,7 +431,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -479,9 +479,9 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .166666672
+  aspectRatio: .200000003
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
-  mSpriteName: cashcap
+  mSpriteName: oilcap
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffecd832442b4b93a3d76219465bfa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceType: 1
+  resourceType: 2
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -516,11 +516,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b942fba2053a14d328be1d3170b5309b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSize: 178
+  maxSize: 174
   minSize: 2
   currVal: 0
-  tweenToVal: 0
+  tweenToVal: 1
   speed: .5
+  widthGuide: {fileID: 11400000}
+  widthAdjustment: -17
 --- !u!114 &11400016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -533,9 +535,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400000}
     relative: 0
-    absolute: 0
+    absolute: 10
   rightAnchor:
     target: {fileID: 0}
     relative: 1
@@ -551,15 +553,15 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 174
+  mWidth: 195
   mHeight: 30
   mDepth: 3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.80000019
+  aspectRatio: 6.5
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
-  mSpriteName: cashmiddle
+  mSpriteName: oilmiddle
   mType: 1
   mFillDirection: 4
   mFillAmount: 1
@@ -607,9 +609,9 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .277777791
+  aspectRatio: .333333343
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
-  mSpriteName: cashcap
+  mSpriteName: oilcap
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -633,7 +635,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 2
-  speed: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

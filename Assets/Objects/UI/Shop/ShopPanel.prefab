@@ -7019,6 +7019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultTweens: 1
   inTweens: []
   outTweens: []
 --- !u!114 &11400054
@@ -8018,6 +8019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultTweens: 1
   inTweens: []
   outTweens: []
 --- !u!114 &11400104
@@ -8109,6 +8111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultTweens: 1
   inTweens: []
   outTweens: []
 --- !u!114 &11400110
@@ -9071,6 +9074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultTweens: 1
   inTweens:
   - {fileID: 11400286}
   - {fileID: 11400354}
@@ -15871,6 +15875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultTweens: 1
   inTweens:
   - {fileID: 11400462}
   - {fileID: 11400460}
@@ -16014,7 +16019,7 @@ MonoBehaviour:
   renderQueue: 0
   startingRenderQueue: 4005
   mAlpha: 1
-  mClipping: 3
+  mClipping: 0
   mClipRange: {x: 0, y: .649078369, z: 1022.96143, w: 640}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 3

@@ -15,7 +15,13 @@ public class PZTurnDisplay : MonoBehaviour
 
 	[SerializeField] PZTurnIcon iconPrefab;
 
-	[SerializeField] Vector3 newIconPosition;
+	Vector3 newIconPosition
+	{
+		get
+		{
+			return new Vector3(background.width + 150, 0, 0);
+		}
+	}
 
 	[SerializeField] int numTurnsToDisplay;
 
@@ -66,10 +72,7 @@ public class PZTurnDisplay : MonoBehaviour
 		{
 			numTurnsToDisplay = 4;
 		}
-		if (PZPuzzleManager.instance.boardWidth <= 6)
-		{
-			numTurnsToDisplay++;
-		}
+		numTurnsToDisplay += 8 - PZPuzzleManager.instance.boardWidth;
 		background.width = numTurnsToDisplay * pixelsPerTurn + 10;
 	}
 

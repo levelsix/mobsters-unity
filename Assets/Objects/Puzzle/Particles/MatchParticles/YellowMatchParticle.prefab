@@ -52,7 +52,7 @@ TrailRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Time: .200000003
+  m_Time: .300000012
   m_StartWidth: .0500000007
   m_EndWidth: .0250000004
   m_Colors:
@@ -85,8 +85,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startForce: 750
-  lerpTime: .25
-  totalTime: .75
+  lerpTime: .300000012
+  totalTime: .600000024
   trans: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
@@ -127,10 +127,10 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 1, g: .811764717, b: .368627459, a: 1}
+  mColor: {r: 1, g: 1, b: 0, a: 1}
   mPivot: 4
-  mWidth: 50
-  mHeight: 50
+  mWidth: 40
+  mHeight: 40
   mDepth: 6
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
