@@ -596,14 +596,18 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		}
 
 		yield return MSBuildingManager.instance.StartCoroutine(MSSpriteUtil.instance.SetBuildingAnimator(this, structName));
+		yield return null;
 
-		if (obstacle == null)
+		if (sprite.sprite != null)
 		{
-			sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset/25, -sprite.sprite.rect.size.y/100f);
-		}
-		else if (sprite.sprite != null)
-		{
-			sprite.transform.localPosition = new Vector3(0, -sprite.sprite.rect.size.y/100f);
+			if (obstacle == null)
+			{
+				sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset/25, -sprite.sprite.rect.size.y/100f);
+			}
+			else 
+			{
+				sprite.transform.localPosition = new Vector3(0, -sprite.sprite.rect.size.y/100f);
+			}
 		}
 
 		sprite.color = Color.white;
@@ -823,6 +827,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				MSBuildingManager.instance.AddBuilding(this);
 				MSBuildingManager.instance.hoveringToBuild = null;
 				MSBuildingManager.instance.SetSelectedBuilding(this);
+				confirmationButtons.SetActive(false);
 			}
 			else
 			{

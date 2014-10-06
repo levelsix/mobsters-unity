@@ -29,6 +29,8 @@ public class PZCombatSave
 	
 	const string key = "CombatSave";
 
+	public long userTaskId;
+
 	public PZCombatSave(){}
 
 	public PZCombatSave(PZMonster activePlayer, int activeEnemyHealth,
@@ -79,6 +81,8 @@ public class PZCombatSave
 		this.playerSkillPoints = playerSkillPoints;
 		this.enemySkillPoints = enemySkillPoints;
 
+		this.userTaskId = MSWhiteboard.currUserTaskId;
+
 		MSUtil.Save(key, this);
 	}
 
@@ -95,6 +99,11 @@ public class PZCombatSave
 				jelly[x,y] = PZPuzzleManager.instance.jellyBoard[x,y] != null;
 			}
 		}
+	}
+
+	public static void Delete()
+	{
+		MSUtil.Save(key, null);
 	}
 
 	public void Save()

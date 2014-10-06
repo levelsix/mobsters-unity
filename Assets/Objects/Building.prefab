@@ -474,8 +474,6 @@ Transform:
   m_Children:
   - {fileID: 400018}
   - {fileID: 400004}
-  - {fileID: 400020}
-  - {fileID: 400038}
   m_Father: {fileID: 400000}
   m_RootOrder: 5
 --- !u!4 &400012
@@ -524,7 +522,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .00972533226, y: .0599999987, z: -.0499995947}
+  m_LocalPosition: {x: .00972533226, y: 2.13000011, z: -.0499995947}
   m_LocalScale: {x: -.839999974, y: .839999974, z: .839999974}
   m_Children: []
   m_Father: {fileID: 400010}
@@ -539,8 +537,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 400010}
-  m_RootOrder: 2
+  m_Father: {fileID: 400034}
+  m_RootOrder: 1
 --- !u!4 &400022
 Transform:
   m_ObjectHideFlags: 1
@@ -627,6 +625,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
+  - {fileID: 400020}
+  - {fileID: 400038}
   m_Father: {fileID: 400000}
   m_RootOrder: 4
 --- !u!4 &400036
@@ -651,8 +651,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 400010}
-  m_RootOrder: 3
+  m_Father: {fileID: 400034}
+  m_RootOrder: 2
 --- !u!4 &400040
 Transform:
   m_ObjectHideFlags: 1
@@ -943,7 +943,7 @@ MonoBehaviour:
   arrowScaleTween: {fileID: 0}
   locallyOwned: 1
   confirmationButtons: {fileID: 100016}
-  confirmationLoadLock: {fileID: 0}
+  confirmationLoadLock: {fileID: 11400068}
   loadedSprite: 0
   X_DRAG_FUDGE: 1.25
 --- !u!114 &11400010
@@ -1585,6 +1585,8 @@ MonoBehaviour:
   currVal: 1
   tweenToVal: 0
   speed: .5
+  widthGuide: {fileID: 0}
+  widthAdjustment: 0
 --- !u!114 &11400040
 MonoBehaviour:
   m_ObjectHideFlags: 1

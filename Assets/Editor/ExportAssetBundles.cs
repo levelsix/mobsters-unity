@@ -11,7 +11,7 @@ using System.Linq;
 public class ExportAssetBundles 
 {
 
-	[MenuItem("Assets/Build AssetBundle From Selection %t")]
+	[MenuItem("Bundles/Build AssetBundle From Selection %t")]
 	static void ExportResource () {
 		// Bring up save panel
 		string path = EditorUtility.SaveFilePanel ("Save Resource", "Bundles", Selection.activeObject.name, "unity3d");
@@ -29,7 +29,7 @@ public class ExportAssetBundles
 		}
 	}
 
-	[MenuItem("Assets/Build Character Bundles")]
+	[MenuItem("Bundles/Build All Bundles")]
 	static void TestBuild () 
 	{
 		string path = "Assets/Bundles";

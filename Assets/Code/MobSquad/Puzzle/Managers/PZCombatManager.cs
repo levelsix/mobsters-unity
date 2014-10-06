@@ -302,6 +302,7 @@ public class PZCombatManager : MonoBehaviour {
 		pvpMode = false;
 		raidMode = false;
 		combatActive = false;
+		PZCombatSave.Delete();
 	}
 	
 	void ResetBattleStats()
@@ -442,6 +443,10 @@ public class PZCombatManager : MonoBehaviour {
 		MSWhiteboard.currTaskId = minTask.taskId;
 
 		save = PZCombatSave.Load();
+		if (save.userTaskId != minTask.userTaskId)
+		{
+			save = null;
+		}
 
 #if UNITY_IPHONE || UNITY_ANDROID
 		//Kamcord.StartRecording();
@@ -478,7 +483,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			currTurn = 0;
 			currPlayerDamage = 0;
-			savedHealth = 0;
+			savedHealth = -1;
 			enemySkillTurns = 0;
 
 			PZPuzzleManager.instance.InitBoard(fullTask.boardWidth, fullTask.boardHeight);
