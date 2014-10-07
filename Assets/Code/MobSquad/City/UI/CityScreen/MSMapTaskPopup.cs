@@ -89,14 +89,16 @@ public class MSMapTaskPopup : MonoBehaviour {
 		if (statusType == MSMapTaskButton.TaskStatusType.Completed)
 		{
 			button.normalSprite = ACCEPT_BUTTON;
+			cashLabel.text = "0";
+			oilLabel.text = "0";
 //			status.text = "Completed";
 		} 
-		else if(statusType == MSMapTaskButton.TaskStatusType.Undefeated)
-		{
-			button.normalSprite = ACCEPT_BUTTON;
+//		else if(statusType == MSMapTaskButton.TaskStatusType.Undefeated)
+//		{
+//			button.normalSprite = ACCEPT_BUTTON;
 //			status.text = "Undefeated";
-		}
-		else 
+//		}
+		else if(statusType != MSMapTaskButton.TaskStatusType.Undefeated)
 		{
 //			status.text = "Locked";
 			background.spriteName = LOCKED_BACKGROUND;
