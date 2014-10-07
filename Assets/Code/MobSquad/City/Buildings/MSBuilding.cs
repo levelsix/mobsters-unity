@@ -446,6 +446,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		{
 			sprite.sortingOrder = ((int)(proto.coords.x + proto.coords.y + Mathf.Min(proto.xLength, proto.yLength)/2) * -1 - 10) * 3;
 		}
+		gaurdRails.sortingOrder = sprite.sortingOrder + 1;
 		overlayUnit.sprite.sortingOrder = sprite.sortingOrder + 1;
 		overlay.sortingOrder = sprite.sortingOrder + 2;
 
@@ -654,6 +655,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		{
 			sprite.sortingOrder = 3 * ((int)(_currPos.pos.x + _currPos.pos.y + Mathf.Min(width, length)/2) * -1 - 10);
 		}
+		gaurdRails.sortingOrder = sprite.sortingOrder + 1;
 		overlayUnit.sprite.sortingOrder = sprite.sortingOrder + 1;
 		overlay.sortingOrder = sprite.sortingOrder + 2;
 
@@ -780,7 +782,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			yield break;
 		}
 
-		yield return StartCoroutine(BuyBuilding(false));
+		yield return StartCoroutine(BuyBuilding(useGems));
 	}
 
 	IEnumerator WaitForResourceCollections()
@@ -804,8 +806,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				request.sender = MSWhiteboard.localMup;
 				
 				request.structCoordinates = new CoordinateProto();
-				request.structCoordinates.x = groundPos.x;
-				request.structCoordinates.y = groundPos.y;
+				request.structCoordinates.x = _currPos.x;
+				request.structCoordinates.y = _currPos.z;
 				
 				request.structId = combinedProto.structInfo.structId;
 				request.timeOfPurchase = MSUtil.timeNowMillis;
@@ -837,8 +839,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				request.sender = MSWhiteboard.localMup;
 				
 				request.structCoordinates = new CoordinateProto();
-				request.structCoordinates.x = groundPos.x;
-				request.structCoordinates.y = groundPos.y;
+				request.structCoordinates.x = _currPos.x;
+				request.structCoordinates.y = _currPos.z;
 				
 				request.structId = combinedProto.structInfo.structId;
 				request.timeOfPurchase = MSUtil.timeNowMillis;
@@ -870,6 +872,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			{
 				userStructProto.userId = MSWhiteboard.localMup.userId;
 			}
+			userStructProto.userStructId = response.userStructId;
 			
 			upgrade.StartConstruction();
 			
@@ -907,8 +910,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			request.userStructId = userStructProto.userStructId;
 			request.type = MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
 			request.curStructCoordinates = new CoordinateProto();
-			request.curStructCoordinates.x = _currPos.pos.x;
-			request.curStructCoordinates.y = _currPos.pos.y;
+			request.curStructCoordinates.x = _currPos.x;
+			request.curStructCoordinates.y = _currPos.z;
 			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT, LoadBuildingMovedResponse);
 		}
 	}
@@ -1013,8 +1016,14 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		hoverIcon.gameObject.SetActive(false);
 	}
 
-	public void SetArrow()
+	public void SetArrow(bool removeArrowOnNextClick = false)
 	{
+		if(removeArrowOnNextClick && hoverIcon.GetComponent<MSFadeOnTap>() != null && hoverIcon.GetComponent<MSHideObjectsWhileActive>() != null)
+		{
+			hoverIcon.GetComponent<MSFadeOnTap>().enabled = true;
+			hoverIcon.GetComponent<MSHideObjectsWhileActive>().AddItemToBeHidden(bubbleIcon.gameObject);
+		}
+
 		hoverIcon.gameObject.SetActive(true);
 		hoverIcon.spriteName = ARROW_SPRITE_NAME;
 		hoverIcon.MakePixelPerfect();

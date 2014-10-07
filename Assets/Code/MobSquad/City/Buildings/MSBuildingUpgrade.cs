@@ -108,7 +108,14 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			return MSMath.GemsForTime(timeRemaining);
+			if(building.obstacle != null)
+			{
+				return MSMath.GemsForTime(timeRemaining, false);
+			}
+			else
+			{
+				return MSMath.GemsForTime(timeRemaining, true);
+			}
 		}
 	}
 

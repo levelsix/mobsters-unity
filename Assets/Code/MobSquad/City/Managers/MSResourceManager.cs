@@ -94,6 +94,7 @@ public class MSResourceManager : MonoBehaviour {
 		{
 			if (MSActionManager.UI.OnChangeResource[item.Key] != null)
 			{
+				Debug.Log("Resource Setup: " + item.ToString());
 				MSActionManager.UI.OnChangeResource[item.Key](item.Value);
 			}
 		}

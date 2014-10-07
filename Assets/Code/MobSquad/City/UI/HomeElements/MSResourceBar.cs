@@ -8,6 +8,8 @@ public class MSResourceBar : MonoBehaviour {
 	ResourceType resourceType;
 
 	MSFillBar fillBar;
+
+
 	
 	void Awake()
 	{

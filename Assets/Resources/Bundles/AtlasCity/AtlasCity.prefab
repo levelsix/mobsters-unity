@@ -41,8 +41,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 41c928ad454fe4d85a4e1a26e296b6d0, type: 2}
   mSprites:
+  - name: arrow
+    x: 559
+    y: 803
+    width: 92
+    height: 92
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: buildingcap
-    x: 549
+    x: 544
     y: 952
     width: 4
     height: 15
@@ -93,9 +106,35 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 0
     paddingBottom: 0
+  - name: cancelbuild
+    x: 234
+    y: 334
+    width: 65
+    height: 75
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: cancelbuildbot
+    x: 475
+    y: 761
+    width: 80
+    height: 80
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: cashcollected
     x: 103
-    y: 542
+    y: 597
     width: 110
     height: 54
     borderLeft: 0
@@ -107,8 +146,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: cashoverflow
-    x: 103
-    y: 21
+    x: 234
+    y: 486
     width: 69
     height: 75
     borderLeft: 0
@@ -120,8 +159,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: cashready
-    x: 103
-    y: 97
+    x: 234
+    y: 410
     width: 69
     height: 75
     borderLeft: 0
@@ -147,7 +186,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: confirmbuild
     x: 234
-    y: 549
+    y: 258
     width: 65
     height: 75
     borderLeft: 0
@@ -160,7 +199,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: enhancebubble
     x: 710
-    y: 833
+    y: 770
     width: 110
     height: 62
     borderLeft: 0
@@ -172,8 +211,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: epicjob
-    x: 731
-    y: 673
+    x: 103
+    y: 18
     width: 96
     height: 27
     borderLeft: 0
@@ -186,7 +225,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: evolvebubble
     x: 103
-    y: 298
+    y: 46
     width: 94
     height: 62
     borderLeft: 0
@@ -199,7 +238,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: fix1
     x: 103
-    y: 361
+    y: 109
     width: 94
     height: 62
     borderLeft: 0
@@ -225,7 +264,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: gemscollected
     x: 103
-    y: 597
+    y: 542
     width: 110
     height: 54
     borderLeft: 0
@@ -237,7 +276,7 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: healingcap
-    x: 544
+    x: 549
     y: 952
     width: 4
     height: 15
@@ -264,7 +303,7 @@ MonoBehaviour:
     paddingBottom: 3
   - name: healredbubble1
     x: 0
-    y: 386
+    y: 260
     width: 102
     height: 62
     borderLeft: 0
@@ -277,7 +316,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubble2
     x: 0
-    y: 449
+    y: 323
     width: 102
     height: 62
     borderLeft: 0
@@ -290,7 +329,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubble3
     x: 0
-    y: 512
+    y: 386
     width: 102
     height: 62
     borderLeft: 0
@@ -303,7 +342,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubble4
     x: 0
-    y: 575
+    y: 449
     width: 102
     height: 62
     borderLeft: 0
@@ -316,7 +355,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubble5
     x: 0
-    y: 638
+    y: 512
     width: 102
     height: 62
     borderLeft: 0
@@ -328,8 +367,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healredbubble6
-    x: 821
-    y: 707
+    x: 0
+    y: 575
     width: 102
     height: 62
     borderLeft: 0
@@ -341,8 +380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healredbubble7
-    x: 821
-    y: 770
+    x: 0
+    y: 638
     width: 102
     height: 62
     borderLeft: 0
@@ -354,8 +393,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healredbubble8
-    x: 821
-    y: 833
+    x: 839
+    y: 721
     width: 102
     height: 62
     borderLeft: 0
@@ -367,8 +406,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healredbubble9
-    x: 710
-    y: 707
+    x: 839
+    y: 784
     width: 102
     height: 62
     borderLeft: 0
@@ -381,7 +420,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubbleexclamation
     x: 710
-    y: 770
+    y: 707
     width: 102
     height: 62
     borderLeft: 0
@@ -393,7 +432,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: legendaryjob
-    x: 401
+    x: 551
     y: 673
     width: 158
     height: 27
@@ -406,58 +445,6 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: minijobsredbubble1
-    x: 324
-    y: 779
-    width: 150
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: minijobsredbubble2
-    x: 324
-    y: 842
-    width: 150
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: minijobsredbubble3
-    x: 324
-    y: 905
-    width: 150
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: minijobsredbubble4
-    x: 324
-    y: 716
-    width: 150
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: minijobsredbubble5
     x: 559
     y: 896
     width: 150
@@ -470,9 +457,61 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: minijobsredbubble2
+    x: 324
+    y: 716
+    width: 150
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: minijobsredbubble3
+    x: 324
+    y: 779
+    width: 150
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: minijobsredbubble4
+    x: 324
+    y: 842
+    width: 150
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: minijobsredbubble5
+    x: 324
+    y: 905
+    width: 150
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: mjdone
-    x: 173
-    y: 99
+    x: 234
+    y: 184
     width: 52
     height: 73
     borderLeft: 0
@@ -484,8 +523,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: mjnew
-    x: 173
-    y: 175
+    x: 652
+    y: 822
     width: 52
     height: 73
     borderLeft: 0
@@ -497,8 +536,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: obenhance
-    x: 103
-    y: 249
+    x: 329
+    y: 652
     width: 120
     height: 48
     borderLeft: 0
@@ -510,7 +549,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: obevolve
-    x: 300
+    x: 450
     y: 652
     width: 100
     height: 48
@@ -524,7 +563,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: obfull
     x: 475
-    y: 717
+    y: 712
     width: 80
     height: 48
     borderLeft: 0
@@ -550,7 +589,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: objobcomplete
     x: 839
-    y: 910
+    y: 847
     width: 158
     height: 48
     borderLeft: 0
@@ -588,8 +627,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: oiloverflow
-    x: 475
-    y: 766
+    x: 234
+    y: 562
     width: 69
     height: 75
     borderLeft: 0
@@ -601,8 +640,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: oilready
-    x: 103
-    y: 173
+    x: 942
+    y: 708
     width: 69
     height: 75
     borderLeft: 0
@@ -614,7 +653,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: overbuildingbar
-    x: 401
+    x: 551
     y: 652
     width: 120
     height: 20
@@ -627,8 +666,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rarejob
-    x: 627
-    y: 673
+    x: 559
+    y: 712
     width: 103
     height: 27
     borderLeft: 0
@@ -640,6 +679,58 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: sellbubble1
+    x: 103
+    y: 172
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble2
+    x: 234
+    y: 638
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble3
+    x: 103
+    y: 235
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble4
+    x: 103
+    y: 298
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble5
     x: 0
     y: 197
     width: 94
@@ -652,72 +743,7 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: sellbubble2
-    x: 0
-    y: 260
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble3
-    x: 0
-    y: 323
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble4
-    x: 924
-    y: 707
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble5
-    x: 924
-    y: 833
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
   - name: sellbubble6
-    x: 924
-    y: 770
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble7
     x: 0
     y: 134
     width: 94
@@ -730,7 +756,7 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: sellbubble8
+  - name: sellbubble7
     x: 0
     y: 71
     width: 94
@@ -743,7 +769,7 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: sellbubble9
+  - name: sellbubble8
     x: 0
     y: 8
     width: 94
@@ -756,7 +782,7 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: sellbubbleexclamation
+  - name: sellbubble9
     x: 103
     y: 424
     width: 94
@@ -769,9 +795,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: sellbubbleexclamation
+    x: 103
+    y: 361
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: shadow
-    x: 560
-    y: 657
+    x: 942
+    y: 803
     width: 66
     height: 43
     borderLeft: 0
@@ -809,8 +848,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: teambubble0
-    x: 559
-    y: 770
+    x: 710
+    y: 833
     width: 128
     height: 62
     borderLeft: 0
@@ -822,8 +861,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: teambubble1
-    x: 559
-    y: 833
+    x: 839
+    y: 896
     width: 128
     height: 62
     borderLeft: 0
@@ -849,7 +888,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: teambubble3
     x: 559
-    y: 707
+    y: 740
     width: 128
     height: 62
     borderLeft: 0
@@ -871,19 +910,6 @@ MonoBehaviour:
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: cancelbuild
-    x: 234
-    y: 625
-    width: 65
-    height: 75
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
   mPixelSize: 1

@@ -64,15 +64,16 @@ public class PZTurnDisplay : MonoBehaviour
 
 	void SetSize()
 	{
-		if (MSUtil.screenRatio <= 3.1f/2f)
-		{
-			numTurnsToDisplay = 3;
-		}
-		else
+		if (MSUtil.screenRatio > 1.5f)
 		{
 			numTurnsToDisplay = 4;
 		}
+		else
+		{
+			numTurnsToDisplay = 3;
+		}
 		numTurnsToDisplay += 8 - PZPuzzleManager.instance.boardWidth;
+		numTurnsToDisplay = Mathf.Min(numTurnsToDisplay, 5);
 		background.width = numTurnsToDisplay * pixelsPerTurn + 10;
 	}
 

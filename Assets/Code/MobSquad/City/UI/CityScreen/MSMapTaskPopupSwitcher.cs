@@ -33,18 +33,17 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 
 	Popup curPopup = Popup.NONE;
 
-	void Awake()
-	{
-		swapper = GetComponent<MSPopupSwapper>();
-	}
-
 	void OnEnable()
 	{
+		if (swapper == null)
+		{
+			swapper = GetComponent<MSPopupSwapper>();
+		}
 		MSActionManager.Map.OnMapTaskClicked += clickedMapTask;
 		MSActionManager.Popup.CloseAllPopups += swapper.Close;
 		MSActionManager.Popup.CloseAllPopups += delegate { curPopup = Popup.NONE; };
 
-		Debug.Log(mapTaskB.trans.localPosition.ToString());
+		Debug.Log(mapTaskB.transform.localPosition.ToString());
 	}
 
 	public void EndOfTween()
