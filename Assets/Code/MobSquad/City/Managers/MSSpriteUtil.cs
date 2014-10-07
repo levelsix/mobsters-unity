@@ -17,8 +17,8 @@ public class MSSpriteUtil : MonoBehaviour {
 		{"gold", "bronzegoldribbon"},
 		{"champion", "championribbon"},
 		{"diamond", "diamondribbon"},
-		{"silver", "silverribbon"},
-		{"platinumribbon", "platinumribbon"}
+		{"silver", "silverplatinumribbon"},
+		{"platinum", "silverplatinumribbon"}
 	};
 
 	#endregion

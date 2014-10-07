@@ -55,8 +55,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400006}
-  - 114: {fileID: 11400012}
   - 114: {fileID: 11400014}
+  - 114: {fileID: 11400012}
   m_Layer: 5
   m_Name: Ribbon
   m_TagString: Untagged
@@ -314,7 +314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100038
 GameObject:
   m_ObjectHideFlags: 1
@@ -1766,7 +1766,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 271.000427, y: 292, z: 0}
+  m_LocalPosition: {x: 271, y: 292, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400076}
@@ -2045,7 +2045,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -480, y: 0, z: 0}
+  m_LocalPosition: {x: -546.133362, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400018}
@@ -2229,7 +2229,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 480, y: 0, z: 0}
+  m_LocalPosition: {x: 546.133362, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400070}
@@ -3434,11 +3434,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 400018}
+    target: {fileID: 0}
     relative: 0
     absolute: 0
   rightAnchor:
@@ -3446,8 +3446,8 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   bottomAnchor:
-    target: {fileID: 400018}
-    relative: 1
+    target: {fileID: 0}
+    relative: 0
     absolute: 0
   topAnchor:
     target: {fileID: 0}
@@ -3458,15 +3458,24 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 542
   mHeight: 196
-  mDepth: 12
+  mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.76530623
-  mSprite: {fileID: 21300000, guid: 69b84087f9aed48998eb07bbacdcc62e, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: dfbe94eaec2e144dbadc6be5a6b96f8f, type: 2}
+  mSpriteName: championribbon
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+  mFlip: 0
+  mFillCenter: 1
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4426,6 +4435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultIn: 0
+  defaultOut: 0
+  defaultTarget: {fileID: 0}
   inTweens:
   - {fileID: 11400036}
   - {fileID: 11400110}
@@ -5706,7 +5718,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.07000005
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 7a96f4cab77584d12be676fa3ce0347f, type: 2}
   mSpriteName: championbig
   mType: 0
   mFillDirection: 4
@@ -8543,7 +8555,7 @@ MonoBehaviour:
   startingRenderQueue: 5018
   mAlpha: 1
   mClipping: 4
-  mClipRange: {x: -1283.5, y: -2, z: 980.000061, w: 660}
+  mClipRange: {x: -1349.6333, y: -2, z: 1112.2666, w: 660}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 9
   mSortingOrder: 0

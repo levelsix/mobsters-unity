@@ -23,7 +23,7 @@ public class MSMyPvpDetails : MonoBehaviour {
 	UISprite leagueIcon;
 
 	[SerializeField]
-	UI2DSprite ribbon;
+	UISprite ribbon;
 
 	[SerializeField]
 	UILabel pvpCost;
@@ -60,6 +60,6 @@ public class MSMyPvpDetails : MonoBehaviour {
 		leagueIcon.spriteName = MSUtil.StripExtensions(pvpLeague.imgPrefix) + "big";
 		leagueIcon.MakePixelPerfect();
 
-		MSSpriteUtil.instance.SetSprite("PVP", MSSpriteUtil.ribbonsForLeague[pvpLeague.imgPrefix], ribbon);
+		ribbon.spriteName = MSSpriteUtil.ribbonsForLeague[pvpLeague.imgPrefix];
 	}
 }
