@@ -17,6 +17,8 @@ public class MSResourceAmountLabel : MonoBehaviour {
 	float target = 0;
 
 	float current = 0;
+
+	bool needsToBeSet = true;
 	
 	void Awake()
 	{
@@ -38,6 +40,7 @@ public class MSResourceAmountLabel : MonoBehaviour {
 	{
 		target = amount;
 		speed = (target - current) * time;
+		needsToBeSet = true;
 	}
 
 	void Update()
@@ -49,6 +52,11 @@ public class MSResourceAmountLabel : MonoBehaviour {
 		else if (current > target)
 		{
 			SetAmount (Mathf.Max(target, current + speed * Time.deltaTime));
+		}
+		else if (needsToBeSet)
+		{
+			SetAmount (target);
+			needsToBeSet = false;
 		}
 	}
 

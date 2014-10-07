@@ -39,7 +39,6 @@ public class PZDeployCard : MonoBehaviour {
 		monster = goon;
 		
 		background.spriteName = backgroundDict[goon.monster.monsterElement];
-
 		
 		string goonPrefix = MSUtil.StripExtensions (goon.monster.imagePrefix);
 		MSSpriteUtil.instance.SetSprite(goonPrefix, goonPrefix + "Thumbnail", goonSprite);
@@ -47,6 +46,7 @@ public class PZDeployCard : MonoBehaviour {
 		bar.fillAmount = (float)goon.currHP / goon.maxHP;
 		
 		button.isEnabled = (goon.currHP > 0);
+		goonSprite.color = button.isEnabled ? Color.white : Color.black;
 		
 		background.alpha = 1;
 		bar.alpha = 1;

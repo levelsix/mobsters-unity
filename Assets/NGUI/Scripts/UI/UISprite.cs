@@ -679,6 +679,15 @@ public class UISprite : UIWidget
 		cols.Add(col);
 	}
 
+	[ContextMenu ("Butts")]
+	public void Deb()
+	{
+		Color colF = color;
+		colF.a = finalAlpha;
+		Color32 col = atlas.premultipliedAlpha ? NGUITools.ApplyPMA(colF) : colF;
+		Debug.Log("Final color: " + col);
+	}
+
 	/// <summary>
 	/// Sliced sprite fill function is more complicated as it generates 9 quads instead of 1.
 	/// </summary>

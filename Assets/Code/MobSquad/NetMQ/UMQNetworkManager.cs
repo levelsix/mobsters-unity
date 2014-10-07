@@ -461,7 +461,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		yield return new WaitForSeconds(60);
 		if (requestsOut.Contains(tagNum))
 		{
-			//Debug.LogWarning("Response never received for request: " + tagNum);
+			Debug.LogWarning("Response never received for request: " + tagNum);
 			MSSceneManager.instance.ReconnectPopup();
 		}
 	}
@@ -549,8 +549,8 @@ public class UMQNetworkManager : MonoBehaviour {
 					MSChatManager.instance.ReceivePrivateChatMessage(proto as PrivateChatPostResponseProto);
 				}
 			}
-
 			requestsOut.Remove(tagNum);
+
 		}
 	}
 

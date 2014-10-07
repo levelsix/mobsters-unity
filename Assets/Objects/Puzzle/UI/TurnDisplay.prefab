@@ -90,7 +90,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 90, y: 10, z: 0}
+  m_LocalPosition: {x: 92, y: 10, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400006}
@@ -126,7 +126,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 164, y: -100, z: 0}
+  m_LocalPosition: {x: 196.320007, y: 80, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400004}
@@ -201,6 +201,7 @@ MonoBehaviour:
   iconPrefab: {fileID: 11400002, guid: 528f5b2bc9cb046b8bc6fe183d22a6f4, type: 2}
   newIconPosition: {x: 360, y: 0, z: 0}
   numTurnsToDisplay: 3
+  pixelsPerTurn: 90
   turnGrid: {fileID: 11400004}
   currentBorder: {fileID: 400012}
   timeBetweenFlips: .100000001
@@ -246,6 +247,7 @@ MonoBehaviour:
       tangentMode: 10
     m_PreInfinity: 2
     m_PostInfinity: 2
+  background: {fileID: 11400006}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -258,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrangement: 0
-  sorting: 1
+  sorting: 4
   pivot: 3
   maxPerLine: 0
   cellWidth: 90
@@ -501,7 +503,7 @@ MonoBehaviour:
   rightAnchor:
     target: {fileID: 400002}
     relative: 1
-    absolute: -42
+    absolute: -38
   bottomAnchor:
     target: {fileID: 0}
     relative: 0
@@ -513,13 +515,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 16
+  mWidth: 20
   mHeight: 2
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 8
+  aspectRatio: 27.5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

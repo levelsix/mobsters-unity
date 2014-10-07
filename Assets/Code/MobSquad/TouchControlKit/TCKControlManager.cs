@@ -344,7 +344,7 @@ public class TCKControlManager : MonoBehaviour
 				}
 
 				//Tap
-				else if (MSActionManager.Controls.OnTap[touch.countIndex] != null)
+				if (MSActionManager.Controls.OnTap[touch.countIndex] != null)
 				{
 					MSActionManager.Controls.OnTap[touch.countIndex](touch);
 				}

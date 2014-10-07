@@ -10,9 +10,24 @@ using com.lvl6.proto;
 /// </summary>
 public class MSPopup : MonoBehaviour {
 
+	[SerializeField] bool defaultTweens = true;
+
 	[SerializeField] protected UITweener[] inTweens;
 
 	[SerializeField] protected UITweener[] outTweens;
+
+	/// <summary>
+	/// The poolable component, if any.
+	/// If there is a poolable component, this popup will
+	/// pool when it finishes its outro.
+	/// Otherwise, it'll just turn itself off.
+	/// </summary>
+	MSSimplePoolable poolable;
+
+	void Awake()
+	{
+		poolable = GetComponent<MSSimplePoolable>();
+	}
 
 	public virtual void Popup()
 	{
@@ -59,6 +74,13 @@ public class MSPopup : MonoBehaviour {
 				yield return null;
 			}
 		}
-		gameObject.SetActive(false);
+		if (poolable != null)
+		{
+			poolable.Pool();
+		}
+		else
+		{
+			gameObject.SetActive(false);
+		}
 	}
 }

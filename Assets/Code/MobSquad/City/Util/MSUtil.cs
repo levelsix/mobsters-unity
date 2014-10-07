@@ -334,6 +334,14 @@ public static class MSUtil {
 
 	#endregion
 
+	public static float screenRatio
+	{
+		get
+		{
+			return ((float)Screen.width) / Screen.height;
+		}
+	}
+
 	public static string StripExtensions(string file)
 	{
 		return StripSpaces(Path.GetFileNameWithoutExtension(file));
@@ -360,6 +368,9 @@ public static class MSUtil {
 			Debug.LogError("User is null...");
 			return;
 		}
+
+		Debug.Log("User ID: " + user.userId);
+
 		MSWhiteboard.localUser = user;
 		MSWhiteboard.localMup = new MinimumUserProto();
 		MSWhiteboard.localMup.userId = user.userId;

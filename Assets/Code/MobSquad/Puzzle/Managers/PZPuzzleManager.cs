@@ -218,7 +218,7 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	public void Start()
 	{
-		MSPoolManager.instance.Warm(rocketPrefab.GetComponent<MSSimplePoolable>(), 6);
+		MSPoolManager.instance.Warm(rocketPrefab, 6);
 	}
 	
 	public void ResetCombo()

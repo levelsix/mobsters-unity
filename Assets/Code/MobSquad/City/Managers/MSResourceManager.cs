@@ -18,6 +18,12 @@ public class MSResourceManager : MonoBehaviour {
 	[SerializeField]
 	MSLevelUpPopup levelUpPopup;
 
+	[SerializeField]
+	MSPopup shopMenuPopup;
+
+	[SerializeField]
+	MSTabButton fundsTab;
+
 	/// <summary>
 	/// The resources.
 	/// Indexed by subtracting one from the ResourceType enum
@@ -88,6 +94,7 @@ public class MSResourceManager : MonoBehaviour {
 		{
 			if (MSActionManager.UI.OnChangeResource[item.Key] != null)
 			{
+				Debug.Log("Resource Setup: " + item.ToString());
 				MSActionManager.UI.OnChangeResource[item.Key](item.Value);
 			}
 		}
@@ -213,7 +220,10 @@ public class MSResourceManager : MonoBehaviour {
 				new Action[] {
 					delegate 
 					{
-						MSActionManager.Popup.CloseAllPopups(); 
+					MSActionManager.Popup.CloseAllPopups(); 
+					MSBuildingManager.instance.FullDeselect();
+					MSActionManager.Popup.OnPopup(shopMenuPopup);
+					fundsTab.OnClick();
 					}
 				},
 				"purple"

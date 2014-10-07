@@ -600,7 +600,7 @@ MonoBehaviour:
   tweenTarget: {fileID: 100014}
   hover: {r: 1, g: 1, b: 1, a: 1}
   pressed: {r: .5, g: .5, b: .5, a: 1}
-  disabledColor: {r: .5, g: .5, b: .5, a: 1}
+  disabledColor: {r: 0, g: 0, b: 0, a: 1}
   duration: .200000003
   dragHighlight: 0
   hoverSprite: 
@@ -661,7 +661,7 @@ MonoBehaviour:
   aspectRatio: 1
   mSprite: {fileID: 21300000, guid: 049d98ec97735410d8cbd3f221c2ac96, type: 3}
   mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
+  mShader: {fileID: 4800000, guid: f77408194c9ce4f7a8d3e14d324cb9e5, type: 3}
   nextSprite: {fileID: 0}
 --- !u!114 &11400008
 MonoBehaviour:
@@ -776,8 +776,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tweenTarget: {fileID: 100028}
   hover: {r: 1, g: 1, b: 1, a: 1}
-  pressed: {r: .5, g: .5, b: .5, a: 1}
-  disabledColor: {r: .5, g: .5, b: .5, a: 1}
+  pressed: {r: .522058845, g: .522058845, b: .522058845, a: 1}
+  disabledColor: {r: 0, g: 0, b: 0, a: 1}
   duration: .200000003
   dragHighlight: 0
   hoverSprite: 
@@ -838,7 +838,7 @@ MonoBehaviour:
   aspectRatio: 1
   mSprite: {fileID: 21300000, guid: 049d98ec97735410d8cbd3f221c2ac96, type: 3}
   mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
+  mShader: {fileID: 4800000, guid: f77408194c9ce4f7a8d3e14d324cb9e5, type: 3}
   nextSprite: {fileID: 0}
 --- !u!114 &11400018
 MonoBehaviour:
@@ -877,7 +877,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: a1e354e976e1044aeb53434e3607b221, type: 2}
   mSpriteName: earthteam
   mType: 0
   mFillDirection: 4
@@ -977,7 +977,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: a1e354e976e1044aeb53434e3607b221, type: 2}
   mSpriteName: earthteam
   mType: 0
   mFillDirection: 4
@@ -1004,7 +1004,7 @@ MonoBehaviour:
   tweenTarget: {fileID: 100018}
   hover: {r: 1, g: 1, b: 1, a: 1}
   pressed: {r: .5, g: .5, b: .5, a: 1}
-  disabledColor: {r: .5, g: .5, b: .5, a: 1}
+  disabledColor: {r: 0, g: 0, b: 0, a: 1}
   duration: .200000003
   dragHighlight: 0
   hoverSprite: 
@@ -1041,6 +1041,8 @@ MonoBehaviour:
   - {fileID: 11400014}
   - {fileID: 11400004}
   - {fileID: 11400026}
+  swapButton: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!114 &11400030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1279,7 +1281,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: a1e354e976e1044aeb53434e3607b221, type: 2}
   mSpriteName: earthteam
   mType: 0
   mFillDirection: 4
@@ -1381,7 +1383,7 @@ MonoBehaviour:
   aspectRatio: 1
   mSprite: {fileID: 21300000, guid: 049d98ec97735410d8cbd3f221c2ac96, type: 3}
   mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
+  mShader: {fileID: 4800000, guid: f77408194c9ce4f7a8d3e14d324cb9e5, type: 3}
   nextSprite: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

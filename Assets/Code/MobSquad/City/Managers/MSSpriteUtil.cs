@@ -289,8 +289,13 @@ public class MSSpriteUtil : MonoBehaviour {
 	/// Sample code from: http://docs.unity3d.com/Documentation/Manual/DownloadingAssetBundles.html
 	/// </summary>
 	/// <returns>The and cache.</returns>
-	IEnumerator DownloadAndCache (string bundleName)
+	IEnumerator DownloadAndCache (string bundleName, int attempts = 0)
 	{
+		if (attempts > 5)
+		{
+			yield break;
+		}
+
 		// Wait for the Caching system to be ready
 		while (!Caching.ready)
 			yield return null;
@@ -306,15 +311,22 @@ public class MSSpriteUtil : MonoBehaviour {
 			yield break;
 		}
 		
+		Debug.Log ("Actually grabbing bundle: " + bundleName);
+		
 		bundles[bundleName] = null;
 		
 		// Load the AssetBundle file from Cache if it exists with the same version or download and store it in the cache
 		using(WWW www = WWW.LoadFromCacheOrDownload (AWS + bundleName + ".unity3d", 1)){
 			yield return www;
+			Debug.Log("In here: " + bundleName + ((www.error != null) ? ("\nError: " + www.error) : ("Fine")));
 
 			if (www.error != null)
+			{
+				Debug.LogError("WWW download of " + bundleName + " had an error:" + www.error);
+				yield return StartCoroutine(DownloadAndCache(bundleName, attempts+1));
 				yield break;
-				//throw new Exception("WWW download of " + bundleName + " had an error:" + www.error);
+			}
+
 			AssetBundle bundle = www.assetBundle;
 
 			Debug.Log("Loaded bundle: " + bundleName);

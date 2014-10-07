@@ -97,11 +97,11 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				case GemType.HORIZONTAL_ROCKET:
 					horizontal = true;
 					gemType = GemType.ROCKET;
-					break;
+					return;
 				case GemType.VERTICAL_ROCKET:
 					horizontal = false;
 					gemType = GemType.ROCKET;
-					break;
+					return;
 			}
 
 			sprite.MakePixelPerfect();

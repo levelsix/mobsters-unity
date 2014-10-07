@@ -32,6 +32,9 @@ public class MSBottomChat : MonoBehaviour {
 	[SerializeField]
 	GameObject noPrivateChats;
 
+	[SerializeField]
+	UIGrid blockGrid;
+
 	int currentChatIndex;
 
 	float currDrag;
@@ -44,6 +47,13 @@ public class MSBottomChat : MonoBehaviour {
 	void Awake()
 	{
 		instance = this;
+	}
+
+	void Start()
+	{
+		blockGrid.cellWidth = GetComponent<UISprite>().width;
+		blockGrid.Reposition();
+		SetDots();
 	}
 
 	public void Hide()
@@ -141,16 +151,21 @@ public class MSBottomChat : MonoBehaviour {
 			}
 			else
 			{
-				dots[i].spriteName = "inactivechatline";
+				if (dots[i].spriteName == "activechatline")
+				{
+					dots[i].spriteName = "inactivechatline";
+				}
 			}
+			dots[i].MakePixelPerfect();
 		}
 	}
 
 	public void AlertDot(MSValues.ChatMode chatType)
 	{
-		if (dots[(int)chatType].spriteName != "activechatline")
+		if (chatType != MSValues.ChatMode.GLOBAL && dots[(int)chatType].spriteName != "activechatline")
 		{
 			dots[(int)chatType].spriteName = "newchatline";
+			dots[(int)chatType].MakePixelPerfect();
 		}
 	}
 }

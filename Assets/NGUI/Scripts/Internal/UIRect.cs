@@ -457,6 +457,7 @@ public abstract class UIRect : MonoBehaviour
 	/// Manually update anchored sides.
 	/// </summary>
 
+	[ContextMenu ("Update Anchors")]
 	public void UpdateAnchors () { if (isAnchored) OnAnchor(); }
 
 	/// <summary>

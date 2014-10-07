@@ -597,14 +597,18 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		}
 
 		yield return MSBuildingManager.instance.StartCoroutine(MSSpriteUtil.instance.SetBuildingAnimator(this, structName));
+		yield return null;
 
-		if (obstacle == null)
+		if (sprite.sprite != null)
 		{
-			sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset/25, -sprite.sprite.rect.size.y/100f);
-		}
-		else
-		{
-			sprite.transform.localPosition = new Vector3(0, -sprite.sprite.rect.size.y/100f);
+			if (obstacle == null)
+			{
+				sprite.transform.localPosition = new Vector3(combinedProto.structInfo.imgHorizontalPixelOffset/25, -sprite.sprite.rect.size.y/100f);
+			}
+			else 
+			{
+				sprite.transform.localPosition = new Vector3(0, -sprite.sprite.rect.size.y/100f);
+			}
 		}
 
 		sprite.color = Color.white;
@@ -752,18 +756,17 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	public void DoConfirm()
 	{
-		Confirm(false);
+		StartCoroutine(Confirm(false));
 	}
 
-	public void Confirm(bool useGems)
+	IEnumerator Confirm(bool useGems)
 	{
 		if (!MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 		{
 			MSActionManager.Popup.DisplayRedError("You can't build a building there, silly!");
 			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingCantPlace);
-			return;
+			yield break;
 		}
-
 
 		if(MSBuildingManager.instance.currentUnderConstruction != null)
 		{
@@ -776,10 +779,89 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				new WaitFunction[]{MSUtil.QuickCloseTop, WaitUntilPurchased},
 				"purple"
 			);
-			return;
+			yield break;
 		}
 
-		if (MSBuildingManager.instance.BuyBuilding(this, useGems))
+		yield return StartCoroutine(BuyBuilding(useGems));
+	}
+
+	IEnumerator WaitForResourceCollections()
+	{
+		yield return MSResourceManager.instance.CollectResources();
+	}
+
+	public IEnumerator BuyBuilding(bool useGems = false)
+	{
+		ResourceType costType = combinedProto.structInfo.buildResourceType;
+		int cost = combinedProto.structInfo.buildCost;
+		
+		if (useGems)
+		{
+			int gemCost = Mathf.CeilToInt((cost - MSResourceManager.resources[costType]) * MSWhiteboard.constants.gemsPerResource);
+			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
+			{
+				confirmationLoadLock.Lock();
+				yield return StartCoroutine(WaitForResourceCollections());
+				PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
+				request.sender = MSWhiteboard.localMup;
+				
+				request.structCoordinates = new CoordinateProto();
+				request.structCoordinates.x = _currPos.x;
+				request.structCoordinates.y = _currPos.z;
+				
+				request.structId = combinedProto.structInfo.structId;
+				request.timeOfPurchase = MSUtil.timeNowMillis;
+				
+				request.gemsSpent = gemCost;
+				request.resourceChange = -MSResourceManager.instance.SpendAll(costType);
+				
+				request.resourceType = combinedProto.structInfo.buildResourceType;
+				
+				UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_NORM_STRUCTURE_EVENT, PurchaseBuildingResponse);
+			}
+		}
+		else if (MSResourceManager.instance.Spend(costType, cost, delegate{StartCoroutine(Confirm(true));}))
+		{
+			if (MSTutorialManager.instance.inTutorial)
+			{
+			 	MSBuildingManager.instance.buildingsBuiltInTutorial.Add(this);
+				MSBuildingManager.instance.hoveringToBuild.id = MSBuildingManager.instance.buildings.Count;
+				MSBuildingManager.instance.AddBuilding(this);
+				MSBuildingManager.instance.hoveringToBuild = null;
+				MSBuildingManager.instance.SetSelectedBuilding(this);
+				confirmationButtons.SetActive(false);
+			}
+			else
+			{
+				confirmationLoadLock.Lock();
+				yield return StartCoroutine(WaitForResourceCollections());
+				PurchaseNormStructureRequestProto request = new PurchaseNormStructureRequestProto();
+				request.sender = MSWhiteboard.localMup;
+				
+				request.structCoordinates = new CoordinateProto();
+				request.structCoordinates.x = _currPos.x;
+				request.structCoordinates.y = _currPos.z;
+				
+				request.structId = combinedProto.structInfo.structId;
+				request.timeOfPurchase = MSUtil.timeNowMillis;
+				
+				request.gemsSpent = 0;
+				request.resourceChange = -combinedProto.structInfo.buildCost;
+				
+				request.resourceType = combinedProto.structInfo.buildResourceType;
+				
+				UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_NORM_STRUCTURE_EVENT, PurchaseBuildingResponse);
+			}
+		}
+	}
+	
+	private void PurchaseBuildingResponse(int tagNum)
+	{
+		PurchaseNormStructureResponseProto response = UMQNetworkManager.responseDict[tagNum] as PurchaseNormStructureResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		confirmationLoadLock.Unlock();
+		if (response.status == PurchaseNormStructureResponseProto.PurchaseNormStructureStatus.SUCCESS)
 		{
 			long now = MSUtil.timeNowMillis;
 			userStructProto.lastRetrieved = now;
@@ -790,19 +872,25 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			{
 				userStructProto.userId = MSWhiteboard.localMup.userId;
 			}
-
+			userStructProto.userStructId = response.userStructId;
+			
 			upgrade.StartConstruction();
-
+			
 			confirmationButtons.SetActive(false);
 
-			if (MSTutorialManager.instance.inTutorial)
-			{
-				MSBuildingManager.instance.FullDeselect();
-				MSBuildingManager.instance.SetSelectedBuilding(this);
-			}
-		}
-		sprite.GetComponent<Animator>().enabled = false;
+			id = response.userStructId;
 
+			MSBuildingManager.instance.AddBuilding(this);
+			
+			MSBuilding temp = MSBuildingManager.instance.hoveringToBuild;
+			MSBuildingManager.instance.hoveringToBuild = null;
+
+			MSBuildingManager.instance.SetSelectedBuilding(this);
+		}
+		else
+		{
+			Debug.LogError("Problem building building: " + response.status.ToString());
+		}
 	}
 
 	public void Cancel()
@@ -822,8 +910,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			request.userStructId = userStructProto.userStructId;
 			request.type = MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
 			request.curStructCoordinates = new CoordinateProto();
-			request.curStructCoordinates.x = _currPos.pos.x;
-			request.curStructCoordinates.y = _currPos.pos.y;
+			request.curStructCoordinates.x = _currPos.x;
+			request.curStructCoordinates.y = _currPos.z;
 			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_MOVE_OR_ROTATE_NORM_STRUCTURE_EVENT, LoadBuildingMovedResponse);
 		}
 	}

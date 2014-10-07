@@ -72,7 +72,7 @@ public class MSBuildingManager : MonoBehaviour
 	/// <summary>
 	/// Dictionary of the buildings currently in the scene
 	/// </summary>
-	private Dictionary<int, MSBuilding> buildings = new Dictionary<int, MSBuilding>();
+	public Dictionary<int, MSBuilding> buildings = new Dictionary<int, MSBuilding>();
 
 	public List<MSBuilding> obstacles = new List<MSBuilding>();
 
@@ -734,7 +734,7 @@ public class MSBuildingManager : MonoBehaviour
 				return false;
 			}
 		}
-		else if (MSResourceManager.instance.Spend(costType, cost, delegate{building.Confirm(true);}))
+		else if (MSResourceManager.instance.Spend(costType, cost, delegate{building.DoConfirm();}))
 		{
 			FullDeselect();
 
@@ -1120,8 +1120,21 @@ public class MSBuildingManager : MonoBehaviour
 		}
 	}
 
+	public void AddBuilding(MSBuilding building)
+	{
+		if (!buildings.ContainsKey(building.id))
+		{
+			buildings.Add(building.id, building);
+		}
+	}
+
 	public void AddToFunctionalityLists(MSBuilding building)
 	{
+		if (!buildings.ContainsKey(building.id))
+		{
+			buildings.Add(building.id, building);
+		}
+
 		switch(building.combinedProto.structInfo.structType)
 		{
 			case StructureInfoProto.StructType.HOSPITAL:
