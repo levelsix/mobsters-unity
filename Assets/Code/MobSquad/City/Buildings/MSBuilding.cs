@@ -436,16 +436,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			//shadow.transform.localPosition = SHADOW_POS;
 		}
 		
-		//trans.position += new Vector3(SIZE_OFFSET.x * width, 0, SIZE_OFFSET.z * length);
-		//SetGridFromTrans();
-		if (combinedProto.structInfo.structType == StructureInfoProto.StructType.MINI_JOB)
-		{
-			sprite.sortingOrder = -300; //Walk on the pier, always
-		}
-		else
-		{
-			sprite.sortingOrder = ((int)(proto.coords.x + proto.coords.y + Mathf.Min(proto.xLength, proto.yLength)/2) * -1 - 10) * 3;
-		}
+		sprite.sortingOrder = ((int)(proto.coords.x + proto.coords.y + Mathf.Min(proto.xLength, proto.yLength)/2) * -1 - 10) * 3;
+
 		gaurdRails.sortingOrder = sprite.sortingOrder + 1;
 		overlayUnit.sprite.sortingOrder = sprite.sortingOrder + 1;
 		overlay.sortingOrder = sprite.sortingOrder + 2;
@@ -461,12 +453,10 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			float hypot = Mathf.Max(width, length) * MSGridManager.instance.gridSpaceHypotenuse / 2 *2/3;
 			_box.center = new Vector3(hypot, 0, hypot);
 			_box.size = new Vector3(width * MSGridManager.instance.spaceSize, 1, length * MSGridManager.instance.spaceSize);
-			//shadow.gameObject.SetActive(true);
 		}
 		else
 		{
 			_box.enabled = false;
-			//shadow.gameObject.SetActive(false);
 		}
 	}
 	
@@ -647,14 +637,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		_currPos = new MSGridNode(new Vector2(transform.position.x / MSGridManager.instance.spaceSize - SIZE_OFFSET.x * width,
     	    transform.position.z / MSGridManager.instance.spaceSize - SIZE_OFFSET.z * length));
 
-		if (combinedProto != null && combinedProto.structInfo.structType == StructureInfoProto.StructType.MINI_JOB)
-		{
-			sprite.sortingOrder = -300; //Walk on the pier, always
-		}
-		else
-		{
-			sprite.sortingOrder = 3 * ((int)(_currPos.pos.x + _currPos.pos.y + Mathf.Min(width, length)/2) * -1 - 10);
-		}
+		sprite.sortingOrder = 3 * ((int)(_currPos.pos.x + _currPos.pos.y + Mathf.Min(width, length)/2) * -1 - 10);
+
 		gaurdRails.sortingOrder = sprite.sortingOrder + 1;
 		overlayUnit.sprite.sortingOrder = sprite.sortingOrder + 1;
 		overlay.sortingOrder = sprite.sortingOrder + 2;
@@ -668,11 +652,6 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
     /// <param name="movement"></param> 
     public void MoveRelative(TCKTouchData touch)
     {
-		if (combinedProto.structInfo.structType == StructureInfoProto.StructType.MINI_JOB)
-		{
-			return;
-		}
-
 		Vector3 movement = touch.Movement;
 		Vector3 tempPosition = trans.position;
 		

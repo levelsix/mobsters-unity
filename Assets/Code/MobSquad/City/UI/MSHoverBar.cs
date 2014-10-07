@@ -62,7 +62,7 @@ public class MSHoverBar : MonoBehaviour {
 			
 			currBuilding = building;
 			
-			if (building.locallyOwned && building.combinedProto.structInfo.structType != com.lvl6.proto.StructureInfoProto.StructType.MINI_JOB)
+			if (building.locallyOwned)
 			{
 				gameObj.SetActive(true);
 			}

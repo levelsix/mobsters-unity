@@ -330,7 +330,6 @@ public class TCKControlManager : MonoBehaviour
 			}
 			else
 			{
-				
 				//Try to double-tap
 				if (CheckDoubleTap(touch) && MSActionManager.Controls.OnDoubleTap[touch.countIndex] != null)
 				{
