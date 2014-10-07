@@ -27,7 +27,7 @@ public class MSGachaSpinner : MonoBehaviour {
 	BoosterPackProto boosterPack;
 	
 	[SerializeField]
-	UICenterOnChild spinnerCenter;
+	MSOffsetCenterOnChild spinnerCenter;
 	
 	[SerializeField]
 	SpringPanel spinnerSpring;
@@ -136,7 +136,8 @@ public class MSGachaSpinner : MonoBehaviour {
 		//request.freeBoosterPack = MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000;
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_BOOSTER_PACK_EVENT, null);
-		
+
+		spinnerCenter.momentumAffectsSpring = false;
 		StartCoroutine(SpinForTime(minSpinTime));
 		
 		canStop = false;
@@ -182,6 +183,8 @@ public class MSGachaSpinner : MonoBehaviour {
 		theOne.Setup(response.prize);
 		
 		spinnerCenter.CenterOn(theOne.transform);
+
+		spinnerCenter.momentumAffectsSpring = true;
 		
 		//spinnerSpring.strength = currSpeed;
 		//theOne.label.text = "THE ONE";
@@ -194,10 +197,11 @@ public class MSGachaSpinner : MonoBehaviour {
 		spinnerSpring.enabled = true;
 		while (currTime < seconds || !canStop)
 		{
-			//Debug.Log("Spinning...");
+			Debug.Log("Spinning...");
 			currTime += Time.deltaTime;
 			spinnerSpring.target = spinnerSpring.transform.localPosition + new Vector3(1000, 0, 0);
 			spinnerSpring.strength = currSpeed;
+			spinnerCenter.springStrength = currSpeed;
 			yield return null;
 		}
 		spinning = false;

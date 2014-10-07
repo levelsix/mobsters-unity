@@ -34,12 +34,12 @@ public static class MSColors {
 	
 	public static readonly Dictionary<Element, Color> elementColors = new Dictionary<Element, Color>()
 	{
-		{Element.DARK, Color.magenta},
-		{Element.EARTH, Color.green},
-		{Element.FIRE, Color.red},
-		{Element.LIGHT, Color.yellow},
-		{Element.WATER, Color.blue},
-		{Element.ROCK, Color.grey},
+		{Element.DARK, new Color(0.647f, 0.247f, 0.921f)},//magenta
+		{Element.EARTH, new Color(0.25f, 0.713f, 0f)},//green
+		{Element.FIRE, new Color(0.976f, 0.207f, 0.019f)},//red
+		{Element.LIGHT, new Color(1f, 0.819f, 0.322f)},//yellow
+		{Element.WATER, new Color(0.172f, 0.702f, 0.85f)},//blue
+		{Element.ROCK, new Color(0.537f, 0.612f, 0.655f)},//grey
 		{Element.NO_ELEMENT, Color.black}
 	};
 

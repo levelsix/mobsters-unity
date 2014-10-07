@@ -609,7 +609,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		{
 			//Debug.Log("Lock");
 			PZPuzzleManager.instance.swapLock += 1;
-			yield return new WaitForSeconds(0.2f);
+//			yield return new WaitForSeconds(0.2f);
 			
 			//Debug.Log("Unlock");
 			PZPuzzleManager.instance.swapLock -= 1;

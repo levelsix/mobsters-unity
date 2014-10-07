@@ -35,15 +35,15 @@ public class SpringPanel : MonoBehaviour
 
 	public OnFinished onFinished;
 
-	UIPanel mPanel;
-	Transform mTrans;
-	UIScrollView mDrag;
+	protected UIPanel mPanel;
+	protected Transform mTrans;
+	protected UIScrollView mDrag;
 
 	/// <summary>
 	/// Cache the transform.
 	/// </summary>
 
-	void Start ()
+	protected void Start ()
 	{
 		mPanel = GetComponent<UIPanel>();
 		mDrag = GetComponent<UIScrollView>();

@@ -21,23 +21,26 @@ public class MSHideObjectsWhileActive : MonoBehaviour {
 		
 		for(int i = 0; i < thingsToHide.Count; i++)
 		{
-			if(thingsToHide[i].GetComponent<UIWidget>() != null)
+			if(thingsToHide[i] != null)
 			{
-				UIWidget widget = thingsToHide[i].GetComponent<UIWidget>();
-				originalAlpha[i] = widget.alpha;
-				if(fadeAlpha)
+				if(thingsToHide[i].GetComponent<UIWidget>() != null)
 				{
-					TweenAlpha.Begin(thingsToHide[i], fadeTime, 0f);
+					UIWidget widget = thingsToHide[i].GetComponent<UIWidget>();
+					originalAlpha[i] = widget.alpha;
+					if(fadeAlpha)
+					{
+						TweenAlpha.Begin(thingsToHide[i], fadeTime, 0f);
+					}
+					else
+					{
+						widget.alpha = 0f;
+					}
 				}
 				else
 				{
-					widget.alpha = 0f;
+					originalActiveState[i] = thingsToHide[i].activeSelf;
+					thingsToHide[i].SetActive(false);
 				}
-			}
-			else
-			{
-				originalActiveState[i] = thingsToHide[i].activeSelf;
-				thingsToHide[i].SetActive(false);
 			}
 		}
 	}
@@ -46,21 +49,24 @@ public class MSHideObjectsWhileActive : MonoBehaviour {
 	{
 		for(int i = 0; i < thingsToHide.Count; i++)
 		{
-			if(thingsToHide[i].GetComponent<UIWidget>() != null)
+			if(thingsToHide[i] != null)
 			{
-				if(fadeAlpha)
+				if(thingsToHide[i].GetComponent<UIWidget>() != null)
 				{
-					TweenAlpha.Begin(thingsToHide[i], fadeTime, originalAlpha[i]);
+					if(fadeAlpha)
+					{
+						TweenAlpha.Begin(thingsToHide[i], fadeTime, originalAlpha[i]);
+					}
+					else
+					{
+						thingsToHide[i].GetComponent<UIWidget>().alpha = originalAlpha[i];
+					}
 				}
 				else
 				{
-					thingsToHide[i].GetComponent<UIWidget>().alpha = originalAlpha[i];
+					originalActiveState[i] = thingsToHide[i].activeSelf;
+					thingsToHide[i].SetActive(true);
 				}
-			}
-			else
-			{
-				originalActiveState[i] = thingsToHide[i].activeSelf;
-				thingsToHide[i].SetActive(true);
 			}
 		}
 
@@ -80,7 +86,7 @@ public class MSHideObjectsWhileActive : MonoBehaviour {
 		{
 			//you probably won't need to add stuff while it's already active
 			//I doubt any one else will even use this.
-			Debug.LogError("Don't add objects to be hidden while already active");
+			Debug.LogWarning("Objects added while active are ignored.");
 		}
 		else
 		{

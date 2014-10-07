@@ -240,8 +240,8 @@ GameObject:
   - 54: {fileID: 5400000}
   - 114: {fileID: 11400040}
   - 114: {fileID: 11400036}
-  - 114: {fileID: 11400038}
   - 114: {fileID: 11400042}
+  - 114: {fileID: 11400038}
   m_Layer: 5
   m_Name: DetailPanel
   m_TagString: Untagged
@@ -368,7 +368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100044
 GameObject:
   m_ObjectHideFlags: 1
@@ -1549,8 +1549,8 @@ GameObject:
   - 114: {fileID: 11400280}
   - 114: {fileID: 11400278}
   - 54: {fileID: 5400004}
-  - 114: {fileID: 11400282}
   - 114: {fileID: 11400284}
+  - 114: {fileID: 11400282}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -2742,7 +2742,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -480.617737, y: -1, z: 6.10351562e-05}
+  m_LocalPosition: {x: -480, y: -1, z: 6.10351562e-05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400192}
@@ -3005,7 +3005,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.40499878, z: -6.10351562e-05}
+  m_LocalPosition: {x: 0, y: 0, z: -6.10351562e-05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400252}
@@ -3147,7 +3147,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 478.382263, y: -2, z: 0}
+  m_LocalPosition: {x: 479, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400152}
@@ -3346,7 +3346,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100152}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .617752075, y: 285, z: 0}
+  m_LocalPosition: {x: 0, y: 285, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400198}
@@ -3616,7 +3616,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 58, y: -4.6500001, z: 0}
+  m_LocalPosition: {x: 74, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400058}
@@ -3653,7 +3653,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: -1}
-  m_LocalPosition: {x: 340.882263, y: -2, z: 0}
+  m_LocalPosition: {x: 341.5, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400270}
@@ -3844,7 +3844,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -161.499969, y: 22.5, z: 0}
+  m_LocalPosition: {x: -161.5, y: 22.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400118}
@@ -4807,7 +4807,7 @@ MonoBehaviour:
   scaleDist: 350
   minScale: .5
   minAlpha: .5
-  panelCenter: -192
+  panelCenter: -50
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4883,7 +4883,7 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
+  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
   mFont: {fileID: 0}
   mText: WATER
   mFontSize: 18
@@ -5289,11 +5289,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 100028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d35d721694fa0ee48a2d14bddfcbf4a4, type: 3}
+  m_Script: {fileID: 11500000, guid: e4e325fb52df34a63aad06d688a32b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   springStrength: 8
   nextPageThreshold: 1
+  offset: {x: .400000006, y: 0}
+  momentumAffectsSpring: 0
+  momentumWeight: 1
+  minMomentum: .100000001
 --- !u!114 &11400040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5628,7 +5632,7 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
+  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
   mFont: {fileID: 0}
   mText: WATER
   mFontSize: 18
@@ -8948,7 +8952,7 @@ MonoBehaviour:
   scaleDist: 350
   minScale: .5
   minAlpha: .5
-  panelCenter: -192
+  panelCenter: -50
 --- !u!114 &11400230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9802,7 +9806,7 @@ MonoBehaviour:
   scaleDist: 350
   minScale: .5
   minAlpha: .5
-  panelCenter: -192
+  panelCenter: -50
 --- !u!114 &11400274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9945,7 +9949,7 @@ MonoBehaviour:
   smoothDragStart: 1
   iOSDragEmulation: 1
   scrollWheelFactor: .25
-  momentumAmount: 35
+  momentumAmount: 100
   horizontalScrollBar: {fileID: 0}
   verticalScrollBar: {fileID: 0}
   showScrollBars: 1
@@ -10004,24 +10008,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 100184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d35d721694fa0ee48a2d14bddfcbf4a4, type: 3}
+  m_Script: {fileID: 11500000, guid: be10cbaaf1096094ca8285024d49002e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springStrength: 1
-  nextPageThreshold: 5
+  target: {x: 0, y: 0, z: 0}
+  strength: 10
 --- !u!114 &11400284
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100184}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be10cbaaf1096094ca8285024d49002e, type: 3}
+  m_Script: {fileID: 11500000, guid: e4e325fb52df34a63aad06d688a32b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {x: 0, y: 0, z: 0}
-  strength: 1
+  springStrength: 8
+  nextPageThreshold: 0
+  offset: {x: 0, y: 0}
+  momentumAffectsSpring: 1
+  momentumWeight: .100000001
+  minMomentum: 1
 --- !u!114 &11400286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10310,10 +10318,10 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.72727275
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 8a2e4fb7e2b464759aa30a0aca13ace3, type: 2}
+  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
+  mFont: {fileID: 0}
   mText: Menu
-  mFontSize: 40
+  mFontSize: 34
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -11471,7 +11479,7 @@ MonoBehaviour:
   scaleDist: 350
   minScale: .5
   minAlpha: .5
-  panelCenter: -192
+  panelCenter: -50
 --- !u!114 &11400356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11699,7 +11707,7 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
+  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
   mFont: {fileID: 0}
   mText: WATER
   mFontSize: 18
@@ -12436,7 +12444,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 346
+  mWidth: 314
   mHeight: 390
   mDepth: 11
   autoResizeBoxCollider: 0
@@ -12556,7 +12564,7 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
+  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
   mFont: {fileID: 0}
   mText: WATER
   mFontSize: 18
@@ -12679,11 +12687,11 @@ MonoBehaviour:
   - {fileID: 11400076}
   - {fileID: 11400072}
   minSpinTime: 5
-  currSpeed: 1
+  currSpeed: 2
   timeToLand: 3
   reveal: {fileID: 11400390}
-  spinnerCenter: {fileID: 11400282}
-  spinnerSpring: {fileID: 11400284}
+  spinnerCenter: {fileID: 11400284}
+  spinnerSpring: {fileID: 11400282}
   lastToLoop: {fileID: 0}
 --- !u!114 &11400420
 MonoBehaviour:
