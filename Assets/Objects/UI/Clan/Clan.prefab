@@ -6560,13 +6560,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultIn: 1
+  defaultOut: 1
+  defaultTarget: {fileID: 100108}
   inTweens:
-  - {fileID: 11400210}
-  - {fileID: 11400208}
   - {fileID: 11400240}
   outTweens:
-  - {fileID: 11400206}
-  - {fileID: 11400204}
   - {fileID: 11400242}
 --- !u!114 &11400178
 MonoBehaviour:
@@ -7652,6 +7651,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultIn: 0
+  defaultOut: 0
+  defaultTarget: {fileID: 0}
   inTweens: []
   outTweens: []
 --- !u!114 &11400240
