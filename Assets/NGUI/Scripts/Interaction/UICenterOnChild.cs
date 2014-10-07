@@ -189,7 +189,6 @@ public class UICenterOnChild : MonoBehaviour
 
 	public void CenterOn (Transform target)
 	{
-		Debug.Log("simple center on");
 		if (mScrollView != null && mScrollView.panel != null)
 		{
 			Vector3[] corners = mScrollView.panel.worldCorners;

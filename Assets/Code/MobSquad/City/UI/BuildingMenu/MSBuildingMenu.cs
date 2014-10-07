@@ -8,8 +8,8 @@ public class MSBuildingMenu : MonoBehaviour {
 
 	public static MSBuildingMenu instance;
 
-	[SerializeField]
-	GameObject midDivider;
+//	[SerializeField]
+//	GameObject midDivider;
 
 	[SerializeField]
 	GameObject endDivider;
@@ -164,8 +164,8 @@ public class MSBuildingMenu : MonoBehaviour {
 			nameIndex++;
 		}
 
-		midDivider.name = nameIndex + DIVIDER_NAME;
-		nameIndex++;
+//		midDivider.name = nameIndex + DIVIDER_NAME;
+//		nameIndex++;
 
 		//now name the offcards
 		foreach(MSBuildingCard card in offCards)

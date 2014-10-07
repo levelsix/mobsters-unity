@@ -6,6 +6,14 @@ public class MSOffsetCenterOnChild : UICenterOnChild {
 	[SerializeField]
 	Vector2 offset;
 
+	public bool momentumAffectsSpring = false;
+
+	[SerializeField]
+	float momentumWeight = 1f;
+
+	[SerializeField]
+	float minMomentum = 0.1f;
+
 	/// <summary>
 	/// Recenter the draggable list on the center-most child.
 	/// </summary>
@@ -42,13 +50,18 @@ public class MSOffsetCenterOnChild : UICenterOnChild {
 		
 		// Offset this value by the momentum
 		Vector3 pickingPoint = offsetPanelCenter - mScrollView.currentMomentum * (mScrollView.momentumAmount * 0.1f);
+		if(momentumAffectsSpring && mScrollView.currentMomentum.magnitude != 0)
+		{
+			springStrength = Mathf.Abs (mScrollView.currentMomentum.magnitude * mScrollView.momentumAmount * momentumWeight);
+			springStrength = Mathf.Max(springStrength, minMomentum);
+		}
 		mScrollView.currentMomentum = Vector3.zero;
 		
 		float min = float.MaxValue;
 		Transform closest = null;
 		Transform trans = transform;
 		int index = 0;
-		
+
 		// Determine the closest child
 		for (int i = 0, imax = trans.childCount; i < imax; ++i)
 		{

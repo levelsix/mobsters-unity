@@ -1779,22 +1779,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &100212
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 400212}
-  - 114: {fileID: 11400324}
-  m_Layer: 5
-  m_Name: 5 Spaceblocker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &100214
 GameObject:
   m_ObjectHideFlags: 1
@@ -3272,7 +3256,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400162}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &400026
 Transform:
   m_ObjectHideFlags: 1
@@ -4181,7 +4165,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400176}
-  - {fileID: 400212}
   - {fileID: 400024}
   m_Father: {fileID: 400246}
   m_RootOrder: 0
@@ -4492,18 +4475,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400138}
   m_RootOrder: 0
---- !u!4 &400212
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100212}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 89.9692764, y: -50.0017471, z: 6.10351562e-05}
-  m_LocalScale: {x: .999965012, y: .999965012, z: .999965012}
-  m_Children: []
-  m_Father: {fileID: 400162}
-  m_RootOrder: 1
 --- !u!4 &400214
 Transform:
   m_ObjectHideFlags: 1
@@ -8162,7 +8133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5060f48419640ed8e4de6e38971be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  midDivider: {fileID: 100212}
   endDivider: {fileID: 100024}
   buildingCardPrefab: {fileID: 11400034, guid: b3db8f87e2a5540978e26190cf300a28, type: 2}
   table: {fileID: 11400256}
@@ -12322,43 +12292,6 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
---- !u!114 &11400324
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 858a20c1b21a3f94bb5b2d3b901c9aaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: 1}
-  mPivot: 4
-  mWidth: 50
-  mHeight: 100
-  mDepth: 0
-  autoResizeBoxCollider: 0
-  hideIfOffScreen: 0
-  keepAspectRatio: 0
-  aspectRatio: .5
 --- !u!114 &11400326
 MonoBehaviour:
   m_ObjectHideFlags: 1
