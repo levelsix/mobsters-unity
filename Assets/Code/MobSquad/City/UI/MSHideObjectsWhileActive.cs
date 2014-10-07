@@ -86,7 +86,7 @@ public class MSHideObjectsWhileActive : MonoBehaviour {
 		{
 			//you probably won't need to add stuff while it's already active
 			//I doubt any one else will even use this.
-			Debug.LogError("Don't add objects to be hidden while already active");
+			Debug.LogWarning("Objects added while active are ignored.");
 		}
 		else
 		{
