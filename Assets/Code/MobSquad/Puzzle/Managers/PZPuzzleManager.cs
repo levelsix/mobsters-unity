@@ -140,11 +140,17 @@ public class PZPuzzleManager : MonoBehaviour {
 	PZJelly jellyPrefab;
 
 	public float BASE_FALL_SPEED = -250;
-	
-	public float BASE_BOUNCE_SPEED = 80;
-	
-	public float SECOND_BOUNCE_MODIFIER = .25f;
-	
+
+	/// <summary>
+	/// amount of speed lost per bounce
+	/// </summary>
+	public float BOUNCE_REDUCTION = 0.8f;
+
+	/// <summary>
+	/// When the speed of a gem is below this, it will no longer bounce
+	/// </summary>
+	public float BOUNCE_THRESHHOLD = 100;
+		
 	public float GRAVITY = -600f;
 	
 	public float SWAP_TIME = .2f;
