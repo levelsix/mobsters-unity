@@ -37,8 +37,6 @@ public class PZPrize : MonoBehaviour {
 	[SerializeField]
 	Color cashColor;
 
-	Transform trans;
-
 	public UISprite sprite;
 
 	TweenPosition tweenPos;
@@ -47,18 +45,7 @@ public class PZPrize : MonoBehaviour {
 
 	const string LOST_ITEM_BORDER = "youlostitemborder";
 
-	static readonly Dictionary<Quality, Color> textColors = new Dictionary<Quality, Color>()
-	{
-		{Quality.COMMON, Color.grey},
-		{Quality.EPIC, new Color(.6f, .2f, .9f)},
-		{Quality.EVO, Color.red},
-		{Quality.LEGENDARY, Color.red},
-		{Quality.RARE, new Color(.3f, .3f, 1)},
-		{Quality.ULTRA, Color.yellow}
-	};
-
 	void Awake(){
-		trans = GetComponent<Transform>();
 		tweenPos = GetComponent<TweenPosition> ();
 		tweenAlpha = GetComponent<TweenAlpha> ();
 		sprite = GetComponent<UISprite> ();

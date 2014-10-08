@@ -240,7 +240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100028
 GameObject:
   m_ObjectHideFlags: 1
@@ -251,7 +251,6 @@ GameObject:
   - 4: {fileID: 400028}
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400174}
-  - 114: {fileID: 11400172}
   - 114: {fileID: 11400170}
   - 114: {fileID: 11400176}
   - 54: {fileID: 5400008}
@@ -1588,7 +1587,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1311, y: 768, z: 0}
+  m_Size: {x: 1337, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500020
 BoxCollider:
@@ -1946,6 +1945,7 @@ MonoBehaviour:
   spriteRoot: chatglobal
   inactiveTab: popupinactivetab
   activeTab: popupactivetab
+  active: 0
 --- !u!114 &11400016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1963,6 +1963,7 @@ MonoBehaviour:
   spriteRoot: chatprivate
   inactiveTab: popupinactivetab
   activeTab: popupactivetab
+  active: 0
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1980,6 +1981,7 @@ MonoBehaviour:
   spriteRoot: clansbrowse
   inactiveTab: popupinactivetab
   activeTab: popupactivetab
+  active: 0
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2241,6 +2243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultIn: 0
+  defaultOut: 0
+  defaultTarget: {fileID: 0}
   inTweens:
   - {fileID: 11400120}
   - {fileID: 11400110}
@@ -2261,6 +2266,7 @@ MonoBehaviour:
   bg: {fileID: 11400122}
   thumbnail: {fileID: 11400004}
   big: 0
+  square: 0
 --- !u!114 &11400034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2711,8 +2717,8 @@ MonoBehaviour:
   characterLimit: 0
   savedAs: 
   selectOnTab: {fileID: 0}
-  activeTextColor: {r: .404411793, g: .404411793, b: .404411793, a: 1}
-  caretColor: {r: 1, g: 1, b: 1, a: .800000012}
+  activeTextColor: {r: 0, g: 0, b: 0, a: 1}
+  caretColor: {r: 0, g: 0, b: 0, a: .800000012}
   selectionColor: {r: 1, g: .874509811, b: .552941203, a: .5}
   onSubmit:
   - mTarget: {fileID: 11400050}
@@ -3535,13 +3541,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1311
+  mWidth: 1337
   mHeight: 768
   mDepth: 50
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.70703125
+  aspectRatio: 1.74088538
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1
@@ -3737,7 +3743,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4005
+  startingRenderQueue: 4006
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 920, w: 591}
@@ -4620,37 +4626,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28e289b121d045178f07fba4b8cd9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11400172
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5060295fbd39b4a88d20d0c83d925e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  label: {fileID: 0}
-  inputType: 0
-  keyboardType: 0
-  validation: 0
-  characterLimit: 0
-  savedAs: 
-  selectOnTab: {fileID: 0}
-  activeTextColor: {r: 1, g: 1, b: 1, a: 1}
-  caretColor: {r: 1, g: 1, b: 1, a: .800000012}
-  selectionColor: {r: 1, g: .874509811, b: .552941203, a: .5}
-  onSubmit: []
-  onChange: []
-  mValue: 
 --- !u!114 &11400174
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d166255cacf07b4292b8402b3ddefc5, type: 3}
   m_Name: 
@@ -4718,7 +4700,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4007
+  startingRenderQueue: 4008
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 910, w: 200}

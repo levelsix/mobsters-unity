@@ -37,7 +37,7 @@ public class PZDeployPopup : MonoBehaviour {
 
 	void OnGlobalTap(TCKTouchData data)
 	{
-		if (acting)
+		if (acting && PZCombatManager.instance.activePlayer.alive)
 		{
 			acting = false;
 			tween.PlayReverse();

@@ -161,8 +161,6 @@ public class PZCombatManager : MonoBehaviour {
 
 	PZCombatSave save;
 
-	bool wordsMoving = false;
-
 	int currPlayerDamage = 0;
 
 	public int currTurn = 0;
@@ -223,8 +221,6 @@ public class PZCombatManager : MonoBehaviour {
 	const float FORFEIT_START_CHANCE = 0.25F;
 
 	int savedHealth = -1;
-
-	[SerializeField] int minTurnSlots = 6;
 
 	/// <summary>
 	/// The player skill points.
@@ -1433,11 +1429,6 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 	}
-
-	public void OnWordsFinishMoving()
-	{
-		wordsMoving = false;
-	}
 	
 	void MakeItRain()
 	{
@@ -1934,7 +1925,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	void ReviveWithGems()
 	{
-		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis);
+		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis) * ++revives;
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, 
 		                                     gemsToSpend,
 		                                     ReviveWithGems))

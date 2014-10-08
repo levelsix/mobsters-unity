@@ -269,6 +269,7 @@ GameObject:
   - 114: {fileID: 11400080}
   - 114: {fileID: 11400078}
   - 114: {fileID: 11400076}
+  - 114: {fileID: 11400188}
   m_Layer: 5
   m_Name: GreyWall
   m_TagString: Untagged
@@ -2912,13 +2913,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 0}
   mPivot: 4
-  mWidth: 1152
+  mWidth: 1229
   mHeight: 768
   mDepth: 5
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.5
+  aspectRatio: 1.60026038
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: upgradeincomebg
   mType: 0
@@ -3387,13 +3388,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultIn: 1
+  defaultOut: 1
+  defaultTarget: {fileID: 100036}
   inTweens:
-  - {fileID: 11400060}
-  - {fileID: 11400054}
   - {fileID: 11400078}
   outTweens:
-  - {fileID: 11400058}
-  - {fileID: 11400056}
   - {fileID: 11400076}
 --- !u!114 &11400072
 MonoBehaviour:
@@ -3851,12 +3851,12 @@ MonoBehaviour:
   spriteRoot: hireallfriends
   inactiveTab: popupinactivetab
   activeTab: popupactivetab
+  active: 0
   activeText: {r: 0, g: .662745118, b: .945098042, a: 1}
   inactiveText: {r: 0, g: .443137258, b: .639215708, a: 1}
   tabList:
   - {fileID: 11400098}
   tabContents: {fileID: 100024}
-  active: 0
 --- !u!114 &11400098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3874,12 +3874,12 @@ MonoBehaviour:
   spriteRoot: hireallfriends
   inactiveTab: popupinactivetab
   activeTab: popupactivetab
+  active: 1
   activeText: {r: 0, g: .662745118, b: .945098042, a: 1}
   inactiveText: {r: 0, g: .443137258, b: .639215708, a: 1}
   tabList:
   - {fileID: 11400096}
   tabContents: {fileID: 100094}
-  active: 1
 --- !u!114 &11400100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5593,8 +5593,20 @@ MonoBehaviour:
     height: 1
   mTexture: {fileID: 0}
   mMat: {fileID: 0}
-  mShader: {fileID: 0}
+  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
   mFlip: 0
+--- !u!114 &11400188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d9efed755fa4b80a25f9b65f83a4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  all: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

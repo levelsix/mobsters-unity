@@ -231,6 +231,7 @@ public class MSGoonCard : MonoBehaviour {
 		default:
 			break;
 		}
+		transform.localScale = Vector3.one;
 	}
 
 	public void InitHeal(PZMonster goon)

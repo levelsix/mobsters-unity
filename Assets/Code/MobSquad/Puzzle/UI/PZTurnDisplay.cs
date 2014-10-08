@@ -55,8 +55,6 @@ public class PZTurnDisplay : MonoBehaviour
 		}
 	}
 
-	PZMonster player, enemy;
-
 	void Awake()
 	{
 		instance = this;
@@ -86,8 +84,6 @@ public class PZTurnDisplay : MonoBehaviour
 	{
 		SetSize();
 		turnGrid.onCustomSort = MSNaturalSortObject.Compare;
-		this.player = player;
-		this.enemy = enemy;
 		if (_isItIn)
 		{
 			yield return RunInitAlreadyIn();
