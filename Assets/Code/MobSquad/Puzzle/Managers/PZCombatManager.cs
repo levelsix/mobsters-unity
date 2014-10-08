@@ -1694,6 +1694,15 @@ public class PZCombatManager : MonoBehaviour {
 
 	public IEnumerator PlayerFlinch()
 	{
+		if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.meleeHit);
+		}
+		else
+		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
+		}
+
 		if (MSTutorialManager.instance.hijackFlinch)
 		{
 			MSTutorialManager.instance.HijackFlinch();
@@ -1726,6 +1735,16 @@ public class PZCombatManager : MonoBehaviour {
 	}
 
 	public IEnumerator EnemyFlinch(int totalShots){
+
+		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.meleeHit);
+		}
+		else
+		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
+		}
+
 		Vector3 enemyPos = activeEnemy.unit.transf.localPosition;
 
 		activeEnemy.unit.animat = MSUnit.AnimationType.FLINCH;
