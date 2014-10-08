@@ -914,6 +914,123 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ClanHelpProto")]
+  public partial class ClanHelpProto : global::ProtoBuf.IExtensible
+  {
+    public ClanHelpProto() {}
+    
+
+    private long _clanHelpId = default(long);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"clanHelpId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long clanHelpId
+    {
+      get { return _clanHelpId; }
+      set { _clanHelpId = value; }
+    }
+
+    private int _clanId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanId
+    {
+      get { return _clanId; }
+      set { _clanId = value; }
+    }
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+
+    private long _userDataId = default(long);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userDataId
+    {
+      get { return _userDataId; }
+      set { _userDataId = value; }
+    }
+
+    private com.lvl6.proto.ClanHelpType _helpType = com.lvl6.proto.ClanHelpType.NO_HELP;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"helpType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ClanHelpType.NO_HELP)]
+    public com.lvl6.proto.ClanHelpType helpType
+    {
+      get { return _helpType; }
+      set { _helpType = value; }
+    }
+
+    private long _timeRequested = default(long);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"timeRequested", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long timeRequested
+    {
+      get { return _timeRequested; }
+      set { _timeRequested = value; }
+    }
+
+    private int _maxHelpers = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"maxHelpers", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxHelpers
+    {
+      get { return _maxHelpers; }
+      set { _maxHelpers = value; }
+    }
+    private readonly global::System.Collections.Generic.List<int> _helperIds = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(8, Name=@"helperIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> helperIds
+    {
+      get { return _helperIds; }
+    }
+  
+
+    private bool _open = default(bool);
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"open", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool open
+    {
+      get { return _open; }
+      set { _open = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ClanHelpNoticeProto")]
+  public partial class ClanHelpNoticeProto : global::ProtoBuf.IExtensible
+  {
+    public ClanHelpNoticeProto() {}
+    
+
+    private com.lvl6.proto.ClanHelpType _helpType = com.lvl6.proto.ClanHelpType.NO_HELP;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"helpType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ClanHelpType.NO_HELP)]
+    public com.lvl6.proto.ClanHelpType helpType
+    {
+      get { return _helpType; }
+      set { _helpType = value; }
+    }
+
+    private long _userDataId = default(long);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userDataId
+    {
+      get { return _userDataId; }
+      set { _userDataId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     [global::ProtoBuf.ProtoContract(Name=@"UserClanStatus")]
     public enum UserClanStatus
     {

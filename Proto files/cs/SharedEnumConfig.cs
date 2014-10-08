@@ -94,4 +94,12 @@ namespace com.lvl6.proto
       EVO = 8
     }
   
+    [global::ProtoBuf.ProtoContract(Name=@"ClanHelpType")]
+    public enum ClanHelpType
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_HELP", Value=1)]
+      NO_HELP = 1
+    }
+  
 }
