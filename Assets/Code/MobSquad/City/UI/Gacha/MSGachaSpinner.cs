@@ -163,6 +163,7 @@ public class MSGachaSpinner : MonoBehaviour {
 			
 			reveal.Init(response.prize);
 			Debug.Log("Prize: " + response.prize.boosterItemId + ", " + response.prize.isComplete + ", " + response.prize.monsterId);
+			MSWhiteboard.localUser.lastFreeBoosterPackTime = MSUtil.timeNowMillis;
 
 			if(MSActionManager.Gacha.OnPurchaseBoosterSucces != null)
 			{

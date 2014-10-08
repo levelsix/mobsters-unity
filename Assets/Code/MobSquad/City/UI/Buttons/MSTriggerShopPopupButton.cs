@@ -83,6 +83,13 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 				break;
 			}
 		}
+		else
+		{
+			if(monsters.badge.notifications == 1)
+			{
+				monsters.OnClick();
+			}
+		}
 	}
 
 	void UpdateBadge(){
@@ -104,6 +111,5 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 		}
 
 		building.badge.notifications = availableBuildings;
-
 	}
 }
