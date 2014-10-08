@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class MSHideObjectsWhileActive : MonoBehaviour {
-
+	[SerializeField]
+	bool revealInstead = false;
 	public bool clearOnDisable = false;
 	public bool fadeAlpha = true;
 	public float fadeTime = 0.3f;
 
 	[SerializeField]
 	List<GameObject> thingsToHide = new List<GameObject>();
-	
+
 	float[] originalAlpha;
 	bool[] originalActiveState;
 	
@@ -18,34 +19,48 @@ public class MSHideObjectsWhileActive : MonoBehaviour {
 	{
 		originalAlpha = new float[thingsToHide.Count];
 		originalActiveState = new bool[thingsToHide.Count];
-		
+
 		for(int i = 0; i < thingsToHide.Count; i++)
 		{
-			if(thingsToHide[i] != null)
+			if(thingsToHide[i].GetComponent<UIWidget>() != null)
 			{
-				if(thingsToHide[i].GetComponent<UIWidget>() != null)
-				{
-					UIWidget widget = thingsToHide[i].GetComponent<UIWidget>();
-					originalAlpha[i] = widget.alpha;
-					if(fadeAlpha)
-					{
-						TweenAlpha.Begin(thingsToHide[i], fadeTime, 0f);
-					}
-					else
-					{
-						widget.alpha = 0f;
-					}
-				}
-				else
-				{
-					originalActiveState[i] = thingsToHide[i].activeSelf;
-					thingsToHide[i].SetActive(false);
-				}
+				originalAlpha[i] = thingsToHide[i].GetComponent<UIWidget>().alpha;
 			}
+			else
+			{
+				originalActiveState[i] = thingsToHide[i].activeSelf;
+			}
+		}
+
+		if(revealInstead)
+		{
+			ChangeState(false, false);
+		}
+		else
+		{
+			ChangeState(true, false);
 		}
 	}
 	
 	void OnDisable()
+	{
+		if(revealInstead)
+		{
+			ChangeState(true, true);
+		}
+		else
+		{
+			ChangeState(false, true);
+		}
+
+
+		if(clearOnDisable)
+		{
+			thingsToHide.Clear();
+		}
+	}
+
+	void ChangeState(bool hide, bool originalState)
 	{
 		for(int i = 0; i < thingsToHide.Count; i++)
 		{
@@ -55,24 +70,39 @@ public class MSHideObjectsWhileActive : MonoBehaviour {
 				{
 					if(fadeAlpha)
 					{
-						TweenAlpha.Begin(thingsToHide[i], fadeTime, originalAlpha[i]);
+						if(originalState)
+						{
+							TweenAlpha.Begin(thingsToHide[i], fadeTime, originalAlpha[i]);
+						}
+						else
+						{
+							TweenAlpha.Begin(thingsToHide[i], fadeTime, hide?0f:1f);
+						}
 					}
 					else
 					{
-						thingsToHide[i].GetComponent<UIWidget>().alpha = originalAlpha[i];
+						if(originalState)
+						{
+							thingsToHide[i].GetComponent<UIWidget>().alpha = originalAlpha[i];
+						}
+						else
+						{
+							thingsToHide[i].GetComponent<UIWidget>().alpha = hide?0f:1f;
+						}
 					}
 				}
 				else
 				{
-					originalActiveState[i] = thingsToHide[i].activeSelf;
-					thingsToHide[i].SetActive(true);
+					if(originalState)
+					{
+						thingsToHide[i].SetActive(originalActiveState[i]);
+					}
+					else
+					{
+						thingsToHide[i].SetActive(!hide);
+					}
 				}
 			}
-		}
-
-		if(clearOnDisable)
-		{
-			thingsToHide.Clear();
 		}
 	}
 
