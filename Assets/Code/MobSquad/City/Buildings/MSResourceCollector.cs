@@ -12,7 +12,7 @@ using com.lvl6.proto;
 [RequireComponent (typeof (MSBuilding))]
 public class MSResourceCollector : MonoBehaviour {
     
-	bool hasMoney
+	public bool hasMoney
 	{
 		get
 		{
@@ -86,6 +86,14 @@ public class MSResourceCollector : MonoBehaviour {
     private MSBuilding _building;
     
     private MSBuildingUpgrade _upgrade;
+
+	public bool unblockClick = false;
+
+	[SerializeField]
+	float unblockClickTime = 10f;
+
+	[SerializeField]
+	float iconFadeTime = 0.3f;
 
 	/// <summary>
 	/// A building needs to have at least this much money to be collected from
@@ -185,6 +193,14 @@ public class MSResourceCollector : MonoBehaviour {
 			}
 
 		}
+		else
+		{
+			if(!unblockClick)
+			{
+				StartCoroutine(HideHoverIcon());
+				MSActionManager.Popup.DisplayRedError("Your " + _generator.resourceType.ToString().ToLower() + " storage is full, time to update your city!");
+			}
+		}
 	}
 	
 	void SendCollectRequest(int amount)
@@ -240,6 +256,16 @@ public class MSResourceCollector : MonoBehaviour {
 	public void OnFinishUpgrade ()
 	{
 		_building.userStructProto.lastRetrieved = _building.userStructProto.purchaseTime;//_building.userStructProto.lastUpgradeTime;
+	}
+
+	IEnumerator HideHoverIcon()
+	{
+		unblockClick = true;
+		TweenAlpha.Begin(_building.hoverIcon.gameObject, iconFadeTime, 0f);
+		yield return new WaitForSeconds(unblockClickTime);
+		TweenAlpha.Begin(_building.hoverIcon.gameObject, iconFadeTime, 1f);
+		yield return new WaitForSeconds(iconFadeTime);
+		unblockClick = false;
 	}
 	
 }

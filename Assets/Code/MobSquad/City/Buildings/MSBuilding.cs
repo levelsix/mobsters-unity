@@ -939,7 +939,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			lockTween.PlayForward();
 			MSBuildingManager.instance.FullDeselect();
 		}
-		else if (collector != null && collector.canCollect)
+		else if (collector != null && collector.hasMoney && !collector.unblockClick)
 		{
 			collector.Collect();
 		}
