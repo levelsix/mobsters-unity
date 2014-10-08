@@ -476,7 +476,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100058
 GameObject:
   m_ObjectHideFlags: 1
@@ -2700,7 +2700,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1229, y: 768, z: 0}
+  m_Size: {x: 1173, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500006
 BoxCollider:
@@ -2724,8 +2724,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 102, y: 20, z: 0}
-  m_Center: {x: 51, y: 0, z: 0}
+  m_Size: {x: 100, y: 20, z: 0}
+  m_Center: {x: 50, y: 0, z: 0}
 --- !u!65 &6500010
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2974,7 +2974,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .333333343, g: .333333343, b: .333333343, a: 1}
   mPivot: 5
-  mWidth: 74
+  mWidth: 72
   mHeight: 20
   mDepth: 0
   autoResizeBoxCollider: 0
@@ -3098,7 +3098,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .333333343, g: .333333343, b: .333333343, a: 1}
   mPivot: 5
-  mWidth: 78
+  mWidth: 76
   mHeight: 20
   mDepth: 0
   autoResizeBoxCollider: 0
@@ -3694,7 +3694,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .333333343, g: .333333343, b: .333333343, a: 1}
   mPivot: 5
-  mWidth: 104
+  mWidth: 102
   mHeight: 20
   mDepth: 0
   autoResizeBoxCollider: 0
@@ -3756,7 +3756,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 74
+  mWidth: 64
   mHeight: 18
   mDepth: 2
   autoResizeBoxCollider: 0
@@ -3868,13 +3868,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1229
+  mWidth: 1173
   mHeight: 768
   mDepth: -1
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.60026038
+  aspectRatio: 1.52734375
   mAtlas: {fileID: 11400000, guid: b0fa11320fc1e4a2ab89cd17c8ac14cc, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1
@@ -4276,10 +4276,10 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4005
+  startingRenderQueue: 4007
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: 0, z: 1024.37866, w: 640}
+  mClipRange: {x: 0, y: -.901428223, z: 977.12677, w: 640}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 4
   mSortingOrder: 0
@@ -4728,8 +4728,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4.76315784
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: ae4e5a2a0f23f4bf09d1e0ffb522a5eb, type: 2}
   mText: 'This mobster does not have an
 
     offensive or defensive skill'
@@ -5590,7 +5590,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .333333343, g: .333333343, b: .333333343, a: 1}
   mPivot: 5
-  mWidth: 142
+  mWidth: 144
   mHeight: 20
   mDepth: 0
   autoResizeBoxCollider: 0
@@ -5962,13 +5962,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .244377151, g: .394037008, b: .83088237, a: 1}
   mPivot: 3
-  mWidth: 102
+  mWidth: 100
   mHeight: 20
   mDepth: 0
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.0999999
+  aspectRatio: 5
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: ae4e5a2a0f23f4bf09d1e0ffb522a5eb, type: 2}
@@ -7067,8 +7067,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 8.25
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: b5bcc1a7a65a84fbeb9aa97d258ea5bc, type: 2}
   mText: Quick Attack
   mFontSize: 20
   mFontStyle: 0
@@ -7121,7 +7121,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .466666669, g: .466666669, b: .466666669, a: 1}
   mPivot: 4
-  mWidth: 122
+  mWidth: 118
   mHeight: 16
   mDepth: 4
   autoResizeBoxCollider: 0
@@ -7129,8 +7129,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 7.625
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: ae4e5a2a0f23f4bf09d1e0ffb522a5eb, type: 2}
   mText: Defensive Skill
   mFontSize: 16
   mFontStyle: 0
@@ -7465,7 +7465,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .466666669, g: .466666669, b: .466666669, a: 1}
   mPivot: 4
-  mWidth: 118
+  mWidth: 114
   mHeight: 16
   mDepth: 4
   autoResizeBoxCollider: 0
@@ -7473,8 +7473,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 7.375
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: ae4e5a2a0f23f4bf09d1e0ffb522a5eb, type: 2}
   mText: Offensive Skill
   mFontSize: 16
   mFontStyle: 0
@@ -7535,8 +7535,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 8.25
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: b5bcc1a7a65a84fbeb9aa97d258ea5bc, type: 2}
   mText: Quick Attack
   mFontSize: 20
   mFontStyle: 0
