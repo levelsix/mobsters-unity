@@ -36,10 +36,6 @@ public class MSPopup : MonoBehaviour {
 	public virtual void Popup()
 	{
 		gameObject.SetActive(true);
-		if (defaultIn)
-		{
-			MSPopupManager.instance.DefaultTweenIn(defaultTarget);
-		}
 		foreach (var item in outTweens) 
 		{
 			item.tweenFactor = 1;
@@ -48,6 +44,10 @@ public class MSPopup : MonoBehaviour {
 		{
 			item.ResetToBeginning();
 			item.PlayForward();
+		}
+		if (defaultIn)
+		{
+			MSPopupManager.instance.DefaultTweenIn(defaultTarget);
 		}
 	}
 

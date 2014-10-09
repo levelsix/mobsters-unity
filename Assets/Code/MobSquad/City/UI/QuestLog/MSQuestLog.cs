@@ -112,7 +112,7 @@ public class MSQuestLog : MonoBehaviour {
 	{
 		TabToAchievements();
 		//SetupQuestList();
-		InitAchievements();
+		StartCoroutine(InitAchievements());
 	}
 
 	void RecycleQuests()
@@ -314,18 +314,19 @@ public class MSQuestLog : MonoBehaviour {
 		return entry;
 	}
 
-	void InitAchievements()
+	IEnumerator InitAchievements()
 	{
 		RecycleAchievements();
 		foreach (var item in MSAchievementManager.instance.currAchievements) 
 		{
 			if (MSAchievementManager.instance.currAchievements.Find(x=>x.achievement.achievementId == item.achievement.prerequisiteId) == null)
 			{
+				yield return null;
 				AddAchievement(item);
+				achievementGrid.animateSmoothly = false;
+				achievementGrid.Reposition();
 			}
 		}
-		achievementGrid.animateSmoothly = false;
-		achievementGrid.Reposition();
 	}
 
 	#endregion

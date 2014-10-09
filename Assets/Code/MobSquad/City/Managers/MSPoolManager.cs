@@ -81,6 +81,7 @@ public class MSPoolManager : MonoBehaviour {
 		{
 			pooled.gObj.layer = parent.gameObject.layer;
 		}
+		pooled.transf.localScale = Vector3.one;
 		pooled.gObj.SetActive(true);
 		
 		return pooled;

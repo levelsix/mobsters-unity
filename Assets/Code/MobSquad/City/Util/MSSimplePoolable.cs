@@ -25,6 +25,9 @@ public class MSSimplePoolable : MonoBehaviour, MSPoolable {
 			_prefab = value as MSSimplePoolable;
 		}
 	}
+
+	[SerializeField] bool setScale = true;
+	[SerializeField] Vector3 scale = Vector3.one;
 	
 	void Awake()
 	{
@@ -37,6 +40,20 @@ public class MSSimplePoolable : MonoBehaviour, MSPoolable {
 		MSSimplePoolable chunk = Instantiate(this, origin, Quaternion.identity) as MSSimplePoolable;
 		chunk.prefab = this;
 		return chunk;
+	}
+
+	void OnEnable()
+	{
+		//StartCoroutine(SetScale());
+	}
+
+	IEnumerator SetScale()
+	{
+		if (setScale)
+		{
+			yield return null;
+			trans.localScale = scale;
+		}
 	}
 	
 	public void Pool ()

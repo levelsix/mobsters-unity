@@ -15,7 +15,7 @@ public class MSUnlockBuildingTile : MonoBehaviour {
 		this.tag.text = tag;
 		Sprite sprite = MSSpriteUtil.instance.GetBuildingSprite(building.imgName);
 		buildingIcon.sprite2D = sprite;
-		buildingIcon.transform.localScale = Vector3.one;
+		//buildingIcon.transform.localScale = Vector3.one;
 		buildingIcon.MakePixelPerfect();
 	}
 }

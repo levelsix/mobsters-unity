@@ -21,6 +21,9 @@ public class MSSellScreen : MSFunctionalScreen {
 	UILabel currValue;
 
 	[SerializeField]
+	MSGoonScreen goonScreen;
+
+	[SerializeField]
 	MSLoadLock sellLock;
 
 	public List<MSGoonCard> currSells = new List<MSGoonCard>();
@@ -52,6 +55,14 @@ public class MSSellScreen : MSFunctionalScreen {
 
 		queueRoot.ResetAlpha(false);
 		emptyQueueRoot.ResetAlpha(true);
+
+		SetHeaderText();
+	}
+
+	void SetHeaderText()
+	{
+		goonScreen.title = "SELL MOBSTERS (" + MSMonsterManager.instance.userMonsters.Count + "/"
+			+ MSMonsterManager.instance.totalResidenceSlots + ")";
 	}
 
 	public void Add(MSGoonCard card)
@@ -113,6 +124,7 @@ public class MSSellScreen : MSFunctionalScreen {
 		MSMonsterManager.instance.SellMonsters(monsters);
 		currSells.Clear();
 		sellLock.Unlock();
+		SetHeaderText();
 
 		emptyQueueRoot.FadeIn();
 		queueRoot.FadeOut();
