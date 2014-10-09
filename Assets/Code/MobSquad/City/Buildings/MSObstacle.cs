@@ -200,6 +200,7 @@ public class MSObstacle : MonoBehaviour {
 	
 	public IEnumerator EndingAnimation()
 	{
+		MSBuildingManager.instance.FullDeselect();
 		MSBuilding building = GetComponent<MSBuilding>();
 		if(building.spinner != null)
 		{
@@ -216,14 +217,11 @@ public class MSObstacle : MonoBehaviour {
 		if (building.selected)
 		{
 			building.Deselect();
+			MSBuildingManager.instance.FullDeselect();
 		}
 		building.sprite.color = new Color(building.sprite.color.r, building.sprite.color.g, building.sprite.color.b, 1f);
 		isRemoving = false;
 		building.Pool();
-		if (building.selected)
-		{
-			building.Deselect();
-		}
 	}
 
 	IEnumerator ManualAlphaTween(float duration, SpriteRenderer sprite)

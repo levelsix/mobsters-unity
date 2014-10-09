@@ -56,6 +56,8 @@ public class PZWinLosePopup : MonoBehaviour {
 	const string WIN_POW = "wonsplash";
 	const string LOST_POW = "lostsplash";
 
+	const float HINT_MAX_HEIGHT = 60f;
+
 	/// <summary>
 	/// initialization of positions for elements required in both win and lose animations
 	/// </summary>
@@ -242,6 +244,9 @@ public class PZWinLosePopup : MonoBehaviour {
 		doneScale.PlayForward ();
 		yield return new WaitForSeconds(0.2f);
 
+		hint.GetComponent<TweenPosition> ().to = new Vector3(hint.transform.localPosition.x,
+		                                                     hint.transform.localPosition.y + hint.GetComponent<UILabel>().height + (HINT_MAX_HEIGHT - hint.GetComponent<UILabel>().height) / 2f,
+		                                                     hint.transform.localPosition.z);
 		hint.GetComponent<TweenPosition> ().ResetToBeginning ();
 		hint.GetComponent<TweenPosition> ().PlayForward ();
 		yield return new WaitForSeconds(0.2f);
