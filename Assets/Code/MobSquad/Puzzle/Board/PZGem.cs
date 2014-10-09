@@ -422,40 +422,36 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		float fallSpeed = PZPuzzleManager.instance.BASE_FALL_SPEED;
 		while(trans.localPosition.y > boardY * SPACE_SIZE)
 		{
-			yield return null;
 			fallSpeed += PZPuzzleManager.instance.GRAVITY * Time.deltaTime;
-			trans.localPosition = new Vector3(trans.localPosition.x,
-				trans.localPosition.y + fallSpeed * Time.deltaTime, -1);
-		}
-		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1, -1);
-
-		fallSpeed = PZPuzzleManager.instance.BASE_BOUNCE_SPEED;
-		while(trans.localPosition.y > boardY * SPACE_SIZE)
-		{
-			yield return null;
-			fallSpeed += PZPuzzleManager.instance.GRAVITY * Time.deltaTime;
-			trans.localPosition = new Vector3(trans.localPosition.x,
+			Vector3 newPosition = new Vector3(trans.localPosition.x,
 			                                  trans.localPosition.y + fallSpeed * Time.deltaTime,
 			                                  -1);
-		}
-		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1, -1);
 
-		fallSpeed = PZPuzzleManager.instance.BASE_BOUNCE_SPEED * PZPuzzleManager.instance.SECOND_BOUNCE_MODIFIER;
-		while(trans.localPosition.y > boardY * SPACE_SIZE)
-		{
+			if(newPosition.y < boardY * SPACE_SIZE)
+			{
+				if(Mathf.Abs(fallSpeed) < 100)
+				{
+					break;
+				}
+				//to avoid sticky feeling bounces make up lost distance this frame
+				float overShot = (boardY * SPACE_SIZE - newPosition.y) / Mathf.Abs(fallSpeed);
+				newPosition.y = boardY * SPACE_SIZE;
+				fallSpeed *= -1;
+				fallSpeed *= PZPuzzleManager.instance.BOUNCE_REDUCTION;
+				newPosition.y += overShot * fallSpeed;
+			}
+
+			trans.localPosition = newPosition;
+			//The placement of this yield is actually very important for the animation
 			yield return null;
-			fallSpeed += PZPuzzleManager.instance.GRAVITY * Time.deltaTime;
-			trans.localPosition = new Vector3(trans.localPosition.x,
-			                                  trans.localPosition.y + fallSpeed * Time.deltaTime,
-			                                  -1);
 		}
-		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY, -1);
 
+		trans.localPosition = new Vector3(SPACE_SIZE * boardX, SPACE_SIZE * boardY + 1, -1);
 		moving = false;
 		PZPuzzleManager.instance.OnStopMoving(this);
-
 		if (gemType == GemType.CAKE) CheckCake();
 	}
+
 
 	public void Detonate()
 	{
