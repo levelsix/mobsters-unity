@@ -219,8 +219,8 @@ public class PZCombatManager : MonoBehaviour {
 	int revives = 0;
 
 	public float forfeitChance;
-
-	const float FORFEIT_START_CHANCE = 0.25F;
+	const float FORFEIT_GAIN_RATE = 0.25f;
+	const float FORFEIT_START_CHANCE = 0.5f;
 
 	int savedHealth = -1;
 
@@ -368,7 +368,7 @@ public class PZCombatManager : MonoBehaviour {
 		prizeQuantityLabel.text = "0";
 
 		PreInit();
-		
+
 		boardMove.Sample(0,false);
 		boardMove.PlayForward();
 		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.boardSlideIn);
@@ -397,6 +397,7 @@ public class PZCombatManager : MonoBehaviour {
 		BeginDungeonResponseProto dungeon = MSWhiteboard.loadedDungeon;
 
 		forfeitChance = FORFEIT_START_CHANCE;
+		MSActionManager.Puzzle.OnTurnChange(playerTurns - currTurn);
 		
 		#if UNITY_IPHONE || UNITY_ANDROID
 		//Kamcord.StartRecording();
@@ -468,6 +469,11 @@ public class PZCombatManager : MonoBehaviour {
 			forfeitChance = save.forfeitChance;
 			
 			currTurn = save.currTurn;
+			if(MSActionManager.Puzzle.OnTurnChange != null)
+			{
+				MSActionManager.Puzzle.OnTurnChange(playerTurns - currTurn);
+			}
+
 			currPlayerDamage = save.currPlayerDamage;
 
 			savedHealth = save.activeEnemyHealth;
@@ -876,8 +882,8 @@ public class PZCombatManager : MonoBehaviour {
 			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
 			ActivateLoseMenu();
 		} else {
-			forfeitChance *= 2f;
-			yield return StartCoroutine(EnemyAttack());
+			forfeitChance += FORFEIT_GAIN_RATE;
+			yield return RunPickNextTurn(true);
 		}
 		PZPuzzleManager.instance.swapLock--;
 	}

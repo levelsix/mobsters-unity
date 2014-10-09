@@ -2693,8 +2693,8 @@ MonoBehaviour:
   molotovPartPrefab: {fileID: 0}
   jellyPrefab: {fileID: 0}
   BASE_FALL_SPEED: -250
-  BASE_BOUNCE_SPEED: 80
-  SECOND_BOUNCE_MODIFIER: .25
+  BOUNCE_REDUCTION: .800000012
+  BOUNCE_THRESHHOLD: 100
   GRAVITY: -600
   SWAP_TIME: .200000003
   shuffleTime: 0
@@ -5264,6 +5264,8 @@ MonoBehaviour:
   currVal: 0
   tweenToVal: 0
   speed: .5
+  widthGuide: {fileID: 0}
+  widthAdjustment: 0
 --- !u!114 &11400134
 MonoBehaviour:
   m_ObjectHideFlags: 1

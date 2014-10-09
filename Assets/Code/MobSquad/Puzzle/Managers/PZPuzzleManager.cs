@@ -283,6 +283,7 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	public void InitBoard(int w = STANDARD_BOARD_WIDTH, int h = STANDARD_BOARD_HEIGHT, string boardFile = "")
 	{
+
 		//Make sure we clear the board with the old values for width and height!
 		ClearBoard();
 

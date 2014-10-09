@@ -25,6 +25,8 @@ public class PZRetreatButton : MonoBehaviour {
 	void OnDisable()
 	{
 		MSActionManager.Puzzle.OnTurnChange -= TurnChange;
+		button.enabled = true;
+		sprite.alpha = 1;
 	}
 
 	void TurnChange(int turnsLeft)
@@ -36,6 +38,12 @@ public class PZRetreatButton : MonoBehaviour {
 	void OnClick()
 	{
 		MSActionManager.Popup.OnPopup(retreatPopup);
+	}
+
+	public void Hide()
+	{
+		button.enabled = false;
+		sprite.alpha = 0f;
 	}
 
 	//Kenny removed this cause UI change. So this button should always show.
