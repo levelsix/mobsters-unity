@@ -152,8 +152,8 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		this.monster = null;
 		alive = false;
-		unit.sprite.color = new Color (unit.sprite.color.r, unit.sprite.color.g, unit.sprite.color.b, 0);
 		alpha = 0;
+		unit.hasSprite = true;
 	}
 
 	void Init()

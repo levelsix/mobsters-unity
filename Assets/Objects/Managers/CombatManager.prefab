@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
   m_Layer: 8
   m_Name: CombatManager
   m_TagString: Untagged
@@ -39,6 +40,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2d97d86218f44c3a4f947bff196e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  battleStats:
+    orbs: 
+    grenades: 0
+    rockets: 0
+    rainbows: 0
+    combos: 0
+    damageTaken: 0
+    monstersDefeated: 0
   pvpMode: 0
   raidMode: 0
   waitingForTutorialSignal: 0
@@ -66,15 +76,37 @@ MonoBehaviour:
   bloodSplatter: {fileID: 0}
   pvpUI: {fileID: 0}
   mobsterCounter: {fileID: 0}
+  playerSkillIndicator: {fileID: 0}
+  enemySkillIndicator: {fileID: 0}
+  enemySkillAnimator: {fileID: 0}
+  playerSkillAnimator: {fileID: 0}
+  turnDisplay: {fileID: 0}
   currTurn: 0
   playerTurns: 3
   nextPvpDefenderIndex: 0
+  pvpSpeedMux: 2.5
   recoilDistance: 3
   recoilTime: .200000003
   MELEE_ATTACK_DISTANCE: 60
   prizeQuantityLabel: {fileID: 0}
   intro: {fileID: 0}
   forfeitChance: 0
+  playerSkillPoints: 0
+  forceEnemySkill: 0
+  forcePlayerSkill: 0
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7075cef3a8164581a9d577cf96c253a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turns: 
+  currInd: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

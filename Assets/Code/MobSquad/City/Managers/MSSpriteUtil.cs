@@ -293,6 +293,7 @@ public class MSSpriteUtil : MonoBehaviour {
 	{
 		if (attempts > 5)
 		{
+			bundles.Remove(bundleName);
 			yield break;
 		}
 

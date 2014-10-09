@@ -118,7 +118,7 @@ public class MSHealScreen : MSFunctionalScreen
 		int finishAmount = MSMath.GemsForTime(timeLeft, true);
 		if(finishAmount != 0)
 		{
-			finishNowLabel.text = "Finish\n(G)" + finishAmount;
+			finishNowLabel.text = "Finish\n(g) " + finishAmount;
 		}
 		else
 		{

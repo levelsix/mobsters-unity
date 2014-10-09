@@ -169,6 +169,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	public int nextPvpDefenderIndex = 0;
 
+	[SerializeField] float pvpSpeedMux;
+
 	PvpProto defender;
 
 	public float recoilDistance = 3;
@@ -671,9 +673,9 @@ public class PZCombatManager : MonoBehaviour {
 			waitForQueue = StartCoroutine(QueueUpPvp());
 		}
 
-		Coroutine oneGuy = StartCoroutine(backupPvPEnemies[0].Retreat(-background.direction, background.scrollSpeed));
-		Coroutine otherGuy = StartCoroutine(backupPvPEnemies[1].Retreat(-background.direction, background.scrollSpeed));
-		yield return StartCoroutine((activeEnemy.Retreat(-background.direction, background.scrollSpeed)));
+		Coroutine oneGuy = StartCoroutine(backupPvPEnemies[0].Retreat(-background.direction, background.scrollSpeed * pvpSpeedMux));
+		Coroutine otherGuy = StartCoroutine(backupPvPEnemies[1].Retreat(-background.direction, background.scrollSpeed * pvpSpeedMux));
+		yield return StartCoroutine((activeEnemy.Retreat(-background.direction, background.scrollSpeed * pvpSpeedMux)));
 
 		yield return waitForQueue;
 		yield return oneGuy;
@@ -703,10 +705,16 @@ public class PZCombatManager : MonoBehaviour {
 			backupPvPEnemies[1].DeInit();
 		}
 
+		while (!activeEnemy.unit.hasSprite || !backupPvPEnemies[0].unit.hasSprite || !backupPvPEnemies[1].unit.hasSprite)
+		{
+			yield return null;
+		}
+		yield return null;
+
 		//Move the monsters out
-		StartCoroutine(backupPvPEnemies[1].AdvanceTo(enemyXPos + 130, -background.direction, background.scrollSpeed * 1.5f));
-		StartCoroutine(backupPvPEnemies[0].AdvanceTo(enemyXPos + 20, -background.direction, background.scrollSpeed * 1.5f));
-		yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 1.5f));
+		StartCoroutine(backupPvPEnemies[1].AdvanceTo(enemyXPos + 130, -background.direction, background.scrollSpeed * pvpSpeedMux));
+		StartCoroutine(backupPvPEnemies[0].AdvanceTo(enemyXPos + 20, -background.direction, background.scrollSpeed * pvpSpeedMux));
+		yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * pvpSpeedMux));
 
 		background.StopScroll();
 		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
