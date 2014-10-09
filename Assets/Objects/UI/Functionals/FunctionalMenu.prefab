@@ -282,7 +282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100032
 GameObject:
   m_ObjectHideFlags: 1
@@ -6132,7 +6132,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1300, y: 768, z: 0}
+  m_Size: {x: 1311, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500002
 BoxCollider:
@@ -6484,13 +6484,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1300
+  mWidth: 1311
   mHeight: 768
   mDepth: 100
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.69270837
+  aspectRatio: 1.70703125
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1
@@ -7085,7 +7085,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4011
+  startingRenderQueue: 4010
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 860, w: 350}
@@ -8711,7 +8711,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.77777767
+  aspectRatio: 4.72727251
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 506308d46df5a43f9ac7527b0367c5ec, type: 3}
   mFont: {fileID: 0}
@@ -9383,7 +9383,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4012
+  startingRenderQueue: 4011
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -11, z: 860, w: 372}
@@ -9487,7 +9487,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.45714283
+  aspectRatio: 2.3118279
 --- !u!114 &11400170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10166,17 +10166,19 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 62
-  mHeight: 28
+  mWidth: 106
+  mHeight: 66
   mDepth: 3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.21428561
+  aspectRatio: 1.60606062
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
-  mText: Sell
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
+  mText: 'Finish
+
+    (g) 2'
   mFontSize: 28
   mFontStyle: 0
   mAlignment: 0
@@ -10192,7 +10194,7 @@ MonoBehaviour:
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
   mSpacingX: 0
-  mSpacingY: 0
+  mSpacingY: 10
   mShrinkToFit: 0
   mMaxLineWidth: 0
   mMaxLineHeight: 0

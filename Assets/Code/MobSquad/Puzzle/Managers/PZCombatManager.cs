@@ -628,7 +628,7 @@ public class PZCombatManager : MonoBehaviour {
 	}
 
 
-	public void SpawnNextPvp(bool useGems)
+	public void SpawnNextPvp()
 	{
 		if (MSResourceManager.instance.Spend(ResourceType.CASH, pvpMatchCost, SpawnNextPvpWithGems))
 	    {
@@ -1670,6 +1670,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public IEnumerator ReturnPlayerAfterAttack()
 	{
+		Debug.Log("Here?");
 		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
 			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
@@ -1758,12 +1759,14 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		
 		yield return new WaitForSeconds(recoilTime-.2f);
-		
+
+		/*
 		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
 			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
 			activePlayer.unit.direction = MSValues.Direction.EAST;
 		}
+		*/
 
 		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 	}

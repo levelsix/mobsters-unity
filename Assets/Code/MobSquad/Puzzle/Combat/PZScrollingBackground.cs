@@ -32,7 +32,7 @@ public class PZScrollingBackground : MonoBehaviour {
 		{
 			if (_direction == Vector3.zero)
 			{
-				_direction = (backgrounds[0].transf.localPosition - backgrounds[1].transf.localPosition).normalized;
+				_direction = spawningOffset * -1;//(backgrounds[0].transf.localPosition - backgrounds[1].transf.localPosition).normalized;
 			}
 			return _direction;
 		}
