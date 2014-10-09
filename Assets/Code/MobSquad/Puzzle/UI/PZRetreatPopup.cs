@@ -14,6 +14,9 @@ public class PZRetreatPopup : MonoBehaviour {
 	[SerializeField]
 	UILabel chanceLabel;
 
+	[SerializeField]
+	PZRetreatButton runButton; 
+
 	void Start()
 	{
 		cancelButton.onClick = MSActionManager.Popup.CloseAllPopups;
@@ -21,6 +24,7 @@ public class PZRetreatPopup : MonoBehaviour {
 			MSActionManager.Puzzle.ForceHideSwap(); 
 			MSActionManager.Popup.CloseAllPopups(); 
 			PZCombatManager.instance.RunPlayerForfeit();
+			runButton.Hide();
 		};
 	}
 
