@@ -773,7 +773,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",  
             	"Speed him up for " + 
 	                MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
-	                + "gems and build this structure?",
+	                + " gems and build this structure?",
                 new string[]{"Cancel", "Speed Up"},
 				new string[]{"greymenuoption", "purplemenuoption"},
 				new WaitFunction[]{MSUtil.QuickCloseTop, WaitUntilPurchased},
