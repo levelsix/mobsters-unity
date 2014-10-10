@@ -132,6 +132,7 @@ public class PZTurnDisplay : MonoBehaviour
 		for (int i = 0; i < numTurnsToDisplay; i++) 
 		{
 			icons[i].RunFlip(PZCombatScheduler.instance.GetNthMove(i) == CombatTurn.ENEMY);
+			icons[i].name = (i+1).ToString();
 			yield return new WaitForSeconds(timeBetweenFlips);
 		}
 	}

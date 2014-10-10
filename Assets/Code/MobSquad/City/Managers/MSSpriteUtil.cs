@@ -293,7 +293,6 @@ public class MSSpriteUtil : MonoBehaviour {
 	{
 		if (attempts > 5)
 		{
-			bundles.Remove(bundleName);
 			yield break;
 		}
 
@@ -324,6 +323,7 @@ public class MSSpriteUtil : MonoBehaviour {
 			if (www.error != null)
 			{
 				Debug.LogError("WWW download of " + bundleName + " had an error:" + www.error);
+				bundles.Remove(bundleName);
 				yield return StartCoroutine(DownloadAndCache(bundleName, attempts+1));
 				yield break;
 			}
