@@ -11,8 +11,10 @@ public class MSPopupManager : MonoBehaviour {
 
 	[SerializeField] Transform genericParent;
 
-	[SerializeField] UITweener[] defaultInTweens;
-	[SerializeField] UITweener[] defaultOutTweens;
+	public TweenScale defaultScaleIn;
+	public TweenAlpha defaultAlphaIn;
+	public TweenScale defaultScaleOut;
+	public TweenAlpha defaultAlphaOut;
 
 	[System.Serializable]
 	public class Popups
@@ -115,6 +117,14 @@ public class MSPopupManager : MonoBehaviour {
 		MSActionManager.Popup.CloseAllPopups -= CloseAllPopups;
 		MSActionManager.Popup.ClosePopupLayer -= ClosePopupLayer;
 		MSActionManager.Popup.CloseTopPopupLayer -= CloseTopLayer;
+	}
+
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape) && !MSTutorialManager.instance.inTutorial)
+		{
+			CloseTopLayer();
+		}
 	}
 
 	MSGenericPopup GrabGeneric()
@@ -227,7 +237,7 @@ public class MSPopupManager : MonoBehaviour {
 			}
 		}
 	}
-	
+
 	/// <summary>
 	/// Closes the popup layer and all layers above it, but not below it
 	/// </summary>
@@ -243,5 +253,35 @@ public class MSPopupManager : MonoBehaviour {
 			closing.Close(true);
 		}
 	}
-	
+
+	#region Default Tweens
+
+	public float DefaultTweenIn(GameObject go)
+	{
+		TweenScale scale = TweenScale.Begin(go, defaultScaleIn.duration, defaultScaleIn.to);
+		scale.from = defaultScaleIn.from;
+		scale.animationCurve = defaultScaleIn.animationCurve;
+
+		TweenAlpha alph = TweenAlpha.Begin(go, defaultAlphaIn.duration, defaultAlphaIn.to);
+		alph.from = defaultAlphaIn.from;
+		alph.animationCurve = defaultAlphaIn.animationCurve;
+
+		return Mathf.Max(scale.duration, alph.duration);
+	}
+
+	public float DefaultTweenOut(GameObject go)
+	{
+		TweenScale scale = TweenScale.Begin(go, defaultScaleOut.duration, defaultScaleOut.to);
+		scale.from = defaultScaleOut.from;
+		scale.animationCurve = defaultScaleOut.animationCurve;
+		
+		TweenAlpha alph = TweenAlpha.Begin(go, defaultAlphaOut.duration, defaultAlphaOut.to);
+		alph.from = defaultAlphaOut.from;
+		alph.animationCurve = defaultAlphaOut.animationCurve;
+
+		return Mathf.Max(scale.duration, alph.duration);
+	}
+
+	#endregion
+
 }

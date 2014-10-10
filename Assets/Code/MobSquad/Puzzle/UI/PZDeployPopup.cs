@@ -28,16 +28,25 @@ public class PZDeployPopup : MonoBehaviour {
 	void OnEnable()
 	{
 		MSActionManager.Controls.OnAnyTap[0] += OnGlobalTap;
+		MSActionManager.Puzzle.OnDeploy += OnDeploy;
 	}
 	
 	void OnDisable()
 	{
 		MSActionManager.Controls.OnAnyTap[0] -= OnGlobalTap;
+		MSActionManager.Puzzle.OnDeploy -= OnDeploy;
+	}
+
+	void OnDeploy(PZMonster kenneth)
+	{
+		acting = false;
+		tween.PlayReverse();
+		swapButton.Show();
 	}
 
 	void OnGlobalTap(TCKTouchData data)
 	{
-		if (acting)
+		if (acting && PZCombatManager.instance.activePlayer.alive)
 		{
 			acting = false;
 			tween.PlayReverse();

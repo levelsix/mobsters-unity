@@ -55,8 +55,6 @@ public class PZTurnDisplay : MonoBehaviour
 		}
 	}
 
-	PZMonster player, enemy;
-
 	void Awake()
 	{
 		instance = this;
@@ -86,8 +84,6 @@ public class PZTurnDisplay : MonoBehaviour
 	{
 		SetSize();
 		turnGrid.onCustomSort = MSNaturalSortObject.Compare;
-		this.player = player;
-		this.enemy = enemy;
 		if (_isItIn)
 		{
 			yield return RunInitAlreadyIn();
@@ -136,6 +132,7 @@ public class PZTurnDisplay : MonoBehaviour
 		for (int i = 0; i < numTurnsToDisplay; i++) 
 		{
 			icons[i].RunFlip(PZCombatScheduler.instance.GetNthMove(i) == CombatTurn.ENEMY);
+			icons[i].name = (i+1).ToString();
 			yield return new WaitForSeconds(timeBetweenFlips);
 		}
 	}

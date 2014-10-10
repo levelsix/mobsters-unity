@@ -83,7 +83,6 @@ public class MSAchievementEntry : MonoBehaviour {
 				progressLabel.text = fullAch.userAchievement.progress + " / " + fullAch.achievement.quantity;
 			}
 		}
-
 	}
 
 	/// <summary>

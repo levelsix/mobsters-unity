@@ -25,20 +25,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		set
 		{
 			_spriteBaseName = value;
-			//anim.runtimeAnimatorController = MSSpriteUtil.instance.GetUnitAnimator(MSUtil.StripExtensions(value));
-			StartCoroutine(MSSpriteUtil.instance.SetUnitAnimator(this));
-
-
-			if (MSSpriteUtil.instance.HasBundle(value) || MSSpriteUtil.instance.internalBundles.Contains(value))
-			{
-				sprite.color = Color.white;
-			}
-			else
-			{
-				sprite.color = new Color(1,1,1,1);
-			}
-
-			SetAnimation(AnimationType.IDLE);
+			StartCoroutine(SetSprite(value));
 		}
 	}
 
@@ -127,6 +114,8 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	public bool tutorial = false;
 
 	public MonsterProto monster;
+
+	public bool hasSprite;
 	
 	/// <summary>
 	/// Awake this instance.
@@ -288,6 +277,16 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 	public void ResetAnimation()
 	{
 		SetAnimation(animat);
+	}
+	
+	IEnumerator SetSprite(string spriteName)
+	{
+		alpha = 0;
+		hasSprite = false;
+		yield return StartCoroutine(MSSpriteUtil.instance.SetUnitAnimator(this));
+		alpha = 1;
+		hasSprite = true;
+		SetAnimation(AnimationType.IDLE);
 	}
 
 	[SerializeField] float testJumpHeight = 3;

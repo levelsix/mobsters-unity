@@ -629,6 +629,11 @@ public class UIInput : MonoBehaviour
 			if (isSelected && mLastAlpha != label.finalAlpha)
 				UpdateLabel();
 		}
+
+		if (Input.GetKeyDown(KeyCode.Backspace))
+		{
+			Backspace();
+		}
 	}
 
 	/// <summary>
@@ -639,6 +644,18 @@ public class UIInput : MonoBehaviour
 	{
 		if (isSelected && Event.current.rawType == EventType.KeyDown)
 			ProcessEvent(Event.current);
+	}
+
+	void Backspace ()
+	{
+		if (!string.IsNullOrEmpty (mValue)) {
+			if (mSelectionStart == mSelectionEnd) {
+				if (mSelectionStart < 1)
+					return;
+				--mSelectionEnd;
+			}
+			Insert ("");
+		}
 	}
 
 	/// <summary>
@@ -668,15 +685,7 @@ public class UIInput : MonoBehaviour
 			{
 				ev.Use();
 
-				if (!string.IsNullOrEmpty(mValue))
-				{
-					if (mSelectionStart == mSelectionEnd)
-					{
-						if (mSelectionStart < 1) return true;
-						--mSelectionEnd;
-					}
-					Insert("");
-				}
+				//Backspace ();
 				return true;
 			}
 

@@ -84,9 +84,9 @@ public class MSObstacle : MonoBehaviour {
 		if (MSBuildingManager.instance.currentUnderConstruction != null)
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",
-    			"Speed him up for " + 
+    			"Speed him up for (G) " + 
 	                MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
-	                + " gems and remove this obstacle?",
+	                + " and remove this obstacle?",
                 new string[]{"Cancel", "Speed Up"},
 				new string[]{"greymenuoption", "purplemenuoption"},
 				new Action[]{MSActionManager.Popup.CloseTopPopupLayer,

@@ -10,7 +10,11 @@ using com.lvl6.proto;
 /// </summary>
 public class MSPopup : MonoBehaviour {
 
-	[SerializeField] bool defaultTweens = true;
+	[SerializeField] bool defaultIn = false;
+
+	[SerializeField] bool defaultOut = false;
+
+	[SerializeField] GameObject defaultTarget;
 
 	[SerializeField] protected UITweener[] inTweens;
 
@@ -41,6 +45,10 @@ public class MSPopup : MonoBehaviour {
 			item.ResetToBeginning();
 			item.PlayForward();
 		}
+		if (defaultIn)
+		{
+			MSPopupManager.instance.DefaultTweenIn(defaultTarget);
+		}
 	}
 
 	[ContextMenu ("Close")]
@@ -58,6 +66,7 @@ public class MSPopup : MonoBehaviour {
 
 	protected virtual IEnumerator RunOutTweens(bool all)
 	{
+		float maxDuration = 0;
 		foreach (var item in inTweens) 
 		{
 			item.tweenFactor = 1;
@@ -66,14 +75,15 @@ public class MSPopup : MonoBehaviour {
 		{
 			item.ResetToBeginning();
 			item.PlayForward();
+			maxDuration = Mathf.Max(maxDuration, item.duration);
 		}
-		foreach (var item in outTweens) 
+		if (defaultOut)
 		{
-			while(item.tweenFactor < 1)
-			{
-				yield return null;
-			}
+			maxDuration = Mathf.Max(maxDuration, MSPopupManager.instance.DefaultTweenOut(defaultTarget));
 		}
+
+		yield return new WaitForSeconds(maxDuration);
+
 		if (poolable != null)
 		{
 			poolable.Pool();

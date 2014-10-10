@@ -201,6 +201,7 @@ public class UIButtonColor : UIWidgetContainer
 			{
 				if (isPressed)
 				{
+					defaultColor = mWidget.color;
 					SetState(State.Pressed, false);
 				}
 				/*else if (UICamera.currentTouch.current == gameObject)

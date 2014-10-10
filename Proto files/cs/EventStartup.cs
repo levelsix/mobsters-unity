@@ -424,6 +424,13 @@ namespace com.lvl6.proto
       get { return _userItems; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> _clanHelpings = new global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto>();
+    [global::ProtoBuf.ProtoMember(41, Name=@"clanHelpings", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> clanHelpings
+    {
+      get { return _clanHelpings; }
+    }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
   public partial class AttackedNotificationProto : global::ProtoBuf.IExtensible
   {

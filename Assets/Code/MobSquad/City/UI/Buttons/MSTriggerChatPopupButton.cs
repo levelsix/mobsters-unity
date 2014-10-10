@@ -6,7 +6,7 @@ public class MSTriggerChatPopupButton : MSTriggerPopupButton {
 	[SerializeField]
 	MSValues.ChatMode chatMode;
 
-	void OnClick()
+	public override void OnClick()
 	{
 		base.OnClick();
 		popup.GetComponent<MSChatPopup>().Init(chatMode);

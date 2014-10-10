@@ -38,7 +38,7 @@ public class MSSimplePoolable : MonoBehaviour, MSPoolable {
 		chunk.prefab = this;
 		return chunk;
 	}
-	
+
 	public void Pool ()
 	{
 		MSPoolManager.instance.Pool(this);

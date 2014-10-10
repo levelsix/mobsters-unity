@@ -284,6 +284,15 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_TRADE_ITEM_FOR_BOOSTER_EVENT", Value=78)]
       C_TRADE_ITEM_FOR_BOOSTER_EVENT = 78,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_SOLICIT_CAN_HELP_EVENT", Value=79)]
+      C_SOLICIT_CAN_HELP_EVENT = 79,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_GIVE_CLAN_HELP_EVENT", Value=80)]
+      C_GIVE_CLAN_HELP_EVENT = 80,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_END_CLAN_HELP_EVENT", Value=81)]
+      C_END_CLAN_HELP_EVENT = 81,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
             
@@ -525,6 +534,15 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_TRADE_ITEM_FOR_BOOSTER_EVENT", Value=78)]
       S_TRADE_ITEM_FOR_BOOSTER_EVENT = 78,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_SOLICIT_CLAN_HELP_EVENT", Value=79)]
+      S_SOLICIT_CLAN_HELP_EVENT = 79,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_GIVE_CLAN_HELP_EVENT", Value=80)]
+      S_GIVE_CLAN_HELP_EVENT = 80,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_END_CLAN_HELP_EVENT", Value=81)]
+      S_END_CLAN_HELP_EVENT = 81,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

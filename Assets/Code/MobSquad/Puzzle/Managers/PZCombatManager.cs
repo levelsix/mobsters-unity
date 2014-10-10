@@ -161,8 +161,6 @@ public class PZCombatManager : MonoBehaviour {
 
 	PZCombatSave save;
 
-	bool wordsMoving = false;
-
 	int currPlayerDamage = 0;
 
 	public int currTurn = 0;
@@ -170,6 +168,8 @@ public class PZCombatManager : MonoBehaviour {
 	public int playerTurns = 3;
 
 	public int nextPvpDefenderIndex = 0;
+
+	[SerializeField] float pvpSpeedMux;
 
 	PvpProto defender;
 
@@ -223,8 +223,6 @@ public class PZCombatManager : MonoBehaviour {
 	const float FORFEIT_START_CHANCE = 0.5f;
 
 	int savedHealth = -1;
-
-	[SerializeField] int minTurnSlots = 6;
 
 	/// <summary>
 	/// The player skill points.
@@ -638,7 +636,7 @@ public class PZCombatManager : MonoBehaviour {
 	}
 
 
-	public void SpawnNextPvp(bool useGems)
+	public void SpawnNextPvp()
 	{
 		if (MSResourceManager.instance.Spend(ResourceType.CASH, pvpMatchCost, SpawnNextPvpWithGems))
 	    {
@@ -675,9 +673,9 @@ public class PZCombatManager : MonoBehaviour {
 			waitForQueue = StartCoroutine(QueueUpPvp());
 		}
 
-		Coroutine oneGuy = StartCoroutine(backupPvPEnemies[0].Retreat(-background.direction, background.scrollSpeed));
-		Coroutine otherGuy = StartCoroutine(backupPvPEnemies[1].Retreat(-background.direction, background.scrollSpeed));
-		yield return StartCoroutine((activeEnemy.Retreat(-background.direction, background.scrollSpeed)));
+		Coroutine oneGuy = StartCoroutine(backupPvPEnemies[0].Retreat(-background.direction, background.scrollSpeed * pvpSpeedMux));
+		Coroutine otherGuy = StartCoroutine(backupPvPEnemies[1].Retreat(-background.direction, background.scrollSpeed * pvpSpeedMux));
+		yield return StartCoroutine((activeEnemy.Retreat(-background.direction, background.scrollSpeed * pvpSpeedMux)));
 
 		yield return waitForQueue;
 		yield return oneGuy;
@@ -707,10 +705,16 @@ public class PZCombatManager : MonoBehaviour {
 			backupPvPEnemies[1].DeInit();
 		}
 
+		while (!activeEnemy.unit.hasSprite || !backupPvPEnemies[0].unit.hasSprite || !backupPvPEnemies[1].unit.hasSprite)
+		{
+			yield return null;
+		}
+		yield return null;
+
 		//Move the monsters out
-		StartCoroutine(backupPvPEnemies[1].AdvanceTo(enemyXPos + 130, -background.direction, background.scrollSpeed * 1.5f));
-		StartCoroutine(backupPvPEnemies[0].AdvanceTo(enemyXPos + 20, -background.direction, background.scrollSpeed * 1.5f));
-		yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * 1.5f));
+		StartCoroutine(backupPvPEnemies[1].AdvanceTo(enemyXPos + 130, -background.direction, background.scrollSpeed * pvpSpeedMux));
+		StartCoroutine(backupPvPEnemies[0].AdvanceTo(enemyXPos + 20, -background.direction, background.scrollSpeed * pvpSpeedMux));
+		yield return StartCoroutine(activeEnemy.AdvanceTo(enemyXPos, -background.direction, background.scrollSpeed * pvpSpeedMux));
 
 		background.StopScroll();
 		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
@@ -1439,11 +1443,6 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 	}
-
-	public void OnWordsFinishMoving()
-	{
-		wordsMoving = false;
-	}
 	
 	void MakeItRain()
 	{
@@ -1685,6 +1684,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public IEnumerator ReturnPlayerAfterAttack()
 	{
+		Debug.Log("Here?");
 		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
 			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
@@ -1709,6 +1709,15 @@ public class PZCombatManager : MonoBehaviour {
 
 	public IEnumerator PlayerFlinch()
 	{
+		if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.meleeHit);
+		}
+		else
+		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
+		}
+
 		if (MSTutorialManager.instance.hijackFlinch)
 		{
 			MSTutorialManager.instance.HijackFlinch();
@@ -1741,6 +1750,16 @@ public class PZCombatManager : MonoBehaviour {
 	}
 
 	public IEnumerator EnemyFlinch(int totalShots){
+
+		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.meleeHit);
+		}
+		else
+		{
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
+		}
+
 		Vector3 enemyPos = activeEnemy.unit.transf.localPosition;
 
 		activeEnemy.unit.animat = MSUnit.AnimationType.FLINCH;
@@ -1754,12 +1773,14 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		
 		yield return new WaitForSeconds(recoilTime-.2f);
-		
+
+		/*
 		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
 			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
 			activePlayer.unit.direction = MSValues.Direction.EAST;
 		}
+		*/
 
 		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 	}
@@ -1940,7 +1961,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	void ReviveWithGems()
 	{
-		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis);
+		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis) * ++revives;
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, 
 		                                     gemsToSpend,
 		                                     ReviveWithGems))

@@ -21,14 +21,14 @@ public class MSChatInputController : MonoBehaviour
 #if MOBILE
 	void Update()
 	{
-		if (UIInput.mKeyboard != null && UIInput.mKeyboard.active && !isItIn)
+		if (UIInput.mKeyboard != null && TouchScreenKeyboard.visible && !isItIn)
 		{
 			tweenPos.to = new Vector3(0, 
-         		TouchScreenKeyboard.area.yMin * Screen.height/640f);
+         		-TouchScreenKeyboard.area.yMin * Screen.height/640f);
 			tweenPos.PlayForward();
 			isItIn = true;
 		}
-		else if ((UIInput.mKeyboard == null || !UIInput.mKeyboard.active) && isItIn)
+		else if ((UIInput.mKeyboard == null || !TouchScreenKeyboard.visible) && isItIn)
 		{
 			tweenPos.PlayReverse();
 			isItIn = false;

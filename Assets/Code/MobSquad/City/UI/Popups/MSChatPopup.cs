@@ -297,6 +297,10 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void SetClanChat()
 	{
+		globalChatButton.InitInactive();
+		clanChatButton.InitActive();
+		privateChatButton.InitInactive();
+
 		noPrivateChatsParent.SetActive(false);
 		if (MSClanManager.instance.isInClan)
 		{
@@ -304,10 +308,6 @@ public class MSChatPopup : MonoBehaviour {
 			mover.gameObject.SetActive(true);
 			mover.Sample(1, true);
 			MSChatManager.instance.SetChatMode(MSValues.ChatMode.CLAN);
-			
-			globalChatButton.InitInactive();
-			clanChatButton.InitActive();
-			privateChatButton.InitInactive();
 		}
 		else
 		{
@@ -318,6 +318,10 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void SetPrivateChat()
 	{
+		globalChatButton.InitInactive();
+		clanChatButton.InitInactive();
+		privateChatButton.InitActive();
+
 		notInClanParent.SetActive(false);
 		if (MSChatManager.instance.hasPrivateChats)
 		{
@@ -325,10 +329,6 @@ public class MSChatPopup : MonoBehaviour {
 			mover.gameObject.SetActive(true);
 			mover.Sample(0, true);
 			MSChatManager.instance.SetChatMode(MSValues.ChatMode.PRIVATE);
-			
-			globalChatButton.InitInactive();
-			clanChatButton.InitInactive();
-			privateChatButton.InitActive();
 		}
 		else
 		{

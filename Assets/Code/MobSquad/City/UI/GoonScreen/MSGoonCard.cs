@@ -231,6 +231,13 @@ public class MSGoonCard : MonoBehaviour {
 		default:
 			break;
 		}
+		//StartCoroutine(MakeDamnSure());
+	}
+
+	IEnumerator MakeDamnSure()
+	{
+		yield return null;
+		transform.localScale = Vector3.one;
 	}
 
 	public void InitHeal(PZMonster goon)

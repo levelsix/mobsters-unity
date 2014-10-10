@@ -88,7 +88,7 @@ public class MSGenericPopup : MonoBehaviour {
 		}
 		topper.spriteName = topSpriteColor + "notificationheader";
 		label.text = message;
-		this.title.text = message;
+		this.title.text = title;
 		float xOffset = (BUTTON_WIDTH * buttonLabels.Length) / 2;
 		int i;
 		for (i = 0; i < buttonLabels.Length; i++) 

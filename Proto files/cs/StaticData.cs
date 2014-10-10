@@ -134,18 +134,18 @@ namespace com.lvl6.proto
       get { return _allResidences; }
     }
   
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.LabProto> _allLabs = new global::System.Collections.Generic.List<com.lvl6.proto.LabProto>();
-    [global::ProtoBuf.ProtoMember(17, Name=@"allLabs", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.LabProto> allLabs
-    {
-      get { return _allLabs; }
-    }
-  
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.TownHallProto> _allTownHalls = new global::System.Collections.Generic.List<com.lvl6.proto.TownHallProto>();
     [global::ProtoBuf.ProtoMember(16, Name=@"allTownHalls", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.TownHallProto> allTownHalls
     {
       get { return _allTownHalls; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.LabProto> _allLabs = new global::System.Collections.Generic.List<com.lvl6.proto.LabProto>();
+    [global::ProtoBuf.ProtoMember(17, Name=@"allLabs", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.LabProto> allLabs
+    {
+      get { return _allLabs; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.MiniJobCenterProto> _allMiniJobCenters = new global::System.Collections.Generic.List<com.lvl6.proto.MiniJobCenterProto>();
@@ -167,6 +167,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.TeamCenterProto> allTeamCenters
     {
       get { return _allTeamCenters; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanHouseProto> _allClanHouses = new global::System.Collections.Generic.List<com.lvl6.proto.ClanHouseProto>();
+    [global::ProtoBuf.ProtoMember(32, Name=@"allClanHouses", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ClanHouseProto> allClanHouses
+    {
+      get { return _allClanHouses; }
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto> _persistentEvents = new global::System.Collections.Generic.List<com.lvl6.proto.PersistentEventProto>();

@@ -4,14 +4,8 @@ using System.Collections;
 using com.lvl6.proto;
 
 public class MSChatBubble : MonoBehaviour, MSPoolable {
-	
-	#region Size Constants
 
-	[SerializeField] int LINE_LENGTH = 40;
-
-	[SerializeField] int LINE_WIDTH = 100;
-	
-	#endregion
+	[SerializeField] int lineMaxWidth = 100;
 	
 	MSChatBubble _prefab;
 	
@@ -147,6 +141,7 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 
 		//Fill text with message
 		textLabel.text = message;
+
 		senderLabel.text = sender;
 		timeLabel.text = MSUtil.TimeStringLong(MSUtil.timeNowMillis - time) + " ago";
 
