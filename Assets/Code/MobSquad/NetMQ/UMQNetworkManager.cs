@@ -338,7 +338,14 @@ public class UMQNetworkManager : MonoBehaviour {
 		//PrintByteStream(message);
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-		javaChannel.Call("basicPublish", directExchangeName, "messagesFromPlayers", null, message);
+		try {
+			javaChannel.Call("basicPublish", directExchangeName, "messagesFromPlayers", null, message);
+		}
+		catch (AndroidJavaException e)
+		{
+			Debug.LogError("Caught: Android Java Exception: " + e.ToString ());
+			MSSceneManager.instance.Reconnect();
+		}
 #else
 		IBasicProperties properties = channel.CreateBasicProperties();
 		properties.SetPersistent(true);

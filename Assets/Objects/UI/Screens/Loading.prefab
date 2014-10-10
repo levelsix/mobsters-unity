@@ -581,13 +581,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1201
+  mWidth: 1173
   mHeight: 704
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.70596588
+  aspectRatio: 1.66619313
   mAtlas: {fileID: 11400000, guid: 597d6c55e999c459b880e4e58ac2733d, type: 2}
   mSpriteName: 1splashbg
   mType: 1
@@ -639,8 +639,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 5.43181801
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 52de9300462594231a781eadb28fde93, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 1854a3b7ac2b44d75836ce3f2b7c7dba, type: 2}
   mText: 'Tip: Never let your carpenter go idle, always be building a bigger & better
     city!'
   mFontSize: 22
@@ -658,7 +658,7 @@ MonoBehaviour:
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
   mSpacingX: 0
-  mSpacingY: 5
+  mSpacingY: 15
   mShrinkToFit: 0
   mMaxLineWidth: 0
   mMaxLineHeight: 0
@@ -680,6 +680,8 @@ MonoBehaviour:
   currVal: 0
   tweenToVal: 1
   speed: 2
+  widthGuide: {fileID: 0}
+  widthAdjustment: 0
 --- !u!114 &11400028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -766,10 +768,10 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5
+  aspectRatio: 4.27272749
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: e57d068ec7dbe45dbbdbcfa5f2f1d0d0, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: ec2813df6d0d54187884fa17cee3fa85, type: 2}
   mText: Loading...
   mFontSize: 22
   mFontStyle: 0
@@ -877,7 +879,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5018
+  startingRenderQueue: 5019
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 0, w: 0}
