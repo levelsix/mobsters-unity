@@ -44,6 +44,10 @@ public class PZPrize : MonoBehaviour {
 	TweenAlpha tweenAlpha;
 
 	const string LOST_ITEM_BORDER = "youlostitemborder";
+	const string LOST_ITEM_BG = "youlostitembg";
+
+	const string WON_ITEM_BORDER = "youwonitemborder";
+	const string WON_ITEM_BG = "youwonitembg";
 
 	void Awake(){
 		tweenPos = GetComponent<TweenPosition> ();
@@ -70,7 +74,7 @@ public class PZPrize : MonoBehaviour {
 		}
 		if (background != null)
 		{
-			background.alpha = 0f;
+			background.spriteName = WON_ITEM_BG;
 		}
 	}
 
@@ -79,7 +83,7 @@ public class PZPrize : MonoBehaviour {
 		icon.alpha = 1f;
 		if(border != null)
 		{
-			border.spriteName = "commmonfound";
+			border.spriteName = WON_ITEM_BORDER;
 		}
 	}
 
@@ -162,7 +166,10 @@ public class PZPrize : MonoBehaviour {
 	/// </summary>
 	public void SetToLostPrize()
 	{
-		background.alpha = 1f;
+		if(background != null)
+		{
+			background.spriteName = LOST_ITEM_BG;
+		}
 		if(border != null)
 		{
 			border.spriteName = LOST_ITEM_BORDER;
@@ -175,15 +182,14 @@ public class PZPrize : MonoBehaviour {
 	/// <param name="position">The position that the tween will end with</param>
 	public void SlideIn(Vector3 position){
 
-		Vector3 startPostition = new Vector3 (340, position.y, position.z);
+		Vector3 startPostition = new Vector3 (position.x + 100, position.y, position.z);
 		tweenPos.from = startPostition;
 		tweenPos.to = position;
 
-		float time = (startPostition.x - position.x) / 400f;
+//		float time = (startPostition.x - position.x) / 400f;
 
-		tweenPos.duration = time;
+//		tweenPos.duration = time;
 
-		tweenPos.enabled = true;
 		tweenPos.ResetToBeginning ();
 		tweenPos.PlayForward ();
 
