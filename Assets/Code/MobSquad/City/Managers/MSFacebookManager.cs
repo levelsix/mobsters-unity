@@ -67,6 +67,7 @@ public class MSFacebookManager : MonoBehaviour {
 		}
 		else
 		{
+			Debug.Log("Already logged in: " + FB.UserId);
 			hasTriedLogin = true;
 		}
 	}
