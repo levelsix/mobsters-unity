@@ -26,6 +26,22 @@ public class MSFacebookRequestEntry : MonoBehaviour {
 
 	UserFacebookInviteForSlotProto invite;
 
+	string hireRoleName
+	{
+		get
+		{
+			foreach (MSFullBuildingProto item in MSDataManager.instance.GetAll<MSFullBuildingProto>().Values)
+			{
+				if (item.structInfo.structType == StructureInfoProto.StructType.RESIDENCE
+				    && item.structInfo.level == invite.structFbLvl)
+				{
+					return item.residence.occupationName;
+				}
+			}
+			return "friend!";
+		}
+	}
+
 	public void Init(UserFacebookInviteForSlotProto invite)
 	{
 		this.invite = invite;
@@ -62,8 +78,8 @@ public class MSFacebookRequestEntry : MonoBehaviour {
 		{
 			var profile = (Dictionary<string,object>) Json.Deserialize(result.Text);
 			string name = (string)profile["first_name"];
-			topText.text = name + " needs your help!";
-			bottomText.text = "Your friend " + name + " needs help unlocking more mobster slots.";
+			topText.text = name + " needs help hiring a " + hireRoleName + "!";
+			bottomText.text = MSUtil.TimeStringShort(MSUtil.timeNowMillis - invite.timeOfInvite);
 		}
 	}
 
