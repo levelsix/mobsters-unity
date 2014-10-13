@@ -1597,15 +1597,13 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
-    private com.lvl6.proto.ClanHelpNoticeProto _notice = null;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"notice", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.ClanHelpNoticeProto notice
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpNoticeProto> _notice = new global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpNoticeProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"notice", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpNoticeProto> notice
     {
       get { return _notice; }
-      set { _notice = value; }
     }
+  
 
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
@@ -1643,15 +1641,13 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
-    private com.lvl6.proto.ClanHelpProto _helpProto = null;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"helpProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.ClanHelpProto helpProto
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> _helpProto = new global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"helpProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> helpProto
     {
       get { return _helpProto; }
-      set { _helpProto = value; }
     }
+  
 
     private com.lvl6.proto.SolicitClanHelpResponseProto.SolicitClanHelpStatus _status = com.lvl6.proto.SolicitClanHelpResponseProto.SolicitClanHelpStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
@@ -1720,6 +1716,13 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> _clanHelps = new global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"clanHelps", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> clanHelps
+    {
+      get { return _clanHelps; }
+    }
+  
 
     private com.lvl6.proto.GiveClanHelpResponseProto.GiveClanHelpStatus _status = com.lvl6.proto.GiveClanHelpResponseProto.GiveClanHelpStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
@@ -1784,6 +1787,22 @@ namespace com.lvl6.proto
     {
       get { return _sender; }
       set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<long> _clanHelpIds = new global::System.Collections.Generic.List<long>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"clanHelpIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<long> clanHelpIds
+    {
+      get { return _clanHelpIds; }
+    }
+  
+
+    private com.lvl6.proto.EndClanHelpResponseProto.EndClanHelpStatus _status = com.lvl6.proto.EndClanHelpResponseProto.EndClanHelpStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.EndClanHelpResponseProto.EndClanHelpStatus.SUCCESS)]
+    public com.lvl6.proto.EndClanHelpResponseProto.EndClanHelpStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"EndClanHelpStatus")]
     public enum EndClanHelpStatus

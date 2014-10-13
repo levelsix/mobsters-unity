@@ -586,6 +586,24 @@ namespace com.lvl6.proto
       get { return _characterImgName; }
       set { _characterImgName = value; }
     }
+
+    private int _charImgVertPixelOffset = default(int);
+    [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"charImgVertPixelOffset", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int charImgVertPixelOffset
+    {
+      get { return _charImgVertPixelOffset; }
+      set { _charImgVertPixelOffset = value; }
+    }
+
+    private int _charImgHorizPixelOffset = default(int);
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"charImgHorizPixelOffset", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int charImgHorizPixelOffset
+    {
+      get { return _charImgHorizPixelOffset; }
+      set { _charImgHorizPixelOffset = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

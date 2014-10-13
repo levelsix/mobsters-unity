@@ -284,8 +284,8 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_TRADE_ITEM_FOR_BOOSTER_EVENT", Value=78)]
       C_TRADE_ITEM_FOR_BOOSTER_EVENT = 78,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_SOLICIT_CAN_HELP_EVENT", Value=79)]
-      C_SOLICIT_CAN_HELP_EVENT = 79,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_SOLICIT_CLAN_HELP_EVENT", Value=79)]
+      C_SOLICIT_CLAN_HELP_EVENT = 79,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_GIVE_CLAN_HELP_EVENT", Value=80)]
       C_GIVE_CLAN_HELP_EVENT = 80,

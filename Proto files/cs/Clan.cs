@@ -938,13 +938,13 @@ namespace com.lvl6.proto
       set { _clanId = value; }
     }
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private com.lvl6.proto.MinimumUserProto _mup = null;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"mup", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto mup
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _mup; }
+      set { _mup = value; }
     }
 
     private long _userDataId = default(long);
@@ -998,6 +998,15 @@ namespace com.lvl6.proto
       get { return _open; }
       set { _open = value; }
     }
+
+    private int _staticDataId = default(int);
+    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"staticDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int staticDataId
+    {
+      get { return _staticDataId; }
+      set { _staticDataId = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1025,6 +1034,15 @@ namespace com.lvl6.proto
     {
       get { return _userDataId; }
       set { _userDataId = value; }
+    }
+
+    private int _staticDataId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"staticDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int staticDataId
+    {
+      get { return _staticDataId; }
+      set { _staticDataId = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
