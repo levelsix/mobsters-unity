@@ -1738,7 +1738,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1152, y: 768, z: 0}
+  m_Size: {x: 1311, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -2020,18 +2020,18 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 186
-  mHeight: 40
+  mWidth: 262
+  mHeight: 32
   mDepth: 8
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.6500001
+  aspectRatio: 8.1875
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 11a0b204ca7e8435ebc45247e58fd91a, type: 3}
-  mFont: {fileID: 11400000, guid: 27c87dc81c0804c03bb78fb9b50c9bc2, type: 2}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 76ed6b8b3463043948c681a0b12cc152, type: 2}
   mText: Achievements
-  mFontSize: 40
+  mFontSize: 32
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -2090,7 +2090,7 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.60483861
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 91bac43076dd34330a6f3acd2e0c15e9, type: 3}
+  mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: e51668310b5cb4d9bbad83588b939a3c, type: 2}
   mText: Be careful out there, there's some real thugs on these streets so get your
     equipment straight before facing off.
@@ -3781,7 +3781,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3008
+  startingRenderQueue: 4005
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -45, z: 756, w: 514}
@@ -4670,7 +4670,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3004
+  startingRenderQueue: 4003
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 1200, w: 640}
@@ -4784,13 +4784,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1152
+  mWidth: 1311
   mHeight: 768
   mDepth: -1
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.5
+  aspectRatio: 1.70703125
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1

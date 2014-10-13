@@ -756,8 +756,10 @@ public class PZCombatManager : MonoBehaviour {
 		boardMove.delay = 0f;
 
 		boardTint.Sample(1, false);
-		boardTint.PlayReverse();
-		PZPuzzleManager.instance.swapLock = 0;
+		//boardTint.PlayReverse();
+		//PZPuzzleManager.instance.swapLock = 0;
+
+		RunPickNextTurn(false);
 	}
 
 	IEnumerator SendBeginPvpRequest()
@@ -788,8 +790,8 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		UpdateUserCurrencyRequestProto request = new UpdateUserCurrencyRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.cashSpent = cash;
-		request.gemsSpent = gems;
+		request.cashSpent = -cash;
+		request.gemsSpent = -gems;
 		request.reason = "pvp";
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_USER_CURRENCY_EVENT, DealWithCurrencyResponse);

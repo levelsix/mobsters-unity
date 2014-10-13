@@ -365,6 +365,7 @@ MonoBehaviour:
   button: {fileID: 11400022}
   label: {fileID: 11400012}
   loadLock: {fileID: 11400030}
+  genericPopup: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -411,16 +412,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .0392156877, g: .600000024, b: .898039222, a: 1}
   mPivot: 3
-  mWidth: 206
+  mWidth: 284
   mHeight: 24
   mDepth: 20
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 8.58333302
+  aspectRatio: 11.833333
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 40fb0df129f65444992a068dd06cf5b6, type: 2}
   mText: Frank's Tanks
   mFontSize: 24
   mFontStyle: 0
@@ -431,7 +432,7 @@ MonoBehaviour:
   mEffectColor: {r: 1, g: 1, b: 1, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -481,8 +482,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.83333325
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 76ed6b8b3463043948c681a0b12cc152, type: 2}
   mText: 2/25
   mFontSize: 24
   mFontStyle: 0
@@ -635,7 +636,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: .0117647061, a: .603921592}
   mPivot: 4
-  mWidth: 62
+  mWidth: 60
   mHeight: 24
   mDepth: 20
   autoResizeBoxCollider: 0
@@ -643,8 +644,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.58333325
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 40fb0df129f65444992a068dd06cf5b6, type: 2}
   mText: Join
   mFontSize: 24
   mFontStyle: 0
@@ -747,16 +748,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .454901963, g: .611764729, b: 0, a: 1}
   mPivot: 3
-  mWidth: 146
+  mWidth: 275
   mHeight: 18
   mDepth: 20
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 8.11111069
+  aspectRatio: 15.2777777
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 27c87dc81c0804c03bb78fb9b50c9bc2, type: 2}
   mText: Anyone can join
   mFontSize: 18
   mFontStyle: 0
@@ -767,7 +768,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: .5, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}

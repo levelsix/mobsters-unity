@@ -19,6 +19,7 @@
 // Note: requires additional types generated from: MiniJobConfig.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: Quest.proto
+// Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: StaticData.proto
 // Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: Task.proto
@@ -785,6 +786,13 @@ namespace com.lvl6.proto
       get { return _maxMinutesForFreeSpeedUp; }
       set { _maxMinutesForFreeSpeedUp = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.ClanHelpConstants> _clanHelpConstants = new global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.ClanHelpConstants>();
+    [global::ProtoBuf.ProtoMember(32, Name=@"clanHelpConstants", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.ClanHelpConstants> clanHelpConstants
+    {
+      get { return _clanHelpConstants; }
+    }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnimatedSpriteOffsetProto")]
   public partial class AnimatedSpriteOffsetProto : global::ProtoBuf.IExtensible
   {
@@ -1111,6 +1119,43 @@ namespace com.lvl6.proto
     {
       get { return _guideMonsterId; }
       set { _guideMonsterId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ClanHelpConstants")]
+  public partial class ClanHelpConstants : global::ProtoBuf.IExtensible
+  {
+    public ClanHelpConstants() {}
+    
+
+    private com.lvl6.proto.ClanHelpType _helpType = com.lvl6.proto.ClanHelpType.NO_HELP;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"helpType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ClanHelpType.NO_HELP)]
+    public com.lvl6.proto.ClanHelpType helpType
+    {
+      get { return _helpType; }
+      set { _helpType = value; }
+    }
+
+    private int _amountRemovedPerHelp = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"amountRemovedPerHelp", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int amountRemovedPerHelp
+    {
+      get { return _amountRemovedPerHelp; }
+      set { _amountRemovedPerHelp = value; }
+    }
+
+    private float _percentRemovedPerHelp = default(float);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"percentRemovedPerHelp", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float percentRemovedPerHelp
+    {
+      get { return _percentRemovedPerHelp; }
+      set { _percentRemovedPerHelp = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

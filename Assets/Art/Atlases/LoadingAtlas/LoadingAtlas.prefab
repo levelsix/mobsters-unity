@@ -43,7 +43,7 @@ MonoBehaviour:
   mSprites:
   - name: 1splashbg
     x: 0
-    y: 879
+    y: 738
     width: 2
     height: 640
     borderLeft: 1
@@ -56,7 +56,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: 2splashbg
     x: 0
-    y: 238
+    y: 97
     width: 2
     height: 640
     borderLeft: 1
@@ -69,7 +69,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: 3splashbg
     x: 3
-    y: 879
+    y: 738
     width: 2
     height: 640
     borderLeft: 1
@@ -82,7 +82,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: 4splashbg
     x: 3
-    y: 238
+    y: 97
     width: 2
     height: 640
     borderLeft: 1
@@ -95,7 +95,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: 5splashbg
     x: 6
-    y: 879
+    y: 738
     width: 2
     height: 640
     borderLeft: 1
@@ -108,7 +108,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: 6splashbg
     x: 6
-    y: 238
+    y: 97
     width: 2
     height: 640
     borderLeft: 1
@@ -118,6 +118,32 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
+    paddingBottom: 0
+  - name: Loading-Whitney-Black-Limited
+    x: 770
+    y: 1939
+    width: 60
+    height: 109
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 4
+    paddingTop: 19
+    paddingBottom: 0
+  - name: Loading-Whitney-Semibold
+    x: 0
+    y: 1379
+    width: 255
+    height: 255
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
     paddingBottom: 0
   - name: mssplashguys
     x: 0
@@ -133,8 +159,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: splashloadingbar
-    x: 497
-    y: 1580
+    x: 256
+    y: 1465
     width: 262
     height: 24
     borderLeft: 0
@@ -146,8 +172,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: splashloadingbarbg
-    x: 497
-    y: 1605
+    x: 256
+    y: 1490
     width: 266
     height: 29
     borderLeft: 0
@@ -159,7 +185,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: splashloadingcap
-    x: 770
+    x: 831
     y: 2024
     width: 8
     height: 24
@@ -172,8 +198,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: splashloadingmiddle
-    x: 779
-    y: 2024
+    x: 831
+    y: 1999
     width: 2
     height: 24
     borderLeft: 1
@@ -185,7 +211,7 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: tipbg
-    x: 0
+    x: 256
     y: 1520
     width: 496
     height: 114

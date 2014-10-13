@@ -34,7 +34,13 @@ public class MSNewsPopup : MonoBehaviour {
 	GameObject attacksParent;
 
 	[SerializeField]
+	GameObject noAttacks;
+
+	[SerializeField]
 	GameObject requestsParent;
+
+	[SerializeField]
+	GameObject noRequests;
 
 	List<MSFacebookRequestEntry> requestEntries = new List<MSFacebookRequestEntry>();
 
@@ -54,6 +60,7 @@ public class MSNewsPopup : MonoBehaviour {
 		attacksTab.InitActive();
 
 		RecycleAttackEntries();
+		noAttacks.SetActive(pvpHistory.Count == 0);
 		foreach (var item in pvpHistory) 
 		{
 			AddAttackEntry(item);
@@ -89,6 +96,7 @@ public class MSNewsPopup : MonoBehaviour {
 		attacksTab.InitInactive();
 
 		RecycleRequestEntries();
+		noRequests.SetActive(MSRequestManager.instance.invitesForMe.Count == 0);
 		foreach (var item in MSRequestManager.instance.invitesForMe) 
 		{
 			AddRequestEntry(item);

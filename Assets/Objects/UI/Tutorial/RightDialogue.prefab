@@ -138,7 +138,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -540.000061}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400010}
@@ -343,10 +343,10 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5008
+  startingRenderQueue: 5012
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: -568.888916, y: 320, z: 1137.77783, w: 640}
+  mClipRange: {x: -533.333313, y: 320, z: 1066.66663, w: 640}
   mClipSoftness: {x: 0, y: 0}
   mDepth: 6
   mSortingOrder: 0
@@ -470,16 +470,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 144
+  mWidth: 285
   mHeight: 24
   mDepth: 12
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6
+  aspectRatio: 11.875
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 76ed6b8b3463043948c681a0b12cc152, type: 2}
   mText: 'Goonie  #5'
   mFontSize: 24
   mFontStyle: 0
@@ -490,7 +490,7 @@ MonoBehaviour:
   mEffectColor: {r: 1, g: 1, b: 1, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -540,8 +540,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.93965507
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 91bac43076dd34330a6f3acd2e0c15e9, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: e51668310b5cb4d9bbad83588b939a3c, type: 2}
   mText: Hopefully they don't find...
   mFontSize: 18
   mFontStyle: 0
@@ -674,13 +674,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 5
-  mWidth: 1138
+  mWidth: 1067
   mHeight: 264
   mDepth: 9
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.310606
+  aspectRatio: 4.04166651
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: diagradient
   mType: 1

@@ -553,6 +553,15 @@ namespace com.lvl6.proto
       set { _lastFreeBoosterPackTime = value; }
     }
 
+    private int _numClanHelps = default(int);
+    [global::ProtoBuf.ProtoMember(53, IsRequired = false, Name=@"numClanHelps", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numClanHelps
+    {
+      get { return _numClanHelps; }
+      set { _numClanHelps = value; }
+    }
+
     private string _udidForHistory = "";
     [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"udidForHistory", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]

@@ -99,7 +99,19 @@ namespace com.lvl6.proto
     {
             
       [global::ProtoBuf.ProtoEnum(Name=@"NO_HELP", Value=1)]
-      NO_HELP = 1
+      NO_HELP = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"UPGRADE_STRUCT", Value=2)]
+      UPGRADE_STRUCT = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"HEAL", Value=3)]
+      HEAL = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"EVOLVE", Value=4)]
+      EVOLVE = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"MINI_JOB", Value=5)]
+      MINI_JOB = 5
     }
   
 }

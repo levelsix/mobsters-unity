@@ -1077,6 +1077,15 @@ namespace com.lvl6.proto
       get { return _structInfo; }
       set { _structInfo = value; }
     }
+
+    private int _maxHelpersPerSolicitation = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"maxHelpersPerSolicitation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int maxHelpersPerSolicitation
+    {
+      get { return _maxHelpersPerSolicitation; }
+      set { _maxHelpersPerSolicitation = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
