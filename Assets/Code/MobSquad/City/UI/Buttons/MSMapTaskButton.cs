@@ -102,8 +102,9 @@ public class MSMapTaskButton : MonoBehaviour {
 	void SetBossSprite()
 	{
 		bossSprite.gameObject.SetActive(true);
+
 		//If the boss name is null
-		if(_mapTask.bossImgName.Length > 0)
+		if(_mapTask.bossImgName.Length > 0 && _mapTask.bossImgName != "NULL")
 		{
 			MSSpriteUtil.instance.SetSprite(_mapTask.bossImgName.Substring(0,_mapTask.bossImgName.Length - "Map2.png".Length),
 		                                MSUtil.StripExtensions(_mapTask.bossImgName),

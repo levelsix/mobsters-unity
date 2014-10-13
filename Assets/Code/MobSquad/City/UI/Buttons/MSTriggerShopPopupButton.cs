@@ -65,7 +65,10 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 
 	public virtual void OnClick(){
 		MSBuildingManager.instance.FullDeselect();
-		base.OnClick();
+		if(!popup.activeSelf)
+		{
+			base.OnClick();
+		}
 		if(shortCutButton)
 		{
 			switch(shortCutTo)
