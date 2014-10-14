@@ -42,7 +42,7 @@ public class MSSegmentedMap : MonoBehaviour {
 		//This is to sneak LineUpMaps in before OnFinish
 		Action newAction = LineUpMaps + OnFinish;
 
-		MSSpriteUtil.instance.RunForEachTypeInBuncle<Sprite>("TaskMaps", CreateMapSegment, newAction);
+		MSSpriteUtil.instance.RunForEachTypeInBundle<Sprite>("TaskMaps", CreateMapSegment, newAction);
 	}
 
 	void CreateMapSegment(Sprite sprite)

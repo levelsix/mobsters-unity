@@ -170,7 +170,7 @@ public class MSSpriteUtil : MonoBehaviour {
 		}
 	}
 
-	public void RunForEachTypeInBuncle<T>(string bundleName, Action<T> ForEach, Action OnFinish = null) where T :class
+	public void RunForEachTypeInBundle<T>(string bundleName, Action<T> ForEach, Action OnFinish = null) where T :class
 	{
 		StartCoroutine(ForEachTypeInBundle<T>(bundleName, ForEach, OnFinish));
 	}
