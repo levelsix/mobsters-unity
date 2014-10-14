@@ -371,7 +371,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90, y: -0, z: 6.10351562e-05}
+  m_LocalPosition: {x: -90, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400020}
@@ -421,7 +421,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400006}
@@ -518,7 +518,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: 1}
+  mColor: {r: .00392156886, g: 0, b: 0, a: 1}
   mPivot: 4
   mWidth: 68
   mHeight: 30
@@ -528,8 +528,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.26666665
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 4583b5322db0b4e5aa4b82ff0800dfb5, type: 2}
   mText: 50%
   mFontSize: 30
   mFontStyle: 0
@@ -726,7 +726,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2
-  mAtlas: {fileID: 11400000, guid: b29d208d2f47e4ba2bf8e5b45cafac71, type: 2}
+  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
   mSpriteName: orangemenuoption
   mType: 1
   mFillDirection: 4
@@ -1195,9 +1195,9 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: .549019635}
+  mColor: {r: .727941155, g: .189705864, b: 0, a: 1}
   mPivot: 4
-  mWidth: 142
+  mWidth: 140
   mHeight: 24
   mDepth: 42
   autoResizeBoxCollider: 0
@@ -1205,8 +1205,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 5.91666651
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 17d7397560e9349d993457d1a4efe752, type: 2}
   mText: Run Away
   mFontSize: 24
   mFontStyle: 0
@@ -1214,9 +1214,9 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 1, g: 1, b: 1, a: .313725501}
+  mEffectColor: {r: 1, g: 1, b: 1, a: .549019635}
   mSymbols: 1
-  mEffectDistance: {x: 1, y: 1}
+  mEffectDistance: {x: 0, y: 1}
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -1303,7 +1303,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2
-  mAtlas: {fileID: 11400000, guid: b29d208d2f47e4ba2bf8e5b45cafac71, type: 2}
+  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
   mSpriteName: greymenuoption
   mType: 1
   mFillDirection: 4
@@ -1361,7 +1361,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: .549019635}
+  mColor: {r: .00392156886, g: 0, b: 0, a: .549019635}
   mPivot: 4
   mWidth: 94
   mHeight: 24
@@ -1371,8 +1371,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.91666675
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 17d7397560e9349d993457d1a4efe752, type: 2}
   mText: Cancel
   mFontSize: 24
   mFontStyle: 0
@@ -1382,7 +1382,7 @@ MonoBehaviour:
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: 1}
   mSymbols: 1
-  mEffectDistance: {x: 1, y: 1}
+  mEffectDistance: {x: 0, y: 1}
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -1423,18 +1423,18 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: 1}
+  mColor: {r: .00392156886, g: 0, b: 0, a: 1}
   mPivot: 4
   mWidth: 444
-  mHeight: 38
+  mHeight: 30
   mDepth: 41
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 11.6842108
+  aspectRatio: 14.8000002
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 886d66dd3b734428c8b50a0873bc1b54, type: 2}
+  mFont: {fileID: 11400000, guid: d6c973fecac634ca2873fafa28cc76d5, type: 2}
   mText: 'Your chance of running away is:'
   mFontSize: 24
   mFontStyle: 0
@@ -1599,16 +1599,16 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 6.969697
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 17d7397560e9349d993457d1a4efe752, type: 2}
   mText: Run Away?
-  mFontSize: 28
+  mFontSize: 30
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .53725493}
+  mEffectColor: {r: .788235307, g: .109803922, b: 0, a: .53725493}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 0
@@ -1637,6 +1637,7 @@ MonoBehaviour:
   cancelButton: {fileID: 11400044}
   retreatButton: {fileID: 11400014}
   chanceLabel: {fileID: 11400002}
+  runButton: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
