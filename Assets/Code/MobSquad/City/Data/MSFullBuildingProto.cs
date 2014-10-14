@@ -16,6 +16,7 @@ public class MSFullBuildingProto {
 	public MiniJobCenterProto miniJobCenter;
 	public EvoChamberProto evoChamber;
 	public TeamCenterProto teamCenter;
+	public ClanHouseProto clanHouse;
 
 	public MSFullBuildingProto predecessor
 	{
@@ -120,6 +121,11 @@ public class MSFullBuildingProto {
 		structInfo = teamCenter.structInfo;
 		id = structInfo.structId;
 	}
-
+	public MSFullBuildingProto(ClanHouseProto clanHouse)
+	{
+		this.clanHouse = clanHouse;
+		structInfo = clanHouse.structInfo;
+		id = structInfo.structId;
+	}
 
 }
