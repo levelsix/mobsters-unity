@@ -256,9 +256,9 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		SlideToPos(GroundPosToCameraPos(groundPos), size, time);
 	}
 
-	public void SlideToPos(Vector3 localPos, float size, float time)
+	public Coroutine SlideToPos(Vector3 localPos, float size, float time)
 	{
-		StartCoroutine(SlideToCameraPosition(localPos, size, time));
+		return StartCoroutine(SlideToCameraPosition(localPos, size, time));
 	}
 
 	public IEnumerator SlideToCameraPosition(Vector3 localPos, float size, float time = 0)

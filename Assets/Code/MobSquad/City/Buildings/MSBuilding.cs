@@ -809,6 +809,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				MSBuildingManager.instance.hoveringToBuild = null;
 				MSBuildingManager.instance.SetSelectedBuilding(this);
 				confirmationButtons.SetActive(false);
+
+				upgrade.StartConstruction();
 			}
 			else
 			{

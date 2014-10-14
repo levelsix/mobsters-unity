@@ -28,9 +28,7 @@ public class MSFacebookLoginButton : MonoBehaviour {
 
 	void OnEnable()
 	{
-		MSActionManager.Facebook.OnLoginSucces += SwitchToFaceBookAvatar;
-
-		if(MSFacebookManager.isLoggedIn)
+		if(FB.IsLoggedIn)
 		{
 			SwitchToFaceBookAvatar();
 		}
@@ -39,11 +37,6 @@ public class MSFacebookLoginButton : MonoBehaviour {
 			avatar.SetActive(false);
 			loginButton.gameObject.SetActive(true);
 		}
-	}
-
-	void OnDisbale()
-	{
-		MSActionManager.Facebook.OnLoginSucces -= SwitchToFaceBookAvatar;
 	}
 
 	//Changes the button to the circle avatar with the players face in it.
@@ -56,18 +49,42 @@ public class MSFacebookLoginButton : MonoBehaviour {
 
 	void OnClick()
 	{
-		if(!MSFacebookManager.isLoggedIn)
+		if(!FB.IsLoggedIn)
 		{
-			MSFacebookManager.instance.Init();
+			StartCoroutine(TryToLogin());
 		}
 		else
 		{
 			Debug.LogError("Login Button used while player is already logged in");
+			SwitchToFaceBookAvatar();
+		}
+	}
+
+	IEnumerator TryToLogin()
+	{
+		if (loadLock.locked) yield break;
+		loadLock.Lock();
+		MSFacebookManager.instance.Init();
+		while(!MSFacebookManager.instance.hasTriedLogin)
+		{
+			yield return null;
+		}
+		if (FB.IsLoggedIn)
+		{
+			Debug.LogWarning("Yes");
+			StartCoroutine(TryStartupWithFacebook());
+		}
+		else
+		{
+			Debug.LogWarning("No...");
+			loadLock.Unlock();
 		}
 	}
 
 	IEnumerator TryStartupWithFacebook()
 	{
+		Debug.LogWarning("Startup Test: Begin");
+
 		StartupRequestProto request = new StartupRequestProto();
 		request.fbId = FB.UserId;
 		request.versionNum = MSValues.version;
@@ -80,11 +97,13 @@ public class MSFacebookLoginButton : MonoBehaviour {
 		{
 			yield return null;
 		}
+
+		loadLock.Unlock();
 		
 		StartupResponseProto startupResponse = UMQNetworkManager.responseDict[tagNum] as StartupResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		Debug.Log("Startup Test: " + startupResponse.startupStatus);
+		Debug.LogWarning("Startup Test: " + startupResponse.startupStatus);
 		if (startupResponse.startupStatus == StartupResponseProto.StartupStatus.USER_IN_DB)
 		{
 			MSPopupManager.instance.CreatePopup("Account Already Used",
@@ -96,7 +115,7 @@ public class MSFacebookLoginButton : MonoBehaviour {
 				delegate {
 					MSTutorialManager.instance.OnMakeFacebookDecision(false);
 					FB.Logout();
-					MSActionManager.Popup.CloseAllPopups();
+					MSActionManager.Popup.CloseTopPopupLayer();
 					PlayerPrefs.SetInt(MSFacebookManager.FB_KEY, 0);
 					PlayerPrefs.Save();
 				}, 
@@ -116,6 +135,7 @@ public class MSFacebookLoginButton : MonoBehaviour {
 		}
 		else
 		{
+			SwitchToFaceBookAvatar();
 			PlayerPrefs.SetInt(MSFacebookManager.FB_KEY, 1);
 			PlayerPrefs.Save();
 		}

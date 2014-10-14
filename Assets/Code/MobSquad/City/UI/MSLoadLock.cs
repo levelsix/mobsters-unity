@@ -13,7 +13,7 @@ public class MSLoadLock : MonoBehaviour
 
 	[SerializeField] GameObject[] disableWhileLocked;
 
-	bool locked = false;
+	public bool locked = false;
 
 	Func<bool> unlockTest;
 

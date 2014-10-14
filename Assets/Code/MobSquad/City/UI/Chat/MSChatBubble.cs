@@ -145,11 +145,6 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 		senderLabel.text = sender;
 		timeLabel.text = MSUtil.TimeStringLong(MSUtil.timeNowMillis - time) + " ago";
 
-		Debug.Log("Message: " + textLabel.text
-		          + "\nMessage width: " + textLabel.printedSize.x
-		          + "\nName width: " + senderLabel.printedSize.x
-		          + "\nTime Width: " + timeLabel.printedSize.x);
-
 		int topLength = (int)(senderLabel.printedSize.x + timeLabel.printedSize.x + 50);
 		bubble.width = Mathf.Max(topLength, (int)textLabel.printedSize.x) + 75;
 		bubble.height = (int)textLabel.printedSize.y + 75;

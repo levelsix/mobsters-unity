@@ -470,7 +470,7 @@ public class MSBuildingManager : MonoBehaviour
 
 		enhanceLabs.Clear();
 		evoLabs.Clear();
-		MSResidenceManager.residences.Clear();
+		MSResidenceManager.instance.residences.Clear();
 
 		MSGridManager.instance.InitHome ();
 
@@ -492,7 +492,7 @@ public class MSBuildingManager : MonoBehaviour
 				}
 				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESIDENCE)
 				{
-					MSResidenceManager.residences[building.userStructProto.userStructId] = building;
+					MSResidenceManager.instance.residences[building.userStructProto.userStructId] = building;
 					MSResidenceManager.instance.CheckBuilding(building.userStructProto.userStructId);
 				}
 				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.LAB)
@@ -1055,7 +1055,7 @@ public class MSBuildingManager : MonoBehaviour
 		//Debug.LogWarning("Setting monster slot count");
 		int monsterSlots = MSWhiteboard.constants.userMonsterConstants.initialMaxNumMonsterLimit;
 
-		foreach (var item in MSResidenceManager.residences.Values) 
+		foreach (var item in MSResidenceManager.instance.residences.Values) 
 		{
 			//Debug.LogWarning("Slots!");
 			monsterSlots += item.combinedProto.residence.numMonsterSlots;
