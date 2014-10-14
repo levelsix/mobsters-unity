@@ -76,7 +76,7 @@ public class MSHireFriendsPage : MonoBehaviour {
 
 	void OnClickAskFriend()
 	{
-		if(MSFacebookManager.isLoggedIn)
+		if(FB.IsLoggedIn)
 		{
 			if(!allPopulated)
 			{

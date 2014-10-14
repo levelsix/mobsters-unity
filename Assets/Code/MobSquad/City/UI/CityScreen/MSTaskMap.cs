@@ -27,7 +27,7 @@ public class MSTaskMap : MonoBehaviour {
 	Transform TaskParent;
 
 	[SerializeField]
-	UI2DSprite pvpHud;
+	UIWidget pvpHud;
 
 	[SerializeField]
 	MSMapAvatar avatar;

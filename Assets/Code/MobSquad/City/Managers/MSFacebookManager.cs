@@ -14,8 +14,6 @@ public class MSFacebookManager : MonoBehaviour {
 	
 	public bool hasTriedLogin = false;
 	
-	public static bool isLoggedIn = false;
-	
 	const string permissions = "email,read_friendlists,publish_actions,publish_stream";
 	
 	const string COLLECT_FROM_BUILDING_DESCRIPTION_FRONT = "I just collected money from my ";
@@ -56,6 +54,7 @@ public class MSFacebookManager : MonoBehaviour {
 	
 	public void Init()
 	{
+		hasTriedLogin = false;
 		FB.Init(TryFBLogin, OnHideUnity);
 	}
 	
@@ -80,11 +79,10 @@ public class MSFacebookManager : MonoBehaviour {
 			
 	private void OnLogin(FBResult result)
 	{
-		isLoggedIn = FB.IsLoggedIn;
-		if (isLoggedIn)
+		if (FB.IsLoggedIn)
 		{
 			Debug.Log("Logged in as: " + FB.UserId);
-			MSFacebookManager.instance.TryLoadFriends();
+			MSFacebookManager.instance.LoadInvitableFriends();
 			if(MSActionManager.Facebook.OnLoginSucces != null)
 			{
 				MSActionManager.Facebook.OnLoginSucces();
@@ -103,9 +101,17 @@ public class MSFacebookManager : MonoBehaviour {
 	[ContextMenu ("Try Friends")]
 	public void TryLoadFriends()
 	{
-		if (isLoggedIn)
+		if (FB.IsLoggedIn)
 		{
-			FB.API("me/friends?fields=installed,name,picture,id&limit=100", Facebook.HttpMethod.GET, LoadFriendsCallback);
+			FB.API("me/friends?fields=name,picture,id&limit=100", Facebook.HttpMethod.GET, LoadFriendsCallback);
+		}
+	}
+
+	public void LoadInvitableFriends()
+	{
+		if (FB.IsLoggedIn)
+		{
+			FB.API("me/invitable_friends?fields=installed,name,picture,id&limit=100", Facebook.HttpMethod.GET, LoadFriendsCallback);
 		}
 	}
 
@@ -157,10 +163,10 @@ public class MSFacebookManager : MonoBehaviour {
 
 		foreach(var friend in friends)
 		{
-			//Debug.Log(friend);
+			Debug.Log(friend);
 		}
 
-		//Debug.Log("Num friends: " + friendsData.Count);
+		Debug.Log("Num friends: " + friendsData.Count);
 
 		/*
 		Dictionary<string, object> friendDict = friendsData[0] as Dictionary<string, object>;

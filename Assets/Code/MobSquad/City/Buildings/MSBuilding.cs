@@ -750,9 +750,9 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		if(MSBuildingManager.instance.currentUnderConstruction != null)
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",  
-            	"Speed him up for " + 
+            	"Speed him up for (G) " + 
 	                MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime)
-	                + "gems and build this structure?",
+	                + " and build this structure?",
                 new string[]{"Cancel", "Speed Up"},
 				new string[]{"greymenuoption", "purplemenuoption"},
 				new WaitFunction[]{MSUtil.QuickCloseTop, WaitUntilPurchased},
@@ -809,6 +809,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				MSBuildingManager.instance.hoveringToBuild = null;
 				MSBuildingManager.instance.SetSelectedBuilding(this);
 				confirmationButtons.SetActive(false);
+
+				upgrade.StartConstruction();
 			}
 			else
 			{

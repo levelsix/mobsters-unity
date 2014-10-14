@@ -16,7 +16,7 @@ public class MSResourceCollector : MonoBehaviour {
 	{
 		get
 		{
-			return currMoney >= moneyThreshold;
+			return currMoney > moneyThreshold;
 		}
 	}
 
@@ -32,10 +32,10 @@ public class MSResourceCollector : MonoBehaviour {
 	{
 		get
 		{
-			return enabled && _building.userStructProto.isComplete && !_building.upgrade.progressBar.upgrading;
+			return enabled && _building.userStructProto.userStructId > 0 && _building.userStructProto.isComplete && !_building.upgrade.progressBar.upgrading;
 		}
 	}
-	
+
 	/// <summary>
 	/// The capacity.
 	/// </summary>

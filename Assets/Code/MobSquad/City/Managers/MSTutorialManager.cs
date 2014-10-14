@@ -433,11 +433,11 @@ public class MSTutorialManager : MonoBehaviour
 		enemyOneUnit.cityUnit.TutorialPath(enemyOneEnterPath);
 		enemyOneUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
 		enemyOneUnit.DoFade(true, TutorialValues.enemyEnterJumpTime);
-		yield return new WaitForSeconds(TutorialValues.enemyEnterJumpTime);
+		yield return new WaitForSeconds(TutorialValues.enemyEnterJumpTime/2);
 		enemyTwoUnit.cityUnit.TutorialPath(enemyTwoEnterPath);
 		enemyTwoUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
 		enemyTwoUnit.DoFade(true, TutorialValues.enemyEnterJumpTime);
-		yield return new WaitForSeconds(TutorialValues.enemyEnterJumpTime);
+		yield return new WaitForSeconds(TutorialValues.enemyEnterJumpTime/2);
 		bossUnit.cityUnit.TutorialPath (enemyBossEnterPath);
 		bossUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
 		bossUnit.DoFade(true, TutorialValues.enemyEnterJumpTime);

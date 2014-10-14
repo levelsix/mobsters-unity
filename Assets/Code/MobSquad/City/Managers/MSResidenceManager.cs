@@ -14,10 +14,10 @@ public class MSResidenceManager : MonoBehaviour {
 
 	public static MSResidenceManager instance;
 
-	static Dictionary<int, List<UserFacebookInviteForSlotProto>> fbInviteAccepted = 
+	Dictionary<int, List<UserFacebookInviteForSlotProto>> fbInviteAccepted = 
 		new Dictionary<int, List<UserFacebookInviteForSlotProto>>();
 
-	public static Dictionary<int, MSBuilding> residences = new Dictionary<int, MSBuilding>();
+	public Dictionary<int, MSBuilding> residences = new Dictionary<int, MSBuilding>();
 
 	public int currBuildingId;
 
@@ -166,6 +166,7 @@ public class MSResidenceManager : MonoBehaviour {
 
 	public void AddInvites(List<UserFacebookInviteForSlotProto> addInvites)
 	{
+		Debug.LogWarning("Invites: " + addInvites.Count);
 		foreach (var item in addInvites) 
 		{
 			AddInvite(item);

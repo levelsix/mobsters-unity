@@ -13,7 +13,7 @@ public class MSMapAvatar : MonoBehaviour {
 
 	void OnEnable()
 	{
-		if(MSFacebookManager.isLoggedIn)
+		if(FB.IsLoggedIn)
 		{
 			faceAvatar.gameObject.SetActive(true);
 			chatAvatar.gameObject.SetActive(false);
