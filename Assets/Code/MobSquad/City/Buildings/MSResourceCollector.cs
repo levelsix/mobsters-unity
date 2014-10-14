@@ -198,7 +198,16 @@ public class MSResourceCollector : MonoBehaviour {
 			if(!unblockClick)
 			{
 				StartCoroutine(HideHoverIcon());
-				MSActionManager.Popup.DisplayRedError("Your " + _generator.resourceType.ToString().ToLower() + " storage is full, time to update your city!");
+
+				if (_generator.resourceType == ResourceType.CASH)
+				{
+					MSActionManager.Popup.DisplayRedError("Your  storage is full. Upgrade or build more Cash Vaults to store more.");
+				}
+				else
+				{
+					MSActionManager.Popup.DisplayRedError("Your storage is full. Upgrade or build more Oil Silos to store more");
+				}
+
 			}
 		}
 	}

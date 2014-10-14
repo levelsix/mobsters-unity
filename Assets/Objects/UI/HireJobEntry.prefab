@@ -196,7 +196,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: 1277.68787, y: 155.878082, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400004}
@@ -215,8 +215,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 725.599976, y: 110, z: 1}
-  m_Center: {x: 0, y: -6, z: 0}
+  m_Size: {x: 726, y: 110, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,7 +365,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .686274529, g: .686274529, b: .686274529, a: 1}
   mPivot: 3
-  mWidth: 272
+  mWidth: 274
   mHeight: 18
   mDepth: 0
   autoResizeBoxCollider: 0
@@ -373,8 +373,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 15.1111107
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: a9d4d7b17c2624f7392b6e47f68579a8, type: 2}
   mText: Adds 3 slots to your residence
   mFontSize: 18
   mFontStyle: 0
@@ -435,8 +435,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4.14285707
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: e9a52a599d5df4f9dbd7bfaca8e49d23, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 76ed6b8b3463043948c681a0b12cc152, type: 2}
   mText: Janitor
   mFontSize: 27
   mFontStyle: 0

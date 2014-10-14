@@ -3610,7 +3610,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.5, y: -36.5, z: 0}
+  m_LocalPosition: {x: -35.5, y: -36.5000153, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 400090}
@@ -4391,7 +4391,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.5, y: -36.5, z: 0}
+  m_LocalPosition: {x: -27.5, y: -36.5000153, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 400098}
@@ -4564,7 +4564,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.622558594, y: -226, z: 0}
+  m_LocalPosition: {x: 0, y: -226, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400170}
@@ -6071,7 +6071,7 @@ MonoBehaviour:
     relative: 1
     absolute: 87
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: .549019635}
+  mColor: {r: .00392156886, g: 0, b: 0, a: .549019635}
   mPivot: 4
   mWidth: 203
   mHeight: 36
@@ -6082,7 +6082,7 @@ MonoBehaviour:
   aspectRatio: 5.63888884
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: Storage is too full
   mFontSize: 18
   mFontStyle: 0
@@ -6133,7 +6133,7 @@ MonoBehaviour:
     relative: 1
     absolute: 87
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: .549019635}
+  mColor: {r: .00392156886, g: 0, b: 0, a: .549019635}
   mPivot: 4
   mWidth: 203
   mHeight: 36
@@ -6144,7 +6144,7 @@ MonoBehaviour:
   aspectRatio: 5.63888884
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: Storage is too full
   mFontSize: 18
   mFontStyle: 0
@@ -6205,8 +6205,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.79999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Fill Cash Storage
   mFontSize: 25
   mFontStyle: 0
@@ -6214,7 +6214,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 3
@@ -6535,7 +6535,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4014
+  startingRenderQueue: 3005
   mAlpha: 1
   mClipping: 4
   mClipRange: {x: 0, y: -140, z: 1024, w: 300}
@@ -6571,7 +6571,7 @@ MonoBehaviour:
     relative: 1
     absolute: 87
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: .549019635}
+  mColor: {r: .00392156886, g: 0, b: 0, a: .549019635}
   mPivot: 4
   mWidth: 203
   mHeight: 36
@@ -6582,7 +6582,7 @@ MonoBehaviour:
   aspectRatio: 5.63888884
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: Storage is too full
   mFontSize: 18
   mFontStyle: 0
@@ -6664,8 +6664,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.79999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Fill Storages by 10%
   mFontSize: 25
   mFontStyle: 0
@@ -6673,7 +6673,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 3
@@ -6763,8 +6763,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 7.07692289
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Safe of Gems
   mFontSize: 25
   mFontStyle: 0
@@ -6772,7 +6772,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -6825,8 +6825,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1.79999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: 120
   mFontSize: 20
   mFontStyle: 0
@@ -6834,7 +6834,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -6887,8 +6887,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.29999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: $4.99
   mFontSize: 20
   mFontStyle: 0
@@ -6896,7 +6896,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -6922,7 +6922,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultTweens: 1
+  defaultIn: 0
+  defaultOut: 0
+  defaultTarget: {fileID: 0}
   inTweens: []
   outTweens: []
 --- !u!114 &11400054
@@ -7153,7 +7155,7 @@ MonoBehaviour:
     relative: 1
     absolute: 87
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: .549019635}
+  mColor: {r: .00392156886, g: 0, b: 0, a: .549019635}
   mPivot: 4
   mWidth: 203
   mHeight: 36
@@ -7164,7 +7166,7 @@ MonoBehaviour:
   aspectRatio: 5.63888884
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: Storage is too full
   mFontSize: 18
   mFontStyle: 0
@@ -7398,8 +7400,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.79999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Fill Storages by Half
   mFontSize: 25
   mFontStyle: 0
@@ -7407,7 +7409,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 3
@@ -7580,7 +7582,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4005
+  startingRenderQueue: 3002
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: .649078369, z: 1022.96143, w: 640}
@@ -7626,8 +7628,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.79999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: $19.99
   mFontSize: 20
   mFontStyle: 0
@@ -7635,7 +7637,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -7767,16 +7769,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 42
+  mWidth: 40
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.0999999
+  aspectRatio: 2
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: 650
   mFontSize: 20
   mFontStyle: 0
@@ -7784,7 +7786,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -7879,16 +7881,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 82
+  mWidth: 80
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.0999999
+  aspectRatio: 4
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: (O)1582
   mFontSize: 20
   mFontStyle: 0
@@ -7896,7 +7898,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -7922,7 +7924,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultTweens: 1
+  defaultIn: 0
+  defaultOut: 0
+  defaultTarget: {fileID: 0}
   inTweens: []
   outTweens: []
 --- !u!114 &11400104
@@ -7970,16 +7974,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 84
+  mWidth: 82
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.19999981
+  aspectRatio: 4.0999999
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: (O)1250
   mFontSize: 20
   mFontStyle: 0
@@ -7987,7 +7991,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -8013,7 +8017,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultTweens: 1
+  defaultIn: 0
+  defaultOut: 0
+  defaultTarget: {fileID: 0}
   inTweens: []
   outTweens: []
 --- !u!114 &11400110
@@ -8250,8 +8256,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.0999999
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: (G)1
   mFontSize: 20
   mFontStyle: 0
@@ -8259,7 +8265,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -8485,8 +8491,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.29999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: (G)2
   mFontSize: 20
   mFontStyle: 0
@@ -8494,7 +8500,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -8742,7 +8748,7 @@ MonoBehaviour:
   iconBlue: menubuildingsiconactive
   icon: {fileID: 11400204}
   label: {fileID: 11400202}
-  textBlue: {r: .00784313772, g: .419607848, b: 1, a: 1}
+  textBlue: {r: .00392156886, g: .419607848, b: 1, a: 1}
   popup: {fileID: 11400102}
   badge: {fileID: 11400382}
   secondaryBadge: {fileID: 0}
@@ -8976,7 +8982,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultTweens: 1
+  defaultIn: 0
+  defaultOut: 0
+  defaultTarget: {fileID: 0}
   inTweens:
   - {fileID: 0}
   - {fileID: 11400354}
@@ -9071,8 +9079,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 7.23076916
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Case of Gems
   mFontSize: 25
   mFontStyle: 0
@@ -9080,7 +9088,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -9233,8 +9241,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.5999999
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: $875
   mFontSize: 20
   mFontStyle: 0
@@ -9242,7 +9250,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -9410,16 +9418,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 46
+  mWidth: 48
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.29999995
+  aspectRatio: 2.4000001
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: $175
   mFontSize: 20
   mFontStyle: 0
@@ -9427,7 +9435,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -9603,8 +9611,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.57142854
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: BUILD
   mFontSize: 20
   mFontStyle: 0
@@ -9715,8 +9723,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: $99.99
   mFontSize: 20
   mFontStyle: 0
@@ -9724,7 +9732,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -9767,7 +9775,7 @@ MonoBehaviour:
     relative: 1
     absolute: 87
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: .549019635}
+  mColor: {r: .00392156886, g: 0, b: 0, a: .549019635}
   mPivot: 4
   mWidth: 203
   mHeight: 36
@@ -9778,7 +9786,7 @@ MonoBehaviour:
   aspectRatio: 5.63888884
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: Storage is too full
   mFontSize: 18
   mFontStyle: 0
@@ -9889,8 +9897,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4.0999999
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: $49.99
   mFontSize: 20
   mFontStyle: 0
@@ -9898,7 +9906,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -9928,7 +9936,7 @@ MonoBehaviour:
   iconBlue: menumobstersactive
   icon: {fileID: 11400372}
   label: {fileID: 11400322}
-  textBlue: {r: 0, g: .454901963, b: .984313726, a: 1}
+  textBlue: {r: .00392156886, g: .454901963, b: .984313726, a: 1}
   popup: {fileID: 11400108}
   badge: {fileID: 11400314}
   secondaryBadge: {fileID: 11400222}
@@ -10098,16 +10106,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 176
+  mWidth: 174
   mHeight: 26
   mDepth: 17
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.76923084
+  aspectRatio: 6.69230747
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Bag of Gems
   mFontSize: 25
   mFontStyle: 0
@@ -10115,7 +10123,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -10477,8 +10485,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.79999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Fill Oil Storage
   mFontSize: 25
   mFontStyle: 0
@@ -10486,7 +10494,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 3
@@ -10709,8 +10717,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.29999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: $9.99
   mFontSize: 20
   mFontStyle: 0
@@ -10718,7 +10726,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -10771,8 +10779,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.5999999
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: $982
   mFontSize: 20
   mFontStyle: 0
@@ -10780,7 +10788,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -11091,8 +11099,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 7.69230747
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Vault of Gems
   mFontSize: 25
   mFontStyle: 0
@@ -11100,7 +11108,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -11485,7 +11493,7 @@ MonoBehaviour:
   iconBlue: menuresourcesactive
   icon: {fileID: 11400134}
   label: {fileID: 11400346}
-  textBlue: {r: 0, g: .454901963, b: .984313726, a: 1}
+  textBlue: {r: .00392156886, g: .454901963, b: .984313726, a: 1}
   popup: {fileID: 11400052}
   badge: {fileID: 0}
   secondaryBadge: {fileID: 0}
@@ -11578,8 +11586,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: 1
   mFontSize: 25
   mFontStyle: 0
@@ -11587,7 +11595,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 2
-  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
   mOverflow: 0
@@ -11660,8 +11668,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: 99
   mFontSize: 20
   mFontStyle: 0
@@ -11669,7 +11677,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 2
-  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
   mOverflow: 0
@@ -11725,7 +11733,7 @@ MonoBehaviour:
     relative: 1
     absolute: 87
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: .549019635}
+  mColor: {r: .00392156886, g: 0, b: 0, a: .549019635}
   mPivot: 4
   mWidth: 203
   mHeight: 36
@@ -11736,7 +11744,7 @@ MonoBehaviour:
   aspectRatio: 5.63888884
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: Storage is too full
   mFontSize: 18
   mFontStyle: 0
@@ -11797,8 +11805,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.79999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Fill Storages by 10%
   mFontSize: 25
   mFontStyle: 0
@@ -11806,7 +11814,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 3
@@ -11859,8 +11867,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 6.84615374
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Pile of Gems
   mFontSize: 25
   mFontStyle: 0
@@ -11868,7 +11876,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -11921,8 +11929,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 6.16666651
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: GET MOBSTERS
   mFontSize: 18
   mFontStyle: 0
@@ -12083,8 +12091,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1.39999998
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: 50
   mFontSize: 20
   mFontStyle: 0
@@ -12092,7 +12100,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -12137,16 +12145,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 58
+  mWidth: 56
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.9000001
+  aspectRatio: 2.79999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: 1,500
   mFontSize: 20
   mFontStyle: 0
@@ -12154,7 +12162,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -12199,16 +12207,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 76
+  mWidth: 74
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.79999995
+  aspectRatio: 3.70000005
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: (O)250
   mFontSize: 20
   mFontStyle: 0
@@ -12216,7 +12224,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -12399,8 +12407,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4.42857122
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: ADD FUNDS
   mFontSize: 20
   mFontStyle: 0
@@ -12639,8 +12647,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.29999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: (G)2
   mFontSize: 20
   mFontStyle: 0
@@ -12648,7 +12656,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -12794,8 +12802,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.0999999
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: (G)1
   mFontSize: 20
   mFontStyle: 0
@@ -12803,7 +12811,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -12856,8 +12864,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.79999995
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Fill Storages by Half
   mFontSize: 25
   mFontStyle: 0
@@ -12865,7 +12873,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 3
@@ -12918,8 +12926,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.0999999
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: (G)1
   mFontSize: 20
   mFontStyle: 0
@@ -12927,7 +12935,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -13030,8 +13038,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2.0999999
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: (G)1
   mFontSize: 20
   mFontStyle: 0
@@ -13039,7 +13047,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -13092,8 +13100,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 2
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: 250
   mFontSize: 20
   mFontStyle: 0
@@ -13101,7 +13109,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .184313729}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .184313729}
   mSymbols: 1
   mEffectDistance: {x: 2.21000004, y: 2.70000005}
   mOverflow: 2
@@ -13267,8 +13275,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: d6b1aa52c816544ceaf61c45e3d37099, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
   mText: 99
   mFontSize: 20
   mFontStyle: 0
@@ -13276,7 +13284,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 2
-  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
   mOverflow: 0
@@ -13607,8 +13615,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.4000001
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Email
   mFontSize: 20
   mFontStyle: 0
@@ -13616,7 +13624,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .470588237}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .470588237}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 2.25}
   mOverflow: 2
@@ -13856,16 +13864,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 116
+  mWidth: 118
   mHeight: 26
   mDepth: 14
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.46153831
+  aspectRatio: 4.53846169
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Support
   mFontSize: 25
   mFontStyle: 0
@@ -13873,7 +13881,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .470588237}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .470588237}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 2.25}
   mOverflow: 2
@@ -13918,16 +13926,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 100
+  mWidth: 98
   mHeight: 20
   mDepth: 14
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5
+  aspectRatio: 4.9000001
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Visit the
   mFontSize: 20
   mFontStyle: 0
@@ -13935,7 +13943,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .470588237}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .470588237}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 2.25}
   mOverflow: 2
@@ -14130,16 +14138,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 112
+  mWidth: 114
   mHeight: 26
   mDepth: 14
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.30769253
+  aspectRatio: 4.38461542
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Forums
   mFontSize: 25
   mFontStyle: 0
@@ -14147,7 +14155,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .470588237}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .470588237}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 2.25}
   mOverflow: 2
@@ -14200,8 +14208,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.84615374
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: iTunes
   mFontSize: 25
   mFontStyle: 0
@@ -14209,7 +14217,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .470588237}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .470588237}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 2.25}
   mOverflow: 2
@@ -14262,8 +14270,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 5.30769253
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Facebook
   mFontSize: 25
   mFontStyle: 0
@@ -14346,8 +14354,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 6
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Review on
   mFontSize: 20
   mFontStyle: 0
@@ -14355,7 +14363,7 @@ MonoBehaviour:
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 0, g: 0, b: 0, a: .470588237}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .470588237}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 2.25}
   mOverflow: 2
@@ -14664,7 +14672,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: 1}
+  mColor: {r: .00392156886, g: 0, b: 0, a: 1}
   mPivot: 3
   mWidth: 138
   mHeight: 26
@@ -14674,8 +14682,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 5.30769253
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Facebook
   mFontSize: 25
   mFontStyle: 0
@@ -14726,7 +14734,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: 1}
+  mColor: {r: .00392156886, g: 0, b: 0, a: 1}
   mPivot: 3
   mWidth: 200
   mHeight: 26
@@ -14736,8 +14744,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 7.69230747
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Sound Effects
   mFontSize: 25
   mFontStyle: 0
@@ -15026,7 +15034,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: 1}
+  mColor: {r: .00392156886, g: 0, b: 0, a: 1}
   mPivot: 3
   mWidth: 90
   mHeight: 26
@@ -15036,8 +15044,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 3.46153855
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
   mText: Music
   mFontSize: 25
   mFontStyle: 0
@@ -15310,18 +15318,18 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 0, g: .388235301, b: .592156887, a: 1}
+  mColor: {r: .00392156886, g: .388235301, b: .592156887, a: 1}
   mPivot: 4
-  mWidth: 54
+  mWidth: 52
   mHeight: 24
   mDepth: 13
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.25
+  aspectRatio: 2.16666675
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 3413a9755aa18437fab621756db1df13, type: 2}
   mText: FAQ
   mFontSize: 23
   mFontStyle: 0
@@ -15561,7 +15569,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1173cb7e7fd564cbdb5fc037930f203d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultTweens: 1
+  defaultIn: 0
+  defaultOut: 0
+  defaultTarget: {fileID: 0}
   inTweens:
   - {fileID: 11400462}
   - {fileID: 11400460}
@@ -15608,7 +15618,7 @@ MonoBehaviour:
   activeTab: popupactivetab
   active: 0
   activeText: {r: .0745098069, g: .666666687, b: .933333337, a: 1}
-  inactiveText: {r: 0, g: .388235301, b: .592156887, a: 1}
+  inactiveText: {r: .00392156886, g: .388235301, b: .592156887, a: 1}
   tabList:
   - {fileID: 11400492}
   tabContents: {fileID: 100320}
@@ -15703,7 +15713,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4005
+  startingRenderQueue: 3002
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: .649078369, z: 1022.96143, w: 640}
@@ -15820,8 +15830,8 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 4.91666651
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: c289878c6f42f43d1b1c1d8f74ba91da, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 3413a9755aa18437fab621756db1df13, type: 2}
   mText: SETTINGS
   mFontSize: 23
   mFontStyle: 0
