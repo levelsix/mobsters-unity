@@ -11,7 +11,7 @@ public class PZTurnDisplay : MonoBehaviour
 {
 	public static PZTurnDisplay instance;
 
-	[SerializeField] TweenPosition moveInTween;
+	public TweenPosition moveInTween;
 
 	[SerializeField] PZTurnIcon iconPrefab;
 
