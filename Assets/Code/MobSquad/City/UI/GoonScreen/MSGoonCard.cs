@@ -119,6 +119,9 @@ public class MSGoonCard : MonoBehaviour {
 	[SerializeField]
 	GameObject lockIcon;
 
+	[SerializeField]
+	Color cashTextColor;
+
 	#endregion
 	
 	#endregion
@@ -465,7 +468,7 @@ public class MSGoonCard : MonoBehaviour {
 			name = goon.sellValue.ToString();
 
 			healCostLabel.text = "$" + goon.sellValue;
-			healCostLabel.color = Color.green;
+			healCostLabel.color = cashTextColor;
 		}
 
 	}

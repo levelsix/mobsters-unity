@@ -195,8 +195,17 @@ public class PZMonster {
 		get
 		{
 			if (restricted) return 0;
-			return Mathf.CeilToInt((userMonster.currentLvl + userMonster.currentExp) 
-				* ((float)userMonster.numPieces) / monster.numPuzzlePieces);
+
+			int price;
+			if (userMonster.isComplete)
+			{
+				price = Mathf.FloorToInt(Mathf.Lerp(baseLevelInfo.sellAmount, maxLevelInfo.sellAmount, ((level-1f)/(maxLevelInfo.lvl-1f))));
+			}
+			else
+			{
+				price = Mathf.FloorToInt(baseLevelInfo.sellAmount * ((float)(userMonster.numPieces)) / monster.numPuzzlePieces);
+			}
+			return Mathf.Max(1, price);
 		}
 	}
 
