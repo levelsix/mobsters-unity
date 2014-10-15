@@ -1164,7 +1164,7 @@ public class PZPuzzleManager : MonoBehaviour {
 						return true;
 					}
 				}
-				if (i < boardHeight-1)
+				if (i < boardHeight-2)
 				{
 					if (gem.colorIndex == board[j+1,i].colorIndex && gem.colorIndex == board[j+2,i+1].colorIndex)
 					{
@@ -1239,7 +1239,7 @@ public class PZPuzzleManager : MonoBehaviour {
 						return true;
 					}
 				}
-				if (i < boardHeight-1)
+				if (i < boardHeight-2)
 				{
 					if (gem.colorIndex == board[i,j+1].colorIndex && gem.colorIndex == board[i+1,j+2].colorIndex)
 					{

@@ -84,11 +84,12 @@ public class MSMapTaskPopup : MonoBehaviour {
 		cashLabel.MarkAsChanged();
 		oilLabel.MarkAsChanged();
 
+		button.normalSprite = ACCEPT_BUTTON;
+
 		button.enabled = true;
 
 		if (statusType == MSMapTaskButton.TaskStatusType.Completed)
 		{
-			button.normalSprite = ACCEPT_BUTTON;
 			cashLabel.text = "0";
 			oilLabel.text = "0";
 //			status.text = "Completed";

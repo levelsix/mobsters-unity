@@ -95,4 +95,33 @@ public class MSHospital {
 	{
 		goon = MSHospitalManager.instance.healingMonsters.Find(x=>x.hospitalTimes[0].hospital == this);
 	}
+
+	public long GetTotalHealTimeLeft()
+	{
+		int thisHospitalID = userBuildingData.userStructId;
+		Debug.Log ("this hospital ID: " + thisHospitalID);
+
+		List<PZMonster> healingInThisHospital = new List<PZMonster>();
+		foreach(PZMonster monster in MSHospitalManager.instance.healingMonsters)
+		{
+			Debug.Log("monster's hospital ID: " + monster.userHospitalID);
+			if(monster.userHospitalID == thisHospitalID)
+			{
+				healingInThisHospital.Add(monster);
+			}
+		}
+		if(healingInThisHospital.Count != 0)
+		{
+			long healTime = 0;
+			foreach (PZMonster monster in healingInThisHospital) 
+			{
+				healTime = Math.Max(monster.healTimeLeftMillis, healTime);
+			}
+			return MSUtil.timeUntil(healTime);
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }

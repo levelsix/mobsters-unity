@@ -48,7 +48,7 @@ public class MSTaskMap : MonoBehaviour {
 	public Dictionary<int, MSMapTaskButton> taskButtons = new Dictionary<int, MSMapTaskButton>();
 	
 	Transform trans;
-	
+
 	/// <summary>
 	/// We have to scale the taskParent to get these coordinates to line up on the map
 	/// </summary>
