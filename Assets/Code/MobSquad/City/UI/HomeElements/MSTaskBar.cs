@@ -195,6 +195,11 @@ public class MSTaskBar : MonoBehaviour {
 				{
 					AddButton(MSTaskButton.Mode.EVOLVE);
 				}
+				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.CLAN
+				         && currBuilding.combinedProto.structInfo.level > 0)
+				{
+					AddButton(MSTaskButton.Mode.SQUAD);
+				}
 				if (currBuilding.hospital != null)
 				{
 					AddButton(MSTaskButton.Mode.HEAL);

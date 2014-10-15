@@ -55,8 +55,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: addgems
-    x: 550
-    y: 350
+    x: 600
+    y: 301
     width: 48
     height: 48
     borderLeft: 0
@@ -94,8 +94,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: badgeicon
-    x: 340
-    y: 1
+    x: 553
+    y: 266
     width: 35
     height: 36
     borderLeft: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: basic1spin
-    x: 113
-    y: 14
+    x: 553
+    y: 303
     width: 42
     height: 42
     borderLeft: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: buildingbonusslots
     x: 497
-    y: 293
+    y: 241
     width: 52
     height: 52
     borderLeft: 0
@@ -133,8 +133,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingenhance
-    x: 340
-    y: 38
+    x: 497
+    y: 294
     width: 52
     height: 52
     borderLeft: 0
@@ -146,8 +146,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingevolve
-    x: 497
-    y: 83
+    x: 553
+    y: 346
     width: 46
     height: 52
     borderLeft: 0
@@ -185,8 +185,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: buildingfix
-    x: 497
-    y: 34
+    x: 600
+    y: 350
     width: 48
     height: 48
     borderLeft: 0
@@ -198,8 +198,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingheal
-    x: 57
-    y: 5
+    x: 497
+    y: 347
     width: 55
     height: 51
     borderLeft: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: buildinginfo
     x: 497
-    y: 240
+    y: 188
     width: 52
     height: 52
     borderLeft: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingmanage
-    x: 0
+    x: 65
     y: 5
     width: 56
     height: 51
@@ -238,7 +238,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: buildingminijobs
     x: 497
-    y: 346
+    y: 82
     width: 52
     height: 52
     borderLeft: 0
@@ -250,19 +250,6 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingoptionbutton
-    x: 0
-    y: 57
-    width: 156
-    height: 113
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: buildingoptionbuttonpressed
     x: 846
     y: 440
     width: 156
@@ -275,9 +262,22 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
+  - name: buildingoptionbuttonpressed
+    x: 0
+    y: 57
+    width: 156
+    height: 113
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: buildingremove
     x: 497
-    y: 136
+    y: 31
     width: 52
     height: 50
     borderLeft: 0
@@ -290,7 +290,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: buildingsell
     x: 956
-    y: 779
+    y: 730
     width: 56
     height: 55
     borderLeft: 0
@@ -303,7 +303,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: buildingupgrade
     x: 497
-    y: 187
+    y: 135
     width: 52
     height: 52
     borderLeft: 0
@@ -315,8 +315,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cashcap
-    x: 1011
-    y: 863
+    x: 1013
+    y: 749
     width: 10
     height: 36
     borderLeft: 0
@@ -328,7 +328,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cashmiddle
-    x: 1017
+    x: 1014
     y: 968
     width: 2
     height: 36
@@ -342,7 +342,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: chatactivedot
     x: 1014
-    y: 1005
+    y: 1015
     width: 9
     height: 9
     borderLeft: 0
@@ -355,7 +355,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: chatinactivedot
     x: 1014
-    y: 1015
+    y: 1005
     width: 9
     height: 9
     borderLeft: 0
@@ -367,8 +367,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: chatminimize
-    x: 956
-    y: 730
+    x: 0
+    y: 8
     width: 64
     height: 48
     borderLeft: 0
@@ -614,8 +614,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: moneysmall
-    x: 550
-    y: 304
+    x: 600
+    y: 255
     width: 47
     height: 45
     borderLeft: 0
@@ -679,8 +679,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: newtext
-    x: 883
-    y: 417
+    x: 340
+    y: 14
     width: 39
     height: 17
     borderLeft: 4
@@ -705,8 +705,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: oilcap
-    x: 1013
-    y: 798
+    x: 1011
+    y: 863
     width: 10
     height: 36
     borderLeft: 0
@@ -731,7 +731,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: oilmiddle
-    x: 1014
+    x: 1017
     y: 968
     width: 2
     height: 36
@@ -820,6 +820,45 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 1
     paddingTop: 1
+    paddingBottom: 0
+  - name: buildingbrowse
+    x: 649
+    y: 358
+    width: 49
+    height: 40
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: buildinghelp
+    x: 340
+    y: 32
+    width: 49
+    height: 58
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: buildingsquad
+    x: 956
+    y: 786
+    width: 65
+    height: 48
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
     paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}

@@ -63,7 +63,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 	UIButton button;
 
-	public enum Mode {SELL_MOBSTERS, UPGRADE, FINISH, HEAL, ENHANCE, REMOVE_OBSTACLE, EVOLVE, HIRE, MINIJOB, TEAM, FIX};
+	public enum Mode {SELL_MOBSTERS, UPGRADE, FINISH, HEAL, ENHANCE, REMOVE_OBSTACLE, EVOLVE, HIRE, MINIJOB, TEAM, FIX, SQUAD};
 	
 	public Mode currMode;
 
@@ -87,7 +87,8 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		{Mode.HIRE, "Bonus Slots"},
 		{Mode.MINIJOB, "MiniJobs"},
 		{Mode.TEAM, "Manage Team"},
-		{Mode.FIX, "Fix"}
+		{Mode.FIX, "Fix"},
+		{Mode.SQUAD, "Squad"}
 	};
 
 	static readonly Dictionary<Mode, string> modeIcons = new Dictionary<Mode, string>()
@@ -102,7 +103,8 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		{Mode.HIRE, "buildingbonusslots"},
 		{Mode.MINIJOB, "buildingminijobs"},
 		{Mode.TEAM, "buildingmanage"},
-		{Mode.FIX, "buildingfix"}
+		{Mode.FIX, "buildingfix"},
+		{Mode.SQUAD, "buildingsquad"}
 	};
 
 	Dictionary<string, Color> buttonTextColors = new Dictionary<string, Color>(){
@@ -263,6 +265,9 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		case Mode.MINIJOB:
 			ClickMiniJob();
 			break;
+		case Mode.SQUAD:
+			ClickClan();
+			break;
 		default:
 			break;
 		}
@@ -320,6 +325,12 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	{
 		currBuilding.GetComponent<MSObstacle>().StartRemove();
 		MSBuildingManager.instance.FullDeselect();
+	}
+
+	void ClickClan()
+	{
+		MSBuildingManager.instance.FullDeselect();
+		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.clanPopup.GetComponent<MSPopup>());
 	}
 
 	public void Enter(int delays)
