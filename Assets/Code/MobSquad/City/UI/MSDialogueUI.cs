@@ -19,6 +19,14 @@ public class MSDialogueUI : MonoBehaviour {
 	public UILabel mobsterNameLabel;
 	public UITweener gradientTween;
 
+	public bool canBeClicked
+	{
+		set
+		{
+			collider.enabled = value;
+		}
+	}
+
 	public void OnEnable()
 	{
 		MSActionManager.UI.OnDialogueClicked += DoPushOut;
@@ -92,6 +100,7 @@ public class MSDialogueUI : MonoBehaviour {
 
 	public Coroutine RunPushOut()
 	{
+		canBeClicked = false;
 		return StartCoroutine(PushOut());
 	}
 
@@ -112,6 +121,7 @@ public class MSDialogueUI : MonoBehaviour {
 
 	public Coroutine RunDialogueOut()
 	{
+		canBeClicked = false;
 		return StartCoroutine(DialogueOut());
 	}
 
@@ -129,6 +139,11 @@ public class MSDialogueUI : MonoBehaviour {
 		gradientTween.Sample(0, true);
 		dialogueBoxTween.Sample(0, true);
 		mobsterTween.Sample(0, true);
+	}
+
+	void OnClick()
+	{
+		RunPushOut();
 	}
 
 }

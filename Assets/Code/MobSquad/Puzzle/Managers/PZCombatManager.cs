@@ -241,6 +241,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	bool quickAttack = false;
 
+	bool firstTimeUserWonTask = false;
+
 	bool playerSkillReady
 	{
 		get
@@ -1227,13 +1229,22 @@ public class PZCombatManager : MonoBehaviour {
 			cash = defender.prospectiveCashWinnings;
 			oil = defender.prospectiveOilWinnings;
 		}
-		else
+		else 
 		{
+			if (firstTimeUserWonTask)
+			{
+				foreach (TaskMapElementProto elem in MSDataManager.instance.GetAll<TaskMapElementProto>().Values)
+				{
+					if (elem.taskId == MSWhiteboard.currTaskId)
+					{
+						cash = elem.cashReward;
+						oil = elem.oilReward;
+					}
+				}
+			}
 			foreach (var item in defeatedEnemies) 
 			{
-				cash += item.taskMonster.cashReward;
 				xp += item.taskMonster.expReward;
-				oil += item.taskMonster.oilReward;
 
 				//if an enemy would have dropped an item and a capsule, it just drops an item instead
 				if (item.taskMonster.itemId > 0){
@@ -1247,6 +1258,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		winLosePopup.InitWin(xp, cash, oil, pieces, items);
 		MSResourceManager.instance.Collect(ResourceType.CASH, cash);
+		MSResourceManager.instance.Collect (ResourceType.OIL, oil);
 		MSResourceManager.instance.GainExp(xp);
 	}
 	
@@ -1316,8 +1328,11 @@ public class PZCombatManager : MonoBehaviour {
 			{
 				int task = MSWhiteboard.currTaskId;
 				MSQuestManager.instance.taskDict[task] = true;
-				request.firstTimeUserWonTask = true;
-				request.userBeatAllCityTasks = MSQuestManager.instance.HasFinishedAllTasksInCity(MSWhiteboard.cityID);
+				request.firstTimeUserWonTask = firstTimeUserWonTask = true;
+			}
+			else
+			{
+				firstTimeUserWonTask = false;
 			}
 			
 			int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_END_DUNGEON_EVENT, null);

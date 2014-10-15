@@ -34,7 +34,10 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		set
 		{
 			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, value);
-			shadow.color = new Color(shadow.color.r, shadow.color.g, shadow.color.b, value);
+			if (shadow != null)
+			{
+				shadow.color = new Color(shadow.color.r, shadow.color.g, shadow.color.b, value);
+			}
 		}
 	}
 	

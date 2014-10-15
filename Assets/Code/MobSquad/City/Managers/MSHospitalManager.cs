@@ -707,7 +707,7 @@ public class MSHospitalManager : MonoBehaviour {
 			}
 		}
 		
-		healRequestProto.cashChange -= monster.healCost;
+		healRequestProto.cashChange += monster.healCost;
 		
 		monster.healingMonster = null;
 		

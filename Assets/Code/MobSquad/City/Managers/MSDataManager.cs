@@ -227,6 +227,11 @@ public class MSDataManager : MonoBehaviour {
 			MSFullBuildingProto building = new MSFullBuildingProto(item);
 			Load (building, building.id);
 		}
+		foreach (var item in data.allClanHouses)
+		{
+			MSFullBuildingProto building = new MSFullBuildingProto(item);
+			Load (building, building.id);
+		}
 
 		foreach (var item in data.allMonsters) 
 		{
