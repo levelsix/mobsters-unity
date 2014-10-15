@@ -163,19 +163,19 @@ public class MSTutorialManager : MonoBehaviour
 	#region Unit Paths
 	static readonly List<MSGridNode> enemyOneEnterPath = new List<MSGridNode>()
 	{
-		new MSGridNode(13, .5f, MSValues.Direction.NORTH),
-		new MSGridNode(11.5f, .5f, MSValues.Direction.WEST)
+		new MSGridNode(16, .5f, MSValues.Direction.NORTH),
+		new MSGridNode(14.5f, .5f, MSValues.Direction.WEST)
 	};
 
 	static readonly List<MSGridNode> enemyTwoEnterPath = new List<MSGridNode>()
 	{
-		new MSGridNode(13, .5f, MSValues.Direction.NORTH),
-		new MSGridNode(14.5f, .5f, MSValues.Direction.EAST)
+		new MSGridNode(16, .5f, MSValues.Direction.NORTH),
+		new MSGridNode(17.5f, .5f, MSValues.Direction.EAST)
 	};
 
 	static readonly List<MSGridNode> enemyBossEnterPath = new List<MSGridNode>()
 	{
-		new MSGridNode(13, 2, MSValues.Direction.NORTH)
+		new MSGridNode(16, 2, MSValues.Direction.NORTH)
 	};
 
 	static readonly List<MSGridNode> guideRetreatPath  = new List<MSGridNode>()
@@ -188,33 +188,33 @@ public class MSTutorialManager : MonoBehaviour
 
 	static readonly List<MSGridNode> swaggyEnterPath = new List<MSGridNode>()
 	{
-		new MSGridNode(10, 10, MSValues.Direction.EAST),
-		new MSGridNode(10, 7, MSValues.Direction.SOUTH),
-		new MSGridNode(13, 7, MSValues.Direction.EAST),
-		new MSGridNode(13, 5, MSValues.Direction.SOUTH)
+		new MSGridNode(13, 10, MSValues.Direction.EAST),
+		new MSGridNode(13, 7, MSValues.Direction.SOUTH),
+		new MSGridNode(16, 7, MSValues.Direction.EAST),
+		new MSGridNode(16, 5, MSValues.Direction.SOUTH)
 	};
 
 	static readonly List<MSGridNode> enemyBossRetreatPath = new List<MSGridNode>()
 	{
-		new MSGridNode(13, -9, MSValues.Direction.SOUTH)
+		new MSGridNode(16, -9, MSValues.Direction.SOUTH)
 	};
 	
 	static readonly List<MSGridNode> enemyOneRetreatPath = new List<MSGridNode>()
 	{
-		new MSGridNode(13, 1, MSValues.Direction.EAST),
-		new MSGridNode(13, -9, MSValues.Direction.SOUTH)
+		new MSGridNode(16, 1, MSValues.Direction.EAST),
+		new MSGridNode(16, -9, MSValues.Direction.SOUTH)
 	};
 	
 	static readonly List<MSGridNode> enemyTwoRetreatPath = new List<MSGridNode>()
 	{
-		new MSGridNode(13, 1, MSValues.Direction.WEST),
-		new MSGridNode(13, -9, MSValues.Direction.SOUTH)
+		new MSGridNode(16, 1, MSValues.Direction.WEST),
+		new MSGridNode(16, -9, MSValues.Direction.SOUTH)
 	};
 
 	static readonly List<MSGridNode> guideReturnPath  = new List<MSGridNode>()
 	{
 		new MSGridNode(22, 7, MSValues.Direction.NORTH),
-		new MSGridNode(13, 7, MSValues.Direction.WEST)
+		new MSGridNode(16, 7, MSValues.Direction.WEST)
 	};
 
 	#endregion
@@ -293,13 +293,13 @@ public class MSTutorialManager : MonoBehaviour
 		enemyTwo = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.enemyMonsterIdTwo);
 		enemyBoss = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.enemyBossMonsterId);
 
-		userUnit = MSBuildingManager.instance.MakeTutorialUnit(userMobster.monsterId, new Vector2(4, 10), 0);
+		userUnit = MSBuildingManager.instance.MakeTutorialUnit(userMobster.monsterId, new Vector2(7, 10), 0);
 		userUnit.cityUnit.speed = TutorialValues.swaggyMoveSpeed;
 
-		guideUnit = MSBuildingManager.instance.MakeTutorialUnit(guide.monsterId, new Vector2(13, 5), 1);
+		guideUnit = MSBuildingManager.instance.MakeTutorialUnit(guide.monsterId, new Vector2(16, 5), 1);
 		guideUnit.cityUnit.speed = TutorialValues.guidMoveSpeed;
 
-		zarkUnit = MSBuildingManager.instance.MakeTutorialUnit(zark.monsterId, new Vector2(11.5f, 4.5f), 2);
+		zarkUnit = MSBuildingManager.instance.MakeTutorialUnit(zark.monsterId, new Vector2(14.5f, 4.5f), 2);
 		zarkUnit.direction = MSValues.Direction.SOUTH;
 		zarkUnit.gameObject.SetActive(false);
 
@@ -425,7 +425,7 @@ public class MSTutorialManager : MonoBehaviour
 		guideUnit.direction = MSValues.Direction.SOUTH;
 		guideUnit.animat = MSUnit.AnimationType.IDLE;
 
-		MSTownCamera.instance.SlideToPos(pierCameraPos, TutorialValues.cameraSize, TutorialValues.panToBoatTime);
+		yield return MSTownCamera.instance.SlideToPos(pierCameraPos, TutorialValues.cameraSize, TutorialValues.panToBoatTime);
 
 		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.boatScene);
 		yield return StartCoroutine (MoveBoat(TutorialValues.boatStartPos, TutorialValues.boatDockPos));
@@ -795,10 +795,10 @@ public class MSTutorialManager : MonoBehaviour
 
 		bossUnit.cityUnit.TutorialPath (enemyBossRetreatPath);
 		bossUnit.cityUnit.jumpNode = new MSGridNode(TutorialValues.enemyExitJumpPosition, MSValues.Direction.SOUTH);
-		yield return new WaitForSeconds(.5f);
+		yield return new WaitForSeconds(.25f);
 		enemyTwoUnit.cityUnit.TutorialPath(enemyTwoRetreatPath);
 		enemyTwoUnit.cityUnit.jumpNode = new MSGridNode(TutorialValues.enemyExitJumpPosition + new Vector2(-1, 0), MSValues.Direction.SOUTH);
-		yield return new WaitForSeconds(.5f);
+		yield return new WaitForSeconds(.25f);
 		enemyOneUnit.cityUnit.TutorialPath(enemyOneRetreatPath);
 		enemyOneUnit.cityUnit.jumpNode = new MSGridNode(TutorialValues.enemyExitJumpPosition + new Vector2(1, 0), MSValues.Direction.SOUTH);
 
@@ -1063,6 +1063,8 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator MoveBoat(Vector3 start, Vector3 end)
 	{
+		start = MSGridManager.instance.GridToWorld(start);
+		end = MSGridManager.instance.GridToWorld(end);
 		float time = (start - end).magnitude / TutorialValues.boatSpeed;
 		float t = 0;
 		while (t < 1)

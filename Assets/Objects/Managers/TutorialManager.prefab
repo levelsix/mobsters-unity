@@ -62,6 +62,9 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
     resourceBars:
     - {fileID: 0}
     - {fileID: 0}
@@ -83,36 +86,36 @@ MonoBehaviour:
     hintHand: {fileID: 0}
     cameraShake: {fileID: 0}
   TutorialValues:
-    cameraSize: 5
-    enemyStartPos: {x: 13, y: -8}
-    boatStartPos: {x: 23, y: -10.5}
-    boatDockPos: {x: 18, y: -10.5}
-    boatExitPos: {x: 13, y: -10.5}
+    cameraSize: 5.5
+    enemyStartPos: {x: 16, y: -8}
+    boatStartPos: {x: 23, y: -7}
+    boatDockPos: {x: 15, y: -7}
+    boatExitPos: {x: 12, y: -7}
     userMobsterOutsidePos: {x: 13, y: 1}
     guidOutsidePos: {x: 14.5, y: 1}
     zarkOutsidePos: {x: 11.5, y: 1}
     boatSpeed: 4
-    enemyEnterJumpHeight: 1
-    enemyEnterJumpTime: .300000012
-    enemyExitJumpPosition: {x: 13, y: -5.5}
+    enemyEnterJumpHeight: 2
+    enemyEnterJumpTime: .5
+    enemyExitJumpPosition: {x: 16, y: -5.5}
     hopHeight: 1
     hopTime: .200000003
     swaggyHopHeight: 1
     swaggyHopTime: .300000012
     swaggyHopCount: 6
-    enemyMoveSpeed: 7.5
+    enemyMoveSpeed: 5
     swaggyMoveSpeed: 8
     guidMoveSpeed: 10
-    bossStompHeight: 1.5
-    bossStompTime: .600000024
+    bossStompHeight: 1
+    bossStompTime: .400000006
     puzzlePixelMod: 50
-    panToBoatTime: .600000024
-    panFromBoatTime: .600000024
-    panToHospitalTime: .600000024
+    panToBoatTime: 1
+    panFromBoatTime: 1
+    panToHospitalTime: 1
     panToZarkTime: 1
-  startCameraPos: {x: 5.07186317, y: -6.47462606, z: 4.58914185}
-  pierCameraPos: {x: 10.1468897, y: -12.0799999, z: 4.58914185}
-  showdownCameraPos: {x: 6.75, y: -6.73000002, z: 4.58914089}
+  startCameraPos: {x: 7.21535015, y: -4.70061588, z: 4.58914185}
+  pierCameraPos: {x: 11.8557596, y: -9.83544064, z: 4.58914185}
+  showdownCameraPos: {x: 8.70957947, y: -5.48755789, z: 4.58914089}
   holdUpEndingCombat: 0
 --- !u!1001 &100100000
 Prefab:

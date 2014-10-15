@@ -261,6 +261,9 @@ public class MSBuildingCard : MonoBehaviour {
 					lowestLevel = curBuilding.structInfo.level;
 				}
 				break;
+			case StructureInfoProto.StructType.CLAN:
+				if(currentCount > 0) lowestLevel = 1;
+				break;
 			default:
 				Debug.LogWarning("Could not find required TownHall level for " + type.ToString());
 				break;
