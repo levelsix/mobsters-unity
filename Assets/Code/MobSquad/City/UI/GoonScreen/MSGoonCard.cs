@@ -861,13 +861,17 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		transform.parent = transform.parent.parent;
 		TweenAlpha tween;
-		if(cardBackground.alpha != 0)
+		if(cardBackground.gameObject.activeSelf)
 		{
 			tween = TweenAlpha.Begin(cardBackground.gameObject, .3f, 0);
 		}
-		else
+		else if (smallBG.gameObject.activeSelf)
 		{
 			tween = TweenAlpha.Begin(smallBG.gameObject, .3f, 0);
+		}
+		else
+		{
+			tween = TweenAlpha.Begin(mediumBG.gameObject, .3f, 0);
 		}
 		while (tween.tweenFactor < 1)
 		{
@@ -945,6 +949,7 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		if (this.monster == monster)
 		{
+			smallBarLabel.text = "fed";
 			StartCoroutine(PhaseOut());
 			if (goonScreenMode == GoonScreenMode.DO_ENHANCE)
 			{

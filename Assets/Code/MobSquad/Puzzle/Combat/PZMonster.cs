@@ -663,6 +663,9 @@ public class PZMonster {
 	{
 		userMonster.currentExp += exp;
 		level = userMonster.currentLvl = (int)LevelForMonster(userMonster.currentExp);
+		maxHP = MaxHPAtLevel(level);
+		speed = SpeedAtLevel(level);
+		SetAttackDamagesForLevel(level);
 	}
 	
 	public UserMonsterCurrentExpProto GetCurrentExpProto()
