@@ -610,6 +610,7 @@ public class MSTutorialManager : MonoBehaviour
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.SMOOTH_MOVE, false));
 		yield return StartCoroutine(WaitForTurn());
 
+		TutorialUI.leftDialogue.canBeClicked = true;
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.LAST_MOVE, false));
 		yield return StartCoroutine(WaitForTurn());
 
@@ -687,6 +688,7 @@ public class MSTutorialManager : MonoBehaviour
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.UPDATE_BOOKFACE, true));
 		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyTwo.imagePrefix, enemyTwo.imagePrefix + "TutBig", enemyTwo.displayName, TutorialStrings.DOT_DOT_DOT, true));
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.ZARKS_STATUS, true, false));
+		TutorialUI.leftDialogue.canBeClicked = true;
 		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, zark.imagePrefix, zark.imagePrefix + "TutBig", zark.displayName, TutorialStrings.TWELVE_LIKES, false));
 	}
 

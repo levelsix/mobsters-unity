@@ -57,6 +57,7 @@ public class MSHealScreen : MSFunctionalScreen
 
 		healQueue.animateSmoothly = false;
 		grid.Init(GoonScreenMode.HEAL);
+		healQueue.Reposition();
 		healQueue.animateSmoothly = true;
 
 		emptyQueueRoot.ResetAlpha(MSHospitalManager.instance.healingMonsters.Count == 0);
