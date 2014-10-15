@@ -196,7 +196,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 	public void TrySpeedUpHeal(MSLoadLock loadLock)
 	{
-		int gemCost = MSMath.GemsForTime(lastFinishTime - MSUtil.timeNowMillis);
+		int gemCost = MSMath.GemsForTime(lastFinishTime - MSUtil.timeNowMillis, true);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost, delegate{TrySpeedUpHeal(loadLock);}))
 		{
 			StartCoroutine(SpeedUpHeal(gemCost, loadLock));
@@ -488,6 +488,7 @@ public class MSHospitalManager : MonoBehaviour {
 		#endregion
 		
 		MSHospital lastHospital = GetSoonestHospital(hospitals);
+		monster.userHospitalID = lastHospital.userBuildingData.userStructId;
 
 		/*
 		if (lastHospital.completeTime <= MSUtil.timeNowMillis)

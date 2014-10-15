@@ -110,11 +110,11 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			barSprite.spriteName = "healingmiddle";
 			CheckFreeBar();
 			bg.gameObject.SetActive(true);
-			label.text = MSUtil.TimeStringShort(building.hospital.goon.healTimeLeftMillis);
+			label.text = MSUtil.TimeStringShort(MSUtil.timeUntil(building.hospital.completeTime));
 			bar.fill = building.hospital.goon.healProgressPercentage;
 		}
 		//This if statement is for if a building suddenly is no longer under construction the bar fills quickly
-		else if(bar.fill < 1f && bg.gameObject.activeSelf)
+		else if(bar.fill < 1f && bg.gameObject.activeSelf && upgrading)
 		{
 
 			if(fadeRoutine != null)
@@ -176,18 +176,24 @@ public class MSBuildingProgressBar : MonoBehaviour {
 	void CheckFreeBar()
 	{
 		//hospital logic
-		if(building.hospital != null && MSHealScreen.instance != null && MSMath.GemsForTime(MSHealScreen.instance.timeLeft, true) == 0)
+		if(building.hospital != null && MSMath.GemsForTime(MSUtil.timeUntil(building.hospital.completeTime), true) == 0 && !upgrading)
 		{
 			SetBarFree();
 		}
 
-		else if(MSMath.GemsForTime( building.upgrade.timeRemaining, true) == 0 && building.obstacle == null)
+		else if(MSMath.GemsForTime( building.upgrade.timeRemaining, true) == 0 && building.obstacle == null && building.upgrade.timeRemaining >= 0)
 		{
 			SetBarFree();
 		}
 		else
 		{
-			freeLabel.gameObject.SetActive(false);
+			freeLabel.alpha = 0f;
+			label.alpha = 1f;
+			if(fadeRoutine != null)
+			{
+				StopCoroutine(fadeRoutine);
+				fadeRoutine = null;
+			}
 		}
 	}
 

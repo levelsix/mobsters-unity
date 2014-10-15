@@ -73,7 +73,7 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		get
 		{
-			return MSMath.GemsForTime (timeLeftMillis);
+			return MSMath.GemsForTime (timeLeftMillis, false);
 		}
 	}
 

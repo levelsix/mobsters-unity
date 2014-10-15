@@ -33,6 +33,15 @@ public class MSHealScreen : MSFunctionalScreen
 	[SerializeField]
 	MSLoadLock loadLock;
 
+	long _totalFinishTime;
+	public long totalFinishTime
+	{
+		get
+		{
+			return _totalFinishTime;
+		}
+	}
+
 	public long timeLeft;
 
 	public List<MSGoonCard> currHeals = new List<MSGoonCard>();
@@ -113,8 +122,9 @@ public class MSHealScreen : MSFunctionalScreen
 		{
 			timeLeft = Math.Max(item.monster.healTimeLeftMillis, timeLeft);
 		}
-
+	
 		timeLeftLabel.text = MSUtil.TimeStringShort(timeLeft);
+		_totalFinishTime = timeLeft;
 		int finishAmount = MSMath.GemsForTime(timeLeft, true);
 		if(finishAmount != 0)
 		{
