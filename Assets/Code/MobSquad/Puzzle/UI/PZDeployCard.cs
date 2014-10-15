@@ -13,6 +13,9 @@ public class PZDeployCard : MonoBehaviour {
 	
 	[SerializeField]
 	UISprite bar;
+
+	[SerializeField]
+	UILabel hpLabel;
 	
 	UIButton button;
 	
@@ -51,6 +54,8 @@ public class PZDeployCard : MonoBehaviour {
 		background.alpha = 1;
 		bar.alpha = 1;
 		goonSprite.alpha = 1;
+
+		hpLabel.text = goon.currHP + "/" + goon.maxHP;
 	}
 	
 	public void InitEmpty()
