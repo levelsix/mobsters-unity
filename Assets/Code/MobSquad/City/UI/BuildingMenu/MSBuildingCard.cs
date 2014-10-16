@@ -45,6 +45,8 @@ public class MSBuildingCard : MonoBehaviour {
 
 	bool flipped = false;
 
+	public int hallReq;
+
 	/// <summary>
 	/// whether or not the card is available for purchase.
 	/// </summary>
@@ -215,9 +217,12 @@ public class MSBuildingCard : MonoBehaviour {
 			{
 				on = false;
 				backDescription.text = "Requires Level " + lowestLevelRequired + " Command Center";
+				hallReq = lowestLevelRequired;
 			}else{
 				on = false;
-			backDescription.text = "You Have the Max Number of This Building";
+				backDescription.text = "You Have the Max Number of This Building";
+				//increasing this number to be above the max town hall level makes it so this card goes to the end of the shop
+				hallReq = MSBuildingManager.townHall.combinedProto.maxLevel.structInfo.level + 1;
 			}
 		}
 		else
