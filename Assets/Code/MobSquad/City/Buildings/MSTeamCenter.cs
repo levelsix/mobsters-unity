@@ -8,9 +8,9 @@ public class MSTeamCenter : MSBuildingFrame {
 
 	void OnEnable()
 	{
-		CheckTag();
 		MSActionManager.Goon.OnTeamChanged += OnTeamChange;
 		MSActionManager.Scene.OnCity += OnTeamChange;
+		FirstFrameCheck();
 	}
 
 	void OnDisable()
@@ -25,7 +25,9 @@ public class MSTeamCenter : MSBuildingFrame {
 	}
 
 	public override void CheckTag(){
-		if(bubbleIcon != null){
+		bubbleIcon.gameObject.SetActive(false);
+		if(Precheck())
+		{
 			bubbleIcon.gameObject.SetActive(true);
 			int count = 0;
 			foreach (var item in MSMonsterManager.instance.userTeam) 
@@ -37,11 +39,6 @@ public class MSTeamCenter : MSBuildingFrame {
 			}
 			bubbleIcon.spriteName = "teambubble" + count;
 			bubbleIcon.MakePixelPerfect();
-		}
-
-		if(bubbleIcon != null && !Precheck())
-		{
-			bubbleIcon.gameObject.SetActive(false);
 		}
 	}
 

@@ -3,45 +3,44 @@ using System.Collections;
 
 public class MSHospitalHoverIcon : MSBuildingFrame {
 
-	void OnEnable(){
+	void OnEnable()
+	{
 		MSActionManager.Goon.OnHealQueueChanged += CheckTag;
-		CheckTag ();
+		FirstFrameCheck();
 	}
 
-	public override void CheckTag(){
-		if(bubbleIcon != null)
+	public override void CheckTag()
+	{
+		bubbleIcon.gameObject.SetActive(false);
+		if (building.hospital.goon == null && Precheck())
 		{
-			bubbleIcon.gameObject.SetActive(false);
-			if (MSHospitalManager.instance.healingMonsters.Count == 0) {
-				int monstersNeedHealing = 0;
-				foreach (PZMonster monster in MSMonsterManager.instance.userMonsters) {
-					if(monster.totalHealthToHeal > 0){
-						monstersNeedHealing++;
-					}
-				}
-							
-				if(monstersNeedHealing >= 1){
-					if(monstersNeedHealing > 9){
-						bubbleIcon.spriteName = "healredbubble" + "exclamation";
-					}
-					else
-					{
-						bubbleIcon.spriteName = "healredbubble" + monstersNeedHealing;
-					}
-					bubbleIcon.gameObject.SetActive(true);
-					bubbleIcon.MakePixelPerfect();
+			int monstersNeedHealing = 0;
+			foreach (PZMonster monster in MSMonsterManager.instance.userMonsters)
+			{
+				if(monster.totalHealthToHeal > 0)
+				{
+					monstersNeedHealing++;
 				}
 			}
+						
+			if(monstersNeedHealing >= 1)
+			{
+				if(monstersNeedHealing > 9)
+				{
+					bubbleIcon.spriteName = "healredbubble" + "exclamation";
+				}
+				else
+				{
+					bubbleIcon.spriteName = "healredbubble" + monstersNeedHealing;
+				}
+				bubbleIcon.gameObject.SetActive(true);
+				bubbleIcon.MakePixelPerfect();
+			}
 		}
-
-		if( bubbleIcon != null && !Precheck())
-		{
-			bubbleIcon.gameObject.SetActive(false);
-		}
-
 	}
 
-	void OnDisable(){
+	void OnDisable()
+	{
 		MSActionManager.Goon.OnHealQueueChanged -= CheckTag;
 	}
 }

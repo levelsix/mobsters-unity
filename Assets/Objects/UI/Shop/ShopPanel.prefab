@@ -3646,7 +3646,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.5, y: -36.5000153, z: 0}
+  m_LocalPosition: {x: -36, y: -37, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 400090}
@@ -4624,7 +4624,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -226, z: 0}
+  m_LocalPosition: {x: -.577636719, y: -226, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400170}
@@ -7076,8 +7076,8 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
-  mSpriteName: diamond
+  mAtlas: {fileID: 11400000, guid: 9cb95b425d30f444787290ef3ff7c6e0, type: 2}
+  mSpriteName: diamondsmall
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -7751,8 +7751,8 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
-  mSpriteName: diamond
+  mAtlas: {fileID: 11400000, guid: 9cb95b425d30f444787290ef3ff7c6e0, type: 2}
+  mSpriteName: diamondsmall
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -7943,7 +7943,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 80
+  mWidth: 84
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
@@ -8036,7 +8036,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 82
+  mWidth: 86
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
@@ -8310,7 +8310,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 42
+  mWidth: 56
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
@@ -8545,7 +8545,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 46
+  mWidth: 60
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
@@ -8691,7 +8691,7 @@ MonoBehaviour:
   rightAnchor:
     target: {fileID: 400220}
     relative: 0
-    absolute: -19
+    absolute: -20
   bottomAnchor:
     target: {fileID: 400220}
     relative: 0
@@ -8699,19 +8699,19 @@ MonoBehaviour:
   topAnchor:
     target: {fileID: 400220}
     relative: 1
-    absolute: 2
+    absolute: 1
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 21
-  mHeight: 21
+  mWidth: 20
+  mHeight: 20
   mDepth: 19
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
-  mSpriteName: diamond
+  mAtlas: {fileID: 11400000, guid: 9cb95b425d30f444787290ef3ff7c6e0, type: 2}
+  mSpriteName: diamondsmall
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -11110,8 +11110,8 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
-  mSpriteName: diamond
+  mAtlas: {fileID: 11400000, guid: 9cb95b425d30f444787290ef3ff7c6e0, type: 2}
+  mSpriteName: diamondsmall
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -12258,8 +12258,8 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
-  mSpriteName: diamond
+  mAtlas: {fileID: 11400000, guid: bf8a6748d401f40e8a1171a547c509dc, type: 2}
+  mSpriteName: diamondsmall
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -12425,7 +12425,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 74
+  mWidth: 76
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
@@ -12857,7 +12857,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 46
+  mWidth: 60
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
@@ -13012,7 +13012,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 42
+  mWidth: 56
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
@@ -13136,7 +13136,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 42
+  mWidth: 56
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
@@ -13248,7 +13248,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 42
+  mWidth: 56
   mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0

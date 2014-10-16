@@ -689,7 +689,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSBuilding building = MakeBuildingAt(proto, (int)coords.pos.x, (int)coords.pos.y, true);
 
 		//This prevents the building from looking like scaffolding during placement
-		building.SetupSprite(MSUtil.StripExtensions(building.combinedProto.structInfo.imgName), true);
+		StartCoroutine( building.SetupSprite(MSUtil.StripExtensions(building.combinedProto.structInfo.imgName), true));
 		building.sprite.GetComponent<Animator>().enabled = true;
 
 		SelectBuildingToBuild(building);

@@ -4,19 +4,20 @@ using com.lvl6.proto;
 
 public class MSLaboratory : MSBuildingFrame {
 
-	MSBuilding lab
-	{
-		get
-		{
-			if (MSBuildingManager.enhanceLabs.Count == 0) return null;
-			return MSBuildingManager.enhanceLabs[0];
-		}
-	}
+	//commented out now that building is defined in MSBuildingFrame
+//	MSBuilding lab
+//	{
+//		get
+//		{
+//			if (MSBuildingManager.enhanceLabs.Count == 0) return null;
+//			return MSBuildingManager.enhanceLabs[0];
+//		}
+//	}
 
 	void OnEnable(){
-		CheckTag ();
 		MSActionManager.Goon.OnEnhanceQueueChanged += CheckTag;
 		MSActionManager.Scene.OnCity += CheckTag;
+		FirstFrameCheck();
 	}
 	
 	void OnDisable(){
@@ -25,34 +26,29 @@ public class MSLaboratory : MSBuildingFrame {
 	}
 
 	public override void CheckTag(){
-		if (bubbleIcon != null)
+		bubbleIcon.gameObject.SetActive(false);
+
+		if (building.combinedProto.structInfo.level == 0 && Precheck())
 		{
-			if (lab != null && lab.combinedProto.structInfo.level == 0)
-			{
-				bubbleIcon.gameObject.SetActive(true);
-				bubbleIcon.spriteName = "fixbubble";
-				bubbleIcon.MakePixelPerfect();
-				return;
-			}
+			bubbleIcon.gameObject.SetActive(true);
+			bubbleIcon.spriteName = "fixbubble";
+			bubbleIcon.MakePixelPerfect();
+		}
+		else if (MSMonsterManager.instance.currentEnhancementMonster == null ||
+		    MSMonsterManager.instance.currentEnhancementMonster.monster.monsterId == 0) {
 
 			int canEnhance = 0;
-
-			if (MSMonsterManager.instance.currentEnhancementMonster == null ||
-			    MSMonsterManager.instance.currentEnhancementMonster.monster.monsterId == 0) {
-				foreach (PZMonster monster in MSMonsterManager.instance.userMonsters) {
-					if(monster.level < monster.monster.maxLevel &&
-					   (monster.monsterStatus == MonsterStatus.HEALTHY || monster.monsterStatus == MonsterStatus.INJURED)){
-						canEnhance++;
-					}
+			foreach (PZMonster monster in MSMonsterManager.instance.userMonsters) {
+				if(monster.level < monster.monster.maxLevel &&
+				   (monster.monsterStatus == MonsterStatus.HEALTHY || monster.monsterStatus == MonsterStatus.INJURED)){
+					canEnhance++;
 				}
+			}
 
-				if(canEnhance > 1 && Precheck()){
-					bubbleIcon.gameObject.SetActive(true);
-					bubbleIcon.spriteName = "enhancebubble";
-					bubbleIcon.MakePixelPerfect();
-				}else{
-					bubbleIcon.gameObject.SetActive(false);
-				}
+			if(canEnhance > 1){
+				bubbleIcon.gameObject.SetActive(true);
+				bubbleIcon.spriteName = "enhancebubble";
+				bubbleIcon.MakePixelPerfect();
 			}
 		}
 	}

@@ -162,6 +162,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			}
 			else if (building.upgrade.OnFinishUpgrade != null)
 			{
+				Debug.LogError("caalingA!");
 				building.upgrade.OnFinishUpgrade();
 			}
 		}

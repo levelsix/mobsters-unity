@@ -42,7 +42,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 5c2eddd7cccfc4da5b4ff7bc65fd52a9, type: 2}
   mSprites:
   - name: 1FundsCashStorageT1
-    x: 1442
+    x: 1281
     y: 1632
     width: 160
     height: 160
@@ -56,7 +56,7 @@ MonoBehaviour:
     paddingBottom: 12
   - name: 1FundsCashStorageT2
     x: 256
-    y: 837
+    y: 680
     width: 152
     height: 156
     borderLeft: 0
@@ -68,8 +68,8 @@ MonoBehaviour:
     paddingTop: 20
     paddingBottom: 12
   - name: 1FundsCashStorageT3
-    x: 1442
-    y: 1473
+    x: 1603
+    y: 1475
     width: 160
     height: 158
     borderLeft: 0
@@ -81,8 +81,8 @@ MonoBehaviour:
     paddingTop: 18
     paddingBottom: 12
   - name: 1FundsOilStorageT1
-    x: 588
-    y: 1299
+    x: 417
+    y: 174
     width: 141
     height: 161
     borderLeft: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
     paddingBottom: 15
   - name: 1FundsOilStorageT2
     x: 417
-    y: 826
+    y: 660
     width: 140
     height: 165
     borderLeft: 0
@@ -120,8 +120,8 @@ MonoBehaviour:
     paddingTop: 12
     paddingBottom: 15
   - name: 2FundsCashStorageT1
-    x: 0
-    y: 89
+    x: 1714
+    y: 1888
     width: 160
     height: 160
     borderLeft: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
     paddingBottom: 12
   - name: 2FundsCashStorageT2
     x: 256
-    y: 1151
+    y: 837
     width: 152
     height: 156
     borderLeft: 0
@@ -146,8 +146,8 @@ MonoBehaviour:
     paddingTop: 20
     paddingBottom: 12
   - name: 2FundsCashStorageT3
-    x: 1603
-    y: 1475
+    x: 1442
+    y: 1473
     width: 160
     height: 158
     borderLeft: 0
@@ -159,8 +159,8 @@ MonoBehaviour:
     paddingTop: 18
     paddingBottom: 12
   - name: 2FundsOilStorageT1
-    x: 417
-    y: 12
+    x: 588
+    y: 1137
     width: 141
     height: 161
     borderLeft: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
     paddingBottom: 15
   - name: 2FundsOilStorageT2
     x: 417
-    y: 1158
+    y: 826
     width: 140
     height: 165
     borderLeft: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
     paddingBottom: 15
   - name: 2FundsOilStorageT3
     x: 588
-    y: 813
+    y: 651
     width: 138
     height: 161
     borderLeft: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
     paddingTop: 12
     paddingBottom: 15
   - name: 3FundsCashStorageT1
-    x: 1714
+    x: 1875
     y: 1888
     width: 160
     height: 160
@@ -224,7 +224,7 @@ MonoBehaviour:
     paddingTop: 20
     paddingBottom: 12
   - name: 3FundsCashStorageT3
-    x: 1764
+    x: 1603
     y: 1634
     width: 160
     height: 158
@@ -237,8 +237,8 @@ MonoBehaviour:
     paddingTop: 18
     paddingBottom: 12
   - name: 3FundsOilStorageT1
-    x: 417
-    y: 336
+    x: 588
+    y: 1299
     width: 141
     height: 161
     borderLeft: 0
@@ -264,7 +264,7 @@ MonoBehaviour:
     paddingBottom: 15
   - name: 3FundsOilStorageT3
     x: 588
-    y: 651
+    y: 813
     width: 138
     height: 161
     borderLeft: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
     paddingBottom: 15
   - name: 4FundsCashStorageT1
     x: 1281
-    y: 1632
+    y: 1471
     width: 160
     height: 160
     borderLeft: 0
@@ -290,7 +290,7 @@ MonoBehaviour:
     paddingBottom: 12
   - name: 4FundsCashStorageT2
     x: 256
-    y: 680
+    y: 1151
     width: 152
     height: 156
     borderLeft: 0
@@ -302,7 +302,7 @@ MonoBehaviour:
     paddingTop: 20
     paddingBottom: 12
   - name: 4FundsCashStorageT3
-    x: 1603
+    x: 1764
     y: 1634
     width: 160
     height: 158
@@ -316,7 +316,7 @@ MonoBehaviour:
     paddingBottom: 12
   - name: 4FundsOilStorageT1
     x: 417
-    y: 174
+    y: 12
     width: 141
     height: 161
     borderLeft: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
     paddingBottom: 15
   - name: 4FundsOilStorageT2
     x: 417
-    y: 660
+    y: 1158
     width: 140
     height: 165
     borderLeft: 0
@@ -381,7 +381,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: buildtimeclock
     x: 1176
-    y: 1829
+    y: 1796
     width: 27
     height: 27
     borderLeft: 0
@@ -458,7 +458,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: menubuildingsiconactive
-    x: 1901
+    x: 1949
     y: 1795
     width: 21
     height: 27
@@ -471,7 +471,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: menubuildingsiconinactive
-    x: 1923
+    x: 1927
     y: 1795
     width: 21
     height: 27
@@ -484,8 +484,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: MenuCashStorageT1
-    x: 1875
-    y: 1888
+    x: 0
+    y: 89
     width: 160
     height: 160
     borderLeft: 0
@@ -524,7 +524,7 @@ MonoBehaviour:
     paddingBottom: 14
   - name: MenuHealingCenterT1
     x: 588
-    y: 141
+    y: 315
     width: 123
     height: 173
     borderLeft: 0
@@ -536,19 +536,6 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 14
   - name: menuinactivetab
-    x: 1189
-    y: 1403
-    width: 302
-    height: 57
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 5
-  - name: menuinactivetabpressed
     x: 886
     y: 1341
     width: 302
@@ -561,9 +548,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 5
+  - name: menuinactivetabpressed
+    x: 1189
+    y: 1403
+    width: 302
+    height: 57
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 5
   - name: MenuLaboratoryT1
-    x: 256
-    y: 1308
+    x: 1764
+    y: 1481
     width: 160
     height: 152
     borderLeft: 0
@@ -575,7 +575,7 @@ MonoBehaviour:
     paddingTop: 24
     paddingBottom: 12
   - name: menumobstersactive
-    x: 1967
+    x: 1993
     y: 1802
     width: 21
     height: 20
@@ -588,7 +588,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: menumobstersinactive
-    x: 1945
+    x: 1971
     y: 1802
     width: 21
     height: 20
@@ -601,7 +601,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: MenuMPMT1
-    x: 1650
+    x: 1774
     y: 1336
     width: 123
     height: 124
@@ -627,8 +627,8 @@ MonoBehaviour:
     paddingTop: 46
     paddingBottom: 48
   - name: MenuOilStorageT1
-    x: 588
-    y: 1137
+    x: 417
+    y: 498
     width: 141
     height: 161
     borderLeft: 0
@@ -653,7 +653,7 @@ MonoBehaviour:
     paddingTop: 24
     paddingBottom: 10
   - name: menuresourcesactive
-    x: 1875
+    x: 1901
     y: 1797
     width: 25
     height: 25
@@ -666,8 +666,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: menuresourcesinactive
-    x: 1176
-    y: 1803
+    x: 1875
+    y: 1797
     width: 25
     height: 25
     borderLeft: 0
@@ -680,7 +680,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: menusquareactive
     x: 0
-    y: 250
+    y: 1027
     width: 249
     height: 258
     borderLeft: 0
@@ -706,7 +706,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: menusquareinactive
     x: 0
-    y: 768
+    y: 250
     width: 249
     height: 258
     borderLeft: 0
@@ -719,7 +719,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: menusquareinactivepressed
     x: 0
-    y: 1027
+    y: 768
     width: 249
     height: 258
     borderLeft: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
     paddingBottom: 22
   - name: OilStorageT1
     x: 417
-    y: 498
+    y: 336
     width: 141
     height: 161
     borderLeft: 0
@@ -900,8 +900,8 @@ MonoBehaviour:
     paddingTop: 23
     paddingBottom: 14
   - name: LaboratoryT1
-    x: 1764
-    y: 1481
+    x: 256
+    y: 1308
     width: 160
     height: 152
     borderLeft: 0
@@ -926,7 +926,7 @@ MonoBehaviour:
     paddingTop: 24
     paddingBottom: 10
   - name: MPMT1
-    x: 1774
+    x: 1650
     y: 1336
     width: 123
     height: 124
@@ -966,7 +966,7 @@ MonoBehaviour:
     paddingBottom: 12
   - name: HealingCenterT1
     x: 588
-    y: 315
+    y: 141
     width: 123
     height: 173
     borderLeft: 0
@@ -978,8 +978,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 14
   - name: CashStorageT1
-    x: 1281
-    y: 1471
+    x: 1442
+    y: 1632
     width: 160
     height: 160
     borderLeft: 0
@@ -992,7 +992,7 @@ MonoBehaviour:
     paddingBottom: 12
   - name: settingsoundfx
     x: 1821
-    y: 1849
+    y: 1803
     width: 38
     height: 38
     borderLeft: 0
@@ -1004,8 +1004,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: faqinactive
-    x: 2010
-    y: 1802
+    x: 0
+    y: 5
     width: 20
     height: 20
     borderLeft: 0
@@ -1030,7 +1030,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: settingsinactive
-    x: 19
+    x: 40
     y: 6
     width: 18
     height: 19
@@ -1043,58 +1043,6 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: facebookmenuoption
-    x: 1546
-    y: 1811
-    width: 158
-    height: 80
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: settingsmusic
-    x: 103
-    y: 52
-    width: 31
-    height: 36
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: faqactive
-    x: 1989
-    y: 1802
-    width: 20
-    height: 20
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: settingsactive
-    x: 0
-    y: 6
-    width: 18
-    height: 19
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: lightbluemenuoption
     x: 1378
     y: 1811
     width: 158
@@ -1107,9 +1055,61 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: settingsmusic
+    x: 2002
+    y: 1468
+    width: 31
+    height: 36
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: faqactive
+    x: 2015
+    y: 1802
+    width: 20
+    height: 20
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: settingsactive
+    x: 21
+    y: 6
+    width: 18
+    height: 19
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: lightbluemenuoption
+    x: 1546
+    y: 1811
+    width: 158
+    height: 80
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: settingsfb
-    x: 1821
-    y: 1810
+    x: 1925
+    y: 1466
     width: 38
     height: 38
     borderLeft: 0
@@ -1121,8 +1121,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: popupactivetab
-    x: 1875
-    y: 1823
+    x: 1204
+    y: 1803
     width: 172
     height: 64
     borderLeft: 0
@@ -1134,8 +1134,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: popupinactivetab
-    x: 1204
-    y: 1803
+    x: 1875
+    y: 1823
     width: 172
     height: 64
     borderLeft: 0
@@ -1174,7 +1174,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: togglehandle
     x: 161
-    y: 184
+    y: 22
     width: 64
     height: 65
     borderLeft: 0
@@ -1275,6 +1275,84 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 1
     paddingTop: 0
+    paddingBottom: 0
+  - name: moneysmall
+    x: 1821
+    y: 1842
+    width: 47
+    height: 45
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: diamondsmall
+    x: 1964
+    y: 1469
+    width: 37
+    height: 35
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: oilsmall
+    x: 1176
+    y: 1824
+    width: 27
+    height: 32
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: moneystack
+    x: 161
+    y: 159
+    width: 93
+    height: 90
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: diamond
+    x: 161
+    y: 88
+    width: 74
+    height: 70
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 20
+    paddingTop: -16
+    paddingBottom: 0
+  - name: oilicon
+    x: 103
+    y: 24
+    width: 54
+    height: 64
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 20
+    paddingTop: -15
     paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}
