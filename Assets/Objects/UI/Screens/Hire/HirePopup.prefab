@@ -1091,7 +1091,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.94999981, z: 0}
+  m_LocalPosition: {x: 0, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400008}
@@ -1152,7 +1152,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -2.76623535, z: 0}
+  m_LocalPosition: {x: -2, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -2292,8 +2292,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 120
-  mHeight: 44
+  mWidth: 150
+  mHeight: 24
   mDepth: 16
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -2691,8 +2691,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 75
-  mHeight: 32
+  mWidth: 86
+  mHeight: 24
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -3462,7 +3462,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 120
+  mWidth: 256
   mHeight: 52
   mDepth: 3
   autoResizeBoxCollider: 0
@@ -3484,7 +3484,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -3769,7 +3769,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: .443137258, b: .639215708, a: 1}
   mPivot: 4
-  mWidth: 98
+  mWidth: 276
   mHeight: 16
   mDepth: 12
   autoResizeBoxCollider: 0
@@ -3789,7 +3789,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -3977,7 +3977,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: .662745118, b: .945098042, a: 1}
   mPivot: 4
-  mWidth: 92
+  mWidth: 262
   mHeight: 16
   mDepth: 12
   autoResizeBoxCollider: 0
@@ -3997,7 +3997,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 1
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -4274,7 +4274,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 84
+  mWidth: 168
   mHeight: 20
   mDepth: 2
   autoResizeBoxCollider: 0
@@ -4294,7 +4294,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -4436,7 +4436,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .185487315, g: .529411793, b: 0, a: 1}
   mPivot: 4
-  mWidth: 72
+  mWidth: 160
   mHeight: 26
   mDepth: 3
   autoResizeBoxCollider: 0
@@ -4456,7 +4456,7 @@ MonoBehaviour:
   mEffectColor: {r: 1, g: 1, b: 1, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -4756,7 +4756,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .382352948, g: .382352948, b: .382352948, a: 1}
   mPivot: 0
-  mWidth: 14
+  mWidth: 30
   mHeight: 24
   mDepth: 2
   autoResizeBoxCollider: 0
@@ -4776,7 +4776,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -5226,7 +5226,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 162
+  mWidth: 318
   mHeight: 24
   mDepth: 0
   autoResizeBoxCollider: 0
@@ -5246,7 +5246,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -5335,8 +5335,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 120
-  mHeight: 44
+  mWidth: 150
+  mHeight: 24
   mDepth: 16
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0

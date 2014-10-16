@@ -252,8 +252,9 @@ public class MSHireFriendsPage : MonoBehaviour {
 	{
 		if(result.Error == null)
 		{
-			Debug.Log(result.Text);
+			Debug.Log("invite result:"+result.Text);
 			MSResidenceManager.instance.RequestCallback(result);
+			MSActionManager.Popup.CloseTopPopupLayer();
 		}
 		else
 		{
