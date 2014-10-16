@@ -73,6 +73,7 @@ public class MSGenericPopup : MonoBehaviour {
 			buttons[i].label.text = buttonLabels[i];
 			buttons[i].onClick = buttonActions[i];
 			buttons[i].GetComponent<MSWaitButton>().Init(null);
+			buttons[i].button.normalSprite = buttonSprites[i];
 		}
 		for (; i < buttons.Length; i++) 
 		{
@@ -98,6 +99,7 @@ public class MSGenericPopup : MonoBehaviour {
 			                                                 buttons[i].transform.localPosition.y, buttons[i].transform.localPosition.z);
 			buttons[i].label.text = buttonLabels[i];
 			buttons[i].onClick = null;
+			buttons[i].button.normalSprite = buttonSprites[i];
 			buttons[i].GetComponent<MSWaitButton>().Init(waitActions[i]);
 		}
 		for (; i < buttons.Length; i++) 

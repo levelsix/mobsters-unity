@@ -287,7 +287,9 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		alpha = 0;
 		hasSprite = false;
 		yield return StartCoroutine(MSSpriteUtil.instance.SetUnitAnimator(this));
-		alpha = 1;
+		alpha = anim.runtimeAnimatorController != null ? 1 : 0;
+		shadow.color = Color.white;
+		ResetAnimation();
 		hasSprite = true;
 		SetAnimation(AnimationType.IDLE);
 	}

@@ -23,6 +23,9 @@ public class PZCombatManager : MonoBehaviour {
 
 	public bool pvpMode = false;
 
+	[SerializeField]
+	GameObject quitPvpButton;
+
 	public bool raidMode = false;
 
 	public bool waitingForTutorialSignal = false;
@@ -756,6 +759,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator TweenInPvp()
 	{
+		TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 1f ,1f);
+
 		boardMove.Sample(0, false);
 		boardMove.delay = 1f;
 		boardMove.PlayForward();
