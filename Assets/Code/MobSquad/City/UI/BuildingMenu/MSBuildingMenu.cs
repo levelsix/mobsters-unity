@@ -42,7 +42,7 @@ public class MSBuildingMenu : MonoBehaviour {
 			if (proto.structInfo.level == 1 &&
 			    proto.structInfo.structType != StructureInfoProto.StructType.TOWN_HALL && 
 			    proto.structInfo.structType != StructureInfoProto.StructType.TEAM_CENTER &&
-			    proto.structInfo.structType != StructureInfoProto.StructType.MINI_JOB)
+			    proto.structInfo.structType != StructureInfoProto.StructType.LAB)
 			{
 				if (cards.Count <= index)
 				{

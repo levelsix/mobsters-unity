@@ -198,6 +198,12 @@ public class MSBuildingCard : MonoBehaviour {
 			case StructureInfoProto.StructType.LAB:
 				max = MSBuildingManager.townHall.combinedProto.townHall.numLabs;
 				break;
+			case StructureInfoProto.StructType.MINI_JOB:
+				max = 1;
+				break;
+			case StructureInfoProto.StructType.CLAN:
+				max = 1;
+				break;
 			}
 		}
 		builtCount.text = count + "/" + max;
@@ -225,50 +231,61 @@ public class MSBuildingCard : MonoBehaviour {
 
 	int LowestRequiredHall(StructureInfoProto.StructType type, int currentCount){
 		int lowestLevel = 999;
-		MSFullBuildingProto curBuilding = MSBuildingManager.townHall.combinedProto.successor;
-		while(curBuilding != null){
-			TownHallProto townHall = curBuilding.townHall;
+		MSFullBuildingProto futureTownHall = MSBuildingManager.townHall.combinedProto.successor;
+		while(futureTownHall != null){
+			TownHallProto townHall = futureTownHall.townHall;
 			//TODO: we may have to differentiate between Cash and Oil
 			//Can't do that now cause I have no idea if cash/oil is numResourceOneGenerators or numResourceTwoGenerators
 			switch(type){
 			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
-				if(townHall.numResourceOneGenerators > currentCount && curBuilding.structInfo.level < lowestLevel){
-					lowestLevel = curBuilding.structInfo.level;
+				//check to see that the number of allowed buildings is over our current number of buildings of this type 
+				//check to see that the townHall level is current lowest found
+				if(townHall.numResourceOneGenerators > currentCount && futureTownHall.structInfo.level < lowestLevel){
+					lowestLevel = futureTownHall.structInfo.level;
 				}
 				break;
 			case StructureInfoProto.StructType.RESOURCE_STORAGE:
-				if(townHall.numResourceOneStorages > currentCount && curBuilding.structInfo.level < lowestLevel){
-					lowestLevel = curBuilding.structInfo.level;
+				if(townHall.numResourceOneStorages > currentCount && futureTownHall.structInfo.level < lowestLevel){
+					lowestLevel = futureTownHall.structInfo.level;
 				}
 				break;
 			case StructureInfoProto.StructType.HOSPITAL:
-				if(townHall.numHospitals > currentCount && curBuilding.structInfo.level < lowestLevel){
-					lowestLevel = curBuilding.structInfo.level;
+				if(townHall.numHospitals > currentCount && futureTownHall.structInfo.level < lowestLevel){
+					lowestLevel = futureTownHall.structInfo.level;
 				}
 				break;
 			case StructureInfoProto.StructType.RESIDENCE:
-				if(townHall.numResidences > currentCount && curBuilding.structInfo.level < lowestLevel){
-					lowestLevel = curBuilding.structInfo.level;
+				if(townHall.numResidences > currentCount && futureTownHall.structInfo.level < lowestLevel){
+					lowestLevel = futureTownHall.structInfo.level;
 				}
 				break;
 			case StructureInfoProto.StructType.LAB:
-				if(townHall.numLabs > currentCount && curBuilding.structInfo.level < lowestLevel){
-					lowestLevel = curBuilding.structInfo.level;
+				if(townHall.numLabs > currentCount && futureTownHall.structInfo.level < lowestLevel){
+					lowestLevel = futureTownHall.structInfo.level;
 				}
 				break;
 			case StructureInfoProto.StructType.EVO:
-				if(townHall.numEvoChambers > currentCount && curBuilding.structInfo.level < lowestLevel){
-					lowestLevel = curBuilding.structInfo.level;
+				if(townHall.numEvoChambers > currentCount && futureTownHall.structInfo.level < lowestLevel){
+					lowestLevel = futureTownHall.structInfo.level;
 				}
 				break;
 			case StructureInfoProto.StructType.CLAN:
-				if(currentCount > 0) lowestLevel = 1;
+				if(currentCount < 1 && futureTownHall.structInfo.level < lowestLevel)
+				{
+					lowestLevel = 1;
+				}
+				break;
+			case StructureInfoProto.StructType.MINI_JOB:
+				if(currentCount < 1 && futureTownHall.structInfo.level < lowestLevel)
+				{
+					lowestLevel = 1;
+				}
 				break;
 			default:
 				Debug.LogWarning("Could not find required TownHall level for " + type.ToString());
 				break;
 			}
-			curBuilding = curBuilding.successor;
+			futureTownHall = futureTownHall.successor;
 		}
 		return lowestLevel == 999 ? -1 : lowestLevel;
 	}

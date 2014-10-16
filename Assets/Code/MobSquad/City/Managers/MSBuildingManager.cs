@@ -1032,8 +1032,9 @@ public class MSBuildingManager : MonoBehaviour
 	/// <returns>bool</returns>
 	public int CapacityForBuildings(){
 		TownHallProto hallProto = townHall.combinedProto.townHall;
-		int maxBuilding = hallProto.numEvoChambers + hallProto.numHospitals + 1 + hallProto.numResidences +
-				hallProto.numResourceOneGenerators + hallProto.numResourceOneStorages + hallProto.numResourceTwoGenerators + hallProto.numResourceTwoStorages;
+		int maxBuilding = hallProto.numEvoChambers + hallProto.numHospitals + hallProto.numResidences +
+				hallProto.numResourceOneGenerators + hallProto.numResourceOneStorages + hallProto.numResourceTwoGenerators + hallProto.numResourceTwoStorages
+				+1 /* minijob building */ + 1 /* clan building */;
 
 //		Debug.Log ("numEvoChambers "+hallProto.numEvoChambers);
 //		Debug.Log ("numHospitals "+hallProto.numHospitals);
@@ -1044,7 +1045,7 @@ public class MSBuildingManager : MonoBehaviour
 //		Debug.Log ("numResourceTwoGenerators "+hallProto.numResourceTwoGenerators);
 //		Debug.Log ("numResourceTwoStorages "+hallProto.numResourceTwoStorages);
 
-		int curBuildingCount = buildings.Count - 3;//subtract town hall, pier, team center
+		int curBuildingCount = buildings.Count - 3;//subtract town hall, Lab, team center
 
 		return maxBuilding - curBuildingCount;
 	}
