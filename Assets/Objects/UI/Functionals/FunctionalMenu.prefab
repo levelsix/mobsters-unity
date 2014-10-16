@@ -3510,7 +3510,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -33, z: 2.28881836e-05}
+  m_LocalPosition: {x: 0, y: -26, z: 2.28881836e-05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
@@ -3522,7 +3522,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -82, y: 34.5000458, z: -6.10351562e-05}
+  m_LocalPosition: {x: -95, y: 34.5000458, z: -6.10351562e-05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
@@ -3534,7 +3534,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 82, y: 34.4999847, z: 0}
+  m_LocalPosition: {x: 95, y: 34.4999847, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
@@ -3580,7 +3580,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 373, y: 5, z: 0}
+  m_LocalPosition: {x: 372.549988, y: 10.8000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400016}
@@ -6364,7 +6364,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1280, y: 768, z: 0}
+  m_Size: {x: 1337, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500002
 BoxCollider:
@@ -6388,7 +6388,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 80, y: 80, z: 0}
+  m_Size: {x: 112.550003, y: 106, z: 0}
   m_Center: {x: 0, y: -.5, z: 0}
 --- !u!65 &6500006
 BoxCollider:
@@ -6659,7 +6659,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4004
+  startingRenderQueue: 3003
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 25, z: 860, w: 641}
@@ -6716,13 +6716,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1280
+  mWidth: 1337
   mHeight: 768
   mDepth: 100
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.66666663
+  aspectRatio: 1.74088538
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1
@@ -6992,15 +6992,15 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 50
-  mHeight: 52
+  mWidth: 34
+  mHeight: 34
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .961538434
+  aspectRatio: 1
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
-  mSpriteName: closepopupx
+  mSpriteName: closex
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -7270,7 +7270,7 @@ MonoBehaviour:
   movement: 1
   dragEffect: 2
   restrictWithinPanel: 1
-  disableDragIfFits: 0
+  disableDragIfFits: 1
   smoothDragStart: 1
   iOSDragEmulation: 1
   scrollWheelFactor: .25
@@ -9637,7 +9637,7 @@ MonoBehaviour:
   movement: 1
   dragEffect: 2
   restrictWithinPanel: 1
-  disableDragIfFits: 0
+  disableDragIfFits: 1
   smoothDragStart: 1
   iOSDragEmulation: 1
   scrollWheelFactor: .25
@@ -9819,7 +9819,7 @@ MonoBehaviour:
   movement: 0
   dragEffect: 2
   restrictWithinPanel: 1
-  disableDragIfFits: 0
+  disableDragIfFits: 1
   smoothDragStart: 1
   iOSDragEmulation: 1
   scrollWheelFactor: .25
@@ -10596,7 +10596,7 @@ MonoBehaviour:
   aspectRatio: 32.1666679
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
+  mFont: {fileID: 11400000, guid: 4277fc55b4f15405383a12712ce82f6d, type: 2}
   mText: You have no available mobsters
   mFontSize: 24
   mFontStyle: 0
@@ -10684,7 +10684,7 @@ MonoBehaviour:
   aspectRatio: 32.1666679
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
+  mFont: {fileID: 11400000, guid: 4277fc55b4f15405383a12712ce82f6d, type: 2}
   mText: You have no injured mobsters
   mFontSize: 24
   mFontStyle: 0
@@ -10759,7 +10759,7 @@ MonoBehaviour:
   aspectRatio: 32.1666679
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
+  mFont: {fileID: 11400000, guid: 4277fc55b4f15405383a12712ce82f6d, type: 2}
   mText: You have no available mobsters
   mFontSize: 24
   mFontStyle: 0
@@ -11059,7 +11059,7 @@ MonoBehaviour:
   movement: 1
   dragEffect: 2
   restrictWithinPanel: 1
-  disableDragIfFits: 0
+  disableDragIfFits: 1
   smoothDragStart: 1
   iOSDragEmulation: 1
   scrollWheelFactor: .25
@@ -11106,7 +11106,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4009
+  startingRenderQueue: 3004
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: -11, z: 860, w: 372}
@@ -12157,7 +12157,7 @@ MonoBehaviour:
   movement: 1
   dragEffect: 2
   restrictWithinPanel: 1
-  disableDragIfFits: 0
+  disableDragIfFits: 1
   smoothDragStart: 1
   iOSDragEmulation: 1
   scrollWheelFactor: .25
@@ -12221,8 +12221,8 @@ MonoBehaviour:
   aspectRatio: 32.1666679
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 560886e58742548b582882efba5a8c96, type: 3}
-  mFont: {fileID: 0}
-  mText: 
+  mFont: {fileID: 11400000, guid: 4277fc55b4f15405383a12712ce82f6d, type: 2}
+  mText: You have no mobsters to evolve
   mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
@@ -13330,7 +13330,7 @@ MonoBehaviour:
   aspectRatio: 32.1666679
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
+  mFont: {fileID: 11400000, guid: 4277fc55b4f15405383a12712ce82f6d, type: 2}
   mText: You have no available mobsters
   mFontSize: 24
   mFontStyle: 0
@@ -13504,7 +13504,7 @@ MonoBehaviour:
   movement: 1
   dragEffect: 2
   restrictWithinPanel: 1
-  disableDragIfFits: 0
+  disableDragIfFits: 1
   smoothDragStart: 1
   iOSDragEmulation: 1
   scrollWheelFactor: .25
@@ -16916,6 +16916,7 @@ MonoBehaviour:
   loadingSprite: {fileID: 100394}
   disableWhileLocked:
   - {fileID: 100142}
+  locked: 0
 --- !u!114 &11400516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -17018,6 +17019,7 @@ MonoBehaviour:
   loadingSprite: {fileID: 100400}
   disableWhileLocked:
   - {fileID: 100158}
+  locked: 0
 --- !u!114 &11400522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -17489,6 +17491,7 @@ MonoBehaviour:
   loadingSprite: {fileID: 100462}
   disableWhileLocked:
   - {fileID: 100082}
+  locked: 0
 --- !u!114 &11400616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -17591,6 +17594,7 @@ MonoBehaviour:
   loadingSprite: {fileID: 100464}
   disableWhileLocked:
   - {fileID: 100340}
+  locked: 0
 --- !u!114 &11400622
 MonoBehaviour:
   m_ObjectHideFlags: 1

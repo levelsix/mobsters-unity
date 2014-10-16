@@ -153,8 +153,7 @@ public class PZMonster {
 	{
 		get
 		{
-			int totalLevel = (int)LevelWithFeeders(MSMonsterManager.instance.enhancementFeeders);
-			return Mathf.FloorToInt(MSWhiteboard.constants.monsterConstants.oilPerMonsterLevel * totalLevel);
+			return Mathf.FloorToInt(MSWhiteboard.constants.monsterConstants.oilPerMonsterLevel * level);
 		}
 	}
 	

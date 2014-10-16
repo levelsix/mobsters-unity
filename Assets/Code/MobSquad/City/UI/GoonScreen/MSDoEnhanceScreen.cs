@@ -155,18 +155,16 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		if (feeders.Count > 0)
 		{
 			float currLevel = enhanceMonster.LevelForMonster(enhanceMonster.userMonster.currentExp);
-			levelLabel.text = "Level " + ((int)currLevel) + ":";
-			topBar.fill = currLevel % 1;
-
-
-			if ((int)currLevel < (int)futureLevel)
+			levelLabel.text = "Level " + ((int)futureLevel) + ":";
+			if ((int)currLevel == (int)futureLevel)
 			{
-				bottomBar.fill = 1;
+				topBar.fill = currLevel % 1;
 			}
 			else
 			{
-				bottomBar.fill = futureLevel%1;
+				topBar.fill = 0;
 			}
+			bottomBar.fill = futureLevel%1;
 		}
 		else
 		{

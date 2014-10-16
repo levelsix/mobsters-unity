@@ -603,9 +603,7 @@ public class MSGoonCard : MonoBehaviour {
 			{
 				transform.parent = MSTeamScreen.instance.playerTeam[monster.userMonster.teamSlotNum-1].transform;
 				SpringPosition.Begin(gameObject, Vector3.zero, 15);
-				bigHelper.FadeOutAndOff();
-				mediumHelper.ResetAlpha(false);
-				mediumHelper.FadeIn();
+				StartCoroutine(ShiftSpriteSizes(bigHelper, mediumHelper));
 				MSTeamScreen.instance.mobsterGrid.Reposition();
 				foreach (var widget in GetComponentsInChildren<UIWidget>()) 
 				{
@@ -625,9 +623,7 @@ public class MSGoonCard : MonoBehaviour {
 			widget.ParentHasChanged();
 		}
 
-		bigHelper.ResetAlpha(false);
-		bigHelper.FadeIn();
-		mediumHelper.FadeOutAndOff();
+		StartCoroutine(ShiftSpriteSizes(mediumHelper, bigHelper));
 
 		MSMonsterManager.instance.RemoveFromTeam(monster);
 	}
@@ -672,9 +668,7 @@ public class MSGoonCard : MonoBehaviour {
 		foreach (var widget in GetComponentsInChildren<UIWidget> ()) {
 			widget.ParentHasChanged ();
 		}
-		mediumHelper.FadeOutAndOff();
-		smallHelper.ResetAlpha(false);
-		smallHelper.FadeIn();
+		StartCoroutine(ShiftSpriteSizes(mediumHelper, smallHelper));
 	}
 
 	void RemoveFromEnhanceQueue()
@@ -713,10 +707,8 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			widget.ParentHasChanged();
 		}
-		
-		bigHelper.FadeOutAndOff();
-		smallHelper.ResetAlpha(true);
-		smallHelper.FadeIn();
+
+		StartCoroutine(ShiftSpriteSizes(bigHelper, smallHelper));
 	}
 
 	void RemoveFromHealQueue()
@@ -734,9 +726,7 @@ public class MSGoonCard : MonoBehaviour {
 			widget.ParentHasChanged();
 		}
 
-		bigHelper.ResetAlpha(false);
-		bigHelper.FadeIn();
-		smallHelper.FadeOutAndOff();
+		StartCoroutine(ShiftSpriteSizes(smallHelper, bigHelper));
 	}
 
 	void AddToSellQueue()
@@ -761,10 +751,8 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			widget.ParentHasChanged();
 		}
-		
-		bigHelper.FadeOutAndOff();
-		smallHelper.ResetAlpha(false);
-		smallHelper.FadeIn();
+
+		StartCoroutine (ShiftSpriteSizes(bigHelper, smallHelper));
 	}
 
 	void RemoveFromSellQueue()
@@ -780,9 +768,7 @@ public class MSGoonCard : MonoBehaviour {
 			widget.ParentHasChanged();
 		}
 
-		bigHelper.ResetAlpha(false);
-		bigHelper.FadeIn();
-		smallHelper.FadeOutAndOff();
+		StartCoroutine(ShiftSpriteSizes(smallHelper, bigHelper));
 	}
 
 	void PickForEvolve()
@@ -855,6 +841,30 @@ public class MSGoonCard : MonoBehaviour {
 			RemoveFromEnhanceQueue();
 			break;
 		}
+	}
+
+	public IEnumerator ShiftSpriteSizes(MSUIHelper from, MSUIHelper to)
+	{
+		UISprite fromSprite = from.GetComponent<UISprite>();
+		UISprite toSprite = to.GetComponent<UISprite>();
+
+		from.FadeOutAndOff();
+
+		to.ResetAlpha(false);
+		to.FadeIn();
+
+		float ratio = fromSprite.width/((float)toSprite.width);
+		toSprite.transform.localScale = new Vector3(ratio, ratio);
+		TweenScale.Begin(toSprite.gameObject, to.fadeTime, Vector3.one);
+		TweenScale.Begin(fromSprite.gameObject, from.fadeTime, new Vector3(1/ratio, 1/ratio));
+
+		while (fromSprite.alpha > 0)
+		{
+			yield return null;
+		}
+
+		fromSprite.transform.localScale = Vector3.one;
+
 	}
 
 	public IEnumerator PhaseOut()
