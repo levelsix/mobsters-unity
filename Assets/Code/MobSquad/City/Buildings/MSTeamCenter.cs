@@ -6,6 +6,14 @@ public class MSTeamCenter : MSBuildingFrame {
 
 	Animator controller;
 
+	private readonly Vector3 OFFSET = new Vector3(0f, 3.25f, 0f);
+
+	void Awake()
+	{
+		base.Awake();
+		bubbleIcon.transform.localPosition = OFFSET;
+	}
+
 	void OnEnable()
 	{
 		MSActionManager.Goon.OnTeamChanged += OnTeamChange;
