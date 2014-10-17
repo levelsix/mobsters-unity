@@ -162,6 +162,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			}
 			else if (building.upgrade.OnFinishUpgrade != null)
 			{
+				Debug.LogError("caalingA!");
 				building.upgrade.OnFinishUpgrade();
 			}
 		}
@@ -220,10 +221,19 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		freeLabel.gameObject.SetActive(true);
 		while(bg.gameObject.activeSelf)
 		{
-
 			if(cycleTime < CYCLE_TIME)
 			{
 				cycleTime += Time.deltaTime;
+				if(showingFree)
+				{
+					freeLabel.alpha = 1f;
+					label.alpha = 0f;
+				}
+				else
+				{
+					freeLabel.alpha = 0f;
+					label.alpha = 1f;
+				}
 			}
 			else if(fadeTime < FADE_TIME)
 			{

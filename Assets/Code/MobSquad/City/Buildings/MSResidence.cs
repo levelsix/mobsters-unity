@@ -4,14 +4,13 @@ using System.Collections;
 public class MSResidence : MSBuildingFrame {
 
 	void OnEnable(){
-		if(bubbleIcon != null)
-		{
-			FirstFrameCheck ();
-		}
 		MSActionManager.Goon.OnMonsterListChanged += CheckTag;
+		FirstFrameCheck();
 	}
 
 	public override void CheckTag(){
+		bubbleIcon.gameObject.SetActive(false);
+
 		if (MSMonsterManager.monstersOwned > MSMonsterManager.instance.totalResidenceSlots && Precheck()) {
 			bubbleIcon.gameObject.SetActive(true);
 
@@ -24,8 +23,6 @@ public class MSResidence : MSBuildingFrame {
 				bubbleIcon.spriteName = "sellbubbleexclamation";
 			}
 			bubbleIcon.MakePixelPerfect();
-		} else {
-			bubbleIcon.gameObject.SetActive(false);
 		}
 	}
 

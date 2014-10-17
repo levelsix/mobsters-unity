@@ -226,7 +226,7 @@ public class FBPicRequester
 	{
 		if (result.Error != null)
 		{
-			Debug.LogError("Failed to get picture");
+			Debug.LogError("Failed to get picture, will try again");
 			RequestPicture();
 			return;
 		}

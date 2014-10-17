@@ -20,5 +20,13 @@ public class MSNaturalSortObject : IComparer<UnityEngine.Object> {
 		return mx.Groups["StrPart"].Value.CompareTo(my.Groups["StrPart"].Value);
 	}
 
+	/// <summary>
+	/// Sort by name of the object
+	/// </summary>
+	public static int CompareTrans(Transform x, Transform y)
+	{
+		return Compare(x.name, y.name);
+	}
+
 
 }

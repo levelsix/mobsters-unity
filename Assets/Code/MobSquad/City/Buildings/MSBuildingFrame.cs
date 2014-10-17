@@ -5,8 +5,23 @@ public abstract class MSBuildingFrame : MonoBehaviour {
 
 	public UISprite bubbleIcon;
 
+	protected MSBuilding building;
+
 	public abstract void CheckTag ();
 
+	protected void Awake()
+	{
+		building = GetComponent<MSBuilding>();
+		bubbleIcon = building.bubbleIcon;
+		if(building == null || bubbleIcon == null)
+		{
+			Debug.LogError(gameObject.name + "could not aquire all required components for bubble icons");
+		}
+	}
+
+	/// <summary>
+	/// True if bubbleIcon should show
+	/// </summary>
 	protected bool Precheck()
 	{
 		if(MSTutorialManager.instance.inTutorial)

@@ -527,26 +527,20 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				break;
 			case StructureInfoProto.StructType.HOSPITAL:
 				MSHospitalManager.instance.AssignHospital(this);
-				gameObj.AddComponent<MSHospitalHoverIcon>().bubbleIcon = bubbleIcon;
-				gameObj.GetComponent<MSHospitalHoverIcon>().CheckTag();
+				gameObj.AddComponent<MSHospitalHoverIcon>();
 				break;
 			case StructureInfoProto.StructType.RESIDENCE:
-				gameObj.AddComponent<MSResidence>().bubbleIcon = bubbleIcon;
-				gameObj.GetComponent<MSResidence>().FirstFrameCheck();
+				gameObj.AddComponent<MSResidence>();
 				break;
 			case StructureInfoProto.StructType.LAB:
-				gameObj.AddComponent<MSLaboratory>().bubbleIcon = bubbleIcon;
-				gameObj.GetComponent<MSLaboratory>().CheckTag();
+				gameObj.AddComponent<MSLaboratory>();
 				break;
 			case StructureInfoProto.StructType.TEAM_CENTER:
 				teamCenter = gameObj.AddComponent<MSTeamCenter>();
-				teamCenter.bubbleIcon = bubbleIcon;
-				teamCenter.CheckTag();
 				teamCenter.Init(sprite.GetComponent<Animator>());
 				break;
 			case StructureInfoProto.StructType.MINI_JOB:
-				gameObj.AddComponent<MSPier>().bubbleIcon = bubbleIcon;
-				gameObj.GetComponent<MSPier>().FirstFrameCheck();
+				gameObj.AddComponent<MSPier>();
 				break;
 			default:
 				break;

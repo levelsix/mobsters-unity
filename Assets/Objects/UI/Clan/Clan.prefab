@@ -1275,7 +1275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100152
 GameObject:
   m_ObjectHideFlags: 1
@@ -1902,7 +1902,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -27.7180939, z: 0}
+  m_LocalPosition: {x: 1, y: -24.4799995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400094}
@@ -2107,7 +2107,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -92, z: 0}
+  m_LocalPosition: {x: 920, y: -92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400024}
@@ -2312,7 +2312,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -920, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400010}
@@ -3057,7 +3057,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1337, y: 768, z: 0}
+  m_Size: {x: 1366, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500040
 BoxCollider:
@@ -4449,16 +4449,22 @@ MonoBehaviour:
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 0
   mWidth: 606
-  mHeight: 36
+  mHeight: 72
   mDepth: 29
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 16.833334
+  aspectRatio: 8.41666698
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: e51668310b5cb4d9bbad83588b939a3c, type: 2}
-  mText: Best clan in the da game, nbd. Crushin noobs for breakfast whatevs
+  mFont: {fileID: 11400000, guid: 640cc57df4a504855aaa133b55528e65, type: 2}
+  mText: 'Best clan in the da game, nbd. Crushin noobs for breakfast
+
+    oh
+
+    man
+
+    whatevs'
   mFontSize: 18
   mFontStyle: 0
   mAlignment: 0
@@ -6185,7 +6191,7 @@ MonoBehaviour:
   startingRenderQueue: 5012
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: -41.9999924, z: 920, w: 408}
+  mClipRange: {x: 920, y: -41.9999924, z: 920, w: 408}
   mClipSoftness: {x: 1, y: 1}
   mDepth: 5
   mSortingOrder: 0
@@ -7795,13 +7801,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1337
+  mWidth: 1366
   mHeight: 768
   mDepth: 50
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.74088538
+  aspectRatio: 1.77864587
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1

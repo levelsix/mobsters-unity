@@ -3,8 +3,7 @@ using System.Collections;
 using com.lvl6.proto;
 
 public class MSPier : MSBuildingFrame {
-	
-	MSBuilding pier;
+
 	MSProgressBar bar;
 	MSSimplePoolable doneIcon;
 	
@@ -17,7 +16,7 @@ public class MSPier : MSBuildingFrame {
 	
 	void Awake()
 	{
-		pier = GetComponent<MSBuilding>();
+		base.Awake();
 		bar = MSPoolManager.instance.Get<MSProgressBar>(MSPrefabList.instance.progressBar, transform);
 		bar.transform.localPosition = new Vector3(0f,3.2f,0f);
 		bar.transform.localEulerAngles = buildingAngle;
@@ -35,6 +34,8 @@ public class MSPier : MSBuildingFrame {
 		//Assumption that restock consistently happens after this OnEnable call
 		MSActionManager.MiniJob.OnMiniJobRestock += CheckTag;
 		MSActionManager.MiniJob.OnMiniJobRedeem += CheckTag;
+
+		FirstFrameCheck();
 	}
 
 	void OnDisable()
@@ -52,7 +53,6 @@ public class MSPier : MSBuildingFrame {
 		{
 			InitProgressBar(MSMiniJobManager.instance.currActiveJob);
 		}
-		CheckTag();
 	}
 	
 	void InitProgressBar(UserMiniJobProto job)
@@ -73,7 +73,7 @@ public class MSPier : MSBuildingFrame {
 	void SpawnJobDoneIcon(){
 		if(doneIcon == null)
 		{
-			doneIcon = MSPoolManager.instance.Get<MSSimplePoolable>(MSPrefabList.instance.miniJobDone, pier.trans);
+			doneIcon = MSPoolManager.instance.Get<MSSimplePoolable>(MSPrefabList.instance.miniJobDone, building.trans);
 			doneIcon.transf.localScale = buildingScale;
 			doneIcon.transf.localEulerAngles = buildingAngle;
 			doneIcon.transf.localPosition = new Vector3(0f,-0.5f,0f);
@@ -84,59 +84,54 @@ public class MSPier : MSBuildingFrame {
 	
 	public override void CheckTag(){
 
-		if(bubbleIcon != null)
-		{
-			bubbleIcon.gameObject.SetActive(false);
-		}
+		bubbleIcon.gameObject.SetActive(false);
 
-		if(bar!= null && !bar.isActiveTimeFrame)
+		if(Precheck())
 		{
-			if(MSMiniJobManager.instance.isCompleted)//There is a finished job
+			if(bar!= null && !bar.isActiveTimeFrame)
 			{
-				SpawnJobDoneIcon();
+				if(MSMiniJobManager.instance.isCompleted)//There is a finished job
+				{
+					SpawnJobDoneIcon();
+				}
+				else //there are no active jobs
+				{
+					if(doneIcon != null)
+					{
+						doneIcon.gameObject.SetActive(false);
+					}
+					if(bubbleIcon != null)
+					{
+						bubbleIcon.gameObject.SetActive(false);
+						if(building.combinedProto.structInfo.level == 0)
+						{
+							bubbleIcon.gameObject.SetActive(true);
+							bubbleIcon.spriteName = "fixbubble";
+							bubbleIcon.MakePixelPerfect();
+						}
+						else if(MSMiniJobManager.instance.userMiniJobs.Count > 0)
+						{
+							bubbleIcon.gameObject.SetActive(true);
+							bubbleIcon.spriteName = "minijobsredbubble" + MSMiniJobManager.instance.userMiniJobs.Count;
+							bubbleIcon.MakePixelPerfect();
+						}
+					}
+				}
 			}
-			else //there are no active jobs
+			else //there is an active job
 			{
 				if(doneIcon != null)
 				{
 					doneIcon.gameObject.SetActive(false);
 				}
+
 				if(bubbleIcon != null)
 				{
-					bubbleIcon.gameObject.SetActive(false);
-					if(pier.combinedProto.structInfo.level == 0)
-					{
-						bubbleIcon.gameObject.SetActive(true);
-						bubbleIcon.spriteName = "fixbubble";
-						bubbleIcon.MakePixelPerfect();
-					}
-					else if(MSMiniJobManager.instance.userMiniJobs.Count > 0)
-					{
-						bubbleIcon.gameObject.SetActive(true);
-						bubbleIcon.spriteName = "minijobsredbubble" + MSMiniJobManager.instance.userMiniJobs.Count;
-						bubbleIcon.MakePixelPerfect();
-					}
+					bubbleIcon.gameObject.SetActive(true);
+					bubbleIcon.spriteName = MSMiniJobManager.instance.currActiveJob.miniJob.quality.ToString().ToLower() + "job";
+					bubbleIcon.MakePixelPerfect();
 				}
 			}
-		}
-		else //there is an active job
-		{
-			if(doneIcon != null)
-			{
-				doneIcon.gameObject.SetActive(false);
-			}
-
-			if(bubbleIcon != null)
-			{
-				bubbleIcon.gameObject.SetActive(true);
-				bubbleIcon.spriteName = MSMiniJobManager.instance.currActiveJob.miniJob.quality.ToString().ToLower() + "job";
-				bubbleIcon.MakePixelPerfect();
-			}
-		}
-
-		if(bubbleIcon != null && !Precheck())
-		{
-			bubbleIcon.gameObject.SetActive(false);
 		}
 	}
 	
