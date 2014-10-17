@@ -320,10 +320,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		upgrade.OnStartUpgrade += InitGaurdRails;
 		upgrade.OnStartUpgrade += delegate {
 			sprite.GetComponent<Animator>().enabled = false;
-			bubbleIcon.alpha = 0f;
 		};
 		upgrade.OnFinishUpgrade += delegate {
-			bubbleIcon.alpha = 1f;
 			gaurdRails.gameObject.SetActive(false);
 			sprite.GetComponent<Animator>().enabled = true;
 		};

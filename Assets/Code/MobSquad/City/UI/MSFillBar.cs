@@ -33,6 +33,15 @@ public class MSFillBar : MonoBehaviour {
 
 	float targetVal;
 
+	[HideInInspector]
+	public bool isVisible
+	{
+		get
+		{
+			return gameObject.activeSelf && bar.alpha >= 0f;
+		}
+	}
+
 	public float fill
 	{
 		set

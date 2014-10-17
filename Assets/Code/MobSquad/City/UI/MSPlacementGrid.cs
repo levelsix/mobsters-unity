@@ -16,6 +16,10 @@ public class MSPlacementGrid : MonoBehaviour {
 
 	List<MSSimplePoolable> tiles = new List<MSSimplePoolable>();
 
+	float startingBubbleIconAlpha = 0f;
+
+	bool dragging = false;
+
 	void Awake(){
 		pool = MSPoolManager.instance;
 		building = GetComponent<MSBuilding> ();
@@ -57,13 +61,17 @@ public class MSPlacementGrid : MonoBehaviour {
 	}
 
 	void OnDragStart(){
-		if(tiles.Count > 0)
+		if(tiles.Count > 0 && !dragging)
 		{
+			startingBubbleIconAlpha = building.bubbleIcon.alpha;
 			building.bubbleIcon.alpha = 0f;
+			dragging = true;
+
+			foreach (var tile in tiles) {
+				tile.gameObject.SetActive(true);
+			}
 		}
-		foreach (var tile in tiles) {
-			tile.gameObject.SetActive(true);
-		}
+
 	}
 
 	public void UpdateSprites(){
@@ -78,10 +86,16 @@ public class MSPlacementGrid : MonoBehaviour {
 	}
 
 	void OnDragEnd(){
-		building.bubbleIcon.alpha = 1f;
-		foreach (var tile in tiles) {
-			tile.gameObject.SetActive(false);
+		if(building.bubbleIcon.alpha == 0f && tiles.Count > 0 && dragging)
+		{
+			building.bubbleIcon.alpha = startingBubbleIconAlpha;
+			dragging = false;
+
+			foreach (var tile in tiles) {
+				tile.gameObject.SetActive(false);
+			}
 		}
+
 	}
 
 	void OnBuildingDeselect(){

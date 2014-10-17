@@ -372,6 +372,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400042}
   - 114: {fileID: 11400032}
+  - 114: {fileID: 11400078}
   m_Layer: 0
   m_Name: Bg
   m_TagString: Untagged
@@ -1709,6 +1710,7 @@ MonoBehaviour:
   cityUnit: {fileID: 0}
   unitSize: .839999974
   tutorial: 0
+  hasSprite: 0
   testJumpHeight: 3
   testJumpTime: .5
   testJump: 0
@@ -2113,6 +2115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingSprite: {fileID: 100044}
   disableWhileLocked: []
+  locked: 0
 --- !u!114 &11400070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2212,6 +2215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fde4988fc1a2473d85db08ade640b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  revealInstead: 0
   clearOnDisable: 1
   fadeAlpha: 1
   fadeTime: .300000012
@@ -2231,6 +2235,23 @@ MonoBehaviour:
   fadeDuration: .300000012
   disableObjectAtEnd: 1
   disableScriptAtEnd: 1
+--- !u!114 &11400078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fde4988fc1a2473d85db08ade640b0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  revealInstead: 0
+  clearOnDisable: 0
+  fadeAlpha: 1
+  fadeTime: .300000012
+  thingsToHide:
+  - {fileID: 100036}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
