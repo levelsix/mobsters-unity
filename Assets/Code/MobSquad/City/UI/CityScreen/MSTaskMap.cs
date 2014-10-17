@@ -54,23 +54,28 @@ public class MSTaskMap : MonoBehaviour {
 	/// </summary>
 	const float SCALE_TO_FIT_X = 2f;
 	const float SCALE_TO_FIT_Y = 2f;
-		
-	void Awake(){
+
+	//This is called from MapManager before Awake
+	/// <summary>
+	/// Begins initializing the Map
+	/// </summary>
+	public void StartInit()
+	{
 		trans = transform;
 		limitedDrag = GetComponent<MSDragDropLimited>();
 
-//		//We need to set the parent to be in just the right place so the map slides in just right
-//		//We're also making the assumption here that the parent is infact mapParent
+		//		//We need to set the parent to be in just the right place so the map slides in just right
+		//		//We're also making the assumption here that the parent is infact mapParent
 		Transform parent = trans.parent;
 		parent.position = new Vector3(right.position.x, right.position.y, 0f);
 		parent.localPosition = new Vector3(parent.localPosition.x + 700, parent.localPosition.y, parent.localPosition.z);
-
+		
 		float width = MSMath.uiScreenWidth;
 		float scale = (width - pvpHud.width) / maps.maps[0].width;
 		trans.localScale = new Vector3(scale, scale, scale);
 		trans.localPosition = new Vector3(-(maps.maps[0].width * scale) / 2f, trans.localPosition.y, 0f);
-
-
+		
+		
 		maps.LoadAllMaps(FinishInit);
 	}
 

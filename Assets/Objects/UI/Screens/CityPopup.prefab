@@ -55,8 +55,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400006}
-  - 114: {fileID: 11400012}
   - 114: {fileID: 11400014}
+  - 114: {fileID: 11400012}
   m_Layer: 5
   m_Name: Ribbon
   m_TagString: Untagged
@@ -3608,11 +3608,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96b31ce75e592f45a1cff563a4869db, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 400018}
+    target: {fileID: 0}
     relative: 0
     absolute: 0
   rightAnchor:
@@ -3620,8 +3620,8 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   bottomAnchor:
-    target: {fileID: 400018}
-    relative: 1
+    target: {fileID: 0}
+    relative: 0
     absolute: 0
   topAnchor:
     target: {fileID: 0}
@@ -3637,10 +3637,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.76530623
-  mSprite: {fileID: 21300000, guid: 3369dc0c86c5246adab5d7ea3a77c154, type: 3}
-  mMat: {fileID: 0}
-  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  nextSprite: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: dfbe94eaec2e144dbadc6be5a6b96f8f, type: 2}
+  mSpriteName: bronzegoldribbon
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+  mFlip: 0
+  mFillCenter: 1
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5885,15 +5894,15 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 214
-  mHeight: 200
+  mWidth: 168
+  mHeight: 190
   mDepth: 13
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.07000005
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
-  mSpriteName: championbig
+  aspectRatio: .884210527
+  mAtlas: {fileID: 11400000, guid: dfbe94eaec2e144dbadc6be5a6b96f8f, type: 2}
+  mSpriteName: bronzebig
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -5990,13 +5999,13 @@ MonoBehaviour:
   updateAnchors: 0
   mColor: {r: .388235301, g: .0392156877, b: .0352941193, a: 1}
   mPivot: 3
-  mWidth: 274
+  mWidth: 276
   mHeight: 28
   mDepth: 13
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 9.78571415
+  aspectRatio: 9.85714245
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 40fb0df129f65444992a068dd06cf5b6, type: 2}
@@ -7095,7 +7104,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5036
+  startingRenderQueue: 5023
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: .670837402, z: 1092.1593, w: 640}

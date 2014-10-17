@@ -17,7 +17,8 @@ public class MSOffsetCenterOnChild : UICenterOnChild {
 	/// <summary>
 	/// Recenter the draggable list on the center-most child.
 	/// </summary>
-	
+
+	[ContextMenu("Recenter")]
 	override public void Recenter ()
 	{
 		if (mScrollView == null)

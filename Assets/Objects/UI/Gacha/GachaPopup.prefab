@@ -3766,7 +3766,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 90, y: 32, z: 0}
+  m_LocalPosition: {x: 90, y: 31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400218}
@@ -3944,7 +3944,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100244}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90, y: 32, z: 0}
+  m_LocalPosition: {x: -90, y: 31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400238}
@@ -4805,7 +4805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 11400020}
   scaleDist: 350
-  minScale: .5
+  minScale: .699999988
   minAlpha: .5
   panelCenter: -50
 --- !u!114 &11400020
@@ -7011,7 +7011,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.12903237
-  mAtlas: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: 8d0d1f3bcec9b4a3291c402b239699a9, type: 2}
   mSpriteName: detailshadow
   mType: 0
   mFillDirection: 4
@@ -7307,7 +7307,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.12903237
-  mAtlas: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: 8d0d1f3bcec9b4a3291c402b239699a9, type: 2}
   mSpriteName: detailshadow
   mType: 0
   mFillDirection: 4
@@ -8953,7 +8953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 11400234}
   scaleDist: 350
-  minScale: .5
+  minScale: .699999988
   minAlpha: .5
   panelCenter: -50
 --- !u!114 &11400230
@@ -9680,7 +9680,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 10.375
+  aspectRatio: 5
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: c3c5f2bcb4e014a57b6c61fb03c7bc44, type: 2}
@@ -9807,7 +9807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 11400270}
   scaleDist: 350
-  minScale: .5
+  minScale: .699999988
   minAlpha: .5
   panelCenter: -50
 --- !u!114 &11400274
@@ -11480,7 +11480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 11400352}
   scaleDist: 350
-  minScale: .5
+  minScale: .699999988
   minAlpha: .5
   panelCenter: -50
 --- !u!114 &11400356
@@ -11520,7 +11520,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.12903237
-  mAtlas: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: 8d0d1f3bcec9b4a3291c402b239699a9, type: 2}
   mSpriteName: detailshadow
   mType: 0
   mFillDirection: 4
@@ -11816,13 +11816,13 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400152}
     relative: 0
-    absolute: 0
+    absolute: -1
   topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
+    target: {fileID: 400152}
+    relative: 0
+    absolute: 63
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -11935,7 +11935,7 @@ MonoBehaviour:
   aspectRatio: 7.77777767
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 90eeabfbbab1341d39030576da2db203, type: 2}
+  mFont: {fileID: 11400000, guid: 65d75ea4cca834180b3beb11adee4e96, type: 2}
   mText: Goonie Grab
   mFontSize: 16
   mFontStyle: 0
@@ -12047,7 +12047,7 @@ MonoBehaviour:
   aspectRatio: 7.77777767
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 90eeabfbbab1341d39030576da2db203, type: 2}
+  mFont: {fileID: 11400000, guid: 65d75ea4cca834180b3beb11adee4e96, type: 2}
   mText: Basic Grab
   mFontSize: 16
   mFontStyle: 0
@@ -12140,13 +12140,13 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400152}
     relative: 0
-    absolute: 0
+    absolute: -1
   topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
+    target: {fileID: 400152}
+    relative: 0
+    absolute: 63
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -12779,7 +12779,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.12903237
-  mAtlas: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: 8d0d1f3bcec9b4a3291c402b239699a9, type: 2}
   mSpriteName: detailshadow
   mType: 0
   mFillDirection: 4
