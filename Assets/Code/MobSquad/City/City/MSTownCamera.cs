@@ -45,7 +45,7 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 	/// <summary>
 	/// Constant coefficient to slow down camera scaling on zoom
 	/// </summary>
-	const float CAMERA_ZOOM_SCALE = .2f;
+	const float CAMERA_ZOOM_SCALE = .5f;
 	
     /// <summary>
     /// This camera's transform, 

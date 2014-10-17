@@ -3729,6 +3729,7 @@ MonoBehaviour:
     userHospitalID: 0
     hospitalTimes: []
     speed: 0
+    teamCost: 0
     maxHP: 0
     currHP: 0
     tempHP: 0
@@ -4308,6 +4309,7 @@ MonoBehaviour:
   background: {fileID: 11400056}
   goonSprite: {fileID: 0}
   bar: {fileID: 11400002}
+  hpLabel: {fileID: 0}
 --- !u!114 &11400092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4372,6 +4374,7 @@ MonoBehaviour:
   background: {fileID: 11400022}
   goonSprite: {fileID: 0}
   bar: {fileID: 11400016}
+  hpLabel: {fileID: 0}
 --- !u!114 &11400096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5077,6 +5080,7 @@ MonoBehaviour:
     damageTaken: 0
     monstersDefeated: 0
   pvpMode: 0
+  quitPvpButton: {fileID: 0}
   raidMode: 0
   waitingForTutorialSignal: 0
   combatPanel: {fileID: 0}
@@ -5353,6 +5357,7 @@ MonoBehaviour:
   background: {fileID: 11400012}
   goonSprite: {fileID: 0}
   bar: {fileID: 11400052}
+  hpLabel: {fileID: 0}
 --- !u!114 &11400140
 MonoBehaviour:
   m_ObjectHideFlags: 1

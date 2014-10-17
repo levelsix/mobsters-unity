@@ -74,7 +74,7 @@ public class MSTaskBar : MonoBehaviour {
 	
 	void OnBuildingSelect(MSBuilding building)
 	{
-		//Debug.Log("Hurr");
+		currBuilding = building;
 
 		tweenAlph.PlayReverse();
 		MoveButtons();
@@ -82,7 +82,7 @@ public class MSTaskBar : MonoBehaviour {
 		if (building != null && building != MSBuildingManager.instance.hoveringToBuild)
 		{
 			bottomChat.Hide ();
-			StartCoroutine(TweenWhenOffScreen(building));
+			//StartCoroutine(TweenWhenOffScreen(building));
 		}
 		else
 		{
@@ -147,60 +147,57 @@ public class MSTaskBar : MonoBehaviour {
 	
 	void SetBuildingButtons(MSBuilding building)
 	{
-		//Debug.Log("Durr?");
 
-		currBuilding = building;
-
-		if (currBuilding == MSBuildingManager.instance.hoveringToBuild)
+		if (building == MSBuildingManager.instance.hoveringToBuild)
 		{
 			return;
 		}
 
-		if (currBuilding.locallyOwned)
+		if (building.locallyOwned)
 		{
-			if (!currBuilding.userStructProto.isComplete)
+			if (!building.userStructProto.isComplete)
 			{
 				AddButton(MSTaskButton.Mode.FINISH);
 			}
 			else
 			{
-				if (currBuilding.combinedProto.structInfo.level == 0)
+				if (building.combinedProto.structInfo.level == 0)
 				{
 					AddButton(MSTaskButton.Mode.FIX);
 				}
-				else if (currBuilding.combinedProto.structInfo.successorStructId > 0)
+				else if (building.combinedProto.structInfo.successorStructId > 0)
 				{
 					AddButton(MSTaskButton.Mode.UPGRADE);
 				}
-				if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.RESIDENCE)
+				if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.RESIDENCE)
 				{
 					AddButton(MSTaskButton.Mode.HIRE);
 					AddButton(MSTaskButton.Mode.SELL_MOBSTERS);
 				}
-				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.MINI_JOB
-				         && currBuilding.combinedProto.structInfo.level > 0)
+				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.MINI_JOB
+				         && building.combinedProto.structInfo.level > 0)
 				{
 					AddButton(MSTaskButton.Mode.MINIJOB);
 				}
-				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.TEAM_CENTER)
+				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.TEAM_CENTER)
 				{
 					AddButton(MSTaskButton.Mode.TEAM);
 				}
-				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.LAB
-				         && currBuilding.combinedProto.structInfo.level > 0)
+				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.LAB
+				         && building.combinedProto.structInfo.level > 0)
 				{
 					AddButton(MSTaskButton.Mode.ENHANCE);
 				}
-				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.EVO)
+				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.EVO)
 				{
 					AddButton(MSTaskButton.Mode.EVOLVE);
 				}
-				else if (currBuilding.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.CLAN
-				         && currBuilding.combinedProto.structInfo.level > 0)
+				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.CLAN
+				         && building.combinedProto.structInfo.level > 0)
 				{
 					AddButton(MSTaskButton.Mode.SQUAD);
 				}
-				if (currBuilding.hospital != null)
+				if (building.hospital != null)
 				{
 					AddButton(MSTaskButton.Mode.HEAL);
 				}
@@ -208,9 +205,9 @@ public class MSTaskBar : MonoBehaviour {
 
 
 		}
-		else if (currBuilding.obstacle != null)
+		else if (building.obstacle != null)
 		{
-			if (currBuilding.obstacle.secsLeft > 0)
+			if (building.obstacle.secsLeft > 0)
 			{
 				AddButton(MSTaskButton.Mode.FINISH);
 			}
@@ -233,6 +230,28 @@ public class MSTaskBar : MonoBehaviour {
 		else if (building.taskable != null)
 		{
 			topText.text = building.taskable.task.name;
+		}
+	}
+
+	void Update()
+	{
+		CheckTweenIn ();
+	}
+
+	void CheckTweenIn ()
+	{
+		if (currBuilding != null) 
+		{
+			foreach (var item in taskButtons) 
+			{
+				if (item.gameObj.activeSelf) return;
+			}
+
+			taskButtons.Clear();
+			SetBuildingButtons(currBuilding);
+			tweenAlph.PlayForward();
+
+			currBuilding = null;
 		}
 	}
 

@@ -595,11 +595,7 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		if (monster.userMonster.teamSlotNum == 0)
 		{
-			if (MSMonsterManager.instance.AddToTeam(monster) == 0)
-			{
-				MSActionManager.Popup.DisplayRedError("Team is already full!");
-			}
-			else
+			if (MSMonsterManager.instance.AddToTeam(monster))
 			{
 				transform.parent = MSTeamScreen.instance.playerTeam[monster.userMonster.teamSlotNum-1].transform;
 				SpringPosition.Begin(gameObject, Vector3.zero, 15);
@@ -933,7 +929,6 @@ public class MSGoonCard : MonoBehaviour {
 //			{
 			smallBarRoot.SetActive(false);
 			smallBottomLabel.text = monster.enhanceXP + "xp";
-//			}
 			break;
 		}
 	}

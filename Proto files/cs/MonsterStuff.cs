@@ -461,6 +461,15 @@ namespace com.lvl6.proto
       get { return _sellAmount; }
       set { _sellAmount = value; }
     }
+
+    private int _teamCost = default(int);
+    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"teamCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int teamCost
+    {
+      get { return _teamCost; }
+      set { _teamCost = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -670,6 +679,15 @@ namespace com.lvl6.proto
     {
       get { return _priority; }
       set { _priority = value; }
+    }
+
+    private float _elapsedSeconds = default(float);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"elapsedSeconds", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float elapsedSeconds
+    {
+      get { return _elapsedSeconds; }
+      set { _elapsedSeconds = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

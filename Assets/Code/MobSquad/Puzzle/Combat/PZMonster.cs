@@ -317,6 +317,7 @@ public class PZMonster {
 	public SkillProto defensiveSkill;
 
 	public float speed;
+	public int teamCost;
 
 	public int maxHP;
 	public int currHP;
@@ -426,6 +427,7 @@ public class PZMonster {
 	{
 		level = userMonster.currentLvl = Math.Min(userMonster.currentLvl, monster.maxLevel);
 		speed = SpeedAtLevel(userMonster.currentLvl);
+		teamCost = CostAtLevel(userMonster.currentLvl);
 		maxHP = MaxHPAtLevel(userMonster.currentLvl);
 		currHP = userMonster.currentHealth;
 		SetAttackDamagesForLevel(userMonster.currentLvl);
@@ -528,6 +530,16 @@ public class PZMonster {
 
 		return (int)(baseLevelInfo.hp + (maxLevelInfo.hp - baseLevelInfo.hp)
 			* Mathf.Pow((level-1)/((float)(monster.maxLevel-1)), maxLevelInfo.hpExponentBase));
+	}
+
+	public int CostAtLevel(int level)
+	{
+		if (monster.lvlInfo.Count == 0)
+		{
+			return 1;
+		}
+
+		return Mathf.FloorToInt(Mathf.Lerp (baseLevelInfo.teamCost, maxLevelInfo.teamCost, ((level-1f)/(monster.maxLevel-1f))));
 	}
 
 	public float SpeedAtLevel(int level)
@@ -664,6 +676,7 @@ public class PZMonster {
 		level = userMonster.currentLvl = (int)LevelForMonster(userMonster.currentExp);
 		maxHP = MaxHPAtLevel(level);
 		speed = SpeedAtLevel(level);
+		teamCost = CostAtLevel(level);
 		SetAttackDamagesForLevel(level);
 	}
 	

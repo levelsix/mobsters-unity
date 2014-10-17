@@ -42,8 +42,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: cae3212b7983c4b30a2b4d4fd8969e53, type: 2}
   mSprites:
   - name: activechatline
-    x: 994
-    y: 692
+    x: 990
+    y: 606
     width: 16
     height: 4
     borderLeft: 0
@@ -55,8 +55,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: addgems
-    x: 600
-    y: 301
+    x: 806
+    y: 168
     width: 48
     height: 48
     borderLeft: 0
@@ -68,8 +68,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: arrow
-    x: 157
-    y: 78
+    x: 793
+    y: 342
     width: 82
     height: 92
     borderLeft: 0
@@ -81,8 +81,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: attackbutton
-    x: 0
-    y: 171
+    x: 256
+    y: 43
     width: 143
     height: 135
     borderLeft: 0
@@ -94,8 +94,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: badgeicon
-    x: 553
-    y: 266
+    x: 987
+    y: 251
     width: 35
     height: 36
     borderLeft: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: basic1spin
-    x: 553
-    y: 303
+    x: 596
+    y: 1
     width: 42
     height: 42
     borderLeft: 0
@@ -120,8 +120,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingbonusslots
-    x: 497
-    y: 241
+    x: 753
+    y: 111
     width: 52
     height: 52
     borderLeft: 0
@@ -132,9 +132,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: buildingbrowse
+    x: 343
+    y: 2
+    width: 49
+    height: 40
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
   - name: buildingenhance
-    x: 497
-    y: 294
+    x: 753
+    y: 164
     width: 52
     height: 52
     borderLeft: 0
@@ -146,8 +159,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingevolve
-    x: 553
-    y: 346
+    x: 753
+    y: 7
     width: 46
     height: 52
     borderLeft: 0
@@ -159,8 +172,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingfinishnow
-    x: 252
-    y: 207
+    x: 508
+    y: 93
     width: 156
     height: 113
     borderLeft: 0
@@ -172,8 +185,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: buildingfinishnowpressed
-    x: 252
-    y: 321
+    x: 508
+    y: 207
     width: 156
     height: 113
     borderLeft: 0
@@ -185,8 +198,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: buildingfix
-    x: 600
-    y: 350
+    x: 205
+    y: 2
     width: 48
     height: 48
     borderLeft: 0
@@ -198,8 +211,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingheal
-    x: 497
-    y: 347
+    x: 665
+    y: 12
     width: 55
     height: 51
     borderLeft: 0
@@ -210,9 +223,22 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
+  - name: buildinghelp
+    x: 964
+    y: 324
+    width: 49
+    height: 58
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
   - name: buildinginfo
-    x: 497
-    y: 188
+    x: 934
+    y: 235
     width: 52
     height: 52
     borderLeft: 0
@@ -224,8 +250,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingmanage
-    x: 65
-    y: 5
+    x: 964
+    y: 383
     width: 56
     height: 51
     borderLeft: 0
@@ -237,8 +263,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: buildingminijobs
-    x: 497
-    y: 82
+    x: 881
+    y: 235
     width: 52
     height: 52
     borderLeft: 0
@@ -250,6 +276,19 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingoptionbutton
+    x: 508
+    y: 321
+    width: 156
+    height: 113
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: buildingoptionbuttonpressed
     x: 846
     y: 440
     width: 156
@@ -262,22 +301,9 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
-  - name: buildingoptionbuttonpressed
-    x: 0
-    y: 57
-    width: 156
-    height: 113
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
   - name: buildingremove
-    x: 497
-    y: 31
+    x: 753
+    y: 60
     width: 52
     height: 50
     borderLeft: 0
@@ -301,9 +327,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 1
+  - name: buildingsquad
+    x: 956
+    y: 786
+    width: 65
+    height: 48
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
   - name: buildingupgrade
-    x: 497
-    y: 135
+    x: 828
+    y: 235
     width: 52
     height: 52
     borderLeft: 0
@@ -328,7 +367,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cashmiddle
-    x: 1014
+    x: 1017
     y: 968
     width: 2
     height: 36
@@ -342,7 +381,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: chatactivedot
     x: 1014
-    y: 1015
+    y: 1005
     width: 9
     height: 9
     borderLeft: 0
@@ -355,7 +394,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: chatinactivedot
     x: 1014
-    y: 1005
+    y: 1015
     width: 9
     height: 9
     borderLeft: 0
@@ -367,8 +406,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: chatminimize
-    x: 0
-    y: 8
+    x: 596
+    y: 44
     width: 64
     height: 48
     borderLeft: 0
@@ -380,8 +419,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: ChatSliced
-    x: 409
-    y: 88
+    x: 665
+    y: 140
     width: 70
     height: 94
     borderLeft: 34
@@ -393,8 +432,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: chatupbutton
-    x: 144
-    y: 180
+    x: 256
+    y: 7
     width: 86
     height: 35
     borderLeft: 0
@@ -419,8 +458,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: diamond
-    x: 409
-    y: 17
+    x: 753
+    y: 217
     width: 74
     height: 70
     borderLeft: 0
@@ -458,8 +497,8 @@ MonoBehaviour:
     paddingTop: -1
     paddingBottom: 0
   - name: expbar
-    x: 702
-    y: 404
+    x: 753
+    y: 288
     width: 180
     height: 30
     borderLeft: 6
@@ -472,7 +511,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: HUDGems
     x: 0
-    y: 307
+    y: 51
     width: 251
     height: 127
     borderLeft: 0
@@ -484,8 +523,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: HUDLevel
-    x: 252
-    y: 91
+    x: 665
+    y: 319
     width: 127
     height: 115
     borderLeft: 0
@@ -509,9 +548,35 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
+  - name: HUD-Whitney-Black
+    x: 0
+    y: 179
+    width: 255
+    height: 255
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: HUD-Whitney-Bold
+    x: 256
+    y: 179
+    width: 251
+    height: 255
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 5
+    paddingTop: 1
+    paddingBottom: 0
   - name: inaclanbutton
-    x: 409
-    y: 183
+    x: 508
+    y: 9
     width: 87
     height: 83
     borderLeft: 0
@@ -523,8 +588,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: inactivechatline
-    x: 990
-    y: 606
+    x: 994
+    y: 692
     width: 16
     height: 4
     borderLeft: 0
@@ -536,8 +601,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: jobsbutton
-    x: 252
-    y: 4
+    x: 400
+    y: 1
     width: 87
     height: 86
     borderLeft: 0
@@ -588,7 +653,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: mailbutton
-    x: 409
+    x: 876
     y: 351
     width: 87
     height: 83
@@ -614,8 +679,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: moneysmall
-    x: 600
-    y: 255
+    x: 806
+    y: 122
     width: 47
     height: 45
     borderLeft: 0
@@ -624,11 +689,11 @@ MonoBehaviour:
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
-    paddingTop: 0
+    paddingTop: -7
     paddingBottom: 0
   - name: moneystack
-    x: 144
-    y: 216
+    x: 400
+    y: 88
     width: 93
     height: 90
     borderLeft: 0
@@ -679,8 +744,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: newtext
-    x: 340
-    y: 14
+    x: 793
+    y: 324
     width: 39
     height: 17
     borderLeft: 4
@@ -692,8 +757,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: notinaclanbutton
-    x: 409
-    y: 267
+    x: 665
+    y: 235
     width: 87
     height: 83
     borderLeft: 0
@@ -731,7 +796,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: oilmiddle
-    x: 1017
+    x: 1014
     y: 968
     width: 2
     height: 36
@@ -796,8 +861,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: topbarbg
-    x: 497
-    y: 399
+    x: 0
+    y: 15
     width: 204
     height: 35
     borderLeft: 9
@@ -809,8 +874,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: unlockbuildingbg
-    x: 157
-    y: 2
+    x: 665
+    y: 64
     width: 75
     height: 75
     borderLeft: 0
@@ -820,45 +885,6 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 1
     paddingTop: 1
-    paddingBottom: 0
-  - name: buildingbrowse
-    x: 649
-    y: 358
-    width: 49
-    height: 40
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: buildinghelp
-    x: 340
-    y: 32
-    width: 49
-    height: 58
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: buildingsquad
-    x: 956
-    y: 786
-    width: 65
-    height: 48
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
     paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}

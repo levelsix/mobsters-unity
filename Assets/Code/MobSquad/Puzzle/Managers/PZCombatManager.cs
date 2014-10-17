@@ -1014,6 +1014,11 @@ public class PZCombatManager : MonoBehaviour {
 
 		PZPuzzleManager.instance.swapLock += 1;
 
+		while(!activePlayer.unit.hasSprite)
+		{
+			yield return null;
+		}
+
 		yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed, false));
 		activePlayer.unit.direction = MSValues.Direction.EAST;
 
