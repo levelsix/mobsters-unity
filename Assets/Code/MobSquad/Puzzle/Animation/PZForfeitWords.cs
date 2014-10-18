@@ -64,7 +64,7 @@ public class PZForfeitWords : MonoBehaviour {
 
 		if(!successfulForfeit)
 		{
-			yield return new WaitForSeconds(alpha.duration);
+			yield return new WaitForSeconds(alpha.duration - 0.3f);
 		}
 	}
 

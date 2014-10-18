@@ -67,6 +67,11 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	public Mode currMode;
 
+	/// <summary>
+	/// Hint arrow for instructing a player after an error has been displayed
+	/// </summary>
+	public MSTutorialArrow hintArrow;
+
 	public bool tweeningOut
 	{
 		get
@@ -122,6 +127,15 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		button = GetComponent<UIButton>();
 		tweenPos = GetComponent<TweenPosition>();
 		tweenAlpha = GetComponent<TweenAlpha>();
+	}
+
+	void OnDisable()
+	{
+		if(hintArrow != null)
+		{
+			hintArrow.gameObject.SetActive(false);
+			hintArrow = null;
+		}
 	}
 	
 	public MSPoolable Make (Vector3 origin)
