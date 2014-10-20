@@ -9,6 +9,21 @@ public class MSTeamScreen : MSFunctionalScreen {
 
 	public MSMobsterGrid mobsterGrid;
 
+	public MSGoonTeamCard firstOpenCard
+	{
+		get
+		{
+			for (int i = 0; i < playerTeam.Length; i++) 
+			{
+				if (MSMonsterManager.instance.userTeam[i] == null || MSMonsterManager.instance.userTeam[i].monster.monsterId == 0)
+				{
+					return playerTeam[i];
+				}
+			}
+			return null;
+		}
+	}
+
 	int currTeammates;
 
 	public override bool IsAvailable()

@@ -542,15 +542,20 @@ public class MSMonsterManager : MonoBehaviour {
 
 	public void SpeedUpCombine(PZMonster monster)
 	{
-		combiningMonsters.Remove(monster);
-		
-		PrepareNewCombinePiecesRequest();
-		
-		combineRequestProto.userMonsterIds.Add(monster.userMonster.userMonsterId);
-		
-		combineRequestProto.gemCost = monster.combineFinishGems;
-		
-		SendCombineRequest();
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, monster.combineFinishGems))
+		{
+			monster.userMonster.isComplete = true;
+
+			combiningMonsters.Remove(monster);
+			
+			PrepareNewCombinePiecesRequest();
+			
+			combineRequestProto.userMonsterIds.Add(monster.userMonster.userMonsterId);
+			
+			combineRequestProto.gemCost = monster.combineFinishGems;
+			
+			SendCombineRequest();
+		}
 	}
 	
 //	#endregion

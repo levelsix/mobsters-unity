@@ -43,7 +43,7 @@ MonoBehaviour:
   mUVRect:
     serializedVersion: 2
     x: 0
-    y: .25
+    y: 0
     width: .25
     height: .25
   mFont:
@@ -990,6 +990,8 @@ MonoBehaviour:
     spriteName: oilicon
   - sequence: '(c) '
     spriteName: moneystack
+  - sequence: (g)
+    spriteName: diamond
   mDynamicFont: {fileID: 0}
   mDynamicFontSize: 16
   mDynamicFontStyle: 0

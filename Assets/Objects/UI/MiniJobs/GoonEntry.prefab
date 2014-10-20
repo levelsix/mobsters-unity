@@ -521,8 +521,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goonie:
     userHospitalID: 0
+    hospitalTimes: []
+    speed: 0
+    teamCost: 0
     maxHP: 0
     currHP: 0
+    tempHP: 0
     minDamage: 0
     maxDamage: 0
     attackDamages: []
@@ -567,16 +571,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .447058827, g: .447058827, b: .447058827, a: 1}
   mPivot: 3
-  mWidth: 76
+  mWidth: 161
   mHeight: 24
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.16666675
+  aspectRatio: 6.70833349
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 126ed004349bf4d91a5d363579fd4421, type: 2}
   mText: LVL. 7
   mFontSize: 24
   mFontStyle: 0
@@ -587,7 +591,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -629,16 +633,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 152
+  mWidth: 185
   mHeight: 24
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.33333349
+  aspectRatio: 7.70833349
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: e9a52a599d5df4f9dbd7bfaca8e49d23, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 76ed6b8b3463043948c681a0b12cc152, type: 2}
   mText: Cap'n Nutz
   mFontSize: 24
   mFontStyle: 0
@@ -649,7 +653,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -825,6 +829,10 @@ MonoBehaviour:
   maxSize: 166
   minSize: 2
   currVal: 0
+  tweenToVal: 0
+  speed: .5
+  widthGuide: {fileID: 0}
+  widthAdjustment: 0
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -905,16 +913,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .250980407, g: .250980407, b: .250980407, a: 1}
   mPivot: 3
-  mWidth: 66
+  mWidth: 167
   mHeight: 16
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.125
+  aspectRatio: 10.4375
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 126ed004349bf4d91a5d363579fd4421, type: 2}
   mText: 'HP: 260'
   mFontSize: 16
   mFontStyle: 0
@@ -925,7 +933,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -967,16 +975,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .250980407, g: .250980407, b: .250980407, a: 1}
   mPivot: 3
-  mWidth: 104
+  mWidth: 163
   mHeight: 16
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.5
+  aspectRatio: 10.1875
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 6e77d44bf6fbd41228055bf585e5e1c5, type: 3}
-  mFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 126ed004349bf4d91a5d363579fd4421, type: 2}
   mText: "ATTACK: 20\x03"
   mFontSize: 16
   mFontStyle: 0
@@ -987,7 +995,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 2
+  mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -1063,6 +1071,10 @@ MonoBehaviour:
   maxSize: 166
   minSize: 2
   currVal: 0
+  tweenToVal: 0
+  speed: .5
+  widthGuide: {fileID: 0}
+  widthAdjustment: 0
 --- !u!114 &11400024
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -365,5 +365,15 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		if (building.GetComponent<MSBuildingFrame> () != null) {
 			building.GetComponent<MSBuildingFrame>().CheckTag();
 		}
+
+		CheckSpecialCaseFinish();
+	}
+
+	void CheckSpecialCaseFinish()
+	{
+		if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.MINI_JOB)
+		{
+			MSMiniJobManager.instance.Init(building.combinedProto.miniJobCenter);
+		}
 	}
 }

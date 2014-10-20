@@ -5,13 +5,27 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 
 	public override void OnClick ()
 	{
-		//total number of usable teammates
-		int teamCount = 0;
+ 		int teamCount = 0;
+
+		int currPower = MSMonsterManager.instance.currTeamPower;
+
+		//Max powers
+		//He's the man with the name you want to touch
+		//But you mustn't touch
+		int maxPowers = MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit;
+
 		if(MSMonsterManager.instance.userMonsters.Count >= MSMonsterManager.instance.totalResidenceSlots )
 		{
 			ResidenceFullFail();
 			return;
 		}
+
+		if (MSMonsterManager.instance.currTeamPower > MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
+		{
+			//TooMuchPowerFail();
+			//return;
+		}
+
 		foreach (var item in MSMonsterManager.instance.userTeam) 
 		{
 			if (item != null && item.monster != null && item.monster.monsterId > 0 && item.currHP > 0)
@@ -20,25 +34,21 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 			}
 		}
 
-		if(teamCount == 0)
-		{
-			NoTeamFail();
-			return;
-		}
-		else if(teamCount < MSMonsterManager.instance.userTeam.Length)
+		if (teamCount < MSMonsterManager.instance.userTeam.Length && currPower < maxPowers)
 		{
 			int healthyCount = 0;
 			foreach(PZMonster monster in MSMonsterManager.instance.userMonsters)
 			{
-				if(monster.userMonster.teamSlotNum == 0 && monster.currHP > 0)
+				if(monster.userMonster.teamSlotNum == 0 && monster.currHP > 0 && monster.userMonster.isComplete
+				   && monster.teamCost <= (maxPowers-currPower))
 				{
 					CouldHaveMoreOnTeamFail();
 					return;
 				}
 			}
 		}
-		base.OnClick ();
 
+		base.OnClick ();
 	}
 
 	void NoTeamFail()
@@ -59,6 +69,16 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 		
 		//Popup error message
 		MSActionManager.Popup.DisplayGreenError("You have healthy toons available! Manage your team now.");
+	}
+
+	void TooMuchPowerFail()
+	{
+			//Center on team center
+			MSTownCamera.instance.DoCenterOnGroundPos(MSBuildingManager.teamCenter.trans.position, .4f);
+			MSBuildingManager.teamCenter.SetArrow(true);
+			
+			//Popup error message
+			MSActionManager.Popup.DisplayRedError("Your team is over the power limit! Manage your team now.");
 	}
 
 	void ResidenceFullFail()

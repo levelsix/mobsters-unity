@@ -123,7 +123,20 @@ public class MSGoonCard : MonoBehaviour {
 	Color cashTextColor;
 
 	#endregion
-	
+
+	#region Finish UI
+
+	[SerializeField]
+	MSUIHelper finishUI;
+
+	[SerializeField]
+	UILabel finishTime;
+
+	[SerializeField]
+	UILabel finishGems;
+
+	#endregion
+
 	#endregion
 	
 	#region Image Constants
@@ -193,12 +206,22 @@ public class MSGoonCard : MonoBehaviour {
 
 	bool _dark = false;
 
+	bool fitsOnTeam
+	{
+		get
+		{
+			return monster.teamCost + MSMonsterManager.instance.currTeamPower <= MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit;
+		}
+	}
+
 	void OnEnable()
 	{
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += CheckRemovedMonster;
 		MSActionManager.Goon.OnEnhanceQueueChanged += OnEnhancementQueueChanged;
 		MSActionManager.Goon.OnMonsterFinishHeal += OnMonsterFinishHeal;
 		MSActionManager.Goon.OnFinishFeeding += OnMonsterFinishFeed;
+		MSActionManager.Goon.OnMonsterRemoveTeam += OnMonsterTeamRemove;
+		MSActionManager.Goon.OnMonsterAddTeam += OnMonsterTeamAdd;
 	}
 
 	void OnDisable()
@@ -207,6 +230,8 @@ public class MSGoonCard : MonoBehaviour {
 		MSActionManager.Goon.OnEnhanceQueueChanged -= OnEnhancementQueueChanged;
 		MSActionManager.Goon.OnMonsterFinishHeal -= OnMonsterFinishHeal;
 		MSActionManager.Goon.OnFinishFeeding -= OnMonsterFinishFeed;
+		MSActionManager.Goon.OnMonsterRemoveTeam -= OnMonsterTeamRemove;
+		MSActionManager.Goon.OnMonsterAddTeam -= OnMonsterTeamAdd;
 	}
 
 	public void Init(PZMonster goon, GoonScreenMode mode)
@@ -253,8 +278,6 @@ public class MSGoonCard : MonoBehaviour {
 		healCostLabel.text = "$" + goon.healCost;
 		healCostLabel.color = Color.black;
 
-
-
 		infoButton.SetActive(false);
 
 		if (goon.monsterStatus == MonsterStatus.HEALING)
@@ -290,6 +313,24 @@ public class MSGoonCard : MonoBehaviour {
 				widget.ParentHasChanged();
 			}
 		}
+
+		CheckFitsOnTeam();
+	}
+
+	void CheckFitsOnTeam()
+	{
+		if (monster.monsterStatus == MonsterStatus.HEALTHY || monster.monsterStatus == MonsterStatus.INJURED)
+		{
+			if (monster.userMonster.teamSlotNum == 0 && !fitsOnTeam)
+			{
+				TintElements (true);
+				bottomCardLabel.text = "Power: [ff0000]" + monster.teamCost + "[-]";
+			}
+			else
+			{
+				TintElements(false);
+			}
+		}
 	}
 
 	void SetName()
@@ -305,15 +346,15 @@ public class MSGoonCard : MonoBehaviour {
 			bottomCardLabel.text = "MiniJob";
 			break;
 		case MonsterStatus.COMBINING:
-			name = "4 Unavailable 4 Combining";
-			bottomCardLabel.text = "Combining...";
+			name = "4 Unavailable 2 Combining";
+			bottomCardLabel.text = "";
 			break;
 		case MonsterStatus.ENHANCING:
-			name = "4 Unavailable 3 Enhancing";
+			name = "4 Unavailable 4 Enhancing";
 			bottomCardLabel.text = "Enhancing";
 			break;
 		case MonsterStatus.HEALING:
-			name = "4 Unavailable 2 Healing";
+			name = "4 Unavailable 3 Healing";
 			bottomCardLabel.text = "Healing";
 			break;
 		case MonsterStatus.INJURED:
@@ -485,6 +526,11 @@ public class MSGoonCard : MonoBehaviour {
 		}
 	}
 
+	void Setup()
+	{
+		Setup(monster);
+	}
+
 	void Setup(PZMonster goon)
 	{
 		lockIcon.SetActive(false);
@@ -541,6 +587,11 @@ public class MSGoonCard : MonoBehaviour {
 		infoButton.SetActive(true);
 		
 		nameLabel.text = goon.monster.displayName + " [4a7eae]L" + goon.userMonster.currentLvl + "[-]";
+	}
+
+	void SetupGemsToComplete()
+	{
+
 	}
 
 	void SetTextOverCard (PZMonster goon)
@@ -775,7 +826,9 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void SpeedUpCombine()
 	{
+		//TODO: Make this into a coroutine with a loading thingy
 		MSMonsterManager.instance.SpeedUpCombine(monster);
+		Setup();
 	}
 
 	void OnClick()
@@ -966,11 +1019,30 @@ public class MSGoonCard : MonoBehaviour {
 
 	void OnMonsterFinishHeal(PZMonster monster)
 	{
-		if (this.monster == monster && goonScreenMode == GoonScreenMode.HEAL)
+		if (goonScreenMode == GoonScreenMode.HEAL)
 		{
-			StartCoroutine(PhaseOut());
-			MSHealScreen.instance.Remove(this);
-			MSHealScreen.instance.healQueue.Reposition();
+			if (this.monster == monster)
+			{
+				StartCoroutine(PhaseOut());
+				MSHealScreen.instance.Remove(this);
+				MSHealScreen.instance.healQueue.Reposition();
+			}
+		}
+	}
+
+	void OnMonsterTeamAdd(PZMonster monster)
+	{
+		if (this.monster.userMonster.teamSlotNum == 0)
+		{
+			InitTeam(this.monster);
+		}
+	}
+
+	void OnMonsterTeamRemove(PZMonster monster)
+	{
+		if (this.monster.userMonster.teamSlotNum == 0)
+		{
+			InitTeam(this.monster);
 		}
 	}
 

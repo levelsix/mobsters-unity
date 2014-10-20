@@ -130,7 +130,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		WriteDebug("Set connection settings...");
 #else
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.HostName = "staging.mobsters.lvl6.com";
+		factory.HostName = "54.191.115.41";
 		factory.UserName = "lvl6client";
 		factory.Password = "devclient";
 		factory.VirtualHost = "devmobsters";
