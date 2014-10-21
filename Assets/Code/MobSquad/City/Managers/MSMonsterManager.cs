@@ -58,6 +58,22 @@ public class MSMonsterManager : MonoBehaviour {
 
 	public static MSMonsterManager instance;
 
+	public int currTeamPower
+	{
+		get
+		{
+			int teamPower = 0;
+			foreach (var item in userTeam) 
+			{
+				if (item != null)
+				{
+					teamPower += item.teamCost;
+				}
+			}
+			return teamPower;
+	    }
+	}
+
 //	public long lastEnhance
 //	{
 //		get
@@ -354,12 +370,19 @@ public class MSMonsterManager : MonoBehaviour {
 
 	#region Team Management
 	
-	public int AddToTeam(PZMonster monster)
+	public bool AddToTeam(PZMonster monster)
 	{
 		if (_monstersCount == TEAM_SLOTS)
 		{
-			return 0;
+			MSActionManager.Popup.DisplayRedError("Team is full!");
+			return false;
 		}
+		if (monster.teamCost + currTeamPower > MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
+		{
+			MSActionManager.Popup.DisplayRedError("You need a higher power limit to add " + monster.monster.displayName + " to your team. Upgrade your town center!");
+			return false;
+		}
+
 		for (int i = 0; i < userTeam.Length; i++) 
 		{
 			if (userTeam[i] == null || userTeam[i].monster.monsterId <= 0)
@@ -384,10 +407,10 @@ public class MSMonsterManager : MonoBehaviour {
 					MSActionManager.Goon.OnTeamChanged();
 				}
 				
-				return i+1;
+				return true;
 			}
 		}
-		return 0;
+		return false;
 	}	
 	
 	void DealWithAddResponse(int tagNum)
@@ -519,15 +542,20 @@ public class MSMonsterManager : MonoBehaviour {
 
 	public void SpeedUpCombine(PZMonster monster)
 	{
-		combiningMonsters.Remove(monster);
-		
-		PrepareNewCombinePiecesRequest();
-		
-		combineRequestProto.userMonsterIds.Add(monster.userMonster.userMonsterId);
-		
-		combineRequestProto.gemCost = monster.combineFinishGems;
-		
-		SendCombineRequest();
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, monster.combineFinishGems))
+		{
+			monster.userMonster.isComplete = true;
+
+			combiningMonsters.Remove(monster);
+			
+			PrepareNewCombinePiecesRequest();
+			
+			combineRequestProto.userMonsterIds.Add(monster.userMonster.userMonsterId);
+			
+			combineRequestProto.gemCost = monster.combineFinishGems;
+			
+			SendCombineRequest();
+		}
 	}
 	
 //	#endregion

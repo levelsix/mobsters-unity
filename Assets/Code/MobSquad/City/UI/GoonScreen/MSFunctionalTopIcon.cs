@@ -29,13 +29,13 @@ public class MSFunctionalTopIcon : MonoBehaviour
 
 	static readonly Dictionary<GoonScreenMode, string> baseWords = new Dictionary<GoonScreenMode, string>()
 	{
-		{GoonScreenMode.TEAM, "My Team"},
-		{GoonScreenMode.SELL, "Sell Mobsters"},
-		{GoonScreenMode.HEAL, "Heal Mobsters"},
-		{GoonScreenMode.PICK_ENHANCE, "Enhance Mobsters"},
-		{GoonScreenMode.DO_ENHANCE, "Enhance Mobsters"},
-		{GoonScreenMode.PICK_EVOLVE, "Evolve Mobsters"},
-		{GoonScreenMode.DO_EVOLVE, "Evolve Mobsters"}
+		{GoonScreenMode.TEAM, "MY TEAM"},
+		{GoonScreenMode.SELL, "SELL TOONS"},
+		{GoonScreenMode.HEAL, "HEAL TOONS"},
+		{GoonScreenMode.PICK_ENHANCE, "ENHANCE TOONS"},
+		{GoonScreenMode.DO_ENHANCE, "ENHANCE TOONS"},
+		{GoonScreenMode.PICK_EVOLVE, "EVOLVE TOONS"},
+		{GoonScreenMode.DO_EVOLVE, "EVOLVE TOONS"}
 	};
 
 	void Awake()

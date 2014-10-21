@@ -61,7 +61,7 @@ public class MSSellScreen : MSFunctionalScreen {
 
 	void SetHeaderText()
 	{
-		goonScreen.title = "SELL MOBSTERS (" + MSMonsterManager.instance.userMonsters.Count + "/"
+		goonScreen.title = "SELL TOONS (" + MSMonsterManager.instance.userMonsters.Count + "/"
 			+ MSMonsterManager.instance.totalResidenceSlots + ")";
 	}
 

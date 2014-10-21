@@ -20,6 +20,9 @@ public class MSClanListScreen : MonoBehaviour {
 	[SerializeField]
 	MSClanPopup popup;
 
+	[SerializeField]
+	GameObject loading;
+
 	List<MSClanListEntry> currEntries = new List<MSClanListEntry>();
 
 	int beforeId = 0;
@@ -39,16 +42,17 @@ public class MSClanListScreen : MonoBehaviour {
 		{
 			search = "";
 		}
+		loading.SetActive(true);
 		IEnumerator searcher = MSClanManager.instance.SearchClanListing(search, beforeId);
 		while(searcher.MoveNext())
 		{
-
 			yield return searcher.Current;
 		}
 		List<FullClanProtoWithClanSize> clans = MSClanManager.instance.postedClans;
 		foreach (var item in clans){
 			AddEntry (item);
 		}
+		loading.SetActive(false);
 
 		Debug.Log("Clans: " + entryGrid.transform.childCount);
 

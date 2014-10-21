@@ -73,6 +73,14 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		}
 	}
 
+	int totalCost
+	{
+		get
+		{
+			return feeders.Count * enhanceMonster.enhanceCost;
+		}
+	}
+
 	void Awake()
 	{
 		instance = this;
@@ -107,12 +115,6 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	void RefreshStats()
 	{
-		int totalCost = 0;
-		foreach(PZMonster monster in feeders)
-		{
-			totalCost += monster.enhanceXP;
-		}
-
 		finishButtonLabel.text = "Enhance\n(o) " + totalCost;
 		
 
@@ -152,21 +154,17 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	{
 		if (feeders.Count > 0)
 		{
-			float currXp = enhanceMonster.userMonster.currentExp + 
-				/*feeders[0].enhanceProgress*/1 * feeders[0].enhanceXP;
-			float currLevel = enhanceMonster.LevelForMonster(currXp);
-			levelLabel.text = "Level " + ((int)currLevel) + ":";
-			topBar.fill = currLevel % 1;
-
-
-			if ((int)currLevel < (int)futureLevel)
+			float currLevel = enhanceMonster.LevelForMonster(enhanceMonster.userMonster.currentExp);
+			levelLabel.text = "Level " + ((int)futureLevel) + ":";
+			if ((int)currLevel == (int)futureLevel)
 			{
-				bottomBar.fill = 1;
+				topBar.fill = currLevel % 1;
 			}
 			else
 			{
-				bottomBar.fill = futureLevel%1;
+				topBar.fill = 0;
 			}
+			bottomBar.fill = futureLevel%1;
 		}
 		else
 		{
@@ -205,19 +203,17 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	public void Finish()
 	{
-		//no longer uses a timer
-		//MSMonsterManager.instance.DoSpeedUpEnhance(MSMath.GemsForTime(feeders[feeders.Count-1].enhanceTimeLeft), loadLock);
-		int totalCost = 0;
-		foreach(PZMonster monster in feeders)
-		{
-			totalCost += monster.enhanceXP;
-		}
-		if(MSResourceManager.instance.Spend(ResourceType.OIL, totalCost, delegate {
-			MSMonsterManager.instance.DoEnhanceRequest(0, Mathf.CeilToInt(totalCost * MSWhiteboard.constants.gemsPerResource),loadLock);
-		}))
+		if(MSResourceManager.instance.Spend(ResourceType.OIL, totalCost, FinishBySpendingGemsForOil))
 		{
 			MSMonsterManager.instance.DoEnhanceRequest(totalCost, 0, loadLock);
 		}
+	}
+
+	void FinishBySpendingGemsForOil()
+	{
+		int oilSpent = MSResourceManager.instance.SpendAll(ResourceType.OIL);
+		int gems = Mathf.CeilToInt((totalCost - oilSpent) * MSWhiteboard.constants.gemsPerResource);
+		MSMonsterManager.instance.DoEnhanceRequest(oilSpent, gems, loadLock);
 	}
 
 	public void Back()

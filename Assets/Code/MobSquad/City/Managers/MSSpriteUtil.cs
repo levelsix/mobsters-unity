@@ -303,7 +303,7 @@ public class MSSpriteUtil : MonoBehaviour {
 		while (!Caching.ready)
 			yield return null;
 		
-		Debug.Log ("Grabbing bundle: " + bundleName);
+		//Debug.Log ("Grabbing bundle: " + bundleName);
 
 		if (bundles.ContainsKey(bundleName))
 		{
@@ -314,18 +314,18 @@ public class MSSpriteUtil : MonoBehaviour {
 			yield break;
 		}
 		
-		Debug.Log ("Actually grabbing bundle: " + bundleName);
+		//Debug.Log ("Actually grabbing bundle: " + bundleName);
 		
 		bundles[bundleName] = null;
 		
 		// Load the AssetBundle file from Cache if it exists with the same version or download and store it in the cache
 		using(WWW www = WWW.LoadFromCacheOrDownload (AWS + bundleName + ".unity3d", 1)){
 			yield return www;
-			Debug.Log("In here: " + bundleName + ((www.error != null) ? ("\nError: " + www.error) : ("Fine")));
+			//Debug.Log("In here: " + bundleName + ((www.error != null) ? ("\nError: " + www.error) : ("Fine")));
 
 			if (www.error != null)
 			{
-				Debug.LogError("WWW download of " + bundleName + " had an error:" + www.error);
+				//Debug.LogError("WWW download of " + bundleName + " had an error:" + www.error);
 				bundles.Remove(bundleName);
 				yield return StartCoroutine(DownloadAndCache(bundleName, attempts+1));
 				yield break;
@@ -333,7 +333,7 @@ public class MSSpriteUtil : MonoBehaviour {
 
 			AssetBundle bundle = www.assetBundle;
 
-			Debug.Log("Loaded bundle: " + bundleName);
+			//Debug.Log("Loaded bundle: " + bundleName);
 
 			bundles[bundleName] = bundle;
 			

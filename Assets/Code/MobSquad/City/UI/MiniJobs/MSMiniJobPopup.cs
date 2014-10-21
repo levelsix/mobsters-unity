@@ -390,6 +390,7 @@ public class MSMiniJobPopup : MonoBehaviour {
 		}
 		goonGrid.Reposition();
 		tapHint.ResetAlpha(true);
+		time.text = MSUtil.TimeStringShort(currJob.durationMinutes * 60 * 1000);
 	}
 
 	void InitRightAlreadyOnJob()

@@ -30,14 +30,13 @@ public class MSGoonTeamCard : MonoBehaviour {
 	UILabel bottomLabel;
 
 	[SerializeField]
-	Color tintColor;
+	MSUIHelper number;
 
 	bool firstTime = true;
 
 	public PZMonster goon;
 
-	const string EMPTY_SLOT_NAME_LABEL = "Team Slot Open";
-	const string EMPTY_SLOT_BOTTOM_LABEL = "Tap [33ff33]+[-] to add";
+	const string EMPTY_SLOT_BOTTOM_LABEL = "Tap to Add";
 
 	const string HEALING_BOTTOM_LABEL = "Slot Open";
 
@@ -67,7 +66,6 @@ public class MSGoonTeamCard : MonoBehaviour {
 
 	public void InitLab(PZMonster goon)
 	{
-
 		Setup (goon, true);
 
 		bottomLabel.text = " ";
@@ -89,6 +87,7 @@ public class MSGoonTeamCard : MonoBehaviour {
 					nameLabel.GetComponent<MSUIHelper>().ResetAlpha(true);
 					barBG.GetComponent<MSUIHelper>().ResetAlpha(false);
 					emptyLabel.GetComponent<MSUIHelper>().ResetAlpha(false);
+					number.ResetAlpha(false);
 				}
 				else
 				{
@@ -96,6 +95,7 @@ public class MSGoonTeamCard : MonoBehaviour {
 					nameLabel.GetComponent<MSUIHelper>().Fade(true);
 					barBG.GetComponent<MSUIHelper>().Fade(false);
 					emptyLabel.GetComponent<MSUIHelper>().Fade(false);
+					number.Fade(false);
 				}
 			}
 			else
@@ -110,6 +110,7 @@ public class MSGoonTeamCard : MonoBehaviour {
 					nameLabel.GetComponent<MSUIHelper>().ResetAlpha(true);
 					barBG.GetComponent<MSUIHelper>().ResetAlpha(true);
 					emptyLabel.GetComponent<MSUIHelper>().ResetAlpha(false);
+					number.ResetAlpha(false);
 				}
 				else
 				{
@@ -117,6 +118,7 @@ public class MSGoonTeamCard : MonoBehaviour {
 					nameLabel.GetComponent<MSUIHelper>().Fade(true);
 					barBG.GetComponent<MSUIHelper>().Fade(true);
 					emptyLabel.GetComponent<MSUIHelper>().Fade(false);
+					number.ResetAlpha(false);
 				}
 			}
 		}
@@ -132,6 +134,7 @@ public class MSGoonTeamCard : MonoBehaviour {
 				nameLabel.GetComponent<MSUIHelper>().ResetAlpha(false);
 				barBG.GetComponent<MSUIHelper>().ResetAlpha(false);
 				emptyLabel.GetComponent<MSUIHelper>().ResetAlpha(true);
+				number.ResetAlpha(true);
 			}
 			else
 			{
@@ -139,9 +142,11 @@ public class MSGoonTeamCard : MonoBehaviour {
 				nameLabel.GetComponent<MSUIHelper>().Fade(false);
 				barBG.GetComponent<MSUIHelper>().Fade(false);
 				emptyLabel.GetComponent<MSUIHelper>().Fade(true);
+				number.ResetAlpha(true);
 			}
 		}
-		
+
+		SetAsFirstEmpty(this == MSTeamScreen.instance.firstOpenCard);
 		
 		this.goon = goon;
 	}
@@ -155,12 +160,25 @@ public class MSGoonTeamCard : MonoBehaviour {
 		MSMonsterManager.instance.RemoveFromTeam(goon);
 	}
 
+	/// <summary>
+	/// Only the first empty team card should have its bottom label visible.
+	/// </summary>
+	public void SetAsFirstEmpty(bool isFirst)
+	{
+		bottomLabel.GetComponent<MSUIHelper>().Fade(isFirst);
+	}
+
 	void OnMonsterRemovedFromInventory(long userMonsterId)
 	{
 		if (goon.userMonster.userMonsterId == userMonsterId)
 		{
 			Setup (null, true);
 		}
+	}
+
+	void OnTeamChanged(PZMonster monster)
+	{
+		SetAsFirstEmpty(this == MSTeamScreen.instance.firstOpenCard);
 	}
 
 }

@@ -604,6 +604,15 @@ namespace com.lvl6.proto
       get { return _charImgHorizPixelOffset; }
       set { _charImgHorizPixelOffset = value; }
     }
+
+    private float _charImgScaleFactor = default(float);
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"charImgScaleFactor", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float charImgScaleFactor
+    {
+      get { return _charImgScaleFactor; }
+      set { _charImgScaleFactor = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

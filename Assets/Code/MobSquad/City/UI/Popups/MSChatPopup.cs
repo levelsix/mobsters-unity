@@ -210,6 +210,9 @@ public class MSChatPopup : MonoBehaviour {
 				}
 				else
 				{
+					Debug.Log("Sending global message\n"
+					          + "Name: " + request.sender.name
+					          + "Avatar: " + request.sender.avatarMonsterId);
 					request.scope = GroupChatScope.GLOBAL;
 				}
 				request.chatMessage = inputField.label.text;

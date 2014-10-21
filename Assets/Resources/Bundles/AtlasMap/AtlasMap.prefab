@@ -94,7 +94,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: darkfeederevent
-    x: 1267
+    x: 1481
     y: 1415
     width: 106
     height: 81
@@ -120,7 +120,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: earthdailylab
-    x: 495
+    x: 498
     y: 924
     width: 2
     height: 100
@@ -133,7 +133,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthfeederevent
-    x: 1481
+    x: 1374
     y: 1415
     width: 106
     height: 81
@@ -186,7 +186,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: FatBoylight
     x: 730
-    y: 647
+    y: 827
     width: 177
     height: 179
     borderLeft: 0
@@ -199,7 +199,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: FatBoywater
     x: 730
-    y: 827
+    y: 647
     width: 177
     height: 179
     borderLeft: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: firedailylab
-    x: 504
+    x: 489
     y: 924
     width: 2
     height: 100
@@ -276,7 +276,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightdailylab
-    x: 498
+    x: 504
     y: 924
     width: 2
     height: 100
@@ -289,7 +289,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightfeederevent
-    x: 1053
+    x: 1267
     y: 1415
     width: 106
     height: 81
@@ -302,7 +302,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockedboss
-    x: 994
+    x: 1083
     y: 1210
     width: 88
     height: 71
@@ -315,7 +315,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockedcity
-    x: 1172
+    x: 994
     y: 1210
     width: 88
     height: 71
@@ -328,8 +328,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockedcitypin
-    x: 2005
-    y: 1614
+    x: 2002
+    y: 1538
     width: 42
     height: 59
     borderLeft: 0
@@ -341,7 +341,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lockeddailylab
-    x: 492
+    x: 501
     y: 924
     width: 2
     height: 100
@@ -393,7 +393,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightdailylab
-    x: 501
+    x: 495
     y: 924
     width: 2
     height: 100
@@ -406,8 +406,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: opencitypin
-    x: 2002
-    y: 1538
+    x: 2005
+    y: 1614
     width: 42
     height: 59
     borderLeft: 0
@@ -458,7 +458,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: opennight
-    x: 1590
+    x: 1520
     y: 1220
     width: 69
     height: 61
@@ -471,7 +471,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: openrainbow
-    x: 1083
+    x: 1172
     y: 1210
     width: 88
     height: 71
@@ -484,7 +484,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: openwater
-    x: 1520
+    x: 1590
     y: 1220
     width: 69
     height: 61
@@ -550,7 +550,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: Scientistdark
     x: 730
-    y: 101
+    y: 283
     width: 116
     height: 181
     borderLeft: 0
@@ -563,19 +563,6 @@ MonoBehaviour:
     paddingBottom: 0
   - name: Scientistearth
     x: 730
-    y: 283
-    width: 116
-    height: 181
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 51
-    paddingRight: 33
-    paddingTop: 19
-    paddingBottom: 0
-  - name: Scientistfire
-    x: 730
     y: 465
     width: 116
     height: 181
@@ -587,7 +574,7 @@ MonoBehaviour:
     paddingRight: 33
     paddingTop: 19
     paddingBottom: 0
-  - name: Scientistlight
+  - name: Scientistfire
     x: 1918
     y: 1220
     width: 116
@@ -600,9 +587,22 @@ MonoBehaviour:
     paddingRight: 33
     paddingTop: 19
     paddingBottom: 0
-  - name: Scientistwater
+  - name: Scientistlight
     x: 1885
     y: 1416
+    width: 116
+    height: 181
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 51
+    paddingRight: 33
+    paddingTop: 19
+    paddingBottom: 0
+  - name: Scientistwater
+    x: 730
+    y: 101
     width: 116
     height: 181
     borderLeft: 0
@@ -627,7 +627,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: waterdailylab
-    x: 489
+    x: 492
     y: 924
     width: 2
     height: 100
@@ -640,7 +640,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: waterfeederevent
-    x: 1374
+    x: 1053
     y: 1415
     width: 106
     height: 81
@@ -680,7 +680,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: Map-Ziggurat-HTF-Black
     x: 0
-    y: 1537
+    y: 1025
     width: 510
     height: 511
     borderLeft: 0
@@ -693,7 +693,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: Map-GothamNarrow-UltraItalic
     x: 0
-    y: 1025
+    y: 1537
     width: 510
     height: 511
     borderLeft: 0
@@ -783,8 +783,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: diamondribbon
-    x: 1023
-    y: 1853
+    x: 511
+    y: 1402
     width: 541
     height: 195
     borderLeft: 0
@@ -796,19 +796,6 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: silverplatinumribbon
-    x: 511
-    y: 1598
-    width: 541
-    height: 195
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: championribbon
     x: 1053
     y: 1598
     width: 541
@@ -821,9 +808,22 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
-  - name: bronzegoldribbon
+  - name: championribbon
     x: 511
-    y: 1402
+    y: 1598
+    width: 541
+    height: 195
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: bronzegoldribbon
+    x: 1023
+    y: 1853
     width: 541
     height: 195
     borderLeft: 0

@@ -114,4 +114,21 @@ namespace com.lvl6.proto
       MINI_JOB = 5
     }
   
+    [global::ProtoBuf.ProtoContract(Name=@"GameType")]
+    public enum GameType
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"NO_TYPE", Value=1)]
+      NO_TYPE = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"STRUCTURE", Value=2)]
+      STRUCTURE = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"RESEARCH", Value=3)]
+      RESEARCH = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SKILL", Value=4)]
+      SKILL = 4
+    }
+  
 }

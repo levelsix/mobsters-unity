@@ -119,8 +119,24 @@ public class MSGoonCard : MonoBehaviour {
 	[SerializeField]
 	GameObject lockIcon;
 
+	[SerializeField]
+	Color cashTextColor;
+
 	#endregion
-	
+
+	#region Finish UI
+
+	[SerializeField]
+	MSUIHelper finishUI;
+
+	[SerializeField]
+	UILabel finishTime;
+
+	[SerializeField]
+	UILabel finishGems;
+
+	#endregion
+
 	#endregion
 	
 	#region Image Constants
@@ -190,12 +206,22 @@ public class MSGoonCard : MonoBehaviour {
 
 	bool _dark = false;
 
+	bool fitsOnTeam
+	{
+		get
+		{
+			return monster.teamCost + MSMonsterManager.instance.currTeamPower <= MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit;
+		}
+	}
+
 	void OnEnable()
 	{
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += CheckRemovedMonster;
 		MSActionManager.Goon.OnEnhanceQueueChanged += OnEnhancementQueueChanged;
 		MSActionManager.Goon.OnMonsterFinishHeal += OnMonsterFinishHeal;
 		MSActionManager.Goon.OnFinishFeeding += OnMonsterFinishFeed;
+		MSActionManager.Goon.OnMonsterRemoveTeam += OnMonsterTeamRemove;
+		MSActionManager.Goon.OnMonsterAddTeam += OnMonsterTeamAdd;
 	}
 
 	void OnDisable()
@@ -204,6 +230,8 @@ public class MSGoonCard : MonoBehaviour {
 		MSActionManager.Goon.OnEnhanceQueueChanged -= OnEnhancementQueueChanged;
 		MSActionManager.Goon.OnMonsterFinishHeal -= OnMonsterFinishHeal;
 		MSActionManager.Goon.OnFinishFeeding -= OnMonsterFinishFeed;
+		MSActionManager.Goon.OnMonsterRemoveTeam -= OnMonsterTeamRemove;
+		MSActionManager.Goon.OnMonsterAddTeam -= OnMonsterTeamAdd;
 	}
 
 	public void Init(PZMonster goon, GoonScreenMode mode)
@@ -250,8 +278,6 @@ public class MSGoonCard : MonoBehaviour {
 		healCostLabel.text = "$" + goon.healCost;
 		healCostLabel.color = Color.black;
 
-
-
 		infoButton.SetActive(false);
 
 		if (goon.monsterStatus == MonsterStatus.HEALING)
@@ -287,6 +313,24 @@ public class MSGoonCard : MonoBehaviour {
 				widget.ParentHasChanged();
 			}
 		}
+
+		CheckFitsOnTeam();
+	}
+
+	void CheckFitsOnTeam()
+	{
+		if (monster.monsterStatus == MonsterStatus.HEALTHY || monster.monsterStatus == MonsterStatus.INJURED)
+		{
+			if (monster.userMonster.teamSlotNum == 0 && !fitsOnTeam)
+			{
+				TintElements (true);
+				bottomCardLabel.text = "Power: [ff0000]" + monster.teamCost + "[-]";
+			}
+			else
+			{
+				TintElements(false);
+			}
+		}
 	}
 
 	void SetName()
@@ -302,15 +346,15 @@ public class MSGoonCard : MonoBehaviour {
 			bottomCardLabel.text = "MiniJob";
 			break;
 		case MonsterStatus.COMBINING:
-			name = "4 Unavailable 4 Combining";
-			bottomCardLabel.text = "Combining...";
+			name = "4 Unavailable 2 Combining";
+			bottomCardLabel.text = "";
 			break;
 		case MonsterStatus.ENHANCING:
-			name = "4 Unavailable 3 Enhancing";
+			name = "4 Unavailable 4 Enhancing";
 			bottomCardLabel.text = "Enhancing";
 			break;
 		case MonsterStatus.HEALING:
-			name = "4 Unavailable 2 Healing";
+			name = "4 Unavailable 3 Healing";
 			bottomCardLabel.text = "Healing";
 			break;
 		case MonsterStatus.INJURED:
@@ -465,7 +509,7 @@ public class MSGoonCard : MonoBehaviour {
 			name = goon.sellValue.ToString();
 
 			healCostLabel.text = "$" + goon.sellValue;
-			healCostLabel.color = Color.green;
+			healCostLabel.color = cashTextColor;
 		}
 
 	}
@@ -480,6 +524,11 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			bottomCardLabel.text = (MSMonsterManager.instance.currentEnhancementMonster.PercentageOfAddedLevelup(monster.enhanceXP) * 100).ToString("N0") + "% for $" + monster.enhanceCost;
 		}
+	}
+
+	void Setup()
+	{
+		Setup(monster);
 	}
 
 	void Setup(PZMonster goon)
@@ -540,6 +589,11 @@ public class MSGoonCard : MonoBehaviour {
 		nameLabel.text = goon.monster.displayName + " [4a7eae]L" + goon.userMonster.currentLvl + "[-]";
 	}
 
+	void SetupGemsToComplete()
+	{
+
+	}
+
 	void SetTextOverCard (PZMonster goon)
 	{
 		if (!goon.userMonster.isComplete)
@@ -592,17 +646,11 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		if (monster.userMonster.teamSlotNum == 0)
 		{
-			if (MSMonsterManager.instance.AddToTeam(monster) == 0)
-			{
-				MSActionManager.Popup.DisplayRedError("Team is already full!");
-			}
-			else
+			if (MSMonsterManager.instance.AddToTeam(monster))
 			{
 				transform.parent = MSTeamScreen.instance.playerTeam[monster.userMonster.teamSlotNum-1].transform;
 				SpringPosition.Begin(gameObject, Vector3.zero, 15);
-				bigHelper.FadeOutAndOff();
-				mediumHelper.ResetAlpha(false);
-				mediumHelper.FadeIn();
+				StartCoroutine(ShiftSpriteSizes(bigHelper, mediumHelper));
 				MSTeamScreen.instance.mobsterGrid.Reposition();
 				foreach (var widget in GetComponentsInChildren<UIWidget>()) 
 				{
@@ -622,9 +670,7 @@ public class MSGoonCard : MonoBehaviour {
 			widget.ParentHasChanged();
 		}
 
-		bigHelper.ResetAlpha(false);
-		bigHelper.FadeIn();
-		mediumHelper.FadeOutAndOff();
+		StartCoroutine(ShiftSpriteSizes(mediumHelper, bigHelper));
 
 		MSMonsterManager.instance.RemoveFromTeam(monster);
 	}
@@ -669,9 +715,7 @@ public class MSGoonCard : MonoBehaviour {
 		foreach (var widget in GetComponentsInChildren<UIWidget> ()) {
 			widget.ParentHasChanged ();
 		}
-		mediumHelper.FadeOutAndOff();
-		smallHelper.ResetAlpha(false);
-		smallHelper.FadeIn();
+		StartCoroutine(ShiftSpriteSizes(mediumHelper, smallHelper));
 	}
 
 	void RemoveFromEnhanceQueue()
@@ -710,10 +754,8 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			widget.ParentHasChanged();
 		}
-		
-		bigHelper.FadeOutAndOff();
-		smallHelper.ResetAlpha(true);
-		smallHelper.FadeIn();
+
+		StartCoroutine(ShiftSpriteSizes(bigHelper, smallHelper));
 	}
 
 	void RemoveFromHealQueue()
@@ -731,9 +773,7 @@ public class MSGoonCard : MonoBehaviour {
 			widget.ParentHasChanged();
 		}
 
-		bigHelper.ResetAlpha(false);
-		bigHelper.FadeIn();
-		smallHelper.FadeOutAndOff();
+		StartCoroutine(ShiftSpriteSizes(smallHelper, bigHelper));
 	}
 
 	void AddToSellQueue()
@@ -758,10 +798,8 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			widget.ParentHasChanged();
 		}
-		
-		bigHelper.FadeOutAndOff();
-		smallHelper.ResetAlpha(false);
-		smallHelper.FadeIn();
+
+		StartCoroutine (ShiftSpriteSizes(bigHelper, smallHelper));
 	}
 
 	void RemoveFromSellQueue()
@@ -777,9 +815,7 @@ public class MSGoonCard : MonoBehaviour {
 			widget.ParentHasChanged();
 		}
 
-		bigHelper.ResetAlpha(false);
-		bigHelper.FadeIn();
-		smallHelper.FadeOutAndOff();
+		StartCoroutine(ShiftSpriteSizes(smallHelper, bigHelper));
 	}
 
 	void PickForEvolve()
@@ -790,7 +826,9 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void SpeedUpCombine()
 	{
+		//TODO: Make this into a coroutine with a loading thingy
 		MSMonsterManager.instance.SpeedUpCombine(monster);
+		Setup();
 	}
 
 	void OnClick()
@@ -854,17 +892,45 @@ public class MSGoonCard : MonoBehaviour {
 		}
 	}
 
+	public IEnumerator ShiftSpriteSizes(MSUIHelper from, MSUIHelper to)
+	{
+		UISprite fromSprite = from.GetComponent<UISprite>();
+		UISprite toSprite = to.GetComponent<UISprite>();
+
+		from.FadeOutAndOff();
+
+		to.ResetAlpha(false);
+		to.FadeIn();
+
+		float ratio = fromSprite.width/((float)toSprite.width);
+		toSprite.transform.localScale = new Vector3(ratio, ratio);
+		TweenScale.Begin(toSprite.gameObject, to.fadeTime, Vector3.one);
+		TweenScale.Begin(fromSprite.gameObject, from.fadeTime, new Vector3(1/ratio, 1/ratio));
+
+		while (fromSprite.alpha > 0)
+		{
+			yield return null;
+		}
+
+		fromSprite.transform.localScale = Vector3.one;
+
+	}
+
 	public IEnumerator PhaseOut()
 	{
 		transform.parent = transform.parent.parent;
 		TweenAlpha tween;
-		if(cardBackground.alpha != 0)
+		if(cardBackground.gameObject.activeSelf)
 		{
 			tween = TweenAlpha.Begin(cardBackground.gameObject, .3f, 0);
 		}
-		else
+		else if (smallBG.gameObject.activeSelf)
 		{
 			tween = TweenAlpha.Begin(smallBG.gameObject, .3f, 0);
+		}
+		else
+		{
+			tween = TweenAlpha.Begin(mediumBG.gameObject, .3f, 0);
 		}
 		while (tween.tweenFactor < 1)
 		{
@@ -916,7 +982,6 @@ public class MSGoonCard : MonoBehaviour {
 //			{
 			smallBarRoot.SetActive(false);
 			smallBottomLabel.text = monster.enhanceXP + "xp";
-//			}
 			break;
 		}
 	}
@@ -942,6 +1007,7 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		if (this.monster == monster)
 		{
+			smallBarLabel.text = "fed";
 			StartCoroutine(PhaseOut());
 			if (goonScreenMode == GoonScreenMode.DO_ENHANCE)
 			{
@@ -953,11 +1019,30 @@ public class MSGoonCard : MonoBehaviour {
 
 	void OnMonsterFinishHeal(PZMonster monster)
 	{
-		if (this.monster == monster && goonScreenMode == GoonScreenMode.HEAL)
+		if (goonScreenMode == GoonScreenMode.HEAL)
 		{
-			StartCoroutine(PhaseOut());
-			MSHealScreen.instance.Remove(this);
-			MSHealScreen.instance.healQueue.Reposition();
+			if (this.monster == monster)
+			{
+				StartCoroutine(PhaseOut());
+				MSHealScreen.instance.Remove(this);
+				MSHealScreen.instance.healQueue.Reposition();
+			}
+		}
+	}
+
+	void OnMonsterTeamAdd(PZMonster monster)
+	{
+		if (this.monster.userMonster.teamSlotNum == 0)
+		{
+			InitTeam(this.monster);
+		}
+	}
+
+	void OnMonsterTeamRemove(PZMonster monster)
+	{
+		if (this.monster.userMonster.teamSlotNum == 0)
+		{
+			InitTeam(this.monster);
 		}
 	}
 

@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Structure.proto
+// Note: requires additional types generated from: SharedEnumConfig.proto
 namespace com.lvl6.proto
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"StructureInfoProto")]
@@ -1039,6 +1040,24 @@ namespace com.lvl6.proto
       get { return _structInfo; }
       set { _structInfo = value; }
     }
+
+    private com.lvl6.proto.Quality _qualityUnlocked = com.lvl6.proto.Quality.COMMON;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"qualityUnlocked", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Quality.COMMON)]
+    public com.lvl6.proto.Quality qualityUnlocked
+    {
+      get { return _qualityUnlocked; }
+      set { _qualityUnlocked = value; }
+    }
+
+    private int _evoTierUnlocked = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"evoTierUnlocked", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int evoTierUnlocked
+    {
+      get { return _evoTierUnlocked; }
+      set { _evoTierUnlocked = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1057,6 +1076,15 @@ namespace com.lvl6.proto
     {
       get { return _structInfo; }
       set { _structInfo = value; }
+    }
+
+    private int _teamCostLimit = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"teamCostLimit", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int teamCostLimit
+    {
+      get { return _teamCostLimit; }
+      set { _teamCostLimit = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

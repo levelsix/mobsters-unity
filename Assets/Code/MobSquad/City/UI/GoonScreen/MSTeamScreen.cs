@@ -9,6 +9,21 @@ public class MSTeamScreen : MSFunctionalScreen {
 
 	public MSMobsterGrid mobsterGrid;
 
+	public MSGoonTeamCard firstOpenCard
+	{
+		get
+		{
+			for (int i = 0; i < playerTeam.Length; i++) 
+			{
+				if (MSMonsterManager.instance.userTeam[i] == null || MSMonsterManager.instance.userTeam[i].monster.monsterId == 0)
+				{
+					return playerTeam[i];
+				}
+			}
+			return null;
+		}
+	}
+
 	int currTeammates;
 
 	public override bool IsAvailable()
@@ -52,7 +67,7 @@ public class MSTeamScreen : MSFunctionalScreen {
 
 	void RefreshTitle(int newTeammates)
 	{
-		MSPopupManager.instance.popups.goonScreen.title = "MY TEAM (" + newTeammates + "/3)";
+		MSPopupManager.instance.popups.goonScreen.title = "TEAM (POWER " + MSMonsterManager.instance.currTeamPower + "/" + MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit + ")"; 
 	}
 
 	void OnMobsterAdded(PZMonster monster)

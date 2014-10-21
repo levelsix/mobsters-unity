@@ -23,6 +23,9 @@ public class PZCombatManager : MonoBehaviour {
 
 	public bool pvpMode = false;
 
+	[SerializeField]
+	GameObject quitPvpButton;
+
 	public bool raidMode = false;
 
 	public bool waitingForTutorialSignal = false;
@@ -751,6 +754,13 @@ public class PZCombatManager : MonoBehaviour {
 
 		enemySkillIndicator.Init(activeEnemy.monster.defensiveSkill, activeEnemy.monster.monster.monsterElement);
 
+		StartCoroutine(TweenInPvp());
+	}
+
+	IEnumerator TweenInPvp()
+	{
+		TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 1f ,1f);
+
 		boardMove.Sample(0, false);
 		boardMove.delay = 1f;
 		boardMove.PlayForward();
@@ -760,6 +770,11 @@ public class PZCombatManager : MonoBehaviour {
 		boardTint.Sample(1, false);
 		//boardTint.PlayReverse();
 		//PZPuzzleManager.instance.swapLock = 0;
+
+		while (boardMove.tweenFactor < 1 || turnDisplay.moveInTween.tweenFactor < 1)
+		{
+			yield return null;
+		}
 
 		RunPickNextTurn(false);
 	}
@@ -998,6 +1013,11 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 		PZPuzzleManager.instance.swapLock += 1;
+
+		while(!activePlayer.unit.hasSprite)
+		{
+			yield return null;
+		}
 
 		yield return StartCoroutine (activePlayer.AdvanceTo (playerXPos, -background.direction, background.scrollSpeed, false));
 		activePlayer.unit.direction = MSValues.Direction.EAST;
@@ -1799,7 +1819,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		*/
 
-		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
+		//activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 	}
 
 	public IEnumerator EnemyReturnToStartPosition(){

@@ -30,7 +30,22 @@ public class MSHospital {
 
 	PZMonster _goon = null;
 
-	public long completeTime = 0;
+	long _completeTime = 0;
+
+	public long completeTime
+	{
+		get
+		{
+			return _completeTime;
+		}
+		set
+		{
+			_completeTime = value;
+			completeTimeInt = (int)value;
+		}
+	}
+
+	public int completeTimeInt;
 
 	public PZMonster goon
 	{

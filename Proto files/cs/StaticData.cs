@@ -15,6 +15,7 @@
 // Note: requires additional types generated from: Clan.proto
 // Note: requires additional types generated from: Item.proto
 // Note: requires additional types generated from: MonsterStuff.proto
+// Note: requires additional types generated from: Prerequisite.proto
 // Note: requires additional types generated from: Quest.proto
 // Note: requires additional types generated from: Skill.proto
 // Note: requires additional types generated from: Structure.proto
@@ -244,6 +245,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.SkillProto> skills
     {
       get { return _skills; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PrereqProto> _prereqs = new global::System.Collections.Generic.List<com.lvl6.proto.PrereqProto>();
+    [global::ProtoBuf.ProtoMember(33, Name=@"prereqs", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PrereqProto> prereqs
+    {
+      get { return _prereqs; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

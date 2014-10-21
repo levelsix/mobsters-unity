@@ -375,6 +375,8 @@ public static class MSUtil {
 		MSWhiteboard.localMup = new MinimumUserProto();
 		MSWhiteboard.localMup.userId = user.userId;
 		MSWhiteboard.localMup.clan = user.clan;
+		MSWhiteboard.localMup.name = user.name;
+		MSWhiteboard.localMup.avatarMonsterId = user.avatarMonsterId;
 		
 		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
 		

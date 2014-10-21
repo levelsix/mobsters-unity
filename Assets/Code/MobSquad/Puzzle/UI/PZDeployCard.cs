@@ -13,6 +13,9 @@ public class PZDeployCard : MonoBehaviour {
 	
 	[SerializeField]
 	UISprite bar;
+
+	[SerializeField]
+	UILabel hpLabel;
 	
 	UIButton button;
 	
@@ -38,7 +41,7 @@ public class PZDeployCard : MonoBehaviour {
 	{
 		monster = goon;
 		
-		background.spriteName = backgroundDict[goon.monster.monsterElement];
+		button.normalSprite = background.spriteName = backgroundDict[goon.monster.monsterElement];
 		
 		string goonPrefix = MSUtil.StripExtensions (goon.monster.imagePrefix);
 		MSSpriteUtil.instance.SetSprite(goonPrefix, goonPrefix + "Thumbnail", goonSprite);
@@ -51,6 +54,8 @@ public class PZDeployCard : MonoBehaviour {
 		background.alpha = 1;
 		bar.alpha = 1;
 		goonSprite.alpha = 1;
+
+		hpLabel.text = goon.currHP + "/" + goon.maxHP;
 	}
 	
 	public void InitEmpty()

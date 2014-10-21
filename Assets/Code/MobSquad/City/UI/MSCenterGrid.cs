@@ -29,7 +29,7 @@ public class MSCenterGrid : UIGrid {
 		
 		if (sorted)
 		{
-			BetterList<Transform> list = new BetterList<Transform>();
+			List<Transform> list = new List<Transform>();
 			
 			for (int i = 0; i < myTrans.childCount; ++i)
 			{
@@ -38,7 +38,7 @@ public class MSCenterGrid : UIGrid {
 			}
 			Sort(list);
 			
-			for (int i = 0, imax = list.size; i < imax; ++i)
+			for (int i = 0, imax = list.Count; i < imax; ++i)
 			{
 				Transform t = list[i];
 				
@@ -46,7 +46,7 @@ public class MSCenterGrid : UIGrid {
 				
 				float depth = t.localPosition.z;
 				Vector3 pos = (arrangement == Arrangement.Horizontal) ?
-					new Vector3(cellWidth * x - (list.size-1) * cellWidth / 2, -cellHeight * y, depth) :
+					new Vector3(cellWidth * x - (list.Count-1) * cellWidth / 2, -cellHeight * y, depth) :
 						new Vector3(cellWidth * y, -cellHeight * x, depth);
 				
 				if (animateSmoothly && Application.isPlaying)
