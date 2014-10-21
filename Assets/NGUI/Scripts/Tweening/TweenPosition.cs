@@ -57,7 +57,7 @@ public class TweenPosition : UITweener
 	/// Tween the value.
 	/// </summary>
 
-	protected override void OnUpdate (float factor, bool isFinished) { value = Vector3.Lerp(from, to, factor); } // from * (1f - factor) + to * factor;
+	protected override void OnUpdate (float factor, bool isFinished) { value = from * (1f - factor) + to * factor; }
 
 	/// <summary>
 	/// Start the tweening operation.
@@ -66,6 +66,25 @@ public class TweenPosition : UITweener
 	static public TweenPosition Begin (GameObject go, float duration, Vector3 pos)
 	{
 		TweenPosition comp = UITweener.Begin<TweenPosition>(go, duration);
+		comp.from = comp.value;
+		comp.to = pos;
+
+		if (duration <= 0f)
+		{
+			comp.Sample(1f, true);
+			comp.enabled = false;
+		}
+		return comp;
+	}
+
+	/// <summary>
+	/// Start the tweening operation.
+	/// </summary>
+
+	static public TweenPosition Begin (GameObject go, float duration, Vector3 pos, bool worldSpace)
+	{
+		TweenPosition comp = UITweener.Begin<TweenPosition>(go, duration);
+		comp.worldSpace = worldSpace;
 		comp.from = comp.value;
 		comp.to = pos;
 

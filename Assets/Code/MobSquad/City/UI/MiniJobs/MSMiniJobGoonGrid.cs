@@ -56,7 +56,7 @@ public class MSMiniJobGoonGrid : UIGrid {
 		                   (b.GetComponent<MSMiniJobGoonie>().goonie.totalDamage); 
 	}
 
-	protected override void Sort (BetterList<Transform> list)
+	protected override void Sort (List<Transform> list)
 	{
 		switch (sortingMode) 
 		{

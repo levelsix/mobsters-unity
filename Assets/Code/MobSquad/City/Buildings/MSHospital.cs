@@ -8,7 +8,6 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// MSHospital
 /// </summary>
-[System.Serializable]
 public class MSHospital {
 
 	public MSBuilding building = null;
