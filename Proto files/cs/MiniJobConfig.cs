@@ -233,6 +233,15 @@ namespace com.lvl6.proto
       get { return _miniJob; }
       set { _miniJob = value; }
     }
+
+    private int _durationSeconds = default(int);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"durationSeconds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int durationSeconds
+    {
+      get { return _durationSeconds; }
+      set { _durationSeconds = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
