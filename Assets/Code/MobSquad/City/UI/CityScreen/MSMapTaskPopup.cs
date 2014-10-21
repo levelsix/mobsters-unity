@@ -118,19 +118,19 @@ public class MSMapTaskPopup : MonoBehaviour {
 			switch(pEvent.monsterElement)
 			{
 			case Element.DARK:
-				MSSpriteUtil.instance.SetAnimator("fat_boy_purple", eventAnimation);
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("fat_boy_purple", eventAnimation));
 				break;
 			case Element.EARTH:
-				MSSpriteUtil.instance.SetAnimator("fat_boy_green", eventAnimation);
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("fat_boy_green", eventAnimation));
 				break;
 			case Element.FIRE:
-				MSSpriteUtil.instance.SetAnimator("fat_boy_red", eventAnimation);
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("fat_boy_red", eventAnimation));
 				break;
 			case Element.LIGHT:
-				MSSpriteUtil.instance.SetAnimator("fat_boy_yellow", eventAnimation);
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("fat_boy_yellow", eventAnimation));
 				break;
 			case Element.WATER:
-				MSSpriteUtil.instance.SetAnimator("fat_boy_blue", eventAnimation);
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("fat_boy_blue", eventAnimation));
 				break;
 			}
 		}
@@ -139,19 +139,22 @@ public class MSMapTaskPopup : MonoBehaviour {
 			switch(pEvent.monsterElement)
 			{
 			case Element.DARK:
-				MSSpriteUtil.instance.SetAnimator("scientist_purple", eventAnimation);
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("scientist_purple", eventAnimation));
 				break;
 			case Element.EARTH:
-				MSSpriteUtil.instance.SetAnimator("scientist_green", eventAnimation);
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("scientist_green", eventAnimation));
 				break;
 			case Element.FIRE:
-				MSSpriteUtil.instance.SetAnimator("scientist_red", eventAnimation);
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("scientist_red", eventAnimation));
 				break;
 			case Element.LIGHT:
-				MSSpriteUtil.instance.SetAnimator("scientist_yellow", eventAnimation);
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("scientist_yellow", eventAnimation));
 				break;
 			case Element.WATER:
-				MSSpriteUtil.instance.SetAnimator("scientist_blue", eventAnimation);
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("scientist_blue", eventAnimation));
+				break;
+			default:
+				Debug.LogError("Event Element Animation not fount");
 				break;
 			}
 		}
