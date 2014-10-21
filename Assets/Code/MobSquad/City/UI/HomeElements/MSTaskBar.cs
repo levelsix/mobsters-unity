@@ -43,6 +43,8 @@ public class MSTaskBar : MonoBehaviour {
 	MSBuilding currBuilding;
 	
 	MSUnit currUnit;
+
+	public bool manageTeamNeedsArrow = false;
 	
 	const int BUTTON_WIDTH = 75;
 	
@@ -99,7 +101,7 @@ public class MSTaskBar : MonoBehaviour {
 		}
 	}
 	
-	void AddButton(MSTaskButton.Mode mode)
+	MSTaskButton AddButton(MSTaskButton.Mode mode)
 	{
 		MSTaskButton button = MSPoolManager.instance.Get(taskButtonPrefab, Vector3.zero) as MSTaskButton;
 		if (currBuilding != null)
@@ -127,6 +129,8 @@ public class MSTaskBar : MonoBehaviour {
 			button.Setup(mode, currUnit);
 		}
 		taskButtons.Add(button);
+
+		return button;
 	}
 	
 	void SortButtons()
@@ -181,7 +185,13 @@ public class MSTaskBar : MonoBehaviour {
 				}
 				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.TEAM_CENTER)
 				{
-					AddButton(MSTaskButton.Mode.TEAM);
+					MSTaskButton button = AddButton(MSTaskButton.Mode.TEAM);
+					if(manageTeamNeedsArrow)
+					{
+						MSTutorialArrow.instance.Init(button.trans, 150, MSValues.Direction.EAST);
+						button.hintArrow = MSTutorialArrow.instance;
+						manageTeamNeedsArrow = false;
+					}
 				}
 				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.LAB
 				         && building.combinedProto.structInfo.level > 0)

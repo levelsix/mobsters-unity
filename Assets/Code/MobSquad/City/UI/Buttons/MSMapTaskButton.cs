@@ -59,8 +59,8 @@ public class MSMapTaskButton : MonoBehaviour {
 		Undefeated
 	}
 	
-	const string CLOSED_CITY = "lockedboss";
-	const string CLOSED_BOSS = "lockedcity";
+	const string CLOSED_CITY = "lockedcity";
+	const string CLOSED_BOSS = "lockedboss";
 
 	TaskStatusType _status = TaskStatusType.Undefeated;
 

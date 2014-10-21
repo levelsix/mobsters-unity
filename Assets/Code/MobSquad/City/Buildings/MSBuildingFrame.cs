@@ -28,10 +28,8 @@ public abstract class MSBuildingFrame : MonoBehaviour {
 		{
 			return false;
 		}
-		else
-		{
-			return true;
-		}
+
+		return true;
 	}
 
 	/// <summary>

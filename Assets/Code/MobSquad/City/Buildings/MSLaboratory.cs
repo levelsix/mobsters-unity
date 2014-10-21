@@ -14,6 +14,14 @@ public class MSLaboratory : MSBuildingFrame {
 //		}
 //	}
 
+	private readonly Vector3 OFFSET = new Vector3(-0.1f, 3.75f, 0f);
+
+	void Awake()
+	{
+		base.Awake();
+		bubbleIcon.transform.localPosition = OFFSET;
+	}
+
 	void OnEnable(){
 		MSActionManager.Goon.OnEnhanceQueueChanged += CheckTag;
 		MSActionManager.Scene.OnCity += CheckTag;

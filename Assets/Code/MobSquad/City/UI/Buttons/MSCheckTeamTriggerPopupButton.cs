@@ -59,6 +59,7 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 
 		//Popup error message
 		MSActionManager.Popup.DisplayRedError("You have no toons on your team. Manage your team now.");
+		MSTaskBar.instance.manageTeamNeedsArrow = true;
 	}
 
 	void CouldHaveMoreOnTeamFail()
@@ -69,6 +70,7 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 		
 		//Popup error message
 		MSActionManager.Popup.DisplayGreenError("You have healthy toons available! Manage your team now.");
+		MSTaskBar.instance.manageTeamNeedsArrow = true;
 	}
 
 	void TooMuchPowerFail()

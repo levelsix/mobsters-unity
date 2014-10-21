@@ -42,8 +42,6 @@ public class MSMapTaskPopupSwitcher : MonoBehaviour {
 		MSActionManager.Map.OnMapTaskClicked += clickedMapTask;
 		MSActionManager.Popup.CloseAllPopups += swapper.Close;
 		MSActionManager.Popup.CloseAllPopups += delegate { curPopup = Popup.NONE; };
-
-		Debug.Log(mapTaskB.transform.localPosition.ToString());
 	}
 
 	public void EndOfTween()

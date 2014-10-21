@@ -3766,7 +3766,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 90, y: 32, z: 0}
+  m_LocalPosition: {x: 90, y: 31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400218}
@@ -3944,7 +3944,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100244}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90, y: 32, z: 0}
+  m_LocalPosition: {x: -90, y: 31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400238}
@@ -4502,7 +4502,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -4527,7 +4527,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -4564,7 +4564,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 66
+  mWidth: 60
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -4589,7 +4589,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -4805,7 +4805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 11400020}
   scaleDist: 350
-  minScale: .5
+  minScale: .699999988
   minAlpha: .5
   panelCenter: -50
 --- !u!114 &11400020
@@ -4875,7 +4875,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 72
+  mWidth: 70
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -4900,7 +4900,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -4937,7 +4937,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 94
+  mWidth: 84
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -4962,7 +4962,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -5173,7 +5173,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -5198,7 +5198,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -5333,7 +5333,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3007
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: -3, y: 22.4999924, z: 654, w: 431}
@@ -5382,7 +5382,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 80
+  mWidth: 72
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -5407,7 +5407,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -5627,7 +5627,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 72
+  mWidth: 70
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -5652,7 +5652,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -6045,7 +6045,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 80
+  mWidth: 72
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -6070,7 +6070,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -6615,7 +6615,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -6640,7 +6640,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -6677,7 +6677,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -6702,7 +6702,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -6739,7 +6739,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -6764,7 +6764,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -6851,7 +6851,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 62
+  mWidth: 58
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -6876,7 +6876,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -7011,7 +7011,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.12903237
-  mAtlas: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: 8d0d1f3bcec9b4a3291c402b239699a9, type: 2}
   mSpriteName: detailshadow
   mType: 0
   mFillDirection: 4
@@ -7307,7 +7307,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.12903237
-  mAtlas: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: 8d0d1f3bcec9b4a3291c402b239699a9, type: 2}
   mSpriteName: detailshadow
   mType: 0
   mFillDirection: 4
@@ -7868,7 +7868,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 80
+  mWidth: 72
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -7893,7 +7893,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -7930,7 +7930,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -7955,7 +7955,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -8236,7 +8236,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -8261,7 +8261,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -8867,7 +8867,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 94
+  mWidth: 84
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -8892,7 +8892,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -8953,7 +8953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 11400234}
   scaleDist: 350
-  minScale: .5
+  minScale: .699999988
   minAlpha: .5
   panelCenter: -50
 --- !u!114 &11400230
@@ -9137,7 +9137,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -9162,7 +9162,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -9450,7 +9450,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 66
+  mWidth: 60
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -9475,7 +9475,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -9512,7 +9512,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 80
+  mWidth: 72
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -9537,7 +9537,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -9807,7 +9807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 11400270}
   scaleDist: 350
-  minScale: .5
+  minScale: .699999988
   minAlpha: .5
   panelCenter: -50
 --- !u!114 &11400274
@@ -9902,7 +9902,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 62
+  mWidth: 58
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -9927,7 +9927,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -9995,7 +9995,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3012
+  startingRenderQueue: 3010
   mAlpha: 1
   mClipping: 4
   mClipRange: {x: -1, y: -.500007629, z: 960, w: 126.999985}
@@ -10189,7 +10189,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 94
+  mWidth: 84
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -10214,7 +10214,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -10251,7 +10251,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 62
+  mWidth: 58
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -10276,7 +10276,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -10678,7 +10678,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -10703,7 +10703,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -10790,7 +10790,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 62
+  mWidth: 58
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -10815,7 +10815,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -10914,7 +10914,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 66
+  mWidth: 60
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -10939,7 +10939,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -11203,7 +11203,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -11228,7 +11228,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -11480,7 +11480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 11400352}
   scaleDist: 350
-  minScale: .5
+  minScale: .699999988
   minAlpha: .5
   panelCenter: -50
 --- !u!114 &11400356
@@ -11520,7 +11520,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.12903237
-  mAtlas: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: 8d0d1f3bcec9b4a3291c402b239699a9, type: 2}
   mSpriteName: detailshadow
   mType: 0
   mFillDirection: 4
@@ -11702,7 +11702,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 72
+  mWidth: 70
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -11727,7 +11727,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -11764,7 +11764,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -11789,7 +11789,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -11816,13 +11816,13 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400152}
     relative: 0
-    absolute: 0
+    absolute: -1
   topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
+    target: {fileID: 400152}
+    relative: 0
+    absolute: 63
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -11935,7 +11935,7 @@ MonoBehaviour:
   aspectRatio: 7.77777767
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 90eeabfbbab1341d39030576da2db203, type: 2}
+  mFont: {fileID: 11400000, guid: 65d75ea4cca834180b3beb11adee4e96, type: 2}
   mText: Goonie Grab
   mFontSize: 16
   mFontStyle: 0
@@ -12047,7 +12047,7 @@ MonoBehaviour:
   aspectRatio: 7.77777767
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 90eeabfbbab1341d39030576da2db203, type: 2}
+  mFont: {fileID: 11400000, guid: 65d75ea4cca834180b3beb11adee4e96, type: 2}
   mText: Basic Grab
   mFontSize: 16
   mFontStyle: 0
@@ -12140,13 +12140,13 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   bottomAnchor:
-    target: {fileID: 0}
+    target: {fileID: 400152}
     relative: 0
-    absolute: 0
+    absolute: -1
   topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
+    target: {fileID: 400152}
+    relative: 0
+    absolute: 63
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
@@ -12200,7 +12200,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 94
+  mWidth: 84
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -12225,7 +12225,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -12562,7 +12562,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 72
+  mWidth: 70
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -12587,7 +12587,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -12734,7 +12734,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3013
+  startingRenderQueue: 3011
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: -1, y: -228.5, z: 960, w: 182.999985}
@@ -12779,7 +12779,7 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.12903237
-  mAtlas: {fileID: 0}
+  mAtlas: {fileID: 11400000, guid: 8d0d1f3bcec9b4a3291c402b239699a9, type: 2}
   mSpriteName: detailshadow
   mType: 0
   mFillDirection: 4
@@ -12865,7 +12865,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .53725493, g: .53725493, b: .53725493, a: 1}
   mPivot: 3
-  mWidth: 66
+  mWidth: 60
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -12890,7 +12890,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
@@ -12968,7 +12968,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 3
-  mWidth: 32
+  mWidth: 30
   mHeight: 18
   mDepth: 13
   autoResizeBoxCollider: 0
@@ -12993,7 +12993,7 @@ MonoBehaviour:
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
   mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
+  mSpacingX: -2
   mSpacingY: 0
   mShrinkToFit: 0
   mMaxLineWidth: 0
