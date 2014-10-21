@@ -246,6 +246,8 @@ public class MSHospitalManager : MonoBehaviour {
 				{
 					CompleteHeal(MSHospitalManager.instance.healingMonsters[0]);
 				}
+				
+				RearrangeHealingQueue();
 			}
 			else
 			{
@@ -259,6 +261,8 @@ public class MSHospitalManager : MonoBehaviour {
 			{
 				CompleteHeal(MSHospitalManager.instance.healingMonsters[0]);
 			}
+			
+			RearrangeHealingQueue();
 		}
 
 		loadLock.Unlock();

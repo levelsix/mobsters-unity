@@ -326,6 +326,7 @@ GameObject:
   - 4: {fileID: 400036}
   - 114: {fileID: 11400068}
   - 114: {fileID: 11400064}
+  - 114: {fileID: 11400066}
   m_Layer: 5
   m_Name: Table
   m_TagString: Untagged
@@ -381,7 +382,6 @@ GameObject:
   - 114: {fileID: 11400082}
   - 114: {fileID: 11400084}
   - 54: {fileID: 5400002}
-  - 114: {fileID: 11400066}
   - 114: {fileID: 11400094}
   m_Layer: 5
   m_Name: ChatPanel
@@ -918,7 +918,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.8999996, y: 0, z: 0}
+  m_LocalPosition: {x: 7, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400034}
@@ -1588,7 +1588,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1311, y: 768, z: 0}
+  m_Size: {x: 1366, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500020
 BoxCollider:
@@ -2439,13 +2439,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .382352948, g: .382352948, b: .382352948, a: .443137258}
   mPivot: 3
-  mWidth: 394
-  mHeight: 63
+  mWidth: 672
+  mHeight: 24
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.25396824
+  aspectRatio: 28
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: f695474f783c14a17929e2c84d829ed6, type: 2}
@@ -2459,7 +2459,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 0
+  mOverflow: 1
   mMaterial: {fileID: 0}
   mApplyGradient: 0
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
@@ -2815,7 +2815,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100042}
+  m_GameObject: {fileID: 100036}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd72edbbb404e45c8b817c7973760a73, type: 3}
@@ -3055,7 +3055,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4005
+  startingRenderQueue: 3004
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: -1.52587891e-05, y: 211.350006, z: 920, w: 412}
@@ -3339,7 +3339,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4006
+  startingRenderQueue: 3005
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: -1.52587891e-05, y: -41.5, z: 920, w: 508}
@@ -3542,13 +3542,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1311
+  mWidth: 1366
   mHeight: 768
   mDepth: 50
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.70703125
+  aspectRatio: 1.77864587
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1
@@ -3744,7 +3744,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4004
+  startingRenderQueue: 3003
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 920, w: 591}
@@ -4712,7 +4712,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4006
+  startingRenderQueue: 3005
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 910, w: 200}

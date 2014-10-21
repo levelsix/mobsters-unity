@@ -6,8 +6,8 @@ using com.lvl6.proto;
 [RequireComponent (typeof (MSUIHelper))]
 public class PZSkillIndicator : MonoBehaviour {
 
-	[SerializeField] UISprite fillIcon;
-	[SerializeField] UISprite bwIcon;
+	[SerializeField] UI2DSprite fillIcon;
+	[SerializeField] UI2DSprite bwIcon;
 	[SerializeField] UISprite label;
 
 	MSUIHelper helper;
@@ -27,13 +27,6 @@ public class PZSkillIndicator : MonoBehaviour {
 		{Element.EARTH, "earth"},
 		{Element.LIGHT, "light"},
 		{Element.WATER, "water"}
-	};
-
-	static readonly Dictionary<SkillType, string> skillSprites = new Dictionary<SkillType, string>()
-	{
-		{SkillType.CAKE_DROP, "cakedropicon"},
-		{SkillType.JELLY, "goosplashicon"},
-		{SkillType.QUICK_ATTACK, "cheapshoticon"}
 	};
 
 	const string enemySpritePrefix = "enemy";
@@ -59,9 +52,11 @@ public class PZSkillIndicator : MonoBehaviour {
 				}
 			}
 			monsterElement = userElement;
-			bwIcon.spriteName = fillIcon.spriteName = skillSprites[skill.type];
-			bwIcon.MakePixelPerfect();
-			fillIcon.MakePixelPerfect();
+
+			string skillImgBase = MSUtil.StripExtensions(skill.iconImgName);
+			MSSpriteUtil.instance.SetSprite(skillImgBase, skillImgBase + "icon", bwIcon);
+			MSSpriteUtil.instance.SetSprite(skillImgBase, skillImgBase + "icon", fillIcon);
+
 			SetPoints(0);
 			helper.FadeIn();
 		}

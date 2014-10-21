@@ -1,0 +1,3653 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: BottomChatFont
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4eb3a400afab046abb8471a9d746d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mMat: {fileID: 0}
+  mUVRect:
+    serializedVersion: 2
+    x: .25
+    y: 0
+    width: .25
+    height: .125
+  mFont:
+    mSize: 36
+    mBase: 0
+    mWidth: 512
+    mHeight: 256
+    mSpriteName: BottomChatFont
+    mSaved:
+    - index: 32
+      x: 0
+      y: 1
+      width: 0
+      height: -1
+      offsetX: 0
+      offsetY: 1
+      advance: 7
+      channel: 15
+      kerning: 
+    - index: 33
+      x: 24
+      y: 46
+      width: 10
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 10
+      channel: 15
+      kerning: 
+    - index: 34
+      x: 156
+      y: 1
+      width: 13
+      height: 10
+      offsetX: 4
+      offsetY: 6
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 35
+      x: 199
+      y: 74
+      width: 21
+      height: 26
+      offsetX: 1
+      offsetY: 6
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 36
+      x: 136
+      y: 189
+      width: 19
+      height: 33
+      offsetX: 0
+      offsetY: 3
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 37
+      x: 90
+      y: 205
+      width: 27
+      height: 25
+      offsetX: 2
+      offsetY: 6
+      advance: 30
+      channel: 15
+      kerning: 
+    - index: 38
+      x: 199
+      y: 205
+      width: 22
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 39
+      x: 28
+      y: 157
+      width: 6
+      height: 10
+      offsetX: 4
+      offsetY: 6
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 40
+      x: 271
+      y: 99
+      width: 13
+      height: 31
+      offsetX: 1
+      offsetY: 4
+      advance: 14
+      channel: 15
+      kerning: 
+    - index: 41
+      x: 271
+      y: 36
+      width: 13
+      height: 30
+      offsetX: 0
+      offsetY: 5
+      advance: 14
+      channel: 15
+      kerning: 
+    - index: 42
+      x: 286
+      y: 3
+      width: 14
+      height: 13
+      offsetX: 2
+      offsetY: 6
+      advance: 15
+      channel: 15
+      kerning: 
+    - index: 43
+      x: 414
+      y: 212
+      width: 18
+      height: 18
+      offsetX: 2
+      offsetY: 10
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 44
+      x: 321
+      y: 44
+      width: 9
+      height: 12
+      offsetX: -2
+      offsetY: 25
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 45
+      x: 24
+      y: 72
+      width: 10
+      height: 5
+      offsetX: 1
+      offsetY: 18
+      advance: 12
+      channel: 15
+      kerning: 
+    - index: 46
+      x: 82
+      y: 144
+      width: 7
+      height: 6
+      offsetX: 0
+      offsetY: 25
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 47
+      x: 0
+      y: 106
+      width: 25
+      height: 31
+      offsetX: -4
+      offsetY: 5
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 48
+      x: 222
+      y: 205
+      width: 20
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 49
+      x: 500
+      y: 231
+      width: 11
+      height: 25
+      offsetX: 2
+      offsetY: 6
+      advance: 13
+      channel: 15
+      kerning: 
+    - index: 50
+      x: 243
+      y: 186
+      width: 19
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 51
+      x: 354
+      y: 231
+      width: 18
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 52
+      x: 222
+      y: 179
+      width: 20
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 53
+      x: 243
+      y: 160
+      width: 19
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 54
+      x: 180
+      y: 110
+      width: 18
+      height: 26
+      offsetX: 1
+      offsetY: 5
+      advance: 20
+      channel: 15
+      kerning: 
+    - index: 55
+      x: 180
+      y: 83
+      width: 18
+      height: 26
+      offsetX: 2
+      offsetY: 6
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 56
+      x: 243
+      y: 134
+      width: 19
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 20
+      channel: 15
+      kerning: 
+    - index: 57
+      x: 286
+      y: 204
+      width: 17
+      height: 26
+      offsetX: 2
+      offsetY: 6
+      advance: 20
+      channel: 15
+      kerning: 
+    - index: 58
+      x: 261
+      y: 70
+      width: 9
+      height: 18
+      offsetX: 0
+      offsetY: 13
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 59
+      x: 491
+      y: 181
+      width: 11
+      height: 24
+      offsetX: -2
+      offsetY: 13
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 60
+      x: 180
+      y: 2
+      width: 18
+      height: 20
+      offsetX: 2
+      offsetY: 9
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 61
+      x: 350
+      y: 166
+      width: 18
+      height: 13
+      offsetX: 2
+      offsetY: 12
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 62
+      x: 199
+      y: 1
+      width: 18
+      height: 20
+      offsetX: 1
+      offsetY: 9
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 63
+      x: 337
+      y: 180
+      width: 15
+      height: 25
+      offsetX: 3
+      offsetY: 6
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 64
+      x: 0
+      y: 138
+      width: 27
+      height: 29
+      offsetX: 1
+      offsetY: 8
+      advance: 30
+      channel: 15
+      kerning: 
+    - index: 65
+      x: 156
+      y: 230
+      width: 23
+      height: 26
+      offsetX: -1
+      offsetY: 6
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 66
+      x: 316
+      y: 231
+      width: 18
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 20
+      channel: 15
+      kerning: 
+    - index: 67
+      x: 222
+      y: 127
+      width: 20
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 68
+      x: 199
+      y: 101
+      width: 22
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 24
+      channel: 15
+      kerning: 
+    - index: 69
+      x: 335
+      y: 231
+      width: 18
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 70
+      x: 482
+      y: 231
+      width: 17
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 71
+      x: 199
+      y: 127
+      width: 22
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 24
+      channel: 15
+      kerning: 
+    - index: 72
+      x: 156
+      y: 171
+      width: 23
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 24
+      channel: 15
+      kerning: 
+    - index: 73
+      x: 108
+      y: 84
+      width: 9
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 10
+      channel: 15
+      kerning: 
+    - index: 74
+      x: 353
+      y: 180
+      width: 14
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 14
+      channel: 15
+      kerning: 
+    - index: 75
+      x: 156
+      y: 12
+      width: 22
+      height: 26
+      offsetX: 1
+      offsetY: 6
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 76
+      x: 383
+      y: 180
+      width: 13
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 77
+      x: 59
+      y: 231
+      width: 30
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 31
+      channel: 15
+      kerning: 
+    - index: 78
+      x: 156
+      y: 119
+      width: 23
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 24
+      channel: 15
+      kerning: 
+    - index: 79
+      x: 156
+      y: 93
+      width: 23
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 25
+      channel: 15
+      kerning: 
+    - index: 80
+      x: 243
+      y: 108
+      width: 19
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 81
+      x: 59
+      y: 167
+      width: 23
+      height: 31
+      offsetX: 1
+      offsetY: 6
+      advance: 25
+      channel: 15
+      kerning: 
+    - index: 82
+      x: 222
+      y: 73
+      width: 19
+      height: 26
+      offsetX: 1
+      offsetY: 6
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 83
+      x: 222
+      y: 47
+      width: 19
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 84
+      x: 222
+      y: 153
+      width: 20
+      height: 25
+      offsetX: 2
+      offsetY: 6
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 85
+      x: 199
+      y: 231
+      width: 22
+      height: 25
+      offsetX: 2
+      offsetY: 6
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 86
+      x: 156
+      y: 39
+      width: 22
+      height: 26
+      offsetX: 3
+      offsetY: 5
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 87
+      x: 0
+      y: 230
+      width: 34
+      height: 26
+      offsetX: 3
+      offsetY: 5
+      advance: 35
+      channel: 15
+      kerning: 
+    - index: 88
+      x: 90
+      y: 143
+      width: 24
+      height: 27
+      offsetX: -1
+      offsetY: 5
+      advance: 22
+      channel: 15
+      kerning: 
+    - index: 89
+      x: 156
+      y: 66
+      width: 22
+      height: 26
+      offsetX: 2
+      offsetY: 5
+      advance: 22
+      channel: 15
+      kerning: 
+    - index: 90
+      x: 199
+      y: 153
+      width: 22
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 91
+      x: 180
+      y: 23
+      width: 16
+      height: 29
+      offsetX: 0
+      offsetY: 6
+      advance: 15
+      channel: 15
+      kerning: 
+    - index: 92
+      x: 136
+      y: 124
+      width: 19
+      height: 31
+      offsetX: 1
+      offsetY: 5
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 93
+      x: 180
+      y: 53
+      width: 16
+      height: 29
+      offsetX: -1
+      offsetY: 6
+      advance: 15
+      channel: 15
+      kerning: 
+    - index: 94
+      x: 104
+      y: 1
+      width: 11
+      height: 6
+      offsetX: 4
+      offsetY: 6
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 95
+      x: 35
+      y: 1
+      width: 16
+      height: 3
+      offsetX: -2
+      offsetY: 32
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 96
+      x: 82
+      y: 159
+      width: 7
+      height: 7
+      offsetX: 6
+      offsetY: 5
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 97
+      x: 471
+      y: 212
+      width: 17
+      height: 18
+      offsetX: 0
+      offsetY: 13
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 98
+      x: 286
+      y: 123
+      width: 17
+      height: 26
+      offsetX: 0
+      offsetY: 5
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 99
+      x: 335
+      y: 161
+      width: 14
+      height: 18
+      offsetX: 1
+      offsetY: 13
+      advance: 15
+      channel: 15
+      kerning: 
+    - index: 100
+      x: 222
+      y: 100
+      width: 19
+      height: 26
+      offsetX: 0
+      offsetY: 5
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 101
+      x: 475
+      y: 187
+      width: 15
+      height: 18
+      offsetX: 1
+      offsetY: 13
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 102
+      x: 271
+      y: 164
+      width: 13
+      height: 33
+      offsetX: 0
+      offsetY: 5
+      advance: 11
+      channel: 15
+      kerning: 
+    - index: 103
+      x: 271
+      y: 231
+      width: 18
+      height: 25
+      offsetX: -1
+      offsetY: 13
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 104
+      x: 286
+      y: 177
+      width: 17
+      height: 26
+      offsetX: 0
+      offsetY: 5
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 105
+      x: 24
+      y: 12
+      width: 10
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 106
+      x: 271
+      y: 131
+      width: 13
+      height: 32
+      offsetX: -3
+      offsetY: 6
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 107
+      x: 180
+      y: 137
+      width: 18
+      height: 27
+      offsetX: 0
+      offsetY: 5
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 108
+      x: 24
+      y: 78
+      width: 10
+      height: 27
+      offsetX: 0
+      offsetY: 4
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 109
+      x: 243
+      y: 238
+      width: 27
+      height: 18
+      offsetX: 0
+      offsetY: 13
+      advance: 28
+      channel: 15
+      kerning: 
+    - index: 110
+      x: 397
+      y: 187
+      width: 17
+      height: 18
+      offsetX: 0
+      offsetY: 13
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 111
+      x: 446
+      y: 187
+      width: 16
+      height: 18
+      offsetX: 1
+      offsetY: 13
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 112
+      x: 373
+      y: 231
+      width: 18
+      height: 25
+      offsetX: -1
+      offsetY: 13
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 113
+      x: 286
+      y: 70
+      width: 17
+      height: 25
+      offsetX: 0
+      offsetY: 13
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 114
+      x: 321
+      y: 71
+      width: 13
+      height: 18
+      offsetX: 0
+      offsetY: 13
+      advance: 13
+      channel: 15
+      kerning: 
+    - index: 115
+      x: 335
+      y: 142
+      width: 14
+      height: 18
+      offsetX: 0
+      offsetY: 13
+      advance: 15
+      channel: 15
+      kerning: 
+    - index: 116
+      x: 321
+      y: 128
+      width: 11
+      height: 24
+      offsetX: 1
+      offsetY: 7
+      advance: 12
+      channel: 15
+      kerning: 
+    - index: 117
+      x: 489
+      y: 212
+      width: 17
+      height: 18
+      offsetX: 1
+      offsetY: 13
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 118
+      x: 304
+      y: 5
+      width: 16
+      height: 18
+      offsetX: 1
+      offsetY: 13
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 119
+      x: 290
+      y: 238
+      width: 25
+      height: 18
+      offsetX: 1
+      offsetY: 13
+      advance: 25
+      channel: 15
+      kerning: 
+    - index: 120
+      x: 222
+      y: 1
+      width: 18
+      height: 19
+      offsetX: -1
+      offsetY: 13
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 121
+      x: 222
+      y: 21
+      width: 19
+      height: 25
+      offsetX: -1
+      offsetY: 13
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 122
+      x: 453
+      y: 212
+      width: 17
+      height: 18
+      offsetX: -1
+      offsetY: 13
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 123
+      x: 180
+      y: 195
+      width: 17
+      height: 29
+      offsetX: 1
+      offsetY: 6
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 124
+      x: 82
+      y: 1
+      width: 4
+      height: 33
+      offsetX: 3
+      offsetY: 5
+      advance: 10
+      channel: 15
+      kerning: 
+    - index: 125
+      x: 180
+      y: 165
+      width: 17
+      height: 29
+      offsetX: -1
+      offsetY: 6
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 126
+      x: 90
+      y: 1
+      width: 13
+      height: 6
+      offsetX: 1
+      offsetY: 18
+      advance: 14
+      channel: 15
+      kerning: 
+    - index: 161
+      x: 108
+      y: 46
+      width: 9
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 10
+      channel: 15
+      kerning: 
+    - index: 162
+      x: 286
+      y: 17
+      width: 16
+      height: 26
+      offsetX: 1
+      offsetY: 6
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 163
+      x: 222
+      y: 231
+      width: 20
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 164
+      x: 199
+      y: 48
+      width: 21
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 20
+      channel: 15
+      kerning: 
+    - index: 165
+      x: 199
+      y: 179
+      width: 22
+      height: 25
+      offsetX: 2
+      offsetY: 6
+      advance: 22
+      channel: 15
+      kerning: 
+    - index: 166
+      x: 118
+      y: 143
+      width: 17
+      height: 37
+      offsetX: 0
+      offsetY: 2
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 167
+      x: 243
+      y: 35
+      width: 18
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 168
+      x: 290
+      y: 232
+      width: 12
+      height: 5
+      offsetX: 4
+      offsetY: 7
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 169
+      x: 90
+      y: 8
+      width: 25
+      height: 25
+      offsetX: 2
+      offsetY: 6
+      advance: 29
+      channel: 15
+      kerning: 
+    - index: 170
+      x: 321
+      y: 90
+      width: 13
+      height: 18
+      offsetX: 1
+      offsetY: 6
+      advance: 14
+      channel: 15
+      kerning: 
+    - index: 171
+      x: 35
+      y: 5
+      width: 19
+      height: 19
+      offsetX: 0
+      offsetY: 13
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 172
+      x: 243
+      y: 4
+      width: 18
+      height: 4
+      offsetX: 2
+      offsetY: 17
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 174
+      x: 415
+      y: 188
+      width: 17
+      height: 17
+      offsetX: 3
+      offsetY: 6
+      advance: 20
+      channel: 15
+      kerning: 
+    - index: 175
+      x: 303
+      y: 233
+      width: 11
+      height: 4
+      offsetX: 4
+      offsetY: 7
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 176
+      x: 321
+      y: 57
+      width: 13
+      height: 13
+      offsetX: 3
+      offsetY: 6
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 177
+      x: 199
+      y: 22
+      width: 20
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 178
+      x: 118
+      y: 29
+      width: 17
+      height: 37
+      offsetX: 0
+      offsetY: 2
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 179
+      x: 118
+      y: 67
+      width: 17
+      height: 37
+      offsetX: 0
+      offsetY: 2
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 180
+      x: 24
+      y: 38
+      width: 10
+      height: 7
+      offsetX: 5
+      offsetY: 5
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 181
+      x: 433
+      y: 213
+      width: 19
+      height: 17
+      offsetX: 1
+      offsetY: 10
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 182
+      x: 446
+      y: 231
+      width: 17
+      height: 25
+      offsetX: 2
+      offsetY: 6
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 183
+      x: 82
+      y: 151
+      width: 7
+      height: 7
+      offsetX: 1
+      offsetY: 17
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 184
+      x: 24
+      y: 5
+      width: 9
+      height: 6
+      offsetX: 1
+      offsetY: 32
+      advance: 16
+      channel: 15
+      kerning: 
+    - index: 185
+      x: 118
+      y: 181
+      width: 17
+      height: 37
+      offsetX: 0
+      offsetY: 2
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 186
+      x: 321
+      y: 109
+      width: 13
+      height: 18
+      offsetX: 1
+      offsetY: 6
+      advance: 14
+      channel: 15
+      kerning: 
+    - index: 187
+      x: 355
+      y: 212
+      width: 19
+      height: 18
+      offsetX: -1
+      offsetY: 13
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 188
+      x: 118
+      y: 219
+      width: 17
+      height: 37
+      offsetX: 0
+      offsetY: 2
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 189
+      x: 90
+      y: 34
+      width: 17
+      height: 37
+      offsetX: 0
+      offsetY: 2
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 190
+      x: 90
+      y: 72
+      width: 17
+      height: 37
+      offsetX: 0
+      offsetY: 2
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 191
+      x: 304
+      y: 76
+      width: 16
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 192
+      x: 35
+      y: 223
+      width: 23
+      height: 33
+      offsetX: -1
+      offsetY: -1
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 193
+      x: 0
+      y: 4
+      width: 23
+      height: 33
+      offsetX: -1
+      offsetY: -1
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 194
+      x: 0
+      y: 38
+      width: 23
+      height: 33
+      offsetX: -1
+      offsetY: -1
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 195
+      x: 0
+      y: 72
+      width: 23
+      height: 33
+      offsetX: -1
+      offsetY: -1
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 196
+      x: 35
+      y: 190
+      width: 23
+      height: 32
+      offsetX: -1
+      offsetY: 0
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 197
+      x: 0
+      y: 168
+      width: 23
+      height: 35
+      offsetX: -1
+      offsetY: -3
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 198
+      x: 0
+      y: 204
+      width: 34
+      height: 25
+      offsetX: -2
+      offsetY: 6
+      advance: 31
+      channel: 15
+      kerning: 
+    - index: 199
+      x: 90
+      y: 110
+      width: 20
+      height: 32
+      offsetX: 1
+      offsetY: 6
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 200
+      x: 156
+      y: 197
+      width: 18
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 201
+      x: 136
+      y: 26
+      width: 18
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 202
+      x: 136
+      y: 59
+      width: 18
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 203
+      x: 180
+      y: 225
+      width: 18
+      height: 31
+      offsetX: 1
+      offsetY: 0
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 204
+      x: 24
+      y: 171
+      width: 9
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 10
+      channel: 15
+      kerning: 
+    - index: 205
+      x: 271
+      y: 198
+      width: 14
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 10
+      channel: 15
+      kerning: 
+    - index: 206
+      x: 271
+      y: 3
+      width: 12
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 10
+      channel: 15
+      kerning: 
+    - index: 207
+      x: 271
+      y: 67
+      width: 13
+      height: 31
+      offsetX: 1
+      offsetY: 0
+      advance: 10
+      channel: 15
+      kerning: 
+    - index: 208
+      x: 156
+      y: 145
+      width: 23
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 25
+      channel: 15
+      kerning: 
+    - index: 209
+      x: 35
+      y: 124
+      width: 23
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 24
+      channel: 15
+      kerning: 
+    - index: 210
+      x: 35
+      y: 91
+      width: 23
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 25
+      channel: 15
+      kerning: 
+    - index: 211
+      x: 35
+      y: 58
+      width: 23
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 25
+      channel: 15
+      kerning: 
+    - index: 212
+      x: 35
+      y: 157
+      width: 23
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 25
+      channel: 15
+      kerning: 
+    - index: 213
+      x: 35
+      y: 25
+      width: 23
+      height: 32
+      offsetX: 1
+      offsetY: -1
+      advance: 25
+      channel: 15
+      kerning: 
+    - index: 214
+      x: 59
+      y: 199
+      width: 23
+      height: 31
+      offsetX: 1
+      offsetY: 0
+      advance: 25
+      channel: 15
+      kerning: 
+    - index: 215
+      x: 118
+      y: 105
+      width: 17
+      height: 37
+      offsetX: 0
+      offsetY: 2
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 216
+      x: 90
+      y: 231
+      width: 27
+      height: 25
+      offsetX: -1
+      offsetY: 6
+      advance: 25
+      channel: 15
+      kerning: 
+    - index: 217
+      x: 59
+      y: 134
+      width: 22
+      height: 32
+      offsetX: 2
+      offsetY: -1
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 218
+      x: 59
+      y: 101
+      width: 22
+      height: 32
+      offsetX: 2
+      offsetY: -1
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 219
+      x: 59
+      y: 68
+      width: 22
+      height: 32
+      offsetX: 2
+      offsetY: -1
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 220
+      x: 59
+      y: 3
+      width: 22
+      height: 31
+      offsetX: 2
+      offsetY: 0
+      advance: 23
+      channel: 15
+      kerning: 
+    - index: 221
+      x: 59
+      y: 35
+      width: 22
+      height: 32
+      offsetX: 2
+      offsetY: -1
+      advance: 22
+      channel: 15
+      kerning: 
+    - index: 222
+      x: 243
+      y: 212
+      width: 19
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 20
+      channel: 15
+      kerning: 
+    - index: 223
+      x: 90
+      y: 171
+      width: 20
+      height: 33
+      offsetX: 0
+      offsetY: 5
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 224
+      x: 392
+      y: 231
+      width: 17
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 225
+      x: 243
+      y: 9
+      width: 18
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 226
+      x: 410
+      y: 231
+      width: 17
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 227
+      x: 428
+      y: 231
+      width: 17
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 228
+      x: 304
+      y: 206
+      width: 17
+      height: 24
+      offsetX: 0
+      offsetY: 7
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 229
+      x: 118
+      y: 1
+      width: 17
+      height: 27
+      offsetX: 0
+      offsetY: 4
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 230
+      x: 243
+      y: 89
+      width: 26
+      height: 18
+      offsetX: 0
+      offsetY: 13
+      advance: 27
+      channel: 15
+      kerning: 
+    - index: 231
+      x: 368
+      y: 180
+      width: 14
+      height: 25
+      offsetX: 1
+      offsetY: 13
+      advance: 15
+      channel: 15
+      kerning: 
+    - index: 232
+      x: 304
+      y: 24
+      width: 15
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 233
+      x: 304
+      y: 180
+      width: 16
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 234
+      x: 321
+      y: 180
+      width: 15
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 235
+      x: 339
+      y: 206
+      width: 15
+      height: 24
+      offsetX: 1
+      offsetY: 7
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 236
+      x: 26
+      y: 111
+      width: 8
+      height: 26
+      offsetX: 0
+      offsetY: 5
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 237
+      x: 321
+      y: 153
+      width: 13
+      height: 26
+      offsetX: 0
+      offsetY: 5
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 238
+      x: 463
+      y: 180
+      width: 11
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 239
+      x: 433
+      y: 181
+      width: 12
+      height: 24
+      offsetX: 0
+      offsetY: 7
+      advance: 9
+      channel: 15
+      kerning: 
+    - index: 240
+      x: 243
+      y: 61
+      width: 17
+      height: 27
+      offsetX: 1
+      offsetY: 4
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 241
+      x: 286
+      y: 44
+      width: 17
+      height: 25
+      offsetX: 0
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 242
+      x: 304
+      y: 50
+      width: 16
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 243
+      x: 304
+      y: 102
+      width: 16
+      height: 25
+      offsetX: 2
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 244
+      x: 304
+      y: 128
+      width: 16
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 245
+      x: 304
+      y: 154
+      width: 16
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 246
+      x: 322
+      y: 206
+      width: 16
+      height: 24
+      offsetX: 1
+      offsetY: 7
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 247
+      x: 375
+      y: 211
+      width: 18
+      height: 19
+      offsetX: 2
+      offsetY: 9
+      advance: 21
+      channel: 15
+      kerning: 
+    - index: 248
+      x: 394
+      y: 212
+      width: 19
+      height: 18
+      offsetX: -1
+      offsetY: 13
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 249
+      x: 286
+      y: 150
+      width: 17
+      height: 26
+      offsetX: 1
+      offsetY: 5
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 250
+      x: 286
+      y: 96
+      width: 17
+      height: 26
+      offsetX: 1
+      offsetY: 5
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 251
+      x: 464
+      y: 231
+      width: 17
+      height: 25
+      offsetX: 1
+      offsetY: 6
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 252
+      x: 136
+      y: 1
+      width: 17
+      height: 24
+      offsetX: 1
+      offsetY: 7
+      advance: 18
+      channel: 15
+      kerning: 
+    - index: 253
+      x: 136
+      y: 156
+      width: 19
+      height: 32
+      offsetX: -1
+      offsetY: 6
+      advance: 17
+      channel: 15
+      kerning: 
+    - index: 254
+      x: 136
+      y: 223
+      width: 19
+      height: 33
+      offsetX: -1
+      offsetY: 5
+      advance: 19
+      channel: 15
+      kerning: 
+    - index: 255
+      x: 136
+      y: 92
+      width: 19
+      height: 31
+      offsetX: -1
+      offsetY: 7
+      advance: 17
+      channel: 15
+      kerning: 
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mReplacement: {fileID: 0}
+  mSymbols:
+  - sequence: "\xA9"
+    spriteName: 00a9
+  - sequence: "\xAE"
+    spriteName: 00ae
+  - sequence: "\U0001F004"
+    spriteName: 1f004
+  - sequence: "\U0001F0CF"
+    spriteName: 1f0cf
+  - sequence: "\U0001F170"
+    spriteName: 1f170
+  - sequence: "\U0001F171"
+    spriteName: 1f171
+  - sequence: "\U0001F17E"
+    spriteName: 1f17e
+  - sequence: "\U0001F17F"
+    spriteName: 1f17f
+  - sequence: "\U0001F18E"
+    spriteName: 1f18e
+  - sequence: "\U0001F191"
+    spriteName: 1f191
+  - sequence: "\U0001F192"
+    spriteName: 1f192
+  - sequence: "\U0001F193"
+    spriteName: 1f193
+  - sequence: "\U0001F194"
+    spriteName: 1f194
+  - sequence: "\U0001F195"
+    spriteName: 1f195
+  - sequence: "\U0001F196"
+    spriteName: 1f196
+  - sequence: "\U0001F197"
+    spriteName: 1f197
+  - sequence: "\U0001F198"
+    spriteName: 1f198
+  - sequence: "\U0001F199"
+    spriteName: 1f199
+  - sequence: "\U0001F19A"
+    spriteName: 1f19a
+  - sequence: "\U0001F1E8\U0001F1F3"
+    spriteName: 1f1e8-1f1f3
+  - sequence: "\U0001F1E9\U0001F1EA"
+    spriteName: 1f1e9-1f1ea
+  - sequence: "\U0001F1EA\U0001F1F8"
+    spriteName: 1f1ea-1f1f8
+  - sequence: "\U0001F1EB\U0001F1F7"
+    spriteName: 1f1eb-1f1f7
+  - sequence: "\U0001F1EC\U0001F1E7"
+    spriteName: 1f1ec-1f1e7
+  - sequence: "\U0001F1EE\U0001F1F9"
+    spriteName: 1f1ee-1f1f9
+  - sequence: "\U0001F1EF\U0001F1F5"
+    spriteName: 1f1ef-1f1f5
+  - sequence: "\U0001F1F0\U0001F1F7"
+    spriteName: 1f1f0-1f1f7
+  - sequence: "\U0001F1F7\U0001F1FA"
+    spriteName: 1f1f7-1f1fa
+  - sequence: "\U0001F1FA\U0001F1F8"
+    spriteName: 1f1fa-1f1f8
+  - sequence: "\U0001F201"
+    spriteName: 1f201
+  - sequence: "\U0001F202"
+    spriteName: 1f202
+  - sequence: "\U0001F21A"
+    spriteName: 1f21a
+  - sequence: "\U0001F22F"
+    spriteName: 1f22f
+  - sequence: "\U0001F232"
+    spriteName: 1f232
+  - sequence: "\U0001F233"
+    spriteName: 1f233
+  - sequence: "\U0001F234"
+    spriteName: 1f234
+  - sequence: "\U0001F235"
+    spriteName: 1f235
+  - sequence: "\U0001F236"
+    spriteName: 1f236
+  - sequence: "\U0001F237"
+    spriteName: 1f237
+  - sequence: "\U0001F238"
+    spriteName: 1f238
+  - sequence: "\U0001F239"
+    spriteName: 1f239
+  - sequence: "\U0001F23A"
+    spriteName: 1f23a
+  - sequence: "\U0001F250"
+    spriteName: 1f250
+  - sequence: "\U0001F251"
+    spriteName: 1f251
+  - sequence: "\U0001F300"
+    spriteName: 1f300
+  - sequence: "\U0001F301"
+    spriteName: 1f301
+  - sequence: "\U0001F302"
+    spriteName: 1f302
+  - sequence: "\U0001F303"
+    spriteName: 1f303
+  - sequence: "\U0001F304"
+    spriteName: 1f304
+  - sequence: "\U0001F305"
+    spriteName: 1f305
+  - sequence: "\U0001F306"
+    spriteName: 1f306
+  - sequence: "\U0001F307"
+    spriteName: 1f307
+  - sequence: "\U0001F308"
+    spriteName: 1f308
+  - sequence: "\U0001F309"
+    spriteName: 1f309
+  - sequence: "\U0001F30A"
+    spriteName: 1f30a
+  - sequence: "\U0001F30B"
+    spriteName: 1f30b
+  - sequence: "\U0001F30C"
+    spriteName: 1f30c
+  - sequence: "\U0001F30D"
+    spriteName: 1f30d
+  - sequence: "\U0001F30E"
+    spriteName: 1f30e
+  - sequence: "\U0001F30F"
+    spriteName: 1f30f
+  - sequence: "\U0001F310"
+    spriteName: 1f310
+  - sequence: "\U0001F311"
+    spriteName: 1f311
+  - sequence: "\U0001F312"
+    spriteName: 1f312
+  - sequence: "\U0001F313"
+    spriteName: 1f313
+  - sequence: "\U0001F314"
+    spriteName: 1f314
+  - sequence: "\U0001F315"
+    spriteName: 1f315
+  - sequence: "\U0001F316"
+    spriteName: 1f316
+  - sequence: "\U0001F317"
+    spriteName: 1f317
+  - sequence: "\U0001F318"
+    spriteName: 1f318
+  - sequence: "\U0001F319"
+    spriteName: 1f319
+  - sequence: "\U0001F31A"
+    spriteName: 1f31a
+  - sequence: "\U0001F31B"
+    spriteName: 1f31b
+  - sequence: "\U0001F31C"
+    spriteName: 1f31c
+  - sequence: "\U0001F31D"
+    spriteName: 1f31d
+  - sequence: "\U0001F31E"
+    spriteName: 1f31e
+  - sequence: "\U0001F31F"
+    spriteName: 1f31f
+  - sequence: "\U0001F320"
+    spriteName: 1f320
+  - sequence: "\U0001F330"
+    spriteName: 1f330
+  - sequence: "\U0001F331"
+    spriteName: 1f331
+  - sequence: "\U0001F332"
+    spriteName: 1f332
+  - sequence: "\U0001F333"
+    spriteName: 1f333
+  - sequence: "\U0001F334"
+    spriteName: 1f334
+  - sequence: "\U0001F335"
+    spriteName: 1f335
+  - sequence: "\U0001F337"
+    spriteName: 1f337
+  - sequence: "\U0001F338"
+    spriteName: 1f338
+  - sequence: "\U0001F339"
+    spriteName: 1f339
+  - sequence: "\U0001F33A"
+    spriteName: 1f33a
+  - sequence: "\U0001F33B"
+    spriteName: 1f33b
+  - sequence: "\U0001F33C"
+    spriteName: 1f33c
+  - sequence: "\U0001F33D"
+    spriteName: 1f33d
+  - sequence: "\U0001F33E"
+    spriteName: 1f33e
+  - sequence: "\U0001F33F"
+    spriteName: 1f33f
+  - sequence: "\U0001F340"
+    spriteName: 1f340
+  - sequence: "\U0001F341"
+    spriteName: 1f341
+  - sequence: "\U0001F342"
+    spriteName: 1f342
+  - sequence: "\U0001F343"
+    spriteName: 1f343
+  - sequence: "\U0001F344"
+    spriteName: 1f344
+  - sequence: "\U0001F345"
+    spriteName: 1f345
+  - sequence: "\U0001F346"
+    spriteName: 1f346
+  - sequence: "\U0001F347"
+    spriteName: 1f347
+  - sequence: "\U0001F348"
+    spriteName: 1f348
+  - sequence: "\U0001F349"
+    spriteName: 1f349
+  - sequence: "\U0001F34A"
+    spriteName: 1f34a
+  - sequence: "\U0001F34B"
+    spriteName: 1f34b
+  - sequence: "\U0001F34C"
+    spriteName: 1f34c
+  - sequence: "\U0001F34D"
+    spriteName: 1f34d
+  - sequence: "\U0001F34E"
+    spriteName: 1f34e
+  - sequence: "\U0001F34F"
+    spriteName: 1f34f
+  - sequence: "\U0001F350"
+    spriteName: 1f350
+  - sequence: "\U0001F351"
+    spriteName: 1f351
+  - sequence: "\U0001F352"
+    spriteName: 1f352
+  - sequence: "\U0001F353"
+    spriteName: 1f353
+  - sequence: "\U0001F354"
+    spriteName: 1f354
+  - sequence: "\U0001F355"
+    spriteName: 1f355
+  - sequence: "\U0001F356"
+    spriteName: 1f356
+  - sequence: "\U0001F357"
+    spriteName: 1f357
+  - sequence: "\U0001F358"
+    spriteName: 1f358
+  - sequence: "\U0001F359"
+    spriteName: 1f359
+  - sequence: "\U0001F35A"
+    spriteName: 1f35a
+  - sequence: "\U0001F35B"
+    spriteName: 1f35b
+  - sequence: "\U0001F35C"
+    spriteName: 1f35c
+  - sequence: "\U0001F35D"
+    spriteName: 1f35d
+  - sequence: "\U0001F35E"
+    spriteName: 1f35e
+  - sequence: "\U0001F35F"
+    spriteName: 1f35f
+  - sequence: "\U0001F360"
+    spriteName: 1f360
+  - sequence: "\U0001F361"
+    spriteName: 1f361
+  - sequence: "\U0001F362"
+    spriteName: 1f362
+  - sequence: "\U0001F363"
+    spriteName: 1f363
+  - sequence: "\U0001F364"
+    spriteName: 1f364
+  - sequence: "\U0001F365"
+    spriteName: 1f365
+  - sequence: "\U0001F366"
+    spriteName: 1f366
+  - sequence: "\U0001F367"
+    spriteName: 1f367
+  - sequence: "\U0001F368"
+    spriteName: 1f368
+  - sequence: "\U0001F369"
+    spriteName: 1f369
+  - sequence: "\U0001F36A"
+    spriteName: 1f36a
+  - sequence: "\U0001F36B"
+    spriteName: 1f36b
+  - sequence: "\U0001F36C"
+    spriteName: 1f36c
+  - sequence: "\U0001F36D"
+    spriteName: 1f36d
+  - sequence: "\U0001F36E"
+    spriteName: 1f36e
+  - sequence: "\U0001F36F"
+    spriteName: 1f36f
+  - sequence: "\U0001F370"
+    spriteName: 1f370
+  - sequence: "\U0001F371"
+    spriteName: 1f371
+  - sequence: "\U0001F372"
+    spriteName: 1f372
+  - sequence: "\U0001F373"
+    spriteName: 1f373
+  - sequence: "\U0001F374"
+    spriteName: 1f374
+  - sequence: "\U0001F375"
+    spriteName: 1f375
+  - sequence: "\U0001F376"
+    spriteName: 1f376
+  - sequence: "\U0001F377"
+    spriteName: 1f377
+  - sequence: "\U0001F378"
+    spriteName: 1f378
+  - sequence: "\U0001F379"
+    spriteName: 1f379
+  - sequence: "\U0001F37A"
+    spriteName: 1f37a
+  - sequence: "\U0001F37B"
+    spriteName: 1f37b
+  - sequence: "\U0001F37C"
+    spriteName: 1f37c
+  - sequence: "\U0001F380"
+    spriteName: 1f380
+  - sequence: "\U0001F381"
+    spriteName: 1f381
+  - sequence: "\U0001F382"
+    spriteName: 1f382
+  - sequence: "\U0001F383"
+    spriteName: 1f383
+  - sequence: "\U0001F384"
+    spriteName: 1f384
+  - sequence: "\U0001F385"
+    spriteName: 1f385
+  - sequence: "\U0001F386"
+    spriteName: 1f386
+  - sequence: "\U0001F387"
+    spriteName: 1f387
+  - sequence: "\U0001F388"
+    spriteName: 1f388
+  - sequence: "\U0001F389"
+    spriteName: 1f389
+  - sequence: "\U0001F38A"
+    spriteName: 1f38a
+  - sequence: "\U0001F38B"
+    spriteName: 1f38b
+  - sequence: "\U0001F38C"
+    spriteName: 1f38c
+  - sequence: "\U0001F38D"
+    spriteName: 1f38d
+  - sequence: "\U0001F38E"
+    spriteName: 1f38e
+  - sequence: "\U0001F38F"
+    spriteName: 1f38f
+  - sequence: "\U0001F390"
+    spriteName: 1f390
+  - sequence: "\U0001F391"
+    spriteName: 1f391
+  - sequence: "\U0001F392"
+    spriteName: 1f392
+  - sequence: "\U0001F393"
+    spriteName: 1f393
+  - sequence: "\U0001F3A0"
+    spriteName: 1f3a0
+  - sequence: "\U0001F3A1"
+    spriteName: 1f3a1
+  - sequence: "\U0001F3A2"
+    spriteName: 1f3a2
+  - sequence: "\U0001F3A3"
+    spriteName: 1f3a3
+  - sequence: "\U0001F3A4"
+    spriteName: 1f3a4
+  - sequence: "\U0001F3A5"
+    spriteName: 1f3a5
+  - sequence: "\U0001F3A6"
+    spriteName: 1f3a6
+  - sequence: "\U0001F3A7"
+    spriteName: 1f3a7
+  - sequence: "\U0001F3A8"
+    spriteName: 1f3a8
+  - sequence: "\U0001F3A9"
+    spriteName: 1f3a9
+  - sequence: "\U0001F3AA"
+    spriteName: 1f3aa
+  - sequence: "\U0001F3AB"
+    spriteName: 1f3ab
+  - sequence: "\U0001F3AC"
+    spriteName: 1f3ac
+  - sequence: "\U0001F3AD"
+    spriteName: 1f3ad
+  - sequence: "\U0001F3AE"
+    spriteName: 1f3ae
+  - sequence: "\U0001F3AF"
+    spriteName: 1f3af
+  - sequence: "\U0001F3B0"
+    spriteName: 1f3b0
+  - sequence: "\U0001F3B1"
+    spriteName: 1f3b1
+  - sequence: "\U0001F3B2"
+    spriteName: 1f3b2
+  - sequence: "\U0001F3B3"
+    spriteName: 1f3b3
+  - sequence: "\U0001F3B4"
+    spriteName: 1f3b4
+  - sequence: "\U0001F3B5"
+    spriteName: 1f3b5
+  - sequence: "\U0001F3B6"
+    spriteName: 1f3b6
+  - sequence: "\U0001F3B7"
+    spriteName: 1f3b7
+  - sequence: "\U0001F3B8"
+    spriteName: 1f3b8
+  - sequence: "\U0001F3B9"
+    spriteName: 1f3b9
+  - sequence: "\U0001F3BA"
+    spriteName: 1f3ba
+  - sequence: "\U0001F3BB"
+    spriteName: 1f3bb
+  - sequence: "\U0001F3BC"
+    spriteName: 1f3bc
+  - sequence: "\U0001F3BD"
+    spriteName: 1f3bd
+  - sequence: "\U0001F3BE"
+    spriteName: 1f3be
+  - sequence: "\U0001F3BF"
+    spriteName: 1f3bf
+  - sequence: "\U0001F3C0"
+    spriteName: 1f3c0
+  - sequence: "\U0001F3C1"
+    spriteName: 1f3c1
+  - sequence: "\U0001F3C2"
+    spriteName: 1f3c2
+  - sequence: "\U0001F3C3"
+    spriteName: 1f3c3
+  - sequence: "\U0001F3C4"
+    spriteName: 1f3c4
+  - sequence: "\U0001F3C6"
+    spriteName: 1f3c6
+  - sequence: "\U0001F3C7"
+    spriteName: 1f3c7
+  - sequence: "\U0001F3C8"
+    spriteName: 1f3c8
+  - sequence: "\U0001F3C9"
+    spriteName: 1f3c9
+  - sequence: "\U0001F3CA"
+    spriteName: 1f3ca
+  - sequence: "\U0001F3E0"
+    spriteName: 1f3e0
+  - sequence: "\U0001F3E1"
+    spriteName: 1f3e1
+  - sequence: "\U0001F3E2"
+    spriteName: 1f3e2
+  - sequence: "\U0001F3E3"
+    spriteName: 1f3e3
+  - sequence: "\U0001F3E4"
+    spriteName: 1f3e4
+  - sequence: "\U0001F3E5"
+    spriteName: 1f3e5
+  - sequence: "\U0001F3E6"
+    spriteName: 1f3e6
+  - sequence: "\U0001F3E7"
+    spriteName: 1f3e7
+  - sequence: "\U0001F3E8"
+    spriteName: 1f3e8
+  - sequence: "\U0001F3E9"
+    spriteName: 1f3e9
+  - sequence: "\U0001F3EA"
+    spriteName: 1f3ea
+  - sequence: "\U0001F3EB"
+    spriteName: 1f3eb
+  - sequence: "\U0001F3EC"
+    spriteName: 1f3ec
+  - sequence: "\U0001F3ED"
+    spriteName: 1f3ed
+  - sequence: "\U0001F3EE"
+    spriteName: 1f3ee
+  - sequence: "\U0001F3EF"
+    spriteName: 1f3ef
+  - sequence: "\U0001F3F0"
+    spriteName: 1f3f0
+  - sequence: "\U0001F400"
+    spriteName: 1f400
+  - sequence: "\U0001F401"
+    spriteName: 1f401
+  - sequence: "\U0001F402"
+    spriteName: 1f402
+  - sequence: "\U0001F403"
+    spriteName: 1f403
+  - sequence: "\U0001F404"
+    spriteName: 1f404
+  - sequence: "\U0001F405"
+    spriteName: 1f405
+  - sequence: "\U0001F406"
+    spriteName: 1f406
+  - sequence: "\U0001F407"
+    spriteName: 1f407
+  - sequence: "\U0001F408"
+    spriteName: 1f408
+  - sequence: "\U0001F409"
+    spriteName: 1f409
+  - sequence: "\U0001F40A"
+    spriteName: 1f40a
+  - sequence: "\U0001F40B"
+    spriteName: 1f40b
+  - sequence: "\U0001F40C"
+    spriteName: 1f40c
+  - sequence: "\U0001F40D"
+    spriteName: 1f40d
+  - sequence: "\U0001F40E"
+    spriteName: 1f40e
+  - sequence: "\U0001F40F"
+    spriteName: 1f40f
+  - sequence: "\U0001F410"
+    spriteName: 1f410
+  - sequence: "\U0001F411"
+    spriteName: 1f411
+  - sequence: "\U0001F412"
+    spriteName: 1f412
+  - sequence: "\U0001F413"
+    spriteName: 1f413
+  - sequence: "\U0001F414"
+    spriteName: 1f414
+  - sequence: "\U0001F415"
+    spriteName: 1f415
+  - sequence: "\U0001F416"
+    spriteName: 1f416
+  - sequence: "\U0001F417"
+    spriteName: 1f417
+  - sequence: "\U0001F418"
+    spriteName: 1f418
+  - sequence: "\U0001F419"
+    spriteName: 1f419
+  - sequence: "\U0001F41A"
+    spriteName: 1f41a
+  - sequence: "\U0001F41B"
+    spriteName: 1f41b
+  - sequence: "\U0001F41C"
+    spriteName: 1f41c
+  - sequence: "\U0001F41D"
+    spriteName: 1f41d
+  - sequence: "\U0001F41E"
+    spriteName: 1f41e
+  - sequence: "\U0001F41F"
+    spriteName: 1f41f
+  - sequence: "\U0001F420"
+    spriteName: 1f420
+  - sequence: "\U0001F421"
+    spriteName: 1f421
+  - sequence: "\U0001F422"
+    spriteName: 1f422
+  - sequence: "\U0001F423"
+    spriteName: 1f423
+  - sequence: "\U0001F424"
+    spriteName: 1f424
+  - sequence: "\U0001F425"
+    spriteName: 1f425
+  - sequence: "\U0001F426"
+    spriteName: 1f426
+  - sequence: "\U0001F427"
+    spriteName: 1f427
+  - sequence: "\U0001F428"
+    spriteName: 1f428
+  - sequence: "\U0001F429"
+    spriteName: 1f429
+  - sequence: "\U0001F42A"
+    spriteName: 1f42a
+  - sequence: "\U0001F42B"
+    spriteName: 1f42b
+  - sequence: "\U0001F42C"
+    spriteName: 1f42c
+  - sequence: "\U0001F42D"
+    spriteName: 1f42d
+  - sequence: "\U0001F42E"
+    spriteName: 1f42e
+  - sequence: "\U0001F42F"
+    spriteName: 1f42f
+  - sequence: "\U0001F430"
+    spriteName: 1f430
+  - sequence: "\U0001F431"
+    spriteName: 1f431
+  - sequence: "\U0001F432"
+    spriteName: 1f432
+  - sequence: "\U0001F433"
+    spriteName: 1f433
+  - sequence: "\U0001F434"
+    spriteName: 1f434
+  - sequence: "\U0001F435"
+    spriteName: 1f435
+  - sequence: "\U0001F436"
+    spriteName: 1f436
+  - sequence: "\U0001F437"
+    spriteName: 1f437
+  - sequence: "\U0001F438"
+    spriteName: 1f438
+  - sequence: "\U0001F439"
+    spriteName: 1f439
+  - sequence: "\U0001F43A"
+    spriteName: 1f43a
+  - sequence: "\U0001F43B"
+    spriteName: 1f43b
+  - sequence: "\U0001F43C"
+    spriteName: 1f43c
+  - sequence: "\U0001F43D"
+    spriteName: 1f43d
+  - sequence: "\U0001F43E"
+    spriteName: 1f43e
+  - sequence: "\U0001F440"
+    spriteName: 1f440
+  - sequence: "\U0001F442"
+    spriteName: 1f442
+  - sequence: "\U0001F443"
+    spriteName: 1f443
+  - sequence: "\U0001F444"
+    spriteName: 1f444
+  - sequence: "\U0001F445"
+    spriteName: 1f445
+  - sequence: "\U0001F446"
+    spriteName: 1f446
+  - sequence: "\U0001F447"
+    spriteName: 1f447
+  - sequence: "\U0001F448"
+    spriteName: 1f448
+  - sequence: "\U0001F449"
+    spriteName: 1f449
+  - sequence: "\U0001F44A"
+    spriteName: 1f44a
+  - sequence: "\U0001F44B"
+    spriteName: 1f44b
+  - sequence: "\U0001F44C"
+    spriteName: 1f44c
+  - sequence: "\U0001F44D"
+    spriteName: 1f44d
+  - sequence: "\U0001F44E"
+    spriteName: 1f44e
+  - sequence: "\U0001F44F"
+    spriteName: 1f44f
+  - sequence: "\U0001F450"
+    spriteName: 1f450
+  - sequence: "\U0001F451"
+    spriteName: 1f451
+  - sequence: "\U0001F452"
+    spriteName: 1f452
+  - sequence: "\U0001F453"
+    spriteName: 1f453
+  - sequence: "\U0001F454"
+    spriteName: 1f454
+  - sequence: "\U0001F455"
+    spriteName: 1f455
+  - sequence: "\U0001F456"
+    spriteName: 1f456
+  - sequence: "\U0001F457"
+    spriteName: 1f457
+  - sequence: "\U0001F458"
+    spriteName: 1f458
+  - sequence: "\U0001F459"
+    spriteName: 1f459
+  - sequence: "\U0001F45A"
+    spriteName: 1f45a
+  - sequence: "\U0001F45B"
+    spriteName: 1f45b
+  - sequence: "\U0001F45C"
+    spriteName: 1f45c
+  - sequence: "\U0001F45D"
+    spriteName: 1f45d
+  - sequence: "\U0001F45E"
+    spriteName: 1f45e
+  - sequence: "\U0001F45F"
+    spriteName: 1f45f
+  - sequence: "\U0001F460"
+    spriteName: 1f460
+  - sequence: "\U0001F461"
+    spriteName: 1f461
+  - sequence: "\U0001F462"
+    spriteName: 1f462
+  - sequence: "\U0001F463"
+    spriteName: 1f463
+  - sequence: "\U0001F464"
+    spriteName: 1f464
+  - sequence: "\U0001F465"
+    spriteName: 1f465
+  - sequence: "\U0001F466"
+    spriteName: 1f466
+  - sequence: "\U0001F467"
+    spriteName: 1f467
+  - sequence: "\U0001F468"
+    spriteName: 1f468
+  - sequence: "\U0001F469"
+    spriteName: 1f469
+  - sequence: "\U0001F46A"
+    spriteName: 1f46a
+  - sequence: "\U0001F46B"
+    spriteName: 1f46b
+  - sequence: "\U0001F46C"
+    spriteName: 1f46c
+  - sequence: "\U0001F46D"
+    spriteName: 1f46d
+  - sequence: "\U0001F46E"
+    spriteName: 1f46e
+  - sequence: "\U0001F46F"
+    spriteName: 1f46f
+  - sequence: "\U0001F470"
+    spriteName: 1f470
+  - sequence: "\U0001F471"
+    spriteName: 1f471
+  - sequence: "\U0001F472"
+    spriteName: 1f472
+  - sequence: "\U0001F473"
+    spriteName: 1f473
+  - sequence: "\U0001F474"
+    spriteName: 1f474
+  - sequence: "\U0001F475"
+    spriteName: 1f475
+  - sequence: "\U0001F476"
+    spriteName: 1f476
+  - sequence: "\U0001F477"
+    spriteName: 1f477
+  - sequence: "\U0001F478"
+    spriteName: 1f478
+  - sequence: "\U0001F479"
+    spriteName: 1f479
+  - sequence: "\U0001F47A"
+    spriteName: 1f47a
+  - sequence: "\U0001F47B"
+    spriteName: 1f47b
+  - sequence: "\U0001F47C"
+    spriteName: 1f47c
+  - sequence: "\U0001F47D"
+    spriteName: 1f47d
+  - sequence: "\U0001F47E"
+    spriteName: 1f47e
+  - sequence: "\U0001F47F"
+    spriteName: 1f47f
+  - sequence: "\U0001F480"
+    spriteName: 1f480
+  - sequence: "\U0001F481"
+    spriteName: 1f481
+  - sequence: "\U0001F482"
+    spriteName: 1f482
+  - sequence: "\U0001F483"
+    spriteName: 1f483
+  - sequence: "\U0001F484"
+    spriteName: 1f484
+  - sequence: "\U0001F485"
+    spriteName: 1f485
+  - sequence: "\U0001F486"
+    spriteName: 1f486
+  - sequence: "\U0001F487"
+    spriteName: 1f487
+  - sequence: "\U0001F488"
+    spriteName: 1f488
+  - sequence: "\U0001F489"
+    spriteName: 1f489
+  - sequence: "\U0001F48A"
+    spriteName: 1f48a
+  - sequence: "\U0001F48B"
+    spriteName: 1f48b
+  - sequence: "\U0001F48C"
+    spriteName: 1f48c
+  - sequence: "\U0001F48D"
+    spriteName: 1f48d
+  - sequence: "\U0001F48E"
+    spriteName: 1f48e
+  - sequence: "\U0001F48F"
+    spriteName: 1f48f
+  - sequence: "\U0001F490"
+    spriteName: 1f490
+  - sequence: "\U0001F491"
+    spriteName: 1f491
+  - sequence: "\U0001F492"
+    spriteName: 1f492
+  - sequence: "\U0001F493"
+    spriteName: 1f493
+  - sequence: "\U0001F494"
+    spriteName: 1f494
+  - sequence: "\U0001F495"
+    spriteName: 1f495
+  - sequence: "\U0001F496"
+    spriteName: 1f496
+  - sequence: "\U0001F497"
+    spriteName: 1f497
+  - sequence: "\U0001F498"
+    spriteName: 1f498
+  - sequence: "\U0001F499"
+    spriteName: 1f499
+  - sequence: "\U0001F49A"
+    spriteName: 1f49a
+  - sequence: "\U0001F49B"
+    spriteName: 1f49b
+  - sequence: "\U0001F49C"
+    spriteName: 1f49c
+  - sequence: "\U0001F49D"
+    spriteName: 1f49d
+  - sequence: "\U0001F49E"
+    spriteName: 1f49e
+  - sequence: "\U0001F49F"
+    spriteName: 1f49f
+  - sequence: "\U0001F4A0"
+    spriteName: 1f4a0
+  - sequence: "\U0001F4A1"
+    spriteName: 1f4a1
+  - sequence: "\U0001F4A2"
+    spriteName: 1f4a2
+  - sequence: "\U0001F4A3"
+    spriteName: 1f4a3
+  - sequence: "\U0001F4A4"
+    spriteName: 1f4a4
+  - sequence: "\U0001F4A5"
+    spriteName: 1f4a5
+  - sequence: "\U0001F4A6"
+    spriteName: 1f4a6
+  - sequence: "\U0001F4A7"
+    spriteName: 1f4a7
+  - sequence: "\U0001F4A8"
+    spriteName: 1f4a8
+  - sequence: "\U0001F4A9"
+    spriteName: 1f4a9
+  - sequence: "\U0001F4AA"
+    spriteName: 1f4aa
+  - sequence: "\U0001F4AB"
+    spriteName: 1f4ab
+  - sequence: "\U0001F4AC"
+    spriteName: 1f4ac
+  - sequence: "\U0001F4AD"
+    spriteName: 1f4ad
+  - sequence: "\U0001F4AE"
+    spriteName: 1f4ae
+  - sequence: "\U0001F4AF"
+    spriteName: 1f4af
+  - sequence: "\U0001F4B0"
+    spriteName: 1f4b0
+  - sequence: "\U0001F4B1"
+    spriteName: 1f4b1
+  - sequence: "\U0001F4B2"
+    spriteName: 1f4b2
+  - sequence: "\U0001F4B3"
+    spriteName: 1f4b3
+  - sequence: "\U0001F4B4"
+    spriteName: 1f4b4
+  - sequence: "\U0001F4B5"
+    spriteName: 1f4b5
+  - sequence: "\U0001F4B6"
+    spriteName: 1f4b6
+  - sequence: "\U0001F4B7"
+    spriteName: 1f4b7
+  - sequence: "\U0001F4B8"
+    spriteName: 1f4b8
+  - sequence: "\U0001F4B9"
+    spriteName: 1f4b9
+  - sequence: "\U0001F4BA"
+    spriteName: 1f4ba
+  - sequence: "\U0001F4BB"
+    spriteName: 1f4bb
+  - sequence: "\U0001F4BC"
+    spriteName: 1f4bc
+  - sequence: "\U0001F4BD"
+    spriteName: 1f4bd
+  - sequence: "\U0001F4BE"
+    spriteName: 1f4be
+  - sequence: "\U0001F4BF"
+    spriteName: 1f4bf
+  - sequence: "\U0001F4C0"
+    spriteName: 1f4c0
+  - sequence: "\U0001F4C1"
+    spriteName: 1f4c1
+  - sequence: "\U0001F4C2"
+    spriteName: 1f4c2
+  - sequence: "\U0001F4C3"
+    spriteName: 1f4c3
+  - sequence: "\U0001F4C4"
+    spriteName: 1f4c4
+  - sequence: "\U0001F4C5"
+    spriteName: 1f4c5
+  - sequence: "\U0001F4C6"
+    spriteName: 1f4c6
+  - sequence: "\U0001F4C7"
+    spriteName: 1f4c7
+  - sequence: "\U0001F4C8"
+    spriteName: 1f4c8
+  - sequence: "\U0001F4C9"
+    spriteName: 1f4c9
+  - sequence: "\U0001F4CA"
+    spriteName: 1f4ca
+  - sequence: "\U0001F4CB"
+    spriteName: 1f4cb
+  - sequence: "\U0001F4CC"
+    spriteName: 1f4cc
+  - sequence: "\U0001F4CD"
+    spriteName: 1f4cd
+  - sequence: "\U0001F4CE"
+    spriteName: 1f4ce
+  - sequence: "\U0001F4CF"
+    spriteName: 1f4cf
+  - sequence: "\U0001F4D0"
+    spriteName: 1f4d0
+  - sequence: "\U0001F4D1"
+    spriteName: 1f4d1
+  - sequence: "\U0001F4D2"
+    spriteName: 1f4d2
+  - sequence: "\U0001F4D3"
+    spriteName: 1f4d3
+  - sequence: "\U0001F4D4"
+    spriteName: 1f4d4
+  - sequence: "\U0001F4D5"
+    spriteName: 1f4d5
+  - sequence: "\U0001F4D6"
+    spriteName: 1f4d6
+  - sequence: "\U0001F4D7"
+    spriteName: 1f4d7
+  - sequence: "\U0001F4D8"
+    spriteName: 1f4d8
+  - sequence: "\U0001F4D9"
+    spriteName: 1f4d9
+  - sequence: "\U0001F4DA"
+    spriteName: 1f4da
+  - sequence: "\U0001F4DB"
+    spriteName: 1f4db
+  - sequence: "\U0001F4DC"
+    spriteName: 1f4dc
+  - sequence: "\U0001F4DD"
+    spriteName: 1f4dd
+  - sequence: "\U0001F4DE"
+    spriteName: 1f4de
+  - sequence: "\U0001F4DF"
+    spriteName: 1f4df
+  - sequence: "\U0001F4E0"
+    spriteName: 1f4e0
+  - sequence: "\U0001F4E1"
+    spriteName: 1f4e1
+  - sequence: "\U0001F4E2"
+    spriteName: 1f4e2
+  - sequence: "\U0001F4E3"
+    spriteName: 1f4e3
+  - sequence: "\U0001F4E4"
+    spriteName: 1f4e4
+  - sequence: "\U0001F4E5"
+    spriteName: 1f4e5
+  - sequence: "\U0001F4E6"
+    spriteName: 1f4e6
+  - sequence: "\U0001F4E7"
+    spriteName: 1f4e7
+  - sequence: "\U0001F4E8"
+    spriteName: 1f4e8
+  - sequence: "\U0001F4E9"
+    spriteName: 1f4e9
+  - sequence: "\U0001F4EA"
+    spriteName: 1f4ea
+  - sequence: "\U0001F4EB"
+    spriteName: 1f4eb
+  - sequence: "\U0001F4EC"
+    spriteName: 1f4ec
+  - sequence: "\U0001F4ED"
+    spriteName: 1f4ed
+  - sequence: "\U0001F4EE"
+    spriteName: 1f4ee
+  - sequence: "\U0001F4EF"
+    spriteName: 1f4ef
+  - sequence: "\U0001F4F0"
+    spriteName: 1f4f0
+  - sequence: "\U0001F4F1"
+    spriteName: 1f4f1
+  - sequence: "\U0001F4F2"
+    spriteName: 1f4f2
+  - sequence: "\U0001F4F3"
+    spriteName: 1f4f3
+  - sequence: "\U0001F4F4"
+    spriteName: 1f4f4
+  - sequence: "\U0001F4F5"
+    spriteName: 1f4f5
+  - sequence: "\U0001F4F6"
+    spriteName: 1f4f6
+  - sequence: "\U0001F4F7"
+    spriteName: 1f4f7
+  - sequence: "\U0001F4F9"
+    spriteName: 1f4f9
+  - sequence: "\U0001F4FA"
+    spriteName: 1f4fa
+  - sequence: "\U0001F4FB"
+    spriteName: 1f4fb
+  - sequence: "\U0001F4FC"
+    spriteName: 1f4fc
+  - sequence: "\U0001F500"
+    spriteName: 1f500
+  - sequence: "\U0001F501"
+    spriteName: 1f501
+  - sequence: "\U0001F502"
+    spriteName: 1f502
+  - sequence: "\U0001F503"
+    spriteName: 1f503
+  - sequence: "\U0001F504"
+    spriteName: 1f504
+  - sequence: "\U0001F505"
+    spriteName: 1f505
+  - sequence: "\U0001F506"
+    spriteName: 1f506
+  - sequence: "\U0001F507"
+    spriteName: 1f507
+  - sequence: "\U0001F508"
+    spriteName: 1f508
+  - sequence: "\U0001F509"
+    spriteName: 1f509
+  - sequence: "\U0001F50A"
+    spriteName: 1f50a
+  - sequence: "\U0001F50B"
+    spriteName: 1f50b
+  - sequence: "\U0001F50C"
+    spriteName: 1f50c
+  - sequence: "\U0001F50D"
+    spriteName: 1f50d
+  - sequence: "\U0001F50E"
+    spriteName: 1f50e
+  - sequence: "\U0001F50F"
+    spriteName: 1f50f
+  - sequence: "\U0001F510"
+    spriteName: 1f510
+  - sequence: "\U0001F511"
+    spriteName: 1f511
+  - sequence: "\U0001F512"
+    spriteName: 1f512
+  - sequence: "\U0001F513"
+    spriteName: 1f513
+  - sequence: "\U0001F514"
+    spriteName: 1f514
+  - sequence: "\U0001F515"
+    spriteName: 1f515
+  - sequence: "\U0001F516"
+    spriteName: 1f516
+  - sequence: "\U0001F517"
+    spriteName: 1f517
+  - sequence: "\U0001F518"
+    spriteName: 1f518
+  - sequence: "\U0001F519"
+    spriteName: 1f519
+  - sequence: "\U0001F51A"
+    spriteName: 1f51a
+  - sequence: "\U0001F51B"
+    spriteName: 1f51b
+  - sequence: "\U0001F51C"
+    spriteName: 1f51c
+  - sequence: "\U0001F51D"
+    spriteName: 1f51d
+  - sequence: "\U0001F51E"
+    spriteName: 1f51e
+  - sequence: "\U0001F51F"
+    spriteName: 1f51f
+  - sequence: "\U0001F520"
+    spriteName: 1f520
+  - sequence: "\U0001F521"
+    spriteName: 1f521
+  - sequence: "\U0001F522"
+    spriteName: 1f522
+  - sequence: "\U0001F523"
+    spriteName: 1f523
+  - sequence: "\U0001F524"
+    spriteName: 1f524
+  - sequence: "\U0001F525"
+    spriteName: 1f525
+  - sequence: "\U0001F526"
+    spriteName: 1f526
+  - sequence: "\U0001F527"
+    spriteName: 1f527
+  - sequence: "\U0001F528"
+    spriteName: 1f528
+  - sequence: "\U0001F529"
+    spriteName: 1f529
+  - sequence: "\U0001F52A"
+    spriteName: 1f52a
+  - sequence: "\U0001F52B"
+    spriteName: 1f52b
+  - sequence: "\U0001F52C"
+    spriteName: 1f52c
+  - sequence: "\U0001F52D"
+    spriteName: 1f52d
+  - sequence: "\U0001F52E"
+    spriteName: 1f52e
+  - sequence: "\U0001F52F"
+    spriteName: 1f52f
+  - sequence: "\U0001F530"
+    spriteName: 1f530
+  - sequence: "\U0001F531"
+    spriteName: 1f531
+  - sequence: "\U0001F532"
+    spriteName: 1f532
+  - sequence: "\U0001F533"
+    spriteName: 1f533
+  - sequence: "\U0001F534"
+    spriteName: 1f534
+  - sequence: "\U0001F535"
+    spriteName: 1f535
+  - sequence: "\U0001F536"
+    spriteName: 1f536
+  - sequence: "\U0001F537"
+    spriteName: 1f537
+  - sequence: "\U0001F538"
+    spriteName: 1f538
+  - sequence: "\U0001F539"
+    spriteName: 1f539
+  - sequence: "\U0001F53A"
+    spriteName: 1f53a
+  - sequence: "\U0001F53B"
+    spriteName: 1f53b
+  - sequence: "\U0001F53C"
+    spriteName: 1f53c
+  - sequence: "\U0001F53D"
+    spriteName: 1f53d
+  - sequence: "\U0001F550"
+    spriteName: 1f550
+  - sequence: "\U0001F551"
+    spriteName: 1f551
+  - sequence: "\U0001F552"
+    spriteName: 1f552
+  - sequence: "\U0001F553"
+    spriteName: 1f553
+  - sequence: "\U0001F554"
+    spriteName: 1f554
+  - sequence: "\U0001F555"
+    spriteName: 1f555
+  - sequence: "\U0001F556"
+    spriteName: 1f556
+  - sequence: "\U0001F557"
+    spriteName: 1f557
+  - sequence: "\U0001F558"
+    spriteName: 1f558
+  - sequence: "\U0001F559"
+    spriteName: 1f559
+  - sequence: "\U0001F55A"
+    spriteName: 1f55a
+  - sequence: "\U0001F55B"
+    spriteName: 1f55b
+  - sequence: "\U0001F55C"
+    spriteName: 1f55c
+  - sequence: "\U0001F55D"
+    spriteName: 1f55d
+  - sequence: "\U0001F55E"
+    spriteName: 1f55e
+  - sequence: "\U0001F55F"
+    spriteName: 1f55f
+  - sequence: "\U0001F560"
+    spriteName: 1f560
+  - sequence: "\U0001F561"
+    spriteName: 1f561
+  - sequence: "\U0001F562"
+    spriteName: 1f562
+  - sequence: "\U0001F563"
+    spriteName: 1f563
+  - sequence: "\U0001F564"
+    spriteName: 1f564
+  - sequence: "\U0001F565"
+    spriteName: 1f565
+  - sequence: "\U0001F566"
+    spriteName: 1f566
+  - sequence: "\U0001F567"
+    spriteName: 1f567
+  - sequence: "\U0001F5FB"
+    spriteName: 1f5fb
+  - sequence: "\U0001F5FC"
+    spriteName: 1f5fc
+  - sequence: "\U0001F5FD"
+    spriteName: 1f5fd
+  - sequence: "\U0001F5FE"
+    spriteName: 1f5fe
+  - sequence: "\U0001F5FF"
+    spriteName: 1f5ff
+  - sequence: "\U0001F600"
+    spriteName: 1f600
+  - sequence: "\U0001F601"
+    spriteName: 1f601
+  - sequence: "\U0001F602"
+    spriteName: 1f602
+  - sequence: "\U0001F603"
+    spriteName: 1f603
+  - sequence: "\U0001F604"
+    spriteName: 1f604
+  - sequence: "\U0001F605"
+    spriteName: 1f605
+  - sequence: "\U0001F606"
+    spriteName: 1f606
+  - sequence: "\U0001F607"
+    spriteName: 1f607
+  - sequence: "\U0001F608"
+    spriteName: 1f608
+  - sequence: "\U0001F609"
+    spriteName: 1f609
+  - sequence: "\U0001F60A"
+    spriteName: 1f60a
+  - sequence: "\U0001F60B"
+    spriteName: 1f60b
+  - sequence: "\U0001F60C"
+    spriteName: 1f60c
+  - sequence: "\U0001F60D"
+    spriteName: 1f60d
+  - sequence: "\U0001F60E"
+    spriteName: 1f60e
+  - sequence: "\U0001F60F"
+    spriteName: 1f60f
+  - sequence: "\U0001F610"
+    spriteName: 1f610
+  - sequence: "\U0001F611"
+    spriteName: 1f611
+  - sequence: "\U0001F612"
+    spriteName: 1f612
+  - sequence: "\U0001F613"
+    spriteName: 1f613
+  - sequence: "\U0001F614"
+    spriteName: 1f614
+  - sequence: "\U0001F615"
+    spriteName: 1f615
+  - sequence: "\U0001F616"
+    spriteName: 1f616
+  - sequence: "\U0001F617"
+    spriteName: 1f617
+  - sequence: "\U0001F618"
+    spriteName: 1f618
+  - sequence: "\U0001F619"
+    spriteName: 1f619
+  - sequence: "\U0001F61A"
+    spriteName: 1f61a
+  - sequence: "\U0001F61B"
+    spriteName: 1f61b
+  - sequence: "\U0001F61C"
+    spriteName: 1f61c
+  - sequence: "\U0001F61D"
+    spriteName: 1f61d
+  - sequence: "\U0001F61E"
+    spriteName: 1f61e
+  - sequence: "\U0001F61F"
+    spriteName: 1f61f
+  - sequence: "\U0001F620"
+    spriteName: 1f620
+  - sequence: "\U0001F621"
+    spriteName: 1f621
+  - sequence: "\U0001F622"
+    spriteName: 1f622
+  - sequence: "\U0001F623"
+    spriteName: 1f623
+  - sequence: "\U0001F624"
+    spriteName: 1f624
+  - sequence: "\U0001F625"
+    spriteName: 1f625
+  - sequence: "\U0001F626"
+    spriteName: 1f626
+  - sequence: "\U0001F627"
+    spriteName: 1f627
+  - sequence: "\U0001F628"
+    spriteName: 1f628
+  - sequence: "\U0001F629"
+    spriteName: 1f629
+  - sequence: "\U0001F62A"
+    spriteName: 1f62a
+  - sequence: "\U0001F62B"
+    spriteName: 1f62b
+  - sequence: "\U0001F62C"
+    spriteName: 1f62c
+  - sequence: "\U0001F62D"
+    spriteName: 1f62d
+  - sequence: "\U0001F62E"
+    spriteName: 1f62e
+  - sequence: "\U0001F62F"
+    spriteName: 1f62f
+  - sequence: "\U0001F630"
+    spriteName: 1f630
+  - sequence: "\U0001F631"
+    spriteName: 1f631
+  - sequence: "\U0001F632"
+    spriteName: 1f632
+  - sequence: "\U0001F633"
+    spriteName: 1f633
+  - sequence: "\U0001F634"
+    spriteName: 1f634
+  - sequence: "\U0001F635"
+    spriteName: 1f635
+  - sequence: "\U0001F636"
+    spriteName: 1f636
+  - sequence: "\U0001F637"
+    spriteName: 1f637
+  - sequence: "\U0001F638"
+    spriteName: 1f638
+  - sequence: "\U0001F639"
+    spriteName: 1f639
+  - sequence: "\U0001F63A"
+    spriteName: 1f63a
+  - sequence: "\U0001F63B"
+    spriteName: 1f63b
+  - sequence: "\U0001F63C"
+    spriteName: 1f63c
+  - sequence: "\U0001F63D"
+    spriteName: 1f63d
+  - sequence: "\U0001F63E"
+    spriteName: 1f63e
+  - sequence: "\U0001F63F"
+    spriteName: 1f63f
+  - sequence: "\U0001F640"
+    spriteName: 1f640
+  - sequence: "\U0001F645"
+    spriteName: 1f645
+  - sequence: "\U0001F646"
+    spriteName: 1f646
+  - sequence: "\U0001F647"
+    spriteName: 1f647
+  - sequence: "\U0001F648"
+    spriteName: 1f648
+  - sequence: "\U0001F649"
+    spriteName: 1f649
+  - sequence: "\U0001F64A"
+    spriteName: 1f64a
+  - sequence: "\U0001F64B"
+    spriteName: 1f64b
+  - sequence: "\U0001F64C"
+    spriteName: 1f64c
+  - sequence: "\U0001F64D"
+    spriteName: 1f64d
+  - sequence: "\U0001F64E"
+    spriteName: 1f64e
+  - sequence: "\U0001F64F"
+    spriteName: 1f64f
+  - sequence: "\U0001F680"
+    spriteName: 1f680
+  - sequence: "\U0001F681"
+    spriteName: 1f681
+  - sequence: "\U0001F682"
+    spriteName: 1f682
+  - sequence: "\U0001F683"
+    spriteName: 1f683
+  - sequence: "\U0001F684"
+    spriteName: 1f684
+  - sequence: "\U0001F685"
+    spriteName: 1f685
+  - sequence: "\U0001F686"
+    spriteName: 1f686
+  - sequence: "\U0001F687"
+    spriteName: 1f687
+  - sequence: "\U0001F688"
+    spriteName: 1f688
+  - sequence: "\U0001F689"
+    spriteName: 1f689
+  - sequence: "\U0001F68A"
+    spriteName: 1f68a
+  - sequence: "\U0001F68B"
+    spriteName: 1f68b
+  - sequence: "\U0001F68C"
+    spriteName: 1f68c
+  - sequence: "\U0001F68D"
+    spriteName: 1f68d
+  - sequence: "\U0001F68E"
+    spriteName: 1f68e
+  - sequence: "\U0001F68F"
+    spriteName: 1f68f
+  - sequence: "\U0001F690"
+    spriteName: 1f690
+  - sequence: "\U0001F691"
+    spriteName: 1f691
+  - sequence: "\U0001F692"
+    spriteName: 1f692
+  - sequence: "\U0001F693"
+    spriteName: 1f693
+  - sequence: "\U0001F694"
+    spriteName: 1f694
+  - sequence: "\U0001F695"
+    spriteName: 1f695
+  - sequence: "\U0001F696"
+    spriteName: 1f696
+  - sequence: "\U0001F697"
+    spriteName: 1f697
+  - sequence: "\U0001F698"
+    spriteName: 1f698
+  - sequence: "\U0001F699"
+    spriteName: 1f699
+  - sequence: "\U0001F69A"
+    spriteName: 1f69a
+  - sequence: "\U0001F69B"
+    spriteName: 1f69b
+  - sequence: "\U0001F69C"
+    spriteName: 1f69c
+  - sequence: "\U0001F69D"
+    spriteName: 1f69d
+  - sequence: "\U0001F69E"
+    spriteName: 1f69e
+  - sequence: "\U0001F69F"
+    spriteName: 1f69f
+  - sequence: "\U0001F6A0"
+    spriteName: 1f6a0
+  - sequence: "\U0001F6A1"
+    spriteName: 1f6a1
+  - sequence: "\U0001F6A2"
+    spriteName: 1f6a2
+  - sequence: "\U0001F6A3"
+    spriteName: 1f6a3
+  - sequence: "\U0001F6A4"
+    spriteName: 1f6a4
+  - sequence: "\U0001F6A5"
+    spriteName: 1f6a5
+  - sequence: "\U0001F6A6"
+    spriteName: 1f6a6
+  - sequence: "\U0001F6A7"
+    spriteName: 1f6a7
+  - sequence: "\U0001F6A8"
+    spriteName: 1f6a8
+  - sequence: "\U0001F6A9"
+    spriteName: 1f6a9
+  - sequence: "\U0001F6AA"
+    spriteName: 1f6aa
+  - sequence: "\U0001F6AB"
+    spriteName: 1f6ab
+  - sequence: "\U0001F6AC"
+    spriteName: 1f6ac
+  - sequence: "\U0001F6AD"
+    spriteName: 1f6ad
+  - sequence: "\U0001F6AE"
+    spriteName: 1f6ae
+  - sequence: "\U0001F6AF"
+    spriteName: 1f6af
+  - sequence: "\U0001F6B0"
+    spriteName: 1f6b0
+  - sequence: "\U0001F6B1"
+    spriteName: 1f6b1
+  - sequence: "\U0001F6B2"
+    spriteName: 1f6b2
+  - sequence: "\U0001F6B3"
+    spriteName: 1f6b3
+  - sequence: "\U0001F6B4"
+    spriteName: 1f6b4
+  - sequence: "\U0001F6B5"
+    spriteName: 1f6b5
+  - sequence: "\U0001F6B6"
+    spriteName: 1f6b6
+  - sequence: "\U0001F6B7"
+    spriteName: 1f6b7
+  - sequence: "\U0001F6B8"
+    spriteName: 1f6b8
+  - sequence: "\U0001F6B9"
+    spriteName: 1f6b9
+  - sequence: "\U0001F6BA"
+    spriteName: 1f6ba
+  - sequence: "\U0001F6BB"
+    spriteName: 1f6bb
+  - sequence: "\U0001F6BC"
+    spriteName: 1f6bc
+  - sequence: "\U0001F6BD"
+    spriteName: 1f6bd
+  - sequence: "\U0001F6BE"
+    spriteName: 1f6be
+  - sequence: "\U0001F6BF"
+    spriteName: 1f6bf
+  - sequence: "\U0001F6C0"
+    spriteName: 1f6c0
+  - sequence: "\U0001F6C1"
+    spriteName: 1f6c1
+  - sequence: "\U0001F6C2"
+    spriteName: 1f6c2
+  - sequence: "\U0001F6C3"
+    spriteName: 1f6c3
+  - sequence: "\U0001F6C4"
+    spriteName: 1f6c4
+  - sequence: "\U0001F6C5"
+    spriteName: 1f6c5
+  - sequence: "\u203C"
+    spriteName: 203c
+  - sequence: "\u2049"
+    spriteName: 2049
+  - sequence: "\u2122"
+    spriteName: 2122
+  - sequence: "\u2139"
+    spriteName: 2139
+  - sequence: "\u2194"
+    spriteName: 2194
+  - sequence: "\u2195"
+    spriteName: 2195
+  - sequence: "\u2196"
+    spriteName: 2196
+  - sequence: "\u2197"
+    spriteName: 2197
+  - sequence: "\u2198"
+    spriteName: 2198
+  - sequence: "\u2199"
+    spriteName: 2199
+  - sequence: "\u21A9"
+    spriteName: 21a9
+  - sequence: "\u21AA"
+    spriteName: 21aa
+  - sequence: "\u231A"
+    spriteName: 231a
+  - sequence: "\u231B"
+    spriteName: 231b
+  - sequence: "\u23E9"
+    spriteName: 23e9
+  - sequence: "\u23EA"
+    spriteName: 23ea
+  - sequence: "\u23EB"
+    spriteName: 23eb
+  - sequence: "\u23EC"
+    spriteName: 23ec
+  - sequence: "\u23F0"
+    spriteName: 23f0
+  - sequence: "\u23F3"
+    spriteName: 23f3
+  - sequence: "\u24C2"
+    spriteName: 24c2
+  - sequence: "\u25AA"
+    spriteName: 25aa
+  - sequence: "\u25AB"
+    spriteName: 25ab
+  - sequence: "\u25B6"
+    spriteName: 25b6
+  - sequence: "\u25C0"
+    spriteName: 25c0
+  - sequence: "\u25FB"
+    spriteName: 25fb
+  - sequence: "\u25FC"
+    spriteName: 25fc
+  - sequence: "\u25FD"
+    spriteName: 25fd
+  - sequence: "\u25FE"
+    spriteName: 25fe
+  - sequence: "\u2600"
+    spriteName: 2600
+  - sequence: "\u2601"
+    spriteName: 2601
+  - sequence: "\u260E"
+    spriteName: 260e
+  - sequence: "\u2611"
+    spriteName: 2611
+  - sequence: "\u2614"
+    spriteName: 2614
+  - sequence: "\u2615"
+    spriteName: 2615
+  - sequence: "\u261D"
+    spriteName: 261d
+  - sequence: "\u263A"
+    spriteName: 263a
+  - sequence: "\u2648"
+    spriteName: 2648
+  - sequence: "\u2649"
+    spriteName: 2649
+  - sequence: "\u264A"
+    spriteName: 264a
+  - sequence: "\u264B"
+    spriteName: 264b
+  - sequence: "\u264C"
+    spriteName: 264c
+  - sequence: "\u264D"
+    spriteName: 264d
+  - sequence: "\u264E"
+    spriteName: 264e
+  - sequence: "\u264F"
+    spriteName: 264f
+  - sequence: "\u2650"
+    spriteName: 2650
+  - sequence: "\u2651"
+    spriteName: 2651
+  - sequence: "\u2652"
+    spriteName: 2652
+  - sequence: "\u2653"
+    spriteName: 2653
+  - sequence: "\u2660"
+    spriteName: 2660
+  - sequence: "\u2663"
+    spriteName: 2663
+  - sequence: "\u2665"
+    spriteName: 2665
+  - sequence: "\u2666"
+    spriteName: 2666
+  - sequence: "\u2668"
+    spriteName: 2668
+  - sequence: "\u267B"
+    spriteName: 267b
+  - sequence: "\u267F"
+    spriteName: 267f
+  - sequence: "\u2693"
+    spriteName: 2693
+  - sequence: "\u26A0"
+    spriteName: 26a0
+  - sequence: "\u26A1"
+    spriteName: 26a1
+  - sequence: "\u26AA"
+    spriteName: 26aa
+  - sequence: "\u26AB"
+    spriteName: 26ab
+  - sequence: "\u26BD"
+    spriteName: 26bd
+  - sequence: "\u26BE"
+    spriteName: 26be
+  - sequence: "\u26C4"
+    spriteName: 26c4
+  - sequence: "\u26C5"
+    spriteName: 26c5
+  - sequence: "\u26CE"
+    spriteName: 26ce
+  - sequence: "\u26D4"
+    spriteName: 26d4
+  - sequence: "\u26EA"
+    spriteName: 26ea
+  - sequence: "\u26F2"
+    spriteName: 26f2
+  - sequence: "\u26F3"
+    spriteName: 26f3
+  - sequence: "\u26F5"
+    spriteName: 26f5
+  - sequence: "\u26FA"
+    spriteName: 26fa
+  - sequence: "\u26FD"
+    spriteName: 26fd
+  - sequence: "\u2702"
+    spriteName: 2702
+  - sequence: "\u2705"
+    spriteName: 2705
+  - sequence: "\u2708"
+    spriteName: 2708
+  - sequence: "\u2709"
+    spriteName: 2709
+  - sequence: "\u270A"
+    spriteName: 270a
+  - sequence: "\u270B"
+    spriteName: 270b
+  - sequence: "\u270C"
+    spriteName: 270c
+  - sequence: "\u270F"
+    spriteName: 270f
+  - sequence: "\u2712"
+    spriteName: 2712
+  - sequence: "\u2714"
+    spriteName: 2714
+  - sequence: "\u2716"
+    spriteName: 2716
+  - sequence: "\u2728"
+    spriteName: 2728
+  - sequence: "\u2733"
+    spriteName: 2733
+  - sequence: "\u2734"
+    spriteName: 2734
+  - sequence: "\u2744"
+    spriteName: 2744
+  - sequence: "\u2747"
+    spriteName: 2747
+  - sequence: "\u274C"
+    spriteName: 274c
+  - sequence: "\u274E"
+    spriteName: 274e
+  - sequence: "\u2753"
+    spriteName: 2753
+  - sequence: "\u2754"
+    spriteName: 2754
+  - sequence: "\u2755"
+    spriteName: 2755
+  - sequence: "\u2757"
+    spriteName: 2757
+  - sequence: "\u2764"
+    spriteName: 2764
+  - sequence: "\u2795"
+    spriteName: 2795
+  - sequence: "\u2796"
+    spriteName: 2796
+  - sequence: "\u2797"
+    spriteName: 2797
+  - sequence: "\u27A1"
+    spriteName: 27a1
+  - sequence: "\u27B0"
+    spriteName: 27b0
+  - sequence: "\u27BF"
+    spriteName: 27bf
+  - sequence: "\u2934"
+    spriteName: 2934
+  - sequence: "\u2935"
+    spriteName: 2935
+  - sequence: "\u2B05"
+    spriteName: 2b05
+  - sequence: "\u2B06"
+    spriteName: 2b06
+  - sequence: "\u2B07"
+    spriteName: 2b07
+  - sequence: "\u2B1B"
+    spriteName: 2b1b
+  - sequence: "\u2B1C"
+    spriteName: 2b1c
+  - sequence: "\u2B50"
+    spriteName: 2b50
+  - sequence: "\u2B55"
+    spriteName: 2b55
+  - sequence: "\u3030"
+    spriteName: 3030
+  - sequence: "\u303D"
+    spriteName: 303d
+  - sequence: "\u3297"
+    spriteName: 3297
+  - sequence: "\u3299"
+    spriteName: 3299
+  - sequence: "#\u20E3"
+    spriteName: 0023-20e3
+  - sequence: "0\u20E3"
+    spriteName: 0030-20e3
+  - sequence: "1\u20E3"
+    spriteName: 0031-20e3
+  - sequence: "2\u20E3"
+    spriteName: 0032-20e3
+  - sequence: "3\u20E3"
+    spriteName: 0033-20e3
+  - sequence: "4\u20E3"
+    spriteName: 0034-20e3
+  - sequence: "5\u20E3"
+    spriteName: 0035-20e3
+  - sequence: "6\u20E3"
+    spriteName: 0036-20e3
+  - sequence: "7\u20E3"
+    spriteName: 0037-20e3
+  - sequence: "8\u20E3"
+    spriteName: 0038-20e3
+  - sequence: "9\u20E3"
+    spriteName: 0039-20e3
+  mDynamicFont: {fileID: 0}
+  mDynamicFontSize: 16
+  mDynamicFontStyle: 0
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1
