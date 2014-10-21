@@ -11,7 +11,6 @@ public class MSTeamCenter : MSBuildingFrame {
 	void Awake()
 	{
 		base.Awake();
-		bubbleIcon.transform.localPosition = OFFSET;
 	}
 
 	void OnEnable()
@@ -25,6 +24,12 @@ public class MSTeamCenter : MSBuildingFrame {
 	{
 		MSActionManager.Goon.OnTeamChanged -= OnTeamChange;
 		MSActionManager.Scene.OnCity -= OnTeamChange;
+	}
+
+	void Update()
+	{
+		bubbleIcon.transform.localPosition = OFFSET;
+		bubbleIcon.MarkAsChanged();
 	}
 
 	public void Init(Animator controller)

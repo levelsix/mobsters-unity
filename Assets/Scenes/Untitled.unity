@@ -133,13 +133,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1024
-  mHeight: 600
+  mWidth: 1233
+  mHeight: 687
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.70666671
+  aspectRatio: 1.5
   mSprite: {fileID: 21300000, guid: 59044dbe95e90485fa990676f0087229, type: 3}
   mMat: {fileID: 0}
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 1359026101}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00333333341, y: .00333333341, z: .00333333341}
+  m_LocalScale: {x: .0029112082, y: .0029112082, z: .0029112082}
   m_Children:
   - {fileID: 1530776126}
   - {fileID: 505516209}
@@ -393,7 +393,7 @@ Animator:
   m_GameObject: {fileID: 1714632116}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1127eda51b92b465e9d4d4e3b08aa30f, type: 2}
+  m_Controller: {fileID: 9100000, guid: f3d5e23db9f8e4a7181cfb2964187462, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -418,7 +418,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5f5d54481372542409ced5efeab51485, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3b90e6cb267ea4482bd81db99815f996, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1714632119
 Transform:
