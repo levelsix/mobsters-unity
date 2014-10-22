@@ -245,12 +245,15 @@ public class MSSpriteUtil : MonoBehaviour {
 		{
 			if (!bundles.ContainsKey(baseName))
 			{
+				Debug.Log("!bundles.ContainsKey(baseName)");
+				
 				animator.runtimeAnimatorController = null;
 				yield return StartCoroutine(DownloadAndCache(baseName));
 			}
 
 			if (bundles.ContainsKey(baseName))
 			{
+				Debug.Log("bundles.ContainsKey(baseName)");
 				//If something else has marked this bundle as downloading, but hasn't finished, we'll hang here
 				while (bundles[baseName] == null)
 				{

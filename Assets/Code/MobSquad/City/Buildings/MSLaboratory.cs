@@ -19,7 +19,6 @@ public class MSLaboratory : MSBuildingFrame {
 	void Awake()
 	{
 		base.Awake();
-		bubbleIcon.transform.localPosition = OFFSET;
 	}
 
 	void OnEnable(){
@@ -31,6 +30,12 @@ public class MSLaboratory : MSBuildingFrame {
 	void OnDisable(){
 		MSActionManager.Goon.OnEnhanceQueueChanged -= CheckTag;
 		MSActionManager.Scene.OnCity -= CheckTag;
+	}
+
+	void Update()
+	{
+		bubbleIcon.transform.localPosition = OFFSET;
+		bubbleIcon.MarkAsChanged();
 	}
 
 	public override void CheckTag(){

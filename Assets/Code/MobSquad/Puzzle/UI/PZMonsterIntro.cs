@@ -74,8 +74,24 @@ public class PZMonsterIntro : MonoBehaviour {
 		elementSprite.MakePixelPerfect();
 
 		topLabel.text = "Enemy " + currUnitIndex + "/" + totalUnits;
-		bottomLabel.text = monster.monster.shorterName;
+		topLabel.MakePixelPerfect();
+		topLabel.MarkAsChanged();
+
+		if(monster.monster.shorterName.Length > 0 && monster.monster.shorterName != "NULL")
+		{
+			bottomLabel.text = monster.monster.shorterName;
+		}
+		else
+		{
+			bottomLabel.text = monster.monster.displayName;
+		}
+		bottomLabel.MakePixelPerfect();
+		bottomLabel.MarkAsChanged();
+
 		level.text = "L" + monster.level;
+
+		level.MakePixelPerfect();
+		level.MarkAsChanged();
 
 		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", thumbNail);
 
@@ -86,28 +102,31 @@ public class PZMonsterIntro : MonoBehaviour {
 		else if(curMonster.taskMonster.monsterType == TaskStageMonsterProto.MonsterType.BOSS)
 		{
 			topLabel.text = "BOSS";
+
+			topLabel.MakePixelPerfect();
+			topLabel.MarkAsChanged();
+
 			topColor.ResetToBeginning();
 			topColor.PlayForward();
+
 			rarityTag.spriteName = "battle" + curMonster.monster.quality.ToString().ToLower() + "tag";
 		}
 		else if(curMonster.taskMonster.monsterType == TaskStageMonsterProto.MonsterType.MINI_BOSS)
 		{
 			topLabel.text = "Mini Boss";
+
+			topLabel.MakePixelPerfect();
+			topLabel.MarkAsChanged();
+
 			topColor.ResetToBeginning();
 			topColor.PlayForward();
+
 			rarityTag.spriteName = "battle" + curMonster.monster.quality.ToString().ToLower() + "tag";
 		}
 		else
 		{
 			rarityTag.spriteName = "";
 		}
-
-		//these MAY have to be marked as changed
-		topLabel.MarkAsChanged();
-		bottomLabel.MarkAsChanged();
-		level.MarkAsChanged();
-
-
 	}
 
 	public void PlayAnimation(){

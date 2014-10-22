@@ -57,7 +57,7 @@ public class MSMapTaskPopup : MonoBehaviour {
 	UILabel statusLabel;
 
 	[SerializeField]
-	UISprite eventIcon;
+	Animator eventAnimation;
 	
 	[SerializeField]
 	UISprite eventIconB;
@@ -92,16 +92,9 @@ public class MSMapTaskPopup : MonoBehaviour {
 		{
 			cashLabel.text = "0";
 			oilLabel.text = "0";
-//			status.text = "Completed";
-		} 
-//		else if(statusType == MSMapTaskButton.TaskStatusType.Undefeated)
-//		{
-//			button.normalSprite = ACCEPT_BUTTON;
-//			status.text = "Undefeated";
-//		}
+		}
 		else if(statusType != MSMapTaskButton.TaskStatusType.Undefeated)
 		{
-//			status.text = "Locked";
 			background.spriteName = LOCKED_BACKGROUND;
 			button.normalSprite = CANCEL_BUTTON;
 			button.GetComponent<MSTaskable> ().locked = true;
@@ -119,18 +112,54 @@ public class MSMapTaskPopup : MonoBehaviour {
 
 		levelTitle.text = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId).name;
 
-		switch(pEvent.type)
+		if(pEvent.type == PersistentEventProto.EventType.ENHANCE)
 		{
-		case PersistentEventProto.EventType.ENHANCE:
-			eventIcon.spriteName = "FatBoy" + pEvent.monsterElement.ToString().ToLower();
 			eventIconB.spriteName = pEvent.monsterElement.ToString().ToLower() + "feederevent";
-			break;
-		case PersistentEventProto.EventType.EVOLUTION:
-			eventIcon.spriteName = "Scientist" + pEvent.monsterElement.ToString().ToLower();
-			break;
-		default:
-			break;
+			switch(pEvent.monsterElement)
+			{
+			case Element.DARK:
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("fat_boy_purple", eventAnimation));
+				break;
+			case Element.EARTH:
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("fat_boy_green", eventAnimation));
+				break;
+			case Element.FIRE:
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("fat_boy_red", eventAnimation));
+				break;
+			case Element.LIGHT:
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("fat_boy_yellow", eventAnimation));
+				break;
+			case Element.WATER:
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("fat_boy_blue", eventAnimation));
+				break;
+			}
 		}
+		else
+		{
+			switch(pEvent.monsterElement)
+			{
+			case Element.DARK:
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("scientist_purple", eventAnimation));
+				break;
+			case Element.EARTH:
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("scientist_green", eventAnimation));
+				break;
+			case Element.FIRE:
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("scientist_red", eventAnimation));
+				break;
+			case Element.LIGHT:
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("scientist_yellow", eventAnimation));
+				break;
+			case Element.WATER:
+				StartCoroutine(MSSpriteUtil.instance.SetAnimator("scientist_blue", eventAnimation));
+				break;
+			default:
+				Debug.LogError("Event Element Animation not fount");
+				break;
+			}
+		}
+		eventAnimation.enabled = true;
+
 		statusLabel.MarkAsChanged();
 		statusLabel.MakePixelPerfect();
 	}
