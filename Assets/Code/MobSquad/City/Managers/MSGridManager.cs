@@ -330,18 +330,21 @@ public class MSGridManager : MonoBehaviour {
     /// <param name="building">The building being removed from the grid</param>
     public void RemoveBuilding(MSBuilding building)
     {
-		Debug.Log("Grid Manager removing:  " + building.name + ", id: " + building.id);
-        for (int i = 0; i < building.width; i++)
-        {
-            for (int j = 0; j < building.length; j++)
-            {
-				if (_grid[(int)building.groundPos.x + i, (int)building.groundPos.y + j] == building)
-				{
-	                _grid[(int)building.groundPos.x + i, (int)building.groundPos.y + j] = null;
-					walkableSpaces.Add(new MSWalkableSpace(new Vector2(building.groundPos.x + i, building.groundPos.y + j)));
-				}
-            }
-        }
+		if(_grid[(int)building.groundPos.x, (int)building.groundPos.y] == building)
+		{
+			Debug.Log("Grid Manager removing:  " + building.name + ", id: " + building.id);
+	        for (int i = 0; i < building.width; i++)
+	        {
+	            for (int j = 0; j < building.length; j++)
+	            {
+					if (_grid[(int)building.groundPos.x + i, (int)building.groundPos.y + j] == building)
+					{
+		                _grid[(int)building.groundPos.x + i, (int)building.groundPos.y + j] = null;
+						walkableSpaces.Add(new MSWalkableSpace(new Vector2(building.groundPos.x + i, building.groundPos.y + j)));
+					}
+	            }
+	        }
+		}
     }
 	
 	/// <summary>
