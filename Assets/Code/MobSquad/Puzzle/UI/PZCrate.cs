@@ -67,7 +67,7 @@ public class PZCrate : MonoBehaviour {
 		} else {
 			sprite.spriteName = "gacha" + monster.quality.ToString().ToLower() + "ball";
 		}
-		
+
 		sprite.MakePixelPerfect ();
 		StartCoroutine(Bounce());
 		
