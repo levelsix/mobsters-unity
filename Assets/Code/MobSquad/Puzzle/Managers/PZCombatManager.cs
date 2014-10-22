@@ -450,6 +450,7 @@ public class PZCombatManager : MonoBehaviour {
 		if (save.userTaskId != minTask.userTaskId)
 		{
 			save = null;
+			Debug.LogWarning("Save data not for right task!");
 		}
 
 #if UNITY_IPHONE || UNITY_ANDROID
@@ -468,8 +469,9 @@ public class PZCombatManager : MonoBehaviour {
 			activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterId == save.activePlayerUserMonsterId));
 			PZCombatScheduler.instance.turns = save.turns;
 			PZCombatScheduler.instance.currInd = save.currTurnIndex-1;
-			
+
 			forfeitChance = save.forfeitChance;
+			Debug.LogWarning("Forfeit chance: " + forfeitChance);
 			
 			currTurn = save.currTurn;
 			if(MSActionManager.Puzzle.OnTurnChange != null)
