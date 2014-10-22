@@ -119,6 +119,7 @@ public class MSSceneManager : MonoBehaviour {
 	{
 		cityParent.SetActive(true);
 		gameUIParent.SetActive(true);
+		StartCoroutine(Fade (cityPanel, true));
 		StartCoroutine(Fade (puzzlePanel, false));
 		yield return StartCoroutine(FadePuzzleBackground(false));
 		puzzleParent.SetActive(false);
@@ -127,6 +128,7 @@ public class MSSceneManager : MonoBehaviour {
 	IEnumerator FadeToPuzzle()
 	{
 		puzzleParent.SetActive(true);
+		StartCoroutine(Fade (cityPanel, false));
 		if (MSTutorialManager.instance.inTutorial)
 		{
 			Time.timeScale = .001f;

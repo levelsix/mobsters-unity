@@ -22,7 +22,7 @@ public class MSMiniJobGoonPortrait : MonoBehaviour {
 	{
 		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", goon);
 
-		//TODO: Set background
+		bg.spriteName = MSMiniGoonBox.elementBackgrounds[monster.monster.monsterElement];
 	}
 
 	public void ResetPanel()

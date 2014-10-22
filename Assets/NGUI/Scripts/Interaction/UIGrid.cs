@@ -413,6 +413,7 @@ public class UIGrid : UIWidgetContainer
 				{
 					sp.target.x -= fx;
 					sp.target.y -= fy;
+					sp.enabled = true;
 				}
 				else
 				{
