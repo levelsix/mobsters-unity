@@ -171,6 +171,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSActionManager.Goon.OnMonsterAddTeam += OnAddTeam;
 		MSActionManager.Goon.OnMonsterRemoveTeam += OnRemoveTeam;
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += OnMonsterRemovedFromPlayerInventory;
+		MSActionManager.Scene.OnCity += UpdateDistribution;
 	}
 	
 	/// <summary>
@@ -190,6 +191,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSActionManager.Goon.OnMonsterAddTeam -= OnAddTeam;
 		MSActionManager.Goon.OnMonsterRemoveTeam -= OnRemoveTeam;
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory -= OnMonsterRemovedFromPlayerInventory;
+		MSActionManager.Scene.OnCity -= UpdateDistribution;
 	}
 	
 	#endregion
@@ -1154,6 +1156,13 @@ public class MSBuildingManager : MonoBehaviour
 				teamCenter = building;
 				break;
 		}
+	}
+
+	[ContextMenu("redistribute")]
+	void UpdateDistribution()
+	{
+		DistributeCash(MSResourceManager.resources[ResourceType.CASH]);
+		DistributeOil(MSResourceManager.resources[ResourceType.OIL]);
 	}
 
 	void DistributeCash(int amount)
