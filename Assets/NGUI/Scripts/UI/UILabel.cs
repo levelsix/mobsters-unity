@@ -89,6 +89,8 @@ public class UILabel : UIWidget
 	int mLastWidth = 0;
 	int mLastHeight = 0;
 
+	[SerializeField] float symbolScale = 1;
+
 	/// <summary>
 	/// Function used to determine if something has changed (and thus the geometry must be rebuilt)
 	/// </summary>
@@ -1543,7 +1545,7 @@ public class UILabel : UIWidget
 		UpdateNGUIText();
 
 		NGUIText.tint = col;
-		NGUIText.Print(text, verts, uvs, cols);
+		NGUIText.Print(text, verts, uvs, cols, symbolScale);
 		NGUIText.bitmapFont = null;
 #if DYNAMIC_FONT
 		NGUIText.dynamicFont = null;

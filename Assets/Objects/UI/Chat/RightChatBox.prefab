@@ -260,19 +260,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 3.37078643
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: bluebubble
   mType: 1
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 1
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: bluebubble
+  mFillCenter: 1
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -335,6 +335,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -413,6 +414,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: .75
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -498,9 +500,22 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .804878056
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+  mFlip: 0
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
   mSprite: {fileID: 21300000, guid: bec964ed5921c433d8337ada40db56fd, type: 3}
   mMat: {fileID: 2100000, guid: 1e17fb359584a4cc4a1d3acbf47e26e7, type: 2}
   mShader: {fileID: 4800000, guid: 6070d1cbad03a4888b4d8de83389cb05, type: 3}
+  mBorder: {x: 0, y: 0, z: 0, w: 0}
+  mFixedAspect: 0
+  mPixelSize: 1
   nextSprite: {fileID: 0}
 --- !u!114 &11400020
 MonoBehaviour:
@@ -539,19 +554,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .983606577
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: wateravatar
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: wateravatar
+  mFillCenter: 1
 --- !u!114 &11400022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -614,6 +629,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

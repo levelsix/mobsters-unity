@@ -73,7 +73,7 @@ public class PZSkillIndicator : MonoBehaviour {
 	{
 		if (maxPoints == 0) return;
 
-		//currFill = fillIcon.fillAmount = ((float)currPoints)/maxPoints;
+		currFill = fillIcon.fillAmount = ((float)currPoints)/maxPoints;
 		string spriteName;
 		if (currFill >= 1)
 		{

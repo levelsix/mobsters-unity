@@ -1588,7 +1588,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1366, y: 768, z: 0}
+  m_Size: {x: 1311, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500020
 BoxCollider:
@@ -1725,9 +1725,22 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .804878056
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+  mFlip: 0
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
   mSprite: {fileID: 21300000, guid: bec964ed5921c433d8337ada40db56fd, type: 3}
   mMat: {fileID: 2100000, guid: 1e17fb359584a4cc4a1d3acbf47e26e7, type: 2}
   mShader: {fileID: 4800000, guid: 6070d1cbad03a4888b4d8de83389cb05, type: 3}
+  mBorder: {x: 0, y: 0, z: 0, w: 0}
+  mFixedAspect: 0
+  mPixelSize: 1
   nextSprite: {fileID: 0}
 --- !u!114 &11400006
 MonoBehaviour:
@@ -1766,19 +1779,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 10.5348835
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: chattypebarbg
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: chattypebarbg
+  mFillCenter: 1
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1816,19 +1829,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: chatprivateactive
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: chatprivateactive
+  mFillCenter: 1
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1866,19 +1879,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: chatprivateactive
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: chatprivateactive
+  mFillCenter: 1
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1916,19 +1929,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: chatprivateactive
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: chatprivateactive
+  mFillCenter: 1
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2020,19 +2033,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .128205135
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: popupheadercap
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 1
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: popupheadercap
+  mFillCenter: 1
 --- !u!114 &11400022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2070,19 +2083,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .128205135
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: popupheadercap
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: popupheadercap
+  mFillCenter: 1
 --- !u!114 &11400024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2120,19 +2133,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.6875
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: popupactivetab
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: popupactivetab
+  mFillCenter: 1
 --- !u!114 &11400026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2170,19 +2183,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.6875
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: popupactivetab
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: popupactivetab
+  mFillCenter: 1
 --- !u!114 &11400028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2220,19 +2233,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.6875
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: popupactivetab
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: popupactivetab
+  mFillCenter: 1
 --- !u!114 &11400030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2305,19 +2318,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 11.3846149
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: popupheadermiddle
   mType: 1
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: popupheadermiddle
+  mFillCenter: 1
 --- !u!114 &11400036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2355,19 +2368,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.55668354
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: BackgroundSlice
   mType: 1
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: BackgroundSlice
+  mFillCenter: 1
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2403,6 +2416,9 @@ MonoBehaviour:
   hoverSprite: 
   pressedSprite: 
   disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 11400050}
@@ -2437,7 +2453,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: .382352948, g: .382352948, b: .382352948, a: .443137258}
+  mColor: {r: .669117689, g: .669117689, b: .669117689, a: 1}
   mPivot: 3
   mWidth: 672
   mHeight: 24
@@ -2449,11 +2465,11 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: f695474f783c14a17929e2c84d829ed6, type: 2}
-  mText: Enter Message...
+  mText: "Enter Message... \U0001F680\U0001F6BC"
   mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
-  mEncoding: 0
+  mEncoding: 1
   mMaxLineCount: 1
   mEffectStyle: 0
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
@@ -2471,6 +2487,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: .800000012
 --- !u!114 &11400044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2506,6 +2523,9 @@ MonoBehaviour:
   hoverSprite: 
   pressedSprite: 
   disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 11400050}
@@ -2542,16 +2562,16 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 70
+  mWidth: 68
   mHeight: 24
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.91666675
+  aspectRatio: 2.83333325
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 9a8f43ef88c324403a2b5b428abfdd15, type: 2}
+  mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
   mText: Send
   mFontSize: 24
   mFontStyle: 0
@@ -2574,6 +2594,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2659,6 +2680,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2694,6 +2716,9 @@ MonoBehaviour:
   hoverSprite: 
   pressedSprite: 
   disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 11400050}
@@ -2713,7 +2738,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: {fileID: 11400042}
   inputType: 1
+  onReturnKey: 0
   keyboardType: 0
+  hideInput: 0
   validation: 0
   characterLimit: 0
   savedAs: 
@@ -2765,19 +2792,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 11.8275862
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: chatmessagebar
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: chatmessagebar
+  mFillCenter: 1
 --- !u!114 &11400062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2804,12 +2831,13 @@ MonoBehaviour:
   columns: 1
   direction: 1
   sorting: 1
+  pivot: 0
+  cellAlignment: 0
   hideInactive: 1
   keepWithinPanel: 0
   padding: {x: 0, y: 10}
   animateSmoothly: 1
   centered: 0
-  sorted: 0
 --- !u!114 &11400066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2902,6 +2930,9 @@ MonoBehaviour:
   hoverSprite: 
   pressedSprite: 
   disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 11400050}
@@ -2945,19 +2976,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1.96551728
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: sendchat
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: sendchat
+  mFillCenter: 1
 --- !u!114 &11400080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3020,6 +3051,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3054,8 +3086,10 @@ MonoBehaviour:
   cullWhileDragging: 0
   alwaysOnScreen: 0
   anchorOffset: 0
+  softBorderPadding: 1
   renderQueue: 0
   startingRenderQueue: 3004
+  mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: -1.52587891e-05, y: 211.350006, z: 920, w: 412}
@@ -3089,6 +3123,7 @@ MonoBehaviour:
   contentPivot: 0
   scale: {x: 0, y: 0, z: 0}
   relativePositionOnReset: {x: 0, y: 0}
+  centerOnChild: {fileID: 0}
 --- !u!114 &11400086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3151,6 +3186,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3183,6 +3219,9 @@ MonoBehaviour:
   hoverSprite: 
   pressedSprite: 
   disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick: []
 --- !u!114 &11400092
@@ -3222,19 +3261,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: .961538434
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: closepopupx
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: closepopupx
+  mFillCenter: 1
 --- !u!114 &11400094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3304,6 +3343,7 @@ MonoBehaviour:
   contentPivot: 0
   scale: {x: 0, y: 0, z: 0}
   relativePositionOnReset: {x: 0, y: 0}
+  centerOnChild: {fileID: 0}
 --- !u!114 &11400102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3338,8 +3378,10 @@ MonoBehaviour:
   cullWhileDragging: 0
   alwaysOnScreen: 0
   anchorOffset: 0
+  softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3005
+  startingRenderQueue: 3006
+  mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: -1.52587891e-05, y: -41.5, z: 920, w: 508}
@@ -3542,26 +3584,26 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .196078435}
   mPivot: 4
-  mWidth: 1366
+  mWidth: 1311
   mHeight: 768
   mDepth: 50
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.77864587
-  mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
-  mSpriteName: BackgroundSlice
+  aspectRatio: 1.70703125
   mType: 1
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
+  mSpriteName: BackgroundSlice
+  mFillCenter: 1
 --- !u!114 &11400116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3696,19 +3738,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: wateravatar
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: wateravatar
+  mFillCenter: 1
 --- !u!114 &11400124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3743,8 +3785,10 @@ MonoBehaviour:
   cullWhileDragging: 0
   alwaysOnScreen: 0
   anchorOffset: 0
+  softBorderPadding: 1
   renderQueue: 0
   startingRenderQueue: 3003
+  mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 920, w: 591}
@@ -3785,6 +3829,9 @@ MonoBehaviour:
   hoverSprite: 
   pressedSprite: 
   disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick: []
 --- !u!114 &11400130
@@ -3851,6 +3898,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3888,19 +3936,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: greenmenuoption
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: greenmenuoption
+  mFillCenter: 1
 --- !u!114 &11400134
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3963,6 +4011,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4025,6 +4074,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4103,7 +4153,7 @@ MonoBehaviour:
   aspectRatio: 1.25999999
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 9a8f43ef88c324403a2b5b428abfdd15, type: 2}
+  mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
   mText: Mute 24h
   mFontSize: 24
   mFontStyle: 0
@@ -4126,6 +4176,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400142
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4146,6 +4197,9 @@ MonoBehaviour:
   hoverSprite: 
   pressedSprite: 
   disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 11400164}
@@ -4189,19 +4243,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.26666665
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: redsmallbutton
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: redsmallbutton
+  mFillCenter: 1
 --- !u!114 &11400146
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4241,7 +4295,7 @@ MonoBehaviour:
   aspectRatio: 1.29999995
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 9a8f43ef88c324403a2b5b428abfdd15, type: 2}
+  mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
   mText: Message
   mFontSize: 24
   mFontStyle: 0
@@ -4264,6 +4318,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4284,6 +4339,9 @@ MonoBehaviour:
   hoverSprite: 
   pressedSprite: 
   disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 11400164}
@@ -4327,19 +4385,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.26666665
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: greensmallbutton
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: greensmallbutton
+  mFillCenter: 1
 --- !u!114 &11400152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4379,7 +4437,7 @@ MonoBehaviour:
   aspectRatio: 1.27999997
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 9a8f43ef88c324403a2b5b428abfdd15, type: 2}
+  mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
   mText: Profile
   mFontSize: 24
   mFontStyle: 0
@@ -4402,6 +4460,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4422,6 +4481,9 @@ MonoBehaviour:
   hoverSprite: 
   pressedSprite: 
   disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 11400164}
@@ -4465,19 +4527,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.26666665
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: bluesmallbutton
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: bluesmallbutton
+  mFillCenter: 1
 --- !u!114 &11400158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4539,19 +4601,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 4.43137264
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: chatpopupbg
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: chatpopupbg
+  mFillCenter: 1
 --- !u!114 &11400164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4711,8 +4773,10 @@ MonoBehaviour:
   cullWhileDragging: 0
   alwaysOnScreen: 0
   anchorOffset: 0
+  softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3005
+  startingRenderQueue: 3006
+  mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 910, w: 200}
