@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Scientist_green
+  m_Name: scientist_green
   serializedVersion: 2
   m_AnimatorParameters:
   - m_Name: turn
@@ -261,18 +261,6 @@ StateMachine:
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
     data:
-      first: {fileID: 110238891}
-      second:
-      - {fileID: 110150834}
-    data:
-      first: {fileID: 110267950}
-      second:
-      - {fileID: 110150622}
-    data:
-      first: {fileID: 110263269}
-      second:
-      - {fileID: 110100342}
-    data:
       first: {fileID: 110200000}
       second:
       - {fileID: 110100000}
@@ -280,6 +268,18 @@ StateMachine:
       first: {fileID: 110231053}
       second:
       - {fileID: 110132953}
+    data:
+      first: {fileID: 110238891}
+      second:
+      - {fileID: 110150834}
+    data:
+      first: {fileID: 110263269}
+      second:
+      - {fileID: 110100342}
+    data:
+      first: {fileID: 110267950}
+      second:
+      - {fileID: 110150622}
     data:
       first: {fileID: 110268462}
       second:
