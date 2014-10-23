@@ -240,6 +240,10 @@ public class MSMiniJobManager : MonoBehaviour {
 		{
 			Debug.LogError("Problem beginning minijob: " + response.status.ToString());
 		}
+		if(MSActionManager.MiniJob.OnMiniJobBeginResponse != null)
+		{
+			MSActionManager.MiniJob.OnMiniJobBeginResponse();
+		}
 	}	                                   
 
 	#endregion

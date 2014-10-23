@@ -144,7 +144,7 @@ public class MSMiniJobPopup : MonoBehaviour {
 	void Awake()
 	{
 		MSActionManager.MiniJob.OnMiniJobComplete += CheckPageChange;
-		Debug.LogError("added");
+		MSActionManager.MiniJob.OnMiniJobBeginResponse += EngageResponse;
 	}
 
 	void OnEnable()
@@ -160,10 +160,8 @@ public class MSMiniJobPopup : MonoBehaviour {
 	/// </summary>
 	public void CheckPageChange()
 	{
-		Debug.LogError("called");
 		if (gameObject.activeSelf)
 		{
-			Debug.LogError("function");
 			Init();
 		}
 	}
@@ -374,9 +372,18 @@ public class MSMiniJobPopup : MonoBehaviour {
 		if (ready)
 		{
 			MSMiniJobManager.instance.BeginJob(currJob, currTeam);
-			Init();
-			mover.PlayReverse();
+			engageButton.GetComponent<MSLoadLock>().Lock();
 		}
+	}
+
+	/// <summary>
+	/// Unlock the engage button
+	/// </summary>
+	void EngageResponse()
+	{
+		engageButton.GetComponent<MSLoadLock>().Unlock();
+		Init();
+		mover.PlayReverse();
 	}
 
 	void InitRightPickGoons()
