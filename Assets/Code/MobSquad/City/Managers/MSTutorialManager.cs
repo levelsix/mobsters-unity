@@ -969,6 +969,7 @@ public class MSTutorialManager : MonoBehaviour
 	public void OnUsernameEnter()
 	{
 		waitingForUsername = false;
+		MSMapManager.instance.InitMapTasks(null);
 	}
 
 	IEnumerator PostCombat_SendOnFirstMission()
