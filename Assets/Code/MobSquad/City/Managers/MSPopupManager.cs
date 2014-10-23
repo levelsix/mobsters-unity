@@ -9,7 +9,9 @@ public class MSPopupManager : MonoBehaviour {
 
 	[SerializeField] MSGenericPopup genericPopupPrefab;
 
-	[SerializeField] Transform genericParent;
+	[SerializeField] Transform genericCityParent;
+
+	[SerializeField] Transform genericPuzzleParent;
 
 	public TweenScale defaultScaleIn;
 	public TweenAlpha defaultAlphaIn;
@@ -129,7 +131,7 @@ public class MSPopupManager : MonoBehaviour {
 
 	MSGenericPopup GrabGeneric()
 	{
-		MSGenericPopup pop = MSPoolManager.instance.Get<MSGenericPopup>(genericPopupPrefab, genericParent);
+		MSGenericPopup pop = MSPoolManager.instance.Get<MSGenericPopup>(genericPopupPrefab, MSWhiteboard.currSceneType == MSWhiteboard.SceneType.CITY ? genericCityParent : genericPuzzleParent);
 		pop.transform.localScale = Vector3.one;
 		pop.transform.localPosition = Vector3.zero;
 		pop.transform.localRotation = Quaternion.identity;

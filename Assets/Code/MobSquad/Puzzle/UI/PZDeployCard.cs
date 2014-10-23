@@ -39,7 +39,7 @@ public class PZDeployCard : MonoBehaviour {
 	
 	public void Init(PZMonster goon)
 	{
-		Debug.Log("Init slot " + goon.userMonster.teamSlotNum + ": " + goon.monster.displayName);
+		//Debug.Log("Init slot " + goon.userMonster.teamSlotNum + ": " + goon.monster.displayName);
 
 		monster = goon;
 		
