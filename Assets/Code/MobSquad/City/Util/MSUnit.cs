@@ -1,4 +1,4 @@
-	using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -288,7 +288,10 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		hasSprite = false;
 		yield return StartCoroutine(MSSpriteUtil.instance.SetUnitAnimator(this));
 		alpha = anim.runtimeAnimatorController != null ? 1 : 0;
-		shadow.color = Color.white;
+		if (shadow != null)
+		{
+			shadow.color = Color.white;
+		}
 		ResetAnimation();
 		hasSprite = true;
 		SetAnimation(AnimationType.IDLE);

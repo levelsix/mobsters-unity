@@ -183,7 +183,7 @@ public class UIInput : MonoBehaviour
 
 #if MOBILE
 	// Unity fails to compile if the touch screen keyboard is used on a non-mobile device
-	static protected TouchScreenKeyboard mKeyboard;
+	static public TouchScreenKeyboard mKeyboard;
 	static bool mWaitForKeyboard = false;
 #endif
 	[System.NonSerialized] protected int mSelectionStart = 0;
@@ -460,7 +460,7 @@ public class UIInput : MonoBehaviour
 			mDoInit = false;
 			mDefaultText = label.text;
 			mDefaultColor = label.color;
-			label.supportEncoding = false;
+			//label.supportEncoding = false;
 
 			if (label.alignment == NGUIText.Alignment.Justified)
 			{

@@ -409,10 +409,11 @@ public class UIGrid : UIWidgetContainer
 				Transform t = myTrans.GetChild(i);
 				SpringPosition sp = t.GetComponent<SpringPosition>();
 
-				if (sp != null)
+				if (sp != null && animateSmoothly)
 				{
 					sp.target.x -= fx;
 					sp.target.y -= fy;
+					sp.enabled = true;
 				}
 				else
 				{

@@ -32,7 +32,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 
 	static readonly Vector3 BOTTOM_Y_OFFSET = new Vector3(0, -100, 0);
 
-	Dictionary<Element, string> elementBackgrounds = new Dictionary<Element, string>()
+	public static readonly Dictionary<Element, string> elementBackgrounds = new Dictionary<Element, string>()
 	{
 		{Element.DARK, "nightteam"},
 		{Element.FIRE, "fireteam"},

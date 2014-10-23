@@ -81,12 +81,12 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingmiddle
-    x: 544
+    x: 550
     y: 936
     width: 2
     height: 15
-    borderLeft: 0
-    borderRight: 0
+    borderLeft: 1
+    borderRight: 1
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: cashcollected
     x: 103
-    y: 597
+    y: 542
     width: 110
     height: 54
     borderLeft: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: evolvebubble
     x: 103
-    y: 46
+    y: 109
     width: 94
     height: 62
     borderLeft: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: fix1
     x: 103
-    y: 109
+    y: 46
     width: 94
     height: 62
     borderLeft: 0
@@ -264,7 +264,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: gemscollected
     x: 103
-    y: 542
+    y: 597
     width: 110
     height: 54
     borderLeft: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: healingcap
-    x: 549
+    x: 554
     y: 952
     width: 4
     height: 15
@@ -289,12 +289,12 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 3
   - name: healingmiddle
-    x: 554
-    y: 952
+    x: 547
+    y: 936
     width: 2
     height: 15
-    borderLeft: 0
-    borderRight: 0
+    borderLeft: 1
+    borderRight: 1
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
@@ -627,8 +627,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: oiloverflow
-    x: 234
-    y: 562
+    x: 942
+    y: 708
     width: 69
     height: 75
     borderLeft: 0
@@ -640,8 +640,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: oilready
-    x: 942
-    y: 708
+    x: 234
+    y: 562
     width: 69
     height: 75
     borderLeft: 0
@@ -679,58 +679,6 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: sellbubble1
-    x: 103
-    y: 172
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble2
-    x: 234
-    y: 638
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble3
-    x: 103
-    y: 235
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble4
-    x: 103
-    y: 298
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble5
     x: 0
     y: 197
     width: 94
@@ -743,7 +691,7 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: sellbubble6
+  - name: sellbubble2
     x: 0
     y: 134
     width: 94
@@ -756,20 +704,7 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: sellbubble7
-    x: 0
-    y: 71
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: sellbubble8
+  - name: sellbubble3
     x: 0
     y: 8
     width: 94
@@ -782,7 +717,7 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: sellbubble9
+  - name: sellbubble4
     x: 103
     y: 424
     width: 94
@@ -795,9 +730,74 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: sellbubbleexclamation
+  - name: sellbubble5
+    x: 103
+    y: 298
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble6
+    x: 234
+    y: 638
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble7
+    x: 103
+    y: 172
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble8
+    x: 103
+    y: 235
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble9
     x: 103
     y: 361
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubbleexclamation
+    x: 0
+    y: 71
     width: 94
     height: 62
     borderLeft: 0
@@ -912,6 +912,32 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 1
     paddingBottom: 0
+  - name: instantcap
+    x: 549
+    y: 952
+    width: 4
+    height: 15
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 0
+    paddingTop: 2
+    paddingBottom: 3
+  - name: instantmiddle
+    x: 544
+    y: 936
+    width: 2
+    height: 15
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 2
+    paddingBottom: 3
   mPixelSize: 1
   mReplacement: {fileID: 0}
   mCoordinates: 0

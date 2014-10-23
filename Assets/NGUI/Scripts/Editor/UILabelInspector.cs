@@ -93,6 +93,8 @@ public class UILabelInspector : UIWidgetInspector
 				NGUISettings.ambigiousFont = fnt.objectReferenceValue;
 				isValid = true;
 			}
+
+
 		}
 		else
 		{
