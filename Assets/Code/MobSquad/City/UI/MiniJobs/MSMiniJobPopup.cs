@@ -233,15 +233,12 @@ public class MSMiniJobPopup : MonoBehaviour {
 			{
 				hurtGoons[i].Init(MSMiniJobManager.instance.teamToDamage[i] ,MSMiniJobManager.instance.damageDelt[i]);
 			}
-
-			collectionObject.SetActive(true);
-			leftObject.SetActive(false);
+			StartCoroutine(FadeFromListingsToCollection());
 
 		}
 		else
 		{
-			collectionObject.SetActive(false);
-			leftObject.SetActive(true);
+			StartCoroutine(FadeFromCollectionToListings());
 		}
 	}
 
@@ -513,7 +510,37 @@ public class MSMiniJobPopup : MonoBehaviour {
 		SetupJobGrid();
 		StartCoroutine(RunTimerUntilJobsReset());
 
-		collectionObject.SetActive(false);
+		StartCoroutine(FadeFromCollectionToListings());
+	}
+
+	public IEnumerator FadeFromCollectionToListings()
+	{
+		float duration = 0.3f;
+
 		leftObject.SetActive(true);
+		leftObject.GetComponent<UIWidget>().alpha = 0f;
+		SetupJobGrid();
+
+		TweenAlpha.Begin(leftObject, duration, 1f);
+		TweenAlpha.Begin(collectionObject, duration, 0f);
+
+		yield return new WaitForSeconds(duration);
+
+		collectionObject.SetActive(false);
+	}
+
+	public IEnumerator FadeFromListingsToCollection()
+	{
+		float duration = 0.3f;
+
+		collectionObject.SetActive(true);
+		collectionObject.GetComponent<UIWidget>().alpha = 0f;
+
+		TweenAlpha.Begin(collectionObject, duration, 1f);
+		TweenAlpha.Begin(leftObject, duration, 0f);
+
+		yield return new WaitForSeconds(duration);
+
+		leftObject.SetActive(false);
 	}
 }
