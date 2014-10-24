@@ -1198,6 +1198,12 @@ public class UIPanel : UIRect
 		}
 	}
 
+	[ContextMenu ("Debug print draw calls")]
+	public void PrintNumDrawCalls()
+	{
+		Debug.Log("Draw calls on " + name + ": " + widgets.Count);
+	}
+
 	/// <summary>
 	/// Update the panel, all of its widgets and draw calls.
 	/// </summary>
