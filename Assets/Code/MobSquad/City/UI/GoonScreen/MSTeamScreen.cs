@@ -67,7 +67,7 @@ public class MSTeamScreen : MSFunctionalScreen {
 
 	void RefreshTitle(int newTeammates)
 	{
-		MSPopupManager.instance.popups.goonScreen.title = "TEAM (POWER " + MSMonsterManager.instance.currTeamPower + "/" + MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit + ")"; 
+		MSPopupManager.instance.popups.goonScreen.title = "TEAM ("+ MSMonsterManager.instance.currTeamPower + "/" + MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit + " POWER)"; 
 	}
 
 	void OnMobsterAdded(PZMonster monster)
