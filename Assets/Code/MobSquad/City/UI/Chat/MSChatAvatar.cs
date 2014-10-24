@@ -58,6 +58,11 @@ public class MSChatAvatar : MonoBehaviour {
 	public void Init(int monsterId)
 	{
 		MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(monsterId);
+		Init(monster);
+	}
+
+	public void Init(MonsterProto monster)
+	{
 		if(monster != null)
 		{
 			if(!square)

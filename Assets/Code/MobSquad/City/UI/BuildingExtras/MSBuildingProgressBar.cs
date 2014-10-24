@@ -24,6 +24,13 @@ public class MSBuildingProgressBar : MonoBehaviour {
 
 	[SerializeField] MSBuilding building;
 
+	[SerializeField] MSChatAvatar miniAvatar;
+
+	/// <summary>
+	/// If true, miniAvatar won't be updated with a new image
+	/// </summary>
+	bool avatarSet = false;
+
 	long _newTime = 0;
 
 	long newTime{
@@ -71,10 +78,27 @@ public class MSBuildingProgressBar : MonoBehaviour {
 	
 	public bool upgrading = false;
 
+	void OnEnable()
+	{
+		MSActionManager.Goon.OnHealQueueChanged += ResetMiniAvatar;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Goon.OnHealQueueChanged -= ResetMiniAvatar;
+	}
+
+	void ResetMiniAvatar()
+	{
+		avatarSet = false;
+		miniAvatar.gameObject.SetActive(false);
+	}
+
 	void Update () 
 	{
 		if (isConstructing && building.upgrade.timeRemaining >= 0)
 		{
+			miniAvatar.gameObject.SetActive(false);
 			upgrading = true;
 			building.hoverIcon.gameObject.SetActive(false);
 			foreach (var item in caps) 
@@ -90,6 +114,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		}
 		else if (building.obstacle != null && building.obstacle.isRemoving && !building.obstacle.finished)
 		{
+			miniAvatar.gameObject.SetActive(false);
 			foreach (var item in caps) 
 			{
 				item.spriteName = "buildingcap";
@@ -103,6 +128,13 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		}
 		else if (building.hospital != null && building.hospital.goon != null && building.hospital.goon.monster != null && building.hospital.goon.monster.monsterId > 0)
 		{
+			if(!avatarSet)
+			{
+				avatarSet = true;
+				miniAvatar.gameObject.SetActive(true);
+				miniAvatar.Init(building.hospital.goon.monster);
+			}
+
 			foreach (var item in caps) 
 			{
 				item.spriteName = "healingcap";
