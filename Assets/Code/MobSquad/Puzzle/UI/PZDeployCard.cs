@@ -43,7 +43,7 @@ public class PZDeployCard : MonoBehaviour {
 
 		monster = goon;
 		
-		button.normalSprite = background.spriteName = backgroundDict[goon.monster.monsterElement];
+		button.normalSprite = background.spriteName = MSGoonCard.smallBackgrounds[goon.monster.monsterElement];
 		
 		string goonPrefix = MSUtil.StripExtensions (goon.monster.imagePrefix);
 		MSSpriteUtil.instance.SetSprite(goonPrefix, goonPrefix + "Thumbnail", goonSprite);
