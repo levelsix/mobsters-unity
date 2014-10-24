@@ -183,12 +183,16 @@ public class MSMapTaskButton : MonoBehaviour {
 //			halo.alpha = 0f;
 			glowRing.gameObject.SetActive(false);
 //			levelTitle.gameObject.SetActive(false);
-			TweenScale.Begin(gameObject,0.5f, new Vector3(0.5f,0.5f,0.5f));
+			TweenScale scale = TweenScale.Begin(gameObject,0.5f, new Vector3(0.5f,0.5f,0.5f));
+			scale.animationCurve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f , 1f, 0f));
 		}
 	}
 
 	public void OnClick(){
-		MSActionManager.Map.OnMapTaskClicked (mapTask, Status);
+		if(MSActionManager.Map.OnMapTaskClicked != null)
+		{
+			MSActionManager.Map.OnMapTaskClicked (mapTask, Status);
+		}
 		if (Status != TaskStatusType.Locked) {
 //			halo.alpha = 1f;
 			glowRing.gameObject.SetActive(true);

@@ -55,6 +55,10 @@ public class MSTaskMap : MonoBehaviour {
 	const float SCALE_TO_FIT_X = 2f;
 	const float SCALE_TO_FIT_Y = 2f;
 
+	void OnEnable(){
+		StartCoroutine(SetupTasks());
+	}
+
 	//This is called from MapManager before Awake
 	/// <summary>
 	/// Begins initializing the Map
@@ -105,10 +109,6 @@ public class MSTaskMap : MonoBehaviour {
 		BoxCollider box = GetComponent<BoxCollider> ();
 		box.size = new Vector3 (map.width, mapLength, 0f);
 		box.center = new Vector3(0f,  (mapLength / 2f), 0f);
-	}
-
-	void OnEnable(){
-		StartCoroutine(SetupTasks());
 	}
 
 	IEnumerator SetupTasks(){
