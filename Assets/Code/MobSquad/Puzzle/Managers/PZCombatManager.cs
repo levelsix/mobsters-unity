@@ -287,6 +287,8 @@ public class PZCombatManager : MonoBehaviour {
 
 		MSActionManager.Clan.OnRaidMonsterAttacked += OnRaidEnemyAttacked;
 		MSActionManager.Clan.OnRaidMonsterDied += OnRaidEnemyDefeated;
+
+		MSActionManager.Puzzle.OnNewPlayerRound += DoRevealCounter;
 	}
 	
 	void OnDisable()
@@ -298,6 +300,8 @@ public class PZCombatManager : MonoBehaviour {
 		
 		MSActionManager.Clan.OnRaidMonsterAttacked -= OnRaidEnemyAttacked;
 		MSActionManager.Clan.OnRaidMonsterDied -= OnRaidEnemyDefeated;
+
+		MSActionManager.Puzzle.OnNewPlayerRound -= DoRevealCounter;
 	}
 
 	void OnCity()
@@ -319,6 +323,19 @@ public class PZCombatManager : MonoBehaviour {
 		battleStats.monstersDefeated = 0;
 
 		revives = 0;
+	}
+
+	void DoRevealCounter()
+	{
+		StartCoroutine(RevealCounter());
+	}
+
+	IEnumerator RevealCounter()
+	{
+		yield return new WaitForSeconds(0.3f);
+		mobsterCounter.GetComponent<PZMobsterCounter>().MoveToMidPoint();
+		TweenAlpha.Begin(mobsterCounter.gameObject, 0.3f, 1f);
+
 	}
 
 	void PreInit()
@@ -411,8 +428,6 @@ public class PZCombatManager : MonoBehaviour {
 		MSWhiteboard.currTaskStages = dungeon.tsp;
 
 		Debug.LogWarning("Number of stages: " + dungeon.tsp.Count);
-
-		mobsterCounter.MakePixelPerfect();
 
 		PZMonster mon;
 		foreach (TaskStageProto stage in dungeon.tsp)
@@ -1110,7 +1125,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			mobsterCounter.text = "ENEMY " + (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
 			mobsterCounter.MakePixelPerfect();
-			TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 1f ,1f);
+
 			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
 			intro.PlayAnimation ();
 		} 

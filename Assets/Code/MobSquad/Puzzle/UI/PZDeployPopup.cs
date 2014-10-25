@@ -37,6 +37,10 @@ public class PZDeployPopup : MonoBehaviour {
 		MSActionManager.Puzzle.OnDeploy -= OnDeploy;
 	}
 
+	/// <summary>
+	/// Raises the deploy event.
+	/// </summary>
+	/// <param name="kenneth">The best monster there is.</param>
 	void OnDeploy(PZMonster kenneth)
 	{
 		acting = false;
