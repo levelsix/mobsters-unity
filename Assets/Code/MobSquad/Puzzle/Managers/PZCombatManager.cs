@@ -468,7 +468,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterId == save.activePlayerUserMonsterId));
 			PZCombatScheduler.instance.turns = save.turns;
-			PZCombatScheduler.instance.currInd = save.currTurnIndex-1;
+			PZCombatScheduler.instance.currInd = Mathf.Max(save.currTurnIndex-1, 0);
 
 			forfeitChance = save.forfeitChance;
 			Debug.LogWarning("Forfeit chance: " + forfeitChance);
@@ -1085,7 +1085,7 @@ public class PZCombatManager : MonoBehaviour {
 			enemySkillIndicator.Init(activeEnemy.monster.defensiveSkill, activeEnemy.monster.monster.monsterElement);
 			enemySkillIndicator.SetPoints(0);
 
-			while (!MSSpriteUtil.instance.HasBundle(activeEnemy.monster.monster.imagePrefix))
+			while (!activeEnemy.unit.hasSprite)
 			{
 				background.Scroll();
 				yield return null;
@@ -1827,6 +1827,8 @@ public class PZCombatManager : MonoBehaviour {
 	}
 
 	public IEnumerator EnemyReturnToStartPosition(){
+
+
 		Vector3 enemyPos = enemyStartPosition;
 		activeEnemy.unit.animat = MSUnit.AnimationType.RUN;
 

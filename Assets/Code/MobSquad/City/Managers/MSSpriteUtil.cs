@@ -150,13 +150,14 @@ public class MSSpriteUtil : MonoBehaviour {
 				yield return StartCoroutine(DownloadAndCache(bundleName));
 				
 			}
+
+			while (bundles.ContainsKey(bundleName) && bundles[bundleName] == null)
+			{
+				yield return null;
+			}
 			
 			if (bundles.ContainsKey(bundleName))
 			{
-				while (bundles[bundleName] == null)
-				{
-					yield return null;
-				}
 				
 				sprite.sprite2D = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
 				sprite.MakePixelPerfect();
@@ -250,15 +251,16 @@ public class MSSpriteUtil : MonoBehaviour {
 				animator.runtimeAnimatorController = null;
 				yield return StartCoroutine(DownloadAndCache(baseName));
 			}
+			
+			//If something else has marked this bundle as downloading, but hasn't finished, we'll hang here
+			while(bundles.ContainsKey(baseName) && bundles[baseName] == null)
+			{
+				yield return null;
+			}
 
 			if (bundles.ContainsKey(baseName))
 			{
 				Debug.Log("bundles.ContainsKey(baseName)");
-				//If something else has marked this bundle as downloading, but hasn't finished, we'll hang here
-				while (bundles[baseName] == null)
-				{
-					yield return null;
-				}
 
 				animator.runtimeAnimatorController = bundles[baseName].Load(baseName + controllerSuffix, typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
 				animator.GetComponent<SpriteRenderer>().color = Color.white;
@@ -305,12 +307,13 @@ public class MSSpriteUtil : MonoBehaviour {
 		
 		//Debug.Log ("Grabbing bundle: " + bundleName);
 
+		while (bundles.ContainsKey(bundleName) && bundles[bundleName] == null)
+		{
+			yield return null;
+		}
+
 		if (bundles.ContainsKey(bundleName))
 		{
-			while (bundles[bundleName] == null)
-			{
-				yield return null;
-			}
 			yield break;
 		}
 		

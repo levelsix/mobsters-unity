@@ -70,11 +70,15 @@ public class MSAnimationEvents : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator WaitForEndOfEnemyAttack(){
-		_waitOnEnemyAttack = true;
-		while(_waitOnEnemyAttack)
+	public IEnumerator WaitForEndOfEnemyAttack()
+	{
+		if (animate.runtimeAnimatorController != null)
 		{
-			yield return null;
+			_waitOnEnemyAttack = true;
+			while(_waitOnEnemyAttack)
+			{
+				yield return null;
+			}
 		}
 	}
 }

@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 706ec5ae0b364454fb2745d40216994f
+guid: c89efe96c7a2f4b5eb51788632e89c52
 TextureImporter:
   fileIDToRecycleName:
-    21300000: CityHallT1
-    21300002: CityHallT2
+    21300000: CityHallT1@2x
+    21300002: CityHallT1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -23,7 +23,7 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: -1
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
@@ -36,17 +36,13 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: .5, y: .0500000007}
+  alignment: 7
+  spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 50
   alphaIsTransparency: 1
   textureType: 8
-  buildTargetSettings:
-  - buildTarget: iPhone
-    maxTextureSize: 1024
-    textureFormat: -3
-    compressionQuality: 50
+  buildTargetSettings: []
   spriteSheet:
     sprites: []
   spritePackingTag: 

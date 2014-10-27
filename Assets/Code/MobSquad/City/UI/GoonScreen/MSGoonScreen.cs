@@ -93,8 +93,7 @@ public class MSGoonScreen : MonoBehaviour
 		
 		MSFunctionalScreen curr = screens[currScreen];
 		MSFunctionalScreen next = screens[nextScreen];
-		
-		next.Init();
+
 		next.gameObject.SetActive(true);
 		next.transform.localPosition = new Vector3(SIZE, 0, 0);
 		TweenPosition tp = TweenPosition.Begin(next.gameObject, .3f, Vector3.zero);
@@ -115,6 +114,7 @@ public class MSGoonScreen : MonoBehaviour
 			topIcon.helper.FadeIn();
 			TweenPosition.Begin(topIcon.gameObject, .3f, Vector3.zero);
 		}
+		next.Init();
 
 		currScreen = nextScreen;
 	}

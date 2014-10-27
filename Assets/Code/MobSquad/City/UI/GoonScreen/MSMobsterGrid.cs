@@ -19,6 +19,8 @@ public class MSMobsterGrid : MonoBehaviour {
 
 	GoonScreenMode mode;
 
+	Vector3 lastPos;
+
 	public int Count
 	{
 		get
@@ -41,13 +43,20 @@ public class MSMobsterGrid : MonoBehaviour {
 		grid.animateSmoothly = false;
 		Reposition();
 		grid.animateSmoothly = true;
-		StartCoroutine(RefreshNextFrame());
+		StartCoroutine(WhileMoving());
 	}
 
-	IEnumerator RefreshNextFrame()
+	IEnumerator WhileMoving()
 	{
-		yield return null;
-		panel.Refresh();
+		do
+		{
+			lastPos = transform.position;
+			yield return null;
+			foreach (var card in cards) 
+			{
+				card.GetComponent<UIWidget>().mMoved = true;
+			}
+		}while (lastPos != transform.position);
 	}
 
 	bool ShouldGoonBeAdded(GoonScreenMode mode, PZMonster mobster)

@@ -259,13 +259,16 @@ public class MSGoonCard : MonoBehaviour {
 		default:
 			break;
 		}
-		//StartCoroutine(MakeDamnSure());
+		StartCoroutine(MakeDamnSure());
 	}
 
 	IEnumerator MakeDamnSure()
 	{
 		yield return null;
 		transform.localScale = Vector3.one;
+		foreach (var item in GetComponentsInChildren<UIWidget>()) {
+			item.ParentHasChanged();
+				}
 	}
 
 	public void InitHeal(PZMonster goon)

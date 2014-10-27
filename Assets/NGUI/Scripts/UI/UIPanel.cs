@@ -163,6 +163,8 @@ public class UIPanel : UIRect
 	bool mSortWidgets = false;
 	bool mUpdateScroll = false;
 
+	Vector3 lastPos = Vector3.zero;
+
 	/// <summary>
 	/// Helper property that returns the first unused depth value.
 	/// </summary>

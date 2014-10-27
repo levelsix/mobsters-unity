@@ -142,11 +142,11 @@ public class UIWidget : UIRect
 	[System.NonSerialized] protected bool mPlayMode = true;
 	[System.NonSerialized] protected Vector4 mDrawRegion = new Vector4(0f, 0f, 1f, 1f);
 	[System.NonSerialized] Matrix4x4 mLocalToPanel;
-	[System.NonSerialized] bool mIsVisibleByAlpha = true;
-	[System.NonSerialized] bool mIsVisibleByPanel = true;
+	 bool mIsVisibleByAlpha = true;
+	 bool mIsVisibleByPanel = true;
 	[System.NonSerialized] bool mIsInFront = true;
 	[System.NonSerialized] float mLastAlpha = 0f;
-	[System.NonSerialized] bool mMoved = false;
+	[System.NonSerialized] public bool mMoved = false;
 
 	/// <summary>
 	/// Internal usage -- draw call that's drawing the widget.
