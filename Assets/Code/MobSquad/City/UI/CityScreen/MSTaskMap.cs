@@ -6,6 +6,8 @@ using com.lvl6.proto;
 
 public class MSTaskMap : MonoBehaviour {
 
+	public static MSTaskMap instance;
+
 	Vector3 worldPosition;
 
 	[SerializeField]
@@ -54,6 +56,11 @@ public class MSTaskMap : MonoBehaviour {
 	/// </summary>
 	const float SCALE_TO_FIT_X = 2f;
 	const float SCALE_TO_FIT_Y = 2f;
+
+	void Awake()
+	{
+		instance = this;
+	}
 
 	void OnEnable(){
 		StartCoroutine(SetupTasks());
@@ -130,7 +137,7 @@ public class MSTaskMap : MonoBehaviour {
 				taskButtons[task.taskId].Status = MSMapTaskButton.TaskStatusType.Undefeated;
 				nextTask = taskButtons[task.taskId];
 
-				avatar.MoveToNewTask(nextTask.mapTask.mapElementId);
+				avatar.MoveToNewTask(nextTask);
 				avatar.SetDepth(nextTask.GetComponent<UISprite>().depth + 2);
 			}
 			else

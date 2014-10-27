@@ -75,12 +75,12 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 
 	void TooMuchPowerFail()
 	{
-			//Center on team center
-			MSTownCamera.instance.DoCenterOnGroundPos(MSBuildingManager.teamCenter.trans.position, .4f);
-			MSBuildingManager.teamCenter.SetArrow(true);
-			
-			//Popup error message
-			MSActionManager.Popup.DisplayRedError("Your team is over the power limit! Manage your team now.");
+		//Center on team center
+		MSTownCamera.instance.DoCenterOnGroundPos(MSBuildingManager.teamCenter.trans.position, .4f);
+		MSBuildingManager.teamCenter.SetArrow(true);
+		
+		//Popup error message
+		MSActionManager.Popup.DisplayRedError("Your team is over the power limit! Manage your team now.");
 	}
 
 	void ResidenceFullFail()

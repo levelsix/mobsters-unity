@@ -250,12 +250,12 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	#region Completing Job
 
-	public void CompleteCurrentJobWithGems()
+	public IEnumerator CompleteCurrentJobWithGems()
 	{
 		int numGems = MSMath.GemsForTime(timeLeft, false);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, numGems))
 		{
-			StartCoroutine(CompleteCurrentJob(true, numGems));
+			yield return StartCoroutine(CompleteCurrentJob(true, numGems));
 			if(MSActionManager.MiniJob.OnMiniJobGemsComplete != null)
 			{
 				MSActionManager.MiniJob.OnMiniJobGemsComplete();
@@ -320,8 +320,22 @@ public class MSMiniJobManager : MonoBehaviour {
 			//request.umchp.Add(item.GetCurrentHealthProto());
 		}
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_COMPLETE_MINI_JOB_EVENT,
-		                                       DealWithJobCompleteResponse);
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_COMPLETE_MINI_JOB_EVENT);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		isCompleting = false;
+		
+		CompleteMiniJobResponseProto response = UMQNetworkManager.responseDict[tagNum] as CompleteMiniJobResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != CompleteMiniJobResponseProto.CompleteMiniJobStatus.SUCCESS)
+		{
+			MSActionManager.Popup.DisplayRedError("Problem completing job: " + response.status.ToString());
+		}
 	}
 
 	/// <summary>
@@ -398,19 +412,6 @@ public class MSMiniJobManager : MonoBehaviour {
 			damageDelt.Add(0);
 		}
 		DamageMonsters(currActiveJob.baseDmgReceived, true);
-	}
-
-	void DealWithJobCompleteResponse(int tagNum)
-	{
-		isCompleting = false;
-
-		CompleteMiniJobResponseProto response = UMQNetworkManager.responseDict[tagNum] as CompleteMiniJobResponseProto;
-		UMQNetworkManager.responseDict.Remove(tagNum);
-
-		if (response.status != CompleteMiniJobResponseProto.CompleteMiniJobStatus.SUCCESS)
-		{
-			MSActionManager.Popup.DisplayRedError("Problem completing job: " + response.status.ToString());
-		}
 	}
 
 	#endregion
