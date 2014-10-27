@@ -223,7 +223,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public float forfeitChance;
 	const float FORFEIT_GAIN_RATE = 0.25f;
-	const float FORFEIT_START_CHANCE = 0.5f;
+	const float FORFEIT_START_CHANCE = 1f;
 
 	int savedHealth = -1;
 
@@ -921,6 +921,10 @@ public class PZCombatManager : MonoBehaviour {
 			ActivateLoseMenu();
 		} else {
 			forfeitChance += FORFEIT_GAIN_RATE;
+			if(forfeitChance > 1f)
+			{
+				forfeitChance = 1f;
+			}
 			yield return RunPickNextTurn(true);
 		}
 		PZPuzzleManager.instance.swapLock--;
