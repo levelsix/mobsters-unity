@@ -915,9 +915,9 @@ public class PZCombatManager : MonoBehaviour {
 		                             (activeEnemy.transform.position.y + activePlayer.transform.position.y) / 2f,
 		                             activePlayer.transform.position.z);
 		forfeit.SetParentPosition(center);
-		yield return StartCoroutine(forfeit.Animate (forfeitSuccess));
+//		yield return StartCoroutine(forfeit.Animate (forfeitSuccess));
 		if (forfeitSuccess) {
-			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
+//			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
 			ActivateLoseMenu();
 		} else {
 			forfeitChance += FORFEIT_GAIN_RATE;

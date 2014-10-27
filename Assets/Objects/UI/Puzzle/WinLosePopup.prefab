@@ -752,8 +752,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 168, y: 96, z: 0}
-  m_Center: {x: 0, y: -2, z: 0}
+  m_Size: {x: 168, y: 102, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500002
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -764,8 +764,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 168, y: 96, z: 0}
-  m_Center: {x: 0, y: -2, z: 0}
+  m_Size: {x: 168, y: 102, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500004
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -776,8 +776,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 168, y: 96, z: 0}
-  m_Center: {x: 0, y: -2, z: 0}
+  m_Size: {x: 168, y: 102, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500006
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -994,7 +994,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.49844241
+  aspectRatio: 1.48338366
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -1380,18 +1380,18 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .643137276, g: .156862751, b: 0, a: 1}
   mPivot: 4
-  mWidth: 126
-  mHeight: 36
+  mWidth: 88
+  mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.5
+  aspectRatio: 3.5999999
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 4583b5322db0b4e5aa4b82ff0800dfb5, type: 2}
+  mFont: {fileID: 11400000, guid: 17d7397560e9349d993457d1a4efe752, type: 2}
   mText: SHARE
-  mFontSize: 35
+  mFontSize: 20
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -1412,6 +1412,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1553,26 +1554,26 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: .0580789782, g: .382352948, b: 0, a: 1}
+  mColor: {r: .0790674537, g: .5, b: .00367647409, a: 1}
   mPivot: 4
-  mWidth: 108
-  mHeight: 36
+  mWidth: 118
+  mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.94444442
+  aspectRatio: 5.5999999
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 4583b5322db0b4e5aa4b82ff0800dfb5, type: 2}
-  mText: DONE
-  mFontSize: 35
+  mFont: {fileID: 11400000, guid: 17d7397560e9349d993457d1a4efe752, type: 2}
+  mText: GO HOME
+  mFontSize: 20
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 1, g: 1, b: 1, a: .549019635}
+  mEffectColor: {r: 1, g: 1, b: 1, a: .592156887}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 2
@@ -1587,6 +1588,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1649,6 +1651,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1729,6 +1732,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1965,28 +1969,28 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: .286274523, g: 0, b: .505882382, a: 1}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 138
-  mHeight: 36
+  mWidth: 132
+  mHeight: 20
   mDepth: 17
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.94117641
+  aspectRatio: 6.5999999
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
-  mFont: {fileID: 11400000, guid: 4583b5322db0b4e5aa4b82ff0800dfb5, type: 2}
-  mText: REVIVE
-  mFontSize: 35
+  mFont: {fileID: 11400000, guid: 17d7397560e9349d993457d1a4efe752, type: 2}
+  mText: CONTINUE
+  mFontSize: 20
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 1, g: 1, b: 1, a: .549019635}
+  mEffectColor: {r: .00392156886, g: 0, b: 0, a: .549019635}
   mSymbols: 1
-  mEffectDistance: {x: 0, y: 1}
+  mEffectDistance: {x: 0, y: 2}
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -1999,6 +2003,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2306,8 +2311,8 @@ MonoBehaviour:
   onFinished: []
   eventReceiver: {fileID: 0}
   callWhenFinished: 
-  from: {x: -0, y: 0, z: 45}
-  to: {x: -0, y: 0, z: -45}
+  from: {x: -0, y: 0, z: 15}
+  to: {x: -0, y: 0, z: -15}
 --- !u!114 &11400082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2636,14 +2641,14 @@ MonoBehaviour:
     m_PostInfinity: 2
   ignoreTimeScale: 1
   delay: 0
-  duration: 5
+  duration: 13
   steeperCurves: 0
   tweenGroup: 0
   onFinished: []
   eventReceiver: {fileID: 0}
   callWhenFinished: 
-  from: {x: -0, y: 0, z: -179}
-  to: {x: -0, y: 0, z: 180}
+  from: {x: -0, y: 0, z: 180}
+  to: {x: -0, y: 0, z: -179}
 --- !u!114 &11400098
 MonoBehaviour:
   m_ObjectHideFlags: 1
