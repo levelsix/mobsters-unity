@@ -8,7 +8,7 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// MSMiniJobPopup
 /// </summary>
-public class MSMiniJobPopup : MonoBehaviour {
+public class MSMiniJobPopup : MSFunctionalScreen {
 
 	#region Prefabs
 
@@ -168,7 +168,12 @@ public class MSMiniJobPopup : MonoBehaviour {
 		}
 	}
 
-	public void Init()
+	public override bool IsAvailable ()
+	{
+		return MSMiniJobManager.instance.currJobCenter != null && MSMiniJobManager.instance.currJobCenter.structInfo.level > 0;
+	}
+
+	public override void Init()
 	{
 		SetupJobGrid();
 		InitCollectionScreen();

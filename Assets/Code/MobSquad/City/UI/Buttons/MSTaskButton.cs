@@ -277,7 +277,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 			ClickHire();
 			break;
 		case Mode.MINIJOB:
-			ClickMiniJob();
+			OpenFunctionalMenu(GoonScreenMode.MINIJOB);
 			break;
 		case Mode.SQUAD:
 			ClickClan();
@@ -315,19 +315,14 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	void ClickUpgrade()
 	{
-			base.OnClick();
-			popup.GetComponent<MSBuildingUpgradePopup>().Init(currBuilding);
+		base.OnClick();
+		popup.GetComponent<MSBuildingUpgradePopup>().Init(currBuilding);
 	}
 
 	void ClickHire()
 	{
 		base.OnClick();
 		popup.GetComponent<MSHirePopup>().Init(currBuilding);
-	}
-
-	void ClickMiniJob()
-	{
-		base.OnClick();
 	}
 	
 	public void Pool ()

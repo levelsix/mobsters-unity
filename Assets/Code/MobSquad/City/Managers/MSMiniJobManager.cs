@@ -20,7 +20,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	public bool isCompleting = false;
 
-	MiniJobCenterProto currJobCenter;
+	public MiniJobCenterProto currJobCenter;
 
 	public List<UserMiniJobProto> userMiniJobs = new List<UserMiniJobProto>();
 

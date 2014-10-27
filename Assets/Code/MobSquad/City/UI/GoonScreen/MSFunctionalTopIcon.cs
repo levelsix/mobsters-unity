@@ -24,7 +24,8 @@ public class MSFunctionalTopIcon : MonoBehaviour
 		{GoonScreenMode.PICK_ENHANCE, "enhancelabmenuheader"},
 		{GoonScreenMode.DO_ENHANCE, "enhancelabmenuheader"},
 		{GoonScreenMode.PICK_EVOLVE, "evolutionlabmenuheader"},
-		{GoonScreenMode.DO_EVOLVE, "evolutionlabmenuheader"}
+		{GoonScreenMode.DO_EVOLVE, "evolutionlabmenuheader"},
+		{GoonScreenMode.MINIJOB, "minijobsbuilding"}
 	};
 
 	static readonly Dictionary<GoonScreenMode, string> baseWords = new Dictionary<GoonScreenMode, string>()
@@ -35,7 +36,8 @@ public class MSFunctionalTopIcon : MonoBehaviour
 		{GoonScreenMode.PICK_ENHANCE, "ENHANCE TOONS"},
 		{GoonScreenMode.DO_ENHANCE, "ENHANCE TOONS"},
 		{GoonScreenMode.PICK_EVOLVE, "EVOLVE TOONS"},
-		{GoonScreenMode.DO_EVOLVE, "EVOLVE TOONS"}
+		{GoonScreenMode.DO_EVOLVE, "EVOLVE TOONS"},
+		{GoonScreenMode.MINIJOB, "MINI JOBS"}
 	};
 
 	void Awake()
