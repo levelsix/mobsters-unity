@@ -10,7 +10,6 @@
 // Generated from: EventClan.proto
 // Note: requires additional types generated from: Clan.proto
 // Note: requires additional types generated from: MonsterStuff.proto
-// Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
@@ -1806,6 +1805,174 @@ namespace com.lvl6.proto
     }
     [global::ProtoBuf.ProtoContract(Name=@"EndClanHelpStatus")]
     public enum EndClanHelpStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"InviteToClanRequestProto")]
+  public partial class InviteToClanRequestProto : global::ProtoBuf.IExtensible
+  {
+    public InviteToClanRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private int _prospectiveMember = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"prospectiveMember", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int prospectiveMember
+    {
+      get { return _prospectiveMember; }
+      set { _prospectiveMember = value; }
+    }
+
+    private long _clientTime = default(long);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long clientTime
+    {
+      get { return _clientTime; }
+      set { _clientTime = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"InviteToClanResponseProto")]
+  public partial class InviteToClanResponseProto : global::ProtoBuf.IExtensible
+  {
+    public InviteToClanResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.InviteToClanResponseProto.InviteToClanStatus _status = com.lvl6.proto.InviteToClanResponseProto.InviteToClanStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.InviteToClanResponseProto.InviteToClanStatus.SUCCESS)]
+    public com.lvl6.proto.InviteToClanResponseProto.InviteToClanStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+
+    private com.lvl6.proto.ClanInviteProto _invite = null;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"invite", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.ClanInviteProto invite
+    {
+      get { return _invite; }
+      set { _invite = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"InviteToClanStatus")]
+    public enum InviteToClanStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AcceptOrRejectClanInviteRequestProto")]
+  public partial class AcceptOrRejectClanInviteRequestProto : global::ProtoBuf.IExtensible
+  {
+    public AcceptOrRejectClanInviteRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.ClanInviteProto _accepted = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"accepted", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.ClanInviteProto accepted
+    {
+      get { return _accepted; }
+      set { _accepted = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanInviteProto> _rejected = new global::System.Collections.Generic.List<com.lvl6.proto.ClanInviteProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"rejected", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ClanInviteProto> rejected
+    {
+      get { return _rejected; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AcceptOrRejectClanInviteResponseProto")]
+  public partial class AcceptOrRejectClanInviteResponseProto : global::ProtoBuf.IExtensible
+  {
+    public AcceptOrRejectClanInviteResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.AcceptOrRejectClanInviteResponseProto.AcceptOrRejectClanInviteStatus _status = com.lvl6.proto.AcceptOrRejectClanInviteResponseProto.AcceptOrRejectClanInviteStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.AcceptOrRejectClanInviteResponseProto.AcceptOrRejectClanInviteStatus.SUCCESS)]
+    public com.lvl6.proto.AcceptOrRejectClanInviteResponseProto.AcceptOrRejectClanInviteStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+
+    private com.lvl6.proto.FullClanProtoWithClanSize _fullClan = null;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"fullClan", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.FullClanProtoWithClanSize fullClan
+    {
+      get { return _fullClan; }
+      set { _fullClan = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"AcceptOrRejectClanInviteStatus")]
+    public enum AcceptOrRejectClanInviteStatus
     {
             
       [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]

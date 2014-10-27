@@ -432,6 +432,13 @@ namespace com.lvl6.proto
       get { return _clanHelpings; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanInviteProto> _clanInvites = new global::System.Collections.Generic.List<com.lvl6.proto.ClanInviteProto>();
+    [global::ProtoBuf.ProtoMember(42, Name=@"clanInvites", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ClanInviteProto> clanInvites
+    {
+      get { return _clanInvites; }
+    }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
   public partial class AttackedNotificationProto : global::ProtoBuf.IExtensible
   {
@@ -793,6 +800,15 @@ namespace com.lvl6.proto
       get { return _clanHelpConstants; }
     }
   
+
+    private com.lvl6.proto.StartupResponseProto.StartupConstants.PvpConstants _pvpConstant = null;
+    [global::ProtoBuf.ProtoMember(33, IsRequired = false, Name=@"pvpConstant", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StartupResponseProto.StartupConstants.PvpConstants pvpConstant
+    {
+      get { return _pvpConstant; }
+      set { _pvpConstant = value; }
+    }
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnimatedSpriteOffsetProto")]
   public partial class AnimatedSpriteOffsetProto : global::ProtoBuf.IExtensible
   {
@@ -1156,6 +1172,52 @@ namespace com.lvl6.proto
     {
       get { return _percentRemovedPerHelp; }
       set { _percentRemovedPerHelp = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PvpConstants")]
+  public partial class PvpConstants : global::ProtoBuf.IExtensible
+  {
+    public PvpConstants() {}
+    
+
+    private int _pvpDmgsWindowSize = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"pvpDmgsWindowSize", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int pvpDmgsWindowSize
+    {
+      get { return _pvpDmgsWindowSize; }
+      set { _pvpDmgsWindowSize = value; }
+    }
+
+    private float _minPvpDmgDelta = default(float);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"minPvpDmgDelta", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float minPvpDmgDelta
+    {
+      get { return _minPvpDmgDelta; }
+      set { _minPvpDmgDelta = value; }
+    }
+
+    private float _maxPvpDmgDelta = default(float);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"maxPvpDmgDelta", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float maxPvpDmgDelta
+    {
+      get { return _maxPvpDmgDelta; }
+      set { _maxPvpDmgDelta = value; }
+    }
+
+    private int _pvpRequiredMinLvl = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"pvpRequiredMinLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int pvpRequiredMinLvl
+    {
+      get { return _pvpRequiredMinLvl; }
+      set { _pvpRequiredMinLvl = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

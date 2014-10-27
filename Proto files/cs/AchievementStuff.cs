@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 // Generated from: AchievementStuff.proto
-// Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: Structure.proto
 namespace com.lvl6.proto
