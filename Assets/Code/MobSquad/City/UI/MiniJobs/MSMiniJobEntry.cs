@@ -181,24 +181,11 @@ public class MSMiniJobEntry : MonoBehaviour {
 		{
 			RushComplete();
 		}
-		else
-		{
-			Collect();
-		}
-//		popup.Init();
 	}
 
 	void RushComplete()
 	{
 		MSMiniJobManager.instance.CompleteCurrentJobWithGems();
-	}
-
-	void Collect()
-	{
-		if (MSMiniJobManager.instance.RedeemCurrJob())
-		{
-			StartCoroutine(FadeOutAndPool());
-		}
 	}
 
 	void OnJobStarted(UserMiniJobProto job)

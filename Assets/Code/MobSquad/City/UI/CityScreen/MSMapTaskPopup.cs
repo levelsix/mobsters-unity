@@ -77,7 +77,7 @@ public class MSMapTaskPopup : MonoBehaviour {
 		init (task, mapTask.element);
 
 		levelTitle.text = task.name;
-		level.text = "Level " + mapTask.mapElementId;
+		level.text = "LEVEL " + mapTask.mapElementId;
 
 		cashLabel.text = mapTask.cashReward.ToString();
 		oilLabel.text = mapTask.oilReward.ToString();

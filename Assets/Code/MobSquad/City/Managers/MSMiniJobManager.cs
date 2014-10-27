@@ -240,6 +240,10 @@ public class MSMiniJobManager : MonoBehaviour {
 		{
 			Debug.LogError("Problem beginning minijob: " + response.status.ToString());
 		}
+		if(MSActionManager.MiniJob.OnMiniJobBeginResponse != null)
+		{
+			MSActionManager.MiniJob.OnMiniJobBeginResponse();
+		}
 	}	                                   
 
 	#endregion
@@ -405,7 +409,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		if (response.status != CompleteMiniJobResponseProto.CompleteMiniJobStatus.SUCCESS)
 		{
-			Debug.LogError("Problem completing job: " + response.status.ToString());
+			MSActionManager.Popup.DisplayRedError("Problem completing job: " + response.status.ToString());
 		}
 	}
 
@@ -413,16 +417,15 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	#region Job Redeeming
 
-	public bool RedeemCurrJob()
+	public Coroutine RedeemCurrJob()
 	{
 		if (!isCompleted || isRedeeming) //Use the isRedeeming bool to make sure we don't stack requests
 		{
-			Debug.LogError("Job hasn't been completed, cannot redeem.");
-			return false;
+			MSActionManager.Popup.DisplayRedError("Job hasn't been completed, cannot redeem.");
+			return null;
 		}
 
-		StartCoroutine(RunJobRedemption());
-		return true;
+		return StartCoroutine(RunJobRedemption());
 	}
 
 	IEnumerator RunJobRedemption()
@@ -466,8 +469,11 @@ public class MSMiniJobManager : MonoBehaviour {
 		RedeemMiniJobResponseProto response = UMQNetworkManager.responseDict[tagNum] as RedeemMiniJobResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
+		Debug.Log("A");
+
 		if (response.status == RedeemMiniJobResponseProto.RedeemMiniJobStatus.SUCCESS)
 		{
+			Debug.Log("B");
 			if (response.fump != null)
 			{
 				MSMonsterManager.instance.UpdateOrAdd(response.fump);

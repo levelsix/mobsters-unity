@@ -644,6 +644,11 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
     /// <param name="movement"></param> 
     public void MoveRelative(TCKTouchData touch)
     {
+		if (userStructProto != null)
+		{
+			MSGridManager.instance.RemoveBuilding(this);
+		}
+
 		Vector3 movement = touch.Movement;
 		Vector3 tempPosition = trans.position;
 		
@@ -925,10 +930,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 			_originalPos = trans.position;
 			_tempPos = trans.position;
-			if (userStructProto != null)
-			{
-	        	MSGridManager.instance.RemoveBuilding(this);
-			}
+
 			MSActionManager.Town.PlaceBuilding += Place;
 			selected = true;
 			currColor = selectColor;

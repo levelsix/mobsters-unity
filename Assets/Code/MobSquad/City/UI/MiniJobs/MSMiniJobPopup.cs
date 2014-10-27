@@ -122,6 +122,9 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 	
 	[SerializeField]
 	int PRIZE_BUFFER = 5;
+
+	[SerializeField]
+	MSLoadLock collectLoadLock;
 	#endregion
 
 	public List<MSMiniJobEntry> jobEntries = new List<MSMiniJobEntry>();
@@ -144,7 +147,7 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 	void Awake()
 	{
 		MSActionManager.MiniJob.OnMiniJobComplete += CheckPageChange;
-		Debug.LogError("added");
+		MSActionManager.MiniJob.OnMiniJobBeginResponse += EngageResponse;
 	}
 
 	void OnEnable()
@@ -160,10 +163,8 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 	/// </summary>
 	public void CheckPageChange()
 	{
-		Debug.LogError("called");
 		if (gameObject.activeSelf)
 		{
-			Debug.LogError("function");
 			Init();
 		}
 	}
@@ -175,6 +176,7 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 
 	public override void Init()
 	{
+		backButton.TurnOff();
 		SetupJobGrid();
 		InitCollectionScreen();
 		StartCoroutine(RunTimerUntilJobsReset());
@@ -240,15 +242,12 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 			{
 				hurtGoons[i].Init(MSMiniJobManager.instance.teamToDamage[i] ,MSMiniJobManager.instance.damageDelt[i]);
 			}
-
-			collectionObject.SetActive(true);
-			leftObject.SetActive(false);
+			StartCoroutine(FadeFromListingsToCollection());
 
 		}
 		else
 		{
-			collectionObject.SetActive(false);
-			leftObject.SetActive(true);
+			StartCoroutine(FadeFromCollectionToListings());
 		}
 	}
 
@@ -285,19 +284,8 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 	{
 		while(true)
 		{
-			long timeUntilRefresh = MSMiniJobManager.instance.timeUntilRefresh;
-
-			newJobSpawnTimer.text = MSUtil.TimeStringShort(timeUntilRefresh);
-
-			//If it's more than an hour, refresh every minute. Otherwise, every second.
-			if (timeUntilRefresh > 60 * 60 * 1000)
-			{
-				yield return new WaitForSeconds(60);
-			}
-			else
-			{
-				yield return new WaitForSeconds(1);
-			}
+			newJobSpawnTimer.text = MSUtil.TimeStringShort(MSMiniJobManager.instance.timeUntilRefresh);
+			yield return null;
 		}
 	}
 
@@ -379,9 +367,18 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 		if (ready)
 		{
 			MSMiniJobManager.instance.BeginJob(currJob, currTeam);
-			Init();
-			mover.PlayReverse();
+			engageButton.GetComponent<MSLoadLock>().Lock();
 		}
+	}
+
+	/// <summary>
+	/// Unlock the engage button
+	/// </summary>
+	void EngageResponse()
+	{
+		engageButton.GetComponent<MSLoadLock>().Unlock();
+		Init();
+		mover.PlayReverse();
 	}
 
 	void InitRightPickGoons()
@@ -495,23 +492,57 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 		if (MSMiniJobManager.instance.currActiveJob.timeCompleted == 0)
 		{
 			MSMiniJobManager.instance.CompleteCurrentJobWithGems();
-		}
-		else
-		{
-			MSMiniJobManager.instance.RedeemCurrJob();
 			mover.PlayReverse();
 		}
-
 	}
 
 	public void ClickCollectButton()
 	{
-//		curJobEntry.OnButtonClick();
-		MSMiniJobManager.instance.RedeemCurrJob();
+		StartCoroutine(Collect());
+	}
+
+	IEnumerator Collect()
+	{
+		collectLoadLock.Lock();
+		Debug.Log("In");
+		yield return MSMiniJobManager.instance.RedeemCurrJob();
+		Debug.Log("N Out");
+		collectLoadLock.Unlock();
+
 		SetupJobGrid();
 		StartCoroutine(RunTimerUntilJobsReset());
+		
+		StartCoroutine(FadeFromCollectionToListings());
+	}
+
+	public IEnumerator FadeFromCollectionToListings()
+	{
+		float duration = 0.3f;
+
+		leftObject.SetActive(true);
+		leftObject.GetComponent<UIWidget>().alpha = 0f;
+		SetupJobGrid();
+
+		TweenAlpha.Begin(leftObject, duration, 1f);
+		TweenAlpha.Begin(collectionObject, duration, 0f);
+
+		yield return new WaitForSeconds(duration);
 
 		collectionObject.SetActive(false);
-		leftObject.SetActive(true);
+	}
+
+	public IEnumerator FadeFromListingsToCollection()
+	{
+		float duration = 0.3f;
+
+		collectionObject.SetActive(true);
+		collectionObject.GetComponent<UIWidget>().alpha = 0f;
+
+		TweenAlpha.Begin(collectionObject, duration, 1f);
+		TweenAlpha.Begin(leftObject, duration, 0f);
+
+		yield return new WaitForSeconds(duration);
+
+		leftObject.SetActive(false);
 	}
 }

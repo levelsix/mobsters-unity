@@ -81,51 +81,47 @@ public class MSPier : MSBuildingFrame {
 		doneIcon.gameObject.SetActive(true);
 	}
 	
-	
+	[ContextMenu("checkTag")]
 	public override void CheckTag(){
 
 		bubbleIcon.gameObject.SetActive(false);
-
 		if(Precheck())
 		{
-			if(bar!= null && !bar.isActiveTimeFrame)
+			if(MSMiniJobManager.instance.isCompleted)//There is a finished job
 			{
-				if(MSMiniJobManager.instance.isCompleted)//There is a finished job
-				{
-					SpawnJobDoneIcon();
-				}
-				else //there are no active jobs
-				{
-					if(doneIcon != null)
-					{
-						doneIcon.gameObject.SetActive(false);
-					}
-					if(bubbleIcon != null)
-					{
-						bubbleIcon.gameObject.SetActive(false);
-						if(building.combinedProto.structInfo.level == 0)
-						{
-							bubbleIcon.gameObject.SetActive(true);
-							bubbleIcon.spriteName = "fixbubble";
-							bubbleIcon.MakePixelPerfect();
-						}
-						else if(MSMiniJobManager.instance.userMiniJobs.Count > 0)
-						{
-							bubbleIcon.gameObject.SetActive(true);
-							bubbleIcon.spriteName = "minijobsredbubble" + MSMiniJobManager.instance.userMiniJobs.Count;
-							bubbleIcon.MakePixelPerfect();
-						}
-					}
-				}
+				SpawnJobDoneIcon();
 			}
-			else //there is an active job
+			else if(MSMiniJobManager.instance.currActiveJob == null || MSMiniJobManager.instance.currActiveJob.miniJob == null) //there are no active jobs
 			{
 				if(doneIcon != null)
 				{
 					doneIcon.gameObject.SetActive(false);
 				}
 
-				if(bubbleIcon != null)
+				bubbleIcon.gameObject.SetActive(false);
+				if(building.combinedProto.structInfo.level == 0)
+				{
+					bubbleIcon.gameObject.SetActive(true);
+					bubbleIcon.spriteName = "fixbubble";
+					bubbleIcon.MakePixelPerfect();
+				}
+				else if(MSMiniJobManager.instance.userMiniJobs.Count > 0)
+				{
+					bubbleIcon.gameObject.SetActive(true);
+					bubbleIcon.spriteName = "minijobsredbubble" + MSMiniJobManager.instance.userMiniJobs.Count;
+					bubbleIcon.MakePixelPerfect();
+				}
+			}
+			else
+			{
+				Debug.LogError(MSMiniJobManager.instance.currActiveJob.miniJob.name);
+				
+				if(doneIcon != null)
+				{
+					doneIcon.gameObject.SetActive(false);
+				}
+				
+				if(MSMiniJobManager.instance.currActiveJob.miniJob != null)
 				{
 					bubbleIcon.gameObject.SetActive(true);
 					bubbleIcon.spriteName = MSMiniJobManager.instance.currActiveJob.miniJob.quality.ToString().ToLower() + "job";

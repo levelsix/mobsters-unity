@@ -37,6 +37,7 @@ public class MSResourceStorage : MonoBehaviour {
 		buildingUpgrade.OnFinishUpgrade -= OnFinishUpgrade;
 	}
 
+	[ContextMenu("determineResourceMaxima")]
 	void OnFinishUpgrade()
 	{
 		MSResourceManager.instance.DetermineResourceMaxima();

@@ -350,13 +350,11 @@ public class PZCombatUnit : MonoBehaviour {
 
 		if (monster.taskMonster != null && monster.taskMonster.puzzlePieceMonsterId > 0 && (monster.taskMonster.puzzlePieceDropped || monster.taskMonster.itemId > 0))
 		{
-			Transform crate = (MSPoolManager.instance.Get(MSPrefabList.instance.cratePrefab, unit.transf.position) as MonoBehaviour).transform;
-			PZCombatManager.instance.crate = crate.GetComponent<PZCrate>();
+			PZCombatManager.instance.crate = MSPoolManager.instance.Get<PZCrate>(MSPrefabList.instance.cratePrefab, unit.transf.parent);
 			MonsterProto newMonster = MSDataManager.instance.Get<MonsterProto>(monster.taskMonster.puzzlePieceMonsterId);
 			PZCombatManager.instance.crate.InitCrate(monster.taskMonster);
-			crate.parent = unit.transf.parent;
-			crate.transform.position = new Vector3(unit.transf.position.x, unit.transf.position.y, unit.transf.position.z);
-			crate.transform.localScale = Vector3.one;
+			PZCombatManager.instance.crate.transform.position = new Vector3(unit.transf.position.x, unit.transf.position.y, unit.transf.position.z);
+			PZCombatManager.instance.crate.transform.localScale = Vector3.one;
 		}
 
 		yield return new WaitForSeconds(1);
