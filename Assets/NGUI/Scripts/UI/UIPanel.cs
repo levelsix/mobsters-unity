@@ -163,6 +163,8 @@ public class UIPanel : UIRect
 	bool mSortWidgets = false;
 	bool mUpdateScroll = false;
 
+	Vector3 lastPos = Vector3.zero;
+
 	/// <summary>
 	/// Helper property that returns the first unused depth value.
 	/// </summary>
@@ -396,7 +398,7 @@ public class UIPanel : UIRect
 				Mathf.Abs(mClipOffset.y - value.y) > 0.001f)
 			{
 				mClipOffset = value;
-				InvalidateClipping();
+				//InvalidateClipping();
 
 				// Call the event delegate
 				if (onClipMove != null) onClipMove(this);
@@ -1196,6 +1198,12 @@ public class UIPanel : UIRect
 				}
 			}
 		}
+	}
+
+	[ContextMenu ("Debug print draw calls")]
+	public void PrintNumDrawCalls()
+	{
+		Debug.Log("Draw calls on " + name + ": " + widgets.Count);
 	}
 
 	/// <summary>

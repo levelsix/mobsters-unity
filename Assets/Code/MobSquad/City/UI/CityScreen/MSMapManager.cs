@@ -4,8 +4,15 @@ using com.lvl6.proto;
 
 public class MSMapManager : MonoBehaviour {
 
+	public static MSMapManager instance;
+
 	[SerializeField]
 	MSTaskMap taskMap;
+
+	void Awake()
+	{
+		instance = this;
+	}
 
 	void OnEnable()
 	{
@@ -20,7 +27,7 @@ public class MSMapManager : MonoBehaviour {
 	/// <summary>
 	/// Initializes all tasks
 	/// </summary>
-	void InitMapTasks(StartupResponseProto response)
+	public void InitMapTasks(StartupResponseProto response)
 	{
 		taskMap.StartInit();
 	}

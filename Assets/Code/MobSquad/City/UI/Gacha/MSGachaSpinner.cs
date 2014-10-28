@@ -31,8 +31,18 @@ public class MSGachaSpinner : MonoBehaviour {
 	
 	[SerializeField]
 	SpringPanel spinnerSpring;
+
+	[SerializeField]
+	BoxCollider dragHitBox;
 	
 	public MSGachaItem lastToLoop = null;
+
+	void OnDisable()
+	{
+		//If the player starts the spinner and then closes the gatcha screen
+		//prevents the player coming back to an unspinnable spinner
+		dragHitBox.enabled = true;
+	}
 	
 	public void Init(BoosterPackProto pack)
 	{
@@ -51,19 +61,22 @@ public class MSGachaSpinner : MonoBehaviour {
 			yield return StartCoroutine(Spin());
 		}
 		
-		spinnerSpring.onFinished = delegate { MSActionManager.Popup.OnPopup(reveal.GetComponent<MSPopup>()); };
+		spinnerSpring.onFinished = delegate { MSActionManager.Popup.OnPopup(reveal.GetComponent<MSPopup>()); dragHitBox.enabled = true; };
 		
 	}
 	
 	public void SpinOnce()
 	{
-		if( MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
+		if(!spinning)
 		{
-			StartCoroutine(SpinTimes(1));
-		}
-		else if (MSResourceManager.instance.Spend(ResourceType.GEMS, boosterPack.gemPrice))
-		{
-			StartCoroutine(SpinTimes(1));
+			if( MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
+			{
+				StartCoroutine(SpinTimes(1));
+			}
+			else if (MSResourceManager.instance.Spend(ResourceType.GEMS, boosterPack.gemPrice))
+			{
+				StartCoroutine(SpinTimes(1));
+			}
 		}
 	}
 	
@@ -78,7 +91,9 @@ public class MSGachaSpinner : MonoBehaviour {
 	public IEnumerator SpinOutOfControl(int rolls)
 	{
 		List<BoosterItemProto> prizes = new List<BoosterItemProto>();
-		
+
+		dragHitBox.enabled = false;
+
 		PurchaseBoosterPackRequestProto request = new PurchaseBoosterPackRequestProto();
 		for (int i = 0; i < rolls; i++)
 		{
@@ -120,14 +135,14 @@ public class MSGachaSpinner : MonoBehaviour {
 			spinnerSpring.strength = currSpeed + 3 * currSpeed * currTime/minSpinTime;
 			yield return null;
 		}
-		
+
 		reveal.Init(prizes);
 		MSActionManager.Popup.OnPopup(reveal.GetComponent<MSPopup>());
 	}
 	
 	public IEnumerator Spin()
 	{
-		
+		dragHitBox.enabled = false;
 		PurchaseBoosterPackRequestProto request = new PurchaseBoosterPackRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.boosterPackId = boosterPack.boosterPackId;
@@ -160,7 +175,7 @@ public class MSGachaSpinner : MonoBehaviour {
 		if (response.status == PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus.SUCCESS)
 		{
 			MSMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
-			
+
 			reveal.Init(response.prize);
 			Debug.Log("Prize: " + response.prize.boosterItemId + ", " + response.prize.isComplete + ", " + response.prize.monsterId);
 			MSWhiteboard.localUser.lastFreeBoosterPackTime = MSUtil.timeNowMillis;
@@ -193,6 +208,7 @@ public class MSGachaSpinner : MonoBehaviour {
 	
 	IEnumerator SpinForTime(float seconds)
 	{
+		dragHitBox.enabled = false;
 		spinning = true;
 		float currTime = 0;
 		spinnerSpring.enabled = true;

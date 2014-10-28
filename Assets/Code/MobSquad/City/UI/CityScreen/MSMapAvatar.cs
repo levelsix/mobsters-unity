@@ -3,6 +3,7 @@ using System.Collections;
 using com.lvl6.proto;
 
 public class MSMapAvatar : MonoBehaviour {
+
 	[SerializeField]
 	MSChatAvatar chatAvatar;
 
@@ -37,23 +38,22 @@ public class MSMapAvatar : MonoBehaviour {
 		faceAvatar.depth = depth + 1;
 	}
 
-	public void InitPosition(int taskId)
+	public IEnumerator InitPosition(MSMapTaskButton task)
 	{
-		curTask = taskId;
-		TaskMapElementProto task = MSDataManager.instance.Get<TaskMapElementProto>(taskId);
-		transform.localPosition = new Vector3(task.xPos, task.yPos, 0f);
+		yield return null;
+		curTask = task.mapTask.taskId;
+		transform.position = task.transform.position;
 	}
 
-	public void MoveToNewTask(int newTaskId)
+	public void MoveToNewTask(MSMapTaskButton newTask)
 	{
 		if(curTask == -1)
 		{
-			InitPosition(newTaskId);
+			StartCoroutine(InitPosition(newTask));
 		}
-		else if(curTask != newTaskId)
+		else if(curTask != newTask.mapTask.taskId)
 		{
-			TaskMapElementProto nextTask = MSDataManager.instance.Get<TaskMapElementProto>(newTaskId);
-			TweenPosition.Begin(gameObject, 2f, new Vector3(nextTask.xPos, nextTask.yPos, 0f));
+			TweenPosition.Begin(gameObject, 2f, transform.InverseTransformPoint(newTask.transform.position));
 		}
 	}
 }

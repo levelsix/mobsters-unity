@@ -39,9 +39,11 @@ public class PZDeployCard : MonoBehaviour {
 	
 	public void Init(PZMonster goon)
 	{
+		//Debug.Log("Init slot " + goon.userMonster.teamSlotNum + ": " + goon.monster.displayName);
+
 		monster = goon;
 		
-		button.normalSprite = background.spriteName = backgroundDict[goon.monster.monsterElement];
+		button.normalSprite = background.spriteName = MSGoonCard.smallBackgrounds[goon.monster.monsterElement];
 		
 		string goonPrefix = MSUtil.StripExtensions (goon.monster.imagePrefix);
 		MSSpriteUtil.instance.SetSprite(goonPrefix, goonPrefix + "Thumbnail", goonSprite);
@@ -60,10 +62,13 @@ public class PZDeployCard : MonoBehaviour {
 	
 	public void InitEmpty()
 	{
+		Debug.Log("Init empty");
+
 		monster = null;
-		background.spriteName = EMPTY_BOX;
+		button.normalSprite = background.spriteName = EMPTY_BOX;
 		bar.alpha = 0;
 		goonSprite.alpha = 0;
+		hpLabel.text = " ";
 	}
 	
 	public void OnClick()

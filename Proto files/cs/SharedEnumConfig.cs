@@ -111,7 +111,10 @@ namespace com.lvl6.proto
       EVOLVE = 4,
             
       [global::ProtoBuf.ProtoEnum(Name=@"MINI_JOB", Value=5)]
-      MINI_JOB = 5
+      MINI_JOB = 5,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ENHANCE_TIME", Value=6)]
+      ENHANCE_TIME = 6
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"GameType")]

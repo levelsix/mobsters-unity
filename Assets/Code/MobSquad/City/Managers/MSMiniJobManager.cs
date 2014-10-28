@@ -20,7 +20,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	public bool isCompleting = false;
 
-	MiniJobCenterProto currJobCenter;
+	public MiniJobCenterProto currJobCenter;
 
 	public List<UserMiniJobProto> userMiniJobs = new List<UserMiniJobProto>();
 
@@ -250,12 +250,12 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	#region Completing Job
 
-	public void CompleteCurrentJobWithGems()
+	public IEnumerator CompleteCurrentJobWithGems()
 	{
 		int numGems = MSMath.GemsForTime(timeLeft, false);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, numGems))
 		{
-			StartCoroutine(CompleteCurrentJob(true, numGems));
+			yield return StartCoroutine(CompleteCurrentJob(true, numGems));
 			if(MSActionManager.MiniJob.OnMiniJobGemsComplete != null)
 			{
 				MSActionManager.MiniJob.OnMiniJobGemsComplete();
@@ -320,8 +320,22 @@ public class MSMiniJobManager : MonoBehaviour {
 			//request.umchp.Add(item.GetCurrentHealthProto());
 		}
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_COMPLETE_MINI_JOB_EVENT,
-		                                       DealWithJobCompleteResponse);
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_COMPLETE_MINI_JOB_EVENT);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		isCompleting = false;
+		
+		CompleteMiniJobResponseProto response = UMQNetworkManager.responseDict[tagNum] as CompleteMiniJobResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != CompleteMiniJobResponseProto.CompleteMiniJobStatus.SUCCESS)
+		{
+			MSActionManager.Popup.DisplayRedError("Problem completing job: " + response.status.ToString());
+		}
 	}
 
 	/// <summary>
@@ -400,33 +414,19 @@ public class MSMiniJobManager : MonoBehaviour {
 		DamageMonsters(currActiveJob.baseDmgReceived, true);
 	}
 
-	void DealWithJobCompleteResponse(int tagNum)
-	{
-		isCompleting = false;
-
-		CompleteMiniJobResponseProto response = UMQNetworkManager.responseDict[tagNum] as CompleteMiniJobResponseProto;
-		UMQNetworkManager.responseDict.Remove(tagNum);
-
-		if (response.status != CompleteMiniJobResponseProto.CompleteMiniJobStatus.SUCCESS)
-		{
-			Debug.LogError("Problem completing job: " + response.status.ToString());
-		}
-	}
-
 	#endregion
 
 	#region Job Redeeming
 
-	public bool RedeemCurrJob()
+	public Coroutine RedeemCurrJob()
 	{
 		if (!isCompleted || isRedeeming) //Use the isRedeeming bool to make sure we don't stack requests
 		{
-			Debug.LogError("Job hasn't been completed, cannot redeem.");
-			return false;
+			MSActionManager.Popup.DisplayRedError("Job hasn't been completed, cannot redeem.");
+			return null;
 		}
 
-		StartCoroutine(RunJobRedemption());
-		return true;
+		return StartCoroutine(RunJobRedemption());
 	}
 
 	IEnumerator RunJobRedemption()
@@ -470,8 +470,11 @@ public class MSMiniJobManager : MonoBehaviour {
 		RedeemMiniJobResponseProto response = UMQNetworkManager.responseDict[tagNum] as RedeemMiniJobResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
+		Debug.Log("A");
+
 		if (response.status == RedeemMiniJobResponseProto.RedeemMiniJobStatus.SUCCESS)
 		{
+			Debug.Log("B");
 			if (response.fump != null)
 			{
 				MSMonsterManager.instance.UpdateOrAdd(response.fump);

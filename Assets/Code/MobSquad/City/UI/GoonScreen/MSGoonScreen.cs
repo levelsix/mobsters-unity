@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using com.lvl6.proto;
 using System;
 
-public enum GoonScreenMode {TEAM, SELL, HEAL, PICK_ENHANCE, DO_ENHANCE, PICK_EVOLVE, DO_EVOLVE };
+public enum GoonScreenMode {TEAM, SELL, HEAL, PICK_ENHANCE, DO_ENHANCE, PICK_EVOLVE, DO_EVOLVE, MINIJOB };
 
 public class MSGoonScreen : MonoBehaviour 
 {
@@ -114,8 +114,8 @@ public class MSGoonScreen : MonoBehaviour
 			topIcon.helper.FadeIn();
 			TweenPosition.Begin(topIcon.gameObject, .3f, Vector3.zero);
 		}
-		
 		next.Init();
+
 		currScreen = nextScreen;
 	}
 

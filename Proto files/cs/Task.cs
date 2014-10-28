@@ -9,6 +9,7 @@
 
 // Generated from: Task.proto
 // Note: requires additional types generated from: MonsterStuff.proto
+// Note: requires additional types generated from: Quest.proto
 // Note: requires additional types generated from: SharedEnumConfig.proto
 namespace com.lvl6.proto
 {
@@ -132,6 +133,15 @@ namespace com.lvl6.proto
     {
       get { return _groundImgPrefix; }
       set { _groundImgPrefix = value; }
+    }
+
+    private com.lvl6.proto.DialogueProto _initialDefeatedDialogue = null;
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"initialDefeatedDialogue", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.DialogueProto initialDefeatedDialogue
+    {
+      get { return _initialDefeatedDialogue; }
+      set { _initialDefeatedDialogue = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -323,6 +333,24 @@ namespace com.lvl6.proto
     {
       get { return _puzzlePieceMonsterDropLvl; }
       set { _puzzlePieceMonsterDropLvl = value; }
+    }
+
+    private com.lvl6.proto.DialogueProto _initialD = null;
+    [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"initialD", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.DialogueProto initialD
+    {
+      get { return _initialD; }
+      set { _initialD = value; }
+    }
+
+    private com.lvl6.proto.DialogueProto _defaultD = null;
+    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"defaultD", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.DialogueProto defaultD
+    {
+      get { return _defaultD; }
+      set { _defaultD = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"MonsterType")]
     public enum MonsterType

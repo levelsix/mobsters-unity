@@ -282,6 +282,15 @@ namespace com.lvl6.proto
       get { return _cashChange; }
       set { _cashChange = value; }
     }
+
+    private float _nuPvpDmgMultiplier = default(float);
+    [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"nuPvpDmgMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float nuPvpDmgMultiplier
+    {
+      get { return _nuPvpDmgMultiplier; }
+      set { _nuPvpDmgMultiplier = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

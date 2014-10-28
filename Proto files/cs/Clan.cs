@@ -8,11 +8,9 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Clan.proto
-// Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: Structure.proto
-// Note: requires additional types generated from: Task.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
@@ -1043,6 +1041,61 @@ namespace com.lvl6.proto
     {
       get { return _staticDataId; }
       set { _staticDataId = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ClanInviteProto")]
+  public partial class ClanInviteProto : global::ProtoBuf.IExtensible
+  {
+    public ClanInviteProto() {}
+    
+
+    private int _inviteId = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"inviteId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int inviteId
+    {
+      get { return _inviteId; }
+      set { _inviteId = value; }
+    }
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+
+    private int _inviterId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"inviterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int inviterId
+    {
+      get { return _inviterId; }
+      set { _inviterId = value; }
+    }
+
+    private int _clanId = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int clanId
+    {
+      get { return _clanId; }
+      set { _clanId = value; }
+    }
+
+    private long _timeOfInvite = default(long);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"timeOfInvite", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long timeOfInvite
+    {
+      get { return _timeOfInvite; }
+      set { _timeOfInvite = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

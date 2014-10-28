@@ -332,7 +332,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator RevealCounter()
 	{
-		yield return new WaitForSeconds(0.3f);
+		yield return new WaitForSeconds(0.5f);
 		mobsterCounter.GetComponent<PZMobsterCounter>().MoveToMidPoint();
 		TweenAlpha.Begin(mobsterCounter.gameObject, 0.3f, 1f);
 
@@ -465,6 +465,7 @@ public class PZCombatManager : MonoBehaviour {
 		if (save.userTaskId != minTask.userTaskId)
 		{
 			save = null;
+			Debug.LogWarning("Save data not for right task!");
 		}
 
 #if UNITY_IPHONE || UNITY_ANDROID
@@ -482,9 +483,10 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterId == save.activePlayerUserMonsterId));
 			PZCombatScheduler.instance.turns = save.turns;
-			PZCombatScheduler.instance.currInd = save.currTurnIndex-1;
-			
+			PZCombatScheduler.instance.currInd = Mathf.Max(save.currTurnIndex-1, 0);
+
 			forfeitChance = save.forfeitChance;
+			Debug.LogWarning("Forfeit chance: " + forfeitChance);
 			
 			currTurn = save.currTurn;
 			if(MSActionManager.Puzzle.OnTurnChange != null)
@@ -930,7 +932,9 @@ public class PZCombatManager : MonoBehaviour {
 		PZPuzzleManager.instance.swapLock--;
 	}
 
-	public void ActivateLoseMenu(bool blackOut = false){
+	public void ActivateLoseMenu(bool blackOut = false)
+	{
+		revives++;
 		winLosePopup.gameObject.SetActive(true);
 		winLosePopup.tweener.ResetToBeginning();
 		winLosePopup.tweener.GetComponent<UITweener>().PlayForward();
@@ -1100,7 +1104,7 @@ public class PZCombatManager : MonoBehaviour {
 			enemySkillIndicator.Init(activeEnemy.monster.defensiveSkill, activeEnemy.monster.monster.monsterElement);
 			enemySkillIndicator.SetPoints(0);
 
-			while (!MSSpriteUtil.instance.HasBundle(activeEnemy.monster.monster.imagePrefix))
+			while (!activeEnemy.unit.hasSprite)
 			{
 				background.Scroll();
 				yield return null;
@@ -1842,6 +1846,8 @@ public class PZCombatManager : MonoBehaviour {
 	}
 
 	public IEnumerator EnemyReturnToStartPosition(){
+
+
 		Vector3 enemyPos = enemyStartPosition;
 		activeEnemy.unit.animat = MSUnit.AnimationType.RUN;
 
@@ -2015,12 +2021,30 @@ public class PZCombatManager : MonoBehaviour {
 
 	#endregion
 
-	void ReviveWithGems()
+	public void RevivePopup()
 	{
-		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis) * ++revives;
+		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis) * revives;
+		MSPopupManager.instance.CreatePopup(
+			"Revive", 
+			"Revive your mobsters?",
+            new string[] {"Cancel", "(G) " + gemsToSpend},
+			new string[] {"greymenuoption", "purplemenuoption"},
+			new WaitFunction[] {MSUtil.QuickCloseTop, ReviveWithGems},
+			"purple"
+		);
+		                                  
+	}
+
+	Coroutine RunRevive()
+	{
+		return StartCoroutine(ReviveWithGems());
+	}
+
+	IEnumerator ReviveWithGems()
+	{
+		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis) * revives;
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, 
-		                                     gemsToSpend,
-		                                     ReviveWithGems))
+		                                     gemsToSpend))
 		{
 			ReviveInDungeonRequestProto request = new ReviveInDungeonRequestProto();
 			request.sender = MSWhiteboard.localMup;
@@ -2035,22 +2059,31 @@ public class PZCombatManager : MonoBehaviour {
 
 			request.gemsSpent = gemsToSpend;
 
-			UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REVIVE_IN_DUNGEON_EVENT, DealWithReviveResponse);
-		}
-	}
+			int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REVIVE_IN_DUNGEON_EVENT);
 
-	void DealWithReviveResponse(int tagNum)
-	{
-		ReviveInDungeonResponseProto response = UMQNetworkManager.responseDict[tagNum] as ReviveInDungeonResponseProto;
-		UMQNetworkManager.responseDict.Remove(tagNum);
+			while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+			{
+				yield return null;
+			}
+			
+			ReviveInDungeonResponseProto response = UMQNetworkManager.responseDict[tagNum] as ReviveInDungeonResponseProto;
+			UMQNetworkManager.responseDict.Remove(tagNum);
+			
+			MSActionManager.Popup.CloseTopPopupLayer();
 
-		if (response.status == ReviveInDungeonResponseProto.ReviveInDungeonStatus.SUCCESS)
-		{
-			OnDeploy(playerGoonies[0]);
-		}
-		else
-		{
-			Debug.LogError("Problem reviving in Dungeon: " + response.status.ToString());
+			if (response.status == ReviveInDungeonResponseProto.ReviveInDungeonStatus.SUCCESS)
+			{
+				activePlayer.GoToStartPos();
+				activePlayer.alpha = 1;
+				winLosePopup.gameObject.SetActive(false);
+				activePlayer.Init(activePlayer.monster);
+				yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
+				RunPickNextTurn(true);
+			}
+			else
+			{
+				MSSceneManager.instance.ReconnectPopup();
+			}
 		}
 	}
 

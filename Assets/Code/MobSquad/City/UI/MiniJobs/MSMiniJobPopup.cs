@@ -8,7 +8,7 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// MSMiniJobPopup
 /// </summary>
-public class MSMiniJobPopup : MonoBehaviour {
+public class MSMiniJobPopup : MSFunctionalScreen {
 
 	#region Prefabs
 
@@ -122,6 +122,9 @@ public class MSMiniJobPopup : MonoBehaviour {
 	
 	[SerializeField]
 	int PRIZE_BUFFER = 5;
+
+	[SerializeField]
+	MSLoadLock collectLoadLock;
 	#endregion
 
 	public List<MSMiniJobEntry> jobEntries = new List<MSMiniJobEntry>();
@@ -166,8 +169,14 @@ public class MSMiniJobPopup : MonoBehaviour {
 		}
 	}
 
-	public void Init()
+	public override bool IsAvailable ()
 	{
+		return MSMiniJobManager.instance.currJobCenter != null && MSMiniJobManager.instance.currJobCenter.structInfo.level > 0;
+	}
+
+	public override void Init()
+	{
+		backButton.TurnOff();
 		SetupJobGrid();
 		InitCollectionScreen();
 		StartCoroutine(RunTimerUntilJobsReset());
@@ -275,19 +284,8 @@ public class MSMiniJobPopup : MonoBehaviour {
 	{
 		while(true)
 		{
-			long timeUntilRefresh = MSMiniJobManager.instance.timeUntilRefresh;
-
-			newJobSpawnTimer.text = MSUtil.TimeStringShort(timeUntilRefresh);
-
-			//If it's more than an hour, refresh every minute. Otherwise, every second.
-			if (timeUntilRefresh > 60 * 60 * 1000)
-			{
-				yield return new WaitForSeconds(60);
-			}
-			else
-			{
-				yield return new WaitForSeconds(1);
-			}
+			newJobSpawnTimer.text = MSUtil.TimeStringShort(MSMiniJobManager.instance.timeUntilRefresh);
+			yield return null;
 		}
 	}
 
@@ -491,25 +489,36 @@ public class MSMiniJobPopup : MonoBehaviour {
 	/// </summary>
 	public void ClickJobNotDoneButton()
 	{
+		StartCoroutine(Finish());
+	}
+
+	IEnumerator Finish()
+	{
 		if (MSMiniJobManager.instance.currActiveJob.timeCompleted == 0)
 		{
-			MSMiniJobManager.instance.CompleteCurrentJobWithGems();
-		}
-		else
-		{
-			MSMiniJobManager.instance.RedeemCurrJob();
+			buttonSprite.GetComponent<MSLoadLock>().Lock();
+			yield return StartCoroutine(MSMiniJobManager.instance.CompleteCurrentJobWithGems());
+			buttonSprite.GetComponent<MSLoadLock>().Unlock();
 			mover.PlayReverse();
 		}
-
 	}
 
 	public void ClickCollectButton()
 	{
-//		curJobEntry.OnButtonClick();
-		MSMiniJobManager.instance.RedeemCurrJob();
+		StartCoroutine(Collect());
+	}
+
+	IEnumerator Collect()
+	{
+		collectLoadLock.Lock();
+		Debug.Log("In");
+		yield return MSMiniJobManager.instance.RedeemCurrJob();
+		Debug.Log("N Out");
+		collectLoadLock.Unlock();
+
 		SetupJobGrid();
 		StartCoroutine(RunTimerUntilJobsReset());
-
+		
 		StartCoroutine(FadeFromCollectionToListings());
 	}
 

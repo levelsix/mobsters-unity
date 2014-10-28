@@ -161,8 +161,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	[SerializeField]
 	Vector2 currDrag = Vector2.zero;
-	
-	[HideInInspector]
+
 	public bool moving = false;
 	
 	public bool dragged = false;
@@ -429,7 +428,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 			if(newPosition.y < boardY * SPACE_SIZE)
 			{
-				if(Mathf.Abs(fallSpeed) < 100)
+				if(Mathf.Abs(fallSpeed) < PZPuzzleManager.instance.BOUNCE_THRESHHOLD)
 				{
 					break;
 				}
@@ -667,7 +666,10 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	{
 		MSActionManager.Puzzle.OnGemMatch -= Unblock;
 		TweenAlpha alph = TweenAlpha.Begin(blocker.gameObject, tweenTime, 0);
-		while (alph.tweenFactor < 1) yield return null;
+		if (tweenTime > 0)
+		{
+			while (alph.tweenFactor < 1) yield return null;
+		}
 		blocker.gameObject.SetActive(false);
 	}
 		

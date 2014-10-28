@@ -9,7 +9,6 @@
 
 // Generated from: City.proto
 // Note: requires additional types generated from: Structure.proto
-// Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserCityExpansionDataProto")]

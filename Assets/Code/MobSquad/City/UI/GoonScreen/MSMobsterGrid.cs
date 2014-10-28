@@ -15,7 +15,11 @@ public class MSMobsterGrid : MonoBehaviour {
 
 	[SerializeField] bool evoReady = false;
 
+	[SerializeField] UIPanel panel;
+
 	GoonScreenMode mode;
+
+	Vector3 lastPos;
 
 	public int Count
 	{
@@ -39,6 +43,20 @@ public class MSMobsterGrid : MonoBehaviour {
 		grid.animateSmoothly = false;
 		Reposition();
 		grid.animateSmoothly = true;
+		StartCoroutine(WhileMoving());
+	}
+
+	IEnumerator WhileMoving()
+	{
+		do
+		{
+			lastPos = transform.position;
+			yield return null;
+			foreach (var card in cards) 
+			{
+				card.GetComponent<UIWidget>().mMoved = true;
+			}
+		}while (lastPos != transform.position);
 	}
 
 	bool ShouldGoonBeAdded(GoonScreenMode mode, PZMonster mobster)

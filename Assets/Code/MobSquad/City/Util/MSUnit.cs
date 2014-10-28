@@ -263,6 +263,7 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 				if (MSTutorialManager.instance.inTutorial) anim.SetBool("Stay", false);
 				break;
 			case AnimationType.RUN:
+				anim.SetBool("Flinch", false);
 				anim.SetBool("Running", true);
 				break;
 			case AnimationType.STAY:

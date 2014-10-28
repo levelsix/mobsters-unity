@@ -179,26 +179,15 @@ public class MSMiniJobEntry : MonoBehaviour {
 	{
 		if (currMode == EntryMode.WAITING)
 		{
-			RushComplete();
+			StartCoroutine(RushComplete());
 		}
-		else
-		{
-			Collect();
-		}
-//		popup.Init();
 	}
 
-	void RushComplete()
+	IEnumerator RushComplete()
 	{
-		MSMiniJobManager.instance.CompleteCurrentJobWithGems();
-	}
-
-	void Collect()
-	{
-		if (MSMiniJobManager.instance.RedeemCurrJob())
-		{
-			StartCoroutine(FadeOutAndPool());
-		}
+		button.GetComponent<MSLoadLock>().Lock();
+		yield return StartCoroutine(MSMiniJobManager.instance.CompleteCurrentJobWithGems());
+		button.GetComponent<MSLoadLock>().Unlock();
 	}
 
 	void OnJobStarted(UserMiniJobProto job)

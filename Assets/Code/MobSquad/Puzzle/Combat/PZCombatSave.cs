@@ -66,6 +66,7 @@ public class PZCombatSave
 		this.currTurn = currTurn;
 		this.currPlayerDamage = currPlayerDamage;
 
+		this.forfeitChance = forfeitChance;
 
 		Debug.LogWarning("Saving!"
 		                 //+ "\nActive player: " + activePlayerUserMonsterId +

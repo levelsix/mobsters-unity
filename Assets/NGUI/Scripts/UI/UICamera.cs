@@ -1804,8 +1804,30 @@ public class UICamera : MonoBehaviour
 					{
 						float time = RealTime.time;
 
-						if (onClick != null) onClick(currentTouch.pressed);
-						Notify(currentTouch.pressed, "OnClick", null);
+						if (MSTutorialManager.instance.UiBlock)
+						{
+							Debug.Log("Tutorial UI blocked");
+							if (currentTouch.pressed == MSTutorialManager.instance.currUi)
+							{
+								Debug.Log("Tutorial clicked right thing");
+								Notify(currentTouch.pressed, "OnClick", null);
+								MSTutorialManager.instance.OnClick();
+							}
+							else if (currentTouch.pressed.GetComponent<MSDialogueUI>() != null)
+							{
+								currentTouch.pressed.GetComponent<MSDialogueUI>().DoPushOut();
+							}
+							else
+							{
+								Debug.Log(currentTouch.pressed.name + " isn't the Tutorial thing");
+
+							}
+						}
+						else
+						{
+							Debug.Log("Normal Click notification: " + currentTouch.pressed.name);
+							Notify(currentTouch.pressed, "OnClick", null);
+						}
 
 						if (currentTouch.clickTime + 0.35f > time)
 						{

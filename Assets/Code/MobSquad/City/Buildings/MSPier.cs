@@ -91,7 +91,7 @@ public class MSPier : MSBuildingFrame {
 			{
 				SpawnJobDoneIcon();
 			}
-			else if(MSMiniJobManager.instance.currActiveJob.miniJob == null) //there are no active jobs
+			else if(MSMiniJobManager.instance.currActiveJob == null || MSMiniJobManager.instance.currActiveJob.miniJob == null) //there are no active jobs
 			{
 				if(doneIcon != null)
 				{

@@ -513,6 +513,10 @@ public class MSBuildingManager : MonoBehaviour
 				{
 					teamCenter = building;
 				}
+				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESIDENCE)
+				{
+					residences.Add(building);
+				}
 			}
 		}
 

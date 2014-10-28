@@ -9,7 +9,6 @@
 
 // Generated from: EventCity.proto
 // Note: requires additional types generated from: City.proto
-// Note: requires additional types generated from: Quest.proto
 // Note: requires additional types generated from: Structure.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto

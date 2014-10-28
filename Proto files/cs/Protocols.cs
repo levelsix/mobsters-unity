@@ -294,6 +294,12 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_END_CLAN_HELP_EVENT", Value=81)]
       C_END_CLAN_HELP_EVENT = 81,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_INVITE_TO_CLAN_EVENT", Value=82)]
+      C_INVITE_TO_CLAN_EVENT = 82,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_APPROVE_OR_REJECT_CLAN_INVITE_EVENT", Value=83)]
+      C_APPROVE_OR_REJECT_CLAN_INVITE_EVENT = 83,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
             
@@ -544,6 +550,12 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_END_CLAN_HELP_EVENT", Value=81)]
       S_END_CLAN_HELP_EVENT = 81,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_INVITE_TO_CLAN_EVENT", Value=82)]
+      S_INVITE_TO_CLAN_EVENT = 82,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_APPROVE_OR_REJECT_CLAN_INVITE_EVENT", Value=83)]
+      S_APPROVE_OR_REJECT_CLAN_INVITE_EVENT = 83,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,
