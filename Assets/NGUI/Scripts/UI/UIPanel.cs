@@ -398,7 +398,7 @@ public class UIPanel : UIRect
 				Mathf.Abs(mClipOffset.y - value.y) > 0.001f)
 			{
 				mClipOffset = value;
-				//InvalidateClipping();
+				InvalidateClipping();
 
 				// Call the event delegate
 				if (onClipMove != null) onClipMove(this);
