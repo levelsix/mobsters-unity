@@ -392,7 +392,7 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 		}
 		goonGrid.Reposition();
 		tapHint.ResetAlpha(true);
-		time.text = MSUtil.TimeStringShort(currJob.durationMinutes * 60 * 1000);
+		time.text = MSUtil.TimeStringShort(currJob.durationSeconds * 1000);
 	}
 
 	void InitRightAlreadyOnJob()

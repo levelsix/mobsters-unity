@@ -50,7 +50,7 @@ public class MSMiniJobManager : MonoBehaviour {
 	{
 		get
 		{
-			return MSMath.GemsForTime(timeLeft, false);
+			return MSMath.GemsForTime(timeLeft, true);
 		}
 	}
 
@@ -62,7 +62,7 @@ public class MSMiniJobManager : MonoBehaviour {
 			{
 				return 0;
 			}
-			return currActiveJob.timeStarted + currActiveJob.durationMinutes * 60 * 1000 - MSUtil.timeNowMillis;
+			return currActiveJob.timeStarted + currActiveJob.durationSeconds * 1000 - MSUtil.timeNowMillis;
 		}
 	}
 
