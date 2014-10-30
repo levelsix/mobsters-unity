@@ -83,6 +83,45 @@ public class MSClanEventManager : MonoBehaviour {
 		MSActionManager.Loading.OnStartup -= OnStartup;
 	}
 
+	#region clanHelp
+
+	public void DealWithClanHelpEnd(EndClanHelpResponseProto proto)
+	{
+		if(proto.sender.userId != MSWhiteboard.localUser.userId)
+		{
+			if(MSActionManager.Clan.OnEndClanHelp != null)
+			{
+				MSActionManager.Clan.OnEndClanHelp(proto);
+			}
+		}
+	}
+
+	public void DealWithClanHelpSolicitation(SolicitClanHelpResponseProto proto)
+	{
+		if(proto.sender.userId != MSWhiteboard.localUser.userId)
+		{
+			if(MSActionManager.Clan.OnSolicitClanHelp != null)
+			{
+				MSActionManager.Clan.OnSolicitClanHelp(proto);
+			}
+		}
+	}
+
+	public void DealWithClanHelpGive(GiveClanHelpResponseProto proto)
+	{
+		if(proto.sender.userId != MSWhiteboard.localUser.userId)
+		{
+			if(MSActionManager.Clan.OnGiveClanHelp != null)
+			{
+				MSActionManager.Clan.OnGiveClanHelp(proto);
+			}
+		}
+	}
+
+	#endregion clanHelp
+
+	#region clanAttack
+
 	/// <summary>
 	/// Gets the current stage monsters.
 	/// Returns them in the proper order, too.
@@ -313,4 +352,6 @@ public class MSClanEventManager : MonoBehaviour {
 			SendRecordRequest();
 		}
 	}
+
+	#endregion clanAttack
 }

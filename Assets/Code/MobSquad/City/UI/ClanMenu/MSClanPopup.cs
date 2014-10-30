@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
 
-public enum ClanPopupMode {BROWSE, DETAILS, CREATE, RAIDS};
+public enum ClanPopupMode {BROWSE, DETAILS, CREATE, RAIDS, HELP};
 
 public class MSClanPopup : MonoBehaviour 
 {
@@ -20,6 +20,9 @@ public class MSClanPopup : MonoBehaviour
 
 	[SerializeField]
 	MSClanTab leftTab;
+
+	[SerializeField]
+	MSClanTab middleTab;
 
 	[SerializeField]
 	MSClanTab rightTab;
@@ -73,11 +76,13 @@ public class MSClanPopup : MonoBehaviour
 		if (MSClanManager.userClanId > 0)
 		{
 			rightTab.Init(ClanPopupMode.DETAILS, true);
+			middleTab.Init(ClanPopupMode.HELP, false);
 			leftTab.Init(ClanPopupMode.BROWSE, false);
 		}
 		else
 		{
 			leftTab.Init(ClanPopupMode.BROWSE, true);
+			middleTab.Init(ClanPopupMode.HELP, false);
 			rightTab.Init(ClanPopupMode.CREATE, false);
 		}
 	}
@@ -103,6 +108,8 @@ public class MSClanPopup : MonoBehaviour
 			break;
 		case ClanPopupMode.RAIDS:
 			GoToRaids();
+			break;
+		case ClanPopupMode.HELP:
 			break;
 		default:
 			break;

@@ -8,7 +8,7 @@ using com.lvl6.proto;
 /// @author Rob Giusti
 /// MSClanTab
 /// </summary>
-public class MSClanTab : MSTab {
+public class MSClanTab : MSTabAdvanced {
 
 	[SerializeField]
 	MSClanTab other;
@@ -25,7 +25,8 @@ public class MSClanTab : MSTab {
 		{ClanPopupMode.BROWSE, "clanbrowse"},
 		{ClanPopupMode.DETAILS, "myclan"},
 		{ClanPopupMode.CREATE, "clancreate"},
-		{ClanPopupMode.RAIDS, "clansbrowse"}
+		{ClanPopupMode.RAIDS, "clansbrowse"},
+		{ClanPopupMode.HELP, "clanshelp"}
 	};
 
 	Dictionary<ClanPopupMode, string> tabLabels = new Dictionary<ClanPopupMode, string>()
@@ -33,7 +34,8 @@ public class MSClanTab : MSTab {
 		{ClanPopupMode.BROWSE, "BROWSE"},
 		{ClanPopupMode.DETAILS, "MY SQUAD"},
 		{ClanPopupMode.CREATE, "CREATE SQUAD"},
-		{ClanPopupMode.RAIDS, "RAIDS"}
+		{ClanPopupMode.RAIDS, "RAIDS"},
+		{ClanPopupMode.HELP, "HELP"}
 	};
 
 	public void Init(ClanPopupMode mode, bool activate)
@@ -64,13 +66,9 @@ public class MSClanTab : MSTab {
 		inactive = true;
 	}
 
-	void OnClick()
+	public void OnClick()
 	{
-		if (inactive)
-		{
-			pop.GoToMode(clanMode, true);
-			InitActive();
-			other.InitInactive();
-		}
+		base.OnClick();
+		pop.GoToMode(clanMode, true);
 	}
 }

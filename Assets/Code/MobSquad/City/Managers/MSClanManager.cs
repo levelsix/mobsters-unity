@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -43,11 +44,27 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 
+
+	public List<ClanHelpProto> clanHelpRequests;
+
 	public static MSClanManager instance;
 
 	void Awake()
 	{
 		instance = this;
+	}
+
+	void OnStart()
+	{
+		MSActionManager.Loading.OnStartup += InitClanHelp;
+	}
+
+	void InitClanHelp(StartupResponseProto startup)
+	{
+		foreach(ClanHelpProto help in startup.clanHelpings)
+		{
+			clanHelpRequests.Add(help);
+		}
 	}
 
 	public void Init(List<FullUserClanProto> clans)
@@ -487,4 +504,122 @@ public class MSClanManager : MonoBehaviour
 			Debug.LogError("Problem booting player from clan: " + response.status.ToString());
 		}
 	}
+
+	public void DoSolicitClanHelp(ClanHelpType type, int staticId, int userId, int maxHelpers, Action OnComplete = null)
+	{
+		StartCoroutine(SolicitClanHelp(type, staticId, userId, maxHelpers));
+	}
+	
+	IEnumerator SolicitClanHelp(ClanHelpType type, int staticId, int userId, int maxHelpers, Action OnComplete = null)
+	{
+		ClanHelpNoticeProto notice = new ClanHelpNoticeProto();
+		notice.helpType = type;
+		notice.staticDataId = staticId;//static ID for thing
+		notice.userDataId = userId;//userid ID for thing
+		
+		SolicitClanHelpRequestProto request = new SolicitClanHelpRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.maxHelpers = maxHelpers;//get form clan house struct
+		request.clientTime = MSUtil.timeNowMillis;
+		request.notice.Add(notice);
+		
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_SOLICIT_CLAN_HELP_EVENT, null);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		SolicitClanHelpResponseProto response = UMQNetworkManager.responseDict[tagNum] as SolicitClanHelpResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != SolicitClanHelpResponseProto.SolicitClanHelpStatus.SUCCESS)
+		{
+			Debug.LogError("Problem Soliciting Clan Help: " + response.status.ToString());
+		}
+		else
+		{
+			if(MSActionManager.Clan.OnSolicitClanHelp != null)
+			{
+				MSActionManager.Clan.OnSolicitClanHelp(response);
+			}
+		}
+		
+	}
+	
+	public void DoGiveClanHelp(List<long> helpIds, Action OnComplete = null)
+	{
+		StartCoroutine(GiveClanHelp(helpIds, OnComplete));
+	}
+	
+	IEnumerator GiveClanHelp(List<long> helpIds, Action OnComplete)
+	{
+		GiveClanHelpRequestProto request = new GiveClanHelpRequestProto();
+		foreach(long id in helpIds)
+		{
+			request.clanHelpIds.Add(id);
+		}
+		request.sender = MSWhiteboard.localMup;
+
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_GIVE_CLAN_HELP_EVENT, null);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		GiveClanHelpResponseProto response = UMQNetworkManager.responseDict[tagNum] as GiveClanHelpResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if(response.status != GiveClanHelpResponseProto.GiveClanHelpStatus.SUCCESS)
+		{
+			Debug.LogError("Problem Giving Clan Help: " + response.status.ToString());
+		}
+		else
+		{
+			if(MSActionManager.Clan.OnGiveClanHelp != null)
+			{
+				MSActionManager.Clan.OnGiveClanHelp(response);
+			}
+		}
+	}
+	
+	public void DoEndClanHelp(List<long> helpIds)
+	{
+		StartCoroutine(EndClanHelp(helpIds));
+	}
+	
+	IEnumerator EndClanHelp(List<long> helpIds)
+	{
+		EndClanHelpRequestProto request = new EndClanHelpRequestProto();
+		foreach(long id in helpIds)
+		{
+			request.clanHelpIds.Add(id);
+		}
+		request.sender = MSWhiteboard.localMup;
+		
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_END_CLAN_HELP_EVENT, null);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		EndClanHelpResponseProto response = UMQNetworkManager.responseDict[tagNum] as EndClanHelpResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if(response.status != EndClanHelpResponseProto.EndClanHelpStatus.SUCCESS)
+		{
+			Debug.LogError("Problem Ending Clan Help: " + response.status.ToString());
+		}
+		else
+		{
+			if(MSActionManager.Clan.OnEndClanHelp != null)
+			{
+				MSActionManager.Clan.OnEndClanHelp(response);
+			}
+		}
+	}
+
+
 }

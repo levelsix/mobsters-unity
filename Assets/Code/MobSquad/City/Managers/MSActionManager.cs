@@ -209,6 +209,10 @@ public static class MSActionManager
 		public static Action OnRaidBegin;
 		public static Action<AttackClanRaidMonsterResponseProto> OnRaidMonsterAttacked;
 		public static Action<AttackClanRaidMonsterResponseProto> OnRaidMonsterDied;
+
+		public static Action<EndClanHelpResponseProto> OnEndClanHelp;
+		public static Action<SolicitClanHelpResponseProto> OnSolicitClanHelp;
+		public static Action<GiveClanHelpResponseProto> OnGiveClanHelp;
 	}
 
 	public static class Tutorial

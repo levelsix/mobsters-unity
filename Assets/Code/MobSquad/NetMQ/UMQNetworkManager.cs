@@ -532,6 +532,19 @@ public class UMQNetworkManager : MonoBehaviour {
 			Debug.Log("Fallback: From other");
 			MSClanEventManager.instance.DealWithAttackResponse(proto as AttackClanRaidMonsterResponseProto);
 		}
+		else if(proto is GiveClanHelpResponseProto)
+		{
+
+		}
+		else if(proto is SolicitClanHelpResponseProto)
+		{
+
+		}
+		else if (proto is EndClanHelpResponseProto)
+		{
+			Debug.Log("clan help update");
+			MSClanEventManager.instance.DealWithClanHelpEnd(proto as EndClanHelpResponseProto);
+		}
 		else
 		{
 
