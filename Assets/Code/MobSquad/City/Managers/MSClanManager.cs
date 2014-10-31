@@ -43,27 +43,29 @@ public class MSClanManager : MonoBehaviour
 			return members;
 		}
 	}
-
-
-	public List<ClanHelpProto> clanHelpRequests;
+	
+	public List<ClanHelpProto> clanHelpRequests = new List<ClanHelpProto>();
 
 	public static MSClanManager instance;
 
 	void Awake()
 	{
 		instance = this;
-	}
-
-	void OnStart()
-	{
 		MSActionManager.Loading.OnStartup += InitClanHelp;
+
+		MSActionManager.Clan.OnGiveClanHelp += DealWithGiveClanHelp;
+		MSActionManager.Clan.OnSolicitClanHelp += DealWithSoliciteClanHelp;
+		MSActionManager.Clan.OnEndClanHelp += DealWithEndClanHelp;
 	}
 
 	void InitClanHelp(StartupResponseProto startup)
 	{
 		foreach(ClanHelpProto help in startup.clanHelpings)
 		{
-			clanHelpRequests.Add(help);
+			if(help.mup.userId != MSWhiteboard.localMup.userId)
+			{
+				clanHelpRequests.Add(help);
+			}
 		}
 	}
 
@@ -541,7 +543,7 @@ public class MSClanManager : MonoBehaviour
 		{
 			if(MSActionManager.Clan.OnSolicitClanHelp != null)
 			{
-				MSActionManager.Clan.OnSolicitClanHelp(response);
+				MSActionManager.Clan.OnSolicitClanHelp(response, true);
 			}
 		}
 		
@@ -579,7 +581,7 @@ public class MSClanManager : MonoBehaviour
 		{
 			if(MSActionManager.Clan.OnGiveClanHelp != null)
 			{
-				MSActionManager.Clan.OnGiveClanHelp(response);
+				MSActionManager.Clan.OnGiveClanHelp(response, true);
 			}
 		}
 	}
@@ -616,7 +618,47 @@ public class MSClanManager : MonoBehaviour
 		{
 			if(MSActionManager.Clan.OnEndClanHelp != null)
 			{
-				MSActionManager.Clan.OnEndClanHelp(response);
+				MSActionManager.Clan.OnEndClanHelp(response, true);
+			}
+		}
+	}
+
+	/// <summary>
+	/// Deals the with give clan help.
+	/// </summary>
+	/// <param name="self">If set to <c>true</c> then this function was triggered by the user and was not sent to us from the server.</param>
+	void DealWithGiveClanHelp(GiveClanHelpResponseProto proto, bool self)
+	{
+		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		{
+			foreach(ClanHelpProto helpProto in proto.clanHelps)
+			{
+				this.clanHelpRequests.Add(helpProto);
+			}
+		}
+	}
+
+	void DealWithSoliciteClanHelp(SolicitClanHelpResponseProto proto, bool self)
+	{
+		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		{
+			foreach(ClanHelpProto helpProto in proto.helpProto)
+			{
+				this.clanHelpRequests.Add(helpProto);
+			}
+		}
+	}
+
+	void DealWithEndClanHelp(EndClanHelpResponseProto proto, bool self)
+	{
+		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		{
+			foreach(ClanHelpProto listedProto in clanHelpRequests)
+			{
+				if(proto.clanHelpIds.Contains(listedProto.clanHelpId))
+				{
+					clanHelpRequests.Remove(listedProto);
+				}
 			}
 		}
 	}

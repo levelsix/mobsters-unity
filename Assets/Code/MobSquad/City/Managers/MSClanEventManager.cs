@@ -91,7 +91,7 @@ public class MSClanEventManager : MonoBehaviour {
 		{
 			if(MSActionManager.Clan.OnEndClanHelp != null)
 			{
-				MSActionManager.Clan.OnEndClanHelp(proto);
+				MSActionManager.Clan.OnEndClanHelp(proto, false);
 			}
 		}
 	}
@@ -102,7 +102,7 @@ public class MSClanEventManager : MonoBehaviour {
 		{
 			if(MSActionManager.Clan.OnSolicitClanHelp != null)
 			{
-				MSActionManager.Clan.OnSolicitClanHelp(proto);
+				MSActionManager.Clan.OnSolicitClanHelp(proto, false);
 			}
 		}
 	}
@@ -113,7 +113,7 @@ public class MSClanEventManager : MonoBehaviour {
 		{
 			if(MSActionManager.Clan.OnGiveClanHelp != null)
 			{
-				MSActionManager.Clan.OnGiveClanHelp(proto);
+				MSActionManager.Clan.OnGiveClanHelp(proto, false);
 			}
 		}
 	}

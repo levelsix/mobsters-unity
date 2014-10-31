@@ -16,6 +16,9 @@ public class MSClanPopup : MonoBehaviour
 	MSClanDetailScreen clanDetailScreen;
 
 	[SerializeField]
+	MSClanHelpScreen ClanHelpScreen;
+
+	[SerializeField]
 	TweenPosition mover;
 
 	[SerializeField]
@@ -40,6 +43,10 @@ public class MSClanPopup : MonoBehaviour
 	MSUIHelper backButton;
 
 	ClanPopupMode currMode;
+
+	const float LIST_SCREEN_X = 0;
+	const float DETAIL_SCREEN_X = 1840;
+	const float HELP_SCREEN_X = 920;
 
 	void OnEnable()
 	{
@@ -110,6 +117,7 @@ public class MSClanPopup : MonoBehaviour
 			GoToRaids();
 			break;
 		case ClanPopupMode.HELP:
+			GoToHelp(instant);
 			break;
 		default:
 			break;
@@ -161,13 +169,16 @@ public class MSClanPopup : MonoBehaviour
 
 		clanListScreen.Init();
 
+		mover.to = new Vector3(-LIST_SCREEN_X, mover.to.y, mover.to.z);
+		mover.ResetToBeginning();
+
 		if (instant)
 		{
-			mover.Sample(0, true);
+			mover.Sample(1, true);
 		}
 		else
 		{
-			mover.PlayReverse();
+			mover.PlayForward();
 		}
 	}
 
@@ -179,6 +190,9 @@ public class MSClanPopup : MonoBehaviour
 
 		clanDetailScreen.Init(clanId);
 
+		mover.to = new Vector3(-DETAIL_SCREEN_X, mover.to.y, mover.to.z);
+		mover.ResetToBeginning();
+		
 		if (instant)
 		{
 			mover.Sample(1, true);
@@ -202,6 +216,28 @@ public class MSClanPopup : MonoBehaviour
 	{
 		clanDetailScreen.gameObject.SetActive(false);
 		raidStuff.SetActive(true);
+	}
+
+	void GoToHelp(bool instant)
+	{
+		listAndDetailsStuff.SetActive(true);
+		raidStuff.SetActive(false);
+		createStuff.SetActive(false);
+
+		ClanHelpScreen.Init();
+
+		mover.to = new Vector3(-HELP_SCREEN_X, mover.to.y, mover.to.z);
+		mover.ResetToBeginning();
+		
+		if (instant)
+		{
+			mover.Sample(1, true);
+		}
+		else
+		{
+			mover.PlayForward();
+		}
+
 	}
 
 	void OnClanChange(int clanId, UserClanStatus clanStatus, int clanIconId)
