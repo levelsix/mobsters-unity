@@ -34,11 +34,17 @@ public class MSSwapableErrorPopup : MonoBehaviour {
 	void OnEnable(){
 		MSActionManager.Popup.DisplayRedError += initRedError;
 		MSActionManager.Popup.DisplayGreenError += initGreenError;
+		MSActionManager.Popup.DisplayOrangeError += initOrangeError;
+		MSActionManager.Popup.DisplayBlueError += initBlueError;
+		MSActionManager.Popup.DisplayPurpleError += initPurpleError;
 	}
 
 	void OnDisable(){
 		MSActionManager.Popup.DisplayRedError -= initRedError;
 		MSActionManager.Popup.DisplayGreenError -= initGreenError;
+		MSActionManager.Popup.DisplayOrangeError -= initOrangeError;
+		MSActionManager.Popup.DisplayBlueError -= initBlueError;
+		MSActionManager.Popup.DisplayPurpleError -= initPurpleError;
 	}
 
 	void initError(string text)
@@ -56,51 +62,53 @@ public class MSSwapableErrorPopup : MonoBehaviour {
 
 	void initRedError(string text)
 	{
-//		Color red = new Color(0.745f,0.192f,0.118f);
-		if(swapper.activePopup == MSPopupSwapper.Popup.A)
-		{
-			//B
-			foreach(UISprite sprite in ErrorCapsB)
-			{
-				sprite.spriteName = "notendcap";
-			}
-			ErrorBgB.spriteName = "notmiddle";
-		}
-		else
-		{
-			//A
-			foreach(UISprite sprite in ErrorCapsA)
-			{
-				sprite.spriteName = "notendcap";
-			}
-			ErrorBgA.spriteName = "notmiddle";
-		}
-
+		SetColor("notendcap", "notmiddle");
 		initError(text);
 	}
 
 	void initGreenError(string text)
 	{
-//		Color green = new Color(0.533f,0.647f,0.149f);
+		SetColor("notendcapgreen", "notmiddlegreen");
+		initError(text);
+	}
+
+	void initOrangeError(string text)
+	{
+		SetColor("notendcaporange", "notmiddleorange");
+		initError(text);
+	}
+
+	void initBlueError(string text)
+	{
+		SetColor("notendcapblue", "notmiddleblue");
+		initError(text);
+	}
+
+	void initPurpleError(string text)
+	{
+		SetColor("notendcappurple", "notmiddlepurple");
+		initError(text);
+	}
+
+	void SetColor(string capName, string middleName)
+	{
 		if(swapper.activePopup == MSPopupSwapper.Popup.A)
 		{
 			//B
 			foreach(UISprite sprite in ErrorCapsB)
 			{
-				sprite.spriteName = "notendcapgreen";
+				sprite.spriteName = capName;
 			}
-			ErrorBgB.spriteName = "notmiddlegreen";
+			ErrorBgB.spriteName = middleName;
 		}
 		else
 		{
 			//A
 			foreach(UISprite sprite in ErrorCapsA)
 			{
-				sprite.spriteName = "notendcapgreen";
+				sprite.spriteName = capName;
 			}
-			ErrorBgA.spriteName = "notmiddlegreen";
+			ErrorBgA.spriteName = middleName;
 		}
-		
-		initError(text);
 	}
 }

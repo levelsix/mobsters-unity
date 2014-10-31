@@ -507,12 +507,12 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 
-	public void DoSolicitClanHelp(ClanHelpType type, int staticId, int userId, int maxHelpers, Action OnComplete = null)
+	public void DoSolicitClanHelp(ClanHelpType type, int staticId, long userId, int maxHelpers, Action OnComplete = null)
 	{
 		StartCoroutine(SolicitClanHelp(type, staticId, userId, maxHelpers));
 	}
 	
-	IEnumerator SolicitClanHelp(ClanHelpType type, int staticId, int userId, int maxHelpers, Action OnComplete = null)
+	IEnumerator SolicitClanHelp(ClanHelpType type, int staticId, long userId, int maxHelpers, Action OnComplete = null)
 	{
 		ClanHelpNoticeProto notice = new ClanHelpNoticeProto();
 		notice.helpType = type;
@@ -621,6 +621,29 @@ public class MSClanManager : MonoBehaviour
 				MSActionManager.Clan.OnEndClanHelp(response, true);
 			}
 		}
+	}
+
+	/// <summary>
+	/// Search current list of active requests for help to see if the user has already requested help for a task
+	/// </summary>
+	/// <returns><c>true</c>, if already requested was helped, <c>false</c> otherwise.</returns>
+	/// <param name="type">Type.</param>
+	/// <param name="staticId">Static identifier for requested object.</param>
+	/// <param name="userId">User id for requested object.</param>
+	public bool HelpAlreadyRequested(ClanHelpType type, int staticId, long userId)
+	{
+		foreach(ClanHelpProto proto in clanHelpRequests)
+		{
+			if(proto.helpType == type &&
+			   proto.staticDataId == staticId &&
+			   proto.userDataId == userId &&
+			   proto.mup.userId == MSWhiteboard.localMup.userId)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/// <summary>

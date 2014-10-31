@@ -91,6 +91,9 @@ public class MSMiniJobEntry : MonoBehaviour {
 		buttonHelper.TurnOn();
 		buttonHelper.ResetAlpha(true);
 
+		buttonLabel.color = Color.white;
+		buttonLabel.effectColor = new Color(0f,0f,0f,0.6f);
+
 		if (currMode == EntryMode.COMPLETE)
 		{
 			timeLeftLabel.color = MSColors.cashTextColor;
@@ -101,8 +104,24 @@ public class MSMiniJobEntry : MonoBehaviour {
 		}
 		else if (currMode == EntryMode.WAITING)
 		{
-			SetupWaitingButton();
+			if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.MINI_JOB, job.miniJob.miniJobId, job.userMiniJobId))
+			{
+				SetupHelpButton();
+			}
+			else
+			{
+				SetupWaitingButton();
+			}
 		}
+	}
+
+	void SetupHelpButton()
+	{
+		button.normalSprite = "orangemenuoption";
+		buttonLabel.text = "Get Help";
+		buttonLabel.effectColor = new Color(1f,1f,1f,0.6f);
+		buttonLabel.color = new Color(195f/255f, 27f/255f, 0f, 1f);
+		
 	}
 
 	void SetupWaitingButton()
@@ -177,7 +196,15 @@ public class MSMiniJobEntry : MonoBehaviour {
 
 	public void OnButtonClick()
 	{
-		if (currMode == EntryMode.WAITING)
+		if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.MINI_JOB, job.miniJob.miniJobId, job.userMiniJobId))
+		{
+			MSClanManager.instance.DoSolicitClanHelp(ClanHelpType.MINI_JOB,
+			                                         job.miniJob.miniJobId,
+			                                         job.userMiniJobId,
+			                                         MSBuildingManager.ClanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
+			                                         SetupWaitingButton);
+		}
+		else if (currMode == EntryMode.WAITING)
 		{
 			StartCoroutine(RushComplete());
 		}

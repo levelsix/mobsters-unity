@@ -87,6 +87,9 @@ public static class MSActionManager
 
 		public static Action<string> DisplayRedError;
 		public static Action<string> DisplayGreenError;
+		public static Action<string> DisplayOrangeError;
+		public static Action<string> DisplayPurpleError;
+		public static Action<string> DisplayBlueError;
 	}
 	
 	public static class UI

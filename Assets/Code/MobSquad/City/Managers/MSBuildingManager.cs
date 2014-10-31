@@ -105,6 +105,8 @@ public class MSBuildingManager : MonoBehaviour
 
 	public static MSBuilding teamCenter;
 
+	public static MSBuilding ClanHouse;
+
 	/// <summary>
 	/// The current selected building.
 	/// </summary>
@@ -516,6 +518,10 @@ public class MSBuildingManager : MonoBehaviour
 				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESIDENCE)
 				{
 					residences.Add(building);
+				}
+				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.CLAN)
+				{
+					ClanHouse = building;
 				}
 			}
 		}
@@ -1158,6 +1164,9 @@ public class MSBuildingManager : MonoBehaviour
 				break;
 			case StructureInfoProto.StructType.TEAM_CENTER:
 				teamCenter = building;
+				break;
+			case StructureInfoProto.StructType.CLAN:
+				ClanHouse = building;
 				break;
 		}
 	}

@@ -1,6 +1,8 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using com.lvl6.proto;
 
 /// <summary>
 /// @author Rob Giusti
@@ -63,7 +65,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 	UIButton button;
 
-	public enum Mode {SELL_MOBSTERS, UPGRADE, FINISH, HEAL, ENHANCE, REMOVE_OBSTACLE, EVOLVE, HIRE, MINIJOB, TEAM, FIX, SQUAD};
+	public enum Mode {SELL_MOBSTERS, UPGRADE, FINISH, HEAL, ENHANCE, REMOVE_OBSTACLE, EVOLVE, HIRE, MINIJOB, TEAM, FIX, SQUAD, HELP};
 	
 	public Mode currMode;
 
@@ -93,7 +95,8 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		{Mode.MINIJOB, "MiniJobs"},
 		{Mode.TEAM, "Manage Team"},
 		{Mode.FIX, "Fix"},
-		{Mode.SQUAD, "Squad"}
+		{Mode.SQUAD, "Squad"},
+		{Mode.HELP, "Get Help"},
 	};
 
 	static readonly Dictionary<Mode, string> modeIcons = new Dictionary<Mode, string>()
@@ -109,19 +112,21 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		{Mode.MINIJOB, "buildingminijobs"},
 		{Mode.TEAM, "buildingmanage"},
 		{Mode.FIX, "buildingfix"},
-		{Mode.SQUAD, "buildingsquad"}
+		{Mode.SQUAD, "buildingsquad"},
+		{Mode.HELP, "buildinggethelpicon"}
+
 	};
 
 	Dictionary<string, Color> buttonTextColors = new Dictionary<string, Color>(){
 		{NORMAL_SPRITE, new Color(.639f, .353f, 0)},
-		{FINISH_SPRITE, Color.white}
+		{FINISH_SPRITE, Color.white},
+		{HELP_SPRITE, Color.white}
 	};
 
 	const string NORMAL_SPRITE = "buildingoptionbutton";
 	const string FINISH_SPRITE = "buildingfinishnow";
+	const string HELP_SPRITE = "buildinggethelp";
 
-
-	
 	void Awake()
 	{
 		gameObj = gameObject;
@@ -167,6 +172,12 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 	void SetMode (Mode mode)
 	{
+		if(mode == Mode.FINISH &&
+		   !MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.UPGRADE_STRUCT, currBuilding.userStructProto.structId, currBuilding.userStructProto.userStructId))
+		{
+			mode = Mode.HELP;
+		}
+
 		currMode = mode; 
 
 		bg.spriteName = mode == Mode.FINISH ? FINISH_SPRITE : NORMAL_SPRITE;
@@ -181,6 +192,10 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 		switch(mode)
 		{
+		case Mode.HELP:
+			bg.spriteName = HELP_SPRITE;
+			bottomLabel.effectColor = new Color(251/255f, 193/255f, 48/255f);
+			break;
 		case Mode.FIX:
 			if (currBuilding.combinedProto.structInfo.buildResourceType == com.lvl6.proto.ResourceType.OIL)
 			{
@@ -282,9 +297,21 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		case Mode.SQUAD:
 			ClickClan();
 			break;
+		case Mode.HELP:
+			ClickHelp();
+			break;
 		default:
 			break;
 		}
+	}
+
+	void ClickHelp()
+	{
+		MSClanManager.instance.DoSolicitClanHelp(ClanHelpType.UPGRADE_STRUCT,
+		                                         currBuilding.userStructProto.structId,
+		                                         currBuilding.userStructProto.userStructId,
+		                                         MSBuildingManager.ClanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
+		                                         delegate{SetMode(Mode.FINISH);});
 	}
 
 	void ClickHeal()

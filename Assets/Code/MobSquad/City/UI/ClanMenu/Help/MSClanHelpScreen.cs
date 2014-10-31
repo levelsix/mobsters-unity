@@ -16,6 +16,20 @@ public class MSClanHelpScreen : MonoBehaviour {
 	
 	Dictionary<int, List<MSClanHelpListing>> listings = new Dictionary<int, List<MSClanHelpListing>>();
 
+	void OnEnable()
+	{
+		MSActionManager.Clan.OnEndClanHelp += LiveEndClanHelp;
+		MSActionManager.Clan.OnGiveClanHelp += LiveGiveClanHelp;
+		MSActionManager.Clan.OnSolicitClanHelp += LiveSolicitClanHelp;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Clan.OnEndClanHelp -= LiveEndClanHelp;
+		MSActionManager.Clan.OnGiveClanHelp -= LiveGiveClanHelp;
+		MSActionManager.Clan.OnSolicitClanHelp -= LiveSolicitClanHelp;
+	}
+
 	public void Init()
 	{
 		foreach(KeyValuePair<int, List<MSClanHelpListing>> userList in listings)
@@ -71,6 +85,7 @@ public class MSClanHelpScreen : MonoBehaviour {
 		}
 		else
 		{
+//			listings.ContainsKey
 			MSClanHelpListing newListing = MSPoolManager.instance.Get<MSClanHelpListing>(listingPrefab, grid.transform);
 			if(listings[proto.mup.userId] == null)
 			{
