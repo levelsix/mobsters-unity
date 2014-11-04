@@ -87,34 +87,25 @@ public class MSClanEventManager : MonoBehaviour {
 
 	public void DealWithClanHelpEnd(EndClanHelpResponseProto proto)
 	{
-		if(proto.sender.userId != MSWhiteboard.localUser.userId)
+		if(MSActionManager.Clan.OnEndClanHelp != null)
 		{
-			if(MSActionManager.Clan.OnEndClanHelp != null)
-			{
-				MSActionManager.Clan.OnEndClanHelp(proto, false);
-			}
+			MSActionManager.Clan.OnEndClanHelp(proto, false);
 		}
 	}
 
 	public void DealWithClanHelpSolicitation(SolicitClanHelpResponseProto proto)
 	{
-		if(proto.sender.userId != MSWhiteboard.localUser.userId)
+		if(MSActionManager.Clan.OnSolicitClanHelp != null)
 		{
-			if(MSActionManager.Clan.OnSolicitClanHelp != null)
-			{
-				MSActionManager.Clan.OnSolicitClanHelp(proto, false);
-			}
+			MSActionManager.Clan.OnSolicitClanHelp(proto, false);
 		}
 	}
 
 	public void DealWithClanHelpGive(GiveClanHelpResponseProto proto)
 	{
-		if(proto.sender.userId != MSWhiteboard.localUser.userId)
+		if(MSActionManager.Clan.OnGiveClanHelp != null)
 		{
-			if(MSActionManager.Clan.OnGiveClanHelp != null)
-			{
-				MSActionManager.Clan.OnGiveClanHelp(proto, false);
-			}
+			MSActionManager.Clan.OnGiveClanHelp(proto, false);
 		}
 	}
 

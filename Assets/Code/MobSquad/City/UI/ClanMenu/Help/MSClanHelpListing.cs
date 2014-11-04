@@ -23,6 +23,8 @@ public class MSClanHelpListing : MonoBehaviour {
 
 	bool alreadyHelped = false;
 
+	public UIDragScrollView dragView;
+
 	public void Init(ClanHelpProto proto)
 	{
 		Init(new List<ClanHelpProto>{proto});
@@ -39,34 +41,37 @@ public class MSClanHelpListing : MonoBehaviour {
 
 	void UpdateFields()
 	{
-		ClanHelpProto proto = protos[0];
-		
-		int numHelpers = proto.helperIds.Count;
-		int maxHelpers = proto.maxHelpers;
-		
-		helpFraction.text = numHelpers.ToString() + "/" + maxHelpers.ToString();
-		
-		bar.tweenToVal = false;
-		bar.max = maxHelpers;
-		bar.fill = numHelpers;
-		bar.tweenToVal = true;
-		
-		alreadyHelped = proto.helperIds.Contains(MSWhiteboard.localUser.userId);
-		if(!alreadyHelped)
+		foreach(ClanHelpProto proto in protos)
 		{
-			helpButton.gameObject.SetActive(true);
-			helped.gameObject.SetActive(false);
-		}
-		else
-		{
-			helpButton.gameObject.SetActive(false);
-			helped.gameObject.SetActive(true);
-		}
+			int numHelpers = proto.helperIds.Count;
+			int maxHelpers = proto.maxHelpers;
+			
+			helpFraction.text = numHelpers.ToString() + "/" + maxHelpers.ToString();
+			
+			bar.tweenToVal = false;
+//			bar.max = maxHelpers;
+			bar.fill = (float)numHelpers/(float)maxHelpers;
+//			bar.tweenToVal = true;
+			
+			alreadyHelped = proto.helperIds.Contains(MSWhiteboard.localUser.userId);
+			if(!alreadyHelped)
+			{
+				helpButton.gameObject.SetActive(true);
+				helped.gameObject.SetActive(false);
+			}
+			else
+			{
+				helpButton.gameObject.SetActive(false);
+				helped.gameObject.SetActive(true);
+			}
 
-		avatar.Init(proto.mup.avatarMonsterId);
-		playerName.text = proto.mup.name;
+			avatar.Init(proto.mup.avatarMonsterId);
+			playerName.text = proto.mup.name;
 
-		//TODO: add descriptions
+			//TODO: add descriptions
+
+			break;
+		}
 	}
 
 	public void UpdateListing(ClanHelpProto update)

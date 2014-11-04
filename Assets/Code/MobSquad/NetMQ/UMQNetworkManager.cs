@@ -534,15 +534,14 @@ public class UMQNetworkManager : MonoBehaviour {
 		}
 		else if(proto is GiveClanHelpResponseProto)
 		{
-
+			MSClanEventManager.instance.DealWithClanHelpGive(proto as GiveClanHelpResponseProto);
 		}
 		else if(proto is SolicitClanHelpResponseProto)
 		{
-
+			MSClanEventManager.instance.DealWithClanHelpSolicitation(proto as SolicitClanHelpResponseProto);
 		}
 		else if (proto is EndClanHelpResponseProto)
 		{
-			Debug.Log("clan help update");
 			MSClanEventManager.instance.DealWithClanHelpEnd(proto as EndClanHelpResponseProto);
 		}
 		else

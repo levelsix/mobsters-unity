@@ -29,8 +29,9 @@ public class MSHealScreen : MSFunctionalScreen
 
 	[SerializeField]
 	UISprite arrow;
+	
+	public UIButton button;
 
-	[SerializeField]
 	MSLoadLock loadLock;
 
 	long _totalFinishTime;
@@ -49,15 +50,25 @@ public class MSHealScreen : MSFunctionalScreen
 	const string GREEN_ARROW = "hospitalopenarrow";
 	const string RED_ARROW = "fullhospitalarrow";
 
+	const string PURPLE_BUTTON = "purplemenuoption";
+	const string ORANGE_BUTTON = "orangemenuoption";
+
+	readonly Color WHITE_SHADOW = new Color(1f, 1f, 1f, 0.6f);
+	readonly Color BLACK_SHADOW = new Color(0f, 0f ,0f, 0.6f);
+	readonly Color ORANGLE_WORDS = new Color(195f/255f, 27f/255f, 0f, 1f);
+
 	[SerializeField]
 	Color slotsOpenLabelColor;
 
 	[SerializeField]
 	Color slotsFullLabelColor;
 
+	bool canCallForHelp = false;
+
 	void Awake()
 	{
 		instance = this;
+		loadLock = button.GetComponent<MSLoadLock>();
 	}
 
 	public override void Init ()
@@ -85,6 +96,8 @@ public class MSHealScreen : MSFunctionalScreen
 		
 		currHeals.Add(card);
 		RefreshSlots();
+
+		UpdateButton();
 	}
 
 	public void Remove(MSGoonCard card)
@@ -97,6 +110,14 @@ public class MSHealScreen : MSFunctionalScreen
 			queueRoot.FadeOut();
 		}
 		RefreshSlots();
+
+		ClanHelpProto clanHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId);
+		if(clanHelp != null)
+		{
+			MSClanManager.instance.DoEndClanHelp(new List<long>{ clanHelp.clanHelpId });
+		}
+
+		UpdateButton();
 	}
 
 	void RefreshSlots()
@@ -127,19 +148,68 @@ public class MSHealScreen : MSFunctionalScreen
 		timeLeftLabel.text = MSUtil.TimeStringShort(timeLeft);
 		_totalFinishTime = timeLeft;
 		int finishAmount = MSMath.GemsForTime(timeLeft, true);
-		if(finishAmount != 0)
+
+		if(canCallForHelp)
+		{
+			finishNowLabel.text = "Get Help!";
+			finishNowLabel.effectColor = WHITE_SHADOW;
+			finishNowLabel.color = ORANGLE_WORDS;
+		}
+		else if(finishAmount != 0)
 		{
 			finishNowLabel.text = "Finish\n(g) " + finishAmount;
+			finishNowLabel.effectColor = BLACK_SHADOW;
+			finishNowLabel.color = Color.white;
 		}
 		else
 		{
 			finishNowLabel.text = "Finish\n FREE";
+			finishNowLabel.effectColor = BLACK_SHADOW;
+			finishNowLabel.color = Color.white;
 		}
+	}
+
+	public void UpdateButton()
+	{
+		foreach(MSGoonCard card in currHeals)
+		{
+			if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId))
+			{
+				canCallForHelp = true;
+				return;
+			}
+		}
+
+		canCallForHelp = false;
 	}
 
 	public void Finish()
 	{
-		MSHospitalManager.instance.TrySpeedUpHeal(loadLock);
+		if(canCallForHelp)
+		{
+			List<ClanHelpNoticeProto> notices = new List<ClanHelpNoticeProto>();
+
+			foreach(MSGoonCard card in currHeals)
+			{
+				if(MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId))
+				{
+					ClanHelpNoticeProto notice = new ClanHelpNoticeProto();
+					notice.helpType = ClanHelpType.HEAL;
+					notice.staticDataId = card.monster.userMonster.monsterId;
+					notice.userDataId = card.monster.userMonster.userMonsterId;
+					notices.Add(notice);
+				}
+			}
+			loadLock.Lock();
+			MSClanManager.instance.DoSolicitClanHelp(notices,
+			                                         MSBuildingManager.ClanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
+			                                         delegate { loadLock.Unlock();});
+			canCallForHelp = false;
+		}
+		else
+		{
+			MSHospitalManager.instance.TrySpeedUpHeal(loadLock);
+		}
 	}
 
 	public override bool IsAvailable ()

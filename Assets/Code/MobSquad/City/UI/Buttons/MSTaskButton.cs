@@ -308,7 +308,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	void ClickHelp()
 	{
 		MSClanManager.instance.DoSolicitClanHelp(ClanHelpType.UPGRADE_STRUCT,
-		                                         currBuilding.userStructProto.structId,
+		                                         currBuilding.combinedProto.structInfo.structId,
 		                                         currBuilding.userStructProto.userStructId,
 		                                         MSBuildingManager.ClanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
 		                                         delegate{SetMode(Mode.FINISH);});
