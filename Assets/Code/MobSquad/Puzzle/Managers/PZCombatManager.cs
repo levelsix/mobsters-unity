@@ -1775,7 +1775,7 @@ public class PZCombatManager : MonoBehaviour {
 			dropBomb = BombAt(activePlayer.transform.localPosition.x + UnityEngine.Random.value * bombSkillAnimationXRangeForBombs*2 - bombSkillAnimationXRangeForBombs, null);
 			if (i==0)
 			{
-				StartCoroutine(EnemyDropSingleBombAnimation(dropBomb, delegate { activePlayer.unit.animat = MSUnit.AnimationType.FLINCH; }));
+				StartCoroutine(EnemyDropSingleBombAnimation(dropBomb, delegate { StartCoroutine(PlayerFlinchMoveBackwards()); }));
 			}
 			else
 			{
@@ -1791,6 +1791,10 @@ public class PZCombatManager : MonoBehaviour {
 				yield return null;
 			}
 		}
+
+		yield return new WaitForSeconds(recoilTime);
+
+		yield return StartCoroutine(PlayerReturnAfterFlinch());
 	}
 
 	IEnumerator EnemyDropSingleBombAnimation(PZBomb bomb, Action after = null)
@@ -1805,7 +1809,25 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator PoisonDamageAnimation(int numGems)
 	{
 		activePlayer.SendDamageUpdateToServer(numGems * poisonDamage);
-		yield return StartCoroutine(activePlayer.TakeDamage(numGems * poisonDamage));
+
+		yield return enemySkillAnimator.AnimateDefensive(activeEnemy);
+
+		//Tween in icon
+		activePlayer.poisonIconScale.gameObject.SetActive(true);
+		activePlayer.poisonIconScale.PlayForward();
+		while (activePlayer.poisonIconScale.tweenFactor < 1) yield return null;
+
+		activePlayer.TweenSpriteColor(Color.red, recoilTime);
+		Coroutine tick = StartCoroutine(activePlayer.TakeDamage(numGems * poisonDamage));
+
+		yield return StartCoroutine(PlayerFlinchMoveBackwards());
+		yield return new WaitForSeconds(recoilTime);
+		activePlayer.TweenSpriteColor(Color.white, recoilTime);
+		activePlayer.poisonIconScale.PlayReverse();
+		yield return StartCoroutine(PlayerReturnAfterFlinch());
+		yield return tick;
+		while (activePlayer.poisonIconScale.tweenFactor > 0) yield return null;
+		activePlayer.poisonIconScale.gameObject.SetActive(false);
 	}
 
 	IEnumerator EnemySkillBeforeEnemyTurn()
@@ -2082,28 +2104,34 @@ public class PZCombatManager : MonoBehaviour {
 			yield break;
 		}
 
+		yield return StartCoroutine(PlayerFlinchMoveBackwards());
+
+		yield return new WaitForSeconds(recoilTime);
+
+		yield return StartCoroutine(PlayerReturnAfterFlinch());
+	}
+
+	IEnumerator PlayerFlinchMoveBackwards()
+	{
 		Vector3 playerPos = activePlayer.unit.transf.localPosition;
-
+		
 		activePlayer.unit.animat = MSUnit.AnimationType.FLINCH;
-
+		
 		MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, activePlayer.unit.transf.position);
-
+		
 		//attack sound should be played in attack not flinch
-
+		
 		while (activePlayer.unit.transf.localPosition.x > playerPos.x - recoilDistance )//* (totalShots+1))
 		{
 			activePlayer.unit.transf.localPosition -= Time.deltaTime * recoilDistance / recoilTime * -background.direction;
 			yield return null;
 		}
+	}
 
-		yield return new WaitForSeconds(recoilTime);
-
-		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
-		{
-			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
-			activePlayer.unit.direction = MSValues.Direction.EAST;
-		}
-
+	IEnumerator PlayerReturnAfterFlinch()
+	{
+		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
+		activePlayer.unit.direction = MSValues.Direction.EAST;
 		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 	}
 

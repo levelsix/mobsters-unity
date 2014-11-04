@@ -76,6 +76,10 @@ public class PZCombatUnit : MonoBehaviour {
 
 	[SerializeField]
 	UISprite forfeitSprite;
+	
+	public TweenScale poisonIconScale;
+
+	public TweenScale momentumIconScale;
 
 	/// <summary>
 	/// The damage multiplier.
