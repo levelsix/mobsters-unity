@@ -344,6 +344,10 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		{
 			SpawnBomb();
 		}
+		else if (PZPuzzleManager.instance.poisonColor == colorIndex)
+		{
+			gemType = GemType.POISON;
+		}
 	}
 
 	/// <summary>

@@ -1980,6 +1980,7 @@ public class PZCombatManager : MonoBehaviour {
 				yield return new WaitForSeconds(.8f);
 				break;
 			case SkillType.POISON:
+				PZPuzzleManager.instance.poisonColor = (int)activeEnemy.monster.monster.monsterElement-1;
 				yield return TintBoard();
 				poisonDamage = (int)enemyDefSkill.properties.Find(x=>x.name == "ORB_DAMAGE").skillValue;
 				List<PZGem> gemsToTurnPoison = PZPuzzleManager.instance.PickPoisons((int)activeEnemy.monster.monster.monsterElement-1);
@@ -2022,6 +2023,7 @@ public class PZCombatManager : MonoBehaviour {
 						gem.RevertFromPoison();
 					}
 				}
+				PZPuzzleManager.instance.poisonColor = -1;
 				break;
 			}
 		}
