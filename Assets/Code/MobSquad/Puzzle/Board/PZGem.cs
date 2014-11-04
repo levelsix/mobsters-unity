@@ -677,7 +677,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	{
 		blocker.gameObject.SetActive(true);
 		blocker.alpha = 0;
-		TweenAlpha.Begin(blocker.gameObject, tweenTime, .5f);
+		TweenAlpha.Begin(blocker.gameObject, tweenTime, .3f);
 		MSActionManager.Puzzle.OnGemMatch += Unblock;
 	}
 
