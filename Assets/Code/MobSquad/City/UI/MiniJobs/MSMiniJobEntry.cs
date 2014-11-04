@@ -41,6 +41,9 @@ public class MSMiniJobEntry : MonoBehaviour {
 	[SerializeField]
 	MSUIHelper rootHelper;
 
+	[SerializeField]
+	UILabel totalTimeLabel;
+
 	enum EntryMode {IDLE, WAITING, COMPLETE};
 
 	EntryMode currMode;
@@ -69,6 +72,7 @@ public class MSMiniJobEntry : MonoBehaviour {
 			currMode = EntryMode.IDLE;
 			arrow.ResetAlpha(true);
 			buttonHelper.TurnOff();
+			totalTimeLabel.text = MSUtil.TimeStringMed(job.durationSeconds * 1000);
 		}
 		else
 		{
@@ -93,6 +97,8 @@ public class MSMiniJobEntry : MonoBehaviour {
 
 		buttonLabel.color = Color.white;
 		buttonLabel.effectColor = new Color(0f,0f,0f,0.6f);
+
+		totalTimeLabel.text = " ";
 
 		if (currMode == EntryMode.COMPLETE)
 		{

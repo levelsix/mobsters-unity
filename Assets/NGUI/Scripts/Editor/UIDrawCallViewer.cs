@@ -110,13 +110,13 @@ public class UIDrawCallViewer : EditorWindow
 
 				int count = 0;
 
-				for (int a = 0; a < UIPanel.list.Count; ++a)
+				for (int a = 0; a < UIPanel.list.size; ++a)
 				{
-					UIPanel p = UIPanel.list[a];
+					UIPanel p = UIPanel.list.buffer[a];
 
-					for (int b = 0; b < p.widgets.Count; ++b)
+					for (int b = 0; b < p.widgets.size; ++b)
 					{
-						UIWidget w = p.widgets[b];
+						UIWidget w = p.widgets.buffer[b];
 						if (w.drawCall == dc) ++count;
 					}
 				}
@@ -127,13 +127,13 @@ public class UIDrawCallViewer : EditorWindow
 				list[0] = count.ToString();
 				count = 0;
 
-				for (int a = 0; a < UIPanel.list.Count; ++a)
+				for (int a = 0; a < UIPanel.list.size; ++a)
 				{
-					UIPanel p = UIPanel.list[a];
+					UIPanel p = UIPanel.list.buffer[a];
 
-					for (int b = 0; b < p.widgets.Count; ++b)
+					for (int b = 0; b < p.widgets.size; ++b)
 					{
-						UIWidget w = p.widgets[b];
+						UIWidget w = p.widgets.buffer[b];
 
 						if (w.drawCall == dc)
 						{
@@ -145,20 +145,20 @@ public class UIDrawCallViewer : EditorWindow
 
 				GUILayout.BeginHorizontal();
 				int sel = EditorGUILayout.Popup("Widgets", 0, list);
-				NGUIEditorTools.DrawPadding();
+				GUILayout.Space(18f);
 				GUILayout.EndHorizontal();
 
 				if (sel != 0)
 				{
 					count = 0;
 
-					for (int a = 0; a < UIPanel.list.Count; ++a)
+					for (int a = 0; a < UIPanel.list.size; ++a)
 					{
-						UIPanel p = UIPanel.list[a];
+						UIPanel p = UIPanel.list.buffer[a];
 
-						for (int b = 0; b < p.widgets.Count; ++b)
+						for (int b = 0; b < p.widgets.size; ++b)
 						{
-							UIWidget w = p.widgets[b];
+							UIWidget w = p.widgets.buffer[b];
 
 							if (w.drawCall == dc && ++count == sel)
 							{
@@ -172,7 +172,7 @@ public class UIDrawCallViewer : EditorWindow
 				GUILayout.BeginHorizontal();
 				EditorGUILayout.LabelField("Render Q", dc.finalRenderQueue.ToString(), GUILayout.Width(120f));
 				bool draw = (Visibility)EditorGUILayout.EnumPopup(dc.isActive ? Visibility.Visible : Visibility.Hidden) == Visibility.Visible;
-				NGUIEditorTools.DrawPadding();
+				GUILayout.Space(18f);
 				GUILayout.EndHorizontal();
 
 				if (dc.isActive != draw)
@@ -190,7 +190,7 @@ public class UIDrawCallViewer : EditorWindow
 					{
 						Selection.activeGameObject = dc.manager.gameObject;
 					}
-					NGUIEditorTools.DrawPadding();
+					GUILayout.Space(18f);
 				}
 				GUILayout.EndHorizontal();
 

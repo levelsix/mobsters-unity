@@ -3,7 +3,7 @@
 // Copyright © 2011-2014 Tasharen Entertainment
 //----------------------------------------------
 
-#if UNITY_EDITOR || !UNITY_FLASH
+#if UNITY_EDITOR || (!UNITY_FLASH && !NETFX_CORE && !UNITY_WP8)
 #define REFLECTION_SUPPORT
 #endif
 
@@ -108,11 +108,7 @@ public class PropertyReference
 		if (mProperty != null) return mProperty.PropertyType;
 		if (mField != null) return mField.FieldType;
 #endif
-#if UNITY_EDITOR || !UNITY_FLASH
 		return typeof(void);
-#else
-		return null;
-#endif
 	}
 
 	/// <summary>
@@ -168,10 +164,8 @@ public class PropertyReference
 
 	public void Reset ()
 	{
-#if REFLECTION_SUPPORT
 		mField = null;
 		mProperty = null;
-#endif
 	}
 
 	/// <summary>
@@ -236,19 +230,8 @@ public class PropertyReference
 		{
 			try
 			{
-				if (mProperty != null)
-				{
-					if (mProperty.CanWrite)
-					{
-						mProperty.SetValue(mTarget, null, null);
-						return true;
-					}
-				}
-				else
-				{
-					mField.SetValue(mTarget, null);
-					return true;
-				}
+				if (mProperty != null) mProperty.SetValue(mTarget, null, null);
+				else mField.SetValue(mTarget, null);
 			}
 			catch (Exception) { return false; }
 		}
@@ -283,13 +266,8 @@ public class PropertyReference
 		if (mTarget != null && !string.IsNullOrEmpty(mName))
 		{
 			Type type = mTarget.GetType();
-#if NETFX_CORE
-			mField = type.GetRuntimeField(mName);
-			mProperty = type.GetRuntimeProperty(mName);
-#else
 			mField = type.GetField(mName);
 			mProperty = type.GetProperty(mName);
-#endif
 		}
 		else
 		{
@@ -312,11 +290,7 @@ public class PropertyReference
 
 		if (value == null)
 		{
-#if NETFX_CORE
-			if (!to.GetTypeInfo().IsClass) return false;
-#else
 			if (!to.IsClass) return false;
-#endif
 			from = to;
 		}
 		else from = value.GetType();
@@ -371,12 +345,7 @@ public class PropertyReference
 	{
 #if REFLECTION_SUPPORT
 		// If the value can be assigned as-is, we're done
-#if NETFX_CORE
-		if (to.GetTypeInfo().IsAssignableFrom(from.GetTypeInfo())) return true;
-#else
 		if (to.IsAssignableFrom(from)) return true;
-#endif
-
 #else
 		if (from == to) return true;
 #endif

@@ -19,15 +19,7 @@ public class EnvelopContent : MonoBehaviour
 	public int padBottom = 0;
 	public int padTop = 0;
 
-	bool mStarted = false;
-
-	void Start ()
-	{
-		mStarted = true;
-		Execute();
-	}
-
-	void OnEnable () { if (mStarted) Execute(); }
+	void Start () { Execute(); }
 
 	[ContextMenu("Execute")]
 	public void Execute ()
@@ -50,7 +42,6 @@ public class EnvelopContent : MonoBehaviour
 
 			UIWidget w = GetComponent<UIWidget>();
 			w.SetRect(x0, y0, x1 - x0, y1 - y0);
-			BroadcastMessage("UpdateAnchors", SendMessageOptions.DontRequireReceiver);
 		}
 	}
 }

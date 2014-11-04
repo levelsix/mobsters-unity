@@ -15,16 +15,15 @@ using System.Collections.Generic;
 [AddComponentMenu("NGUI/UI/Sprite Animation")]
 public class UISpriteAnimation : MonoBehaviour
 {
-	[HideInInspector][SerializeField] protected int mFPS = 30;
-	[HideInInspector][SerializeField] protected string mPrefix = "";
-	[HideInInspector][SerializeField] protected bool mLoop = true;
-	[HideInInspector][SerializeField] protected bool mSnap = true;
+	[HideInInspector][SerializeField] int mFPS = 30;
+	[HideInInspector][SerializeField] string mPrefix = "";
+	[HideInInspector][SerializeField] bool mLoop = true;
 
-	protected UISprite mSprite;
-	protected float mDelta = 0f;
-	protected int mIndex = 0;
-	protected bool mActive = true;
-	protected List<string> mSpriteNames = new List<string>();
+	UISprite mSprite;
+	float mDelta = 0f;
+	int mIndex = 0;
+	bool mActive = true;
+	List<string> mSpriteNames = new List<string>();
 
 	/// <summary>
 	/// Number of frames in the animation.
@@ -60,15 +59,15 @@ public class UISpriteAnimation : MonoBehaviour
 	/// Rebuild the sprite list first thing.
 	/// </summary>
 
-	protected virtual void Start () { RebuildSpriteList(); }
+	void Start () { RebuildSpriteList(); }
 
 	/// <summary>
 	/// Advance the sprite animation process.
 	/// </summary>
 
-	protected virtual void Update ()
+	void Update ()
 	{
-		if (mActive && mSpriteNames.Count > 1 && Application.isPlaying && mFPS > 0)
+		if (mActive && mSpriteNames.Count > 1 && Application.isPlaying && mFPS > 0f)
 		{
 			mDelta += RealTime.deltaTime;
 			float rate = 1f / mFPS;
@@ -77,17 +76,16 @@ public class UISpriteAnimation : MonoBehaviour
 			{
 				
 				mDelta = (rate > 0f) ? mDelta - rate : 0f;
-
 				if (++mIndex >= mSpriteNames.Count)
 				{
 					mIndex = 0;
-					mActive = mLoop;
+					mActive = loop;
 				}
 
 				if (mActive)
 				{
 					mSprite.spriteName = mSpriteNames[mIndex];
-					if (mSnap) mSprite.MakePixelPerfect();
+					mSprite.MakePixelPerfect();
 				}
 			}
 		}
@@ -97,7 +95,7 @@ public class UISpriteAnimation : MonoBehaviour
 	/// Rebuild the sprite list after changing the sprite name.
 	/// </summary>
 
-	public void RebuildSpriteList ()
+	void RebuildSpriteList ()
 	{
 		if (mSprite == null) mSprite = GetComponent<UISprite>();
 		mSpriteNames.Clear();
@@ -120,22 +118,10 @@ public class UISpriteAnimation : MonoBehaviour
 	}
 	
 	/// <summary>
-	/// Reset the animation to the beginning.
-	/// </summary>
-
-	public void Play () { mActive = true; }
-
-	/// <summary>
-	/// Pause the animation.
-	/// </summary>
-
-	public void Pause () { mActive = false; }
-
-	/// <summary>
 	/// Reset the animation to frame 0 and activate it.
 	/// </summary>
-
-	public void ResetToBeginning ()
+	
+	public void Reset()
 	{
 		mActive = true;
 		mIndex = 0;
@@ -143,7 +129,7 @@ public class UISpriteAnimation : MonoBehaviour
 		if (mSprite != null && mSpriteNames.Count > 0)
 		{
 			mSprite.spriteName = mSpriteNames[mIndex];
-			if (mSnap) mSprite.MakePixelPerfect();
+			mSprite.MakePixelPerfect();
 		}
 	}
 }

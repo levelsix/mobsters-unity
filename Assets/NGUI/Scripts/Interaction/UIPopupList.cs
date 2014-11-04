@@ -5,7 +5,6 @@
 
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
 
 /// <summary>
 /// Popup list can be used to display pop-up menus and drop-down lists.
@@ -108,23 +107,10 @@ public class UIPopupList : UIWidgetContainer
 	public Position position = Position.Auto;
 
 	/// <summary>
-	/// Label alignment to use.
-	/// </summary>
-
-	public NGUIText.Alignment alignment = NGUIText.Alignment.Left;
-
-	/// <summary>
 	/// New line-delimited list of items.
 	/// </summary>
 
 	public List<string> items = new List<string>();
-
-	/// <summary>
-	/// You can associate arbitrary data to be associated with your entries if you like.
-	/// The only downside is that this must be done via code.
-	/// </summary>
-
-	public List<object> itemData = new List<object>();
 
 	/// <summary>
 	/// Amount of padding added to labels.
@@ -161,20 +147,6 @@ public class UIPopupList : UIWidgetContainer
 	/// </summary>
 
 	public bool isLocalized = false;
-
-	public enum OpenOn
-	{
-		ClickOrTap,
-		RightClick,
-		DoubleClick,
-		Manual,
-	}
-
-	/// <summary>
-	/// What kind of click is needed in order to open the popup list.
-	/// </summary>
-
-	public OpenOn openOn = OpenOn.ClickOrTap;
 
 	/// <summary>
 	/// Callbacks triggered when the popup list gets a new item selection.
@@ -239,19 +211,6 @@ public class UIPopupList : UIWidgetContainer
 		}
 	}
 
-	/// <summary>
-	/// Item data associated with the current selection.
-	/// </summary>
-
-	public object data
-	{
-		get
-		{
-			int index = items.IndexOf(mSelectedItem);
-			return index < itemData.Count ? itemData[index] : null;
-		}
-	}
-
 	[System.Obsolete("Use 'value' instead")]
 	public string selection { get { return value; } set { this.value = value; } }
 
@@ -290,36 +249,6 @@ public class UIPopupList : UIWidgetContainer
 	/// </summary>
 
 	float activeFontScale { get { return (trueTypeFont != null || bitmapFont == null) ? 1f : (float)fontSize / bitmapFont.defaultSize; } }
-
-	/// <summary>
-	/// Clear the popup list's contents.
-	/// </summary>
-
-	public void Clear ()
-	{
-		items.Clear();
-		itemData.Clear();
-	}
-
-	/// <summary>
-	/// Add a new item to the popup list.
-	/// </summary>
-
-	public void AddItem (string text)
-	{
-		items.Add(text);
-		itemData.Add(null);
-	}
-
-	/// <summary>
-	/// Add a new item to the popup list.
-	/// </summary>
-
-	public void AddItem (string text, object data)
-	{
-		items.Add(text);
-		itemData.Add(data);
-	}
 
 	/// <summary>
 	/// Trigger all event notification callbacks.
@@ -477,12 +406,20 @@ public class UIPopupList : UIWidgetContainer
 	{
 		if (mHighlight != null)
 		{
+			// Don't allow highlighting while the label is animating to its intended position
+			TweenPosition tp = lbl.GetComponent<TweenPosition>();
+			if (tp != null && tp.enabled) return;
+
 			mHighlightedLabel = lbl;
 
 			UISpriteData sp = mHighlight.GetAtlasSprite();
 			if (sp == null) return;
 
-			Vector3 pos = GetHighlightPosition();
+			float scaleFactor = atlas.pixelSize;
+			float offsetX = sp.borderLeft * scaleFactor;
+			float offsetY = sp.borderTop * scaleFactor;
+
+			Vector3 pos = lbl.cachedTransform.localPosition + new Vector3(-offsetX, offsetY, 1f);
 
 			if (instant || !isAnimated)
 			{
@@ -491,52 +428,8 @@ public class UIPopupList : UIWidgetContainer
 			else
 			{
 				TweenPosition.Begin(mHighlight.gameObject, 0.1f, pos).method = UITweener.Method.EaseOut;
-
-				if (!mTweening)
-				{
-					mTweening = true;
-					StartCoroutine(UpdateTweenPosition());
-				}
 			}
 		}
-	}
-
-	/// <summary>
-	/// Helper function that calculates where the tweened position should be.
-	/// </summary>
-
-	Vector3 GetHighlightPosition ()
-	{
-		if (mHighlightedLabel == null || mHighlight == null) return Vector3.zero;
-		UISpriteData sp = mHighlight.GetAtlasSprite();
-		if (sp == null) return Vector3.zero;
-
-		float scaleFactor = atlas.pixelSize;
-		float offsetX = sp.borderLeft * scaleFactor;
-		float offsetY = sp.borderTop * scaleFactor;
-		return mHighlightedLabel.cachedTransform.localPosition + new Vector3(-offsetX, offsetY, 1f);
-	}
-
-	bool mTweening = false;
-
-	/// <summary>
-	/// Periodically update the tweened target position.
-	/// It's needed because the popup list animates into view, and the target position changes.
-	/// </summary>
-
-	IEnumerator UpdateTweenPosition ()
-	{
-		if (mHighlight != null && mHighlightedLabel != null)
-		{
-			TweenPosition tp = mHighlight.GetComponent<TweenPosition>();
-			
-			while (tp != null && tp.enabled)
-			{
-				tp.to = GetHighlightPosition();
-				yield return null;
-			}
-		}
-		mTweening = false;
 	}
 
 	/// <summary>
@@ -583,12 +476,6 @@ public class UIPopupList : UIWidgetContainer
 	void OnItemPress (GameObject go, bool isPressed) { if (isPressed) Select(go.GetComponent<UILabel>(), true); }
 
 	/// <summary>
-	/// Close the popup list on click.
-	/// </summary>
-
-	void OnItemClick (GameObject go) { Close(); }
-
-	/// <summary>
 	/// React to key-based input.
 	/// </summary>
 
@@ -619,12 +506,6 @@ public class UIPopupList : UIWidgetContainer
 			}
 		}
 	}
-
-	/// <summary>
-	/// Close the popup list when disabled.
-	/// </summary>
-
-	void OnDisable () { Close(); }
 
 	/// <summary>
 	/// Get rid of the popup dialog when the selection gets lost.
@@ -730,23 +611,6 @@ public class UIPopupList : UIWidgetContainer
 
 	void OnClick()
 	{
-		if (openOn == OpenOn.DoubleClick || openOn == OpenOn.Manual) return;
-		if (openOn == OpenOn.RightClick && UICamera.currentTouchID != -2) return;
-		Show();
-	}
-
-	/// <summary>
-	/// Show the popup list on double-click.
-	/// </summary>
-
-	void OnDoubleClick () { if (openOn == OpenOn.DoubleClick) Show(); }
-
-	/// <summary>
-	/// Show the popup list dialog.
-	/// </summary>
-
-	public void Show ()
-	{
 		if (enabled && NGUITools.GetActive(gameObject) && mChild == null && atlas != null && isValid && items.Count > 0)
 		{
 			mLabelList.Clear();
@@ -799,11 +663,8 @@ public class UIPopupList : UIWidgetContainer
 			float dynScale = activeFontScale;
 			float labelHeight = fontHeight * dynScale;
 			float x = 0f, y = -padding.y;
+			int labelFontSize = (bitmapFont != null) ? bitmapFont.defaultSize : fontSize;
 			List<UILabel> labels = new List<UILabel>();
-
-			// Clear the selection if it's no longer present
-			if (!items.Contains(mSelectedItem))
-				mSelectedItem = null;
 
 			// Run through all items and create labels for each one
 			for (int i = 0, imax = items.Count; i < imax; ++i)
@@ -811,17 +672,17 @@ public class UIPopupList : UIWidgetContainer
 				string s = items[i];
 
 				UILabel lbl = NGUITools.AddWidget<UILabel>(mChild);
-				lbl.name = i.ToString();
 				lbl.pivot = UIWidget.Pivot.TopLeft;
 				lbl.bitmapFont = bitmapFont;
 				lbl.trueTypeFont = trueTypeFont;
-				lbl.fontSize = fontSize;
+				lbl.fontSize = labelFontSize;
 				lbl.fontStyle = fontStyle;
 				lbl.text = isLocalized ? Localization.Get(s) : s;
 				lbl.color = textColor;
-				lbl.cachedTransform.localPosition = new Vector3(bgPadding.x + padding.x - lbl.pivotOffset.x, y, -1f);
+				lbl.cachedTransform.localPosition = new Vector3(bgPadding.x + padding.x, y, -1f);
 				lbl.overflowMethod = UILabel.Overflow.ResizeFreely;
-				lbl.alignment = alignment;
+				lbl.MakePixelPerfect();
+				if (dynScale != 1f) lbl.cachedTransform.localScale = Vector3.one * dynScale;
 				labels.Add(lbl);
 
 				y -= labelHeight;
@@ -832,7 +693,6 @@ public class UIPopupList : UIWidgetContainer
 				UIEventListener listener = UIEventListener.Get(lbl.gameObject);
 				listener.onHover = OnItemHover;
 				listener.onPress = OnItemPress;
-				listener.onClick = OnItemClick;
 				listener.parameter = s;
 
 				// Move the selection here if this is the right label
@@ -846,47 +706,26 @@ public class UIPopupList : UIWidgetContainer
 			// The triggering widget's width should be the minimum allowed width
 			x = Mathf.Max(x, bounds.size.x * dynScale - (bgPadding.x + padding.x) * 2f);
 
-			float cx = x;
+			float cx = x / dynScale;
 			Vector3 bcCenter = new Vector3(cx * 0.5f, -fontHeight * 0.5f, 0f);
-			Vector3 bcSize = new Vector3(cx, (labelHeight + padding.y), 1f);
+			Vector3 bcSize = new Vector3(cx, (labelHeight + padding.y) / dynScale, 1f);
 
 			// Run through all labels and add colliders
 			for (int i = 0, imax = labels.Count; i < imax; ++i)
 			{
 				UILabel lbl = labels[i];
-				NGUITools.AddWidgetCollider(lbl.gameObject);
-				lbl.autoResizeBoxCollider = false;
-				BoxCollider bc = lbl.GetComponent<BoxCollider>();
-
-				if (bc != null)
-				{
-					bcCenter.z = bc.center.z;
-					bc.center = bcCenter;
-					bc.size = bcSize;
-				}
-				else
-				{
-					BoxCollider2D b2d = lbl.GetComponent<BoxCollider2D>();
-					b2d.center = bcCenter;
-					b2d.size = bcSize;
-				}
+				BoxCollider bc = NGUITools.AddWidgetCollider(lbl.gameObject);
+				bcCenter.z = bc.center.z;
+				bc.center = bcCenter;
+				bc.size = bcSize;
 			}
 
-			int lblWidth = Mathf.RoundToInt(x);
 			x += (bgPadding.x + padding.x) * 2f;
 			y -= bgPadding.y;
 
 			// Scale the background sprite to envelop the entire set of items
 			mBackground.width = Mathf.RoundToInt(x);
 			mBackground.height = Mathf.RoundToInt(-y + bgPadding.y);
-
-			// Set the label width to make alignment work
-			for (int i = 0, imax = labels.Count; i < imax; ++i)
-			{
-				UILabel lbl = labels[i];
-				lbl.overflowMethod = UILabel.Overflow.ShrinkContent;
-				lbl.width = lblWidth;
-			}
 
 			// Scale the highlight sprite to envelop a single item
 			float scaleFactor = 2f * atlas.pixelSize;

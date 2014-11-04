@@ -99,7 +99,7 @@ public class UIFontInspector : Editor
 		GUI.changed = false;
 		GUILayout.BeginHorizontal();
 		mType = (FontType)EditorGUILayout.EnumPopup("Font Type", mType);
-		NGUIEditorTools.DrawPadding();
+		GUILayout.Space(18f);
 		GUILayout.EndHorizontal();
 
 		if (GUI.changed)
@@ -157,7 +157,7 @@ public class UIFontInspector : Editor
 			GUILayout.BeginHorizontal();
 			int size = EditorGUILayout.IntField("Default Size", mFont.defaultSize, GUILayout.Width(120f));
 			FontStyle style = (FontStyle)EditorGUILayout.EnumPopup(mFont.dynamicFontStyle);
-			NGUIEditorTools.DrawPadding();
+			GUILayout.Space(18f);
 			GUILayout.EndHorizontal();
 
 			if (size != mFont.defaultSize)

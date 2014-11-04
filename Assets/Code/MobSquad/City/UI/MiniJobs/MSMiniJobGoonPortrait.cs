@@ -18,8 +18,14 @@ public class MSMiniJobGoonPortrait : MonoBehaviour {
 	[SerializeField]
 	UISprite bg;
 
+	public MSUIHelper minusButton;
+
+	public PZMonster monster;
+
 	public void Init(PZMonster monster)
 	{
+		this.monster = monster;
+
 		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", goon);
 
 		bg.spriteName = MSMiniGoonBox.elementBackgrounds[monster.monster.monsterElement];
@@ -37,5 +43,11 @@ public class MSMiniJobGoonPortrait : MonoBehaviour {
 	public void Pool()
 	{
 		GetComponent<MSSimplePoolable>().Pool();
+	}
+
+	public void Minus()
+	{
+		MSMiniJobPopup.instance.RemoveFromTeam(this);
+		minusButton.FadeOutAndOff();
 	}
 }

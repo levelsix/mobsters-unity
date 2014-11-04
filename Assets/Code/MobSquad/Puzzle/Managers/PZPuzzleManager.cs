@@ -155,6 +155,16 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	public float SWAP_TIME = .2f;
 
+	public bool canSpawnBombs;
+	public int bombColor;
+	public int maxBombs;
+	public int minBombs;
+	public int bombTicks;
+	public float bombChance;
+	public int bombDamage;
+
+	public int poisonColor = -1;
+
 	bool _gemHints = false;
 
 	IEnumerator hintCycle;
@@ -267,6 +277,12 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 				case PZGem.GemType.CAKE:
 					cakes.Add(gem);
+					break;
+				case PZGem.GemType.BOMB:
+					PZCombatManager.instance.bombs.Add(gem);
+					gem.bombTicks = save.bombTicks[x,y];
+					gem.bombDamage = save.bombDamages[x,y];
+					gem.BombLabelRefresh();
 					break;
 				}
 				if (save.jelly[x,y])
@@ -644,7 +660,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		PZMatch match;
 		
-		//Bomb and rocket logic, to create the matches
+		//Grenade and rocket logic, to create the matches
 		//before we go into match processing
 		for (int i = 0; i < matchList.Count; i++) 
 		{
@@ -654,8 +670,8 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					switch(gem.gemType)
 					{
-					case PZGem.GemType.BOMB:
-						match = GetBombMatch(gem);
+					case PZGem.GemType.GRENADE:
+						match = GetGrenadeMatch(gem);
 						RemoveRepeats(match, matchList);
 						matchList.Add(match);
 						break;
@@ -780,11 +796,11 @@ public class PZPuzzleManager : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// For when a bomb is swapped with iether a rocket or another bomb
+	/// For when a grenade is swapped with iether a rocket or another grenade
 	/// </summary>
 	/// <param name="source">Gem being dragged</param>
 	/// <param name="destination">Gem that the dragged gem is being swapped with</param>
-	public void DetonateBombFromSwap(PZGem source, PZGem destination){
+	public void DetonateGrenadeFromSwap(PZGem source, PZGem destination){
 		PZGem gem;
 		if (source.gemType == PZGem.GemType.ROCKET || destination.gemType == PZGem.GemType.ROCKET) {
 			List<PZMatch> rocketMatches = new List<PZMatch>();
@@ -809,33 +825,33 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 			IncrementCombo(rocketMatches);
 
-		} else { //else bomb-bomb swap
+		} else { //else grenade-grenade swap
 			int originx = destination.boardX;
 			int originy = destination.boardY;
-			PZMatch bombMatch = new PZMatch();
-			bombMatch.special = true;
+			PZMatch grenadeMatch = new PZMatch();
+			grenadeMatch.special = true;
 
 			if(originx + 1 < boardWidth){
 				gem = board[originx + 1,originy];
-				bombMatch = GetBombMatch(gem);
+				grenadeMatch = GetGrenadeMatch(gem);
 			}
 			if(originx - 1 >= 0){
 				gem = board[originx - 1,originy];
-				bombMatch.CheckAgainst(GetBombMatch(gem));
+				grenadeMatch.CheckAgainst(GetGrenadeMatch(gem));
 			}
 
 			if(originy + 1 < boardHeight){
 				gem = board[originx,originy + 1];
-				bombMatch.CheckAgainst(GetBombMatch(gem));
+				grenadeMatch.CheckAgainst(GetGrenadeMatch(gem));
 			}
 			if(originy - 1 >= 0){
 				gem = board[originx,originy - 1];
-				bombMatch.CheckAgainst(GetBombMatch(gem));
+				grenadeMatch.CheckAgainst(GetGrenadeMatch(gem));
 			}
 			source.gemType = PZGem.GemType.NORMAL;
 			destination.gemType = PZGem.GemType.NORMAL;
-			bombMatch.Destroy();
-			IncrementCombo(new List<PZMatch>{ bombMatch });
+			grenadeMatch.Destroy();
+			IncrementCombo(new List<PZMatch>{ grenadeMatch });
 			
 		}
 	}
@@ -864,10 +880,10 @@ public class PZPuzzleManager : MonoBehaviour {
 		List<PZMatch> matchList = new List<PZMatch>();
 		PZMatch matching = GetMolotovGroup(molly, other.colorIndex);
 		switch (other.gemType) {
-		case PZGem.GemType.BOMB:
+		case PZGem.GemType.GRENADE:
 			foreach (var item in matching.gems) 
 			{
-				item.gemType = PZGem.GemType.BOMB;
+				item.gemType = PZGem.GemType.GRENADE;
 			}
 			break;
 		case PZGem.GemType.MOLOTOV:
@@ -949,42 +965,42 @@ public class PZPuzzleManager : MonoBehaviour {
 		return new PZMatch(gems, true);
 	}
 	
-	public PZMatch GetBombMatch(PZGem bomb)
+	public PZMatch GetGrenadeMatch(PZGem grenade)
 	{
-		MSPoolManager.instance.Get(MSPrefabList.instance.grenadeParticle, bomb.transf.position);
+		MSPoolManager.instance.Get(MSPrefabList.instance.grenadeParticle, grenade.transf.position);
 
 		List<PZGem> gems = new List<PZGem>();
-		if (bomb.boardX > 0)
+		if (grenade.boardX > 0)
 		{
-			gems.Add(board[bomb.boardX-1, bomb.boardY]);
-			if (bomb.boardY > 0)
+			gems.Add(board[grenade.boardX-1, grenade.boardY]);
+			if (grenade.boardY > 0)
 			{
-				gems.Add(board[bomb.boardX-1, bomb.boardY-1]);
+				gems.Add(board[grenade.boardX-1, grenade.boardY-1]);
 			}
-			if (bomb.boardY < boardHeight-1)
+			if (grenade.boardY < boardHeight-1)
 			{
-				gems.Add(board[bomb.boardX-1, bomb.boardY+1]);
-			}
-		}
-		if (bomb.boardX < boardWidth-1)
-		{
-			gems.Add(board[bomb.boardX+1, bomb.boardY]);
-			if (bomb.boardY > 0)
-			{
-				gems.Add(board[bomb.boardX+1, bomb.boardY-1]);
-			}
-			if (bomb.boardY < boardHeight-1)
-			{
-				gems.Add(board[bomb.boardX+1, bomb.boardY+1]);
+				gems.Add(board[grenade.boardX-1, grenade.boardY+1]);
 			}
 		}
-		if (bomb.boardY > 0)
+		if (grenade.boardX < boardWidth-1)
 		{
-			gems.Add(board[bomb.boardX, bomb.boardY-1]);
+			gems.Add(board[grenade.boardX+1, grenade.boardY]);
+			if (grenade.boardY > 0)
+			{
+				gems.Add(board[grenade.boardX+1, grenade.boardY-1]);
+			}
+			if (grenade.boardY < boardHeight-1)
+			{
+				gems.Add(board[grenade.boardX+1, grenade.boardY+1]);
+			}
 		}
-		if (bomb.boardY < boardHeight-1)
+		if (grenade.boardY > 0)
 		{
-			gems.Add(board[bomb.boardX, bomb.boardY+1]);
+			gems.Add(board[grenade.boardX, grenade.boardY-1]);
+		}
+		if (grenade.boardY < boardHeight-1)
+		{
+			gems.Add(board[grenade.boardX, grenade.boardY+1]);
 		}
 		for (int i = 0; i < gems.Count; ) 
 		{
@@ -993,7 +1009,7 @@ public class PZPuzzleManager : MonoBehaviour {
 				gems.RemoveAt(i);
 				continue;
 			}
-			CheckIfMolly(gems[i], bomb.colorIndex);
+			CheckIfMolly(gems[i], grenade.colorIndex);
 			i++;
 		}
 		return new PZMatch(gems, true);
@@ -1283,6 +1299,20 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 		}
 		return 0;
+	}
+
+	public void BlockBoard(List<PZGem> exceptGems, float tweenTime = 0)
+	{
+		for (int i = 0; i < boardWidth; i++) 
+		{
+			for (int j = 0; j < boardHeight; j++) 
+			{
+				if (exceptGems.Find(x=>x.boardX==i&&x.boardY==j)==null)
+				{
+					board[i,j].Block(tweenTime);
+				}
+			}
+		}
 	}
 
 	public void BlockBoard(List<Vector2> exceptSpaces = null, float tweenTime = 0)
@@ -1752,4 +1782,70 @@ public class PZPuzzleManager : MonoBehaviour {
 	}
 
 	#endregion
+
+	#region Bombs
+
+	public List<PZGem> PickBombs(int colorIndex, int numBombs)
+	{
+		List<PZGem> bombs = new List<PZGem>();
+		//Add all gems of that color
+		foreach (var item in board) 
+		{
+			if (item.colorIndex == colorIndex) bombs.Add(item);
+		}
+		//While we have more gems than we need, trim the list randomly
+		while(bombs.Count > numBombs)
+		{
+			int index = UnityEngine.Random.Range(0, bombs.Count);
+			bombs.RemoveAt(index);
+		}
+		return bombs;
+	}
+
+	/// <summary>
+	/// Checks a gem to see if it should spawn as a bomb.
+	/// Called by a gem that is currently respawning, after it has picked its new color.
+	/// </summary>
+	/// <returns><c>true</c>, if spawn bomb was checked, <c>false</c> otherwise.</returns>
+	/// <param name="gem">Gem.</param>
+	public bool CheckSpawnBomb(PZGem gem)
+	{
+		if (!canSpawnBombs 
+		    || gem.colorIndex != bombColor 
+		    || PZCombatManager.instance.bombs.Count >= maxBombs)
+		{
+			return false;
+		}
+
+		Debug.Log("Checking if new gem should be a bomb...");
+
+		if (PZCombatManager.instance.bombs.Count < minBombs)
+		{
+			return true;
+		}
+
+		float roll = UnityEngine.Random.value;
+		Debug.Log("Target: " + bombChance + ", Roll: " + roll);
+
+		return roll < bombChance;
+	}
+
+	#endregion
+
+	#region Poison
+
+	public List<PZGem> PickPoisons(int colorIndex)
+	{
+		List<PZGem> poisons = new List<PZGem>();
+		//Add all gems of that color
+		foreach (var item in board) 
+		{
+			if (item.colorIndex == colorIndex && item.gemType == PZGem.GemType.NORMAL) poisons.Add(item);
+		}
+
+		return poisons;
+	}
+
+	#endregion Poison
+
 }

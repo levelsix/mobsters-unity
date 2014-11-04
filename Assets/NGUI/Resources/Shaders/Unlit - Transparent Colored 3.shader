@@ -24,6 +24,7 @@ Shader "Hidden/Unlit/Transparent Colored 3"
 			Offset -1, -1
 			Fog { Mode Off }
 			ColorMask RGB
+			AlphaTest Greater .01
 			Blend SrcAlpha OneMinusSrcAlpha
 
 			CGPROGRAM
@@ -64,10 +65,9 @@ Shader "Hidden/Unlit/Transparent Colored 3"
 				return ret;
 			}
 
-			v2f o;
-
 			v2f vert (appdata_t v)
 			{
+				v2f o;
 				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.color = v.color;
 				o.texcoord = v.texcoord;
@@ -118,6 +118,7 @@ Shader "Hidden/Unlit/Transparent Colored 3"
 			ZWrite Off
 			Fog { Mode Off }
 			ColorMask RGB
+			AlphaTest Greater .01
 			Blend SrcAlpha OneMinusSrcAlpha
 			ColorMaterial AmbientAndDiffuse
 			

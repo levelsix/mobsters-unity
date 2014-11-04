@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
 
 /// <summary>
 /// This editor helper class makes it easy to create and show a context menu.
@@ -9,11 +8,8 @@ using System.Collections.Generic;
 
 public static class NGUIContextMenu
 {
-	[MenuItem("Help/NGUI Documentation (v.3.7.3)")]
+	[MenuItem("Help/NGUI Documentation")]
 	static void ShowHelp0 (MenuCommand command) { NGUIHelp.Show(); }
-
-	[MenuItem("Help/NGUI Support Forum")]
-	static void ShowHelp01 (MenuCommand command) { Application.OpenURL("http://www.tasharen.com/forum/index.php?board=1.0"); }
 
 	[MenuItem("CONTEXT/UIWidget/Copy Widget")]
 	static void CopyStyle (MenuCommand command) { NGUISettings.CopyWidget(command.context as UIWidget); }
@@ -48,8 +44,10 @@ public static class NGUIContextMenu
 	[MenuItem("CONTEXT/UISlider/Help")]
 	static void ShowHelp8 (MenuCommand command) { NGUIHelp.Show(typeof(UISlider)); }
 
+#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2
 	[MenuItem("CONTEXT/UI2DSprite/Help")]
 	static void ShowHelp9 (MenuCommand command) { NGUIHelp.Show(typeof(UI2DSprite)); }
+#endif
 
 	[MenuItem("CONTEXT/UIScrollBar/Help")]
 	static void ShowHelp10 (MenuCommand command) { NGUIHelp.Show(typeof(UIScrollBar)); }
@@ -122,7 +120,7 @@ public static class NGUIContextMenu
 
 	public delegate UIWidget AddFunc (GameObject go);
 
-	static List<string> mEntries = new List<string>();
+	static BetterList<string> mEntries = new BetterList<string>();
 	static GenericMenu mMenu;
 
 	/// <summary>
@@ -146,7 +144,7 @@ public static class NGUIContextMenu
 			if (mMenu == null) mMenu = new GenericMenu();
 			int count = 0;
 
-			for (int i = 0; i < mEntries.Count; ++i)
+			for (int i = 0; i < mEntries.size; ++i)
 			{
 				string str = mEntries[i];
 				if (str == item) ++count;
@@ -181,7 +179,7 @@ public static class NGUIContextMenu
 			if (mMenu == null) mMenu = new GenericMenu();
 			int count = 0;
 
-			for (int i = 0; i < mEntries.Count; ++i)
+			for (int i = 0; i < mEntries.size; ++i)
 			{
 				string str = mEntries[i];
 				if (str == item) ++count;
@@ -216,7 +214,7 @@ public static class NGUIContextMenu
 			if (mMenu == null) mMenu = new GenericMenu();
 			int count = 0;
 
-			for (int i = 0; i < mEntries.Count; ++i)
+			for (int i = 0; i < mEntries.size; ++i)
 			{
 				string str = mEntries[i];
 				if (str == item) ++count;
@@ -295,12 +293,16 @@ public static class NGUIContextMenu
 				AddChildWidget("Create/Label/Child", false, NGUISettings.AddLabel);
 				AddChildWidget("Create/Invisible Widget/Child", false, NGUISettings.AddWidget);
 				AddChildWidget("Create/Simple Texture/Child", false, NGUISettings.AddTexture);
+#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2
 				AddChildWidget("Create/Unity 2D Sprite/Child", false, NGUISettings.Add2DSprite);
+#endif
 				AddSiblingWidget("Create/Sprite/Sibling", false, NGUISettings.AddSprite);
 				AddSiblingWidget("Create/Label/Sibling", false, NGUISettings.AddLabel);
 				AddSiblingWidget("Create/Invisible Widget/Sibling", false, NGUISettings.AddWidget);
 				AddSiblingWidget("Create/Simple Texture/Sibling", false, NGUISettings.AddTexture);
+#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2
 				AddSiblingWidget("Create/Unity 2D Sprite/Sibling", false, NGUISettings.Add2DSprite);
+#endif
 			}
 			else
 			{
@@ -308,7 +310,9 @@ public static class NGUIContextMenu
 				AddChildWidget("Create/Label", false, NGUISettings.AddLabel);
 				AddChildWidget("Create/Invisible Widget", false, NGUISettings.AddWidget);
 				AddChildWidget("Create/Simple Texture", false, NGUISettings.AddTexture);
+#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2
 				AddChildWidget("Create/Unity 2D Sprite", false, NGUISettings.Add2DSprite);
+#endif
 			}
 
 			NGUIContextMenu.AddSeparator("Create/");
@@ -327,7 +331,7 @@ public static class NGUIContextMenu
 					NGUIContextMenu.AddSeparator("Attach/");
 				}
 			}
-			else if (target.collider == null && target.GetComponent<Collider2D>() == null)
+			else if (target.collider == null)
 			{
 				AddItem("Attach/Box Collider", false, AttachCollider, null);
 				NGUIContextMenu.AddSeparator("Attach/");
@@ -345,7 +349,7 @@ public static class NGUIContextMenu
 				}
 			}
 
-			if (target.collider != null || target.GetComponent<Collider2D>() != null)
+			if (target.collider != null)
 			{
 				if (scrollView != null)
 				{
@@ -378,7 +382,7 @@ public static class NGUIContextMenu
 
 				if (target.GetComponent<UIDragScrollView>() == null)
 				{
-					for (int i = 0; i < UIPanel.list.Count; ++i)
+					for (int i = 0; i < UIPanel.list.size; ++i)
 					{
 						UIPanel pan = UIPanel.list[i];
 						if (pan.clipping == UIDrawCall.Clipping.None) continue;
@@ -559,7 +563,11 @@ public static class NGUIContextMenu
 	{
 		GameObject go = obj as GameObject;
 		Selection.activeGameObject = go.transform.parent.gameObject;
+#if UNITY_3_5 || UNITY_4_0 || UNITY_4_1 || UNITY_4_2
+		NGUITools.Destroy(go);
+#else
 		Undo.DestroyObjectImmediate(go);
+#endif
 	}
 
 	/// <summary>

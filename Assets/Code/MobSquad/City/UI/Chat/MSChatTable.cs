@@ -14,7 +14,7 @@ public class MSChatTable : UITable {
 		base.Reposition ();
 
 		SpringPosition spring;
-		foreach (var item in GetChildList()) 
+		foreach (var item in children) 
 		{
 			item.localPosition = new Vector3(0, item.localPosition.y, item.localPosition.z);
 			spring = item.GetComponent<SpringPosition>();

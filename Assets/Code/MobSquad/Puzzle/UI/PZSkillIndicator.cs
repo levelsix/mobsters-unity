@@ -12,9 +12,11 @@ public class PZSkillIndicator : MonoBehaviour {
 
 	MSUIHelper helper;
 
+	[SerializeField] TweenPosition mover;
+
 	[SerializeField] bool enemy;
 
-	Element monsterElement;
+	Element monsterElement = Element.NO_ELEMENT;
 
 	float currFill;
 
@@ -26,11 +28,21 @@ public class PZSkillIndicator : MonoBehaviour {
 		{Element.DARK, "night"},
 		{Element.EARTH, "earth"},
 		{Element.LIGHT, "light"},
-		{Element.WATER, "water"}
+		{Element.WATER, "water"},
+		{Element.NO_ELEMENT, "inactive"},
+		{Element.ROCK, "inactive"}
 	};
 
 	const string enemySpritePrefix = "enemy";
 	const string yourSpritePrefix = "your";
+
+	[SerializeField] float fillSpeed = 1;
+
+	void Awake()
+	{
+		//fillIcon.type = UISprite.Type.Filled;
+		//fillIcon.fillDirection = UISprite.FillDirection.Vertical;
+	}
 
 	public void Init(SkillProto skill, Element userElement)
 	{
@@ -53,12 +65,14 @@ public class PZSkillIndicator : MonoBehaviour {
 			}
 			monsterElement = userElement;
 
-			string skillImgBase = MSUtil.StripExtensions(skill.iconImgName);
-			MSSpriteUtil.instance.SetSprite(skillImgBase, skillImgBase + "icon", bwIcon);
-			MSSpriteUtil.instance.SetSprite(skillImgBase, skillImgBase + "icon", fillIcon);
+			string skillBundle = MSUtil.SkillBundleName(skill);
+			string skillIconName = MSUtil.StripExtensions(skill.iconImgName);
+			MSSpriteUtil.instance.SetSprite(skillBundle, skillIconName, bwIcon);
+			MSSpriteUtil.instance.SetSprite(skillBundle, skillIconName, fillIcon);
 
 			SetPoints(0);
 			helper.FadeIn();
+			mover.PlayForward();
 		}
 		else
 		{
@@ -71,9 +85,15 @@ public class PZSkillIndicator : MonoBehaviour {
 
 	public void SetPoints(int currPoints)
 	{
-		if (maxPoints == 0) return;
+		if (maxPoints == 0)
+		{
+			currFill = fillIcon.fillAmount = 1;
+		}
+		else
+		{
+			currFill = Mathf.Clamp01(((float)currPoints)/maxPoints);
+		}
 
-		currFill = fillIcon.fillAmount = ((float)currPoints)/maxPoints;
 		string spriteName;
 		if (currFill >= 1)
 		{
@@ -88,22 +108,44 @@ public class PZSkillIndicator : MonoBehaviour {
 		label.spriteName = spriteName;
 	}
 
+	/// <summary>
+	/// Tweens and fades the indicator out.
+	/// Used when a mobster with a skill dies or is swapped out.
+	/// </summary>
 	public void FadeOut()
 	{
 		if (helper == null) helper = GetComponent<MSUIHelper>();
-
+		mover.PlayReverse();
 		helper.FadeOut();
 	}
 
-	public void Off()
+	/// <summary>
+	/// Turns the indicator completely off.
+	/// Used at the beginning of battles.
+	/// </summary>
+	public void ShutOff()
 	{
 		if (helper == null) helper = GetComponent<MSUIHelper>();
-
+		mover.Sample(0, true);
 		helper.ResetAlpha(false);
 	}
 
 	void OnClick()
 	{
 		PZCombatManager.instance.RunPlayerSkill();
+	}
+
+	void Update()
+	{
+		if (fillIcon.fillAmount < currFill)
+		{
+			fillIcon.fillAmount = Mathf.Min(fillIcon.fillAmount + fillSpeed * Time.deltaTime, currFill);
+			fillIcon.MarkAsChanged();
+		}
+		else if (fillIcon.fillAmount > currFill)
+		{
+			fillIcon.fillAmount = Mathf.Max(fillIcon.fillAmount - fillSpeed * Time.deltaTime, currFill);
+			fillIcon.MarkAsChanged();
+		}
 	}
 }

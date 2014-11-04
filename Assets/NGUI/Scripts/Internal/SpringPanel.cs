@@ -43,7 +43,7 @@ public class SpringPanel : MonoBehaviour
 	/// Cache the transform.
 	/// </summary>
 
-	void Start ()
+	protected void Start ()
 	{
 		mPanel = GetComponent<UIPanel>();
 		mDrag = GetComponent<UIScrollView>();

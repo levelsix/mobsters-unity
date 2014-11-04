@@ -77,6 +77,13 @@ public class PZCombatUnit : MonoBehaviour {
 	[SerializeField]
 	UISprite forfeitSprite;
 
+	/// <summary>
+	/// The damage multiplier.
+	/// Used for skills to affect damage.
+	/// Resets to 1 every time deployed.
+	/// </summary>
+	public float damageMultiplier = 1;
+
 	public float alpha
 	{
 		set
@@ -158,6 +165,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 	void Init()
 	{
+		damageMultiplier = 1;
 		unit.spriteBaseName = monster.monster.imagePrefix;
 		alpha = 1;
 		hpBar.fill = ((float)monster.currHP) / monster.maxHP;
@@ -482,5 +490,30 @@ public class PZCombatUnit : MonoBehaviour {
 		tween.Sample (1f, false);
 		tween.PlayReverse ();
 		currTotalTime = 0f;
+	}
+
+	public Coroutine TweenSpriteColor(Color color, float time, bool keepOriginalAlpha = true)
+	{
+		return StartCoroutine(TweenColor(color, time, keepOriginalAlpha));
+	}
+
+	IEnumerator TweenColor(Color color, float time, bool keepOriginalAlpha)
+	{
+		Color startingColor = unit.sprite.color;
+		if (keepOriginalAlpha)
+		{
+			color.a = startingColor.a;
+		}
+		float currTime = 0;
+		if (time > 0)
+		{
+			do
+			{
+				currTime += Time.deltaTime/time;
+				unit.sprite.color = Color.Lerp(startingColor, color, currTime);
+				yield return null;
+			} while (currTime < 1);
+		}
+		unit.sprite.color = color;
 	}
 }

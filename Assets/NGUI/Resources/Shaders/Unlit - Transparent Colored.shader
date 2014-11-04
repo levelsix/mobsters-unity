@@ -7,7 +7,7 @@ Shader "Unlit/Transparent Colored"
 	
 	SubShader
 	{
-		LOD 200
+		LOD 100
 
 		Tags
 		{
@@ -16,22 +16,20 @@ Shader "Unlit/Transparent Colored"
 			"RenderType" = "Transparent"
 		}
 		
+		Cull Off
+		Lighting Off
+		ZWrite Off
+		Fog { Mode Off }
+		Offset -1, -1
+		Blend SrcAlpha OneMinusSrcAlpha
+
 		Pass
 		{
-			Cull Off
-			Lighting Off
-			ZWrite Off
-			Fog { Mode Off }
-			Offset -1, -1
-			Blend SrcAlpha OneMinusSrcAlpha
-
 			CGPROGRAM
 			#pragma vertex vert
-			#pragma fragment frag			
+			#pragma fragment frag
+				
 			#include "UnityCG.cginc"
-
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
 	
 			struct appdata_t
 			{
@@ -47,19 +45,22 @@ Shader "Unlit/Transparent Colored"
 				fixed4 color : COLOR;
 			};
 	
-			v2f o;
-
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+				
 			v2f vert (appdata_t v)
 			{
+				v2f o;
 				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.texcoord = v.texcoord;
 				o.color = v.color;
 				return o;
 			}
 				
-			fixed4 frag (v2f IN) : COLOR
+			fixed4 frag (v2f i) : COLOR
 			{
-				return tex2D(_MainTex, IN.texcoord) * IN.color;
+				fixed4 col = tex2D(_MainTex, i.texcoord) * i.color;
+				return col;
 			}
 			ENDCG
 		}
@@ -84,6 +85,7 @@ Shader "Unlit/Transparent Colored"
 			Fog { Mode Off }
 			Offset -1, -1
 			ColorMask RGB
+			AlphaTest Greater .01
 			Blend SrcAlpha OneMinusSrcAlpha
 			ColorMaterial AmbientAndDiffuse
 			

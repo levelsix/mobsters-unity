@@ -66,6 +66,7 @@ public class MSMiniJobGoonie : MonoBehaviour {
 		this.goonie = monster;
 		this.popup = popup;
 		GetPortrait(monster);
+		portrait.minusButton.TurnOff();
 		nameLabel.text = monster.monster.displayName;
 		levelLabel.text = "LVL. " + monster.userMonster.currentLvl;
 
@@ -74,6 +75,40 @@ public class MSMiniJobGoonie : MonoBehaviour {
 
 		atkLabel.text = "ATTACK: " + Mathf.FloorToInt(monster.totalDamage);
 		atkBar.fill = monster.totalDamage / reqAtk;
+	}
+
+	public void Init(MSMiniJobGoonPortrait portrait, float reqHp, float reqAtk, MSMiniJobPopup popup)
+	{
+		rootHelper.ResetAlpha(true);
+
+		this.portrait = portrait;
+		
+		goonie = portrait.monster;
+		this.popup = popup;
+		nameLabel.text = goonie.monster.displayName;
+		levelLabel.text = "LVL. " + goonie.userMonster.currentLvl;
+		
+		hpLabel.text = "HP: " + goonie.currHP;
+		hpBar.fill = goonie.currHP / reqHp;
+		
+		atkLabel.text = "ATTACK: " + Mathf.FloorToInt(goonie.totalDamage);
+		atkBar.fill = goonie.totalDamage / reqAtk;
+
+		StartCoroutine(TweenInPortrait());
+	}
+
+	IEnumerator TweenInPortrait()
+	{
+//		yield return null;
+		portrait.transform.parent = portraitParent;
+
+//		TweenPosition tp = TweenPosition.Begin(portrait.gameObject, .3f, Vector3.zero);
+//		while (tp.tweenFactor < 1) yield return null;
+//		portrait.ResetPanel();
+		
+		SpringPosition spring = SpringPosition.Begin(portrait.gameObject, Vector3.zero, 15f);
+		spring.onFinished += delegate {portrait.ResetPanel();};
+		yield return null;
 	}
 
 	void GetPortrait(PZMonster monster)
@@ -91,6 +126,7 @@ public class MSMiniJobGoonie : MonoBehaviour {
 	{
 		if (popup.TryPickMonster(goonie, portrait))
 		{
+			portrait.minusButton.FadeIn();
 			portrait = null;
 			transform.parent = transform.parent.parent;
 			rootHelper.FadeOutAndPool();

@@ -107,7 +107,7 @@ public class PZMatch {
 			{
 				//Make special bomb gem, and save gem
 				PZPuzzleManager.instance.ClearJelly(gems[i].boardX, gems[i].boardY, gems[i].id);
-				gems[i++].gemType = PZGem.GemType.BOMB;
+				gems[i++].gemType = PZGem.GemType.GRENADE;
 				//PZPuzzleManager.instance.gemsOnBoardByType[gems[i].colorIndex]++;
 			}
 			else if (gems.Count > 3)

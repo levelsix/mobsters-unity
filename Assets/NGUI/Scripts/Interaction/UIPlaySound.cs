@@ -20,39 +20,20 @@ public class UIPlaySound : MonoBehaviour
 		OnPress,
 		OnRelease,
 		Custom,
-		OnEnable,
-		OnDisable,
 	}
 
 	public AudioClip audioClip;
 	public Trigger trigger = Trigger.OnClick;
 
-	[Range(0f, 1f)] public float volume = 1f;
-	[Range(0f, 2f)] public float pitch = 1f;
-
 	bool mIsOver = false;
 
-	bool canPlay
-	{
-		get
-		{
-			if (!enabled) return false;
-			UIButton btn = GetComponent<UIButton>();
-			return (btn == null || btn.isEnabled);
-		}
-	}
-
-	void OnEnable ()
-	{
-		if (trigger == Trigger.OnEnable)
-			NGUITools.PlaySound(audioClip, volume, pitch);
-	}
-
-	void OnDisable ()
-	{
-		if (trigger == Trigger.OnDisable)
-			NGUITools.PlaySound(audioClip, volume, pitch);
-	}
+#if UNITY_3_5
+	public float volume = 1f;
+	public float pitch = 1f;
+#else
+	[Range(0f, 1f)] public float volume = 1f;
+	[Range(0f, 2f)] public float pitch = 1f;
+#endif
 
 	void OnHover (bool isOver)
 	{
@@ -62,7 +43,7 @@ public class UIPlaySound : MonoBehaviour
 			mIsOver = isOver;
 		}
 
-		if (canPlay && ((isOver && trigger == Trigger.OnMouseOver) || (!isOver && trigger == Trigger.OnMouseOut)))
+		if (enabled && ((isOver && trigger == Trigger.OnMouseOver) || (!isOver && trigger == Trigger.OnMouseOut)))
 			NGUITools.PlaySound(audioClip, volume, pitch);
 	}
 
@@ -74,19 +55,19 @@ public class UIPlaySound : MonoBehaviour
 			mIsOver = isPressed;
 		}
 
-		if (canPlay && ((isPressed && trigger == Trigger.OnPress) || (!isPressed && trigger == Trigger.OnRelease)))
+		if (enabled && ((isPressed && trigger == Trigger.OnPress) || (!isPressed && trigger == Trigger.OnRelease)))
 			NGUITools.PlaySound(audioClip, volume, pitch);
 	}
 
 	void OnClick ()
 	{
-		if (canPlay && trigger == Trigger.OnClick)
+		if (enabled && trigger == Trigger.OnClick && MSSoundManager.instance.playSounds)
 			NGUITools.PlaySound(audioClip, volume, pitch);
 	}
 
 	void OnSelect (bool isSelected)
 	{
-		if (canPlay && (!isSelected || UICamera.currentScheme == UICamera.ControlScheme.Controller))
+		if (enabled && (!isSelected || UICamera.currentScheme == UICamera.ControlScheme.Controller))
 			OnHover(isSelected);
 	}
 

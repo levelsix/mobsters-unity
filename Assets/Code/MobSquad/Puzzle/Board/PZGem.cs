@@ -52,9 +52,11 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		ROCKET, //This is the mainly used version of Rockets
 		HORIZONTAL_ROCKET, //This and VERTICAL_ROCKET exist pretty much entirely for saving
 		VERTICAL_ROCKET, //Gems get converted in/out of these versions during saving/loading
-		BOMB, 
+		GRENADE, 
 		MOLOTOV,
-		CAKE
+		CAKE,
+		BOMB, //Skill bombs, NOT to be confused with grenades!
+		POISON
 	};
 	
 	private GemType _gemType;
@@ -67,9 +69,10 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		}
 		set
 		{
+			bombTimerLabel.gameObject.SetActive(false);
 			switch(value)
 			{
-				case GemType.BOMB:
+				case GemType.GRENADE:
 					PZCombatManager.instance.battleStats.grenades++;
 					sprite.spriteName = baseSprite + "grenade";
 					break;
@@ -102,6 +105,13 @@ public class PZGem : MonoBehaviour, MSPoolable {
 					horizontal = false;
 					gemType = GemType.ROCKET;
 					return;
+				case GemType.BOMB:
+					sprite.spriteName = baseSprite + "bomb";
+					bombTimerLabel.gameObject.SetActive(true);
+					break;
+				case GemType.POISON:
+					sprite.spriteName = baseSprite + "poison";
+					break;
 			}
 
 			sprite.MakePixelPerfect();
@@ -118,7 +128,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	{
 		get
 		{
-			return _gemType == GemType.BOMB || _gemType == GemType.MOLOTOV || _gemType == GemType.ROCKET;
+			return _gemType == GemType.GRENADE || _gemType == GemType.MOLOTOV || _gemType == GemType.ROCKET;
 		}
 	}
 	
@@ -169,12 +179,21 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	public int id = 0;
 	static int nextId = 0;
 
-	[SerializeField] TweenScale cakeScaleTween;
-
+	[SerializeField] TweenScale specialScaleTween;
 	[SerializeField] TweenScale hintScaleTween;
+	[SerializeField] TweenScale tickScaleTween;
+
 	TweenColor colorTween;
 	int curTweenLoop = 0;
 	const int TOTAL_HINT_TWEEN = 4;
+
+	#region Bombs
+	[SerializeField] UILabel bombTimerLabel;
+	[SerializeField] TweenColor bombTimerLabelColorTween;
+	[SerializeField] float bombTimerLabelColorTweenBaseTime = 1f;
+	public int bombTicks;
+	public int bombDamage;
+	#endregion
 	
 	static readonly Dictionary<MSValues.Direction, Vector3> dirVals = new Dictionary<MSValues.Direction, Vector3>()
 	{
@@ -295,6 +314,11 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	
 	void RemoveAndReset (bool detonate = true)
 	{
+		if (gemType == GemType.BOMB)
+		{
+			BombDisposal();
+		}
+
 		if (boardX < PZPuzzleManager.instance.boardWidth && boardY < PZPuzzleManager.instance.boardHeight) {
 			PZPuzzleManager.instance.board [boardX, boardY] = null;
 			//Remove from board
@@ -315,6 +339,11 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			}
 		}
 		SpawnAbove (PZPuzzleManager.instance.PickColor (boardX), boardX);
+
+		if (PZPuzzleManager.instance.CheckSpawnBomb(this))
+		{
+			SpawnBomb();
+		}
 	}
 
 	/// <summary>
@@ -337,8 +366,12 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				
 				if (colorIndex+1 == (int)PZCombatManager.instance.activePlayer.monster.monster.monsterElement)
 				{
-					PZCombatManager.instance.playerSkillPoints++;
-					PZCombatManager.instance.playerSkillIndicator.SetPoints(PZCombatManager.instance.playerSkillPoints);
+					PZCombatManager.instance.AddPlayerSkillPoint();
+				}
+
+				if (colorIndex+1 == (int)PZCombatManager.instance.activeEnemy.monster.monster.monsterElement)
+				{
+					PZCombatManager.instance.AddEnemySkillPoint();
 				}
 			}
 
@@ -464,9 +497,9 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			Debug.LogWarning("Detonating Molly: " + boardX + ", " + boardY);
 			PZPuzzleManager.instance.DetonateMolotovFromSwap(this, this);
 			break;
-		case GemType.BOMB:
+		case GemType.GRENADE:
 			Debug.LogWarning("Detonating Bomb: " + boardX + ", " + boardY);
-			PZPuzzleManager.instance.GetBombMatch(this).Destroy();
+			PZPuzzleManager.instance.GetGrenadeMatch(this).Destroy();
 			break;
 		default:
 			break;
@@ -565,9 +598,9 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			{
 				if (gemType == swapee.gemType)
 				{
-					if (gemType == GemType.BOMB) //BOMB-BOMB
+					if (gemType == GemType.GRENADE) //BOMB-BOMB
 					{
-						PZPuzzleManager.instance.DetonateBombFromSwap(this, swapee);
+						PZPuzzleManager.instance.DetonateGrenadeFromSwap(this, swapee);
 						yield break;
 					}
 					else //ROCKET-ROCKET
@@ -578,7 +611,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				}
 				else //BOMB-ROCKET or ROCKET-BOMB
 				{
-					PZPuzzleManager.instance.DetonateBombFromSwap(this, swapee);
+					PZPuzzleManager.instance.DetonateGrenadeFromSwap(this, swapee);
 					yield break;
 				}
 			}
@@ -648,7 +681,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	{
 		blocker.gameObject.SetActive(true);
 		blocker.alpha = 0;
-		TweenAlpha.Begin(blocker.gameObject, tweenTime, .5f);
+		TweenAlpha.Begin(blocker.gameObject, tweenTime, .3f);
 		MSActionManager.Puzzle.OnGemMatch += Unblock;
 	}
 
@@ -750,14 +783,15 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	IEnumerator BecomeCake()
 	{
 		colorIndex = -1; //To keep the number around, but make sure that it doesn't get made a part of matches
-		cakeScaleTween.PlayForward();
-		while (cakeScaleTween.tweenFactor < 1)
+		specialScaleTween.to = Vector3.zero;
+		specialScaleTween.PlayForward();
+		while (specialScaleTween.tweenFactor < 1)
 		{
 			yield return null;
 		}
 		gemType = GemType.CAKE;
-		cakeScaleTween.PlayReverse();
-		while (cakeScaleTween.tweenFactor > 0)
+		specialScaleTween.PlayReverse();
+		while (specialScaleTween.tweenFactor > 0)
 		{
 			yield return null;
 		}
@@ -771,16 +805,17 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	IEnumerator RevertFromCake()
 	{
-		cakeScaleTween.PlayForward();
-		while (cakeScaleTween.tweenFactor < 1)
+		specialScaleTween.to = Vector3.zero;
+		specialScaleTween.PlayForward();
+		while (specialScaleTween.tweenFactor < 1)
 		{
 			yield return null;
 		}
 		colorIndex = PZPuzzleManager.instance.PickRevertCakeColor(boardX, boardY);
 		SetBaseSprite();
 		gemType = GemType.NORMAL;
-		cakeScaleTween.PlayReverse();
-		while (cakeScaleTween.tweenFactor > 0)
+		specialScaleTween.PlayReverse();
+		while (specialScaleTween.tweenFactor > 0)
 		{
 			yield return null;
 		}
@@ -824,6 +859,186 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	#endregion
 
+	#region Bombs
+
+	/// <summary>
+	/// Spawns a bomb.
+	/// Used when a new gem is spawned as a bomb.
+	/// Skips the scale tweening.
+	/// </summary>
+	public void SpawnBomb()
+	{
+		BombSetup(PZPuzzleManager.instance.bombTicks, PZPuzzleManager.instance.bombDamage);
+		PZCombatManager.instance.bombs.Add (this);
+	}
+
+	/// <summary>
+	/// Makes a bomb from an orb already on the board.
+	/// </summary>
+	public Coroutine MakeBomb()
+	{
+		return StartCoroutine(BecomeBomb());
+	}
+
+	IEnumerator BecomeBomb()
+	{
+		specialScaleTween.to = Vector3.zero;
+		specialScaleTween.PlayForward();
+		while (specialScaleTween.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		BombSetup(PZPuzzleManager.instance.bombTicks, PZPuzzleManager.instance.bombDamage);
+		specialScaleTween.PlayReverse();
+		while (specialScaleTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
+	}
+
+	/// <summary>
+	/// Sets up the bomb.
+	/// Sets the right sprite, enables and starts the timer.
+	/// </summary>
+	/// <param name="ticks">Ticks.</param>
+	void BombSetup(int ticks, int damage)
+	{
+		gemType = GemType.BOMB;
+		bombTimerLabel.text = ticks.ToString();
+		bombTicks = ticks;
+		bombDamage = damage;
+		bombTimerLabelColorTween.Sample(0, true);
+	}
+	
+	void BombDisposal()
+	{
+		PZCombatManager.instance.bombs.Remove(this);
+	}
+
+	/// <summary>
+	/// Called OnTurnChange.
+	/// </summary>
+	public bool BombTick()
+	{
+		bombTicks--;
+		StartCoroutine(BombTickAnimation());
+		if (bombTicks <= 0)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	IEnumerator BombTickAnimation()
+	{
+		specialScaleTween.to = new Vector3(.7f, .7f, .7f);
+		specialScaleTween.PlayForward();
+		while (specialScaleTween.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		BombLabelRefresh();
+		specialScaleTween.PlayReverse();
+		while (specialScaleTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
+
+	}
+
+	/// <summary>
+	/// Refreshes the bomb label.
+	/// Called when we're loading from a save, to make sure that
+	/// the label doesn't display a 0 for a turn
+	/// </summary>
+	public void BombLabelRefresh()
+	{
+		bombTimerLabel.text = bombTicks.ToString();
+		if (bombTicks <= 2)
+		{
+			bombTimerLabelColorTween.Play();
+			bombTimerLabelColorTween.duration = bombTimerLabelColorTweenBaseTime;
+			if (bombTicks == 1) bombTimerLabelColorTween.duration /= 2;
+			else if (bombTicks == 0) bombTimerLabelColorTween.duration /= 4;
+		}
+		else
+		{
+			bombTimerLabelColorTween.Sample(0, true);
+		}
+	}
+
+	public Coroutine BombDetonate()
+	{
+		return StartCoroutine(BombDetonationAnimation());
+	}
+
+	IEnumerator BombDetonationAnimation()
+	{
+		//TODO: Particle animation
+		yield return new WaitForSeconds(.5f);
+		specialScaleTween.to = Vector3.zero;
+		specialScaleTween.PlayForward();
+		while (specialScaleTween.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		BombDisposal();
+		gemType = GemType.NORMAL;
+		specialScaleTween.PlayReverse();
+		while (specialScaleTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
+	}
+
+	#endregion
+
+	#region Poison
+
+	public Coroutine MakePoison()
+	{
+		return StartCoroutine(BecomePoison());
+	}
+
+	IEnumerator BecomePoison()
+	{
+		specialScaleTween.to = Vector3.zero;
+		specialScaleTween.PlayForward();
+		while (specialScaleTween.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		gemType = GemType.POISON;
+		specialScaleTween.PlayReverse();
+		while (specialScaleTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
+	}
+
+	public Coroutine RevertFromPoison()
+	{
+		return StartCoroutine(RevertToNormal());
+	}
+
+	IEnumerator RevertToNormal()
+	{
+		specialScaleTween.to = Vector3.zero;
+		specialScaleTween.PlayForward();
+		while (specialScaleTween.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		gemType = GemType.NORMAL;
+		specialScaleTween.PlayReverse();
+		while (specialScaleTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
+	}
+
+	#endregion
+
 	#region Debug
 
 #if UNITY_EDITOR
@@ -836,7 +1051,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	[ContextMenu ("Make Grenade")]
 	void MakeGrenade()
 	{
-		gemType = GemType.BOMB;
+		gemType = GemType.GRENADE;
 	}
 
 	[ContextMenu ("Make Molotov")]

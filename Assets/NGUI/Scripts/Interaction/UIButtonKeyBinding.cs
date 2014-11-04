@@ -9,14 +9,13 @@ using UnityEngine;
 /// This class makes it possible to activate or select something by pressing a key (such as space bar for example).
 /// </summary>
 
-[AddComponentMenu("NGUI/Interaction/Key Binding")]
+[AddComponentMenu("Game/UI/Key Binding")]
 public class UIKeyBinding : MonoBehaviour
 {
 	public enum Action
 	{
 		PressAndClick,
 		Select,
-		All,
 	}
 
 	public enum Modifier
@@ -47,7 +46,6 @@ public class UIKeyBinding : MonoBehaviour
 
 	bool mIgnoreUp = false;
 	bool mIsInput = false;
-	bool mPress = false;
 
 	/// <summary>
 	/// If we're bound to an input field, subscribe to its Submit notification.
@@ -100,7 +98,7 @@ public class UIKeyBinding : MonoBehaviour
 	{
 		if (keyCode == KeyCode.None || !IsModifierActive()) return;
 
-		if (action == Action.PressAndClick || action == Action.All)
+		if (action == Action.PressAndClick)
 		{
 			if (UICamera.inputHasFocus) return;
 
@@ -110,24 +108,17 @@ public class UIKeyBinding : MonoBehaviour
 
 			if (Input.GetKeyDown(keyCode))
 			{
-				mPress = true;
 				UICamera.Notify(gameObject, "OnPress", true);
 			}
 
 			if (Input.GetKeyUp(keyCode))
 			{
 				UICamera.Notify(gameObject, "OnPress", false);
-
-				if (mPress)
-				{
-					UICamera.Notify(gameObject, "OnClick", null);
-					mPress = false;
-				}
+				UICamera.Notify(gameObject, "OnClick", null);
 			}
 			UICamera.currentTouch.current = null;
 		}
-
-		if (action == Action.Select || action == Action.All)
+		else if (action == Action.Select)
 		{
 			if (Input.GetKeyUp(keyCode))
 			{
