@@ -457,7 +457,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 			if(newPosition.y < boardY * SPACE_SIZE)
 			{
-				if(Mathf.Abs(fallSpeed) < 100)
+				if(Mathf.Abs(fallSpeed) < PZPuzzleManager.instance.BOUNCE_THRESHHOLD)
 				{
 					break;
 				}

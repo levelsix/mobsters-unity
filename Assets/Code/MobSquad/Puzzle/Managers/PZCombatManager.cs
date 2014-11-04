@@ -226,7 +226,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public float forfeitChance;
 	const float FORFEIT_GAIN_RATE = 0.25f;
-	const float FORFEIT_START_CHANCE = 0.5f;
+	const float FORFEIT_START_CHANCE = 1f;
 
 	int savedHealth = -1;
 
@@ -356,7 +356,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator RevealCounter()
 	{
-		yield return new WaitForSeconds(0.3f);
+		yield return new WaitForSeconds(0.5f);
 		mobsterCounter.GetComponent<PZMobsterCounter>().MoveToMidPoint();
 		TweenAlpha.Begin(mobsterCounter.gameObject, 0.3f, 1f);
 
@@ -944,12 +944,16 @@ public class PZCombatManager : MonoBehaviour {
 		                             (activeEnemy.transform.position.y + activePlayer.transform.position.y) / 2f,
 		                             activePlayer.transform.position.z);
 		forfeit.SetParentPosition(center);
-		yield return StartCoroutine(forfeit.Animate (forfeitSuccess));
+//		yield return StartCoroutine(forfeit.Animate (forfeitSuccess));
 		if (forfeitSuccess) {
-			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
+//			yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed));
 			ActivateLoseMenu();
 		} else {
 			forfeitChance += FORFEIT_GAIN_RATE;
+			if(forfeitChance > 1f)
+			{
+				forfeitChance = 1f;
+			}
 			yield return RunPickNextTurn(true);
 		}
 		PZPuzzleManager.instance.swapLock--;
