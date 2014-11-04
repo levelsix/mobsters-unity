@@ -21,7 +21,7 @@ public class PZBomb : MonoBehaviour {
 
 	float velocity;
 
-	bool falling = false;
+	public bool falling = false;
 
 	Transform trans;
 
@@ -42,7 +42,8 @@ public class PZBomb : MonoBehaviour {
 	}
 
 	void Update(){
-		if (planeTrans.position.x > trans.position.x && !falling) {
+		if (planeTrans != null && planeTrans.position.x > trans.position.x && !falling) 
+		{
 			StartCoroutine(Fall());
 		}
 	}
@@ -56,7 +57,10 @@ public class PZBomb : MonoBehaviour {
 //		}
 //	}
 
-
+	public Coroutine RunFall()
+	{
+		return StartCoroutine(Fall ());
+	}
 
 	IEnumerator Fall()
 	{
@@ -72,6 +76,7 @@ public class PZBomb : MonoBehaviour {
 		{
 			camera.GetComponent<MSCameraShake>().Shake();
 		}
+		falling = false;
 		pool.Pool();
 	}
 }

@@ -70,6 +70,9 @@ public class MSChatPopup : MonoBehaviour {
 	const string QUICK_SKILL = "atk";
 	const string BOMB_SKILL = "bomb";
 	const string POISON_SKILL = "poison";
+	const string MOMENTUM_SKILL = "momentum";
+	const string RAGE_SKILL = "rage";
+	const string SHIELD_SKILL = "shield";
 
 	//Not implemented Cheats
 	const string UNLOCK_BUILDINGS_CHEAT = "unlockdown"; //Currently unlocks tasks instead of buildings
@@ -167,17 +170,27 @@ public class MSChatPopup : MonoBehaviour {
 			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + SET_SKILL_CHEAT))
 			{
 				int skill = 0;
+
+				List<SkillProto> allSkills = MSDataManager.instance.GetList<SkillProto>();
+
 				if (inputField.label.text.EndsWith(GOO_SKILL))
 				{
-					skill = 2;
+					skill = allSkills.Find(x=>x.type==SkillType.JELLY).skillId;
 				}
 				else if (inputField.label.text.EndsWith(CAKE_SKILL))
 				{
-					skill = 3;
+					skill = allSkills.Find(x=>x.type==SkillType.CAKE_DROP).skillId;
+				}
+				else if (inputField.label.text.EndsWith(QUICK_SKILL))
+				{
+					skill = allSkills.Find(x=>x.type==SkillType.QUICK_ATTACK).skillId;
+				}
+				else if (inputField.label.text.EndsWith(BOMB_SKILL))
+				{
+					skill = allSkills.Find(x=>x.type==SkillType.BOMBS).skillId;
 				}
 
-
-				if (inputField.label.text.StartsWith(CHEAT_PREFIX + SET_SKILL_CHEAT + "e"))
+				if (inputField.label.text.StartsWith(CHEAT_PREFIX + SET_SKILL_CHEAT + "e_"))
 				{
 					PZCombatManager.instance.forceEnemySkill = skill;
 				}

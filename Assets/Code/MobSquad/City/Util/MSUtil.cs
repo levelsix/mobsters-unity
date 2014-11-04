@@ -477,4 +477,9 @@ public static class MSUtil {
 		return textInfo.ToTitleCase( text ); 
 	}
 
+	public static string SkillBundleName(SkillProto proto)
+	{
+		return proto.iconImgName.Substring(0, proto.iconImgName.Length-8);
+	}
+
 }

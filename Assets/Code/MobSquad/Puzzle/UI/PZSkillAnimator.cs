@@ -11,6 +11,16 @@ public class PZSkillAnimator : MonoBehaviour {
 
 	[SerializeField] float pauseTime;
 
+	public Coroutine AnimateDefensive(PZCombatUnit unit)
+	{
+		return Animate(unit.monster.monster, unit.monster.defensiveSkill);
+	}
+
+	public Coroutine AnimateOffensive(PZCombatUnit unit)
+	{
+		return Animate(unit.monster.monster, unit.monster.offensiveSkill);
+	}
+
 	public Coroutine Animate(MonsterProto monster, SkillProto skill)
 	{
 		gameObject.SetActive(true);
@@ -23,7 +33,7 @@ public class PZSkillAnimator : MonoBehaviour {
 		if (tAlph == null) tAlph = GetComponent<TweenAlpha>();
 
 		MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Character", character);
-		MSSpriteUtil.instance.SetSprite(skill.name, skill.iconImgName.Substring(0, skill.iconImgName.Length-8) + "logo", logo);
+		MSSpriteUtil.instance.SetSprite(MSUtil.SkillBundleName(skill), MSUtil.StripExtensions(skill.logoImgName), logo);
 
 		tPos.ResetToBeginning();
 		tAlph.ResetToBeginning();

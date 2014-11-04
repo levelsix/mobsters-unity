@@ -22,6 +22,9 @@ public class MSHealScreen : MSFunctionalScreen
 	UILabel slotsLeftLabel;
 
 	[SerializeField]
+	MSUIHelper slotsLeftLabelBg;
+
+	[SerializeField]
 	UILabel timeLeftLabel;
 
 	[SerializeField]
@@ -46,8 +49,8 @@ public class MSHealScreen : MSFunctionalScreen
 
 	public List<MSGoonCard> currHeals = new List<MSGoonCard>();
 
-	const string GREEN_ARROW = "hospitalopenarrow";
-	const string RED_ARROW = "fullhospitalarrow";
+	public const string GREEN_ARROW = "hospitalopenarrow";
+	public const string RED_ARROW = "fullhospitalarrow";
 
 	[SerializeField]
 	Color slotsOpenLabelColor;
@@ -106,12 +109,14 @@ public class MSHealScreen : MSFunctionalScreen
 		{
 			slotsLeftLabel.text = "HOSPITAL\nFULL";
 			slotsLeftLabel.color = slotsFullLabelColor;
+			slotsLeftLabelBg.TurnOff();
 			arrow.spriteName = RED_ARROW;
 		}
 		else
 		{
 			slotsLeftLabel.text = slotsRemaining + " SLOT" + (slotsRemaining>1?"S":"") + "\nOPEN";
 			slotsLeftLabel.color = slotsOpenLabelColor;
+			slotsLeftLabelBg.TurnOn();
 			arrow.spriteName = GREEN_ARROW;
 		}
 	}

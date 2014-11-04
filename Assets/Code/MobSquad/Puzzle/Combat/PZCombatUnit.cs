@@ -77,6 +77,13 @@ public class PZCombatUnit : MonoBehaviour {
 	[SerializeField]
 	UISprite forfeitSprite;
 
+	/// <summary>
+	/// The damage multiplier.
+	/// Used for skills to affect damage.
+	/// Resets to 1 every time deployed.
+	/// </summary>
+	public float damageMultiplier = 1;
+
 	public float alpha
 	{
 		set
@@ -158,6 +165,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 	void Init()
 	{
+		damageMultiplier = 1;
 		unit.spriteBaseName = monster.monster.imagePrefix;
 		alpha = 1;
 		hpBar.fill = ((float)monster.currHP) / monster.maxHP;

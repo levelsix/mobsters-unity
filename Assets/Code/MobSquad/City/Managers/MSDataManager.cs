@@ -119,6 +119,16 @@ public class MSDataManager : MonoBehaviour {
 	{
 		return dataDict[type];
 	}
+
+	public List<T> GetList<T>()
+	{
+		List<T> list = new List<T>();
+		foreach (T item in GetAll<T>().Values) 
+		{
+			list.Add(item);
+		}
+		return list;
+	}
 	
 	/// <summary>
 	/// Load the specified obj and id.

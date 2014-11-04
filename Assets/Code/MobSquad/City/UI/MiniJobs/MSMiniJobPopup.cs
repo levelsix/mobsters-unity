@@ -10,6 +10,8 @@ using com.lvl6.proto;
 /// </summary>
 public class MSMiniJobPopup : MSFunctionalScreen {
 
+	public static MSMiniJobPopup instance;
+
 	#region Prefabs
 
 	[SerializeField]
@@ -62,17 +64,32 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 	UILabel time;
 
 	[SerializeField]
-	MSUIHelper tapHint;
-
-	[SerializeField]
-	MSMiniJobGoonSlot[] goonSlots;
-
-	[SerializeField]
 	GameObject noJobStuff;
 
 	[SerializeField]
 	GameObject hasJobStuff;
-	
+
+	[SerializeField]
+	UIGrid teamGrid;
+
+	[SerializeField]
+	UILabel allSlotsLabel;
+
+	[SerializeField]
+	UILabel currSlotsLabel;
+
+	[SerializeField]
+	MSUIHelper currSlotsLabelBg;
+
+	[SerializeField]
+	UISprite arrowSprite;
+
+	[SerializeField]
+	Color greenTextColor;
+
+	[SerializeField]
+	Color redTextColor;
+
 	#endregion
 
 	#region Busy On Job Stuff
@@ -139,15 +156,22 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 
 	const string greyEngage = "engagedisabled";
 	const string greenEngage = "greenmenuoption";
-	const string greyArrow = "engagegrayarrow";
-	const string greenArrow = "engagearrow";
+	const string greyEngageArrow = "engagegrayarrow";
+	const string greenEngageArrow = "engagearrow";
 	static readonly Color greyTextColor = new Color(.5f, .5f, .5f);
 	static readonly Color whiteTextColor = Color.white;
 
 	void Awake()
 	{
+		instance = this;
 		MSActionManager.MiniJob.OnMiniJobComplete += CheckPageChange;
 		MSActionManager.MiniJob.OnMiniJobBeginResponse += EngageResponse;
+	}
+
+	void OnDestroy()
+	{
+		MSActionManager.MiniJob.OnMiniJobComplete -= CheckPageChange;
+		MSActionManager.MiniJob.OnMiniJobBeginResponse -= EngageResponse;
 	}
 
 	void OnEnable()
@@ -298,9 +322,9 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 
 		mover.PlayForward();
 
-		foreach (var item in goonSlots) 
+		foreach (var item in teamGrid.GetComponentsInChildren<MSMiniJobGoonPortrait>()) 
 		{
-			item.Reset();
+			item.Pool();
 		}
 
 		currTeam.Clear();
@@ -341,22 +365,22 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 		}
 
 		reqAtkBar.fill = totalAttack / currJob.miniJob.atkRequired;
-		reqAtkLabel.text = "REQUIRED ATTACK: " + totalAttack + "/" + currJob.miniJob.atkRequired;
+		reqAtkLabel.text = "REQ. ATK: " + totalAttack + "/" + currJob.miniJob.atkRequired;
 
 		reqHpBar.fill = totalHp / currJob.miniJob.hpRequired;
-		reqHpLabel.text = "REQUIRED HP: " + totalHp + "/" + currJob.miniJob.hpRequired;
+		reqHpLabel.text = "REQ. HP: " + totalHp + "/" + currJob.miniJob.hpRequired;
 
 		if (totalAttack >= currJob.miniJob.atkRequired && totalHp >= currJob.miniJob.hpRequired)
 		{
 			engageButton.spriteName = greenEngage;
-			engageArrow.spriteName = greenArrow;
+			engageArrow.spriteName = greenEngageArrow;
 			engageText.color = whiteTextColor;
 			ready = true;
 		}
 		else
 		{
 			engageButton.spriteName = greyEngage;
-			engageArrow.spriteName = greyArrow;
+			engageArrow.spriteName = greyEngageArrow;
 			engageText.color = greyTextColor;
 			ready = false;
 		}
@@ -391,8 +415,8 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 			}
 		}
 		goonGrid.Reposition();
-		tapHint.ResetAlpha(true);
 		time.text = MSUtil.TimeStringShort(currJob.durationSeconds * 1000);
+		UpdateArrow(true);
 	}
 
 	void InitRightAlreadyOnJob()
@@ -404,53 +428,97 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 	public bool TryPickMonster(PZMonster monster, MSMiniJobGoonPortrait portrait)
 	{
 		//Debug.LogWarning("Trying picking!");
-
-		//Find open slot
-		foreach (var item in goonSlots) 
+		if (currTeam.Count >= currJob.miniJob.maxNumMonstersAllowed)
 		{
-			if (item.gameObject.activeSelf && item.isOpen)
-			{
-				item.InsertMonster(monster, portrait);
-				currTeam.Add(monster);
-				CalculateBars ();
-				tapHint.FadeOut();
-				return true;
-			}
+			MSActionManager.Popup.DisplayRedError("You can't send any more Toons on this mini job.");
+			return false;
 		}
 
-		//If no open slots, we didn't actually move the monster
-		return false;
+		//item.InsertMonster(monster, portrait);
+		portrait.transform.parent = teamGrid.transform;
+		teamGrid.Reposition();
+		currTeam.Add(monster);
+		CalculateBars ();
+		UpdateArrow(false);
+		return true;
+	}
+
+	public void RemoveFromTeam(MSMiniJobGoonPortrait portrait)
+	{
+		currTeam.Remove(portrait.monster);
+		MSMiniJobGoonie entry = (MSPoolManager.instance.Get(goonEntryPrefab.GetComponent<MSSimplePoolable>(),
+		                                                    Vector3.zero,
+		                                                    goonGrid.transform) as MSSimplePoolable).GetComponent<MSMiniJobGoonie>();
+		entry.transform.localPosition = Vector3.zero;
+		entry.transform.localScale = Vector3.one;
+		entry.Init(portrait, currJob.miniJob.hpRequired, currJob.miniJob.atkRequired, this);
+		goonEntries.Add (entry);
+
+		goonGrid.Reposition();
+		teamGrid.Reposition();
+		UpdateArrow(false);
+
+		CalculateBars();
 	}
 
 	public void InsertGoonEntry(PZMonster monster, bool once = false)
 	{
-
 		MSMiniJobGoonie entry = (MSPoolManager.instance.Get(goonEntryPrefab.GetComponent<MSSimplePoolable>(),
 		                                                   Vector3.zero,
 		                                                   goonGrid.transform) as MSSimplePoolable).GetComponent<MSMiniJobGoonie>();
 		entry.transform.localPosition = Vector3.zero;
 		entry.transform.localScale = Vector3.one;
+
 		entry.Init(monster, currJob.miniJob.hpRequired, currJob.miniJob.atkRequired, this);
 		goonEntries.Add(entry);
+
+
 
 		if (once)
 		{
 			goonGrid.Reposition();
-			foreach (var item in goonSlots) 
-			{
-				if (!item.isOpen)
-				{
-					return;
-				}
-			}
-			tapHint.FadeIn();
 		}
 	}
 
-	public void ClickBack()
+	void UpdateArrow(bool immediate)
 	{
-		mover.PlayReverse();
-		backButton.FadeOutAndOff();
+		allSlotsLabel.text = currJob.miniJob.maxNumMonstersAllowed + " Slot" + (currJob.miniJob.maxNumMonstersAllowed > 1 ? "s" : "") + " Available";
+		arrowSprite.spriteName = MSHealScreen.GREEN_ARROW;
+
+		if (currTeam.Count > 0)
+		{
+			teamGrid.GetComponent<MSUIHelper>().FadeIn();
+			allSlotsLabel.GetComponent<MSUIHelper>().FadeOut();
+			int slotsLeft = currJob.miniJob.maxNumMonstersAllowed - currTeam.Count;
+			if (slotsLeft > 0)
+			{
+				currSlotsLabel.text = slotsLeft + "SLOT" + (slotsLeft>1?"S":"") + "\nOPEN";
+				currSlotsLabel.color = greenTextColor;
+				currSlotsLabel.effectColor = Color.white;
+				currSlotsLabelBg.TurnOn();
+			}
+			else
+			{
+				arrowSprite.spriteName = MSHealScreen.RED_ARROW;
+				currSlotsLabel.text = "SLOTS\nFULL";
+				currSlotsLabel.color = redTextColor;
+				currSlotsLabel.effectColor = Color.black;
+				currSlotsLabelBg.TurnOff();
+			}
+		}
+		else
+		{
+			if (immediate)
+			{
+				teamGrid.GetComponent<MSUIHelper>().TurnOff();
+				allSlotsLabel.GetComponent<MSUIHelper>().TurnOn();
+			}
+			else
+			{
+				teamGrid.GetComponent<MSUIHelper>().FadeOutAndOff();
+				allSlotsLabel.GetComponent<MSUIHelper>().FadeIn();
+			}
+		}
 	}
 
 	public void CheckNoJobs()

@@ -48,12 +48,13 @@ public class MSMiniJobGoonSlot : MonoBehaviour {
 
 		portrait.ResetPanel();
 
-		TweenPosition tween = TweenPosition.Begin(portrait.gameObject, .2f, Vector3.zero);
-		StartCoroutine(WaitForTween(tween));
+		StartCoroutine(WaitForTween());
 	}
 
-	IEnumerator WaitForTween(TweenPosition tween)
+	IEnumerator WaitForTween()
 	{
+		yield return null;
+		TweenPosition tween = TweenPosition.Begin(portrait.gameObject, .3f, Vector3.zero);
 		while (tween.tweenFactor < 1)
 		{
 			yield return null;
