@@ -294,6 +294,8 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField] float bombSkillAnimationTimeBetweenBombs = .2f;
 	[SerializeField] float bombSkillAnimationXRangeForBombs = 10;
 
+	int poisonDamage = 0;
+
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
 	/// </summary>
@@ -908,8 +910,8 @@ public class PZCombatManager : MonoBehaviour {
 		battleStats.monstersDefeated++;
 		defeatedEnemies.Add(activeEnemy.monster);
 		enemySkillIndicator.FadeOut();
+		EnemySkillOnDeath();
 		StartCoroutine(ScrollToNextEnemy());
-		PZPuzzleManager.instance.ResetCakes();
 	}
 	
 	void OnPlayerDeath()
@@ -1800,6 +1802,12 @@ public class PZCombatManager : MonoBehaviour {
 		}
 	}
 
+	IEnumerator PoisonDamageAnimation(int numGems)
+	{
+		activePlayer.SendDamageUpdateToServer(numGems * poisonDamage);
+		yield return StartCoroutine(activePlayer.TakeDamage(numGems * poisonDamage));
+	}
+
 	IEnumerator EnemySkillBeforeEnemyTurn()
 	{
 		if (
@@ -1807,7 +1815,6 @@ public class PZCombatManager : MonoBehaviour {
 		    && activeEnemy.monster.defensiveSkill.skillId > 0
 		    )
 		{
-
 			switch (activeEnemy.monster.defensiveSkill.type)
 			{
 			case SkillType.JELLY:
@@ -1833,14 +1840,16 @@ public class PZCombatManager : MonoBehaviour {
 		
 		yield return activeEnemy.unit.DoJump(50, .35f);
 		yield return activeEnemy.unit.DoJump(50, .35f);
+		yield return TintBoard();
 
 		switch (activeEnemy.monster.defensiveSkill.type)
 		{
 		case SkillType.QUICK_ATTACK:
 			yield return StartCoroutine(EnemyQuickAttack((int)enemyDefSkill.properties.Find(x=>x.name == "DAMAGE").skillValue));
-		break;
+			break;
 		case SkillType.POISON:
 			//Deal poison damage
+			yield return StartCoroutine(PoisonDamageAnimation(enemySkillPoints));
 			break;
 		case SkillType.MOMENTUM:
 			//Gain momentum
@@ -1849,17 +1858,18 @@ public class PZCombatManager : MonoBehaviour {
 			//Create shield
 			break;
 		case SkillType.JELLY:
-			yield return TintBoard();
 			boardTint.gameObject.SetActive(false);
 			List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "SPAWN_COUNT").skillValue);
 			PZPuzzleManager.instance.BlockBoard(spaces);
 			yield return new WaitForSeconds(1);
 			PZPuzzleManager.instance.UnblockBoard();
 			boardTint.gameObject.SetActive(true);
+			break;
+		}
+
+		if (currTurn < playerTurns)
+		{
 			yield return UntintBoard();
-			break;
-		case SkillType.BOMBS:
-			break;
 		}
 		
 		enemySkillPoints = 0;
@@ -1946,7 +1956,50 @@ public class PZCombatManager : MonoBehaviour {
 				PZPuzzleManager.instance.UnblockBoard();
 				boardTint.gameObject.SetActive(true);
 				yield return new WaitForSeconds(.8f);
-				//yield return UntintBoard();
+				break;
+			case SkillType.POISON:
+				yield return TintBoard();
+				poisonDamage = (int)enemyDefSkill.properties.Find(x=>x.name == "ORB_DAMAGE").skillValue;
+				List<PZGem> gemsToTurnPoison = PZPuzzleManager.instance.PickPoisons((int)activeEnemy.monster.monster.monsterElement-1);
+				foreach (var gem in gemsToTurnPoison) 
+				{
+					gem.MakePoison();
+				}
+				PZPuzzleManager.instance.BlockBoard(gemsToTurnPoison);
+				yield return new WaitForSeconds(.5f);
+				foreach (var gem in gemsToTurnPoison) 
+				{
+					gem.Block(.3f);
+				}
+				yield return new WaitForSeconds(.3f);
+				PZPuzzleManager.instance.UnblockBoard();
+				boardTint.gameObject.SetActive(true);
+				yield return new WaitForSeconds(.8f);
+				break;
+			}
+		}
+	}
+
+	void EnemySkillOnDeath()
+	{
+		if (enemyDefSkill != null)
+		{
+			switch (enemyDefSkill.type)
+			{
+			case SkillType.CAKE_DROP:
+				PZPuzzleManager.instance.ResetCakes();
+				break;
+			case SkillType.BOMBS:
+				PZPuzzleManager.instance.canSpawnBombs = false;
+				break;
+			case SkillType.POISON:
+				foreach (var gem in PZPuzzleManager.instance.board) 
+				{
+					if (gem.gemType == PZGem.GemType.POISON)
+					{
+						gem.RevertFromPoison();
+					}
+				}
 				break;
 			}
 		}

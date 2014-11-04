@@ -163,6 +163,8 @@ public class PZPuzzleManager : MonoBehaviour {
 	public float bombChance;
 	public int bombDamage;
 
+	public int poisonColor = -1;
+
 	bool _gemHints = false;
 
 	IEnumerator hintCycle;
@@ -1785,7 +1787,6 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	public List<PZGem> PickBombs(int colorIndex, int numBombs)
 	{
-		Debug.Log("Spawning " + numBombs + " bombs!");
 		List<PZGem> bombs = new List<PZGem>();
 		//Add all gems of that color
 		foreach (var item in board) 
@@ -1796,7 +1797,6 @@ public class PZPuzzleManager : MonoBehaviour {
 		while(bombs.Count > numBombs)
 		{
 			int index = UnityEngine.Random.Range(0, bombs.Count);
-			Debug.Log("Count: " + bombs.Count + ", Removing at: " + index);
 			bombs.RemoveAt(index);
 		}
 		return bombs;
@@ -1831,4 +1831,21 @@ public class PZPuzzleManager : MonoBehaviour {
 	}
 
 	#endregion
+
+	#region Poison
+
+	public List<PZGem> PickPoisons(int colorIndex)
+	{
+		List<PZGem> poisons = new List<PZGem>();
+		//Add all gems of that color
+		foreach (var item in board) 
+		{
+			if (item.colorIndex == colorIndex && item.gemType == PZGem.GemType.NORMAL) poisons.Add(item);
+		}
+
+		return poisons;
+	}
+
+	#endregion Poison
+
 }

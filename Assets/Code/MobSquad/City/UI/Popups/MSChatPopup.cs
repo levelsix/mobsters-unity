@@ -189,6 +189,10 @@ public class MSChatPopup : MonoBehaviour {
 				{
 					skill = allSkills.Find(x=>x.type==SkillType.BOMBS).skillId;
 				}
+				else if (inputField.label.text.EndsWith(POISON_SKILL))
+				{
+					skill = allSkills.Find(x=>x.type==SkillType.POISON).skillId;
+				}
 
 				if (inputField.label.text.StartsWith(CHEAT_PREFIX + SET_SKILL_CHEAT + "e_"))
 				{

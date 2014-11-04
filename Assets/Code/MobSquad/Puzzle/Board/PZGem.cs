@@ -55,7 +55,8 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		GRENADE, 
 		MOLOTOV,
 		CAKE,
-		BOMB //Skill bombs, NOT to be confused with grenades!
+		BOMB, //Skill bombs, NOT to be confused with grenades!
+		POISON
 	};
 	
 	private GemType _gemType;
@@ -107,6 +108,9 @@ public class PZGem : MonoBehaviour, MSPoolable {
 				case GemType.BOMB:
 					sprite.spriteName = baseSprite + "bomb";
 					bombTimerLabel.gameObject.SetActive(true);
+					break;
+				case GemType.POISON:
+					sprite.spriteName = baseSprite + "poison";
 					break;
 			}
 
@@ -979,6 +983,52 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			yield return null;
 		}
 		BombDisposal();
+		gemType = GemType.NORMAL;
+		specialScaleTween.PlayReverse();
+		while (specialScaleTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
+	}
+
+	#endregion
+
+	#region Poison
+
+	public Coroutine MakePoison()
+	{
+		return StartCoroutine(BecomePoison());
+	}
+
+	IEnumerator BecomePoison()
+	{
+		specialScaleTween.to = Vector3.zero;
+		specialScaleTween.PlayForward();
+		while (specialScaleTween.tweenFactor < 1)
+		{
+			yield return null;
+		}
+		gemType = GemType.POISON;
+		specialScaleTween.PlayReverse();
+		while (specialScaleTween.tweenFactor > 0)
+		{
+			yield return null;
+		}
+	}
+
+	public Coroutine RevertFromPoison()
+	{
+		return StartCoroutine(RevertToNormal());
+	}
+
+	IEnumerator RevertToNormal()
+	{
+		specialScaleTween.to = Vector3.zero;
+		specialScaleTween.PlayForward();
+		while (specialScaleTween.tweenFactor < 1)
+		{
+			yield return null;
+		}
 		gemType = GemType.NORMAL;
 		specialScaleTween.PlayReverse();
 		while (specialScaleTween.tweenFactor > 0)

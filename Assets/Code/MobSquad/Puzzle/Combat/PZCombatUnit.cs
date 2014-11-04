@@ -491,4 +491,29 @@ public class PZCombatUnit : MonoBehaviour {
 		tween.PlayReverse ();
 		currTotalTime = 0f;
 	}
+
+	public Coroutine TweenSpriteColor(Color color, float time, bool keepOriginalAlpha = true)
+	{
+		return StartCoroutine(TweenColor(color, time, keepOriginalAlpha));
+	}
+
+	IEnumerator TweenColor(Color color, float time, bool keepOriginalAlpha)
+	{
+		Color startingColor = unit.sprite.color;
+		if (keepOriginalAlpha)
+		{
+			color.a = startingColor.a;
+		}
+		float currTime = 0;
+		if (time > 0)
+		{
+			do
+			{
+				currTime += Time.deltaTime/time;
+				unit.sprite.color = Color.Lerp(startingColor, color, currTime);
+				yield return null;
+			} while (currTime < 1);
+		}
+		unit.sprite.color = color;
+	}
 }
