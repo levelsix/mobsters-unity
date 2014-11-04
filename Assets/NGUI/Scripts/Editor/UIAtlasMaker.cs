@@ -19,58 +19,9 @@ public class UIAtlasMaker : EditorWindow
 	{
 		// Sprite texture -- original texture or a temporary texture
 		public Texture2D tex;
-
-		// Temporary game object -- used to prevent Unity from unloading the texture
-		public GameObject tempGO;
-
-		// Temporary material -- same usage as the temporary game object
-		public Material tempMat;
 		
 		// Whether the texture is temporary and should be deleted
 		public bool temporaryTexture = false;
-
-		/// <summary>
-		/// HACK: Prevent Unity from unloading temporary textures.
-		/// Discovered by "alexkring": http://www.tasharen.com/forum/index.php?topic=3079.45
-		/// </summary>
-
-		public void SetTexture (Color32[] newPixels, int newWidth, int newHeight)
-		{
-			Release();
-
-			temporaryTexture = true;
-
-			tex = new Texture2D(newWidth, newHeight);
-			tex.name = name;
-			tex.SetPixels32(newPixels);
-			tex.Apply();
-
-			tempMat = new Material(NGUISettings.atlas.spriteMaterial);
-			tempMat.hideFlags = HideFlags.HideAndDontSave;
-			tempMat.SetTexture("_MainTex", tex);
-			
-			tempGO = EditorUtility.CreateGameObjectWithHideFlags(name, HideFlags.HideAndDontSave, typeof(MeshRenderer));
-			tempGO.GetComponent<MeshRenderer>().sharedMaterial = tempMat;
-		}
-
-		/// <summary>
-		/// Release temporary resources.
-		/// </summary>
-
-		public void Release ()
-		{
-			if (temporaryTexture)
-			{
-				Object.DestroyImmediate(tempGO);
-				Object.DestroyImmediate(tempMat);
-				Object.DestroyImmediate(tex);
-
-				tempGO = null;
-				tempMat = null;
-				tex = null;
-				temporaryTexture = false;
-			}
-		}
 	}
 
 	Vector2 mScroll = Vector2.zero;
@@ -192,9 +143,6 @@ public class UIAtlasMaker : EditorWindow
 		{
 			Rect rect = NGUIMath.ConvertToPixels(rects[i], tex.width, tex.height, true);
 
-			// Apparently Unity can take the liberty of destroying temporary textures without any warning
-			if (textures[i] == null) return false;
-
 			// Make sure that we don't shrink the textures
 			if (Mathf.RoundToInt(rect.width) != textures[i].width) return false;
 
@@ -219,22 +167,23 @@ public class UIAtlasMaker : EditorWindow
 	{
 		Dictionary<string, int> spriteList = new Dictionary<string, int>();
 
+		if (NGUISettings.atlas != null)
+		{
+			BetterList<string> spriteNames = NGUISettings.atlas.GetListOfSprites();
+			foreach (string sp in spriteNames) spriteList.Add(sp, 0);
+		}
+
 		// If we have textures to work with, include them as well
 		if (textures.Count > 0)
 		{
 			List<string> texNames = new List<string>();
 			foreach (Texture tex in textures) texNames.Add(tex.name);
 			texNames.Sort();
-			foreach (string tex in texNames) spriteList.Add(tex, 2);
-		}
 
-		if (NGUISettings.atlas != null)
-		{
-			BetterList<string> spriteNames = NGUISettings.atlas.GetListOfSprites();
-			foreach (string sp in spriteNames)
+			foreach (string tex in texNames)
 			{
-				if (spriteList.ContainsKey(sp)) spriteList[sp] = 1;
-				else spriteList.Add(sp, 0);
+				if (spriteList.ContainsKey(tex)) spriteList[tex] = 1;
+				else spriteList.Add(tex, 2);
 			}
 		}
 		return spriteList;
@@ -360,8 +309,11 @@ public class UIAtlasMaker : EditorWindow
 					}
 
 					// Create a new texture
+					sprite.temporaryTexture = true;
 					sprite.name = oldTex.name;
-					sprite.SetTexture(newPixels, newWidth, newHeight);
+					sprite.tex = new Texture2D(newWidth, newHeight);
+					sprite.tex.SetPixels32(newPixels);
+					sprite.tex.Apply();
 
 					// Remember the padding offset
 					sprite.SetPadding(xmin, ymin, oldWidth - newWidth - xmin, oldHeight - newHeight - ymin);
@@ -378,7 +330,14 @@ public class UIAtlasMaker : EditorWindow
 
 	static public void ReleaseSprites (List<SpriteEntry> sprites)
 	{
-		foreach (SpriteEntry se in sprites) se.Release();
+		foreach (SpriteEntry se in sprites)
+		{
+			if (se.temporaryTexture)
+			{
+				NGUITools.Destroy(se.tex);
+				se.tex = null;
+			}
+		}
 		Resources.UnloadUnusedAssets();
 	}
 
@@ -433,7 +392,7 @@ public class UIAtlasMaker : EditorWindow
 			UIAtlasMaker.ExtractSprites(atlas, sprites);
 			sprites.Add(se);
 			UIAtlasMaker.UpdateAtlas(atlas, sprites);
-			se.Release();
+			if (se.temporaryTexture) DestroyImmediate(se.tex);
 		}
 		else NGUIEditorTools.ImportTexture(atlas.texture, false, false, !atlas.premultipliedAlpha);
 		return se;
@@ -502,7 +461,10 @@ public class UIAtlasMaker : EditorWindow
 		SpriteEntry sprite = new SpriteEntry();
 		sprite.CopyFrom(es);
 		sprite.SetRect(0, 0, newWidth, newHeight);
-		sprite.SetTexture(newPixels, newWidth, newHeight);
+		sprite.temporaryTexture = true;
+		sprite.tex = new Texture2D(newWidth, newHeight);
+		sprite.tex.SetPixels32(newPixels);
+		sprite.tex.Apply();
 		return sprite;
 	}
 
@@ -516,6 +478,9 @@ public class UIAtlasMaker : EditorWindow
 
 		// Make the atlas texture readable
 		Texture2D tex = NGUIEditorTools.ImportTexture(atlas.texture, true, true, false);
+
+		try
+		{
 
 		if (tex != null)
 		{
@@ -549,6 +514,12 @@ public class UIAtlasMaker : EditorWindow
 					if (sprite != null) finalSprites.Add(sprite);
 				}
 			}
+		}
+
+		}
+		catch(System.Exception e)
+		{
+			Debug.LogError(e.ToString());
 		}
 
 		// The atlas no longer needs to be readable
@@ -750,8 +721,8 @@ public class UIAtlasMaker : EditorWindow
 		NGUIEditorTools.SetLabelWidth(80f);
 		GUILayout.Space(3f);
 
-		NGUIEditorTools.DrawHeader("Input", true);
-		NGUIEditorTools.BeginContents(false);
+		NGUIEditorTools.DrawHeader("Input");
+		NGUIEditorTools.BeginContents();
 
 		GUILayout.BeginHorizontal();
 		{
@@ -857,11 +828,6 @@ public class UIAtlasMaker : EditorWindow
 		GUILayout.Label("or custom packer", GUILayout.MinWidth(70f));
 		GUILayout.EndHorizontal();
 
-		GUILayout.BeginHorizontal();
-		NGUISettings.trueColorAtlas = EditorGUILayout.Toggle("Truecolor", NGUISettings.trueColorAtlas, GUILayout.Width(100f));
-		GUILayout.Label("force ARGB32 textures", GUILayout.MinWidth(70f));
-		GUILayout.EndHorizontal();
-
 		if (!NGUISettings.unityPacking)
 		{
 			GUILayout.BeginHorizontal();
@@ -909,14 +875,12 @@ public class UIAtlasMaker : EditorWindow
 
 			if (create)
 			{
-				string path = EditorUtility.SaveFilePanelInProject("Save As",
-					"New Atlas.prefab", "prefab", "Save atlas as...", NGUISettings.currentPath);
+				string prefabPath = EditorUtility.SaveFilePanelInProject("Save As", "New Atlas.prefab", "prefab", "Save atlas as...");
 
-				if (!string.IsNullOrEmpty(path))
+				if (!string.IsNullOrEmpty(prefabPath))
 				{
-					NGUISettings.currentPath = System.IO.Path.GetDirectoryName(path);
-					GameObject go = AssetDatabase.LoadAssetAtPath(path, typeof(GameObject)) as GameObject;
-					string matPath = path.Replace(".prefab", ".mat");
+					GameObject go = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject)) as GameObject;
+					string matPath = prefabPath.Replace(".prefab", ".mat");
 					replace = true;
 
 					// Try to load the material
@@ -937,11 +901,11 @@ public class UIAtlasMaker : EditorWindow
 					}
 
 					// Create a new prefab for the atlas
-					Object prefab = (go != null) ? go : PrefabUtility.CreateEmptyPrefab(path);
+					Object prefab = (go != null) ? go : PrefabUtility.CreateEmptyPrefab(prefabPath);
 
 					// Create a new game object for the atlas
-					string atlasName = path.Replace(".prefab", "");
-					atlasName = atlasName.Substring(path.LastIndexOfAny(new char[] { '/', '\\' }) + 1);
+					string atlasName = prefabPath.Replace(".prefab", "");
+					atlasName = atlasName.Substring(prefabPath.LastIndexOfAny(new char[] { '/', '\\' }) + 1);
 					go = new GameObject(atlasName);
 					go.AddComponent<UIAtlas>().spriteMaterial = mat;
 
@@ -952,7 +916,7 @@ public class UIAtlasMaker : EditorWindow
 					AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
 					// Select the atlas
-					go = AssetDatabase.LoadAssetAtPath(path, typeof(GameObject)) as GameObject;
+					go = AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject)) as GameObject;
 					NGUISettings.atlas = go.GetComponent<UIAtlas>();
 					Selection.activeGameObject = go;
 				}

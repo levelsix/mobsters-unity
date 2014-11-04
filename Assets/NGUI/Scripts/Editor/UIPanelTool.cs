@@ -181,7 +181,7 @@ public class UIPanelTool : EditorWindow
 	bool DrawRow (Entry ent, UIPanel selected, bool isChecked)
 	{
 		bool retVal = false;
-		string panelName, layer, depth, widgetCount, drawCalls, clipping, triangles;
+		string panelName, layer, depth, widgetCount, drawCalls, clipping;
 
 		if (ent != null)
 		{
@@ -189,14 +189,8 @@ public class UIPanelTool : EditorWindow
 			layer = LayerMask.LayerToName(ent.panel.gameObject.layer);
 			depth = ent.panel.depth.ToString();
 			widgetCount = ent.widgets.Count.ToString();
-			drawCalls = ent.panel.drawCalls.Count.ToString();
+			drawCalls = ent.panel.drawCalls.size.ToString();
 			clipping = (ent.panel.clipping != UIDrawCall.Clipping.None) ? "Yes" : "";
-
-			int triangeCount = 0;
-			foreach (var dc in ent.panel.drawCalls)
-				triangeCount += dc.triangles;
-
-			triangles = triangeCount.ToString();
 		}
 		else
 		{
@@ -206,7 +200,6 @@ public class UIPanelTool : EditorWindow
 			widgetCount = "WG";
 			drawCalls = "DC";
 			clipping = "Clip";
-			triangles = "Tris";
 		}
 
 		if (ent != null) GUILayout.Space(-1f);
@@ -240,7 +233,6 @@ public class UIPanelTool : EditorWindow
 		GUILayout.Label(widgetCount, GUILayout.Width(30f));
 		GUILayout.Label(drawCalls, GUILayout.Width(30f));
 		GUILayout.Label(clipping, GUILayout.Width(30f));
-		GUILayout.Label(triangles, GUILayout.Width(30f));
 
 		if (ent == null)
 		{

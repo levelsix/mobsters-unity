@@ -15,7 +15,7 @@ public static class EventDelegateEditor
 	/// Collect a list of usable delegates from the specified target game object.
 	/// </summary>
 
-	static public List<Entry> GetMethods (GameObject target)
+	static List<Entry> GetMethods (GameObject target)
 	{
 		MonoBehaviour[] comps = target.GetComponents<MonoBehaviour>();
 
@@ -60,14 +60,14 @@ public static class EventDelegateEditor
 
 	static public bool Field (Object undoObject, EventDelegate del)
 	{
-		return Field(undoObject, del, true, NGUISettings.minimalisticLook);
+		return Field(undoObject, del, true);
 	}
 
 	/// <summary>
 	/// Draw an editor field for the Unity Delegate.
 	/// </summary>
 
-	static public bool Field (Object undoObject, EventDelegate del, bool removeButton, bool minimalistic)
+	static public bool Field (Object undoObject, EventDelegate del, bool removeButton)
 	{
 		if (del == null) return false;
 		bool prev = GUI.changed;
@@ -78,8 +78,6 @@ public static class EventDelegateEditor
 
 		if (removeButton && (del.target != null || del.isValid))
 		{
-			if (!minimalistic) NGUIEditorTools.SetLabelWidth(82f);
-
 			if (del.target == null && del.isValid)
 			{
 				EditorGUILayout.LabelField("Notify", del.ToString());
@@ -89,18 +87,25 @@ public static class EventDelegateEditor
 				target = EditorGUILayout.ObjectField("Notify", del.target, typeof(MonoBehaviour), true) as MonoBehaviour;
 			}
 
-			GUILayout.Space(-18f);
+			GUILayout.Space(-20f);
 			GUILayout.BeginHorizontal();
-			GUILayout.Space(70f);
+			GUILayout.Space(64f);
 
-			if (GUILayout.Button("", "ToggleMixed", GUILayout.Width(20f), GUILayout.Height(16f)))
+#if UNITY_3_5
+			if (GUILayout.Button("X", GUILayout.Width(20f)))
+#else
+			if (GUILayout.Button("", "ToggleMixed", GUILayout.Width(20f)))
+#endif
 			{
 				target = null;
 				remove = true;
 			}
 			GUILayout.EndHorizontal();
 		}
-		else target = EditorGUILayout.ObjectField("Notify", del.target, typeof(MonoBehaviour), true) as MonoBehaviour;
+		else
+		{
+			target = EditorGUILayout.ObjectField("Notify", del.target, typeof(MonoBehaviour), true) as MonoBehaviour;
+		}
 
 		if (remove)
 		{
@@ -126,7 +131,7 @@ public static class EventDelegateEditor
 
 			GUILayout.BeginHorizontal();
 			choice = EditorGUILayout.Popup("Method", index, names);
-			NGUIEditorTools.DrawPadding();
+			GUILayout.Space(18f);
 			GUILayout.EndHorizontal();
 
 			if (choice > 0 && choice != index)
@@ -147,6 +152,7 @@ public static class EventDelegateEditor
 				for (int i = 0; i < ps.Length; ++i)
 				{
 					EventDelegate.Parameter param = ps[i];
+
 					Object obj = EditorGUILayout.ObjectField("   Arg " + i, param.obj, typeof(Object), true);
 
 					if (GUI.changed)
@@ -158,8 +164,9 @@ public static class EventDelegateEditor
 
 					if (obj == null) continue;
 
-					GameObject selGO = null;
 					System.Type type = obj.GetType();
+
+					GameObject selGO = null;
 					if (type == typeof(GameObject)) selGO = obj as GameObject;
 					else if (type.IsSubclassOf(typeof(Component))) selGO = (obj as Component).gameObject;
 
@@ -175,7 +182,7 @@ public static class EventDelegateEditor
 
 						GUILayout.BeginHorizontal();
 						int newSel = EditorGUILayout.Popup(" ", selection, props);
-						NGUIEditorTools.DrawPadding();
+						GUILayout.Space(18f);
 						GUILayout.EndHorizontal();
 
 						if (GUI.changed)
@@ -215,7 +222,7 @@ public static class EventDelegateEditor
 	/// Convert the specified list of delegate entries into a string array.
 	/// </summary>
 
-	static public string[] GetNames (List<Entry> list, string choice, out int index)
+	static string[] GetNames (List<Entry> list, string choice, out int index)
 	{
 		index = 0;
 		string[] names = new string[list.Count + 1];
@@ -238,23 +245,14 @@ public static class EventDelegateEditor
 
 	static public void Field (Object undoObject, List<EventDelegate> list)
 	{
-		Field(undoObject, list, null, null, NGUISettings.minimalisticLook);
+		Field(undoObject, list, null, null);
 	}
 
 	/// <summary>
 	/// Draw a list of fields for the specified list of delegates.
 	/// </summary>
 
-	static public void Field (Object undoObject, List<EventDelegate> list, bool minimalistic)
-	{
-		Field(undoObject, list, null, null, minimalistic);
-	}
-
-	/// <summary>
-	/// Draw a list of fields for the specified list of delegates.
-	/// </summary>
-
-	static public void Field (Object undoObject, List<EventDelegate> list, string noTarget, string notValid, bool minimalistic)
+	static public void Field (Object undoObject, List<EventDelegate> list, string noTarget, string notValid)
 	{
 		bool targetPresent = false;
 		bool isValid = false;
@@ -270,7 +268,7 @@ public static class EventDelegateEditor
 				continue;
 			}
 
-			Field(undoObject, del, true, minimalistic);
+			Field(undoObject, del);
 			EditorGUILayout.Space();
 
 			if (del.target == null && !del.isValid)
@@ -288,7 +286,7 @@ public static class EventDelegateEditor
 
 		// Draw a new delegate
 		EventDelegate newDel = new EventDelegate();
-		Field(undoObject, newDel, true, minimalistic);
+		Field(undoObject, newDel);
 
 		if (newDel.target != null)
 		{

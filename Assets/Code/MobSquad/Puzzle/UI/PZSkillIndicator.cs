@@ -38,6 +38,12 @@ public class PZSkillIndicator : MonoBehaviour {
 
 	[SerializeField] float fillSpeed = 1;
 
+	void Awake()
+	{
+		//fillIcon.type = UISprite.Type.Filled;
+		//fillIcon.fillDirection = UISprite.FillDirection.Vertical;
+	}
+
 	public void Init(SkillProto skill, Element userElement)
 	{
 		if (helper == null) helper = GetComponent<MSUIHelper>();
@@ -85,7 +91,7 @@ public class PZSkillIndicator : MonoBehaviour {
 		}
 		else
 		{
-			currFill = ((float)currPoints)/maxPoints;
+			currFill = Mathf.Clamp01(((float)currPoints)/maxPoints);
 		}
 
 		string spriteName;
@@ -134,10 +140,12 @@ public class PZSkillIndicator : MonoBehaviour {
 		if (fillIcon.fillAmount < currFill)
 		{
 			fillIcon.fillAmount = Mathf.Min(fillIcon.fillAmount + fillSpeed * Time.deltaTime, currFill);
+			fillIcon.MarkAsChanged();
 		}
 		else if (fillIcon.fillAmount > currFill)
 		{
 			fillIcon.fillAmount = Mathf.Max(fillIcon.fillAmount - fillSpeed * Time.deltaTime, currFill);
+			fillIcon.MarkAsChanged();
 		}
 	}
 }

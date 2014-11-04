@@ -116,7 +116,7 @@ public class UIDragScrollView : MonoBehaviour
 	/// If the object should support the scroll wheel, do it.
 	/// </summary>
 
-	public void OnScroll (float delta)
+	void OnScroll (float delta)
 	{
 		if (scrollView && NGUITools.GetActive(this))
 			scrollView.Scroll(delta);

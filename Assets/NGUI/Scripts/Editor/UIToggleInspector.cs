@@ -27,20 +27,16 @@ public class UIToggleInspector : UIWidgetContainerEditor
 		GUI.changed = false;
 
 		GUILayout.BeginHorizontal();
-		SerializedProperty sp = NGUIEditorTools.DrawProperty("Group", serializedObject, "group", GUILayout.Width(120f));
+		NGUIEditorTools.DrawProperty("Group", serializedObject, "group", GUILayout.Width(120f));
 		GUILayout.Label(" - zero means 'none'");
 		GUILayout.EndHorizontal();
-
-		EditorGUI.BeginDisabledGroup(sp.intValue == 0);
-		NGUIEditorTools.DrawProperty("  State of 'None'", serializedObject, "optionCanBeNone");
-		EditorGUI.EndDisabledGroup();
 
 		NGUIEditorTools.DrawProperty("Starting State", serializedObject, "startsActive");
 		NGUIEditorTools.SetLabelWidth(80f);
 
-		if (NGUIEditorTools.DrawMinimalisticHeader("State Transition"))
+		if (NGUIEditorTools.DrawHeader("State Transition"))
 		{
-			NGUIEditorTools.BeginContents(true);
+			NGUIEditorTools.BeginContents();
 			NGUIEditorTools.DrawProperty("Sprite", serializedObject, "activeSprite");
 			NGUIEditorTools.DrawProperty("Animation", serializedObject, "activeAnimation");
 
@@ -54,7 +50,7 @@ public class UIToggleInspector : UIWidgetContainerEditor
 				Transition tr = toggle.instantTween ? Transition.Instant : Transition.Smooth;
 				GUILayout.BeginHorizontal();
 				tr = (Transition)EditorGUILayout.EnumPopup("Transition", tr);
-				NGUIEditorTools.DrawPadding();
+				GUILayout.Space(18f);
 				GUILayout.EndHorizontal();
 
 				if (GUI.changed)

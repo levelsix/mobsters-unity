@@ -11,7 +11,11 @@ using UnityEditor;
 /// </summary>
 
 [CanEditMultipleObjects]
+#if UNITY_3_5
+[CustomEditor(typeof(UIWidgetContainer))]
+#else
 [CustomEditor(typeof(UIWidgetContainer), true)]
+#endif
 public class UIWidgetContainerEditor : Editor
 {
 	static int mHash = "WidgetContainer".GetHashCode();
@@ -32,7 +36,7 @@ public class UIWidgetContainerEditor : Editor
 
 	public void OnSceneGUI ()
 	{
-		//NGUIEditorTools.HideMoveTool(true);
+		NGUIEditorTools.HideMoveTool(true);
 		if (!UIWidget.showHandles) return;
 		if (UnityEditor.Tools.current != Tool.Move) return;
 

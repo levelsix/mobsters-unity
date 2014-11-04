@@ -45,10 +45,9 @@ public class UIButtonColorEditor : UIWidgetContainerEditor
 	{
 		if (serializedObject.FindProperty("tweenTarget").objectReferenceValue == null) return;
 
-		if (NGUIEditorTools.DrawHeader("Colors", "Colors", false, true))
+		if (NGUIEditorTools.DrawHeader("Colors"))
 		{
-			NGUIEditorTools.BeginContents(true);
-			NGUIEditorTools.SetLabelWidth(76f);
+			NGUIEditorTools.BeginContents();
 			UIButtonColor btn = target as UIButtonColor;
 
 			if (btn.tweenTarget != null)

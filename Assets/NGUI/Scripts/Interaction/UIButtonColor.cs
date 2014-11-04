@@ -51,11 +51,10 @@ public class UIButtonColor : UIWidgetContainer
 
 	public float duration = 0.2f;
 
-	[System.NonSerialized] protected Color mStartingColor;
-	[System.NonSerialized] protected Color mDefaultColor;
-	[System.NonSerialized] protected bool mInitDone = false;
-	[System.NonSerialized] protected UIWidget mWidget;
-	[System.NonSerialized] protected State mState = State.Normal;
+	protected Color mColor;
+	protected bool mInitDone = false;
+	protected UIWidget mWidget;
+	protected State mState = State.Normal;
 
 	/// <summary>
 	/// Button's current state.
@@ -75,7 +74,7 @@ public class UIButtonColor : UIWidgetContainer
 			if (!Application.isPlaying) return Color.white;
 #endif
 			if (!mInitDone) OnInit();
-			return mDefaultColor;
+			return mColor;
 		}
 		set
 		{
@@ -83,11 +82,7 @@ public class UIButtonColor : UIWidgetContainer
 			if (!Application.isPlaying) return;
 #endif
 			if (!mInitDone) OnInit();
-			mDefaultColor = value;
-
-			State st = mState;
-			mState = State.Disabled;
-			SetState(st, false);
+			mColor = value;
 		}
 	}
 
@@ -96,12 +91,6 @@ public class UIButtonColor : UIWidgetContainer
 	/// </summary>
 
 	public virtual bool isEnabled { get { return enabled; } set { enabled = value; } }
-
-	/// <summary>
-	/// Reset the default color to what the button started with.
-	/// </summary>
-
-	public void ResetDefaultColor () { defaultColor = mStartingColor; }
 
 	void Awake () { if (!mInitDone) OnInit(); }
 
@@ -115,8 +104,7 @@ public class UIButtonColor : UIWidgetContainer
 
 		if (mWidget != null)
 		{
-			mDefaultColor = mWidget.color;
-			mStartingColor = mDefaultColor;
+			mColor = mWidget.color;
 		}
 		else
 		{
@@ -124,8 +112,7 @@ public class UIButtonColor : UIWidgetContainer
 
 			if (ren != null)
 			{
-				mDefaultColor = Application.isPlaying ? ren.material.color : ren.sharedMaterial.color;
-				mStartingColor = mDefaultColor;
+				mColor = Application.isPlaying ? ren.material.color : ren.sharedMaterial.color;
 			}
 			else
 			{
@@ -133,8 +120,7 @@ public class UIButtonColor : UIWidgetContainer
 
 				if (lt != null)
 				{
-					mDefaultColor = lt.color;
-					mStartingColor = mDefaultColor;
+					mColor = lt.color;
 				}
 				else
 				{
@@ -152,11 +138,7 @@ public class UIButtonColor : UIWidgetContainer
 	protected virtual void OnEnable ()
 	{
 #if UNITY_EDITOR
-		if (!Application.isPlaying)
-		{
-			mInitDone = false;
-			return;
-		}
+		if (!Application.isPlaying) return;
 #endif
 		if (mInitDone) OnHover(UICamera.IsHighlighted(gameObject));
 
@@ -184,7 +166,7 @@ public class UIButtonColor : UIWidgetContainer
 
 			if (tc != null)
 			{
-				tc.value = mDefaultColor;
+				tc.value = mColor;
 				tc.enabled = false;
 			}
 		}
@@ -198,8 +180,10 @@ public class UIButtonColor : UIWidgetContainer
 	{
 		if (isEnabled)
 		{
+			/*
 			if (!mInitDone) OnInit();
 			if (tweenTarget != null) SetState(isOver ? State.Hover : State.Normal, false);
+			*/
 		}
 	}
 
@@ -217,9 +201,10 @@ public class UIButtonColor : UIWidgetContainer
 			{
 				if (isPressed)
 				{
+					defaultColor = mWidget.color;
 					SetState(State.Pressed, false);
 				}
-				else if (UICamera.currentTouch.current == gameObject)
+				/*else if (UICamera.currentTouch.current == gameObject)
 				{
 					if (UICamera.currentScheme == UICamera.ControlScheme.Controller)
 					{
@@ -230,7 +215,7 @@ public class UIButtonColor : UIWidgetContainer
 						SetState(State.Hover, false);
 					}
 					else SetState(State.Normal, false);
-				}
+				}*/
 				else SetState(State.Normal, false);
 			}
 		}
@@ -268,11 +253,8 @@ public class UIButtonColor : UIWidgetContainer
 
 	protected virtual void OnSelect (bool isSelected)
 	{
-		if (isEnabled && tweenTarget != null)
-		{
-			if (UICamera.currentScheme == UICamera.ControlScheme.Controller) OnHover(isSelected);
-			else if (!isSelected && UICamera.touchCount < 2) OnHover(isSelected);
-		}
+		if (isEnabled && (!isSelected || UICamera.currentScheme == UICamera.ControlScheme.Controller) && tweenTarget != null)
+			OnHover(isSelected);
 	}
 
 	/// <summary>
@@ -290,30 +272,22 @@ public class UIButtonColor : UIWidgetContainer
 		if (mState != state)
 		{
 			mState = state;
-			UpdateColor(instant);
-		}
-	}
 
-	/// <summary>
-	/// Update the button's color. Call this method after changing the colors of the button at run-time.
-	/// </summary>
+			TweenColor tc;
 
-	public void UpdateColor (bool instant)
-	{
-		TweenColor tc;
+			switch (mState)
+			{
+				case State.Hover: tc = TweenColor.Begin(tweenTarget, duration, hover); break;
+				case State.Pressed: tc = TweenColor.Begin(tweenTarget, duration, pressed); break;
+				case State.Disabled: tc = TweenColor.Begin(tweenTarget, duration, disabledColor); break;
+				default: tc = TweenColor.Begin(tweenTarget, duration, mColor); break;
+			}
 
-		switch (mState)
-		{
-			case State.Hover: tc = TweenColor.Begin(tweenTarget, duration, hover); break;
-			case State.Pressed: tc = TweenColor.Begin(tweenTarget, duration, pressed); break;
-			case State.Disabled: tc = TweenColor.Begin(tweenTarget, duration, disabledColor); break;
-			default: tc = TweenColor.Begin(tweenTarget, duration, mDefaultColor); break;
-		}
-
-		if (instant && tc != null)
-		{
-			tc.value = tc.to;
-			tc.enabled = false;
+			if (instant && tc != null)
+			{
+				tc.value = tc.to;
+				tc.enabled = false;
+			}
 		}
 	}
 }

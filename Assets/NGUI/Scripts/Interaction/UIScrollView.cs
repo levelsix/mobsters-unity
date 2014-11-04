@@ -39,7 +39,7 @@ public class UIScrollView : MonoBehaviour
 		WhenDragging,
 	}
 
-	public delegate void OnDragNotification ();
+	public delegate void OnDragFinished ();
 
 	/// <summary>
 	/// Type of movement allowed by the scroll view.
@@ -120,28 +120,10 @@ public class UIScrollView : MonoBehaviour
 	public UIWidget.Pivot contentPivot = UIWidget.Pivot.TopLeft;
 
 	/// <summary>
-	/// Event callback to trigger when the drag process begins.
-	/// </summary>
-
-	public OnDragNotification onDragStarted;
-
-	/// <summary>
 	/// Event callback to trigger when the drag process finished. Can be used for additional effects, such as centering on some object.
 	/// </summary>
 
-	public OnDragNotification onDragFinished;
-
-	/// <summary>
-	/// Event callback triggered when the scroll view is moving as a result of momentum in between of OnDragFinished and OnStoppedMoving.
-	/// </summary>
-
-	public OnDragNotification onMomentumMove;
-
-	/// <summary>
-	/// Event callback to trigger when the scroll view's movement ends.
-	/// </summary>
-
-	public OnDragNotification onStoppedMoving;
+	public OnDragFinished onDragFinished;
 
 	// Deprecated functionality. Use 'movement' instead.
 	[HideInInspector][SerializeField] Vector3 scale = new Vector3(1f, 0f, 0f);
@@ -286,18 +268,7 @@ public class UIScrollView : MonoBehaviour
 	/// Current momentum, exposed just in case it's needed.
 	/// </summary>
 
-	public Vector3 currentMomentum
-	{
-		get
-		{
-			return mMomentum;
-		}
-		set
-		{
-			mMomentum = value;
-			mShouldMove = true;
-		}
-	}
+	public Vector3 currentMomentum { get { return mMomentum; } set { mMomentum = value; mShouldMove = true; } }
 
 	/// <summary>
 	/// Cache the transform and the panel.
@@ -349,9 +320,16 @@ public class UIScrollView : MonoBehaviour
 		}
 	}
 
-	void OnEnable ()
+	void OnEnable () { list.Add(this); }
+	void OnDisable () { list.Remove(this); }
+
+	/// <summary>
+	/// Set the initial drag value and register the listener delegates.
+	/// </summary>
+
+	protected virtual void Start ()
 	{
-		list.Add(this);
+		//UpdatePosition();
 
 		if (Application.isPlaying)
 		{
@@ -368,8 +346,6 @@ public class UIScrollView : MonoBehaviour
 			}
 		}
 	}
-
-	void OnDisable () { list.Remove(this); }
 
 	/// <summary>
 	/// Restrict the scroll view's contents to be within the scroll view's bounds.
@@ -389,7 +365,7 @@ public class UIScrollView : MonoBehaviour
 		if (!horizontal) constraint.x = 0f;
 		if (!vertical) constraint.y = 0f;
 
-		if (constraint.sqrMagnitude > 0.1f)
+		if (constraint.sqrMagnitude > 1f)
 		{
 			if (!instant && dragEffect == DragEffect.MomentumAndSpring)
 			{
@@ -397,17 +373,13 @@ public class UIScrollView : MonoBehaviour
 				Vector3 pos = mTrans.localPosition + constraint;
 				pos.x = Mathf.Round(pos.x);
 				pos.y = Mathf.Round(pos.y);
-				SpringPanel.Begin(mPanel.gameObject, pos, 13f).strength = 8f;
+				SpringPanel.Begin(mPanel.gameObject, pos, 13f);
 			}
 			else
 			{
 				// Jump back into place
 				MoveRelative(constraint);
-
-				// Clear the momentum in the constrained direction
-				if (Mathf.Abs(constraint.x) > 0.01f) mMomentum.x = 0;
-				if (Mathf.Abs(constraint.y) > 0.01f) mMomentum.y = 0;
-				if (Mathf.Abs(constraint.z) > 0.01f) mMomentum.z = 0;
+				mMomentum = Vector3.zero;
 				mScroll = 0f;
 			}
 			return true;
@@ -605,12 +577,6 @@ public class UIScrollView : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Manually invalidate the scroll view's bounds so that they update next time.
-	/// </summary>
-
-	public void InvalidateBounds () { mCalculatedBounds = false; }
-
-	/// <summary>
 	/// Reset the scroll view's position to the top-left corner.
 	/// It's recommended to call this function before AND after you re-populate the scroll view's contents (ex: switching window tabs).
 	/// Another option is to populate the scroll view's contents, reset its position, then call this function to reposition the clipping.
@@ -669,7 +635,7 @@ public class UIScrollView : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Move the scroll view by the specified local space amount.
+	/// Move the scroll view by the specified amount.
 	/// </summary>
 
 	public virtual void MoveRelative (Vector3 relative)
@@ -685,7 +651,7 @@ public class UIScrollView : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Move the scroll view by the specified world space amount.
+	/// Move the scroll view by the specified amount.
 	/// </summary>
 
 	public void MoveAbsolute (Vector3 absolute)
@@ -701,8 +667,6 @@ public class UIScrollView : MonoBehaviour
 
 	public void Press (bool pressed)
 	{
-		if (UICamera.currentScheme == UICamera.ControlScheme.Controller) return;
-
 		if (smoothDragStart && pressed)
 		{
 			mDragStarted = false;
@@ -728,7 +692,7 @@ public class UIScrollView : MonoBehaviour
 				DisableSpring();
 
 				// Remember the hit position
-				mLastPos = UICamera.lastWorldPosition;
+				mLastPos = UICamera.lastHit.point;
 
 				// Create the plane to drag along
 				mPlane = new Plane(mTrans.rotation * Vector3.back, mLastPos);
@@ -743,22 +707,14 @@ public class UIScrollView : MonoBehaviour
 				v.x = Mathf.Round(v.x);
 				v.y = Mathf.Round(v.y);
 				mTrans.localPosition = v;
-
-				if (!smoothDragStart)
-				{
-					mDragStarted = true;
-					mDragStartOffset = Vector2.zero;
-					if (onDragStarted != null) onDragStarted();
-				}
 			}
 			else
 			{
-				if (restrictWithinPanel && mPanel.clipping != UIDrawCall.Clipping.None)
-					RestrictWithinBounds(dragEffect == DragEffect.None, canMoveHorizontally, canMoveVertically);
+				if (restrictWithinPanel && mPanel.clipping != UIDrawCall.Clipping.None && dragEffect == DragEffect.MomentumAndSpring)
+					RestrictWithinBounds(false, canMoveHorizontally, canMoveVertically);
 
-				if (mDragStarted && onDragFinished != null) onDragFinished();
-				if (!mShouldMove && onStoppedMoving != null)
-					onStoppedMoving();
+				if (onDragFinished != null)
+					onDragFinished();
 			}
 		}
 	}
@@ -769,8 +725,6 @@ public class UIScrollView : MonoBehaviour
 
 	public void Drag ()
 	{
-		if (UICamera.currentScheme == UICamera.ControlScheme.Controller) return;
-
 		if (enabled && NGUITools.GetActive(gameObject) && mShouldMove)
 		{
 			if (mDragID == -10) mDragID = UICamera.currentTouchID;
@@ -781,7 +735,6 @@ public class UIScrollView : MonoBehaviour
 			{
 				mDragStarted = true;
 				mDragStartOffset = UICamera.currentTouch.totalDelta;
-				if (onDragStarted != null) onDragStarted();
 			}
 
 			Ray ray = smoothDragStart ?
@@ -822,13 +775,12 @@ public class UIScrollView : MonoBehaviour
 				}
 
 				// Adjust the momentum
-				if (dragEffect == DragEffect.None) mMomentum = Vector3.zero;
-				else mMomentum = Vector3.Lerp(mMomentum, mMomentum + offset * (0.01f * momentumAmount), 0.67f);
+				mMomentum = Vector3.Lerp(mMomentum, mMomentum + offset * (0.01f * momentumAmount), 0.67f);
 
 				// Move the scroll view
 				if (!iOSDragEmulation || dragEffect != DragEffect.MomentumAndSpring)
 				{
-					MoveAbsolute(offset);
+					MoveAbsolute(offset);	
 				}
 				else
 				{
@@ -856,9 +808,6 @@ public class UIScrollView : MonoBehaviour
 		}
 	}
 
-	[HideInInspector]
-	public UICenterOnChild centerOnChild = null;
-
 	/// <summary>
 	/// If the object should support the scroll wheel, do it.
 	/// </summary>
@@ -868,7 +817,7 @@ public class UIScrollView : MonoBehaviour
 		if (enabled && NGUITools.GetActive(gameObject) && scrollWheelFactor != 0f)
 		{
 			DisableSpring();
-			mShouldMove |= shouldMove;
+			mShouldMove = shouldMove;
 			if (Mathf.Sign(mScroll) != Mathf.Sign(delta)) mScroll = 0f;
 			mScroll += delta * scrollWheelFactor;
 		}
@@ -912,31 +861,30 @@ public class UIScrollView : MonoBehaviour
 			}
 		}
 
-		if (!mShouldMove) return;
-
 		// Apply momentum
-		if (!mPressed)
+		if (mShouldMove && !mPressed)
 		{
-			if (mMomentum.magnitude > 0.0001f || mScroll != 0f)
+			if (movement == Movement.Horizontal)
 			{
-				if (movement == Movement.Horizontal)
-				{
-					mMomentum -= mTrans.TransformDirection(new Vector3(mScroll * 0.05f, 0f, 0f));
-				}
-				else if (movement == Movement.Vertical)
-				{
-					mMomentum -= mTrans.TransformDirection(new Vector3(0f, mScroll * 0.05f, 0f));
-				}
-				else if (movement == Movement.Unrestricted)
-				{
-					mMomentum -= mTrans.TransformDirection(new Vector3(mScroll * 0.05f, mScroll * 0.05f, 0f));
-				}
-				else
-				{
-					mMomentum -= mTrans.TransformDirection(new Vector3(
-						mScroll * customMovement.x * 0.05f,
-						mScroll * customMovement.y * 0.05f, 0f));
-				}
+				mMomentum -= mTrans.TransformDirection(new Vector3(mScroll * 0.05f, 0f, 0f));
+			}
+			else if (movement == Movement.Vertical)
+			{
+				mMomentum -= mTrans.TransformDirection(new Vector3(0f, mScroll * 0.05f, 0f));
+			}
+			else if (movement == Movement.Unrestricted)
+			{
+				mMomentum -= mTrans.TransformDirection(new Vector3(mScroll * 0.05f, mScroll * 0.05f, 0f));
+			}
+			else
+			{
+				mMomentum -= mTrans.TransformDirection(new Vector3(
+					mScroll * customMovement.x * 0.05f,
+					mScroll * customMovement.y * 0.05f, 0f));
+			}
+
+			if (mMomentum.magnitude > 0.0001f)
+			{
 				mScroll = NGUIMath.SpringLerp(mScroll, 0f, 20f, delta);
 
 				// Move the scroll view
@@ -945,44 +893,23 @@ public class UIScrollView : MonoBehaviour
 
 				// Restrict the contents to be within the scroll view's bounds
 				if (restrictWithinPanel && mPanel.clipping != UIDrawCall.Clipping.None)
-				{
-					if (NGUITools.GetActive(centerOnChild))
-					{
-						if (centerOnChild.nextPageThreshold != 0f)
-						{
-							mMomentum = Vector3.zero;
-							mScroll = 0f;
-						}
-						else centerOnChild.Recenter();
-					}
-					else
-					{
-						RestrictWithinBounds(false, canMoveHorizontally, canMoveVertically);
-					}
-				}
-
-				if (onMomentumMove != null)
-					onMomentumMove();
+					RestrictWithinBounds(false, canMoveHorizontally, canMoveVertically);
+				
+				if (mMomentum.magnitude < 0.0001f && onDragFinished != null) 
+					onDragFinished();
+				
+				return;
 			}
 			else
 			{
 				mScroll = 0f;
 				mMomentum = Vector3.zero;
-
-				SpringPanel sp = GetComponent<SpringPanel>();
-				if (sp != null && sp.enabled) return;
-
-				mShouldMove = false;
-				if (onStoppedMoving != null)
-					onStoppedMoving();
 			}
 		}
-		else
-		{
-			// Dampen the momentum
-			mScroll = 0f;
-			NGUIMath.SpringDampen(ref mMomentum, 9f, delta);
-		}
+		else mScroll = 0f;
+
+		// Dampen the momentum
+		NGUIMath.SpringDampen(ref mMomentum, 9f, delta);
 	}
 
 #if UNITY_EDITOR
