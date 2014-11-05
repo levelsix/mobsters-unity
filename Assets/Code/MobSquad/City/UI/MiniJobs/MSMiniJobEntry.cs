@@ -127,7 +127,7 @@ public class MSMiniJobEntry : MonoBehaviour {
 		buttonLabel.text = "Get Help";
 		buttonLabel.effectColor = new Color(1f,1f,1f,0.6f);
 		buttonLabel.color = new Color(195f/255f, 27f/255f, 0f, 1f);
-		
+		timeLeftLabel.text = MSUtil.TimeStringShort(MSMiniJobManager.instance.timeLeft);
 	}
 
 	void SetupWaitingButton()

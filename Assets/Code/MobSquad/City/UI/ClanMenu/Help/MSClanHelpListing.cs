@@ -117,7 +117,14 @@ public class MSClanHelpListing : MonoBehaviour {
 			}
 		}
 
-		UpdateFields();
+		if(protos.Count < 1)
+		{
+			GetComponent<MSSimplePoolable>().Pool();
+		}
+		else
+		{
+			UpdateFields();
+		}
 	}
 
 	public bool Contains(ClanHelpProto proto)

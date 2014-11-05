@@ -295,6 +295,12 @@ public class MSMiniJobManager : MonoBehaviour {
 			MSActionManager.MiniJob.OnMiniJobComplete();
 		}
 
+		ClanHelpProto miniJobHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.MINI_JOB,currActiveJob.miniJob.miniJobId ,currActiveJob.userMiniJobId);
+		if(miniJobHelp != null)
+		{
+			MSClanManager.instance.DoEndClanHelp(new List<long>{miniJobHelp.clanHelpId});
+		}
+
 		CompleteMiniJobRequestProto request = new CompleteMiniJobRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.clientTime = MSUtil.timeNowMillis;
@@ -470,11 +476,9 @@ public class MSMiniJobManager : MonoBehaviour {
 		RedeemMiniJobResponseProto response = UMQNetworkManager.responseDict[tagNum] as RedeemMiniJobResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
-		Debug.Log("A");
 
 		if (response.status == RedeemMiniJobResponseProto.RedeemMiniJobStatus.SUCCESS)
 		{
-			Debug.Log("B");
 			if (response.fump != null)
 			{
 				MSMonsterManager.instance.UpdateOrAdd(response.fump);

@@ -62,10 +62,7 @@ public class MSClanManager : MonoBehaviour
 	{
 		foreach(ClanHelpProto help in startup.clanHelpings)
 		{
-			if(help.mup.userId != MSWhiteboard.localMup.userId)
-			{
-				clanHelpRequests.Add(help);
-			}
+			clanHelpRequests.Add(help);
 		}
 	}
 
@@ -557,6 +554,12 @@ public class MSClanManager : MonoBehaviour
 				MSActionManager.Clan.OnSolicitClanHelp(response, true);
 			}
 		}
+
+		if(OnComplete != null)
+		{
+			Debug.Log("on complete test");
+			OnComplete();
+		}
 	}
 	
 	public void DoGiveClanHelp(List<long> helpIds, Action OnComplete = null)
@@ -594,14 +597,19 @@ public class MSClanManager : MonoBehaviour
 				MSActionManager.Clan.OnGiveClanHelp(response, true);
 			}
 		}
+
+		if(OnComplete != null)
+		{
+			OnComplete();
+		}
 	}
 	
-	public void DoEndClanHelp(List<long> helpIds)
+	public void DoEndClanHelp(List<long> helpIds, Action OnComplete = null)
 	{
 		StartCoroutine(EndClanHelp(helpIds));
 	}
 	
-	IEnumerator EndClanHelp(List<long> helpIds)
+	IEnumerator EndClanHelp(List<long> helpIds, Action OnComplete = null)
 	{
 		EndClanHelpRequestProto request = new EndClanHelpRequestProto();
 		foreach(long id in helpIds)
@@ -631,6 +639,11 @@ public class MSClanManager : MonoBehaviour
 				MSActionManager.Clan.OnEndClanHelp(response, true);
 			}
 		}
+
+		if(OnComplete != null)
+		{
+			OnComplete();
+		}
 	}
 
 	/// <summary>
@@ -651,8 +664,31 @@ public class MSClanManager : MonoBehaviour
 		{
 			if(proto.helpType == type &&
 			   proto.staticDataId == staticId &&
-			   proto.userDataId == userId &&
-			   proto.mup.userId == MSWhiteboard.localMup.userId)//this should automatically be true
+			   proto.userDataId == userId)
+			{
+				Debug.Log("found");
+				return proto;
+			}
+			else
+			{
+				if(proto.helpType == type)
+				{
+					Debug.Log(proto.helpType + " != " + type.ToString() + " : " + proto.staticDataId + " != " + staticId + " : " + proto.userDataId + " != " + userId);
+				}
+			}
+		}
+
+		Debug.Log ("checkdone");
+		
+		return null;
+	}
+
+	public ClanHelpProto GetClanHelp(ClanHelpType type, long userId)
+	{
+		foreach(ClanHelpProto proto in clanHelpRequests)
+		{
+			if(proto.helpType == type &&
+			   proto.userDataId == userId)
 			{
 				return proto;
 			}
@@ -678,11 +714,13 @@ public class MSClanManager : MonoBehaviour
 
 	void DealWithSoliciteClanHelp(SolicitClanHelpResponseProto proto, bool self)
 	{
+		Debug.Log("DealWithSoliciteClanHelp");
 		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
 		{
 			foreach(ClanHelpProto helpProto in proto.helpProto)
 			{
-				this.clanHelpRequests.Add(helpProto);
+				clanHelpRequests.Add(helpProto);
+				Debug.Log("help solicitation added to list");
 			}
 		}
 	}

@@ -104,6 +104,8 @@ public class MSClanHelpScreen : MonoBehaviour {
 			newListing.Init(proto);
 			listings[proto.mup.userId].Add(newListing);
 		}
+
+		grid.Reposition();
 	}
 
 	MSClanHelpListing FindExistingHelpListing(ClanHelpProto findMe)
