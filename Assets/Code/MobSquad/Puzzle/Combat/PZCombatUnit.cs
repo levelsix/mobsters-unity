@@ -76,10 +76,14 @@ public class PZCombatUnit : MonoBehaviour {
 
 	[SerializeField]
 	UISprite forfeitSprite;
+
+	public int shieldHealth = 0;
 	
 	public TweenScale poisonIconScale;
 
-	public TweenScale momentumIconScale;
+	public TweenScale spriteScale;
+
+	public PZTweenShield tweenShield;
 
 	/// <summary>
 	/// The damage multiplier.
@@ -87,6 +91,20 @@ public class PZCombatUnit : MonoBehaviour {
 	/// Resets to 1 every time deployed.
 	/// </summary>
 	public float damageMultiplier = 1;
+
+	public bool roiding = false;
+
+	[SerializeField] Color roidColor;
+
+	IEnumerator currentColorTween = null;
+
+	public bool skillActive
+	{
+		get
+		{
+			return shieldHealth > 0 || roiding;
+		}
+	}
 
 	public float alpha
 	{
@@ -169,6 +187,11 @@ public class PZCombatUnit : MonoBehaviour {
 
 	void Init()
 	{
+		TweenSpriteColor(Color.white, 0);
+		roiding = false;
+		spriteScale.Sample(0, true);
+		shieldHealth = 0;
+		tweenShield.gameObject.SetActive(false);
 		damageMultiplier = 1;
 		unit.spriteBaseName = monster.monster.imagePrefix;
 		alpha = 1;
@@ -289,8 +312,24 @@ public class PZCombatUnit : MonoBehaviour {
 		yield return StartCoroutine(TakeDamage(fullDamage));
 	}
 
-	public IEnumerator TakeDamage(int damage)
+	public IEnumerator TakeDamage(int damage, bool canBeShielded = true)
 	{
+		if (canBeShielded && shieldHealth > 0)
+		{
+			if (shieldHealth > damage)
+			{
+				tweenShield.BounceShield();
+				shieldHealth -= damage;
+				damage = 0;
+			}
+			else
+			{
+				tweenShield.DestroyShield();
+				damage -= shieldHealth;
+				shieldHealth = 0;
+			}
+		}
+
 		RunDamageLabel(damage);
 
 		//alive = damage >= monster.currHP;
@@ -498,7 +537,9 @@ public class PZCombatUnit : MonoBehaviour {
 
 	public Coroutine TweenSpriteColor(Color color, float time, bool keepOriginalAlpha = true)
 	{
-		return StartCoroutine(TweenColor(color, time, keepOriginalAlpha));
+		if (currentColorTween != null) StopCoroutine(currentColorTween);
+		currentColorTween = TweenColor(color, time, keepOriginalAlpha);
+		return StartCoroutine(currentColorTween);
 	}
 
 	IEnumerator TweenColor(Color color, float time, bool keepOriginalAlpha)

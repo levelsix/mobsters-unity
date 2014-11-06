@@ -50,6 +50,7 @@ MonoBehaviour:
     damageTaken: 0
     monstersDefeated: 0
   pvpMode: 0
+  quitPvpButton: {fileID: 0}
   raidMode: 0
   waitingForTutorialSignal: 0
   combatPanel: {fileID: 0}
@@ -92,8 +93,13 @@ MonoBehaviour:
   intro: {fileID: 0}
   forfeitChance: 0
   playerSkillPoints: 0
+  enemySkillPoints: 0
+  bombs: []
   forceEnemySkill: 0
   forcePlayerSkill: 0
+  bombSkillAnimationTimeBetweenBombs: .200000003
+  bombSkillAnimationXRangeForBombs: 10
+  roidColor: {r: .0723940134, g: .757352948, b: .757352948, a: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
