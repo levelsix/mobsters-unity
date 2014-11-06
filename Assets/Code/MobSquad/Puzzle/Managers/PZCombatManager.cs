@@ -539,6 +539,23 @@ public class PZCombatManager : MonoBehaviour {
 			PZPuzzleManager.instance.InitBoardFromSave(save, minTask);
 
 			enemySkillPoints = save.enemySkillPoints;
+
+			if (save.playerSkillSave.skillActive)
+			{
+				switch(playerOffSkill.type)
+				{
+				case SkillType.SHIELD:
+					activePlayer.shieldHealth = save.playerSkillSave.shieldHealth;
+					activePlayer.tweenShield.BringIn();
+					break;
+				case SkillType.ROID_RAGE:
+					StartCoroutine(GainRage (activePlayer, playerOffSkill));
+					break;
+				case SkillType.MOMENTUM:
+					activePlayer.damageMultiplier = save.playerSkillSave.damageMultiplier;
+					break;
+				}
+			}
 		}
 		else
 		{
@@ -1151,6 +1168,23 @@ public class PZCombatManager : MonoBehaviour {
 				if (enemyDefSkill != null && enemyDefSkill.type == SkillType.BOMBS)
 				{
 					EnemySetupBombs();
+				}
+				
+				if (save.enemySkillSave.skillActive)
+				{
+					switch(enemyDefSkill.type)
+					{
+					case SkillType.SHIELD:
+						activeEnemy.shieldHealth = save.enemySkillSave.shieldHealth;
+						activeEnemy.tweenShield.BringIn();
+						break;
+					case SkillType.ROID_RAGE:
+						StartCoroutine(GainRage (activeEnemy, enemyDefSkill));
+						break;
+					case SkillType.MOMENTUM:
+						activeEnemy.damageMultiplier = save.enemySkillSave.damageMultiplier;
+						break;
+					}
 				}
 			}
 			else
@@ -1861,14 +1895,19 @@ public class PZCombatManager : MonoBehaviour {
 		unit.spriteScale.PlayReverse();
 		while (unit.spriteScale.tweenFactor > 0) yield return null;
 	}
-	
+
 	IEnumerator GainRage(PZCombatUnit unit, SkillProto skill)
 	{
-		unit.roiding = true;
 		float damageBonus = (skill.properties.Find (x=>x.name == "DAMAGE_MULTIPLIER").skillValue-1);
+		float scale = skill.properties.Find(x=>x.name == "SIZE_MULTIPLIER").skillValue;
+		yield return StartCoroutine(GainRage(unit, damageBonus, scale));
+	}
+
+	IEnumerator GainRage(PZCombatUnit unit, float damageBonus, float scale)
+	{
+		unit.roiding = true;
 		unit.damageMultiplier += damageBonus; //If we want the damage multipliers to stack *properly*, we have to do this stupid math -_-
 		unit.spriteScale.Sample (0, true);
-		float scale = skill.properties.Find(x=>x.name == "SIZE_MULTIPLIER").skillValue;
 		unit.spriteScale.to = new Vector3(scale, scale, scale);
 		unit.spriteScale.PlayForward();
 		while (unit.spriteScale.tweenFactor < 1) yield return null;

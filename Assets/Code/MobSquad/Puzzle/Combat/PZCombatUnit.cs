@@ -102,7 +102,7 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		get
 		{
-			return shieldHealth > 0 || roiding;
+			return shieldHealth > 0 || roiding || damageMultiplier > 0;
 		}
 	}
 
