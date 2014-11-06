@@ -557,7 +557,6 @@ public class MSClanManager : MonoBehaviour
 
 		if(OnComplete != null)
 		{
-			Debug.Log("on complete test");
 			OnComplete();
 		}
 	}
@@ -658,6 +657,11 @@ public class MSClanManager : MonoBehaviour
 		return GetClanHelp(type, staticId, userId) != null;
 	}
 
+	public bool HelpAlreadyRequested(ClanHelpType type, long userId)
+	{
+		return GetClanHelp(type, userId) != null;
+	}
+
 	public ClanHelpProto GetClanHelp(ClanHelpType type, int staticId, long userId)
 	{
 		foreach(ClanHelpProto proto in clanHelpRequests)
@@ -666,19 +670,10 @@ public class MSClanManager : MonoBehaviour
 			   proto.staticDataId == staticId &&
 			   proto.userDataId == userId)
 			{
-				Debug.Log("found");
 				return proto;
-			}
-			else
-			{
-				if(proto.helpType == type)
-				{
-					Debug.Log(proto.helpType + " != " + type.ToString() + " : " + proto.staticDataId + " != " + staticId + " : " + proto.userDataId + " != " + userId);
-				}
 			}
 		}
 
-		Debug.Log ("checkdone");
 		
 		return null;
 	}
@@ -707,20 +702,24 @@ public class MSClanManager : MonoBehaviour
 		{
 			foreach(ClanHelpProto helpProto in proto.clanHelps)
 			{
-				this.clanHelpRequests.Add(helpProto);
+				for(int i = 0; i < clanHelpRequests.Count;i++)
+				{
+					if(helpProto.clanHelpId == clanHelpRequests[i].clanHelpId)
+					{
+						clanHelpRequests[i] = helpProto;
+					}
+				}
 			}
 		}
 	}
 
 	void DealWithSoliciteClanHelp(SolicitClanHelpResponseProto proto, bool self)
 	{
-		Debug.Log("DealWithSoliciteClanHelp");
 		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
 		{
 			foreach(ClanHelpProto helpProto in proto.helpProto)
 			{
 				clanHelpRequests.Add(helpProto);
-				Debug.Log("help solicitation added to list");
 			}
 		}
 	}
@@ -729,21 +728,17 @@ public class MSClanManager : MonoBehaviour
 	{
 		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
 		{
-			List<ClanHelpProto> markedForDeletion = new List<ClanHelpProto>();
-			foreach(ClanHelpProto listedProto in clanHelpRequests)
+			for(int i = 0; i < clanHelpRequests.Count; i++)
 			{
-				if(proto.clanHelpIds.Contains(listedProto.clanHelpId))
+				if(proto.clanHelpIds.Contains(clanHelpRequests[i].clanHelpId))
 				{
-					markedForDeletion.Add(listedProto);
+					if(!clanHelpRequests.Remove(clanHelpRequests[i]))
+					{
+						Debug.LogError("removing task didn't work");
+					}
+					i--;
 				}
-			}
-
-			foreach(ClanHelpProto toRemove in markedForDeletion)
-			{
-				clanHelpRequests.Remove(toRemove);
 			}
 		}
 	}
-
-
 }

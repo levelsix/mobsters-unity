@@ -100,7 +100,7 @@ public class MSHealScreen : MSFunctionalScreen
 		currHeals.Add(card);
 		RefreshSlots();
 
-		UpdateButton();
+		CheckHelp();
 	}
 
 	public void Remove(MSGoonCard card)
@@ -120,7 +120,7 @@ public class MSHealScreen : MSFunctionalScreen
 			MSClanManager.instance.DoEndClanHelp(new List<long>{ clanHelp.clanHelpId });
 		}
 
-		UpdateButton();
+		CheckHelp();
 	}
 
 	void RefreshSlots()
@@ -154,27 +154,31 @@ public class MSHealScreen : MSFunctionalScreen
 		_totalFinishTime = timeLeft;
 		int finishAmount = MSMath.GemsForTime(timeLeft, true);
 
-		if(canCallForHelp)
+
+		if(finishAmount == 0)
+		{
+			button.normalSprite = PURPLE_BUTTON;
+			finishNowLabel.text = "Finish\n FREE";
+			finishNowLabel.effectColor = BLACK_SHADOW;
+			finishNowLabel.color = Color.white;
+		}
+		else if(canCallForHelp)
 		{
 			finishNowLabel.text = "Get Help!";
 			finishNowLabel.effectColor = WHITE_SHADOW;
 			finishNowLabel.color = ORANGLE_WORDS;
-		}
-		else if(finishAmount != 0)
-		{
-			finishNowLabel.text = "Finish\n(g) " + finishAmount;
-			finishNowLabel.effectColor = BLACK_SHADOW;
-			finishNowLabel.color = Color.white;
+			button.normalSprite = ORANGE_BUTTON;
 		}
 		else
 		{
-			finishNowLabel.text = "Finish\n FREE";
+			button.normalSprite = PURPLE_BUTTON;
+			finishNowLabel.text = "Finish\n(g) " + finishAmount;
 			finishNowLabel.effectColor = BLACK_SHADOW;
 			finishNowLabel.color = Color.white;
 		}
 	}
 
-	public void UpdateButton()
+	public void CheckHelp()
 	{
 		foreach(MSGoonCard card in currHeals)
 		{
@@ -188,15 +192,17 @@ public class MSHealScreen : MSFunctionalScreen
 		canCallForHelp = false;
 	}
 
-	public void Finish()
+	public void OnClick()
 	{
-		if(canCallForHelp)
+		CheckHelp();
+		int finishAmount = MSMath.GemsForTime(timeLeft, true);
+		if(canCallForHelp && finishAmount != 0)
 		{
 			List<ClanHelpNoticeProto> notices = new List<ClanHelpNoticeProto>();
 
 			foreach(MSGoonCard card in currHeals)
 			{
-				if(MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId))
+				if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId))
 				{
 					ClanHelpNoticeProto notice = new ClanHelpNoticeProto();
 					notice.helpType = ClanHelpType.HEAL;
@@ -207,8 +213,8 @@ public class MSHealScreen : MSFunctionalScreen
 			}
 			loadLock.Lock();
 			MSClanManager.instance.DoSolicitClanHelp(notices,
-			                                         MSBuildingManager.ClanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
-			                                         delegate { loadLock.Unlock();});
+			                                         MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
+			                                         loadLock.Unlock);
 			canCallForHelp = false;
 		}
 		else

@@ -62,12 +62,66 @@ public class MSBuildingUpgrade : MonoBehaviour {
 			return upgradeCompleteTime - MSUtil.timeNowMillis;
 		}
 	}
+
+	StartupResponseProto.StartupConstants.ClanHelpConstants upgradeConstants;
+	ClanHelpProto currActiveHelp = null;
+
+	public int helpCount
+	{
+		get
+		{
+			if(!isComplete)
+			{
+				if(currActiveHelp == null || currActiveHelp.helpType != ClanHelpType.UPGRADE_STRUCT || currActiveHelp.userDataId != building.userStructProto.userStructId)
+				{
+					currActiveHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.UPGRADE_STRUCT, building.userStructProto.userStructId);
+				}
+				
+				if(currActiveHelp != null)
+				{
+					if(currActiveHelp.helperIds.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+					{
+						return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
+					}
+					else
+					{
+						return currActiveHelp.helperIds.Count;
+					}
+				}
+			}
+			
+			return 0;
+		}
+	}
+
+	public long helpTime
+	{
+		get
+		{
+			if(upgradeConstants == null)
+			{
+				upgradeConstants = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == ClanHelpType.UPGRADE_STRUCT);
+			}
+			int amountRemovedPerHelp = upgradeConstants.amountRemovedPerHelp;
+			float percentRemovedPerHelp = upgradeConstants.percentRemovedPerHelp;
+			
+			long totalTime = (long)building.combinedProto.structInfo.minutesToBuild * 60000;
+			if(amountRemovedPerHelp < percentRemovedPerHelp * totalTime)
+			{
+				return (long)(percentRemovedPerHelp * totalTime * helpCount);
+			}
+			else
+			{
+				return (long)(amountRemovedPerHelp * helpCount);
+			}
+		}
+	}
 	
 	public string timeLeftString
 	{
 		get
 		{
-			return MSUtil.TimeStringShort(timeRemaining);
+			return MSUtil.TimeStringShort(timeRemaining - helpTime);
 		}
 	}
 
@@ -135,6 +189,22 @@ public class MSBuildingUpgrade : MonoBehaviour {
 			building.sprite.GetComponent<Animator>().enabled = true;
 			FinishUpgrade();
 		};
+
+		MSActionManager.Clan.OnGiveClanHelp += DealWithGiveClanHelp;
+	}
+
+	public void DealWithGiveClanHelp(GiveClanHelpResponseProto response, bool self)
+	{
+		if(currActiveHelp != null && !self)
+		{
+			foreach(ClanHelpProto help in response.clanHelps)
+			{
+				if(help.clanHelpId == currActiveHelp.clanHelpId)
+				{
+					currActiveHelp = null;
+				}
+			}
+		}
 	}
 	
 	public void Init(StructureInfoProto sProto, FullUserStructureProto uProto)

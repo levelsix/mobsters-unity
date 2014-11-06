@@ -89,6 +89,7 @@ public class MSClanEventManager : MonoBehaviour {
 	{
 		if(MSActionManager.Clan.OnEndClanHelp != null)
 		{
+			Debug.Log("Recieving EndClanHelp Request");
 			MSActionManager.Clan.OnEndClanHelp(proto, false);
 		}
 	}
@@ -97,6 +98,7 @@ public class MSClanEventManager : MonoBehaviour {
 	{
 		if(MSActionManager.Clan.OnSolicitClanHelp != null)
 		{
+			Debug.Log("Recieving SolicitClanHelp Request");
 			MSActionManager.Clan.OnSolicitClanHelp(proto, false);
 		}
 	}
@@ -105,6 +107,7 @@ public class MSClanEventManager : MonoBehaviour {
 	{
 		if(MSActionManager.Clan.OnGiveClanHelp != null)
 		{
+			Debug.Log("Recieving GiveClanHelp Request");
 			MSActionManager.Clan.OnGiveClanHelp(proto, false);
 		}
 	}

@@ -105,7 +105,7 @@ public class MSBuildingManager : MonoBehaviour
 
 	public static MSBuilding teamCenter;
 
-	public static MSBuilding ClanHouse;
+	public static MSBuilding clanHouse;
 
 	/// <summary>
 	/// The current selected building.
@@ -521,7 +521,7 @@ public class MSBuildingManager : MonoBehaviour
 				}
 				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.CLAN)
 				{
-					ClanHouse = building;
+					clanHouse = building;
 				}
 			}
 		}
@@ -1166,7 +1166,7 @@ public class MSBuildingManager : MonoBehaviour
 				teamCenter = building;
 				break;
 			case StructureInfoProto.StructType.CLAN:
-				ClanHouse = building;
+				clanHouse = building;
 				break;
 		}
 	}

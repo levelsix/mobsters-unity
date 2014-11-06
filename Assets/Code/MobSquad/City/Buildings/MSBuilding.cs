@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using com.lvl6.proto;
 
 /// <summary>
@@ -324,8 +325,18 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		upgrade.OnFinishUpgrade += delegate {
 			gaurdRails.gameObject.SetActive(false);
 			sprite.GetComponent<Animator>().enabled = true;
+			EndClanHelpUpgrade();
 		};
     }
+
+	void EndClanHelpUpgrade()
+	{
+		ClanHelpProto buildingHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.UPGRADE_STRUCT, userStructProto.userStructId);
+		if(buildingHelp != null)
+		{
+			MSClanManager.instance.DoEndClanHelp(new List<long>{buildingHelp.clanHelpId});
+		}
+	}
 
 	void InitGaurdRails()
 	{

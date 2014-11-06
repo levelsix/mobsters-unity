@@ -41,6 +41,53 @@ public class MSHospitalManager : MonoBehaviour {
 		instance = this;
 	}
 
+	void OnEnable()
+	{
+		MSActionManager.Clan.OnEndClanHelp += DealWithEndHelp;
+		MSActionManager.Clan.OnGiveClanHelp += DealWithGiveHelp;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Clan.OnEndClanHelp -= DealWithEndHelp;
+		MSActionManager.Clan.OnGiveClanHelp -= DealWithGiveHelp;
+	}
+
+	void DealWithGiveHelp(GiveClanHelpResponseProto response, bool self)
+	{
+		if(!self)
+		{
+			foreach(ClanHelpProto help in response.clanHelps)
+			{
+				if(help.helpType == ClanHelpType.HEAL)
+				{
+					foreach(PZMonster monster in healingMonsters)
+					{
+						if(monster.currActiveHelp.clanHelpId == help.clanHelpId)
+						{
+							monster.currActiveHelp = help;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	void DealWithEndHelp(EndClanHelpResponseProto response, bool self)
+	{
+		if(self)
+		{
+			foreach(PZMonster monster in healingMonsters)
+			{
+				if(response.clanHelpIds.Contains(monster.currActiveHelp.clanHelpId))
+				{
+					monster.currActiveHelp = null;
+				}
+			}
+		}
+	}
+
 	public void Init(List<UserMonsterHealingProto> healing)
 	{
 		PZMonster mon;

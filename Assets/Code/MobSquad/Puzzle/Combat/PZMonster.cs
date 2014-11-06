@@ -32,12 +32,84 @@ public class PZMonster {
 	public int userHospitalID = 0;
 
 	public List<HospitalTime> hospitalTimes = new List<HospitalTime>();
-	
+
+	public ClanHelpProto currActiveHelp = null;
+
+	StartupResponseProto.StartupConstants.ClanHelpConstants healHelpConstants;
+
 	public bool isHealing
 	{
 		get
 		{
 			return healingMonster != null && healingMonster.userMonsterId > 0;
+		}
+	}
+
+	public int helpCount
+	{
+		get
+		{
+			if(isHealing)
+			{
+				if(currActiveHelp == null || currActiveHelp.helpType != ClanHelpType.HEAL || currActiveHelp.userDataId != userMonster.userMonsterId)
+				{
+					currActiveHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.HEAL, userMonster.userMonsterId);
+				}
+			}
+			else if(isEnhancing || isEvoloving)
+			{
+				//TODO: put code here
+				return 0;
+			}
+				
+			if(currActiveHelp != null)
+			{
+				if(currActiveHelp.helperIds.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+				{
+					return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
+				}
+				else
+				{
+					return currActiveHelp.helperIds.Count;
+				}
+			}
+			return 0;
+		}
+	}
+
+	public long helpTime
+	{
+		get
+		{
+			int amountRemovedPerHelp = 1;
+			float percentRemovedPerHelp = 1;
+			long timeLeft = 1;
+			if(isHealing)
+			{
+				if(healHelpConstants == null)
+				{
+					healHelpConstants = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == ClanHelpType.HEAL);
+				}
+				amountRemovedPerHelp = healHelpConstants.amountRemovedPerHelp;
+				percentRemovedPerHelp = healHelpConstants.percentRemovedPerHelp;
+				timeLeft = finishHealTimeMillis - MSUtil.timeNowMillis;
+			}
+			else if(isEvoloving || isEnhancing)
+			{
+				//TODO: add code for evolve and enhance
+				return 0;
+			}
+			Debug.Log(amountRemovedPerHelp + " * 1000 < " + percentRemovedPerHelp + " * " + timeLeft);
+			if(amountRemovedPerHelp * 1000 < percentRemovedPerHelp * timeLeft)
+			{
+				Debug.Log(percentRemovedPerHelp + " * " + timeLeft + " * " + helpCount);
+				return (long)(percentRemovedPerHelp * timeLeft * helpCount);
+			}
+			else
+			{
+				Debug.Log(amountRemovedPerHelp + " * 1000 * " + helpCount);
+				return (long)(amountRemovedPerHelp * 1000 * helpCount);
+			}
 		}
 	}
 
@@ -97,7 +169,10 @@ public class PZMonster {
 			{
 				return 0;
 			}
-			return finishHealTimeMillis - MSUtil.timeNowMillis;
+			long help = helpTime;
+			Debug.Log("helptime : " + help);
+			Debug.Log(finishHealTimeMillis + " - " + MSUtil.timeNowMillis + " - " + help + " = " + (finishHealTimeMillis - MSUtil.timeNowMillis - help));
+			return finishHealTimeMillis - MSUtil.timeNowMillis - help;
 		}
 	}
 	

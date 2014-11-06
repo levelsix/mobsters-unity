@@ -532,18 +532,6 @@ public class UMQNetworkManager : MonoBehaviour {
 			Debug.Log("Fallback: From other");
 			MSClanEventManager.instance.DealWithAttackResponse(proto as AttackClanRaidMonsterResponseProto);
 		}
-		else if(proto is GiveClanHelpResponseProto)
-		{
-			MSClanEventManager.instance.DealWithClanHelpGive(proto as GiveClanHelpResponseProto);
-		}
-		else if(proto is SolicitClanHelpResponseProto)
-		{
-			MSClanEventManager.instance.DealWithClanHelpSolicitation(proto as SolicitClanHelpResponseProto);
-		}
-		else if (proto is EndClanHelpResponseProto)
-		{
-			MSClanEventManager.instance.DealWithClanHelpEnd(proto as EndClanHelpResponseProto);
-		}
 		else
 		{
 
@@ -566,6 +554,18 @@ public class UMQNetworkManager : MonoBehaviour {
 				if (proto is PrivateChatPostResponseProto && MSChatManager.instance != null)
 				{
 					MSChatManager.instance.ReceivePrivateChatMessage(proto as PrivateChatPostResponseProto);
+				}
+				else if(proto is GiveClanHelpResponseProto)
+				{
+					MSClanEventManager.instance.DealWithClanHelpGive(proto as GiveClanHelpResponseProto);
+				}
+				else if(proto is SolicitClanHelpResponseProto)
+				{
+					MSClanEventManager.instance.DealWithClanHelpSolicitation(proto as SolicitClanHelpResponseProto);
+				}
+				else if (proto is EndClanHelpResponseProto)
+				{
+					MSClanEventManager.instance.DealWithClanHelpEnd(proto as EndClanHelpResponseProto);
 				}
 			}
 			requestsOut.Remove(tagNum);

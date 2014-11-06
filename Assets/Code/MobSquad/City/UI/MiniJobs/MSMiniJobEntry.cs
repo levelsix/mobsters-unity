@@ -110,7 +110,7 @@ public class MSMiniJobEntry : MonoBehaviour {
 		}
 		else if (currMode == EntryMode.WAITING)
 		{
-			if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.MINI_JOB, job.miniJob.miniJobId, job.userMiniJobId))
+			if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.MINI_JOB, (int)job.miniJob.quality, job.userMiniJobId))
 			{
 				SetupHelpButton();
 			}
@@ -118,11 +118,13 @@ public class MSMiniJobEntry : MonoBehaviour {
 			{
 				SetupWaitingButton();
 			}
+			StartCoroutine(UpdateFinishTimer());
 		}
 	}
 
 	void SetupHelpButton()
 	{
+		timeLeftLabel.color = Color.black;
 		button.normalSprite = "orangemenuoption";
 		buttonLabel.text = "Get Help";
 		buttonLabel.effectColor = new Color(1f,1f,1f,0.6f);
@@ -134,22 +136,32 @@ public class MSMiniJobEntry : MonoBehaviour {
 	{
 		timeLeftLabel.color = Color.black;
 		button.normalSprite = "purplemenuoption";
-		StartCoroutine(UpdateFinishButtonLabel());
+		buttonLabel.effectColor = new Color(0f,0f,0f,0.6f);
+		buttonLabel.color = Color.white;
+		StartCoroutine(UpdateFinishButton());
+
 	}
 
-	IEnumerator UpdateFinishButtonLabel()
+	IEnumerator UpdateFinishButton()
 	{
 		while (currMode == EntryMode.WAITING)
 		{
-			timeLeftLabel.text = MSUtil.TimeStringShort(MSMiniJobManager.instance.timeLeft);
 			buttonLabel.text = "Finish\n(g) " + MSMiniJobManager.instance.gemsToFinish;
-
+			
 			if (MSMiniJobManager.instance.isCompleted)
 			{
 				currMode = EntryMode.COMPLETE;
 				SetupButton();
 			}
+			yield return new WaitForSeconds(1);
+		}
+	}
 
+	IEnumerator UpdateFinishTimer()
+	{
+		while (currMode == EntryMode.WAITING)
+		{
+			timeLeftLabel.text = MSUtil.TimeStringShort(MSMiniJobManager.instance.timeLeft);
 			yield return new WaitForSeconds(1);
 		}
 	}
@@ -202,12 +214,12 @@ public class MSMiniJobEntry : MonoBehaviour {
 
 	public void OnButtonClick()
 	{
-		if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.MINI_JOB, job.miniJob.miniJobId, job.userMiniJobId))
+		if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.MINI_JOB, (int)job.miniJob.quality, job.userMiniJobId))
 		{
 			MSClanManager.instance.DoSolicitClanHelp(ClanHelpType.MINI_JOB,
-			                                         job.miniJob.miniJobId,
+			                                         (int)job.miniJob.quality,
 			                                         job.userMiniJobId,
-			                                         MSBuildingManager.ClanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
+			                                         MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
 			                                         SetupWaitingButton);
 		}
 		else if (currMode == EntryMode.WAITING)
