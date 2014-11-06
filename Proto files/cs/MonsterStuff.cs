@@ -789,6 +789,15 @@ namespace com.lvl6.proto
       get { return _enhancingCost; }
       set { _enhancingCost = value; }
     }
+
+    private bool _enhancingComplete = default(bool);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"enhancingComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool enhancingComplete
+    {
+      get { return _enhancingComplete; }
+      set { _enhancingComplete = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

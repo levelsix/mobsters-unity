@@ -2533,7 +2533,7 @@ public class PZCombatManager : MonoBehaviour {
 		new PZCombatSave(activePlayer.monster, activeEnemy.monster.currHP, PZPuzzleManager.instance.board,
 		                 battleStats, forfeitChance, currTurn, currPlayerDamage, 
 		                 PZPuzzleManager.instance.boardWidth, PZPuzzleManager.instance.boardHeight,
-		                 playerSkillPoints, enemySkillPoints);
+		                 playerSkillPoints, enemySkillPoints, activePlayer, activeEnemy);
 	}
 
 	void UpdateUserTaskStage(int taskStageId)

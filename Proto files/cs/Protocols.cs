@@ -297,8 +297,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_INVITE_TO_CLAN_EVENT", Value=82)]
       C_INVITE_TO_CLAN_EVENT = 82,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"C_APPROVE_OR_REJECT_CLAN_INVITE_EVENT", Value=83)]
-      C_APPROVE_OR_REJECT_CLAN_INVITE_EVENT = 83,
+      [global::ProtoBuf.ProtoEnum(Name=@"C_ACCEPT_OR_REJECT_CLAN_INVITE_EVENT", Value=83)]
+      C_ACCEPT_OR_REJECT_CLAN_INVITE_EVENT = 83,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_COLLECT_MONSTER_ENHANCEMENT_EVENT", Value=84)]
+      C_COLLECT_MONSTER_ENHANCEMENT_EVENT = 84,
             
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
@@ -554,8 +557,11 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"S_INVITE_TO_CLAN_EVENT", Value=82)]
       S_INVITE_TO_CLAN_EVENT = 82,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"S_APPROVE_OR_REJECT_CLAN_INVITE_EVENT", Value=83)]
-      S_APPROVE_OR_REJECT_CLAN_INVITE_EVENT = 83,
+      [global::ProtoBuf.ProtoEnum(Name=@"S_ACCEPT_OR_REJECT_CLAN_INVITE_EVENT", Value=83)]
+      S_ACCEPT_OR_REJECT_CLAN_INVITE_EVENT = 83,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_COLLECT_MONSTER_ENHANCEMENT_EVENT", Value=84)]
+      S_COLLECT_MONSTER_ENHANCEMENT_EVENT = 84,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,
@@ -583,6 +589,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_FORCE_LOGOUT_EVENT", Value=109)]
       S_FORCE_LOGOUT_EVENT = 109,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_RETRIEVE_CLAN_DATA_EVENT", Value=110)]
+      S_RETRIEVE_CLAN_DATA_EVENT = 110,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_DEV_EVENT", Value=200)]
       S_DEV_EVENT = 200

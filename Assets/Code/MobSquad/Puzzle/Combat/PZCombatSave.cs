@@ -150,9 +150,11 @@ public class PZCombatSave
 [System.Serializable]
 public class SkillSaveData
 {
-	public int damageMultiplier;
+	public float damageMultiplier;
 	public bool skillActive;
 	public int shieldHealth;
+
+	public SkillSaveData (){}
 
 	public SkillSaveData(PZCombatUnit unit)
 	{
