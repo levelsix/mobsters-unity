@@ -72,6 +72,7 @@ public class MSHospitalManager : MonoBehaviour {
 				}
 			}
 		}
+		RearrangeHealingQueue();
 	}
 
 	void DealWithEndHelp(EndClanHelpResponseProto response, bool self)
@@ -594,7 +595,8 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		float healthLeftToHeal = monster.healthToHeal - progress;
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
-		
+		millis -= (int)monster.helpTime;
+
 		Debug.Log("Calculating finish time for " + monster.userMonsterId + "\nAt hospital " + hospital.userBuildingData.userStructId
 		          + "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
 		
@@ -605,6 +607,7 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		float healthLeftToHeal = monster.maxHP - progress - monster.currHP;
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
+		millis -= (int)monster.helpTime;
 
 		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructId
 			+ "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
@@ -798,6 +801,7 @@ public class HospitalItem
 	public long queueTime;
 	public int healthToHeal;
 	public long finishTime;
+	public long helpTime;
 	public List<HospitalTime> hospitalTimes = new List<HospitalTime>();
 
 	public HospitalItem(PZMonster monster)
@@ -815,5 +819,6 @@ public class HospitalItem
 
 		userMonsterId = monster.userMonster.userMonsterId;
 		healthToHeal = monster.maxHP - monster.currHP;
+		helpTime = monster.helpTime;
 	}
 }

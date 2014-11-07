@@ -33,9 +33,24 @@ public class MSClanDetailScreen : MonoBehaviour {
 
 	FullClanProtoWithClanSize clan;
 
+	bool clanValuesRetrieved = false;
+
+	void OnDisable()
+	{
+		clanValuesRetrieved = false;
+	}
+
 	public void Init(int clanId)
 	{
-		StartCoroutine(RetrieveClanValues(clanId));
+		if(!clanValuesRetrieved)
+		{
+			StartCoroutine(RetrieveClanValues(clanId));
+		}
+		else
+		{
+			memberGrid.Reposition();
+		}
+
 	}
 
 	void SetLoadingMode()
@@ -93,6 +108,7 @@ public class MSClanDetailScreen : MonoBehaviour {
 				AddMemberEntryToGrid(item, response.monsterTeams.Find(x => x.userId == item.minUserProtoWithLevel.minUserProto.userId));
 			}
 		}
+
 		memberGrid.Reposition();
 
 		if (MSClanManager.userClanId == 0)
@@ -105,6 +121,8 @@ public class MSClanDetailScreen : MonoBehaviour {
 		}
 
 		loadingObjects.SetActive(false);
+
+		clanValuesRetrieved = true;
 	}
 
 	public void CloseAllOptions()

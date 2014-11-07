@@ -551,6 +551,9 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			case StructureInfoProto.StructType.MINI_JOB:
 				gameObj.AddComponent<MSPier>();
 				break;
+			case StructureInfoProto.StructType.CLAN:
+				gameObj.AddComponent<MSClanHouse>();
+				break;
 			default:
 				break;
 			}

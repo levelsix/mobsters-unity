@@ -44,9 +44,12 @@ public class MSClanPopup : MonoBehaviour
 
 	ClanPopupMode currMode;
 
+	const float TAB_OFFSET_2 = 90f;
+	const float TAB_OFFSET_3 = 180f;
+
 	const float LIST_SCREEN_X = 0;
-	const float DETAIL_SCREEN_X = 1840;
-	const float HELP_SCREEN_X = 920;
+	const float DETAIL_SCREEN_X = 920;
+	const float HELP_SCREEN_X = 1840;
 
 	void OnEnable()
 	{
@@ -65,7 +68,15 @@ public class MSClanPopup : MonoBehaviour
 		RefreshTabs();
 		if (MSClanManager.userClanId > 0)
 		{
-			GoToMode(ClanPopupMode.DETAILS, true);
+			if(MSClanManager.instance.canHelp)
+			{
+				GoToMode(ClanPopupMode.HELP, true);
+			}
+			else
+			{
+				GoToMode(ClanPopupMode.DETAILS, true);
+			}
+
 		}
 		else
 		{
@@ -82,15 +93,41 @@ public class MSClanPopup : MonoBehaviour
 	{
 		if (MSClanManager.userClanId > 0)
 		{
-			rightTab.Init(ClanPopupMode.DETAILS, true);
-			middleTab.Init(ClanPopupMode.HELP, false);
-			leftTab.Init(ClanPopupMode.BROWSE, false);
+			middleTab.gameObject.SetActive(true);
+
+			if(MSClanManager.instance.canHelp)
+			{
+				rightTab.Init(ClanPopupMode.DETAILS, false);
+				middleTab.Init(ClanPopupMode.HELP, true);
+				leftTab.Init(ClanPopupMode.BROWSE, false);
+			}
+			else
+			{
+				rightTab.Init(ClanPopupMode.DETAILS, true);
+				middleTab.Init(ClanPopupMode.HELP, false);
+				leftTab.Init(ClanPopupMode.BROWSE, false);
+			}
+
+			Vector3 local = new Vector3();
+			local = rightTab.transform.localPosition;
+			rightTab.transform.localPosition = new Vector3(TAB_OFFSET_3, local.y, local.z);
+			local = middleTab.transform.localPosition;
+			middleTab.transform.localPosition = new Vector3(0f, local.y, local.z);
+			local = leftTab.transform.localPosition;
+			leftTab.transform.localPosition = new Vector3(-TAB_OFFSET_3, local.y, local.z);
 		}
 		else
 		{
 			leftTab.Init(ClanPopupMode.BROWSE, true);
+			middleTab.gameObject.SetActive(false);
 			middleTab.Init(ClanPopupMode.HELP, false);
 			rightTab.Init(ClanPopupMode.CREATE, false);
+
+			Vector3 local = new Vector3();
+			local = rightTab.transform.localPosition;
+			rightTab.transform.localPosition = new Vector3(TAB_OFFSET_2, local.y, local.z);
+			local = leftTab.transform.localPosition;
+			leftTab.transform.localPosition = new Vector3(-TAB_OFFSET_2, local.y, local.z);
 		}
 	}
 

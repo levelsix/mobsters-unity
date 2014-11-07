@@ -27,10 +27,24 @@ public class MSClanListScreen : MonoBehaviour {
 
 	int beforeId = 0;
 
+	public bool clansSearched = false;
+
+	void OnDisable()
+	{
+		clansSearched = false;
+	}
+
 	public void Init()
 	{
 		beforeId = 0;
-		StartCoroutine(SearchClans());
+		if(!clansSearched)
+		{
+			StartCoroutine(SearchClans());
+		}
+		else
+		{
+			entryGrid.Reposition();
+		}
 	}
 
 	IEnumerator SearchClans()
@@ -42,6 +56,7 @@ public class MSClanListScreen : MonoBehaviour {
 		{
 			search = "";
 		}
+
 		loading.SetActive(true);
 		IEnumerator searcher = MSClanManager.instance.SearchClanListing(search, beforeId);
 		while(searcher.MoveNext())
@@ -55,9 +70,9 @@ public class MSClanListScreen : MonoBehaviour {
 		loading.SetActive(false);
 
 		Debug.Log("Clans: " + entryGrid.transform.childCount);
-
 		entryGrid.Reposition();
 
+		clansSearched = true;
 	}
 
 	void AddEntry(FullClanProtoWithClanSize clan)

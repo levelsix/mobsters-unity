@@ -216,11 +216,12 @@ public class MSMiniJobEntry : MonoBehaviour {
 	{
 		if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.MINI_JOB, (int)job.miniJob.quality, job.userMiniJobId))
 		{
+			button.GetComponent<MSLoadLock>().Lock();
 			MSClanManager.instance.DoSolicitClanHelp(ClanHelpType.MINI_JOB,
 			                                         (int)job.miniJob.quality,
 			                                         job.userMiniJobId,
 			                                         MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
-			                                         SetupWaitingButton);
+			                                         delegate {SetupWaitingButton(); button.GetComponent<MSLoadLock>().Unlock();});
 		}
 		else if (currMode == EntryMode.WAITING)
 		{

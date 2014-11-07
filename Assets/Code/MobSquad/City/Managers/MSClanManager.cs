@@ -46,6 +46,32 @@ public class MSClanManager : MonoBehaviour
 	
 	public List<ClanHelpProto> clanHelpRequests = new List<ClanHelpProto>();
 
+	public int currHelpable
+	{
+		get
+		{
+			int helpable = 0;
+			foreach(ClanHelpProto help in clanHelpRequests)
+			{
+				if(help.mup.userId != MSWhiteboard.localMup.userId && help.helperIds.Count < help.maxHelpers && !help.helperIds.Contains(MSWhiteboard.localMup.userId))
+				{
+					helpable++;
+				}
+			}
+			
+			return helpable;
+		}
+	}
+
+	public bool canHelp
+	{
+		get
+		{
+			return currHelpable > 0;
+		}
+
+	}
+
 	public static MSClanManager instance;
 
 	void Awake()

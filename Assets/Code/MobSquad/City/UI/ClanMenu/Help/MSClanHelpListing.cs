@@ -33,6 +33,21 @@ public class MSClanHelpListing : MonoBehaviour {
 		}
 	}
 
+	public bool stillHelpable
+	{
+		get
+		{
+			foreach(ClanHelpProto help in protos)
+			{
+				if(help.mup.userId != MSWhiteboard.localMup.userId && help.helperIds.Count < help.maxHelpers && !help.helperIds.Contains(MSWhiteboard.localMup.userId))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+
 	public void Init(ClanHelpProto proto)
 	{
 		Init(new List<ClanHelpProto>{proto});
@@ -110,10 +125,10 @@ public class MSClanHelpListing : MonoBehaviour {
 				helpDescription.text = "Help me finish my " + ((Quality)proto.staticDataId).ToString() + " MiniJob!";
 				break;
 			case ClanHelpType.UPGRADE_STRUCT:
-				StructureInfoProto structure = MSDataManager.instance.Get<StructureInfoProto>(proto.staticDataId);
+				MSFullBuildingProto structure = MSDataManager.instance.Get<MSFullBuildingProto>(proto.staticDataId);
 				if(structure != null)
 				{
-					helpDescription.text = "Help me finish upgrading my level " + structure.level + " " + structure.name + "!";
+					helpDescription.text = "Help me finish upgrading my level " + structure.structInfo.level + " " + structure.structInfo.name + "!";
 				}
 				else
 				{
@@ -121,7 +136,7 @@ public class MSClanHelpListing : MonoBehaviour {
 				}
 				break;
 			default:
-				helpDescription.text = "An un accounted for help type: " + proto.helpType.ToString();
+				helpDescription.text = "An un-accounted for help type: " + proto.helpType.ToString();
 				break;
 			}
 

@@ -231,10 +231,6 @@ public class MSMiniJobManager : MonoBehaviour {
 		{
 			currActiveHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.MINI_JOB, currActiveJob.userMiniJobId);
 		}
-		else
-		{
-			Debug.LogError("Player found a way to help themselves");
-		}
 	}
 
 	void DealWithEnd(EndClanHelpResponseProto help, bool self)
@@ -340,6 +336,10 @@ public class MSMiniJobManager : MonoBehaviour {
 				MSActionManager.MiniJob.OnMiniJobGemsComplete();
 			}
 		}
+		else
+		{
+			Debug.LogWarning("didn't have " + numGems + " gems to spend");
+		}
 	}
 
 	void CompleteCurrentJobWithWait()
@@ -372,12 +372,6 @@ public class MSMiniJobManager : MonoBehaviour {
 		if(MSActionManager.MiniJob.OnMiniJobComplete != null)
 		{
 			MSActionManager.MiniJob.OnMiniJobComplete();
-		}
-
-		ClanHelpProto miniJobHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.MINI_JOB,currActiveJob.miniJob.miniJobId ,currActiveJob.userMiniJobId);
-		if(miniJobHelp != null)
-		{
-			MSClanManager.instance.DoEndClanHelp(new List<long>{miniJobHelp.clanHelpId});
 		}
 
 		CompleteMiniJobRequestProto request = new CompleteMiniJobRequestProto();
@@ -420,6 +414,14 @@ public class MSMiniJobManager : MonoBehaviour {
 		if (response.status != CompleteMiniJobResponseProto.CompleteMiniJobStatus.SUCCESS)
 		{
 			MSActionManager.Popup.DisplayRedError("Problem completing job: " + response.status.ToString());
+		}
+		else
+		{
+			ClanHelpProto miniJobHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.MINI_JOB, (int)currActiveJob.miniJob.quality ,currActiveJob.userMiniJobId);
+			if(miniJobHelp != null)
+			{
+				MSClanManager.instance.DoEndClanHelp(new List<long>{miniJobHelp.clanHelpId});
+			}
 		}
 	}
 
