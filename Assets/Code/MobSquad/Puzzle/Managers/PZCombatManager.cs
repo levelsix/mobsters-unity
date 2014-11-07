@@ -540,7 +540,7 @@ public class PZCombatManager : MonoBehaviour {
 
 			enemySkillPoints = save.enemySkillPoints;
 
-			if (save.playerSkillSave.skillActive)
+			if (save.playerSkillSave.skillActive && playerOffSkill != null)
 			{
 				switch(playerOffSkill.type)
 				{
@@ -1170,7 +1170,7 @@ public class PZCombatManager : MonoBehaviour {
 					EnemySetupBombs();
 				}
 				
-				if (save.enemySkillSave.skillActive)
+				if (save.enemySkillSave.skillActive && enemyDefSkill != null)
 				{
 					switch(enemyDefSkill.type)
 					{
@@ -1743,6 +1743,7 @@ public class PZCombatManager : MonoBehaviour {
 			case SkillType.SHIELD:
 				activePlayer.shieldHealth = (int)playerOffSkill.properties.Find(x=>x.name == "SHIELD_HP").skillValue;
 				Coroutine skillAnimate = playerSkillAnimator.Animate(activePlayer.monster.monster, playerOffSkill);
+				activePlayer.shieldLabel.Set(activePlayer.shieldHealth);
 				yield return activePlayer.tweenShield.BringIn();
 				yield return skillAnimate;
 				break;
@@ -1976,6 +1977,7 @@ public class PZCombatManager : MonoBehaviour {
 		case SkillType.SHIELD:
 			activeEnemy.shieldHealth = (int)enemyDefSkill.properties.Find(x=>x.name=="SHIELD_HP").skillValue;
 			Coroutine skillAnimate = enemySkillAnimator.Animate(activeEnemy.monster.monster, enemyDefSkill);
+			activeEnemy.shieldLabel.Set(activeEnemy.shieldHealth);
 			yield return activeEnemy.tweenShield.BringIn();
 			yield return skillAnimate;
 			break;

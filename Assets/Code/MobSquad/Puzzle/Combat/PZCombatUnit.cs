@@ -85,6 +85,8 @@ public class PZCombatUnit : MonoBehaviour {
 
 	public PZTweenShield tweenShield;
 
+	public PZShieldLabel shieldLabel;
+
 	/// <summary>
 	/// The damage multiplier.
 	/// Used for skills to affect damage.
