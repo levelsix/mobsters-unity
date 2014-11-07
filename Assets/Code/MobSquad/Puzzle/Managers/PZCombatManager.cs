@@ -1072,7 +1072,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed*3.5f));
 		
-		playerSkillIndicator.Init(playerOffSkill, activePlayer.unit.monster.monsterElement);
+		playerSkillIndicator.Init(playerOffSkill, swapTo.monster.monsterElement);
 
 		yield return turnDisplay.RunInit(swapTo, activeEnemy.monster);
 
@@ -1730,6 +1730,9 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		PZPuzzleManager.instance.swapLock++;
 
+		playerSkillPoints = 0;
+		playerSkillIndicator.SetPoints(playerSkillPoints);
+
 		if (playerOffSkill != null
 		    && playerOffSkill.skillId > 0)
 		{
@@ -1753,9 +1756,6 @@ public class PZCombatManager : MonoBehaviour {
 				break;
 			}
 		}
-
-		playerSkillPoints = 0;
-		playerSkillIndicator.SetPoints(playerSkillPoints);
 		
 		PZPuzzleManager.instance.swapLock--;
 	}
