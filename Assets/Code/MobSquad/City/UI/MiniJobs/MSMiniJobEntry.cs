@@ -225,15 +225,14 @@ public class MSMiniJobEntry : MonoBehaviour {
 		}
 		else if (currMode == EntryMode.WAITING)
 		{
-			StartCoroutine(RushComplete());
+			RushComplete();
 		}
 	}
 
-	IEnumerator RushComplete()
+	void RushComplete()
 	{
 		button.GetComponent<MSLoadLock>().Lock();
-		yield return StartCoroutine(MSMiniJobManager.instance.CompleteCurrentJobWithGems());
-		button.GetComponent<MSLoadLock>().Unlock();
+		MSMiniJobManager.instance.DoCompleteCurrentJobWithGems(button.GetComponent<MSLoadLock>().Unlock);
 	}
 
 	void OnJobStarted(UserMiniJobProto job)

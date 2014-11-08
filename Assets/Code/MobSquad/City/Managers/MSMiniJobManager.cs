@@ -325,7 +325,12 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	#region Completing Job
 
-	public IEnumerator CompleteCurrentJobWithGems()
+	public void DoCompleteCurrentJobWithGems(Action OnComplete = null)
+	{
+		StartCoroutine(CompleteCurrentJobWithGems(OnComplete));
+	}
+
+	public IEnumerator CompleteCurrentJobWithGems(Action OnComplete = null)
 	{
 		int numGems = MSMath.GemsForTime(timeLeft, false);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, numGems))
@@ -336,9 +341,10 @@ public class MSMiniJobManager : MonoBehaviour {
 				MSActionManager.MiniJob.OnMiniJobGemsComplete();
 			}
 		}
-		else
+
+		if(OnComplete != null)
 		{
-			Debug.LogWarning("didn't have " + numGems + " gems to spend");
+			OnComplete();
 		}
 	}
 

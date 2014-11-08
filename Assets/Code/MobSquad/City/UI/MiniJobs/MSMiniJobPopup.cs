@@ -557,17 +557,19 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 	/// </summary>
 	public void ClickJobNotDoneButton()
 	{
-		StartCoroutine(Finish());
+		Finish();
 	}
 
-	IEnumerator Finish()
+	void Finish()
 	{
 		if (MSMiniJobManager.instance.currActiveJob.timeCompleted == 0)
 		{
 			buttonSprite.GetComponent<MSLoadLock>().Lock();
-			yield return StartCoroutine(MSMiniJobManager.instance.CompleteCurrentJobWithGems());
-			buttonSprite.GetComponent<MSLoadLock>().Unlock();
-			mover.PlayReverse();
+			MSMiniJobManager.instance.DoCompleteCurrentJobWithGems(delegate {
+				buttonSprite.GetComponent<MSLoadLock>().Unlock();
+				mover.PlayReverse();
+			});
+
 		}
 	}
 
