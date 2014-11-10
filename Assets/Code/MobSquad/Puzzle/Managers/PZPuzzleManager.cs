@@ -480,7 +480,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	{
 		if (!movingGems.Contains(gem))
 		{
-			Debug.LogWarning("Gem Moving Lock");
+			//Debug.LogWarning("Gem Moving Lock");
 
 			swapLock += 1;
 			movingGems.Add(gem);
@@ -490,7 +490,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	public void OnStopMoving(PZGem gem)
 	{
 		movingGems.Remove(gem);
-		Debug.LogWarning("Gem Stopped Unlock");
+		//Debug.LogWarning("Gem Stopped Unlock");
 		swapLock -= 1;
 
 		StartCoroutine(CheckIfTurnFinished());
@@ -1587,7 +1587,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	public IEnumerator Suffle()
 	{
 		swapLock++;
-		Debug.LogWarning("Shuffle Lock");
+		//Debug.LogWarning("Shuffle Lock");
 
 		List<PZGem> gems = new List<PZGem>(); //This is our list of target positions. As we pick one, it gets removed from the list.
 

@@ -854,7 +854,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	IEnumerator EatCake()
 	{
 		PZPuzzleManager.instance.swapLock++;
-		Debug.LogWarning("Cake lock");
+		//Debug.LogWarning("Cake lock");
 		isCaking = true;
 		yield return moveTowards.RunMoveTowards(transform.parent.InverseTransformPoint(PZCombatManager.instance.activeEnemy.transform.position), Vector3.left);
 		//Enemy Eat Animation
@@ -868,7 +868,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			yield return null;
 		}
 		PZPuzzleManager.instance.swapLock--;
-		Debug.LogWarning("Cake unlock");
+		//Debug.LogWarning("Cake unlock");
 		isCaking = false;
 	}
 

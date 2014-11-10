@@ -481,7 +481,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
-		Debug.LogWarning("Start lock");
+		//Debug.LogWarning("Start lock");
 	}
 
 	public Coroutine RunInitLoadedTask(MinimumUserTaskProto minTask, List<TaskStageProto> stages)
@@ -640,7 +640,7 @@ public class PZCombatManager : MonoBehaviour {
 		StartCoroutine(SpawnPvps(cash, gems));
 
 		PZPuzzleManager.instance.swapLock += 1;
-		Debug.LogWarning("Start Lock");
+		//Debug.LogWarning("Start Lock");
 	}
 
 	public void InitRaid()
@@ -690,7 +690,7 @@ public class PZCombatManager : MonoBehaviour {
 		
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
-		Debug.LogWarning("Start Lock");
+		//Debug.LogWarning("Start Lock");
 	}
 
 	public void InitTutorial(MonsterProto boss, MonsterProto enemyOne, MonsterProto enemyTwo)
@@ -947,7 +947,7 @@ public class PZCombatManager : MonoBehaviour {
 	void OnPlayerDeath()
 	{
 		Debug.Log("Lock: Player death");
-		PZPuzzleManager.instance.swapLock += 1;
+		//PZPuzzleManager.instance.swapLock += 1;
 
 		TintBoard();
 
@@ -972,7 +972,7 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator OnPlayerForfeit(){
 		bool forfeitSuccess = UnityEngine.Random.value <= forfeitChance;
 		PZPuzzleManager.instance.swapLock++;
-		Debug.LogWarning("Forfeit Lock");
+		//Debug.LogWarning("Forfeit Lock");
 		Vector3 center = new Vector3((activeEnemy.transform.position.x + activePlayer.transform.position.x) / 2f,
 		                             (activeEnemy.transform.position.y + activePlayer.transform.position.y) / 2f,
 		                             activePlayer.transform.position.z);
@@ -990,7 +990,7 @@ public class PZCombatManager : MonoBehaviour {
 			yield return RunPickNextTurn(true);
 		}
 		PZPuzzleManager.instance.swapLock--;
-		Debug.LogWarning("Forfeit unlock");
+		//Debug.LogWarning("Forfeit unlock");
 	}
 
 	public void ActivateLoseMenu(bool blackOut = false)
@@ -1060,7 +1060,7 @@ public class PZCombatManager : MonoBehaviour {
 	/// <returns>The characters.</returns>
 	IEnumerator SwapCharacters(PZMonster swapTo)
 	{
-		PZPuzzleManager.instance.swapLock += 1;
+		//PZPuzzleManager.instance.swapLock += 1;
 		Debug.LogWarning("Swap Lock");
 
 		yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed*3.5f));
@@ -1111,7 +1111,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		TintBoard();
 
-		PZPuzzleManager.instance.swapLock += 1;
+		//PZPuzzleManager.instance.swapLock += 1;
 		Debug.LogWarning("Scoll to next enemy Lock");
 
 		while(!activePlayer.unit.hasSprite)
@@ -1297,7 +1297,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 		PZPuzzleManager.instance.swapLock = activeEnemy.alive ? 0 : 1;
-		Debug.LogWarning("Lock/Unlock: Enemy Alive after scroll");
+		//Debug.LogWarning("Lock/Unlock: Enemy Alive after scroll");
 	}
 
 	public Coroutine RunPickNextTurn(bool shiftTurnDisplay)
@@ -1363,7 +1363,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 		PZPuzzleManager.instance.swapLock = 0;
-		Debug.LogWarning("Start Player Turn Unlock");
+		//Debug.LogWarning("Start Player Turn Unlock");
 	}
 
 	IEnumerator DelayedWinLosePopup(float seconds){
@@ -1764,7 +1764,7 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator PlayerSkill()
 	{
 		PZPuzzleManager.instance.swapLock++;
-		Debug.LogWarning("Player Skill Lock");
+		//Debug.LogWarning("Player Skill Lock");
 
 		playerSkillPoints = 0;
 		playerSkillIndicator.SetPoints(playerSkillPoints);
@@ -1794,13 +1794,13 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		
 		PZPuzzleManager.instance.swapLock--;
-		Debug.LogWarning("Player Skill Unlock");
+		//Debug.LogWarning("Player Skill Unlock");
 	}
 
 	IEnumerator PlayerQuickAttack(int damage)
 	{
 		PZPuzzleManager.instance.swapLock++;
-		Debug.LogWarning("Quick Attack Lock");
+		//Debug.LogWarning("Quick Attack Lock");
 
 		MSAnimationEvents.curDamage = damage;
 		MSAnimationEvents.curElement = Element.NO_ELEMENT;
@@ -1812,7 +1812,7 @@ public class PZCombatManager : MonoBehaviour {
 			yield return null;
 		}
 		PZPuzzleManager.instance.swapLock--;
-		Debug.LogWarning("Quick Attack Unlock");
+		//Debug.LogWarning("Quick Attack Unlock");
 	}
 
 	IEnumerator EnemyQuickAttack(int damage)
@@ -1992,7 +1992,7 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator EnemyDoSkill()
 	{
 		PZPuzzleManager.instance.swapLock++;
-		Debug.LogWarning("Enemy Skill Lock");
+		//Debug.LogWarning("Enemy Skill Lock");
 		
 		yield return activeEnemy.unit.DoJump(50, .35f);
 		yield return activeEnemy.unit.DoJump(50, .35f);
@@ -2040,7 +2040,7 @@ public class PZCombatManager : MonoBehaviour {
 		enemySkillIndicator.SetPoints(0);
 
 		PZPuzzleManager.instance.swapLock--;
-		Debug.LogWarning("Enemy Skill Unlock");
+		//Debug.LogWarning("Enemy Skill Unlock");
 	}
 
 	IEnumerator EnemySkillAfterPlayerTurn()
@@ -2373,7 +2373,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 		PZPuzzleManager.instance.swapLock += 1;
-		Debug.LogWarning("Player attack lock");
+		//Debug.LogWarning("Player attack lock");
 
 		float score = damage/activePlayer.monster.totalDamage;
 

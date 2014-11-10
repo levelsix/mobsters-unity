@@ -399,7 +399,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 		//Debug.Log("Lock");
 		PZPuzzleManager.instance.swapLock += 1;
-		Debug.LogWarning("Death lock");
+		//Debug.LogWarning("Death lock");
 		
 		alive = false;
 
@@ -419,7 +419,7 @@ public class PZCombatUnit : MonoBehaviour {
 		yield return new WaitForSeconds(1);
 
 		PZPuzzleManager.instance.swapLock -= 1;
-		Debug.LogWarning("Death unlock");
+		//Debug.LogWarning("Death unlock");
 
 		if (callOnDeath)
 		{
