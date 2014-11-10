@@ -314,7 +314,7 @@ public class PZCombatUnit : MonoBehaviour {
 		yield return StartCoroutine(TakeDamage(fullDamage));
 	}
 
-	public IEnumerator TakeDamage(int damage, bool canBeShielded = true)
+	public IEnumerator TakeDamage(int damage, bool canBeShielded = true, bool canDie = true)
 	{
 		if (canBeShielded && shieldHealth > 0)
 		{
@@ -340,12 +340,15 @@ public class PZCombatUnit : MonoBehaviour {
 
 		monster.currHP = Mathf.Max(monster.currHP - damage, 0);
 		alive = monster.currHP > 0;
-		
-		yield return StartCoroutine(LerpHealth(Math.Min(monster.currHP + damage, startHP), Mathf.Max(monster.currHP, 0), monster.maxHP));
 
-		if (monster.currHP <= 0)
+		if (canDie)
 		{
-			yield return StartCoroutine(Die());
+			yield return StartCoroutine(LerpHealth(Math.Min(monster.currHP + damage, startHP), Mathf.Max(monster.currHP, 0), monster.maxHP));
+
+			if (monster.currHP <= 0)
+			{
+				yield return StartCoroutine(Die());
+			}
 		}
 	}
 

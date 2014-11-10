@@ -18,7 +18,7 @@ public class PZCombatScheduler : MonoBehaviour
 	/// <summary>
 	/// Keep these pointers around for cake farts
 	/// </summary>
-	PZMonster player, enemy;
+	public PZMonster player, enemy;
 
 	/// <summary>
 	/// I'm being very trusting by making this public.

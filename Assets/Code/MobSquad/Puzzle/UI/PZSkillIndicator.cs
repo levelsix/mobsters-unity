@@ -80,6 +80,7 @@ public class PZSkillIndicator : MonoBehaviour {
 
 	public void SetPoints(int currPoints)
 	{
+		currPoints = Mathf.Clamp(currPoints, 0, maxPoints);
 		ready = false;
 		if (maxPoints == 0)
 		{
@@ -88,6 +89,7 @@ public class PZSkillIndicator : MonoBehaviour {
 		}
 		else
 		{
+
 			currFill = Mathf.Clamp01(((float)currPoints)/maxPoints);
 			counterLabel.text = "(" + monsterElement.ToString()[0] + ") " + currPoints + "/" + maxPoints;
 			if (currFill >= 1) ready = true;

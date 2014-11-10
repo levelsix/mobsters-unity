@@ -706,6 +706,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator WaitForFlinch()
 	{
+		PZCombatManager.instance.hijackPlayerFlinch = HijackFlinch;
 		hijackFlinch = true;
 		while (hijackFlinch)
 		{

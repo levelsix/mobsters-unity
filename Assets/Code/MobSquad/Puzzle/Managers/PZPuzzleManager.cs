@@ -510,14 +510,11 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 			if (hasCakes)
 			{
-				foreach (var item in cakes) 
+				while (cakes.Find(x=>x.isCaking) != null)
 				{
-					while (item.isCaking)
-					{
-						yield return null;
-					}
+					yield return null;
 				}
-				PZCombatScheduler.instance.CakeReset(PZCombatManager.instance.activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "SPEED_MULTIPLIER").skillValue);
+				PZCombatScheduler.instance.CakeReset(PZCombatManager.instance.enemyDefSkill.properties.Find(x=>x.name == "SPEED_MULTIPLIER").skillValue);
 			}
 
 			CheckWholeBoard ();

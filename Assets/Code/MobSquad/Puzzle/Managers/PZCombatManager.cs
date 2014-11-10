@@ -275,7 +275,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	bool combatActive = false;
 
-	SkillProto enemyDefSkill
+	public SkillProto enemyDefSkill
 	{
 		get
 		{
@@ -287,7 +287,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 	}
 
-	SkillProto playerOffSkill
+	public SkillProto playerOffSkill
 	{
 		get
 		{
@@ -305,6 +305,8 @@ public class PZCombatManager : MonoBehaviour {
 	int poisonDamage = 0;
 
 	[SerializeField] Color roidColor;
+
+	public Action hijackPlayerFlinch;
 
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
@@ -1076,7 +1078,14 @@ public class PZCombatManager : MonoBehaviour {
 
 		yield return turnDisplay.RunInit(swapTo, activeEnemy.monster);
 
-		RunPickNextTurn(false);
+		if (activeEnemy.alive)
+		{
+			RunPickNextTurn(false);
+		}
+		else
+		{
+			RunScrollToNextEnemy();
+		}
 	}
 
 	public Coroutine RunScrollToNextEnemy(bool fromLoad = false)
@@ -1157,6 +1166,11 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.GoToStartPos ();
 			activeEnemy.Init (enemies.Dequeue ());
 
+			if (enemyDefSkill.type == SkillType.CAKE_DROP)
+			{
+				activeEnemy.monster.speed = enemyDefSkill.properties.Find(x=>x.name=="INITIAL_SPEED").skillValue;
+			}
+
 			while (!activeEnemy.unit.hasSprite)
 			{
 				background.Scroll();
@@ -1165,9 +1179,21 @@ public class PZCombatManager : MonoBehaviour {
 
 			if (fromLoad)
 			{
-				if (enemyDefSkill != null && enemyDefSkill.type == SkillType.BOMBS)
+				PZCombatScheduler.instance.player = activePlayer.monster;
+				PZCombatScheduler.instance.enemy = activeEnemy.monster;
+
+				if (enemyDefSkill != null)
 				{
-					EnemySetupBombs();
+					switch (enemyDefSkill.type)
+					{
+					case SkillType.BOMBS:
+						EnemySetupBombs();
+						break;
+					case SkillType.CAKE_DROP:
+						PZPuzzleManager.instance.SetupForCakes(enemyDefSkill);
+						activeEnemy.monster.speed = save.enemySpeed;
+						break;
+					}
 				}
 				
 				if (save.enemySkillSave.skillActive && enemyDefSkill != null)
@@ -2194,7 +2220,11 @@ public class PZCombatManager : MonoBehaviour {
 
 	public IEnumerator PlayerFlinch()
 	{
-		if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		if (enemyDefSkill != null && enemyDefSkill.type == SkillType.CAKE_DROP)
+		{
+			//Cake eating sound?
+		}
+		else if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
 			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.meleeHit);
 		}
@@ -2203,9 +2233,10 @@ public class PZCombatManager : MonoBehaviour {
 			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
 		}
 
-		if (MSTutorialManager.instance.hijackFlinch)
+		if (hijackPlayerFlinch != null)
 		{
-			MSTutorialManager.instance.HijackFlinch();
+			hijackPlayerFlinch();
+			hijackPlayerFlinch = null;
 			yield break;
 		}
 
@@ -2403,9 +2434,11 @@ public class PZCombatManager : MonoBehaviour {
 		
 		if (enemyCakeKid)
 		{
+			activePlayer.SendDamageUpdateToServer(99999);
+			StartCoroutine(activePlayer.TakeDamage(99999, false, false));
+			StartCoroutine (activeEnemy.TakeDamage(99999, false, false));
 			StartCoroutine(activeEnemy.Die(false));
 			StartCoroutine(activePlayer.Die(true));
-			activePlayer.SendDamageUpdateToServer(99999);
 		}
 		else
 		{

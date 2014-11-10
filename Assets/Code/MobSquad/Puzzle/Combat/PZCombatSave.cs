@@ -29,6 +29,8 @@ public class PZCombatSave
 	public SkillSaveData playerSkillSave = new SkillSaveData();
 	public SkillSaveData enemySkillSave = new SkillSaveData();
 
+	public float enemySpeed; //In case it's been modified by Cake
+
 	public int playerSkillPoints;
 	public int enemySkillPoints;
 	
@@ -97,6 +99,8 @@ public class PZCombatSave
 
 		playerSkillSave = new SkillSaveData(player);
 		enemySkillSave = new SkillSaveData(enemy);
+
+		enemySpeed = enemy.monster.speed;
 
 		this.userTaskId = MSWhiteboard.currUserTaskId;
 
