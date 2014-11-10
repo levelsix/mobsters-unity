@@ -303,6 +303,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_COLLECT_MONSTER_ENHANCEMENT_EVENT", Value=84)]
       C_COLLECT_MONSTER_ENHANCEMENT_EVENT = 84,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_TRADE_ITEM_FOR_SPEED_UPS_EVENT", Value=85)]
+      C_TRADE_ITEM_FOR_SPEED_UPS_EVENT = 85,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
             
@@ -562,6 +565,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_COLLECT_MONSTER_ENHANCEMENT_EVENT", Value=84)]
       S_COLLECT_MONSTER_ENHANCEMENT_EVENT = 84,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_TRADE_ITEM_FOR_SPEED_UPS_EVENT", Value=85)]
+      S_TRADE_ITEM_FOR_SPEED_UPS_EVENT = 85,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

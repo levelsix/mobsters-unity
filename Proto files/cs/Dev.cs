@@ -30,7 +30,10 @@ namespace com.lvl6.proto
       F_B_GET_GEMS = 5,
             
       [global::ProtoBuf.ProtoEnum(Name=@"F_B_GET_CASH_OIL_GEMS", Value=6)]
-      F_B_GET_CASH_OIL_GEMS = 6
+      F_B_GET_CASH_OIL_GEMS = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"GET_ITEM", Value=7)]
+      GET_ITEM = 7
     }
   
 }

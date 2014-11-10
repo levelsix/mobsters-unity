@@ -478,9 +478,10 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	public void OnStartMoving(PZGem gem)
 	{
-		//Debug.Log("Lock");
 		if (!movingGems.Contains(gem))
 		{
+			Debug.LogWarning("Gem Moving Lock");
+
 			swapLock += 1;
 			movingGems.Add(gem);
 		}
@@ -489,7 +490,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	public void OnStopMoving(PZGem gem)
 	{
 		movingGems.Remove(gem);
-		//Debug.Log("Unlock");
+		Debug.LogWarning("Gem Stopped Unlock");
 		swapLock -= 1;
 
 		StartCoroutine(CheckIfTurnFinished());
@@ -1033,7 +1034,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			for (int i = 0; i < boardWidth; i++) 
 			{
 				PZGem target = board[i, gem.boardY];
-				if (target == null)
+				if (target == null || target.gemType == PZGem.GemType.CAKE)
 				{
 					continue;
 				}
@@ -1586,6 +1587,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	public IEnumerator Suffle()
 	{
 		swapLock++;
+		Debug.LogWarning("Shuffle Lock");
 
 		List<PZGem> gems = new List<PZGem>(); //This is our list of target positions. As we pick one, it gets removed from the list.
 
@@ -1672,6 +1674,11 @@ public class PZPuzzleManager : MonoBehaviour {
 
 	public bool ClearJelly(int x, int y, int gemId)
 	{
+		if (x < 0 || y < 0 || x >= boardWidth || y >= boardHeight)
+		{
+			Debug.LogError("Trying to clear jelly on: " + x + ", " + y + " not possible");
+			return false;
+		}
 		if (jellyBoard[x,y] != null)
 		{
 			jellyBoard[x,y].Damage();

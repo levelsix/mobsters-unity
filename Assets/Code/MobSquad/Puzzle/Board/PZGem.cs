@@ -360,7 +360,11 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	/// <param name="detonate">If set to <c>true</c> detonate will also be called, which sets off special gem powers.</param>
 	public void Destroy(bool detonate = true)
 	{
-		if (gemType != GemType.CAKE && !lockedBySpecial) //Specials need to disable this lock before destroying the gem
+		if (gemType == GemType.CAKE)
+		{
+			CheckFall();
+		}
+		else if (!lockedBySpecial) //Specials need to disable this lock before destroying the gem
 		{
 			if (colorIndex >= 0)
 			{
@@ -643,12 +647,6 @@ public class PZGem : MonoBehaviour, MSPoolable {
 		}
 		if (!PZPuzzleManager.instance.lastSwapSuccessful)
 		{
-			//Debug.Log("Lock");
-			PZPuzzleManager.instance.swapLock += 1;
-//			yield return new WaitForSeconds(0.2f);
-			
-			//Debug.Log("Unlock");
-			PZPuzzleManager.instance.swapLock -= 1;
 			swapee.StartCoroutine(swapee.Swap(dir));
 			StartCoroutine(Swap(MSValues.opp[dir]));
 
@@ -856,6 +854,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	IEnumerator EatCake()
 	{
 		PZPuzzleManager.instance.swapLock++;
+		Debug.LogWarning("Cake lock");
 		isCaking = true;
 		yield return moveTowards.RunMoveTowards(transform.parent.InverseTransformPoint(PZCombatManager.instance.activeEnemy.transform.position), Vector3.left);
 		//Enemy Eat Animation
@@ -869,6 +868,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			yield return null;
 		}
 		PZPuzzleManager.instance.swapLock--;
+		Debug.LogWarning("Cake unlock");
 		isCaking = false;
 	}
 
