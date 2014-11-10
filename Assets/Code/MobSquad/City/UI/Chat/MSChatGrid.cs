@@ -17,6 +17,9 @@ public class MSChatGrid : MonoBehaviour {
 	MSChatBubble leftBubblePrefab;
 
 	[SerializeField]
+	MSChatBubble MSHelpBubble;
+
+	[SerializeField]
 	MSResetsPosition posResetter;
 
 	[SerializeField]
@@ -41,6 +44,19 @@ public class MSChatGrid : MonoBehaviour {
 			item.Pool ();
 		}
 		bubbles.Clear ();
+	}
+
+	MSChatBubble CreateHelpBubble(ClanHelpProto helpProto)
+	{
+		MSChatBubble bub = MSPoolManager.instance.Get<MSChatBubble>(MSHelpBubble, transform);
+		bub.transform.localPosition = Vector3.zero;
+		bub.transform.localScale = Vector3.one;
+
+		bub.name = (long.MaxValue - helpProto.timeRequested).ToString();
+		bubbles.Add(bub);
+		bubbles.Sort((a,b) => a.timeSent.CompareTo(b.timeSent));
+
+		return bub;
 	}
 
 	MSChatBubble CreateBubble(int senderId, long timeSent)
