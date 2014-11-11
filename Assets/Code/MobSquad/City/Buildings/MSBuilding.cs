@@ -331,7 +331,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	void EndClanHelpUpgrade()
 	{
-		ClanHelpProto buildingHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.UPGRADE_STRUCT, userStructProto.userStructId);
+		ClanHelpProto buildingHelp = MSClanManager.instance.GetClanHelp(GameActionType.UPGRADE_STRUCT, userStructProto.userStructId);
 		if(buildingHelp != null)
 		{
 			MSClanManager.instance.DoEndClanHelp(new List<long>{buildingHelp.clanHelpId});

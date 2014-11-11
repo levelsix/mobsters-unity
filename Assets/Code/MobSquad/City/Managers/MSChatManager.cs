@@ -78,6 +78,7 @@ public class MSChatManager : MonoBehaviour {
 			break;
 		case MSValues.ChatMode.CLAN:
 			chatGrid.SpawnBubbles(clanChat);
+			MSClanHelpManager.instance.ReinitChat();
 			break;
 		case MSValues.ChatMode.PRIVATE:
 			chatPopup.SetupPrivateChatListing(privateChats);

@@ -174,7 +174,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	{
 		if(mode == Mode.FINISH &&
 		   currBuilding.upgrade.gemsToFinish > 0 &&
-		   !MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.UPGRADE_STRUCT, currBuilding.userStructProto.userStructId))
+		   !MSClanManager.instance.HelpAlreadyRequested(GameActionType.UPGRADE_STRUCT, currBuilding.userStructProto.userStructId))
 		{
 			mode = Mode.HELP;
 		}
@@ -308,7 +308,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 	void ClickHelp()
 	{
-		MSClanManager.instance.DoSolicitClanHelp(ClanHelpType.UPGRADE_STRUCT,
+		MSClanManager.instance.DoSolicitClanHelp(GameActionType.UPGRADE_STRUCT,
 		                                         currBuilding.combinedProto.structInfo.structId,
 		                                         currBuilding.userStructProto.userStructId,
 		                                         MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,

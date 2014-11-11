@@ -114,7 +114,7 @@ public class MSHealScreen : MSFunctionalScreen
 		}
 		RefreshSlots();
 
-		ClanHelpProto clanHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId);
+		ClanHelpProto clanHelp = MSClanManager.instance.GetClanHelp(GameActionType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId);
 		if(clanHelp != null)
 		{
 			MSClanManager.instance.DoEndClanHelp(new List<long>{ clanHelp.clanHelpId });
@@ -182,7 +182,7 @@ public class MSHealScreen : MSFunctionalScreen
 	{
 		foreach(MSGoonCard card in currHeals)
 		{
-			if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId))
+			if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId))
 			{
 				canCallForHelp = true;
 				return;
@@ -202,10 +202,10 @@ public class MSHealScreen : MSFunctionalScreen
 
 			foreach(MSGoonCard card in currHeals)
 			{
-				if(!MSClanManager.instance.HelpAlreadyRequested(ClanHelpType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId))
+				if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterId))
 				{
 					ClanHelpNoticeProto notice = new ClanHelpNoticeProto();
-					notice.helpType = ClanHelpType.HEAL;
+					notice.helpType = GameActionType.HEAL;
 					notice.staticDataId = card.monster.userMonster.monsterId;
 					notice.userDataId = card.monster.userMonster.userMonsterId;
 					notices.Add(notice);

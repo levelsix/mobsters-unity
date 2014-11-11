@@ -33,7 +33,7 @@ public class MSClanHelpScreen : MonoBehaviour {
 
 	public void Init()
 	{
-		MSClanHelpManager.instance.InitHelpScreen();
+		MSClanHelpManager.instance.InitHelp();
 	}
 
 //	public void Init()

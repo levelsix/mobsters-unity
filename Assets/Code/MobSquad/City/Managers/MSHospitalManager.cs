@@ -59,7 +59,7 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			foreach(ClanHelpProto help in response.clanHelps)
 			{
-				if(help.helpType == ClanHelpType.HEAL)
+				if(help.helpType == GameActionType.HEAL)
 				{
 					foreach(PZMonster monster in healingMonsters)
 					{

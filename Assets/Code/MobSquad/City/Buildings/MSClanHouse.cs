@@ -23,17 +23,17 @@ public class MSClanHouse : MSBuildingFrame {
 
 	void DealWithGiveHelp(GiveClanHelpResponseProto response, bool self)
 	{
-		CheckTag();
+		FirstFrameCheck();
 	}
 
 	void DealWithSolicitHelp(SolicitClanHelpResponseProto response, bool self)
 	{
-		CheckTag();
+		FirstFrameCheck();
 	}
 
 	void DealwithEndHelp(EndClanHelpResponseProto response, bool self)
 	{
-		CheckTag();
+		FirstFrameCheck();
 	}
 
 	public override void CheckTag(){

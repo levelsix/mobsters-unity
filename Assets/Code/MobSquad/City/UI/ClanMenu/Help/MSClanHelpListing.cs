@@ -48,6 +48,11 @@ public class MSClanHelpListing : MonoBehaviour {
 		}
 	}
 
+	public string ToString()
+	{
+		return playerName.text + "," + " : " + helpDescription.text + " : " + protos.Count.ToString() + ".  " + helpFraction.text;
+	}
+
 	public void Init(ClanHelpProto proto)
 	{
 		Init(new List<ClanHelpProto>{proto});
@@ -63,6 +68,7 @@ public class MSClanHelpListing : MonoBehaviour {
 
 		helpButton.onClick.Clear();
 		EventDelegate.Add(helpButton.onClick, delegate {OnClick();});
+		helpButton.defaultColor = Color.white;
 	}
 
 	void UpdateFields()
@@ -77,15 +83,11 @@ public class MSClanHelpListing : MonoBehaviour {
 			alreadyHelped = helpProto.helperIds.Contains(MSWhiteboard.localUser.userId) && alreadyHelped;
 
 			proto = helpProto;
-			Debug.Log("updating fields : " + proto.helpType.ToString() + " user: " + proto.mup.userId + ", entry contains " + protos.Count + "protos");
-			Debug.Log("already helps by : " + helpProto.helperIds.ToString());
 			break;
 		}
 
 		if(proto != null)
 		{
-			Debug.Log("FINAL updating fields : " + proto.helpType.ToString() + " user: " + proto.mup.userId + ", entry contains " + protos.Count + "protos");
-
 			int maxHelpers = proto.maxHelpers;
 			
 			helpFraction.text = numHelpers.ToString() + "/" + maxHelpers.ToString();
@@ -106,11 +108,14 @@ public class MSClanHelpListing : MonoBehaviour {
 			}
 			
 			avatar.Init(proto.mup.avatarMonsterId);
-			playerName.text = proto.mup.name;
+			if(proto.mup.name != "")
+			{
+				playerName.text = proto.mup.name;
+			}
 			
 			switch(proto.helpType)
 			{
-			case ClanHelpType.HEAL:
+			case GameActionType.HEAL:
 				if(protos.Count > 1)
 				{
 					helpDescription.text = "Help me heal my " + protos.Count + " Mobsters!";
@@ -121,14 +126,14 @@ public class MSClanHelpListing : MonoBehaviour {
 					helpDescription.text = "Help me heal " + monster.displayName + "!";
 				}
 				break;
-			case ClanHelpType.MINI_JOB:
+			case GameActionType.MINI_JOB:
 				helpDescription.text = "Help me finish my " + ((Quality)proto.staticDataId).ToString() + " MiniJob!";
 				break;
-			case ClanHelpType.UPGRADE_STRUCT:
+			case GameActionType.UPGRADE_STRUCT:
 				MSFullBuildingProto structure = MSDataManager.instance.Get<MSFullBuildingProto>(proto.staticDataId);
 				if(structure != null)
 				{
-					helpDescription.text = "Help me finish upgrading my level " + structure.structInfo.level + " " + structure.structInfo.name + "!";
+					helpDescription.text = "Help me build a level " + structure.structInfo.level + " " + structure.structInfo.name + "!";
 				}
 				else
 				{
@@ -160,13 +165,13 @@ public class MSClanHelpListing : MonoBehaviour {
 
 	public bool AddHealingProto(ClanHelpProto proto)
 	{
-		if(proto.helpType != ClanHelpType.HEAL)
+		if(proto.helpType != GameActionType.HEAL)
 		{
 			Debug.LogError("Don't add non Healing ClanHelpProtos to Healing Listings");
 			return false;
 		}
 
-		if(protos.Count > 0 && protos[0].helpType == ClanHelpType.HEAL)
+		if(protos.Count > 0 && protos[0].helpType == GameActionType.HEAL)
 		{
 			protos.Add(proto);
 			UpdateFields();

@@ -530,7 +530,7 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 
-	public void DoSolicitClanHelp(ClanHelpType type, int staticId, long userId, int maxHelpers, Action OnComplete = null)
+	public void DoSolicitClanHelp(GameActionType type, int staticId, long userId, int maxHelpers, Action OnComplete = null)
 	{
 		ClanHelpNoticeProto notice = new ClanHelpNoticeProto();
 		notice.helpType = type;
@@ -678,17 +678,17 @@ public class MSClanManager : MonoBehaviour
 	/// <param name="type">Type.</param>
 	/// <param name="staticId">Static identifier for requested object.</param>
 	/// <param name="userId">User id for requested object.</param>
-	public bool HelpAlreadyRequested(ClanHelpType type, int staticId, long userId)
+	public bool HelpAlreadyRequested(GameActionType type, int staticId, long userId)
 	{
 		return GetClanHelp(type, staticId, userId) != null;
 	}
 
-	public bool HelpAlreadyRequested(ClanHelpType type, long userId)
+	public bool HelpAlreadyRequested(GameActionType type, long userId)
 	{
 		return GetClanHelp(type, userId) != null;
 	}
 
-	public ClanHelpProto GetClanHelp(ClanHelpType type, int staticId, long userId)
+	public ClanHelpProto GetClanHelp(GameActionType type, int staticId, long userId)
 	{
 		foreach(ClanHelpProto proto in clanHelpRequests)
 		{
@@ -704,7 +704,7 @@ public class MSClanManager : MonoBehaviour
 		return null;
 	}
 
-	public ClanHelpProto GetClanHelp(ClanHelpType type, long userId)
+	public ClanHelpProto GetClanHelp(GameActionType type, long userId)
 	{
 		foreach(ClanHelpProto proto in clanHelpRequests)
 		{

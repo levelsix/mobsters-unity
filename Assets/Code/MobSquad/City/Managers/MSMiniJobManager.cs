@@ -34,9 +34,9 @@ public class MSMiniJobManager : MonoBehaviour {
 		{
 			if(currActiveJob != null)
 			{
-				if(currActiveHelp == null || currActiveHelp.helpType != ClanHelpType.MINI_JOB || currActiveHelp.userDataId != currActiveJob.userMiniJobId)
+				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.MINI_JOB || currActiveHelp.userDataId != currActiveJob.userMiniJobId)
 				{
-					currActiveHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.MINI_JOB, currActiveJob.userMiniJobId);
+					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, currActiveJob.userMiniJobId);
 				}
 
 				if(currActiveHelp != null)
@@ -92,7 +92,7 @@ public class MSMiniJobManager : MonoBehaviour {
 		{
 			if(minijobHelpConstant == null)
 			{
-				minijobHelpConstant = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == ClanHelpType.MINI_JOB);
+				minijobHelpConstant = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == GameActionType.MINI_JOB);
 			}
 			int amountRemovedPerHelp = minijobHelpConstant.amountRemovedPerHelp;
 			float percentRemovedPerHelp = minijobHelpConstant.percentRemovedPerHelp;
@@ -229,7 +229,7 @@ public class MSMiniJobManager : MonoBehaviour {
 	{
 		if(!self)
 		{
-			currActiveHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.MINI_JOB, currActiveJob.userMiniJobId);
+			currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, currActiveJob.userMiniJobId);
 		}
 	}
 
@@ -423,7 +423,7 @@ public class MSMiniJobManager : MonoBehaviour {
 		}
 		else
 		{
-			ClanHelpProto miniJobHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.MINI_JOB, (int)currActiveJob.miniJob.quality ,currActiveJob.userMiniJobId);
+			ClanHelpProto miniJobHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, (int)currActiveJob.miniJob.quality ,currActiveJob.userMiniJobId);
 			if(miniJobHelp != null)
 			{
 				MSClanManager.instance.DoEndClanHelp(new List<long>{miniJobHelp.clanHelpId});

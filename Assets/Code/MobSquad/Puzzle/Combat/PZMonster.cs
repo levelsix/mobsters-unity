@@ -51,9 +51,9 @@ public class PZMonster {
 		{
 			if(isHealing)
 			{
-				if(currActiveHelp == null || currActiveHelp.helpType != ClanHelpType.HEAL || currActiveHelp.userDataId != userMonster.userMonsterId)
+				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.HEAL || currActiveHelp.userDataId != userMonster.userMonsterId)
 				{
-					currActiveHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.HEAL, userMonster.userMonsterId);
+					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.HEAL, userMonster.userMonsterId);
 				}
 			}
 			else if(isEnhancing || isEvoloving)
@@ -88,7 +88,7 @@ public class PZMonster {
 			{
 				if(healHelpConstants == null)
 				{
-					healHelpConstants = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == ClanHelpType.HEAL);
+					healHelpConstants = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == GameActionType.HEAL);
 				}
 				amountRemovedPerHelp = healHelpConstants.amountRemovedPerHelp;
 				percentRemovedPerHelp = healHelpConstants.percentRemovedPerHelp;

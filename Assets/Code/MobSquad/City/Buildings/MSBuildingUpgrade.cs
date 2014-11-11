@@ -72,9 +72,9 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		{
 			if(!isComplete)
 			{
-				if(currActiveHelp == null || currActiveHelp.helpType != ClanHelpType.UPGRADE_STRUCT || currActiveHelp.userDataId != building.userStructProto.userStructId)
+				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.UPGRADE_STRUCT || currActiveHelp.userDataId != building.userStructProto.userStructId)
 				{
-					currActiveHelp = MSClanManager.instance.GetClanHelp(ClanHelpType.UPGRADE_STRUCT, building.userStructProto.userStructId);
+					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.UPGRADE_STRUCT, building.userStructProto.userStructId);
 				}
 				
 				if(currActiveHelp != null)
@@ -100,7 +100,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		{
 			if(upgradeConstants == null)
 			{
-				upgradeConstants = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == ClanHelpType.UPGRADE_STRUCT);
+				upgradeConstants = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == GameActionType.UPGRADE_STRUCT);
 			}
 			int amountRemovedPerHelp = upgradeConstants.amountRemovedPerHelp;
 			float percentRemovedPerHelp = upgradeConstants.percentRemovedPerHelp;
