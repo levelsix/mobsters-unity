@@ -42,10 +42,10 @@ MonoBehaviour:
   mMat: {fileID: 2100000, guid: bb049513545f0432f9302ec4ca36dc58, type: 2}
   mUVRect:
     serializedVersion: 2
-    x: 0
-    y: .532226562
+    x: .249511719
+    y: .141113281
     width: .25
-    height: .25
+    height: .125
   mFont:
     mSize: 60
     mBase: 0
@@ -1005,7 +1005,17 @@ MonoBehaviour:
       kerning: 
   mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
   mReplacement: {fileID: 0}
-  mSymbols: []
+  mSymbols:
+  - sequence: (L)
+    spriteName: lightorb
+  - sequence: (E)
+    spriteName: earthorb
+  - sequence: (W)
+    spriteName: waterorb
+  - sequence: (F)
+    spriteName: fireorb
+  - sequence: (D)
+    spriteName: nightorb
   mDynamicFont: {fileID: 0}
   mDynamicFontSize: 16
   mDynamicFontStyle: 0

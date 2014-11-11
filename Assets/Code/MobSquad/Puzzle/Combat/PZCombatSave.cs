@@ -26,6 +26,11 @@ public class PZCombatSave
 	public List<CombatTurn> turns;
 	public int currTurnIndex;
 
+	public SkillSaveData playerSkillSave = new SkillSaveData();
+	public SkillSaveData enemySkillSave = new SkillSaveData();
+
+	public float enemySpeed; //In case it's been modified by Cake
+
 	public int playerSkillPoints;
 	public int enemySkillPoints;
 	
@@ -38,7 +43,8 @@ public class PZCombatSave
 	public PZCombatSave(PZMonster activePlayer, int activeEnemyHealth,
 	                 PZGem[,] board, BattleStats battleStats,
 	                    float forfeitChance, int currTurn, int currPlayerDamage,
-	                    int boardWidth, int boardHeight, int playerSkillPoints, int enemySkillPoints)
+	                    int boardWidth, int boardHeight, int playerSkillPoints, int enemySkillPoints,
+	                    PZCombatUnit player, PZCombatUnit enemy)
 	{
 		this.activePlayerUserMonsterId = activePlayer.userMonster.userMonsterId;
 
@@ -91,6 +97,11 @@ public class PZCombatSave
 		this.playerSkillPoints = playerSkillPoints;
 		this.enemySkillPoints = enemySkillPoints;
 
+		playerSkillSave = new SkillSaveData(player);
+		enemySkillSave = new SkillSaveData(enemy);
+
+		enemySpeed = enemy.monster.speed;
+
 		this.userTaskId = MSWhiteboard.currUserTaskId;
 
 		MSUtil.Save(key, this);
@@ -137,5 +148,22 @@ public class PZCombatSave
 			Debug.Log("Fail!");
 			return null;
 		}
+	}
+}
+
+[System.Serializable]
+public class SkillSaveData
+{
+	public float damageMultiplier;
+	public bool skillActive;
+	public int shieldHealth;
+
+	public SkillSaveData (){}
+
+	public SkillSaveData(PZCombatUnit unit)
+	{
+		shieldHealth = unit.shieldHealth;
+		skillActive = unit.skillActive;
+		damageMultiplier = unit.damageMultiplier;
 	}
 }

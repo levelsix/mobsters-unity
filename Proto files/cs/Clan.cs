@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Clan.proto
+// Note: requires additional types generated from: Chat.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: SharedEnumConfig.proto
 // Note: requires additional types generated from: Structure.proto
@@ -954,10 +955,10 @@ namespace com.lvl6.proto
       set { _userDataId = value; }
     }
 
-    private com.lvl6.proto.ClanHelpType _helpType = com.lvl6.proto.ClanHelpType.NO_HELP;
+    private com.lvl6.proto.GameActionType _helpType = com.lvl6.proto.GameActionType.NO_HELP;
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"helpType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ClanHelpType.NO_HELP)]
-    public com.lvl6.proto.ClanHelpType helpType
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameActionType.NO_HELP)]
+    public com.lvl6.proto.GameActionType helpType
     {
       get { return _helpType; }
       set { _helpType = value; }
@@ -1016,10 +1017,10 @@ namespace com.lvl6.proto
     public ClanHelpNoticeProto() {}
     
 
-    private com.lvl6.proto.ClanHelpType _helpType = com.lvl6.proto.ClanHelpType.NO_HELP;
+    private com.lvl6.proto.GameActionType _helpType = com.lvl6.proto.GameActionType.NO_HELP;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"helpType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ClanHelpType.NO_HELP)]
-    public com.lvl6.proto.ClanHelpType helpType
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameActionType.NO_HELP)]
+    public com.lvl6.proto.GameActionType helpType
     {
       get { return _helpType; }
       set { _helpType = value; }
@@ -1097,6 +1098,30 @@ namespace com.lvl6.proto
       get { return _timeOfInvite; }
       set { _timeOfInvite = value; }
     }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ClanDataProto")]
+  public partial class ClanDataProto : global::ProtoBuf.IExtensible
+  {
+    public ClanDataProto() {}
+    
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto> _clanChats = new global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto>();
+    [global::ProtoBuf.ProtoMember(1, Name=@"clanChats", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto> clanChats
+    {
+      get { return _clanChats; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> _clanHelpings = new global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"clanHelpings", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> clanHelpings
+    {
+      get { return _clanHelpings; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

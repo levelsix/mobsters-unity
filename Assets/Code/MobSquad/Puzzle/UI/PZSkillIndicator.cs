@@ -9,6 +9,9 @@ public class PZSkillIndicator : MonoBehaviour {
 	[SerializeField] UI2DSprite fillIcon;
 	[SerializeField] UI2DSprite bwIcon;
 	[SerializeField] UISprite label;
+	[SerializeField] UISprite counterSprite;
+	[SerializeField] UILabel counterLabel;
+	[SerializeField] TweenAlpha counterTween;
 
 	MSUIHelper helper;
 
@@ -21,6 +24,8 @@ public class PZSkillIndicator : MonoBehaviour {
 	float currFill;
 
 	int maxPoints;
+
+	bool ready = false;
 
 	static readonly Dictionary<Element, string> spriteElementPrefixes = new Dictionary<Element, string>()
 	{
@@ -38,31 +43,17 @@ public class PZSkillIndicator : MonoBehaviour {
 
 	[SerializeField] float fillSpeed = 1;
 
-	void Awake()
-	{
-		//fillIcon.type = UISprite.Type.Filled;
-		//fillIcon.fillDirection = UISprite.FillDirection.Vertical;
-	}
-
 	public void Init(SkillProto skill, Element userElement)
 	{
 		if (helper == null) helper = GetComponent<MSUIHelper>();
 
+		if (userElement == Element.NO_ELEMENT) Debug.Log("Dafuq");
+
 		if (skill != null && skill.skillId > 0)
 		{
-			collider.enabled = skill.activationType == SkillActivationType.USER_ACTIVATED;
+			collider.enabled = true;
 			Debug.Log("Skill!: " + skill.name);
-			if (skill.orbCost > 0)
-			{
-				maxPoints = skill.orbCost;
-			}
-			else
-			{
-				if (skill.type == SkillType.JELLY)
-				{
-					maxPoints = (int)skill.properties.Find(x=>x.name == "SPAWN_TURNS").skillValue;
-				}
-			}
+			maxPoints = skill.orbCost;
 			monsterElement = userElement;
 
 			string skillBundle = MSUtil.SkillBundleName(skill);
@@ -70,9 +61,13 @@ public class PZSkillIndicator : MonoBehaviour {
 			MSSpriteUtil.instance.SetSprite(skillBundle, skillIconName, bwIcon);
 			MSSpriteUtil.instance.SetSprite(skillBundle, skillIconName, fillIcon);
 
+			counterSprite.spriteName = spriteElementPrefixes[userElement] + "counter";
+
 			SetPoints(0);
 			helper.FadeIn();
 			mover.PlayForward();
+
+			counterTween.Sample(0, true);
 		}
 		else
 		{
@@ -85,13 +80,19 @@ public class PZSkillIndicator : MonoBehaviour {
 
 	public void SetPoints(int currPoints)
 	{
+		currPoints = Mathf.Clamp(currPoints, 0, maxPoints);
+		ready = false;
 		if (maxPoints == 0)
 		{
 			currFill = fillIcon.fillAmount = 1;
+			counterLabel.text = "Passive";
 		}
 		else
 		{
+
 			currFill = Mathf.Clamp01(((float)currPoints)/maxPoints);
+			counterLabel.text = "(" + monsterElement.ToString()[0] + ") " + currPoints + "/" + maxPoints;
+			if (currFill >= 1) ready = true;
 		}
 
 		string spriteName;
@@ -132,7 +133,22 @@ public class PZSkillIndicator : MonoBehaviour {
 
 	void OnClick()
 	{
-		PZCombatManager.instance.RunPlayerSkill();
+		if (ready && PZPuzzleManager.instance.swapLock == 0)
+		{
+			ready = false;
+			PZCombatManager.instance.RunPlayerSkill();
+		}
+		else
+		{
+			StartCoroutine(FadeInCounter());
+		}
+	}
+
+	IEnumerator FadeInCounter()
+	{
+		counterTween.PlayForward();
+		yield return new WaitForSeconds(5);
+		counterTween.PlayReverse();
 	}
 
 	void Update()

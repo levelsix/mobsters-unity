@@ -77,12 +77,36 @@ public class PZCombatUnit : MonoBehaviour {
 	[SerializeField]
 	UISprite forfeitSprite;
 
+	public int shieldHealth = 0;
+	
+	public TweenScale poisonIconScale;
+
+	public TweenScale spriteScale;
+
+	public PZTweenShield tweenShield;
+
+	public PZShieldLabel shieldLabel;
+
 	/// <summary>
 	/// The damage multiplier.
 	/// Used for skills to affect damage.
 	/// Resets to 1 every time deployed.
 	/// </summary>
 	public float damageMultiplier = 1;
+
+	public bool roiding = false;
+
+	[SerializeField] Color roidColor;
+
+	IEnumerator currentColorTween = null;
+
+	public bool skillActive
+	{
+		get
+		{
+			return shieldHealth > 0 || roiding || damageMultiplier > 0;
+		}
+	}
 
 	public float alpha
 	{
@@ -165,6 +189,11 @@ public class PZCombatUnit : MonoBehaviour {
 
 	void Init()
 	{
+		TweenSpriteColor(Color.white, 0);
+		roiding = false;
+		spriteScale.Sample(0, true);
+		shieldHealth = 0;
+		tweenShield.gameObject.SetActive(false);
 		damageMultiplier = 1;
 		unit.spriteBaseName = monster.monster.imagePrefix;
 		alpha = 1;
@@ -285,8 +314,24 @@ public class PZCombatUnit : MonoBehaviour {
 		yield return StartCoroutine(TakeDamage(fullDamage));
 	}
 
-	public IEnumerator TakeDamage(int damage)
+	public IEnumerator TakeDamage(int damage, bool canBeShielded = true, bool canDie = true)
 	{
+		if (canBeShielded && shieldHealth > 0)
+		{
+			if (shieldHealth > damage)
+			{
+				tweenShield.BounceShield();
+				shieldHealth -= damage;
+				damage = 0;
+			}
+			else
+			{
+				tweenShield.DestroyShield();
+				damage -= shieldHealth;
+				shieldHealth = 0;
+			}
+		}
+
 		RunDamageLabel(damage);
 
 		//alive = damage >= monster.currHP;
@@ -295,12 +340,15 @@ public class PZCombatUnit : MonoBehaviour {
 
 		monster.currHP = Mathf.Max(monster.currHP - damage, 0);
 		alive = monster.currHP > 0;
-		
-		yield return StartCoroutine(LerpHealth(Math.Min(monster.currHP + damage, startHP), Mathf.Max(monster.currHP, 0), monster.maxHP));
 
-		if (monster.currHP <= 0)
+		if (canDie)
 		{
-			yield return StartCoroutine(Die());
+			yield return StartCoroutine(LerpHealth(Math.Min(monster.currHP + damage, startHP), Mathf.Max(monster.currHP, 0), monster.maxHP));
+
+			if (monster.currHP <= 0)
+			{
+				yield return StartCoroutine(Die());
+			}
 		}
 	}
 
@@ -322,7 +370,9 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		UpdateMonsterHealthRequestProto request = new UpdateMonsterHealthRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		
+
+		int damageAfterShield = Mathf.Max(0, damage - shieldHealth);
+
 		UserMonsterCurrentHealthProto hpProto = new UserMonsterCurrentHealthProto();
 		hpProto.userMonsterId = monster.userMonster.userMonsterId;
 		hpProto.currentHealth = Mathf.Max(monster.currHP - damage, 0);
@@ -349,6 +399,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 		//Debug.Log("Lock");
 		PZPuzzleManager.instance.swapLock += 1;
+		//Debug.LogWarning("Death lock");
 		
 		alive = false;
 
@@ -368,6 +419,7 @@ public class PZCombatUnit : MonoBehaviour {
 		yield return new WaitForSeconds(1);
 
 		PZPuzzleManager.instance.swapLock -= 1;
+		//Debug.LogWarning("Death unlock");
 
 		if (callOnDeath)
 		{
@@ -494,7 +546,9 @@ public class PZCombatUnit : MonoBehaviour {
 
 	public Coroutine TweenSpriteColor(Color color, float time, bool keepOriginalAlpha = true)
 	{
-		return StartCoroutine(TweenColor(color, time, keepOriginalAlpha));
+		if (currentColorTween != null) StopCoroutine(currentColorTween);
+		currentColorTween = TweenColor(color, time, keepOriginalAlpha);
+		return StartCoroutine(currentColorTween);
 	}
 
 	IEnumerator TweenColor(Color color, float time, bool keepOriginalAlpha)

@@ -30,6 +30,7 @@ public class MSResourceStorage : MonoBehaviour {
 	void OnEnable()
 	{
 		buildingUpgrade.OnFinishUpgrade += OnFinishUpgrade;
+		animator.SetFloat("Amount", currFill);
 	}
 
 	void OnDisable()

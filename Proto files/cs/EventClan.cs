@@ -1896,7 +1896,10 @@ namespace com.lvl6.proto
       SUCCESS = 1,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
-      FAIL_OTHER = 2
+      FAIL_OTHER = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_NOT_AUTHORIZED", Value=3)]
+      FAIL_NOT_AUTHORIZED = 3
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1934,6 +1937,15 @@ namespace com.lvl6.proto
       get { return _rejected; }
     }
   
+
+    private long _clientTime = default(long);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long clientTime
+    {
+      get { return _clientTime; }
+      set { _clientTime = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -1979,9 +1991,40 @@ namespace com.lvl6.proto
       SUCCESS = 1,
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
-      FAIL_OTHER = 2
+      FAIL_OTHER = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_CLAN_IS_FULL", Value=3)]
+      FAIL_CLAN_IS_FULL = 3
     }
   
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RetrieveClanDataResponseProto")]
+  public partial class RetrieveClanDataResponseProto : global::ProtoBuf.IExtensible
+  {
+    public RetrieveClanDataResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _mup = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"mup", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto mup
+    {
+      get { return _mup; }
+      set { _mup = value; }
+    }
+
+    private com.lvl6.proto.ClanDataProto _clanData = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanData", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.ClanDataProto clanData
+    {
+      get { return _clanData; }
+      set { _clanData = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

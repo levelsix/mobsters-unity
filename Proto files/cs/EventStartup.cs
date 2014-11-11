@@ -260,7 +260,7 @@ namespace com.lvl6.proto
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto> _clanChats = new global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto>();
-    [global::ProtoBuf.ProtoMember(17, Name=@"clanChats", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(17, Name=@"clanChats", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.GroupChatMessageProto> clanChats
     {
       get { return _clanChats; }
@@ -426,7 +426,7 @@ namespace com.lvl6.proto
     }
   
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> _clanHelpings = new global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto>();
-    [global::ProtoBuf.ProtoMember(41, Name=@"clanHelpings", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(41, Name=@"clanHelpings", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> clanHelpings
     {
       get { return _clanHelpings; }
@@ -437,6 +437,22 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.ClanInviteProto> clanInvites
     {
       get { return _clanInvites; }
+    }
+  
+
+    private com.lvl6.proto.ClanDataProto _clanData = null;
+    [global::ProtoBuf.ProtoMember(43, IsRequired = false, Name=@"clanData", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.ClanDataProto clanData
+    {
+      get { return _clanData; }
+      set { _clanData = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserItemUsageProto> _itemsInUse = new global::System.Collections.Generic.List<com.lvl6.proto.UserItemUsageProto>();
+    [global::ProtoBuf.ProtoMember(44, Name=@"itemsInUse", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserItemUsageProto> itemsInUse
+    {
+      get { return _itemsInUse; }
     }
   
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
@@ -1147,10 +1163,10 @@ namespace com.lvl6.proto
     public ClanHelpConstants() {}
     
 
-    private com.lvl6.proto.ClanHelpType _helpType = com.lvl6.proto.ClanHelpType.NO_HELP;
+    private com.lvl6.proto.GameActionType _helpType = com.lvl6.proto.GameActionType.NO_HELP;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"helpType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ClanHelpType.NO_HELP)]
-    public com.lvl6.proto.ClanHelpType helpType
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameActionType.NO_HELP)]
+    public com.lvl6.proto.GameActionType helpType
     {
       get { return _helpType; }
       set { _helpType = value; }

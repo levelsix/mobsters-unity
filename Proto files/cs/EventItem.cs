@@ -9,6 +9,7 @@
 
 // Generated from: EventItem.proto
 // Note: requires additional types generated from: BoosterPackStuff.proto
+// Note: requires additional types generated from: Item.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
@@ -101,6 +102,85 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"FAIL_INSUFFICIENT_ITEM", Value=3)]
       FAIL_INSUFFICIENT_ITEM = 3
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TradeItemForSpeedUpsRequestProto")]
+  public partial class TradeItemForSpeedUpsRequestProto : global::ProtoBuf.IExtensible
+  {
+    public TradeItemForSpeedUpsRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserItemUsageProto> _itemsUsed = new global::System.Collections.Generic.List<com.lvl6.proto.UserItemUsageProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"itemsUsed", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserItemUsageProto> itemsUsed
+    {
+      get { return _itemsUsed; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserItemProto> _nuUserItems = new global::System.Collections.Generic.List<com.lvl6.proto.UserItemProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"nuUserItems", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserItemProto> nuUserItems
+    {
+      get { return _nuUserItems; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TradeItemForSpeedUpsResponseProto")]
+  public partial class TradeItemForSpeedUpsResponseProto : global::ProtoBuf.IExtensible
+  {
+    public TradeItemForSpeedUpsResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.TradeItemForSpeedUpsResponseProto.TradeItemForSpeedUpsStatus _status = com.lvl6.proto.TradeItemForSpeedUpsResponseProto.TradeItemForSpeedUpsStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.TradeItemForSpeedUpsResponseProto.TradeItemForSpeedUpsStatus.SUCCESS)]
+    public com.lvl6.proto.TradeItemForSpeedUpsResponseProto.TradeItemForSpeedUpsStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserItemUsageProto> _itemsUsed = new global::System.Collections.Generic.List<com.lvl6.proto.UserItemUsageProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"itemsUsed", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserItemUsageProto> itemsUsed
+    {
+      get { return _itemsUsed; }
+    }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"TradeItemForSpeedUpsStatus")]
+    public enum TradeItemForSpeedUpsStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
     }
   
     private global::ProtoBuf.IExtension extensionObject;

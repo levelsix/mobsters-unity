@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Item.proto
+// Note: requires additional types generated from: SharedEnumConfig.proto
 namespace com.lvl6.proto
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserItemProto")]
@@ -97,6 +98,88 @@ namespace com.lvl6.proto
       get { return _staticDataId; }
       set { _staticDataId = value; }
     }
+
+    private int _amount = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"amount", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int amount
+    {
+      get { return _amount; }
+      set { _amount = value; }
+    }
+
+    private float _secretGiftChance = default(float);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"secretGiftChance", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float secretGiftChance
+    {
+      get { return _secretGiftChance; }
+      set { _secretGiftChance = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserItemUsageProto")]
+  public partial class UserItemUsageProto : global::ProtoBuf.IExtensible
+  {
+    public UserItemUsageProto() {}
+    
+
+    private long _usageId = default(long);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usageId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long usageId
+    {
+      get { return _usageId; }
+      set { _usageId = value; }
+    }
+
+    private int _userId = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int userId
+    {
+      get { return _userId; }
+      set { _userId = value; }
+    }
+
+    private int _itemId = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"itemId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int itemId
+    {
+      get { return _itemId; }
+      set { _itemId = value; }
+    }
+
+    private long _timeOfEntry = default(long);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"timeOfEntry", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long timeOfEntry
+    {
+      get { return _timeOfEntry; }
+      set { _timeOfEntry = value; }
+    }
+
+    private long _userDataId = default(long);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long userDataId
+    {
+      get { return _userDataId; }
+      set { _userDataId = value; }
+    }
+
+    private com.lvl6.proto.GameActionType _actionType = com.lvl6.proto.GameActionType.NO_HELP;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"actionType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameActionType.NO_HELP)]
+    public com.lvl6.proto.GameActionType actionType
+    {
+      get { return _actionType; }
+      set { _actionType = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -107,7 +190,16 @@ namespace com.lvl6.proto
     {
             
       [global::ProtoBuf.ProtoEnum(Name=@"BOOSTER_PACK", Value=1)]
-      BOOSTER_PACK = 1
+      BOOSTER_PACK = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ITEM_OIL", Value=2)]
+      ITEM_OIL = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ITEM_CASH", Value=3)]
+      ITEM_CASH = 3,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SPEED_UP", Value=4)]
+      SPEED_UP = 4
     }
   
 }

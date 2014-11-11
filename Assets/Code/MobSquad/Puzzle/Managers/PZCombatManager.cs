@@ -255,8 +255,8 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		get
 		{
-			return activePlayer.monster.offensiveSkill != null && activePlayer.monster.offensiveSkill.skillId > 0
-				&& playerSkillPoints >= activePlayer.monster.offensiveSkill.orbCost;
+			return playerOffSkill != null && playerOffSkill.skillId > 0
+				&& playerSkillPoints >= playerOffSkill.orbCost;
 		}
 	}
 
@@ -275,18 +275,26 @@ public class PZCombatManager : MonoBehaviour {
 
 	bool combatActive = false;
 
-	SkillProto enemyDefSkill
+	public SkillProto enemyDefSkill
 	{
 		get
 		{
+			if (forceEnemySkill > 0)
+			{
+				return MSDataManager.instance.Get<SkillProto>(forceEnemySkill);
+			}
 			return activeEnemy.monster.defensiveSkill;
 		}
 	}
 
-	SkillProto playerOffSkill
+	public SkillProto playerOffSkill
 	{
 		get
 		{
+			if (forcePlayerSkill > 0)
+			{
+				return MSDataManager.instance.Get<SkillProto>(forcePlayerSkill);
+			}
 			return activePlayer.monster.offensiveSkill;
 		}
 	}
@@ -295,6 +303,10 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField] float bombSkillAnimationXRangeForBombs = 10;
 
 	int poisonDamage = 0;
+
+	[SerializeField] Color roidColor;
+
+	public Action hijackPlayerFlinch;
 
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
@@ -427,7 +439,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		activePlayer.Init(playerGoonies.Find(x=>x.currHP>0));
 
-		playerSkillIndicator.Init(activePlayer.monster.offensiveSkill, activePlayer.monster.monster.monsterElement);
+		playerSkillIndicator.Init(playerOffSkill, activePlayer.monster.monster.monsterElement);
 		playerSkillPoints = 0;
 
 		waiting = true;
@@ -469,6 +481,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
+		//Debug.LogWarning("Start lock");
 	}
 
 	public Coroutine RunInitLoadedTask(MinimumUserTaskProto minTask, List<TaskStageProto> stages)
@@ -529,6 +542,23 @@ public class PZCombatManager : MonoBehaviour {
 			PZPuzzleManager.instance.InitBoardFromSave(save, minTask);
 
 			enemySkillPoints = save.enemySkillPoints;
+
+			if (save.playerSkillSave.skillActive && playerOffSkill != null)
+			{
+				switch(playerOffSkill.type)
+				{
+				case SkillType.SHIELD:
+					activePlayer.shieldHealth = save.playerSkillSave.shieldHealth;
+					activePlayer.tweenShield.BringIn();
+					break;
+				case SkillType.ROID_RAGE:
+					StartCoroutine(GainRage (activePlayer, playerOffSkill));
+					break;
+				case SkillType.MOMENTUM:
+					activePlayer.damageMultiplier = save.playerSkillSave.damageMultiplier;
+					break;
+				}
+			}
 		}
 		else
 		{
@@ -558,7 +588,7 @@ public class PZCombatManager : MonoBehaviour {
 		
 		yield return null;
 		
-		playerSkillIndicator.Init(activePlayer.monster.offensiveSkill, activePlayer.monster.monster.monsterElement);
+		playerSkillIndicator.Init(playerOffSkill, activePlayer.monster.monster.monsterElement);
 
 		if (save != null)
 		{
@@ -603,13 +633,14 @@ public class PZCombatManager : MonoBehaviour {
 		activePlayer.Init(playerGoonies.Find(x=>x.currHP>0));
 		activePlayer.GoToStartPos();
 		
-		playerSkillIndicator.Init(activePlayer.monster.offensiveSkill, activePlayer.monster.monster.monsterElement);
+		playerSkillIndicator.Init(playerOffSkill, activePlayer.monster.monster.monsterElement);
 
 		nextPvpDefenderIndex = 0;
 
 		StartCoroutine(SpawnPvps(cash, gems));
 
 		PZPuzzleManager.instance.swapLock += 1;
+		//Debug.LogWarning("Start Lock");
 	}
 
 	public void InitRaid()
@@ -659,6 +690,7 @@ public class PZCombatManager : MonoBehaviour {
 		
 		//Lock swap until deploy
 		PZPuzzleManager.instance.swapLock += 1;
+		//Debug.LogWarning("Start Lock");
 	}
 
 	public void InitTutorial(MonsterProto boss, MonsterProto enemyOne, MonsterProto enemyTwo)
@@ -797,7 +829,7 @@ public class PZCombatManager : MonoBehaviour {
 		pvpUI.Retract();
 		PZPuzzleManager.instance.InitBoard();
 
-		enemySkillIndicator.Init(activeEnemy.monster.defensiveSkill, activeEnemy.monster.monster.monsterElement);
+		enemySkillIndicator.Init(enemyDefSkill, activeEnemy.monster.monster.monsterElement);
 
 		StartCoroutine(TweenInPvp());
 	}
@@ -892,8 +924,6 @@ public class PZCombatManager : MonoBehaviour {
 
 			StartCoroutine(SwapCharacters(monster));
 
-			playerSkillIndicator.Init(monster.offensiveSkill, monster.monster.monsterElement);
-
 			playerSkillPoints = 0;
 		}
 		else
@@ -916,8 +946,8 @@ public class PZCombatManager : MonoBehaviour {
 	
 	void OnPlayerDeath()
 	{
-		//Debug.Log("Lock: Player death");
-		PZPuzzleManager.instance.swapLock += 1;
+		Debug.Log("Lock: Player death");
+		//PZPuzzleManager.instance.swapLock += 1;
 
 		TintBoard();
 
@@ -942,6 +972,7 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator OnPlayerForfeit(){
 		bool forfeitSuccess = UnityEngine.Random.value <= forfeitChance;
 		PZPuzzleManager.instance.swapLock++;
+		//Debug.LogWarning("Forfeit Lock");
 		Vector3 center = new Vector3((activeEnemy.transform.position.x + activePlayer.transform.position.x) / 2f,
 		                             (activeEnemy.transform.position.y + activePlayer.transform.position.y) / 2f,
 		                             activePlayer.transform.position.z);
@@ -959,6 +990,7 @@ public class PZCombatManager : MonoBehaviour {
 			yield return RunPickNextTurn(true);
 		}
 		PZPuzzleManager.instance.swapLock--;
+		//Debug.LogWarning("Forfeit unlock");
 	}
 
 	public void ActivateLoseMenu(bool blackOut = false)
@@ -1028,7 +1060,8 @@ public class PZCombatManager : MonoBehaviour {
 	/// <returns>The characters.</returns>
 	IEnumerator SwapCharacters(PZMonster swapTo)
 	{
-		PZPuzzleManager.instance.swapLock += 1;
+		//PZPuzzleManager.instance.swapLock += 1;
+		Debug.LogWarning("Swap Lock");
 
 		yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed*3.5f));
 
@@ -1046,10 +1079,19 @@ public class PZCombatManager : MonoBehaviour {
 		yield return null;
 
 		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed*3.5f));
+		
+		playerSkillIndicator.Init(playerOffSkill, swapTo.monster.monsterElement);
 
 		yield return turnDisplay.RunInit(swapTo, activeEnemy.monster);
 
-		RunPickNextTurn(false);
+		if (activeEnemy.alive)
+		{
+			RunPickNextTurn(false);
+		}
+		else
+		{
+			RunScrollToNextEnemy();
+		}
 	}
 
 	public Coroutine RunScrollToNextEnemy(bool fromLoad = false)
@@ -1069,7 +1111,8 @@ public class PZCombatManager : MonoBehaviour {
 
 		TintBoard();
 
-		PZPuzzleManager.instance.swapLock += 1;
+		//PZPuzzleManager.instance.swapLock += 1;
+		Debug.LogWarning("Scoll to next enemy Lock");
 
 		while(!activePlayer.unit.hasSprite)
 		{
@@ -1130,9 +1173,9 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.GoToStartPos ();
 			activeEnemy.Init (enemies.Dequeue ());
 
-			if (forceEnemySkill > 0)
+			if (enemyDefSkill.type == SkillType.CAKE_DROP)
 			{
-				activeEnemy.monster.SetDefensiveSkill(forceEnemySkill);
+				activeEnemy.monster.speed = enemyDefSkill.properties.Find(x=>x.name=="INITIAL_SPEED").skillValue;
 			}
 
 			while (!activeEnemy.unit.hasSprite)
@@ -1143,9 +1186,38 @@ public class PZCombatManager : MonoBehaviour {
 
 			if (fromLoad)
 			{
-				if (enemyDefSkill != null && enemyDefSkill.type == SkillType.BOMBS)
+				PZCombatScheduler.instance.player = activePlayer.monster;
+				PZCombatScheduler.instance.enemy = activeEnemy.monster;
+
+				if (enemyDefSkill != null)
 				{
-					EnemySetupBombs();
+					switch (enemyDefSkill.type)
+					{
+					case SkillType.BOMBS:
+						EnemySetupBombs();
+						break;
+					case SkillType.CAKE_DROP:
+						PZPuzzleManager.instance.SetupForCakes(enemyDefSkill);
+						activeEnemy.monster.speed = save.enemySpeed;
+						break;
+					}
+				}
+				
+				if (save.enemySkillSave.skillActive && enemyDefSkill != null)
+				{
+					switch(enemyDefSkill.type)
+					{
+					case SkillType.SHIELD:
+						activeEnemy.shieldHealth = save.enemySkillSave.shieldHealth;
+						activeEnemy.tweenShield.BringIn();
+						break;
+					case SkillType.ROID_RAGE:
+						StartCoroutine(GainRage (activeEnemy, enemyDefSkill));
+						break;
+					case SkillType.MOMENTUM:
+						activeEnemy.damageMultiplier = save.enemySkillSave.damageMultiplier;
+						break;
+					}
 				}
 			}
 			else
@@ -1202,7 +1274,7 @@ public class PZCombatManager : MonoBehaviour {
 			yield return null;
 		}
 
-		enemySkillIndicator.Init(activeEnemy.monster.defensiveSkill, activeEnemy.monster.monster.monsterElement);
+		enemySkillIndicator.Init(enemyDefSkill, activeEnemy.monster.monster.monsterElement);
 		enemySkillIndicator.SetPoints(0);
 
 		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
@@ -1225,6 +1297,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 		PZPuzzleManager.instance.swapLock = activeEnemy.alive ? 0 : 1;
+		//Debug.LogWarning("Lock/Unlock: Enemy Alive after scroll");
 	}
 
 	public Coroutine RunPickNextTurn(bool shiftTurnDisplay)
@@ -1273,6 +1346,11 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			MSActionManager.Puzzle.OnNewPlayerRound();
 		}
+
+		if (playerOffSkill != null && playerOffSkill.type == SkillType.MOMENTUM)
+		{
+			StartCoroutine(GainMomentum(activePlayer, playerOffSkill));
+		}
 		
 		if (MSActionManager.Puzzle.ForceShowSwap != null)
 		{
@@ -1285,6 +1363,7 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 		PZPuzzleManager.instance.swapLock = 0;
+		//Debug.LogWarning("Start Player Turn Unlock");
 	}
 
 	IEnumerator DelayedWinLosePopup(float seconds){
@@ -1475,7 +1554,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator AfterBreakGems()
 	{
-		if (playerSkillReady && activePlayer.monster.offensiveSkill.activationType == SkillActivationType.AUTO_ACTIVATED)
+		if (playerSkillReady && playerOffSkill.activationType == SkillActivationType.AUTO_ACTIVATED)
 		{
 			yield return RunPlayerSkill();
 		}
@@ -1685,29 +1764,43 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator PlayerSkill()
 	{
 		PZPuzzleManager.instance.swapLock++;
+		//Debug.LogWarning("Player Skill Lock");
+
+		playerSkillPoints = 0;
+		playerSkillIndicator.SetPoints(playerSkillPoints);
 
 		if (playerOffSkill != null
 		    && playerOffSkill.skillId > 0)
 		{
-			playerSkillAnimator.AnimateOffensive(activePlayer);
 
 			switch (playerOffSkill.type)
 			{
 			case SkillType.QUICK_ATTACK:
+				yield return playerSkillAnimator.Animate(activePlayer.monster.monster, playerOffSkill);
 				yield return StartCoroutine(PlayerQuickAttack((int)playerOffSkill.properties.Find(x=>x.name == "DAMAGE").skillValue));
+				break;
+			case SkillType.SHIELD:
+				activePlayer.shieldHealth = (int)playerOffSkill.properties.Find(x=>x.name == "SHIELD_HP").skillValue;
+				Coroutine skillAnimate = playerSkillAnimator.Animate(activePlayer.monster.monster, playerOffSkill);
+				activePlayer.shieldLabel.Set(activePlayer.shieldHealth);
+				yield return activePlayer.tweenShield.BringIn();
+				yield return skillAnimate;
+				break;
+			case SkillType.ROID_RAGE:
+				yield return playerSkillAnimator.Animate(activePlayer.monster.monster, playerOffSkill);
+				StartCoroutine(GainRage(activePlayer, playerOffSkill));
 				break;
 			}
 		}
-
-		playerSkillPoints = 0;
-		playerSkillIndicator.SetPoints(playerSkillPoints);
 		
 		PZPuzzleManager.instance.swapLock--;
+		//Debug.LogWarning("Player Skill Unlock");
 	}
 
 	IEnumerator PlayerQuickAttack(int damage)
 	{
 		PZPuzzleManager.instance.swapLock++;
+		//Debug.LogWarning("Quick Attack Lock");
 
 		MSAnimationEvents.curDamage = damage;
 		MSAnimationEvents.curElement = Element.NO_ELEMENT;
@@ -1719,11 +1812,12 @@ public class PZCombatManager : MonoBehaviour {
 			yield return null;
 		}
 		PZPuzzleManager.instance.swapLock--;
+		//Debug.LogWarning("Quick Attack Unlock");
 	}
 
 	IEnumerator EnemyQuickAttack(int damage)
 	{
-		yield return enemySkillAnimator.AnimateDefensive (activeEnemy);
+		yield return enemySkillAnimator.Animate(activeEnemy.monster.monster, enemyDefSkill);
 		yield return StartCoroutine(EnemyShoot(damage, Element.NO_ELEMENT));
 	}
 
@@ -1761,7 +1855,7 @@ public class PZCombatManager : MonoBehaviour {
 			yield return activeEnemy.unit.DoJump(50, .35f);
 			yield return TintBoard();
 			yield return StartCoroutine(EnemyDropBombsAnimation(numBombs, bombDamage));
-			yield return StartCoroutine(activePlayer.TakeDamage(bombDamage));
+			yield return StartCoroutine(activePlayer.TakeDamage(bombDamage, false));
 			yield return UntintBoard();
 			activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 		}
@@ -1775,7 +1869,7 @@ public class PZCombatManager : MonoBehaviour {
 			dropBomb = BombAt(activePlayer.transform.localPosition.x + UnityEngine.Random.value * bombSkillAnimationXRangeForBombs*2 - bombSkillAnimationXRangeForBombs, null);
 			if (i==0)
 			{
-				StartCoroutine(EnemyDropSingleBombAnimation(dropBomb, delegate { activePlayer.unit.animat = MSUnit.AnimationType.FLINCH; }));
+				StartCoroutine(EnemyDropSingleBombAnimation(dropBomb, delegate { StartCoroutine(PlayerFlinchMoveBackwards()); }));
 			}
 			else
 			{
@@ -1791,6 +1885,10 @@ public class PZCombatManager : MonoBehaviour {
 				yield return null;
 			}
 		}
+
+		yield return new WaitForSeconds(recoilTime);
+
+		yield return StartCoroutine(PlayerReturnAfterFlinch());
 	}
 
 	IEnumerator EnemyDropSingleBombAnimation(PZBomb bomb, Action after = null)
@@ -1805,17 +1903,71 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator PoisonDamageAnimation(int numGems)
 	{
 		activePlayer.SendDamageUpdateToServer(numGems * poisonDamage);
-		yield return StartCoroutine(activePlayer.TakeDamage(numGems * poisonDamage));
+
+		yield return enemySkillAnimator.AnimateDefensive(activeEnemy);
+
+		//Tween in icon
+		activePlayer.poisonIconScale.gameObject.SetActive(true);
+		activePlayer.poisonIconScale.PlayForward();
+		while (activePlayer.poisonIconScale.tweenFactor < 1) yield return null;
+
+		activePlayer.TweenSpriteColor(Color.red, recoilTime);
+		Coroutine tick = StartCoroutine(activePlayer.TakeDamage(numGems * poisonDamage));
+
+		yield return StartCoroutine(PlayerFlinchMoveBackwards());
+		yield return new WaitForSeconds(recoilTime);
+		activePlayer.TweenSpriteColor(Color.white, recoilTime);
+		activePlayer.poisonIconScale.PlayReverse();
+		yield return StartCoroutine(PlayerReturnAfterFlinch());
+		yield return tick;
+		while (activePlayer.poisonIconScale.tweenFactor > 0) yield return null;
+		activePlayer.poisonIconScale.gameObject.SetActive(false);
+	}
+
+	IEnumerator GainMomentum(PZCombatUnit unit, SkillProto skill)
+	{
+		unit.damageMultiplier += (skill.properties.Find (x=>x.name == "DAMAGE_MULTIPLIER").skillValue-1); //If we want the damage multipliers to stack *properly*, we have to do this stupid math -_-
+		unit.spriteScale.Sample (0, true);
+		float scale = skill.properties.Find(x=>x.name == "SIZE_MULTIPLIER").skillValue;
+		unit.spriteScale.to = new Vector3(scale, scale, scale);
+		unit.spriteScale.PlayForward();
+		while (unit.spriteScale.tweenFactor < 1) yield return null;
+		unit.spriteScale.PlayReverse();
+		while (unit.spriteScale.tweenFactor > 0) yield return null;
+	}
+
+	IEnumerator GainRage(PZCombatUnit unit, SkillProto skill)
+	{
+		float damageBonus = (skill.properties.Find (x=>x.name == "DAMAGE_MULTIPLIER").skillValue-1);
+		float scale = skill.properties.Find(x=>x.name == "SIZE_MULTIPLIER").skillValue;
+		yield return StartCoroutine(GainRage(unit, damageBonus, scale));
+	}
+
+	IEnumerator GainRage(PZCombatUnit unit, float damageBonus, float scale)
+	{
+		unit.roiding = true;
+		unit.damageMultiplier += damageBonus; //If we want the damage multipliers to stack *properly*, we have to do this stupid math -_-
+		unit.spriteScale.Sample (0, true);
+		unit.spriteScale.to = new Vector3(scale, scale, scale);
+		unit.spriteScale.PlayForward();
+		while (unit.spriteScale.tweenFactor < 1) yield return null;
+		while(unit.roiding)
+		{
+			yield return unit.TweenSpriteColor(roidColor, .5f);
+			yield return unit.TweenSpriteColor(Color.white, .5f);
+		}
+		unit.damageMultiplier -= damageBonus;
+		unit.spriteScale.PlayReverse();
 	}
 
 	IEnumerator EnemySkillBeforeEnemyTurn()
 	{
 		if (
-			activeEnemy.monster.defensiveSkill != null
-		    && activeEnemy.monster.defensiveSkill.skillId > 0
+			enemyDefSkill != null
+			&& enemyDefSkill.skillId > 0
 		    )
 		{
-			switch (activeEnemy.monster.defensiveSkill.type)
+			switch (enemyDefSkill.type)
 			{
 			case SkillType.JELLY:
 				enemySkillPoints++;
@@ -1823,6 +1975,9 @@ public class PZCombatManager : MonoBehaviour {
 				{
 					yield return StartCoroutine(EnemyDoSkill());
 				}
+				break;
+			case SkillType.MOMENTUM:
+				yield return StartCoroutine(EnemyDoSkill());
 				break;
 			}
 		}
@@ -1837,29 +1992,38 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator EnemyDoSkill()
 	{
 		PZPuzzleManager.instance.swapLock++;
+		//Debug.LogWarning("Enemy Skill Lock");
 		
 		yield return activeEnemy.unit.DoJump(50, .35f);
 		yield return activeEnemy.unit.DoJump(50, .35f);
 		yield return TintBoard();
 
-		switch (activeEnemy.monster.defensiveSkill.type)
+		switch (enemyDefSkill.type)
 		{
 		case SkillType.QUICK_ATTACK:
 			yield return StartCoroutine(EnemyQuickAttack((int)enemyDefSkill.properties.Find(x=>x.name == "DAMAGE").skillValue));
 			break;
+		case SkillType.ROID_RAGE:
+			yield return enemySkillAnimator.Animate(activeEnemy.monster.monster, enemyDefSkill);
+			StartCoroutine(GainRage(activeEnemy, enemyDefSkill));
+			break;
 		case SkillType.POISON:
-			//Deal poison damage
+			yield return enemySkillAnimator.Animate(activeEnemy.monster.monster, enemyDefSkill);
 			yield return StartCoroutine(PoisonDamageAnimation(enemySkillPoints));
 			break;
 		case SkillType.MOMENTUM:
-			//Gain momentum
+			yield return StartCoroutine(GainMomentum(activeEnemy, enemyDefSkill));
 			break;
 		case SkillType.SHIELD:
-			//Create shield
+			activeEnemy.shieldHealth = (int)enemyDefSkill.properties.Find(x=>x.name=="SHIELD_HP").skillValue;
+			Coroutine skillAnimate = enemySkillAnimator.Animate(activeEnemy.monster.monster, enemyDefSkill);
+			activeEnemy.shieldLabel.Set(activeEnemy.shieldHealth);
+			yield return activeEnemy.tweenShield.BringIn();
+			yield return skillAnimate;
 			break;
 		case SkillType.JELLY:
 			boardTint.gameObject.SetActive(false);
-			List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "SPAWN_COUNT").skillValue);
+			List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)enemyDefSkill.properties.Find(x=>x.name == "SPAWN_COUNT").skillValue);
 			PZPuzzleManager.instance.BlockBoard(spaces);
 			yield return new WaitForSeconds(1);
 			PZPuzzleManager.instance.UnblockBoard();
@@ -1876,6 +2040,7 @@ public class PZCombatManager : MonoBehaviour {
 		enemySkillIndicator.SetPoints(0);
 
 		PZPuzzleManager.instance.swapLock--;
+		//Debug.LogWarning("Enemy Skill Unlock");
 	}
 
 	IEnumerator EnemySkillAfterPlayerTurn()
@@ -1903,20 +2068,21 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator EnemySkillOnBegin()
 	{
-		if (activeEnemy.monster.defensiveSkill != null
-		    && activeEnemy.monster.defensiveSkill.skillId > 0)
+		if (enemyDefSkill != null
+		    && enemyDefSkill.skillId > 0
+		    && enemyDefSkill.activationType == SkillActivationType.PASSIVE)
 		{
 			yield return activeEnemy.unit.DoJump(50, .35f);
 			yield return activeEnemy.unit.DoJump(50, .35f);
 
-			enemySkillAnimator.Animate(activeEnemy.monster.monster, activeEnemy.monster.defensiveSkill);
+			enemySkillAnimator.Animate(activeEnemy.monster.monster, enemyDefSkill);
 
-			switch (activeEnemy.monster.defensiveSkill.type)
+			switch (enemyDefSkill.type)
 			{
 			case SkillType.JELLY:
 				yield return TintBoard();
 				boardTint.gameObject.SetActive(false);
-				List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)activeEnemy.monster.defensiveSkill.properties.Find(x=>x.name == "INITIAL_COUNT").skillValue);
+				List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)enemyDefSkill.properties.Find(x=>x.name == "INITIAL_COUNT").skillValue);
 				PZPuzzleManager.instance.BlockBoard(spaces);
 				yield return new WaitForSeconds(1);
 				PZPuzzleManager.instance.UnblockBoard();
@@ -1925,7 +2091,7 @@ public class PZCombatManager : MonoBehaviour {
 				break;
 			case SkillType.CAKE_DROP:
 				yield return TintBoard();
-				PZPuzzleManager.instance.SetupForCakes(activeEnemy.monster.defensiveSkill);
+				PZPuzzleManager.instance.SetupForCakes(enemyDefSkill);
 				boardTint.gameObject.SetActive(false);
 				PZPuzzleManager.instance.BlockBoard();
 				yield return PZPuzzleManager.instance.BakeCake();
@@ -1958,6 +2124,7 @@ public class PZCombatManager : MonoBehaviour {
 				yield return new WaitForSeconds(.8f);
 				break;
 			case SkillType.POISON:
+				PZPuzzleManager.instance.poisonColor = (int)activeEnemy.monster.monster.monsterElement-1;
 				yield return TintBoard();
 				poisonDamage = (int)enemyDefSkill.properties.Find(x=>x.name == "ORB_DAMAGE").skillValue;
 				List<PZGem> gemsToTurnPoison = PZPuzzleManager.instance.PickPoisons((int)activeEnemy.monster.monster.monsterElement-1);
@@ -2000,6 +2167,7 @@ public class PZCombatManager : MonoBehaviour {
 						gem.RevertFromPoison();
 					}
 				}
+				PZPuzzleManager.instance.poisonColor = -1;
 				break;
 			}
 		}
@@ -2067,7 +2235,11 @@ public class PZCombatManager : MonoBehaviour {
 
 	public IEnumerator PlayerFlinch()
 	{
-		if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
+		if (enemyDefSkill != null && enemyDefSkill.type == SkillType.CAKE_DROP)
+		{
+			//Cake eating sound?
+		}
+		else if (activeEnemy.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
 			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.meleeHit);
 		}
@@ -2076,34 +2248,41 @@ public class PZCombatManager : MonoBehaviour {
 			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.pistol);
 		}
 
-		if (MSTutorialManager.instance.hijackFlinch)
+		if (hijackPlayerFlinch != null)
 		{
-			MSTutorialManager.instance.HijackFlinch();
+			hijackPlayerFlinch();
+			hijackPlayerFlinch = null;
 			yield break;
 		}
 
+		yield return StartCoroutine(PlayerFlinchMoveBackwards());
+
+		yield return new WaitForSeconds(recoilTime);
+
+		yield return StartCoroutine(PlayerReturnAfterFlinch());
+	}
+
+	IEnumerator PlayerFlinchMoveBackwards()
+	{
 		Vector3 playerPos = activePlayer.unit.transf.localPosition;
-
+		
 		activePlayer.unit.animat = MSUnit.AnimationType.FLINCH;
-
+		
 		MSPoolManager.instance.Get(MSPrefabList.instance.flinchParticle, activePlayer.unit.transf.position);
-
+		
 		//attack sound should be played in attack not flinch
-
+		
 		while (activePlayer.unit.transf.localPosition.x > playerPos.x - recoilDistance )//* (totalShots+1))
 		{
 			activePlayer.unit.transf.localPosition -= Time.deltaTime * recoilDistance / recoilTime * -background.direction;
 			yield return null;
 		}
+	}
 
-		yield return new WaitForSeconds(recoilTime);
-
-		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
-		{
-			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
-			activePlayer.unit.direction = MSValues.Direction.EAST;
-		}
-
+	IEnumerator PlayerReturnAfterFlinch()
+	{
+		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));
+		activePlayer.unit.direction = MSValues.Direction.EAST;
 		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 	}
 
@@ -2161,7 +2340,9 @@ public class PZCombatManager : MonoBehaviour {
 		activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 		activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
 		activeEnemy.unit.transf.localPosition = enemyPos;
-		
+
+		activePlayer.roiding = false;
+
 	}
 
 
@@ -2192,8 +2373,11 @@ public class PZCombatManager : MonoBehaviour {
 		}
 
 		PZPuzzleManager.instance.swapLock += 1;
+		//Debug.LogWarning("Player attack lock");
 
 		float score = damage/activePlayer.monster.totalDamage;
+
+		damage = (int)(damage * activePlayer.damageMultiplier);
 
 		//Do all of the attack damage calculations and save before actually doing the damage
 		int futureEnemyHp = activeEnemy.HealthAfterDamage(damage, element);
@@ -2232,7 +2416,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			enemyDamage = Mathf.RoundToInt(activeEnemy.monster.totalDamage * UnityEngine.Random.Range(1.0f, 4.0f));
 		}
-		enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement));
+		enemyDamageWithElement = (int)(enemyDamage * MSUtil.GetTypeDamageMultiplier(activePlayer.monster.monster.monsterElement, activeEnemy.monster.monster.monsterElement) * activeEnemy.damageMultiplier);
 
 		yield return StartCoroutine(EnemyShoot(enemyDamageWithElement, activeEnemy.monster.monster.monsterElement));
 		
@@ -2266,9 +2450,11 @@ public class PZCombatManager : MonoBehaviour {
 		
 		if (enemyCakeKid)
 		{
+			activePlayer.SendDamageUpdateToServer(99999);
+			StartCoroutine(activePlayer.TakeDamage(99999, false, false));
+			StartCoroutine (activeEnemy.TakeDamage(99999, false, false));
 			StartCoroutine(activeEnemy.Die(false));
 			StartCoroutine(activePlayer.Die(true));
-			activePlayer.SendDamageUpdateToServer(99999);
 		}
 		else
 		{
@@ -2288,6 +2474,8 @@ public class PZCombatManager : MonoBehaviour {
 			}
 			
 			activeEnemy.unit.animat = MSUnit.AnimationType.IDLE;
+
+			activeEnemy.roiding = false;
 		}
 	}
 
@@ -2435,7 +2623,7 @@ public class PZCombatManager : MonoBehaviour {
 		new PZCombatSave(activePlayer.monster, activeEnemy.monster.currHP, PZPuzzleManager.instance.board,
 		                 battleStats, forfeitChance, currTurn, currPlayerDamage, 
 		                 PZPuzzleManager.instance.boardWidth, PZPuzzleManager.instance.boardHeight,
-		                 playerSkillPoints, enemySkillPoints);
+		                 playerSkillPoints, enemySkillPoints, activePlayer, activeEnemy);
 	}
 
 	void UpdateUserTaskStage(int taskStageId)

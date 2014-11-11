@@ -193,6 +193,18 @@ public class MSChatPopup : MonoBehaviour {
 				{
 					skill = allSkills.Find(x=>x.type==SkillType.POISON).skillId;
 				}
+				else if (inputField.label.text.EndsWith(MOMENTUM_SKILL))
+				{
+					skill = allSkills.Find(x=>x.type==SkillType.MOMENTUM).skillId;
+				}
+				else if (inputField.label.text.EndsWith(SHIELD_SKILL))
+				{
+					skill = allSkills.Find(x=>x.type==SkillType.SHIELD).skillId;
+				}
+				else if (inputField.label.text.EndsWith(RAGE_SKILL))
+				{
+					skill = allSkills.Find(x=>x.type==SkillType.ROID_RAGE).skillId;
+				}
 
 				if (inputField.label.text.StartsWith(CHEAT_PREFIX + SET_SKILL_CHEAT + "e_"))
 				{

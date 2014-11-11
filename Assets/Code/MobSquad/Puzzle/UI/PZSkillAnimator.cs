@@ -35,8 +35,8 @@ public class PZSkillAnimator : MonoBehaviour {
 		MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Character", character);
 		MSSpriteUtil.instance.SetSprite(MSUtil.SkillBundleName(skill), MSUtil.StripExtensions(skill.logoImgName), logo);
 
-		tPos.ResetToBeginning();
-		tAlph.ResetToBeginning();
+		tPos.Sample(0, true);
+		tAlph.Sample(0, true);
 
 		tPos.PlayForward();
 		tAlph.PlayForward();
