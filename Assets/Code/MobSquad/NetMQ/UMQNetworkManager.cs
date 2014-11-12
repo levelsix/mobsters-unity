@@ -567,6 +567,10 @@ public class UMQNetworkManager : MonoBehaviour {
 				{
 					MSClanEventManager.instance.DealWithClanHelpEnd(proto as EndClanHelpResponseProto);
 				}
+				else if(proto is RetrieveClanDataResponseProto)
+				{
+					MSClanEventManager.instance.DealWithClanData(proto as RetrieveClanDataResponseProto);
+				}
 			}
 			requestsOut.Remove(tagNum);
 

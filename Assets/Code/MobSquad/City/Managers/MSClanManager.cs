@@ -82,6 +82,8 @@ public class MSClanManager : MonoBehaviour
 		MSActionManager.Clan.OnGiveClanHelp += DealWithGiveClanHelp;
 		MSActionManager.Clan.OnSolicitClanHelp += DealWithSoliciteClanHelp;
 		MSActionManager.Clan.OnEndClanHelp += DealWithEndClanHelp;
+
+		MSActionManager.Clan.OnRetrieveClanData += RecieveClanData;
 	}
 
 	void InitClanHelp(StartupResponseProto startup)
@@ -766,5 +768,11 @@ public class MSClanManager : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	void RecieveClanData(RetrieveClanDataResponseProto proto)
+	{
+		clanHelpRequests = proto.clanData.clanHelpings;
+		MSClanHelpManager.instance.InitHelp();
 	}
 }

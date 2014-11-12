@@ -217,6 +217,11 @@ public static class MSActionManager
 		public static Action<EndClanHelpResponseProto, bool> OnEndClanHelp;
 		public static Action<SolicitClanHelpResponseProto, bool> OnSolicitClanHelp;
 		public static Action<GiveClanHelpResponseProto, bool> OnGiveClanHelp;
+		public static Action<int> OnUpdateNumberOfAvailableHelpRequests;
+
+		//This is a packet of information sent to the player when they join a clan.
+		//and maybe at other times?
+		public static Action<RetrieveClanDataResponseProto> OnRetrieveClanData;
 	}
 
 	public static class Tutorial

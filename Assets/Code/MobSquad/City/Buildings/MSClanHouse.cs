@@ -8,17 +8,21 @@ public class MSClanHouse : MSBuildingFrame {
 
 	void OnEnable()
 	{
-		MSActionManager.Clan.OnEndClanHelp += DealwithEndHelp;
-		MSActionManager.Clan.OnGiveClanHelp += DealWithGiveHelp;
-		MSActionManager.Clan.OnSolicitClanHelp += DealWithSolicitHelp;
-		FirstFrameCheck();
+//		MSActionManager.Clan.OnEndClanHelp += DealwithEndHelp;
+//		MSActionManager.Clan.OnGiveClanHelp += DealWithGiveHelp;
+//		MSActionManager.Clan.OnSolicitClanHelp += DealWithSolicitHelp;
+//		FirstFrameCheck();
+
+		MSActionManager.Clan.OnUpdateNumberOfAvailableHelpRequests += ChangeNumber;
 	}
 
 	void OnDisable()
 	{
-		MSActionManager.Clan.OnEndClanHelp -= DealwithEndHelp;
-		MSActionManager.Clan.OnGiveClanHelp -= DealWithGiveHelp;
-		MSActionManager.Clan.OnSolicitClanHelp -= DealWithSolicitHelp;
+//		MSActionManager.Clan.OnEndClanHelp -= DealwithEndHelp;
+//		MSActionManager.Clan.OnGiveClanHelp -= DealWithGiveHelp;
+//		MSActionManager.Clan.OnSolicitClanHelp -= DealWithSolicitHelp;
+
+		MSActionManager.Clan.OnUpdateNumberOfAvailableHelpRequests -= ChangeNumber;
 	}
 
 	void DealWithGiveHelp(GiveClanHelpResponseProto response, bool self)
@@ -36,10 +40,29 @@ public class MSClanHouse : MSBuildingFrame {
 		FirstFrameCheck();
 	}
 
+	void ChangeNumber(int helpableCount)
+	{
+		bubbleIcon.gameObject.SetActive(false);
+		if(helpableCount > 0)
+		{
+			bubbleIcon.gameObject.SetActive(true);
+			if(helpableCount < 9)
+			{
+				bubbleIcon.spriteName = HELP_NAME + helpableCount.ToString();
+			}
+			else
+			{
+				bubbleIcon.spriteName = HELP_NAME + "exclemation";
+			}
+			bubbleIcon.MakePixelPerfect();
+		}
+	}
+
 	public override void CheckTag(){
 
 		if(Precheck())
 		{
+			bubbleIcon.gameObject.SetActive(false);
 			int helpableCount = MSClanManager.instance.currHelpable;
 
 			if(helpableCount > 0)

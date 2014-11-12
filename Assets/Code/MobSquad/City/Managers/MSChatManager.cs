@@ -171,4 +171,9 @@ public class MSChatManager : MonoBehaviour {
 			MSActionManager.UI.OnGroupChatReceived(proto);
 		}
 	}
+
+	public void RecieveClanData(RetrieveClanDataResponseProto proto)
+	{
+		clanChat = proto.clanData.clanChats;
+	}
 }

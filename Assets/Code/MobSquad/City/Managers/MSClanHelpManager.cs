@@ -40,6 +40,7 @@ public class MSClanHelpManager : MonoBehaviour {
 	
 	public void InitHelp()
 	{
+		helpScreen.grid.animateSmoothly = false;
 		foreach(KeyValuePair<int, List<MSClanHelpListing>> userList in screenListings)
 		{
 			foreach(MSClanHelpListing listing in userList.Value)
@@ -74,6 +75,8 @@ public class MSClanHelpManager : MonoBehaviour {
 		
 		helpScreen.helpAllButton.onClick.Clear();
 		EventDelegate.Add(helpScreen.helpAllButton.onClick, delegate {OnHelpAll();});
+
+		helpScreen.grid.animateSmoothly = true;
 	}
 
 	public void ReinitChat()

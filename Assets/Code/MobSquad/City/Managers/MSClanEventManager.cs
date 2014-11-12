@@ -114,6 +114,14 @@ public class MSClanEventManager : MonoBehaviour {
 
 	#endregion clanHelp
 
+	public void DealWithClanData(RetrieveClanDataResponseProto proto)
+	{
+		if(MSActionManager.Clan.OnRetrieveClanData != null)
+		{
+			MSActionManager.Clan.OnRetrieveClanData(proto);
+		}
+	}
+
 	#region clanAttack
 
 	/// <summary>
