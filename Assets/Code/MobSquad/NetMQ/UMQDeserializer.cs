@@ -92,7 +92,8 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_UNRESTRICT_USER_MONSTER_EVENT, typeof(UnrestrictUserMonsterResponseProto)},
 		{EventProtocolResponse.S_GIVE_CLAN_HELP_EVENT, typeof(GiveClanHelpResponseProto)},
 		{EventProtocolResponse.S_SEND_ADMIN_MESSAGE_EVENT, typeof(SendAdminMessageResponseProto)},
-		{EventProtocolResponse.S_REVIVE_IN_DUNGEON_EVENT, typeof(ReviveInDungeonResponseProto)}
+		{EventProtocolResponse.S_REVIVE_IN_DUNGEON_EVENT, typeof(ReviveInDungeonResponseProto)},
+		{EventProtocolResponse.S_COLLECT_MONSTER_ENHANCEMENT_EVENT, typeof(CollectMonsterEnhancementResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

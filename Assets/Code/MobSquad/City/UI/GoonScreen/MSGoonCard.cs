@@ -406,7 +406,7 @@ public class MSGoonCard : MonoBehaviour {
 
 		//Small gets fiddled with on Update
 
-		if (MSMonsterManager.instance.enhancementFeeders.Contains(goon))
+		if (MSEnhancementManager.instance.feeders.Contains(goon))
 		{
 			MoveToEnhanceQueue();
 		}
@@ -519,13 +519,13 @@ public class MSGoonCard : MonoBehaviour {
 
 	void SetEnhancementBonusText()
 	{
-		if (monster == MSMonsterManager.instance.currentEnhancementMonster)
+		if (monster == MSEnhancementManager.instance.enhancementMonster)
 		{
 			bottomCardLabel.text = " ";
 		}
 		else
 		{
-			bottomCardLabel.text = (MSMonsterManager.instance.currentEnhancementMonster.PercentageOfAddedLevelup(monster.enhanceXP) * 100).ToString("N0") + "% for $" + monster.enhanceCost;
+			bottomCardLabel.text = (MSEnhancementManager.instance.enhancementMonster.PercentageOfAddedLevelup(monster.enhanceXP) * 100).ToString("N0") + "% for $" + monster.enhanceCost;
 		}
 	}
 
@@ -678,11 +678,6 @@ public class MSGoonCard : MonoBehaviour {
 		MSMonsterManager.instance.RemoveFromTeam(monster);
 	}
 
-	void ClearEnhanceQueue()
-	{
-		MSMonsterManager.instance.ClearEnhanceQueue();
-	}
-
 	void PickEnhanceMonster()
 	{
 		MSPickEnhanceScreen.instance.PickMonster(monster);
@@ -702,7 +697,7 @@ public class MSGoonCard : MonoBehaviour {
 
 	void AddToEnhanceQueue()
 	{
-		if (MSMonsterManager.instance.AddToEnhanceQueue(monster))
+		if (MSEnhancementManager.instance.AddMonster(monster))
 		{
 			MoveToEnhanceQueue ();
 		}
@@ -723,7 +718,7 @@ public class MSGoonCard : MonoBehaviour {
 
 	void RemoveFromEnhanceQueue()
 	{
-		MSMonsterManager.instance.RemoveFromEnhanceQueue(monster);
+		MSEnhancementManager.instance.RemoveMonster(monster);
 		MSDoEnhanceScreen.instance.RemoveMonster(this);
 
 		transform.parent = MSDoEnhanceScreen.instance.grid.transform;
@@ -999,7 +994,7 @@ public class MSGoonCard : MonoBehaviour {
 
 	void OnEnhancementQueueChanged()
 	{
-		if (MSMonsterManager.instance.currentEnhancementMonster != null 
+		if (MSEnhancementManager.instance.enhancementMonster != null && MSEnhancementManager.instance.enhancementMonster.monster.monsterId != 0
 		    && monster != null && monster.monster != null && monster.monster.monsterId > 0)
 		{
 			SetEnhancementBonusText();

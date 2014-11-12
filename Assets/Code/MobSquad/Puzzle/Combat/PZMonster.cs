@@ -138,9 +138,9 @@ public class PZMonster {
 		get
 		{
 			if (restricted) return 0;
-			int xp = userMonster.currentLvl * monster.lvlInfo[0].feederExp;
-			if (MSMonsterManager.instance.currentEnhancementMonster != null
-			    && MSMonsterManager.instance.currentEnhancementMonster.monster.monsterElement
+			int xp = Mathf.FloorToInt(Mathf.Lerp(baseLevelInfo.feederExp, maxLevelInfo.feederExp, ((float)level)/maxLevelInfo.lvl));
+			if (MSEnhancementManager.instance.enhancementMonster != null && MSEnhancementManager.instance.enhancementMonster.monster.monsterId != 0
+			    && MSEnhancementManager.instance.enhancementMonster.monster.monsterElement
 			    	== monster.monsterElement)
 			{
 				xp = Mathf.FloorToInt(xp * 1.5f);
@@ -622,7 +622,7 @@ public class PZMonster {
 		int currExp = 0;
 		if (checkFeeders)
 		{
-			foreach (var item in MSMonsterManager.instance.enhancementFeeders) 
+			foreach (var item in MSEnhancementManager.instance.feeders) 
 			{
 				currExp += item.enhanceXP;
 			}
@@ -686,6 +686,20 @@ public class PZMonster {
 		umcep.userMonsterId = userMonster.userMonsterId;
 		umcep.expectedExperience = userMonster.currentExp;
 		umcep.expectedLevel = userMonster.currentLvl;
+		return umcep;
+	}
+
+	public UserMonsterCurrentExpProto GetExpProtoWithMonsters(List<UserEnhancementItemProto> feeders)
+	{
+		UserMonsterCurrentExpProto umcep = new UserMonsterCurrentExpProto();
+		umcep.userMonsterId = userMonster.userMonsterId;
+
+		List<PZMonster> feedMonsters = new List<PZMonster>();
+		foreach (var item in feeders) {
+			feedMonsters.Add(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId.Equals(item.userMonsterId)));
+		}
+		umcep.expectedLevel = (int)LevelWithFeeders(feedMonsters);
+		umcep.expectedHp = MaxHPAtLevel(umcep.expectedLevel);
 		return umcep;
 	}
 

@@ -26,12 +26,12 @@ public class MSPickEnhanceScreen : MSFunctionalScreen
 	{
 		return MSBuildingManager.enhanceLabs.Count > 0
 			&& MSBuildingManager.enhanceLabs.Find(x=>x.combinedProto.structInfo.level > 0)
-			&& !MSMonsterManager.instance.isEnhancing;
+				&& !MSEnhancementManager.instance.hasEnhancement;
 	}
 
 	public override void Init ()
 	{
-		if (MSMonsterManager.instance.isEnhancing)
+		if (MSEnhancementManager.instance.hasEnhancement)
 		{
 			goonScreen.Init(GoonScreenMode.DO_ENHANCE);
 		}
@@ -43,7 +43,7 @@ public class MSPickEnhanceScreen : MSFunctionalScreen
 
 	public void PickMonster(PZMonster monster)
 	{
-		MSMonsterManager.instance.AddToEnhanceQueue(monster);
+		MSEnhancementManager.instance.SetEnhancementMonster(monster);
 		goonScreen.DoShiftRight(false);
 	}
 

@@ -55,7 +55,7 @@ public class MSMobsterGrid : MonoBehaviour {
 			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED
 				|| mobster.monsterStatus == MonsterStatus.INCOMPLETE;
 		case GoonScreenMode.DO_ENHANCE:	
-			return mobster != MSMonsterManager.instance.currentEnhancementMonster &&
+			return mobster != MSEnhancementManager.instance.enhancementMonster &&
 				(mobster.monsterStatus == MonsterStatus.HEALTHY 
 				 || mobster.monsterStatus == MonsterStatus.INJURED
 				 || mobster.monsterStatus == MonsterStatus.ENHANCING);

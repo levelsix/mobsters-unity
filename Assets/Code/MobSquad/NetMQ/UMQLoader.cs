@@ -170,7 +170,9 @@ public class UMQLoader : MonoBehaviour {
 		
 		MSMonsterManager.instance.Init(response.usersMonsters, response.monstersHealing, response.enhancements);
 		MSEvolutionManager.instance.Init(response.evolution);
-		
+
+		MSEnhancementManager.instance.Init(response.enhancements);
+
 		if (MSActionManager.Loading.OnStartup != null)
 		{
 			MSActionManager.Loading.OnStartup(response);

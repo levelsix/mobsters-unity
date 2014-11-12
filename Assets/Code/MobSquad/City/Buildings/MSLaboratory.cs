@@ -47,8 +47,8 @@ public class MSLaboratory : MSBuildingFrame {
 			bubbleIcon.spriteName = "fixbubble";
 			bubbleIcon.MakePixelPerfect();
 		}
-		else if (MSMonsterManager.instance.currentEnhancementMonster == null ||
-		    MSMonsterManager.instance.currentEnhancementMonster.monster.monsterId == 0) {
+		else if (MSEnhancementManager.instance.enhancementMonster == null ||
+		    MSEnhancementManager.instance.enhancementMonster.monster.monsterId == 0) {
 
 			int canEnhance = 0;
 			foreach (PZMonster monster in MSMonsterManager.instance.userMonsters) {

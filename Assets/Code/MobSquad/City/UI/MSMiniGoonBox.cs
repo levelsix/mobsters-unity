@@ -117,14 +117,14 @@ public class MSMiniGoonBox : MonoBehaviour {
 		}
 		else if (monster.isEnhancing)
 		{
-			if (monster == MSMonsterManager.instance.currentEnhancementMonster)
+			if (monster == MSEnhancementManager.instance.enhancementMonster)
 			{
-				Debug.Log("Clear enhance queue");
-				MSMonsterManager.instance.ClearEnhanceQueue();
+				//Debug.Log("Clear enhance queue");
+				//MSMonsterManager.instance.ClearEnhanceQueue();
 			}
 			else
 			{
-				MSMonsterManager.instance.RemoveFromEnhanceQueue(monster);
+				MSEnhancementManager.instance.RemoveMonster(monster);
 			}
 		}
 		else

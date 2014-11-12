@@ -104,7 +104,7 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		get
 		{
-			return shieldHealth > 0 || roiding || damageMultiplier > 0;
+			return shieldHealth > 0 || roiding || damageMultiplier > 1;
 		}
 	}
 
@@ -112,6 +112,11 @@ public class PZCombatUnit : MonoBehaviour {
 	{
 		set
 		{
+			if (currentColorTween != null)
+			{
+				StopCoroutine(currentColorTween);
+				currentColorTween = null;
+			}
 			alphaParent.alpha = value;
 			unit.alpha = value;
 		}

@@ -19,7 +19,13 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	UILabel neededForLevel;
 
 	[SerializeField]
-	UILabel finishButtonLabel;
+	UILabel timeLeft;
+
+	[SerializeField]
+	UILabel buttonLabel;
+
+	[SerializeField]
+	UIButton button;
 
 	public UIGrid enhanceQueue;
 
@@ -49,6 +55,10 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	float futureLevel;
 
+	const string START_BUTTON_NAME = "yellowmenuoption";
+	const string FINISH_NOW_BUTTON_NAME = "purplemenuoption";
+	const string COLLECT_BUTTON_NAME = "greenmenuoption";
+
 	/// <summary>
 	/// Getter for monster being enhanced to keep code clean.
 	/// </summary>
@@ -57,7 +67,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	{
 		get
 		{
-			return MSMonsterManager.instance.currentEnhancementMonster;
+			return MSEnhancementManager.instance.enhancementMonster;
 		}
 	}
 
@@ -69,7 +79,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	{
 		get
 		{
-			return MSMonsterManager.instance.enhancementFeeders;
+			return MSEnhancementManager.instance.feeders;
 		}
 	}
 
@@ -89,7 +99,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	public override bool IsAvailable ()
 	{
 		return MSBuildingManager.enhanceLabs.Count > 0
-			&& MSMonsterManager.instance.isEnhancing;
+			&& (MSEnhancementManager.instance.hasEnhancement || (MSEnhancementManager.instance.tempEnhancementMonster != null && MSEnhancementManager.instance.tempEnhancementMonster.monster.monsterId != 0));
 	}
 
 	public override void Init ()
@@ -104,20 +114,11 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	void OnDisable()
 	{
-		if (feeders.Count == 0 && enhanceMonster != null && enhanceMonster.monster.monsterId > 0)
-		{
-			MSMonsterManager.instance.RemoveFromEnhanceQueue(enhanceMonster);
-		}
-		//no longer uses the timer way
-//		MSMonsterManager.instance.DoSendStartEnhanceRequest();
-		MSMonsterManager.instance.ClearEnhanceQueue();
+		MSEnhancementManager.instance.ClearTemp();
 	}
 
 	void RefreshStats()
 	{
-		finishButtonLabel.text = "Enhance\n(o) " + totalCost;
-		
-
 		//Get future level
 		futureLevel = enhanceMonster.LevelWithFeeders(feeders);
 
@@ -174,22 +175,32 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		}
 	}
 
-	//no longer uses a timer
-//	void Update()
-//	{
-//		if (feeders.Count == 0)
-//		{
-//			timeHelper.ResetAlpha(false);
-//		}
-//		else
-//		{
-//			timeHelper.ResetAlpha(true);
-//			timeLeft.text = MSUtil.TimeStringShort(feeders[feeders.Count-1].enhanceTimeLeft);
-//			finishButtonLabel.text = "Finish\n(G) " + MSMath.GemsForTime(feeders[feeders.Count-1].enhanceTimeLeft);
-//			RefreshBar();
-//		}
-//	}
-
+	//Updates the time/cost and other button info that changes moment to moment 
+	void Update()
+	{
+		if (MSEnhancementManager.instance.hasEnhancement)
+		{
+			if (MSEnhancementManager.instance.finished)
+			{
+				timeLeft.text = "Done!";
+				buttonLabel.text = "Collect";
+				button.normalSprite = COLLECT_BUTTON_NAME;
+			}
+			else
+			{
+				timeLeft.text = MSUtil.TimeStringShort(MSEnhancementManager.instance.timeLeft);
+				buttonLabel.text = "Finish\n(G) " + MSEnhancementManager.instance.gemsToFinish;
+				button.normalSprite = FINISH_NOW_BUTTON_NAME;
+				//RefreshBar();
+			}
+		}
+		else
+		{
+			timeLeft.text = "(O) " + totalCost;
+			buttonLabel.text = "Start Enhance";
+			button.normalSprite = START_BUTTON_NAME;
+		}
+	}
 
 	public void AddMonster(MSGoonCard card)
 	{
@@ -201,19 +212,37 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		RefreshStats();
 	}
 
-	public void Finish()
+	public void ClickButton()
 	{
-		if(MSResourceManager.instance.Spend(ResourceType.OIL, totalCost, FinishBySpendingGemsForOil))
+		if (MSEnhancementManager.instance.hasEnhancement)
 		{
-			MSMonsterManager.instance.DoEnhanceRequest(totalCost, 0, loadLock);
+			if (MSEnhancementManager.instance.finished) //Collect enhancement
+			{
+				MSEnhancementManager.instance.DoCollectEnhancement(loadLock);
+			}
+			else //Finish enhancement with gems
+			{
+				if (MSResourceManager.instance.Spend(ResourceType.GEMS, MSEnhancementManager.instance.gemsToFinish))
+				{
+					MSEnhancementManager.instance.FinishEnhanceWithGems(loadLock);
+				}
+			}
+		}
+		else if(MSResourceManager.instance.Spend(ResourceType.OIL, totalCost, FinishBySpendingGemsForOil)) //Start enhancement
+		{
+			MSEnhancementManager.instance.DoSendStartEnhanceRequest(totalCost, 0, loadLock);
 		}
 	}
 
 	void FinishBySpendingGemsForOil()
 	{
-		int oilSpent = MSResourceManager.instance.SpendAll(ResourceType.OIL);
-		int gems = Mathf.CeilToInt((totalCost - oilSpent) * MSWhiteboard.constants.gemsPerResource);
-		MSMonsterManager.instance.DoEnhanceRequest(oilSpent, gems, loadLock);
+		int gems = Mathf.CeilToInt((totalCost - MSResourceManager.resources[ResourceType.OIL]) * MSWhiteboard.constants.gemsPerResource);
+
+		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gems))
+		{
+			int oilSpent = MSResourceManager.instance.SpendAll(ResourceType.OIL);
+			MSEnhancementManager.instance.DoSendStartEnhanceRequest(oilSpent, gems, loadLock);
+		}
 	}
 
 	public void Back()
