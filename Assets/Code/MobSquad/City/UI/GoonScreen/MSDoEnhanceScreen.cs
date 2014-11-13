@@ -55,6 +55,12 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	float futureLevel;
 
+	[SerializeField] Color greyTextColor;
+	[SerializeField] Color startTextColor;
+	[SerializeField] Color finishTextColor;
+	[SerializeField] Color collectTextColor;
+
+	const string GREY_BUTTON_NAME = "greymenuoption";
 	const string START_BUTTON_NAME = "yellowmenuoption";
 	const string FINISH_NOW_BUTTON_NAME = "purplemenuoption";
 	const string COLLECT_BUTTON_NAME = "greenmenuoption";
@@ -184,21 +190,33 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 			{
 				timeLeft.text = "Done!";
 				buttonLabel.text = "Collect";
+				buttonLabel.color = collectTextColor;
 				button.normalSprite = COLLECT_BUTTON_NAME;
 			}
 			else
 			{
 				timeLeft.text = MSUtil.TimeStringShort(MSEnhancementManager.instance.timeLeft);
 				buttonLabel.text = "Finish\n(G) " + MSEnhancementManager.instance.gemsToFinish;
+				buttonLabel.color = finishTextColor;
 				button.normalSprite = FINISH_NOW_BUTTON_NAME;
 				//RefreshBar();
 			}
 		}
 		else
 		{
-			timeLeft.text = "(O) " + totalCost;
-			buttonLabel.text = "Start Enhance";
-			button.normalSprite = START_BUTTON_NAME;
+			buttonLabel.text = "Enhance\n(O)" + totalCost;
+			if (MSEnhancementManager.instance.feeders.Count == 0)
+			{
+				timeLeft.text = " ";
+				button.normalSprite = GREY_BUTTON_NAME;
+				buttonLabel.color = greyTextColor;
+			}
+			else
+			{
+				timeLeft.text = MSUtil.TimeStringShort(MSEnhancementManager.instance.potentialTime);
+				button.normalSprite = START_BUTTON_NAME;
+				buttonLabel.color = startTextColor;
+			}
 		}
 	}
 
@@ -228,7 +246,8 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 				}
 			}
 		}
-		else if(MSResourceManager.instance.Spend(ResourceType.OIL, totalCost, FinishBySpendingGemsForOil)) //Start enhancement
+		else if(MSEnhancementManager.instance.feeders.Count > 0 
+		        && MSResourceManager.instance.Spend(ResourceType.OIL, totalCost, FinishBySpendingGemsForOil)) //Start enhancement
 		{
 			MSEnhancementManager.instance.DoSendStartEnhanceRequest(totalCost, 0, loadLock);
 		}
