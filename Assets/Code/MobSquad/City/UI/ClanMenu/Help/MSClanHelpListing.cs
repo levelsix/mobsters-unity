@@ -6,10 +6,25 @@ using com.lvl6.proto;
 public class MSClanHelpListing : MonoBehaviour {
 
 	[SerializeField] MSChatAvatar avatar;
+	public int avatarId = 0;
 
 	[SerializeField] UILabel playerName;
+	public string name
+	{
+		get
+		{
+			return playerName.text;
+		}
+	}
 
 	[SerializeField] UILabel helpDescription;
+	public string description
+	{
+		get
+		{
+			return helpDescription.text;
+		}
+	}
 
 	[SerializeField] MSFillBar bar;
 
@@ -39,7 +54,7 @@ public class MSClanHelpListing : MonoBehaviour {
 		{
 			foreach(ClanHelpProto help in protos)
 			{
-				if(help.mup.userId != MSWhiteboard.localMup.userId && help.helperIds.Count < help.maxHelpers && !help.helperIds.Contains(MSWhiteboard.localMup.userId))
+				if(help.mup.userId != MSWhiteboard.localMup.userId && help.helperIds.Count < help.maxHelpers && !help.helperIds.Contains(MSWhiteboard.localMup.userId) && help.open)
 				{
 					return true;
 				}
@@ -108,6 +123,7 @@ public class MSClanHelpListing : MonoBehaviour {
 			}
 			
 			avatar.Init(proto.mup.avatarMonsterId);
+			avatarId = proto.mup.avatarMonsterId;
 			if(proto.mup.name != "")
 			{
 				playerName.text = proto.mup.name;

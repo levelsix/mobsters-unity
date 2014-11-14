@@ -184,7 +184,6 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		building = GetComponent<MSBuilding>();
 		OnFinishUpgrade += delegate {
-			Debug.LogError("CallingB");
 			StartCoroutine( building.SetupSprite(building.combinedProto.successor.structInfo.imgName));
 			building.sprite.GetComponent<Animator>().enabled = true;
 			FinishUpgrade();

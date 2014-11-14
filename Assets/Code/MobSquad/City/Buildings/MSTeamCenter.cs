@@ -18,7 +18,7 @@ public class MSTeamCenter : MSBuildingFrame {
 		MSActionManager.Goon.OnTeamChanged += OnTeamChange;
 		MSActionManager.Scene.OnCity += OnTeamChange;
 		FirstFrameCheck();
-		OnTeamChange();
+//		OnTeamChange();
 	}
 
 	void OnDisable()

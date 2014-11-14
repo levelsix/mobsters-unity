@@ -33,16 +33,27 @@ public class MSClanDetailScreen : MonoBehaviour {
 
 	FullClanProtoWithClanSize clan;
 
-	bool clanValuesRetrieved = false;
+	int lastClanRetrieved = -1;
+
+	void OnEnable()
+	{
+		MSActionManager.Clan.OnPlayerClanChange += ClanChanged;
+	}
 
 	void OnDisable()
 	{
-		clanValuesRetrieved = false;
+		lastClanRetrieved = -1;
+		MSActionManager.Clan.OnPlayerClanChange -= ClanChanged;
+	}
+
+	public void ClanChanged(int a, UserClanStatus b, int c)
+	{
+		lastClanRetrieved = -1;
 	}
 
 	public void Init(int clanId)
 	{
-		if(!clanValuesRetrieved)
+		if(lastClanRetrieved != clanId)
 		{
 			StartCoroutine(RetrieveClanValues(clanId));
 		}
@@ -122,7 +133,7 @@ public class MSClanDetailScreen : MonoBehaviour {
 
 		loadingObjects.SetActive(false);
 
-		clanValuesRetrieved = true;
+		lastClanRetrieved = clanId;
 	}
 
 	public void CloseAllOptions()

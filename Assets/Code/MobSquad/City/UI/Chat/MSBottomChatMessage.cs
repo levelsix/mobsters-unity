@@ -20,6 +20,18 @@ public class MSBottomChatMessage : MonoBehaviour {
 
 	UIWidget myWidget;
 
+	public Color color
+	{
+		set
+		{
+			dialogue.color = value;
+		}
+		get
+		{
+			return dialogue.color;
+		}
+	}
+
 	public void Init(int avatarId, string name, string content, int width)
 	{
 		if (myWidget == null) myWidget = GetComponent<UIWidget>();

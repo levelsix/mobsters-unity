@@ -134,7 +134,7 @@ public class SpringPosition : MonoBehaviour
 		if (sp == null)
 		{
 			sp = go.AddComponent<SpringPosition>();
-			Debug.LogWarning("Added a SpringPosition to " + go.name);
+//			Debug.LogWarning("Added a SpringPosition to " + go.name);
 		}
 		sp.target = pos;
 		sp.strength = strength;
