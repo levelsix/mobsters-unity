@@ -7,18 +7,19 @@ public class MSChatManager : MonoBehaviour {
 	
 	public static MSChatManager instance;
 	
-	[SerializeField]
-	MSChatGrid chatGrid;
+	public MSChatGrid globalGrid;
+	public MSChatGrid clanGrid;
+	public MSChatGrid privateGrid;
 
 	[SerializeField]
 	UIGrid privateChatsGrid;
 
 	public MSChatPopup chatPopup;
-	
+
 	public MSValues.ChatMode currMode = MSValues.ChatMode.GLOBAL;
 	
 	List<GroupChatMessageProto> globalChat = new List<GroupChatMessageProto>();
-	List<GroupChatMessageProto> clanChat = new List<GroupChatMessageProto>();
+	public List<GroupChatMessageProto> clanChat = new List<GroupChatMessageProto>();
 	Dictionary<int, List<PrivateChatPostProto>> privateChats = new Dictionary<int, List<PrivateChatPostProto>>();
 
 	public bool hasPrivateChats
@@ -53,6 +54,9 @@ public class MSChatManager : MonoBehaviour {
 		{
 			AddPrivateChat(item);
 		}
+
+		//prewarms the clanchat so the bottom chat is accurate
+		clanGrid.SpawnBubbles(clanChat, false);
 	}
 
 	void AddPrivateChat(PrivateChatPostProto item)
@@ -74,10 +78,10 @@ public class MSChatManager : MonoBehaviour {
 		currMode = mode;
 		switch (mode) {
 		case MSValues.ChatMode.GLOBAL:
-			chatGrid.SpawnBubbles(globalChat);
+			globalGrid.SpawnBubbles(globalChat);
 			break;
 		case MSValues.ChatMode.CLAN:
-			chatGrid.SpawnBubbles(clanChat);
+			clanGrid.SpawnBubbles(clanChat);
 			MSClanHelpManager.instance.ReinitChat();
 			break;
 		case MSValues.ChatMode.PRIVATE:

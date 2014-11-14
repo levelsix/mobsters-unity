@@ -39,11 +39,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e00e36aa0cb545ebbd1318eb0f81ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatGrid: {fileID: 0}
+  globalGrid: {fileID: 0}
+  clanGrid: {fileID: 0}
+  privateGrid: {fileID: 0}
   privateChatsGrid: {fileID: 0}
   chatPopup: {fileID: 0}
-  chatOptionsPrefab: {fileID: 11400000, guid: 043d13ef224dd45f0a9ffab09d8301d5, type: 2}
   currMode: 0
+  clanChat: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

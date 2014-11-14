@@ -5,6 +5,9 @@ using com.lvl6.proto;
 using System;
 
 public class MSChatGrid : MonoBehaviour {
+
+	[SerializeField]
+	MSValues.ChatMode gridType;
 	
 	public List<MSChatBubble> bubbles = new List<MSChatBubble>();
 	
@@ -23,22 +26,24 @@ public class MSChatGrid : MonoBehaviour {
 	MSResetsPosition posResetter;
 
 	[SerializeField]
-	MSChatTable table;
+	public MSChatTable table;
 
 	void OnEnable()
 	{
 		MSActionManager.UI.OnGroupChatReceived += SpawnBubbleFromNewMessage;
 		MSActionManager.UI.OnPrivateChatReceived += SpawnBubbleFromPrivateMessage;
-		MSActionManager.Clan.OnEndClanHelp += DealWithEndHelpResponse;
-		MSActionManager.Clan.OnGiveClanHelp += DealWithGiveHelpResponse;
 	}
 
 	void OnDisable()
 	{
 		MSActionManager.UI.OnGroupChatReceived -= SpawnBubbleFromNewMessage;
 		MSActionManager.UI.OnPrivateChatReceived -= SpawnBubbleFromPrivateMessage;
-		MSActionManager.Clan.OnEndClanHelp -= DealWithEndHelpResponse;
-		MSActionManager.Clan.OnGiveClanHelp -= DealWithGiveHelpResponse;
+	}
+
+	//oldest message in index 0 newest in index count-1
+	public void SortBubbles()
+	{
+		bubbles.Sort((x,y)=>string.Compare(y.gameObject.name, x.gameObject.name));
 	}
 
 	void RecycleBubbles ()
@@ -48,6 +53,40 @@ public class MSChatGrid : MonoBehaviour {
 			item.Pool ();
 		}
 		bubbles.Clear ();
+	}
+
+	public void RemoveAllHelpBubbles()
+	{
+		for(int i =0; i < bubbles.Count; i++)
+		{
+			if(bubbles[i] is MSHelpBubble)
+			{
+				bubbles.Remove(bubbles[i]);
+				i--;
+			}
+		}
+	}
+
+	public bool RemoveHelpBubble(MSClanHelpListing listing)
+	{
+		bool removedListing = false;
+		for(int i =0; i < bubbles.Count; i++)
+		{
+			if(bubbles[i] is MSHelpBubble)
+			{
+				if(bubbles[i].GetComponent<MSClanHelpListing>() == listing)
+				{
+					bubbles.Remove(bubbles[i]);
+					i--;
+					removedListing = true;
+				}
+			}
+		}
+
+		table.animateSmoothly = true;
+		table.Reposition();
+
+		return removedListing;
 	}
 
 	MSHelpBubble CreateHelpBubble(ClanHelpProto helpProto)
@@ -81,9 +120,9 @@ public class MSChatGrid : MonoBehaviour {
 		return bub;
 	}
 	
-	public void SpawnBubbles(List<PrivateChatPostProto> messages)
+	public void SpawnBubbles(List<PrivateChatPostProto> messages, bool activateChat = true)
 	{
-		gameObject.SetActive(true);
+		gameObject.SetActive(activateChat);
 		
 		RecycleBubbles ();
 
@@ -102,9 +141,9 @@ public class MSChatGrid : MonoBehaviour {
 		posResetter.Reset();
 	}
 	
-	public void SpawnBubbles(List<GroupChatMessageProto> messages)
+	public void SpawnBubbles(List<GroupChatMessageProto> messages, bool activateChat = true)
 	{
-		gameObject.SetActive(true);
+		gameObject.SetActive(activateChat);
 
 		RecycleBubbles ();
 
@@ -122,7 +161,7 @@ public class MSChatGrid : MonoBehaviour {
 
 	public void SpawnBubbleFromPrivateMessage(PrivateChatPostResponseProto proto)
 	{
-		if (MSChatManager.instance.currMode == MSValues.ChatMode.PRIVATE 
+		if (gridType == MSValues.ChatMode.PRIVATE 
 		    && (proto.sender.userId == MSChatManager.instance.chatPopup.privateChatter.minUserProto.userId
 		    || proto.post.recipient.minUserProto.userId == MSChatManager.instance.chatPopup.privateChatter.minUserProto.userId))
 		{
@@ -136,8 +175,8 @@ public class MSChatGrid : MonoBehaviour {
 
 	public void SpawnBubbleFromNewMessage(ReceivedGroupChatResponseProto proto)
 	{
-		if ((proto.scope == GroupChatScope.GLOBAL && MSChatManager.instance.currMode == MSValues.ChatMode.GLOBAL) 
-		    || proto.scope == GroupChatScope.CLAN && MSChatManager.instance.currMode == MSValues.ChatMode.CLAN)
+		if ((proto.scope == GroupChatScope.GLOBAL && gridType == MSValues.ChatMode.GLOBAL) 
+		    || proto.scope == GroupChatScope.CLAN && gridType == MSValues.ChatMode.CLAN)
 		{
 			MSChatBubble bub = CreateBubble(proto.sender.minUserProto.userId, MSUtil.timeNowMillis);
 			bub.Init (proto);
@@ -152,34 +191,13 @@ public class MSChatGrid : MonoBehaviour {
 
 	}
 
-	public MSClanHelpListing SpawnBubbleForHelp(ClanHelpProto clanHelp)
+	public MSClanHelpListing SpawnBubbleForHelp(ClanHelpProto clanHelp, bool animate)
 	{
 		MSHelpBubble bub = CreateHelpBubble(clanHelp);
 		bub.Init(clanHelp);
-		table.animateSmoothly = true;
+		table.animateSmoothly = animate;
 		table.Reposition();
 
 		return bub.GetComponent<MSClanHelpListing>();
 	}
-
-	public void DealWithEndHelpResponse(EndClanHelpResponseProto proto, bool self)
-	{
-		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
-		{
-			MSClanHelpManager.instance.ReinitChat();
-			table.animateSmoothly = true;
-			table.Reposition();
-		}
-	}
-
-	public void DealWithGiveHelpResponse(GiveClanHelpResponseProto proto, bool self)
-	{
-		if(self)
-		{
-			MSClanHelpManager.instance.ReinitChat();
-			table.animateSmoothly = true;
-			table.Reposition();
-		}
-	}
-	
 }

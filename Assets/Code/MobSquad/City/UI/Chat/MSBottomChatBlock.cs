@@ -40,7 +40,7 @@ public class MSBottomChatBlock : MonoBehaviour {
 		MSActionManager.Loading.OnStartup -= OnStartup;
 	}
 
-	void AddMessage(int avatarId, string senderName, string messageContent)
+	void AddMessage(int avatarId, string senderName, string messageContent, Color color)
 	{
 		if (myWidget == null) myWidget = GetComponent<UIWidget>();
 		myWidget.width = bottomChatBox.width;
@@ -51,6 +51,7 @@ public class MSBottomChatBlock : MonoBehaviour {
 		message.transform.localScale = Vector3.one;
 		message.Init(avatarId, senderName, messageContent, myWidget.width);
 		message.GetComponent<MSUIHelper>().ResetAlpha(true);
+		message.color = color;
 		messages.Add(message);
 		grid.Reposition();
 
@@ -64,16 +65,33 @@ public class MSBottomChatBlock : MonoBehaviour {
 		MSBottomChat.instance.AlertDot(chatMode);
 	}
 
-	void AddMessage(GroupChatMessageProto message)
+	public void AddMessage(GroupChatMessageProto message)
 	{
 		AddMessage(message.sender.minUserProto.avatarMonsterId, message.sender.minUserProto.name,
-		           message.content);
+		           message.content, Color.white);
 	}
 
 	void AddMessage(PrivateChatPostProto message)
 	{
 		AddMessage(message.poster.minUserProto.avatarMonsterId, message.poster.minUserProto.name,
-		           message.content);
+		           message.content, Color.white);
+	}
+
+	void AddMessage(MSClanHelpListing listing)
+	{
+		AddMessage(listing.avatarId, listing.name, listing.description, Color.yellow);
+	}
+
+	public void AddMessage(MSChatBubble bubble)
+	{
+		if(bubble is MSHelpBubble)
+		{
+			AddMessage(bubble.avatarID, bubble.senderLabel.text, bubble.textLabel.text, Color.yellow);
+		}
+		else
+		{
+			AddMessage(bubble.avatarID, bubble.senderLabel.text, bubble.textLabel.text, Color.white);
+		}
 	}
 
 	/// <summary>
@@ -139,7 +157,7 @@ public class MSBottomChatBlock : MonoBehaviour {
 		    || (message.scope == GroupChatScope.GLOBAL && chatMode == MSValues.ChatMode.GLOBAL))
 		{
 			AddMessage(message.sender.minUserProto.avatarMonsterId, message.sender.minUserProto.name,
-			           message.chatMessage);
+			           message.chatMessage, Color.white);
 		}
 	}
 
@@ -147,7 +165,16 @@ public class MSBottomChatBlock : MonoBehaviour {
 	{
 		if (chatMode == MSValues.ChatMode.PRIVATE)
 		{
-			AddMessage(message.sender.avatarMonsterId, message.sender.name, message.post.content);
+			AddMessage(message.sender.avatarMonsterId, message.sender.name, message.post.content, Color.white);
 		}
+	}
+
+	/// <summary>
+	/// Adds new solicited help after it's been compressed in the clan help manager.
+	/// </summary>
+	/// <param name="listing">This is a reference to the help listing in the clan menu</param>
+	public void AddSolicitedHelp(MSClanHelpListing listing)
+	{
+		AddMessage(listing);
 	}
 }

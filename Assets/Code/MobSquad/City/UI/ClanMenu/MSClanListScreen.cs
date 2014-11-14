@@ -29,7 +29,18 @@ public class MSClanListScreen : MonoBehaviour {
 
 	public bool clansSearched = false;
 
+	void OnEnable()
+	{
+		MSActionManager.Clan.OnPlayerClanChange += ChangeClan;
+	}
+
 	void OnDisable()
+	{
+		clansSearched = false;
+		MSActionManager.Clan.OnPlayerClanChange -= ChangeClan;
+	}
+
+	public void ChangeClan(int a, UserClanStatus b, int c)
 	{
 		clansSearched = false;
 	}

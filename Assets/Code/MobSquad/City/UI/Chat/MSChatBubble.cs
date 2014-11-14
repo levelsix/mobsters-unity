@@ -52,10 +52,10 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	}
 	
 	[SerializeField]
-	protected UILabel textLabel;
+	public UILabel textLabel;
 	
 	[SerializeField]
-	protected UILabel senderLabel;
+	public UILabel senderLabel;
 
 	[SerializeField]
 	protected UILabel timeLabel;
@@ -65,6 +65,7 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 
 	[SerializeField]
 	protected MSChatAvatar avatar;
+	public int avatarID = 0;
 
 	MSChatBubbleOptions options
 	{
@@ -135,6 +136,7 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	protected void Init(long time, string sender, string message, int avatarId, bool leader = false)
 	{
 		avatar.Init(avatarId);
+		this.avatarID = avatarId;
 		timeSent = time;
 
 		//Fill text with message

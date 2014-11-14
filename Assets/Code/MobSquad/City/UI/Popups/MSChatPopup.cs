@@ -26,7 +26,7 @@ public class MSChatPopup : MonoBehaviour {
 	MSTab privateChatButton;
 
 	[SerializeField]
-	MSChatGrid chatGrid;
+	MSChatGrid privateGrid;
 
 	[SerializeField]
 	UIGrid privateChatGrid;
@@ -49,6 +49,8 @@ public class MSChatPopup : MonoBehaviour {
 
 	[SerializeField]
 	GameObject noPrivateChatsParent;
+
+	public MSBadge helpNotification;
 
 	#endregion
 
@@ -316,6 +318,11 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void SetGlobalChat()
 	{
+
+		MSChatManager.instance.clanGrid.gameObject.SetActive(false);
+		MSChatManager.instance.globalGrid.gameObject.SetActive(true);
+		MSChatManager.instance.privateGrid.gameObject.SetActive(false);
+
 		notInClanParent.SetActive(false);
 		noPrivateChatsParent.SetActive(false);
 		mover.gameObject.SetActive(true);
@@ -329,6 +336,11 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void SetClanChat()
 	{
+
+		MSChatManager.instance.clanGrid.gameObject.SetActive(true);
+		MSChatManager.instance.globalGrid.gameObject.SetActive(false);
+		MSChatManager.instance.privateGrid.gameObject.SetActive(false);
+
 		globalChatButton.InitInactive();
 		clanChatButton.InitActive();
 		privateChatButton.InitInactive();
@@ -350,6 +362,11 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void SetPrivateChat()
 	{
+
+		MSChatManager.instance.clanGrid.gameObject.SetActive(false);
+		MSChatManager.instance.globalGrid.gameObject.SetActive(false);
+		MSChatManager.instance.privateGrid.gameObject.SetActive(true);
+
 		globalChatButton.InitInactive();
 		clanChatButton.InitInactive();
 		privateChatButton.InitActive();
@@ -385,7 +402,7 @@ public class MSChatPopup : MonoBehaviour {
 
 		privateChatter = otherPlayer;
 
-		chatGrid.SpawnBubbles(chat);
+		privateGrid.SpawnBubbles(chat);
 		
 		globalChatButton.InitInactive();
 		clanChatButton.InitInactive();
@@ -431,5 +448,27 @@ public class MSChatPopup : MonoBehaviour {
 			}
 			privateChatGrid.Reposition();
 		}
+	}
+
+	public void DoRepositionAllGrids()
+	{
+		StartCoroutine(RepositionAllGrids());
+	}
+
+	IEnumerator RepositionAllGrids()
+	{
+		yield return null;
+
+		MSChatManager.instance.globalGrid.table.animateSmoothly = false;
+		MSChatManager.instance.globalGrid.table.Reposition();
+		
+		MSChatManager.instance.clanGrid.table.animateSmoothly = false;
+		MSChatManager.instance.clanGrid.table.Reposition();
+		
+		MSChatManager.instance.privateGrid.table.animateSmoothly = false;
+		MSChatManager.instance.privateGrid.table.Reposition();
+
+		privateChatGrid.animateSmoothly = false;
+		privateChatGrid.Reposition();
 	}
 }
