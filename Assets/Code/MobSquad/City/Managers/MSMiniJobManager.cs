@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -25,6 +25,38 @@ public class MSMiniJobManager : MonoBehaviour {
 	public List<UserMiniJobProto> userMiniJobs = new List<UserMiniJobProto>();
 
 	public UserMiniJobProto currActiveJob = null;
+
+	ClanHelpProto currActiveHelp = null;
+
+	public int helpCount
+	{
+		get
+		{
+			if(currActiveJob != null)
+			{
+				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.MINI_JOB || currActiveHelp.userDataId != currActiveJob.userMiniJobId)
+				{
+					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, currActiveJob.userMiniJobId);
+				}
+
+				if(currActiveHelp != null)
+				{
+					if(currActiveHelp.helperIds.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+					{
+						return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
+					}
+					else
+					{
+						return currActiveHelp.helperIds.Count;
+					}
+				}
+			}
+
+			return 0;
+		}
+	}
+
+	StartupResponseProto.StartupConstants.ClanHelpConstants minijobHelpConstant;
 
 	/// <summary>
 	/// List of mobsters that have been damaged by the completed task
@@ -54,6 +86,29 @@ public class MSMiniJobManager : MonoBehaviour {
 		}
 	}
 
+	public long helpTime
+	{
+		get
+		{
+			if(minijobHelpConstant == null)
+			{
+				minijobHelpConstant = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == GameActionType.MINI_JOB);
+			}
+			int amountRemovedPerHelp = minijobHelpConstant.amountRemovedPerHelp;
+			float percentRemovedPerHelp = minijobHelpConstant.percentRemovedPerHelp;
+
+			long totalTime = currActiveJob.durationSeconds;
+			if(amountRemovedPerHelp < percentRemovedPerHelp * totalTime)
+			{
+				return (long)(percentRemovedPerHelp * totalTime * helpCount);
+			}
+			else
+			{
+				return (long)(amountRemovedPerHelp * helpCount);
+			}
+		}
+	}
+
 	public long timeLeft
 	{
 		get
@@ -62,7 +117,7 @@ public class MSMiniJobManager : MonoBehaviour {
 			{
 				return 0;
 			}
-			return currActiveJob.timeStarted + currActiveJob.durationSeconds * 1000 - MSUtil.timeNowMillis;
+			return (currActiveJob.timeStarted + currActiveJob.durationSeconds * 1000 - MSUtil.timeNowMillis) - (helpTime * 1000);
 		}
 	}
 
@@ -97,11 +152,15 @@ public class MSMiniJobManager : MonoBehaviour {
 	void OnEnable()
 	{
 		MSActionManager.Loading.OnStartup += OnStartup;
+		MSActionManager.Clan.OnGiveClanHelp += DealWithHelp;
+		MSActionManager.Clan.OnEndClanHelp += DealWithEnd;
 	}
 
 	void OnDisable()
 	{
 		MSActionManager.Loading.OnStartup -= OnStartup;
+		MSActionManager.Clan.OnGiveClanHelp -= DealWithHelp;
+		MSActionManager.Clan.OnEndClanHelp -= DealWithEnd;
 	}
 
 	void OnStartup(StartupResponseProto response)
@@ -164,6 +223,22 @@ public class MSMiniJobManager : MonoBehaviour {
 		request.structId = currJobCenter.structInfo.structId;
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_SPAWN_MINI_JOB_EVENT, DealWithSpawnResponse);
+	}
+
+	void DealWithHelp(GiveClanHelpResponseProto help, bool self)
+	{
+		if(!self)
+		{
+			currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, currActiveJob.userMiniJobId);
+		}
+	}
+
+	void DealWithEnd(EndClanHelpResponseProto help, bool self)
+	{
+		if(self)
+		{
+			currActiveHelp = null;
+		}
 	}
 
 	void DealWithSpawnResponse(int tagNum)
@@ -250,7 +325,12 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	#region Completing Job
 
-	public IEnumerator CompleteCurrentJobWithGems()
+	public void DoCompleteCurrentJobWithGems(Action OnComplete = null)
+	{
+		StartCoroutine(CompleteCurrentJobWithGems(OnComplete));
+	}
+
+	public IEnumerator CompleteCurrentJobWithGems(Action OnComplete = null)
 	{
 		int numGems = MSMath.GemsForTime(timeLeft, false);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, numGems))
@@ -260,6 +340,11 @@ public class MSMiniJobManager : MonoBehaviour {
 			{
 				MSActionManager.MiniJob.OnMiniJobGemsComplete();
 			}
+		}
+
+		if(OnComplete != null)
+		{
+			OnComplete();
 		}
 	}
 
@@ -335,6 +420,14 @@ public class MSMiniJobManager : MonoBehaviour {
 		if (response.status != CompleteMiniJobResponseProto.CompleteMiniJobStatus.SUCCESS)
 		{
 			MSActionManager.Popup.DisplayRedError("Problem completing job: " + response.status.ToString());
+		}
+		else
+		{
+			ClanHelpProto miniJobHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, (int)currActiveJob.miniJob.quality ,currActiveJob.userMiniJobId);
+			if(miniJobHelp != null)
+			{
+				MSClanManager.instance.DoEndClanHelp(new List<long>{miniJobHelp.clanHelpId});
+			}
 		}
 	}
 
@@ -440,6 +533,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		UserMiniJobProto currJob = currActiveJob;
 		currActiveJob = null;
+		currActiveHelp = null;
 		userMiniJobs.Remove(currJob);
 
 		RedeemMiniJobRequestProto request = new RedeemMiniJobRequestProto();
@@ -470,11 +564,9 @@ public class MSMiniJobManager : MonoBehaviour {
 		RedeemMiniJobResponseProto response = UMQNetworkManager.responseDict[tagNum] as RedeemMiniJobResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
-		Debug.Log("A");
 
 		if (response.status == RedeemMiniJobResponseProto.RedeemMiniJobStatus.SUCCESS)
 		{
-			Debug.Log("B");
 			if (response.fump != null)
 			{
 				MSMonsterManager.instance.UpdateOrAdd(response.fump);

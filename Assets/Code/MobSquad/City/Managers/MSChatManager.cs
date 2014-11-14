@@ -78,6 +78,7 @@ public class MSChatManager : MonoBehaviour {
 			break;
 		case MSValues.ChatMode.CLAN:
 			chatGrid.SpawnBubbles(clanChat);
+			MSClanHelpManager.instance.ReinitChat();
 			break;
 		case MSValues.ChatMode.PRIVATE:
 			chatPopup.SetupPrivateChatListing(privateChats);
@@ -169,5 +170,10 @@ public class MSChatManager : MonoBehaviour {
 		{
 			MSActionManager.UI.OnGroupChatReceived(proto);
 		}
+	}
+
+	public void RecieveClanData(RetrieveClanDataResponseProto proto)
+	{
+		clanChat = proto.clanData.clanChats;
 	}
 }

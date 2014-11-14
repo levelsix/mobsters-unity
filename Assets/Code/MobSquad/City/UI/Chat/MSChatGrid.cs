@@ -17,6 +17,9 @@ public class MSChatGrid : MonoBehaviour {
 	MSChatBubble leftBubblePrefab;
 
 	[SerializeField]
+	MSHelpBubble helpBubble;
+
+	[SerializeField]
 	MSResetsPosition posResetter;
 
 	[SerializeField]
@@ -26,12 +29,16 @@ public class MSChatGrid : MonoBehaviour {
 	{
 		MSActionManager.UI.OnGroupChatReceived += SpawnBubbleFromNewMessage;
 		MSActionManager.UI.OnPrivateChatReceived += SpawnBubbleFromPrivateMessage;
+		MSActionManager.Clan.OnEndClanHelp += DealWithEndHelpResponse;
+		MSActionManager.Clan.OnGiveClanHelp += DealWithGiveHelpResponse;
 	}
 
 	void OnDisable()
 	{
 		MSActionManager.UI.OnGroupChatReceived -= SpawnBubbleFromNewMessage;
 		MSActionManager.UI.OnPrivateChatReceived -= SpawnBubbleFromPrivateMessage;
+		MSActionManager.Clan.OnEndClanHelp -= DealWithEndHelpResponse;
+		MSActionManager.Clan.OnGiveClanHelp -= DealWithGiveHelpResponse;
 	}
 
 	void RecycleBubbles ()
@@ -41,6 +48,22 @@ public class MSChatGrid : MonoBehaviour {
 			item.Pool ();
 		}
 		bubbles.Clear ();
+	}
+
+	MSHelpBubble CreateHelpBubble(ClanHelpProto helpProto)
+	{
+		MSHelpBubble bub = MSPoolManager.instance.Get<MSHelpBubble>(helpBubble, transform);
+		bub.transform.localPosition = Vector3.zero;
+		bub.transform.localScale = Vector3.one;
+
+		bub.name = (long.MaxValue - helpProto.timeRequested).ToString();
+		bubbles.Add(bub);
+		bubbles.Sort((a,b) => a.timeSent.CompareTo(b.timeSent));
+		foreach (var widget in bub.GetComponentsInChildren<UIWidget>()) 
+		{
+			widget.ParentHasChanged();
+		}
+		return bub;
 	}
 
 	MSChatBubble CreateBubble(int senderId, long timeSent)
@@ -127,6 +150,36 @@ public class MSChatGrid : MonoBehaviour {
 	public void SpawnBubbleForCheat(string cheatMessage)
 	{
 
+	}
+
+	public MSClanHelpListing SpawnBubbleForHelp(ClanHelpProto clanHelp)
+	{
+		MSHelpBubble bub = CreateHelpBubble(clanHelp);
+		bub.Init(clanHelp);
+		table.animateSmoothly = true;
+		table.Reposition();
+
+		return bub.GetComponent<MSClanHelpListing>();
+	}
+
+	public void DealWithEndHelpResponse(EndClanHelpResponseProto proto, bool self)
+	{
+		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		{
+			MSClanHelpManager.instance.ReinitChat();
+			table.animateSmoothly = true;
+			table.Reposition();
+		}
+	}
+
+	public void DealWithGiveHelpResponse(GiveClanHelpResponseProto proto, bool self)
+	{
+		if(self)
+		{
+			MSClanHelpManager.instance.ReinitChat();
+			table.animateSmoothly = true;
+			table.Reposition();
+		}
 	}
 	
 }

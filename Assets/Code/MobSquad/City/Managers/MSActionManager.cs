@@ -87,6 +87,9 @@ public static class MSActionManager
 
 		public static Action<string> DisplayRedError;
 		public static Action<string> DisplayGreenError;
+		public static Action<string> DisplayOrangeError;
+		public static Action<string> DisplayPurpleError;
+		public static Action<string> DisplayBlueError;
 	}
 	
 	public static class UI
@@ -209,6 +212,16 @@ public static class MSActionManager
 		public static Action OnRaidBegin;
 		public static Action<AttackClanRaidMonsterResponseProto> OnRaidMonsterAttacked;
 		public static Action<AttackClanRaidMonsterResponseProto> OnRaidMonsterDied;
+		//the bool represents if the call is coming from inside the house
+		//for more info see MSClanManager.DealWithGiveClanHelp
+		public static Action<EndClanHelpResponseProto, bool> OnEndClanHelp;
+		public static Action<SolicitClanHelpResponseProto, bool> OnSolicitClanHelp;
+		public static Action<GiveClanHelpResponseProto, bool> OnGiveClanHelp;
+		public static Action<int> OnUpdateNumberOfAvailableHelpRequests;
+
+		//This is a packet of information sent to the player when they join a clan.
+		//and maybe at other times?
+		public static Action<RetrieveClanDataResponseProto> OnRetrieveClanData;
 	}
 
 	public static class Tutorial

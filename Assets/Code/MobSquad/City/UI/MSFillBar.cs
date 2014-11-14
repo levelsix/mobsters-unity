@@ -15,7 +15,7 @@ public class MSFillBar : MonoBehaviour {
 	float currVal;
 
 	[SerializeField]
-	bool tweenToVal = false;
+	public bool tweenToVal = false;
 
 	[SerializeField]
 	float speed = .5f;

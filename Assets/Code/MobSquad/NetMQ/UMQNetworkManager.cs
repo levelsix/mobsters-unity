@@ -555,6 +555,22 @@ public class UMQNetworkManager : MonoBehaviour {
 				{
 					MSChatManager.instance.ReceivePrivateChatMessage(proto as PrivateChatPostResponseProto);
 				}
+				else if(proto is GiveClanHelpResponseProto)
+				{
+					MSClanEventManager.instance.DealWithClanHelpGive(proto as GiveClanHelpResponseProto);
+				}
+				else if(proto is SolicitClanHelpResponseProto)
+				{
+					MSClanEventManager.instance.DealWithClanHelpSolicitation(proto as SolicitClanHelpResponseProto);
+				}
+				else if (proto is EndClanHelpResponseProto)
+				{
+					MSClanEventManager.instance.DealWithClanHelpEnd(proto as EndClanHelpResponseProto);
+				}
+				else if(proto is RetrieveClanDataResponseProto)
+				{
+					MSClanEventManager.instance.DealWithClanData(proto as RetrieveClanDataResponseProto);
+				}
 			}
 			requestsOut.Remove(tagNum);
 

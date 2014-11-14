@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using com.lvl6.proto;
@@ -42,12 +43,55 @@ public class MSClanManager : MonoBehaviour
 			return members;
 		}
 	}
+	
+	public List<ClanHelpProto> clanHelpRequests = new List<ClanHelpProto>();
+
+	public int currHelpable
+	{
+		get
+		{
+			int helpable = 0;
+			foreach(ClanHelpProto help in clanHelpRequests)
+			{
+				if(help.mup.userId != MSWhiteboard.localMup.userId && help.helperIds.Count < help.maxHelpers && !help.helperIds.Contains(MSWhiteboard.localMup.userId))
+				{
+					helpable++;
+				}
+			}
+			
+			return helpable;
+		}
+	}
+
+	public bool canHelp
+	{
+		get
+		{
+			return currHelpable > 0;
+		}
+
+	}
 
 	public static MSClanManager instance;
 
 	void Awake()
 	{
 		instance = this;
+		MSActionManager.Loading.OnStartup += InitClanHelp;
+
+		MSActionManager.Clan.OnGiveClanHelp += DealWithGiveClanHelp;
+		MSActionManager.Clan.OnSolicitClanHelp += DealWithSoliciteClanHelp;
+		MSActionManager.Clan.OnEndClanHelp += DealWithEndClanHelp;
+
+		MSActionManager.Clan.OnRetrieveClanData += RecieveClanData;
+	}
+
+	void InitClanHelp(StartupResponseProto startup)
+	{
+		foreach(ClanHelpProto help in startup.clanHelpings)
+		{
+			clanHelpRequests.Add(help);
+		}
 	}
 
 	public void Init(List<FullUserClanProto> clans)
@@ -486,5 +530,249 @@ public class MSClanManager : MonoBehaviour
 		{
 			Debug.LogError("Problem booting player from clan: " + response.status.ToString());
 		}
+	}
+
+	public void DoSolicitClanHelp(GameActionType type, int staticId, long userId, int maxHelpers, Action OnComplete = null)
+	{
+		ClanHelpNoticeProto notice = new ClanHelpNoticeProto();
+		notice.helpType = type;
+		notice.staticDataId = staticId;//static ID for thing
+		notice.userDataId = userId;//userid ID for thing
+
+		List<ClanHelpNoticeProto> notices = new List<ClanHelpNoticeProto>();
+		notices.Add(notice);
+
+		DoSolicitClanHelp(notices, maxHelpers, OnComplete);
+	}
+
+	public void DoSolicitClanHelp(List<ClanHelpNoticeProto> notices, int maxHelpers, Action OnComplete = null)
+	{
+		StartCoroutine(SolicitClanHelp(notices, maxHelpers, OnComplete));
+	}
+
+	IEnumerator SolicitClanHelp( List<ClanHelpNoticeProto> notices, int maxHelpers, Action OnComplete = null)
+	{
+		SolicitClanHelpRequestProto request = new SolicitClanHelpRequestProto();
+		request.sender = MSWhiteboard.localMup;
+		request.maxHelpers = maxHelpers;//get form clan house struct
+		request.clientTime = MSUtil.timeNowMillis;
+		foreach(ClanHelpNoticeProto notice in notices)
+		{
+			request.notice.Add(notice);
+		}
+		
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_SOLICIT_CLAN_HELP_EVENT, null);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		SolicitClanHelpResponseProto response = UMQNetworkManager.responseDict[tagNum] as SolicitClanHelpResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if (response.status != SolicitClanHelpResponseProto.SolicitClanHelpStatus.SUCCESS)
+		{
+			Debug.LogError("Problem Soliciting Clan Help: " + response.status.ToString());
+		}
+		else
+		{
+			if(MSActionManager.Clan.OnSolicitClanHelp != null)
+			{
+				MSActionManager.Clan.OnSolicitClanHelp(response, true);
+			}
+		}
+
+		if(OnComplete != null)
+		{
+			OnComplete();
+		}
+	}
+	
+	public void DoGiveClanHelp(List<long> helpIds, Action OnComplete = null)
+	{
+		StartCoroutine(GiveClanHelp(helpIds, OnComplete));
+	}
+	
+	IEnumerator GiveClanHelp(List<long> helpIds, Action OnComplete)
+	{
+		GiveClanHelpRequestProto request = new GiveClanHelpRequestProto();
+		foreach(long id in helpIds)
+		{
+			request.clanHelpIds.Add(id);
+		}
+		request.sender = MSWhiteboard.localMup;
+
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_GIVE_CLAN_HELP_EVENT, null);
+
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+
+		GiveClanHelpResponseProto response = UMQNetworkManager.responseDict[tagNum] as GiveClanHelpResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+
+		if(response.status != GiveClanHelpResponseProto.GiveClanHelpStatus.SUCCESS)
+		{
+			Debug.LogError("Problem Giving Clan Help: " + response.status.ToString());
+		}
+		else
+		{
+			if(MSActionManager.Clan.OnGiveClanHelp != null)
+			{
+				MSActionManager.Clan.OnGiveClanHelp(response, true);
+			}
+		}
+
+		if(OnComplete != null)
+		{
+			OnComplete();
+		}
+	}
+	
+	public void DoEndClanHelp(List<long> helpIds, Action OnComplete = null)
+	{
+		StartCoroutine(EndClanHelp(helpIds));
+	}
+	
+	IEnumerator EndClanHelp(List<long> helpIds, Action OnComplete = null)
+	{
+		EndClanHelpRequestProto request = new EndClanHelpRequestProto();
+		foreach(long id in helpIds)
+		{
+			request.clanHelpIds.Add(id);
+		}
+		request.sender = MSWhiteboard.localMup;
+		
+		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_END_CLAN_HELP_EVENT, null);
+		
+		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
+		{
+			yield return null;
+		}
+		
+		EndClanHelpResponseProto response = UMQNetworkManager.responseDict[tagNum] as EndClanHelpResponseProto;
+		UMQNetworkManager.responseDict.Remove(tagNum);
+		
+		if(response.status != EndClanHelpResponseProto.EndClanHelpStatus.SUCCESS)
+		{
+			Debug.LogError("Problem Ending Clan Help: " + response.status.ToString());
+		}
+		else
+		{
+			if(MSActionManager.Clan.OnEndClanHelp != null)
+			{
+				MSActionManager.Clan.OnEndClanHelp(response, true);
+			}
+		}
+
+		if(OnComplete != null)
+		{
+			OnComplete();
+		}
+	}
+
+	/// <summary>
+	/// Search current list of active requests for help to see if the user has already requested help for a task
+	/// </summary>
+	/// <returns><c>true</c>, if already requested was helped, <c>false</c> otherwise.</returns>
+	/// <param name="type">Type.</param>
+	/// <param name="staticId">Static identifier for requested object.</param>
+	/// <param name="userId">User id for requested object.</param>
+	public bool HelpAlreadyRequested(GameActionType type, int staticId, long userId)
+	{
+		return GetClanHelp(type, staticId, userId) != null;
+	}
+
+	public bool HelpAlreadyRequested(GameActionType type, long userId)
+	{
+		return GetClanHelp(type, userId) != null;
+	}
+
+	public ClanHelpProto GetClanHelp(GameActionType type, int staticId, long userId)
+	{
+		foreach(ClanHelpProto proto in clanHelpRequests)
+		{
+			if(proto.helpType == type &&
+			   proto.staticDataId == staticId &&
+			   proto.userDataId == userId)
+			{
+				return proto;
+			}
+		}
+
+		
+		return null;
+	}
+
+	public ClanHelpProto GetClanHelp(GameActionType type, long userId)
+	{
+		foreach(ClanHelpProto proto in clanHelpRequests)
+		{
+			if(proto.helpType == type &&
+			   proto.userDataId == userId)
+			{
+				return proto;
+			}
+		}
+		
+		return null;
+	}
+
+	/// <summary>
+	/// Deals the with give clan help.
+	/// </summary>
+	/// <param name="self">If set to <c>true</c> then this function was triggered by the user and was not sent to us from the server.</param>
+	void DealWithGiveClanHelp(GiveClanHelpResponseProto proto, bool self)
+	{
+		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		{
+			foreach(ClanHelpProto helpProto in proto.clanHelps)
+			{
+				for(int i = 0; i < clanHelpRequests.Count;i++)
+				{
+					if(helpProto.clanHelpId == clanHelpRequests[i].clanHelpId)
+					{
+						clanHelpRequests[i] = helpProto;
+					}
+				}
+			}
+		}
+	}
+
+	void DealWithSoliciteClanHelp(SolicitClanHelpResponseProto proto, bool self)
+	{
+		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		{
+			foreach(ClanHelpProto helpProto in proto.helpProto)
+			{
+				clanHelpRequests.Add(helpProto);
+			}
+		}
+	}
+
+	void DealWithEndClanHelp(EndClanHelpResponseProto proto, bool self)
+	{
+		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		{
+			for(int i = 0; i < clanHelpRequests.Count; i++)
+			{
+				if(proto.clanHelpIds.Contains(clanHelpRequests[i].clanHelpId))
+				{
+					if(!clanHelpRequests.Remove(clanHelpRequests[i]))
+					{
+						Debug.LogError("removing task didn't work");
+					}
+					i--;
+				}
+			}
+		}
+	}
+
+	void RecieveClanData(RetrieveClanDataResponseProto proto)
+	{
+		clanHelpRequests = proto.clanData.clanHelpings;
+		MSClanHelpManager.instance.InitHelp();
 	}
 }

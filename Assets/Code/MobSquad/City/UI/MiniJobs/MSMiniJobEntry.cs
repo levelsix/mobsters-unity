@@ -95,7 +95,11 @@ public class MSMiniJobEntry : MonoBehaviour {
 		buttonHelper.TurnOn();
 		buttonHelper.ResetAlpha(true);
 
+		buttonLabel.color = Color.white;
+		buttonLabel.effectColor = new Color(0f,0f,0f,0.6f);
+
 		totalTimeLabel.text = " ";
+
 		if (currMode == EntryMode.COMPLETE)
 		{
 			timeLeftLabel.color = MSColors.cashTextColor;
@@ -106,30 +110,58 @@ public class MSMiniJobEntry : MonoBehaviour {
 		}
 		else if (currMode == EntryMode.WAITING)
 		{
-			SetupWaitingButton();
+			if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.MINI_JOB, (int)job.miniJob.quality, job.userMiniJobId))
+			{
+				SetupHelpButton();
+			}
+			else
+			{
+				SetupWaitingButton();
+			}
+			StartCoroutine(UpdateFinishTimer());
 		}
+	}
+
+	void SetupHelpButton()
+	{
+		timeLeftLabel.color = Color.black;
+		button.normalSprite = "orangemenuoption";
+		buttonLabel.text = "Get Help";
+		buttonLabel.effectColor = new Color(1f,1f,1f,0.6f);
+		buttonLabel.color = new Color(195f/255f, 27f/255f, 0f, 1f);
+		timeLeftLabel.text = MSUtil.TimeStringShort(MSMiniJobManager.instance.timeLeft);
 	}
 
 	void SetupWaitingButton()
 	{
 		timeLeftLabel.color = Color.black;
 		button.normalSprite = "purplemenuoption";
-		StartCoroutine(UpdateFinishButtonLabel());
+		buttonLabel.effectColor = new Color(0f,0f,0f,0.6f);
+		buttonLabel.color = Color.white;
+		StartCoroutine(UpdateFinishButton());
+
 	}
 
-	IEnumerator UpdateFinishButtonLabel()
+	IEnumerator UpdateFinishButton()
 	{
 		while (currMode == EntryMode.WAITING)
 		{
-			timeLeftLabel.text = MSUtil.TimeStringShort(MSMiniJobManager.instance.timeLeft);
 			buttonLabel.text = "Finish\n(g) " + MSMiniJobManager.instance.gemsToFinish;
-
+			
 			if (MSMiniJobManager.instance.isCompleted)
 			{
 				currMode = EntryMode.COMPLETE;
 				SetupButton();
 			}
+			yield return new WaitForSeconds(1);
+		}
+	}
 
+	IEnumerator UpdateFinishTimer()
+	{
+		while (currMode == EntryMode.WAITING)
+		{
+			timeLeftLabel.text = MSUtil.TimeStringShort(MSMiniJobManager.instance.timeLeft);
 			yield return new WaitForSeconds(1);
 		}
 	}
@@ -182,17 +214,25 @@ public class MSMiniJobEntry : MonoBehaviour {
 
 	public void OnButtonClick()
 	{
-		if (currMode == EntryMode.WAITING)
+		if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.MINI_JOB, (int)job.miniJob.quality, job.userMiniJobId))
 		{
-			StartCoroutine(RushComplete());
+			button.GetComponent<MSLoadLock>().Lock();
+			MSClanManager.instance.DoSolicitClanHelp(GameActionType.MINI_JOB,
+			                                         (int)job.miniJob.quality,
+			                                         job.userMiniJobId,
+			                                         MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
+			                                         delegate {SetupWaitingButton(); button.GetComponent<MSLoadLock>().Unlock();});
+		}
+		else if (currMode == EntryMode.WAITING)
+		{
+			RushComplete();
 		}
 	}
 
-	IEnumerator RushComplete()
+	void RushComplete()
 	{
 		button.GetComponent<MSLoadLock>().Lock();
-		yield return StartCoroutine(MSMiniJobManager.instance.CompleteCurrentJobWithGems());
-		button.GetComponent<MSLoadLock>().Unlock();
+		MSMiniJobManager.instance.DoCompleteCurrentJobWithGems(button.GetComponent<MSLoadLock>().Unlock);
 	}
 
 	void OnJobStarted(UserMiniJobProto job)

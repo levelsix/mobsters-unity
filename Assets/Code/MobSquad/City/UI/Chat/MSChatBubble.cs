@@ -7,11 +7,11 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 
 	[SerializeField] int lineMaxWidth = 100;
 	
-	MSChatBubble _prefab;
+	protected MSChatBubble _prefab;
 	
-	GameObject gameObj;
+	protected GameObject gameObj;
 	
-	Transform trans;
+	protected Transform trans;
 
 	bool rightSide = true;
 	
@@ -35,8 +35,6 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 			return trans;
 		}
 	}
-	
-	public int height;
 
 	static int nextId = 0;
 	int id = nextId++;
@@ -54,19 +52,19 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	}
 	
 	[SerializeField]
-	UILabel textLabel;
+	protected UILabel textLabel;
 	
 	[SerializeField]
-	UILabel senderLabel;
+	protected UILabel senderLabel;
 
 	[SerializeField]
-	UILabel timeLabel;
+	protected UILabel timeLabel;
 
 	[SerializeField]
-	UISprite bubble;
+	protected UISprite bubble;
 
 	[SerializeField]
-	MSChatAvatar avatar;
+	protected MSChatAvatar avatar;
 
 	MSChatBubbleOptions options
 	{
@@ -76,7 +74,7 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 		}
 	}
 
-	MinimumUserProtoWithLevel sender;
+	protected MinimumUserProtoWithLevel sender;
 
 	public long timeSent;
 	
@@ -134,8 +132,8 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 	/// <param name='message'>
 	/// Message.
 	/// </param>
-	void Init(long time, string sender, string message, int avatarId, bool leader = false)
-	{	
+	protected void Init(long time, string sender, string message, int avatarId, bool leader = false)
+	{
 		avatar.Init(avatarId);
 		timeSent = time;
 
@@ -148,7 +146,6 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 		int topLength = (int)(senderLabel.printedSize.x + timeLabel.printedSize.x + 50);
 		bubble.width = Mathf.Max(topLength, (int)textLabel.printedSize.x) + 75;
 		bubble.height = (int)textLabel.printedSize.y + 75;
-
 	}
 
 	void OnClick()

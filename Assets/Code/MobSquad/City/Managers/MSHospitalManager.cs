@@ -41,6 +41,54 @@ public class MSHospitalManager : MonoBehaviour {
 		instance = this;
 	}
 
+	void OnEnable()
+	{
+		MSActionManager.Clan.OnEndClanHelp += DealWithEndHelp;
+		MSActionManager.Clan.OnGiveClanHelp += DealWithGiveHelp;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Clan.OnEndClanHelp -= DealWithEndHelp;
+		MSActionManager.Clan.OnGiveClanHelp -= DealWithGiveHelp;
+	}
+
+	void DealWithGiveHelp(GiveClanHelpResponseProto response, bool self)
+	{
+		if(!self)
+		{
+			foreach(ClanHelpProto help in response.clanHelps)
+			{
+				if(help.helpType == GameActionType.HEAL)
+				{
+					foreach(PZMonster monster in healingMonsters)
+					{
+						if(monster.currActiveHelp.clanHelpId == help.clanHelpId)
+						{
+							monster.currActiveHelp = help;
+							break;
+						}
+					}
+				}
+			}
+		}
+		RearrangeHealingQueue();
+	}
+
+	void DealWithEndHelp(EndClanHelpResponseProto response, bool self)
+	{
+		if(self)
+		{
+			foreach(PZMonster monster in healingMonsters)
+			{
+				if(response.clanHelpIds.Contains(monster.currActiveHelp.clanHelpId))
+				{
+					monster.currActiveHelp = null;
+				}
+			}
+		}
+	}
+
 	public void Init(List<UserMonsterHealingProto> healing)
 	{
 		PZMonster mon;
@@ -547,7 +595,8 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		float healthLeftToHeal = monster.healthToHeal - progress;
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
-		
+		millis -= (int)monster.helpTime;
+
 		Debug.Log("Calculating finish time for " + monster.userMonsterId + "\nAt hospital " + hospital.userBuildingData.userStructId
 		          + "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
 		
@@ -558,6 +607,7 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		float healthLeftToHeal = monster.maxHP - progress - monster.currHP;
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
+		millis -= (int)monster.helpTime;
 
 		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructId
 			+ "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
@@ -751,6 +801,7 @@ public class HospitalItem
 	public long queueTime;
 	public int healthToHeal;
 	public long finishTime;
+	public long helpTime;
 	public List<HospitalTime> hospitalTimes = new List<HospitalTime>();
 
 	public HospitalItem(PZMonster monster)
@@ -768,5 +819,6 @@ public class HospitalItem
 
 		userMonsterId = monster.userMonster.userMonsterId;
 		healthToHeal = monster.maxHP - monster.currHP;
+		helpTime = monster.helpTime;
 	}
 }

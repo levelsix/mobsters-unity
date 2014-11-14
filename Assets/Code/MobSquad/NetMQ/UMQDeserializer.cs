@@ -1,4 +1,4 @@
-﻿#define DEBUG
+#define DEBUG
 
 using UnityEngine;
 using System.Collections;
@@ -93,7 +93,11 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_GIVE_CLAN_HELP_EVENT, typeof(GiveClanHelpResponseProto)},
 		{EventProtocolResponse.S_SEND_ADMIN_MESSAGE_EVENT, typeof(SendAdminMessageResponseProto)},
 		{EventProtocolResponse.S_REVIVE_IN_DUNGEON_EVENT, typeof(ReviveInDungeonResponseProto)},
-		{EventProtocolResponse.S_COLLECT_MONSTER_ENHANCEMENT_EVENT, typeof(CollectMonsterEnhancementResponseProto)}
+		{EventProtocolResponse.S_COLLECT_MONSTER_ENHANCEMENT_EVENT, typeof(CollectMonsterEnhancementResponseProto)},
+		{EventProtocolResponse.S_END_CLAN_HELP_EVENT, typeof(EndClanHelpResponseProto)},
+		{EventProtocolResponse.S_SOLICIT_CLAN_HELP_EVENT, typeof(SolicitClanHelpResponseProto)},
+		{EventProtocolResponse.S_GENERAL_NOTIFICATION_EVENT, typeof(GeneralNotificationResponseProto)},
+		{EventProtocolResponse.S_RETRIEVE_CLAN_DATA_EVENT, typeof(RetrieveClanDataResponseProto)}
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

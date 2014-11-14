@@ -21,14 +21,20 @@ public class MSTabAdvanced : MSTab {
 	{
 		base.InitActive();
 		label.color = activeText;
-		tabContents.SetActive(true);
+		if(tabContents != null)
+		{
+			tabContents.SetActive(true);
+		}
 	}
 
 	override public void InitInactive()
 	{
 		base.InitInactive();
 		label.color = inactiveText;
-		tabContents.SetActive(false);
+		if(tabContents != null)
+		{
+			tabContents.SetActive(false);
+		}
 	}
 
 	public void OnClick()
