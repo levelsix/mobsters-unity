@@ -276,7 +276,7 @@ public class MSEnhancementManager : MonoBehaviour
 	#region Completing
 	void CheckEnhancingMonsters()
 	{
-		if (hasEnhancement && timeLeft <= 0)
+		if (hasEnhancement && !finished && !isCompleting && timeLeft <= 0)
 		{
 			StartCoroutine (SendCompleteEnhancementRequest());
 		}
@@ -289,6 +289,7 @@ public class MSEnhancementManager : MonoBehaviour
 
 	IEnumerator SendCompleteEnhancementRequest(int gems = 0, MSLoadLock loadLock = null)
 	{
+		isCompleting = true;
 		EnhancementWaitTimeCompleteRequestProto request = new EnhancementWaitTimeCompleteRequestProto();
 		request.sender = MSWhiteboard.localMup;
 
@@ -313,6 +314,7 @@ public class MSEnhancementManager : MonoBehaviour
 		{
 			Debug.LogError("Problem completing enhancement: "+ response.status.ToString());
 		}
+		isCompleting = false;
 	}
 	#endregion
 
