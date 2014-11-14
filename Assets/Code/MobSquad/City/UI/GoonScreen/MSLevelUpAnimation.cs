@@ -21,16 +21,6 @@ public class MSLevelUpAnimation : MonoBehaviour {
 		bottomLabel.gameObject.SetActive(false);
 	}
 
-	[SerializeField] bool test;
-	void Update()
-	{
-		if (test)
-		{
-			Play ();
-			test = false;
-		}
-	}
-
 	IEnumerator RunTweens()
 	{
 		foreach (var item in botInTweens) 
