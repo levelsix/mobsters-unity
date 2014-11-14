@@ -29,6 +29,8 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	public UIGrid enhanceQueue;
 
+	public List<MSGoonCard> feederCards = new List<MSGoonCard>();
+
 	[SerializeField]
 	UILabel levelLabel;
 
@@ -64,6 +66,9 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	const string START_BUTTON_NAME = "yellowmenuoption";
 	const string FINISH_NOW_BUTTON_NAME = "purplemenuoption";
 	const string COLLECT_BUTTON_NAME = "greenmenuoption";
+
+	IEnumerator currCollectAnim;
+	IEnumerator currCollectStep;
 
 	/// <summary>
 	/// Getter for monster being enhanced to keep code clean.
@@ -110,6 +115,8 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	public override void Init ()
 	{
+		feederCards.Clear();
+
 		grid.Init(GoonScreenMode.DO_ENHANCE);
 
 		MSSpriteUtil.instance.SetSprite(enhanceMonster.monster.imagePrefix, 
@@ -123,6 +130,10 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		MSEnhancementManager.instance.ClearTemp();
 	}
 
+	/// <summary>
+	/// Updates the stats and bar.
+	/// Called on init, and when monsters are added and removed from feeders.
+	/// </summary>
 	void RefreshStats()
 	{
 		//Get future level
@@ -159,25 +170,21 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	void RefreshBar()
 	{
-		if (feeders.Count > 0)
+		float currLevel = enhanceMonster.LevelForMonster(enhanceMonster.userMonster.currentExp);
+		SetBar(currLevel, futureLevel);
+	}
+
+	void SetBar(float currLevel, float futureLevel)
+	{
+		levelLabel.text = "Level " + ((int)currLevel) + ":";
+		topBar.fill = currLevel % 1;
+		if ((int)futureLevel > (int)currLevel)
 		{
-			float currLevel = enhanceMonster.LevelForMonster(enhanceMonster.userMonster.currentExp);
-			levelLabel.text = "Level " + ((int)futureLevel) + ":";
-			if ((int)currLevel == (int)futureLevel)
-			{
-				topBar.fill = currLevel % 1;
-			}
-			else
-			{
-				topBar.fill = 0;
-			}
-			bottomBar.fill = futureLevel%1;
+			bottomBar.fill = 1;
 		}
 		else
 		{
-			levelLabel.text = "Level " + enhanceMonster.level + ":";
-			topBar.fill = enhanceMonster.LevelForMonster(enhanceMonster.userMonster.currentExp) % 1;
-			bottomBar.fill = 0;
+			bottomBar.fill = futureLevel % 1;
 		}
 	}
 
@@ -196,7 +203,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 			else
 			{
 				timeLeft.text = MSUtil.TimeStringShort(MSEnhancementManager.instance.timeLeft);
-				buttonLabel.text = "Finish\n(G) " + MSEnhancementManager.instance.gemsToFinish;
+				buttonLabel.text = "Finish\n(g) " + MSEnhancementManager.instance.gemsToFinish;
 				buttonLabel.color = finishTextColor;
 				button.normalSprite = FINISH_NOW_BUTTON_NAME;
 				//RefreshBar();
@@ -204,7 +211,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		}
 		else
 		{
-			buttonLabel.text = "Enhance\n(O)" + totalCost;
+			buttonLabel.text = "Enhance\n(o) " + totalCost;
 			if (MSEnhancementManager.instance.feeders.Count == 0)
 			{
 				timeLeft.text = " ";
@@ -222,11 +229,13 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 	public void AddMonster(MSGoonCard card)
 	{
+		feederCards.Add (card);
 		RefreshStats();
 	}
 
 	public void RemoveMonster(MSGoonCard card)
 	{
+		feederCards.Remove (card);
 		RefreshStats();
 	}
 
@@ -236,7 +245,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		{
 			if (MSEnhancementManager.instance.finished) //Collect enhancement
 			{
-				MSEnhancementManager.instance.DoCollectEnhancement(loadLock);
+				MSEnhancementManager.instance.DoCollectEnhancement(loadLock, DoCollectAnimation);
 			}
 			else //Finish enhancement with gems
 			{
@@ -263,6 +272,103 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 			MSEnhancementManager.instance.DoSendStartEnhanceRequest(oilSpent, gems, loadLock);
 		}
 	}
+
+	[SerializeField] float spinTime = 1f;
+	[SerializeField] float spinFinalAngle = 720;
+	[SerializeField] Transform spinParent;
+	[SerializeField] AnimationCurve spinCurve;
+
+	void DoCollectAnimation()
+	{
+		currCollectAnim = CollectAnimation();
+		StartCoroutine(currCollectAnim);
+	}
+
+	void StopCollectAnimation()
+	{
+		if (currCollectAnim != null) StopCoroutine(currCollectAnim);
+		if (currCollectStep != null) StopCoroutine(currCollectStep);
+	}
+
+	IEnumerator CollectAnimation()
+	{
+		int currXp = enhanceMonster.userMonster.currentExp;
+		while (feederCards.Count > 0)
+		{
+			currCollectStep = SpinInMobster(feederCards[0], spinTime);
+			yield return StartCoroutine(currCollectStep);
+			currCollectStep = FillUpBar(enhanceMonster.LevelForMonster(currXp), enhanceMonster.LevelForMonster(currXp + feederCards[0].monster.enhanceXP));
+			feederCards.RemoveAt(0);
+			yield return StartCoroutine(currCollectStep);
+
+		}
+		currCollectAnim = null;
+		currCollectStep = null;
+	}
+
+	IEnumerator SpinInMobster(MSGoonCard card, float time)
+	{
+		float currTime = 0;
+		card.transform.parent = spinParent;
+		yield return null;
+		enhanceQueue.Reposition();
+		float startDistance = card.transform.localPosition.magnitude;
+		float startAngle = -Vector3.Angle(new Vector3(0, -1, 0), card.transform.localPosition);
+		Vector3 startScale = card.transform.localScale;
+
+		Vector3 originalPos = card.transform.localPosition;
+
+		float angle = startAngle;
+		while (currTime < time)
+		{
+			currTime += Time.deltaTime;
+			angle = Mathf.Lerp(startAngle, spinFinalAngle, spinCurve.Evaluate (currTime/time));
+			Debug.Log("Angle: " + angle);
+			card.transform.localPosition = MSMath.DirectionFromEuler(angle) * Mathf.Lerp(startDistance, 0, spinCurve.Evaluate(currTime/time));
+			card.transform.localScale = Vector3.Lerp(startScale, Vector3.zero, spinCurve.Evaluate(currTime/time));
+			yield return null;
+		}
+
+		card.Pool();
+	}
+
+	IEnumerator FillUpBar(float start, float end)
+	{
+		int currLevel = (int) start;
+		float curr = start;
+
+		while (curr < end)
+		{
+			curr = Mathf.Min (curr+Time.deltaTime*1f, end); //Don't let (curr > end)
+			topBar.fill = curr%1;
+
+			if ((int)curr > currLevel)
+			{
+				currLevel = (int) curr;
+				curr = currLevel;
+				SetBar (curr, end);
+				StartCoroutine(ShowLevelUp());
+				yield return new WaitForSeconds(1f);
+			}
+			else
+			{	
+				SetBar(curr, end);
+			}
+
+			yield return null;
+		}
+	}
+
+	IEnumerator ShowLevelUp(int times = 1)
+	{
+		//TODO: Level the up
+		if (times > 1)
+		{
+			//TODO: Stupid little label fuck
+		}
+		yield return new WaitForSeconds(1f);
+	}
+
 
 	public void Back()
 	{

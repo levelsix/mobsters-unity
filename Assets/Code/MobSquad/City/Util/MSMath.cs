@@ -294,4 +294,10 @@ public static class MSMath {
 		}
 	}
 
+	public static Vector3 DirectionFromEuler(float degrees)
+	{
+		float rads = (degrees / 180f) * 2f * Mathf.PI;
+		return new Vector3(Mathf.Cos(rads), Mathf.Sin(rads));
+	}
+
 }

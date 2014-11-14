@@ -318,12 +318,12 @@ public class MSEnhancementManager : MonoBehaviour
 
 	#region Collecting
 
-	public Coroutine DoCollectEnhancement(MSLoadLock loadLock = null)
+	public Coroutine DoCollectEnhancement(MSLoadLock loadLock = null, Action after = null)
 	{
-		return StartCoroutine(CollectEnhancement(loadLock));
+		return StartCoroutine(CollectEnhancement(loadLock, after));
 	}
 
-	IEnumerator CollectEnhancement(MSLoadLock loadLock)
+	IEnumerator CollectEnhancement(MSLoadLock loadLock, Action after)
 	{
 		CollectMonsterEnhancementRequestProto request = new CollectMonsterEnhancementRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -346,6 +346,8 @@ public class MSEnhancementManager : MonoBehaviour
 
 		if (response.status == CollectMonsterEnhancementResponseProto.CollectMonsterEnhancementStatus.SUCCESS)
 		{
+			if (after != null) after();
+
 			PZMonster monster;
 			foreach (var item in currEnhancement.feeders) 
 			{

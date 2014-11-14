@@ -82,6 +82,12 @@ public class MSGoonCard : MonoBehaviour {
 	[SerializeField]
 	UILabel smallBottomLabel;
 
+	[SerializeField]
+	GameObject smallRemove;
+
+	[SerializeField]
+	GameObject smallEnhanceDoneCheck;
+
 	#endregion
 
 	#region Medium Mobster
@@ -963,23 +969,45 @@ public class MSGoonCard : MonoBehaviour {
 		switch(monster.monsterStatus)
 		{
 		case MonsterStatus.HEALING:
+			smallRemove.SetActive (true);
 			smallBarRoot.SetActive(MSUtil.timeNowMillis >= monster.healStartTime);
 			smallBar.fill = monster.healProgressPercentage;
 			smallBarLabel.text = MSUtil.TimeStringShort(monster.healTimeLeftMillis);
 			break;
-		case MonsterStatus.ENHANCING:
-			//enhancing no longer uses a timer
-//			if (monster.enhancement.expectedStartTimeMillis <= MSUtil.timeNowMillis)
-//			{
-//				smallBarRoot.SetActive(false);
-//				smallBottomLabel.text = " ";
-//				smallBar.fill = 1;// - ((float)monster.enhanceTimeLeft) / ((float)monster.timeToUseEnhance); enhance no longer uses a timer
-//				smallBarLabel.text = "no more timer";//MSUtil.TimeStringShort(monster.enhanceTimeLeft);
-//			}
-//			else
-//			{
-			smallBarRoot.SetActive(false);
-			smallBottomLabel.text = monster.enhanceXP + "xp";
+		case MonsterStatus.ENHANCING: //Since these only show up within the feeder UI, this is where we're going to put the feeder update logic
+			if (monster.isEnhancing)
+			{
+				smallRemove.SetActive (false);
+				smallBottomLabel.gameObject.SetActive(false);
+				if (!MSEnhancementManager.instance.finished && monster.enhanceTimeLeft > 0)
+				{
+					smallEnhanceDoneCheck.SetActive(false);
+					if (monster.startEnhanceTime <= MSUtil.timeNowMillis)
+					{
+						smallBarRoot.SetActive(true);
+						smallBarLabel.text = MSUtil.TimeStringShort(monster.enhanceTimeLeft);
+						smallBar.fill = 1f - ((float)monster.enhanceTimeLeft)/monster.enhanceTime;
+					}
+					else
+					{
+						smallBarRoot.SetActive(false);
+					}
+				}
+				else
+				{
+					smallBarRoot.SetActive(false);
+					smallEnhanceDoneCheck.SetActive(true);
+				}
+
+			}
+			else
+			{
+				smallRemove.SetActive(true);
+				smallBarRoot.SetActive(false);
+				smallEnhanceDoneCheck.SetActive(false);
+				smallBottomLabel.gameObject.SetActive(true);
+				smallBottomLabel.text = monster.enhanceXP + "xp";
+			}
 			break;
 		}
 	}

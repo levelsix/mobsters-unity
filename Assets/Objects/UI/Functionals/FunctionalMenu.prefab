@@ -5080,6 +5080,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &100618
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400618}
+  m_Layer: 5
+  m_Name: SpinTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -6461,6 +6476,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400204}
+  - {fileID: 400618}
   m_Father: {fileID: 400134}
   m_RootOrder: 1
 --- !u!4 &400210
@@ -9096,6 +9112,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400458}
   m_RootOrder: 2
+--- !u!4 &400618
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400208}
+  m_RootOrder: 1
 --- !u!54 &5400000
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -14988,6 +15016,7 @@ MonoBehaviour:
   buttonLabel: {fileID: 11400130}
   button: {fileID: 11400134}
   enhanceQueue: {fileID: 11400178}
+  feederCards: []
   levelLabel: {fileID: 11400274}
   resultLevel: {fileID: 11400140}
   bottomBar: {fileID: 11400320}
@@ -15000,6 +15029,24 @@ MonoBehaviour:
   startTextColor: {r: .643137276, g: .290196091, b: .0352941193, a: 1}
   finishTextColor: {r: 1, g: 1, b: 1, a: 1}
   collectTextColor: {r: .223529413, g: .541176498, b: 0, a: 1}
+  spinTime: 1.5
+  spinFinalAngle: 180
+  spinParent: {fileID: 400618}
+  spinCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: -5.29587851e-07
+      value: -1.13615533e-06
+      inSlope: 2.12154388
+      outSlope: 2.12154388
+      tangentMode: 0
+    - time: 1.00014257
+      value: .999950409
+      inSlope: .0155226979
+      outSlope: .0155226979
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11400282
 MonoBehaviour:
   m_ObjectHideFlags: 1

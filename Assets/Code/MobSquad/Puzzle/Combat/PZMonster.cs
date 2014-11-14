@@ -129,7 +129,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return enhancement != null && enhancement.userMonsterId > 0;
+			return MSEnhancementManager.instance.hasEnhancement && (MSEnhancementManager.instance.enhancementMonster == this || MSEnhancementManager.instance.feeders.Contains(this));
 		}
 	}
 	
@@ -154,6 +154,41 @@ public class PZMonster {
 		get
 		{
 			return Mathf.FloorToInt(MSWhiteboard.constants.monsterConstants.oilPerMonsterLevel * level);
+		}
+	}
+
+	public long enhanceTime
+	{
+		get
+		{
+			return (long)((enhanceXP * 1000f) / MSEnhancementManager.instance.currLab.pointsPerSecond);
+		}
+	}
+
+	public long startEnhanceTime
+	{
+		get
+		{
+			if (!isEnhancing) return 0;
+			return MSEnhancementManager.instance.currEnhancement.feeders.Find(x=>x.userMonsterId.Equals(userMonster.userMonsterId)).expectedStartTimeMillis;
+		}
+	}
+
+	public long finishEnhanceTime
+	{
+		get
+		{
+			if (!isEnhancing) return 0;
+			return enhanceTime + startEnhanceTime;
+		}
+	}
+
+	public long enhanceTimeLeft
+	{
+		get
+		{
+			if (!isEnhancing) return 0;
+			return finishEnhanceTime - MSUtil.timeNowMillis;
 		}
 	}
 	
@@ -241,7 +276,7 @@ public class PZMonster {
 				}
 				return MonsterStatus.COMBINING;
 			}
-			if (isEnhancing)
+			if (isEnhancing || MSEnhancementManager.instance.feeders.Contains(this))
 			{
 				return MonsterStatus.ENHANCING;
 			}
@@ -693,10 +728,14 @@ public class PZMonster {
 	{
 		UserMonsterCurrentExpProto umcep = new UserMonsterCurrentExpProto();
 		umcep.userMonsterId = userMonster.userMonsterId;
+		umcep.expectedExperience = userMonster.currentExp;
 
 		List<PZMonster> feedMonsters = new List<PZMonster>();
+		PZMonster monster;
 		foreach (var item in feeders) {
-			feedMonsters.Add(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId.Equals(item.userMonsterId)));
+			monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId.Equals(item.userMonsterId));
+			feedMonsters.Add(monster);
+			umcep.expectedExperience += monster.enhanceXP;
 		}
 		umcep.expectedLevel = (int)LevelWithFeeders(feedMonsters);
 		umcep.expectedHp = MaxHPAtLevel(umcep.expectedLevel);

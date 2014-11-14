@@ -520,18 +520,6 @@ public class MSMonsterManager : MonoBehaviour {
 	
 	#endregion
 
-	#region Sorters
-	
-	private class EnhancingMonsterSorter : Comparer<PZMonster>
-	{
-		public override int Compare (PZMonster x, PZMonster y)
-		{
-			return x.enhancement.expectedStartTimeMillis.CompareTo(y.enhancement.expectedStartTimeMillis);
-		}
-	}
-	
-	#endregion
-
 	void DealWithCombineResponse(int tagNum)
 	{
 		CombineUserMonsterPiecesResponseProto response = UMQNetworkManager.responseDict[tagNum] as CombineUserMonsterPiecesResponseProto;
