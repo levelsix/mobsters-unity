@@ -58,7 +58,7 @@ public class MSRequestManager : MonoBehaviour {
 
 	public void AcceptInvite(UserFacebookInviteForSlotProto invite)
 	{
-		inviteResponseRequest.acceptedInviteIds.Add(invite.inviteId);
+		inviteResponseRequest.acceptedInviteUuids.Add(invite.inviteUuid);
 		invitesForMe.Remove(invite);
 		
 		if (MSActionManager.UI.OnRequestsAcceptOrReject != null)
@@ -69,7 +69,7 @@ public class MSRequestManager : MonoBehaviour {
 
 	public void RejectInvite(UserFacebookInviteForSlotProto invite)
 	{
-		inviteResponseRequest.rejectedInviteIds.Add(invite.inviteId);
+		inviteResponseRequest.rejectedInviteUuids.Add(invite.inviteUuid);
 		invitesForMe.Remove(invite);
 		
 		if (MSActionManager.UI.OnRequestsAcceptOrReject != null)

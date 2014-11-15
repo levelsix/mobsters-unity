@@ -130,11 +130,14 @@ public class UMQNetworkManager : MonoBehaviour {
 		WriteDebug("Set connection settings...");
 #else
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.HostName = "54.191.115.41";
+		factory.HostName = "amqp1.staging.mobsters.lvl6.com";
 		factory.UserName = "lvl6client";
 		factory.Password = "devclient";
 		factory.VirtualHost = "devmobsters";
-		factory.Port = 5672;
+		factory.Port = 5671;
+		factory.Ssl = new SslOption();
+		factory.Ssl.CertPath = "cacert";
+		factory.Ssl.Enabled = true;
 #endif
 
 		try{
@@ -220,7 +223,7 @@ public class UMQNetworkManager : MonoBehaviour {
 	
 	public void CreateUserIDQueue(MinimumUserProto user)
 	{
-		string userIdKey = "client_userid_" + user.userId;
+		string userIdKey = "client_userid_" + user.userUuid;
 		string userIdKeyQueueName = userIdKey + "_" + sessionID + "_queue";
 
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -269,11 +272,11 @@ public class UMQNetworkManager : MonoBehaviour {
 		Debug.Log("Set up userID Queue");
 	}
 
-	public void CreateClanChatQueue(MinimumUserProto user, int clanId)
+	public void CreateClanChatQueue(MinimumUserProto user, string clanUuid)
 	{
-		Debug.Log("Creating clan chat queue for clanID: " + clanId);
+		Debug.Log("Creating clan chat queue for clanID: " + clanUuid);
 
-		string userId = "client_userid_" + user.userId;
+		string userId = "client_userid_" + user.userUuid;
 
 		string clanQueueName = userId + "_" + sessionID + " _clan_queue";
 
@@ -283,7 +286,7 @@ public class UMQNetworkManager : MonoBehaviour {
 		IModel clanChatChannel = connection.CreateModel();
 
 		clanChatChannel.QueueDeclare(clanQueueName, true, false, true, null);
-		clanChatChannel.QueueBind(clanQueueName, topicExchangeName, "clan_" + clanId.ToString());
+		clanChatChannel.QueueBind(clanQueueName, topicExchangeName, "clan_" + clanUuid);
 		
 		QueueingBasicConsumer clanConsumer = new QueueingBasicConsumer(clanChatChannel);
 		clanChatChannel.BasicConsume(clanQueueName, false, clanConsumer);

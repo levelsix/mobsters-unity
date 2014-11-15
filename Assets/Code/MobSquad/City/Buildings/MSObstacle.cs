@@ -135,7 +135,7 @@ public class MSObstacle : MonoBehaviour {
 		request.sender = MSWhiteboard.localMup;
 		request.curTime = MSUtil.timeNowMillis;
 		request.resourceType = obstacle.removalCostType;
-		request.userObstacleId = userObstacle.userObstacleId;
+		request.userObstacleUuid = userObstacle.userObstacleUuid;
 		
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_OBSTACLE_REMOVAL_EVENT, DealWithBeginRemovalResponse);
 	}
@@ -187,7 +187,7 @@ public class MSObstacle : MonoBehaviour {
 		request.curTime = MSUtil.timeNowMillis;
 		request.speedUp = spentGems;
 		request.gemsSpent = gems;
-		request.userObstacleId = userObstacle.userObstacleId;
+		request.userObstacleUuid = userObstacle.userObstacleUuid;
 		request.atMaxObstacles = (MSWhiteboard.constants.maxObstacles == MSBuildingManager.instance.obstacles.Count);
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_OBSTACLE_REMOVAL_COMPLETE_EVENT, DealWithFinishRemovalResponse);

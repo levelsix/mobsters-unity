@@ -93,7 +93,7 @@ public class MSClanCreateScreen : MonoBehaviour {
 	{
 		if (clanNameBox.label.text.Length > 0)
 		{
-			if (clanEditting != null && clanEditting.clanId > 0)
+			if (clanEditting != null && !clanEditting.clanUuid.Equals(""))
 			{
 				MSClanManager.instance.EditClan(clanEditting, descriptionBox.label.text,
 				                                openClan, 1);

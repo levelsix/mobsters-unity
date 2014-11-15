@@ -14,12 +14,12 @@ public class MSResidenceManager : MonoBehaviour {
 
 	public static MSResidenceManager instance;
 
-	Dictionary<int, List<UserFacebookInviteForSlotProto>> fbInviteAccepted = 
-		new Dictionary<int, List<UserFacebookInviteForSlotProto>>();
+	Dictionary<string, List<UserFacebookInviteForSlotProto>> fbInviteAccepted = 
+		new Dictionary<string, List<UserFacebookInviteForSlotProto>>();
 
-	public Dictionary<int, MSBuilding> residences = new Dictionary<int, MSBuilding>();
+	public Dictionary<string, MSBuilding> residences = new Dictionary<string, MSBuilding>();
 
-	public int currBuildingId;
+	public string currBuildingId;
 
 	public int currFBLvl;
 
@@ -28,7 +28,7 @@ public class MSResidenceManager : MonoBehaviour {
 		instance = this;
 	}
 
-	public void OpenRequestDialogue(int forBuilding)
+	public void OpenRequestDialogue(string forBuilding)
 	{
 		if (FB.IsLoggedIn)
 		{
@@ -90,7 +90,7 @@ public class MSResidenceManager : MonoBehaviour {
 		{
 			fish = new InviteFbFriendsForSlotsRequestProto.FacebookInviteStructure();
 			fish.fbFriendId = item.ToString();
-			fish.userStructId = currBuildingId;
+			fish.userStructUuid = currBuildingId;
 			fish.userStructFbLvl = residences[currBuildingId].userStructProto.fbInviteStructLvl + 1;
 			request.invites.Add(fish);
 		}
@@ -107,7 +107,7 @@ public class MSResidenceManager : MonoBehaviour {
 
 	}
 
-	public void CheckBuilding(int userBuildingId)
+	public void CheckBuilding(string userBuildingId)
 	{
 		if (!residences.ContainsKey(userBuildingId))
 		{
@@ -154,13 +154,13 @@ public class MSResidenceManager : MonoBehaviour {
 
 	public void AddInvite(UserFacebookInviteForSlotProto addInvite)
 	{
-		if (!fbInviteAccepted.ContainsKey(addInvite.userStructId))
+		if (!fbInviteAccepted.ContainsKey(addInvite.userStructUuid))
 		{
-			fbInviteAccepted.Add(addInvite.userStructId, new List<UserFacebookInviteForSlotProto>());
+			fbInviteAccepted.Add(addInvite.userStructUuid, new List<UserFacebookInviteForSlotProto>());
 		}
 		//if (addInvite.structFbLvl == residences[addInvite.userStructId].userStructProto.fbInviteStructLvl + 1)
 		//{
-			fbInviteAccepted[addInvite.userStructId].Add(addInvite);
+			fbInviteAccepted[addInvite.userStructUuid].Add(addInvite);
 		//}
 	}
 
@@ -177,26 +177,26 @@ public class MSResidenceManager : MonoBehaviour {
 		}
 	}
 
-	public void UpgradeResidenceFacebookLevelWithGems(int userStructureId, int gems)
+	public void UpgradeResidenceFacebookLevelWithGems(string userStructureUuid, int gems)
 	{
 		IncreaseMonsterInventorySlotRequestProto request = new IncreaseMonsterInventorySlotRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.increaseSlotType = IncreaseMonsterInventorySlotRequestProto.IncreaseSlotType.PURCHASE;
-		request.userStructId = userStructureId;
+		request.userStructUuid = userStructureUuid;
 		//TODO: Need a field in the proto for how many gems are being spent!
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_INCREASE_MONSTER_INVENTORY_SLOT_EVENT, DealWithUpgradeResidenceResponse);
 	}
 
-	void UpgradeResidenceFacebookLevelFromInvites(int userStructureId)
+	void UpgradeResidenceFacebookLevelFromInvites(string userStructureUuid)
 	{
 		IncreaseMonsterInventorySlotRequestProto request = new IncreaseMonsterInventorySlotRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.increaseSlotType = IncreaseMonsterInventorySlotRequestProto.IncreaseSlotType.REDEEM_FACEBOOK_INVITES;
-		request.userStructId = userStructureId;
-		foreach (var item in fbInviteAccepted[userStructureId]) 
+		request.userStructUuid = userStructureUuid;
+		foreach (var item in fbInviteAccepted[userStructureUuid]) 
 		{
-			request.userFbInviteForSlotIds.Add(item.inviteId);
+			request.userFbInviteForSlotUuids.Add(item.inviteUuid);
 		}
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_INCREASE_MONSTER_INVENTORY_SLOT_EVENT, DealWithUpgradeResidenceResponse);

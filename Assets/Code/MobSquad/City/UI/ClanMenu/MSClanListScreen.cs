@@ -40,7 +40,7 @@ public class MSClanListScreen : MonoBehaviour {
 		MSActionManager.Clan.OnPlayerClanChange -= ChangeClan;
 	}
 
-	public void ChangeClan(int a, UserClanStatus b, int c)
+	public void ChangeClan(string a, UserClanStatus b, int c)
 	{
 		clansSearched = false;
 	}

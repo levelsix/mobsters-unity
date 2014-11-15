@@ -20,7 +20,7 @@ public class MSRaidTeamPopup : MonoBehaviour {
 	const string RESET_HEADER = "Switch to Raid Team";
 
 	const string SET_BODY = "Would you like to enter this raid with your current team? You cannot change this team once you have entered the raid.";
-	const string RESET_BODY = "You can only enter this raid with the following mobsters that you originally used. Would you like to enter now?";
+	const string RESET_BODY = "You can only enter this raid with the following toons that you originally used. Would you like to enter now?";
 
 	bool setMode = false;
 
@@ -33,7 +33,7 @@ public class MSRaidTeamPopup : MonoBehaviour {
 		for (int i = 0; i < team.Length; i++)
 		{
 			team[i].Init(MSMonsterManager.instance.userTeam[i]);
-			if (MSMonsterManager.instance.userTeam[i] != null && MSMonsterManager.instance.userTeam[i].userMonster != null && MSMonsterManager.instance.userTeam[i].userMonster.userMonsterId > 0)
+			if (MSMonsterManager.instance.userTeam[i] != null && MSMonsterManager.instance.userTeam[i].userMonster != null && !MSMonsterManager.instance.userTeam[i].userMonster.userMonsterUuid.Equals(""))
 			{
 				team[i].label.text = "lvl " + MSMonsterManager.instance.userTeam[i].userMonster.currentLvl;
 			}
@@ -54,7 +54,7 @@ public class MSRaidTeamPopup : MonoBehaviour {
 		{
 			if (MSClanEventManager.instance.myTeam.currentTeam.Count > i)
 			{
-				PZMonster mon = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == MSClanEventManager.instance.myTeam.currentTeam[i].userMonsterId);
+				PZMonster mon = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(MSClanEventManager.instance.myTeam.currentTeam[i].userMonsterUuid));
 				team[i].Init (mon);
 				team[i].label.text = "lvl " + mon.userMonster.currentLvl;
 			}

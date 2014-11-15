@@ -121,7 +121,7 @@ public class MSResourceManager : MonoBehaviour {
 		}
 	}
 
-	public void CollectFromBuilding(ResourceType resource, int amount, int userStructId)
+	public void CollectFromBuilding(ResourceType resource, int amount, string userStructUuid)
 	{
 		Collect(resource, amount);
 
@@ -133,7 +133,7 @@ public class MSResourceManager : MonoBehaviour {
 
 		RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval structRetrieval = new RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval();
 		structRetrieval.amountCollected = amount;
-		structRetrieval.userStructId = userStructId;
+		structRetrieval.userStructUuid = userStructUuid;
 		structRetrieval.timeOfRetrieval = MSUtil.timeNowMillis;
 
 		retrieveRequest.structRetrievals.Add(structRetrieval);

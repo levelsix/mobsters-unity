@@ -33,7 +33,7 @@ public class MSClanDetailScreen : MonoBehaviour {
 
 	FullClanProtoWithClanSize clan;
 
-	int lastClanRetrieved = -1;
+	string lastClanRetrieved = "";
 
 	void OnEnable()
 	{
@@ -42,20 +42,20 @@ public class MSClanDetailScreen : MonoBehaviour {
 
 	void OnDisable()
 	{
-		lastClanRetrieved = -1;
+		lastClanRetrieved = "";
 		MSActionManager.Clan.OnPlayerClanChange -= ClanChanged;
 	}
 
-	public void ClanChanged(int a, UserClanStatus b, int c)
+	public void ClanChanged(string a, UserClanStatus b, int c)
 	{
-		lastClanRetrieved = -1;
+		lastClanRetrieved = "";
 	}
 
-	public void Init(int clanId)
+	public void Init(string clanUuid)
 	{
-		if(lastClanRetrieved != clanId)
+		if(!lastClanRetrieved.Equals(clanUuid))
 		{
-			StartCoroutine(RetrieveClanValues(clanId));
+			StartCoroutine(RetrieveClanValues(clanUuid));
 		}
 		else
 		{
@@ -78,7 +78,7 @@ public class MSClanDetailScreen : MonoBehaviour {
 		memberList.Clear();
 	}
 
-	IEnumerator RetrieveClanValues(int clanId)
+	IEnumerator RetrieveClanValues(string clanUuid)
 	{
 		loadingObjects.SetActive(true);
 
@@ -86,7 +86,7 @@ public class MSClanDetailScreen : MonoBehaviour {
 
 		RetrieveClanInfoRequestProto request = new RetrieveClanInfoRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.clanId = clanId;
+		request.clanUuid = clanUuid;
 		request.grabType = RetrieveClanInfoRequestProto.ClanInfoGrabType.ALL;
 		request.isForBrowsingList = false;
 
@@ -116,24 +116,24 @@ public class MSClanDetailScreen : MonoBehaviour {
 		{
 			if (item.clanStatus != UserClanStatus.REQUESTING)
 			{
-				AddMemberEntryToGrid(item, response.monsterTeams.Find(x => x.userId == item.minUserProtoWithLevel.minUserProto.userId));
+				AddMemberEntryToGrid(item, response.monsterTeams.Find(x => x.userUuid.Equals(item.minUserProtoWithLevel.minUserProto.userUuid)));
 			}
 		}
 
 		memberGrid.Reposition();
 
-		if (MSClanManager.userClanId == 0)
+		if (MSClanManager.userClanUuid.Equals(""))
 		{
 			//TODO: Set join button up
 		}
-		else if (MSClanManager.userClanId == clan.clan.clanId && MSClanManager.isLeader)
+		else if (MSClanManager.userClanUuid.Equals(clan.clan.clanUuid) && MSClanManager.isLeader)
 		{
 			//TODO: Set edit button up
 		}
 
 		loadingObjects.SetActive(false);
 
-		lastClanRetrieved = clanId;
+		lastClanRetrieved = clanUuid;
 	}
 
 	public void CloseAllOptions()

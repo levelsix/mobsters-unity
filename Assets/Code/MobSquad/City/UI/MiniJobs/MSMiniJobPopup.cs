@@ -337,7 +337,7 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 		goonEntries.Clear();
 
 		if (MSMiniJobManager.instance.currActiveJob != null
-		    && MSMiniJobManager.instance.currActiveJob.userMiniJobId > 0)
+		    && !MSMiniJobManager.instance.currActiveJob.userMiniJobUuid.Equals(""))
 		{
 			hasJobStuff.SetActive(true);
 			noJobStuff.SetActive(false);

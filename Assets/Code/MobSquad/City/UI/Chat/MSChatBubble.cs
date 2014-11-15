@@ -152,7 +152,7 @@ public class MSChatBubble : MonoBehaviour, MSPoolable {
 
 	void OnClick()
 	{
-		if (sender.minUserProto.userId != MSWhiteboard.localMup.userId)
+		if (!sender.minUserProto.userUuid.Equals(MSWhiteboard.localMup.userUuid))
 		{
 			options.Init(sender, trans);
 			options.transform.localScale = Vector3.one;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -40,7 +40,7 @@ public class MSClanJoinButton : MonoBehaviour {
 		gameObject.SetActive (true);
 		if (MSClanManager.instance.isInClan)
 		{
-			if (MSClanManager.userClanId == clan.clan.clanId)
+			if (MSClanManager.userClanUuid.Equals(clan.clan.clanUuid))
 			{
 				SetLeave();
 			}
@@ -147,9 +147,9 @@ public class MSClanJoinButton : MonoBehaviour {
 	{
 		if (loadLock != null) loadLock.Lock();
 
-		if (!MSClanManager.instance.HasRequestedClan(clan.clanId))
+		if (!MSClanManager.instance.HasRequestedClan(clan.clanUuid))
 		{
-			 yield return StartCoroutine(MSClanManager.instance.JoinOrApplyToClan(clan.clanId));
+			 yield return StartCoroutine(MSClanManager.instance.JoinOrApplyToClan(clan.clanUuid));
 		}
 
 		if (loadLock != null) loadLock.Unlock();

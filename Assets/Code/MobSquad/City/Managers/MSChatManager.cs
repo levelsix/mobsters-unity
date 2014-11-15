@@ -20,7 +20,7 @@ public class MSChatManager : MonoBehaviour {
 	
 	List<GroupChatMessageProto> globalChat = new List<GroupChatMessageProto>();
 	public List<GroupChatMessageProto> clanChat = new List<GroupChatMessageProto>();
-	Dictionary<int, List<PrivateChatPostProto>> privateChats = new Dictionary<int, List<PrivateChatPostProto>>();
+	Dictionary<string, List<PrivateChatPostProto>> privateChats = new Dictionary<string, List<PrivateChatPostProto>>();
 
 	public bool hasPrivateChats
 	{
@@ -62,14 +62,14 @@ public class MSChatManager : MonoBehaviour {
 	void AddPrivateChat(PrivateChatPostProto item)
 	{
 		//Debug.LogWarning("Private chat\nSender: " + item.poster + "\nMessage: " + item.content);
-		MinimumUserProtoWithLevel otherPlayer = (item.poster.minUserProto.userId == MSWhiteboard.localUser.userId) ? item.recipient : item.poster;
-		if (!privateChats.ContainsKey(otherPlayer.minUserProto.userId))
+		MinimumUserProtoWithLevel otherPlayer = (item.poster.minUserProto.userUuid.Equals(MSWhiteboard.localUser.userUuid)) ? item.recipient : item.poster;
+		if (!privateChats.ContainsKey(otherPlayer.minUserProto.userUuid))
 		{
-			privateChats.Add(otherPlayer.minUserProto.userId, new List<PrivateChatPostProto>());
+			privateChats.Add(otherPlayer.minUserProto.userUuid, new List<PrivateChatPostProto>());
 		}
 		
-		privateChats[otherPlayer.minUserProto.userId].Add(item);
-		privateChats[otherPlayer.minUserProto.userId].Sort((a,b) => a.timeOfPost.CompareTo(b.timeOfPost));
+		privateChats[otherPlayer.minUserProto.userUuid].Add(item);
+		privateChats[otherPlayer.minUserProto.userUuid].Sort((a,b) => a.timeOfPost.CompareTo(b.timeOfPost));
 	}
 
 	
@@ -104,12 +104,12 @@ public class MSChatManager : MonoBehaviour {
 		{
 			MSActionManager.Popup.OnPopup(chatPopup.GetComponent<MSPopup>());
 		}
-		if (privateChats.ContainsKey(otherUser.minUserProto.userId))
+		if (privateChats.ContainsKey(otherUser.minUserProto.userUuid))
 		{
-			chatPopup.GoToPrivateChat(otherUser, privateChats[otherUser.minUserProto.userId]);
-			if (privateChats[otherUser.minUserProto.userId].Count == 1)
+			chatPopup.GoToPrivateChat(otherUser, privateChats[otherUser.minUserProto.userUuid]);
+			if (privateChats[otherUser.minUserProto.userUuid].Count == 1)
 			{
-				LoadAllMessagesForPrivateChat(otherUser, privateChats[otherUser.minUserProto.userId][0]);
+				LoadAllMessagesForPrivateChat(otherUser, privateChats[otherUser.minUserProto.userUuid][0]);
 			}
 		}
 		else
@@ -122,8 +122,8 @@ public class MSChatManager : MonoBehaviour {
 	{
 		RetrievePrivateChatPostsRequestProto request = new RetrievePrivateChatPostsRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.otherUserId = otherUser.minUserProto.userId;
-		request.beforePrivateChatId = onlyChat.privateChatPostId;
+		request.otherUserUuid = otherUser.minUserProto.userUuid;
+		//request.beforePrivateChatId = onlyChat.privateChatPostId;
 	}
 
 	void DealWithLoadingPrivateChats(int tagNum)

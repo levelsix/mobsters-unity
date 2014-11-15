@@ -179,7 +179,7 @@ public class MSQuestManager : MonoBehaviour {
 		else
 		{
 			FullUserQuestProto userQuest = new FullUserQuestProto();
-			userQuest.userId = MSWhiteboard.localMup.userId;
+			userQuest.userUuid = MSWhiteboard.localMup.userUuid;
 			userQuest.questId = fullQuest.questId;
 			userQuest.isRedeemed = false;
 
@@ -221,7 +221,7 @@ public class MSQuestManager : MonoBehaviour {
 		{
 			foreach (var item in donateMonsters) 
 			{
-				request.deleteUserMonsterIds.Add(item.userMonster.userMonsterId);
+				request.deleteUserMonsterUuids.Add(item.userMonster.userMonsterUuid);
 			}
 		}
 
@@ -370,19 +370,19 @@ public class MSQuestManager : MonoBehaviour {
 					}
 					break;
 				case QuestJobProto.QuestJobType.KILL_MONSTER_IN_CITY:
-					if (MSWhiteboard.cityID == job.staticDataId)
-					{
-						numMonsters = 0;
-						foreach (var taskStage in MSWhiteboard.currTaskStages) 
-						{
-							numMonsters += taskStage.stageMonsters.Count;
-						}
-						
-						userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId==job.questJobId);
-						userJob.progress = Mathf.Max(userJob.progress + numMonsters, job.quantity);
-						userJob.isComplete = userJob.progress >= job.quantity;
-						updatedJobs.Add(userJob);
-					}
+//					if (MSWhiteboard.cityID == job.staticDataId)
+//					{
+//						numMonsters = 0;
+//						foreach (var taskStage in MSWhiteboard.currTaskStages) 
+//						{
+//							numMonsters += taskStage.stageMonsters.Count;
+//						}
+//						
+//						userJob = item.userQuest.userQuestJobs.Find(x=>x.questJobId==job.questJobId);
+//						userJob.progress = Mathf.Max(userJob.progress + numMonsters, job.quantity);
+//						userJob.isComplete = userJob.progress >= job.quantity;
+//						updatedJobs.Add(userJob);
+//					}
 					break;
 				case QuestJobProto.QuestJobType.COLLECT_SPECIAL_ITEM:
 					numMonsters = 0;
@@ -441,7 +441,7 @@ public class MSQuestManager : MonoBehaviour {
 
 			foreach (var item in donateMonsters) 
 			{
-				MSMonsterManager.instance.RemoveMonster(item.userMonster.userMonsterId);
+				MSMonsterManager.instance.RemoveMonster(item.userMonster.userMonsterUuid);
 			}
 
 			completeJobs.Add (userJob);

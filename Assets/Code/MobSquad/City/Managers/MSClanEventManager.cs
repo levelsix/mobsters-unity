@@ -31,7 +31,7 @@ public class MSClanEventManager : MonoBehaviour {
 			{
 				return null;
 			}
-			PersistentClanEventUserInfoProto userInfo = currUserInfos.Find(x=>x.userId == MSWhiteboard.localMup.userId);
+			PersistentClanEventUserInfoProto userInfo = currUserInfos.Find(x=>x.userUuid.Equals(MSWhiteboard.localMup.userUuid));
 			if (userInfo == null)
 			{
 				return null;
@@ -227,7 +227,7 @@ public class MSClanEventManager : MonoBehaviour {
 			if (item != null)
 			{
 				hp = new UserMonsterCurrentHealthProto();
-				hp.userMonsterId = item.userMonster.userMonsterId;
+				hp.userMonsterUuid = item.userMonster.userMonsterUuid;
 				hp.currentHealth = item.currHP;
 				if (item == userMonster)
 				{
@@ -288,7 +288,7 @@ public class MSClanEventManager : MonoBehaviour {
 		currClanInfo = response.eventDetails;
 
 		foreach (var item in response.clanUsersDetails) {
-			PersistentClanEventUserInfoProto userInfo = currUserInfos.Find (x => x.userId == item.userId);
+			PersistentClanEventUserInfoProto userInfo = currUserInfos.Find (x => x.userUuid.Equals(item.userUuid));
 			if (userInfo != null) 
 			{
 				userInfo.crDmgDone = item.crDmgDone;
@@ -325,7 +325,7 @@ public class MSClanEventManager : MonoBehaviour {
 		RecordClanRaidStatsRequestProto request = new RecordClanRaidStatsRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.clientTime = MSUtil.timeNowMillis;
-		request.clanId = MSClanManager.instance.playerClan.clanId;
+		request.clanUuid = MSClanManager.instance.playerClan.clanUuid;
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RECORD_CLAN_RAID_STATS_EVENT, DealWithRecordResponse);
 

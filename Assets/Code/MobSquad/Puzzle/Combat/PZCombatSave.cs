@@ -6,7 +6,7 @@ using com.lvl6.proto;
 [System.Serializable]
 public class PZCombatSave 
 {
-	public long activePlayerUserMonsterId;
+	public string activePlayerUserMonsterUuid;
 
 	public int activeEnemyHealth = 1;
 
@@ -36,7 +36,7 @@ public class PZCombatSave
 	
 	const string key = "CombatSave";
 
-	public long userTaskId;
+	public string userTaskUuid;
 
 	public PZCombatSave(){}
 
@@ -46,7 +46,7 @@ public class PZCombatSave
 	                    int boardWidth, int boardHeight, int playerSkillPoints, int enemySkillPoints,
 	                    PZCombatUnit player, PZCombatUnit enemy)
 	{
-		this.activePlayerUserMonsterId = activePlayer.userMonster.userMonsterId;
+		this.activePlayerUserMonsterUuid = activePlayer.userMonster.userMonsterUuid;
 
 		this.activeEnemyHealth = activeEnemyHealth;
 
@@ -102,7 +102,7 @@ public class PZCombatSave
 
 		enemySpeed = enemy.monster.speed;
 
-		this.userTaskId = MSWhiteboard.currUserTaskId;
+		this.userTaskUuid = MSWhiteboard.currUserTaskUuid;
 
 		MSUtil.Save(key, this);
 	}

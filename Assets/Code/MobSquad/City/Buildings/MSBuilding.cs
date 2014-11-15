@@ -115,7 +115,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	/// If player city, this is userStructId
 	/// If neutral city, this is assetId
 	/// </summary>
-	public int id;
+	public string id;
 	
 	public MSTaskable taskable;
 
@@ -331,10 +331,10 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	void EndClanHelpUpgrade()
 	{
-		ClanHelpProto buildingHelp = MSClanManager.instance.GetClanHelp(GameActionType.UPGRADE_STRUCT, userStructProto.userStructId);
+		ClanHelpProto buildingHelp = MSClanManager.instance.GetClanHelp(GameActionType.UPGRADE_STRUCT, userStructProto.userStructUuid);
 		if(buildingHelp != null)
 		{
-			MSClanManager.instance.DoEndClanHelp(new List<long>{buildingHelp.clanHelpId});
+			MSClanManager.instance.DoEndClanHelp(new List<string>{buildingHelp.clanHelpUuid});
 		}
 	}
 
@@ -355,7 +355,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		combinedProto = MSDataManager.instance.Get(typeof(MSFullBuildingProto), proto.structId) as MSFullBuildingProto;
 		userStructProto = proto;
 
-		id = proto.userStructId;
+		id = proto.userStructUuid;
 
 		Setup();
 
@@ -384,7 +384,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		combinedProto = null;
 		userStructProto = null;
 
-		id = proto.userObstacleId;
+		id = proto.userObstacleUuid;
 
 		Setup();
 
@@ -422,7 +422,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 		trans.localScale = Vector3.one;
 
-		id = proto.assetId;
+		//id = proto.;
 
 		name = proto.imgId;
 
@@ -815,7 +815,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			if (MSTutorialManager.instance.inTutorial)
 			{
 			 	MSBuildingManager.instance.buildingsBuiltInTutorial.Add(this);
-				MSBuildingManager.instance.hoveringToBuild.id = MSBuildingManager.instance.buildings.Count;
+				//MSBuildingManager.instance.hoveringToBuild.id = MSBuildingManager.instance.buildings.Count;
 				MSBuildingManager.instance.AddBuilding(this);
 				MSBuildingManager.instance.hoveringToBuild = null;
 				MSBuildingManager.instance.SetSelectedBuilding(this);
@@ -862,15 +862,15 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			userStructProto.structId = combinedProto.structInfo.structId;
 			if (!MSTutorialManager.instance.inTutorial)
 			{
-				userStructProto.userId = MSWhiteboard.localMup.userId;
+				userStructProto.userUuid = MSWhiteboard.localMup.userUuid;
 			}
-			userStructProto.userStructId = response.userStructId;
+			userStructProto.userUuid = response.userStructUuid;
 			
 			upgrade.StartConstruction();
 			
 			confirmationButtons.SetActive(false);
 
-			id = response.userStructId;
+			id = response.userStructUuid;
 
 			MSBuildingManager.instance.AddBuilding(this);
 			
@@ -899,7 +899,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		{
 			MoveOrRotateNormStructureRequestProto request = new MoveOrRotateNormStructureRequestProto();
 			request.sender = MSWhiteboard.localMup;
-			request.userStructId = userStructProto.userStructId;
+			request.userStructUuid = userStructProto.userStructUuid;
 			request.type = MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
 			request.curStructCoordinates = new CoordinateProto();
 			request.curStructCoordinates.x = _currPos.x;

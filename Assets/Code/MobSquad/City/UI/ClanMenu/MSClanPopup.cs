@@ -66,7 +66,7 @@ public class MSClanPopup : MonoBehaviour
 	{
 		backButton.TurnOff();
 		RefreshTabs();
-		if (MSClanManager.userClanId > 0)
+		if (!MSClanManager.userClanUuid.Equals(""))
 		{
 			if(MSClanManager.instance.canHelp)
 			{
@@ -91,7 +91,7 @@ public class MSClanPopup : MonoBehaviour
 	/// </summary>
 	public void RefreshTabs()
 	{
-		if (MSClanManager.userClanId > 0)
+		if (!MSClanManager.userClanUuid.Equals(""))
 		{
 			middleTab.gameObject.SetActive(true);
 
@@ -145,7 +145,7 @@ public class MSClanPopup : MonoBehaviour
 			GoToList(instant);
 			break;
 		case ClanPopupMode.DETAILS:
-			GoToDetails(MSClanManager.userClanId, instant);
+			GoToDetails(MSClanManager.userClanUuid, instant);
 			break;
 		case ClanPopupMode.CREATE:
 			GoToCreate();
@@ -171,7 +171,7 @@ public class MSClanPopup : MonoBehaviour
 	/// get back to the list view
 	/// </summary>
 	/// <param name="clanId">Clan identifier.</param>
-	public void ShiftToDetails(int clanId)
+	public void ShiftToDetails(string clanId)
 	{
 		GoToDetails(clanId, false);
 		currMode = ClanPopupMode.DETAILS;
@@ -219,7 +219,7 @@ public class MSClanPopup : MonoBehaviour
 		}
 	}
 
-	void GoToDetails(int clanId, bool instant)
+	void GoToDetails(string clanId, bool instant)
 	{
 		listAndDetailsStuff.SetActive(true);
 		raidStuff.SetActive(false);
@@ -277,15 +277,15 @@ public class MSClanPopup : MonoBehaviour
 
 	}
 
-	void OnClanChange(int clanId, UserClanStatus clanStatus, int clanIconId)
+	void OnClanChange(string clanUuid, UserClanStatus clanStatus, int clanIconId)
 	{
-		if (clanId == 0)
+		if (clanUuid.Equals(""))
 		{
 			GoToList(false);
 		}
 		else
 		{
-			GoToDetails(clanId, false);
+			GoToDetails(clanUuid, false);
 		}
 		RefreshTabs();
 	}

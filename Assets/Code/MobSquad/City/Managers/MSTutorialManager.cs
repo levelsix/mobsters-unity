@@ -310,7 +310,7 @@ public class MSTutorialManager : MonoBehaviour
 
 		PZMonster userMonster = new PZMonster(userMobster, 1);
 		userMonster.userMonster = new FullUserMonsterProto();
-		userMonster.userMonster.userMonsterId = 1;
+		userMonster.userMonster.userMonsterUuid = "1";
 		userMonster.userMonster.isComplete = true;
 
 		MSMonsterManager.instance.userTeam[0] = userMonster;

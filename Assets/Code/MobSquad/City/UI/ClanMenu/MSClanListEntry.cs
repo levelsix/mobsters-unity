@@ -94,7 +94,7 @@ public class MSClanListEntry : MonoBehaviour, MSPoolable {
 
 	void OnClick()
 	{
-		clanPopup.ShiftToDetails(clan.clan.clanId);
+		clanPopup.ShiftToDetails(clan.clan.clanUuid);
 	}
 
 }

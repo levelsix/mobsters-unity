@@ -369,16 +369,16 @@ public static class MSUtil {
 			return;
 		}
 
-		Debug.Log("User ID: " + user.userId);
+		Debug.Log("User ID: " + user.userUuid);
 
 		MSWhiteboard.localUser = user;
 		MSWhiteboard.localMup = new MinimumUserProto();
-		MSWhiteboard.localMup.userId = user.userId;
+		MSWhiteboard.localMup.userUuid = user.userUuid;
 		MSWhiteboard.localMup.clan = user.clan;
 		MSWhiteboard.localMup.name = user.name;
 		MSWhiteboard.localMup.avatarMonsterId = user.avatarMonsterId;
 		
-		MSWhiteboard.cityID = MSWhiteboard.localMup.userId;
+		MSWhiteboard.cityID = MSWhiteboard.localMup.userUuid;
 		
 		MSWhiteboard.nextLevelInfo = MSDataManager.instance.Get(typeof(StaticUserLevelInfoProto), user.level+1) as StaticUserLevelInfoProto;
 		

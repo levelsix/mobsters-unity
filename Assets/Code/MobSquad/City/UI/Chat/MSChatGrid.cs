@@ -105,9 +105,9 @@ public class MSChatGrid : MonoBehaviour {
 		return bub;
 	}
 
-	MSChatBubble CreateBubble(int senderId, long timeSent)
+	MSChatBubble CreateBubble(string senderUuid, long timeSent)
 	{
-		MSChatBubble bub = MSPoolManager.instance.Get(senderId == MSWhiteboard.localUser.userId ? rightBubblePrefab : leftBubblePrefab,
+		MSChatBubble bub = MSPoolManager.instance.Get(senderUuid.Equals(MSWhiteboard.localUser.userUuid) ? rightBubblePrefab : leftBubblePrefab,
 		                           Vector3.zero, transform) as MSChatBubble;
 		bub.transf.localScale = Vector3.one;
 		bub.name = (long.MaxValue - timeSent).ToString();
@@ -130,7 +130,7 @@ public class MSChatGrid : MonoBehaviour {
 		{
 			foreach (PrivateChatPostProto item in messages) 
 			{
-				MSChatBubble bub = CreateBubble(item.poster.minUserProto.userId, item.timeOfPost);
+				MSChatBubble bub = CreateBubble(item.poster.minUserProto.userUuid, item.timeOfPost);
 				bub.Init(item);
 			}
 		}
@@ -149,7 +149,7 @@ public class MSChatGrid : MonoBehaviour {
 
 		foreach (GroupChatMessageProto item in messages) 
 		{
-			MSChatBubble bub = CreateBubble(item.sender.minUserProto.userId, item.timeOfChat);
+			MSChatBubble bub = CreateBubble(item.sender.minUserProto.userUuid, item.timeOfChat);
 			bub.Init(item);
 		}
 
@@ -162,10 +162,10 @@ public class MSChatGrid : MonoBehaviour {
 	public void SpawnBubbleFromPrivateMessage(PrivateChatPostResponseProto proto)
 	{
 		if (gridType == MSValues.ChatMode.PRIVATE 
-		    && (proto.sender.userId == MSChatManager.instance.chatPopup.privateChatter.minUserProto.userId
-		    || proto.post.recipient.minUserProto.userId == MSChatManager.instance.chatPopup.privateChatter.minUserProto.userId))
+		    && (proto.sender.userUuid.Equals(MSChatManager.instance.chatPopup.privateChatter.minUserProto.userUuid)
+		    || proto.post.recipient.minUserProto.userUuid.Equals(MSChatManager.instance.chatPopup.privateChatter.minUserProto.userUuid)))
 		{
-			MSChatBubble bub = CreateBubble(proto.sender.userId, MSUtil.timeNowMillis);
+			MSChatBubble bub = CreateBubble(proto.sender.userUuid, MSUtil.timeNowMillis);
 			bub.Init (proto.post);
 			
 			table.animateSmoothly = true;
@@ -178,7 +178,7 @@ public class MSChatGrid : MonoBehaviour {
 		if ((proto.scope == GroupChatScope.GLOBAL && gridType == MSValues.ChatMode.GLOBAL) 
 		    || proto.scope == GroupChatScope.CLAN && gridType == MSValues.ChatMode.CLAN)
 		{
-			MSChatBubble bub = CreateBubble(proto.sender.minUserProto.userId, MSUtil.timeNowMillis);
+			MSChatBubble bub = CreateBubble(proto.sender.minUserProto.userUuid, MSUtil.timeNowMillis);
 			bub.Init (proto);
 			
 			table.animateSmoothly = true;

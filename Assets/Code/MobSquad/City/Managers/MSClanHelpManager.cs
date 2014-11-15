@@ -18,8 +18,8 @@ public class MSClanHelpManager : MonoBehaviour {
 	[SerializeField]
 	MSChatPopup chatPopup;
 
-	Dictionary<int, List<MSClanHelpListing>> screenListings = new Dictionary<int, List<MSClanHelpListing>>();
-	Dictionary<int, List<MSClanHelpListing>> chatListings = new Dictionary<int, List<MSClanHelpListing>>();
+	Dictionary<string, List<MSClanHelpListing>> screenListings = new Dictionary<string, List<MSClanHelpListing>>();
+	Dictionary<string, List<MSClanHelpListing>> chatListings = new Dictionary<string, List<MSClanHelpListing>>();
 
 	public static MSClanHelpManager instance;
 
@@ -46,14 +46,14 @@ public class MSClanHelpManager : MonoBehaviour {
 	
 	public void InitHelp()
 	{
-		foreach(KeyValuePair<int, List<MSClanHelpListing>> userList in screenListings)
+		foreach(KeyValuePair<string, List<MSClanHelpListing>> userList in screenListings)
 		{
 			foreach(MSClanHelpListing listing in userList.Value)
 			{
 				listing.GetComponent<MSSimplePoolable>().Pool();
 			}
 		}
-		foreach(KeyValuePair<int, List<MSClanHelpListing>> userList in chatListings)
+		foreach(KeyValuePair<string, List<MSClanHelpListing>> userList in chatListings)
 		{
 			foreach(MSClanHelpListing listing in userList.Value)
 			{
@@ -68,7 +68,7 @@ public class MSClanHelpManager : MonoBehaviour {
 		
 		foreach(ClanHelpProto help in MSClanManager.instance.clanHelpRequests)
 		{
-			if(help.mup.userId != MSWhiteboard.localMup.userId && !help.helperIds.Contains(MSWhiteboard.localMup.userId) && help.helperIds.Count < help.maxHelpers && help.open)
+			if(!help.mup.userUuid.Equals(MSWhiteboard.localMup.userUuid) && !help.helperUuids.Contains(MSWhiteboard.localMup.userUuid) && help.helperUuids.Count < help.maxHelpers && help.open)
 			{
 				AddNewListing(help, screenListings, NewScreenListing, false);
 				//this is commented out because the chat menu gets pooled and reset every time it opens
@@ -88,7 +88,7 @@ public class MSClanHelpManager : MonoBehaviour {
 
 	public void ReinitChat()
 	{
-		foreach(KeyValuePair<int, List<MSClanHelpListing>> userList in chatListings)
+		foreach(KeyValuePair<string, List<MSClanHelpListing>> userList in chatListings)
 		{
 			foreach(MSClanHelpListing listing in userList.Value)
 			{
@@ -101,7 +101,7 @@ public class MSClanHelpManager : MonoBehaviour {
 
 		foreach(ClanHelpProto help in MSClanManager.instance.clanHelpRequests)
 		{
-			if(help.mup.userId != MSWhiteboard.localMup.userId && !help.helperIds.Contains(MSWhiteboard.localMup.userId) && help.helperIds.Count < help.maxHelpers && help.open)
+			if(!help.mup.userUuid.Equals(MSWhiteboard.localMup.userUuid) && !help.helperUuids.Contains(MSWhiteboard.localMup.userUuid) && help.helperUuids.Count < help.maxHelpers && help.open)
 			{
 				AddNewListing(help, chatListings, NewChatListing, false);
 			}
@@ -117,7 +117,7 @@ public class MSClanHelpManager : MonoBehaviour {
 	void UpdateButtonAndBackground()
 	{
 		int helpable = 0;
-		foreach(KeyValuePair<int, List<MSClanHelpListing>> userList in screenListings)
+		foreach(KeyValuePair<string, List<MSClanHelpListing>> userList in screenListings)
 		{
 			foreach(MSClanHelpListing listing in userList.Value)
 			{
@@ -152,19 +152,19 @@ public class MSClanHelpManager : MonoBehaviour {
 		}
 	}
 	
-	MSClanHelpListing AddNewListing(ClanHelpProto proto, Dictionary<int, List<MSClanHelpListing>> listings, Func<ClanHelpProto, bool, MSClanHelpListing> AddNew, bool animate)
+	MSClanHelpListing AddNewListing(ClanHelpProto proto, Dictionary<string, List<MSClanHelpListing>> listings, Func<ClanHelpProto, bool, MSClanHelpListing> AddNew, bool animate)
 	{
 		if(proto.helpType == GameActionType.HEAL)
 		{
 			//If there's no list for this user, make one
 			bool existingHealListing = false;
-			if(!listings.ContainsKey(proto.mup.userId))
+			if(!listings.ContainsKey(proto.mup.userUuid))
 			{
-				listings.Add(proto.mup.userId, new List<MSClanHelpListing>());
+				listings.Add(proto.mup.userUuid, new List<MSClanHelpListing>());
 			}
 			else
 			{
-				List<MSClanHelpListing> curUserListing = listings[proto.mup.userId];
+				List<MSClanHelpListing> curUserListing = listings[proto.mup.userUuid];
 				foreach(MSClanHelpListing listing in curUserListing)
 				{
 					if(listing.AddHealingProto(proto))
@@ -176,12 +176,12 @@ public class MSClanHelpManager : MonoBehaviour {
 			}
 
 			//if there isn't we make one
-			if(!existingHealListing && proto.helperIds.Count < proto.maxHelpers && proto.open)
+			if(!existingHealListing && proto.helperUuids.Count < proto.maxHelpers && proto.open)
 			{
 				return AddNew(proto, animate);
 			}
 		}
-		else if(!proto.helperIds.Contains(MSWhiteboard.localMup.userId) && proto.helperIds.Count < proto.maxHelpers && proto.open)
+		else if(!proto.helperUuids.Contains(MSWhiteboard.localMup.userUuid) && proto.helperUuids.Count < proto.maxHelpers && proto.open)
 		{
 			return AddNew(proto, animate);
 		}
@@ -193,13 +193,13 @@ public class MSClanHelpManager : MonoBehaviour {
 		MSClanHelpListing newListing = MSPoolManager.instance.Get<MSClanHelpListing>(helpScreen.listingPrefab, helpScreen.grid.transform);
 		newListing.transform.localScale = Vector3.one;
 		newListing.dragView.scrollView = helpScreen.scrollview;
-		if(!screenListings.ContainsKey(proto.mup.userId))
+		if(!screenListings.ContainsKey(proto.mup.userUuid))
 		{
-			screenListings.Add(proto.mup.userId,new List<MSClanHelpListing>());
+			screenListings.Add(proto.mup.userUuid,new List<MSClanHelpListing>());
 		}
 		newListing.Init(proto);
-		Debug.LogWarning(proto.mup.userId + " adding new listing");
-		screenListings[proto.mup.userId].Add(newListing);
+		Debug.LogWarning(proto.mup.userUuid + " adding new listing");
+		screenListings[proto.mup.userUuid].Add(newListing);
 		helpScreen.grid.animateSmoothly = animate;
 		helpScreen.grid.Reposition();
 
@@ -210,21 +210,21 @@ public class MSClanHelpManager : MonoBehaviour {
 	{
 		MSClanHelpListing newListing = clanChatGrid.SpawnBubbleForHelp(proto, animate);
 
-		if(!chatListings.ContainsKey(proto.mup.userId))
+		if(!chatListings.ContainsKey(proto.mup.userUuid))
 		{
-			chatListings.Add(proto.mup.userId,new List<MSClanHelpListing>());
+			chatListings.Add(proto.mup.userUuid,new List<MSClanHelpListing>());
 		}
 		newListing.Init(proto);
-		chatListings[proto.mup.userId].Add(newListing);
+		chatListings[proto.mup.userUuid].Add(newListing);
 
 		return newListing;
 	}
 	
-	MSClanHelpListing FindListingContainingProto(ClanHelpProto findMe, Dictionary<int, List<MSClanHelpListing>> listings)
+	MSClanHelpListing FindListingContainingProto(ClanHelpProto findMe, Dictionary<string, List<MSClanHelpListing>> listings)
 	{
-		if(listings.ContainsKey(findMe.mup.userId))
+		if(listings.ContainsKey(findMe.mup.userUuid))
 		{
-			List<MSClanHelpListing> curUserListing = listings[findMe.mup.userId];
+			List<MSClanHelpListing> curUserListing = listings[findMe.mup.userUuid];
 			foreach(MSClanHelpListing listing in curUserListing)
 			{
 				if(listing.Contains(findMe))
@@ -241,7 +241,7 @@ public class MSClanHelpManager : MonoBehaviour {
 	//so it updates the list while the player is looking at it
 	void LiveGiveClanHelp(GiveClanHelpResponseProto proto, bool self)
 	{
-		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		if(self || !proto.sender.userUuid.Equals(MSWhiteboard.localMup.userUuid))
 		{
 			GiveHelp(proto, screenListings);
 			GiveHelp(proto, chatListings);
@@ -249,7 +249,7 @@ public class MSClanHelpManager : MonoBehaviour {
 		}
 	}
 
-	void GiveHelp(GiveClanHelpResponseProto proto, Dictionary<int, List<MSClanHelpListing>> listings)
+	void GiveHelp(GiveClanHelpResponseProto proto, Dictionary<string, List<MSClanHelpListing>> listings)
 	{
 		foreach(ClanHelpProto helpProto in proto.clanHelps)
 		{
@@ -262,7 +262,7 @@ public class MSClanHelpManager : MonoBehaviour {
 				{
 					listing.GetComponent<MSSimplePoolable>().Pool();
 
-					listings[helpProto.mup.userId].Remove(listing);
+					listings[helpProto.mup.userUuid].Remove(listing);
 
 					clanChatGrid.table.animateSmoothly = true;
 					clanChatGrid.table.Reposition();
@@ -277,7 +277,7 @@ public class MSClanHelpManager : MonoBehaviour {
 	
 	void LiveSolicitClanHelp(SolicitClanHelpResponseProto proto, bool self)
 	{
-		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		if(self || !proto.sender.userUuid.Equals( MSWhiteboard.localMup.userUuid))
 		{
 			foreach(ClanHelpProto helpProto in proto.helpProto)
 			{
@@ -290,7 +290,7 @@ public class MSClanHelpManager : MonoBehaviour {
 	
 	void LiveEndClanHelp(EndClanHelpResponseProto proto, bool self)
 	{
-		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		if(self || !proto.sender.userUuid.Equals( MSWhiteboard.localMup.userUuid))
 		{
 			EndHelp(proto, screenListings);
 			EndHelp(proto, chatListings);
@@ -298,19 +298,19 @@ public class MSClanHelpManager : MonoBehaviour {
 		}
 	}
 
-	void EndHelp(EndClanHelpResponseProto proto, Dictionary<int, List<MSClanHelpListing>> dictionary)
+	void EndHelp(EndClanHelpResponseProto proto, Dictionary<string, List<MSClanHelpListing>> dictionary)
 	{
-		if(dictionary.ContainsKey(proto.sender.userId))
+		if(dictionary.ContainsKey(proto.sender.userUuid))
 		{
-			for(int i = 0; i < dictionary[proto.sender.userId].Count; i++)//foreach(MSClanHelpListing listing in dictionary[proto.sender.userId])
+			for(int i = 0; i < dictionary[proto.sender.userUuid].Count; i++)//foreach(MSClanHelpListing listing in dictionary[proto.sender.userId])
 			{
-				MSClanHelpListing listing = dictionary[proto.sender.userId][i];
-				listing.RemoveClanHelp(proto.clanHelpIds);
+				MSClanHelpListing listing = dictionary[proto.sender.userUuid][i];
+				listing.RemoveClanHelp(proto.clanHelpUuids);
 				if(listing.helpLength < 1)
 				{
 					//this line removes the listing from the chat IF it's even a chat listing
 					clanChatGrid.RemoveHelpBubble(listing);
-					if(!dictionary[proto.sender.userId].Remove(listing))
+					if(!dictionary[proto.sender.userUuid].Remove(listing))
 					{
 						Debug.LogError("could not find listing that required removal");
 					}
@@ -319,9 +319,9 @@ public class MSClanHelpManager : MonoBehaviour {
 					helpScreen.grid.Reposition();
 				}
 			}
-			if(dictionary[proto.sender.userId].Count < 1)
+			if(dictionary[proto.sender.userUuid].Count < 1)
 			{
-				dictionary.Remove(proto.sender.userId);
+				dictionary.Remove(proto.sender.userUuid);
 			}
 
 		}
@@ -331,8 +331,8 @@ public class MSClanHelpManager : MonoBehaviour {
 	{
 		helpScreen.helpAllButton.GetComponent<MSLoadLock>().Lock();
 		
-		List<long> helpIds = new List<long>();
-		foreach(KeyValuePair<int, List<MSClanHelpListing>> userList in screenListings)
+		List<string> helpIds = new List<string>();
+		foreach(KeyValuePair<string, List<MSClanHelpListing>> userList in screenListings)
 		{
 			foreach(MSClanHelpListing listing in userList.Value)
 			{
