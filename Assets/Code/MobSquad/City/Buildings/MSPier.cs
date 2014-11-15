@@ -7,13 +7,6 @@ public class MSPier : MSBuildingFrame {
 	MSProgressBar bar;
 	MSSimplePoolable doneIcon;
 	
-	const long SECONDS_IN_MINUTE = 60;
-	
-	const long MILISECONDS_IN_MINUTE = 1000 * SECONDS_IN_MINUTE;
-	
-	readonly Vector3 buildingAngle = new Vector3(45f,45f,0f);
-	readonly Vector3 buildingScale = new Vector3(0.02f, 0.02f, 0.02f);
-	
 	void Awake()
 	{
 		base.Awake();
@@ -66,7 +59,7 @@ public class MSPier : MSBuildingFrame {
 
 		if(job.timeCompleted == 0)
 		{
-			bar.init(job.timeStarted, (long)job.durationMinutes * MILISECONDS_IN_MINUTE);
+			bar.init(job.timeStarted, (long)job.durationMinutes * MILISECONDS_IN_MINUTE, false);
 		}
 	}
 	

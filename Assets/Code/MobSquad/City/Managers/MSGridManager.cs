@@ -308,7 +308,7 @@ public class MSGridManager : MonoBehaviour {
     /// <param name="y">The lowest y positing in grid coordinates</param>
     public void AddBuilding(MSBuilding building, int x, int y, int xLength, int yLength)
     {
-		Debug.Log("Grid Manager adding: " + building.name + ", id: " + building.id);
+//		Debug.Log("Grid Manager adding: " + building.name + ", id: " + building.id);
         _grid[x, y] = building;
         building.groundPos = new Vector2(x, y);
 

@@ -87,6 +87,28 @@ public class MSEnhancementManager : MonoBehaviour
 		}
 	}
 
+	public long startTime
+	{
+		get
+		{
+			long startTime = 0;
+			foreach (PZMonster item in feeders)
+			{
+				if(startTime == 0)
+				{
+					startTime = item.startEnhanceTime;
+				}
+				else
+				{
+					//min(startTime, item.startEnhanceTime)
+					startTime = startTime < item.startEnhanceTime ? item.startEnhanceTime : startTime;
+				}
+			}
+
+			return startTime;
+		}
+	}
+
 	public long finishTime
 	{
 		get
@@ -101,6 +123,16 @@ public class MSEnhancementManager : MonoBehaviour
 				}
 			}
 			return last.expectedStartTimeMillis + (long)(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId.Equals(last.userMonsterId)).enhanceXP * 1000f / currLab.pointsPerSecond);
+		}
+	}
+
+	public long totalDuration
+	{
+		get
+		{
+			long now = MSUtil.timeNowMillis;
+			long dur = finishTime - startTime;
+			return finishTime - startTime;
 		}
 	}
 
@@ -265,6 +297,11 @@ public class MSEnhancementManager : MonoBehaviour
 		{
 			currEnhancement = enhancement;
 			ClearTemp();
+
+			if(MSActionManager.Goon.OnStartEnhance != null)
+			{
+				MSActionManager.Goon.OnStartEnhance();
+			}
 		}
 		else
 		{

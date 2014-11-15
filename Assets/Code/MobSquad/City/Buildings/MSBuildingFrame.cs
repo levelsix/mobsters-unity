@@ -3,6 +3,12 @@ using System.Collections;
 
 public abstract class MSBuildingFrame : MonoBehaviour {
 
+	public const long SECONDS_IN_MINUTE = 60;
+	public const long MILISECONDS_IN_MINUTE = 1000 * SECONDS_IN_MINUTE;
+
+	public readonly Vector3 buildingAngle = new Vector3(45f,45f,0f);
+	public readonly Vector3 buildingScale = new Vector3(0.02f, 0.02f, 0.02f);
+
 	public UISprite bubbleIcon;
 
 	protected MSBuilding building;
