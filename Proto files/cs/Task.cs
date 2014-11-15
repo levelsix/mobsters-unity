@@ -154,13 +154,13 @@ namespace com.lvl6.proto
     public MinimumUserTaskProto() {}
     
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private int _taskId = default(int);
@@ -181,13 +181,13 @@ namespace com.lvl6.proto
       set { _curTaskStageId = value; }
     }
 
-    private long _userTaskId = default(long);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userTaskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userTaskId
+    private string _userTaskUuid = "";
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userTaskUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userTaskUuid
     {
-      get { return _userTaskId; }
-      set { _userTaskId = value; }
+      get { return _userTaskUuid; }
+      set { _userTaskUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -200,13 +200,13 @@ namespace com.lvl6.proto
     public TaskStageMonsterProto() {}
     
 
-    private long _tsfuId = default(long);
-    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"tsfuId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long tsfuId
+    private string _tsfuUuid = "";
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"tsfuUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string tsfuUuid
     {
-      get { return _tsfuId; }
-      set { _tsfuId = value; }
+      get { return _tsfuUuid; }
+      set { _tsfuUuid = value; }
     }
 
     private int _tsmId = default(int);
@@ -470,13 +470,13 @@ namespace com.lvl6.proto
     public UserPersistentEventProto() {}
     
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private int _eventId = default(int);

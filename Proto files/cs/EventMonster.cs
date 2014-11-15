@@ -335,21 +335,21 @@ namespace com.lvl6.proto
       get { return _umcep; }
       set { _umcep = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::System.Obsolete, global::ProtoBuf.ProtoMember(5, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> userMonsterIds
+    private readonly global::System.Collections.Generic.List<string> _userMonsterUuids = new global::System.Collections.Generic.List<string>();
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(5, Name=@"userMonsterUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> userMonsterUuids
     {
-      get { return _userMonsterIds; }
+      get { return _userMonsterUuids; }
     }
   
 
-    private long _userMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMonsterId
+    private string _userMonsterUuid = "";
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userMonsterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMonsterUuid
     {
-      get { return _userMonsterId; }
-      set { _userMonsterId = value; }
+      get { return _userMonsterUuid; }
+      set { _userMonsterUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -421,11 +421,11 @@ namespace com.lvl6.proto
       get { return _umcep; }
       set { _umcep = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> userMonsterIds
+    private readonly global::System.Collections.Generic.List<string> _userMonsterUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"userMonsterUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> userMonsterUuids
     {
-      get { return _userMonsterIds; }
+      get { return _userMonsterUuids; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -606,13 +606,13 @@ namespace com.lvl6.proto
       set { _clientTime = value; }
     }
 
-    private long _userTaskId = default(long);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userTaskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userTaskId
+    private string _userTaskUuid = "";
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userTaskUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userTaskUuid
     {
-      get { return _userTaskId; }
-      set { _userTaskId = value; }
+      get { return _userTaskUuid; }
+      set { _userTaskUuid = value; }
     }
 
     private bool _isUpdateTaskStageForUser = default(bool);
@@ -633,13 +633,13 @@ namespace com.lvl6.proto
       set { _nuTaskStageId = value; }
     }
 
-    private long _droplessTsfuId = default(long);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"droplessTsfuId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long droplessTsfuId
+    private string _droplessTsfuUuid = "";
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"droplessTsfuUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string droplessTsfuUuid
     {
-      get { return _droplessTsfuId; }
-      set { _droplessTsfuId = value; }
+      get { return _droplessTsfuUuid; }
+      set { _droplessTsfuUuid = value; }
     }
 
     private bool _changeNuPvpDmgMultiplier = default(bool);
@@ -864,13 +864,13 @@ namespace com.lvl6.proto
       set { _teamSlotNum = value; }
     }
 
-    private long _userMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMonsterId
+    private string _userMonsterUuid = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMonsterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMonsterUuid
     {
-      get { return _userMonsterId; }
-      set { _userMonsterId = value; }
+      get { return _userMonsterUuid; }
+      set { _userMonsterUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -931,13 +931,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private long _userMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMonsterId
+    private string _userMonsterUuid = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMonsterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMonsterUuid
     {
-      get { return _userMonsterId; }
-      set { _userMonsterId = value; }
+      get { return _userMonsterUuid; }
+      set { _userMonsterUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -1007,19 +1007,19 @@ namespace com.lvl6.proto
       set { _increaseSlotType = value; }
     }
 
-    private int _userStructId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userStructId
+    private string _userStructUuid = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userStructUuid
     {
-      get { return _userStructId; }
-      set { _userStructId = value; }
+      get { return _userStructUuid; }
+      set { _userStructUuid = value; }
     }
-    private readonly global::System.Collections.Generic.List<int> _userFbInviteForSlotIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(4, Name=@"userFbInviteForSlotIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> userFbInviteForSlotIds
+    private readonly global::System.Collections.Generic.List<string> _userFbInviteForSlotUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(4, Name=@"userFbInviteForSlotUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> userFbInviteForSlotUuids
     {
-      get { return _userFbInviteForSlotIds; }
+      get { return _userFbInviteForSlotUuids; }
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"IncreaseSlotType")]
@@ -1125,13 +1125,13 @@ namespace com.lvl6.proto
       set { _fbFriendId = value; }
     }
 
-    private int _userStructId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userStructId
+    private string _userStructUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userStructUuid
     {
-      get { return _userStructId; }
-      set { _userStructId = value; }
+      get { return _userStructUuid; }
+      set { _userStructUuid = value; }
     }
 
     private int _userStructFbLvl = default(int);
@@ -1212,18 +1212,18 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<int> _acceptedInviteIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"acceptedInviteIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> acceptedInviteIds
+    private readonly global::System.Collections.Generic.List<string> _acceptedInviteUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"acceptedInviteUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> acceptedInviteUuids
     {
-      get { return _acceptedInviteIds; }
+      get { return _acceptedInviteUuids; }
     }
   
-    private readonly global::System.Collections.Generic.List<int> _rejectedInviteIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"rejectedInviteIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> rejectedInviteIds
+    private readonly global::System.Collections.Generic.List<string> _rejectedInviteUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"rejectedInviteUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> rejectedInviteUuids
     {
-      get { return _rejectedInviteIds; }
+      get { return _rejectedInviteUuids; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1297,11 +1297,11 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> userMonsterIds
+    private readonly global::System.Collections.Generic.List<string> _userMonsterUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"userMonsterUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> userMonsterUuids
     {
-      get { return _userMonsterIds; }
+      get { return _userMonsterUuids; }
     }
   
 
@@ -1442,11 +1442,11 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> userMonsterIds
+    private readonly global::System.Collections.Generic.List<string> _userMonsterUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"userMonsterUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> userMonsterUuids
     {
-      get { return _userMonsterIds; }
+      get { return _userMonsterUuids; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1507,11 +1507,11 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> userMonsterIds
+    private readonly global::System.Collections.Generic.List<string> _userMonsterUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"userMonsterUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> userMonsterUuids
     {
-      get { return _userMonsterIds; }
+      get { return _userMonsterUuids; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

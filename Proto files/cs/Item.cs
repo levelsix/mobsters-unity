@@ -17,13 +17,13 @@ namespace com.lvl6.proto
     public UserItemProto() {}
     
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private int _itemId = default(int);
@@ -127,22 +127,22 @@ namespace com.lvl6.proto
     public UserItemUsageProto() {}
     
 
-    private long _usageId = default(long);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usageId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long usageId
+    private string _usageUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usageUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string usageUuid
     {
-      get { return _usageId; }
-      set { _usageId = value; }
+      get { return _usageUuid; }
+      set { _usageUuid = value; }
     }
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private int _itemId = default(int);
@@ -163,13 +163,13 @@ namespace com.lvl6.proto
       set { _timeOfEntry = value; }
     }
 
-    private long _userDataId = default(long);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userDataId
+    private string _userDataUuid = "";
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userDataUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userDataUuid
     {
-      get { return _userDataId; }
-      set { _userDataId = value; }
+      get { return _userDataUuid; }
+      set { _userDataUuid = value; }
     }
 
     private com.lvl6.proto.GameActionType _actionType = com.lvl6.proto.GameActionType.NO_HELP;

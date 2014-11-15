@@ -35,11 +35,11 @@ namespace com.lvl6.proto
       get { return _attackerElo; }
       set { _attackerElo = value; }
     }
-    private readonly global::System.Collections.Generic.List<int> _seenUserIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"seenUserIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> seenUserIds
+    private readonly global::System.Collections.Generic.List<string> _seenUserUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"seenUserUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> seenUserUuids
     {
-      get { return _seenUserIds; }
+      get { return _seenUserUuids; }
     }
   
 
@@ -229,13 +229,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _defenderId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"defenderId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int defenderId
+    private string _defenderUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"defenderUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string defenderUuid
     {
-      get { return _defenderId; }
-      set { _defenderId = value; }
+      get { return _defenderUuid; }
+      set { _defenderUuid = value; }
     }
 
     private bool _userAttacked = default(bool);
@@ -311,13 +311,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _defenderId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"defenderId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int defenderId
+    private string _defenderUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"defenderUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string defenderUuid
     {
-      get { return _defenderId; }
-      set { _defenderId = value; }
+      get { return _defenderUuid; }
+      set { _defenderUuid = value; }
     }
 
     private bool _attackerAttacked = default(bool);

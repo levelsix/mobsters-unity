@@ -17,13 +17,13 @@ namespace com.lvl6.proto
     public PrivateChatPostProto() {}
     
 
-    private int _privateChatPostId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"privateChatPostId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int privateChatPostId
+    private string _privateChatPostUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"privateChatPostUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string privateChatPostUuid
     {
-      get { return _privateChatPostId; }
-      set { _privateChatPostId = value; }
+      get { return _privateChatPostUuid; }
+      set { _privateChatPostUuid = value; }
     }
 
     private com.lvl6.proto.MinimumUserProtoWithLevel _poster = null;
@@ -145,13 +145,13 @@ namespace com.lvl6.proto
       set { _isAdmin = value; }
     }
 
-    private int _chatId = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"chatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int chatId
+    private string _chatUuid = "";
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"chatUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string chatUuid
     {
-      get { return _chatId; }
-      set { _chatId = value; }
+      get { return _chatUuid; }
+      set { _chatUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
