@@ -122,15 +122,16 @@ public class UMQNetworkManager : MonoBehaviour {
 
 #if UNITY_ANDROID && !UNITY_EDITOR
 		AndroidJavaObject factoryJava = new AndroidJavaObject("com.rabbitmq.client.ConnectionFactory");
-		factoryJava.Call("setHost", "staging.mobsters.lvl6.com");
+		factoryJava.Call("setHost", "amqpstagingmobsters.lvl6.com");
 		factoryJava.Call("setUsername", "lvl6client");
 		factoryJava.Call("setPassword", "devclient");
 		factoryJava.Call("setVirtualHost", "devmobsters");
+		factoryJava.Call("useSslProtocol");
 
 		WriteDebug("Set connection settings...");
 #else
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.HostName = "amqp1.staging.mobsters.lvl6.com";
+		factory.HostName = "amqpstagingmobsters.lvl6.com";
 		factory.UserName = "lvl6client";
 		factory.Password = "devclient";
 		factory.VirtualHost = "devmobsters";
@@ -138,8 +139,8 @@ public class UMQNetworkManager : MonoBehaviour {
 
 		factory.Ssl.ServerName = "lvl6ca";
 		factory.Ssl.CertPath = "cacert.cer";
+//		factory.Ssl.AcceptablePolicyErrors = System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch | System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable;
 		factory.Ssl.Enabled = true;
-		factory.Ssl.AcceptablePolicyErrors = System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch | System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable;
 #endif
 
 		try{
