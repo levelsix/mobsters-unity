@@ -61,6 +61,22 @@ public class MSChatAvatar : MonoBehaviour {
 		Init(monster);
 	}
 
+	public void Init(int monsterId, int scaleInverse)
+	{
+		MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(monsterId);
+		if(!square)
+		{
+			bg.spriteName = big ? bigBgSprites[monster.monsterElement] : bgSprites[monster.monsterElement];
+		}
+		else
+		{
+			bg.spriteName = squareSprites[monster.monsterElement];
+		}
+		MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumbnail, 1, delegate {
+			thumbnail.width /= scaleInverse; thumbnail.height /= scaleInverse; thumbnail.gameObject.SetActive(false); thumbnail.gameObject.SetActive(true);
+		});
+	}
+
 	public void Init(MonsterProto monster)
 	{
 		if(monster != null)

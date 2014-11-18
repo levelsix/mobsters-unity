@@ -37,7 +37,7 @@ public class MSBottomChatMessage : MonoBehaviour {
 		if (myWidget == null) myWidget = GetComponent<UIWidget>();
 		myWidget.width = width;
 
-		avatar.Init (avatarId);
+		avatar.Init (avatarId, 3);
 		playerName.text = name + ":";
 		dialogue.text = content;
 		Chop();

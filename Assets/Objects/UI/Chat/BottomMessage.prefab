@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400010}
   - 114: {fileID: 11400018}
+  - 54: {fileID: 5400000}
   m_Layer: 5
   m_Name: AvatarClipPanel
   m_TagString: Untagged
@@ -107,7 +108,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97, y: .399999619, z: 0}
+  m_LocalPosition: {x: 97.0000076, y: .399999619, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
@@ -119,8 +120,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 29.9999695, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 21.6000004, y: 14.1000004, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
   m_Father: {fileID: 400006}
@@ -132,8 +133,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.07998657, z: 0}
-  m_LocalScale: {x: .660000086, y: .660000086, z: .660000086}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400010}
   m_RootOrder: 0
@@ -145,7 +146,7 @@ Transform:
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -276.5, y: -15, z: 0}
-  m_LocalScale: {x: .5, y: .5, z: .5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
   - {fileID: 400010}
@@ -177,6 +178,21 @@ Transform:
   - {fileID: 400004}
   m_Father: {fileID: 400006}
   m_RootOrder: 1
+--- !u!54 &5400000
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100010}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -207,18 +223,18 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
-  mWidth: 234
-  mHeight: 24
+  mWidth: 194
+  mHeight: 20
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 9.75
-  keepCrispWhenShrunk: 1
+  aspectRatio: 9.69999981
+  keepCrispWhenShrunk: 2
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: c8165d95760c74fbea176dae31eb15a2, type: 2}
   mText: "Cool new UI, \U0001F685 bitch"
-  mFontSize: 24
+  mFontSize: 20
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
@@ -239,7 +255,6 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
-  symbolScale: .600000024
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -302,7 +317,6 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
-  symbolScale: 1
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -348,30 +362,18 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 7
-  mWidth: 66
-  mHeight: 82
+  mWidth: 22
+  mHeight: 27
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .804878056
-  mType: 0
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
-  mFlip: 0
-  centerType: 1
-  leftType: 1
-  rightType: 1
-  bottomType: 1
-  topType: 1
+  aspectRatio: .814814806
   mSprite: {fileID: 21300000, guid: bec964ed5921c433d8337ada40db56fd, type: 3}
-  mMat: {fileID: 0}
+  mMat: {fileID: 2100000, guid: 1e17fb359584a4cc4a1d3acbf47e26e7, type: 2}
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
   nextSprite: {fileID: 0}
+  fillAmount: 1
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -386,11 +388,11 @@ MonoBehaviour:
   leftAnchor:
     target: {fileID: 400008}
     relative: 0
-    absolute: 10
+    absolute: 25
   rightAnchor:
     target: {fileID: 400008}
     relative: 0
-    absolute: 70
+    absolute: 55
   bottomAnchor:
     target: {fileID: 0}
     relative: 0
@@ -402,26 +404,26 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 7
-  mWidth: 60
-  mHeight: 60
+  mWidth: 30
+  mHeight: 30
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
+  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
+  mSpriteName: wateravatar
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
+  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
-  mSpriteName: wateravatar
-  mFillCenter: 1
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -532,15 +534,13 @@ MonoBehaviour:
   cullWhileDragging: 1
   alwaysOnScreen: 0
   anchorOffset: 0
-  softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3001
-  mClipTexture: {fileID: 2800000, guid: 164f2b2f647c14aadb775e2bd4598c24, type: 3}
+  startingRenderQueue: 4001
   mAlpha: 1
-  mClipping: 1
-  mClipRange: {x: 0, y: 29.9999695, z: 60, w: 60}
-  mClipSoftness: {x: 4, y: 4}
-  mDepth: 1
+  mClipping: 3
+  mClipRange: {x: 0, y: 14.9999847, z: 30, w: 30}
+  mClipSoftness: {x: 0, y: 0}
+  mDepth: 2
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!1001 &100100000
