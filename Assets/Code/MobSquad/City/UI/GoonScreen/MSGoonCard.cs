@@ -557,8 +557,8 @@ public class MSGoonCard : MonoBehaviour {
 
 		string goonImageBase = MSUtil.StripExtensions(goon.monster.imagePrefix);
 		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", goonPose);
-		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Thumbnail", mediumMobster);
-		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Thumbnail", smallMobster);
+		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", mediumMobster);
+		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", smallMobster);
 
 		cardBackground.spriteName = backgroundsForElements[goon.monster.monsterElement];
 		mediumBG.spriteName = mediumBackgrounds[goon.monster.monsterElement];

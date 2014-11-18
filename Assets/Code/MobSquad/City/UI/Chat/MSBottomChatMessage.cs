@@ -20,6 +20,16 @@ public class MSBottomChatMessage : MonoBehaviour {
 
 	UIWidget myWidget;
 
+	void OnEnable()
+	{
+		MSActionManager.Scene.OnCity += OnCity;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Scene.OnCity -= OnCity;
+	}
+
 	public Color color
 	{
 		set
@@ -64,5 +74,10 @@ public class MSBottomChatMessage : MonoBehaviour {
 		}
 	}
 
+	void OnCity()
+	{
+		gameObject.SetActive(false);
+		gameObject.SetActive(true);
+	}
 
 }

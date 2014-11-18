@@ -136,6 +136,15 @@ public class MSClanMemberEntry : MonoBehaviour, MSPoolable {
 		}
 
 		profileButton.userId = user.minUserProtoWithLevel.minUserProto.userId;
+
+		StartCoroutine(FuckItDoItLive());
+	}
+
+	IEnumerator FuckItDoItLive()
+	{
+		yield return null;
+		avatar.gameObject.SetActive(false);
+		avatar.gameObject.SetActive(true);
 	}
 
 	public void ResetRoleLabel()
