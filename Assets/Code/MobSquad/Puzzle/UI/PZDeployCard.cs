@@ -46,7 +46,7 @@ public class PZDeployCard : MonoBehaviour {
 		button.normalSprite = background.spriteName = MSGoonCard.smallBackgrounds[goon.monster.monsterElement];
 		
 		string goonPrefix = MSUtil.StripExtensions (goon.monster.imagePrefix);
-		MSSpriteUtil.instance.SetSprite(goonPrefix, goonPrefix + "Thumbnail", goonSprite);
+		MSSpriteUtil.instance.SetSprite(goonPrefix, goonPrefix + "Card", goonSprite, 1, Resize);
 		
 		bar.fillAmount = (float)goon.currHP / goon.maxHP;
 		
@@ -58,6 +58,24 @@ public class PZDeployCard : MonoBehaviour {
 		goonSprite.alpha = 1;
 
 		hpLabel.text = goon.currHP + "/" + goon.maxHP;
+	}
+
+	void Resize()
+	{
+		if (goonSprite.width > background.width || goonSprite.height > background.height)
+		{
+			float ratio;
+			if (goonSprite.width > goonSprite.height)
+			{
+				ratio = background.width/((float)goonSprite.width);
+			}
+			else
+			{
+				ratio = background.height/((float)goonSprite.height);
+			}
+			goonSprite.width = Mathf.FloorToInt(goonSprite.width*ratio);
+			goonSprite.height = Mathf.FloorToInt(goonSprite.height*ratio);
+		}
 	}
 	
 	public void InitEmpty()
