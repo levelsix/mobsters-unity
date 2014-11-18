@@ -59,7 +59,7 @@ public class MSPier : MSBuildingFrame {
 
 		if(job.timeCompleted == 0)
 		{
-			bar.init(job.timeStarted, (long)job.durationMinutes * MILISECONDS_IN_MINUTE, false);
+			bar.init(job.timeStarted, MSMiniJobManager.instance.timeLeft, false);
 		}
 	}
 	

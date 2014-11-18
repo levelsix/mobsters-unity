@@ -35,11 +35,6 @@ public class MSLaboratory : MSBuildingFrame {
 		MSActionManager.Scene.OnCity -= CheckTag;
 	}
 
-	long GetTimeLeft()
-	{
-		return MSEnhancementManager.instance.timeLeft;
-	}
-
 	//Try to init when the building is enabled and when enhancing startszzzzzzzz
 	public void InitBar()
 	{

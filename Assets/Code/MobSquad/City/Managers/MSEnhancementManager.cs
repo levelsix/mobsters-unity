@@ -31,6 +31,64 @@ public class MSEnhancementManager : MonoBehaviour
 	/// </summary>
 	public UserEnhancementProto currEnhancement;
 
+	#region clanHelp
+	StartupResponseProto.StartupConstants.ClanHelpConstants enhancementHelpConstant;
+	
+	ClanHelpProto currActiveHelp = null;
+	
+	public int helpCount
+	{
+		get
+		{
+			if(currEnhancement != null && feeders.Count > 0)
+			{
+				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.ENHANCE_TIME || currActiveHelp.userDataId != currEnhancement.baseMonster.userMonsterId)
+				{
+					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.ENHANCE_TIME, currEnhancement.baseMonster.userMonsterId);
+				}
+				
+				if(currActiveHelp != null)
+				{
+					if(currActiveHelp.helperIds.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+					{
+						return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
+					}
+					else
+					{
+						return currActiveHelp.helperIds.Count;
+					}
+				}
+			}
+			
+			return 0;
+		}
+	}
+
+	public long helpTime
+	{
+		get
+		{
+			if(enhancementHelpConstant == null)
+			{
+				enhancementHelpConstant = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == GameActionType.ENHANCE_TIME);
+			}
+			int amountRemovedPerHelp = enhancementHelpConstant.amountRemovedPerHelp;
+			float percentRemovedPerHelp = enhancementHelpConstant.percentRemovedPerHelp;
+			
+			long totalTime = totalDuration;
+			if(amountRemovedPerHelp < percentRemovedPerHelp * totalTime)
+			{
+				return (long)(percentRemovedPerHelp * totalTime * helpCount);
+			}
+			else
+			{
+				return (long)(amountRemovedPerHelp * helpCount);
+			}
+		}
+	}
+	
+	#endregion clanHelp
+
 	public LabProto currLab
 	{
 		get
@@ -345,6 +403,7 @@ public class MSEnhancementManager : MonoBehaviour
 		if (response.status == EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus.SUCCESS)
 		{
 			currEnhancement.baseMonster.enhancingComplete = true;
+			currActiveHelp = null;
 		}
 		else
 		{
@@ -399,5 +458,21 @@ public class MSEnhancementManager : MonoBehaviour
 	}
 
 	#endregion
+
+	void DealWithGiveClanHelp(GiveClanHelpResponseProto proto, bool self)
+	{
+		if(!self && proto.sender.userId != MSWhiteboard.localMup.userId)
+		{
+			currActiveHelp = null;
+		}
+	}
+
+	void DealWithEndClanHelp(GiveClanHelpResponseProto proto, bool self)
+	{
+		if(self)
+		{
+			currActiveHelp = null;
+		}
+	}
 
 }
