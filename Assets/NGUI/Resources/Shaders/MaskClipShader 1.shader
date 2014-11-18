@@ -48,7 +48,7 @@
                 float4 vertex : POSITION;
                 half4 color : COLOR;
                 float2 texcoord : TEXCOORD0;
-                float2 worldPos : TEXCOORD1;
+                float2 clipUV : TEXCOORD1;
             };
  
             v2f vert (appdata_t v)
@@ -57,7 +57,9 @@
                 o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
                 o.color = v.color;
                 o.texcoord = v.texcoord;
-                o.worldPos = TRANSFORM_TEX(v.vertex.xy * _ClipRange0.zw + _ClipRange0.xy, _MainTex);
+
+                o.clipUV = (v.vertex.xy * _ClipRange0.zw + _ClipRange0.xy) * 0.5 + float2(0.5, 0.5);
+
                 return o;
             }
  
@@ -65,17 +67,7 @@
             {
                 // Sample the texture
                 half4 col = tex2D(_MainTex, IN.texcoord) * IN.color;
-                half4 a2 = tex2D(_AlphaTex, IN.texcoord);
- 
-                float2 factor = abs(IN.worldPos);
-                float val = 1.0 - max(factor.x, factor.y);
- 
-                // Option 1: 'if' statement
-                if (val < 0.0) col.a = 0.0;
-                if (a2.a < col.a) col.a = a2.a;
- 
-                // Option 2: no 'if' statement -- may be faster on some devices
-                //col.a *= ceil(clamp(val, 0.0, 1.0));
+                col.a *= tex2D(_AlphaTex, IN.clipUV).a;
  
                 return col;
             }

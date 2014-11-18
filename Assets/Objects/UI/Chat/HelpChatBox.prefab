@@ -665,11 +665,11 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4001
+  startingRenderQueue: 4002
   mAlpha: 1
-  mClipping: 1
+  mClipping: 3
   mClipRange: {x: 0, y: 29.9999962, z: 60, w: 59.9999924}
-  mClipSoftness: {x: 4, y: 4}
+  mClipSoftness: {x: 0, y: 0}
   mDepth: 4
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
@@ -772,7 +772,7 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: .804878056
   mSprite: {fileID: 21300000, guid: bec964ed5921c433d8337ada40db56fd, type: 3}
-  mMat: {fileID: 0}
+  mMat: {fileID: 2100000, guid: 1e17fb359584a4cc4a1d3acbf47e26e7, type: 2}
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
   nextSprite: {fileID: 0}
   fillAmount: 1
@@ -1094,6 +1094,7 @@ MonoBehaviour:
   timeLabel: {fileID: 11400016}
   bubble: {fileID: 11400014}
   avatar: {fileID: 11400012}
+  avatarID: 0
   minWidth: 400
   minHeight: 180
 --- !u!114 &11400024
@@ -1671,6 +1672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatar: {fileID: 11400012}
+  avatarId: 0
   playerName: {fileID: 11400018}
   helpDescription: {fileID: 11400020}
   bar: {fileID: 11400028}

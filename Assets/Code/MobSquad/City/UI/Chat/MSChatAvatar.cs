@@ -61,7 +61,7 @@ public class MSChatAvatar : MonoBehaviour {
 		Init(monster);
 	}
 
-	public void Init(int monsterId, int scaleInverse)
+	public void Init(int monsterId, float scale)
 	{
 		MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(monsterId);
 		if(!square)
@@ -73,7 +73,9 @@ public class MSChatAvatar : MonoBehaviour {
 			bg.spriteName = squareSprites[monster.monsterElement];
 		}
 		MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumbnail, 1, delegate {
-			thumbnail.width /= scaleInverse; thumbnail.height /= scaleInverse; thumbnail.gameObject.SetActive(false); thumbnail.gameObject.SetActive(true);
+			thumbnail.width = Mathf.FloorToInt(thumbnail.width*scale); 
+			thumbnail.height = Mathf.FloorToInt(thumbnail.height*scale); 
+			thumbnail.gameObject.SetActive(false); thumbnail.gameObject.SetActive(true);
 		});
 	}
 

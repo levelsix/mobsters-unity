@@ -52,6 +52,7 @@
                 float4 vertex : POSITION;
                 half4 color : COLOR;
                 float2 texcoord : TEXCOORD0;
+                float2 clipUV : TEXCOORD3;
                 float4 worldPos : TEXCOORD1;
                 float4 worldPos2 : TEXCOORD2;
             };
@@ -70,8 +71,12 @@
                 o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
                 o.color = v.color;
                 o.texcoord = v.texcoord;
-                o.worldPos.xy = TRANSFORM_TEX(v.vertex.xy * _ClipRange0.zw + _ClipRange0.xy, _MainTex);
-                o.worldPos.zw = TRANSFORM_TEX(Rotate(v.vertex.xy, _ClipArgs1.zw) * _ClipRange1.zw + _ClipRange1.xy, _MainTex);
+
+                o.clipUV = (v.vertex.xy * _ClipRange0.zw + _ClipRange0.xy) * 0.5 + float2(0.5, 0.5);
+
+                o.worldPos.xy = v.vertex.xy * _ClipRange1.zw + _ClipRange1.xy;
+                o.worldPos.zw = Rotate(v.vertex.xy, _ClipArgs2.zw) * _ClipRange2.zw + _ClipRange2.xy;
+
                 return o;
             }
  
@@ -79,21 +84,18 @@
             {
                 // Sample the texture
                 half4 col = tex2D(_MainTex, IN.texcoord) * IN.color;
-                half4 a2 = tex2D(_AlphaTex, IN.texcoord);
+                col.a *= tex2D(_AlphaTex, IN.clipUV).a;
  
-                float2 factor = abs(IN.worldPos.xy);
-                float val = 1.0 - max(factor.x, factor.y);
- 
-                //factor = (float2(1.0, 1.0) - abs(IN.worldPos.zw)) * _ClipArgs1.xy;
-                //val = min(val, 1.0 - max(factor.x, factor.y));
+                // First clip region
+                float2 factor = (float2(1.0, 1.0) - abs(IN.worldPos.xy)) * _ClipArgs1.xy;
+                float f = min(factor.x, factor.y);
 
-                // Option 1: 'if' statement
-                if (val < 0.0) col.a = 0.0;
-                if (a2.a < col.a) col.a = a2.a;
+                // Second clip region
+                factor = (float2(1.0, 1.0) - abs(IN.worldPos.zw)) * _ClipArgs2.xy;
+                f = min(f, min(factor.x, factor.y));
 
-                // Option 2: no 'if' statement -- may be faster on some devices
-                //col.a *= ceil(clamp(val, 0.0, 1.0));
- 
+                // Apply the clip
+                col.a *= clamp(f, 0.0, 1.0);
                 return col;
             }
             ENDCG
