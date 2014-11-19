@@ -118,9 +118,9 @@ public class MSSpriteUtil : MonoBehaviour {
 		}
 	}
 
-	public void SetSprite(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha = 1f, Action after = null)
+	public Coroutine SetSprite(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha = 1f, Action after = null)
 	{
-		StartCoroutine(SetSpriteCoroutine(bundleName, spriteName, sprite, finalAlpha, after));
+		return StartCoroutine(SetSpriteCoroutine(bundleName, spriteName, sprite, finalAlpha, after));
 	}
 
 	IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha, Action after = null)

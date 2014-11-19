@@ -210,7 +210,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		//hospital logic
 		if(building.hospital != null && MSMath.GemsForTime(MSUtil.timeUntil(building.hospital.completeTime), true) == 0 && !upgrading)
 		{
-			SetBarFree(delegate { MSActionManager.Popup.DisplayPurpleError("Healing is now free!"); });
+			SetBarFree(delegate { MSActionManager.Popup.DisplayGreenError("Healing is now free!"); });
 		}
 
 		else if(MSMath.GemsForTime( building.upgrade.timeRemaining, true) == 0 && building.obstacle == null && building.upgrade.timeRemaining >= 0)
