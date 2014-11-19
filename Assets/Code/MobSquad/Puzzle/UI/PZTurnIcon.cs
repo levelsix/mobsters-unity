@@ -44,6 +44,11 @@ public class PZTurnIcon : MonoBehaviour
 		thumb.transform.localPosition = thumbPos;
 		thumb.MakePixelPerfect();
 
+		Resize ();
+	}
+
+	void Resize()
+	{
 		if (thumb.width > bgSprite.width || thumb.height > bgSprite.height)
 		{
 			float ratio;
@@ -87,7 +92,7 @@ public class PZTurnIcon : MonoBehaviour
 		}
 		thumb.transform.localScale = Vector3.one;
 		thumb.transform.localPosition = thumbPos;
-		thumb.MakePixelPerfect();
+		//thumb.MakePixelPerfect();
 	}
 
 	void Update()

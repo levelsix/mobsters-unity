@@ -29,7 +29,7 @@ public class PZMonster {
 	
 	public UserEnhancementItemProto enhancement = null;
 
-	public int userHospitalID = 0;
+	public string userHospitalID = "";
 
 	public List<HospitalTime> hospitalTimes = new List<HospitalTime>();
 
@@ -41,7 +41,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return healingMonster != null && healingMonster.userMonsterId > 0;
+			return healingMonster != null && !healingMonster.userMonsterUuid.Equals("");
 		}
 	}
 
@@ -51,9 +51,9 @@ public class PZMonster {
 		{
 			if(isHealing)
 			{
-				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.HEAL || currActiveHelp.userDataId != userMonster.userMonsterId)
+				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.HEAL || !currActiveHelp.userDataUuid.Equals(userMonster.userMonsterUuid))
 				{
-					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.HEAL, userMonster.userMonsterId);
+					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.HEAL, userMonster.userMonsterUuid);
 				}
 			}
 			else if(isEnhancing || isEvoloving)
@@ -62,15 +62,15 @@ public class PZMonster {
 				return 0;
 			}
 				
-			if(currActiveHelp != null)
+			if(currActiveHelp != null && MSBuildingManager.clanHouse != null)
 			{
-				if(currActiveHelp.helperIds.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+				if(currActiveHelp.helperUuids.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
 				{
 					return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
 				}
 				else
 				{
-					return currActiveHelp.helperIds.Count;
+					return currActiveHelp.helperUuids.Count;
 				}
 			}
 			return 0;
@@ -245,7 +245,7 @@ public class PZMonster {
 		get
 		{
 			if (!isEnhancing) return 0;
-			return MSEnhancementManager.instance.currEnhancement.feeders.Find(x=>x.userMonsterId.Equals(userMonster.userMonsterId)).expectedStartTimeMillis;
+			return MSEnhancementManager.instance.currEnhancement.feeders.Find(x=>x.userMonsterUuid.Equals(userMonster.userMonsterUuid)).expectedStartTimeMillis;
 		}
 	}
 
@@ -322,7 +322,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return userMonster != null && MSEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterId);
+			return userMonster != null && MSEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterUuid);
 		}
 	}
 
@@ -363,11 +363,11 @@ public class PZMonster {
 			{
 				return MonsterStatus.HEALING;
 			}
-			if (MSMiniJobManager.instance.IsMonsterBusy(userMonster.userMonsterId))
+			if (MSMiniJobManager.instance.IsMonsterBusy(userMonster.userMonsterUuid))
 			{
 				return MonsterStatus.ON_MINI_JOB;
 			}
-			if (MSEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterId))
+			if (MSEvolutionManager.instance.IsMonsterEvolving(userMonster.userMonsterUuid))
 			{
 				return MonsterStatus.EVOLVING;
 			}
@@ -414,11 +414,11 @@ public class PZMonster {
 			userMonster.isRestrictd = value;
 			if (userMonster.isRestrictd)
 			{
-				MSMonsterManager.instance.RestrictMonster(userMonster.userMonsterId);
+				MSMonsterManager.instance.RestrictMonster(userMonster.userMonsterUuid);
 			}
 			else
 			{
-				MSMonsterManager.instance.UnrestrictMonster(userMonster.userMonsterId);
+				MSMonsterManager.instance.UnrestrictMonster(userMonster.userMonsterUuid);
 			}
 		}
 	}
@@ -667,14 +667,14 @@ public class PZMonster {
 	{
 		UserMonsterCurrentHealthProto umchp = new UserMonsterCurrentHealthProto();
 		umchp.currentHealth = currHP;
-		umchp.userMonsterId = userMonster.userMonsterId;
+		umchp.userMonsterUuid = userMonster.userMonsterUuid;
 		return umchp;
 	}
 
 	public MinimumUserMonsterSellProto GetSellProto()
 	{
 		MinimumUserMonsterSellProto mumsp = new MinimumUserMonsterSellProto();
-		mumsp.userMonsterId = userMonster.userMonsterId;
+		mumsp.userMonsterUuid = userMonster.userMonsterUuid;
 		mumsp.cashAmount = sellValue;
 		return mumsp;
 	}
@@ -793,7 +793,7 @@ public class PZMonster {
 	public UserMonsterCurrentExpProto GetCurrentExpProto()
 	{
 		UserMonsterCurrentExpProto umcep = new UserMonsterCurrentExpProto();
-		umcep.userMonsterId = userMonster.userMonsterId;
+		umcep.userMonsterUuid = userMonster.userMonsterUuid;
 		umcep.expectedExperience = userMonster.currentExp;
 		umcep.expectedLevel = userMonster.currentLvl;
 		return umcep;
@@ -802,13 +802,13 @@ public class PZMonster {
 	public UserMonsterCurrentExpProto GetExpProtoWithMonsters(List<UserEnhancementItemProto> feeders)
 	{
 		UserMonsterCurrentExpProto umcep = new UserMonsterCurrentExpProto();
-		umcep.userMonsterId = userMonster.userMonsterId;
+		umcep.userMonsterUuid = userMonster.userMonsterUuid;
 		umcep.expectedExperience = userMonster.currentExp;
 
 		List<PZMonster> feedMonsters = new List<PZMonster>();
 		PZMonster monster;
 		foreach (var item in feeders) {
-			monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId.Equals(item.userMonsterId));
+			monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(item.userMonsterUuid));
 			feedMonsters.Add(monster);
 			umcep.expectedExperience += monster.enhanceXP;
 		}

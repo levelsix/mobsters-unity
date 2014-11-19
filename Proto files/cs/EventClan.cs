@@ -240,13 +240,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _clanId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int clanId
+    private string _clanUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanUuid
     {
-      get { return _clanId; }
-      set { _clanId = value; }
+      get { return _clanUuid; }
+      set { _clanUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -277,13 +277,13 @@ namespace com.lvl6.proto
       set { _status = value; }
     }
 
-    private int _clanId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int clanId
+    private string _clanUuid = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanUuid
     {
-      get { return _clanId; }
-      set { _clanId = value; }
+      get { return _clanUuid; }
+      set { _clanUuid = value; }
     }
 
     private com.lvl6.proto.MinimumUserProtoForClans _requester = null;
@@ -380,13 +380,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _clanId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int clanId
+    private string _clanUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanUuid
     {
-      get { return _clanId; }
-      set { _clanId = value; }
+      get { return _clanUuid; }
+      set { _clanUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -417,13 +417,13 @@ namespace com.lvl6.proto
       set { _status = value; }
     }
 
-    private int _clanId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int clanId
+    private string _clanUuid = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanUuid
     {
-      get { return _clanId; }
-      set { _clanId = value; }
+      get { return _clanUuid; }
+      set { _clanUuid = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"RetractRequestJoinClanStatus")]
     public enum RetractRequestJoinClanStatus
@@ -462,13 +462,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _requesterId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"requesterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int requesterId
+    private string _requesterUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"requesterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string requesterUuid
     {
-      get { return _requesterId; }
-      set { _requesterId = value; }
+      get { return _requesterUuid; }
+      set { _requesterUuid = value; }
     }
 
     private bool _accept = default(bool);
@@ -586,13 +586,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _clanId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int clanId
+    private string _clanUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanUuid
     {
-      get { return _clanId; }
-      set { _clanId = value; }
+      get { return _clanUuid; }
+      set { _clanUuid = value; }
     }
 
     private string _clanName = "";
@@ -614,7 +614,7 @@ namespace com.lvl6.proto
     }
 
     private int _beforeThisClanId = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"beforeThisClanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"beforeThisClanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int beforeThisClanId
     {
@@ -705,13 +705,13 @@ namespace com.lvl6.proto
       set { _isForBrowsingList = value; }
     }
 
-    private int _clanId = default(int);
-    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int clanId
+    private string _clanUuid = "";
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanUuid
     {
-      get { return _clanId; }
-      set { _clanId = value; }
+      get { return _clanUuid; }
+      set { _clanUuid = value; }
     }
 
     private string _clanName = "";
@@ -724,7 +724,7 @@ namespace com.lvl6.proto
     }
 
     private int _beforeThisClanId = default(int);
-    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"beforeThisClanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"beforeThisClanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int beforeThisClanId
     {
@@ -769,13 +769,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _clanOwnerIdNew = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanOwnerIdNew", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int clanOwnerIdNew
+    private string _clanOwnerUuidNew = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanOwnerUuidNew", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanOwnerUuidNew
     {
-      get { return _clanOwnerIdNew; }
-      set { _clanOwnerIdNew = value; }
+      get { return _clanOwnerUuidNew; }
+      set { _clanOwnerUuidNew = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -869,13 +869,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _playerToBoot = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"playerToBoot", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int playerToBoot
+    private string _playerToBootUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"playerToBootUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string playerToBootUuid
     {
-      get { return _playerToBoot; }
-      set { _playerToBoot = value; }
+      get { return _playerToBootUuid; }
+      set { _playerToBootUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -1409,13 +1409,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _clanId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int clanId
+    private string _clanUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanUuid
     {
-      get { return _clanId; }
-      set { _clanId = value; }
+      get { return _clanUuid; }
+      set { _clanUuid = value; }
     }
 
     private long _clientTime = default(long);
@@ -1488,13 +1488,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _victimId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"victimId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int victimId
+    private string _victimUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"victimUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string victimUuid
     {
-      get { return _victimId; }
-      set { _victimId = value; }
+      get { return _victimUuid; }
+      set { _victimUuid = value; }
     }
 
     private com.lvl6.proto.UserClanStatus _userClanStatus = com.lvl6.proto.UserClanStatus.MEMBER;
@@ -1689,11 +1689,11 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _clanHelpIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"clanHelpIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> clanHelpIds
+    private readonly global::System.Collections.Generic.List<string> _clanHelpUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"clanHelpUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> clanHelpUuids
     {
-      get { return _clanHelpIds; }
+      get { return _clanHelpUuids; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1761,11 +1761,11 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _clanHelpIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"clanHelpIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> clanHelpIds
+    private readonly global::System.Collections.Generic.List<string> _clanHelpUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"clanHelpUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> clanHelpUuids
     {
-      get { return _clanHelpIds; }
+      get { return _clanHelpUuids; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -1787,11 +1787,11 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _clanHelpIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"clanHelpIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> clanHelpIds
+    private readonly global::System.Collections.Generic.List<string> _clanHelpUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"clanHelpUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> clanHelpUuids
     {
-      get { return _clanHelpIds; }
+      get { return _clanHelpUuids; }
     }
   
 
@@ -1834,10 +1834,10 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _prospectiveMember = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"prospectiveMember", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int prospectiveMember
+    private string _prospectiveMember = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"prospectiveMember", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string prospectiveMember
     {
       get { return _prospectiveMember; }
       set { _prospectiveMember = value; }

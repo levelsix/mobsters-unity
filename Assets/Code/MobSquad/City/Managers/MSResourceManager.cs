@@ -121,7 +121,7 @@ public class MSResourceManager : MonoBehaviour {
 		}
 	}
 
-	public void CollectFromBuilding(ResourceType resource, int amount, int userStructId)
+	public void CollectFromBuilding(ResourceType resource, int amount, string userStructUuid)
 	{
 		Collect(resource, amount);
 
@@ -133,7 +133,7 @@ public class MSResourceManager : MonoBehaviour {
 
 		RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval structRetrieval = new RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval();
 		structRetrieval.amountCollected = amount;
-		structRetrieval.userStructId = userStructId;
+		structRetrieval.userStructUuid = userStructUuid;
 		structRetrieval.timeOfRetrieval = MSUtil.timeNowMillis;
 
 		retrieveRequest.structRetrievals.Add(structRetrieval);
@@ -147,7 +147,7 @@ public class MSResourceManager : MonoBehaviour {
 		yield return new WaitForSeconds(COLLECT_TIME_OUT);
 		if (--currCollectRequests == 0)
 		{
-			StartCoroutine(CollectResources());
+			RunCollectResources();
 		}
 	}
 
@@ -424,15 +424,20 @@ public class MSResourceManager : MonoBehaviour {
 
 	void OnApplicationPause(bool pauseStatus)
 	{
-		StartCoroutine(CollectResources());
+		RunCollectResources();
 	}
 
 	void OnApplicationQuit()
 	{
-		StartCoroutine(CollectResources());
+		RunCollectResources();
 	}
 
-	public IEnumerator CollectResources()
+	public Coroutine RunCollectResources()
+	{
+		return StartCoroutine(CollectResources());
+	}
+
+	IEnumerator CollectResources()
 	{
 		if (retrieveRequest == null || retrieveRequest.structRetrievals.Count == 0)
 		{

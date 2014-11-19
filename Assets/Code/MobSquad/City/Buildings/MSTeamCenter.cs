@@ -46,7 +46,7 @@ public class MSTeamCenter : MSBuildingFrame {
 			int count = 0;
 			foreach (var item in MSMonsterManager.instance.userTeam) 
 			{
-				if (item != null && item.userMonster != null && item.userMonster.userMonsterId > 0)
+				if (item != null && item.userMonster != null && !item.userMonster.userMonsterUuid.Equals(""))
 				{
 					count++;
 				}

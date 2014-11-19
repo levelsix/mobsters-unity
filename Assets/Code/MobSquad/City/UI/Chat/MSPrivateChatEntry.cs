@@ -23,7 +23,7 @@ public class MSPrivateChatEntry : MonoBehaviour {
 
 	public void Init(PrivateChatPostProto proto)
 	{
-		otherUser = proto.poster.minUserProto.userId == MSWhiteboard.localMup.userId ? proto.recipient : proto.poster;
+		otherUser = proto.poster.minUserProto.userUuid.Equals(MSWhiteboard.localMup.userUuid) ? proto.recipient : proto.poster;
 		name.text = otherUser.minUserProto.name;
 		time.text = MSUtil.TimeStringLong(MSUtil.timeNowMillis - proto.timeOfPost) + " ago";
 		if (proto.content.Length > maxPreviewLength)

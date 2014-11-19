@@ -136,7 +136,7 @@ public class MSTaskable : MonoBehaviour {
 	}
 
 	private IEnumerator EnterDungeon (){
-		foreach (KeyValuePair<long, MSUnit> monster in MSBuildingManager.instance.playerUnits) {
+		foreach (KeyValuePair<string, MSUnit> monster in MSBuildingManager.instance.playerUnits) {
 			if(GetComponent<MSBuilding>() != null){
 				MSBuilding building = GetComponent<MSBuilding>();
 

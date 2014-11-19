@@ -17,13 +17,13 @@ namespace com.lvl6.proto
     public UserCityExpansionDataProto() {}
     
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private int _xPosition = default(int);

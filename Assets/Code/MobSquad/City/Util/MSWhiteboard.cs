@@ -68,9 +68,9 @@ public static class MSWhiteboard {
 	/// <summary>
 	/// The city id, which can be used for either city type.
 	/// </summary>
-	public static int cityID = 1;
+	public static string cityID = "";
 
-	public static long currUserTaskId;
+	public static string currUserTaskUuid;
 	
 	public static BeginDungeonRequestProto dungeonToLoad;
 	public static BeginDungeonResponseProto loadedDungeon;

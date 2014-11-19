@@ -168,7 +168,7 @@ public class MSRaidStageBoxUI : MonoBehaviour {
 		//Check team against userTeam
 		foreach (var teamMember in MSMonsterManager.instance.userTeam) 
 		{
-			if (teamMember != null && MSClanEventManager.instance.myTeam.currentTeam.Find(x=>x.userMonsterId == teamMember.userMonster.userMonsterId) == null)
+			if (teamMember != null && MSClanEventManager.instance.myTeam.currentTeam.Find(x=>x.userMonsterUuid.Equals(teamMember.userMonster.userMonsterUuid)) == null)
 			{
 				MSPopupManager.instance.popups.raidTeamPopup.InitSwitchToRaidTeam();
 				MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.raidTeamPopup.GetComponent<MSPopup>());

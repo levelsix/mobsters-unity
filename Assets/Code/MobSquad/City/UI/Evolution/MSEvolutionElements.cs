@@ -52,7 +52,7 @@ public class MSEvolutionElements : MonoBehaviour {
 
 		SpringPosition.Begin(monsterCard.gameObject, Vector3.zero, 5);
 
-		scientistCard.InitScientist(MSEvolutionManager.instance.currEvolution.catalystUserMonsterId);
+		scientistCard.InitScientist(MSEvolutionManager.instance.currEvolution.catalystUserMonsterUuid);
 
 		MonsterProto evoMonster = MSDataManager.instance.Get<MonsterProto>(monsterCard.monster.monster.evolutionMonsterId);
 

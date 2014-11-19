@@ -49,7 +49,7 @@ public class MSEnhancementManager : MonoBehaviour
 		{
 			if (hasEnhancement)
 			{
-				return MSMonsterManager.instance.userMonsters.Find (x=>x.userMonster.userMonsterId.Equals(currEnhancement.baseMonster.userMonsterId));
+				return MSMonsterManager.instance.userMonsters.Find (x=>x.userMonster.userMonsterUuid.Equals(currEnhancement.baseMonster.userMonsterUuid));
 			}
 			else
 			{
@@ -83,7 +83,7 @@ public class MSEnhancementManager : MonoBehaviour
 	{
 		get
 		{
-			return currEnhancement != null && currEnhancement.baseMonster != null && currEnhancement.baseMonster.userMonsterId != 0;
+			return currEnhancement != null && currEnhancement.baseMonster != null && !currEnhancement.baseMonster.userMonsterUuid.Equals("");
 		}
 	}
 
@@ -100,7 +100,7 @@ public class MSEnhancementManager : MonoBehaviour
 					last = currEnhancement.feeders[i];
 				}
 			}
-			return last.expectedStartTimeMillis + (long)(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId.Equals(last.userMonsterId)).enhanceXP * 1000f / currLab.pointsPerSecond);
+			return last.expectedStartTimeMillis + (long)(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(last.userMonsterUuid)).enhanceXP * 1000f / currLab.pointsPerSecond);
 		}
 	}
 
@@ -145,7 +145,7 @@ public class MSEnhancementManager : MonoBehaviour
 			this.currEnhancement = enhancement;
 			foreach (var item in enhancement.feeders) 
 			{
-				feeders.Add(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId.Equals(item.userMonsterId)));
+				feeders.Add(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(item.userMonsterUuid)));
 			}
 		}
 	}
@@ -223,13 +223,15 @@ public class MSEnhancementManager : MonoBehaviour
 			yield break;
 		}
 
+		yield return MSResourceManager.instance.RunCollectResources();
+
 		SubmitMonsterEnhancementRequestProto request = new SubmitMonsterEnhancementRequestProto();
 		request.sender = MSWhiteboard.localMupWithResources;
 		request.gemsSpent = gems;
 		request.oilChange = -oil;
 
 		UserEnhancementItemProto item = new UserEnhancementItemProto();
-		item.userMonsterId = tempEnhancementMonster.userMonster.userMonsterId;
+		item.userMonsterUuid = tempEnhancementMonster.userMonster.userMonsterUuid;
 		item.enhancingComplete = false;
 		request.ueipNew.Add(item);
 
@@ -239,7 +241,7 @@ public class MSEnhancementManager : MonoBehaviour
 		long lastStartTime = MSUtil.timeNowMillis;
 		foreach (var feeder in feeders) {
 			item = new UserEnhancementItemProto();
-			item.userMonsterId = feeder.userMonster.userMonsterId;
+			item.userMonsterUuid = feeder.userMonster.userMonsterUuid;
 			item.enhancingCost = tempEnhancementMonster.enhanceCost;
 			item.expectedStartTimeMillis = lastStartTime;
 			lastStartTime += (long)(feeder.enhanceXP * 1000f / currLab.pointsPerSecond);
@@ -276,7 +278,7 @@ public class MSEnhancementManager : MonoBehaviour
 	#region Completing
 	void CheckEnhancingMonsters()
 	{
-		if (hasEnhancement && timeLeft <= 0)
+		if (hasEnhancement && !finished && !isCompleting && timeLeft <= 0)
 		{
 			StartCoroutine (SendCompleteEnhancementRequest());
 		}
@@ -289,12 +291,13 @@ public class MSEnhancementManager : MonoBehaviour
 
 	IEnumerator SendCompleteEnhancementRequest(int gems = 0, MSLoadLock loadLock = null)
 	{
+		isCompleting = true;
 		EnhancementWaitTimeCompleteRequestProto request = new EnhancementWaitTimeCompleteRequestProto();
 		request.sender = MSWhiteboard.localMup;
 
 		request.isSpeedup = gems > 0;
 		request.gemsForSpeedup = gems;
-		request.userMonsterId = currEnhancement.baseMonster.userMonsterId;
+		request.userMonsterUuid = currEnhancement.baseMonster.userMonsterUuid;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ENHANCEMENT_WAIT_TIME_COMPLETE_EVENT);
 
@@ -313,6 +316,7 @@ public class MSEnhancementManager : MonoBehaviour
 		{
 			Debug.LogError("Problem completing enhancement: "+ response.status.ToString());
 		}
+		isCompleting = false;
 	}
 	#endregion
 
@@ -330,7 +334,7 @@ public class MSEnhancementManager : MonoBehaviour
 
 		foreach (var item in currEnhancement.feeders) 
 		{
-			request.userMonsterIds.Add(item.userMonsterId);
+			request.userMonsterUuids.Add(item.userMonsterUuid);
 		}
 
 		request.umcep = enhancementMonster.GetExpProtoWithMonsters(currEnhancement.feeders);
@@ -351,9 +355,9 @@ public class MSEnhancementManager : MonoBehaviour
 			PZMonster monster;
 			foreach (var item in currEnhancement.feeders) 
 			{
-				monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId.Equals(item.userMonsterId));
+				monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(item.userMonsterUuid));
 				enhancementMonster.GainXP(monster.enhanceXP);
-				MSMonsterManager.instance.RemoveMonster(item.userMonsterId);
+				MSMonsterManager.instance.RemoveMonster(item.userMonsterUuid);
 			}
 			tempEnhancementMonster = enhancementMonster;
 			currEnhancement = null;

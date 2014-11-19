@@ -379,7 +379,7 @@ public class PZCombatUnit : MonoBehaviour {
 		int damageAfterShield = Mathf.Max(0, damage - shieldHealth);
 
 		UserMonsterCurrentHealthProto hpProto = new UserMonsterCurrentHealthProto();
-		hpProto.userMonsterId = monster.userMonster.userMonsterId;
+		hpProto.userMonsterUuid = monster.userMonster.userMonsterUuid;
 		hpProto.currentHealth = Mathf.Max(monster.currHP - damage, 0);
 		
 		request.umchp.Add(hpProto);

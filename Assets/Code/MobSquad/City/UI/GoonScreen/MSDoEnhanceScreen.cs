@@ -55,6 +55,15 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	[SerializeField]
 	MSLoadLock loadLock;
 
+	[SerializeField]
+	MSLevelUpAnimation levelUpAnim;
+
+	[SerializeField]
+	TweenAlpha glowTween;
+
+	[SerializeField]
+	UISprite glow;
+
 	float futureLevel;
 
 	[SerializeField] Color greyTextColor;
@@ -122,6 +131,15 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		MSSpriteUtil.instance.SetSprite(enhanceMonster.monster.imagePrefix, 
 		                                enhanceMonster.monster.imagePrefix + "Character", 
 		                                mobsterPose);
+		if (enhanceMonster.monster.monsterElement == Element.DARK)
+		{
+			glow.spriteName = "nightenhancebg";
+		}
+		else
+		{
+			glow.spriteName = enhanceMonster.monster.monsterElement.ToString().ToLower() + "enhancebg";
+		}
+
 		RefreshStats();
 	}
 
@@ -297,6 +315,8 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		{
 			currCollectStep = SpinInMobster(feederCards[0], spinTime);
 			yield return StartCoroutine(currCollectStep);
+			glowTween.Sample (0, true);
+			glowTween.PlayForward();
 			currCollectStep = FillUpBar(enhanceMonster.LevelForMonster(currXp), enhanceMonster.LevelForMonster(currXp + feederCards[0].monster.enhanceXP));
 			feederCards.RemoveAt(0);
 			yield return StartCoroutine(currCollectStep);
@@ -347,7 +367,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 				currLevel = (int) curr;
 				curr = currLevel;
 				SetBar (curr, end);
-				StartCoroutine(ShowLevelUp());
+				levelUpAnim.Play();
 				yield return new WaitForSeconds(1f);
 			}
 			else
@@ -358,17 +378,6 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 			yield return null;
 		}
 	}
-
-	IEnumerator ShowLevelUp(int times = 1)
-	{
-		//TODO: Level the up
-		if (times > 1)
-		{
-			//TODO: Stupid little label fuck
-		}
-		yield return new WaitForSeconds(1f);
-	}
-
 
 	public void Back()
 	{

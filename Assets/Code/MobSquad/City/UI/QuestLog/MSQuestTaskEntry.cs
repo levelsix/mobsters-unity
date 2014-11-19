@@ -106,15 +106,15 @@ public class MSQuestTaskEntry : MonoBehaviour
 				Init(quest, userJob, num);
 			}
 		}
-		else
-		{
-			MSWhiteboard.currCityType = city > 0 ? MSWhiteboard.CityType.NEUTRAL : MSWhiteboard.CityType.PLAYER;
-			MSWhiteboard.cityID = city > 0 ? city : MSWhiteboard.localMup.userId;
-
-			//TODO: Lock screen!
-
-			StartCoroutine(city > 0 ? MSBuildingManager.instance.LoadNeutralCity(city) : MSBuildingManager.instance.LoadPlayerCity());
-		}
+//		else
+//		{
+//			MSWhiteboard.currCityType = city > 0 ? MSWhiteboard.CityType.NEUTRAL : MSWhiteboard.CityType.PLAYER;
+//			MSWhiteboard.cityID = city > 0 ? city : MSWhiteboard.localMup.userUuid;
+//
+//			//TODO: Lock screen!
+//
+//			StartCoroutine(city > 0 ? MSBuildingManager.instance.LoadNeutralCity(city) : MSBuildingManager.instance.LoadPlayerCity());
+//		}
 	}
 	
 }

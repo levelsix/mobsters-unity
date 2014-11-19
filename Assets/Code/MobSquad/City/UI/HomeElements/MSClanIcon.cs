@@ -39,7 +39,7 @@ public class MSClanIcon : MonoBehaviour {
 		}
 	}
 
-	void OnPlayerChangeClan(int clanId, UserClanStatus status, int clanIconId)
+	void OnPlayerChangeClan(string clanId, UserClanStatus status, int clanIconId)
 	{
 		if (clanIconId > 0)
 		{

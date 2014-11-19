@@ -77,25 +77,25 @@ public class MSClanMemberOptionButton : MonoBehaviour {
 
 	void DoKick()
 	{
-		MSClanManager.instance.BootPlayerFromClan(clanMember.minUserProtoWithLevel.minUserProto.userId);
+		MSClanManager.instance.BootPlayerFromClan(clanMember.minUserProtoWithLevel.minUserProto.userUuid);
 		entry.Pool();
 		entry.listScreen.memberGrid.Reposition();
 	}
 
 	void DoTransferOwner()
 	{
-		MSClanManager.instance.TransferClanOwnership(clanMember.minUserProtoWithLevel.minUserProto.userId);
+		MSClanManager.instance.TransferClanOwnership(clanMember.minUserProtoWithLevel.minUserProto.userUuid);
 		clanMember.clanStatus = UserClanStatus.LEADER;
 		entry.ResetRoleLabel();
 		MSClanManager.instance.playerClan.status = UserClanStatus.JUNIOR_LEADER;
-		MSClanMemberEntry myEntry = entry.listScreen.memberList.Find(x=>x.clanMember.minUserProtoWithLevel.minUserProto.userId == MSWhiteboard.localMup.userId);
+		MSClanMemberEntry myEntry = entry.listScreen.memberList.Find(x=>x.clanMember.minUserProtoWithLevel.minUserProto.userUuid.Equals(MSWhiteboard.localMup.userUuid));
 		myEntry.clanMember.clanStatus = UserClanStatus.JUNIOR_LEADER;
 		myEntry.ResetRoleLabel();
 	}
 
 	void DoPromoteDemote(UserClanStatus clanStatus)
 	{
-		MSClanManager.instance.PromoteDemoteClanMember(clanMember.minUserProtoWithLevel.minUserProto.userId,
+		MSClanManager.instance.PromoteDemoteClanMember(clanMember.minUserProtoWithLevel.minUserProto.userUuid,
 		                                               clanStatus);
 		clanMember.clanStatus = clanStatus;
 		entry.ResetRoleLabel();

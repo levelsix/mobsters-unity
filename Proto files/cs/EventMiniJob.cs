@@ -128,21 +128,21 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> userMonsterIds
+    private readonly global::System.Collections.Generic.List<string> _userMonsterUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"userMonsterUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> userMonsterUuids
     {
-      get { return _userMonsterIds; }
+      get { return _userMonsterUuids; }
     }
   
 
-    private long _userMiniJobId = default(long);
-    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userMiniJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMiniJobId
+    private string _userMiniJobUuid = "";
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userMiniJobUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMiniJobUuid
     {
-      get { return _userMiniJobId; }
-      set { _userMiniJobId = value; }
+      get { return _userMiniJobUuid; }
+      set { _userMiniJobUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -215,13 +215,13 @@ namespace com.lvl6.proto
       set { _clientTime = value; }
     }
 
-    private long _userMiniJobId = default(long);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMiniJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMiniJobId
+    private string _userMiniJobUuid = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMiniJobUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMiniJobUuid
     {
-      get { return _userMiniJobId; }
-      set { _userMiniJobId = value; }
+      get { return _userMiniJobUuid; }
+      set { _userMiniJobUuid = value; }
     }
 
     private bool _isSpeedUp = default(bool);
@@ -315,13 +315,13 @@ namespace com.lvl6.proto
       set { _clientTime = value; }
     }
 
-    private long _userMiniJobId = default(long);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMiniJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMiniJobId
+    private string _userMiniJobUuid = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMiniJobUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMiniJobUuid
     {
-      get { return _userMiniJobId; }
-      set { _userMiniJobId = value; }
+      get { return _userMiniJobUuid; }
+      set { _userMiniJobUuid = value; }
     }
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto> _umchp = new global::System.Collections.Generic.List<com.lvl6.proto.UserMonsterCurrentHealthProto>();
     [global::ProtoBuf.ProtoMember(6, Name=@"umchp", DataFormat = global::ProtoBuf.DataFormat.Default)]

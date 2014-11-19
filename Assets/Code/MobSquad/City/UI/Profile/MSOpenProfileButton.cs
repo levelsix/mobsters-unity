@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MSOpenProfileButton : MonoBehaviour 
 {
-	public int userId;
+	public string userUuid;
 
 	[SerializeField]
 	bool self = false;
@@ -12,11 +12,11 @@ public class MSOpenProfileButton : MonoBehaviour
 	{
 		if (self)
 		{
-			MSPopupManager.instance.popups.profilePopup.Popup(MSWhiteboard.localMup.userId);
+			MSPopupManager.instance.popups.profilePopup.Popup(MSWhiteboard.localMup.userUuid);
 		}
 		else
 		{
-			MSPopupManager.instance.popups.profilePopup.Popup(userId);
+			MSPopupManager.instance.popups.profilePopup.Popup(userUuid);
 		}
 	}
 }

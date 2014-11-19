@@ -125,11 +125,11 @@ namespace com.lvl6.proto
       get { return _userQuestJobs; }
     }
   
-    private readonly global::System.Collections.Generic.List<long> _deleteUserMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(5, Name=@"deleteUserMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> deleteUserMonsterIds
+    private readonly global::System.Collections.Generic.List<string> _deleteUserMonsterUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"deleteUserMonsterUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> deleteUserMonsterUuids
     {
-      get { return _deleteUserMonsterIds; }
+      get { return _deleteUserMonsterUuids; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

@@ -648,22 +648,22 @@ namespace com.lvl6.proto
     public FullUserStructureProto() {}
     
 
-    private int _userStructId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userStructId
+    private string _userStructUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userStructUuid
     {
-      get { return _userStructId; }
-      set { _userStructId = value; }
+      get { return _userStructUuid; }
+      set { _userStructUuid = value; }
     }
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private int _structId = default(int);
@@ -968,22 +968,22 @@ namespace com.lvl6.proto
     public UserObstacleProto() {}
     
 
-    private int _userObstacleId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userObstacleId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userObstacleId
+    private string _userObstacleUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userObstacleUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userObstacleUuid
     {
-      get { return _userObstacleId; }
-      set { _userObstacleId = value; }
+      get { return _userObstacleUuid; }
+      set { _userObstacleUuid = value; }
     }
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private int _obstacleId = default(int);
@@ -1041,9 +1041,9 @@ namespace com.lvl6.proto
       set { _structInfo = value; }
     }
 
-    private com.lvl6.proto.Quality _qualityUnlocked = com.lvl6.proto.Quality.COMMON;
+    private com.lvl6.proto.Quality _qualityUnlocked = com.lvl6.proto.Quality.NO_QUALITY;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"qualityUnlocked", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Quality.COMMON)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Quality.NO_QUALITY)]
     public com.lvl6.proto.Quality qualityUnlocked
     {
       get { return _qualityUnlocked; }

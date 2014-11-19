@@ -374,7 +374,7 @@ public class MSGoonCard : MonoBehaviour {
 			name = "3 Healthy 2 Card";
 			break;
 		}
-		name += " " + monster.monster.monsterId + " " + monster.userMonster.currentLvl + " " + monster.userMonster.userMonsterId;
+		name += " " + monster.monster.monsterId + " " + monster.userMonster.currentLvl + " " + monster.userMonster.userMonsterUuid;
 	}
 
 	public void InitPickEnhance(PZMonster goon)
@@ -477,11 +477,11 @@ public class MSGoonCard : MonoBehaviour {
 		nameLabel.text = " ";
 	}
 
-	public void InitScientist(long userMonsterId)
+	public void InitScientist(string userMonsterUuid)
 	{
-		if (userMonsterId > 0)
+		if (!userMonsterUuid.Equals(""))
 		{
-			monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==userMonsterId);
+			monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(userMonsterUuid));
 			Setup (monster);
 			bottomHolder.SetActive(false);
 			goonPose.alpha = 1;
@@ -1013,9 +1013,9 @@ public class MSGoonCard : MonoBehaviour {
 		}
 	}
 
-	void CheckRemovedMonster(long userMonsterId)
+	void CheckRemovedMonster(string userMonsterUuid)
 	{
-		if (monster != null && monster.userMonster != null && monster.userMonster.userMonsterId == userMonsterId)
+		if (monster != null && monster.userMonster != null && monster.userMonster.userMonsterUuid.Equals(userMonsterUuid))
 		{
 			//GetComponent<MSSimplePoolable>().Pool();
 		}

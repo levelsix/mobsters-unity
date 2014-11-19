@@ -113,14 +113,14 @@ public class MSHospital {
 
 	public long GetTotalHealTimeLeft()
 	{
-		int thisHospitalID = userBuildingData.userStructId;
+		string thisHospitalID = userBuildingData.userStructUuid;
 		Debug.Log ("this hospital ID: " + thisHospitalID);
 
 		List<PZMonster> healingInThisHospital = new List<PZMonster>();
 		foreach(PZMonster monster in MSHospitalManager.instance.healingMonsters)
 		{
 			Debug.Log("monster's hospital ID: " + monster.userHospitalID);
-			if(monster.userHospitalID == thisHospitalID)
+			if(monster.userHospitalID.Equals(thisHospitalID))
 			{
 				healingInThisHospital.Add(monster);
 			}

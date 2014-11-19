@@ -168,9 +168,9 @@ public class MSGoonTeamCard : MonoBehaviour {
 		bottomLabel.GetComponent<MSUIHelper>().Fade(isFirst);
 	}
 
-	void OnMonsterRemovedFromInventory(long userMonsterId)
+	void OnMonsterRemovedFromInventory(string userMonsterUuid)
 	{
-		if (goon.userMonster.userMonsterId == userMonsterId)
+		if (goon.userMonster.userMonsterUuid.Equals(userMonsterUuid))
 		{
 			Setup (null, true);
 		}

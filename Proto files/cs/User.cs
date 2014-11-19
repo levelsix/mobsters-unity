@@ -16,13 +16,13 @@ namespace com.lvl6.proto
     public MinimumClanProto() {}
     
 
-    private int _clanId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"clanId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int clanId
+    private string _clanUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanUuid
     {
-      get { return _clanId; }
-      set { _clanId = value; }
+      get { return _clanUuid; }
+      set { _clanUuid = value; }
     }
 
     private string _name = "";
@@ -89,13 +89,13 @@ namespace com.lvl6.proto
     public MinimumUserProto() {}
     
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private string _name = "";
@@ -228,13 +228,13 @@ namespace com.lvl6.proto
     public UserFacebookInviteForSlotProto() {}
     
 
-    private int _inviteId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"inviteId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int inviteId
+    private string _inviteUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"inviteUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string inviteUuid
     {
-      get { return _inviteId; }
-      set { _inviteId = value; }
+      get { return _inviteUuid; }
+      set { _inviteUuid = value; }
     }
 
     private com.lvl6.proto.MinimumUserProtoWithFacebookId _inviter = null;
@@ -273,13 +273,13 @@ namespace com.lvl6.proto
       set { _timeAccepted = value; }
     }
 
-    private int _userStructId = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userStructId
+    private string _userStructUuid = "";
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userStructUuid
     {
-      get { return _userStructId; }
-      set { _userStructId = value; }
+      get { return _userStructUuid; }
+      set { _userStructUuid = value; }
     }
 
     private int _structFbLvl = default(int);
@@ -310,13 +310,13 @@ namespace com.lvl6.proto
     public FullUserProto() {}
     
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private string _name = "";
@@ -690,13 +690,13 @@ namespace com.lvl6.proto
     public UserPvpLeagueProto() {}
     
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private int _leagueId = default(int);

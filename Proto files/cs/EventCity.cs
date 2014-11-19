@@ -28,13 +28,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _cityOwnerId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"cityOwnerId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int cityOwnerId
+    private string _cityOwnerUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"cityOwnerUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string cityOwnerUuid
     {
-      get { return _cityOwnerId; }
-      set { _cityOwnerId = value; }
+      get { return _cityOwnerUuid; }
+      set { _cityOwnerUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
