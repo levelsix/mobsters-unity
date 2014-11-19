@@ -39,7 +39,7 @@ public class MSHirePopup : MonoBehaviour {
 
 	List<MSHireEntry> hireEntries = new List<MSHireEntry>();
 
-	int userStructId;
+	string userStructId;
 
 	FullUserStructureProto userStruct;
 
@@ -51,7 +51,7 @@ public class MSHirePopup : MonoBehaviour {
 		back.gameObject.SetActive(false);
 		backB.gameObject.SetActive(false);
 
-		userStructId = residence.userStructProto.userStructId;
+		userStructId = residence.userStructProto.userStructUuid;
 
 		currResidenceLevel = residence.combinedProto.residence;
 		userStruct = residence.userStructProto;
@@ -75,7 +75,7 @@ public class MSHirePopup : MonoBehaviour {
 			}
 			else
 			{
-				hireEntries[i].Init(thisLevel.residence, thisLevel.structInfo.level <= residence.userStructProto.fbInviteStructLvl, residence.userStructProto.userStructId);
+				hireEntries[i].Init(thisLevel.residence, thisLevel.structInfo.level <= residence.userStructProto.fbInviteStructLvl, residence.userStructProto.userStructUuid);
 			}
 
 			if (thisLevel.structInfo.level == residence.userStructProto.fbInviteStructLvl)

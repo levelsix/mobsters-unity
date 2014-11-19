@@ -33,9 +33,9 @@ public class MSHireEntry : MonoBehaviour {
 
 	bool activatesRequest;
 
-	int currBuilding;
+	string currBuilding;
 
-	public void Init(ResidenceProto proto, bool claimed, int userBuildingId)
+	public void Init(ResidenceProto proto, bool claimed, string userBuildingId)
 	{
 		occupationName.color = blueColor;
 		bottomLabel.color = Color.black;

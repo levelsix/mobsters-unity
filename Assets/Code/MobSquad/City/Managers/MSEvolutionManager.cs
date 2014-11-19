@@ -20,11 +20,11 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		get
 		{
-			if (tempEvolution == null || tempEvolution.userMonsterIds.Count == 0)
+			if (tempEvolution == null || tempEvolution.userMonsterUuids.Count == 0)
 			{
 				return null;
 			}
-			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == tempEvolution.userMonsterIds[0]);
+			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(tempEvolution.userMonsterUuids[0]));
 		}
 	}
 
@@ -32,11 +32,11 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		get
 		{
-			if (tempEvolution == null || tempEvolution.userMonsterIds.Count < 2)
+			if (tempEvolution == null || tempEvolution.userMonsterUuids.Count < 2)
 			{
 				return null;
 			}
-			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == tempEvolution.userMonsterIds[1]);
+			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(tempEvolution.userMonsterUuids[1]));
 		}
 	}
 
@@ -50,7 +50,7 @@ public class MSEvolutionManager : MonoBehaviour {
 			{
 				return 0;
 			}
-			return MSMonsterManager.instance.userMonsters.Find(x => x.userMonster.userMonsterId == tempEvolution.userMonsterIds[0]).monster.evolutionCost;
+			return MSMonsterManager.instance.userMonsters.Find(x => x.userMonster.userMonsterUuid.Equals(tempEvolution.userMonsterUuids[0])).monster.evolutionCost;
 		}
 	}
 
@@ -81,7 +81,7 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		get
 		{
-			return tempEvolution != null && tempEvolution.catalystUserMonsterId != 0 && tempEvolution.userMonsterIds.Count >= 2;
+			return tempEvolution != null && !tempEvolution.catalystUserMonsterUuid.Equals("") && tempEvolution.userMonsterUuids.Count >= 2;
 		}
 	}
 
@@ -89,7 +89,7 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		get
 		{
-			return tempEvolution != null && tempEvolution.userMonsterIds.Count > 0;
+			return tempEvolution != null && tempEvolution.userMonsterUuids.Count > 0;
 		}
 	}
 
@@ -114,38 +114,38 @@ public class MSEvolutionManager : MonoBehaviour {
 		if (isEvolving)
 		{
 			string str = "Evo monsters:";
-			foreach (var item in evo.userMonsterIds) 
+			foreach (var item in evo.userMonsterUuids) 
 			{
 				str += " " + item;
 			}
 			Debug.LogWarning(str);
 			finishTime = evo.startTime + 
-				MSDataManager.instance.Get<MonsterProto>(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==evo.userMonsterIds[0]).monster.evolutionMonsterId).minutesToEvolve * 60000;
+				MSDataManager.instance.Get<MonsterProto>(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(evo.userMonsterUuids[0])).monster.evolutionMonsterId).minutesToEvolve * 60000;
 		}
 	}
 
-	public bool IsMonsterEvolving(long userMonsterId)
+	public bool IsMonsterEvolving(string userMonsterUuid)
 	{
 		return isEvolving && 
-			(currEvolution.catalystUserMonsterId == userMonsterId 
-			 || currEvolution.userMonsterIds.Contains(userMonsterId));
+			(currEvolution.catalystUserMonsterUuid.Equals(userMonsterUuid)
+			 || currEvolution.userMonsterUuids.Contains(userMonsterUuid));
 	}
 
 	public UserMonsterEvolutionProto TryEvolveMonster(PZMonster monster, PZMonster buddy)
 	{
 		tempEvolution = new UserMonsterEvolutionProto();
 		
-		tempEvolution.userMonsterIds.Add (monster.userMonster.userMonsterId);
+		tempEvolution.userMonsterUuids.Add (monster.userMonster.userMonsterUuid);
 
 		if (buddy != null)
 		{
-			tempEvolution.userMonsterIds.Add(buddy.userMonster.userMonsterId);
+			tempEvolution.userMonsterUuids.Add(buddy.userMonster.userMonsterUuid);
 		}
 
 		List<PZMonster> catalysts = MSMonsterManager.instance.GetMonstersByMonsterId(monster.monster.evolutionCatalystMonsterId);
 		if (catalysts.Count >= monster.monster.numCatalystMonstersRequired)
 		{
-			tempEvolution.catalystUserMonsterId = catalysts[0].userMonster.userMonsterId;
+			tempEvolution.catalystUserMonsterUuid = catalysts[0].userMonster.userMonsterUuid;
 		}
 
 		return tempEvolution;
@@ -197,6 +197,8 @@ public class MSEvolutionManager : MonoBehaviour {
 			loadLock.Lock();
 		}
 
+		yield return MSResourceManager.instance.RunCollectResources();
+
 		tempEvolution.startTime = MSUtil.timeNowMillis;
 		
 		EvolveMonsterRequestProto request = new EvolveMonsterRequestProto();
@@ -237,8 +239,8 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		if (!MSSceneManager.instance.loadingState 
 		    && currEvolution != null 
-		    && currEvolution.userMonsterIds.Count == 2
-		    && currEvolution.catalystUserMonsterId > 0
+		    && currEvolution.userMonsterUuids.Count == 2
+		    && !currEvolution.catalystUserMonsterUuid.Equals("")
 		    && finishTime > 0
 		    && timeLeftMillis <= 0)
 		{
@@ -278,12 +280,12 @@ public class MSEvolutionManager : MonoBehaviour {
 
 		if (response.status == EvolutionFinishedResponseProto.EvolutionFinishedStatus.SUCCESS)
 		{
-			foreach (var item in currEvolution.userMonsterIds) 
+			foreach (var item in currEvolution.userMonsterUuids) 
 			{
 				MSMonsterManager.instance.RemoveMonster(item);
 			}
 			
-			MSMonsterManager.instance.RemoveMonster(currEvolution.catalystUserMonsterId);
+			MSMonsterManager.instance.RemoveMonster(currEvolution.catalystUserMonsterUuid);
 			currEvolution = null;
 
 			PZMonster newMonster = MSMonsterManager.instance.UpdateOrAdd(response.evolvedMonster);

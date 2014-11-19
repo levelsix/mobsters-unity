@@ -224,7 +224,7 @@ public class MSChatPopup : MonoBehaviour {
 			{
 				PrivateChatPostRequestProto request = new PrivateChatPostRequestProto();
 				request.sender = MSWhiteboard.localMup;
-				request.recipientId = privateChatter.minUserProto.userId;
+				request.recipientUuid = privateChatter.minUserProto.userUuid;
 				request.content = inputField.label.text;
 
 				UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PRIVATE_CHAT_POST_EVENT, CheckPrivateChatResponse);
@@ -419,7 +419,7 @@ public class MSChatPopup : MonoBehaviour {
 		privateChats.Clear();
 	}
 
-	MSPrivateChatEntry Add(KeyValuePair<int, List<PrivateChatPostProto>> pair)
+	MSPrivateChatEntry Add(KeyValuePair<string, List<PrivateChatPostProto>> pair)
 	{
 		MSPrivateChatEntry entry = (MSPoolManager.instance.Get(privateChatEntryPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, privateChatGrid.transform) 
 		                            as MSSimplePoolable).GetComponent<MSPrivateChatEntry>();
@@ -433,7 +433,7 @@ public class MSChatPopup : MonoBehaviour {
 		return entry;
 	}
 
-	public void SetupPrivateChatListing(Dictionary<int, List<PrivateChatPostProto>> chats)
+	public void SetupPrivateChatListing(Dictionary<string, List<PrivateChatPostProto>> chats)
 	{
 		if (chats.Count == 0)
 		{

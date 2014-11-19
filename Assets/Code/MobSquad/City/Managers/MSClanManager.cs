@@ -8,17 +8,17 @@ public class MSClanManager : MonoBehaviour
 {
 	public FullUserClanProto playerClan;
 
-	public static int userClanId = 0;
+	public static string userClanUuid = "";
 	static UserClanStatus userClanStatus;
 	public static bool isLeader = false;
 
-	static List<int> pendingClanInvites = new List<int>();
+	static List<string> pendingClanInvites = new List<string>();
 
 	public bool isInClan
 	{
 		get
 		{
-			return (userClanId > 0);
+			return !userClanUuid.Equals("");
 		}
 	}
 	
@@ -53,7 +53,7 @@ public class MSClanManager : MonoBehaviour
 			int helpable = 0;
 			foreach(ClanHelpProto help in clanHelpRequests)
 			{
-				if(help.mup.userId != MSWhiteboard.localMup.userId && help.helperIds.Count < help.maxHelpers && !help.helperIds.Contains(MSWhiteboard.localMup.userId))
+				if(!help.mup.userUuid.Equals( MSWhiteboard.localMup.userUuid) && help.helperUuids.Count < help.maxHelpers && !help.helperUuids.Contains(MSWhiteboard.localMup.userUuid))
 				{
 					helpable++;
 				}
@@ -102,24 +102,24 @@ public class MSClanManager : MonoBehaviour
 			if (clans[0].status != UserClanStatus.REQUESTING)
 			{
 				playerClan = clans[0];
-				userClanId = clans[0].clanId;
+				userClanUuid = clans[0].clanUuid;
 				userClanStatus = clans[0].status;
-				UMQNetworkManager.instance.CreateClanChatQueue(MSWhiteboard.localMup, clans[0].clanId);
+				UMQNetworkManager.instance.CreateClanChatQueue(MSWhiteboard.localMup, clans[0].clanUuid);
 			}
 			else
 			{
 				foreach (FullUserClanProto clan in clans)
 				{
-					pendingClanInvites.Add(clan.clanId);
+					pendingClanInvites.Add(clan.clanUuid);
 				}
 				userClanStatus = UserClanStatus.REQUESTING;
 			}
 		}
 	}
 
-	public bool HasRequestedClan(int clanId)
+	public bool HasRequestedClan(string clanUuid)
 	{
-		return (pendingClanInvites.Contains(clanId));
+		return (pendingClanInvites.Contains(clanUuid));
 	}
 
 	/// <summary>
@@ -132,7 +132,7 @@ public class MSClanManager : MonoBehaviour
 	{
 		RetrieveClanInfoRequestProto request = new RetrieveClanInfoRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.clanId = 0;
+		request.clanUuid = "";
 		request.clanName = search;
 		request.grabType = RetrieveClanInfoRequestProto.ClanInfoGrabType.CLAN_INFO;
 		request.beforeThisClanId = beforeID;
@@ -163,11 +163,11 @@ public class MSClanManager : MonoBehaviour
 	/// </summary>
 	/// <returns>Coroutine: Posts the clan details to postedClans and members to postedClanMembers</returns>
 	/// <param name="clanId">Clan identifier.</param>
-	public IEnumerator GetClanDetails(int clanId)
+	public IEnumerator GetClanDetails(string clanUuid)
 	{
 		RetrieveClanInfoRequestProto request = new RetrieveClanInfoRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.clanId = clanId;
+		request.clanUuid = clanUuid;
 		request.grabType = RetrieveClanInfoRequestProto.ClanInfoGrabType.ALL;
 		request.isForBrowsingList = false;
 		
@@ -199,11 +199,11 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 
-	public IEnumerator GetClanMembers(int clanId)
+	public IEnumerator GetClanMembers(string clanUuid)
 	{
 		RetrieveClanInfoRequestProto request = new RetrieveClanInfoRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.clanId = clanId;;
+		request.clanUuid = clanUuid;
 		request.grabType = RetrieveClanInfoRequestProto.ClanInfoGrabType.MEMBERS;
 		request.isForBrowsingList = false;
 		
@@ -233,11 +233,11 @@ public class MSClanManager : MonoBehaviour
 	/// </summary>
 	/// <returns>The or apply to clan.</returns>
 	/// <param name="clanId">Clan identifier.</param>
-	public IEnumerator JoinOrApplyToClan(int clanId)
+	public IEnumerator JoinOrApplyToClan(string clanUuid)
 	{
 		RequestJoinClanRequestProto request = new RequestJoinClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.clanId = clanId;
+		request.clanUuid = clanUuid;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REQUEST_JOIN_CLAN_EVENT);
 
@@ -252,18 +252,18 @@ public class MSClanManager : MonoBehaviour
 		switch (response.status) 
 		{
 			case RequestJoinClanResponseProto.RequestJoinClanStatus.SUCCESS_REQUEST:
-				pendingClanInvites.Add (response.clanId);
+				pendingClanInvites.Add (response.clanUuid);
 				break;
 			case RequestJoinClanResponseProto.RequestJoinClanStatus.SUCCESS_JOIN:
 
-				userClanId = response.clanId;
+				userClanUuid = response.clanUuid;
 				userClanStatus = response.requester.clanStatus;
 
 				pendingClanInvites.Clear();
 
 				if (MSActionManager.Clan.OnPlayerClanChange != null)
 				{
-					MSActionManager.Clan.OnPlayerClanChange(userClanId, userClanStatus, response.minClan.clanIconId);
+					MSActionManager.Clan.OnPlayerClanChange(userClanUuid, userClanStatus, response.minClan.clanIconId);
 				}
 				break;
 			default:
@@ -278,11 +278,11 @@ public class MSClanManager : MonoBehaviour
 	/// </summary>
 	/// <returns>The join request.</returns>
 	/// <param name="clanId">Clan identifier.</param>
-	public IEnumerator RetractJoinRequest(int clanId)
+	public IEnumerator RetractJoinRequest(string clanUuid)
 	{
 		RetractRequestJoinClanRequestProto request = new RetractRequestJoinClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.clanId = clanId;
+		request.clanUuid = clanUuid;
 
 		int tagNum= UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RETRACT_REQUEST_JOIN_CLAN_EVENT, null);
 
@@ -294,7 +294,7 @@ public class MSClanManager : MonoBehaviour
 		RetractRequestJoinClanResponseProto response = UMQNetworkManager.responseDict[tagNum] as RetractRequestJoinClanResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
-		userClanId = 0;
+		userClanUuid = "";
 
 		if (response.status != RetractRequestJoinClanResponseProto.RetractRequestJoinClanStatus.SUCCESS)
 		{
@@ -302,7 +302,7 @@ public class MSClanManager : MonoBehaviour
 		}
 		else
 		{
-			pendingClanInvites.Remove(clanId);
+			pendingClanInvites.Remove(clanUuid);
 		}
 	}
 
@@ -315,7 +315,7 @@ public class MSClanManager : MonoBehaviour
 		LeaveClanRequestProto request = new LeaveClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
 
-		userClanId = 0;
+		userClanUuid = "";
 		playerClan = null;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LEAVE_CLAN_EVENT);
@@ -327,7 +327,7 @@ public class MSClanManager : MonoBehaviour
 		
 		if (MSActionManager.Clan.OnPlayerClanChange != null)
 		{
-			MSActionManager.Clan.OnPlayerClanChange(userClanId, UserClanStatus.MEMBER, 0);
+			MSActionManager.Clan.OnPlayerClanChange(userClanUuid, UserClanStatus.MEMBER, 0);
 		}
 
 		LeaveClanResponseProto response = UMQNetworkManager.responseDict[tagNum] as LeaveClanResponseProto;
@@ -380,24 +380,24 @@ public class MSClanManager : MonoBehaviour
 		}
 		else
 		{
-			userClanId = response.clanInfo.clanId;
+			userClanUuid = response.clanInfo.clanUuid;
 			userClanStatus = UserClanStatus.LEADER;
 			isLeader = true;
 
 			if (MSActionManager.Clan.OnPlayerClanChange != null)
 			{
-				MSActionManager.Clan.OnPlayerClanChange(userClanId, userClanStatus, iconId);
+				MSActionManager.Clan.OnPlayerClanChange(userClanUuid, userClanStatus, iconId);
 			}
 		}
 
 		loadLock.Unlock();
 	}
 
-	public IEnumerator TransferClanOwnership(int newClanOwnerId)
+	public IEnumerator TransferClanOwnership(string newClanOwnerUuid)
 	{
 		TransferClanOwnershipRequestProto request = new TransferClanOwnershipRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.clanOwnerIdNew = newClanOwnerId;
+		request.clanOwnerUuidNew = newClanOwnerUuid;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_TRANSFER_CLAN_OWNERSHIP, null);
 
@@ -490,11 +490,11 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 
-	public void PromoteDemoteClanMember(int playerId, UserClanStatus clanStatus)
+	public void PromoteDemoteClanMember(string playerUuid, UserClanStatus clanStatus)
 	{
 		PromoteDemoteClanMemberRequestProto request = new PromoteDemoteClanMemberRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.victimId = playerId;
+		request.victimUuid = playerUuid;
 		request.userClanStatus = clanStatus;
 
 		UMQNetworkManager.instance.SendRequest(request, (int) EventProtocolRequest.C_PROMOTE_DEMOTE_CLAN_MEMBER_EVENT, DealWithPromoteDemoteResponse);
@@ -511,11 +511,11 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 
-	public void BootPlayerFromClan(int playerId)
+	public void BootPlayerFromClan(string playerUuid)
 	{
 		BootPlayerFromClanRequestProto request = new BootPlayerFromClanRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.playerToBoot = playerId;
+		request.playerToBootUuid = playerUuid;
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BOOT_PLAYER_FROM_CLAN_EVENT, DealWithBootResponse);
 	}
@@ -532,12 +532,12 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 
-	public void DoSolicitClanHelp(GameActionType type, int staticId, long userId, int maxHelpers, Action OnComplete = null)
+	public void DoSolicitClanHelp(GameActionType type, int staticId, string userUuid, int maxHelpers, Action OnComplete = null)
 	{
 		ClanHelpNoticeProto notice = new ClanHelpNoticeProto();
 		notice.helpType = type;
 		notice.staticDataId = staticId;//static ID for thing
-		notice.userDataId = userId;//userid ID for thing
+		notice.userDataUuid = userUuid;//userid ID for thing
 
 		List<ClanHelpNoticeProto> notices = new List<ClanHelpNoticeProto>();
 		notices.Add(notice);
@@ -589,17 +589,17 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 	
-	public void DoGiveClanHelp(List<long> helpIds, Action OnComplete = null)
+	public void DoGiveClanHelp(List<string> helpIds, Action OnComplete = null)
 	{
 		StartCoroutine(GiveClanHelp(helpIds, OnComplete));
 	}
 	
-	IEnumerator GiveClanHelp(List<long> helpIds, Action OnComplete)
+	IEnumerator GiveClanHelp(List<string> helpIds, Action OnComplete)
 	{
 		GiveClanHelpRequestProto request = new GiveClanHelpRequestProto();
-		foreach(long id in helpIds)
+		foreach(string id in helpIds)
 		{
-			request.clanHelpIds.Add(id);
+			request.clanHelpUuids.Add(id);
 		}
 		request.sender = MSWhiteboard.localMup;
 
@@ -631,17 +631,17 @@ public class MSClanManager : MonoBehaviour
 		}
 	}
 	
-	public void DoEndClanHelp(List<long> helpIds, Action OnComplete = null)
+	public void DoEndClanHelp(List<string> helpIds, Action OnComplete = null)
 	{
 		StartCoroutine(EndClanHelp(helpIds));
 	}
 	
-	IEnumerator EndClanHelp(List<long> helpIds, Action OnComplete = null)
+	IEnumerator EndClanHelp(List<string> helpIds, Action OnComplete = null)
 	{
 		EndClanHelpRequestProto request = new EndClanHelpRequestProto();
-		foreach(long id in helpIds)
+		foreach(string id in helpIds)
 		{
-			request.clanHelpIds.Add(id);
+			request.clanHelpUuids.Add(id);
 		}
 		request.sender = MSWhiteboard.localMup;
 		
@@ -680,23 +680,23 @@ public class MSClanManager : MonoBehaviour
 	/// <param name="type">Type.</param>
 	/// <param name="staticId">Static identifier for requested object.</param>
 	/// <param name="userId">User id for requested object.</param>
-	public bool HelpAlreadyRequested(GameActionType type, int staticId, long userId)
+	public bool HelpAlreadyRequested(GameActionType type, int staticId, string userId)
 	{
 		return GetClanHelp(type, staticId, userId) != null;
 	}
 
-	public bool HelpAlreadyRequested(GameActionType type, long userId)
+	public bool HelpAlreadyRequested(GameActionType type, string userId)
 	{
 		return GetClanHelp(type, userId) != null;
 	}
 
-	public ClanHelpProto GetClanHelp(GameActionType type, int staticId, long userId)
+	public ClanHelpProto GetClanHelp(GameActionType type, int staticId, string userUuid)
 	{
 		foreach(ClanHelpProto proto in clanHelpRequests)
 		{
 			if(proto.helpType == type &&
 			   proto.staticDataId == staticId &&
-			   proto.userDataId == userId)
+			   proto.userDataUuid.Equals(userUuid))
 			{
 				return proto;
 			}
@@ -706,12 +706,12 @@ public class MSClanManager : MonoBehaviour
 		return null;
 	}
 
-	public ClanHelpProto GetClanHelp(GameActionType type, long userId)
+	public ClanHelpProto GetClanHelp(GameActionType type, string userUuid)
 	{
 		foreach(ClanHelpProto proto in clanHelpRequests)
 		{
 			if(proto.helpType == type &&
-			   proto.userDataId == userId)
+			   proto.userDataUuid.Equals(userUuid))
 			{
 				return proto;
 			}
@@ -726,13 +726,13 @@ public class MSClanManager : MonoBehaviour
 	/// <param name="self">If set to <c>true</c> then this function was triggered by the user and was not sent to us from the server.</param>
 	void DealWithGiveClanHelp(GiveClanHelpResponseProto proto, bool self)
 	{
-		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		if(self || !proto.sender.userUuid.Equals(MSWhiteboard.localMup.userUuid))
 		{
 			foreach(ClanHelpProto helpProto in proto.clanHelps)
 			{
 				for(int i = 0; i < clanHelpRequests.Count;i++)
 				{
-					if(helpProto.clanHelpId == clanHelpRequests[i].clanHelpId)
+					if(helpProto.clanHelpUuid.Equals(clanHelpRequests[i].clanHelpUuid))
 					{
 						clanHelpRequests[i] = helpProto;
 					}
@@ -743,7 +743,7 @@ public class MSClanManager : MonoBehaviour
 
 	void DealWithSoliciteClanHelp(SolicitClanHelpResponseProto proto, bool self)
 	{
-		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		if(self || !proto.sender.userUuid.Equals(MSWhiteboard.localMup.userUuid))
 		{
 			foreach(ClanHelpProto helpProto in proto.helpProto)
 			{
@@ -754,11 +754,11 @@ public class MSClanManager : MonoBehaviour
 
 	void DealWithEndClanHelp(EndClanHelpResponseProto proto, bool self)
 	{
-		if(self || proto.sender.userId != MSWhiteboard.localMup.userId)
+		if(self || !proto.sender.userUuid.Equals(MSWhiteboard.localMup.userUuid))
 		{
 			for(int i = 0; i < clanHelpRequests.Count; i++)
 			{
-				if(proto.clanHelpIds.Contains(clanHelpRequests[i].clanHelpId))
+				if(proto.clanHelpUuids.Contains(clanHelpRequests[i].clanHelpUuid))
 				{
 					if(!clanHelpRequests.Remove(clanHelpRequests[i]))
 					{

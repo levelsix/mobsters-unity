@@ -159,6 +159,8 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		if (useGems)
 		{
 			int gemCost = Mathf.CeilToInt((currCost - MSResourceManager.resources[currResource]) * MSWhiteboard.constants.gemsPerResource);
+			//int gemResources = gemCost / MSWhiteboard.constants.gemsPerResource;
+			//int remainingCost = currCost - gemResources;
 			if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost))
 			{
 				Buy (MSResourceManager.instance.SpendAll(currResource), gemCost);

@@ -110,13 +110,13 @@ namespace com.lvl6.proto
       set { _status = value; }
     }
 
-    private int _userStructId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userStructId
+    private string _userStructUuid = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userStructUuid
     {
-      get { return _userStructId; }
-      set { _userStructId = value; }
+      get { return _userStructUuid; }
+      set { _userStructUuid = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"PurchaseNormStructureStatus")]
     public enum PurchaseNormStructureStatus
@@ -158,13 +158,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _userStructId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userStructId
+    private string _userStructUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userStructUuid
     {
-      get { return _userStructId; }
-      set { _userStructId = value; }
+      get { return _userStructUuid; }
+      set { _userStructUuid = value; }
     }
 
     private com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType _type = com.lvl6.proto.MoveOrRotateNormStructureRequestProto.MoveOrRotateNormStructType.MOVE;
@@ -260,13 +260,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _userStructId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userStructId
+    private string _userStructUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userStructUuid
     {
-      get { return _userStructId; }
-      set { _userStructId = value; }
+      get { return _userStructUuid; }
+      set { _userStructUuid = value; }
     }
 
     private long _timeOfUpgrade = default(long);
@@ -381,13 +381,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _userStructId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userStructId
+    private string _userStructUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userStructUuid
     {
-      get { return _userStructId; }
-      set { _userStructId = value; }
+      get { return _userStructUuid; }
+      set { _userStructUuid = value; }
     }
 
     private long _timeOfSpeedup = default(long);
@@ -468,11 +468,11 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<int> _userStructId = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> userStructId
+    private readonly global::System.Collections.Generic.List<string> _userStructUuid = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> userStructUuid
     {
-      get { return _userStructId; }
+      get { return _userStructUuid; }
     }
   
 
@@ -565,13 +565,13 @@ namespace com.lvl6.proto
     public StructRetrieval() {}
     
 
-    private int _userStructId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userStructId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userStructId
+    private string _userStructUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userStructUuid
     {
-      get { return _userStructId; }
-      set { _userStructId = value; }
+      get { return _userStructUuid; }
+      set { _userStructUuid = value; }
     }
 
     private long _timeOfRetrieval = default(long);
@@ -893,13 +893,13 @@ namespace com.lvl6.proto
       set { _resourceType = value; }
     }
 
-    private int _userObstacleId = default(int);
-    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userObstacleId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userObstacleId
+    private string _userObstacleUuid = "";
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userObstacleUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userObstacleUuid
     {
-      get { return _userObstacleId; }
-      set { _userObstacleId = value; }
+      get { return _userObstacleUuid; }
+      set { _userObstacleUuid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -993,13 +993,13 @@ namespace com.lvl6.proto
       set { _gemsSpent = value; }
     }
 
-    private int _userObstacleId = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userObstacleId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userObstacleId
+    private string _userObstacleUuid = "";
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userObstacleUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userObstacleUuid
     {
-      get { return _userObstacleId; }
-      set { _userObstacleId = value; }
+      get { return _userObstacleUuid; }
+      set { _userObstacleUuid = value; }
     }
 
     private bool _atMaxObstacles = default(bool);

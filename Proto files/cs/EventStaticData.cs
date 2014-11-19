@@ -17,13 +17,13 @@ namespace com.lvl6.proto
     public PurgeClientStaticDataResponseProto() {}
     
 
-    private int _senderId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"senderId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int senderId
+    private string _senderUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"senderUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string senderUuid
     {
-      get { return _senderId; }
-      set { _senderId = value; }
+      get { return _senderUuid; }
+      set { _senderUuid = value; }
     }
 
     private com.lvl6.proto.StaticDataProto _staticDataStuff = null;

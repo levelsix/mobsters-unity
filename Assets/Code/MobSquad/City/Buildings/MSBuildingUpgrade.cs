@@ -72,20 +72,20 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		{
 			if(!isComplete)
 			{
-				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.UPGRADE_STRUCT || currActiveHelp.userDataId != building.userStructProto.userStructId)
+				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.UPGRADE_STRUCT || !currActiveHelp.userDataUuid.Equals(building.userStructProto.userStructUuid))
 				{
-					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.UPGRADE_STRUCT, building.userStructProto.userStructId);
+					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.UPGRADE_STRUCT, building.userStructProto.userStructUuid);
 				}
 				
 				if(currActiveHelp != null)
 				{
-					if(currActiveHelp.helperIds.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+					if(currActiveHelp.helperUuids.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
 					{
 						return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
 					}
 					else
 					{
-						return currActiveHelp.helperIds.Count;
+						return currActiveHelp.helperUuids.Count;
 					}
 				}
 			}
@@ -198,7 +198,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		{
 			foreach(ClanHelpProto help in response.clanHelps)
 			{
-				if(help.clanHelpId == currActiveHelp.clanHelpId)
+				if(help.clanHelpUuid.Equals(currActiveHelp.clanHelpUuid))
 				{
 					currActiveHelp = null;
 				}
@@ -210,7 +210,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
     {
 		if (!uProto.isComplete && uProto.purchaseTime > 0)
 		{
-			Debug.Log("Building " + uProto.userStructId + " isn't finished; checking upgrade");
+			Debug.Log("Building " + uProto.userStructUuid + " isn't finished; checking upgrade");
 			building.SetupConstructionSprite();
 			StartCoroutine(CheckUpgrade());
 		}
@@ -245,7 +245,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		building.combinedProto = building.combinedProto.successor;
 
-		SendUpgradeRequest(baseResource, gems);
+		StartCoroutine(SendUpgradeRequest(baseResource, gems));
 	}
 
 	public virtual void StartBuild()
@@ -257,11 +257,12 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		StartCoroutine(CheckUpgrade());
 	}
 	
-	void SendUpgradeRequest(int baseResource, int gems = 0)
+	IEnumerator SendUpgradeRequest(int baseResource, int gems = 0)
 	{
+		yield return MSResourceManager.instance.RunCollectResources();
 		UpgradeNormStructureRequestProto request = new UpgradeNormStructureRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.userStructId = building.userStructProto.userStructId;
+		request.userStructUuid = building.userStructProto.userStructUuid;
 		request.timeOfUpgrade = MSUtil.timeNowMillis;
 		request.resourceType = building.combinedProto.structInfo.buildResourceType;
 		request.resourceChange = -baseResource;
@@ -352,7 +353,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		{
 			FinishNormStructWaittimeWithDiamondsRequestProto request = new FinishNormStructWaittimeWithDiamondsRequestProto();
 			request.sender = MSWhiteboard.localMup;
-			request.userStructId = building.userStructProto.userStructId;
+			request.userStructUuid = building.id;
 			request.timeOfSpeedup = MSUtil.timeNowMillis;
 			request.gemCostToSpeedup = gemsToFinish;
 			UMQNetworkManager.instance.SendRequest(request, 
@@ -375,7 +376,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		NormStructWaitCompleteRequestProto request = new NormStructWaitCompleteRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.userStructId.Add(building.userStructProto.userStructId);
+		request.userStructUuid.Add(building.userStructProto.userStructUuid);
 		request.curTime = MSUtil.timeNowMillis;
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_NORM_STRUCT_WAIT_COMPLETE_EVENT, LoadWaitFinishResponse);
 	}

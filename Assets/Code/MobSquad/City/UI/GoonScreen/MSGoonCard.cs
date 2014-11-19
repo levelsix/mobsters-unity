@@ -272,9 +272,10 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		yield return null;
 		transform.localScale = Vector3.one;
-		foreach (var item in GetComponentsInChildren<UIWidget>()) {
+		foreach (var item in GetComponentsInChildren<UIWidget>()) 
+		{
 			item.ParentHasChanged();
-				}
+		}
 	}
 
 	public void InitHeal(PZMonster goon)
@@ -309,7 +310,7 @@ public class MSGoonCard : MonoBehaviour {
 
 		SetName();
 
-		TintElements(goon.monsterStatus != MonsterStatus.HEALTHY && goon.monsterStatus != MonsterStatus.INJURED);
+		TintElements((goon.monsterStatus != MonsterStatus.HEALTHY && goon.monsterStatus != MonsterStatus.INJURED) || goon.currHP <= 0);
 
 		if (goon.userMonster.teamSlotNum > 0)
 		{
@@ -373,7 +374,7 @@ public class MSGoonCard : MonoBehaviour {
 			name = "3 Healthy 2 Card";
 			break;
 		}
-		name += " " + monster.monster.monsterId + " " + monster.userMonster.currentLvl + " " + monster.userMonster.userMonsterId;
+		name += " " + monster.monster.monsterId + " " + monster.userMonster.currentLvl + " " + monster.userMonster.userMonsterUuid;
 	}
 
 	public void InitPickEnhance(PZMonster goon)
@@ -476,11 +477,11 @@ public class MSGoonCard : MonoBehaviour {
 		nameLabel.text = " ";
 	}
 
-	public void InitScientist(long userMonsterId)
+	public void InitScientist(string userMonsterUuid)
 	{
-		if (userMonsterId > 0)
+		if (!userMonsterUuid.Equals(""))
 		{
-			monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId==userMonsterId);
+			monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(userMonsterUuid));
 			Setup (monster);
 			bottomHolder.SetActive(false);
 			goonPose.alpha = 1;
@@ -557,8 +558,8 @@ public class MSGoonCard : MonoBehaviour {
 
 		string goonImageBase = MSUtil.StripExtensions(goon.monster.imagePrefix);
 		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", goonPose);
-		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Thumbnail", mediumMobster);
-		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Thumbnail", smallMobster);
+		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", mediumMobster);
+		MSSpriteUtil.instance.SetSprite(goonImageBase, goonImageBase + "Card", smallMobster);
 
 		cardBackground.spriteName = backgroundsForElements[goon.monster.monsterElement];
 		mediumBG.spriteName = mediumBackgrounds[goon.monster.monsterElement];
@@ -653,7 +654,7 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void AddToTeam()
 	{
-		if (monster.userMonster.teamSlotNum == 0)
+		if (monster.currHP > 0 && monster.userMonster.teamSlotNum == 0)
 		{
 			if (MSMonsterManager.instance.AddToTeam(monster))
 			{
@@ -669,7 +670,7 @@ public class MSGoonCard : MonoBehaviour {
 		}
 	}
 
-	void RemoveFromTeam()
+	public void RemoveFromTeam()
 	{
 		transform.parent = MSTeamScreen.instance.mobsterGrid.transform;
 		MSTeamScreen.instance.mobsterGrid.Reposition();
@@ -1012,9 +1013,9 @@ public class MSGoonCard : MonoBehaviour {
 		}
 	}
 
-	void CheckRemovedMonster(long userMonsterId)
+	void CheckRemovedMonster(string userMonsterUuid)
 	{
-		if (monster != null && monster.userMonster != null && monster.userMonster.userMonsterId == userMonsterId)
+		if (monster != null && monster.userMonster != null && monster.userMonster.userMonsterUuid.Equals(userMonsterUuid))
 		{
 			//GetComponent<MSSimplePoolable>().Pool();
 		}

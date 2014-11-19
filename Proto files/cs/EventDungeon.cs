@@ -144,13 +144,13 @@ namespace com.lvl6.proto
     }
   
 
-    private long _userTaskId = default(long);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userTaskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userTaskId
+    private string _userTaskUuid = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userTaskUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userTaskUuid
     {
-      get { return _userTaskId; }
-      set { _userTaskId = value; }
+      get { return _userTaskUuid; }
+      set { _userTaskUuid = value; }
     }
 
     private int _taskId = default(int);
@@ -201,13 +201,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private long _userTaskId = default(long);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userTaskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userTaskId
+    private string _userTaskUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userTaskUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userTaskUuid
     {
-      get { return _userTaskId; }
-      set { _userTaskId = value; }
+      get { return _userTaskUuid; }
+      set { _userTaskUuid = value; }
     }
 
     private bool _userWon = default(bool);
@@ -245,11 +245,11 @@ namespace com.lvl6.proto
       get { return _userBeatAllCityTasks; }
       set { _userBeatAllCityTasks = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _droplessTsfuIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(7, Name=@"droplessTsfuIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> droplessTsfuIds
+    private readonly global::System.Collections.Generic.List<string> _droplessTsfuUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(7, Name=@"droplessTsfuUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> droplessTsfuUuids
     {
-      get { return _droplessTsfuIds; }
+      get { return _droplessTsfuUuids; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;
@@ -354,13 +354,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private long _userTaskId = default(long);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userTaskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userTaskId
+    private string _userTaskUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userTaskUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userTaskUuid
     {
-      get { return _userTaskId; }
-      set { _userTaskId = value; }
+      get { return _userTaskUuid; }
+      set { _userTaskUuid = value; }
     }
 
     private long _clientTime = default(long);

@@ -316,7 +316,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			item.Clear();
 		}
-		if (boardFile != "")
+		if (!boardFile.Equals(""))
 		{
 			RigBoard(boardFile);
 		}

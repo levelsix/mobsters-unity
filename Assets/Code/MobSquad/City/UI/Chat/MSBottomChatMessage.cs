@@ -20,6 +20,16 @@ public class MSBottomChatMessage : MonoBehaviour {
 
 	UIWidget myWidget;
 
+	void OnEnable()
+	{
+		MSActionManager.Scene.OnCity += OnCity;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Scene.OnCity -= OnCity;
+	}
+
 	public Color color
 	{
 		set
@@ -37,7 +47,7 @@ public class MSBottomChatMessage : MonoBehaviour {
 		if (myWidget == null) myWidget = GetComponent<UIWidget>();
 		myWidget.width = width;
 
-		avatar.Init (avatarId, 3);
+		avatar.Init (avatarId, 1/3f);
 		playerName.text = name + ":";
 		dialogue.text = content;
 		Chop();
@@ -64,5 +74,10 @@ public class MSBottomChatMessage : MonoBehaviour {
 		}
 	}
 
+	void OnCity()
+	{
+		gameObject.SetActive(false);
+		gameObject.SetActive(true);
+	}
 
 }

@@ -34,20 +34,20 @@ public class MSMiniJobManager : MonoBehaviour {
 		{
 			if(currActiveJob != null)
 			{
-				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.MINI_JOB || currActiveHelp.userDataId != currActiveJob.userMiniJobId)
+				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.MINI_JOB || !currActiveHelp.userDataUuid.Equals(currActiveJob.userMiniJobUuid))
 				{
-					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, currActiveJob.userMiniJobId);
+					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, currActiveJob.userMiniJobUuid);
 				}
 
 				if(currActiveHelp != null)
 				{
-					if(currActiveHelp.helperIds.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+					if(currActiveHelp.helperUuids.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
 					{
 						return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
 					}
 					else
 					{
-						return currActiveHelp.helperIds.Count;
+						return currActiveHelp.helperUuids.Count;
 					}
 				}
 			}
@@ -126,7 +126,7 @@ public class MSMiniJobManager : MonoBehaviour {
 		get
 		{
 			return currActiveJob != null
-				&& currActiveJob.userMiniJobId > 0
+				&& !currActiveJob.userMiniJobUuid.Equals("")
 				&& currActiveJob.timeStarted > 0
 				&& timeLeft <= 0
 				&& currActiveJob.timeCompleted == 0;
@@ -229,7 +229,7 @@ public class MSMiniJobManager : MonoBehaviour {
 	{
 		if(!self)
 		{
-			currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, currActiveJob.userMiniJobId);
+			currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, currActiveJob.userMiniJobUuid);
 		}
 	}
 
@@ -270,7 +270,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	public void BeginJob(UserMiniJobProto job, List<PZMonster> monsters)
 	{
-		if (currActiveJob != null && currActiveJob.userMiniJobId > 0)
+		if (currActiveJob != null && !currActiveJob.userMiniJobUuid.Equals(""))
 		{
 			Debug.LogError("Should not be trying to start a job when there is an active one");
 			return;
@@ -286,11 +286,11 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		foreach (var item in monsters) 
 		{
-			request.userMonsterIds.Add(item.userMonster.userMonsterId);
-			job.userMonsterIds.Add (item.userMonster.userMonsterId);
+			request.userMonsterUuids.Add(item.userMonster.userMonsterUuid);
+			job.userMonsterUuids.Add (item.userMonster.userMonsterUuid);
 		}
 
-		request.userMiniJobId = job.userMiniJobId;
+		request.userMiniJobUuid = job.userMiniJobUuid;
 
 		isBeginning = true;
 
@@ -383,14 +383,14 @@ public class MSMiniJobManager : MonoBehaviour {
 		CompleteMiniJobRequestProto request = new CompleteMiniJobRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.clientTime = MSUtil.timeNowMillis;
-		request.userMiniJobId = currActiveJob.userMiniJobId;
+		request.userMiniJobUuid = currActiveJob.userMiniJobUuid;
 		request.isSpeedUp = speedUp;
 		request.gemCost = gems;
 
 		teamToDamage = new List<PZMonster>();
-		foreach (var item in currActiveJob.userMonsterIds) 
+		foreach (var item in currActiveJob.userMonsterUuids) 
 		{
-			teamToDamage.Add(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == item));
+			teamToDamage.Add(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(item)));
 		}
 //		DamageMonsters(teamToDamage, currActiveJob.baseDmgReceived);
 		damageDelt.Clear();
@@ -423,10 +423,10 @@ public class MSMiniJobManager : MonoBehaviour {
 		}
 		else
 		{
-			ClanHelpProto miniJobHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, (int)currActiveJob.miniJob.quality ,currActiveJob.userMiniJobId);
+			ClanHelpProto miniJobHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, (int)currActiveJob.miniJob.quality ,currActiveJob.userMiniJobUuid);
 			if(miniJobHelp != null)
 			{
-				MSClanManager.instance.DoEndClanHelp(new List<long>{miniJobHelp.clanHelpId});
+				MSClanManager.instance.DoEndClanHelp(new List<string>{miniJobHelp.clanHelpUuid});
 				if(MSActionManager.Popup.DisplayOrangeError != null)
 				{
 					MSActionManager.Popup.DisplayOrangeError("Your mobsters are back from their minijob!");
@@ -498,9 +498,9 @@ public class MSMiniJobManager : MonoBehaviour {
 	{
 		teamToDamage.Clear();
 		damageDelt.Clear();
-		foreach (var item in currActiveJob.userMonsterIds) 
+		foreach (var item in currActiveJob.userMonsterUuids) 
 		{
-			PZMonster monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == item);
+			PZMonster monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(item));
 			monster.tempHP = monster.currHP;
 			teamToDamage.Add(monster);
 		}
@@ -543,14 +543,14 @@ public class MSMiniJobManager : MonoBehaviour {
 		RedeemMiniJobRequestProto request = new RedeemMiniJobRequestProto();
 		request.sender = MSWhiteboard.localMupWithResources;
 		request.clientTime = MSUtil.timeNowMillis;
-		request.userMiniJobId = currJob.userMiniJobId;
+		request.userMiniJobUuid = currJob.userMiniJobUuid;
 		
 		//Damage Monsters
 		int damage = currJob.baseDmgReceived;
-		foreach (var item in currJob.userMonsterIds) 
+		foreach (var item in currJob.userMonsterUuids) 
 		{
-			PZMonster monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == item);
-			monster.currHP = Mathf.Max(monster.currHP - damage/currJob.userMonsterIds.Count, 0);
+			PZMonster monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(item));
+			monster.currHP = Mathf.Max(monster.currHP - damage/currJob.userMonsterUuids.Count, 0);
 			request.umchp.Add(monster.GetCurrentHealthProto());
 		}
 
@@ -558,7 +558,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		isRedeeming = true;
 
-		Debug.Log("Redeeming job: " + request.userMiniJobId);
+		Debug.Log("Redeeming job: " + request.userMiniJobUuid);
 
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
@@ -602,13 +602,13 @@ public class MSMiniJobManager : MonoBehaviour {
 		return userJob.timeStarted > 0;
 	}
 
-	public bool IsMonsterBusy(long userMonsterId)
+	public bool IsMonsterBusy(string userMonsterId)
 	{
 		foreach (var item in userMiniJobs) 
 		{
-			foreach (var monster in item.userMonsterIds) 
+			foreach (var monster in item.userMonsterUuids) 
 			{
-				if (monster == userMonsterId)
+				if (monster.Equals(userMonsterId))
 				{
 					return true;
 				}

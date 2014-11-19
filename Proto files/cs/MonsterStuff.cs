@@ -481,22 +481,22 @@ namespace com.lvl6.proto
     public FullUserMonsterProto() {}
     
 
-    private long _userMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMonsterId
+    private string _userMonsterUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMonsterUuid
     {
-      get { return _userMonsterId; }
-      set { _userMonsterId = value; }
+      get { return _userMonsterUuid; }
+      set { _userMonsterUuid = value; }
     }
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private int _monsterId = default(int);
@@ -636,22 +636,22 @@ namespace com.lvl6.proto
     public UserMonsterHealingProto() {}
     
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
-    private long _userMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMonsterId
+    private string _userMonsterUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userMonsterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMonsterUuid
     {
-      get { return _userMonsterId; }
-      set { _userMonsterId = value; }
+      get { return _userMonsterUuid; }
+      set { _userMonsterUuid = value; }
     }
 
     private long _queuedTimeMillis = default(long);
@@ -700,13 +700,13 @@ namespace com.lvl6.proto
     public UserMonsterCurrentHealthProto() {}
     
 
-    private long _userMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMonsterId
+    private string _userMonsterUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMonsterUuid
     {
-      get { return _userMonsterId; }
-      set { _userMonsterId = value; }
+      get { return _userMonsterUuid; }
+      set { _userMonsterUuid = value; }
     }
 
     private int _currentHealth = default(int);
@@ -728,13 +728,13 @@ namespace com.lvl6.proto
     public UserEnhancementProto() {}
     
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
 
     private com.lvl6.proto.UserEnhancementItemProto _baseMonster = null;
@@ -763,13 +763,13 @@ namespace com.lvl6.proto
     public UserEnhancementItemProto() {}
     
 
-    private long _userMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMonsterId
+    private string _userMonsterUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMonsterUuid
     {
-      get { return _userMonsterId; }
-      set { _userMonsterId = value; }
+      get { return _userMonsterUuid; }
+      set { _userMonsterUuid = value; }
     }
 
     private long _expectedStartTimeMillis = default(long);
@@ -809,13 +809,13 @@ namespace com.lvl6.proto
     public UserMonsterCurrentExpProto() {}
     
 
-    private long _userMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMonsterId
+    private string _userMonsterUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMonsterUuid
     {
-      get { return _userMonsterId; }
-      set { _userMonsterId = value; }
+      get { return _userMonsterUuid; }
+      set { _userMonsterUuid = value; }
     }
 
     private int _expectedExperience = default(int);
@@ -855,13 +855,13 @@ namespace com.lvl6.proto
     public MinimumUserMonsterSellProto() {}
     
 
-    private long _userMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long userMonsterId
+    private string _userMonsterUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userMonsterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userMonsterUuid
     {
-      get { return _userMonsterId; }
-      set { _userMonsterId = value; }
+      get { return _userMonsterUuid; }
+      set { _userMonsterUuid = value; }
     }
 
     private int _cashAmount = default(int);
@@ -883,13 +883,13 @@ namespace com.lvl6.proto
     public UserCurrentMonsterTeamProto() {}
     
 
-    private int _userId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int userId
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
     {
-      get { return _userId; }
-      set { _userId = value; }
+      get { return _userUuid; }
+      set { _userUuid = value; }
     }
     private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _currentTeam = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
     [global::ProtoBuf.ProtoMember(2, Name=@"currentTeam", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -909,19 +909,19 @@ namespace com.lvl6.proto
     public UserMonsterEvolutionProto() {}
     
 
-    private long _catalystUserMonsterId = default(long);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"catalystUserMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(long))]
-    public long catalystUserMonsterId
+    private string _catalystUserMonsterUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"catalystUserMonsterUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string catalystUserMonsterUuid
     {
-      get { return _catalystUserMonsterId; }
-      set { _catalystUserMonsterId = value; }
+      get { return _catalystUserMonsterUuid; }
+      set { _catalystUserMonsterUuid = value; }
     }
-    private readonly global::System.Collections.Generic.List<long> _userMonsterIds = new global::System.Collections.Generic.List<long>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"userMonsterIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<long> userMonsterIds
+    private readonly global::System.Collections.Generic.List<string> _userMonsterUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"userMonsterUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> userMonsterUuids
     {
-      get { return _userMonsterIds; }
+      get { return _userMonsterUuids; }
     }
   
 

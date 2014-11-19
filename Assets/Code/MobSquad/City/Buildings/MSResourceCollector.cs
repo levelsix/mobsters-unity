@@ -32,7 +32,7 @@ public class MSResourceCollector : MonoBehaviour {
 	{
 		get
 		{
-			return enabled && _building.userStructProto.userStructId > 0 && _building.userStructProto.isComplete && !_building.upgrade.progressBar.upgrading;
+			return enabled && !_building.userStructProto.userStructUuid.Equals("") && _building.userStructProto.isComplete && !_building.upgrade.progressBar.upgrading;
 		}
 	}
 
@@ -168,7 +168,7 @@ public class MSResourceCollector : MonoBehaviour {
 				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.collectOil);
 			}
 
-			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructId);
+			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructUuid);
 			if (MSActionManager.Quest.OnMoneyCollected != null)
 			{
 				MSActionManager.Quest.OnMoneyCollected(_generator.resourceType, currMoney);
@@ -217,11 +217,11 @@ public class MSResourceCollector : MonoBehaviour {
 		RetrieveCurrencyFromNormStructureRequestProto request = new RetrieveCurrencyFromNormStructureRequestProto();
 		request.sender = MSWhiteboard.localMupWithResources;
 		request.structRetrievals.Add(new com.lvl6.proto.RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval());
-		request.structRetrievals[0].userStructId = _building.userStructProto.userStructId;
+		request.structRetrievals[0].userStructUuid = _building.userStructProto.userStructUuid;
 		request.structRetrievals[0].timeOfRetrieval = MSUtil.timeNowMillis;
 		request.structRetrievals[0].amountCollected = amount;
 		
-		Debug.Log("Collecting from: " + _building.userStructProto.userStructId);
+		Debug.Log("Collecting from: " + _building.userStructProto.userStructUuid);
 		
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, LoadCollectResponse);
 	}

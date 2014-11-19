@@ -29,7 +29,7 @@ public class PZTurnIcon : MonoBehaviour
 	{
 		PZMonster monster = enemy ? PZCombatManager.instance.activeEnemy.monster : PZCombatManager.instance.activePlayer.monster;
 		bgSprite.spriteName = MSGoonCard.smallBackgrounds[monster.monster.monsterElement];
-		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", thumb, 1, AfterSpriteSet);
+		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Card", thumb, 1, AfterSpriteSet);
 		thumb.transform.localScale = Vector3.one;
 		thumb.transform.localPosition = thumbPos;
 
@@ -43,6 +43,26 @@ public class PZTurnIcon : MonoBehaviour
 		thumb.transform.localScale = Vector3.one;
 		thumb.transform.localPosition = thumbPos;
 		thumb.MakePixelPerfect();
+
+		Resize ();
+	}
+
+	void Resize()
+	{
+		if (thumb.width > bgSprite.width || thumb.height > bgSprite.height)
+		{
+			float ratio;
+			if (thumb.width > thumb.height)
+			{
+				ratio = bgSprite.width/((float)thumb.width);
+			}
+			else
+			{
+				ratio = bgSprite.height/((float)thumb.height);
+			}
+			thumb.width = Mathf.FloorToInt(thumb.width*ratio);
+			thumb.height = Mathf.FloorToInt(thumb.height*ratio);
+		}
 	}
 
 	public void Leave()
@@ -72,7 +92,7 @@ public class PZTurnIcon : MonoBehaviour
 		}
 		thumb.transform.localScale = Vector3.one;
 		thumb.transform.localPosition = thumbPos;
-		thumb.MakePixelPerfect();
+		//thumb.MakePixelPerfect();
 	}
 
 	void Update()

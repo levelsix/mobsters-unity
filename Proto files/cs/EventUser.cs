@@ -234,11 +234,11 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-    private readonly global::System.Collections.Generic.List<int> _requestedUserIds = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"requestedUserIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> requestedUserIds
+    private readonly global::System.Collections.Generic.List<string> _requestedUserUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"requestedUserUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> requestedUserUuids
     {
-      get { return _requestedUserIds; }
+      get { return _requestedUserUuids; }
     }
   
 

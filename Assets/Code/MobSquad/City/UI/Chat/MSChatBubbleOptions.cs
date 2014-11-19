@@ -60,7 +60,7 @@ public class MSChatBubbleOptions : MonoBehaviour {
 
 	public void Profile()
 	{
-		MSPopupManager.instance.popups.profilePopup.Popup(messageSender.minUserProto.userId);
+		MSPopupManager.instance.popups.profilePopup.Popup(messageSender.minUserProto.userUuid);
 		Close();
 	}
 

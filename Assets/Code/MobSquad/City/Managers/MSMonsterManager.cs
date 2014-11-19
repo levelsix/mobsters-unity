@@ -142,17 +142,17 @@ public class MSMonsterManager : MonoBehaviour {
 		CheckCombiningMonsters();
 	}
 
-	public List<PZMonster> GetMonstersByMonsterId(long monsterId, long notMonster = 0)
+	public List<PZMonster> GetMonstersByMonsterId(long monsterId, string notMonster = "")
 	{
-		return userMonsters.FindAll(x=> x.monster.monsterId == monsterId && x.userMonster.userMonsterId != notMonster);
+		return userMonsters.FindAll(x=> x.monster.monsterId == monsterId && !x.userMonster.userMonsterUuid.Equals(notMonster));
 	}
 
-	public void RemoveMonster(long userMonsterId)
+	public void RemoveMonster(string userMonsterUuid)
 	{
-		userMonsters.RemoveAll(x=>x.userMonster.userMonsterId==userMonsterId);
+		userMonsters.RemoveAll(x=>x.userMonster.userMonsterUuid.Equals(userMonsterUuid));
 		if (MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory != null)
 		{
-			MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory(userMonsterId);
+			MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory(userMonsterUuid);
 		}
 		if (MSActionManager.Goon.OnMonsterListChanged != null)
 		{
@@ -170,15 +170,15 @@ public class MSMonsterManager : MonoBehaviour {
 	public PZMonster UpdateOrAdd(FullUserMonsterProto monster)
 	{
 		PZMonster mon;
-		if (userMonsters.Find(x=>x.userMonster.userMonsterId == monster.userMonsterId) != null)
+		if (userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(monster.userMonsterUuid)) != null)
 		{
-			Debug.Log("Updating monster: " + monster.userMonsterId);
-			mon = userMonsters.Find(x=>x.userMonster.userMonsterId==monster.userMonsterId);
+			Debug.Log("Updating monster: " + monster.userMonsterUuid);
+			mon = userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(monster.userMonsterUuid));
 			mon.UpdateUserMonster(monster);
 		}
 		else
 		{
-			Debug.Log("Adding monster: " + monster.monsterId);
+			Debug.Log("Adding monster: " + monster.userMonsterUuid);
 			mon = new PZMonster(monster);
 			userMonsters.Add(new PZMonster(monster));
 		}
@@ -215,16 +215,16 @@ public class MSMonsterManager : MonoBehaviour {
 		}
 	}
 
-	public Coroutine RestrictMonster(long userMonsterId)
+	public Coroutine RestrictMonster(string userMonsterUuid)
 	{
-		return StartCoroutine(Restrict(userMonsterId));
+		return StartCoroutine(Restrict(userMonsterUuid));
 	}
 
-	IEnumerator Restrict(long userMonsterId)
+	IEnumerator Restrict(string userMonsterUuid)
 	{
 		RestrictUserMonsterRequestProto request = new RestrictUserMonsterRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.userMonsterIds.Add(userMonsterId);
+		request.userMonsterUuids.Add(userMonsterUuid);
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RESTRICT_USER_MONSTER_EVENT);
 		
@@ -242,16 +242,16 @@ public class MSMonsterManager : MonoBehaviour {
 		}
 	}
 
-	public Coroutine UnrestrictMonster(long userMonsterId)
+	public Coroutine UnrestrictMonster(string userMonsterUuid)
 	{
-		return StartCoroutine(Unrestrict(userMonsterId));
+		return StartCoroutine(Unrestrict(userMonsterUuid));
 	}
 	
-	IEnumerator Unrestrict(long userMonsterId)
+	IEnumerator Unrestrict(string userMonsterUuid)
 	{
 		UnrestrictUserMonsterRequestProto request = new UnrestrictUserMonsterRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.userMonsterIds.Add(userMonsterId);
+		request.userMonsterUuids.Add(userMonsterUuid);
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UNRESTRICT_USER_MONSTER_EVENT);
 		
@@ -298,7 +298,7 @@ public class MSMonsterManager : MonoBehaviour {
 		{
 			MSResourceManager.instance.Collect(ResourceType.CASH, item.sellValue);
 //			sellRequest.sales.Add(item.GetSellProto());
-			RemoveMonster(item.userMonster.userMonsterId);
+			RemoveMonster(item.userMonster.userMonsterUuid);
 		}
 
 		if (MSActionManager.Quest.OnMonstersSold != null)
@@ -332,28 +332,53 @@ public class MSMonsterManager : MonoBehaviour {
 	
 	public bool AddToTeam(PZMonster monster)
 	{
-		if (_monstersCount == TEAM_SLOTS)
+		
+		if (monster.teamCost + currTeamPower <= MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
 		{
-			MSActionManager.Popup.DisplayRedError("Team is full!");
-			return false;
-		}
-		if (monster.teamCost + currTeamPower > MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
-		{
-			MSActionManager.Popup.DisplayRedError("You need a higher power limit to add " + monster.monster.displayName + " to your team. Upgrade your town center!");
-			return false;
+			//Check if there are empty spaces on the team
+			for (int i = 0; i < userTeam.Length; i++) 
+			{
+				if (userTeam[i] == null || userTeam[i].monster.monsterId <= 0)
+				{
+					userTeam[i] = monster;
+					monster.userMonster.teamSlotNum = (i+1); //Off by one
+					_monstersCount++;
+					
+					AddMonsterToBattleTeamRequestProto request = new AddMonsterToBattleTeamRequestProto();
+					request.sender = MSWhiteboard.localMup;
+					request.userMonsterUuid = monster.userMonster.userMonsterUuid;
+					request.teamSlotNum = (i+1);
+					UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT, DealWithAddResponse);
+					
+					if (MSActionManager.Goon.OnMonsterAddTeam != null)
+					{
+						MSActionManager.Goon.OnMonsterAddTeam(monster);
+					}
+					
+					if (MSActionManager.Goon.OnTeamChanged != null)
+					{
+						MSActionManager.Goon.OnTeamChanged();
+					}
+					
+					return true;
+				}
+			}
 		}
 
-		for (int i = 0; i < userTeam.Length; i++) 
+		//Check if there are dead mobsters to replace
+		for (int i = 0; i < userTeam.Length; i++)
 		{
-			if (userTeam[i] == null || userTeam[i].monster.monsterId <= 0)
+			if (userTeam[i].currHP <= 0 && (currTeamPower - userTeam[i].teamCost + monster.teamCost <= MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit))
 			{
+				MSTeamScreen.instance.mobsterGrid.cards.Find(x=>x.monster.userMonster.teamSlotNum == i+1).RemoveFromTeam();
+
 				userTeam[i] = monster;
 				monster.userMonster.teamSlotNum = (i+1); //Off by one
 				_monstersCount++;
 				
 				AddMonsterToBattleTeamRequestProto request = new AddMonsterToBattleTeamRequestProto();
 				request.sender = MSWhiteboard.localMup;
-				request.userMonsterId = monster.userMonster.userMonsterId;
+				request.userMonsterUuid = monster.userMonster.userMonsterUuid;
 				request.teamSlotNum = (i+1);
 				UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT, DealWithAddResponse);
 				
@@ -366,10 +391,17 @@ public class MSMonsterManager : MonoBehaviour {
 				{
 					MSActionManager.Goon.OnTeamChanged();
 				}
-				
 				return true;
 			}
 		}
+
+		if (monster.teamCost + currTeamPower > MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
+		{
+			MSActionManager.Popup.DisplayRedError("You need a higher power limit to add " + monster.monster.displayName + " to your team. Upgrade your town center!");
+			return false;
+		}
+		
+		MSActionManager.Popup.DisplayRedError("Team is full!");
 		return false;
 	}	
 	
@@ -391,7 +423,7 @@ public class MSMonsterManager : MonoBehaviour {
 		
 		RemoveMonsterFromBattleTeamRequestProto request = new RemoveMonsterFromBattleTeamRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.userMonsterId = monster.userMonster.userMonsterId;
+		request.userMonsterUuid = monster.userMonster.userMonsterUuid;
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REMOVE_MONSTER_FROM_BATTLE_TEAM_EVENT, DealWithRemoveResponse);
 		
 		monster.userMonster.teamSlotNum = 0;
@@ -472,7 +504,7 @@ public class MSMonsterManager : MonoBehaviour {
 		
 		monster.userMonster.isComplete = true;
 		
-		combineRequestProto.userMonsterIds.Add(monster.userMonster.userMonsterId);
+		combineRequestProto.userMonsterUuids.Add(monster.userMonster.userMonsterUuid);
 		
 		if (combiningMonsters.Contains (monster))
 		{
@@ -510,7 +542,7 @@ public class MSMonsterManager : MonoBehaviour {
 			
 			PrepareNewCombinePiecesRequest();
 			
-			combineRequestProto.userMonsterIds.Add(monster.userMonster.userMonsterId);
+			combineRequestProto.userMonsterUuids.Add(monster.userMonster.userMonsterUuid);
 			
 			combineRequestProto.gemCost = monster.combineFinishGems;
 			
@@ -547,7 +579,7 @@ public class MSMonsterManager : MonoBehaviour {
 		foreach (var item in GetMonstersByMonsterId(monster.monster.monsterId)) 
 		{
 			if (item.userMonster.currentLvl >= monster.monster.maxLevel 
-			    && item.userMonster.userMonsterId > monster.userMonster.userMonsterId)
+			    && !item.userMonster.userMonsterUuid.Equals(monster.userMonster.userMonsterUuid))
 			{
 				return item;
 			}

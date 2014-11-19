@@ -54,7 +54,7 @@ public class MSClanHelpListing : MonoBehaviour {
 		{
 			foreach(ClanHelpProto help in protos)
 			{
-				if(help.mup.userId != MSWhiteboard.localMup.userId && help.helperIds.Count < help.maxHelpers && !help.helperIds.Contains(MSWhiteboard.localMup.userId) && help.open)
+				if(!help.mup.userUuid.Equals(MSWhiteboard.localMup.userUuid) && help.helperUuids.Count < help.maxHelpers && !help.helperUuids.Contains(MSWhiteboard.localMup.userUuid) && help.open)
 				{
 					return true;
 				}
@@ -93,9 +93,9 @@ public class MSClanHelpListing : MonoBehaviour {
 		ClanHelpProto proto = null;
 		foreach(ClanHelpProto helpProto in protos)
 		{
-			numHelpers = Mathf.Min(numHelpers, helpProto.helperIds.Count);
+			numHelpers = Mathf.Min(numHelpers, helpProto.helperUuids.Count);
 
-			alreadyHelped = helpProto.helperIds.Contains(MSWhiteboard.localUser.userId) && alreadyHelped;
+			alreadyHelped = helpProto.helperUuids.Contains(MSWhiteboard.localUser.userUuid) && alreadyHelped;
 
 			proto = helpProto;
 			break;
@@ -168,7 +168,7 @@ public class MSClanHelpListing : MonoBehaviour {
 	{
 		for(int i = 0; i < protos.Count; i ++)
 		{
-			if(protos[i].clanHelpId == update.clanHelpId)
+			if(protos[i].clanHelpUuid.Equals(update.clanHelpUuid))
 			{
 				protos[i] = update;
 				UpdateFields();
@@ -197,11 +197,11 @@ public class MSClanHelpListing : MonoBehaviour {
 		return false;
 	}
 
-	public void RemoveClanHelp(List<long> ids)
+	public void RemoveClanHelp(List<string> ids)
 	{
 		for(int i = 0; i < protos.Count; i ++)
 		{
-			if(ids.Contains(protos[i].clanHelpId))
+			if(ids.Contains(protos[i].clanHelpUuid))
 			{
 				protos.Remove(protos[i]);
 				i--;
@@ -222,7 +222,7 @@ public class MSClanHelpListing : MonoBehaviour {
 	{
 		foreach(ClanHelpProto help in protos)
 		{
-			if(help.clanHelpId == proto.clanHelpId)
+			if(help.clanHelpUuid.Equals(proto.clanHelpUuid))
 			{
 				return true;
 			}
@@ -231,14 +231,14 @@ public class MSClanHelpListing : MonoBehaviour {
 		return false;
 	}
 
-	public List<long> GetIdsThatCanBeHelped()
+	public List<string> GetIdsThatCanBeHelped()
 	{
-		List<long> ids = new List<long>();
+		List<string> ids = new List<string>();
 		foreach(ClanHelpProto proto in protos)
 		{
-			if(!proto.helperIds.Contains(MSWhiteboard.localMup.userId))
+			if(!proto.helperUuids.Contains(MSWhiteboard.localMup.userUuid))
 			{
-				ids.Add(proto.clanHelpId);
+				ids.Add(proto.clanHelpUuid);
 			}
 		}
 		return ids;

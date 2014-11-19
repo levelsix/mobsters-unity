@@ -18,13 +18,13 @@ namespace com.lvl6.proto
     public SendAdminMessageResponseProto() {}
     
 
-    private int _senderId = default(int);
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"senderId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int senderId
+    private string _senderUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"senderUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string senderUuid
     {
-      get { return _senderId; }
-      set { _senderId = value; }
+      get { return _senderUuid; }
+      set { _senderUuid = value; }
     }
 
     private string _message = "";
@@ -229,13 +229,13 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _recipientId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"recipientId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int recipientId
+    private string _recipientUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"recipientUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string recipientUuid
     {
-      get { return _recipientId; }
-      set { _recipientId = value; }
+      get { return _recipientUuid; }
+      set { _recipientUuid = value; }
     }
 
     private string _content = "";
@@ -323,17 +323,17 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private int _otherUserId = default(int);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"otherUserId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int otherUserId
+    private string _otherUserUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"otherUserUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string otherUserUuid
     {
-      get { return _otherUserId; }
-      set { _otherUserId = value; }
+      get { return _otherUserUuid; }
+      set { _otherUserUuid = value; }
     }
 
     private int _beforePrivateChatId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"beforePrivateChatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"beforePrivateChatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int beforePrivateChatId
     {
@@ -368,7 +368,7 @@ namespace com.lvl6.proto
   
 
     private int _beforePrivateChatId = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"beforePrivateChatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"beforePrivateChatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int beforePrivateChatId
     {
@@ -385,13 +385,13 @@ namespace com.lvl6.proto
       set { _status = value; }
     }
 
-    private int _otherUserId = default(int);
-    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"otherUserId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int otherUserId
+    private string _otherUserUuid = "";
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"otherUserUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string otherUserUuid
     {
-      get { return _otherUserId; }
-      set { _otherUserId = value; }
+      get { return _otherUserUuid; }
+      set { _otherUserUuid = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"RetrievePrivateChatPostsStatus")]
     public enum RetrievePrivateChatPostsStatus

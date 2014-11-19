@@ -72,24 +72,24 @@ public class MSBuildingManager : MonoBehaviour
 	/// <summary>
 	/// Dictionary of the buildings currently in the scene
 	/// </summary>
-	public Dictionary<int, MSBuilding> buildings = new Dictionary<int, MSBuilding>();
+	public Dictionary<string, MSBuilding> buildings = new Dictionary<string, MSBuilding>();
 
 	public List<MSBuilding> obstacles = new List<MSBuilding>();
 
 	/// <summary>
 	/// Dictionary of the units currently in the scene
 	/// </summary>
-	private Dictionary<long, MSUnit> _NPCUnits = new Dictionary<long, MSUnit>();
+	private Dictionary<string, MSUnit> _NPCUnits = new Dictionary<string, MSUnit>();
 	
 	/// <summary>
 	/// In a nuetral city the player's units must be in a different dictionary than NPCs
 	/// </summary>
-	private Dictionary<long, MSUnit> _playerUnits = new Dictionary<long, MSUnit> ();
+	private Dictionary<string, MSUnit> _playerUnits = new Dictionary<string, MSUnit> ();
 
 	/// <summary>
 	/// getter for dictionary playerUnits.
 	/// </summary>
-	public Dictionary<long, MSUnit> playerUnits{
+	public Dictionary<string, MSUnit> playerUnits{
 		get{ return _playerUnits; }
 	}
 	
@@ -200,55 +200,56 @@ public class MSBuildingManager : MonoBehaviour
 	
 	#region Building Generation
 
-	void SyncTasks (int cityId)
-	{
-		foreach (FullTaskProto task in MSDataManager.instance.GetAll(typeof(FullTaskProto)).Values)
-		{
-			if (task.cityId == cityId)
-			{
-				if(buildings.ContainsKey(task.assetNumWithinCity))
-				{
-					buildings[task.assetNumWithinCity].taskable.Init(task);
-				}
-				else if(_NPCUnits.ContainsKey(task.assetNumWithinCity))
-				{
-					_NPCUnits[task.assetNumWithinCity].taskable.Init(task);
-				}
-			}
-		}
-	}
-	
-	public IEnumerator LoadNeutralCity(int cityId)
-	{
-		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker);
-
-		LoadCityRequestProto load = new LoadCityRequestProto();
-		load.sender = MSWhiteboard.localMup;
-		load.cityId = cityId;
-		int cityTag = UMQNetworkManager.instance.SendRequest(load, (int)EventProtocolRequest.C_LOAD_CITY_EVENT, null);
-		
-		while(!UMQNetworkManager.responseDict.ContainsKey(cityTag))
-		{
-			yield return null;
-		}
-		
-		if (MSActionManager.Scene.OnCity != null)
-		{
-			MSActionManager.Scene.OnCity();
-		}
-		
-		LoadCityResponseProto response = UMQNetworkManager.responseDict[cityTag] as LoadCityResponseProto;
-		UMQNetworkManager.responseDict.Remove(cityTag);
-		
-		Debug.Log("Loading neutral city: " + response.cityId);
-
-		BuildNeutralCity (response);
-		
-		SyncTasks (cityId);
-
-		MSActionManager.Popup.CloseAllPopups();
-
-	}
+	//No longer have neutral cities or tasks to sync
+//	void SyncTasks (int cityId)
+//	{
+//		foreach (FullTaskProto task in MSDataManager.instance.GetAll(typeof(FullTaskProto)).Values)
+//		{
+//			if (task.cityId == cityId)
+//			{
+//				if(buildings.ContainsKey(task.assetNumWithinCity))
+//				{
+//					buildings[task.assetNumWithinCity].taskable.Init(task);
+//				}
+//				else if(_NPCUnits.ContainsKey(task.assetNumWithinCity))
+//				{
+//					_NPCUnits[task.assetNumWithinCity].taskable.Init(task);
+//				}
+//			}
+//		}
+//	}
+//	
+//	public IEnumerator LoadNeutralCity(int cityId)
+//	{
+//		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.loadingScreenBlocker);
+//
+//		LoadCityRequestProto load = new LoadCityRequestProto();
+//		load.sender = MSWhiteboard.localMup;
+//		load.cityId = cityId;
+//		int cityTag = UMQNetworkManager.instance.SendRequest(load, (int)EventProtocolRequest.C_LOAD_CITY_EVENT, null);
+//		
+//		while(!UMQNetworkManager.responseDict.ContainsKey(cityTag))
+//		{
+//			yield return null;
+//		}
+//		
+//		if (MSActionManager.Scene.OnCity != null)
+//		{
+//			MSActionManager.Scene.OnCity();
+//		}
+//		
+//		LoadCityResponseProto response = UMQNetworkManager.responseDict[cityTag] as LoadCityResponseProto;
+//		UMQNetworkManager.responseDict.Remove(cityTag);
+//		
+//		Debug.Log("Loading neutral city: " + response.cityId);
+//
+//		BuildNeutralCity (response);
+//		
+//		SyncTasks (cityId);
+//
+//		MSActionManager.Popup.CloseAllPopups();
+//
+//	}
 
 	public Coroutine RunLoadPlayerCity(bool fromBeginning = true)
 	{
@@ -269,7 +270,7 @@ public class MSBuildingManager : MonoBehaviour
 
 		LoadPlayerCityRequestProto request = new LoadPlayerCityRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.cityOwnerId = MSWhiteboard.localMup.userId;
+		request.cityOwnerUuid = MSWhiteboard.localMup.userUuid;
 
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_LOAD_PLAYER_CITY_EVENT, null);
 
@@ -380,12 +381,12 @@ public class MSBuildingManager : MonoBehaviour
 	/// </summary>
 	/// <param name="monster">The monster that you want added to the scene.</param>
 	/// <param name="dict">The dictionary you want the mobster added to.</param>
-	public void AddMonsterToScene(PZMonster monster, Dictionary<long, MSUnit> dict){
+	public void AddMonsterToScene(PZMonster monster, Dictionary<string, MSUnit> dict){
 		if (monster.userMonster.isComplete)
 		{
 			MSUnit dude = MSPoolManager.instance.Get(unitPrefab, Vector3.zero, unitParent) as MSUnit;
 			dude.Init(monster.userMonster);
-			dict.Add(monster.userMonster.userMonsterId, dude);
+			dict.Add(monster.userMonster.userMonsterUuid, dude);
 		}
 	}
 
@@ -394,10 +395,10 @@ public class MSBuildingManager : MonoBehaviour
 	/// </summary>
 	/// <param name="monster">monster to be removed.</param>
 	/// <param name="dict">Dictionary that the monster needs to be removed from.</param>
-	public void RemoveMonsterFromScene(PZMonster monster, Dictionary<long, MSUnit> dict){
-		RemoveMonsterFromScene (monster.userMonster.userMonsterId, dict);
+	public void RemoveMonsterFromScene(PZMonster monster, Dictionary<string, MSUnit> dict){
+		RemoveMonsterFromScene (monster.userMonster.userMonsterUuid, dict);
 	}
-	public void RemoveMonsterFromScene(long key, Dictionary<long, MSUnit> dict){
+	public void RemoveMonsterFromScene(string key, Dictionary<string, MSUnit> dict){
 		if (dict.ContainsKey (key)) {
 			MSUnit rmMonster = dict [key];
 			dict.Remove (key);
@@ -410,58 +411,58 @@ public class MSBuildingManager : MonoBehaviour
 		MSUnit unit = MSPoolManager.instance.Get(unitPrefab, Vector3.zero, unitParent) as MSUnit;
 		unit.Init(monsterId);
 		unit.transf.localPosition = MSGridManager.instance.GridToWorld(position, false);
-		_playerUnits[index] = unit;
+		_playerUnits[index.ToString()] = unit;
 		return unit;
 	}
 
 	public void MoveTutorialUnit(int monsterId, List<MSGridNode> path)
 	{
-		_playerUnits[monsterId].cityUnit.TutorialPath(path);
+		_playerUnits[monsterId.ToString()].cityUnit.TutorialPath(path);
 	}
 	
-	void MakeNPC(CityElementProto element)
-	{
-		MSUnit unit = MSPoolManager.instance.Get(unitPrefab, Vector3.zero) as MSUnit;
-		unit.transf.parent = unitParent;
-		unit.Init(element);
-		_NPCUnits.Add(element.assetId, unit);
-		unit.taskable = unit.gameObject.AddComponent<MSTaskable>();
-	}
+//	void MakeNPC(CityElementProto element)
+//	{
+//		MSUnit unit = MSPoolManager.instance.Get(unitPrefab, Vector3.zero) as MSUnit;
+//		unit.transf.parent = unitParent;
+//		unit.Init(element);
+//		_NPCUnits.Add(element.assetId, unit);
+//		unit.taskable = unit.gameObject.AddComponent<MSTaskable>();
+//	}
 
-	void BuildNeutralCity (LoadCityResponseProto response)
-	{
-		RecycleCity();
-
-		FullCityProto city = MSDataManager.instance.Get(typeof(FullCityProto), response.cityId) as FullCityProto;
-		MSGridManager.instance.InitMission(city.mapTmxName);
-		//background.InitMission(city);
-
-		//creates objects stored in the database
-		for (int i = 0; i < response.cityElements.Count; i++) 
-		{
-			//Debug.Log("Making neutral element " + i);
-			switch (response.cityElements[i].type) {
-				case CityElementProto.CityElemType.BUILDING:
-				case CityElementProto.CityElemType.DECORATION:
-					MakeBuilding(response.cityElements[i]);
-					break;
-				case CityElementProto.CityElemType.PERSON_NEUTRAL_ENEMY:
-				case CityElementProto.CityElemType.BOSS:
-					MakeNPC(response.cityElements[i]);
-					break;
-				default:
-					break;
-			}
-		}
-
-		foreach (var item in MSMonsterManager.instance.userTeam) 
-		{
-			if (item != null && (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED))
-			{
-				AddMonsterToScene(item, _playerUnits);
-			}
-		}
-	}
+//	void BuildNeutralCity (LoadCityResponseProto response)
+//	{
+//		RecycleCity();
+//
+//		FullCityProto city = MSDataManager.instance.Get(typeof(FullCityProto), response.cityId) as FullCityProto;
+//		MSGridManager.instance.InitMission(city.mapTmxName);
+//		//background.InitMission(city);
+//
+//		//creates objects stored in the database
+//		for (int i = 0; i < response.cityElements.Count; i++) 
+//		{
+//			//Debug.Log("Making neutral element " + i);
+//			switch (response.cityElements[i].type) {
+//				case CityElementProto.CityElemType.BUILDING:
+//				case CityElementProto.CityElemType.DECORATION:
+//					MakeBuilding(response.cityElements[i]);
+//					break;
+//				case CityElementProto.CityElemType.PERSON_NEUTRAL_ENEMY:
+//				case CityElementProto.CityElemType.BOSS:
+//					//MakeNPC(response.cityElements[i]);
+//					break;
+//				default:
+//					break;
+//			}
+//		}
+//
+//		foreach (var item in MSMonsterManager.instance.userTeam) 
+//		{
+//			if (item != null && (item.monsterStatus == MonsterStatus.HEALTHY || item.monsterStatus == MonsterStatus.INJURED))
+//			{
+//				AddMonsterToScene(item, _playerUnits);
+//			}
+//		}
+//	}
 
 	void BuildPlayerCity (LoadPlayerCityResponseProto response)
 	{
@@ -496,8 +497,8 @@ public class MSBuildingManager : MonoBehaviour
 				}
 				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESIDENCE)
 				{
-					MSResidenceManager.instance.residences[building.userStructProto.userStructId] = building;
-					MSResidenceManager.instance.CheckBuilding(building.userStructProto.userStructId);
+					MSResidenceManager.instance.residences[building.userStructProto.userUuid] = building;
+					MSResidenceManager.instance.CheckBuilding(building.userStructProto.userStructUuid);
 				}
 				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.LAB)
 				{
@@ -582,7 +583,7 @@ public class MSBuildingManager : MonoBehaviour
 		//building.gameObj.layer = MSValues.Layers.DEFAULT;
     	building.Init(proto);
     	
-		if (!hover && proto.structInfo.structType != StructureInfoProto.StructType.MINI_JOB)
+		if (!hover && x >= 0 && y >= 0)
 		{
 	    	MSGridManager.instance.AddBuilding(building, x, y, proto.structInfo.width, proto.structInfo.height);
 		}
@@ -603,7 +604,7 @@ public class MSBuildingManager : MonoBehaviour
 
 		building.confirmationButtons.SetActive(false);
 
-		buildings[i] = building;
+		buildings[i.ToString()] = building;
 
 		return building;
 	}
@@ -625,7 +626,7 @@ public class MSBuildingManager : MonoBehaviour
 			MSGridManager.instance.AddBuilding(building, (int)proto.coordinates.x, (int)proto.coordinates.y, fsp.width, fsp.height);
 		}
 
-		buildings.Add(proto.userStructId, building);
+		buildings.Add(proto.userStructUuid, building);
 
 		foreach (var item in building.GetComponentsInChildren<UIWidget>()) 
 		{
@@ -668,25 +669,26 @@ public class MSBuildingManager : MonoBehaviour
 		obstacles.Add(building);
 		
 	}
-	
-	MSBuilding MakeBuilding(CityElementProto proto)
-	{
-		//Debug.Log("Neutral building " + proto.imgId + " at " + proto.coords.x + ", " + proto.coords.y);
-		
-		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coords.x, 0, 
-    		MSGridManager.instance.spaceSize * proto.coords.y);
-    	
-	    MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position, buildingParent) as MSBuilding;
-		
-		//building.trans.parent = buildingParent;
-		building.trans.localRotation = Quaternion.identity;
-		
-		building.Init(proto);
 
-		buildings.Add(proto.assetId, building);
-		
-    	return building;
-	}
+	//No longer need to make neutral buildings from CityElementProtos
+//	MSBuilding MakeBuilding(CityElementProto proto)
+//	{
+//		//Debug.Log("Neutral building " + proto.imgId + " at " + proto.coords.x + ", " + proto.coords.y);
+//		
+//		Vector3 position = new Vector3(MSGridManager.instance.spaceSize * proto.coords.x, 0, 
+//    		MSGridManager.instance.spaceSize * proto.coords.y);
+//    	
+//	    MSBuilding building = MSPoolManager.instance.Get(buildingPrefab, position, buildingParent) as MSBuilding;
+//		
+//		//building.trans.parent = buildingParent;
+//		building.trans.localRotation = Quaternion.identity;
+//		
+//		building.Init(proto);
+//
+//		buildings.Add(proto.assetId, building);
+//		
+//    	return building;
+//	}
 
 	public void MakeHoverBuilding(MSFullBuildingProto proto)
 	{
@@ -754,7 +756,7 @@ public class MSBuildingManager : MonoBehaviour
 			{
 				buildingsBuiltInTutorial.Add(building);
 
-				hoveringToBuild.id = buildings.Count;
+				//hoveringToBuild.id = buildings.Count;
 				
 				buildings.Add(building.id, building);
 
@@ -793,7 +795,7 @@ public class MSBuildingManager : MonoBehaviour
 		
 		if (response.status == PurchaseNormStructureResponseProto.PurchaseNormStructureStatus.SUCCESS)
 		{
-			hoveringToBuild.id = response.userStructId;
+			hoveringToBuild.id = response.userStructUuid;
 
 			buildings.Add(hoveringToBuild.id, hoveringToBuild);
 
@@ -1293,10 +1295,10 @@ public class MSBuildingManager : MonoBehaviour
 			if(MSWhiteboard.currSceneType == MSWhiteboard.SceneType.CITY){
 				Vector3 gridLocation = MSGridManager.instance.PointToGridCoords(MSGridManager.instance.ScreenToGround(touch.pos, true));
 				foreach (var mobster in MSMonsterManager.instance.userTeam) {
-					if(mobster != null && mobster.monster.monsterId > 0 && _playerUnits.ContainsKey(mobster.userMonster.userMonsterId)){
+					if(mobster != null && mobster.monster.monsterId > 0 && _playerUnits.ContainsKey(mobster.userMonster.userMonsterUuid)){
 						MSGridNode endpoint = new MSGridNode((int)gridLocation.x, (int)gridLocation.y);
 						if(_playerUnits.Count > 0){
-							_playerUnits[mobster.userMonster.userMonsterId].cityUnit.UserClickMoveTo(endpoint);
+							_playerUnits[mobster.userMonster.userMonsterUuid].cityUnit.UserClickMoveTo(endpoint);
 						}
 						return;
 					}
@@ -1401,7 +1403,7 @@ public class MSBuildingManager : MonoBehaviour
 			RemoveMonsterFromScene (monster, _playerUnits);
 	}
 
-	void OnMonsterRemovedFromPlayerInventory(long monsterID){
+	void OnMonsterRemovedFromPlayerInventory(string monsterID){
 		if (_playerUnits.ContainsKey (monsterID)) {
 			RemoveMonsterFromScene (monsterID , _playerUnits);
 		}

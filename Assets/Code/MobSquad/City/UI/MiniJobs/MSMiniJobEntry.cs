@@ -110,7 +110,7 @@ public class MSMiniJobEntry : MonoBehaviour {
 		}
 		else if (currMode == EntryMode.WAITING)
 		{
-			if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.MINI_JOB, (int)job.miniJob.quality, job.userMiniJobId))
+			if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.MINI_JOB, (int)job.miniJob.quality, job.userMiniJobUuid))
 			{
 				SetupHelpButton();
 			}
@@ -214,12 +214,12 @@ public class MSMiniJobEntry : MonoBehaviour {
 
 	public void OnButtonClick()
 	{
-		if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.MINI_JOB, (int)job.miniJob.quality, job.userMiniJobId))
+		if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.MINI_JOB, (int)job.miniJob.quality, job.userMiniJobUuid))
 		{
 			button.GetComponent<MSLoadLock>().Lock();
 			MSClanManager.instance.DoSolicitClanHelp(GameActionType.MINI_JOB,
 			                                         (int)job.miniJob.quality,
-			                                         job.userMiniJobId,
+			                                         job.userMiniJobUuid,
 			                                         MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
 			                                         delegate {SetupWaitingButton(); button.GetComponent<MSLoadLock>().Unlock();});
 		}

@@ -89,7 +89,7 @@ public class PZCombatManager : MonoBehaviour {
 	[HideInInspector]
 	public PZCrate crate;
 
-	List<int> playersSeen = new List<int>();
+	List<string> playersSeen = new List<string>();
 
 	const float playerXFromSideThreshold = 130;
 
@@ -193,7 +193,7 @@ public class PZCombatManager : MonoBehaviour {
 	const float BALLIN_SCORE = 2.30f;
 	const float CANT_TOUCH_THIS_SCORE = 3.00f;
 	const float HAMMERTIME_SCORE = 4.20f;
-	const float MAKE_IT_RAIN_SCORE = 6.00f;
+	const float MAKE_IT_RAIN_SCORE = .600f;
 
 	const string BALLIN_SPRITE_NAME = "ballin";
 	const string CANT_TOUCH_THIS_SPRITE_NAME = "canttouchthis";
@@ -221,6 +221,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	[SerializeField]
 	PZMonsterIntro intro;
+
+	public int totalEnemies = 0;
 
 	int revives = 0;
 
@@ -307,6 +309,8 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField] Color roidColor;
 
 	public Action hijackPlayerFlinch;
+
+	PZBomb lastBomb;
 
 	/// <summary>
 	/// Awake this instance. Set up instance reference.
@@ -463,11 +467,13 @@ public class PZCombatManager : MonoBehaviour {
 		//Kamcord.StartRecording();
 		#endif
 
-		MSWhiteboard.currUserTaskId = dungeon.userTaskId;
+		MSWhiteboard.currUserTaskUuid = dungeon.userTaskUuid;
 		MSWhiteboard.currTaskId = dungeon.taskId;
 		MSWhiteboard.currTaskStages = dungeon.tsp;
 
 		Debug.LogWarning("Number of stages: " + dungeon.tsp.Count);
+
+		totalEnemies = dungeon.tsp.Count;
 
 		PZMonster mon;
 		foreach (TaskStageProto stage in dungeon.tsp)
@@ -498,12 +504,12 @@ public class PZCombatManager : MonoBehaviour {
 		playerSkillIndicator.ShutOff();
 		enemySkillIndicator.ShutOff();
 
-		MSWhiteboard.currUserTaskId = minTask.userTaskId;
+		MSWhiteboard.currUserTaskUuid = minTask.userTaskUuid;
 		MSWhiteboard.currTaskStages = stages;
 		MSWhiteboard.currTaskId = minTask.taskId;
 
 		save = PZCombatSave.Load();
-		if (save != null && save.userTaskId != minTask.userTaskId)
+		if (save != null && !save.userTaskUuid.Equals(minTask.userTaskUuid))
 		{
 			save = null;
 			Debug.LogWarning("Save data not for right task!");
@@ -522,7 +528,8 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (save != null)
 		{
-			activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterId == save.activePlayerUserMonsterId));
+			totalEnemies = save.totalEnemies;
+			activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterUuid.Equals(save.activePlayerUserMonsterUuid)));
 			PZCombatScheduler.instance.turns = save.turns;
 			PZCombatScheduler.instance.currInd = Mathf.Max(save.currTurnIndex-1, 0);
 
@@ -656,7 +663,7 @@ public class PZCombatManager : MonoBehaviour {
 		playerGoonies.Clear();
 		foreach (var item in MSClanEventManager.instance.myTeam.currentTeam) 
 		{
-			mon = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterId == item.userMonsterId);
+			mon = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(item.userMonsterUuid));
 			if (mon != null)
 			{
 				playerGoonies.Add(mon);
@@ -747,6 +754,8 @@ public class PZCombatManager : MonoBehaviour {
 		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
 		activePlayer.unit.direction = MSValues.Direction.EAST;
 		background.StartScroll();
+
+		yield return MSResourceManager.instance.RunCollectResources();
 
 		int tagNum = 0;
 		Coroutine waitForQueue = null;
@@ -1042,7 +1051,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	void OnRaidEnemyAttacked(AttackClanRaidMonsterResponseProto response)
 	{
-		if (raidMode && response.sender.userId != MSWhiteboard.localMup.userId)
+		if (raidMode && !response.sender.userUuid.Equals(MSWhiteboard.localMup.userUuid))
 		{
 			StartCoroutine(activeEnemy.TakeDamage(response.dmgDealt));
 		}
@@ -1173,7 +1182,7 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.GoToStartPos ();
 			activeEnemy.Init (enemies.Dequeue ());
 
-			if (enemyDefSkill.type == SkillType.CAKE_DROP)
+			if (enemyDefSkill != null &&  enemyDefSkill.type == SkillType.CAKE_DROP)
 			{
 				activeEnemy.monster.speed = enemyDefSkill.properties.Find(x=>x.name=="INITIAL_SPEED").skillValue;
 			}
@@ -1240,11 +1249,12 @@ public class PZCombatManager : MonoBehaviour {
 			}
 
 			//Save();
+			int currEnemyNumber = totalEnemies - enemies.Count;
 
-			mobsterCounter.text = "ENEMY " + (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
+			mobsterCounter.text = "ENEMY " + currEnemyNumber + "/" + totalEnemies;
 			mobsterCounter.MakePixelPerfect();
 
-			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
+			intro.Init (activeEnemy.monster, currEnemyNumber, totalEnemies);
 			intro.PlayAnimation ();
 		} 
 		else if (!activeEnemy.alive) 
@@ -1438,7 +1448,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			EndPvpBattleRequestProto request = new EndPvpBattleRequestProto();
 			request.sender = MSWhiteboard.localMupWithResources;
-			request.defenderId = defender.defender.minUserProto.userId;
+			request.defenderUuid = defender.defender.minUserProto.userUuid;
 
 			request.userAttacked = true;
 			request.userWon = userWon;
@@ -1481,7 +1491,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			EndDungeonRequestProto request = new EndDungeonRequestProto();
 			request.sender = MSWhiteboard.localMupWithResources;
-			request.userTaskId = MSWhiteboard.currUserTaskId;
+			request.userTaskUuid = MSWhiteboard.currUserTaskUuid;
 			request.userWon = userWon;
 			request.clientTime = MSUtil.timeNowMillis;
 
@@ -1640,6 +1650,7 @@ public class PZCombatManager : MonoBehaviour {
 			{
 				bomb.camera = camera;
 			}
+			lastBomb = bomb;
 		}
 	}
 
@@ -2222,6 +2233,12 @@ public class PZCombatManager : MonoBehaviour {
 			activePlayer.unit.animat = MSUnit.AnimationType.IDLE;
 		}
 
+		//If we're doing the bombdrop animation, we want to wait until the last bomb's hit to start ticking
+		if (lastBomb != null)
+		{
+			while (lastBomb.gameObject.activeSelf) yield return null;
+		}
+
 		yield return StartCoroutine(activeEnemy.TakeDamage(MSAnimationEvents.curDamage, MSAnimationEvents.curElement));
 
 		if (quickAttack)
@@ -2485,7 +2502,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			foreach (var item in MSWhiteboard.loadedPvps.defenderInfoList) 
 			{
-				playersSeen.Add(item.defender.minUserProto.userId);
+				playersSeen.Add(item.defender.minUserProto.userUuid);
 			}
 		}
 
@@ -2497,7 +2514,7 @@ public class PZCombatManager : MonoBehaviour {
 		//We seenUserIds is read-only, so we can't just do seenUserIds = playersSeen. Laaame.
 		foreach (var item in playersSeen) 
 		{
-			request.seenUserIds.Add(item);
+			request.seenUserUuids.Add(item);
 		}
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_QUEUE_UP_EVENT, null);
@@ -2548,7 +2565,7 @@ public class PZCombatManager : MonoBehaviour {
 		{
 			ReviveInDungeonRequestProto request = new ReviveInDungeonRequestProto();
 			request.sender = MSWhiteboard.localMup;
-			request.userTaskId = MSWhiteboard.currUserTaskId;
+			request.userTaskUuid = MSWhiteboard.currUserTaskUuid;
 			request.clientTime = MSUtil.timeNowMillis;
 
 			foreach (var item in playerGoonies) 
@@ -2632,7 +2649,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		UpdateMonsterHealthRequestProto request = new UpdateMonsterHealthRequestProto();
 		request.isUpdateTaskStageForUser = true;
-		request.userTaskId = MSWhiteboard.currUserTaskId;
+		request.userTaskUuid = MSWhiteboard.currUserTaskUuid;
 		request.nuTaskStageId = taskStageId;
 
 		request.sender = MSWhiteboard.localMup;

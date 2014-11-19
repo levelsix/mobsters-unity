@@ -111,6 +111,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7075cef3a8164581a9d577cf96c253a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player:
+    userHospitalID: 0
+    hospitalTimes: []
+    speed: 0
+    teamCost: 0
+    maxHP: 0
+    currHP: 0
+    tempHP: 0
+    minDamage: 0
+    maxDamage: 0
+    attackDamages: []
+    totalDamage: 0
+    level: 0
+  enemy:
+    userHospitalID: 0
+    hospitalTimes: []
+    speed: 0
+    teamCost: 0
+    maxHP: 0
+    currHP: 0
+    tempHP: 0
+    minDamage: 0
+    maxDamage: 0
+    attackDamages: []
+    totalDamage: 0
+    level: 0
   turns: 
   currInd: 0
 --- !u!1001 &100100000

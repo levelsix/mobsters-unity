@@ -43,18 +43,18 @@ public class MSProfilePopup : MonoBehaviour {
 			minu.minUserProto.avatarMonsterId = fullUser.avatarMonsterId;
 			minu.minUserProto.clan = fullUser.clan;
 			minu.minUserProto.name = fullUser.name;
-			minu.minUserProto.userId = fullUser.userId;
+			minu.minUserProto.userUuid = fullUser.userUuid;
 			return minu;
 		}
 	}
 
-	public void Popup(int userId)
+	public void Popup(string userId)
 	{
 		MSActionManager.Popup.OnPopup(GetComponent<MSPopup>());
 		Init (userId);
 	}
 
-	public void Init(int userId)
+	public void Init(string userId)
 	{
 		statsElements.SetActive(false);
 		teamElements.SetActive(false);
@@ -68,7 +68,7 @@ public class MSProfilePopup : MonoBehaviour {
 		RetrieveUsersForUserIdsRequestProto request = new RetrieveUsersForUserIdsRequestProto();
 		request.sender = MSWhiteboard.localMup;
 		request.includeCurMonsterTeam = true;
-		request.requestedUserIds.Add(userId);
+		request.requestedUserUuids.Add(userId);
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RETRIEVE_USERS_FOR_USER_IDS_EVENT, OnRetrieveResponse);
 	}
 

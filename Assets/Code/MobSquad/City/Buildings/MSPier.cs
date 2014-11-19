@@ -42,7 +42,7 @@ public class MSPier : MSBuildingFrame {
 
 	void InitPeir()
 	{
-		if(MSMiniJobManager.instance.currActiveJob != null && MSMiniJobManager.instance.currActiveJob.userMiniJobId > 0)
+		if(MSMiniJobManager.instance.currActiveJob != null && !MSMiniJobManager.instance.currActiveJob.userMiniJobUuid.Equals(""))
 		{
 			InitProgressBar(MSMiniJobManager.instance.currActiveJob);
 		}

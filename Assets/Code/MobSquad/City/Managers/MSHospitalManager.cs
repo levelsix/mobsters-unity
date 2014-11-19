@@ -63,7 +63,7 @@ public class MSHospitalManager : MonoBehaviour {
 				{
 					foreach(PZMonster monster in healingMonsters)
 					{
-						if(monster.currActiveHelp.clanHelpId == help.clanHelpId)
+						if(monster.currActiveHelp.clanHelpUuid.Equals(help.clanHelpUuid))
 						{
 							monster.currActiveHelp = help;
 							break;
@@ -81,7 +81,7 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			foreach(PZMonster monster in healingMonsters)
 			{
-				if(response.clanHelpIds.Contains(monster.currActiveHelp.clanHelpId))
+				if(response.clanHelpUuids.Contains(monster.currActiveHelp.clanHelpUuid))
 				{
 					monster.currActiveHelp = null;
 				}
@@ -94,7 +94,7 @@ public class MSHospitalManager : MonoBehaviour {
 		PZMonster mon;
 		foreach (var item in healing) 
 		{
-			mon = MSMonsterManager.instance.userMonsters.Find(x => x.userMonster.userMonsterId == item.userMonsterId);
+			mon = MSMonsterManager.instance.userMonsters.Find(x => x.userMonster.userMonsterUuid.Equals(item.userMonsterUuid));
 			mon.healingMonster = item;
 			MSHospitalManager.instance.healingMonsters.Add(mon);
 		}
@@ -104,7 +104,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 	public void AssignHospital(MSBuilding building)
 	{
-		MSHospital hospital = hospitals.Find(x=>x.userBuildingData.userStructId == building.userStructProto.userStructId);
+		MSHospital hospital = hospitals.Find(x=>x.userBuildingData.userStructUuid.Equals(building.userStructProto.userStructUuid));
 
 		if (hospital == null)
 		{
@@ -120,7 +120,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 	public void RemoveHospital(MSBuilding building)
 	{
-		hospitals.RemoveAll(x=>x.userBuildingData.userStructId==building.userStructProto.userStructId);
+		hospitals.RemoveAll(x=>x.userBuildingData.userStructUuid.Equals(building.userStructProto.userStructUuid));
 		queueSize -= building.combinedProto.hospital.queueSize;
 	}
 
@@ -171,6 +171,8 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			yield break;
 		}
+
+		yield return MSResourceManager.instance.RunCollectResources();
 		
 		healRequestProto.sender = MSWhiteboard.localMupWithResources;
 		
@@ -223,7 +225,7 @@ public class MSHospitalManager : MonoBehaviour {
 					MSHospitalManager.instance.healingMonsters[i].hospitalTimes[MSHospitalManager.instance.healingMonsters[i].hospitalTimes.Count-1].hospital.goon = null;
 
 					health = new UserMonsterCurrentHealthProto();
-					health.userMonsterId = MSHospitalManager.instance.healingMonsters[i].healingMonster.userMonsterId;
+					health.userMonsterUuid = MSHospitalManager.instance.healingMonsters[i].healingMonster.userMonsterUuid;
 					health.currentHealth = MSHospitalManager.instance.healingMonsters[i].maxHP;
 					healRequestProto.umchp.Add(health);
 					if (MSActionManager.Goon.OnMonsterRemoveQueue != null)
@@ -273,7 +275,7 @@ public class MSHospitalManager : MonoBehaviour {
 			foreach (var item in healingMonsters) 
 			{
 				health = new UserMonsterCurrentHealthProto();
-				health.userMonsterId = item.userMonster.userMonsterId;
+				health.userMonsterUuid = item.userMonster.userMonsterUuid;
 				health.currentHealth = item.maxHP;
 				healRequestProto.umchp.Add(health);
 			}
@@ -379,8 +381,8 @@ public class MSHospitalManager : MonoBehaviour {
 		monster.healingMonster = new UserMonsterHealingProto();
 		if (!MSTutorialManager.instance.inTutorial)
 		{
-			monster.healingMonster.userId = MSWhiteboard.localMup.userId;
-			monster.healingMonster.userMonsterId = monster.userMonster.userMonsterId;
+			monster.healingMonster.userUuid = MSWhiteboard.localMup.userUuid;
+			monster.healingMonster.userMonsterUuid = monster.userMonster.userMonsterUuid;
 		}
 		monster.healingMonster.healthProgress = 0;
 		monster.healingMonster.queuedTimeMillis = MSUtil.timeNowMillis;
@@ -540,7 +542,7 @@ public class MSHospitalManager : MonoBehaviour {
 		#endregion
 		
 		MSHospital lastHospital = GetSoonestHospital(hospitals);
-		monster.userHospitalID = lastHospital.userBuildingData.userStructId;
+		monster.userHospitalID = lastHospital.userBuildingData.userStructUuid;
 
 		/*
 		if (lastHospital.completeTime <= MSUtil.timeNowMillis)
@@ -597,7 +599,7 @@ public class MSHospitalManager : MonoBehaviour {
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
 		millis -= (int)monster.helpTime;
 
-		Debug.Log("Calculating finish time for " + monster.userMonsterId + "\nAt hospital " + hospital.userBuildingData.userStructId
+		Debug.Log("Calculating finish time for " + monster.userMonsterId + "\nAt hospital " + hospital.userBuildingData.userStructUuid
 		          + "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
 		
 		return startTime + millis;
@@ -609,7 +611,7 @@ public class MSHospitalManager : MonoBehaviour {
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
 		millis -= (int)monster.helpTime;
 
-		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructId
+		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructUuid
 			+ "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
 
 		return startTime + millis;
@@ -694,7 +696,7 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			//if (hos.completeTime < MSUtil.timeNowMillis) hos.completeTime = MSUtil.timeNowMillis;
 			if (hos == lastHospital) continue;
-			str += "\nChecking " + hos.userBuildingData.userStructId + ": " + hos.completeTime + ", " + hos.proto.healthPerSecond;
+			str += "\nChecking " + hos.userBuildingData.userStructUuid + ": " + hos.completeTime + ", " + hos.proto.healthPerSecond;
 			if (hos.proto.healthPerSecond > lastHospital.proto.healthPerSecond
 			    && hos.completeTime < lastHospital.completeTime)
 			{
@@ -796,7 +798,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 public class HospitalItem
 {
-	public long userMonsterId;
+	public string userMonsterId;
 	public float healthProgress;
 	public long queueTime;
 	public int healthToHeal;
@@ -806,7 +808,7 @@ public class HospitalItem
 
 	public HospitalItem(PZMonster monster)
 	{
-		if (monster.healingMonster != null && monster.healingMonster.userMonsterId > 0)
+		if (monster.healingMonster != null && !monster.healingMonster.userMonsterUuid.Equals(""))
 		{
 			healthProgress = monster.healingMonster.healthProgress;
 			queueTime = monster.healingMonster.queuedTimeMillis;
@@ -817,7 +819,7 @@ public class HospitalItem
 			queueTime = MSUtil.timeNowMillis;
 		}
 
-		userMonsterId = monster.userMonster.userMonsterId;
+		userMonsterId = monster.userMonster.userMonsterUuid;
 		healthToHeal = monster.maxHP - monster.currHP;
 		helpTime = monster.helpTime;
 	}

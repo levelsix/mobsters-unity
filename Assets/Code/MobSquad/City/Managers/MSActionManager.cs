@@ -132,7 +132,7 @@ public static class MSActionManager
 		public static Action OnEnhanceQueueChanged;
 		public static Action OnStartEnhance;
 		public static Action<PZMonster> OnMonsterFinishHeal;
-		public static Action<long> OnMonsterRemovedFromPlayerInventory;
+		public static Action<string> OnMonsterRemovedFromPlayerInventory;
 		public static Action<PZMonster> OnEvolutionComplete;
 		public static Action<PZMonster> OnFinishFeeding;
 		public static Action OnFinishSelling;
@@ -201,7 +201,7 @@ public static class MSActionManager
 
 	public static class Clan
 	{
-		public static Action<int, UserClanStatus, int> OnPlayerClanChange;
+		public static Action<string, UserClanStatus, int> OnPlayerClanChange;
 
 		/// <summary>
 		/// The on create clan event.
