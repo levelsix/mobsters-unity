@@ -31,6 +31,12 @@ public class MSBuildingProgressBar : MonoBehaviour {
 	/// </summary>
 	bool avatarSet = false;
 
+	/// <summary>
+	/// This is just to check to see if this bar started as free or not
+	/// I don't suggest using this variable for anything
+	/// </summary>
+	bool testedToBeFree = true;
+
 	long _newTime = 0;
 
 	long newTime{
@@ -219,6 +225,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		}
 		else
 		{
+			testedToBeFree = false;
 			freeLabel.alpha = 0f;
 			label.alpha = 1f;
 			if(fadeRoutine != null)
@@ -240,7 +247,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		if(fadeRoutine == null)
 		{
 			fadeRoutine = TextFadeAnimation();
-			if(FirstRun != null)
+			if(FirstRun != null && !testedToBeFree)
 			{
 				FirstRun();
 			}

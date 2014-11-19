@@ -9805,7 +9805,7 @@ MonoBehaviour:
   pixelSnap: 0
   onClick:
   - mTarget: {fileID: 11400172}
-    mMethodName: Finish
+    mMethodName: OnClick
     mParameters: []
     oneShot: 0
 --- !u!114 &11400010
@@ -12856,7 +12856,7 @@ MonoBehaviour:
   timeLeftLabel: {fileID: 11400170}
   finishNowLabel: {fileID: 11400202}
   arrow: {fileID: 11400302}
-  loadLock: {fileID: 11400514}
+  button: {fileID: 11400008}
   currHeals: []
   slotsOpenLabelColor: {r: .568627477, g: .729411781, b: .0509803928, a: 1}
   slotsFullLabelColor: {r: .890196085, g: .203921571, b: .203921571, a: 1}
@@ -15029,6 +15029,7 @@ MonoBehaviour:
   startTextColor: {r: .643137276, g: .290196091, b: .0352941193, a: 1}
   finishTextColor: {r: 1, g: 1, b: 1, a: 1}
   collectTextColor: {r: .223529413, g: .541176498, b: 0, a: 1}
+  HelpTextColor: {r: 0, g: 0, b: 0, a: 0}
   spinTime: 1.5
   spinFinalAngle: 180
   spinParent: {fileID: 400618}
