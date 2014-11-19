@@ -135,12 +135,12 @@ public class UMQNetworkManager : MonoBehaviour {
 		factory.UserName = "lvl6client";
 		factory.Password = "devclient";
 		factory.VirtualHost = "devmobsters";
-		factory.Port = 5671;
+		factory.Port = 5672;
 
-		factory.Ssl.ServerName = "lvl6ca";
-		factory.Ssl.CertPath = "cacert.cer";
+//		factory.Ssl.ServerName = "lvl6ca";
+//		factory.Ssl.CertPath = "cacert.cer";
 //		factory.Ssl.AcceptablePolicyErrors = System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch | System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable;
-		factory.Ssl.Enabled = true;
+//		factory.Ssl.Enabled = true;
 #endif
 
 		try{
