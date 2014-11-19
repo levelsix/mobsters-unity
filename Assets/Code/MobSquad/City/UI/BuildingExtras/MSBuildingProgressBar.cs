@@ -210,7 +210,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		//hospital logic
 		if(building.hospital != null && MSMath.GemsForTime(MSUtil.timeUntil(building.hospital.completeTime), true) == 0 && !upgrading)
 		{
-			SetBarFree();
+			SetBarFree(delegate { MSActionManager.Popup.DisplayPurpleError("Healing is now free!"); });
 		}
 
 		else if(MSMath.GemsForTime( building.upgrade.timeRemaining, true) == 0 && building.obstacle == null && building.upgrade.timeRemaining >= 0)
@@ -229,7 +229,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		}
 	}
 
-	void SetBarFree()
+	void SetBarFree(Action FirstRun = null)
 	{
 		foreach (var item in caps) 
 		{
@@ -240,6 +240,10 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		if(fadeRoutine == null)
 		{
 			fadeRoutine = TextFadeAnimation();
+			if(FirstRun != null)
+			{
+				FirstRun();
+			}
 			StartCoroutine(fadeRoutine);
 		}
 	}
