@@ -222,6 +222,8 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	PZMonsterIntro intro;
 
+	public int totalEnemies = 0;
+
 	int revives = 0;
 
 	public float forfeitChance;
@@ -468,6 +470,8 @@ public class PZCombatManager : MonoBehaviour {
 		MSWhiteboard.currTaskStages = dungeon.tsp;
 
 		Debug.LogWarning("Number of stages: " + dungeon.tsp.Count);
+
+		totalEnemies = dungeon.tsp.Count;
 
 		PZMonster mon;
 		foreach (TaskStageProto stage in dungeon.tsp)
@@ -1173,7 +1177,7 @@ public class PZCombatManager : MonoBehaviour {
 			activeEnemy.GoToStartPos ();
 			activeEnemy.Init (enemies.Dequeue ());
 
-			if (enemyDefSkill.type == SkillType.CAKE_DROP)
+			if (enemyDefSkill != null &&  enemyDefSkill.type == SkillType.CAKE_DROP)
 			{
 				activeEnemy.monster.speed = enemyDefSkill.properties.Find(x=>x.name=="INITIAL_SPEED").skillValue;
 			}
@@ -1240,11 +1244,12 @@ public class PZCombatManager : MonoBehaviour {
 			}
 
 			//Save();
+			int currEnemyNumber = totalEnemies - enemies.Count;
 
-			mobsterCounter.text = "ENEMY " + (defeatedEnemies.Count + 1) + "/" + (enemies.Count + 1 + defeatedEnemies.Count);
+			mobsterCounter.text = "ENEMY " + currEnemyNumber + "/" + totalEnemies;
 			mobsterCounter.MakePixelPerfect();
 
-			intro.Init (activeEnemy.monster, defeatedEnemies.Count + 1, enemies.Count + 1 + defeatedEnemies.Count);
+			intro.Init (activeEnemy.monster, currEnemyNumber, totalEnemies);
 			intro.PlayAnimation ();
 		} 
 		else if (!activeEnemy.alive) 

@@ -582,7 +582,7 @@ public class MSBuildingManager : MonoBehaviour
 		//building.gameObj.layer = MSValues.Layers.DEFAULT;
     	building.Init(proto);
     	
-		if (!hover && proto.structInfo.structType != StructureInfoProto.StructType.MINI_JOB)
+		if (!hover && x >= 0 && y >= 0)
 		{
 	    	MSGridManager.instance.AddBuilding(building, x, y, proto.structInfo.width, proto.structInfo.height);
 		}

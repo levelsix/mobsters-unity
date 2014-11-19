@@ -332,21 +332,46 @@ public class MSMonsterManager : MonoBehaviour {
 	
 	public bool AddToTeam(PZMonster monster)
 	{
-		if (_monstersCount == TEAM_SLOTS)
+		
+		if (monster.teamCost + currTeamPower <= MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
 		{
-			MSActionManager.Popup.DisplayRedError("Team is full!");
-			return false;
-		}
-		if (monster.teamCost + currTeamPower > MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
-		{
-			MSActionManager.Popup.DisplayRedError("You need a higher power limit to add " + monster.monster.displayName + " to your team. Upgrade your town center!");
-			return false;
+			//Check if there are empty spaces on the team
+			for (int i = 0; i < userTeam.Length; i++) 
+			{
+				if (userTeam[i] == null || userTeam[i].monster.monsterId <= 0)
+				{
+					userTeam[i] = monster;
+					monster.userMonster.teamSlotNum = (i+1); //Off by one
+					_monstersCount++;
+					
+					AddMonsterToBattleTeamRequestProto request = new AddMonsterToBattleTeamRequestProto();
+					request.sender = MSWhiteboard.localMup;
+					request.userMonsterId = monster.userMonster.userMonsterId;
+					request.teamSlotNum = (i+1);
+					UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_ADD_MONSTER_TO_BATTLE_TEAM_EVENT, DealWithAddResponse);
+					
+					if (MSActionManager.Goon.OnMonsterAddTeam != null)
+					{
+						MSActionManager.Goon.OnMonsterAddTeam(monster);
+					}
+					
+					if (MSActionManager.Goon.OnTeamChanged != null)
+					{
+						MSActionManager.Goon.OnTeamChanged();
+					}
+					
+					return true;
+				}
+			}
 		}
 
-		for (int i = 0; i < userTeam.Length; i++) 
+		//Check if there are dead mobsters to replace
+		for (int i = 0; i < userTeam.Length; i++)
 		{
-			if (userTeam[i] == null || userTeam[i].monster.monsterId <= 0)
+			if (userTeam[i].currHP <= 0 && (currTeamPower - userTeam[i].teamCost + monster.teamCost <= MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit))
 			{
+				MSTeamScreen.instance.mobsterGrid.cards.Find(x=>x.monster.userMonster.teamSlotNum == i+1).RemoveFromTeam();
+
 				userTeam[i] = monster;
 				monster.userMonster.teamSlotNum = (i+1); //Off by one
 				_monstersCount++;
@@ -366,10 +391,17 @@ public class MSMonsterManager : MonoBehaviour {
 				{
 					MSActionManager.Goon.OnTeamChanged();
 				}
-				
 				return true;
 			}
 		}
+
+		if (monster.teamCost + currTeamPower > MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
+		{
+			MSActionManager.Popup.DisplayRedError("You need a higher power limit to add " + monster.monster.displayName + " to your team. Upgrade your town center!");
+			return false;
+		}
+		
+		MSActionManager.Popup.DisplayRedError("Team is full!");
 		return false;
 	}	
 	

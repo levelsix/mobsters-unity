@@ -272,9 +272,10 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		yield return null;
 		transform.localScale = Vector3.one;
-		foreach (var item in GetComponentsInChildren<UIWidget>()) {
+		foreach (var item in GetComponentsInChildren<UIWidget>()) 
+		{
 			item.ParentHasChanged();
-				}
+		}
 	}
 
 	public void InitHeal(PZMonster goon)
@@ -309,7 +310,7 @@ public class MSGoonCard : MonoBehaviour {
 
 		SetName();
 
-		TintElements(goon.monsterStatus != MonsterStatus.HEALTHY && goon.monsterStatus != MonsterStatus.INJURED);
+		TintElements((goon.monsterStatus != MonsterStatus.HEALTHY && goon.monsterStatus != MonsterStatus.INJURED) || goon.currHP <= 0);
 
 		if (goon.userMonster.teamSlotNum > 0)
 		{
@@ -653,7 +654,7 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void AddToTeam()
 	{
-		if (monster.userMonster.teamSlotNum == 0)
+		if (monster.currHP > 0 && monster.userMonster.teamSlotNum == 0)
 		{
 			if (MSMonsterManager.instance.AddToTeam(monster))
 			{
@@ -669,7 +670,7 @@ public class MSGoonCard : MonoBehaviour {
 		}
 	}
 
-	void RemoveFromTeam()
+	public void RemoveFromTeam()
 	{
 		transform.parent = MSTeamScreen.instance.mobsterGrid.transform;
 		MSTeamScreen.instance.mobsterGrid.Reposition();

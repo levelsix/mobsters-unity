@@ -38,6 +38,8 @@ public class PZCombatSave
 
 	public long userTaskId;
 
+	public int totalEnemies;
+
 	public PZCombatSave(){}
 
 	public PZCombatSave(PZMonster activePlayer, int activeEnemyHealth,
@@ -103,6 +105,8 @@ public class PZCombatSave
 		enemySpeed = enemy.monster.speed;
 
 		this.userTaskId = MSWhiteboard.currUserTaskId;
+
+		totalEnemies = PZCombatManager.instance.totalEnemies;
 
 		MSUtil.Save(key, this);
 	}

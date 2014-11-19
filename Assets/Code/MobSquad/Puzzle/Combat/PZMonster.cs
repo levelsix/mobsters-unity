@@ -99,15 +99,15 @@ public class PZMonster {
 				//TODO: add code for evolve and enhance
 				return 0;
 			}
-			Debug.Log(amountRemovedPerHelp + " * 1000 < " + percentRemovedPerHelp + " * " + timeLeft);
+			//Debug.Log(amountRemovedPerHelp + " * 1000 < " + percentRemovedPerHelp + " * " + timeLeft);
 			if(amountRemovedPerHelp * 1000 < percentRemovedPerHelp * timeLeft)
 			{
-				Debug.Log(percentRemovedPerHelp + " * " + timeLeft + " * " + helpCount);
+				//Debug.Log(percentRemovedPerHelp + " * " + timeLeft + " * " + helpCount);
 				return (long)(percentRemovedPerHelp * timeLeft * helpCount);
 			}
 			else
 			{
-				Debug.Log(amountRemovedPerHelp + " * 1000 * " + helpCount);
+				//Debug.Log(amountRemovedPerHelp + " * 1000 * " + helpCount);
 				return (long)(amountRemovedPerHelp * 1000 * helpCount);
 			}
 		}
@@ -170,8 +170,8 @@ public class PZMonster {
 				return 0;
 			}
 			long help = helpTime;
-			Debug.Log("helptime : " + help);
-			Debug.Log(finishHealTimeMillis + " - " + MSUtil.timeNowMillis + " - " + help + " = " + (finishHealTimeMillis - MSUtil.timeNowMillis - help));
+			//Debug.Log("helptime : " + help);
+			//Debug.Log(finishHealTimeMillis + " - " + MSUtil.timeNowMillis + " - " + help + " = " + (finishHealTimeMillis - MSUtil.timeNowMillis - help));
 			return finishHealTimeMillis - MSUtil.timeNowMillis - help;
 		}
 	}
