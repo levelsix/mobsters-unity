@@ -27,6 +27,8 @@ public class MSSoundManager : MonoBehaviour {
 
 	public AudioClip gemPop;
 	public AudioClip rocket;
+	public AudioClip gemExplode;
+	public AudioClip[] rainbowParticleFire;
 	public AudioClip comboFire;
 
 	public AudioClip pistol;
@@ -135,6 +137,11 @@ public class MSSoundManager : MonoBehaviour {
 		}
 
 		return playMusic;
+	}
+
+	public void PlayOneShot(AudioClip[] clips)
+	{
+		PlayOneShot(clips[UnityEngine.Random.Range(0, clips.Length)]);
 	}
 
 	public void PlayOneShot(AudioClip clip)

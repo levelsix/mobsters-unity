@@ -672,6 +672,7 @@ public class PZPuzzleManager : MonoBehaviour {
 						match = GetGrenadeMatch(gem);
 						RemoveRepeats(match, matchList);
 						matchList.Add(match);
+						MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.gemExplode);
 						break;
 					case PZGem.GemType.MOLOTOV:
 						match = GetMolotovGroup(gem, gem.colorIndex);
@@ -850,7 +851,8 @@ public class PZPuzzleManager : MonoBehaviour {
 			destination.gemType = PZGem.GemType.NORMAL;
 			grenadeMatch.Destroy();
 			IncrementCombo(new List<PZMatch>{ grenadeMatch });
-			
+
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.gemExplode);
 		}
 	}
 	

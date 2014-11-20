@@ -44,6 +44,7 @@ public class PZMolotovPart : MonoBehaviour {
 	void OnEnable(){
 		particleTail.Play ();
 		desSpec.onTrigger += explode;
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.rainbowParticleFire);
 	}
 
 	void OnDisable(){
