@@ -529,12 +529,13 @@ public class PZCombatManager : MonoBehaviour {
 		if (save != null)
 		{
 			totalEnemies = save.totalEnemies;
+			defeatedEnemies = save.defeatedEnemies;//the save only contains enemies that dropped something
+			prizeQuantityLabel.text = defeatedEnemies.Count.ToString();
 			activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterUuid.Equals(save.activePlayerUserMonsterUuid)));
 			PZCombatScheduler.instance.turns = save.turns;
 			PZCombatScheduler.instance.currInd = Mathf.Max(save.currTurnIndex-1, 0);
 
 			forfeitChance = save.forfeitChance;
-			Debug.LogWarning("Forfeit chance: " + forfeitChance);
 			
 			currTurn = save.currTurn;
 			if(MSActionManager.Puzzle.OnTurnChange != null)
@@ -2637,10 +2638,25 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void Save()
 	{
+
+		List<PZMonster> defeatedMonstersToSave = new List<PZMonster>();
+
+		foreach (var item in defeatedEnemies) 
+		{
+			//if an enemy would have dropped an item and a capsule, it just drops an item instead
+			if (item.taskMonster.itemId > 0){
+				defeatedMonstersToSave.Add(item);
+			}
+			else if (item.taskMonster.puzzlePieceDropped)
+			{
+				defeatedMonstersToSave.Add(item);
+			}
+		}
+
 		new PZCombatSave(activePlayer.monster, activeEnemy.monster.currHP, PZPuzzleManager.instance.board,
-		                 battleStats, forfeitChance, currTurn, currPlayerDamage, 
+		                 battleStats, forfeitChance, currTurn, currPlayerDamage,
 		                 PZPuzzleManager.instance.boardWidth, PZPuzzleManager.instance.boardHeight,
-		                 playerSkillPoints, enemySkillPoints, activePlayer, activeEnemy);
+		                 playerSkillPoints, enemySkillPoints, activePlayer, activeEnemy, defeatedMonstersToSave);
 	}
 
 	void UpdateUserTaskStage(int taskStageId)

@@ -256,6 +256,11 @@ public class MSMiniJobManager : MonoBehaviour {
 				{
 					MSActionManager.MiniJob.OnMiniJobRestock();
 				}
+
+				if(MSActionManager.Popup.DisplayOrangeError != null)
+				{
+					MSActionManager.Popup.DisplayOrangeError("Mini jobs have been restocked!");
+				}
 			}
 		}
 		else
