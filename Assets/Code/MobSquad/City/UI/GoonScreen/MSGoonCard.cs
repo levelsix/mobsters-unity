@@ -216,7 +216,7 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		get
 		{
-			return monster.teamCost + MSMonsterManager.instance.currTeamPower <= MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit;
+			return monster.teamCost + MSMonsterManager.instance.currTeamPower <= MSBuildingManager.currTeamCenter.teamCostLimit;
 		}
 	}
 

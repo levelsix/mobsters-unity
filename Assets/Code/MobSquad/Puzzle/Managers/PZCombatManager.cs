@@ -213,7 +213,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		get
 		{
-			return MSBuildingManager.townHall.combinedProto.townHall.pvpQueueCashCost;
+			return MSBuildingManager.currTownHall.pvpQueueCashCost;
 		}
 	}
 

@@ -64,9 +64,9 @@ public class PZMonster {
 				
 			if(currActiveHelp != null && MSBuildingManager.clanHouse != null)
 			{
-				if(currActiveHelp.helperUuids.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+				if(currActiveHelp.helperUuids.Count > MSBuildingManager.currClanHouse.maxHelpersPerSolicitation)
 				{
-					return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
+					return MSBuildingManager.currClanHouse.maxHelpersPerSolicitation;
 				}
 				else
 				{

@@ -40,14 +40,14 @@ public class MSQuestManager : MonoBehaviour {
 	
 	public void OnEnable()
 	{
-		MSActionManager.Quest.OnStructureUpgraded += OnStructureUpgraded;
+		//MSActionManager.Quest.OnStructureUpgraded += OnStructureUpgraded;
 		MSActionManager.Quest.OnTaskCompleted += OnTaskCompleted;
 		MSActionManager.Scene.OnCity += CompleteNextQuest;
 	}
 	
 	public void OnDisable()
 	{
-		MSActionManager.Quest.OnStructureUpgraded -= OnStructureUpgraded;
+		//MSActionManager.Quest.OnStructureUpgraded -= OnStructureUpgraded;
 		MSActionManager.Quest.OnTaskCompleted -= OnTaskCompleted;
 		MSActionManager.Scene.OnCity -= CompleteNextQuest;
 	}

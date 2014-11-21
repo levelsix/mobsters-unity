@@ -715,7 +715,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
     {
 		if (userStructProto != null)
 		{
-	        if (_currPos.pos != groundPos && MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
+	        if (Vector2.SqrMagnitude(_currPos.pos - groundPos) >= 1 && MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 	        {
 	            MSGridManager.instance.AddBuilding(this, _currPos.x, _currPos.z, combinedProto.structInfo.width, combinedProto.structInfo.height);
 				_originalPos = trans.position;
@@ -794,6 +794,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				request.structCoordinates.x = _currPos.x;
 				request.structCoordinates.y = _currPos.z;
 				
+				groundPos = _currPos.coords;
+				
 				request.structId = combinedProto.structInfo.structId;
 				request.timeOfPurchase = MSUtil.timeNowMillis;
 				
@@ -828,6 +830,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				request.structCoordinates = new CoordinateProto();
 				request.structCoordinates.x = _currPos.x;
 				request.structCoordinates.y = _currPos.z;
+
+				groundPos = _currPos.coords;
 				
 				request.structId = combinedProto.structInfo.structId;
 				request.timeOfPurchase = MSUtil.timeNowMillis;

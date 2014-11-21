@@ -79,9 +79,9 @@ public class MSBuildingUpgrade : MonoBehaviour {
 				
 				if(currActiveHelp != null)
 				{
-					if(currActiveHelp.helperUuids.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+					if(currActiveHelp.helperUuids.Count > MSBuildingManager.currClanHouse.maxHelpersPerSolicitation)
 					{
-						return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
+						return MSBuildingManager.currClanHouse.maxHelpersPerSolicitation;
 					}
 					else
 					{
@@ -416,7 +416,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 
 		building.userStructProto.isComplete = true;
 
-		MSActionManager.Quest.OnStructureUpgraded(building.userStructProto.structId);
+		MSActionManager.Quest.OnStructureUpgraded(building);
 
 		MSBuildingManager.instance.AddToFunctionalityLists(building);
 
@@ -436,14 +436,6 @@ public class MSBuildingUpgrade : MonoBehaviour {
 			building.GetComponent<MSBuildingFrame>().CheckTag();
 		}
 
-		CheckSpecialCaseFinish();
-	}
 
-	void CheckSpecialCaseFinish()
-	{
-		if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.MINI_JOB)
-		{
-			MSMiniJobManager.instance.Init(building.combinedProto.miniJobCenter);
-		}
 	}
 }

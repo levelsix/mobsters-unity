@@ -280,6 +280,11 @@ public class MSAchievementManager : MonoBehaviour {
 		}
 	}
 
+	void OnStructureUpgraded(MSBuilding building)
+	{
+		OnStructureUpgraded(building.combinedProto.structInfo.structId);
+	}
+
 	void OnStructureUpgraded(int structId)
 	{
 		foreach (var item in currAchievements) 

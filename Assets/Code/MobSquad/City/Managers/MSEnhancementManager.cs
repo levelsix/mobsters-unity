@@ -35,6 +35,14 @@ public class MSEnhancementManager : MonoBehaviour
 	{
 		get
 		{
+			if (MSBuildingManager.enhanceLabs.Count == 0)
+			{
+				return null;
+			}
+			if (!MSBuildingManager.enhanceLabs[0].upgrade.isComplete)
+			{
+				return MSBuildingManager.enhanceLabs[0].combinedProto.predecessor.lab;
+			}
 			return MSBuildingManager.enhanceLabs[0].combinedProto.lab;
 		}
 	}

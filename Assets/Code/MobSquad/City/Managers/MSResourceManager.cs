@@ -102,9 +102,9 @@ public class MSResourceManager : MonoBehaviour {
 
 	public void DetermineResourceMaxima()
 	{
-		if (MSBuildingManager.townHall != null)
+		if (MSBuildingManager.currTownHall != null)
 		{
-			maxes[0] = maxes[1] = MSBuildingManager.townHall.combinedProto.townHall.resourceCapacity;
+			maxes[0] = maxes[1] = MSBuildingManager.currTownHall.resourceCapacity;
 		}
 		else
 		{

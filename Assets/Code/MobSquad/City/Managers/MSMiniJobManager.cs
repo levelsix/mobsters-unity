@@ -20,7 +20,23 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	public bool isCompleting = false;
 
-	public MiniJobCenterProto currJobCenter;
+	public MSBuilding jobCenter;
+
+	public MiniJobCenterProto currJobCenter
+	{
+		get
+		{
+			if (jobCenter == null)
+			{
+				return null;
+			}
+			if (!jobCenter.userStructProto.isComplete)
+			{
+				return jobCenter.combinedProto.predecessor.miniJobCenter;
+			}
+			return jobCenter.combinedProto.miniJobCenter;
+		}
+	}
 
 	public List<UserMiniJobProto> userMiniJobs = new List<UserMiniJobProto>();
 
@@ -41,9 +57,9 @@ public class MSMiniJobManager : MonoBehaviour {
 
 				if(currActiveHelp != null)
 				{
-					if(currActiveHelp.helperUuids.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+					if(currActiveHelp.helperUuids.Count > MSBuildingManager.currClanHouse.maxHelpersPerSolicitation)
 					{
-						return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
+						return MSBuildingManager.currClanHouse.maxHelpersPerSolicitation;
 					}
 					else
 					{
@@ -72,6 +88,11 @@ public class MSMiniJobManager : MonoBehaviour {
 	{
 		get
 		{
+			if (currJobCenter == null)
+			{
+				return int.MaxValue;
+			}
+
 			return MSWhiteboard.localUser.lastMiniJobSpawnedTime 
 					+ (currJobCenter.hoursBetweenJobGeneration * 60 * 60 * 1000)
 					- MSUtil.timeNowMillis;
@@ -176,19 +197,9 @@ public class MSMiniJobManager : MonoBehaviour {
 		}
 	}
 
-	public void Init(MiniJobCenterProto pier)
+	void Update()
 	{
-		currJobCenter = pier;
-
-		if (pier != null)
-		{
-			StartCoroutine(CheckJobStuff());
-		}
-	}
-
-	IEnumerator CheckJobStuff()
-	{
-		while (true)
+		if (currJobCenter != null)
 		{
 			if (NeedsToSpawn())
 			{
@@ -198,8 +209,6 @@ public class MSMiniJobManager : MonoBehaviour {
 			{
 				CompleteCurrentJobWithWait();
 			}
-
-			yield return new WaitForSeconds(1);
 		}
 	}
 
@@ -209,7 +218,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	bool NeedsToSpawn()
 	{
-		return currJobCenter.structInfo.level > 0 && timeUntilRefresh <= 0;
+		return currJobCenter != null && currJobCenter.structInfo.level > 0 && timeUntilRefresh <= 0;
 	}
 
 	void SendSpawnRequest()

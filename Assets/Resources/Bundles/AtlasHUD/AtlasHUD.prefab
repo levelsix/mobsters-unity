@@ -42,7 +42,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: cae3212b7983c4b30a2b4d4fd8969e53, type: 2}
   mSprites:
   - name: activechatline
-    x: 17
+    x: 0
     y: 5
     width: 16
     height: 4
@@ -121,7 +121,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: buildingbonusslots
     x: 846
-    y: 91
+    y: 38
     width: 52
     height: 52
     borderLeft: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: buildingfinishnow
     x: 846
-    y: 327
+    y: 555
     width: 156
     height: 113
     borderLeft: 0
@@ -237,8 +237,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildinginfo
-    x: 899
-    y: 38
+    x: 846
+    y: 91
     width: 52
     height: 52
     borderLeft: 0
@@ -264,7 +264,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: buildingminijobs
     x: 899
-    y: 91
+    y: 38
     width: 52
     height: 52
     borderLeft: 0
@@ -276,8 +276,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingoptionbutton
-    x: 846
-    y: 783
+    x: 366
+    y: 48
     width: 156
     height: 113
     borderLeft: 0
@@ -289,8 +289,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: buildingoptionbuttonpressed
-    x: 366
-    y: 48
+    x: 846
+    y: 783
     width: 156
     height: 113
     borderLeft: 0
@@ -341,8 +341,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingupgrade
-    x: 846
-    y: 38
+    x: 899
+    y: 91
     width: 52
     height: 52
     borderLeft: 0
@@ -355,7 +355,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: cashcap
     x: 353
-    y: 27
+    y: 64
     width: 10
     height: 36
     borderLeft: 0
@@ -367,7 +367,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cashmiddle
-    x: 587
+    x: 584
     y: 398
     width: 2
     height: 36
@@ -380,7 +380,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: chatactivedot
-    x: 224
+    x: 214
     y: 4
     width: 9
     height: 9
@@ -393,7 +393,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: chatinactivedot
-    x: 214
+    x: 224
     y: 4
     width: 9
     height: 9
@@ -537,7 +537,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: HUDUsername
     x: 590
-    y: 513
+    y: 257
     width: 255
     height: 255
     borderLeft: 0
@@ -550,7 +550,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: HUD-Whitney-Black
     x: 590
-    y: 769
+    y: 513
     width: 255
     height: 255
     borderLeft: 0
@@ -575,8 +575,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: inaclanbutton
-    x: 1003
-    y: 813
+    x: 265
+    y: 17
     width: 87
     height: 83
     borderLeft: 0
@@ -588,7 +588,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: inactivechatline
-    x: 0
+    x: 17
     y: 5
     width: 16
     height: 4
@@ -653,8 +653,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: mailbutton
-    x: 265
-    y: 17
+    x: 1003
+    y: 813
     width: 87
     height: 83
     borderLeft: 0
@@ -771,7 +771,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: oilcap
     x: 353
-    y: 64
+    y: 27
     width: 10
     height: 36
     borderLeft: 0
@@ -796,7 +796,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: oilmiddle
-    x: 584
+    x: 587
     y: 398
     width: 2
     height: 36
@@ -888,7 +888,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: HUD-Whitney-Semibold
     x: 590
-    y: 257
+    y: 769
     width: 255
     height: 255
     borderLeft: 0
@@ -927,7 +927,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: buildinggethelp
     x: 846
-    y: 555
+    y: 327
     width: 156
     height: 113
     borderLeft: 0

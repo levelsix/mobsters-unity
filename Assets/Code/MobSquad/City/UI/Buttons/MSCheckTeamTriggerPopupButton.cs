@@ -12,7 +12,7 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 		//Max powers
 		//He's the man with the name you want to touch
 		//But you mustn't touch
-		int maxPowers = MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit;
+		int maxPowers = MSBuildingManager.currTeamCenter.teamCostLimit;
 
 		if(MSMonsterManager.instance.userMonsters.Count >= MSMonsterManager.instance.totalResidenceSlots )
 		{
@@ -20,7 +20,7 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 			return;
 		}
 
-		if (MSMonsterManager.instance.currTeamPower > MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
+		if (MSMonsterManager.instance.currTeamPower > MSBuildingManager.currTeamCenter.teamCostLimit)
 		{
 			//TooMuchPowerFail();
 			//return;

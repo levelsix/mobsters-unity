@@ -122,11 +122,13 @@ public class MSMonsterManager : MonoBehaviour {
 	void OnEnable()
 	{
 		MSActionManager.Popup.CloseAllPopups += SendRequests;
+		MSActionManager.Quest.OnStructureUpgraded += OnBuildingUpgraded;
 	}
 	
 	void OnDisable()
 	{
 		MSActionManager.Popup.CloseAllPopups -= SendRequests;
+		MSActionManager.Quest.OnStructureUpgraded -= OnBuildingUpgraded;
 	}
 
 	/// <summary>
@@ -333,7 +335,7 @@ public class MSMonsterManager : MonoBehaviour {
 	public bool AddToTeam(PZMonster monster)
 	{
 		
-		if (monster.teamCost + currTeamPower <= MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
+		if (monster.teamCost + currTeamPower <= MSBuildingManager.currTeamCenter.teamCostLimit)
 		{
 			//Check if there are empty spaces on the team
 			for (int i = 0; i < userTeam.Length; i++) 
@@ -368,7 +370,7 @@ public class MSMonsterManager : MonoBehaviour {
 		//Check if there are dead mobsters to replace
 		for (int i = 0; i < userTeam.Length; i++)
 		{
-			if (userTeam[i].currHP <= 0 && (currTeamPower - userTeam[i].teamCost + monster.teamCost <= MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit))
+			if (userTeam[i].currHP <= 0 && (currTeamPower - userTeam[i].teamCost + monster.teamCost <= MSBuildingManager.currTeamCenter.teamCostLimit))
 			{
 				MSTeamScreen.instance.mobsterGrid.cards.Find(x=>x.monster.userMonster.teamSlotNum == i+1).RemoveFromTeam();
 
@@ -395,7 +397,7 @@ public class MSMonsterManager : MonoBehaviour {
 			}
 		}
 
-		if (monster.teamCost + currTeamPower > MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit)
+		if (monster.teamCost + currTeamPower > MSBuildingManager.currTeamCenter.teamCostLimit)
 		{
 			MSActionManager.Popup.DisplayRedError("You need a higher power limit to add " + monster.monster.displayName + " to your team. Upgrade your town center!");
 			return false;
@@ -612,6 +614,13 @@ public class MSMonsterManager : MonoBehaviour {
 		}
 	}
 
+	void OnBuildingUpgraded(MSBuilding building)
+	{
+		if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESIDENCE)
+		{
+			totalResidenceSlots = MSBuildingManager.instance.GetMonsterSlotCount();
+		}
+	}
 
 	void OnPopupClosed()
 	{
