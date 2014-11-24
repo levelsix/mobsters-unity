@@ -134,7 +134,7 @@ public class MSMiniJobManager : MonoBehaviour {
 	{
 		get
 		{
-			if (currActiveJob == null)
+			if (currActiveJob == null || currActiveJob.userMiniJobUuid.Equals(""))
 			{
 				return 0;
 			}

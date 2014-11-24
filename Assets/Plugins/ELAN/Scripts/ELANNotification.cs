@@ -92,7 +92,7 @@ public class ELANNotification : MonoBehaviour {
 		"useVibration : " + useVibration + "\n" +
 		"useSound : " + useSound + "\n";
 		
-		Debug.Log(toString);
+		//Debug.Log(toString);
 		
 		return toString;
 		

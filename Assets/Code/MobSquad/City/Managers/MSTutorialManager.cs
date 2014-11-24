@@ -286,6 +286,7 @@ public class MSTutorialManager : MonoBehaviour
 		}
 
 		//Make tutorial units
+		Debug.LogWarning("Tutorial mobster id: " + MSWhiteboard.tutorialConstants.startingMonsterId);
 		userMobster = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.startingMonsterId);
 		guide = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.guideMonsterId);
 		zark = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.markZMonsterId);

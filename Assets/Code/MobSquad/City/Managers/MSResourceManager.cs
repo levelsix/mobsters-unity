@@ -461,4 +461,17 @@ public class MSResourceManager : MonoBehaviour {
 		}
 	}
 
+	public long TimeUntilResourceCollectorsFull(ResourceType resource)
+	{
+		long last = 0;
+		foreach (var collector in MSBuildingManager.collectors) 
+		{
+			if (collector.collector.resource == resource)
+			{
+				last = System.Math.Max(last, collector.collector.timeUntilFull);
+			}
+		}
+		return last;
+	}
+
 }

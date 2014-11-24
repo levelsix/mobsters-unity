@@ -703,8 +703,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	/// </summary>
 	public void Drop()
 	{
-		_tempPos = trans.position;	
-		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingMove);
+		_tempPos = trans.position;
 	}
 
     /// <summary>
@@ -721,6 +720,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				_originalPos = trans.position;
 				
 				SendBuildingMovedRequest();
+				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingDrop);
 	        }
 	        else
 	        {
@@ -730,7 +730,6 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		}
 		MSActionManager.Town.PlaceBuilding -= Place;
 		Deselect();
-		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingDrop);
     }
 
 	IEnumerator WaitUntilPurchased()
