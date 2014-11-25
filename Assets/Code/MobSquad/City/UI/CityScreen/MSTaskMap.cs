@@ -112,7 +112,8 @@ public class MSTaskMap : MonoBehaviour {
 		}
 		
 		float mapLength = maps.Height;
-		
+
+		//fit the hitbox to be the size of the whole map
 		BoxCollider box = GetComponent<BoxCollider> ();
 		box.size = new Vector3 (map.width, mapLength, 0f);
 		box.center = new Vector3(0f,  (mapLength / 2f), 0f);
@@ -153,6 +154,12 @@ public class MSTaskMap : MonoBehaviour {
 			trans.position = newLocation;
 			scrollView.Scroll(1f);
 		}
+		else
+		{
+			Debug.LogWarning("The player has reached the last task");
+		}
+
+		SelectNextTask();
 	}
 
 	public void SelectNextTask()
@@ -163,9 +170,10 @@ public class MSTaskMap : MonoBehaviour {
 		}
 	}
 
-	public void OnClick()
-	{
-		switcher.activateEventPopup();
-	}
+	//commented out as we move events off the map
+//	public void OnClick()
+//	{
+//		switcher.activateEventPopup();
+//	}
 
 }

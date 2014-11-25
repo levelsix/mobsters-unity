@@ -182,7 +182,8 @@ public class MSHealScreen : MSFunctionalScreen
 	{
 		foreach(MSGoonCard card in currHeals)
 		{
-			if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterUuid))
+			if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterUuid)
+			   && MSClanManager.instance.isInClan)
 			{
 				canCallForHelp = true;
 				return;
@@ -202,7 +203,8 @@ public class MSHealScreen : MSFunctionalScreen
 
 			foreach(MSGoonCard card in currHeals)
 			{
-				if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterUuid))
+				if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.HEAL, card.monster.userMonster.monsterId, card.monster.userMonster.userMonsterUuid)
+				   && MSClanManager.instance.isInClan)
 				{
 					ClanHelpNoticeProto notice = new ClanHelpNoticeProto();
 					notice.helpType = GameActionType.HEAL;

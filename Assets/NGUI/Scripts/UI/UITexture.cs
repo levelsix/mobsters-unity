@@ -32,6 +32,8 @@ public class UITexture : UIWidget
 
 	int mPMA = -1;
 
+	public Texture nextTexture;
+
 	/// <summary>
 	/// Texture used by the UITexture. You can set it directly, without the need to specify a material.
 	/// </summary>
@@ -48,6 +50,7 @@ public class UITexture : UIWidget
 			{
 				RemoveFromPanel();
 				mTexture = value;
+				nextTexture = null;
 				MarkAsChanged();
 			}
 		}
@@ -188,6 +191,21 @@ public class UITexture : UIWidget
 				mDrawRegion.z == 1f ? x1 : Mathf.Lerp(x0, x1, mDrawRegion.z),
 				mDrawRegion.w == 1f ? y1 : Mathf.Lerp(y0, y1, mDrawRegion.w));
 		}
+	}
+
+	/// <summary>
+	/// Update the sprite in case it was animated.
+	/// </summary>
+	
+	protected override void OnUpdate ()
+	{
+		if (nextTexture != null)
+		{
+			if (nextTexture != mTexture)
+				mainTexture = nextTexture;
+			nextTexture = null;
+		}
+		base.OnUpdate();
 	}
 
 	/// <summary>

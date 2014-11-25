@@ -227,7 +227,8 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 				//ifShouldshow helpbutton
 				if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.ENHANCE_TIME,
 				                                                (int)MSEnhancementManager.instance.enhancementMonster.monster.monsterId,
-				                                                MSEnhancementManager.instance.currEnhancement.baseMonster.userMonsterUuid))
+				                                                MSEnhancementManager.instance.currEnhancement.baseMonster.userMonsterUuid) &&
+				   MSClanManager.instance.isInClan)
 				{
 					buttonLabel.text = "Get Help!";
 					buttonLabel.color = HelpTextColor;
@@ -284,7 +285,8 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 			{
 				if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.ENHANCE_TIME,
 				                                                (int)MSEnhancementManager.instance.enhancementMonster.monster.monsterId,
-				                                                MSEnhancementManager.instance.currEnhancement.baseMonster.userMonsterUuid))
+				                                                MSEnhancementManager.instance.currEnhancement.baseMonster.userMonsterUuid) &&
+				   MSClanManager.instance.isInClan)
 				{
 					loadLock.Lock();
 					MSClanManager.instance.DoSolicitClanHelp(GameActionType.ENHANCE_TIME,
