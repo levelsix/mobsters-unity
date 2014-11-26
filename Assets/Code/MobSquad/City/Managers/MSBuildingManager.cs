@@ -1478,6 +1478,29 @@ public class MSBuildingManager : MonoBehaviour
 		_selected = null;	
 	}
 
+	public bool HasPrereqBuilding(PrereqProto prereq)
+	{
+		if (prereq.prereqGameType != GameType.STRUCTURE)
+		{
+			Debug.LogError("Not a building prereq!");
+			return false;
+		}
+
+		MSFullBuildingProto buildingRequired = MSDataManager.instance.Get<MSFullBuildingProto>(prereq.prereqGameEntityId);
+
+		int count = 0;
+		foreach (var item in buildings.Values) 
+		{
+			if (item.combinedProto.structInfo.structType == buildingRequired.structInfo.structType
+			    && item.combinedProto.structInfo.buildResourceType == buildingRequired.structInfo.buildResourceType
+			    && item.combinedProto.structInfo.level >= buildingRequired.structInfo.level)
+			{
+				count++;
+			}
+		}
+		return count >= prereq.quantity;
+	}
+
 	#endregion
 	
     #endregion

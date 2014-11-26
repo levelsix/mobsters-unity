@@ -298,5 +298,9 @@ public class MSDataManager : MonoBehaviour {
 		{
 			Load (item, item.skillId);
 		}
+		foreach (var item in data.prereqs) 
+		{
+			Load (item, item.prereqId);
+		}
 	}
 }

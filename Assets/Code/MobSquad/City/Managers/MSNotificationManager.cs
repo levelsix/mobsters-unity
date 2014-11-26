@@ -9,7 +9,7 @@ public class MSNotificationManager : MonoBehaviour
 {
 	const string TITLE = "Toon Squad";
 
-	const long DAY_MILLIS = 1000;// * 60 * 60 * 24;
+	const long DAY_MILLIS = 1000 * 60 * 60 * 24;
 
 #if ANDROID_DEVICE
 	void PushHealFinished()
@@ -112,12 +112,13 @@ public class MSNotificationManager : MonoBehaviour
 	void PushNotification(string message, long delayMillis)
 	{
 		ELANNotification notification = new ELANNotification();
+		notification.Start();
 		notification.message = message;
 		notification.title = TITLE;
 		notification.delayTypeTime = EnumTimeType.Seconds;
 		notification.delay = (int)(delayMillis / 1000 + 1);
-		notification.useSound = true;
-		notification.useVibration = true;
+		notification.useSound = false;
+		notification.useVibration = false;
 		notification.send();
 	}
 

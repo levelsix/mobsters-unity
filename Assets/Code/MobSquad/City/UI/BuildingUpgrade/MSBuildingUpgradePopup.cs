@@ -86,6 +86,28 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	[SerializeField]
 	MSLoadLock loadLock;
 
+	#region Upgrade Requirements
+
+	[SerializeField] UISprite bottom;
+	const string GREY_BOTTOM = "upgradepopupbottom";
+	const string RED_BOTTOM = "redpopupbottom";
+
+	[SerializeField]
+	MSBuildingPrereqEntry[] prereqs;
+
+	[SerializeField] UILabel bottomTopText;
+	[SerializeField] UILabel bottomBotText;
+	[SerializeField] Color topOkayColor;
+	const string TOP_OKAY_TEXT = "Ready to Upgrade!";
+	const string BOT_OKAY_TEXT = "You have all the requirements to upgrade.";
+	const string TOP_BAD_TEXT = "Whoops!";
+
+	[SerializeField] UISprite readySymbol;
+	const string CHECK_SYMBOL = "readyforupgradebigcheck";
+	const string WARNING_SYMBOL = "woopsalertsign";
+
+	#endregion
+
 	List<MSHireEntry> hireEntries = new List<MSHireEntry>();
 
 	const string cashButtonName = "greenmenuoption";
@@ -238,7 +260,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		}
 
 
-		if (nextBuilding != null) //This should really be a precondition. Does the button even show up otherwise?
+		if (nextBuilding != null)
 		{
 				
 			header.text = "Upgrade to level " + nextBuilding.structInfo.level + "?";
@@ -263,11 +285,9 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 			buildingName.text = nextBuilding.structInfo.name;
 
-
 			SetBuildingBarInfo (building, oldBuilding, nextBuilding);
 
-			upgradeButton.onClick = delegate{TryToBuy(false);};
-			upgradeButton.button.enabled = true;
+			SetPrerequsites(nextBuilding);
 		}
 	}
 
@@ -491,6 +511,60 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		}
 
 	}
+
+	void SetPrerequsites(MSFullBuildingProto building)
+	{
+		int missing = 0;
+
+		bool preq;
+		int i;
+		for (i = 0; i < building.prereqs.Count; i++) 
+		{
+			preq = MSBuildingManager.instance.HasPrereqBuilding(building.prereqs[i]);
+			prereqs[i].Init(
+				building.prereqs[i].prereqGameEntityId,
+				building.prereqs[i].quantity,
+				preq
+				);
+			if (!preq) missing++;
+		}
+		for (; i < prereqs.Length; i++)
+		{
+			prereqs[i].SetEmpty();
+		}
+
+		if (missing == 0)
+		{
+			bottom.spriteName = GREY_BOTTOM;
+
+			bottomTopText.text = TOP_OKAY_TEXT;
+			bottomTopText.color = topOkayColor;
+
+			bottomBotText.text = BOT_OKAY_TEXT;
+			bottomBotText.color = Color.black;
+
+			readySymbol.spriteName = CHECK_SYMBOL;
+
+			upgradeButton.onClick = delegate{TryToBuy(false);};
+			upgradeButton.button.enabled = true;
+		}
+		else
+		{
+			bottom.spriteName = RED_BOTTOM;
+
+			bottomTopText.text = TOP_BAD_TEXT;
+			bottomTopText.color = Color.white;
+
+			bottomBotText.text = "You are missing " + missing + " requirement " 
+				+ ((missing>1)?"s":"") + " to upgrade";
+			bottomBotText.color = Color.white;
+
+			readySymbol.spriteName = WARNING_SYMBOL;
+
+			upgradeButton.onClick = null;
+			upgradeButton.button.enabled = false;
+		}
+	}
 	
 	IEnumerator UpdateRemainingTime()
 	{
@@ -504,4 +578,13 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		Init(currBuilding);
 	}
 	
+}
+
+[System.Serializable]
+public class BuildingUpgradeColors
+{
+	public Color disabledCostColor;
+	public Color moneyCostColor;
+	public Color oilCostColor;
+	public Color readyColor;
 }

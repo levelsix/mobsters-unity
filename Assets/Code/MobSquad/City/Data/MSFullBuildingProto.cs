@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using com.lvl6.proto;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class MSFullBuildingProto {
@@ -17,6 +18,8 @@ public class MSFullBuildingProto {
 	public EvoChamberProto evoChamber;
 	public TeamCenterProto teamCenter;
 	public ClanHouseProto clanHouse;
+
+	public List<PrereqProto> prereqs = new List<PrereqProto>();
 
 	public MSFullBuildingProto predecessor
 	{
@@ -66,6 +69,19 @@ public class MSFullBuildingProto {
 			return predecessor.baseLevel;
 		}
 	}
+
+	void SetPrereqs()
+	{
+		foreach (PrereqProto item in MSDataManager.instance.GetAll<PrereqProto>()) 
+		{
+			if (item.gameType == GameType.STRUCTURE && item.gameEntityId == id)
+			{
+				prereqs.Add (item);
+			}
+		}
+	}
+
+	#region Constructors
 
 	public MSFullBuildingProto(ResourceGeneratorProto generator)
 	{
@@ -127,5 +143,7 @@ public class MSFullBuildingProto {
 		structInfo = clanHouse.structInfo;
 		id = structInfo.structId;
 	}
+
+	#endregion
 
 }
