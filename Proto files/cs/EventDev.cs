@@ -9,6 +9,7 @@
 
 // Generated from: EventDev.proto
 // Note: requires additional types generated from: Dev.proto
+// Note: requires additional types generated from: Item.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
@@ -28,9 +29,9 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private com.lvl6.proto.DevRequest _devRequest = com.lvl6.proto.DevRequest.GET_ITEM;
+    private com.lvl6.proto.DevRequest _devRequest = com.lvl6.proto.DevRequest.RESET_ACCOUNT;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"devRequest", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DevRequest.GET_ITEM)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DevRequest.RESET_ACCOUNT)]
     public com.lvl6.proto.DevRequest devRequest
     {
       get { return _devRequest; }
@@ -82,14 +83,21 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-
-    private com.lvl6.proto.FullUserMonsterProto _fump = null;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"fump", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.FullUserMonsterProto fump
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _fump = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"fump", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> fump
     {
       get { return _fump; }
-      set { _fump = value; }
+    }
+  
+
+    private com.lvl6.proto.UserItemProto _uip = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"uip", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.UserItemProto uip
+    {
+      get { return _uip; }
+      set { _uip = value; }
     }
     [global::ProtoBuf.ProtoContract(Name=@"DevStatus")]
     public enum DevStatus

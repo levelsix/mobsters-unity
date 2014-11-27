@@ -455,6 +455,13 @@ namespace com.lvl6.proto
       get { return _itemsInUse; }
     }
   
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserItemSecretGiftProto> _gifts = new global::System.Collections.Generic.List<com.lvl6.proto.UserItemSecretGiftProto>();
+    [global::ProtoBuf.ProtoMember(45, Name=@"gifts", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserItemSecretGiftProto> gifts
+    {
+      get { return _gifts; }
+    }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AttackedNotificationProto")]
   public partial class AttackedNotificationProto : global::ProtoBuf.IExtensible
   {
@@ -903,6 +910,13 @@ namespace com.lvl6.proto
       get { return _maxClanSize; }
       set { _maxClanSize = value; }
     }
+    private readonly global::System.Collections.Generic.List<int> _achievementIdsForClanRewards = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(6, Name=@"achievementIdsForClanRewards", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> achievementIdsForClanRewards
+    {
+      get { return _achievementIdsForClanRewards; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

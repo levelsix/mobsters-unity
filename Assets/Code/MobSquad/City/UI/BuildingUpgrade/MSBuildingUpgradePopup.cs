@@ -88,9 +88,11 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 	#region Upgrade Requirements
 
+	[SerializeField] Color disabledCostColor;
+
 	[SerializeField] UISprite bottom;
 	const string GREY_BOTTOM = "upgradepopupbottom";
-	const string RED_BOTTOM = "redpopupbottom";
+	const string RED_BOTTOM = "upgradepopupbottomred";
 
 	[SerializeField]
 	MSBuildingPrereqEntry[] prereqs;
@@ -546,7 +548,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			readySymbol.spriteName = CHECK_SYMBOL;
 
 			upgradeButton.onClick = delegate{TryToBuy(false);};
-			upgradeButton.button.enabled = true;
+			upgradeButton.button.isEnabled = true;
 		}
 		else
 		{
@@ -561,8 +563,9 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 			readySymbol.spriteName = WARNING_SYMBOL;
 
+			upgradeButton.label.color = disabledCostColor;
 			upgradeButton.onClick = null;
-			upgradeButton.button.enabled = false;
+			upgradeButton.button.isEnabled = false;
 		}
 	}
 	
@@ -578,13 +581,4 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		Init(currBuilding);
 	}
 	
-}
-
-[System.Serializable]
-public class BuildingUpgradeColors
-{
-	public Color disabledCostColor;
-	public Color moneyCostColor;
-	public Color oilCostColor;
-	public Color readyColor;
 }

@@ -164,6 +164,10 @@ public class MSDataManager : MonoBehaviour {
 	
 	public void LoadStaticData(StaticDataProto data)
 	{
+		foreach (var item in data.prereqs) 
+		{
+			Load (item, item.prereqId);
+		}
 		foreach (var item in data.persistentEvents) 
 		{
 			Load (item, item.eventId);
@@ -297,10 +301,6 @@ public class MSDataManager : MonoBehaviour {
 		foreach (var item in data.skills) 
 		{
 			Load (item, item.skillId);
-		}
-		foreach (var item in data.prereqs) 
-		{
-			Load (item, item.prereqId);
 		}
 	}
 }

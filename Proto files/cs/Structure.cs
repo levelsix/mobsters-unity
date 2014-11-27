@@ -1041,9 +1041,9 @@ namespace com.lvl6.proto
       set { _structInfo = value; }
     }
 
-    private com.lvl6.proto.Quality _qualityUnlocked = com.lvl6.proto.Quality.NO_QUALITY;
+    private com.lvl6.proto.Quality _qualityUnlocked = com.lvl6.proto.Quality.COMMON;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"qualityUnlocked", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Quality.NO_QUALITY)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Quality.COMMON)]
     public com.lvl6.proto.Quality qualityUnlocked
     {
       get { return _qualityUnlocked; }

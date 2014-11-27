@@ -10,7 +10,7 @@ using System.Collections;
 }
 
 
-public class ELANNotification : MonoBehaviour {
+public class ELANNotification {
 	
 	//Notification identifier
 	public int ID = 0;

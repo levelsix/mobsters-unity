@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using com.lvl6.proto;
 
 public class MSBuildingPrereqEntry : MonoBehaviour {
 
@@ -11,6 +12,8 @@ public class MSBuildingPrereqEntry : MonoBehaviour {
 
 	[SerializeField] Color greenLabelColor;
 	[SerializeField] Color redLabelColor;
+
+	[SerializeField] MSTabButton buildButton;
 
 	MSFullBuildingProto prereq;
 
@@ -49,6 +52,32 @@ public class MSBuildingPrereqEntry : MonoBehaviour {
 
 	public void Go()
 	{
-		//TODO
+		MSActionManager.Popup.CloseAllPopups();
+
+		//Find building that's the best match
+		MSBuilding bestMatch = null;
+		StructureInfoProto stip;
+		foreach (var item in MSBuildingManager.instance.buildings.Values) 
+		{
+			stip = item.combinedProto.structInfo;
+			if (stip.structType == prereq.structInfo.structType
+			    && stip.buildResourceType == prereq.structInfo.buildResourceType
+			    && stip.level < prereq.structInfo.level
+			    && (bestMatch == null || stip.level > bestMatch.combinedProto.structInfo.level))
+			{
+				bestMatch = item;
+			}
+		}
+
+		if (bestMatch)
+		{
+			MSTownCamera.instance.DoCenterOnGroundPos(bestMatch.trans.position);
+			MSBuildingManager.instance.SetSelectedBuilding(bestMatch);
+		}
+		else
+		{
+			buildButton.OnClick();
+		}
+
 	}
 }

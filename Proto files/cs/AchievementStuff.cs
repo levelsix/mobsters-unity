@@ -196,7 +196,16 @@ namespace com.lvl6.proto
       UPGRADE_BUILDING = 15,
             
       [global::ProtoBuf.ProtoEnum(Name=@"WIN_PVP_BATTLE", Value=16)]
-      WIN_PVP_BATTLE = 16
+      WIN_PVP_BATTLE = 16,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"JOIN_CLAN", Value=18)]
+      JOIN_CLAN = 18,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SOLICIT_HELP", Value=19)]
+      SOLICIT_HELP = 19,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"GIVE_HELP", Value=20)]
+      GIVE_HELP = 20
     }
   
     private global::ProtoBuf.IExtension extensionObject;
