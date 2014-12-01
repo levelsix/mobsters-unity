@@ -81,8 +81,8 @@ public class MSTaskable : MonoBehaviour {
 	{
 		if (MSMonsterManager.monstersOwned == 0)
 		{
-			MSPopupManager.instance.CreatePopup("No Mobsters!",
-				"Uh oh, you have no mobsters on your team. Manage your team?",
+			MSPopupManager.instance.CreatePopup("No Toons!",
+            	"Uh oh, you have no toons on your team. Manage your team?",
                 new string[]{"Later", "Manage"},
 				new string[]{"greymenuoption", "greenmenuoption"},
 				new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
@@ -95,7 +95,7 @@ public class MSTaskable : MonoBehaviour {
 		else if (MSMonsterManager.instance.userMonsters.Count > MSMonsterManager.instance.totalResidenceSlots)
 		{
 			MSPopupManager.instance.CreatePopup("Residences Full!",
-				"Uh oh, you have recruited too many mobsters. Manage your team?",
+				"Uh oh, you have recruited too many toons. Manage your team?",
                 new string[]{"Later", "Manage"},
 				new string[]{"greymenuoption", "greenmenuoption"},
 				new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},
@@ -117,8 +117,8 @@ public class MSTaskable : MonoBehaviour {
 			}
 			if (i == MSMonsterManager.instance.userTeam.Length)
 			{
-				MSPopupManager.instance.CreatePopup("No Mobsters!",
-					"No monsters on team have health! Manage your team?",
+				MSPopupManager.instance.CreatePopup("No Toons!",
+					"No toons on team have health! Manage your team?",
                 	new string[]{"Later", "Manage"},
 					new string[]{"greymenuoption", "greenmenuoption"},
 					new Action[]{delegate{MSActionManager.Popup.CloseTopPopupLayer();},

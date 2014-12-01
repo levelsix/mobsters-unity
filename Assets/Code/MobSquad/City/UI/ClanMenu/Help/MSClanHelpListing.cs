@@ -134,7 +134,7 @@ public class MSClanHelpListing : MonoBehaviour {
 			case GameActionType.HEAL:
 				if(protos.Count > 1)
 				{
-					helpDescription.text = "Help me heal my " + protos.Count + " Mobsters!";
+					helpDescription.text = "Help me heal my " + protos.Count + " Toons!";
 				}
 				else
 				{

@@ -2543,7 +2543,7 @@ public class PZCombatManager : MonoBehaviour {
 		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis) * revives;
 		MSPopupManager.instance.CreatePopup(
 			"Revive", 
-			"Revive your mobsters?",
+			"Revive your toons?",
             new string[] {"Cancel", "(G) " + gemsToSpend},
 			new string[] {"greymenuoption", "purplemenuoption"},
 			new WaitFunction[] {MSUtil.QuickCloseTop, ReviveWithGems},

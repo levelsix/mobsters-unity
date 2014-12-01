@@ -1363,7 +1363,7 @@ public class MSBuildingManager : MonoBehaviour
 						return;
 					}
 				}
-				Debug.LogWarning ("A tap was detected but no mobster was found on the grid to move");
+				Debug.LogWarning ("A tap was detected but no toon was found on the grid to move");
 			}
 		}
 	}

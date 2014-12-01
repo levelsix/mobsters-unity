@@ -84,10 +84,10 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	static readonly Dictionary<Mode, string> modeTexts = new Dictionary<Mode, string>() 
 	{
-		{Mode.SELL_MOBSTERS, "Sell Mobsters"},
+		{Mode.SELL_MOBSTERS, "Sell Toons"},
 		{Mode.UPGRADE, "Upgrade"},
 		{Mode.FINISH, "Finish Now"},
-		{Mode.HEAL, "Heal Mobsters"},
+		{Mode.HEAL, "Heal Toons"},
 		{Mode.ENHANCE, "Enhance"},
 		{Mode.REMOVE_OBSTACLE, "Remove"},
 		{Mode.EVOLVE, "Evolve"},
