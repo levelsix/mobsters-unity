@@ -92,7 +92,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 2.55999994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
@@ -104,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400008}
@@ -132,7 +132,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.0400085, z: 0}
+  m_LocalPosition: {x: 0, y: 5.19999981, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
@@ -144,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 41.7900009, z: 0}
+  m_LocalPosition: {x: 0, y: 33.2299995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400002}
@@ -159,8 +159,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 156, y: 113, z: 0}
-  m_Center: {x: 0, y: -.5, z: 0}
+  m_Size: {x: 152, y: 106.009262, z: 0}
+  m_Center: {x: 0, y: -.495370865, z: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -191,15 +191,15 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 46
+  mWidth: 52
   mHeight: 52
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .884615362
+  aspectRatio: 1
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
-  mSpriteName: buildingevovle
+  mSpriteName: buildingupgrade
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -285,13 +285,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 158
-  mHeight: 114
+  mWidth: 152
+  mHeight: 107
   mDepth: 0
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.38596487
+  aspectRatio: 1.42056072
   mAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
   mSpriteName: buildingoptionbutton
   mType: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 0, g: 0, b: 0, a: .56078434}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 143
   mHeight: 14
@@ -351,10 +351,10 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
-  mEffectStyle: 1
-  mEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  mEffectStyle: 2
+  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
-  mEffectDistance: {x: 0, y: 1}
+  mEffectDistance: {x: .5, y: .5}
   mOverflow: 3
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -398,25 +398,25 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 143
-  mHeight: 14
+  mHeight: 20
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 10.2142859
+  aspectRatio: 7.1500001
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: b990f0caa7ce74511aaf15c14eb2a089, type: 2}
   mText: (g) 300
-  mFontSize: 18
+  mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 2
-  mEffectColor: {r: .0117647061, g: .0117647061, b: .0117647061, a: 1}
+  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
-  mEffectDistance: {x: 1, y: 1}
+  mEffectDistance: {x: .5, y: .5}
   mOverflow: 3
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -538,7 +538,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 143
   mHeight: 18
-  mDepth: 1
+  mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -546,16 +546,16 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 0a52298686dcc4052918f049f41b1c95, type: 2}
-  mText: (o) 300
+  mText: (c) 300
   mFontSize: 18
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 2
-  mEffectColor: {r: 1, g: 1, b: 1, a: 1}
+  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
-  mEffectDistance: {x: 1, y: 1}
+  mEffectDistance: {x: .5, y: .5}
   mOverflow: 3
   mMaterial: {fileID: 0}
   mApplyGradient: 0
