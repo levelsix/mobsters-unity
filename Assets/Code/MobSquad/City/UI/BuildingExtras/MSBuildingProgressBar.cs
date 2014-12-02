@@ -31,6 +31,12 @@ public class MSBuildingProgressBar : MonoBehaviour {
 	/// </summary>
 	bool avatarSet = false;
 
+	/// <summary>
+	/// This is just to check to see if this bar started as free or not
+	/// I don't suggest using this variable for anything
+	/// </summary>
+	bool testedToBeFree = true;
+
 	long _newTime = 0;
 
 	long newTime{
@@ -210,7 +216,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		//hospital logic
 		if(building.hospital != null && MSMath.GemsForTime(MSUtil.timeUntil(building.hospital.completeTime), true) == 0 && !upgrading)
 		{
-			SetBarFree();
+			SetBarFree(delegate { MSActionManager.Popup.DisplayGreenError("Healing is now free!"); });
 		}
 
 		else if(MSMath.GemsForTime( building.upgrade.timeRemaining, true) == 0 && building.obstacle == null && building.upgrade.timeRemaining >= 0)
@@ -219,6 +225,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		}
 		else
 		{
+			testedToBeFree = false;
 			freeLabel.alpha = 0f;
 			label.alpha = 1f;
 			if(fadeRoutine != null)
@@ -229,7 +236,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		}
 	}
 
-	void SetBarFree()
+	void SetBarFree(Action FirstRun = null)
 	{
 		foreach (var item in caps) 
 		{
@@ -240,6 +247,10 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		if(fadeRoutine == null)
 		{
 			fadeRoutine = TextFadeAnimation();
+			if(FirstRun != null && !testedToBeFree)
+			{
+				FirstRun();
+			}
 			StartCoroutine(fadeRoutine);
 		}
 	}

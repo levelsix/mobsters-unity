@@ -581,9 +581,7 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 	IEnumerator Collect()
 	{
 		collectLoadLock.Lock();
-		Debug.Log("In");
 		yield return MSMiniJobManager.instance.RedeemCurrJob();
-		Debug.Log("N Out");
 		collectLoadLock.Unlock();
 
 		SetupJobGrid();

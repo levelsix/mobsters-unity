@@ -31,6 +31,64 @@ public class MSEnhancementManager : MonoBehaviour
 	/// </summary>
 	public UserEnhancementProto currEnhancement;
 
+	#region clanHelp
+	StartupResponseProto.StartupConstants.ClanHelpConstants enhancementHelpConstant;
+	
+	ClanHelpProto currActiveHelp = null;
+	
+	public int helpCount
+	{
+		get
+		{
+			if(currEnhancement != null && feeders.Count > 0)
+			{
+				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.ENHANCE_TIME || !currActiveHelp.userDataUuid.Equals(currEnhancement.baseMonster.userMonsterUuid))
+				{
+					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.ENHANCE_TIME, currEnhancement.baseMonster.userMonsterUuid);
+				}
+				
+				if(currActiveHelp != null)
+				{
+					if(currActiveHelp.helperUuids.Count > MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation)
+					{
+						return MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation;
+					}
+					else
+					{
+						return currActiveHelp.helperUuids.Count;
+					}
+				}
+			}
+			
+			return 0;
+		}
+	}
+
+	public long helpTime
+	{
+		get
+		{
+			if(enhancementHelpConstant == null)
+			{
+				enhancementHelpConstant = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == GameActionType.ENHANCE_TIME);
+			}
+			int amountRemovedPerHelp = enhancementHelpConstant.amountRemovedPerHelp;
+			float percentRemovedPerHelp = enhancementHelpConstant.percentRemovedPerHelp;
+			
+			long totalTime = totalDuration;
+			if(amountRemovedPerHelp < percentRemovedPerHelp * totalTime)
+			{
+				return (long)(percentRemovedPerHelp * totalTime * helpCount);
+			}
+			else
+			{
+				return (long)(amountRemovedPerHelp * helpCount);
+			}
+		}
+	}
+	
+	#endregion clanHelp
+
 	public LabProto currLab
 	{
 		get
@@ -95,6 +153,28 @@ public class MSEnhancementManager : MonoBehaviour
 		}
 	}
 
+	public long startTime
+	{
+		get
+		{
+			long startTime = 0;
+			foreach (PZMonster item in feeders)
+			{
+				if(startTime == 0)
+				{
+					startTime = item.startEnhanceTime;
+				}
+				else
+				{
+					//min(startTime, item.startEnhanceTime)
+					startTime = startTime < item.startEnhanceTime ? item.startEnhanceTime : startTime;
+				}
+			}
+
+			return startTime;
+		}
+	}
+
 	public long finishTime
 	{
 		get
@@ -109,6 +189,16 @@ public class MSEnhancementManager : MonoBehaviour
 				}
 			}
 			return last.expectedStartTimeMillis + (long)(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(last.userMonsterUuid)).enhanceXP * 1000f / currLab.pointsPerSecond);
+		}
+	}
+
+	public long totalDuration
+	{
+		get
+		{
+			long now = MSUtil.timeNowMillis;
+			long dur = finishTime - startTime;
+			return finishTime - startTime;
 		}
 	}
 
@@ -275,6 +365,11 @@ public class MSEnhancementManager : MonoBehaviour
 		{
 			currEnhancement = enhancement;
 			ClearTemp();
+
+			if(MSActionManager.Goon.OnStartEnhance != null)
+			{
+				MSActionManager.Goon.OnStartEnhance();
+			}
 		}
 		else
 		{
@@ -319,6 +414,7 @@ public class MSEnhancementManager : MonoBehaviour
 		if (response.status == EnhancementWaitTimeCompleteResponseProto.EnhancementWaitTimeCompleteStatus.SUCCESS)
 		{
 			currEnhancement.baseMonster.enhancingComplete = true;
+			currActiveHelp = null;
 		}
 		else
 		{
@@ -374,5 +470,21 @@ public class MSEnhancementManager : MonoBehaviour
 	}
 
 	#endregion
+
+	void DealWithGiveClanHelp(GiveClanHelpResponseProto proto, bool self)
+	{
+		if(!self && !proto.sender.userUuid.Equals(MSWhiteboard.localMup.userUuid))
+		{
+			currActiveHelp = null;
+		}
+	}
+
+	void DealWithEndClanHelp(GiveClanHelpResponseProto proto, bool self)
+	{
+		if(self)
+		{
+			currActiveHelp = null;
+		}
+	}
 
 }

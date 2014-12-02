@@ -583,7 +583,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	{
 		loadedSprite = false;
 
-		Debug.Log("Setup sprite: " + structName);
+//		Debug.Log("Setup sprite: " + structName);
 		overlay.color = new Color(1,1,1,0);
 		sprite.sprite = MSSpriteUtil.instance.GetBuildingSprite(MSUtil.StripExtensions(structName));
 		if(userStructProto != null && userStructProto.lastRetrieved == 0 && !ignoreConstructionSprite && !MSTutorialManager.instance.inTutorial)

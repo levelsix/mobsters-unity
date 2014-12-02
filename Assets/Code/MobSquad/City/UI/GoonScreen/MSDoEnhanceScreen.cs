@@ -70,11 +70,13 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 	[SerializeField] Color startTextColor;
 	[SerializeField] Color finishTextColor;
 	[SerializeField] Color collectTextColor;
+	[SerializeField] Color HelpTextColor;
 
 	const string GREY_BUTTON_NAME = "greymenuoption";
 	const string START_BUTTON_NAME = "yellowmenuoption";
 	const string FINISH_NOW_BUTTON_NAME = "purplemenuoption";
 	const string COLLECT_BUTTON_NAME = "greenmenuoption";
+	const string HELP_BUTTON_NAME = "orangemenuoption";
 
 	IEnumerator currCollectAnim;
 	IEnumerator currCollectStep;
@@ -221,10 +223,23 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 			else
 			{
 				timeLeft.text = MSUtil.TimeStringShort(MSEnhancementManager.instance.timeLeft);
-				buttonLabel.text = "Finish\n(g) " + MSEnhancementManager.instance.gemsToFinish;
-				buttonLabel.color = finishTextColor;
-				button.normalSprite = FINISH_NOW_BUTTON_NAME;
-				//RefreshBar();
+
+				//ifShouldshow helpbutton
+				if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.ENHANCE_TIME,
+				                                                (int)MSEnhancementManager.instance.enhancementMonster.monster.monsterId,
+				                                                MSEnhancementManager.instance.currEnhancement.baseMonster.userMonsterUuid))
+				{
+					buttonLabel.text = "Get Help!";
+					buttonLabel.color = HelpTextColor;
+					button.normalSprite = HELP_BUTTON_NAME;
+				}
+				else
+				{
+					buttonLabel.text = "Finish\n(g) " + MSEnhancementManager.instance.gemsToFinish;
+					buttonLabel.color = finishTextColor;
+					button.normalSprite = FINISH_NOW_BUTTON_NAME;
+					//RefreshBar();
+				}
 			}
 		}
 		else
@@ -265,9 +280,22 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 			{
 				MSEnhancementManager.instance.DoCollectEnhancement(loadLock, DoCollectAnimation);
 			}
-			else //Finish enhancement with gems
+			else //Finish enhancement with gems or Solicite help
 			{
-				if (MSResourceManager.instance.Spend(ResourceType.GEMS, MSEnhancementManager.instance.gemsToFinish))
+				if(!MSClanManager.instance.HelpAlreadyRequested(GameActionType.ENHANCE_TIME,
+				                                                (int)MSEnhancementManager.instance.enhancementMonster.monster.monsterId,
+				                                                MSEnhancementManager.instance.currEnhancement.baseMonster.userMonsterUuid))
+				{
+					loadLock.Lock();
+					MSClanManager.instance.DoSolicitClanHelp(GameActionType.ENHANCE_TIME,
+					                                         (int)MSEnhancementManager.instance.enhancementMonster.monster.monsterId,
+					                                         MSEnhancementManager.instance.currEnhancement.baseMonster.userMonsterUuid,
+					                                         MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
+					                                         loadLock.Unlock);
+
+				}
+				//finish with gems
+				else if (MSResourceManager.instance.Spend(ResourceType.GEMS, MSEnhancementManager.instance.gemsToFinish))
 				{
 					MSEnhancementManager.instance.FinishEnhanceWithGems(loadLock);
 				}

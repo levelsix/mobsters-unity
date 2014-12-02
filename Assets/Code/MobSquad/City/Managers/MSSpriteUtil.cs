@@ -254,7 +254,7 @@ public class MSSpriteUtil : MonoBehaviour {
 		{
 			if (!bundles.ContainsKey(baseName))
 			{
-				Debug.Log("!bundles.ContainsKey(baseName)");
+//				Debug.Log("!bundles.ContainsKey(baseName)");
 				
 				animator.runtimeAnimatorController = null;
 				yield return StartCoroutine(DownloadAndCache(baseName));
@@ -268,7 +268,7 @@ public class MSSpriteUtil : MonoBehaviour {
 
 			if (bundles.ContainsKey(baseName))
 			{
-				Debug.Log("bundles.ContainsKey(baseName)");
+//				Debug.Log("bundles.ContainsKey(baseName)");
 
 				animator.runtimeAnimatorController = bundles[baseName].Load(baseName + controllerSuffix, typeof(RuntimeAnimatorController)) as RuntimeAnimatorController;
 				animator.GetComponent<SpriteRenderer>().color = Color.white;

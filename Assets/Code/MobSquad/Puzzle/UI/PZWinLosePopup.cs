@@ -123,6 +123,8 @@ public class PZWinLosePopup : MonoBehaviour {
 		sticker.transform.localScale = sticker.GetComponent<TweenScale>().from;
 
 		spinner.alpha = 0f;
+
+		GetComponent<MSHideObjectsWhileActive>().fadeAlpha = true;
 	}
 
 	[ContextMenu("Inti Lose")]
@@ -421,11 +423,13 @@ public class PZWinLosePopup : MonoBehaviour {
 	{
 		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 		MSActionManager.Scene.OnCity();
+		GetComponent<MSHideObjectsWhileActive>().fadeAlpha = false;
 	}
 
 	public void OnManageButton()
 	{
 		MSWhiteboard.currSceneType = MSWhiteboard.SceneType.CITY;
 		MSActionManager.Scene.OnCity();
+		GetComponent<MSHideObjectsWhileActive>().fadeAlpha = false;
 	}
 }

@@ -436,6 +436,10 @@ public class MSMiniJobManager : MonoBehaviour {
 			if(miniJobHelp != null)
 			{
 				MSClanManager.instance.DoEndClanHelp(new List<string>{miniJobHelp.clanHelpUuid});
+				if(MSActionManager.Popup.DisplayOrangeError != null)
+				{
+					MSActionManager.Popup.DisplayOrangeError("Your mobsters are back from their minijob!");
+				}
 			}
 		}
 	}

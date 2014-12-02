@@ -4,64 +4,74 @@ using com.lvl6.proto;
 
 public class MSLaboratory : MSBuildingFrame {
 
-	//commented out now that building is defined in MSBuildingFrame
-//	MSBuilding lab
-//	{
-//		get
-//		{
-//			if (MSBuildingManager.enhanceLabs.Count == 0) return null;
-//			return MSBuildingManager.enhanceLabs[0];
-//		}
-//	}
+	MSProgressBar bar;
 
 	private readonly Vector3 OFFSET = new Vector3(-0.1f, 3.75f, 0f);
+
+	public static MSLaboratory instance;
 
 	void Awake()
 	{
 		base.Awake();
+		bar = MSPoolManager.instance.Get<MSProgressBar>(MSPrefabList.instance.progressBar, transform);
+		bar.transform.localPosition = new Vector3(0f,3.2f,0f);
+		bar.transform.localEulerAngles = buildingAngle;
+		bar.transform.localScale = buildingScale;
+		bar.gameObject.SetActive(false);
 	}
 
 	void OnEnable(){
+		MSActionManager.Goon.OnStartEnhance += InitBar;
+		MSActionManager.Loading.OnBuildingsLoaded += InitBar;
 		MSActionManager.Goon.OnEnhanceQueueChanged += CheckTag;
 		MSActionManager.Scene.OnCity += CheckTag;
 		FirstFrameCheck();
 	}
 	
 	void OnDisable(){
+		MSActionManager.Goon.OnStartEnhance -= InitBar;
+		MSActionManager.Loading.OnBuildingsLoaded -= InitBar;
 		MSActionManager.Goon.OnEnhanceQueueChanged -= CheckTag;
 		MSActionManager.Scene.OnCity -= CheckTag;
 	}
 
-	void Update()
+	//Try to init when the building is enabled and when enhancing startszzzzzzzz
+	public void InitBar()
 	{
-		bubbleIcon.transform.localPosition = OFFSET;
-		bubbleIcon.MarkAsChanged();
+		UserEnhancementProto currEnhancement = MSEnhancementManager.instance.currEnhancement;
+		if(currEnhancement != null && currEnhancement.feeders.Count > 0)
+		{
+			bar.init(MSEnhancementManager.instance.startTime, MSEnhancementManager.instance.timeLeft, true);
+		}
+		CheckTag();
 	}
 
 	public override void CheckTag(){
 		bubbleIcon.gameObject.SetActive(false);
-
-		if (building.combinedProto.structInfo.level == 0 && Precheck())
+		if(Precheck() && !bar.gameObject.activeSelf)
 		{
-			bubbleIcon.gameObject.SetActive(true);
-			bubbleIcon.spriteName = "fixbubble";
-			bubbleIcon.MakePixelPerfect();
-		}
-		else if (MSEnhancementManager.instance.enhancementMonster == null ||
-		    MSEnhancementManager.instance.enhancementMonster.monster.monsterId == 0) {
-
-			int canEnhance = 0;
-			foreach (PZMonster monster in MSMonsterManager.instance.userMonsters) {
-				if(monster.level < monster.monster.maxLevel &&
-				   (monster.monsterStatus == MonsterStatus.HEALTHY || monster.monsterStatus == MonsterStatus.INJURED)){
-					canEnhance++;
-				}
-			}
-
-			if(canEnhance > 1){
+			if (building.combinedProto.structInfo.level == 0)
+			{
 				bubbleIcon.gameObject.SetActive(true);
-				bubbleIcon.spriteName = "enhancebubble";
+				bubbleIcon.spriteName = "fixbubble";
 				bubbleIcon.MakePixelPerfect();
+			}
+			else if (MSEnhancementManager.instance.enhancementMonster == null ||
+			    MSEnhancementManager.instance.enhancementMonster.monster.monsterId == 0) {
+
+				int canEnhance = 0;
+				foreach (PZMonster monster in MSMonsterManager.instance.userMonsters) {
+					if(monster.level < monster.monster.maxLevel &&
+					   (monster.monsterStatus == MonsterStatus.HEALTHY || monster.monsterStatus == MonsterStatus.INJURED)){
+						canEnhance++;
+					}
+				}
+
+				if(canEnhance > 1){
+					bubbleIcon.gameObject.SetActive(true);
+					bubbleIcon.spriteName = "enhancebubble";
+					bubbleIcon.MakePixelPerfect();
+				}
 			}
 		}
 	}
