@@ -338,6 +338,8 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 
 		Vector3 originalPos = card.transform.localPosition;
 
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.enhanceFeed);
+
 		float angle = startAngle;
 		while (currTime < time)
 		{

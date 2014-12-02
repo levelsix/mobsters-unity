@@ -68,6 +68,17 @@ public class MSSoundManager : MonoBehaviour {
 	
 	#endregion
 
+	#region UI Sfx
+
+	public AudioClip enhanceFeed;
+	public AudioClip enhanceLevelUp;
+	public AudioClip taskButtonClick;
+	public AudioClip defaultPopupIn;
+	public AudioClip defaultPopupOut;
+	public AudioClip defaultButtonClick;
+
+	#endregion
+
 	#region Tutorial Sfx
 	
 	public AudioClip jump;

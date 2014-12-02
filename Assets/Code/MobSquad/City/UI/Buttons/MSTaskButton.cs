@@ -262,6 +262,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	public override void OnClick ()
 	{
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.generalClick);
 		switch(currMode)
 		{
 		case Mode.FINISH:
