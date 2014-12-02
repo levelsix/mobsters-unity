@@ -14,6 +14,8 @@ public class MSLevelUpAnimation : MonoBehaviour {
 	[ContextMenu ("Test Play")]
 	public void Play()
 	{
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.enhanceLevelUp);
+
 		gameObject.SetActive(true);
 		if (currCorout != null) StopCoroutine(currCorout);
 		currCorout = RunTweens();

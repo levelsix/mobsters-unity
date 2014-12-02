@@ -6,15 +6,16 @@ using com.lvl6.proto;
 public class UMQLoader : MonoBehaviour {
 
 	public static UMQLoader instance;
-	
-	[SerializeField]
-	GameObject createUserPopup;
 
 	[SerializeField]
 	MSFillBar fillBar;
 
+	[SerializeField]
+	GameObject loadingScreen;
+
 	void Awake()
 	{
+		loadingScreen.SetActive(true);
 		instance = this;
 	}
 

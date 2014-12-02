@@ -33,6 +33,9 @@ public class MSGachaFeaturedMobster : MonoBehaviour {
 	
 	[SerializeField]
 	UILabel maxAttack;
+
+	[SerializeField]
+	GameObject loadingIcon;
 	
 	const string gemCasePath = "Sprites/Misc/casegems";
 	
@@ -46,12 +49,14 @@ public class MSGachaFeaturedMobster : MonoBehaviour {
 	
 	public void Init(BoosterItemProto mobster)
 	{
+		StopAllCoroutines();
+		loadingIcon.SetActive(true);
 		if (mobster.monsterId > 0)
 		{
 			
 			MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(mobster.monsterId);
 			
-			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Character", mobsterSprite);
+			StartCoroutine(MSSpriteUtil.instance.SetSpriteCoroutine(monster.imagePrefix, monster.imagePrefix + "Character", mobsterSprite, 1, delegate{loadingIcon.SetActive(false);}));
 			
 			mobsterName.text = monster.displayName;
 			

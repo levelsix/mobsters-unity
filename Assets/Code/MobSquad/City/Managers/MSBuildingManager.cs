@@ -103,9 +103,57 @@ public class MSBuildingManager : MonoBehaviour
 
 	public static MSBuilding townHall;
 
+	public static TownHallProto currTownHall
+	{
+		get
+		{
+			if (townHall == null)
+			{
+				return null;
+			}
+			if (!townHall.upgrade.isComplete)
+			{
+				return townHall.combinedProto.predecessor.townHall;
+			}
+			return townHall.combinedProto.townHall;
+		}
+	}
+
 	public static MSBuilding teamCenter;
 
+	public static TeamCenterProto currTeamCenter
+	{
+		get
+		{
+			if (teamCenter == null)
+			{
+				return null;
+			}
+			if (!teamCenter.upgrade.isComplete)
+			{
+				return teamCenter.combinedProto.predecessor.teamCenter;
+			}
+			return teamCenter.combinedProto.teamCenter;
+		}
+	}
+
 	public static MSBuilding clanHouse;
+
+	public static ClanHouseProto currClanHouse
+	{
+		get
+		{
+			if (clanHouse == null)
+			{
+				return null;
+			}
+			if (!clanHouse.upgrade.isComplete)
+			{
+				return clanHouse.combinedProto.predecessor.clanHouse;
+			}
+			return clanHouse.combinedProto.clanHouse;
+		}
+	}
 
 	/// <summary>
 	/// The current selected building.
@@ -500,30 +548,34 @@ public class MSBuildingManager : MonoBehaviour
 					MSResidenceManager.instance.residences[building.userStructProto.userUuid] = building;
 					MSResidenceManager.instance.CheckBuilding(building.userStructProto.userStructUuid);
 				}
-				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.LAB)
-				{
-					enhanceLabs.Add (building);
-				}
-				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.EVO)
-				{
-					evoLabs.Add(building);
-				}
-				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.TOWN_HALL)
-				{
-					townHall = building;
-				}
-				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.TEAM_CENTER)
-				{
-					teamCenter = building;
-				}
-				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESIDENCE)
-				{
-					residences.Add(building);
-				}
-				else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.CLAN)
-				{
-					clanHouse = building;
-				}
+			}
+			if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.LAB)
+			{
+				enhanceLabs.Add (building);
+			}
+			else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.EVO)
+			{
+				evoLabs.Add(building);
+			}
+			else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.TOWN_HALL)
+			{
+				townHall = building;
+			}
+			else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.TEAM_CENTER)
+			{
+				teamCenter = building;
+			}
+			else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESIDENCE)
+			{
+				residences.Add(building);
+			}
+			else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.CLAN)
+			{
+				clanHouse = building;
+			}
+			else if (building.combinedProto.structInfo.structType == StructureInfoProto.StructType.MINI_JOB)
+			{
+				MSMiniJobManager.instance.jobCenter = building;
 			}
 		}
 
@@ -545,11 +597,6 @@ public class MSBuildingManager : MonoBehaviour
 		if (!MSHospitalManager.instance.initialized)
 		{
 			MSHospitalManager.instance.InitHealers();
-		}
-
-		if (!MSMiniJobManager.instance.initialized)
-		{
-			MSMiniJobManager.instance.Init(jobCenter);
 		}
 		
 		foreach (var item in MSMonsterManager.instance.userTeam) 
@@ -1046,8 +1093,8 @@ public class MSBuildingManager : MonoBehaviour
 	/// <returns>bool</returns>
 	public int CapacityForBuildings(){
 		TownHallProto hallProto = townHall.combinedProto.townHall;
-		int maxBuilding = hallProto.numEvoChambers + hallProto.numHospitals + hallProto.numResidences +
-				hallProto.numResourceOneGenerators + hallProto.numResourceOneStorages + hallProto.numResourceTwoGenerators + hallProto.numResourceTwoStorages
+		int maxBuilding = currTownHall.numEvoChambers + currTownHall.numHospitals + currTownHall.numResidences +
+			currTownHall.numResourceOneGenerators + currTownHall.numResourceOneStorages + currTownHall.numResourceTwoGenerators + currTownHall.numResourceTwoStorages
 				+1 /* minijob building */ + 1 /* clan building */;
 
 //		Debug.Log ("numEvoChambers "+hallProto.numEvoChambers);
@@ -1072,8 +1119,14 @@ public class MSBuildingManager : MonoBehaviour
 
 		foreach (var item in MSResidenceManager.instance.residences.Values) 
 		{
-			//Debug.LogWarning("Slots!");
-			monsterSlots += item.combinedProto.residence.numMonsterSlots;
+			if (item.userStructProto.isComplete)
+			{
+				monsterSlots += item.combinedProto.residence.numMonsterSlots;
+			}
+			else if (item.combinedProto.structInfo.level > 1)
+			{
+				monsterSlots += item.combinedProto.predecessor.residence.numBonusMonsterSlots;
+			}
 
 			//Add fb levels
 			for (int i = 1; i <= item.userStructProto.fbInviteStructLvl; i++) 
@@ -1111,9 +1164,16 @@ public class MSBuildingManager : MonoBehaviour
 		List<ResourceStorageProto> storages = new List<ResourceStorageProto>();
 		foreach (var item in buildings.Values) 
 		{
-			if (item.combinedProto.storage != null && item.combinedProto.storage.structInfo.structId > 0)
+			if (item.combinedProto.structInfo.structType == StructureInfoProto.StructType.RESOURCE_STORAGE && item.combinedProto.storage.structInfo.structId > 0)
 			{
-				storages.Add(item.combinedProto.storage);
+				if (item.userStructProto.isComplete)
+				{
+					storages.Add(item.combinedProto.storage);
+				}
+				else if (item.combinedProto.structInfo.level > 1)
+				{
+					storages.Add (item.combinedProto.predecessor.storage);
+				}
 			}
 		}
 		return storages;
@@ -1303,7 +1363,7 @@ public class MSBuildingManager : MonoBehaviour
 						return;
 					}
 				}
-				Debug.LogWarning ("A tap was detected but no mobster was found on the grid to move");
+				Debug.LogWarning ("A tap was detected but no toon was found on the grid to move");
 			}
 		}
 	}
@@ -1416,6 +1476,29 @@ public class MSBuildingManager : MonoBehaviour
 	public void OnPlace()
 	{
 		_selected = null;	
+	}
+
+	public bool HasPrereqBuilding(PrereqProto prereq)
+	{
+		if (prereq.prereqGameType != GameType.STRUCTURE)
+		{
+			Debug.LogError("Not a building prereq!");
+			return false;
+		}
+
+		MSFullBuildingProto buildingRequired = MSDataManager.instance.Get<MSFullBuildingProto>(prereq.prereqGameEntityId);
+
+		int count = 0;
+		foreach (var item in buildings.Values) 
+		{
+			if (item.combinedProto.structInfo.structType == buildingRequired.structInfo.structType
+			    && item.combinedProto.structInfo.buildResourceType == buildingRequired.structInfo.buildResourceType
+			    && item.combinedProto.structInfo.level >= buildingRequired.structInfo.level)
+			{
+				count++;
+			}
+		}
+		return count >= prereq.quantity;
 	}
 
 	#endregion

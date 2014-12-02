@@ -90,7 +90,7 @@ public class MSSpriteUtil : MonoBehaviour {
 		StartCoroutine(SetSpriteCoroutine(bundleName, spriteName, sprite));
 	}
 
-	public IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, SpriteRenderer sprite)
+	public IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, SpriteRenderer sprite, Action After = null)
 	{
 		if (internalBundles.Contains(bundleName))
 		{
@@ -99,6 +99,10 @@ public class MSSpriteUtil : MonoBehaviour {
 			if (sprite.sprite == null)
 			{
 				Debug.Log("Failed to get " + path);
+			}
+			else if (After != null)
+			{
+				After();
 			}
 		}
 		else
@@ -114,6 +118,10 @@ public class MSSpriteUtil : MonoBehaviour {
 			if (bundles.ContainsKey (bundleName))
 			{
 				sprite.sprite = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
+				if (After != null)
+				{
+					After();
+				}
 			}
 		}
 	}
@@ -123,7 +131,7 @@ public class MSSpriteUtil : MonoBehaviour {
 		return StartCoroutine(SetSpriteCoroutine(bundleName, spriteName, sprite, finalAlpha, after));
 	}
 
-	IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha, Action after = null)
+	public IEnumerator SetSpriteCoroutine(string bundleName, string spriteName, UI2DSprite sprite, float finalAlpha, Action after = null)
 	{
 		if (internalBundles.Contains(bundleName))
 		{

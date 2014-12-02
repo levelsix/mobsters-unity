@@ -6,7 +6,7 @@ public class Inspector : Editor {
 	ELANNotification notification; // NEW No need for a private variable
 	
 	public override void OnInspectorGUI() {
-		
+		/*
 		notification = (ELANNotification) target;
 			
 		notification.sendOnStart     = EditorGUILayout.Toggle("Send on start", notification.sendOnStart);
@@ -29,5 +29,6 @@ public class Inspector : Editor {
 			notification.useVibration = EditorGUILayout.Toggle("Use virbration", notification.useVibration);
 			notification.useSound     = EditorGUILayout.Toggle("Use sound", notification.useSound);
 		}
+		*/
     }
 }

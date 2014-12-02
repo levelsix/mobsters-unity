@@ -444,9 +444,9 @@ public class MSGoonScreen : MonoBehaviour
 	const string removeDialogueBeforeCost = "Are you sure you want to remove this goon from the healing queue? You will be refunded $";
 	const string removeDialogueAfterCost = " of the healing cost";
 
-	const string bottomHealDialogue = "Tap an injured mobster to begin healing";
-	const string bottomEnhanceDialogue = "Select a mobster to enhance";
-	const string bottomSacrificeDialogue = "Select a mobster to sacrifice";
+	const string bottomHealDialogue = "Tap an injured toon to begin healing";
+	const string bottomEnhanceDialogue = "Select a toon to enhance";
+	const string bottomSacrificeDialogue = "Select a toon to sacrifice";
 
 	const int rightShiftOnMobsterEnhance = 130;
 	const float TWEEN_TIME = 0.6f;

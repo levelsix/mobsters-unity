@@ -13,7 +13,7 @@ public class ELANManager {
 	
 	public static void sendParametrizedNotification (ELANNotification notification){
 #if UNITY_ANDROID && !UNITY_EDITOR
-		Debug.Log("public static void sendParametrizedNotification (ELANNotification notification) --> " + notification.fullClassName );
+		Debug.Log("public static void sendParametrizedNotification (ELANNotification notification) --> " + notification.fullClassName + "\n" + notification.toString());
 		// Obtain unity context
         if(playerActivityContext == null) {
 			AndroidJavaClass actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");

@@ -147,7 +147,7 @@ public static class MSActionManager
 	
 	public static class Quest
 	{
-		public static Action<int> OnStructureUpgraded;
+		public static Action<MSBuilding> OnStructureUpgraded;
 		public static Action OnTaskCompleted;
 		public static Action<ResourceType, int> OnMoneyCollected;
 

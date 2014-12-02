@@ -216,7 +216,7 @@ public class MSGoonCard : MonoBehaviour {
 	{
 		get
 		{
-			return monster.teamCost + MSMonsterManager.instance.currTeamPower <= MSBuildingManager.teamCenter.combinedProto.teamCenter.teamCostLimit;
+			return monster.teamCost + MSMonsterManager.instance.currTeamPower <= MSBuildingManager.currTeamCenter.teamCostLimit;
 		}
 	}
 
@@ -946,8 +946,8 @@ public class MSGoonCard : MonoBehaviour {
 
 	void PopupTeamMemberToEnhanceQueue(PZMonster monster)
 	{
-		MSPopupManager.instance.CreatePopup("Mobster On Team",
-			"Mobster will be removed from team, dawg!", new string[]{"Yes", "No"},
+		MSPopupManager.instance.CreatePopup("Toon On Team",
+			"Toon will be removed from team, dawg!", new string[]{"Yes", "No"},
 			new string[]{"greenmenuoption", "greymenuoption"},
 			new Action[]{delegate{ MSMonsterManager.instance.RemoveFromTeam(monster);
 				AddToEnhanceQueue();
@@ -957,7 +957,7 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void PopupTeamMemberToHealingQueue(PZMonster monster)
 	{
-		MSPopupManager.instance.CreatePopup("Mobster On Team",
+		MSPopupManager.instance.CreatePopup("Toon On Team",
             teamMemberToHealWarning, new string[]{"Yes", "No"},
 			new string[]{"greenmenuoption", "greymenuoption"},
 			new Action[]{delegate{MSHospitalManager.instance.AddToHealQueue(monster); 

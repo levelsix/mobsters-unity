@@ -39,6 +39,8 @@ public class PZDestroySpecial : MonoBehaviour {
 			if (onTrigger != null) {
 				onTrigger();
 			}
+
+			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.gemExplode);
 		}
 
 	}

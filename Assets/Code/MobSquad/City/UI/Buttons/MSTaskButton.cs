@@ -84,10 +84,10 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	static readonly Dictionary<Mode, string> modeTexts = new Dictionary<Mode, string>() 
 	{
-		{Mode.SELL_MOBSTERS, "Sell Mobsters"},
+		{Mode.SELL_MOBSTERS, "Sell Toons"},
 		{Mode.UPGRADE, "Upgrade"},
 		{Mode.FINISH, "Finish Now"},
-		{Mode.HEAL, "Heal Mobsters"},
+		{Mode.HEAL, "Heal Toons"},
 		{Mode.ENHANCE, "Enhance"},
 		{Mode.REMOVE_OBSTACLE, "Remove"},
 		{Mode.EVOLVE, "Evolve"},
@@ -263,6 +263,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	public override void OnClick ()
 	{
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.generalClick);
 		switch(currMode)
 		{
 		case Mode.FINISH:
@@ -312,7 +313,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		MSClanManager.instance.DoSolicitClanHelp(GameActionType.UPGRADE_STRUCT,
 		                                         currBuilding.combinedProto.structInfo.structId,
 		                                         currBuilding.userStructProto.userStructUuid,
-		                                         MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
+		                                         MSBuildingManager.currClanHouse.maxHelpersPerSolicitation,
 		                                         delegate{SetMode(Mode.FINISH);});
 	}
 

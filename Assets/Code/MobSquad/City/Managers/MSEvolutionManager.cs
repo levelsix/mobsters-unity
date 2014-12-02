@@ -40,6 +40,20 @@ public class MSEvolutionManager : MonoBehaviour {
 		}
 	}
 
+	public MonsterProto resultMonster
+	{
+		get
+		{
+			if (currEvolution == null || currEvolution.userMonsterUuids.Count == 0)
+			{
+				return null;
+			}
+			return MSDataManager.instance.Get<MonsterProto>(MSMonsterManager.instance.userMonsters
+			                                                .Find(x=>x.userMonster.userMonsterUuid.Equals(currEvolution.userMonsterUuids[0]))
+			                                                .monster.evolutionMonsterId);
+		}
+	}
+
 	long finishTime;
 
 	int oilCost
@@ -58,7 +72,7 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		get
 		{
-			if (currEvolution == null)
+			if (currEvolution == null || currEvolution.userMonsterUuids.Count == 0)
 			{
 				return 0;
 			}

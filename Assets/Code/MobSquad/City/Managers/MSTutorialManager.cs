@@ -63,7 +63,7 @@ public static class TutorialStrings
 	public const string BUILD_CASH_VAULT_DIALOGUE = "Amazon doesn’t ship to secret islands, so let’s construct one ourselves now.";
 	public const string AFTER_CASH_VAULT_DIALOGUE = "Good work! The Vault will protect your money from being stolen, so remember to upgrade it!";
 	
-	public const string BEFORE_OIL_SILO_DIALOGUE = "Another important resource is Oil, which is used to upgrade your Mobsters and building.";
+	public const string BEFORE_OIL_SILO_DIALOGUE = "Another important resource is Oil, which is used to upgrade your Toons and buildings.";
 	public const string BUILD_OIL_SILO_DIALOGUE = "We'll need a place to store the oil you drill, so construct an Oil Silo now!";
 	public const string AFTER_OIL_SILO_DIALOGUE = "Great job! This silo will now protect your oil from being stolen in battle.";
 	
@@ -74,7 +74,7 @@ public static class TutorialStrings
 	public const string FACEBOOK_NOT_JOIN_DIALOGUE = "Playing hard to get huh? I can play that game too. What was your name again?";
 	
 	public const string BIRTH_CERTIFICATE_DIALOGUE = "Is that really on your birth certificate? Seems legit I guess.";
-	public const string GO_RECRUIT_DIALOGUE = "Yippee! Now let's go recruit some Mobsters to join your team.";
+	public const string GO_RECRUIT_DIALOGUE = "Yippee! Now let's go recruit some Toons to join your team.";
 	#endregion
 }
 
@@ -286,6 +286,7 @@ public class MSTutorialManager : MonoBehaviour
 		}
 
 		//Make tutorial units
+		Debug.LogWarning("Tutorial mobster id: " + MSWhiteboard.tutorialConstants.startingMonsterId);
 		userMobster = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.startingMonsterId);
 		guide = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.guideMonsterId);
 		zark = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.markZMonsterId);

@@ -102,9 +102,9 @@ public class MSResourceManager : MonoBehaviour {
 
 	public void DetermineResourceMaxima()
 	{
-		if (MSBuildingManager.townHall != null)
+		if (MSBuildingManager.currTownHall != null)
 		{
-			maxes[0] = maxes[1] = MSBuildingManager.townHall.combinedProto.townHall.resourceCapacity;
+			maxes[0] = maxes[1] = MSBuildingManager.currTownHall.resourceCapacity;
 		}
 		else
 		{
@@ -459,6 +459,19 @@ public class MSResourceManager : MonoBehaviour {
 		{
 			MSSceneManager.instance.ReconnectPopup();
 		}
+	}
+
+	public long TimeUntilResourceCollectorsFull(ResourceType resource)
+	{
+		long last = 0;
+		foreach (var collector in MSBuildingManager.collectors) 
+		{
+			if (collector.collector.resource == resource)
+			{
+				last = System.Math.Max(last, collector.collector.timeUntilFull);
+			}
+		}
+		return last;
 	}
 
 }

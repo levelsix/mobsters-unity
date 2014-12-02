@@ -6,7 +6,7 @@ public class MSHintLabel : MonoBehaviour {
 
 	UILabel label;
 
-	const string MONSTER_NAME = "mobster";
+	const string MONSTER_NAME = "toon";
 
 	public static string[] hints = 
 	{

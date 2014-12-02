@@ -12,6 +12,14 @@ using com.lvl6.proto;
 [RequireComponent (typeof (MSBuilding))]
 public class MSResourceCollector : MonoBehaviour {
     
+	public ResourceType resource
+	{
+		get
+		{
+			return _generator.resourceType;
+		}
+	}
+
 	public bool hasMoney
 	{
 		get
@@ -72,6 +80,15 @@ public class MSResourceCollector : MonoBehaviour {
 		set
 		{
 			_building.userStructProto.lastRetrieved = value;
+		}
+	}
+
+	public long timeUntilFull
+	{
+		get
+		{
+			float resourceLeft = _generator.capacity - currMoney;
+			return (long)(resourceLeft / _generator.productionRate * 36000);
 		}
 	}
 	

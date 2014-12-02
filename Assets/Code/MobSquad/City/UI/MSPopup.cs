@@ -20,6 +20,10 @@ public class MSPopup : MonoBehaviour {
 
 	[SerializeField] protected UITweener[] outTweens;
 
+	[SerializeField] bool defaultInSound = true;
+
+	[SerializeField] bool defaultOutSound = true;
+
 	/// <summary>
 	/// The poolable component, if any.
 	/// If there is a poolable component, this popup will
@@ -35,6 +39,7 @@ public class MSPopup : MonoBehaviour {
 
 	public virtual void Popup()
 	{
+		if (defaultInSound) MSSoundManager.instance.PlayOneShot (MSSoundManager.instance.defaultPopupIn);
 		gameObject.SetActive(true);
 		foreach (var item in outTweens) 
 		{
@@ -55,6 +60,7 @@ public class MSPopup : MonoBehaviour {
 	public virtual void Close(bool all = false)
 	{
 		StartCoroutine(RunOutTweens(all));
+		if (defaultOutSound) MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.defaultPopupOut);
 	}
 
 	/// <summary>

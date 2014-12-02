@@ -36,6 +36,18 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 	}
 
+	public long timeLeft
+	{
+		get
+		{
+			if (healingMonsters.Count == 0)
+			{
+				return 0;
+			}
+			return lastFinishTime - MSUtil.timeNowMillis;
+		}
+	}
+
 	void Awake()
 	{
 		instance = this;

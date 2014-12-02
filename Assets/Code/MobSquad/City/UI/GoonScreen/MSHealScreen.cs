@@ -215,7 +215,7 @@ public class MSHealScreen : MSFunctionalScreen
 			}
 			loadLock.Lock();
 			MSClanManager.instance.DoSolicitClanHelp(notices,
-			                                         MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
+			                                         MSBuildingManager.currClanHouse.maxHelpersPerSolicitation,
 			                                         loadLock.Unlock);
 			canCallForHelp = false;
 		}

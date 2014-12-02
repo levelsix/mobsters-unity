@@ -562,6 +562,15 @@ namespace com.lvl6.proto
       set { _numClanHelps = value; }
     }
 
+    private long _lastSecretGiftCollectTime = default(long);
+    [global::ProtoBuf.ProtoMember(54, IsRequired = false, Name=@"lastSecretGiftCollectTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long lastSecretGiftCollectTime
+    {
+      get { return _lastSecretGiftCollectTime; }
+      set { _lastSecretGiftCollectTime = value; }
+    }
+
     private string _udidForHistory = "";
     [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"udidForHistory", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]

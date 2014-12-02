@@ -114,7 +114,19 @@ namespace com.lvl6.proto
       MINI_JOB = 5,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ENHANCE_TIME", Value=6)]
-      ENHANCE_TIME = 6
+      ENHANCE_TIME = 6,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"REMOVE_OBSTACLE", Value=7)]
+      REMOVE_OBSTACLE = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"COMBINE_MONSTER", Value=8)]
+      COMBINE_MONSTER = 8,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_PERSISTENT_EVENT", Value=9)]
+      ENTER_PERSISTENT_EVENT = 9,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"GAME_ACTION_TYPE_RESEARCH", Value=10)]
+      GAME_ACTION_TYPE_RESEARCH = 10
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"GameType")]

@@ -703,8 +703,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	/// </summary>
 	public void Drop()
 	{
-		_tempPos = trans.position;	
-		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingMove);
+		_tempPos = trans.position;
 	}
 
     /// <summary>
@@ -715,12 +714,13 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
     {
 		if (userStructProto != null)
 		{
-	        if (_currPos.pos != groundPos && MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
+	        if (Vector2.SqrMagnitude(_currPos.pos - groundPos) >= 1 && MSGridManager.instance.HasSpaceForBuilding(combinedProto.structInfo, _currPos))
 	        {
 	            MSGridManager.instance.AddBuilding(this, _currPos.x, _currPos.z, combinedProto.structInfo.width, combinedProto.structInfo.height);
 				_originalPos = trans.position;
 				
 				SendBuildingMovedRequest();
+				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingDrop);
 	        }
 	        else
 	        {
@@ -730,7 +730,6 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		}
 		MSActionManager.Town.PlaceBuilding -= Place;
 		Deselect();
-		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.buildingDrop);
     }
 
 	IEnumerator WaitUntilPurchased()
@@ -794,6 +793,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				request.structCoordinates.x = _currPos.x;
 				request.structCoordinates.y = _currPos.z;
 				
+				groundPos = _currPos.coords;
+				
 				request.structId = combinedProto.structInfo.structId;
 				request.timeOfPurchase = MSUtil.timeNowMillis;
 				
@@ -828,6 +829,8 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 				request.structCoordinates = new CoordinateProto();
 				request.structCoordinates.x = _currPos.x;
 				request.structCoordinates.y = _currPos.z;
+
+				groundPos = _currPos.coords;
 				
 				request.structId = combinedProto.structInfo.structId;
 				request.timeOfPurchase = MSUtil.timeNowMillis;

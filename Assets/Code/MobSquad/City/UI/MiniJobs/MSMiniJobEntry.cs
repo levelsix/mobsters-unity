@@ -222,7 +222,7 @@ public class MSMiniJobEntry : MonoBehaviour {
 			MSClanManager.instance.DoSolicitClanHelp(GameActionType.MINI_JOB,
 			                                         (int)job.miniJob.quality,
 			                                         job.userMiniJobUuid,
-			                                         MSBuildingManager.clanHouse.combinedProto.clanHouse.maxHelpersPerSolicitation,
+			                                         MSBuildingManager.currClanHouse.maxHelpersPerSolicitation,
 			                                         delegate {SetupWaitingButton(); button.GetComponent<MSLoadLock>().Unlock();});
 		}
 		else if (currMode == EntryMode.WAITING)

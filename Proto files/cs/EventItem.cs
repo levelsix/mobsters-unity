@@ -188,4 +188,234 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RemoveUserItemUsedRequestProto")]
+  public partial class RemoveUserItemUsedRequestProto : global::ProtoBuf.IExtensible
+  {
+    public RemoveUserItemUsedRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<string> _userItemUsedUuid = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"userItemUsedUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> userItemUsedUuid
+    {
+      get { return _userItemUsedUuid; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RemoveUserItemUsedResponseProto")]
+  public partial class RemoveUserItemUsedResponseProto : global::ProtoBuf.IExtensible
+  {
+    public RemoveUserItemUsedResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.RemoveUserItemUsedResponseProto.RemoveUserItemUsedStatus _status = com.lvl6.proto.RemoveUserItemUsedResponseProto.RemoveUserItemUsedStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RemoveUserItemUsedResponseProto.RemoveUserItemUsedStatus.SUCCESS)]
+    public com.lvl6.proto.RemoveUserItemUsedResponseProto.RemoveUserItemUsedStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"RemoveUserItemUsedStatus")]
+    public enum RemoveUserItemUsedStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TradeItemForResourcesRequestProto")]
+  public partial class TradeItemForResourcesRequestProto : global::ProtoBuf.IExtensible
+  {
+    public TradeItemForResourcesRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProtoWithMaxResources sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<int> _itemIdsUsed = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"itemIdsUsed", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> itemIdsUsed
+    {
+      get { return _itemIdsUsed; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserItemProto> _nuUserItems = new global::System.Collections.Generic.List<com.lvl6.proto.UserItemProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"nuUserItems", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserItemProto> nuUserItems
+    {
+      get { return _nuUserItems; }
+    }
+  
+
+    private long _clientTime = default(long);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long clientTime
+    {
+      get { return _clientTime; }
+      set { _clientTime = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TradeItemForResourcesResponseProto")]
+  public partial class TradeItemForResourcesResponseProto : global::ProtoBuf.IExtensible
+  {
+    public TradeItemForResourcesResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProtoWithMaxResources sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private com.lvl6.proto.TradeItemForResourcesResponseProto.TradeItemForResourcesStatus _status = com.lvl6.proto.TradeItemForResourcesResponseProto.TradeItemForResourcesStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.TradeItemForResourcesResponseProto.TradeItemForResourcesStatus.SUCCESS)]
+    public com.lvl6.proto.TradeItemForResourcesResponseProto.TradeItemForResourcesStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"TradeItemForResourcesStatus")]
+    public enum TradeItemForResourcesStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RedeemSecretGiftRequestProto")]
+  public partial class RedeemSecretGiftRequestProto : global::ProtoBuf.IExtensible
+  {
+    public RedeemSecretGiftRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _mup = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"mup", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto mup
+    {
+      get { return _mup; }
+      set { _mup = value; }
+    }
+
+    private long _clientTime = default(long);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long clientTime
+    {
+      get { return _clientTime; }
+      set { _clientTime = value; }
+    }
+    private readonly global::System.Collections.Generic.List<string> _uisgUuid = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"uisgUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> uisgUuid
+    {
+      get { return _uisgUuid; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"RedeemSecretGiftResponseProto")]
+  public partial class RedeemSecretGiftResponseProto : global::ProtoBuf.IExtensible
+  {
+    public RedeemSecretGiftResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _mup = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"mup", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto mup
+    {
+      get { return _mup; }
+      set { _mup = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.UserItemSecretGiftProto> _nuGifts = new global::System.Collections.Generic.List<com.lvl6.proto.UserItemSecretGiftProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"nuGifts", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.UserItemSecretGiftProto> nuGifts
+    {
+      get { return _nuGifts; }
+    }
+  
+
+    private com.lvl6.proto.RedeemSecretGiftResponseProto.RedeemSecretGiftStatus _status = com.lvl6.proto.RedeemSecretGiftResponseProto.RedeemSecretGiftStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RedeemSecretGiftResponseProto.RedeemSecretGiftStatus.SUCCESS)]
+    public com.lvl6.proto.RedeemSecretGiftResponseProto.RedeemSecretGiftStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"RedeemSecretGiftStatus")]
+    public enum RedeemSecretGiftStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_ITEMS_NONEXISTENT", Value=2)]
+      FAIL_ITEMS_NONEXISTENT = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=3)]
+      FAIL_OTHER = 3
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
 }

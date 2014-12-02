@@ -306,6 +306,15 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_TRADE_ITEM_FOR_SPEED_UPS_EVENT", Value=85)]
       C_TRADE_ITEM_FOR_SPEED_UPS_EVENT = 85,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_REMOVE_USER_ITEM_USED_EVENT", Value=86)]
+      C_REMOVE_USER_ITEM_USED_EVENT = 86,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_TRADE_ITEM_FOR_RESOURCES_EVENT", Value=87)]
+      C_TRADE_ITEM_FOR_RESOURCES_EVENT = 87,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_REDEEM_SECRET_GIFT_EVENT", Value=88)]
+      C_REDEEM_SECRET_GIFT_EVENT = 88,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
             
@@ -568,6 +577,15 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_TRADE_ITEM_FOR_SPEED_UPS_EVENT", Value=85)]
       S_TRADE_ITEM_FOR_SPEED_UPS_EVENT = 85,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_REMOVE_USER_ITEM_USED_EVENT", Value=86)]
+      S_REMOVE_USER_ITEM_USED_EVENT = 86,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_TRADE_ITEM_FOR_RESOURCES_EVENT", Value=87)]
+      S_TRADE_ITEM_FOR_RESOURCES_EVENT = 87,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_REDEEM_SECRET_GIFT_EVENT", Value=88)]
+      S_REDEEM_SECRET_GIFT_EVENT = 88,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

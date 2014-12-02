@@ -162,21 +162,21 @@ public class MSBuildingCard : MonoBehaviour {
 	{
 		int count = MSBuildingManager.instance.GetBuildingTypeCount(building.structInfo.structType, building.structInfo.buildResourceType);
 		int max = 0;
-		if (MSBuildingManager.townHall != null)
+		if (MSBuildingManager.currTownHall != null)
 		{
 			switch(building.structInfo.structType)
 			{
 			case StructureInfoProto.StructType.HOSPITAL:
-				max = MSBuildingManager.townHall.combinedProto.townHall.numHospitals;
+				max = MSBuildingManager.currTownHall.numHospitals;
 				break;
 			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
 				switch(building.generator.resourceType)
 				{
 				case ResourceType.CASH:
-					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceOneGenerators;
+					max = MSBuildingManager.currTownHall.numResourceOneGenerators;
 					break;
 				case ResourceType.OIL:
-					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceTwoGenerators;
+					max = MSBuildingManager.currTownHall.numResourceTwoGenerators;
 					break;
 				}
 				break;
@@ -184,21 +184,21 @@ public class MSBuildingCard : MonoBehaviour {
 				switch(building.storage.resourceType)
 				{
 				case ResourceType.CASH:
-					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceOneStorages;
+					max = MSBuildingManager.currTownHall.numResourceOneStorages;
 					break;
 				case ResourceType.OIL:
-					max = MSBuildingManager.townHall.combinedProto.townHall.numResourceTwoStorages;
+					max = MSBuildingManager.currTownHall.numResourceTwoStorages;
 					break;
 				}
 				break;
 			case StructureInfoProto.StructType.RESIDENCE:
-				max = MSBuildingManager.townHall.combinedProto.townHall.numResidences;
+				max = MSBuildingManager.currTownHall.numResidences;
 				break;
 			case StructureInfoProto.StructType.EVO:
-				max = MSBuildingManager.townHall.combinedProto.townHall.numEvoChambers;
+				max = MSBuildingManager.currTownHall.numEvoChambers;
 				break;
 			case StructureInfoProto.StructType.LAB:
-				max = MSBuildingManager.townHall.combinedProto.townHall.numLabs;
+				max = MSBuildingManager.currTownHall.numLabs;
 				break;
 			case StructureInfoProto.StructType.MINI_JOB:
 				max = 1;
@@ -222,7 +222,7 @@ public class MSBuildingCard : MonoBehaviour {
 				on = false;
 				backDescription.text = "You Have the Max Number of This Building";
 				//increasing this number to be above the max town hall level makes it so this card goes to the end of the shop
-				hallReq = MSBuildingManager.townHall.combinedProto.maxLevel.structInfo.level + 1;
+				hallReq = MSBuildingManager.currTownHall.structInfo.level + 1;
 			}
 		}
 		else

@@ -27,6 +27,8 @@ public class MSSoundManager : MonoBehaviour {
 
 	public AudioClip gemPop;
 	public AudioClip rocket;
+	public AudioClip gemExplode;
+	public AudioClip[] rainbowParticleFire;
 	public AudioClip comboFire;
 
 	public AudioClip pistol;
@@ -64,6 +66,17 @@ public class MSSoundManager : MonoBehaviour {
 	public AudioClip collectCash;
 	public AudioClip collectOil;
 	
+	#endregion
+
+	#region UI Sfx
+
+	public AudioClip enhanceFeed;
+	public AudioClip enhanceLevelUp;
+	public AudioClip taskButtonClick;
+	public AudioClip defaultPopupIn;
+	public AudioClip defaultPopupOut;
+	public AudioClip defaultButtonClick;
+
 	#endregion
 
 	#region Tutorial Sfx
@@ -135,6 +148,11 @@ public class MSSoundManager : MonoBehaviour {
 		}
 
 		return playMusic;
+	}
+
+	public void PlayOneShot(AudioClip[] clips)
+	{
+		PlayOneShot(clips[UnityEngine.Random.Range(0, clips.Length)]);
 	}
 
 	public void PlayOneShot(AudioClip clip)

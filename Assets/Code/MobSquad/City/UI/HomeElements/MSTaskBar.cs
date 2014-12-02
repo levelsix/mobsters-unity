@@ -172,26 +172,11 @@ public class MSTaskBar : MonoBehaviour {
 				else if (building.combinedProto.structInfo.successorStructId > 0)
 				{
 					AddButton(MSTaskButton.Mode.UPGRADE);
-				}
-				if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.RESIDENCE)
-				{
-					AddButton(MSTaskButton.Mode.HIRE);
-					AddButton(MSTaskButton.Mode.SELL_MOBSTERS);
-				}
-				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.MINI_JOB
+				} 
+				if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.MINI_JOB
 				         && building.combinedProto.structInfo.level > 0)
 				{
 					AddButton(MSTaskButton.Mode.MINIJOB);
-				}
-				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.TEAM_CENTER)
-				{
-					MSTaskButton button = AddButton(MSTaskButton.Mode.TEAM);
-					if(manageTeamNeedsArrow)
-					{
-						MSTutorialArrow.instance.Init(button.trans, 150, MSValues.Direction.EAST);
-						button.hintArrow = MSTutorialArrow.instance;
-						manageTeamNeedsArrow = false;
-					}
 				}
 				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.LAB
 				         && building.combinedProto.structInfo.level > 0)
@@ -202,17 +187,31 @@ public class MSTaskBar : MonoBehaviour {
 				{
 					AddButton(MSTaskButton.Mode.EVOLVE);
 				}
-				else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.CLAN
-				         && building.combinedProto.structInfo.level > 0)
-				{
-					AddButton(MSTaskButton.Mode.SQUAD);
-				}
 				if (building.hospital != null)
 				{
 					AddButton(MSTaskButton.Mode.HEAL);
 				}
 			}
-
+			if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.RESIDENCE)
+			{
+				AddButton(MSTaskButton.Mode.HIRE);
+				AddButton(MSTaskButton.Mode.SELL_MOBSTERS);
+			}
+			else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.TEAM_CENTER)
+			{
+				MSTaskButton button = AddButton(MSTaskButton.Mode.TEAM);
+				if(manageTeamNeedsArrow)
+				{
+					MSTutorialArrow.instance.Init(button.trans, 150, MSValues.Direction.EAST);
+					button.hintArrow = MSTutorialArrow.instance;
+					manageTeamNeedsArrow = false;
+				}
+			}
+			else if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.CLAN
+			         && building.combinedProto.structInfo.level > 0)
+			{
+				AddButton(MSTaskButton.Mode.SQUAD);
+			}
 
 		}
 		else if (building.obstacle != null)

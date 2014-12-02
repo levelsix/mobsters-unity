@@ -10,7 +10,7 @@ using System.Collections;
 }
 
 
-public class ELANNotification : MonoBehaviour {
+public class ELANNotification {
 	
 	//Notification identifier
 	public int ID = 0;
@@ -29,7 +29,7 @@ public class ELANNotification : MonoBehaviour {
 	
 	public bool sendOnStart = false;  // NEW (typo)
 	
-	 void Start(){
+	public void Start(){
 		
 		ID = (int)(Time.time*1000) + (int)Random.Range (0,int.MaxValue/2);
 		if(sendOnStart) send();
@@ -83,6 +83,7 @@ public class ELANNotification : MonoBehaviour {
 	public string toString(){
 	
 	string toString = "fullClassName : " + fullClassName + "\n" +
+		"id : " + ID + "\n" +
 		"title : " + title + "\n" +
 		"message : " + message + "\n" +
 		"typeTime : " + delayTypeTime + "\n" +
@@ -92,7 +93,7 @@ public class ELANNotification : MonoBehaviour {
 		"useVibration : " + useVibration + "\n" +
 		"useSound : " + useSound + "\n";
 		
-		Debug.Log(toString);
+		//Debug.Log(toString);
 		
 		return toString;
 		

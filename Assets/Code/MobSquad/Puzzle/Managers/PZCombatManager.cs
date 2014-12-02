@@ -193,7 +193,7 @@ public class PZCombatManager : MonoBehaviour {
 	const float BALLIN_SCORE = 2.30f;
 	const float CANT_TOUCH_THIS_SCORE = 3.00f;
 	const float HAMMERTIME_SCORE = 4.20f;
-	const float MAKE_IT_RAIN_SCORE = .600f;
+	const float MAKE_IT_RAIN_SCORE = 6.00f;
 
 	const string BALLIN_SPRITE_NAME = "ballin";
 	const string CANT_TOUCH_THIS_SPRITE_NAME = "canttouchthis";
@@ -213,7 +213,7 @@ public class PZCombatManager : MonoBehaviour {
 	{
 		get
 		{
-			return MSBuildingManager.townHall.combinedProto.townHall.pvpQueueCashCost;
+			return MSBuildingManager.currTownHall.pvpQueueCashCost;
 		}
 	}
 
@@ -2544,7 +2544,7 @@ public class PZCombatManager : MonoBehaviour {
 		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis) * revives;
 		MSPopupManager.instance.CreatePopup(
 			"Revive", 
-			"Revive your mobsters?",
+			"Revive your toons?",
             new string[] {"Cancel", "(G) " + gemsToSpend},
 			new string[] {"greymenuoption", "purplemenuoption"},
 			new WaitFunction[] {MSUtil.QuickCloseTop, ReviveWithGems},

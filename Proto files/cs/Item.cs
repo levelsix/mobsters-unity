@@ -185,6 +185,61 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UserItemSecretGiftProto")]
+  public partial class UserItemSecretGiftProto : global::ProtoBuf.IExtensible
+  {
+    public UserItemSecretGiftProto() {}
+    
+
+    private string _uisgUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"uisgUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string uisgUuid
+    {
+      get { return _uisgUuid; }
+      set { _uisgUuid = value; }
+    }
+
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
+    {
+      get { return _userUuid; }
+      set { _userUuid = value; }
+    }
+
+    private int _minsForCollection = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"minsForCollection", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int minsForCollection
+    {
+      get { return _minsForCollection; }
+      set { _minsForCollection = value; }
+    }
+
+    private int _itemId = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"itemId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int itemId
+    {
+      get { return _itemId; }
+      set { _itemId = value; }
+    }
+
+    private long _createTime = default(long);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"createTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long createTime
+    {
+      get { return _createTime; }
+      set { _createTime = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     [global::ProtoBuf.ProtoContract(Name=@"ItemType")]
     public enum ItemType
     {
