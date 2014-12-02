@@ -90,6 +90,8 @@ public class MSGoonScreen : MonoBehaviour
 
 		barEvent.GetComponent<TweenAlpha>().Sample(0f, false);
 		barEvent.GetComponent<UIWidget>().alpha = 0f;
+		barEvent.gameObject.SetActive(false);
+
 		eventScreen.gameObject.SetActive(false);
 
 		topMenuParent.GetComponent<TweenAlpha>().Sample(0f, false);
@@ -99,6 +101,7 @@ public class MSGoonScreen : MonoBehaviour
 
 		backButton.GetComponent<TweenAlpha>().Sample(0f, false);
 		backButton.alpha = 0f;
+		backButton.gameObject.SetActive(false);
 
 		topEventTitle.GetComponent<TweenAlpha>().Sample(0f, false);
 		topEventTitle.alpha = 0f;
@@ -216,7 +219,8 @@ public class MSGoonScreen : MonoBehaviour
 			}
 			if(perEvent == null)
 			{
-				barEvent.GetComponent<TweenAlpha>().PlayReverse();
+//				barEvent.GetComponent<TweenAlpha>().PlayReverse();
+				barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
 			}
 		}
 		else if(nextScreen == (int)GoonScreenMode.PICK_EVOLVE)
@@ -233,16 +237,19 @@ public class MSGoonScreen : MonoBehaviour
 			}
 			if(perEvent == null)
 			{
-				barEvent.GetComponent<TweenAlpha>().PlayReverse();
+				barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
+//				barEvent.GetComponent<TweenAlpha>().PlayReverse();
 			}
 		}
 		else
 		{
-			barEvent.GetComponent<TweenAlpha>().PlayReverse();
+//			barEvent.GetComponent<TweenAlpha>().PlayReverse();
+			barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
 		}
 
 		if(perEvent != null && ((currScreen != (int)GoonScreenMode.PICK_ENHANCE && currScreen != (int)GoonScreenMode.PICK_EVOLVE) || forceTransition))
 		{
+			barEvent.gameObject.SetActive(true);
 			barEvent.GetComponent<TweenAlpha>().PlayForward();
 		}
 	}
@@ -269,8 +276,10 @@ public class MSGoonScreen : MonoBehaviour
 		topMenuParent.GetComponent<TweenAlpha>().PlayForward();
 		topMenuParent.GetComponent<TweenPosition>().PlayForward();
 
-		barEvent.GetComponent<TweenAlpha>().PlayReverse();
+//		barEvent.GetComponent<TweenAlpha>().PlayReverse();
+		barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
 
+		backButton.gameObject.SetActive(true);
 		backButton.GetComponent<TweenAlpha>().PlayForward();
 
 		topEventTitle.GetComponent<TweenAlpha>().PlayForward();
@@ -291,9 +300,11 @@ public class MSGoonScreen : MonoBehaviour
 		topMenuParent.GetComponent<TweenAlpha>().PlayReverse();
 		topMenuParent.GetComponent<TweenPosition>().PlayReverse();
 
+		barEvent.gameObject.SetActive(true);
 		barEvent.GetComponent<TweenAlpha>().PlayForward();
 
-		backButton.GetComponent<TweenAlpha>().PlayReverse();
+//		backButton.GetComponent<TweenAlpha>().PlayReverse();
+		backButton.GetComponent<MSUIHelper>().FadeOutAndOff();
 
 		topEventTitle.GetComponent<TweenAlpha>().PlayReverse();
 	}
