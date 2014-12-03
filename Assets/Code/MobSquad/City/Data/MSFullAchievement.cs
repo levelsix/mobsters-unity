@@ -14,6 +14,8 @@ public class MSFullAchievement
 	public UserAchievementProto userAchievement;
 	public AchievementProto achievement;
 
+	public bool clanAchievement = false;
+
 	public MSFullAchievement successor
 	{
 		get
@@ -52,6 +54,10 @@ public class MSFullAchievement
 		userAchievement.isComplete = false;
 		userAchievement.isRedeemed = false;
 		userAchievement.progress = 0;
+
+		clanAchievement = achievement.achievementType == AchievementProto.AchievementType.JOIN_CLAN
+			|| achievement.achievementType == AchievementProto.AchievementType.GIVE_HELP
+				|| achievement.achievementType == AchievementProto.AchievementType.SOLICIT_HELP;
 	}
 
 	public MSFullAchievement(UserAchievementProto userAchievement)

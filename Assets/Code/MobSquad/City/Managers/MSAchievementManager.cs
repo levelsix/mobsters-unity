@@ -8,6 +8,7 @@ public class MSAchievementManager : MonoBehaviour {
 	public static MSAchievementManager instance;
 
 	public List<MSFullAchievement> currAchievements = new List<MSFullAchievement>();
+	public List<MSFullAchievement> clanAchievements = new List<MSFullAchievement>();
 
 	public MSBadge achievementBadge;
 	public MSBadge jobBadge;
@@ -36,6 +37,9 @@ public class MSAchievementManager : MonoBehaviour {
 		MSActionManager.Town.OnObstacleRemoved += OnObstacleRemoved;
 		MSActionManager.Quest.OnMonstersSold += OnMobstersSold;
 		MSActionManager.Quest.OnStructureUpgraded += OnStructureUpgraded;
+		MSActionManager.Clan.OnSolicitClanHelp += OnClanHelpSolicit;
+		MSActionManager.Clan.OnGiveClanHelp += OnClanHelpGiven;
+		MSActionManager.Clan.OnPlayerClanChange += OnClanJoined;
 	}
 
 	void OnDisable()
@@ -48,6 +52,21 @@ public class MSAchievementManager : MonoBehaviour {
 		MSActionManager.Town.OnObstacleRemoved -= OnObstacleRemoved;
 		MSActionManager.Quest.OnMonstersSold -= OnMobstersSold;
 		MSActionManager.Quest.OnStructureUpgraded -= OnStructureUpgraded;
+		MSActionManager.Clan.OnSolicitClanHelp -= OnClanHelpSolicit;
+		MSActionManager.Clan.OnGiveClanHelp -= OnClanHelpGiven;
+		MSActionManager.Clan.OnPlayerClanChange -= OnClanJoined;
+	}
+
+	bool IsClanAchievement(AchievementProto achieve)
+	{
+		return achieve.achievementType == AchievementProto.AchievementType.JOIN_CLAN
+		    || achieve.achievementType == AchievementProto.AchievementType.GIVE_HELP
+		    || achieve.achievementType == AchievementProto.AchievementType.SOLICIT_HELP;
+	}
+
+	bool IsClanAchievement(UserAchievementProto userAchieve)
+	{
+		return IsClanAchievement(MSDataManager.instance.Get<AchievementProto>(userAchieve.achievementId));
 	}
 
 	void OnStartup(StartupResponseProto startup)
@@ -57,7 +76,11 @@ public class MSAchievementManager : MonoBehaviour {
 		progressRequest.sender = MSWhiteboard.localMup;
 		foreach (var item in startup.userAchievements)
 		{
-			if (!item.isRedeemed)
+			if (IsClanAchievement(item))
+			{
+				clanAchievements.Add(new MSFullAchievement(item));
+			}
+			else if (!item.isRedeemed)
 			{
 				currAchievements.Add(new MSFullAchievement(item));
 				if (item.isComplete)
@@ -72,7 +95,14 @@ public class MSAchievementManager : MonoBehaviour {
 			//If we've never done this achievement, add it in as new
 			if (startup.userAchievements.Find(x=>x.achievementId == item.achievementId) == null)
 			{
-				currAchievements.Add (new MSFullAchievement(item));
+				if (IsClanAchievement(item))
+				{
+					clanAchievements.Add(new MSFullAchievement(item));
+				}
+				else
+				{
+					currAchievements.Add (new MSFullAchievement(item));
+				}
 			}
 		}
 		currAchievements.Sort((x,y) => x.achievement.priority.CompareTo(y.achievement.priority));
@@ -299,6 +329,54 @@ public class MSAchievementManager : MonoBehaviour {
 				break;
 			default:
 				break;
+			}
+		}
+	}
+
+	void OnClanJoined(string clanUuid, UserClanStatus status, int iconId)
+	{
+		if (!clanUuid.Equals(""))
+		{
+			foreach (var item in clanAchievements) 
+			{
+				switch(item.achievement.achievementType)
+				{
+				case AchievementProto.AchievementType.JOIN_CLAN:
+					item.AddProgress(1);
+					break;
+				}
+			}
+		}
+	}
+
+	void OnClanHelpGiven(GiveClanHelpResponseProto proto, bool given)
+	{
+		if (given)
+		{
+			foreach (var item in clanAchievements) 
+			{
+				switch(item.achievement.achievementType)
+				{
+				case AchievementProto.AchievementType.GIVE_HELP:
+					item.AddProgress(1);
+					break;
+				}
+			}
+		}
+	}
+
+	void OnClanHelpSolicit(SolicitClanHelpResponseProto proto, bool given)
+	{
+		if (given)
+		{
+			foreach (var item in clanAchievements) 
+			{
+				switch(item.achievement.achievementType)
+				{
+				case AchievementProto.AchievementType.SOLICIT_HELP:
+					item.AddProgress(1);
+					break;
+				}
 			}
 		}
 	}
