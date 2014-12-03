@@ -375,6 +375,9 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator RevealCounter()
 	{
 		yield return new WaitForSeconds(0.5f);
+
+		mobsterCounter.MakePixelPerfect();
+
 		mobsterCounter.GetComponent<PZMobsterCounter>().MoveToMidPoint();
 		TweenAlpha.Begin(mobsterCounter.gameObject, 0.3f, 1f);
 
@@ -840,6 +843,8 @@ public class PZCombatManager : MonoBehaviour {
 		PZPuzzleManager.instance.InitBoard();
 
 		enemySkillIndicator.Init(enemyDefSkill, activeEnemy.monster.monster.monsterElement);
+
+		mobsterCounter.text = "ENEMY " + "1" + "/" + (enemies.Count + 1);
 
 		StartCoroutine(TweenInPvp());
 	}

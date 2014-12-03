@@ -38,6 +38,11 @@ public class MSAnimationEvents : MonoBehaviour {
 
 	public void shotFired()
 	{
+		if(_combatManager == null)
+		{
+			_combatManager = PZCombatManager.instance;
+		}
+
 		//if _totalAttack is == 0 then this is an NPC and not the player
 		if (_totalAttacks > 0) {
 			//this stop coroutine line probably doesn't do anything.  90% sure.
