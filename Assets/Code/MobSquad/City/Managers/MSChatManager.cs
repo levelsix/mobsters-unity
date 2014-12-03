@@ -22,6 +22,8 @@ public class MSChatManager : MonoBehaviour {
 	public List<GroupChatMessageProto> clanChat = new List<GroupChatMessageProto>();
 	Dictionary<string, List<PrivateChatPostProto>> privateChats = new Dictionary<string, List<PrivateChatPostProto>>();
 
+	public MinimumUserProtoWithLevel adminUser;
+
 	public bool hasPrivateChats
 	{
 		get
@@ -57,6 +59,10 @@ public class MSChatManager : MonoBehaviour {
 
 		//prewarms the clanchat so the bottom chat is accurate
 		clanGrid.SpawnBubbles(clanChat, false);
+
+		adminUser = new MinimumUserProtoWithLevel();
+		adminUser.minUserProto = startup.startupConstants.adminChatUserProto;
+		adminUser.level = 0;
 	}
 
 	void AddPrivateChat(PrivateChatPostProto item)
@@ -99,14 +105,19 @@ public class MSChatManager : MonoBehaviour {
 
 	public void GoToPrivateChat(MinimumUserProtoWithLevel otherUser)
 	{
+		bool slide = false;
 		currMode = MSValues.ChatMode.PRIVATE;
 		if (!chatPopup.gameObject.activeSelf)
 		{
 			MSActionManager.Popup.OnPopup(chatPopup.GetComponent<MSPopup>());
 		}
+		else 
+		{
+			slide = true;
+		}
 		if (privateChats.ContainsKey(otherUser.minUserProto.userUuid))
 		{
-			chatPopup.GoToPrivateChat(otherUser, privateChats[otherUser.minUserProto.userUuid]);
+			chatPopup.GoToPrivateChat(otherUser, privateChats[otherUser.minUserProto.userUuid], slide);
 			if (privateChats[otherUser.minUserProto.userUuid].Count == 1)
 			{
 				LoadAllMessagesForPrivateChat(otherUser, privateChats[otherUser.minUserProto.userUuid][0]);
@@ -114,7 +125,7 @@ public class MSChatManager : MonoBehaviour {
 		}
 		else
 		{
-			chatPopup.GoToPrivateChat(otherUser, null);
+			chatPopup.GoToPrivateChat(otherUser, null, slide);
 		}
 	}
 
