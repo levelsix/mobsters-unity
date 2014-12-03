@@ -382,8 +382,14 @@ public class MSChatPopup : MonoBehaviour {
 		else
 		{
 			noPrivateChatsParent.SetActive(true);
-			mover.gameObject.SetActive(false);
+			mover.Sample(0, true);
 		}
+	}
+
+	public void AdminChat()
+	{
+		Debug.Log("Admin schmat");
+		MSChatManager.instance.GoToPrivateChat(MSChatManager.instance.adminUser);
 	}
 
 	public void GoToPrivateChat(MinimumUserProtoWithLevel otherPlayer,

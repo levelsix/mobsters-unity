@@ -1526,7 +1526,7 @@ public class UICamera : MonoBehaviour
 						}
 						else
 						{
-							//Debug.Log("Normal Click notification");
+							Debug.Log("Normal Click notification: " + currentTouch.pressed.name);
 							Notify(currentTouch.pressed, "OnClick", null);
 						}
 

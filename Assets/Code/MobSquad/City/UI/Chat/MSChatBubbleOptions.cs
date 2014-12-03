@@ -67,7 +67,7 @@ public class MSChatBubbleOptions : MonoBehaviour {
 	public void Close(bool instant = false)
 	{
 		open = false;
-		Debug.LogWarning("Close");
+		//Debug.LogWarning("Close");
 		foreach (var item in tweens) 
 		{
 			if (instant)

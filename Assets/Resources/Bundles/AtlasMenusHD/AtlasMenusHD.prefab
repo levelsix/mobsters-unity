@@ -42,21 +42,21 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 8a46333b1b387403c936791894cf6d23, type: 2}
   mSprites:
   - name: 123
-    x: 0
-    y: 311
-    width: 362
-    height: 219
+    x: 1750
+    y: 1938
+    width: 181
+    height: 110
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
-    paddingTop: 1
+    paddingTop: 0
     paddingBottom: 0
   - name: acceptrequest
-    x: 1347
-    y: 943
+    x: 1025
+    y: 945
     width: 120
     height: 57
     borderLeft: 7
@@ -68,8 +68,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: achievementrewardbg
-    x: 363
-    y: 410
+    x: 767
+    y: 298
     width: 104
     height: 120
     borderLeft: 0
@@ -81,8 +81,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: achievementsiconactive
-    x: 1588
-    y: 1360
+    x: 1999
+    y: 1150
     width: 43
     height: 25
     borderLeft: 0
@@ -94,8 +94,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: achievementsiconinactive
-    x: 808
-    y: 445
+    x: 1986
+    y: 1030
     width: 43
     height: 25
     borderLeft: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: arrow
-    x: 767
-    y: 923
+    x: 680
+    y: 22
     width: 82
     height: 92
     borderLeft: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: attackbarcapmj
-    x: 457
+    x: 462
     y: 531
     width: 4
     height: 12
@@ -146,8 +146,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: attacksactiveicon
-    x: 1071
-    y: 404
+    x: 740
+    y: 117
     width: 26
     height: 20
     borderLeft: 0
@@ -159,8 +159,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: attacksinactiveicon
-    x: 825
-    y: 259
+    x: 680
+    y: 1
     width: 26
     height: 20
     borderLeft: 0
@@ -185,8 +185,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: BackgroundSlice
-    x: 2023
-    y: 1218
+    x: 2014
+    y: 1007
     width: 22
     height: 22
     borderLeft: 10
@@ -211,8 +211,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: bluesmallbutton
-    x: 1769
-    y: 1157
+    x: 1073
+    y: 1056
     width: 136
     height: 60
     borderLeft: 0
@@ -224,8 +224,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: bombdrop
-    x: 944
-    y: 590
+    x: 1809
+    y: 1324
     width: 63
     height: 64
     borderLeft: 0
@@ -250,8 +250,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: buildingcap
-    x: 503
-    y: 54
+    x: 1745
+    y: 1748
     width: 4
     height: 15
     borderLeft: 0
@@ -264,7 +264,7 @@ MonoBehaviour:
     paddingBottom: 3
   - name: buildingfinishnow
     x: 511
-    y: 31
+    y: 214
     width: 156
     height: 113
     borderLeft: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: buildingfinishnowpressed
     x: 511
-    y: 145
+    y: 328
     width: 156
     height: 113
     borderLeft: 0
@@ -289,8 +289,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: buildingmiddle
-    x: 508
-    y: 38
+    x: 1746
+    y: 1542
     width: 2
     height: 15
     borderLeft: 1
@@ -303,7 +303,7 @@ MonoBehaviour:
     paddingBottom: 3
   - name: buildingminijobs
     x: 457
-    y: 596
+    y: 649
     width: 52
     height: 52
     borderLeft: 0
@@ -315,8 +315,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingoptionbutton
-    x: 668
-    y: 259
+    x: 511
+    y: 442
     width: 156
     height: 113
     borderLeft: 0
@@ -328,8 +328,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: buildingoptionbuttonpressed
-    x: 511
-    y: 259
+    x: 1880
+    y: 1425
     width: 156
     height: 113
     borderLeft: 0
@@ -341,8 +341,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: buildingupgraded
-    x: 1650
-    y: 1368
+    x: 0
+    y: 2
     width: 327
     height: 32
     borderLeft: 0
@@ -354,8 +354,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cancel
-    x: 1193
-    y: 1044
+    x: 767
+    y: 824
     width: 168
     height: 80
     borderLeft: 7
@@ -367,8 +367,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: capsuleshadow
-    x: 944
-    y: 566
+    x: 668
+    y: 443
     width: 67
     height: 23
     borderLeft: 0
@@ -380,8 +380,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: cardbottomoverlay
-    x: 1016
-    y: 1001
+    x: 1582
+    y: 1335
     width: 190
     height: 42
     borderLeft: 0
@@ -394,7 +394,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: cardshadow
     x: 511
-    y: 373
+    y: 556
     width: 202
     height: 252
     borderLeft: 0
@@ -406,8 +406,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cashbar
-    x: 256
-    y: 537
+    x: 1446
+    y: 1117
     width: 180
     height: 30
     borderLeft: 0
@@ -419,8 +419,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cashcap
-    x: 499
-    y: 832
+    x: 2040
+    y: 1747
     width: 6
     height: 30
     borderLeft: 0
@@ -432,8 +432,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: cashmiddle
-    x: 508
-    y: 317
+    x: 408
+    y: 68
     width: 2
     height: 30
     borderLeft: 1
@@ -445,8 +445,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: chatactivetab
-    x: 1214
-    y: 948
+    x: 1025
+    y: 1003
     width: 132
     height: 52
     borderLeft: 0
@@ -458,8 +458,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: chatinactivetab
-    x: 1579
-    y: 950
+    x: 1158
+    y: 1005
     width: 132
     height: 50
     borderLeft: 0
@@ -471,8 +471,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: checkbg
-    x: 1016
-    y: 342
+    x: 714
+    y: 761
     width: 47
     height: 47
     borderLeft: 0
@@ -484,8 +484,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: claimed
-    x: 1839
-    y: 952
+    x: 1539
+    y: 1007
     width: 108
     height: 48
     borderLeft: 0
@@ -497,8 +497,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: clanbrowseactive
-    x: 1016
-    y: 13
+    x: 2023
+    y: 956
     width: 20
     height: 18
     borderLeft: 0
@@ -510,8 +510,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: clanbrowseinactive
-    x: 1078
-    y: 85
+    x: 1056
+    y: 770
     width: 20
     height: 18
     borderLeft: 0
@@ -523,8 +523,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: clancreateactive
-    x: 2029
-    y: 1415
+    x: 395
+    y: 2
     width: 15
     height: 15
     borderLeft: 0
@@ -536,8 +536,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: clancreateinactive
-    x: 2029
-    y: 1431
+    x: 1938
+    y: 1241
     width: 15
     height: 15
     borderLeft: 0
@@ -562,8 +562,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: clandetailgradient
-    x: 1101
-    y: 739
+    x: 1025
+    y: 366
     width: 2
     height: 146
     borderLeft: 1
@@ -575,8 +575,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: clandivider
-    x: 855
-    y: 1125
+    x: 767
+    y: 1148
     width: 960
     height: 27
     borderLeft: 0
@@ -587,9 +587,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 1
+  - name: clanhelpbarbg
+    x: 1766
+    y: 1060
+    width: 194
+    height: 20
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: clanmembersettings
-    x: 235
-    y: 1
+    x: 1971
+    y: 1056
     width: 60
     height: 60
     borderLeft: 0
@@ -601,8 +614,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: clanname
-    x: 986
-    y: 274
+    x: 1994
+    y: 946
     width: 28
     height: 28
     borderLeft: 0
@@ -626,9 +639,35 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: clanshelpactive
+    x: 437
+    y: 544
+    width: 19
+    height: 23
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: clanshelpinactive
+    x: 2028
+    y: 1320
+    width: 19
+    height: 23
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: clansizebg
-    x: 1468
-    y: 940
+    x: 1471
+    y: 1325
     width: 110
     height: 60
     borderLeft: 0
@@ -640,8 +679,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: clantag
-    x: 1712
-    y: 949
+    x: 1291
+    y: 1004
     width: 126
     height: 51
     borderLeft: 0
@@ -653,8 +692,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: clock
-    x: 835
-    y: 377
+    x: 1479
+    y: 951
     width: 19
     height: 20
     borderLeft: 0
@@ -679,8 +718,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: closex
-    x: 468
-    y: 411
+    x: 2006
+    y: 1744
     width: 33
     height: 33
     borderLeft: 0
@@ -692,8 +731,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: collect
-    x: 1344
-    y: 1153
+    x: 767
+    y: 233
     width: 150
     height: 64
     borderLeft: 0
@@ -705,8 +744,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: collectachievement
-    x: 714
-    y: 374
+    x: 1418
+    y: 1008
     width: 120
     height: 47
     borderLeft: 0
@@ -731,8 +770,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: commongtag
-    x: 1524
-    y: 886
+    x: 936
+    y: 2
     width: 86
     height: 30
     borderLeft: 0
@@ -744,8 +783,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: commonjob
-    x: 511
-    y: 3
+    x: 1146
+    y: 975
     width: 136
     height: 27
     borderLeft: 0
@@ -757,8 +796,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: commontag
-    x: 855
-    y: 655
+    x: 668
+    y: 239
     width: 88
     height: 88
     borderLeft: 0
@@ -770,8 +809,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: complete
-    x: 855
-    y: 221
+    x: 1625
+    y: 1064
     width: 140
     height: 52
     borderLeft: 0
@@ -783,8 +822,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: confirm
-    x: 668
-    y: 79
+    x: 511
+    y: 34
     width: 168
     height: 80
     borderLeft: 0
@@ -796,8 +835,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: createclanbox2
-    x: 1948
-    y: 1480
+    x: 412
+    y: 11
     width: 92
     height: 58
     borderLeft: 9
@@ -809,7 +848,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: damagedealtbg
-    x: 923
+    x: 855
     y: 1386
     width: 726
     height: 78
@@ -835,8 +874,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: detailhp
-    x: 1101
-    y: 917
+    x: 1793
+    y: 1035
     width: 192
     height: 20
     borderLeft: 0
@@ -849,7 +888,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: diagradient
     x: 508
-    y: 141
+    y: 361
     width: 2
     height: 169
     borderLeft: 1
@@ -874,8 +913,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: diamondbar
-    x: 363
-    y: 312
+    x: 1648
+    y: 1020
     width: 144
     height: 35
     borderLeft: 0
@@ -887,8 +926,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: diamondsmall
-    x: 808
-    y: 471
+    x: 714
+    y: 673
     width: 44
     height: 41
     borderLeft: 0
@@ -900,8 +939,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: diamondverysmall
-    x: 2029
-    y: 1447
+    x: 1431
+    y: 1176
     width: 18
     height: 17
     borderLeft: 0
@@ -926,8 +965,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthteam
-    x: 1016
-    y: 661
+    x: 936
+    y: 629
     width: 84
     height: 84
     borderLeft: 0
@@ -939,8 +978,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: emptyachievementstar
-    x: 1078
-    y: 176
+    x: 1259
+    y: 954
     width: 20
     height: 20
     borderLeft: 0
@@ -953,7 +992,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: emptyslot
     x: 317
-    y: 70
+    y: 290
     width: 190
     height: 240
     borderLeft: 0
@@ -965,32 +1004,6 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: engagearrow
-    x: 2035
-    y: 1801
-    width: 12
-    height: 19
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: engagedisabled
-    x: 855
-    y: 274
-    width: 130
-    height: 58
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: engagegrayarrow
     x: 497
     y: 952
     width: 12
@@ -1003,9 +1016,35 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 1
     paddingBottom: 0
+  - name: engagedisabled
+    x: 1494
+    y: 1058
+    width: 130
+    height: 58
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: engagegrayarrow
+    x: 2033
+    y: 1801
+    width: 12
+    height: 19
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: epicgtag
-    x: 1016
-    y: 197
+    x: 714
+    y: 556
     width: 50
     height: 30
     borderLeft: 0
@@ -1017,8 +1056,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: epicjob
-    x: 1427
-    y: 889
+    x: 1934
+    y: 975
     width: 96
     height: 27
     borderLeft: 0
@@ -1030,8 +1069,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: epictag
-    x: 855
-    y: 566
+    x: 668
+    y: 467
     width: 88
     height: 88
     borderLeft: 0
@@ -1043,8 +1082,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: expbar
-    x: 1555
-    y: 1013
+    x: 256
+    y: 537
     width: 180
     height: 30
     borderLeft: 6
@@ -1057,7 +1096,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: featureddivider
     x: 855
-    y: 1297
+    y: 1327
     width: 615
     height: 58
     borderLeft: 0
@@ -1069,8 +1108,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: featuredstars
-    x: 1937
-    y: 1307
+    x: 690
+    y: 120
     width: 49
     height: 17
     borderLeft: 0
@@ -1082,8 +1121,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: feederbase
-    x: 944
-    y: 477
+    x: 1773
+    y: 1320
     width: 29
     height: 26
     borderLeft: 0
@@ -1095,8 +1134,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: fightonbubblebutton
-    x: 668
-    y: 160
+    x: 511
+    y: 115
     width: 178
     height: 98
     borderLeft: 0
@@ -1108,8 +1147,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: finishbuild
-    x: 1362
-    y: 1044
+    x: 767
+    y: 986
     width: 168
     height: 80
     borderLeft: 0
@@ -1121,8 +1160,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: fireteam
-    x: 1016
-    y: 576
+    x: 936
+    y: 374
     width: 84
     height: 84
     borderLeft: 0
@@ -1134,8 +1173,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: fullachievementstar
-    x: 1078
-    y: 145
+    x: 910
+    y: 1
     width: 20
     height: 20
     borderLeft: 0
@@ -1148,7 +1187,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: gachaarrow
     x: 457
-    y: 649
+    y: 596
     width: 52
     height: 52
     borderLeft: 0
@@ -1160,8 +1199,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gacharevealclosex
-    x: 2014
-    y: 1091
+    x: 2006
+    y: 1676
     width: 32
     height: 33
     borderLeft: 0
@@ -1173,8 +1212,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: greenmenuoption
-    x: 855
-    y: 801
+    x: 1880
+    y: 1344
     width: 160
     height: 80
     borderLeft: 0
@@ -1186,8 +1225,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: greensmallbutton
-    x: 1632
-    y: 1157
+    x: 767
+    y: 110
     width: 136
     height: 60
     borderLeft: 0
@@ -1199,8 +1238,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: greentile
-    x: 940
-    y: 27
+    x: 1283
+    y: 951
     width: 68
     height: 51
     borderLeft: 0
@@ -1212,8 +1251,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: greymenuoption
-    x: 1853
-    y: 1044
+    x: 767
+    y: 743
     width: 160
     height: 80
     borderLeft: 0
@@ -1225,8 +1264,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: greysmallbutton
-    x: 1495
-    y: 1157
+    x: 936
+    y: 1056
     width: 136
     height: 60
     borderLeft: 0
@@ -1251,8 +1290,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 0
   - name: healblue
-    x: 974
-    y: 478
+    x: 908
+    y: 207
     width: 27
     height: 25
     borderLeft: 0
@@ -1264,8 +1303,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: healgrey
-    x: 2006
-    y: 1676
+    x: 908
+    y: 181
     width: 27
     height: 25
     borderLeft: 0
@@ -1291,7 +1330,7 @@ MonoBehaviour:
     paddingBottom: 3
   - name: healingmiddle
     x: 508
-    y: 54
+    y: 292
     width: 2
     height: 15
     borderLeft: 1
@@ -1303,8 +1342,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 3
   - name: healsellinactive
-    x: 1016
-    y: 507
+    x: 936
+    y: 141
     width: 78
     height: 68
     borderLeft: 0
@@ -1315,9 +1354,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: helped
+    x: 1918
+    y: 1257
+    width: 112
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: hireallfriendsactive
-    x: 1016
-    y: 53
+    x: 731
+    y: 1
     width: 23
     height: 20
     borderLeft: 0
@@ -1329,8 +1381,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: hireallfriendsinactive
-    x: 1016
-    y: 32
+    x: 707
+    y: 1
     width: 23
     height: 20
     borderLeft: 0
@@ -1342,8 +1394,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: hired
-    x: 1948
-    y: 954
+    x: 936
+    y: 94
     width: 85
     height: 46
     borderLeft: 0
@@ -1355,8 +1407,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: hiremobsquadactive
-    x: 823
-    y: 514
+    x: 1521
+    y: 953
     width: 21
     height: 18
     borderLeft: 0
@@ -1368,8 +1420,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: hiremobsquadinactive
-    x: 1078
-    y: 116
+    x: 1499
+    y: 953
     width: 21
     height: 18
     borderLeft: 0
@@ -1394,8 +1446,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: hometeamslotopen
-    x: 468
-    y: 488
+    x: 714
+    y: 587
     width: 42
     height: 42
     borderLeft: 0
@@ -1407,8 +1459,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: hospitaltimeleftbg
-    x: 940
-    y: 10
+    x: 668
+    y: 222
     width: 74
     height: 16
     borderLeft: 0
@@ -1420,7 +1472,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: hpbarcapmj
-    x: 462
+    x: 457
     y: 531
     width: 4
     height: 12
@@ -1445,22 +1497,9 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 2
     paddingBottom: 2
-  - name: inaclanbutton
-    x: 767
-    y: 710
-    width: 87
-    height: 83
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 1
   - name: infoi
     x: 2006
-    y: 1858
+    y: 1895
     width: 36
     height: 36
     borderLeft: 0
@@ -1472,8 +1511,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: instantcap
-    x: 503
-    y: 38
+    x: 1745
+    y: 1732
     width: 4
     height: 15
     borderLeft: 0
@@ -1485,8 +1524,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 3
   - name: instantmiddle
-    x: 508
-    y: 72
+    x: 2043
+    y: 1916
     width: 2
     height: 15
     borderLeft: 1
@@ -1498,8 +1537,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 3
   - name: jobicon
-    x: 2011
-    y: 1125
+    x: 1963
+    y: 947
     width: 30
     height: 27
     borderLeft: 0
@@ -1511,8 +1550,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: jobiconaccountant
-    x: 1047
-    y: 166
+    x: 1025
+    y: 541
     width: 30
     height: 30
     borderLeft: 0
@@ -1524,8 +1563,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: jobiconassistant
-    x: 823
-    y: 595
+    x: 1025
+    y: 572
     width: 30
     height: 30
     borderLeft: 0
@@ -1537,8 +1576,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: jobiconbellman
-    x: 1047
-    y: 74
+    x: 904
+    y: 49
     width: 30
     height: 29
     borderLeft: 0
@@ -1550,8 +1589,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: jobiconchef
-    x: 2014
-    y: 1060
+    x: 1025
+    y: 603
     width: 30
     height: 30
     borderLeft: 0
@@ -1563,8 +1602,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: jobicondoctor
-    x: 823
-    y: 564
+    x: 1025
+    y: 634
     width: 30
     height: 30
     borderLeft: 0
@@ -1576,8 +1615,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: jobiconelectriction
-    x: 2023
-    y: 1266
+    x: 486
+    y: 779
     width: 20
     height: 30
     borderLeft: 0
@@ -1589,8 +1628,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: jobiconlawyer
-    x: 1071
-    y: 425
+    x: 1934
+    y: 945
     width: 28
     height: 29
     borderLeft: 0
@@ -1602,8 +1641,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: jobiconmaid
-    x: 1064
-    y: 311
+    x: 1025
+    y: 665
     width: 30
     height: 30
     borderLeft: 0
@@ -1615,8 +1654,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: jobiconmanager
-    x: 986
-    y: 303
+    x: 2018
+    y: 1178
     width: 28
     height: 29
     borderLeft: 0
@@ -1628,8 +1667,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: jobiconmessenger
-    x: 1067
-    y: 197
+    x: 1025
+    y: 696
     width: 30
     height: 30
     borderLeft: 0
@@ -1641,8 +1680,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: jobiconplumber
-    x: 1016
-    y: 166
+    x: 1025
+    y: 727
     width: 30
     height: 30
     borderLeft: 0
@@ -1653,22 +1692,9 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: jobsbutton
-    x: 767
-    y: 794
-    width: 87
-    height: 86
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 1
   - name: legendarygtag
-    x: 1101
-    y: 886
+    x: 1479
+    y: 972
     width: 108
     height: 30
     borderLeft: 0
@@ -1680,8 +1706,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: legendaryjob
-    x: 1429
-    y: 1358
+    x: 511
+    y: 6
     width: 158
     height: 27
     borderLeft: 0
@@ -1693,8 +1719,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: legendarytag
-    x: 855
-    y: 477
+    x: 668
+    y: 353
     width: 88
     height: 88
     borderLeft: 0
@@ -1706,8 +1732,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: levelicon
-    x: 944
-    y: 416
+    x: 936
+    y: 33
     width: 59
     height: 60
     borderLeft: 0
@@ -1719,8 +1745,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: levelnumber
-    x: 943
-    y: 161
+    x: 1025
+    y: 885
     width: 59
     height: 59
     borderLeft: 0
@@ -1732,8 +1758,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: lightteam
-    x: 855
-    y: 52
+    x: 936
+    y: 714
     width: 84
     height: 84
     borderLeft: 0
@@ -1745,8 +1771,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: loadingbar
-    x: 923
-    y: 1359
+    x: 1728
+    y: 1149
     width: 270
     height: 26
     borderLeft: 12
@@ -1758,8 +1784,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: loadingbarbg
-    x: 1714
-    y: 1325
+    x: 936
+    y: 1117
     width: 274
     height: 30
     borderLeft: 0
@@ -1784,8 +1810,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: mailbutton
-    x: 855
-    y: 137
+    x: 936
+    y: 883
     width: 87
     height: 83
     borderLeft: 0
@@ -1798,7 +1824,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: menuclosex
     x: 2006
-    y: 1702
+    y: 1710
     width: 33
     height: 33
     borderLeft: 0
@@ -1824,7 +1850,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: Menu-Gotham-Medium-Italic
     x: 511
-    y: 626
+    y: 809
     width: 255
     height: 254
     borderLeft: 0
@@ -1849,6 +1875,19 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 0
   - name: Menu-Klavica-Bold-Bold
+    x: 511
+    y: 1064
+    width: 255
+    height: 255
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: Menu-ProximaNova-Semibold
     x: 1750
     y: 1676
     width: 255
@@ -1861,22 +1900,9 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
-  - name: Menu-ProximaNova-Semibold
-    x: 511
-    y: 881
-    width: 255
-    height: 255
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
   - name: menuteamhealthbar
-    x: 1867
-    y: 1002
+    x: 1588
+    y: 984
     width: 170
     height: 18
     borderLeft: 0
@@ -1888,7 +1914,7 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 2
   - name: menutopbar
-    x: 923
+    x: 855
     y: 1465
     width: 1024
     height: 73
@@ -1940,8 +1966,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: minijobsrewardbg
-    x: 1750
-    y: 1962
+    x: 1582
+    y: 1378
     width: 226
     height: 86
     borderLeft: 0
@@ -1953,8 +1979,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minimizechatx
-    x: 2023
-    y: 1241
+    x: 736
+    y: 442
     width: 24
     height: 24
     borderLeft: 0
@@ -1966,8 +1992,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: minitopbarbg
-    x: 1412
-    y: 1001
+    x: 767
+    y: 6
     width: 142
     height: 42
     borderLeft: 0
@@ -1979,8 +2005,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: mjadditionalbg
-    x: 1469
-    y: 921
+    x: 1759
+    y: 986
     width: 174
     height: 16
     borderLeft: 0
@@ -1992,8 +2018,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: mjrequiredbg
-    x: 1294
-    y: 921
+    x: 1256
+    y: 1177
     width: 174
     height: 16
     borderLeft: 0
@@ -2018,8 +2044,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: mobstersbottombarbg
-    x: 852
-    y: 1020
+    x: 2041
+    y: 1932
     width: 2
     height: 116
     borderLeft: 1
@@ -2031,8 +2057,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: mobsterstopbarbg
-    x: 1101
-    y: 626
+    x: 2044
+    y: 1936
     width: 2
     height: 112
     borderLeft: 0
@@ -2044,8 +2070,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: moneysmall
-    x: 1016
-    y: 296
+    x: 714
+    y: 715
     width: 47
     height: 45
     borderLeft: 0
@@ -2057,8 +2083,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: moneystack
-    x: 714
-    y: 422
+    x: 412
+    y: 70
     width: 93
     height: 90
     borderLeft: 0
@@ -2070,8 +2096,8 @@ MonoBehaviour:
     paddingTop: -19
     paddingBottom: 0
   - name: moneyverysmall
-    x: 1075
-    y: 235
+    x: 743
+    y: 215
     width: 22
     height: 23
     borderLeft: 0
@@ -2083,8 +2109,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: myclanactive
-    x: 970
-    y: 139
+    x: 1986
+    y: 1008
     width: 27
     height: 21
     borderLeft: 0
@@ -2096,8 +2122,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: myclaninactive
-    x: 808
-    y: 423
+    x: 379
+    y: 35
     width: 28
     height: 21
     borderLeft: 0
@@ -2109,8 +2135,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: myteambar
-    x: 1288
-    y: 1230
+    x: 1200
+    y: 1253
     width: 482
     height: 66
     borderLeft: 0
@@ -2122,8 +2148,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: myteambg
-    x: 855
-    y: 1153
+    x: 767
+    y: 1176
     width: 488
     height: 64
     borderLeft: 0
@@ -2135,8 +2161,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: newbg
-    x: 944
-    y: 504
+    x: 872
+    y: 357
     width: 60
     height: 61
     borderLeft: 0
@@ -2161,8 +2187,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: newjobstimerbg
-    x: 363
-    y: 348
+    x: 767
+    y: 171
     width: 140
     height: 61
     borderLeft: 0
@@ -2174,8 +2200,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: newquest
-    x: 855
-    y: 17
+    x: 1673
+    y: 949
     width: 71
     height: 34
     borderLeft: 0
@@ -2187,8 +2213,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightbar
-    x: 1736
-    y: 1013
+    x: 1850
+    y: 1117
     width: 130
     height: 30
     borderLeft: 0
@@ -2200,8 +2226,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightcardhealthbar
-    x: 1948
-    y: 1465
+    x: 1582
+    y: 1320
     width: 88
     height: 14
     borderLeft: 0
@@ -2213,8 +2239,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nighthteambar
-    x: 668
-    y: 1
+    x: 1671
+    y: 1322
     width: 90
     height: 12
     borderLeft: 0
@@ -2226,8 +2252,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightmteam
-    x: 468
-    y: 445
+    x: 714
+    y: 630
     width: 42
     height: 42
     borderLeft: 0
@@ -2239,8 +2265,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightteam
-    x: 1016
-    y: 831
+    x: 936
+    y: 459
     width: 84
     height: 84
     borderLeft: 0
@@ -2252,8 +2278,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightteamhealthbar
-    x: 1644
-    y: 921
+    x: 1085
+    y: 928
     width: 168
     height: 16
     borderLeft: 0
@@ -2264,20 +2290,46 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: noclanlilguys
-    x: 1016
-    y: 259
-    width: 49
-    height: 36
+  - name: notendcap
+    x: 497
+    y: 176
+    width: 12
+    height: 52
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
     paddingLeft: 0
-    paddingRight: 1
+    paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: notendcap
+  - name: notendcapblue
+    x: 497
+    y: 229
+    width: 12
+    height: 52
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: notendcapgreen
+    x: 486
+    y: 810
+    width: 12
+    height: 52
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: notendcaporange
     x: 486
     y: 863
     width: 12
@@ -2290,7 +2342,7 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: notendcapgreen
+  - name: notendcappurple
     x: 497
     y: 972
     width: 12
@@ -2304,8 +2356,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: notinaclanbutton
-    x: 767
-    y: 626
+    x: 936
+    y: 799
     width: 87
     height: 83
     borderLeft: 0
@@ -2317,21 +2369,34 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: notmiddle
-    x: 309
-    y: 9
+    x: 2038
+    y: 1552
     width: 2
     height: 52
     borderLeft: 1
     borderRight: 1
     borderTop: 2
     borderBottom: 2
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: notmiddleblue
+    x: 1746
+    y: 1558
+    width: 2
+    height: 52
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 0
+    borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
   - name: notmiddlegreen
-    x: 312
-    y: 9
+    x: 508
+    y: 17
     width: 2
     height: 52
     borderLeft: 1
@@ -2342,9 +2407,35 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: notmiddleorange
+    x: 505
+    y: 17
+    width: 2
+    height: 52
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: notmiddlepurple
+    x: 508
+    y: 308
+    width: 2
+    height: 52
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: oilcap
-    x: 502
-    y: 414
+    x: 499
+    y: 832
     width: 6
     height: 30
     borderLeft: 0
@@ -2356,8 +2447,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: oilicon
-    x: 1016
-    y: 390
+    x: 1025
+    y: 820
     width: 54
     height: 64
     borderLeft: 0
@@ -2382,8 +2473,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: oiloverflow
-    x: 944
-    y: 668
+    x: 1809
+    y: 1389
     width: 69
     height: 75
     borderLeft: 0
@@ -2395,8 +2486,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: oilready
-    x: 1977
-    y: 1973
+    x: 690
+    y: 138
     width: 69
     height: 75
     borderLeft: 0
@@ -2408,8 +2499,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: oilsmall
-    x: 825
-    y: 340
+    x: 2018
+    y: 1208
     width: 26
     height: 32
     borderLeft: 0
@@ -2421,8 +2512,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: oilupgradebutton
-    x: 855
-    y: 1044
+    x: 767
+    y: 905
     width: 168
     height: 80
     borderLeft: 0
@@ -2435,7 +2526,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: oilverysmall
     x: 2033
-    y: 1762
+    y: 1784
     width: 13
     height: 16
     borderLeft: 0
@@ -2447,8 +2538,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: onjobiconaccountant
-    x: 1047
-    y: 104
+    x: 1025
+    y: 758
     width: 30
     height: 30
     borderLeft: 0
@@ -2460,8 +2551,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: onjobiconassistant
-    x: 1066
-    y: 265
+    x: 1025
+    y: 789
     width: 30
     height: 30
     borderLeft: 0
@@ -2473,8 +2564,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: onjobiconbellman
-    x: 1016
-    y: 74
+    x: 904
+    y: 110
     width: 30
     height: 29
     borderLeft: 0
@@ -2486,8 +2577,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: onjobiconchef
-    x: 1016
-    y: 135
+    x: 1894
+    y: 955
     width: 30
     height: 30
     borderLeft: 0
@@ -2499,8 +2590,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: onjobicondoctor
-    x: 1016
-    y: 104
+    x: 1863
+    y: 955
     width: 30
     height: 30
     borderLeft: 0
@@ -2512,8 +2603,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: onjobiconelectriction
-    x: 486
-    y: 779
+    x: 1056
+    y: 789
     width: 20
     height: 30
     borderLeft: 0
@@ -2525,8 +2616,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: onjobiconlawyer
-    x: 825
-    y: 310
+    x: 996
+    y: 34
     width: 28
     height: 29
     borderLeft: 0
@@ -2538,8 +2629,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: onjobiconmaid
-    x: 1064
-    y: 359
+    x: 904
+    y: 79
     width: 30
     height: 30
     borderLeft: 0
@@ -2551,8 +2642,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: onjobiconmanager
-    x: 825
-    y: 280
+    x: 996
+    y: 64
     width: 28
     height: 29
     borderLeft: 0
@@ -2564,8 +2655,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: onjobiconmessenger
-    x: 1047
-    y: 135
+    x: 904
+    y: 140
     width: 30
     height: 30
     borderLeft: 0
@@ -2577,8 +2668,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: onjobiconplumber
-    x: 823
-    y: 533
+    x: 1773
+    y: 1347
     width: 30
     height: 30
     borderLeft: 0
@@ -2591,7 +2682,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: openquestarrow
     x: 2006
-    y: 1736
+    y: 1778
     width: 26
     height: 42
     borderLeft: 0
@@ -2603,8 +2694,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: orangebutton
-    x: 1024
-    y: 1044
+    x: 767
+    y: 1067
     width: 168
     height: 80
     borderLeft: 0
@@ -2616,8 +2707,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: orangemenuoption
-    x: 1692
-    y: 1044
+    x: 767
+    y: 662
     width: 160
     height: 80
     borderLeft: 0
@@ -2629,8 +2720,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: overbuildingbar
-    x: 1813
-    y: 917
+    x: 1880
+    y: 1323
     width: 120
     height: 20
     borderLeft: 0
@@ -2642,8 +2733,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: popupactivetab
-    x: 317
-    y: 5
+    x: 1499
+    y: 1176
     width: 172
     height: 64
     borderLeft: 0
@@ -2655,8 +2746,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: popupheader
-    x: 855
-    y: 1218
+    x: 767
+    y: 1241
     width: 432
     height: 78
     borderLeft: 0
@@ -2681,8 +2772,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: popupheadermiddle
-    x: 850
-    y: 937
+    x: 506
+    y: 82
     width: 2
     height: 78
     borderLeft: 1
@@ -2694,8 +2785,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: popupinactivetab
-    x: 668
-    y: 14
+    x: 1672
+    y: 1176
     width: 172
     height: 64
     borderLeft: 0
@@ -2734,7 +2825,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: prizesbg
     x: 511
-    y: 1137
+    y: 1320
     width: 343
     height: 218
     borderLeft: 0
@@ -2746,21 +2837,21 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: profilebutton
-    x: 855
-    y: 744
+    x: 1210
+    y: 1060
     width: 142
     height: 56
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
+    borderLeft: 20
+    borderRight: 20
+    borderTop: 20
+    borderBottom: 20
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
   - name: purplemenuoption
-    x: 855
-    y: 963
+    x: 767
+    y: 581
     width: 160
     height: 80
     borderLeft: 0
@@ -2772,8 +2863,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: pveshadow
-    x: 0
-    y: 2
+    x: 317
+    y: 287
     width: 188
     height: 2
     borderLeft: 0
@@ -2785,8 +2876,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rankbg
-    x: 767
-    y: 1016
+    x: 412
+    y: 161
     width: 84
     height: 120
     borderLeft: 0
@@ -2798,8 +2889,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: raregtag
-    x: 1016
-    y: 228
+    x: 1981
+    y: 1117
     width: 58
     height: 30
     borderLeft: 0
@@ -2811,8 +2902,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rarejob
-    x: 1323
-    y: 889
+    x: 1759
+    y: 958
     width: 103
     height: 27
     borderLeft: 0
@@ -2823,9 +2914,22 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
+  - name: readyforupgradebigcheck
+    x: 1698
+    y: 1712
+    width: 46
+    height: 51
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: redmenuoption
-    x: 855
-    y: 882
+    x: 767
+    y: 500
     width: 160
     height: 80
     borderLeft: 0
@@ -2837,8 +2941,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: redsmallbutton
-    x: 1906
-    y: 1157
+    x: 767
+    y: 49
     width: 136
     height: 60
     borderLeft: 0
@@ -2850,8 +2954,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: redtile
-    x: 1016
-    y: 455
+    x: 1352
+    y: 951
     width: 68
     height: 51
     borderLeft: 0
@@ -2863,8 +2967,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rejectrequest
-    x: 1989
-    y: 1298
+    x: 1421
+    y: 945
     width: 57
     height: 57
     borderLeft: 0
@@ -2877,7 +2981,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: removeteam
     x: 2006
-    y: 1895
+    y: 1858
     width: 36
     height: 36
     borderLeft: 0
@@ -2889,8 +2993,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: requestsactive
-    x: 648
-    y: 11
+    x: 1563
+    y: 952
     width: 19
     height: 19
     borderLeft: 0
@@ -2902,8 +3006,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: requestsinactive
-    x: 996
-    y: 368
+    x: 1543
+    y: 952
     width: 19
     height: 19
     borderLeft: 0
@@ -2914,9 +3018,48 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
+  - name: requirementfailed
+    x: 395
+    y: 18
+    width: 16
+    height: 16
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 1
+  - name: requirementgo
+    x: 1085
+    y: 886
+    width: 62
+    height: 41
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: requirementmet
+    x: 1918
+    y: 1241
+    width: 19
+    height: 15
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: rewardbg
-    x: 714
-    y: 513
+    x: 1932
+    y: 1936
     width: 108
     height: 112
     borderLeft: 0
@@ -2928,8 +3071,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: rewardlabel
-    x: 767
-    y: 888
+    x: 1588
+    y: 949
     width: 84
     height: 34
     borderLeft: 0
@@ -2980,8 +3123,8 @@ MonoBehaviour:
     paddingTop: 7
     paddingBottom: 7
   - name: selectclanbox
-    x: 1944
-    y: 1218
+    x: 936
+    y: 210
     width: 78
     height: 78
     borderLeft: 0
@@ -2993,8 +3136,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: sendcheck
-    x: 944
-    y: 388
+    x: 1025
+    y: 513
     width: 29
     height: 27
     borderLeft: 0
@@ -3006,8 +3149,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: sharecheckbox
-    x: 974
-    y: 389
+    x: 910
+    y: 22
     width: 25
     height: 26
     borderLeft: 8
@@ -3019,8 +3162,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: sharecheckmark
-    x: 943
-    y: 137
+    x: 2001
+    y: 1320
     width: 26
     height: 23
     borderLeft: 0
@@ -3045,8 +3188,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: speechbubbleshortname
-    x: 511
-    y: 1356
+    x: 0
+    y: 99
     width: 411
     height: 182
     borderLeft: 0
@@ -3058,8 +3201,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: spinbutton
-    x: 1771
-    y: 1234
+    x: 1845
+    y: 1178
     width: 172
     height: 62
     borderLeft: 0
@@ -3071,8 +3214,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: tapchartofill
-    x: 0
-    y: 5
+    x: 1683
+    y: 1263
     width: 234
     height: 56
     borderLeft: 0
@@ -3084,8 +3227,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: teamempty
-    x: 1016
-    y: 746
+    x: 936
+    y: 544
     width: 84
     height: 84
     borderLeft: 0
@@ -3097,8 +3240,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: teamhealthbarbg
-    x: 1934
-    y: 921
+    x: 668
+    y: 336
     width: 88
     height: 16
     borderLeft: 0
@@ -3136,8 +3279,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 3
   - name: teamhealthbg
-    x: 1867
-    y: 1021
+    x: 1793
+    y: 1012
     width: 174
     height: 22
     borderLeft: 0
@@ -3149,8 +3292,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: topbarbg
-    x: 1207
-    y: 1008
+    x: 1766
+    y: 1081
     width: 204
     height: 35
     borderLeft: 12
@@ -3162,8 +3305,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: ultragtag
-    x: 1977
-    y: 1942
+    x: 328
+    y: 4
     width: 66
     height: 30
     borderLeft: 0
@@ -3175,8 +3318,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: ultrajob
-    x: 1210
-    y: 889
+    x: 1146
+    y: 947
     width: 112
     height: 27
     borderLeft: 0
@@ -3188,8 +3331,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: ultratag
-    x: 855
-    y: 388
+    x: 936
+    y: 967
     width: 88
     height: 88
     borderLeft: 0
@@ -3201,8 +3344,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: upgradebarbg
-    x: 1194
-    y: 1361
+    x: 1211
+    y: 1123
     width: 234
     height: 24
     borderLeft: 10
@@ -3214,8 +3357,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: upgradebarcurrent
-    x: 1714
-    y: 1304
+    x: 1683
+    y: 1242
     width: 222
     height: 20
     borderLeft: 0
@@ -3227,45 +3370,6 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: upgradebarcurrentcap
-    x: 506
-    y: 843
-    width: 4
-    height: 19
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 2
-    paddingRight: 0
-    paddingTop: 2
-    paddingBottom: 3
-  - name: upgradebarcurrentmiddle
-    x: 506
-    y: 18
-    width: 2
-    height: 19
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 2
-    paddingBottom: 3
-  - name: upgradebarnew
-    x: 1750
-    y: 1941
-    width: 222
-    height: 20
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: upgradebarnewcap
     x: 499
     y: 812
     width: 4
@@ -3278,9 +3382,48 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 2
     paddingBottom: 3
+  - name: upgradebarcurrentmiddle
+    x: 408
+    y: 37
+    width: 2
+    height: 19
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 2
+    paddingBottom: 3
+  - name: upgradebarnew
+    x: 1627
+    y: 1127
+    width: 222
+    height: 20
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: upgradebarnewcap
+    x: 506
+    y: 843
+    width: 4
+    height: 19
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 0
+    paddingTop: 2
+    paddingBottom: 3
   - name: upgradebarnewmiddle
-    x: 503
-    y: 18
+    x: 1745
+    y: 1712
     width: 2
     height: 19
     borderLeft: 1
@@ -3293,7 +3436,7 @@ MonoBehaviour:
     paddingBottom: 3
   - name: upgradeincomebg
     x: 0
-    y: 62
+    y: 282
     width: 316
     height: 248
     borderLeft: 0
@@ -3317,9 +3460,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: upgradepopupbottomred
+    x: 1023
+    y: 1932
+    width: 726
+    height: 116
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: usernamefield
-    x: 1650
-    y: 1401
+    x: 0
+    y: 35
     width: 378
     height: 63
     borderLeft: 0
@@ -3331,8 +3487,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: visittask
-    x: 855
-    y: 333
+    x: 1353
+    y: 1062
     width: 140
     height: 54
     borderLeft: 0
@@ -3344,8 +3500,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: waterteam
-    x: 1016
-    y: 916
+    x: 936
+    y: 289
     width: 84
     height: 84
     borderLeft: 0
@@ -3357,8 +3513,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: whitebackbutton
-    x: 2006
-    y: 1779
+    x: 379
+    y: 57
     width: 28
     height: 41
     borderLeft: 0
@@ -3367,6 +3523,19 @@ MonoBehaviour:
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: woopsalertsign
+    x: 872
+    y: 299
+    width: 61
+    height: 57
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
   - name: xpcap
@@ -3396,8 +3565,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellowmenubar
-    x: 1471
-    y: 1309
+    x: 1256
+    y: 1194
     width: 242
     height: 46
     borderLeft: 0
@@ -3409,218 +3578,10 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellowmenuoption
-    x: 1531
-    y: 1044
+    x: 767
+    y: 419
     width: 160
     height: 80
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: clanhelpbarbg
-    x: 1816
-    y: 1132
-    width: 194
-    height: 20
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: helped
-    x: 1101
-    y: 938
-    width: 112
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: clanshelpactive
-    x: 437
-    y: 544
-    width: 19
-    height: 23
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: clanshelpinactive
-    x: 835
-    y: 398
-    width: 19
-    height: 23
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: notmiddleorange
-    x: 504
-    y: 357
-    width: 2
-    height: 52
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: notendcaporange
-    x: 490
-    y: 17
-    width: 12
-    height: 52
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: notmiddlepurple
-    x: 507
-    y: 357
-    width: 2
-    height: 52
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: notendcappurple
-    x: 296
-    y: 9
-    width: 12
-    height: 52
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: notmiddleblue
-    x: 508
-    y: 88
-    width: 2
-    height: 52
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: notendcapblue
-    x: 486
-    y: 810
-    width: 12
-    height: 52
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: readyforupgradebigcheck
-    x: 1698
-    y: 1712
-    width: 46
-    height: 51
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: requirementfailed
-    x: 1632
-    y: 1369
-    width: 16
-    height: 16
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 1
-  - name: woopsalertsign
-    x: 940
-    y: 79
-    width: 61
-    height: 57
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: requirementgo
-    x: 1978
-    y: 1359
-    width: 62
-    height: 41
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: requirementmet
-    x: 490
-    y: 1
-    width: 19
-    height: 15
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: upgradepopupbottomred
-    x: 1023
-    y: 1932
-    width: 726
-    height: 116
     borderLeft: 0
     borderRight: 0
     borderTop: 0
