@@ -35,7 +35,10 @@ public class MSMyPvpDetails : MonoBehaviour {
 
 	void SetLeagueInfo()
 	{
-		pvpCost.text = "Match Cost: $" + String.Format("{0:#,##0}", PZCombatManager.instance.pvpMatchCost);
+		if(PZCombatManager.instance != null && PZCombatManager.instance.pvpMatchCost != null)
+		{
+			pvpCost.text = "Match Cost: $" + String.Format("{0:#,##0}", PZCombatManager.instance.pvpMatchCost);
+		}
 
 		PvpLeagueProto pvpLeague = MSDataManager.instance.Get<PvpLeagueProto>(MSWhiteboard.localUser.pvpLeagueInfo.leagueId);
 

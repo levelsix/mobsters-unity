@@ -16,12 +16,27 @@ public class MSGoonScreen : MonoBehaviour
 	MSFunctionalScreen[] screens;
 
 	[SerializeField]
+	MSEventScreen eventScreen;
+
+	[SerializeField]
 	Transform topIconParent;
 
 	[SerializeField]
 	MSFunctionalTopIcon topIconPrefab;
 
 	MSFunctionalTopIcon topIcon;
+
+	[SerializeField]
+	Transform topMenuParent;
+
+	[SerializeField]
+	MSBarEvent barEvent;
+
+	[SerializeField]
+	UIWidget backButton;
+
+	[SerializeField]
+	UILabel topEventTitle;
 
 	int currScreen;
 
@@ -73,6 +88,25 @@ public class MSGoonScreen : MonoBehaviour
 		screens[(int)mode].transform.localPosition = Vector3.zero;
 		screens[(int)mode].Init();
 
+		barEvent.GetComponent<TweenAlpha>().Sample(0f, false);
+		barEvent.GetComponent<UIWidget>().alpha = 0f;
+		barEvent.gameObject.SetActive(false);
+
+		eventScreen.gameObject.SetActive(false);
+
+		topMenuParent.GetComponent<TweenAlpha>().Sample(0f, false);
+		topMenuParent.GetComponent<TweenPosition>().Sample(0f, false);
+		topMenuParent.GetComponent<UIWidget>().alpha = 1f;
+		topMenuParent.transform.localPosition = Vector3.zero;
+
+		backButton.GetComponent<TweenAlpha>().Sample(0f, false);
+		backButton.alpha = 0f;
+		backButton.gameObject.SetActive(false);
+
+		topEventTitle.GetComponent<TweenAlpha>().Sample(0f, false);
+		topEventTitle.alpha = 0f;
+
+		CheckEventBarAction(currScreen, true);
 	}
 
 	public void ShiftRight()
@@ -114,6 +148,8 @@ public class MSGoonScreen : MonoBehaviour
 			topIcon.helper.FadeIn();
 			TweenPosition.Begin(topIcon.gameObject, .3f, Vector3.zero);
 		}
+
+		CheckEventBarAction(nextScreen);
 		next.Init();
 
 		currScreen = nextScreen;
@@ -159,8 +195,118 @@ public class MSGoonScreen : MonoBehaviour
 			TweenPosition.Begin(topIcon.gameObject, .3f, Vector3.zero);
 		}
 
+		CheckEventBarAction(nextScreen);
 		next.Init();
+
 		currScreen = nextScreen;
+	}
+
+	void CheckEventBarAction(int nextScreen, bool forceTransition = false)
+	{
+		PersistentEventProto perEvent = null;
+
+		if(nextScreen == (int)GoonScreenMode.PICK_ENHANCE)
+		{
+			foreach(PersistentEventProto pEvent in MSEventManager.instance.GetActiveEvents())
+			{
+				if(pEvent.type == PersistentEventProto.EventType.ENHANCE)
+				{
+					perEvent = pEvent;
+					barEvent.Init(pEvent);
+					eventScreen.Init(barEvent.darkColor, barEvent.color, barEvent.lightColor, pEvent);
+					break;
+				}
+			}
+			if(perEvent == null)
+			{
+//				barEvent.GetComponent<TweenAlpha>().PlayReverse();
+				barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
+			}
+		}
+		else if(nextScreen == (int)GoonScreenMode.PICK_EVOLVE)
+		{
+			foreach(PersistentEventProto pEvent in MSEventManager.instance.GetActiveEvents())
+			{
+				if(pEvent.type == PersistentEventProto.EventType.EVOLUTION)
+				{
+					perEvent = pEvent;
+					barEvent.Init(pEvent);
+					eventScreen.Init(barEvent.darkColor, barEvent.color, barEvent.lightColor, pEvent);
+					break;
+				}
+			}
+			if(perEvent == null)
+			{
+				barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
+//				barEvent.GetComponent<TweenAlpha>().PlayReverse();
+			}
+		}
+		else
+		{
+//			barEvent.GetComponent<TweenAlpha>().PlayReverse();
+			barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
+		}
+
+		if(perEvent != null && ((currScreen != (int)GoonScreenMode.PICK_ENHANCE && currScreen != (int)GoonScreenMode.PICK_EVOLVE) || forceTransition))
+		{
+			barEvent.gameObject.SetActive(true);
+			TweenAlpha.Begin(barEvent.gameObject, 0.3f, 1f);
+		}
+	}
+
+	/// <summary>
+	/// Shifts for the enhance and evolve events
+	/// This hides the 
+	/// </summary>
+	public void EnterEventScreen()
+	{
+		//shift left
+
+		//The event screen is init through the barEvent object which stores the information for the event
+		MSFunctionalScreen curr = screens[currScreen];
+		MSFunctionalScreen next = eventScreen;
+
+		next.gameObject.SetActive(true);
+		next.transform.localPosition = new Vector3(SIZE, 0, 0);
+		TweenPosition tp = TweenPosition.Begin(next.gameObject, .3f, Vector3.zero);
+		tp.onFinished.Clear();
+		tp = TweenPosition.Begin(curr.gameObject, .3f, new Vector3(-SIZE, 0, 0));
+		tp.AddOnFinished(delegate{curr.gameObject.SetActive(false);});
+
+		topMenuParent.GetComponent<TweenAlpha>().PlayForward();
+		topMenuParent.GetComponent<TweenPosition>().PlayForward();
+
+//		barEvent.GetComponent<TweenAlpha>().PlayReverse();
+		barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
+
+		backButton.gameObject.SetActive(true);
+		TweenAlpha.Begin(backButton.gameObject, 0.3f, 1f);
+
+		topEventTitle.GetComponent<TweenAlpha>().PlayForward();
+	}
+
+	public void ExitEventScreen()
+	{
+		//shift right
+		MSFunctionalScreen curr = eventScreen;
+		MSFunctionalScreen next = screens[currScreen];
+
+		next.gameObject.SetActive(true);
+		TweenPosition tp = TweenPosition.Begin(next.gameObject, .3f, Vector3.zero);
+		tp.onFinished.Clear();
+		tp = TweenPosition.Begin(curr.gameObject, .3f, new Vector3(SIZE, 0, 0));
+		tp.AddOnFinished(delegate{curr.gameObject.SetActive(false);});
+
+		topMenuParent.GetComponent<TweenAlpha>().PlayReverse();
+		topMenuParent.GetComponent<TweenPosition>().PlayReverse();
+
+		barEvent.gameObject.SetActive(true);
+		TweenAlpha.Begin(barEvent.gameObject, 0.3f, 1f);
+
+//		backButton.GetComponent<TweenAlpha>().PlayReverse();
+		backButton.GetComponent<MSUIHelper>().FadeOutAndOff();
+
+		topEventTitle.GetComponent<TweenAlpha>().PlayReverse();
 	}
 
 	/*

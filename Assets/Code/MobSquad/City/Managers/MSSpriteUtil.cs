@@ -179,17 +179,33 @@ public class MSSpriteUtil : MonoBehaviour {
 		}
 	}
 
-	public void RunForEachTypeInBundle<T>(string bundleName, Action<T> ForEach, Action OnFinish = null) where T :class
+	/// <summary>
+	/// Runs the Action<T> for each T found in bundleName/subFolder.
+	/// </summary>
+	/// <param name="bundleName">Bundle name.</param>
+	/// <param name="subFolder">leave as "" or specify a subfolder to look in</param>
+	/// <param name="ForEach">Action to be preformed on each found element.</param>
+	/// <param name="OnFinish">On finish.</param>
+	/// <typeparam name="T">The type parameter.</typeparam>
+	public void RunForEachTypeInBundle<T>(string bundleName, string subFolder, Action<T> ForEach, Action OnFinish = null) where T :class
 	{
-		StartCoroutine(ForEachTypeInBundle<T>(bundleName, ForEach, OnFinish));
+		StartCoroutine(ForEachTypeInBundle<T>(bundleName, subFolder, ForEach, OnFinish));
 	}
 
-	IEnumerator ForEachTypeInBundle<T>(string bundleName, Action<T> ForEach, Action OnFinish) where T : class
+	IEnumerator ForEachTypeInBundle<T>(string bundleName, string subFolder, Action<T> ForEach, Action OnFinish) where T : class
 	{
+		UnityEngine.Object[] entireBundleOfTypeT;
 		if(internalBundles.Contains(bundleName))
 		{
-			UnityEngine.Object[] entireBundleOfTypeT = Resources.LoadAll("Bundles/"+bundleName, typeof(T));
-			
+			if(subFolder.Equals(""))
+			{
+				entireBundleOfTypeT = Resources.LoadAll("Bundles/"+bundleName, typeof(T));
+			}
+			else
+			{
+				entireBundleOfTypeT = Resources.LoadAll("Bundles/"+bundleName+"/"+subFolder, typeof(T));
+			}
+
 			IComparer<UnityEngine.Object> comparer = new MSNaturalSortObject();
 			Array.Sort<UnityEngine.Object>(entireBundleOfTypeT, comparer);
 			
@@ -207,7 +223,7 @@ public class MSSpriteUtil : MonoBehaviour {
 			
 			if (bundles.ContainsKey(bundleName))
 			{
-				UnityEngine.Object[] entireBundleOfTypeT = bundles[bundleName].LoadAll(typeof(T));
+				entireBundleOfTypeT = bundles[bundleName].LoadAll(typeof(T));
 				
 				IComparer<UnityEngine.Object> comparer = new MSNaturalSortObject();
 				Array.Sort<UnityEngine.Object>(entireBundleOfTypeT, comparer);

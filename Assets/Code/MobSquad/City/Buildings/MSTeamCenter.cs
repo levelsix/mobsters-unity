@@ -16,6 +16,7 @@ public class MSTeamCenter : MSBuildingFrame {
 	void OnEnable()
 	{
 		MSActionManager.Goon.OnTeamChanged += OnTeamChange;
+		MSActionManager.Goon.OnHealQueueChanged += OnTeamChange;
 		MSActionManager.Scene.OnCity += OnTeamChange;
 		FirstFrameCheck();
 //		OnTeamChange();
@@ -24,6 +25,7 @@ public class MSTeamCenter : MSBuildingFrame {
 	void OnDisable()
 	{
 		MSActionManager.Goon.OnTeamChanged -= OnTeamChange;
+		MSActionManager.Goon.OnHealQueueChanged -= OnTeamChange;
 		MSActionManager.Scene.OnCity -= OnTeamChange;
 	}
 

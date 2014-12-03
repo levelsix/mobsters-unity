@@ -40,17 +40,21 @@ public class PZCombatSave
 
 	public int totalEnemies;
 
+	public List<PZMonster> defeatedEnemies = new List<PZMonster>();
+
 	public PZCombatSave(){}
 
 	public PZCombatSave(PZMonster activePlayer, int activeEnemyHealth,
 	                 PZGem[,] board, BattleStats battleStats,
 	                    float forfeitChance, int currTurn, int currPlayerDamage,
 	                    int boardWidth, int boardHeight, int playerSkillPoints, int enemySkillPoints,
-	                    PZCombatUnit player, PZCombatUnit enemy)
+	                    PZCombatUnit player, PZCombatUnit enemy, List<PZMonster> defeatedEnemies)
 	{
 		this.activePlayerUserMonsterUuid = activePlayer.userMonster.userMonsterUuid;
 
 		this.activeEnemyHealth = activeEnemyHealth;
+
+		this.defeatedEnemies = defeatedEnemies;
 
 		gemColors = new int[boardWidth, boardHeight];
 		gemTypes = new int[boardWidth, boardHeight];

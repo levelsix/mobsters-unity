@@ -114,4 +114,32 @@ public static class MSValues
 		}
 		public const string moneyText = "D5E749";
 	}
+
+	/// <summary>
+	/// debug function
+	/// </summary>
+	/// <returns>String for day of the week.</returns>
+	/// <param name="day">Day.</param>
+	public static string IntToDay(int day)
+	{
+		switch(day)
+		{
+		case 0:
+			return "SUNDAY";
+		case 1:
+			return "MONDAY";
+		case 2:
+			return "TUESDAY";
+		case 3:
+			return "WEDNESDAY";
+		case 4:
+			return "THURSDAY";
+		case 5:
+			return "FRIDAY";
+		case 6:
+			return "SATURDAY";
+		default:
+			return "Invalid day of week";
+		}
+	}
 }
