@@ -5290,6 +5290,7 @@ GameObject:
   - 114: {fileID: 11400846}
   - 65: {fileID: 6500044}
   - 114: {fileID: 11400888}
+  - 114: {fileID: 11400908}
   m_Layer: 5
   m_Name: FatKidEvent
   m_TagString: Untagged
@@ -5651,6 +5652,7 @@ GameObject:
   - 65: {fileID: 6500060}
   - 114: {fileID: 11400896}
   - 114: {fileID: 11400848}
+  - 114: {fileID: 11400912}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -5670,6 +5672,22 @@ GameObject:
   - 114: {fileID: 11400906}
   m_Layer: 5
   m_Name: EventTitle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100690
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400690}
+  - 114: {fileID: 11400910}
+  m_Layer: 5
+  m_Name: CharacterGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10019,6 +10037,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400666}
+  - {fileID: 400690}
   m_Father: {fileID: 400674}
   m_RootOrder: 2
 --- !u!4 &400670
@@ -10159,6 +10178,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400016}
   m_RootOrder: 4
+--- !u!4 &400690
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100690}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 160, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400668}
+  m_RootOrder: 1
 --- !u!54 &5400000
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -10364,7 +10395,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1153, y: 768, z: 0}
+  m_Size: {x: 1152, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500002
 BoxCollider:
@@ -10756,6 +10787,8 @@ MonoBehaviour:
   - {fileID: 11400510}
   outTweens:
   - {fileID: 11400508}
+  defaultInSound: 1
+  defaultOutSound: 1
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10848,13 +10881,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: .490196079}
   mPivot: 4
-  mWidth: 1153
+  mWidth: 1152
   mHeight: 768
   mDepth: 100
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.50130212
+  aspectRatio: 1.5
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1
@@ -11373,6 +11406,8 @@ MonoBehaviour:
   defaultTarget: {fileID: 0}
   inTweens: []
   outTweens: []
+  defaultInSound: 1
+  defaultOutSound: 1
 --- !u!114 &11400038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -27985,6 +28020,7 @@ MonoBehaviour:
   timeLabel: {fileID: 11400856}
   time: {fileID: 11400854}
   topTitle: {fileID: 11400904}
+  characterSprite: {fileID: 0}
 --- !u!114 &11400854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -28598,14 +28634,14 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 7
-  mWidth: 187
-  mHeight: 282
+  mWidth: 174
+  mHeight: 324
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
-  keepAspectRatio: 1
-  aspectRatio: .661971807
-  mSprite: {fileID: 21300044, guid: 550e442161cef49489d8ac0c1d099e76, type: 3}
+  keepAspectRatio: 0
+  aspectRatio: .537037015
+  mSprite: {fileID: 21300000, guid: 207ba2596f6984e819f7c15093631777, type: 3}
   mMat: {fileID: 0}
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
   nextSprite: {fileID: 0}
@@ -28826,6 +28862,8 @@ MonoBehaviour:
   defaultTarget: {fileID: 0}
   inTweens: []
   outTweens: []
+  defaultInSound: 1
+  defaultOutSound: 1
 --- !u!114 &11400888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -29253,6 +29291,82 @@ MonoBehaviour:
   callWhenFinished: 
   from: 0
   to: 1
+--- !u!114 &11400908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1a3899468264031ba9c7e8d8e0f8d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: .300000012
+  dragBehind: {fileID: 0}
+--- !u!114 &11400910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 318
+  mHeight: 418
+  mDepth: 2
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: .760765553
+  mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
+  mSpriteName: behindcharacterglow
+  mType: 0
+  mFillDirection: 4
+  mFillAmount: 1
+  mInvert: 0
+  mFlip: 0
+  mFillCenter: 1
+  centerType: 1
+  leftType: 1
+  rightType: 1
+  bottomType: 1
+  topType: 1
+--- !u!114 &11400912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1a3899468264031ba9c7e8d8e0f8d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: .300000012
+  dragBehind: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

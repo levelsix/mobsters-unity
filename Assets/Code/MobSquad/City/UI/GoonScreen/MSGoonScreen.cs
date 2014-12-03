@@ -250,7 +250,7 @@ public class MSGoonScreen : MonoBehaviour
 		if(perEvent != null && ((currScreen != (int)GoonScreenMode.PICK_ENHANCE && currScreen != (int)GoonScreenMode.PICK_EVOLVE) || forceTransition))
 		{
 			barEvent.gameObject.SetActive(true);
-			barEvent.GetComponent<TweenAlpha>().PlayForward();
+			TweenAlpha.Begin(barEvent.gameObject, 0.3f, 1f);
 		}
 	}
 
@@ -280,7 +280,7 @@ public class MSGoonScreen : MonoBehaviour
 		barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
 
 		backButton.gameObject.SetActive(true);
-		backButton.GetComponent<TweenAlpha>().PlayForward();
+		TweenAlpha.Begin(backButton.gameObject, 0.3f, 1f);
 
 		topEventTitle.GetComponent<TweenAlpha>().PlayForward();
 	}
@@ -301,7 +301,7 @@ public class MSGoonScreen : MonoBehaviour
 		topMenuParent.GetComponent<TweenPosition>().PlayReverse();
 
 		barEvent.gameObject.SetActive(true);
-		barEvent.GetComponent<TweenAlpha>().PlayForward();
+		TweenAlpha.Begin(barEvent.gameObject, 0.3f, 1f);
 
 //		backButton.GetComponent<TweenAlpha>().PlayReverse();
 		backButton.GetComponent<MSUIHelper>().FadeOutAndOff();

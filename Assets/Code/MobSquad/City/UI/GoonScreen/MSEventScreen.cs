@@ -35,6 +35,9 @@ public class MSEventScreen : MSFunctionalScreen {
 	[SerializeField]
 	UILabel topTitle;
 
+	[SerializeField]
+	UI2DSprite characterSprite;
+
 	Color darkColor;
 	Color color;
 	Color lightColor;
@@ -113,6 +116,55 @@ public class MSEventScreen : MSFunctionalScreen {
 		default:
 			Debug.LogError("non valid event element specified");
 			break;
+		}
+
+		if(pEvent.type == PersistentEventProto.EventType.ENHANCE)
+		{
+			switch(pEvent.monsterElement)
+			{
+			case Element.LIGHT:
+				MSSpriteUtil.instance.SetSprite("CakeKid4T1","CakeKid4T1Character", characterSprite);
+				break;
+			case Element.EARTH:
+				MSSpriteUtil.instance.SetSprite("CakeKid2T1","CakeKid2T1Character", characterSprite);
+				break;
+			case Element.WATER:
+				MSSpriteUtil.instance.SetSprite("CakeKid3T1","CakeKid3T1Character", characterSprite);
+				break;
+			case Element.DARK:
+				MSSpriteUtil.instance.SetSprite("CakeKid5T1","CakeKid5T1Character", characterSprite);
+				break;
+			case Element.FIRE:
+				MSSpriteUtil.instance.SetSprite("CakeKid1T1","CakeKid1T1Character", characterSprite);
+				break;
+			default:
+				Debug.LogError("non valid event element specified");
+				break;
+			}
+		}
+		else if(pEvent.type == PersistentEventProto.EventType.EVOLUTION)
+		{
+			switch(pEvent.monsterElement)
+			{
+			case Element.LIGHT:
+				MSSpriteUtil.instance.SetSprite("Scientist4T1","Scientist4T1Character", characterSprite);
+				break;
+			case Element.EARTH:
+				MSSpriteUtil.instance.SetSprite("Scientist2T1","Scientist2T1Character", characterSprite);
+				break;
+			case Element.WATER:
+				MSSpriteUtil.instance.SetSprite("Scientist3T1","Scientist3T1Character", characterSprite);
+				break;
+			case Element.DARK:
+				MSSpriteUtil.instance.SetSprite("Scientist5T1","Scientist5T1Character", characterSprite);
+				break;
+			case Element.FIRE:
+				MSSpriteUtil.instance.SetSprite("Scientist1T1","Scientist1T1Character", characterSprite);
+				break;
+			default:
+				Debug.LogError("non valid event element specified");
+				break;
+			}
 		}
 	}
 
