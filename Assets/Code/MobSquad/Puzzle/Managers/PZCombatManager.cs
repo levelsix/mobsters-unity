@@ -2478,6 +2478,7 @@ public class PZCombatManager : MonoBehaviour {
 			StartCoroutine (activeEnemy.TakeDamage(99999, false, false));
 			StartCoroutine(activeEnemy.Die(false));
 			StartCoroutine(activePlayer.Die(true));
+			PZPuzzleManager.instance.ResetCakes();
 		}
 		else
 		{

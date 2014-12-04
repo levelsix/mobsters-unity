@@ -632,7 +632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1714632117
 Animator:
   serializedVersion: 3
@@ -642,11 +642,12 @@ Animator:
   m_GameObject: {fileID: 1714632116}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5701c68ae7698418b9c10293a154bff4, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3e0b63fc3dede453d9a48e841e3829aa, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!212 &1714632118
 SpriteRenderer:
   m_ObjectHideFlags: 0
