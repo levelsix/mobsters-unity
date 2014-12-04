@@ -217,7 +217,7 @@ public class MSGoonScreen : MonoBehaviour
 					break;
 				}
 			}
-			if(perEvent == null)
+			if(perEvent == null && barEvent.gameObject.activeSelf)
 			{
 //				barEvent.GetComponent<TweenAlpha>().PlayReverse();
 				barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
@@ -235,13 +235,13 @@ public class MSGoonScreen : MonoBehaviour
 					break;
 				}
 			}
-			if(perEvent == null)
+			if(perEvent == null && barEvent.gameObject.activeSelf)
 			{
 				barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();
 //				barEvent.GetComponent<TweenAlpha>().PlayReverse();
 			}
 		}
-		else
+		else if(barEvent.gameObject.activeSelf)
 		{
 //			barEvent.GetComponent<TweenAlpha>().PlayReverse();
 			barEvent.GetComponent<MSUIHelper>().FadeOutAndOff();

@@ -109,6 +109,7 @@ public class MSMapTaskButton : MonoBehaviour {
 			MSSpriteUtil.instance.SetSprite(_mapTask.bossImgName.Substring(0,_mapTask.bossImgName.Length - "Map2.png".Length),
 		                                MSUtil.StripExtensions(_mapTask.bossImgName),
 		                                bossSprite);
+			bossSprite.gameObject.name = _mapTask.bossImgName.Substring(0,_mapTask.bossImgName.Length - "Map2.png".Length);
 		}
 		bossSprite.MarkAsChanged();
 		bossSprite.MakePixelPerfect();

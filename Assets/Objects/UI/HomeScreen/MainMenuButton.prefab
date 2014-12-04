@@ -29,6 +29,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400002}
   - 114: {fileID: 11400008}
+  - 114: {fileID: 11400014}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -334,6 +335,74 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
+--- !u!114 &11400014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d1b7c9e9a19a24ab67123a43c6544b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  method: 0
+  style: 1
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: .00127551006
+      value: .498240948
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .855159521
+      value: .499493003
+      inSlope: -.0052110604
+      outSlope: -.0052110604
+      tangentMode: 0
+    - time: .874421
+      value: 1.00022829
+      inSlope: -.00233019772
+      outSlope: -.00233019772
+      tangentMode: 0
+    - time: .901770353
+      value: .103645921
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: .92444253
+      value: .800232112
+      inSlope: -.0217688177
+      outSlope: .00929708034
+      tangentMode: 1
+    - time: .953113616
+      value: .298592001
+      inSlope: -.0153849097
+      outSlope: -.0126492251
+      tangentMode: 1
+    - time: .974887848
+      value: .596467853
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: .498670399
+      inSlope: .0288596526
+      outSlope: .0288596526
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  ignoreTimeScale: 1
+  delay: 0
+  duration: 5
+  steeperCurves: 0
+  tweenGroup: 0
+  onFinished: []
+  eventReceiver: {fileID: 0}
+  callWhenFinished: 
+  from: {x: 0, y: 0, z: -35}
+  to: {x: 0, y: 0, z: 35}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -5604,6 +5604,8 @@ MonoBehaviour:
   - {fileID: 11400346}
   outTweens:
   - {fileID: 11400000}
+  defaultInSound: 1
+  defaultOutSound: 1
 --- !u!114 &11400050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12435,6 +12437,8 @@ MonoBehaviour:
   - {fileID: 11400094}
   outTweens:
   - {fileID: 11400010}
+  defaultInSound: 1
+  defaultOutSound: 1
 --- !u!114 &11400396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12876,7 +12880,7 @@ MonoBehaviour:
   reveal: {fileID: 11400390}
   spinnerCenter: {fileID: 11400284}
   spinnerSpring: {fileID: 11400282}
-  dragHitBox: {fileID: 0}
+  dragHitBox: {fileID: 6500014}
   lastToLoop: {fileID: 0}
 --- !u!114 &11400420
 MonoBehaviour:

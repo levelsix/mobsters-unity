@@ -430,10 +430,6 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 						oldNum = oldHall.numLabs;
 					}
 					break;
-				case StructureInfoProto.StructType.MINI_JOB:
-
-					continue;
-					break;
 				case StructureInfoProto.StructType.RESIDENCE:
 					if(newHall.numResidences > oldHall.numResidences)
 					{
@@ -467,8 +463,14 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 						oldNum = oldHall.numResourceTwoStorages;
 					}
 					break;
+				//empty cases can only show new levels
 				case StructureInfoProto.StructType.TEAM_CENTER:
 					break;
+				case StructureInfoProto.StructType.MINI_JOB:
+					break;
+				//using continue insteads of break disables townhall in the listings.
+				case StructureInfoProto.StructType.TOWN_HALL:
+					continue;
 				}
 
 				if(oldNum == 0)
@@ -499,6 +501,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		int lvl = building.level;
 		MSUnlockBuildingTile newTile = MSPoolManager.instance.Get<MSUnlockBuildingTile>(unlockTile, grid.transform);
 		newTile.transform.localScale = Vector3.one;
+		newTile.gameObject.name = building.name;
 		if(quantity > 0)
 		{
 			newTile.Init(quantity + "x", building);
