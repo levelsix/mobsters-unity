@@ -1579,6 +1579,7 @@ public class PZPuzzleManager : MonoBehaviour {
 	}
 
 	[SerializeField] float shuffleTime;
+	[SerializeField] MSUIHelper shuffleLabel;
 
 	[ContextMenu ("Test Shuffle")]
 	public void Shuffle()
@@ -1596,6 +1597,9 @@ public class PZPuzzleManager : MonoBehaviour {
 		PZGem[,] newBoard = new PZGem[boardWidth, boardHeight];
 
 		int x, y;
+
+		shuffleLabel.FadeIn();
+		PZCombatManager.instance.boardTint.FadeIn();
 
 		do
 		{
@@ -1648,6 +1652,9 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 			yield return null;
 		}while (currTime < shuffleTime);
+
+		shuffleLabel.FadeOut();
+		PZCombatManager.instance.boardTint.FadeOutAndOff();
 
 		board = newBoard;
 

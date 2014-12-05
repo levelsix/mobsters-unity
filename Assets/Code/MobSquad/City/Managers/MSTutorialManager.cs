@@ -593,7 +593,7 @@ public class MSTutorialManager : MonoBehaviour
 		PZCombatManager.instance.backupPvPEnemies[1] = bossCombatant;
 
 		PZCombatManager.instance.boardMove.PlayForward();
-		PZCombatManager.instance.boardTint.PlayReverse();
+		PZCombatManager.instance.boardTint.FadeOut();
 		PZPuzzleManager.instance.swapLock = 0;
 
 		yield return PZCombatManager.instance.turnDisplay.RunInit(userCombatant.monster, enemyOneCombatant.monster);
@@ -616,7 +616,7 @@ public class MSTutorialManager : MonoBehaviour
 		yield return StartCoroutine(WaitForTurn());
 
 		PZPuzzleManager.instance.swapLock++;
-		PZCombatManager.instance.boardTint.PlayForward();
+		PZCombatManager.instance.boardTint.FadeIn();
 	}
 
 	IEnumerator Combat_IntroSecondFight()
@@ -625,7 +625,7 @@ public class MSTutorialManager : MonoBehaviour
 
 		PZCombatManager.instance.activeEnemy = bossCombatant;
 		yield return PZCombatManager.instance.RunScrollToNextEnemy();
-		PZCombatManager.instance.boardTint.PlayForward();
+		PZCombatManager.instance.boardTint.FadeIn();
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyBoss.imagePrefix, enemyBoss.imagePrefix + "Facepalm", enemyBoss.displayName, TutorialStrings.CHICKENS_WORK, true));
 
@@ -642,7 +642,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator Combat_SecondFightPartOne()
 	{
-		PZCombatManager.instance.boardTint.PlayReverse();
+		PZCombatManager.instance.boardTint.FadeOut();
 		PZPuzzleManager.instance.swapLock = 0;
 		
 		yield return PZCombatManager.instance.turnDisplay.RunInit(userCombatant.monster, enemyTwoCombatant.monster);
@@ -664,7 +664,7 @@ public class MSTutorialManager : MonoBehaviour
 		yield return StartCoroutine(WaitForTurn());
 
 		PZPuzzleManager.instance.swapLock++;
-		PZCombatManager.instance.boardTint.PlayForward();
+		PZCombatManager.instance.boardTint.FadeIn();
 	}
 
 	IEnumerator Combat_BringInZark()
@@ -695,7 +695,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	IEnumerator Combat_ZarkFights()
 	{
-		PZCombatManager.instance.boardTint.PlayReverse();
+		PZCombatManager.instance.boardTint.FadeOut();
 		PZPuzzleManager.instance.swapLock = 0;
 
 		yield return StartCoroutine(WaitForTurn());

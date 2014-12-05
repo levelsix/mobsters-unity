@@ -13,6 +13,8 @@ using com.lvl6.proto;
 public class MSUIHelper : MonoBehaviour {
 
 	public float fadeTime = .6f;
+
+	public float targetAlpha = 1;
 	
 	public UIDragScrollView dragBehind;
 
@@ -25,7 +27,9 @@ public class MSUIHelper : MonoBehaviour {
 
 	public void ResetAlpha(bool on)
 	{
-		TweenAlpha.Begin(gameObject, 0, on ? 1 : 0); 
+		if (on) gameObject.SetActive(true);
+
+		TweenAlpha.Begin(gameObject, 0, on ? targetAlpha : 0); 
 	}
 
 	/// <summary>
@@ -40,7 +44,7 @@ public class MSUIHelper : MonoBehaviour {
 	public TweenAlpha FadeIn()
 	{
 		gameObject.SetActive(true);
-		return TweenAlpha.Begin(gameObject, fadeTime, 1);
+		return TweenAlpha.Begin(gameObject, fadeTime, targetAlpha);
 	}
 	
 	/// <summary>
