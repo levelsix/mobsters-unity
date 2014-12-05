@@ -340,13 +340,13 @@ namespace com.lvl6.proto
     public RedeemSecretGiftRequestProto() {}
     
 
-    private com.lvl6.proto.MinimumUserProto _mup = null;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"mup", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
-    public com.lvl6.proto.MinimumUserProto mup
+    public com.lvl6.proto.MinimumUserProto sender
     {
-      get { return _mup; }
-      set { _mup = value; }
+      get { return _sender; }
+      set { _sender = value; }
     }
 
     private long _clientTime = default(long);

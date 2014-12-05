@@ -470,6 +470,60 @@ namespace com.lvl6.proto
       get { return _teamCost; }
       set { _teamCost = value; }
     }
+
+    private int _costToFullyHeal = default(int);
+    [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name=@"costToFullyHeal", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int costToFullyHeal
+    {
+      get { return _costToFullyHeal; }
+      set { _costToFullyHeal = value; }
+    }
+
+    private int _secsToFullyHeal = default(int);
+    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"secsToFullyHeal", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int secsToFullyHeal
+    {
+      get { return _secsToFullyHeal; }
+      set { _secsToFullyHeal = value; }
+    }
+
+    private int _enhanceCostPerFeeder = default(int);
+    [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"enhanceCostPerFeeder", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int enhanceCostPerFeeder
+    {
+      get { return _enhanceCostPerFeeder; }
+      set { _enhanceCostPerFeeder = value; }
+    }
+
+    private float _enhanceCostExponent = default(float);
+    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"enhanceCostExponent", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float enhanceCostExponent
+    {
+      get { return _enhanceCostExponent; }
+      set { _enhanceCostExponent = value; }
+    }
+
+    private float _enhanceExpPerSecond = default(float);
+    [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name=@"enhanceExpPerSecond", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float enhanceExpPerSecond
+    {
+      get { return _enhanceExpPerSecond; }
+      set { _enhanceExpPerSecond = value; }
+    }
+
+    private float _enhanceExpPerSecondExponent = default(float);
+    [global::ProtoBuf.ProtoMember(23, IsRequired = false, Name=@"enhanceExpPerSecondExponent", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float enhanceExpPerSecondExponent
+    {
+      get { return _enhanceExpPerSecondExponent; }
+      set { _enhanceExpPerSecondExponent = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -661,6 +715,15 @@ namespace com.lvl6.proto
     {
       get { return _queuedTimeMillis; }
       set { _queuedTimeMillis = value; }
+    }
+
+    private string _userHospitalStructUuid = "";
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userHospitalStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userHospitalStructUuid
+    {
+      get { return _userHospitalStructUuid; }
+      set { _userHospitalStructUuid = value; }
     }
 
     private float _healthProgress = default(float);

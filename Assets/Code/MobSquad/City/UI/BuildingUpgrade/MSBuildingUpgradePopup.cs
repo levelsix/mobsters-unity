@@ -282,6 +282,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 			Sprite sprite = MSSpriteUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
 			buildingSprite.sprite2D = sprite;
+			buildingSprite.MakePixelPerfect();
 			if (sprite != null)
 			{
 				buildingSprite.width = (int)sprite.textureRect.width;
@@ -289,15 +290,15 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 				if(buildingSprite.width > MAX_IMAGE_WIDTH)
 				{
-					int newHeight = (buildingSprite.height/buildingSprite.width) * MAX_IMAGE_WIDTH;
+					float newHeight = ((float)buildingSprite.height/(float)buildingSprite.width) * (float)MAX_IMAGE_WIDTH;
 					buildingSprite.width = MAX_IMAGE_WIDTH;
-					buildingSprite.height = newHeight;
+					buildingSprite.height = (int)newHeight;
 				}
 				if(buildingSprite.height > MAX_IMAGE_HEIGHT)
 				{
-					int newWidth = (buildingSprite.width/buildingSprite.height) * MAX_IMAGE_HEIGHT;
+					float newWidth = ((float)buildingSprite.width/(float)buildingSprite.height) * (float)MAX_IMAGE_HEIGHT;
 					buildingSprite.height = MAX_IMAGE_HEIGHT;
-					buildingSprite.width = newWidth;
+					buildingSprite.width = (int)newWidth;
 				}
 
 				buildingSprite.MarkAsChanged();

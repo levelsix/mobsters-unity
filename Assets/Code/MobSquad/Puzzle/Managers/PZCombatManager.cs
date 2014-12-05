@@ -136,7 +136,7 @@ public class PZCombatManager : MonoBehaviour {
 	[SerializeField]
 	UITweener attackWordsTweenPos;
 	
-	public TweenAlpha boardTint;
+	public MSUIHelper boardTint;
 
 	public TweenPosition boardMove;
 
@@ -859,7 +859,7 @@ public class PZCombatManager : MonoBehaviour {
 		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.boardSlideIn);
 		boardMove.delay = 0f;
 
-		boardTint.Sample(1, false);
+		boardTint.ResetAlpha(true);
 		//boardTint.PlayReverse();
 		//PZPuzzleManager.instance.swapLock = 0;
 
@@ -1678,9 +1678,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator DoTintBoard()
 	{
-		boardTint.gameObject.SetActive(true);
-		boardTint.PlayForward();
-		while (boardTint.tweenFactor < 1) yield return null;
+		boardTint.FadeIn();
+		yield return new WaitForSeconds(boardTint.fadeTime);
 	}
 
 	Coroutine UntintBoard()
@@ -1690,9 +1689,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator DoUntintBoard()
 	{
-		boardTint.PlayReverse();
-		while(boardTint.tweenFactor > 0) yield return null;
-		boardTint.gameObject.SetActive(false);
+		boardTint.FadeOutAndOff();
+		yield return new WaitForSeconds(boardTint.fadeTime);
 	}
 
 	#region Blood
@@ -2039,12 +2037,12 @@ public class PZCombatManager : MonoBehaviour {
 			yield return skillAnimate;
 			break;
 		case SkillType.JELLY:
-			boardTint.gameObject.SetActive(false);
+			boardTint.TurnOff();
 			List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)enemyDefSkill.properties.Find(x=>x.name == "SPAWN_COUNT").skillValue);
 			PZPuzzleManager.instance.BlockBoard(spaces);
 			yield return new WaitForSeconds(1);
 			PZPuzzleManager.instance.UnblockBoard();
-			boardTint.gameObject.SetActive(true);
+			boardTint.ResetAlpha(true);
 			break;
 		}
 
@@ -2098,31 +2096,31 @@ public class PZCombatManager : MonoBehaviour {
 			{
 			case SkillType.JELLY:
 				yield return TintBoard();
-				boardTint.gameObject.SetActive(false);
+				boardTint.TurnOff();
 				List<Vector2> spaces = PZPuzzleManager.instance.SpawnJellies((int)enemyDefSkill.properties.Find(x=>x.name == "INITIAL_COUNT").skillValue);
 				PZPuzzleManager.instance.BlockBoard(spaces);
 				yield return new WaitForSeconds(1);
 				PZPuzzleManager.instance.UnblockBoard();
-				boardTint.gameObject.SetActive(true);
+				boardTint.ResetAlpha(true);
 				//yield return UntintBoard();
 				break;
 			case SkillType.CAKE_DROP:
 				yield return TintBoard();
 				PZPuzzleManager.instance.SetupForCakes(enemyDefSkill);
-				boardTint.gameObject.SetActive(false);
+				boardTint.TurnOff();
 				PZPuzzleManager.instance.BlockBoard();
 				yield return PZPuzzleManager.instance.BakeCake();
 				PZPuzzleManager.instance.cakes[0].Block(.3f);
 				yield return new WaitForSeconds(.3f);
 				PZPuzzleManager.instance.UnblockBoard();
-				boardTint.gameObject.SetActive(true);
+				boardTint.ResetAlpha(true);
 				yield return new WaitForSeconds(.8f);
 				//yield return UntintBoard();
 				break;
 			case SkillType.BOMBS:
 				yield return TintBoard();
 				EnemySetupBombs();
-				boardTint.gameObject.SetActive(false);
+				boardTint.TurnOff();
 				List<PZGem> gemsToTurnBombs = PZPuzzleManager.instance.PickBombs((int)activeEnemy.monster.monster.monsterElement-1, ((int)enemyDefSkill.properties.Find(x=>x.name == "INITIAL_BOMBS").skillValue) - bombs.Count);
 				foreach (var gem in gemsToTurnBombs) 
 				{
@@ -2137,7 +2135,7 @@ public class PZCombatManager : MonoBehaviour {
 				}
 				yield return new WaitForSeconds(.3f);
 				PZPuzzleManager.instance.UnblockBoard();
-				boardTint.gameObject.SetActive(true);
+				boardTint.ResetAlpha(true);
 				yield return new WaitForSeconds(.8f);
 				break;
 			case SkillType.POISON:
@@ -2157,7 +2155,7 @@ public class PZCombatManager : MonoBehaviour {
 				}
 				yield return new WaitForSeconds(.3f);
 				PZPuzzleManager.instance.UnblockBoard();
-				boardTint.gameObject.SetActive(true);
+				boardTint.ResetAlpha(true);
 				yield return new WaitForSeconds(.8f);
 				break;
 			}
@@ -2478,6 +2476,7 @@ public class PZCombatManager : MonoBehaviour {
 			StartCoroutine (activeEnemy.TakeDamage(99999, false, false));
 			StartCoroutine(activeEnemy.Die(false));
 			StartCoroutine(activePlayer.Die(true));
+			PZPuzzleManager.instance.ResetCakes();
 		}
 		else
 		{

@@ -113,7 +113,7 @@ public class MSSpriteUtil : MonoBehaviour {
 				yield return StartCoroutine(DownloadAndCache(bundleName));
 			}
 
-			while (bundles[bundleName] == null) yield return null;
+			while (bundles.ContainsKey(bundleName) && bundles[bundleName] == null) yield return null;
 			
 			if (bundles.ContainsKey (bundleName))
 			{

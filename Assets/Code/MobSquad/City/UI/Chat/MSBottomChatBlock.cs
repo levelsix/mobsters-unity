@@ -20,6 +20,9 @@ public class MSBottomChatBlock : MonoBehaviour {
 	GameObject noChats;
 
 	[SerializeField]
+	UILabel noChatLabel;
+
+	[SerializeField]
 	UISprite bottomChatBox;
 
 	UIWidget myWidget;
@@ -111,6 +114,7 @@ public class MSBottomChatBlock : MonoBehaviour {
 		switch(chatMode)
 		{
 		case MSValues.ChatMode.GLOBAL:
+			noChatLabel.text = "Global chat is empty, say something!";
 			if (response.globalChats.Count > 1)
 			{
 				AddMessage(response.globalChats[response.globalChats.Count-2]);
@@ -122,6 +126,14 @@ public class MSBottomChatBlock : MonoBehaviour {
 			}
 			break;
 		case MSValues.ChatMode.CLAN:
+			if (MSClanManager.instance.isInClan)
+			{
+				noChatLabel.text = "Squad chat is empty, say something!";
+			}
+			else
+			{
+				noChatLabel.text = "Join a squad to chat with them.";
+			}
 			if (response.clanChats.Count > 1)
 			{
 				AddMessage(response.clanChats[response.clanChats.Count-2]);

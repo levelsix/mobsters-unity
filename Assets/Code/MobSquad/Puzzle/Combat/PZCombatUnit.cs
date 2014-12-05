@@ -412,7 +412,7 @@ public class PZCombatUnit : MonoBehaviour {
 
 		MSPoolManager.instance.Get(MSPrefabList.instance.characterDieParticle, unit.transf.position);
 
-		if (monster.taskMonster != null && monster.taskMonster.puzzlePieceMonsterId > 0 && (monster.taskMonster.puzzlePieceDropped || monster.taskMonster.itemId > 0))
+		if (callOnDeath && monster.taskMonster != null && monster.taskMonster.puzzlePieceMonsterId > 0 && (monster.taskMonster.puzzlePieceDropped || monster.taskMonster.itemId > 0))
 		{
 			PZCombatManager.instance.crate = MSPoolManager.instance.Get<PZCrate>(MSPrefabList.instance.cratePrefab, unit.transf.parent);
 			MonsterProto newMonster = MSDataManager.instance.Get<MonsterProto>(monster.taskMonster.puzzlePieceMonsterId);

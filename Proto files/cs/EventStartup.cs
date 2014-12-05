@@ -701,7 +701,7 @@ namespace com.lvl6.proto
     }
 
     private float _minutesPerGem = default(float);
-    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"minutesPerGem", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"minutesPerGem", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
     public float minutesPerGem
     {
@@ -710,7 +710,7 @@ namespace com.lvl6.proto
     }
 
     private float _gemsPerResource = default(float);
-    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"gemsPerResource", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"gemsPerResource", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
     public float gemsPerResource
     {
@@ -719,7 +719,7 @@ namespace com.lvl6.proto
     }
 
     private int _pvpRequiredMinLvl = default(int);
-    [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"pvpRequiredMinLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"pvpRequiredMinLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
     public int pvpRequiredMinLvl
     {
@@ -728,7 +728,7 @@ namespace com.lvl6.proto
     }
 
     private float _monsterDmgMultiplier = default(float);
-    [global::ProtoBuf.ProtoMember(31, IsRequired = false, Name=@"monsterDmgMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(31, IsRequired = false, Name=@"monsterDmgMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
     public float monsterDmgMultiplier
     {
@@ -832,6 +832,20 @@ namespace com.lvl6.proto
       get { return _pvpConstant; }
       set { _pvpConstant = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.SpeedUpConstantProto> _sucp = new global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.SpeedUpConstantProto>();
+    [global::ProtoBuf.ProtoMember(34, Name=@"sucp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.SpeedUpConstantProto> sucp
+    {
+      get { return _sucp; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.ResourceConversionConstantProto> _rccp = new global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.ResourceConversionConstantProto>();
+    [global::ProtoBuf.ProtoMember(35, Name=@"rccp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.StartupResponseProto.StartupConstants.ResourceConversionConstantProto> rccp
+    {
+      get { return _rccp; }
+    }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"AnimatedSpriteOffsetProto")]
   public partial class AnimatedSpriteOffsetProto : global::ProtoBuf.IExtensible
   {
@@ -1248,6 +1262,71 @@ namespace com.lvl6.proto
     {
       get { return _pvpRequiredMinLvl; }
       set { _pvpRequiredMinLvl = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SpeedUpConstantProto")]
+  public partial class SpeedUpConstantProto : global::ProtoBuf.IExtensible
+  {
+    public SpeedUpConstantProto() {}
+    
+
+    private int _seconds = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"seconds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int seconds
+    {
+      get { return _seconds; }
+      set { _seconds = value; }
+    }
+
+    private int _numGems = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"numGems", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numGems
+    {
+      get { return _numGems; }
+      set { _numGems = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ResourceConversionConstantProto")]
+  public partial class ResourceConversionConstantProto : global::ProtoBuf.IExtensible
+  {
+    public ResourceConversionConstantProto() {}
+    
+
+    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.NO_RESOURCE;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"resourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.NO_RESOURCE)]
+    public com.lvl6.proto.ResourceType resourceType
+    {
+      get { return _resourceType; }
+      set { _resourceType = value; }
+    }
+
+    private int _resourceAmt = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"resourceAmt", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int resourceAmt
+    {
+      get { return _resourceAmt; }
+      set { _resourceAmt = value; }
+    }
+
+    private int _numGems = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"numGems", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int numGems
+    {
+      get { return _numGems; }
+      set { _numGems = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

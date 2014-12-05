@@ -319,7 +319,8 @@ public class MSQuestLog : MonoBehaviour {
 		RecycleAchievements();
 		foreach (var item in MSAchievementManager.instance.currAchievements) 
 		{
-			if (MSAchievementManager.instance.currAchievements.Find(x=>x.achievement.achievementId == item.achievement.prerequisiteId) == null)
+			if (!item.clanAchievement &&
+				MSAchievementManager.instance.currAchievements.Find(x=>x.achievement.achievementId == item.achievement.prerequisiteId) == null)
 			{
 				yield return null;
 				AddAchievement(item);

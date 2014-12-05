@@ -102,7 +102,8 @@ public class MSChatPopup : MonoBehaviour {
 				try
 				{
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + OIL_CHEAT).Length+1));
-					MSResourceManager.instance.CheatMoney(0, amount, 0, OIL_CHEAT);
+					MSResourceManager.instance.CheatMoney(amount, DevRequest.F_B_GET_OIL);
+					MSResourceManager.instance.Collect(ResourceType.OIL, amount);
 					Debug.Log("Gaining " + amount + " Oil");
 				}
 				catch (Exception e)
@@ -115,7 +116,8 @@ public class MSChatPopup : MonoBehaviour {
 				try
 				{
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + CASH_CHEAT).Length+1));
-					MSResourceManager.instance.CheatMoney(amount, 0, 0, CASH_CHEAT);
+					MSResourceManager.instance.CheatMoney(amount, DevRequest.F_B_GET_CASH);
+					MSResourceManager.instance.Collect(ResourceType.CASH, amount);
 					Debug.Log("Gaining " + amount + " Cash");
 				}
 				catch (Exception e)
@@ -128,8 +130,11 @@ public class MSChatPopup : MonoBehaviour {
 				try
 				{
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + OIL_AND_CASH_CHEAT).Length+1));
-					MSResourceManager.instance.CheatMoney(amount, amount, 0, OIL_AND_CASH_CHEAT);
-					Debug.Log("Gaining " + amount + " Cash and Oil");
+					MSResourceManager.instance.CheatMoney(amount, DevRequest.F_B_GET_CASH_OIL_GEMS);
+					MSResourceManager.instance.Collect(ResourceType.CASH, amount);
+					MSResourceManager.instance.Collect(ResourceType.OIL, amount);
+					MSResourceManager.instance.Collect(ResourceType.GEMS, amount);
+					Debug.Log("Gaining " + amount + " Cash and Oil and Gems");
 				}
 				catch (Exception e)
 				{
@@ -141,7 +146,8 @@ public class MSChatPopup : MonoBehaviour {
 				try
 				{
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + GEMS_CHEAT).Length+1));
-					MSResourceManager.instance.CheatMoney(0, 0, amount, GEMS_CHEAT);
+					MSResourceManager.instance.CheatMoney(amount, DevRequest.F_B_GET_GEMS);
+					MSResourceManager.instance.Collect(ResourceType.GEMS, amount);
 					Debug.Log("Gaining " + amount + " Gems");
 				}
 				catch (Exception e)

@@ -71,7 +71,16 @@ MonoBehaviour:
   BOUNCE_THRESHHOLD: 250
   GRAVITY: -3000
   SWAP_TIME: .170000002
-  shuffleTime: 1
+  canSpawnBombs: 0
+  bombColor: 0
+  maxBombs: 0
+  minBombs: 0
+  bombTicks: 0
+  bombChance: 0
+  bombDamage: 0
+  poisonColor: -1
+  shuffleTime: .5
+  shuffleLabel: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

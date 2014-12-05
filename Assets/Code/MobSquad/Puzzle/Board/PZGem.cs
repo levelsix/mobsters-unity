@@ -874,6 +874,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	void HijackCake()
 	{
+		Debug.Log("Releasing hijack");
 		hijackCake = false;
 	}
 

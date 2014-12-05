@@ -356,12 +356,21 @@ namespace com.lvl6.proto
     }
 
     private float _healthPerSecond = default(float);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"healthPerSecond", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"healthPerSecond", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
     public float healthPerSecond
     {
       get { return _healthPerSecond; }
       set { _healthPerSecond = value; }
+    }
+
+    private float _secsToFullyHealMultiplier = default(float);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"secsToFullyHealMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float secsToFullyHealMultiplier
+    {
+      get { return _secsToFullyHealMultiplier; }
+      set { _secsToFullyHealMultiplier = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

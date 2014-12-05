@@ -21,7 +21,7 @@ public class MSAchievementEntry : MonoBehaviour {
 	UILabel achDescription;
 
 	[SerializeField]
-	UILabel gemNumber;
+	protected UILabel gemNumber;
 
 	[SerializeField]
 	MSUIHelper barHelper;
@@ -30,22 +30,22 @@ public class MSAchievementEntry : MonoBehaviour {
 	MSFillBar fillBar;
 
 	[SerializeField]
-	UILabel progressLabel;
+	protected UILabel progressLabel;
 
 	[SerializeField]
 	MSUIHelper buttonHelper;
 
 	[SerializeField]
-	MSLoadLock loadLock;
+	protected MSLoadLock loadLock;
 
 	#endregion
 
-	MSFullAchievement fullAchievement;
+	protected MSFullAchievement fullAchievement;
 
 	const string fullStar = "fullachievementstar";
 	const string emptyStar = "emptyachievementstar";
 
-	public void Init(MSFullAchievement fullAch)
+	public virtual void Init(MSFullAchievement fullAch)
 	{
 		name = fullAch.achievement.name;
 
@@ -93,7 +93,7 @@ public class MSAchievementEntry : MonoBehaviour {
 		StartCoroutine(DoRedeem());
 	}
 
-	IEnumerator DoRedeem()
+	protected virtual IEnumerator DoRedeem()
 	{
 		yield return StartCoroutine(MSAchievementManager.instance.RedeemAchievement(fullAchievement, loadLock));
 		

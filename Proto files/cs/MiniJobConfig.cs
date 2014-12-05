@@ -82,6 +82,24 @@ namespace com.lvl6.proto
       set { _monsterIdReward = value; }
     }
 
+    private int _itemIdReward = default(int);
+    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"itemIdReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int itemIdReward
+    {
+      get { return _itemIdReward; }
+      set { _itemIdReward = value; }
+    }
+
+    private int _itemRewardQuantity = default(int);
+    [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name=@"itemRewardQuantity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int itemRewardQuantity
+    {
+      get { return _itemRewardQuantity; }
+      set { _itemRewardQuantity = value; }
+    }
+
     private com.lvl6.proto.Quality _quality = com.lvl6.proto.Quality.NO_QUALITY;
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"quality", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Quality.NO_QUALITY)]

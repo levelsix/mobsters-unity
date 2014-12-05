@@ -371,20 +371,14 @@ public class MSResourceManager : MonoBehaviour {
 
 	}
 
-	public void CheatMoney(int cash, int oil, int gems, string reason)
+	public void CheatMoney(int amt, DevRequest requestType)
 	{
-		UpdateUserCurrencyRequestProto request = new UpdateUserCurrencyRequestProto();
+		DevRequestProto request = new DevRequestProto();
 		request.sender = MSWhiteboard.localMup;
-		request.reason = reason;
-		request.cashSpent = cash;
-		request.oilSpent = oil;
-		request.gemsSpent = gems;
+		request.devRequest = requestType;
+		request.quantity = amt;
 
-		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_UPDATE_USER_CURRENCY_EVENT, DealWithCheatResponse);
-
-		Collect(ResourceType.CASH, cash);
-		Collect(ResourceType.OIL, oil);
-		Collect(ResourceType.GEMS, gems);
+		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_DEV_EVENT, DealWithDevResponse);
 	}
 
 	public void CheatReset()
@@ -414,10 +408,10 @@ public class MSResourceManager : MonoBehaviour {
 	{
 		UpdateUserCurrencyResponseProto response = UMQNetworkManager.responseDict[tagNum] as UpdateUserCurrencyResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
-
+		
 		if (response.status != UpdateUserCurrencyResponseProto.UpdateUserCurrencyStatus.SUCCESS)
 		{
-			Debug.LogError("Problem cheating: " + response.status.ToString());
+			Debug.LogError("Problem dev cheating: " + response.status.ToString());
 		}
 	}
 
