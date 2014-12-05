@@ -117,6 +117,9 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 	static readonly Color cashTextColor = new Color(.353f, .491f, .027f);
 	static readonly Color oilTextColor = new Color(.776f, .533f, 0);
+
+	const int MAX_IMAGE_WIDTH = 220;
+	const int MAX_IMAGE_HEIGHT = 220;
 	
 	MSBuilding currBuilding;
 	
@@ -283,6 +286,21 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			{
 				buildingSprite.width = (int)sprite.textureRect.width;
 				buildingSprite.height = (int)sprite.textureRect.height;
+
+				if(buildingSprite.width > MAX_IMAGE_WIDTH)
+				{
+					int newHeight = (buildingSprite.height/buildingSprite.width) * MAX_IMAGE_WIDTH;
+					buildingSprite.width = MAX_IMAGE_WIDTH;
+					buildingSprite.height = newHeight;
+				}
+				if(buildingSprite.height > MAX_IMAGE_HEIGHT)
+				{
+					int newWidth = (buildingSprite.width/buildingSprite.height) * MAX_IMAGE_HEIGHT;
+					buildingSprite.height = MAX_IMAGE_HEIGHT;
+					buildingSprite.width = newWidth;
+				}
+
+				buildingSprite.MarkAsChanged();
 			}
 
 			buildingName.text = nextBuilding.structInfo.name;

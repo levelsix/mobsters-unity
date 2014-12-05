@@ -62,14 +62,14 @@ public class MSQuestManager : MonoBehaviour {
 #endif
 			StartCoroutine(AcceptQuest(item));
 		}
+		*/
 		foreach (var item in proto.userQuests) 
 		{
-			currQuests.Add (new MSFullQuest(MSDataManager.instance.Get(typeof(FullQuestProto), item.questId) as FullQuestProto, item, false));
-#if DEBUG2
-			Debug.Log ("In Progress Quest: " + item.questId);
-#endif
+			currQuests.Add (new MSFullQuest(MSDataManager.instance.Get<FullQuestProto>(item.questId), item, false));
+//#if DEBUG2
+//			Debug.Log ("In Progress Quest: " + item.questId);
+//#endif
 		}
-		*/
 
 		taskDict.Clear();
 		foreach (var item in proto.completedTaskIds) 

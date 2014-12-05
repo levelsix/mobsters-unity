@@ -168,10 +168,17 @@ public class MSBarEvent : MonoBehaviour {
 	public void Init(PersistentEventProto pEvent)
 	{
 		task = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId);
-		float minutes = pEvent.startHour * 60 + pEvent.eventDurationMinutes - DateTime.Now.Hour * 60 + DateTime.Now.Minute;
-		float hours = Mathf.Floor(minutes / 60);
-		minutes -= Mathf.Floor(hours * 60);
-		timeLeft.text = hours + "H " + minutes + "M";
+		if(!MSEventManager.instance.IsOnCooldown(pEvent))
+		{
+			float minutes = pEvent.startHour * 60 + pEvent.eventDurationMinutes - DateTime.Now.Hour * 60 + DateTime.Now.Minute;
+			float hours = Mathf.Floor(minutes / 60);
+			minutes -= Mathf.Floor(hours * 60);
+			timeLeft.text = hours + "H " + minutes + "M";
+		}
+		else
+		{
+			timeLeft.text = "Reenter: " + MSUtil.TimeStringShort(MSEventManager.instance.GetRemainingCoolDown(pEvent));
+		}
 		
 		eventName.text = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId).name;
 

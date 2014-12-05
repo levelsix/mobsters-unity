@@ -3033,7 +3033,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400362}
   m_Layer: 5
-  m_Name: Avatar
+  m_Name: 
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7051,6 +7051,8 @@ MonoBehaviour:
   defaultTarget: {fileID: 0}
   inTweens: []
   outTweens: []
+  defaultInSound: 1
+  defaultOutSound: 1
 --- !u!114 &11400054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7706,7 +7708,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3002
+  startingRenderQueue: 4001
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: .649078369, z: 1022.96143, w: 640}
@@ -8053,6 +8055,8 @@ MonoBehaviour:
   defaultTarget: {fileID: 0}
   inTweens: []
   outTweens: []
+  defaultInSound: 1
+  defaultOutSound: 1
 --- !u!114 &11400104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8146,6 +8150,8 @@ MonoBehaviour:
   defaultTarget: {fileID: 0}
   inTweens: []
   outTweens: []
+  defaultInSound: 1
+  defaultOutSound: 1
 --- !u!114 &11400110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9115,6 +9121,8 @@ MonoBehaviour:
   outTweens:
   - {fileID: 0}
   - {fileID: 11400352}
+  defaultInSound: 1
+  defaultOutSound: 1
 --- !u!114 &11400170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9737,7 +9745,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
-  mText: BUILD
+  mText: BUILDINGS
   mFontSize: 20
   mFontStyle: 0
   mAlignment: 0
@@ -12173,7 +12181,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
-  mText: GET MOBSTERS
+  mText: TOONS
   mFontSize: 18
   mFontStyle: 0
   mAlignment: 0
@@ -12689,7 +12697,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
-  mText: ADD FUNDS
+  mText: RESOURCES
   mFontSize: 20
   mFontStyle: 0
   mAlignment: 0
@@ -15923,6 +15931,8 @@ MonoBehaviour:
   outTweens:
   - {fileID: 11400464}
   - {fileID: 11400466}
+  defaultInSound: 1
+  defaultOutSound: 1
 --- !u!114 &11400498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16058,7 +16068,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3002
+  startingRenderQueue: 4001
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: .649078369, z: 1022.96143, w: 640}
@@ -16662,6 +16672,7 @@ MonoBehaviour:
   mMat: {fileID: 2100000, guid: 1e17fb359584a4cc4a1d3acbf47e26e7, type: 2}
   mShader: {fileID: 0}
   mFlip: 0
+  nextTexture: {fileID: 0}
 --- !u!114 &11400546
 MonoBehaviour:
   m_ObjectHideFlags: 1

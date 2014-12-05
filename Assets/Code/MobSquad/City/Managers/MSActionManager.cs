@@ -172,6 +172,11 @@ public static class MSActionManager
 		public static Action<int> OnMonstersSold;
 	}
 
+	public static class Dungeon
+	{
+		public static Action OnBeginEventDungeonSuccess;
+	}
+
 	public static class Pvp
 	{
 		public static Action<int, int> OnPvpVictory;

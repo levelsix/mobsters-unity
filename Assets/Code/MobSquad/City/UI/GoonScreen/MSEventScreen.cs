@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 using com.lvl6.proto;
 
 public class MSEventScreen : MSFunctionalScreen {
@@ -42,6 +44,8 @@ public class MSEventScreen : MSFunctionalScreen {
 	Color color;
 	Color lightColor;
 
+	PersistentEventProto persEvent;
+
 	const string EVENT_BG = "eventbigbg";
 	const string EVENT_BG_CAP = "eventbigbgcap";
 	const string EVENT_TAG = "eventtag";
@@ -51,6 +55,16 @@ public class MSEventScreen : MSFunctionalScreen {
 		buttonTask = enterButton.GetComponent<MSTaskable>();
 	}
 
+	void OnEnable()
+	{
+		MSActionManager.Dungeon.OnBeginEventDungeonSuccess += EnterEvent;
+	}
+
+	void OnDisable()
+	{
+		MSActionManager.Dungeon.OnBeginEventDungeonSuccess -= EnterEvent;
+	}
+	
 	public override void Init()
 	{
 
@@ -58,6 +72,12 @@ public class MSEventScreen : MSFunctionalScreen {
 
 	public void Init(Color darkColor, Color color, Color lightColor, PersistentEventProto pEvent)
 	{
+		persEvent = pEvent;
+		if(buttonTask == null)
+		{
+			buttonTask = enterButton.GetComponent<MSTaskable>();
+		}
+
 		this.darkColor = darkColor;
 		this.color = color;
 		this.lightColor = lightColor;
@@ -68,18 +88,34 @@ public class MSEventScreen : MSFunctionalScreen {
 		description.gradientBottom = lightColor;
 		description.effectColor = darkColor;
 
+		timeLabel.gradientBottom = lightColor;
+		timeLabel.effectColor = darkColor;
+
 		time.gradientBottom = lightColor;
 		time.effectColor = darkColor;
 
-		if(buttonTask == null)
+		buttonTask.GetComponent<MSActionButton>().onClick = null;
+		if(MSEventManager.instance.IsOnCooldown(pEvent))
 		{
-			buttonTask = enterButton.GetComponent<MSTaskable>();
+			timeLabel.text = "REENTER IN:";
+			time.text = MSUtil.TimeStringShort(MSEventManager.instance.GetRemainingCoolDown(pEvent));
+			buttonTask.GetComponent<MSActionButton>().onClick += CoolDownWithGems;
 		}
+		else
+		{
+			timeLabel.text = "ENDS IN:";
+			float minutes = pEvent.startHour * 60 + pEvent.eventDurationMinutes - DateTime.Now.Hour * 60 + DateTime.Now.Minute;
+			float hours = Mathf.Floor(minutes / 60);
+			minutes -= Mathf.Floor(hours * 60);
+			time.text = hours + "H " + minutes + "M";
+			buttonTask.GetComponent<MSActionButton>().onClick += ClickEnterEvent;
+		}
+
+		buttonTask.locked = true;
 		buttonTask.task = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId);
 
 		eventTitle.text = buttonTask.task.name;
 		topTitle.text = buttonTask.task.name;
-
 
 		switch(pEvent.monsterElement)
 		{
@@ -166,6 +202,28 @@ public class MSEventScreen : MSFunctionalScreen {
 				break;
 			}
 		}
+	}
+
+	void ClickEnterEvent()
+	{
+		enterButton.GetComponent<MSLoadLock>().Lock();
+		MSEventManager.instance.DoBeginDungeonRequest(persEvent, 0, enterButton.GetComponent<MSLoadLock>().Unlock);
+	}
+
+	void CoolDownWithGems()
+	{
+		if(MSResourceManager.instance.Spend(ResourceType.GEMS, MSMath.GemsForTime(MSEventManager.instance.GetRemainingCoolDown(persEvent),false)))
+		{
+			enterButton.GetComponent<MSLoadLock>().Lock();
+			MSEventManager.instance.DoBeginDungeonRequest(persEvent,
+			                                              MSMath.GemsForTime(MSEventManager.instance.GetRemainingCoolDown(persEvent),false),
+			                                              enterButton.GetComponent<MSLoadLock>().Unlock);
+		}
+	}
+
+	void EnterEvent()
+	{
+		buttonTask.EngageTask();
 	}
 
 	public override bool IsAvailable()
