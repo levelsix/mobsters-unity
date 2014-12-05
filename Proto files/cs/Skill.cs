@@ -183,7 +183,10 @@ namespace com.lvl6.proto
       ROID_RAGE = 8,
             
       [global::ProtoBuf.ProtoEnum(Name=@"MOMENTUM", Value=9)]
-      MOMENTUM = 9
+      MOMENTUM = 9,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"THICK_SKIN", Value=10)]
+      THICK_SKIN = 10
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"SkillActivationType")]

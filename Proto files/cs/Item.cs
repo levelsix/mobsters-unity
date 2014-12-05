@@ -209,13 +209,13 @@ namespace com.lvl6.proto
       set { _userUuid = value; }
     }
 
-    private int _minsForCollection = default(int);
-    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"minsForCollection", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _secsTillCollection = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"secsTillCollection", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
-    public int minsForCollection
+    public int secsTillCollection
     {
-      get { return _minsForCollection; }
-      set { _minsForCollection = value; }
+      get { return _secsTillCollection; }
+      set { _secsTillCollection = value; }
     }
 
     private int _itemId = default(int);
