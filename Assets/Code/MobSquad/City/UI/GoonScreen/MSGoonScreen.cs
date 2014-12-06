@@ -57,6 +57,11 @@ public class MSGoonScreen : MonoBehaviour
 
 	const int SIZE = 860;
 
+	void OnDisable()
+	{
+		MSEventManager.instance.EndTimers();
+	}
+
 	public void Init(GoonScreenMode mode)
 	{
 		currScreen = (int)mode;
@@ -300,8 +305,7 @@ public class MSGoonScreen : MonoBehaviour
 		topMenuParent.GetComponent<TweenAlpha>().PlayReverse();
 		topMenuParent.GetComponent<TweenPosition>().PlayReverse();
 
-		barEvent.gameObject.SetActive(true);
-		TweenAlpha.Begin(barEvent.gameObject, 0.3f, 1f);
+		CheckEventBarAction(currScreen, true);
 
 //		backButton.GetComponent<TweenAlpha>().PlayReverse();
 		backButton.GetComponent<MSUIHelper>().FadeOutAndOff();

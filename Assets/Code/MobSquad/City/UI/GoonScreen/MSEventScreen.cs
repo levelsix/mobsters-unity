@@ -40,6 +40,9 @@ public class MSEventScreen : MSFunctionalScreen {
 	[SerializeField]
 	UI2DSprite characterSprite;
 
+	[SerializeField]
+	UILabel gemCost;
+
 	Color darkColor;
 	Color color;
 	Color lightColor;
@@ -63,6 +66,7 @@ public class MSEventScreen : MSFunctionalScreen {
 	void OnDisable()
 	{
 		MSActionManager.Dungeon.OnBeginEventDungeonSuccess -= EnterEvent;
+		gemCost.gameObject.SetActive(false);
 	}
 	
 	public override void Init()
@@ -97,18 +101,15 @@ public class MSEventScreen : MSFunctionalScreen {
 		buttonTask.GetComponent<MSActionButton>().onClick = null;
 		if(MSEventManager.instance.IsOnCooldown(pEvent))
 		{
-			timeLabel.text = "REENTER IN:";
-			time.text = MSUtil.TimeStringShort(MSEventManager.instance.GetRemainingCoolDown(pEvent));
+			MSEventManager.instance.StoreEventScreenTimer(TickReenter(pEvent));
 			buttonTask.GetComponent<MSActionButton>().onClick += CoolDownWithGems;
+			gemCost.gameObject.SetActive(true);
 		}
 		else
 		{
-			timeLabel.text = "ENDS IN:";
-			float minutes = pEvent.startHour * 60 + pEvent.eventDurationMinutes - DateTime.Now.Hour * 60 + DateTime.Now.Minute;
-			float hours = Mathf.Floor(minutes / 60);
-			minutes -= Mathf.Floor(hours * 60);
-			time.text = hours + "H " + minutes + "M";
+			MSEventManager.instance.StoreEventScreenTimer(TickEndTimer(pEvent));
 			buttonTask.GetComponent<MSActionButton>().onClick += ClickEnterEvent;
+			gemCost.gameObject.SetActive(false);
 		}
 
 		buttonTask.locked = true;
@@ -160,18 +161,23 @@ public class MSEventScreen : MSFunctionalScreen {
 			{
 			case Element.LIGHT:
 				MSSpriteUtil.instance.SetSprite("CakeKid4T1","CakeKid4T1Character", characterSprite);
+				characterSprite.gameObject.name = "CakeKid4T1Character";
 				break;
 			case Element.EARTH:
 				MSSpriteUtil.instance.SetSprite("CakeKid2T1","CakeKid2T1Character", characterSprite);
+				characterSprite.gameObject.name = "CakeKid2T1Character";
 				break;
 			case Element.WATER:
 				MSSpriteUtil.instance.SetSprite("CakeKid3T1","CakeKid3T1Character", characterSprite);
+				characterSprite.gameObject.name = "CakeKid3T1Character";
 				break;
 			case Element.DARK:
 				MSSpriteUtil.instance.SetSprite("CakeKid5T1","CakeKid5T1Character", characterSprite);
+				characterSprite.gameObject.name = "CakeKid5T1Character";
 				break;
 			case Element.FIRE:
 				MSSpriteUtil.instance.SetSprite("CakeKid1T1","CakeKid1T1Character", characterSprite);
+				characterSprite.gameObject.name = "CakeKid1T1Character";
 				break;
 			default:
 				Debug.LogError("non valid event element specified");
@@ -184,18 +190,23 @@ public class MSEventScreen : MSFunctionalScreen {
 			{
 			case Element.LIGHT:
 				MSSpriteUtil.instance.SetSprite("Scientist4T1","Scientist4T1Character", characterSprite);
+				characterSprite.gameObject.name = "Scientist4T1Character";
 				break;
 			case Element.EARTH:
 				MSSpriteUtil.instance.SetSprite("Scientist2T1","Scientist2T1Character", characterSprite);
+				characterSprite.gameObject.name = "Scientist2T1Character";
 				break;
 			case Element.WATER:
 				MSSpriteUtil.instance.SetSprite("Scientist3T1","Scientist3T1Character", characterSprite);
+				characterSprite.gameObject.name = "Scientist3T1Character";
 				break;
 			case Element.DARK:
 				MSSpriteUtil.instance.SetSprite("Scientist5T1","Scientist5T1Character", characterSprite);
+				characterSprite.gameObject.name = "Scientist5T1Character";
 				break;
 			case Element.FIRE:
 				MSSpriteUtil.instance.SetSprite("Scientist1T1","Scientist1T1Character", characterSprite);
+				characterSprite.gameObject.name = "Scientist1T1Character";
 				break;
 			default:
 				Debug.LogError("non valid event element specified");
@@ -219,6 +230,36 @@ public class MSEventScreen : MSFunctionalScreen {
 			                                              MSMath.GemsForTime(MSEventManager.instance.GetRemainingCoolDown(persEvent),false),
 			                                              enterButton.GetComponent<MSLoadLock>().Unlock);
 		}
+	}
+
+	IEnumerator TickReenter(PersistentEventProto pEvent)
+	{
+		long longTime;
+		do {
+			timeLabel.text = "REENTER IN:";
+			longTime = MSEventManager.instance.GetRemainingCoolDown(pEvent);
+			time.text = MSUtil.TimeStringShort(longTime);
+			enterButton.normalSprite = "purplemenuoption";
+			gemCost.text = "(g) " + MSMath.GemsForTime(longTime,false);
+			yield return null;
+		} while(longTime > 0);
+
+	}
+
+	IEnumerator TickEndTimer(PersistentEventProto pEvent)
+	{
+		float minutes;
+		float hours;
+		do {
+			timeLabel.text = "ENDS IN:";
+			enterButton.normalSprite = "greenmenuoption";
+			minutes = (pEvent.startHour * 60 + pEvent.eventDurationMinutes) - (DateTime.Now.Hour * 60 + DateTime.Now.Minute);
+			hours = Mathf.Floor(minutes / 60);
+			minutes -= Mathf.Floor(hours * 60);
+			time.text = hours + "H " + minutes + "M";
+			yield return null;
+		} while(minutes > 0 || hours > 0);
+		Init(darkColor, color, lightColor, pEvent);
 	}
 
 	void EnterEvent()

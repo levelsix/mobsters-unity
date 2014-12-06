@@ -12,11 +12,27 @@ public class MSEventManager : MonoBehaviour {
 
 	public static MSEventManager instance;
 
+	IEnumerator barEventTimer;
+	IEnumerator eventScreenTimer;
+
 	Dictionary<int, UserPersistentEventProto> eventHistory = new Dictionary<int, UserPersistentEventProto>();
 
 	void Awake()
 	{
 		instance = this;
+	}
+
+	void OnEnable()
+	{
+		MSActionManager.Loading.OnStartup += OnStartup;
+	}
+
+	void OnStartup(StartupResponseProto startup)
+	{
+		foreach(UserPersistentEventProto events in startup.userEvents)
+		{
+			eventHistory.Add(events.eventId, events);
+		}
 	}
 
 	public PersistentEventProto GetActiveEvent(PersistentEventProto.EventType type)
@@ -67,11 +83,43 @@ public class MSEventManager : MonoBehaviour {
 	{
 		if(IsOnCooldown(persisEvent))
 		{
-			return MSUtil.timeNowMillis - eventHistory[persisEvent.eventId].coolDownStartTime;
+			return (eventHistory[persisEvent.eventId].coolDownStartTime + (persisEvent.cooldownMinutes * 60 * 1000)) - MSUtil.timeNowMillis;
 		}
 		else
 		{
 			return 0;
+		}
+	}
+
+	public void StoreBarEventTimer(IEnumerator Timer)
+	{
+		if(barEventTimer != null)
+		{
+			StopCoroutine(barEventTimer);
+		}
+		barEventTimer = Timer;
+		StartCoroutine(Timer);
+	}
+
+	public void StoreEventScreenTimer(IEnumerator Timer)
+	{
+		if(eventScreenTimer != null)
+		{
+			StopCoroutine(eventScreenTimer);
+		}
+		eventScreenTimer = Timer;
+		StartCoroutine(Timer);
+	}
+
+	public void EndTimers()
+	{
+		if(barEventTimer != null)
+		{
+			StopCoroutine(barEventTimer);
+		}
+		if(eventScreenTimer != null)
+		{
+			StopCoroutine(eventScreenTimer);
 		}
 	}
 
@@ -118,6 +166,18 @@ public class MSEventManager : MonoBehaviour {
 		}
 		else
 		{
+			UserPersistentEventProto newEvent = new UserPersistentEventProto();
+			newEvent.coolDownStartTime = MSUtil.timeNowMillis;
+			newEvent.eventId = pEvent.eventId;
+			newEvent.userUuid = MSWhiteboard.localMup.userUuid;
+			if(eventHistory.ContainsKey(pEvent.eventId))
+			{
+				eventHistory[pEvent.eventId] = newEvent;
+			}
+			else
+			{
+				eventHistory.Add(pEvent.eventId, newEvent);
+			}
 			if(MSActionManager.Dungeon.OnBeginEventDungeonSuccess != null)
 			{
 				MSActionManager.Dungeon.OnBeginEventDungeonSuccess();
