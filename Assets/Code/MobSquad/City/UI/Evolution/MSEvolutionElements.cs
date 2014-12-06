@@ -84,7 +84,7 @@ public class MSEvolutionElements : MonoBehaviour {
 		if (MSEvolutionManager.instance.hasEvolution)
 		{
 			finalTimeLabel.text = MSUtil.TimeStringShort(MSEvolutionManager.instance.timeLeftMillis);
-			button.label.text = "(G)" + Mathf.CeilToInt((MSEvolutionManager.instance.timeLeftMillis/6000f) / MSWhiteboard.constants.minutesPerGem);
+			button.label.text = "(G)" + MSMath.GemsForTime(MSEvolutionManager.instance.timeLeftMillis, false);
 		}
 	}
 
@@ -109,7 +109,7 @@ public class MSEvolutionElements : MonoBehaviour {
 		button.GetComponent<UIButton>().enabled = true;
 		button.icon.spriteName = gemButton;
 		aboveButtonLabel.text = "Finish Now";
-		button.label.text = "(G)" + Mathf.CeilToInt((MSEvolutionManager.instance.timeLeftMillis/6000f) / MSWhiteboard.constants.minutesPerGem);
+		button.label.text = "(G)" + MSMath.GemsForTime(MSEvolutionManager.instance.timeLeftMillis, false);
 	}
 
 	/// <summary>

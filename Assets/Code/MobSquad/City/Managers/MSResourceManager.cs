@@ -55,6 +55,10 @@ public class MSResourceManager : MonoBehaviour {
 
 	RetrieveCurrencyFromNormStructureRequestProto retrieveRequest = null;
 
+	public AnimationCurve gemsForTimeCurve;
+
+	public Dictionary<ResourceType, AnimationCurve> gemsForResourcesCurves = new Dictionary<ResourceType, AnimationCurve>();
+
 	/// <summary>
 	/// If this much time has passed without a building having money collected from it, the request will be sent
 	/// </summary>
@@ -98,6 +102,9 @@ public class MSResourceManager : MonoBehaviour {
 				MSActionManager.UI.OnChangeResource[item.Key](item.Value);
 			}
 		}
+
+		SetupGemForResourceCurve(MSWhiteboard.constants.rccp);
+		SetupGemForSpeedupCurve(MSWhiteboard.constants.sucp);
 	}
 
 	public void DetermineResourceMaxima()
@@ -466,6 +473,28 @@ public class MSResourceManager : MonoBehaviour {
 			}
 		}
 		return last;
+	}
+
+	void SetupGemForResourceCurve(List<StartupResponseProto.StartupConstants.ResourceConversionConstantProto> protos)
+	{
+		foreach (var item in protos) 
+		{
+			if(!gemsForResourcesCurves.ContainsKey(item.resourceType))
+			{
+				gemsForResourcesCurves.Add(item.resourceType, new AnimationCurve());
+			}
+
+			gemsForResourcesCurves[item.resourceType].AddKey(item.resourceAmt, item.numGems);
+		}
+	}
+	
+	void SetupGemForSpeedupCurve(List<StartupResponseProto.StartupConstants.SpeedUpConstantProto> protos)
+	{
+		gemsForTimeCurve = new AnimationCurve();
+		foreach (var item in protos) 
+		{
+			gemsForTimeCurve.AddKey(item.seconds, item.numGems);
+		}
 	}
 
 }

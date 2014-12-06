@@ -44,6 +44,12 @@ public static class MSMath {
 	public static int GemsForTime(long time, bool canBeFree)
 	{
 		if (canBeFree && time < 60 * 1000 * MSWhiteboard.constants.maxMinutesForFreeSpeedUp) return 0;
+
+		if (MSResourceManager.instance != null && MSResourceManager.instance.gemsForTimeCurve != null)
+		{
+			return Mathf.CeilToInt(MSResourceManager.instance.gemsForTimeCurve.Evaluate(((float)time)/1000f));
+		}
+
 		return 1 + (int)Mathf.Ceil((float)(time / 1000 / SECONDS_PER_GEM));
 	}
 	
@@ -298,6 +304,16 @@ public static class MSMath {
 	{
 		float rads = (degrees / 180f) * 2f * Mathf.PI;
 		return new Vector3(Mathf.Cos(rads), Mathf.Sin(rads));
+	}
+
+	public static long Lerp(long from, long to, float factor)
+	{
+		return (long)(from + ((to-from) * factor));
+	}
+
+	public static long TimeToEnhanceMonster(PZMonster enhanceMonster, PZMonster feederMonster)
+	{
+		return Mathf.CeilToInt(feederMonster.enhanceXP / enhanceMonster.expPerSecond) * 1000L;
 	}
 
 }
