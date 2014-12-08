@@ -9,6 +9,7 @@
 
 // Generated from: EventPvp.proto
 // Note: requires additional types generated from: Battle.proto
+// Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: User.proto
 namespace com.lvl6.proto
 {
@@ -291,6 +292,13 @@ namespace com.lvl6.proto
       get { return _nuPvpDmgMultiplier; }
       set { _nuPvpDmgMultiplier = value; }
     }
+    private readonly global::System.Collections.Generic.List<int> _monsterDropIds = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(9, Name=@"monsterDropIds", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> monsterDropIds
+    {
+      get { return _monsterDropIds; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -346,6 +354,13 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> _updatedOrNew = new global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto>();
+    [global::ProtoBuf.ProtoMember(10, Name=@"updatedOrNew", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.FullUserMonsterProto> updatedOrNew
+    {
+      get { return _updatedOrNew; }
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"EndPvpBattleStatus")]
     public enum EndPvpBattleStatus
     {

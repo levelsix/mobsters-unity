@@ -37,4 +37,9 @@ public class MSMobsterIcon : MonoBehaviour
 			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumb);
 		}
 	}
+
+	public void Init(PvpMonsterProto monster)
+	{
+		Init (monster.defenderMonster);
+	}
 }

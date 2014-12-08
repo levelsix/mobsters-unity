@@ -571,6 +571,15 @@ namespace com.lvl6.proto
       set { _lastSecretGiftCollectTime = value; }
     }
 
+    private string _pvpDefendingMessage = "";
+    [global::ProtoBuf.ProtoMember(56, IsRequired = false, Name=@"pvpDefendingMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string pvpDefendingMessage
+    {
+      get { return _pvpDefendingMessage; }
+      set { _pvpDefendingMessage = value; }
+    }
+
     private string _udidForHistory = "";
     [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"udidForHistory", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]

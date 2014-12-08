@@ -26,9 +26,9 @@ namespace com.lvl6.proto
       get { return _defender; }
       set { _defender = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto> _defenderMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto>();
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PvpMonsterProto> _defenderMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.PvpMonsterProto>();
     [global::ProtoBuf.ProtoMember(3, Name=@"defenderMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto> defenderMonsters
+    public global::System.Collections.Generic.List<com.lvl6.proto.PvpMonsterProto> defenderMonsters
     {
       get { return _defenderMonsters; }
     }
@@ -65,6 +65,34 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PvpMonsterProto")]
+  public partial class PvpMonsterProto : global::ProtoBuf.IExtensible
+  {
+    public PvpMonsterProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserMonsterProto _defenderMonster = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"defenderMonster", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserMonsterProto defenderMonster
+    {
+      get { return _defenderMonster; }
+      set { _defenderMonster = value; }
+    }
+
+    private int _monsterIdDropped = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"monsterIdDropped", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int monsterIdDropped
+    {
+      get { return _monsterIdDropped; }
+      set { _monsterIdDropped = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PvpHistoryProto")]
   public partial class PvpHistoryProto : global::ProtoBuf.IExtensible
   {
@@ -88,9 +116,9 @@ namespace com.lvl6.proto
       get { return _attacker; }
       set { _attacker = value; }
     }
-    private readonly global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto> _attackersMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto>();
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PvpMonsterProto> _attackersMonsters = new global::System.Collections.Generic.List<com.lvl6.proto.PvpMonsterProto>();
     [global::ProtoBuf.ProtoMember(2, Name=@"attackersMonsters", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<com.lvl6.proto.MinimumUserMonsterProto> attackersMonsters
+    public global::System.Collections.Generic.List<com.lvl6.proto.PvpMonsterProto> attackersMonsters
     {
       get { return _attackersMonsters; }
     }
