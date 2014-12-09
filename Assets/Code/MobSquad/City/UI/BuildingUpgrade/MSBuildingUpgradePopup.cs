@@ -485,7 +485,21 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 				//empty cases can only show new levels
 				case StructureInfoProto.StructType.TEAM_CENTER:
 					break;
+					//minijob special case cause there's only 1
 				case StructureInfoProto.StructType.MINI_JOB:
+					if(newHall.structInfo.level == MSBuildingManager.instance.LowestRequiredHall(StructureInfoProto.StructType.MINI_JOB))
+					{
+						newNum = 1;
+						oldNum = 0;
+					}
+					break;
+					//clan special case cause there's only 1
+				case StructureInfoProto.StructType.CLAN:
+					if(newHall.structInfo.level == MSBuildingManager.instance.LowestRequiredHall(StructureInfoProto.StructType.CLAN))
+					{
+						newNum = 1;
+						oldNum = 0;
+					}
 					break;
 				//using continue insteads of break disables townhall in the listings.
 				case StructureInfoProto.StructType.TOWN_HALL:
@@ -525,7 +539,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		{
 			newTile.Init(quantity + "x", building);
 		}
-		else if(lvl > 1)//new lvl of buildling
+		else if(lvl > 1 && !isNew)//new lvl of buildling
 		{
 			newTile.Init("LVL " + lvl, building);
 		}

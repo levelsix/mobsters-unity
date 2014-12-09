@@ -1504,4 +1504,125 @@ public class MSBuildingManager : MonoBehaviour
 	#endregion
 	
     #endregion
+
+	/// <summary>
+	/// Determines the minimum town hall level to build.
+	/// Only use this overload for buildings that you can only have 1 of.
+	/// Usses struct_config instead of townhall_config
+	/// </summary>
+	public int LowestRequiredHall(StructureInfoProto.StructType type)
+	{
+		int lowestLevel = 999;
+		MSBuilding townHall = MSBuildingManager.townHall;
+		foreach(MSFullBuildingProto building in MSDataManager.instance.GetAll<MSFullBuildingProto>().Values)
+		{
+			if( building.structInfo.structType == type)
+			{
+				if(building.structInfo.prerequisiteTownHallLvl < lowestLevel)
+				{
+					lowestLevel = building.structInfo.prerequisiteTownHallLvl;
+				}
+			}
+		}
+		return lowestLevel == 999 ? -1 : lowestLevel;
+	}
+	
+	//An identical and different call that allows for specification of resource type
+	public int LowestRequiredHall(StructureInfoProto.StructType type, int currentCount, ResourceType resourceType){
+		int lowestLevel = 999;
+		MSFullBuildingProto futureTownHall = MSBuildingManager.townHall.combinedProto.successor;
+		while(futureTownHall != null){
+			TownHallProto townHall = futureTownHall.townHall;
+			switch(type){
+			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
+				if(resourceType == ResourceType.CASH)
+				{
+					//check to see that the number of allowed buildings is over our current number of buildings of this type 
+					//check to see that the townHall level is current lowest found
+					if(townHall.numResourceOneGenerators > currentCount && futureTownHall.structInfo.level < lowestLevel){
+						lowestLevel = futureTownHall.structInfo.level;
+					}
+				}
+				else
+				{
+					if(townHall.numResourceTwoGenerators > currentCount && futureTownHall.structInfo.level < lowestLevel){
+						lowestLevel = futureTownHall.structInfo.level;
+					}
+				}
+				
+				break;
+			case StructureInfoProto.StructType.RESOURCE_STORAGE:
+				if(resourceType == ResourceType.CASH)
+				{
+					if(townHall.numResourceOneStorages > currentCount && futureTownHall.structInfo.level < lowestLevel){
+						lowestLevel = futureTownHall.structInfo.level;
+					}
+				}
+				else
+				{
+					if(townHall.numResourceTwoStorages > currentCount && futureTownHall.structInfo.level < lowestLevel){
+						lowestLevel = futureTownHall.structInfo.level;
+					}
+				}
+				break;
+			default:
+				Debug.LogWarning("Could not find required TownHall level for " + type.ToString());
+				break;
+			}
+			futureTownHall = futureTownHall.successor;
+		}
+		return lowestLevel == 999 ? -1 : lowestLevel;
+	}
+	
+	public int LowestRequiredHall(StructureInfoProto.StructType type, int currentCount)
+	{
+		int lowestLevel = 999;
+		MSFullBuildingProto futureTownHall = MSBuildingManager.townHall.combinedProto.successor;
+		while(futureTownHall != null){
+			TownHallProto townHall = futureTownHall.townHall;
+			switch(type){
+			case StructureInfoProto.StructType.HOSPITAL:
+				//check to see that the number of allowed buildings is over our current number of buildings of this type 
+				//check to see that the townHall level is current lowest found
+				if(townHall.numHospitals > currentCount && futureTownHall.structInfo.level < lowestLevel){
+					lowestLevel = futureTownHall.structInfo.level;
+				}
+				break;
+			case StructureInfoProto.StructType.RESIDENCE:
+				if(townHall.numResidences > currentCount && futureTownHall.structInfo.level < lowestLevel){
+					lowestLevel = futureTownHall.structInfo.level;
+				}
+				break;
+			case StructureInfoProto.StructType.LAB:
+				if(townHall.numLabs > currentCount && futureTownHall.structInfo.level < lowestLevel){
+					lowestLevel = futureTownHall.structInfo.level;
+				}
+				break;
+			case StructureInfoProto.StructType.EVO:
+				if(townHall.numEvoChambers > currentCount && futureTownHall.structInfo.level < lowestLevel){
+					lowestLevel = futureTownHall.structInfo.level;
+				}
+				break;
+			case StructureInfoProto.StructType.CLAN:
+				if(1 > currentCount && futureTownHall.structInfo.level < lowestLevel)
+				{
+					//have to retrieve the lowest level from a different table that assumes that there can only be one clan building
+					lowestLevel = LowestRequiredHall(StructureInfoProto.StructType.CLAN);
+				}
+				break;
+			case StructureInfoProto.StructType.MINI_JOB:
+				if(1 > currentCount && futureTownHall.structInfo.level < lowestLevel)
+				{
+					//have to retrieve the lowest level from a different table that assumes that there can only be one mini job building
+					lowestLevel = LowestRequiredHall(StructureInfoProto.StructType.MINI_JOB);
+				}
+				break;
+			default:
+				Debug.LogWarning("Could not find required TownHall level for " + type.ToString());
+				break;
+			}
+			futureTownHall = futureTownHall.successor;
+		}
+		return lowestLevel == 999 ? -1 : lowestLevel;
+	}
 }
