@@ -168,20 +168,31 @@ public class MSBarEvent : MonoBehaviour {
 	public void Init(PersistentEventProto pEvent)
 	{
 		task = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId);
-		float minutes = pEvent.startHour * 60 + pEvent.eventDurationMinutes - DateTime.Now.Hour * 60 + DateTime.Now.Minute;
-		float hours = Mathf.Floor(minutes / 60);
-		minutes -= Mathf.Floor(hours * 60);
-		timeLeft.text = hours + "H " + minutes + "M";
+		if(!MSEventManager.instance.IsOnCooldown(pEvent))
+		{
+//			float minutes = pEvent.startHour * 60 + pEvent.eventDurationMinutes - DateTime.Now.Hour * 60 + DateTime.Now.Minute;
+//			float hours = Mathf.Floor(minutes / 60);
+//			minutes -= Mathf.Floor(hours * 60);
+//			timeLeft.text = hours + "H " + minutes + "M";
+			MSEventManager.instance.StoreBarEventTimer(TickTimeLeft(pEvent));
+		}
+		else
+		{
+//			timeLeft.text = "Reenter: " + MSUtil.TimeStringShort(MSEventManager.instance.GetRemainingCoolDown(pEvent));
+			MSEventManager.instance.StoreBarEventTimer(TickReenter(pEvent));
+		}
 		
 		eventName.text = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId).name;
-
-		LoadAnimation(pEvent);
 
 		currElement = pEvent.monsterElement;
 
 		if(MSBuildingManager.enhanceLabs[0] == null || MSBuildingManager.enhanceLabs[0].combinedProto.structInfo.level < 5)
 		{
 			currElement = Element.NO_ELEMENT;
+		}
+		else
+		{
+			LoadAnimation(pEvent);
 		}
 
 		UpdateColors();
@@ -244,6 +255,31 @@ public class MSBarEvent : MonoBehaviour {
 		}
 
 		Debug.LogError("adding a sprite went wrong : " + sprite.name);
+	}
+
+	IEnumerator TickReenter(PersistentEventProto pEvent)
+	{
+		long time;
+		do {
+			time = MSEventManager.instance.GetRemainingCoolDown(pEvent);
+			timeLeft.text = "Reenter: " + MSUtil.TimeStringShort(time);
+			yield return null;
+		} while(time > 0);
+		Init (pEvent);
+	}
+
+	IEnumerator TickTimeLeft(PersistentEventProto pEvent)
+	{
+		float minutes;
+		float hours;
+		do {
+			minutes = (pEvent.startHour * 60 + pEvent.eventDurationMinutes) - (DateTime.Now.Hour * 60 + DateTime.Now.Minute);
+			hours = Mathf.Floor(minutes / 60);
+			minutes -= Mathf.Floor(hours * 60);
+			timeLeft.text = hours + "H " + minutes + "M";
+			yield return null;
+		} while (minutes > 0 || hours > 0);
+
 	}
 
 	public void OnClick()

@@ -13,6 +13,15 @@ public class MSBadge : MonoBehaviour {
 	[SerializeField] 
 	UILabel label;
 
+	public TweenRotation labelTween
+	{
+		get
+		{
+			Debug.LogWarning("get tween", this);
+			return label.GetComponent<TweenRotation>();
+		}
+	}
+
 	[SerializeField]
 	public UISprite sprite;
 
@@ -35,5 +44,6 @@ public class MSBadge : MonoBehaviour {
 	void Awake()
 	{
 		notifications = _nots;
+//		labelTween = label.GetComponent<TweenRotation>();
 	}
 }

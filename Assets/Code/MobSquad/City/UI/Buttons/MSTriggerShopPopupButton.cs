@@ -103,9 +103,13 @@ public class MSTriggerShopPopupButton : MSTriggerPopupButton {
 			badge.notifications = 1;
 			monsters.badge.notifications = 1;
 			monsters.secondaryBadge.notifications = 1;
+			badge.labelTween.ResetToBeginning();
+			badge.labelTween.PlayForward();
 		}
 		else
 		{
+			badge.labelTween.ResetToBeginning();
+			badge.labelTween.enabled = false;
 			monsters.badge.notifications = 0;
 			monsters.secondaryBadge.notifications = 0;
 			

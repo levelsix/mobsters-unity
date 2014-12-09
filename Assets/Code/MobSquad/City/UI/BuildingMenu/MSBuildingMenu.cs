@@ -118,44 +118,6 @@ public class MSBuildingMenu : MonoBehaviour {
 		offCards.Sort((x,y)=>x.building.structInfo.structId.CompareTo(y.building.structInfo.structId));
 		offCards.Sort((x,y)=>x.hallReq.CompareTo(y.hallReq));
 
-//		//bucket sort offCards so it is sorted into blocks of the same command center levels
-//		//make a bucket for each possible townhall level
-//		List<MSBuildingCard>[] buckets = new List<MSBuildingCard>[MSBuildingManager.townHall.combinedProto.maxLevel.structInfo.level];
-//		for(int i = 0; i < buckets.Length; i++)
-//		{
-//			buckets[i] = new List<MSBuildingCard>();
-//		}
-//
-//		//put each card into a bucket that matches the level of town hall required
-//		for(int i = 0; i < offCards.Count; i++)
-//		{
-//			//I'm not 100% on the accuracy of prerequisiteTownHallLvl.
-//			buckets[offCards[i].hallReq].Add( offCards[i]);
-//		}
-//
-//		//printing out bucket debug
-//		foreach(List<MSBuildingCard> bucket in buckets)
-//		{
-//			if(bucket.Count > 0)
-//			{
-//				Debug.LogWarning("buckets[" + bucket[0].hallReq + "]");
-//			}
-//			foreach(MSBuildingCard card in bucket)
-//			{
-//				Debug.Log(card.building.structInfo.name + " : " + card.hallReq);
-//			}
-//		}
-//
-//		//put the bucket sorted cards back into offCards
-//		onCards.Clear();
-//		foreach(List<MSBuildingCard> bucket in buckets)
-//		{
-//			if(bucket.Count > 0)
-//			{
-//				offCards.AddRange(bucket);
-//			}
-//		}
-
 		//insert lab and evo so onCards starts [lab, evo, <others>] and name them to be in order
 		if(evo != null)
 		{

@@ -117,6 +117,9 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 	static readonly Color cashTextColor = new Color(.353f, .491f, .027f);
 	static readonly Color oilTextColor = new Color(.776f, .533f, 0);
+
+	const int MAX_IMAGE_WIDTH = 220;
+	const int MAX_IMAGE_HEIGHT = 220;
 	
 	MSBuilding currBuilding;
 	
@@ -279,10 +282,26 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 			Sprite sprite = MSSpriteUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
 			buildingSprite.sprite2D = sprite;
+			buildingSprite.MakePixelPerfect();
 			if (sprite != null)
 			{
 				buildingSprite.width = (int)sprite.textureRect.width;
 				buildingSprite.height = (int)sprite.textureRect.height;
+
+				if(buildingSprite.width > MAX_IMAGE_WIDTH)
+				{
+					float newHeight = ((float)buildingSprite.height/(float)buildingSprite.width) * (float)MAX_IMAGE_WIDTH;
+					buildingSprite.width = MAX_IMAGE_WIDTH;
+					buildingSprite.height = (int)newHeight;
+				}
+				if(buildingSprite.height > MAX_IMAGE_HEIGHT)
+				{
+					float newWidth = ((float)buildingSprite.width/(float)buildingSprite.height) * (float)MAX_IMAGE_HEIGHT;
+					buildingSprite.height = MAX_IMAGE_HEIGHT;
+					buildingSprite.width = (int)newWidth;
+				}
+
+				buildingSprite.MarkAsChanged();
 			}
 
 			buildingName.text = nextBuilding.structInfo.name;
@@ -430,10 +449,6 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 						oldNum = oldHall.numLabs;
 					}
 					break;
-				case StructureInfoProto.StructType.MINI_JOB:
-
-					continue;
-					break;
 				case StructureInfoProto.StructType.RESIDENCE:
 					if(newHall.numResidences > oldHall.numResidences)
 					{
@@ -467,8 +482,14 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 						oldNum = oldHall.numResourceTwoStorages;
 					}
 					break;
+				//empty cases can only show new levels
 				case StructureInfoProto.StructType.TEAM_CENTER:
 					break;
+				case StructureInfoProto.StructType.MINI_JOB:
+					break;
+				//using continue insteads of break disables townhall in the listings.
+				case StructureInfoProto.StructType.TOWN_HALL:
+					continue;
 				}
 
 				if(oldNum == 0)
@@ -499,6 +520,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		int lvl = building.level;
 		MSUnlockBuildingTile newTile = MSPoolManager.instance.Get<MSUnlockBuildingTile>(unlockTile, grid.transform);
 		newTile.transform.localScale = Vector3.one;
+		newTile.gameObject.name = building.name;
 		if(quantity > 0)
 		{
 			newTile.Init(quantity + "x", building);
