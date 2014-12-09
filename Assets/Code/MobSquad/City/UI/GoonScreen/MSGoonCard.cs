@@ -744,16 +744,17 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void AddToHealQueue()
 	{
-		if (!MSHospitalManager.instance.healingMonsters.Contains(monster) && !MSHospitalManager.instance.AddToHealQueue(monster))
+		if (!MSHospitalManager.instance.healingMonsters.Contains(monster) && !MSHealScreen.instance.AddToonToCurrentQueue(monster))
 		{
 			return;
 		}
+		Debug.Log("Escaped!");
 		MSHealScreen.instance.Add(this);
 		name = (100 - monster.healingMonster.priority).ToString();
 
-		transform.parent = MSHealScreen.instance.healQueue.transform;
+		transform.parent = MSHealScreen.instance.currQueue.transform;
 		MSHealScreen.instance.grid.Reposition();
-		MSHealScreen.instance.healQueue.Reposition();
+		//MSHealScreen.instance.healQueue.Reposition();
 
 		foreach (var widget in GetComponentsInChildren<UIWidget>()) 
 		{
@@ -765,13 +766,10 @@ public class MSGoonCard : MonoBehaviour {
 
 	void RemoveFromHealQueue()
 	{
-		MSHospitalManager.instance.RemoveFromHealQueue(monster);
-
 		MSHealScreen.instance.Remove(this);
 		
 		transform.parent = MSHealScreen.instance.grid.transform;
 		MSHealScreen.instance.grid.Reposition();
-		MSHealScreen.instance.healQueue.Reposition();
 		
 		foreach (var widget in GetComponentsInChildren<UIWidget>()) 
 		{
@@ -960,7 +958,7 @@ public class MSGoonCard : MonoBehaviour {
 		MSPopupManager.instance.CreatePopup("Toon On Team",
             teamMemberToHealWarning, new string[]{"Yes", "No"},
 			new string[]{"greenmenuoption", "greymenuoption"},
-			new Action[]{delegate{MSHospitalManager.instance.AddToHealQueue(monster); 
+			new Action[]{delegate{MSHealScreen.instance.AddToonToCurrentQueue(monster); 
 				MSActionManager.Popup.CloseTopPopupLayer();}, 
 				MSActionManager.Popup.CloseTopPopupLayer});
 	}

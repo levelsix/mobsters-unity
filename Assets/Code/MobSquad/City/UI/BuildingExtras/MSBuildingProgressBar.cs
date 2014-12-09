@@ -148,7 +148,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			barSprite.spriteName = "healingmiddle";
 			CheckFreeBar();
 			bg.gameObject.SetActive(true);
-			label.text = MSUtil.TimeStringShort(MSUtil.timeUntil(building.hospital.completeTime));
+			label.text = MSUtil.TimeStringShort(building.hospital.timeLeft);
 			bar.fill = building.hospital.goon.healProgressPercentage;
 		}
 		//This if statement is for if a building suddenly is no longer under construction the bar fills quickly
@@ -214,7 +214,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 	void CheckFreeBar()
 	{
 		//hospital logic
-		if(building.hospital != null && MSMath.GemsForTime(MSUtil.timeUntil(building.hospital.completeTime), true) == 0 && !upgrading)
+		if(building.hospital != null && building.hospital.gemsToFinish == 0 && !upgrading)
 		{
 			SetBarFree(delegate { MSActionManager.Popup.DisplayGreenError("Healing is now free!"); });
 		}

@@ -483,7 +483,7 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 	void UpdateArrow(bool immediate)
 	{
 		allSlotsLabel.text = currJob.miniJob.maxNumMonstersAllowed + " Slot" + (currJob.miniJob.maxNumMonstersAllowed > 1 ? "s" : "") + " Available";
-		arrowSprite.spriteName = MSHealScreen.GREEN_ARROW;
+		arrowSprite.spriteName = MSHospitalQueue.GREEN_ARROW;
 
 		if (currTeam.Count > 0)
 		{
@@ -499,7 +499,7 @@ public class MSMiniJobPopup : MSFunctionalScreen {
 			}
 			else
 			{
-				arrowSprite.spriteName = MSHealScreen.RED_ARROW;
+				arrowSprite.spriteName = MSHospitalQueue.RED_ARROW;
 				currSlotsLabel.text = "SLOTS\nFULL";
 				currSlotsLabel.color = redTextColor;
 				currSlotsLabel.effectColor = Color.black;

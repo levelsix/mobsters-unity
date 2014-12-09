@@ -315,6 +315,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_REDEEM_SECRET_GIFT_EVENT", Value=88)]
       C_REDEEM_SECRET_GIFT_EVENT = 88,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_SET_DEFENDING_MSG_EVENT", Value=89)]
+      C_SET_DEFENDING_MSG_EVENT = 89,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
             
@@ -586,6 +589,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_REDEEM_SECRET_GIFT_EVENT", Value=88)]
       S_REDEEM_SECRET_GIFT_EVENT = 88,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_SET_DEFENDING_MSG_EVENT", Value=89)]
+      S_SET_DEFENDING_MSG_EVENT = 89,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

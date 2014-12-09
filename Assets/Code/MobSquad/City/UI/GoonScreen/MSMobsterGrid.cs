@@ -50,7 +50,7 @@ public class MSMobsterGrid : MonoBehaviour {
 		switch(mode)
 		{
 		case GoonScreenMode.HEAL:
-			return mobster.monsterStatus == MonsterStatus.INJURED || mobster.monsterStatus == MonsterStatus.HEALING;
+			return mobster.monsterStatus == MonsterStatus.INJURED;
 		case GoonScreenMode.SELL:
 			return mobster.monsterStatus == MonsterStatus.HEALTHY || mobster.monsterStatus == MonsterStatus.INJURED
 				|| mobster.monsterStatus == MonsterStatus.INCOMPLETE;
@@ -84,7 +84,7 @@ public class MSMobsterGrid : MonoBehaviour {
 		cards.Clear();
 	}
 
-	public void AddCard(PZMonster mobster, GoonScreenMode mode, bool reposition = false)
+	public MSGoonCard AddCard(PZMonster mobster, GoonScreenMode mode, bool reposition = false)
 	{
 		MSGoonCard card = (MSPoolManager.instance.Get(goonCardPrefab.GetComponent<MSSimplePoolable>(), Vector3.zero, grid.transform) as MSSimplePoolable).GetComponent<MSGoonCard>();
 		card.transform.localScale = Vector3.one;
@@ -95,6 +95,8 @@ public class MSMobsterGrid : MonoBehaviour {
 		{
 			Reposition();
 		}
+
+		return card;
 	}
 
 	public void PhaseOutCard(MSGoonCard card)
