@@ -5371,13 +5371,14 @@ GameObject:
   m_Component:
   - 4: {fileID: 400652}
   - 114: {fileID: 11400860}
+  - 114: {fileID: 11400922}
   m_Layer: 5
-  m_Name: Enter
+  m_Name: GemCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100654
 GameObject:
   m_ObjectHideFlags: 1
@@ -5712,6 +5713,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &100694
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400694}
+  - 114: {fileID: 11400924}
+  m_Layer: 5
+  m_Name: Enter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -8340,7 +8357,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 73.0999756, y: -64.130188, z: -.000122070312}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400654}
@@ -9954,11 +9971,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400654}
-  m_RootOrder: 0
+  m_RootOrder: 3
 --- !u!4 &400654
 Transform:
   m_ObjectHideFlags: 1
@@ -9969,9 +9986,10 @@ Transform:
   m_LocalPosition: {x: 261, y: -118, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400652}
+  - {fileID: 400694}
   - {fileID: 400650}
   - {fileID: 400400}
+  - {fileID: 400652}
   m_Father: {fileID: 400674}
   m_RootOrder: 8
 --- !u!4 &400656
@@ -10222,6 +10240,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400154}
   m_RootOrder: 1
+--- !u!4 &400694
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100694}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400654}
+  m_RootOrder: 0
 --- !u!54 &5400000
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -11704,6 +11734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400052
 MonoBehaviour:
@@ -11992,6 +12023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400066
 MonoBehaviour:
@@ -12005,6 +12037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400068
 MonoBehaviour:
@@ -12018,6 +12051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400070
 MonoBehaviour:
@@ -12031,6 +12065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400072
 MonoBehaviour:
@@ -12044,6 +12079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400074
 MonoBehaviour:
@@ -12057,6 +12093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400076
 MonoBehaviour:
@@ -12345,6 +12382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400090
 MonoBehaviour:
@@ -12582,6 +12620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400100
 MonoBehaviour:
@@ -12870,6 +12909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400114
 MonoBehaviour:
@@ -12883,6 +12923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400116
 MonoBehaviour:
@@ -12896,6 +12937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400118
 MonoBehaviour:
@@ -13637,6 +13679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400150
 MonoBehaviour:
@@ -13687,6 +13730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400154
 MonoBehaviour:
@@ -14658,6 +14702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400206
 MonoBehaviour:
@@ -14770,6 +14815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400212
 MonoBehaviour:
@@ -14845,6 +14891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400216
 MonoBehaviour:
@@ -14858,6 +14905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400218
 MonoBehaviour:
@@ -15008,6 +15056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400226
 MonoBehaviour:
@@ -15673,6 +15722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400260
 MonoBehaviour:
@@ -15723,6 +15773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400264
 MonoBehaviour:
@@ -16428,6 +16479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400298
 MonoBehaviour:
@@ -17422,6 +17474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400344
 MonoBehaviour:
@@ -17537,6 +17590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400352
 MonoBehaviour:
@@ -20982,6 +21036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .400000006
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400502
 MonoBehaviour:
@@ -20995,6 +21050,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400504
 MonoBehaviour:
@@ -21008,6 +21064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400506
 MonoBehaviour:
@@ -21747,6 +21804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400554
 MonoBehaviour:
@@ -21760,6 +21818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400556
 MonoBehaviour:
@@ -21773,6 +21832,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400558
 MonoBehaviour:
@@ -21972,6 +22032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400566
 MonoBehaviour:
@@ -22353,6 +22414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400586
 MonoBehaviour:
@@ -22478,6 +22540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400592
 MonoBehaviour:
@@ -22491,6 +22554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400594
 MonoBehaviour:
@@ -22866,6 +22930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .600000024
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400612
 MonoBehaviour:
@@ -25080,6 +25145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400712
 MonoBehaviour:
@@ -26917,6 +26983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .400000006
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400796
 MonoBehaviour:
@@ -28053,6 +28120,7 @@ MonoBehaviour:
   time: {fileID: 11400854}
   topTitle: {fileID: 11400904}
   characterSprite: {fileID: 11400876}
+  gemCost: {fileID: 11400860}
 --- !u!114 &11400854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -28255,26 +28323,26 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: .13333334, g: .517647088, b: 0, a: 1}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 84
+  mWidth: 72
   mHeight: 26
   mDepth: 3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.23076916
+  aspectRatio: 2.76923084
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
-  mText: Enter
+  mText: (g) 12
   mFontSize: 25
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
   mEffectStyle: 1
-  mEffectColor: {r: 1, g: 1, b: 1, a: .611764729}
+  mEffectColor: {r: 0, g: 0, b: 0, a: .619607866}
   mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
   mOverflow: 2
@@ -29335,6 +29403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400910
 MonoBehaviour:
@@ -29398,6 +29467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .300000012
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400914
 MonoBehaviour:
@@ -29429,7 +29499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingSprite: {fileID: 100400}
   disableWhileLocked:
-  - {fileID: 100652}
+  - {fileID: 100694}
   - {fileID: 100650}
   locked: 0
 --- !u!114 &11400918
@@ -29512,6 +29582,86 @@ MonoBehaviour:
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
   nextSprite: {fileID: 0}
   fillAmount: 1
+--- !u!114 &11400922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fde4988fc1a2473d85db08ade640b0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  revealInstead: 0
+  clearOnDisable: 0
+  fadeAlpha: 0
+  fadeTime: .300000012
+  thingsToHide:
+  - {fileID: 100694}
+  - {fileID: 100650}
+--- !u!114 &11400924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  mColor: {r: .13333334, g: .517647088, b: 0, a: 1}
+  mPivot: 4
+  mWidth: 84
+  mHeight: 26
+  mDepth: 3
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 3.23076916
+  keepCrispWhenShrunk: 1
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 11400000, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
+  mText: Enter
+  mFontSize: 25
+  mFontStyle: 0
+  mAlignment: 0
+  mEncoding: 1
+  mMaxLineCount: 0
+  mEffectStyle: 1
+  mEffectColor: {r: 1, g: 1, b: 1, a: .611764729}
+  mSymbols: 1
+  mEffectDistance: {x: 0, y: 1}
+  mOverflow: 2
+  mMaterial: {fileID: 0}
+  mApplyGradient: 0
+  mGradientTop: {r: 1, g: 1, b: 1, a: 1}
+  mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
+  mSpacingX: 0
+  mSpacingY: 0
+  mShrinkToFit: 0
+  mMaxLineWidth: 0
+  mMaxLineHeight: 0
+  mLineWidth: 0
+  mMultiline: 1
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

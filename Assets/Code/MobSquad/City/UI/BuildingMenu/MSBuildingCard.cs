@@ -275,15 +275,15 @@ public class MSBuildingCard : MonoBehaviour {
 				}
 				break;
 			case StructureInfoProto.StructType.CLAN:
-				if(currentCount < 1 && futureTownHall.structInfo.level < lowestLevel)
+				if(1 > currentCount && futureTownHall.structInfo.level < lowestLevel)
 				{
-					lowestLevel = 1;
+					lowestLevel = 2;//TODO: un-hard code this value
 				}
 				break;
 			case StructureInfoProto.StructType.MINI_JOB:
-				if(currentCount < 1 && futureTownHall.structInfo.level < lowestLevel)
+				if(1 > currentCount && futureTownHall.structInfo.level < lowestLevel)
 				{
-					lowestLevel = 1;
+					lowestLevel = 6;//TODO: un-hard code this value
 				}
 				break;
 			default:

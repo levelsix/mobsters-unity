@@ -35,7 +35,7 @@ public class MSLaboratory : MSBuildingFrame {
 		MSActionManager.Scene.OnCity -= CheckTag;
 	}
 
-	//Try to init when the building is enabled and when enhancing startszzzzzzzz
+	//Try to init when the building is enabled and when enhancing starts
 	public void InitBar()
 	{
 		UserEnhancementProto currEnhancement = MSEnhancementManager.instance.currEnhancement;
@@ -55,8 +55,25 @@ public class MSLaboratory : MSBuildingFrame {
 				bubbleIcon.gameObject.SetActive(true);
 				bubbleIcon.spriteName = "fixbubble";
 				bubbleIcon.MakePixelPerfect();
+				return;
 			}
-			else if (MSEnhancementManager.instance.enhancementMonster == null ||
+			else if(building.combinedProto.structInfo.level >= 5)
+			{
+				foreach(PersistentEventProto pEvent in MSEventManager.instance.GetActiveEvents())
+				{
+					if (pEvent.type == PersistentEventProto.EventType.ENHANCE)
+					{
+						if(!MSEventManager.instance.IsOnCooldown(pEvent))
+						{
+							bubbleIcon.gameObject.SetActive(true);
+							bubbleIcon.spriteName = pEvent.monsterElement.ToString().ToLower() + "cakeeventlive";
+							bubbleIcon.MakePixelPerfect();
+							return;
+						}
+					}
+				}
+			}
+			if (MSEnhancementManager.instance.enhancementMonster == null ||
 			    MSEnhancementManager.instance.enhancementMonster.monster.monsterId == 0) {
 
 				int canEnhance = 0;
