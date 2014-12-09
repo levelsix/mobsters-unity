@@ -1272,6 +1272,15 @@ namespace com.lvl6.proto
       get { return _pvpRequiredMinLvl; }
       set { _pvpRequiredMinLvl = value; }
     }
+
+    private int _defendingMsgCharLimit = default(int);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"defendingMsgCharLimit", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int defendingMsgCharLimit
+    {
+      get { return _defendingMsgCharLimit; }
+      set { _defendingMsgCharLimit = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

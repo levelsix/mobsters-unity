@@ -186,7 +186,10 @@ namespace com.lvl6.proto
       MOMENTUM = 9,
             
       [global::ProtoBuf.ProtoEnum(Name=@"THICK_SKIN", Value=10)]
-      THICK_SKIN = 10
+      THICK_SKIN = 10,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"CRIT_AND_EVADE", Value=11)]
+      CRIT_AND_EVADE = 11
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"SkillActivationType")]

@@ -60,6 +60,15 @@ namespace com.lvl6.proto
       get { return _pvpLeagueStats; }
       set { _pvpLeagueStats = value; }
     }
+
+    private string _defenderMsg = "";
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"defenderMsg", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string defenderMsg
+    {
+      get { return _defenderMsg; }
+      set { _defenderMsg = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
