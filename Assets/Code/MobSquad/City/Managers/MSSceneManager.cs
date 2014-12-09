@@ -68,6 +68,14 @@ public class MSSceneManager : MonoBehaviour {
 			StartCoroutine(FadeToCity());
 			cityState = true;
 		}
+
+		if(MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
+		{
+			if(MSActionManager.Popup.DisplayBlueError != null)
+			{
+				MSActionManager.Popup.DisplayBlueError("You have a free goony grab!");
+			}
+		}
 	}
 	
 	void OnPuzzle()
@@ -113,13 +121,6 @@ public class MSSceneManager : MonoBehaviour {
 		puzzleParent.SetActive(puzzle);
 		yield return StartCoroutine(Fade (loadingPanel, false));
 		loadingParent.SetActive(false);
-		if(MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
-		{
-			if(MSActionManager.Popup.DisplayBlueError != null)
-			{
-				MSActionManager.Popup.DisplayBlueError("You have a free goony grab!");
-			}
-		}
 	}
 
 	IEnumerator FadeToCity()
