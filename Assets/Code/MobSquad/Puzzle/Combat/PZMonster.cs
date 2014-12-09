@@ -146,7 +146,7 @@ public class PZMonster {
 					baseLevelInfo.secsToFullyHeal,
 					maxLevelInfo.secsToFullyHeal,
 					Mathf.Pow(levelProgress, maxLevelInfo.hpExponentBase)
-				) * 1000 / currHospital.proto.secsToFullyHealMultiplier);
+				) * 1000 / currHospital.proto.secsToFullyHealMultiplier);// - helpTime;
 		}
 	}
 
@@ -180,7 +180,13 @@ public class PZMonster {
 		}
 	}
 	
-	public long finishHealTimeMillis;
+	public long finishHealTimeMillis
+	{
+		get
+		{
+			return healStartTime + timeToHealMillis;
+		}
+	}
 	
 	public long healTimeLeftMillis
 	{
@@ -190,7 +196,7 @@ public class PZMonster {
 			{
 				return 0;
 			}
-			long help = helpTime;
+			long help = 0;//helpTime;
 			//Debug.Log("helptime : " + help);
 			//Debug.Log(finishHealTimeMillis + " - " + MSUtil.timeNowMillis + " - " + help + " = " + (finishHealTimeMillis - MSUtil.timeNowMillis - help));
 			return finishHealTimeMillis - MSUtil.timeNowMillis - help;
@@ -276,7 +282,7 @@ public class PZMonster {
 		get
 		{
 			if (MSEnhancementManager.instance.enhancementMonster == null) return 0;
-			return MSMath.TimeToEnhanceMonster(MSEnhancementManager.instance.enhancementMonster, this);
+			return MSMath.TimeToEnhanceMonster(MSEnhancementManager.instance.enhancementMonster, this) - helpTime;
 		}
 	}
 

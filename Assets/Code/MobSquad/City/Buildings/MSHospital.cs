@@ -25,23 +25,45 @@ public class MSHospital {
 	/// return to the player's city
 	/// </summary>
 	public FullUserStructureProto userBuildingData;
+
+	public List<PZMonster> healQueue = new List<PZMonster>();
 	
 	Animator animator = null;
 
-	PZMonster _goon = null;
-
-	long _completeTime = 0;
-
-	public long completeTime
+	public int queueSize
 	{
 		get
 		{
-			return _completeTime;
+			if (building == null) return 0;
+			return building.combinedProto.hospital.queueSize;
 		}
-		set
+	}
+
+	public long finishTime
+	{
+		get
 		{
-			_completeTime = value;
-			completeTimeInt = (int)value;
+			if (healQueue.Count == 0)
+			{
+				return MSUtil.timeNowMillis;
+			}
+			return healQueue[healQueue.Count-1].finishHealTimeMillis;
+		}
+	}
+
+	public long timeLeft
+	{
+		get
+		{
+			return finishTime - MSUtil.timeNowMillis;
+		}
+	}
+
+	public int gemsToFinish
+	{
+		get
+		{
+			return MSMath.GemsForTime(timeLeft, true);
 		}
 	}
 
@@ -49,23 +71,16 @@ public class MSHospital {
 
 	public PZMonster goon
 	{
-		set
-		{
-			if (value != _goon)
-			{
-				SetGoon(value);
-			}
-		}
 		get
 		{
-			return _goon;
+			if (healQueue.Count == 0) return null;
+			return healQueue[0];
 		}
 	}
 
 	public MSHospital()
 	{
-		MSActionManager.Goon.OnHealQueueChanged += OnHealingQueueChange;
-		MSActionManager.Scene.OnCity += OnHealingQueueChange;
+		MSActionManager.Scene.OnCity += SetGoon;
 	}
 
 	public MSHospital(MSHospital hospital)
@@ -73,8 +88,6 @@ public class MSHospital {
 		this.building = hospital.building;
 		this.proto = hospital.proto;
 		this.userBuildingData = hospital.userBuildingData;
-		this.completeTime = 0;
-		MSActionManager.Goon.OnHealQueueChanged += OnHealingQueueChange;
 	}
 
 	public void InitFromBuilding(MSBuilding building)
@@ -83,17 +96,16 @@ public class MSHospital {
 		proto = building.combinedProto.hospital;
 		userBuildingData = building.userStructProto;
 		animator = building.sprite.GetComponent<Animator>();
-		SetGoon(goon);
+		SetGoon();
 	}
 
-	void SetGoon(PZMonster goon)
+	void SetGoon()
 	{
-		_goon = goon;
 		if (building == null || animator == null)
 		{
 			return;
 		}
-		if (_goon == null)
+		if (goon == null)
 		{
 			animator.SetBool("Healing", false);
 			building.overlayUnit.gameObject.SetActive(false);
@@ -102,41 +114,40 @@ public class MSHospital {
 		{
 			building.overlayUnit.gameObject.SetActive(true);
 			animator.SetBool("Healing", true);
-			building.overlayUnit.Init(_goon);
+			building.overlayUnit.Init(goon);
 		}
 	}
 
-	void OnHealingQueueChange()
+	public void AddToonToQueue(PZMonster toon)
 	{
-		goon = MSHospitalManager.instance.healingMonsters.Find(x=>x.hospitalTimes[0].hospital == this);
+		toon.healingMonster.userHospitalStructUuid = building.userStructProto.userStructUuid;
+		toon.healingMonster.queuedTimeMillis = finishTime;
+		toon.healingMonster.priority = healQueue.Count;
+		healQueue.Add(toon);
+		SetGoon();
 	}
 
-	public long GetTotalHealTimeLeft()
+	public void RemoveToonFromQueue(PZMonster monster)
 	{
-		string thisHospitalID = userBuildingData.userStructUuid;
-		Debug.Log ("this hospital ID: " + thisHospitalID);
+		healQueue.Remove(monster);
+		RecalculateQueue();
+		SetGoon();
+	}
 
-		List<PZMonster> healingInThisHospital = new List<PZMonster>();
-		foreach(PZMonster monster in MSHospitalManager.instance.healingMonsters)
+	public void RecalculateQueue()
+	{
+		for (int i = 0; i < healQueue.Count; i++) 
 		{
-			Debug.Log("monster's hospital ID: " + monster.userHospitalID);
-			if(monster.userHospitalID.Equals(thisHospitalID))
+			switch(i)
 			{
-				healingInThisHospital.Add(monster);
+			case 0:
+				healQueue[i].healingMonster.queuedTimeMillis = Math.Min(MSUtil.timeNowMillis, healQueue[i].healingMonster.queuedTimeMillis);
+				break;
+			default:
+				healQueue[i].healingMonster.queuedTimeMillis = healQueue[i-1].finishHealTimeMillis;
+				break;
 			}
-		}
-		if(healingInThisHospital.Count != 0)
-		{
-			long healTime = 0;
-			foreach (PZMonster monster in healingInThisHospital) 
-			{
-				healTime = Math.Max(monster.healTimeLeftMillis, healTime);
-			}
-			return MSUtil.timeUntil(healTime);
-		}
-		else
-		{
-			return 0;
+			healQueue[i].healingMonster.priority = i;
 		}
 	}
 }

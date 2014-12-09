@@ -523,6 +523,11 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		for (i = 0; i < building.prereqs.Count; i++) 
 		{
 			preq = MSBuildingManager.instance.HasPrereqBuilding(building.prereqs[i]);
+			if (i >= prereqs.Length)
+			{
+				Debug.LogError("Too many prereqs: " + i);
+				continue;
+			}
 			prereqs[i].Init(
 				building.prereqs[i].prereqGameEntityId,
 				building.prereqs[i].quantity,
