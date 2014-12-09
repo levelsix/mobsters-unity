@@ -139,7 +139,7 @@ public class MSEnhancementManager : MonoBehaviour
 		{
 			long potential = 0;
 			foreach (var item in feeders) {
-				potential += (long)(item.enhanceXP * 1000f / currLab.pointsPerSecond);
+				potential += item.enhanceTime;
 			}
 			return potential;
 		}

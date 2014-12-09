@@ -464,8 +464,7 @@ public class MSHospitalManager : MonoBehaviour {
 			}
 		}
 
-		gemCost += Mathf.CeilToInt(((float)((lastTime - MSUtil.timeNowMillis) / 60000))
-		                           / MSWhiteboard.constants.minutesPerGem);
+		gemCost += MSMath.GemsForTime(lastTime - MSUtil.timeNowMillis, false);
 
 		return gemCost;
 	}

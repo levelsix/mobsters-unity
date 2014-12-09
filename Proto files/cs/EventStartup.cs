@@ -701,7 +701,7 @@ namespace com.lvl6.proto
     }
 
     private float _minutesPerGem = default(float);
-    [global::System.Obsolete, global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"minutesPerGem", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"minutesPerGem", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
     public float minutesPerGem
     {
@@ -710,7 +710,7 @@ namespace com.lvl6.proto
     }
 
     private float _gemsPerResource = default(float);
-    [global::System.Obsolete, global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"gemsPerResource", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"gemsPerResource", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
     public float gemsPerResource
     {
@@ -770,6 +770,15 @@ namespace com.lvl6.proto
     {
       get { return _addAllFbFriends; }
       set { _addAllFbFriends = value; }
+    }
+
+    private bool _facebookPopUp = default(bool);
+    [global::ProtoBuf.ProtoMember(36, IsRequired = false, Name=@"facebookPopUp", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool facebookPopUp
+    {
+      get { return _facebookPopUp; }
+      set { _facebookPopUp = value; }
     }
 
     private com.lvl6.proto.StartupResponseProto.StartupConstants.MiniTutorialConstants _miniTuts = null;

@@ -37,11 +37,28 @@ public class PZMonster {
 
 	StartupResponseProto.StartupConstants.ClanHelpConstants healHelpConstants;
 
+	public float levelProgress
+	{
+		get
+		{
+			return (level-1f)/(monster.maxLevel-1f);
+		}
+	}
+
 	public bool isHealing
 	{
 		get
 		{
 			return healingMonster != null && !healingMonster.userMonsterUuid.Equals("");
+		}
+	}
+
+	public MSHospital currHospital
+	{
+		get
+		{
+			if (healingMonster == null || healingMonster.userMonsterUuid.Equals("")) return null;
+			return MSHospitalManager.instance.hospitals.Find(x=>x.userBuildingData.userStructUuid == healingMonster.userHospitalStructUuid);
 		}
 	}
 
@@ -125,7 +142,11 @@ public class PZMonster {
 	{
 		get
 		{
-			return (long)((maxHP - (currHP + healingMonster.healthProgress)) * 1000 * MSWhiteboard.constants.monsterConstants.secondsToHealPerHealthPoint);
+			return (long)(Mathf.Lerp(
+					baseLevelInfo.secsToFullyHeal,
+					maxLevelInfo.secsToFullyHeal,
+					Mathf.Pow(levelProgress, maxLevelInfo.hpExponentBase)
+				) * 1000 / currHospital.proto.secsToFullyHealMultiplier);
 		}
 	}
 
@@ -180,7 +201,11 @@ public class PZMonster {
 	{
 		get
 		{
-			return (int)(totalHealthToHeal * MSWhiteboard.constants.monsterConstants.cashPerHealthPoint);
+			float costToFullyHeal = Mathf.Lerp(
+				baseLevelInfo.costToFullyHeal,
+				maxLevelInfo.costToFullyHeal,
+				Mathf.Pow(levelProgress, maxLevelInfo.hpExponentBase));
+			return Mathf.CeilToInt(costToFullyHeal * ((float)(maxHP - currHP)) / maxHP);
 		}
 	}
 	
@@ -188,7 +213,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return Mathf.CeilToInt((healTimeLeftMillis/60000) / MSWhiteboard.constants.minutesPerGem);
+			return MSMath.GemsForTime(healTimeLeftMillis, true);
 		}
 	}
 
@@ -228,7 +253,21 @@ public class PZMonster {
 	{
 		get
 		{
-			return Mathf.FloorToInt(MSWhiteboard.constants.monsterConstants.oilPerMonsterLevel * level);
+			return Mathf.FloorToInt (Mathf.Lerp(
+				baseLevelInfo.enhanceCostPerFeeder,
+				maxLevelInfo.enhanceCostPerFeeder,
+				Mathf.Pow(levelProgress, maxLevelInfo.enhanceCostExponent)));
+		}
+	}
+
+	public float expPerSecond
+	{
+		get
+		{
+			return Mathf.Lerp(
+				baseLevelInfo.enhanceExpPerSecond,
+				maxLevelInfo.enhanceExpPerSecond,
+				Mathf.Pow(levelProgress, maxLevelInfo.enhanceExpPerSecondExponent));
 		}
 	}
 
@@ -236,7 +275,8 @@ public class PZMonster {
 	{
 		get
 		{
-			return (long)((enhanceXP * 1000f) / MSEnhancementManager.instance.currLab.pointsPerSecond);
+			if (MSEnhancementManager.instance.enhancementMonster == null) return 0;
+			return MSMath.TimeToEnhanceMonster(MSEnhancementManager.instance.enhancementMonster, this);
 		}
 	}
 
@@ -287,7 +327,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return Mathf.CeilToInt((combineTimeLeft/60000f) / MSWhiteboard.constants.minutesPerGem);
+			return MSMath.GemsForTime(combineTimeLeft, false);
 		}
 	}
 

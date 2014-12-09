@@ -184,6 +184,11 @@ public class PZCombatUnit : MonoBehaviour {
 		}
 	}
 
+	public void Init(PvpMonsterProto pvpMonster)
+	{
+		Init(pvpMonster.defenderMonster);
+	}
+
 	public void DeInit()
 	{
 		this.monster = null;

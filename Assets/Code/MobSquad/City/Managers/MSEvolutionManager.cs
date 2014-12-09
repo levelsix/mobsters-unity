@@ -264,7 +264,7 @@ public class MSEvolutionManager : MonoBehaviour {
 
 	public void FinishWithGems(MSLoadLock loadLock = null)
 	{
-		int gems = Mathf.CeilToInt((timeLeftMillis / 60000f) / MSWhiteboard.constants.minutesPerGem);
+		int gems = MSMath.GemsForTime(timeLeftMillis, false);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gems))
 		{
 			StartCoroutine(CompleteEvolution(loadLock, gems));
