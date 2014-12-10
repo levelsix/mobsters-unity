@@ -201,9 +201,11 @@ public class MSBuildingCard : MonoBehaviour {
 				max = MSBuildingManager.currTownHall.numLabs;
 				break;
 			case StructureInfoProto.StructType.MINI_JOB:
+				//This fact is not in the data base. so if this changes *shrug* we will have to release a code update
 				max = 1;
 				break;
 			case StructureInfoProto.StructType.CLAN:
+				//This fact is not in the data base. so if this changes *shrug* we will have to release a code update
 				max = 1;
 				break;
 			}
@@ -212,7 +214,19 @@ public class MSBuildingCard : MonoBehaviour {
 
 		if (count >= max)
 		{
-			int lowestLevelRequired = LowestRequiredHall(building.structInfo.structType, count);
+			int lowestLevelRequired;
+			if(building.generator != null)
+			{
+				lowestLevelRequired = MSBuildingManager.instance.LowestRequiredHall(building.structInfo.structType, count, building.generator.resourceType);
+			}
+			else if(building.storage != null)
+			{
+				lowestLevelRequired = MSBuildingManager.instance.LowestRequiredHall(building.structInfo.structType, count, building.storage.resourceType);
+			}
+			else
+			{
+				lowestLevelRequired = MSBuildingManager.instance.LowestRequiredHall(building.structInfo.structType, count);
+			}
 			if(lowestLevelRequired != -1)
 			{
 				on = false;
@@ -234,66 +248,7 @@ public class MSBuildingCard : MonoBehaviour {
 
 	}
 
-	int LowestRequiredHall(StructureInfoProto.StructType type, int currentCount){
-		int lowestLevel = 999;
-		MSFullBuildingProto futureTownHall = MSBuildingManager.townHall.combinedProto.successor;
-		while(futureTownHall != null){
-			TownHallProto townHall = futureTownHall.townHall;
-			//TODO: we may have to differentiate between Cash and Oil
-			//Can't do that now cause I have no idea if cash/oil is numResourceOneGenerators or numResourceTwoGenerators
-			switch(type){
-			case StructureInfoProto.StructType.RESOURCE_GENERATOR:
-				//check to see that the number of allowed buildings is over our current number of buildings of this type 
-				//check to see that the townHall level is current lowest found
-				if(townHall.numResourceOneGenerators > currentCount && futureTownHall.structInfo.level < lowestLevel){
-					lowestLevel = futureTownHall.structInfo.level;
-				}
-				break;
-			case StructureInfoProto.StructType.RESOURCE_STORAGE:
-				if(townHall.numResourceOneStorages > currentCount && futureTownHall.structInfo.level < lowestLevel){
-					lowestLevel = futureTownHall.structInfo.level;
-				}
-				break;
-			case StructureInfoProto.StructType.HOSPITAL:
-				if(townHall.numHospitals > currentCount && futureTownHall.structInfo.level < lowestLevel){
-					lowestLevel = futureTownHall.structInfo.level;
-				}
-				break;
-			case StructureInfoProto.StructType.RESIDENCE:
-				if(townHall.numResidences > currentCount && futureTownHall.structInfo.level < lowestLevel){
-					lowestLevel = futureTownHall.structInfo.level;
-				}
-				break;
-			case StructureInfoProto.StructType.LAB:
-				if(townHall.numLabs > currentCount && futureTownHall.structInfo.level < lowestLevel){
-					lowestLevel = futureTownHall.structInfo.level;
-				}
-				break;
-			case StructureInfoProto.StructType.EVO:
-				if(townHall.numEvoChambers > currentCount && futureTownHall.structInfo.level < lowestLevel){
-					lowestLevel = futureTownHall.structInfo.level;
-				}
-				break;
-			case StructureInfoProto.StructType.CLAN:
-				if(1 > currentCount && futureTownHall.structInfo.level < lowestLevel)
-				{
-					lowestLevel = 2;//TODO: un-hard code this value
-				}
-				break;
-			case StructureInfoProto.StructType.MINI_JOB:
-				if(1 > currentCount && futureTownHall.structInfo.level < lowestLevel)
-				{
-					lowestLevel = 6;//TODO: un-hard code this value
-				}
-				break;
-			default:
-				Debug.LogWarning("Could not find required TownHall level for " + type.ToString());
-				break;
-			}
-			futureTownHall = futureTownHall.successor;
-		}
-		return lowestLevel == 999 ? -1 : lowestLevel;
-	}
+
 
 	/// <summary>
 	/// Sets the name of this gameobject to reflect which building is on the card

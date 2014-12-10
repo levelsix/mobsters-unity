@@ -41,6 +41,8 @@ public class MSPopupSwapper : MonoBehaviour {
 
 	public float waitThenReverse = -1f;
 
+	IEnumerator animationEnder;
+
 	/// <summary>
 	/// The reletive 
 	/// </summary>
@@ -61,11 +63,20 @@ public class MSPopupSwapper : MonoBehaviour {
 		}
 	}
 
+	void OnDisable()
+	{
+		popupA.GetComponent<TweenPosition>().enabled = false;
+		popupB.GetComponent<TweenPosition>().enabled = false;
+		popupA.transform.localPosition = originA;
+		popupB.transform.localPosition = originB;
+		animationEnder = null;
+	}
+
 	public void Swap(bool resetOrigin = false){
 		switch(activePopup){
 		case Popup.None:
-			if(animating){
-				StopCoroutine("EndAnimation");
+			if(animating && animationEnder != null){
+				StopCoroutine(animationEnder);
 			}
 
 			if(ActionA != null){
@@ -84,8 +95,8 @@ public class MSPopupSwapper : MonoBehaviour {
 			activePopup = Popup.A;
 			break;
 		case Popup.A:
-			if(animating){
-				StopCoroutine("EndAnimation");
+			if(animating && animationEnder != null){
+				StopCoroutine(animationEnder);
 			}
 			if(ActionB != null){
 				ActionB();
@@ -102,8 +113,8 @@ public class MSPopupSwapper : MonoBehaviour {
 			activePopup = Popup.B;
 			break;
 		case Popup.B:
-			if(animating){
-				StopCoroutine("EndAnimation");
+			if(animating && animationEnder != null){
+				StopCoroutine(animationEnder);
 			}
 			if(ActionA != null){
 				ActionA();
@@ -115,7 +126,6 @@ public class MSPopupSwapper : MonoBehaviour {
 				unsetA = false;
 			}
 
-
 			TweenPosition.Begin(popupA.gameObject, tweenTime, new Vector3(originA.x + Tween.x, originA.y + Tween.y, originA.z + Tween.z));
 			TweenPosition.Begin(popupB.gameObject, tweenTime, originB);
 
@@ -123,7 +133,8 @@ public class MSPopupSwapper : MonoBehaviour {
 			break;
 		}
 		animating = true;
-		StartCoroutine("EndAnimation", activePopup);
+		animationEnder = EndAnimation(activePopup);
+		StartCoroutine(animationEnder);
 	}
 
 	public void Close(){
@@ -144,6 +155,7 @@ public class MSPopupSwapper : MonoBehaviour {
 				TweenPosition.Begin(popupB.gameObject, tweenTime, originB);
 				break;
 			default:
+				Debug.LogError("Incorrect popup specified", this);
 				break;
 			}
 		}

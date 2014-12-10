@@ -171,7 +171,7 @@ public class MSMapTaskButton : MonoBehaviour {
 //		halo.depth = buttonLabel.depth - 2;
 //		shadow.depth = buttonLabel.depth - 2;
 		glowRing.depth = buttonLabel.depth - 2;
-		bossSprite.depth = buttonLabel.depth + 1;
+		bossSprite.depth = buttonLabel.depth;
 
 		buttonLabel.text = task.mapElementId.ToString();
 //		levelTitle.text = MSDataManager.instance.Get<FullTaskProto> (task.taskId).name;

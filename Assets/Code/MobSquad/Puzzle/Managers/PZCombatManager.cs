@@ -821,6 +821,8 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void StartPvp()
 	{
+		forfeitChance = FORFEIT_START_CHANCE;
+
 		StartCoroutine(SendBeginPvpRequest());
 
 		//StartCoroutine(RetreatPvpsForBattle());
