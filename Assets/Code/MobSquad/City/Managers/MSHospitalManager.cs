@@ -172,9 +172,8 @@ public class MSHospitalManager : MonoBehaviour {
 		foreach (var item in healingMonsters) 
 		{
 			Debug.Log("Finding hospital: " + item.healingMonster.userHospitalStructUuid);
-			hospitals.Find(x=>x.userBuildingData.userStructUuid.Equals(item.healingMonster.userHospitalStructUuid)).AddToonToQueue(item);
+			hospitals.Find(x=>x.userBuildingData.userStructUuid.Equals(item.healingMonster.userHospitalStructUuid)).AddExistingToon(item);
 		}
-		MSHospitalManager.instance.healingMonsters.Sort((m1, m2)=>m1.healingMonster.priority.CompareTo(m2.healingMonster.priority));
 
 
 	}
@@ -256,83 +255,57 @@ public class MSHospitalManager : MonoBehaviour {
 			PrepareNewHealRequest();
 		}
 
+		bool anyDone = false;
 		foreach (var item in hospitals) 
 		{
-			CheckHospital(item);
+			anyDone = anyDone || CheckHospital(item);
 		}
 
-		DoSendHealRequest();
-
-//		if (SomeMonsterFinishedHealing())
-//		{
-//			UserMonsterCurrentHealthProto health;
-//			for (int i = 0; i < MSHospitalManager.instance.healingMonsters.Count;) 
-//			{
-//				if (MSHospitalManager.instance.healingMonsters[i].healTimeLeftMillis <= 0)
-//				{
-//					//MSSlideUp.instance.QueueMonsterFinishHealing(MSHospitalManager.instance.healingMonsters[i]);
-//
-//					//MSHospitalManager.instance.healingMonsters[i].hospitalTimes[MSHospitalManager.instance.healingMonsters[i].hospitalTimes.Count-1].hospital.goon = null;
-//
-//					health = new UserMonsterCurrentHealthProto();
-//					health.userMonsterUuid = MSHospitalManager.instance.healingMonsters[i].healingMonster.userMonsterUuid;
-//					health.currentHealth = MSHospitalManager.instance.healingMonsters[i].maxHP;
-//					healRequestProto.umchp.Add(health);
-//					if (MSActionManager.Goon.OnMonsterRemoveQueue != null)
-//					{
-//						MSActionManager.Goon.OnMonsterRemoveQueue(MSHospitalManager.instance.healingMonsters[i]);
-//					}
-//					CompleteHeal(MSHospitalManager.instance.healingMonsters[i]);
-//
-//				}
-//				else
-//				{
-//					i++;
-//				}
-//			}
-//			DoSendHealRequest();
-//		}
+		if (anyDone)
+		{
+			DoSendHealRequest();
+		}
 	}
 
-	void CheckHospital(MSHospital hospital)
+	bool CheckHospital(MSHospital hospital)
 	{
+		bool anyDone = false;
 		while (hospital.healQueue.Count > 0 && IsHealDone(hospital.healQueue[0]))
 		{
+			anyDone = true;
 			CompleteHeal(hospital.healQueue[0]);
 		}
+		return anyDone;
 	}
 
 	bool IsHealDone(PZMonster monster)
 	{
+		if (monster.isHealing && monster.healTimeLeftMillis <= 0)
+		{
+			Debug.Log("Shit's done, bro");
+		}
+
 		return monster.isHealing && monster.healTimeLeftMillis <= 0;
 	}
 
-	public void TrySpeedUpHeal(MSLoadLock loadLock)
+	public void TrySpeedUpHeal(MSLoadLock loadLock, List<PZMonster> monsters, int gems)
 	{
-		int gemCost = MSMath.GemsForTime(lastFinishTime - MSUtil.timeNowMillis, true);
-		if (MSResourceManager.instance.Spend(ResourceType.GEMS, gemCost, delegate{TrySpeedUpHeal(loadLock);}))
-		{
-			StartCoroutine(SpeedUpHeal(gemCost, loadLock));
-		}
+		StartCoroutine(SpeedUpHeal(loadLock, monsters, gems));
 	}
-	
-	IEnumerator SpeedUpHeal(int cost, MSLoadLock loadLock)
-	{
-		
+
+	IEnumerator SpeedUpHeal(MSLoadLock loadLock, List<PZMonster> healingMonsters, int cost)
+	{	
 		loadLock.Lock();
 
 		if (!MSTutorialManager.instance.inTutorial)
 		{
-			if (healRequestProto != null)
+			if (healRequestProto == null)
 			{
-				yield return DoSendHealRequest();
+				PrepareNewHealRequest();
 			}
 
-			HealMonsterRequestProto request = new HealMonsterRequestProto();
-			request.sender = MSWhiteboard.localMupWithResources;
-
-			request.isSpeedup = true;
-			request.gemsForSpeedup = cost;
+			healRequestProto.isSpeedup = true;
+			healRequestProto.gemsForSpeedup = cost;
 			
 			UserMonsterCurrentHealthProto health;
 			foreach (var item in healingMonsters) 
@@ -343,24 +316,24 @@ public class MSHospitalManager : MonoBehaviour {
 				healRequestProto.umchp.Add(health);
 			}
 
-			int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT);
-
+			int tagNum = UMQNetworkManager.instance.SendRequest(healRequestProto, (int)EventProtocolRequest.C_HEAL_MONSTER_EVENT);
+			
+			healRequestProto = null;
+			
 			while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 			{
 				yield return null;
 			}
-
+			
 			HealMonsterResponseProto response = UMQNetworkManager.responseDict[tagNum] as HealMonsterResponseProto;
 			UMQNetworkManager.responseDict.Remove(tagNum);
 
 			if (response.status == HealMonsterResponseProto.HealMonsterStatus.SUCCESS)
 			{
-				while(MSHospitalManager.instance.healingMonsters.Count > 0)
+				while(healingMonsters.Count > 0)
 				{
-					CompleteHeal(MSHospitalManager.instance.healingMonsters[0]);
+					CompleteHeal(healingMonsters[0]);
 				}
-				
-				RearrangeHealingQueue();
 			}
 			else
 			{
@@ -762,8 +735,9 @@ public class MSHospitalManager : MonoBehaviour {
 		{
 			PrepareNewHealRequest();
 		}
-		
-		MSHospitalManager.instance.healingMonsters.Remove(monster);
+
+		monster.currHospital.RemoveToonFromQueue(monster);
+		monster.currHospital.RecalculateQueue();
 		
 		if (healRequestProto.umhNew.Contains(monster.healingMonster))
 		{
@@ -781,8 +755,6 @@ public class MSHospitalManager : MonoBehaviour {
 		healRequestProto.cashChange += monster.healCost;
 		
 		monster.healingMonster = null;
-		
-		RearrangeHealingQueue();
 		
 		MSResourceManager.instance.Collect(ResourceType.CASH, monster.healCost);
 

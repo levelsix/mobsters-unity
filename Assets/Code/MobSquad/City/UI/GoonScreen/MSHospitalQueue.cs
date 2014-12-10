@@ -78,6 +78,12 @@ public class MSHospitalQueue : MonoBehaviour
 			return;
 		}
 
+		foreach (var item in currHeals) 
+		{
+			item.Pool();
+		}
+		currHeals.Clear();
+
 		this.hospital = hospital;
 
 		//levelLabel.text = "Level " + hospital.building.combinedProto.structInfo.level;
@@ -87,7 +93,7 @@ public class MSHospitalQueue : MonoBehaviour
 		{
 			MSGoonCard card = greaterGrid.AddCard (item, GoonScreenMode.HEAL);
 			card.transform.parent = grid.transform;
-			currHeals.Add(card);
+			Add (card);
 		}
 		grid.Reposition();
 		grid.animateSmoothly = true;
@@ -128,12 +134,14 @@ public class MSHospitalQueue : MonoBehaviour
 	{
 		if (currHeals.Count == 0)
 		{
-			emptyQueueRoot.FadeIn();
-			queueRoot.FadeOut();
+			emptyQueueRoot.FadeOut();
+			queueRoot.FadeIn();
 		}
 
 		currHeals.Add (card);
+
 		
+		card.transform.parent = grid.transform;
 		grid.Reposition();
 
 		RefreshSlots();
@@ -146,8 +154,8 @@ public class MSHospitalQueue : MonoBehaviour
 		
 		if (currHeals.Count == 0)
 		{
-			emptyQueueRoot.FadeOut();
-			queueRoot.FadeIn();
+			emptyQueueRoot.FadeIn();
+			queueRoot.FadeOut();
 		}
 
 		grid.Reposition();
@@ -195,7 +203,7 @@ public class MSHospitalQueue : MonoBehaviour
 		}
 		else
 		{
-			MSHospitalManager.instance.TrySpeedUpHeal(loadLock);
+			MSHospitalManager.instance.TrySpeedUpHeal(loadLock, hospital.healQueue, hospital.gemsToFinish);
 		}
 	}
 

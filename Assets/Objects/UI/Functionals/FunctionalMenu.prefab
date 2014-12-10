@@ -10627,7 +10627,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 48
   mHeight: 76
-  mDepth: 0
+  mDepth: 10
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -12912,7 +12912,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 48
   mHeight: 76
-  mDepth: 0
+  mDepth: 10
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -13311,9 +13311,9 @@ MonoBehaviour:
   hospitalQueuePrefab: {fileID: 11400004, guid: 9b7287afb827d46bf964853b1e6a0acd,
     type: 2}
   button: {fileID: 0}
-  tweenDistance: 0
-  leftArrow: {fileID: 0}
-  rightArrow: {fileID: 0}
+  tweenDistance: 860
+  leftArrow: {fileID: 100010}
+  rightArrow: {fileID: 100086}
   currHeals: []
 --- !u!114 &11400174
 MonoBehaviour:

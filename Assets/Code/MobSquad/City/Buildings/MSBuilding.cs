@@ -168,7 +168,6 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	/// <summary>
 	/// The hospital component.
 	/// </summary>
-	[HideInInspector]
 	public MSHospital hospital;
 
 	[HideInInspector]
