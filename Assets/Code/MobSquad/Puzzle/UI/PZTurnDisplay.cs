@@ -62,7 +62,7 @@ public class PZTurnDisplay : MonoBehaviour
 
 	void SetSize()
 	{
-		if (MSUtil.screenRatio > 1.5f)
+		if (MSUtil.screenRatio > 1.51f)
 		{
 			numTurnsToDisplay = 4;
 		}
