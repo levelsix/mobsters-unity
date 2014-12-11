@@ -976,13 +976,13 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	public void CompleteWithGems()
 	{
-		if (upgrade != null && upgrade.timeRemaining > 0)
-		{
-			upgrade.FinishWithPremium();
-		}
-		else if (obstacle != null && obstacle.millisLeft > 0)
+		if (obstacle != null && obstacle.millisLeft > 0)
 		{
 			obstacle.FinishWithGems();
+		}
+		else if (upgrade != null && upgrade.timeRemaining > 0)
+		{
+			upgrade.FinishWithPremium();
 		}
 	}
 
