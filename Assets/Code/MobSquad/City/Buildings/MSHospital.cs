@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -116,6 +116,12 @@ public class MSHospital {
 			animator.SetBool("Healing", true);
 			building.overlayUnit.Init(goon);
 		}
+	}
+
+	public void AddExistingToon(PZMonster toon)
+	{
+		healQueue.Add (toon);
+		SetGoon();
 	}
 
 	public void AddToonToQueue(PZMonster toon)

@@ -277,6 +277,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 			ClickRemove();
 			break;
 		case Mode.HEAL:
+			MSHealScreen.currHospital = currBuilding.hospital;
 			OpenFunctionalMenu(GoonScreenMode.HEAL);
 			break;
 		case Mode.TEAM:
@@ -315,13 +316,6 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		                                         currBuilding.userStructProto.userStructUuid,
 		                                         MSBuildingManager.currClanHouse.maxHelpersPerSolicitation,
 		                                         delegate{SetMode(Mode.FINISH);});
-	}
-
-	void ClickHeal()
-	{
-		MSActionManager.Popup.OnPopup(MSPopupManager.instance.popups.goonScreen.GetComponent<MSPopup>());
-		MSPopupManager.instance.popups.goonScreen.Init(GoonScreenMode.HEAL);
-		MSBuildingManager.instance.FullDeselect();
 	}
 
 	void OpenFunctionalMenu(GoonScreenMode mode)

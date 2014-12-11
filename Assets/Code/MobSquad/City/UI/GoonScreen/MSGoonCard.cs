@@ -292,7 +292,7 @@ public class MSGoonCard : MonoBehaviour {
 
 		if (goon.monsterStatus == MonsterStatus.HEALING)
 		{
-			AddToHealQueue();
+			PutInHealQueue();
 		}
 		else
 		{
@@ -748,25 +748,32 @@ public class MSGoonCard : MonoBehaviour {
 		{
 			return;
 		}
-		Debug.Log("Escaped!");
-		MSHealScreen.instance.Add(this);
-		name = (100 - monster.healingMonster.priority).ToString();
 
-		transform.parent = MSHealScreen.instance.currQueue.transform;
+		MSHealScreen.instance.Add(this);
+
+		PutInHealQueue();
+	}
+
+	void PutInHealQueue()
+	{	
+		name = (100 - monster.healingMonster.priority).ToString();
+		
+		transform.parent = MSHealScreen.instance.currQueue.grid.transform;
 		MSHealScreen.instance.grid.Reposition();
 		//MSHealScreen.instance.healQueue.Reposition();
-
+		
 		foreach (var widget in GetComponentsInChildren<UIWidget>()) 
 		{
 			widget.ParentHasChanged();
 		}
-
+		
 		StartCoroutine(ShiftSpriteSizes(bigHelper, smallHelper));
 	}
 
 	void RemoveFromHealQueue()
 	{
 		MSHealScreen.instance.Remove(this);
+		MSHospitalManager.instance.RemoveFromHealQueue(monster);
 		
 		transform.parent = MSHealScreen.instance.grid.transform;
 		MSHealScreen.instance.grid.Reposition();
@@ -1050,7 +1057,7 @@ public class MSGoonCard : MonoBehaviour {
 			{
 				StartCoroutine(PhaseOut());
 				MSHealScreen.instance.Remove(this);
-				MSHealScreen.instance.healQueue.Reposition();
+				MSHealScreen.instance.currQueue.grid.Reposition();
 			}
 		}
 	}

@@ -10,8 +10,6 @@ public class MSHealScreen : MSFunctionalScreen
 
 	public MSMobsterGrid grid;
 
-	public UIGrid healQueue;
-
 	[SerializeField]
 	Transform healQueueParent;
 
@@ -31,12 +29,13 @@ public class MSHealScreen : MSFunctionalScreen
 			leftArrow.SetActive(MSHospitalManager.instance.PreviousHospital(value.hospital) != null);
 			rightArrow.SetActive(MSHospitalManager.instance.NextHospital(value.hospital) != null);
 			currHospital = value.hospital;
+			Debug.Log ("Changing queue and setting hospital to: " + currHospital.building.userStructProto.userStructUuid);
 		}
 	}
 	
 	public UIButton button;
 
-	public MSHospital currHospital;
+	public static MSHospital currHospital;
 
 	MSLoadLock loadLock;
 	
@@ -71,7 +70,13 @@ public class MSHealScreen : MSFunctionalScreen
 
 	public override void Init ()
 	{
-		if (currHospital == null) currHospital = MSHospitalManager.instance.hospitals[0];
+		if (currHospital == null)
+		{
+			currHospital = MSHospitalManager.instance.hospitals[0];
+			Debug.Log("Hospital was null, setting to: " + currHospital.userBuildingData.userStructUuid);
+		}
+
+		Debug.Log("Initting heal with hospital: " + currHospital.userBuildingData.userStructUuid);
 
 		if (currQueue == null)
 		{
@@ -111,6 +116,8 @@ public class MSHealScreen : MSFunctionalScreen
 	void OnDisable()
 	{
 		MSHospitalManager.instance.DoSendHealRequest();
+		rightArrow.SetActive(false);
+		leftArrow.SetActive(false);
 	}
 
 	public bool AddToonToCurrentQueue(PZMonster toon)
@@ -118,7 +125,7 @@ public class MSHealScreen : MSFunctionalScreen
 		return MSHospitalManager.instance.AddToHealQueue(toon, currHospital);
 	}
 
-	public void SlideRight()
+	public void NextHospitalQueue()
 	{
 		currQueue.Slide(false, -tweenDistance);
 		MSHospitalQueue newQueue = MSPoolManager.instance.Get<MSHospitalQueue>(hospitalQueuePrefab, healQueueParent);
@@ -129,7 +136,7 @@ public class MSHealScreen : MSFunctionalScreen
 		currQueue = newQueue;
 	}
 
-	public void SlideLeft()
+	public void PreviousHospitalQueue()
 	{
 		currQueue.Slide(false, tweenDistance);
 		MSHospitalQueue newQueue = MSPoolManager.instance.Get<MSHospitalQueue>(hospitalQueuePrefab, healQueueParent);
