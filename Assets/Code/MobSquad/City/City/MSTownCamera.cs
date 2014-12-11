@@ -94,6 +94,7 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		{
 			MSActionManager.UI.OnCameraResize(cam);
 		}
+		X_DRAG_FUDGE = cam.aspect;
 	}
 	
 	/// <summary>

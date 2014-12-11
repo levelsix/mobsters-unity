@@ -100,6 +100,8 @@ public class PZCombatUnit : MonoBehaviour {
 
 	IEnumerator currentColorTween = null;
 
+	IEnumerator currInfoTween = null;
+
 	public bool skillActive
 	{
 		get
@@ -525,32 +527,39 @@ public class PZCombatUnit : MonoBehaviour {
 	}
 
 	public void OnClick(){
-		if (currTotalTime == 0f && !unitInfo.GetComponent<TweenAlpha> ().enabled) {
-			StartCoroutine (showInfo ());	
-		} else if (currTotalTime > 0) {
-			currTotalTime -= INFO_DISPLAY_TIME;
-		} else {
-			unitInfo.GetComponent<TweenAlpha> ().PlayForward();
-			currTotalTime = -0.5f;
-			StartCoroutine(showInfo());
+		if(currInfoTween != null)
+		{
+			if(currTotalTime > INFO_DISPLAY_TIME)
+			{
+				StopCoroutine(currInfoTween);
+				currInfoTween = ShowInfo();
+				StartCoroutine(currInfoTween);
+			}
+			else
+			{
+				currTotalTime = 0f;
+			}
+		}
+		else
+		{
+			currInfoTween = ShowInfo();
+			StartCoroutine(currInfoTween);
 		}
 	}
 
-	IEnumerator showInfo(){
-		float totalDisplayTime = INFO_DISPLAY_TIME;
-		
-		TweenAlpha tween = unitInfo.GetComponent<TweenAlpha> ();
-		if(currTotalTime >= 0){
-			tween.Sample(0f, false);
-			tween.PlayForward();
-		}
+	IEnumerator ShowInfo(){
+		float duration = 0.3f;
+		TweenAlpha.Begin(unitInfo.gameObject, (1f - unitInfo.GetComponent<UIWidget>().alpha) * duration, 1f);
+		yield return new WaitForSeconds(duration);
 
-		while (totalDisplayTime > currTotalTime) {
+		while (currTotalTime < INFO_DISPLAY_TIME) {
 			currTotalTime += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
-		tween.Sample (1f, false);
-		tween.PlayReverse ();
+		TweenAlpha.Begin(unitInfo.gameObject, duration, 0f);
+
+		yield return new WaitForSeconds(duration);
+		currInfoTween = null;
 		currTotalTime = 0f;
 	}
 
