@@ -1281,6 +1281,24 @@ namespace com.lvl6.proto
       get { return _defendingMsgCharLimit; }
       set { _defendingMsgCharLimit = value; }
     }
+
+    private int _beginAvengingTimeLimitMins = default(int);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"beginAvengingTimeLimitMins", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int beginAvengingTimeLimitMins
+    {
+      get { return _beginAvengingTimeLimitMins; }
+      set { _beginAvengingTimeLimitMins = value; }
+    }
+
+    private int _requestClanToAvengeTimeLimitMins = default(int);
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"requestClanToAvengeTimeLimitMins", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int requestClanToAvengeTimeLimitMins
+    {
+      get { return _requestClanToAvengeTimeLimitMins; }
+      set { _requestClanToAvengeTimeLimitMins = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

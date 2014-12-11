@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: EventClan.proto
+// Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: Clan.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: User.proto
@@ -2025,6 +2026,159 @@ namespace com.lvl6.proto
       get { return _clanData; }
       set { _clanData = value; }
     }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BeginClanAvengingRequestProto")]
+  public partial class BeginClanAvengingRequestProto : global::ProtoBuf.IExtensible
+  {
+    public BeginClanAvengingRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PvpHistoryProto> _recentNBattles = new global::System.Collections.Generic.List<com.lvl6.proto.PvpHistoryProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"recentNBattles", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PvpHistoryProto> recentNBattles
+    {
+      get { return _recentNBattles; }
+    }
+  
+
+    private long _clientTime = default(long);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long clientTime
+    {
+      get { return _clientTime; }
+      set { _clientTime = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"BeginClanAvengingResponseProto")]
+  public partial class BeginClanAvengingResponseProto : global::ProtoBuf.IExtensible
+  {
+    public BeginClanAvengingResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PvpClanAvengeProto> _clanAvengings = new global::System.Collections.Generic.List<com.lvl6.proto.PvpClanAvengeProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"clanAvengings", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PvpClanAvengeProto> clanAvengings
+    {
+      get { return _clanAvengings; }
+    }
+  
+
+    private com.lvl6.proto.BeginClanAvengingResponseProto.BeginClanAvengingStatus _status = com.lvl6.proto.BeginClanAvengingResponseProto.BeginClanAvengingStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.BeginClanAvengingResponseProto.BeginClanAvengingStatus.SUCCESS)]
+    public com.lvl6.proto.BeginClanAvengingResponseProto.BeginClanAvengingStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"BeginClanAvengingStatus")]
+    public enum BeginClanAvengingStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EndClanAvengingRequestProto")]
+  public partial class EndClanAvengingRequestProto : global::ProtoBuf.IExtensible
+  {
+    public EndClanAvengingRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<string> _clanAvengeUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"clanAvengeUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> clanAvengeUuids
+    {
+      get { return _clanAvengeUuids; }
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"EndClanAvengingResponseProto")]
+  public partial class EndClanAvengingResponseProto : global::ProtoBuf.IExtensible
+  {
+    public EndClanAvengingResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+    private readonly global::System.Collections.Generic.List<string> _clanAvengeUuids = new global::System.Collections.Generic.List<string>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"clanAvengeUuids", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<string> clanAvengeUuids
+    {
+      get { return _clanAvengeUuids; }
+    }
+  
+
+    private com.lvl6.proto.EndClanAvengingResponseProto.EndClanAvengingStatus _status = com.lvl6.proto.EndClanAvengingResponseProto.EndClanAvengingStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.EndClanAvengingResponseProto.EndClanAvengingStatus.SUCCESS)]
+    public com.lvl6.proto.EndClanAvengingResponseProto.EndClanAvengingStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"EndClanAvengingStatus")]
+    public enum EndClanAvengingStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

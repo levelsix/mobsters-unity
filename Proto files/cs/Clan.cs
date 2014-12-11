@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Clan.proto
+// Note: requires additional types generated from: Battle.proto
 // Note: requires additional types generated from: Chat.proto
 // Note: requires additional types generated from: MonsterStuff.proto
 // Note: requires additional types generated from: SharedEnumConfig.proto
@@ -1120,6 +1121,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.ClanHelpProto> clanHelpings
     {
       get { return _clanHelpings; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PvpClanAvengeProto> _clanAvengings = new global::System.Collections.Generic.List<com.lvl6.proto.PvpClanAvengeProto>();
+    [global::ProtoBuf.ProtoMember(3, Name=@"clanAvengings", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PvpClanAvengeProto> clanAvengings
+    {
+      get { return _clanAvengings; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;
