@@ -758,7 +758,7 @@ public class MSGoonCard : MonoBehaviour {
 	{	
 		name = (100 - monster.healingMonster.priority).ToString();
 		
-		transform.parent = MSHealScreen.instance.currQueue.transform;
+		transform.parent = MSHealScreen.instance.currQueue.grid.transform;
 		MSHealScreen.instance.grid.Reposition();
 		//MSHealScreen.instance.healQueue.Reposition();
 		

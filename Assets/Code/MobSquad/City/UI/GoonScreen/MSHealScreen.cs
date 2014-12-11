@@ -10,8 +10,6 @@ public class MSHealScreen : MSFunctionalScreen
 
 	public MSMobsterGrid grid;
 
-	public UIGrid healQueue;
-
 	[SerializeField]
 	Transform healQueueParent;
 
@@ -118,6 +116,8 @@ public class MSHealScreen : MSFunctionalScreen
 	void OnDisable()
 	{
 		MSHospitalManager.instance.DoSendHealRequest();
+		rightArrow.SetActive(false);
+		leftArrow.SetActive(false);
 	}
 
 	public bool AddToonToCurrentQueue(PZMonster toon)
@@ -125,7 +125,7 @@ public class MSHealScreen : MSFunctionalScreen
 		return MSHospitalManager.instance.AddToHealQueue(toon, currHospital);
 	}
 
-	public void SlideRight()
+	public void NextHospitalQueue()
 	{
 		currQueue.Slide(false, -tweenDistance);
 		MSHospitalQueue newQueue = MSPoolManager.instance.Get<MSHospitalQueue>(hospitalQueuePrefab, healQueueParent);
@@ -136,7 +136,7 @@ public class MSHealScreen : MSFunctionalScreen
 		currQueue = newQueue;
 	}
 
-	public void SlideLeft()
+	public void PreviousHospitalQueue()
 	{
 		currQueue.Slide(false, tweenDistance);
 		MSHospitalQueue newQueue = MSPoolManager.instance.Get<MSHospitalQueue>(hospitalQueuePrefab, healQueueParent);
