@@ -114,6 +114,7 @@ public class MSEventScreen : MSFunctionalScreen {
 
 		buttonTask.locked = true;
 		buttonTask.task = MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId);
+		PZScrollingBackground.instance.SetBackgrounds(MSDataManager.instance.Get<FullTaskProto>(pEvent.taskId));
 
 		eventTitle.text = buttonTask.task.name;
 		topTitle.text = buttonTask.task.name;
