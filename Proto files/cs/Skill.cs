@@ -192,7 +192,10 @@ namespace com.lvl6.proto
       CRIT_AND_EVADE = 11,
             
       [global::ProtoBuf.ProtoEnum(Name=@"SHUFFLE", Value=12)]
-      SHUFFLE = 12
+      SHUFFLE = 12,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"HEADSHOT", Value=13)]
+      HEADSHOT = 13
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"SkillActivationType")]
