@@ -222,6 +222,42 @@ namespace com.lvl6.proto
       get { return _defenderAfter; }
       set { _defenderAfter = value; }
     }
+
+    private com.lvl6.proto.FullUserProto _defender = null;
+    [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"defender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.FullUserProto defender
+    {
+      get { return _defender; }
+      set { _defender = value; }
+    }
+
+    private int _attackerCashChange = default(int);
+    [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"attackerCashChange", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int attackerCashChange
+    {
+      get { return _attackerCashChange; }
+      set { _attackerCashChange = value; }
+    }
+
+    private int _attackerOilChange = default(int);
+    [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"attackerOilChange", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int attackerOilChange
+    {
+      get { return _attackerOilChange; }
+      set { _attackerOilChange = value; }
+    }
+
+    private bool _clanAvenged = default(bool);
+    [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"clanAvenged", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(default(bool))]
+    public bool clanAvenged
+    {
+      get { return _clanAvenged; }
+      set { _clanAvenged = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -267,6 +303,123 @@ namespace com.lvl6.proto
     {
       get { return _description; }
       set { _description = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PvpClanAvengeProto")]
+  public partial class PvpClanAvengeProto : global::ProtoBuf.IExtensible
+  {
+    public PvpClanAvengeProto() {}
+    
+
+    private string _clanAvengeUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"clanAvengeUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanAvengeUuid
+    {
+      get { return _clanAvengeUuid; }
+      set { _clanAvengeUuid = value; }
+    }
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.PvpUserClanAvengeProto> _usersAvenging = new global::System.Collections.Generic.List<com.lvl6.proto.PvpUserClanAvengeProto>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"usersAvenging", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.PvpUserClanAvengeProto> usersAvenging
+    {
+      get { return _usersAvenging; }
+    }
+  
+
+    private com.lvl6.proto.MinimumUserProtoWithLevel _attacker = null;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"attacker", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProtoWithLevel attacker
+    {
+      get { return _attacker; }
+      set { _attacker = value; }
+    }
+
+    private com.lvl6.proto.MinimumUserProto _defender = null;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"defender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto defender
+    {
+      get { return _defender; }
+      set { _defender = value; }
+    }
+
+    private long _battleEndTime = default(long);
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"battleEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long battleEndTime
+    {
+      get { return _battleEndTime; }
+      set { _battleEndTime = value; }
+    }
+
+    private long _avengeRequestTime = default(long);
+    [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"avengeRequestTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long avengeRequestTime
+    {
+      get { return _avengeRequestTime; }
+      set { _avengeRequestTime = value; }
+    }
+
+    private string _defenderClanUuid = "";
+    [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"defenderClanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string defenderClanUuid
+    {
+      get { return _defenderClanUuid; }
+      set { _defenderClanUuid = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"PvpUserClanAvengeProto")]
+  public partial class PvpUserClanAvengeProto : global::ProtoBuf.IExtensible
+  {
+    public PvpUserClanAvengeProto() {}
+    
+
+    private string _userUuid = "";
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string userUuid
+    {
+      get { return _userUuid; }
+      set { _userUuid = value; }
+    }
+
+    private string _clanUuid = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanUuid
+    {
+      get { return _clanUuid; }
+      set { _clanUuid = value; }
+    }
+
+    private string _clanAvengeUuid = "";
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clanAvengeUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
+    public string clanAvengeUuid
+    {
+      get { return _clanAvengeUuid; }
+      set { _clanAvengeUuid = value; }
+    }
+
+    private long _avengeTime = default(long);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"avengeTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(long))]
+    public long avengeTime
+    {
+      get { return _avengeTime; }
+      set { _avengeTime = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

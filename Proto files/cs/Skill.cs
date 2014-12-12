@@ -189,7 +189,10 @@ namespace com.lvl6.proto
       THICK_SKIN = 10,
             
       [global::ProtoBuf.ProtoEnum(Name=@"CRIT_AND_EVADE", Value=11)]
-      CRIT_AND_EVADE = 11
+      CRIT_AND_EVADE = 11,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SHUFFLE", Value=12)]
+      SHUFFLE = 12
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"SkillActivationType")]

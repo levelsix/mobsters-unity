@@ -318,6 +318,12 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_SET_DEFENDING_MSG_EVENT", Value=89)]
       C_SET_DEFENDING_MSG_EVENT = 89,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_BEGIN_CLAN_AVENGING_EVENT", Value=90)]
+      C_BEGIN_CLAN_AVENGING_EVENT = 90,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"C_END_CLAN_AVENGING_EVENT", Value=91)]
+      C_END_CLAN_AVENGING_EVENT = 91,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
             
@@ -592,6 +598,12 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_SET_DEFENDING_MSG_EVENT", Value=89)]
       S_SET_DEFENDING_MSG_EVENT = 89,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_BEGIN_CLAN_AVENGING_EVENT", Value=90)]
+      S_BEGIN_CLAN_AVENGING_EVENT = 90,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_END_CLAN_AVENGING_EVENT", Value=91)]
+      S_END_CLAN_AVENGING_EVENT = 91,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

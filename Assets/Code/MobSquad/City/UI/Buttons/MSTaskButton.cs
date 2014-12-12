@@ -172,7 +172,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 
 	void SetMode (Mode mode)
 	{
-		if(mode == Mode.FINISH &&
+		if(mode == Mode.FINISH && currBuilding.obstacle == null &&
 		   currBuilding.upgrade.gemsToFinish > 0 &&
 		   !MSClanManager.instance.HelpAlreadyRequested(GameActionType.UPGRADE_STRUCT, currBuilding.userStructProto.userStructUuid) &&
 			MSClanManager.instance.isInClan)
