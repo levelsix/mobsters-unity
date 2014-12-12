@@ -1,5 +1,8 @@
 #define DEBUG
 
+//#define STAGING
+//#define PROD
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +19,27 @@ using ProtoBuf;
 using System.IO;
 
 public class UMQNetworkManager : MonoBehaviour {
-	
+
+#if PROD
+	string hostName = "amqpprodmobsters.lvl6.com"; 
+	string userName = "lvl6client";
+	string password = "devclient";
+	string virtualHost = "devmobsters";
+	int port = 5672;
+#elif STAGING
+	string hostName = "amqpstagingmobsters.lvl6.com";
+	string userName = "lvl6client";
+	string password = "devclient";
+	string virtualHost = "devmobsters";
+	int port = 5672;
+#else
+	string hostName = "amqpdevmobsters.lvl6.com";
+	string userName = "lvl6client";
+	string password = "devclient";
+	string virtualHost = "devmobsters";
+	int port = 5672;
+#endif
+
 	static MySerializer ser = new MySerializer();
 	
 	//Dictionary<string, Type> classDict = new Dictionary<string, Type>();
@@ -122,20 +145,20 @@ public class UMQNetworkManager : MonoBehaviour {
 
 #if UNITY_ANDROID && !UNITY_EDITOR
 		AndroidJavaObject factoryJava = new AndroidJavaObject("com.rabbitmq.client.ConnectionFactory");
-		factoryJava.Call("setHost", "amqpstagingmobsters.lvl6.com");
-		factoryJava.Call("setUsername", "lvl6client");
-		factoryJava.Call("setPassword", "devclient");
-		factoryJava.Call("setVirtualHost", "devmobsters");
+		factoryJava.Call("setHost", hostName);
+		factoryJava.Call("setUsername", userName);
+		factoryJava.Call("setPassword", password);
+		factoryJava.Call("setVirtualHost", virtualHost);
 		factoryJava.Call("useSslProtocol");
 
 		WriteDebug("Set connection settings...");
 #else
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.HostName = "amqpdevmobsters.lvl6.com";
-		factory.UserName = "lvl6client";
-		factory.Password = "devclient";
-		factory.VirtualHost = "devmobsters";
-		factory.Port = 5672;
+		factory.HostName = hostName;
+		factory.UserName = userName;
+		factory.Password = password;
+		factory.VirtualHost = virtualHost;
+		factory.Port = port;
 
 //		factory.Ssl.ServerName = "lvl6ca";
 //		factory.Ssl.CertPath = "cacert.cer";
