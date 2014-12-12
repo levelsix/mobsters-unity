@@ -121,6 +121,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		else if (building.obstacle != null && building.obstacle.isRemoving && !building.obstacle.finished)
 		{
 			miniAvatar.gameObject.SetActive(false);
+			upgrading = true;
 			foreach (var item in caps) 
 			{
 				item.spriteName = "buildingcap";
