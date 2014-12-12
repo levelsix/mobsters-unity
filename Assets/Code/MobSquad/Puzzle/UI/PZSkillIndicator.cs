@@ -52,12 +52,12 @@ public class PZSkillIndicator : MonoBehaviour {
 		if (skill != null && skill.skillId > 0)
 		{
 			collider.enabled = true;
-			Debug.Log("Skill!: " + skill.name);
 			maxPoints = skill.orbCost;
 			monsterElement = userElement;
 
-			string skillBundle = MSUtil.SkillBundleName(skill);
-			string skillIconName = MSUtil.StripExtensions(skill.iconImgName);
+			string skillBundle = skill.iconImgName;
+			string skillIconName = skill.iconImgName + "icon";
+			Debug.Log("Skill!: " + skillBundle + ", icon: " + skillIconName);
 			MSSpriteUtil.instance.SetSprite(skillBundle, skillIconName, bwIcon);
 			MSSpriteUtil.instance.SetSprite(skillBundle, skillIconName, fillIcon);
 

@@ -479,7 +479,7 @@ public static class MSUtil {
 
 	public static string SkillBundleName(SkillProto proto)
 	{
-		return proto.iconImgName;
+		return StripExtensions(proto.iconImgName);
 		//return proto.iconImgName.Substring(0, proto.iconImgName.Length-8);
 	}
 

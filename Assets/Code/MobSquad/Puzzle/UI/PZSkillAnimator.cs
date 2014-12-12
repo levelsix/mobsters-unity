@@ -33,7 +33,7 @@ public class PZSkillAnimator : MonoBehaviour {
 		if (tAlph == null) tAlph = GetComponent<TweenAlpha>();
 
 		MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Character", character);
-		MSSpriteUtil.instance.SetSprite(MSUtil.SkillBundleName(skill), MSUtil.StripExtensions(skill.logoImgName), logo);
+		MSSpriteUtil.instance.SetSprite(skill.iconImgName, skill.iconImgName + "logo", logo);
 
 		tPos.Sample(0, true);
 		tAlph.Sample(0, true);
