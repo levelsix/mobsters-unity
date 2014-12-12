@@ -172,14 +172,19 @@ public class PZScrollingBackground : MonoBehaviour {
 
 	public void SetBackgrounds(FullTaskProto task)
 	{
-		lastTaskActivated = task;
-		
-		string prefix = task.groundImgPrefix;
+		if(task != null)
+		{
+			lastTaskActivated = task;
 
-		SetSingleBackground(true, true, topLeft);
-		SetSingleBackground(true, false, topRight);
-		SetSingleBackground(false, true, bottomLeft);
-		SetSingleBackground(false, false, bottomRight);
+			SetSingleBackground(true, true, topLeft);
+			SetSingleBackground(true, false, topRight);
+			SetSingleBackground(false, true, bottomLeft);
+			SetSingleBackground(false, false, bottomRight);
+		}
+		else
+		{
+			Debug.LogError("Null Full Task provided to scrolling background");
+		}
 	}
 	
 	public void SetSingleBackground(bool top, bool left, SpriteRenderer sprite)
@@ -205,6 +210,7 @@ public class PZScrollingBackground : MonoBehaviour {
 		}
 
 		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix + spriteName, sprite);
+		Debug.Log("loading background : " + prefix + "Scene, " + prefix + spriteName);
 		//if(sprite.sprite == null)
 		//{
 		//	MSSpriteUtil.instance.SetSprite("1Scene", "1" + spriteName, sprite);

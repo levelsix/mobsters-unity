@@ -412,6 +412,8 @@ public class PZCombatManager : MonoBehaviour {
 
 		winLosePopup.gameObject.SetActive(false);
 
+		mobsterCounter.alpha = 0f;
+
 		if (activeEnemy != null && activeEnemy.unit != null)
 		{
 			Color temp = activeEnemy.unit.sprite.color;
@@ -846,6 +848,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		enemySkillIndicator.Init(enemyDefSkill, activeEnemy.monster.monster.monsterElement);
 
+		mobsterCounter.alpha = 0f;
 		mobsterCounter.text = "ENEMY " + "1" + "/" + (enemies.Count + 1);
 
 		StartCoroutine(TweenInPvp());
@@ -853,7 +856,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator TweenInPvp()
 	{
-		TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 1f ,1f);
+		TweenAlpha.Begin(mobsterCounter.transform.parent.gameObject, 0.3f ,1f);
 
 		boardMove.Sample(0, false);
 		boardMove.delay = 1f;
