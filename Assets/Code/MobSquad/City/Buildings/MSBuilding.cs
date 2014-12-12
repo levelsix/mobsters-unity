@@ -861,7 +861,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 			{
 				userStructProto.userUuid = MSWhiteboard.localMup.userUuid;
 			}
-			userStructProto.userUuid = response.userStructUuid;
+			userStructProto.userStructUuid = response.userStructUuid;
 			
 			upgrade.StartConstruction();
 			

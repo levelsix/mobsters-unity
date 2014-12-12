@@ -40,49 +40,67 @@ public class MSGachaFeaturedMobster : MonoBehaviour {
 	const string gemCasePath = "Sprites/Misc/casegems";
 	
 	MSLoopingElement looper;
-	
+
+	BoosterItemProto boosterItem;
+
 	void Awake()
 	{
 		looper = GetComponent<MSLoopingElement>();
 		if (looper != null) looper.onLoop = OnLoop;
 	}
+
+	void OnEnable()
+	{
+		if (boosterItem != null && boosterItem.boosterItemId > 0)
+		{
+			Init(boosterItem);
+		}
+	}
 	
 	public void Init(BoosterItemProto mobster)
 	{
-		StopAllCoroutines();
-		loadingIcon.SetActive(true);
-		if (mobster.monsterId > 0)
-		{
-			
-			MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(mobster.monsterId);
-			
-			StartCoroutine(MSSpriteUtil.instance.SetSpriteCoroutine(monster.imagePrefix, monster.imagePrefix + "Character", mobsterSprite, 1, delegate{loadingIcon.SetActive(false);}));
-			
-			mobsterName.text = monster.displayName;
-			
-			rarityBg.spriteName = "battle" + monster.quality.ToString().ToLower() + "tag";
-			rarityBg.MakePixelPerfect();
 
-			if(monster.monsterElement == Element.DARK)
+		if (gameObject.activeInHierarchy)
+		{
+			boosterItem = null;
+			StopAllCoroutines();
+			loadingIcon.SetActive(true);
+			if (mobster.monsterId > 0)
 			{
-				elementSprite.spriteName = "nightorb";
+				MonsterProto monster = MSDataManager.instance.Get<MonsterProto>(mobster.monsterId);
+				
+				StartCoroutine(MSSpriteUtil.instance.SetSpriteCoroutine(monster.imagePrefix, monster.imagePrefix + "Character", mobsterSprite, 1, delegate{loadingIcon.SetActive(false);}));
+				
+				mobsterName.text = monster.displayName;
+				
+				rarityBg.spriteName = "battle" + monster.quality.ToString().ToLower() + "tag";
+				rarityBg.MakePixelPerfect();
+
+				if(monster.monsterElement == Element.DARK)
+				{
+					elementSprite.spriteName = "nightorb";
+				}
+				else
+				{
+					elementSprite.spriteName = monster.monsterElement.ToString().ToLower() + "orb";
+				}
+
+				elementName.text = monster.monsterElement.ToString();
+				elementName.color = MSColors.elementColors[monster.monsterElement];
+				elementSprite.MakePixelPerfect();
+				
+				maxHp.text = MSMath.MaxHPAtLevel(monster, monster.maxLevel).ToString("n0");
+				maxSpeed.text = MSMath.SpeedAtLevel(monster, monster.maxLevel).ToString("n0");
+				maxAttack.text = MSMath.AttackAtLevel(monster, monster.maxLevel).ToString("#,##0");
 			}
 			else
 			{
-				elementSprite.spriteName = monster.monsterElement.ToString().ToLower() + "orb";
+				mobsterName.text = "GEMS!";
 			}
-
-			elementName.text = monster.monsterElement.ToString();
-			elementName.color = MSColors.elementColors[monster.monsterElement];
-			elementSprite.MakePixelPerfect();
-			
-			maxHp.text = MSMath.MaxHPAtLevel(monster, monster.maxLevel).ToString("n0");
-			maxSpeed.text = MSMath.SpeedAtLevel(monster, monster.maxLevel).ToString("n0");
-			maxAttack.text = MSMath.AttackAtLevel(monster, monster.maxLevel).ToString("#,##0");
 		}
 		else
 		{
-			mobsterName.text = "GEMS!";
+			boosterItem = mobster;
 		}
 	}
 	

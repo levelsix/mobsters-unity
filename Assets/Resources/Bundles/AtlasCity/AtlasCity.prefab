@@ -55,7 +55,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingcap
-    x: 564
+    x: 569
     y: 753
     width: 4
     height: 15
@@ -108,7 +108,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: cancelbuild
     x: 498
-    y: 37
+    y: 113
     width: 65
     height: 75
     borderLeft: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: cashcollected
-    x: 506
+    x: 617
     y: 564
     width: 110
     height: 54
@@ -186,7 +186,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: confirmbuild
     x: 498
-    y: 113
+    y: 37
     width: 65
     height: 75
     borderLeft: 0
@@ -224,8 +224,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: evolvebubble
-    x: 593
-    y: 493
+    x: 839
+    y: 556
     width: 94
     height: 62
     borderLeft: 0
@@ -263,7 +263,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: gemscollected
-    x: 617
+    x: 506
     y: 564
     width: 110
     height: 54
@@ -276,7 +276,7 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 8
   - name: healingcap
-    x: 559
+    x: 564
     y: 753
     width: 4
     height: 15
@@ -302,8 +302,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 3
   - name: healredbubble1
-    x: 300
-    y: 430
+    x: 171
+    y: 38
     width: 102
     height: 62
     borderLeft: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubble2
     x: 300
-    y: 367
+    y: 556
     width: 102
     height: 62
     borderLeft: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubble3
     x: 300
-    y: 304
+    y: 493
     width: 102
     height: 62
     borderLeft: 0
@@ -342,7 +342,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubble4
     x: 300
-    y: 241
+    y: 430
     width: 102
     height: 62
     borderLeft: 0
@@ -355,7 +355,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubble5
     x: 300
-    y: 178
+    y: 367
     width: 102
     height: 62
     borderLeft: 0
@@ -368,7 +368,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubble6
     x: 300
-    y: 115
+    y: 304
     width: 102
     height: 62
     borderLeft: 0
@@ -381,7 +381,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: healredbubble7
     x: 300
-    y: 52
+    y: 241
     width: 102
     height: 62
     borderLeft: 0
@@ -393,8 +393,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healredbubble8
-    x: 403
-    y: 556
+    x: 300
+    y: 178
     width: 102
     height: 62
     borderLeft: 0
@@ -406,8 +406,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healredbubble9
-    x: 171
-    y: 101
+    x: 300
+    y: 115
     width: 102
     height: 62
     borderLeft: 0
@@ -419,8 +419,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: healredbubbleexclamation
-    x: 171
-    y: 164
+    x: 300
+    y: 52
     width: 102
     height: 62
     borderLeft: 0
@@ -562,7 +562,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: obfull
-    x: 893
+    x: 812
     y: 619
     width: 80
     height: 48
@@ -575,7 +575,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: obheal
-    x: 812
+    x: 893
     y: 619
     width: 80
     height: 48
@@ -679,7 +679,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: sellbubble1
-    x: 498
+    x: 593
     y: 493
     width: 94
     height: 62
@@ -692,6 +692,19 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: sellbubble2
+    x: 498
+    y: 493
+    width: 94
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: sellbubble3
     x: 403
     y: 52
     width: 94
@@ -704,22 +717,9 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: sellbubble3
-    x: 839
-    y: 556
-    width: 94
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
   - name: sellbubble4
     x: 403
-    y: 493
+    y: 115
     width: 94
     height: 62
     borderLeft: 0
@@ -732,7 +732,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: sellbubble5
     x: 403
-    y: 430
+    y: 178
     width: 94
     height: 62
     borderLeft: 0
@@ -745,7 +745,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: sellbubble6
     x: 403
-    y: 367
+    y: 241
     width: 94
     height: 62
     borderLeft: 0
@@ -771,7 +771,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: sellbubble8
     x: 403
-    y: 241
+    y: 367
     width: 94
     height: 62
     borderLeft: 0
@@ -784,7 +784,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: sellbubble9
     x: 403
-    y: 178
+    y: 430
     width: 94
     height: 62
     borderLeft: 0
@@ -797,7 +797,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: sellbubbleexclamation
     x: 403
-    y: 115
+    y: 493
     width: 94
     height: 62
     borderLeft: 0
@@ -913,7 +913,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: instantcap
-    x: 569
+    x: 559
     y: 753
     width: 4
     height: 15
@@ -966,7 +966,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: helpredbubble8
     x: 171
-    y: 227
+    y: 101
     width: 102
     height: 62
     borderLeft: 0
@@ -978,8 +978,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: helpredbubble4
-    x: 918
-    y: 881
+    x: 171
+    y: 164
     width: 102
     height: 62
     borderLeft: 0
@@ -991,8 +991,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: helpredbubble6
-    x: 918
-    y: 709
+    x: 171
+    y: 227
     width: 102
     height: 62
     borderLeft: 0
@@ -1005,7 +1005,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: helpredbubble3
     x: 171
-    y: 479
+    y: 290
     width: 102
     height: 62
     borderLeft: 0
@@ -1018,7 +1018,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: helpredbubbleexclamation
     x: 171
-    y: 416
+    y: 353
     width: 102
     height: 62
     borderLeft: 0
@@ -1030,8 +1030,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: helpredbubble9
-    x: 300
-    y: 493
+    x: 171
+    y: 416
     width: 102
     height: 62
     borderLeft: 0
@@ -1044,7 +1044,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: helpredbubble1
     x: 171
-    y: 38
+    y: 479
     width: 102
     height: 62
     borderLeft: 0
@@ -1056,8 +1056,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: helpredbubble2
-    x: 171
-    y: 290
+    x: 918
+    y: 709
     width: 102
     height: 62
     borderLeft: 0
@@ -1069,8 +1069,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: helpredbubble5
-    x: 171
-    y: 353
+    x: 918
+    y: 881
     width: 102
     height: 62
     borderLeft: 0
@@ -1082,7 +1082,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: helpredbubble7
-    x: 300
+    x: 403
     y: 556
     width: 102
     height: 62
@@ -1108,19 +1108,6 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: redtile
-    x: 674
-    y: 441
-    width: 68
-    height: 51
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: greentile
     x: 920
     y: 504
     width: 68
@@ -1133,9 +1120,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: greentile
+    x: 674
+    y: 441
+    width: 68
+    height: 51
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: firecakeeventlive
-    x: 747
-    y: 865
+    x: 0
+    y: 543
     width: 170
     height: 78
     borderLeft: 0
@@ -1173,8 +1173,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightcakeeventlive
-    x: 747
-    y: 786
+    x: 0
+    y: 622
     width: 170
     height: 78
     borderLeft: 0
@@ -1212,8 +1212,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthcakeeventlive
-    x: 0
-    y: 622
+    x: 747
+    y: 865
     width: 170
     height: 78
     borderLeft: 0
@@ -1225,8 +1225,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: darkcakeeventlive
-    x: 0
-    y: 543
+    x: 747
+    y: 786
     width: 170
     height: 78
     borderLeft: 0
