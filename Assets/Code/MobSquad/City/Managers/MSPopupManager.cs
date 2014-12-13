@@ -148,7 +148,7 @@ public class MSPopupManager : MonoBehaviour {
 		MSGenericPopup popup = GrabGeneric();
 
 		popup.Init(text);
-		popup.gameObject.SetActive(false);
+		//popup.gameObject.SetActive(false);
 
 		InitPopup (popup);
 	}
@@ -158,7 +158,7 @@ public class MSPopupManager : MonoBehaviour {
 		MSGenericPopup popup = GrabGeneric();
 
 		popup.Init(title, text);
-		popup.gameObject.SetActive(false);
+		//popup.gameObject.SetActive(false);
 
 		InitPopup(popup);
 	}
@@ -168,7 +168,7 @@ public class MSPopupManager : MonoBehaviour {
 		MSGenericPopup popup = GrabGeneric();
 
 		popup.Init(text, buttonLabels, buttonSprites, buttonActions);
-		popup.gameObject.SetActive(false);
+		//popup.gameObject.SetActive(false);
 		
 		InitPopup (popup);
 	}
@@ -177,8 +177,10 @@ public class MSPopupManager : MonoBehaviour {
 	{
 		MSGenericPopup popup = GrabGeneric();
 
+		Debug.Log("Just grabbed: " + popup.GetComponent<MSPopup>());
+
 		popup.Init(title, text, buttonLabels, buttonSprites, buttonActions, topColor);
-		popup.gameObject.SetActive(false);
+		//popup.gameObject.SetActive(false);
 		
 		InitPopup (popup);
 	}
@@ -188,7 +190,7 @@ public class MSPopupManager : MonoBehaviour {
 		MSGenericPopup popup = GrabGeneric();
 
 		popup.Init(title, text, buttonLabels, buttonSprites, waitFunctions, topColor);
-		popup.gameObject.SetActive(false);
+		//popup.gameObject.SetActive(false);
 
 		InitPopup (popup);
 	}
@@ -263,10 +265,12 @@ public class MSPopupManager : MonoBehaviour {
 		TweenScale scale = TweenScale.Begin(go, defaultScaleIn.duration, defaultScaleIn.to);
 		scale.from = defaultScaleIn.from;
 		scale.animationCurve = defaultScaleIn.animationCurve;
+		//scale.Sample(0, false);
 
 		TweenAlpha alph = TweenAlpha.Begin(go, defaultAlphaIn.duration, defaultAlphaIn.to);
 		alph.from = defaultAlphaIn.from;
 		alph.animationCurve = defaultAlphaIn.animationCurve;
+		alph.Sample(0, false);
 
 		return Mathf.Max(scale.duration, alph.duration);
 	}

@@ -618,7 +618,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (currTurn == playerTurns)
 		{
-			PlayerAttack();
+			yield return PlayerAttack();
 			currTurn = 0;
 			currPlayerDamage = 0;
 		}
@@ -1582,17 +1582,12 @@ public class PZCombatManager : MonoBehaviour {
 
 		yield return StartCoroutine(EnemySkillAfterPlayerTurn());
 
-		if (currTurn == playerTurns)
+		if (activePlayer.alive && currTurn == playerTurns)
 		{
-			PlayerAttack();
+			yield return PlayerAttack();
 			currPlayerDamage = 0;
 			currTurn = 0;
 		}
-	}
-
-	public void PlayerAttack()
-	{
-		StartCoroutine(PlayerAttackAnimationSequence(currPlayerDamage, activePlayer.monster.monster.monsterElement));
 	}
 
 	IEnumerator ShowAttackWords(float score)
@@ -2196,6 +2191,11 @@ public class PZCombatManager : MonoBehaviour {
 	#endregion
 
 	#region Attacks & Animations
+	
+	public Coroutine PlayerAttack()
+	{
+		return StartCoroutine(PlayerAttackAnimationSequence(currPlayerDamage, activePlayer.monster.monster.monsterElement));
+	}
 
 	IEnumerator PlayerShoot(float score)
 	{
@@ -2226,6 +2226,11 @@ public class PZCombatManager : MonoBehaviour {
 				yield return StartCoroutine(activePlayer.AdvanceTo(activeEnemy.transform.localPosition.x - 75, -background.direction, background.scrollSpeed * 4));
 				activePlayer.unit.animat = MSUnit.AnimationType.ATTACK;
 			}
+		}
+
+		if (activePlayer.unit.anim.runtimeAnimatorController == null)
+		{
+			StartCoroutine(ReturnPlayerAfterAttack());
 		}
 	}
 
