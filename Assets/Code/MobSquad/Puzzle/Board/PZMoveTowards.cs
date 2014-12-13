@@ -7,7 +7,7 @@ public class PZMoveTowards : MonoBehaviour {
 	float startForce;
 
 	[SerializeField]
-	float lerpTime;
+	public float lerpTime;
 
 	[SerializeField]
 	public float totalTime;
