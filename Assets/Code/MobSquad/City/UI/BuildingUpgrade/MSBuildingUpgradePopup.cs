@@ -146,10 +146,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 				poolable.Pool();
 			}
 		}
-	}
 
-	void OnDisable()
-	{
 		bottomBar.transform.parent.gameObject.SetActive(true);
 		townHallUpgradeUI.gameObject.SetActive(false);
 	}
