@@ -2667,7 +2667,7 @@ public class PZCombatManager : MonoBehaviour {
 			}
 		}
 
-		new PZCombatSave(activePlayer.monster, activeEnemy.monster.currHP, PZPuzzleManager.instance.board,
+		new PZCombatSave(activePlayer.monster, activeEnemy.monster.currHP, PZPuzzleManager.instance.lastBoardSnapshot,
 		                 battleStats, forfeitChance, currTurn, currPlayerDamage,
 		                 PZPuzzleManager.instance.boardWidth, PZPuzzleManager.instance.boardHeight,
 		                 playerSkillPoints, enemySkillPoints, activePlayer, activeEnemy, defeatedMonstersToSave);

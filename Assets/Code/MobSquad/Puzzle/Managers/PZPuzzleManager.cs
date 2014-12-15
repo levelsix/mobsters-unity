@@ -93,6 +93,8 @@ public class PZPuzzleManager : MonoBehaviour {
 	
 	public PZGem[,] board;
 
+	public GemSaveData[,] lastBoardSnapshot;
+
 	public PZJelly[,] jellyBoard;
 	
 	[SerializeField]
@@ -265,14 +267,15 @@ public class PZPuzzleManager : MonoBehaviour {
 		boardSprite.height = boardHeight * SPACE_SIZE;
 
 		PZGem gem;
-
+		GemSaveData gemSave;
 		for (int x = 0; x < boardWidth; x++) 
 		{
 			for (int y = 0; y < boardHeight; y++) 
 			{
+				gemSave = save.board[x,y];
 				gem = MSPoolManager.instance.Get(gemPrefab, Vector3.zero, puzzleParent) as PZGem;
-				gem.SpawnOnMap(save.gemColors[x, y], x);
-				gem.gemType = (PZGem.GemType)save.gemTypes[x,y];
+				gem.SpawnOnMap(gemSave.gemColor, x);
+				gem.gemType = gemSave.type;
 				switch(gem.gemType)
 				{
 				case PZGem.GemType.CAKE:
@@ -280,12 +283,12 @@ public class PZPuzzleManager : MonoBehaviour {
 					break;
 				case PZGem.GemType.BOMB:
 					PZCombatManager.instance.bombs.Add(gem);
-					gem.bombTicks = save.bombTicks[x,y];
-					gem.bombDamage = save.bombDamages[x,y];
+					gem.bombTicks = gemSave.bombTicks;
+					gem.bombDamage = gemSave.bombDamage;
 					gem.BombLabelRefresh();
 					break;
 				}
-				if (save.jelly[x,y])
+				if (gemSave.jelly)
 				{
 					PZJelly jelly = MSPoolManager.instance.Get<PZJelly>(jellyPrefab, puzzleParent);
 					jelly.InitOnBoard(x, y);
@@ -295,6 +298,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 
 		setUpBoard = true;
+		BoardSnapshot();
 	}
 
 	public void InitBoard(int w = STANDARD_BOARD_WIDTH, int h = STANDARD_BOARD_HEIGHT, string boardFile = "")
@@ -335,6 +339,8 @@ public class PZPuzzleManager : MonoBehaviour {
 			}
 		}while(!CheckForMatchMoves(board));
 		setUpBoard = true;
+
+		BoardSnapshot();
 	}
 
 	void RigBoard(string boardFile)
@@ -535,6 +541,8 @@ public class PZPuzzleManager : MonoBehaviour {
 				{
 					Shuffle();
 				}
+
+				BoardSnapshot();
 			}
 			processingSwap = false;
 
@@ -1351,6 +1359,15 @@ public class PZPuzzleManager : MonoBehaviour {
 					board[i,j].Unblock();
 				}
 			}
+		}
+	}
+
+	public void BoardSnapshot()
+	{
+		lastBoardSnapshot = new GemSaveData[boardWidth, boardHeight];
+		foreach (var item in board) 
+		{
+			lastBoardSnapshot[item.boardX, item.boardY] = new GemSaveData(item);
 		}
 	}
 

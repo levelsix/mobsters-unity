@@ -61,18 +61,6 @@ public class MSPopup : MonoBehaviour {
 			MSPopupManager.instance.DefaultTweenIn(defaultTarget);
 		}
 		Debug.Log("D: " + this);
-
-		StartCoroutine(SuckADickNGUI());
-	}
-
-	IEnumerator SuckADickNGUI()
-	{
-		yield return null;
-		
-		foreach (var item in GetComponentsInChildren<UIWidget>()) 
-		{
-			item.UpdateAnchors();
-		}
 	}
 
 	[ContextMenu ("Close")]

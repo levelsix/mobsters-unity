@@ -10,11 +10,13 @@ public class PZCombatSave
 
 	public int activeEnemyHealth = 1;
 
-	public int[,] gemColors;
-	public int[,] gemTypes;
-	public int[,] bombTicks;
-	public int[,] bombDamages;
-	public bool[,] jelly;
+	public GemSaveData[,] board;
+
+//	public int[,] gemColors;
+//	public int[,] gemTypes;
+//	public int[,] bombTicks;
+//	public int[,] bombDamages;
+//	public bool[,] jelly;
 
 	public BattleStats battleStats = new BattleStats();
 
@@ -45,7 +47,7 @@ public class PZCombatSave
 	public PZCombatSave(){}
 
 	public PZCombatSave(PZMonster activePlayer, int activeEnemyHealth,
-	                 PZGem[,] board, BattleStats battleStats,
+	                 GemSaveData[,] board, BattleStats battleStats,
 	                    float forfeitChance, int currTurn, int currPlayerDamage,
 	                    int boardWidth, int boardHeight, int playerSkillPoints, int enemySkillPoints,
 	                    PZCombatUnit player, PZCombatUnit enemy, List<PZMonster> defeatedEnemies)
@@ -56,31 +58,7 @@ public class PZCombatSave
 
 		this.defeatedEnemies = defeatedEnemies;
 
-		gemColors = new int[boardWidth, boardHeight];
-		gemTypes = new int[boardWidth, boardHeight];
-		bombTicks = new int[boardWidth, boardHeight];
-		bombDamages = new int[boardWidth, boardHeight];
-		jelly = new bool[boardWidth, boardHeight];
-
-		for (int x = 0; x < boardWidth; x++) {
-			for (int y = 0; y < boardHeight; y++) {
-				gemColors[x,y] = board[x,y].colorIndex;
-				if (board[x,y].gemType == PZGem.GemType.ROCKET)
-				{
-					gemTypes[x,y] = (int)(board[x,y].horizontal ? PZGem.GemType.HORIZONTAL_ROCKET : PZGem.GemType.VERTICAL_ROCKET);
-				}
-				else
-				{
-					gemTypes[x,y] = (int)board[x,y].gemType;
-					if (board[x,y].gemType == PZGem.GemType.BOMB)
-					{
-						bombTicks[x,y] = board[x,y].bombTicks;
-						bombDamages[x,y] = board[x,y].bombDamage;
-					}
-				}
-				jelly[x,y] = PZPuzzleManager.instance.jellyBoard[x,y] != null;
-			}
-		}
+		this.board = board;
 
 		this.battleStats = battleStats;
 
@@ -117,17 +95,17 @@ public class PZCombatSave
 
 	public void SaveBoard(PZGem[,] board, int boardHeight, int boardWidth)
 	{
-		gemColors = new int[boardWidth, boardHeight];
-		gemTypes = new int[boardWidth, boardHeight];
-		jelly = new bool[boardWidth, boardHeight];
-
-		for (int x = 0; x < boardWidth; x++) {
-			for (int y = 0; y < boardHeight; y++) {
-				gemColors[x,y] = board[x,y].colorIndex;
-				gemTypes[x,y] = (int)board[x,y].gemType;
-				jelly[x,y] = PZPuzzleManager.instance.jellyBoard[x,y] != null;
-			}
-		}
+//		gemColors = new int[boardWidth, boardHeight];
+//		gemTypes = new int[boardWidth, boardHeight];
+//		jelly = new bool[boardWidth, boardHeight];
+//
+//		for (int x = 0; x < boardWidth; x++) {
+//			for (int y = 0; y < boardHeight; y++) {
+//				gemColors[x,y] = board[x,y].colorIndex;
+//				gemTypes[x,y] = (int)board[x,y].gemType;
+//				jelly[x,y] = PZPuzzleManager.instance.jellyBoard[x,y] != null;
+//			}
+//		}
 	}
 
 	public static void Delete()
@@ -156,6 +134,44 @@ public class PZCombatSave
 			Debug.Log("Fail!");
 			return null;
 		}
+	}
+}
+
+[System.Serializable]
+public struct GemSaveData
+{
+	public int gemColor;
+	public int gemType;
+	public int bombTicks;
+	public int bombDamage;
+	public bool jelly;
+
+	public PZGem.GemType type
+	{
+		get
+		{
+			return (PZGem.GemType)gemType;
+		}
+	}
+
+	public GemSaveData(PZGem gem)
+	{
+		bombTicks = bombDamage = 0; //Since it's a struct, these must be set
+		gemColor = gem.colorIndex;
+		if (gem.gemType == PZGem.GemType.ROCKET)
+		{
+			gemType = (int)(gem.horizontal ? PZGem.GemType.HORIZONTAL_ROCKET : PZGem.GemType.VERTICAL_ROCKET);
+		}
+		else
+		{
+			gemType = (int)gem.gemType;
+			if (gem.gemType == PZGem.GemType.BOMB)
+			{
+				bombTicks = gem.bombTicks;
+				bombDamage = gem.bombDamage;
+			}
+		}
+		jelly = PZPuzzleManager.instance.jellyBoard[gem.boardX, gem.boardY] != null;
 	}
 }
 
