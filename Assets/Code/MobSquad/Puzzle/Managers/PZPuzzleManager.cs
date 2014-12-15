@@ -934,7 +934,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		{
 			for(int j = 0; j < boardHeight; j++)
 			{
-				Debug.Log("board["+i+","+j+"]");
+//				Debug.Log("board["+i+","+j+"]");
 				PZGem gem = board[i,j];
 				if( gem!= null)
 				{
@@ -1741,7 +1741,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 		else
 		{
-			Debug.Log("Not enough room for jelly!");
+			Debug.LogWarning("Not enough room for jelly!");
 		}
 		return jellyBoardPos;
 	}
@@ -1847,7 +1847,7 @@ public class PZPuzzleManager : MonoBehaviour {
 			return false;
 		}
 
-		Debug.Log("Checking if new gem should be a bomb...");
+//		Debug.Log("Checking if new gem should be a bomb...");
 
 		if (PZCombatManager.instance.bombs.Count < minBombs)
 		{
@@ -1855,7 +1855,7 @@ public class PZPuzzleManager : MonoBehaviour {
 		}
 
 		float roll = UnityEngine.Random.value;
-		Debug.Log("Target: " + bombChance + ", Roll: " + roll);
+//		Debug.Log("Target: " + bombChance + ", Roll: " + roll);
 
 		return roll < bombChance;
 	}

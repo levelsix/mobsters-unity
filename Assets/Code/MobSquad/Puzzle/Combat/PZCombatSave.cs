@@ -123,15 +123,15 @@ public class PZCombatSave
 	/// </summary>
 	public static PZCombatSave Load()
 	{
-		Debug.Log("Trying to load...");
+//		Debug.Log("Trying to load...");
 		if (PlayerPrefs.HasKey(key))
 		{
-			Debug.Log("Success!");
+//			Debug.Log("Success!");
 			return MSUtil.Load<PZCombatSave>(key);
 		}
 		else
 		{
-			Debug.Log("Fail!");
+//			Debug.Log("Fail!");
 			return null;
 		}
 	}

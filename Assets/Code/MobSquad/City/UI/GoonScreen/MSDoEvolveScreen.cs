@@ -197,7 +197,7 @@ public class MSDoEvolveScreen : MSFunctionalScreen
 
 	public void Button()
 	{
-		Debug.Log("Button");
+//		Debug.Log("Button");
 		if (MSEvolutionManager.instance.isEvolving)
 		{
 			MSEvolutionManager.instance.FinishWithGems(loadLock);

@@ -382,7 +382,7 @@ public class MSGoonCard : MonoBehaviour {
 		Setup (goon);
 		healthBarBackground.alpha = 0;
 		float currLevel = goon.LevelForMonster(goon.userMonster.currentExp);
-		Debug.Log("Curr level: " + currLevel);
+//		Debug.Log("Curr level: " + currLevel);
 		bottomCardLabel.text = Mathf.CeilToInt((currLevel%1)*100) + "%";
 	}
 
@@ -884,7 +884,7 @@ public class MSGoonCard : MonoBehaviour {
 
 	public void ClickRemoveButton()
 	{
-		Debug.Log("Clicked remove");
+//		Debug.Log("Clicked remove");
 		switch (goonScreenMode)
 		{
 		case GoonScreenMode.TEAM:

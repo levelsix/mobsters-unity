@@ -174,13 +174,13 @@ public class MSMonsterManager : MonoBehaviour {
 		PZMonster mon;
 		if (userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(monster.userMonsterUuid)) != null)
 		{
-			Debug.Log("Updating monster: " + monster.userMonsterUuid);
+//			Debug.Log("Updating monster: " + monster.userMonsterUuid);
 			mon = userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(monster.userMonsterUuid));
 			mon.UpdateUserMonster(monster);
 		}
 		else
 		{
-			Debug.Log("Adding monster: " + monster.userMonsterUuid);
+//			Debug.Log("Adding monster: " + monster.userMonsterUuid);
 			mon = new PZMonster(monster);
 			userMonsters.Add(new PZMonster(monster));
 		}

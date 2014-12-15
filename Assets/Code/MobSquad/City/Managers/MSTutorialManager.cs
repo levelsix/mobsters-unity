@@ -286,7 +286,7 @@ public class MSTutorialManager : MonoBehaviour
 		}
 
 		//Make tutorial units
-		Debug.LogWarning("Tutorial mobster id: " + MSWhiteboard.tutorialConstants.startingMonsterId);
+//		Debug.LogWarning("Tutorial mobster id: " + MSWhiteboard.tutorialConstants.startingMonsterId);
 		userMobster = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.startingMonsterId);
 		guide = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.guideMonsterId);
 		zark = MSDataManager.instance.Get<MonsterProto>(MSWhiteboard.tutorialConstants.markZMonsterId);
@@ -789,7 +789,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	bool ReadyToJump(MSUnit unit)
 	{
-		Debug.Log(unit.transf.position.z + " vs " + MSGridManager.instance.GridToWorld(TutorialValues.enemyExitJumpPosition).z);
+//		Debug.Log(unit.transf.position.z + " vs " + MSGridManager.instance.GridToWorld(TutorialValues.enemyExitJumpPosition).z);
 		return unit.transf.position.z < MSGridManager.instance.GridToWorld(TutorialValues.enemyExitJumpPosition).z;
 	}
 
@@ -1083,7 +1083,7 @@ public class MSTutorialManager : MonoBehaviour
 
 	public void TurnHappen(int turnsLeft)
 	{
-		Debug.Log("Turns left: " + turnsLeft);
+//		Debug.Log("Turns left: " + turnsLeft);
 		if (turnsLeft > 0)
 		{
 			waitingForTurn = false;

@@ -483,7 +483,7 @@ public class PZCombatManager : MonoBehaviour {
 		PZMonster mon;
 		foreach (TaskStageProto stage in dungeon.tsp)
 		{
-			Debug.Log("Stage " + stage.stageId + ", Monster: " + stage.stageMonsters[0].monsterId);
+//			Debug.Log("Stage " + stage.stageId + ", Monster: " + stage.stageMonsters[0].monsterId);
 			mon = new PZMonster(stage.stageMonsters[0]);
 			enemies.Enqueue(mon);
 		}
@@ -756,7 +756,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		yield return null;
 		yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed));
-		Debug.Log("Finished player run");
+//		Debug.Log("Finished player run");
 		activePlayer.unit.animat = MSUnit.AnimationType.RUN;
 		activePlayer.unit.direction = MSValues.Direction.EAST;
 		background.StartScroll();
@@ -778,7 +778,7 @@ public class PZCombatManager : MonoBehaviour {
 		yield return oneGuy;
 		yield return otherGuy;
 		
-		Debug.Log("Finished retreat");
+//		Debug.Log("Finished retreat");
 
 		//Init the monsters
 		defender = MSWhiteboard.loadedPvps.defenderInfoList[nextPvpDefenderIndex++];
@@ -932,7 +932,7 @@ public class PZCombatManager : MonoBehaviour {
 
 		if (monster != activePlayer.monster)
 		{
-			Debug.Log ("Actually deploying");
+//			Debug.Log ("Actually deploying");
 			int rigTurn = 0;
 			if (activePlayer.alive) rigTurn = -1;
 			if (MSTutorialManager.instance.inTutorial) rigTurn = 1;
@@ -966,7 +966,7 @@ public class PZCombatManager : MonoBehaviour {
 	
 	void OnPlayerDeath()
 	{
-		Debug.Log("Lock: Player death");
+//		Debug.Log("Lock: Player death");
 		//PZPuzzleManager.instance.swapLock += 1;
 
 		TintBoard();
@@ -1081,7 +1081,7 @@ public class PZCombatManager : MonoBehaviour {
 	IEnumerator SwapCharacters(PZMonster swapTo)
 	{
 		//PZPuzzleManager.instance.swapLock += 1;
-		Debug.LogWarning("Swap Lock");
+//		Debug.LogWarning("Swap Lock");
 
 		yield return StartCoroutine(activePlayer.Retreat(-background.direction, background.scrollSpeed*3.5f));
 
@@ -1125,14 +1125,14 @@ public class PZCombatManager : MonoBehaviour {
 	/// </summary>
 	IEnumerator ScrollToNextEnemy(bool fromLoad = false)
 	{
-		Debug.Log("Start scroll");
+//		Debug.Log("Start scroll");
 
 		turnDisplay.DoMoveOut();
 
 		TintBoard();
 
 		//PZPuzzleManager.instance.swapLock += 1;
-		Debug.LogWarning("Scoll to next enemy Lock");
+//		Debug.LogWarning("Scoll to next enemy Lock");
 
 		while(!activePlayer.unit.hasSprite)
 		{
@@ -2236,7 +2236,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public IEnumerator ReturnPlayerAfterAttack()
 	{
-		Debug.Log("Here?");
+//		Debug.Log("Here?");
 		if (activePlayer.monster.monster.attackAnimationType == MonsterProto.AnimationType.MELEE)
 		{
 			yield return StartCoroutine(activePlayer.AdvanceTo(playerXPos, -background.direction, background.scrollSpeed * 4));

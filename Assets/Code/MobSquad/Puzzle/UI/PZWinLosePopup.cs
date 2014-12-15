@@ -361,11 +361,11 @@ public class PZWinLosePopup : MonoBehaviour {
 		float buffer = 5f;
 
 		float spaceNeeded = numberOfPrizes * newPrizeSize + ((numberOfPrizes-1) * buffer);
-		Debug.Log(numberOfPrizes + " * " + newPrizeSize + " + ((" + (numberOfPrizes-1) + ") * " + buffer + ") = " + spaceNeeded);
+//		Debug.Log(numberOfPrizes + " * " + newPrizeSize + " + ((" + (numberOfPrizes-1) + ") * " + buffer + ") = " + spaceNeeded);
 		for (int i = 0; i < numberOfPrizes; i++)
 		{
 			Vector3 endPosition = new Vector3(((i) * (newPrizeSize + buffer) + (newPrizeSize/2f)) - spaceNeeded/2f, 0, 0);
-			Debug.Log("(("+ i + ") * (" + newPrizeSize + " + " + buffer + ") + (" + newPrizeSize + "/2f)) - " + spaceNeeded + "/2f = " + endPosition.x);
+//			Debug.Log("(("+ i + ") * (" + newPrizeSize + " + " + buffer + ") + (" + newPrizeSize + "/2f)) - " + spaceNeeded + "/2f = " + endPosition.x);
 		}
 	}
 

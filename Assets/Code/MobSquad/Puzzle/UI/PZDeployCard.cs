@@ -80,7 +80,7 @@ public class PZDeployCard : MonoBehaviour {
 	
 	public void InitEmpty()
 	{
-		Debug.Log("Init empty");
+//		Debug.Log("Init empty");
 
 		monster = null;
 		button.normalSprite = background.spriteName = EMPTY_BOX;
@@ -93,7 +93,7 @@ public class PZDeployCard : MonoBehaviour {
 	{
 		if (monster != null)
 		{
-			Debug.Log("Deploy!");
+//			Debug.Log("Deploy!");
 			MSActionManager.Puzzle.OnDeploy(monster);
 		}
 	}

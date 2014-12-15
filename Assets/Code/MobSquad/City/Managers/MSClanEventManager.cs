@@ -89,7 +89,7 @@ public class MSClanEventManager : MonoBehaviour {
 	{
 		if(MSActionManager.Clan.OnEndClanHelp != null)
 		{
-			Debug.Log("Recieving EndClanHelp Request");
+//			Debug.Log("Recieving EndClanHelp Request");
 			MSActionManager.Clan.OnEndClanHelp(proto, false);
 		}
 	}
@@ -98,7 +98,7 @@ public class MSClanEventManager : MonoBehaviour {
 	{
 		if(MSActionManager.Clan.OnSolicitClanHelp != null)
 		{
-			Debug.Log("Recieving SolicitClanHelp Request");
+//			Debug.Log("Recieving SolicitClanHelp Request");
 			MSActionManager.Clan.OnSolicitClanHelp(proto, false);
 		}
 	}
@@ -107,7 +107,7 @@ public class MSClanEventManager : MonoBehaviour {
 	{
 		if(MSActionManager.Clan.OnGiveClanHelp != null)
 		{
-			Debug.Log("Recieving GiveClanHelp Request");
+//			Debug.Log("Recieving GiveClanHelp Request");
 			MSActionManager.Clan.OnGiveClanHelp(proto, false);
 		}
 	}
@@ -249,7 +249,7 @@ public class MSClanEventManager : MonoBehaviour {
 		ProcessAttackResponse(response);
 		if (response.status == AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus.SUCCESS_MONSTER_JUST_DIED)
 		{
-			Debug.Log("Monster killed!");
+//			Debug.Log("Monster killed!");
 			
 			if (MSActionManager.Clan.OnRaidMonsterDied != null)
 			{
@@ -260,7 +260,7 @@ public class MSClanEventManager : MonoBehaviour {
 		}
 		else if (response.status == AttackClanRaidMonsterResponseProto.AttackClanRaidMonsterStatus.SUCCESS)
 		{
-			Debug.Log("Monster damaged: " + response.dmgDealt);
+//			Debug.Log("Monster damaged: " + response.dmgDealt);
 			
 			if (MSActionManager.Clan.OnRaidMonsterAttacked != null)
 			{

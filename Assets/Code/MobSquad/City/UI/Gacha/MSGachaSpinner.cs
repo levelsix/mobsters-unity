@@ -119,7 +119,7 @@ public class MSGachaSpinner : MonoBehaviour {
 				MSMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
 				
 				prizes.Add(response.prize);
-				Debug.Log("Prize: " + response.prize.boosterItemId + ", " + response.prize.isComplete + ", " + response.prize.monsterId);
+//				Debug.Log("Prize: " + response.prize.boosterItemId + ", " + response.prize.isComplete + ", " + response.prize.monsterId);
 			}
 			else
 			{
@@ -177,7 +177,7 @@ public class MSGachaSpinner : MonoBehaviour {
 			MSMonsterManager.instance.UpdateOrAddAll(response.updatedOrNew);
 
 			reveal.Init(response.prize);
-			Debug.Log("Prize: " + response.prize.boosterItemId + ", " + response.prize.isComplete + ", " + response.prize.monsterId);
+//			Debug.Log("Prize: " + response.prize.boosterItemId + ", " + response.prize.isComplete + ", " + response.prize.monsterId);
 			MSWhiteboard.localUser.lastFreeBoosterPackTime = MSUtil.timeNowMillis;
 
 			if(MSActionManager.Gacha.OnPurchaseBoosterSucces != null)
@@ -214,7 +214,7 @@ public class MSGachaSpinner : MonoBehaviour {
 		spinnerSpring.enabled = true;
 		while (currTime < seconds || !canStop)
 		{
-			Debug.Log("Spinning...");
+//			Debug.Log("Spinning...");
 			currTime += Time.deltaTime;
 			spinnerSpring.target = spinnerSpring.transform.localPosition + new Vector3(1000, 0, 0);
 			spinnerSpring.strength = currSpeed;

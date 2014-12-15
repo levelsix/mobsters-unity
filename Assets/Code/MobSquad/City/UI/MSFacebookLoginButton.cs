@@ -71,19 +71,19 @@ public class MSFacebookLoginButton : MonoBehaviour {
 		}
 		if (FB.IsLoggedIn)
 		{
-			Debug.LogWarning("Yes");
+//			Debug.LogWarning("Yes");
 			StartCoroutine(TryStartupWithFacebook());
 		}
 		else
 		{
-			Debug.LogWarning("No...");
+//			Debug.LogWarning("No...");
 			loadLock.Unlock();
 		}
 	}
 
 	IEnumerator TryStartupWithFacebook()
 	{
-		Debug.LogWarning("Startup Test: Begin");
+//		Debug.LogWarning("Startup Test: Begin");
 
 		StartupRequestProto request = new StartupRequestProto();
 		request.fbId = FB.UserId;
@@ -103,7 +103,7 @@ public class MSFacebookLoginButton : MonoBehaviour {
 		StartupResponseProto startupResponse = UMQNetworkManager.responseDict[tagNum] as StartupResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 		
-		Debug.LogWarning("Startup Test: " + startupResponse.startupStatus);
+//		Debug.LogWarning("Startup Test: " + startupResponse.startupStatus);
 		if (startupResponse.startupStatus == StartupResponseProto.StartupStatus.USER_IN_DB)
 		{
 			MSPopupManager.instance.CreatePopup("Account Already Used",

@@ -60,7 +60,7 @@ public class MSSpriteUtil : MonoBehaviour {
 			internalBundles.Add(item.Name);
 			str += "\n" + item.Name;
 		}
-		Debug.Log(str);
+//		Debug.Log(str);
 #endif
 	}
 

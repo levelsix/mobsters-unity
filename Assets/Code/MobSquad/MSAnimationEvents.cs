@@ -57,14 +57,14 @@ public class MSAnimationEvents : MonoBehaviour {
 
 	public void endOfAttack(float startTime)
 	{
-		Debug.Log("End?");
+//		Debug.Log("End?");
 		//if _totalAttack is == 0 then this is an NPC and not the player
 		if (_totalAttacks > 0) {
 			if (_additionalAttacks > 0) {
 				_additionalAttacks--;
 				animate.Play ("AttackFarLeft", 0, startTime);
 			} else {
-				Debug.Log("Badabum");
+//				Debug.Log("Badabum");
 				StartCoroutine (_combatManager.EnemyReturnToStartPosition ());
 				StartCoroutine (_combatManager.ReturnPlayerAfterAttack());
 			}

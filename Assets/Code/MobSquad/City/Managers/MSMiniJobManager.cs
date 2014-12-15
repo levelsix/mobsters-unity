@@ -259,7 +259,7 @@ public class MSMiniJobManager : MonoBehaviour {
 		{
 			foreach (var job in response.miniJobs)
 			{
-				Debug.LogWarning("Adding job!");
+//				Debug.LogWarning("Adding job!");
 				userMiniJobs.Add(job);
 				if(MSActionManager.MiniJob.OnMiniJobRestock != null)
 				{
@@ -572,7 +572,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		isRedeeming = true;
 
-		Debug.Log("Redeeming job: " + request.userMiniJobUuid);
+//		Debug.Log("Redeeming job: " + request.userMiniJobUuid);
 
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{

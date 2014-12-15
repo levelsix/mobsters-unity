@@ -47,7 +47,7 @@ public class PZSkillIndicator : MonoBehaviour {
 	{
 		if (helper == null) helper = GetComponent<MSUIHelper>();
 
-		if (userElement == Element.NO_ELEMENT) Debug.Log("Dafuq");
+		if (userElement == Element.NO_ELEMENT) Debug.LogWarning("Dafuq");
 
 		if (skill != null && skill.skillId > 0)
 		{
@@ -57,7 +57,7 @@ public class PZSkillIndicator : MonoBehaviour {
 
 			string skillBundle = skill.iconImgName;
 			string skillIconName = skill.iconImgName + "icon";
-			Debug.Log("Skill!: " + skillBundle + ", icon: " + skillIconName);
+//			Debug.Log("Skill!: " + skillBundle + ", icon: " + skillIconName);
 			MSSpriteUtil.instance.SetSprite(skillBundle, skillIconName, bwIcon);
 			MSSpriteUtil.instance.SetSprite(skillBundle, skillIconName, fillIcon);
 
@@ -72,7 +72,7 @@ public class PZSkillIndicator : MonoBehaviour {
 		else
 		{
 			collider.enabled = false;
-			Debug.Log("No skill");
+//			Debug.Log("No skill");
 			maxPoints = 0;
 			helper.FadeOut();
 		}

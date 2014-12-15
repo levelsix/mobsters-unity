@@ -320,10 +320,10 @@ public static class MSUtil {
 		{
 			switch (elementStrengths[monsterType][attackType]) {
 			case Comparison.WEAK:
-				Debug.Log(monsterType + " hit by " + attackType + ": Super Effective!");
+//				Debug.Log(monsterType + " hit by " + attackType + ": Super Effective!");
 				return MSWhiteboard.constants.monsterConstants.elementalStrength;
 			case Comparison.STRONG:
-				Debug.Log(monsterType + " hit by " + attackType + ": Not Effective!");
+//				Debug.Log(monsterType + " hit by " + attackType + ": Not Effective!");
 				return MSWhiteboard.constants.monsterConstants.elementalWeakness;
 			default:
 				break;
@@ -440,7 +440,7 @@ public static class MSUtil {
 
 	public static T Load<T>(string key) where T : class
 	{
-		Debug.Log("Loading: " + key);
+//		Debug.Log("Loading: " + key);
 		T result = default(T);
 		var data = PlayerPrefs.GetString(key);
 		

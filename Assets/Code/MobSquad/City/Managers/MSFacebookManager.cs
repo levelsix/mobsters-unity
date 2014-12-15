@@ -31,27 +31,6 @@ public class MSFacebookManager : MonoBehaviour {
 		hasFacebook = PlayerPrefs.GetInt(FB_KEY, 0) == 1;
 	}
 	
-	public void OnEnable()
-	{
-		//CBKEventManager.Town.OnCollectFromBuilding += ShareCollectFromBuildingToFeed;
-	}
-	
-	public void OnDisable()
-	{
-		//CBKEventManager.Town.OnCollectFromBuilding -= ShareCollectFromBuildingToFeed;
-	}
-	
-	void ShareCollectFromBuildingToFeed(MSBuilding building)
-	{
-		if (FB.IsLoggedIn)
-		{
-			Debug.Log("Sharing?");
-			FB.Feed(
-				linkDescription: COLLECT_FROM_BUILDING_DESCRIPTION_FRONT + building.name + COLLECT_FROM_BUILDING_DESCRIPTION_BACK
-			);
-		}
-	}
-	
 	public void Init()
 	{
 		hasTriedLogin = false;

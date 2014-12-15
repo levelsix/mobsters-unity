@@ -98,7 +98,7 @@ public class MSResourceManager : MonoBehaviour {
 		{
 			if (MSActionManager.UI.OnChangeResource[item.Key] != null)
 			{
-				Debug.Log("Resource Setup: " + item.ToString());
+//				Debug.Log("Resource Setup: " + item.ToString());
 				MSActionManager.UI.OnChangeResource[item.Key](item.Value);
 			}
 		}
@@ -295,7 +295,7 @@ public class MSResourceManager : MonoBehaviour {
 
 			if (action != null)
 			{
-				Debug.Log("Triggered action");
+//				Debug.Log("Triggered action");
 				action();
 			}
 		}
@@ -332,7 +332,7 @@ public class MSResourceManager : MonoBehaviour {
 	{
 		if (MSWhiteboard.nextLevelInfo != null && _exp > expForNextLevel && !checkingEXP)
 		{
-			Debug.LogWarning("leveling up: " + _exp + " > " + expForNextLevel);
+//			Debug.LogWarning("leveling up: " + _exp + " > " + expForNextLevel);
 			checkingEXP = true;
 			StartCoroutine(LevelUp());
 		}

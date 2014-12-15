@@ -41,26 +41,22 @@ public class MSPopup : MonoBehaviour {
 	{
 		if (defaultInSound) MSSoundManager.instance.PlayOneShot (MSSoundManager.instance.defaultPopupIn);
 
-		Debug.Log("A: " + this);
 		gameObject.SetActive(true);
 		foreach (var item in outTweens) 
 		{
 			item.enabled = false;
 		}
 		
-		Debug.Log("B: " + this);
 		foreach (var item in inTweens) 
 		{
 			item.Sample(0, true);
 			item.PlayForward();
 		}
 		
-		Debug.Log("C: " + this);
 		if (defaultIn)
 		{
 			MSPopupManager.instance.DefaultTweenIn(defaultTarget);
 		}
-		Debug.Log("D: " + this);
 	}
 
 	[ContextMenu ("Close")]

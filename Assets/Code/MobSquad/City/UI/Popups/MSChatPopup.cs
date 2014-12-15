@@ -104,7 +104,7 @@ public class MSChatPopup : MonoBehaviour {
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + OIL_CHEAT).Length+1));
 					MSResourceManager.instance.CheatMoney(amount, DevRequest.F_B_GET_OIL);
 					MSResourceManager.instance.Collect(ResourceType.OIL, amount);
-					Debug.Log("Gaining " + amount + " Oil");
+//					Debug.Log("Gaining " + amount + " Oil");
 				}
 				catch (Exception e)
 				{
@@ -118,7 +118,7 @@ public class MSChatPopup : MonoBehaviour {
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + CASH_CHEAT).Length+1));
 					MSResourceManager.instance.CheatMoney(amount, DevRequest.F_B_GET_CASH);
 					MSResourceManager.instance.Collect(ResourceType.CASH, amount);
-					Debug.Log("Gaining " + amount + " Cash");
+//					Debug.Log("Gaining " + amount + " Cash");
 				}
 				catch (Exception e)
 				{
@@ -134,7 +134,7 @@ public class MSChatPopup : MonoBehaviour {
 					MSResourceManager.instance.Collect(ResourceType.CASH, amount);
 					MSResourceManager.instance.Collect(ResourceType.OIL, amount);
 					MSResourceManager.instance.Collect(ResourceType.GEMS, amount);
-					Debug.Log("Gaining " + amount + " Cash and Oil and Gems");
+//					Debug.Log("Gaining " + amount + " Cash and Oil and Gems");
 				}
 				catch (Exception e)
 				{
@@ -148,7 +148,7 @@ public class MSChatPopup : MonoBehaviour {
 					int amount = Convert.ToInt32(inputField.label.text.Substring((CHEAT_PREFIX + GEMS_CHEAT).Length+1));
 					MSResourceManager.instance.CheatMoney(amount, DevRequest.F_B_GET_GEMS);
 					MSResourceManager.instance.Collect(ResourceType.GEMS, amount);
-					Debug.Log("Gaining " + amount + " Gems");
+//					Debug.Log("Gaining " + amount + " Gems");
 				}
 				catch (Exception e)
 				{
@@ -158,22 +158,22 @@ public class MSChatPopup : MonoBehaviour {
 			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + UNLOCK_BUILDINGS_CHEAT))
 			{
 				MSQuestManager.instance.CheatCompleteAllTasks();
-				Debug.Log("Unlocking buildings (well, tasks...)");
+//				Debug.Log("Unlocking buildings (well, tasks...)");
 			}
 			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + SKIP_QUESTS_CHEAT))
 			{
 				MSQuestManager.instance.CheatCompleteAllTasks();
-				Debug.Log("Unlocking Tasks");
+//				Debug.Log("Unlocking Tasks");
 			}
 			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + RESET_CHEAT))
 			{
 				MSResourceManager.instance.CheatReset();
-				Debug.Log("Resetting account");
+//				Debug.Log("Resetting account");
 			}
 			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + PURGE_CHEAT))
 			{
 				Caching.CleanCache();
-				Debug.Log("Cleaning Cache");
+//				Debug.Log("Cleaning Cache");
 			}
 			else if (inputField.label.text.StartsWith(CHEAT_PREFIX + SET_SKILL_CHEAT))
 			{
@@ -242,14 +242,14 @@ public class MSChatPopup : MonoBehaviour {
 				request.sender = MSWhiteboard.localMup;
 				if(MSChatManager.instance.currMode == MSValues.ChatMode.CLAN)
 				{
-					Debug.Log("Sending Clan Message");
+//					Debug.Log("Sending Clan Message");
 					request.scope = GroupChatScope.CLAN;
 				}
 				else
 				{
-					Debug.Log("Sending global message\n"
-					          + "Name: " + request.sender.name
-					          + "Avatar: " + request.sender.avatarMonsterId);
+//					Debug.Log("Sending global message\n"
+//					          + "Name: " + request.sender.name
+//					          + "Avatar: " + request.sender.avatarMonsterId);
 					request.scope = GroupChatScope.GLOBAL;
 				}
 				request.chatMessage = inputField.label.text;
@@ -394,7 +394,7 @@ public class MSChatPopup : MonoBehaviour {
 
 	public void AdminChat()
 	{
-		Debug.Log("Admin schmat");
+//		Debug.Log("Admin schmat");
 		MSChatManager.instance.GoToPrivateChat(MSChatManager.instance.adminUser);
 	}
 

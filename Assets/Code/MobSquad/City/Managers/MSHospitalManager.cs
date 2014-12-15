@@ -163,15 +163,15 @@ public class MSHospitalManager : MonoBehaviour {
 	public void InitHealers()
 	{
 		initialized = true;
-		string hosp = "Hospitals:\n";
-		foreach (var item in hospitals) {
-			hosp += item.userBuildingData.userStructUuid + "\n";
-			}
-		Debug.Log(hosp);
+//		string hosp = "Hospitals:\n";
+//		foreach (var item in hospitals) {
+//			hosp += item.userBuildingData.userStructUuid + "\n";
+//			}
+//		Debug.Log(hosp);
 
 		foreach (var item in healingMonsters) 
 		{
-			Debug.Log("Finding hospital: " + item.healingMonster.userHospitalStructUuid);
+//			Debug.Log("Finding hospital: " + item.healingMonster.userHospitalStructUuid);
 			hospitals.Find(x=>x.userBuildingData.userStructUuid.Equals(item.healingMonster.userHospitalStructUuid)).AddExistingToon(item);
 		}
 
@@ -282,7 +282,7 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		if (monster.isHealing && monster.healTimeLeftMillis <= 0)
 		{
-			Debug.Log("Shit's done, bro");
+//			Debug.Log("Shit's done, bro");
 		}
 
 		return monster.isHealing && monster.healTimeLeftMillis <= 0;
@@ -593,8 +593,8 @@ public class MSHospitalManager : MonoBehaviour {
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
 		millis -= (int)monster.helpTime;
 
-		Debug.Log("Calculating finish time for " + monster.userMonsterId + "\nAt hospital " + hospital.userBuildingData.userStructUuid
-		          + "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
+//		Debug.Log("Calculating finish time for " + monster.userMonsterId + "\nAt hospital " + hospital.userBuildingData.userStructUuid
+//		          + "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
 		
 		return startTime + millis;
 	}
@@ -605,8 +605,8 @@ public class MSHospitalManager : MonoBehaviour {
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
 		millis -= (int)monster.helpTime;
 
-		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructUuid
-			+ "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
+//		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructUuid
+//			+ "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
 
 		return startTime + millis;
 	}

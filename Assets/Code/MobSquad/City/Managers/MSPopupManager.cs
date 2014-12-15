@@ -177,7 +177,7 @@ public class MSPopupManager : MonoBehaviour {
 	{
 		MSGenericPopup popup = GrabGeneric();
 
-		Debug.Log("Just grabbed: " + popup.GetComponent<MSPopup>());
+//		Debug.Log("Just grabbed: " + popup.GetComponent<MSPopup>());
 
 		popup.Init(title, text, buttonLabels, buttonSprites, buttonActions, topColor);
 		//popup.gameObject.SetActive(false);
@@ -204,7 +204,7 @@ public class MSPopupManager : MonoBehaviour {
 	/// </param>
 	void OnPopup(MSPopup popup)
 	{
-		Debug.Log("Pop it, like a wheelie should");
+//		Debug.Log("Pop it, like a wheelie should");
 		if (popup is MSMenuPopup && top is MSMenuPopup)
 		{
 			(top as MSMenuPopup).SlideOut();

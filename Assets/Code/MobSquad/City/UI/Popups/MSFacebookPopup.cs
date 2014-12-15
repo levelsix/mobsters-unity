@@ -63,7 +63,7 @@ public class MSFacebookPopup : MonoBehaviour
 		startupResponse = UMQNetworkManager.responseDict[tagNum] as StartupResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
 
-		Debug.Log("Startup Test: " + startupResponse.startupStatus);
+//		Debug.Log("Startup Test: " + startupResponse.startupStatus);
 		if (startupResponse.startupStatus == StartupResponseProto.StartupStatus.USER_IN_DB)
 		{
 			MSPopupManager.instance.CreatePopup("Account Already Used",

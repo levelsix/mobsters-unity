@@ -58,7 +58,7 @@ public class MSSceneManager : MonoBehaviour {
 	
 	void OnCity()
 	{
-		Debug.Log("OnCity Called");
+//		Debug.Log("OnCity Called");
 		if (loadingState)
 		{
 			StartCoroutine(FadeFromLoading());

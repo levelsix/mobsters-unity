@@ -64,10 +64,10 @@ public class MSResidenceManager : MonoBehaviour {
 			if (responseObject.TryGetValue("request", out obj)) //If the user cancelled the request, this will return false
 		    {
 				//Debug.Log("Request made");
-				foreach (var item in (IList)(responseObject["to"])) 
-				{
-					  Debug.Log("Response part: " + item.GetType().ToString() + ", " + item);
-				}
+//				foreach (var item in (IList)(responseObject["to"])) 
+//				{
+//					  Debug.Log("Response part: " + item.GetType().ToString() + ", " + item);
+//				}
 
 				StartCoroutine(ReportFBRequests((IList)responseObject["to"]));
 			}
@@ -135,7 +135,7 @@ public class MSResidenceManager : MonoBehaviour {
 		int invites = fbInviteAccepted[userBuildingId].Count;
 		int invitesNeeded = GetResidenceLevelBelowCurrent(residences[userBuildingId].userStructProto.fbInviteStructLvl+1, residences[userBuildingId].combinedProto).residence.numAcceptedFbInvites;
 
-		Debug.LogWarning("Checking invites for building " + userBuildingId + "--Invites: " + invites + " / " + invitesNeeded);
+//		Debug.LogWarning("Checking invites for building " + userBuildingId + "--Invites: " + invites + " / " + invitesNeeded);
 
 		if (invites >= invitesNeeded)
 		{
@@ -166,7 +166,7 @@ public class MSResidenceManager : MonoBehaviour {
 
 	public void AddInvites(List<UserFacebookInviteForSlotProto> addInvites)
 	{
-		Debug.LogWarning("Invites: " + addInvites.Count);
+//		Debug.LogWarning("Invites: " + addInvites.Count);
 		foreach (var item in addInvites) 
 		{
 			AddInvite(item);

@@ -61,7 +61,7 @@ public class MSShopBuildingCard : MonoBehaviour {
 			_state = value;
 
 			if(value == State.ACTIVE){
-				Debug.Log("Active");
+//				Debug.Log("Active");
 				//button.normalSprite = ACTIVE_BACKGROUND;
 				divider.spriteName = ACTIVE_DIVIDER;
 
@@ -76,7 +76,7 @@ public class MSShopBuildingCard : MonoBehaviour {
 				requirement.enabled = false;
 			}else{
 
-				Debug.Log("Inactive");
+//				Debug.Log("Inactive");
 				//button.normalSprite = ACTIVE_BACKGROUND;
 				divider.spriteName = ACTIVE_DIVIDER;
 				

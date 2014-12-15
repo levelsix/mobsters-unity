@@ -165,7 +165,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	
 	void TryToBuy(bool useGems = false)
 	{
-		Debug.LogWarning("Trying to buy");
+//		Debug.LogWarning("Trying to buy");
 
 		if (MSBuildingManager.instance.currentUnderConstruction != null)
 		{
@@ -215,9 +215,10 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		}
 		
 		MSBuildingManager.instance.FullDeselect();
+
 		if (!MSTutorialManager.instance.inTutorial)
 		{
-			currBuilding.Select();
+			MSBuildingManager.instance.SetSelectedBuilding(currBuilding);
 		}
 	}
 
@@ -563,7 +564,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			preq = MSBuildingManager.instance.HasPrereqBuilding(building.prereqs[i]);
 			if (i >= prereqs.Length)
 			{
-				Debug.LogError("Too many prereqs: " + i);
+//				Debug.LogError("Too many prereqs: " + i);
 				continue;
 			}
 			prereqs[i].Init(
