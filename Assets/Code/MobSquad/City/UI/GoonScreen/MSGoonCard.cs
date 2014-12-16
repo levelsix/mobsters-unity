@@ -310,8 +310,6 @@ public class MSGoonCard : MonoBehaviour {
 
 		SetName();
 
-		TintElements((goon.monsterStatus != MonsterStatus.HEALTHY && goon.monsterStatus != MonsterStatus.INJURED) || goon.currHP <= 0);
-
 		if (goon.userMonster.teamSlotNum > 0)
 		{
 			transform.parent = MSTeamScreen.instance.playerTeam[goon.userMonster.teamSlotNum-1].transform;
@@ -324,7 +322,14 @@ public class MSGoonCard : MonoBehaviour {
 			}
 		}
 
-		CheckFitsOnTeam();
+		if ((goon.monsterStatus == MonsterStatus.HEALTHY || goon.monsterStatus == MonsterStatus.INJURED) && goon.currHP > 0)
+		{
+			CheckFitsOnTeam();
+		}
+		else
+		{
+			TintElements (true);
+		}
 	}
 
 	void CheckFitsOnTeam()
@@ -350,28 +355,40 @@ public class MSGoonCard : MonoBehaviour {
 		case MonsterStatus.INCOMPLETE:
 			name = "4 Unavailable 6 Piece";
 			bottomCardLabel.text = "Pieces: " + monster.userMonster.numPieces + "/" + monster.monster.numPuzzlePieces;
+			healthBarBackground.alpha = 0;
 			break;
 		case MonsterStatus.ON_MINI_JOB:
 			name = "4 Unavailable 5 On Mini Job";
 			bottomCardLabel.text = "MiniJob";
+			healthBarBackground.alpha = 0;
 			break;
 		case MonsterStatus.COMBINING:
 			name = "4 Unavailable 2 Combining";
 			bottomCardLabel.text = "";
+			healthBarBackground.alpha = 0;
 			break;
 		case MonsterStatus.ENHANCING:
 			name = "4 Unavailable 4 Enhancing";
 			bottomCardLabel.text = "Enhancing";
+			healthBarBackground.alpha = 0;
 			break;
 		case MonsterStatus.HEALING:
 			name = "4 Unavailable 3 Healing";
 			bottomCardLabel.text = "Healing";
+			healthBarBackground.alpha = 0;
 			break;
 		case MonsterStatus.INJURED:
-			name = "1 Injured 2 Card";
+			if (monster.currHP > 0)
+			{
+				name = "3 Injured 2 Card";
+			}
+			else
+			{
+				name = "4 Unavailable 1 Dead";
+			}
 			break;
 		case MonsterStatus.HEALTHY:
-			name = "3 Healthy 2 Card";
+			name = "1 Healthy 2 Card";
 			break;
 		}
 		name += " " + monster.monster.monsterId + " " + monster.userMonster.currentLvl + " " + monster.userMonster.userMonsterUuid;
@@ -595,8 +612,11 @@ public class MSGoonCard : MonoBehaviour {
 		healthBarText.text = goon.currHP + "/" + goon.maxHP;
 		healCostLabel.text = " ";
 		infoButton.SetActive(true);
-		
-		nameLabel.text = goon.monster.displayName + " [4a7eae]L" + goon.userMonster.currentLvl + "[-]";
+
+		string nameToDisplay = goon.monster.shorterName;
+		if (nameToDisplay.Equals("")) nameToDisplay = goon.monster.displayName;
+
+		nameLabel.text = "[a1a1a1]" + nameToDisplay + "[-] [4a7eae]L" + goon.userMonster.currentLvl + "[-]";
 	}
 
 	void SetupGemsToComplete()
@@ -641,11 +661,12 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void TintElements(bool darken)
 	{
+
 		_dark = darken;
 		smallMobster.color = mediumMobster.color = goonPose.color = darken ? Color.black : Color.white;
 		if (darken)
 		{
-			healthBarBackground.alpha = 0;
+			//healthBarBackground.alpha = 0;
 			cardBackground.spriteName = "greysquare";
 			mediumBG.spriteName = "greymediumsquare";
 			smallBG.spriteName = "greysmallsquare";

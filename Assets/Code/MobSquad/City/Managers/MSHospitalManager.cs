@@ -38,11 +38,11 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		get
 		{
-			if (healingMonsters.Count == 0)
-			{
-				return 0;
+			long max = 0;
+			foreach (var item in hospitals) {
+				max = Math.Max(max, item.finishTime);
 			}
-			return lastFinishTime - MSUtil.timeNowMillis;
+			return max;
 		}
 	}
 

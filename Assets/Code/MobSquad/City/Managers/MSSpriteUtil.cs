@@ -166,7 +166,6 @@ public class MSSpriteUtil : MonoBehaviour {
 			
 			if (bundles.ContainsKey(bundleName))
 			{
-				
 				sprite.sprite2D = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
 				sprite.MakePixelPerfect();
 				sprite.alpha = finalAlpha;

@@ -59,7 +59,7 @@ public class MSTeamScreen : MSFunctionalScreen {
 			    && MSMonsterManager.instance.userTeam[i].monster != null
 			    && MSMonsterManager.instance.userTeam[i].monster.monsterId > 0)
 			{
-				currTeammates++;
+				currTeammates += MSMonsterManager.instance.userTeam[i].teamCost;
 			}
 		}
 		RefreshTitle(currTeammates);

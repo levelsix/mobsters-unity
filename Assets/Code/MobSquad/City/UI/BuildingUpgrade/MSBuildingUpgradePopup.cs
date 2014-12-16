@@ -214,7 +214,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			MSActionManager.Popup.CloseAllPopups();
 		}
 		
-		MSBuildingManager.instance.FullDeselect();
+		//MSBuildingManager.instance.FullDeselect();
 
 		if (!MSTutorialManager.instance.inTutorial)
 		{

@@ -185,7 +185,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		bg.spriteName = mode == Mode.FINISH ? FINISH_SPRITE : NORMAL_SPRITE;
 
 		bottomLabel.text = modeTexts[mode];
-		bottomLabel.effectColor = Color.white;
+//		bottomLabel.effectColor = Color.white;
 		icon.spriteName = modeIcons[mode];
 		icon.MakePixelPerfect();
 		icon.alpha = 1;
@@ -196,7 +196,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		{
 		case Mode.HELP:
 			bg.spriteName = HELP_SPRITE;
-			bottomLabel.effectColor = new Color(251/255f, 193/255f, 48/255f);
+//			bottomLabel.effectColor = new Color(251/255f, 193/255f, 48/255f);
 			break;
 		case Mode.FIX:
 			if (currBuilding.combinedProto.structInfo.buildResourceType == com.lvl6.proto.ResourceType.OIL)
@@ -239,7 +239,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 				}
 			}
 			icon.alpha = 0;
-			bottomLabel.effectColor = new Color(3/255f, 3/255f, 3/255f);
+//			bottomLabel.effectColor = new Color(3/255f, 3/255f, 3/255f);
 			break;
 		case Mode.REMOVE_OBSTACLE:
 			if (currBuilding.obstacle.obstacle.removalCostType == com.lvl6.proto.ResourceType.OIL)
@@ -256,7 +256,7 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		default:
 			break;
 		}
-		bottomLabel.color = buttonTextColors[bg.spriteName];
+		//bottomLabel.color = buttonTextColors[bg.spriteName];
 		button.normalSprite = bg.spriteName;
 		button.pressedSprite = bg.spriteName + "pressed";
 	}
