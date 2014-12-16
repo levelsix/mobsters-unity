@@ -152,10 +152,6 @@ public class MSTaskMap : MonoBehaviour {
 			Vector3 newLocation = trans.position;
 			newLocation.y = trans.position.y - nextTask.transform.position.y;
 			trans.position = newLocation;
-//			scrollView.Scroll(1f);
-			Debug.Log("center map: " + nextTask.mapTask.taskId);
-			Debug.Log("global: " + trans.position.ToString());
-			Debug.Log("local: " + trans.localPosition.ToString());
 		}
 		else
 		{

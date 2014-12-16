@@ -12,6 +12,7 @@ public class MSGachaSpinner : MonoBehaviour {
 	float minSpinTime = 5;
 	
 	bool spinning = false;
+	bool revealed = true;
 	
 	bool canStop = true;	
 	
@@ -61,13 +62,13 @@ public class MSGachaSpinner : MonoBehaviour {
 			yield return StartCoroutine(Spin());
 		}
 		
-		spinnerSpring.onFinished = delegate { MSActionManager.Popup.OnPopup(reveal.GetComponent<MSPopup>()); dragHitBox.enabled = true; };
+		spinnerSpring.onFinished = delegate { MSActionManager.Popup.OnPopup(reveal.GetComponent<MSPopup>()); dragHitBox.enabled = true; revealed = true;};
 		
 	}
 	
 	public void SpinOnce()
 	{
-		if(!spinning)
+		if(!spinning && revealed)
 		{
 			if( MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
 			{
@@ -142,6 +143,7 @@ public class MSGachaSpinner : MonoBehaviour {
 	
 	public IEnumerator Spin()
 	{
+		revealed = false;
 		dragHitBox.enabled = false;
 		PurchaseBoosterPackRequestProto request = new PurchaseBoosterPackRequestProto();
 		request.sender = MSWhiteboard.localMup;
@@ -221,6 +223,10 @@ public class MSGachaSpinner : MonoBehaviour {
 			spinnerSpring.target = spinnerSpring.transform.localPosition + new Vector3(1000, 0, 0);
 			spinnerSpring.strength = curSpeed;
 			spinnerCenter.springStrength = curSpeed;
+			if(currTime > seconds && !canStop)
+			{
+				currTime = seconds;
+			}
 			curSpeed = speed * ( 1f-(currTime / (seconds * 2f)));// go from 'speed' to 'speed'/2 over the course of 'seconds'
 //			Debug.Log(curSpeed.ToString());
 			yield return null;
