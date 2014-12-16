@@ -53,6 +53,8 @@ public class MSResourceManager : MonoBehaviour {
 
 	bool checkingEXP = false;
 
+	public bool awaitingCollectionResponse = false;
+
 	RetrieveCurrencyFromNormStructureRequestProto retrieveRequest = null;
 
 	public AnimationCurve gemsForTimeCurve;
@@ -445,8 +447,11 @@ public class MSResourceManager : MonoBehaviour {
 			yield break;
 		}
 
+		while (awaitingCollectionResponse) yield return null;
+
 		int tagNum = UMQNetworkManager.instance.SendRequest(retrieveRequest, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT);
 		retrieveRequest = null;
+		awaitingCollectionResponse = true;
 
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
@@ -455,6 +460,7 @@ public class MSResourceManager : MonoBehaviour {
 
 		RetrieveCurrencyFromNormStructureResponseProto response = UMQNetworkManager.responseDict[tagNum] as RetrieveCurrencyFromNormStructureResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
+		awaitingCollectionResponse = false;
 
 		if (response.status != RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.SUCCESS)
 		{

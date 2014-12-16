@@ -188,12 +188,12 @@ public class MSHospitalManager : MonoBehaviour {
 		healRequestProto.isSpeedup = false;
 	}
 
-	public Coroutine DoSendHealRequest()
+	public Coroutine DoSendHealRequest(bool asap = false)
 	{
-		return StartCoroutine(SendHealRequest());
+		return StartCoroutine(SendHealRequest(asap));
 	}
 
-	public IEnumerator SendHealRequest ()
+	public IEnumerator SendHealRequest (bool asap = false)
 	{
 		if (MSTutorialManager.instance.inTutorial)
 		{
@@ -214,7 +214,10 @@ public class MSHospitalManager : MonoBehaviour {
 			yield break;
 		}
 
-		yield return MSResourceManager.instance.RunCollectResources();
+		if (!asap)
+		{
+			yield return MSResourceManager.instance.RunCollectResources();
+		}
 		
 		healRequestProto.sender = MSWhiteboard.localMupWithResources;
 		
@@ -392,6 +395,8 @@ public class MSHospitalManager : MonoBehaviour {
 			MSActionManager.Popup.DisplayRedError("Healing Queue Full");
 			return false;
 		}
+
+		MSResourceManager.instance.RunCollectResources();
 
 		if (useGems)
 		{
@@ -784,7 +789,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 	void OnApplicationQuit()
 	{
-		DoSendHealRequest();
+		DoSendHealRequest(true);
 	}
 }
 

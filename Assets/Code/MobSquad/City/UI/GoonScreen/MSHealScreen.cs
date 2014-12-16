@@ -115,7 +115,10 @@ public class MSHealScreen : MSFunctionalScreen
 
 	void OnDisable()
 	{
-		MSHospitalManager.instance.DoSendHealRequest();
+		if (MSHospitalManager.instance != null)
+		{
+			MSHospitalManager.instance.DoSendHealRequest();
+		}
 		rightArrow.SetActive(false);
 		leftArrow.SetActive(false);
 	}

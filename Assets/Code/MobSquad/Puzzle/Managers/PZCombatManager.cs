@@ -536,7 +536,13 @@ public class PZCombatManager : MonoBehaviour {
 			totalEnemies = save.totalEnemies;
 			defeatedEnemies = save.defeatedEnemies;//the save only contains enemies that dropped something
 			prizeQuantityLabel.text = defeatedEnemies.Count.ToString();
-			activePlayer.Init(playerGoonies.Find(x=>x.userMonster.userMonsterUuid.Equals(save.activePlayerUserMonsterUuid)));
+
+			PZMonster playerMonster = playerGoonies.Find(x=>x.userMonster.userMonsterUuid.Equals(save.activePlayerUserMonsterUuid));
+			if (playerMonster.currHP <= 0)
+			{
+				playerMonster = playerGoonies.Find(x=>x.currHP > 0);
+			}
+			activePlayer.Init(playerMonster);
 			PZCombatScheduler.instance.turns = save.turns;
 			PZCombatScheduler.instance.currInd = Mathf.Max(save.currTurnIndex-1, 0);
 
