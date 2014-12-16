@@ -89,7 +89,7 @@ public class PZCrate : MonoBehaviour {
 		PZMoveTowards move = GetComponent<PZMoveTowards>();
 
 		TweenScale scale = GetComponent<TweenScale>();
-		scale.duration = move.totalTime;
+		scale.duration = move.lerpTime;
 		scale.ResetToBeginning();
 		scale.PlayForward();
 

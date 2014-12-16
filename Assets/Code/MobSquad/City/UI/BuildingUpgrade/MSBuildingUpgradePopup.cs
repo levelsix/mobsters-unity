@@ -146,10 +146,9 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 				poolable.Pool();
 			}
 		}
-	}
 
-	void OnDisable()
-	{
+		bottomBar.transform.parent.gameObject.SetActive(true);
+		townHallUpgradeUI.gameObject.SetActive(false);
 	}
 
 	IEnumerator WaitUntilFinish()
@@ -313,10 +312,6 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 	void SetBuildingBarInfo (MSBuilding building, MSFullBuildingProto oldBuilding, MSFullBuildingProto nextBuilding)
 	{
-		
-		bottomBar.transform.parent.gameObject.SetActive(true);
-		townHallUpgradeUI.gameObject.SetActive(false);
-
 		MSFullBuildingProto max = nextBuilding.maxLevel;
 
 		switch (building.combinedProto.structInfo.structType) {

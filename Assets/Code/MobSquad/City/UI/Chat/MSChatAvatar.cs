@@ -92,6 +92,7 @@ public class MSChatAvatar : MonoBehaviour {
 				bg.spriteName = squareSprites[monster.monsterElement];
 			}
 			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumbnail);
+			thumbnail.MakePixelPerfect();
 		}
 	}
 
