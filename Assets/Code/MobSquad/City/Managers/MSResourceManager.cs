@@ -128,10 +128,11 @@ public class MSResourceManager : MonoBehaviour {
 		}
 	}
 
-	public void CollectFromBuilding(ResourceType resource, int amount, string userStructUuid)
+	public void CollectFromBuilding(ResourceType resource, int amount, string userStructUuid, float productionRate)
 	{
 		Collect(resource, amount);
-
+		int overflow = GetOverFlow(resource, amount);
+		float milisecondsPerResourceUnit = (60f*60f*1000)/productionRate;//1 hour / production rate
 		if (retrieveRequest == null)
 		{
 			retrieveRequest = new RetrieveCurrencyFromNormStructureRequestProto();
@@ -141,7 +142,7 @@ public class MSResourceManager : MonoBehaviour {
 		RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval structRetrieval = new RetrieveCurrencyFromNormStructureRequestProto.StructRetrieval();
 		structRetrieval.amountCollected = amount;
 		structRetrieval.userStructUuid = userStructUuid;
-		structRetrieval.timeOfRetrieval = MSUtil.timeNowMillis;
+		structRetrieval.timeOfRetrieval = MSUtil.timeNowMillis - (long)(overflow * milisecondsPerResourceUnit);
 
 		retrieveRequest.structRetrievals.Add(structRetrieval);
 
@@ -178,6 +179,22 @@ public class MSResourceManager : MonoBehaviour {
 		{
 			MSActionManager.UI.OnChangeResource[resource](resources[resource]);
 		}
+	}
+
+	/// <summary>
+	/// If amount were added to the resource storage how much would overflow?
+	/// </summary>
+	/// <returns>The over flow.</returns>
+	/// <param name="resource">Resource.</param>
+	/// <param name="amount">Amount.</param>
+	public int GetOverFlow(ResourceType resource, int amount)
+	{
+		if(resources[resource] + amount > maxes[(int)resource-1])
+		{
+			return resources[resource] + amount - maxes[(int)resource-1];
+		}
+		else
+			return 0;
 	}
 
 	/// <summary>

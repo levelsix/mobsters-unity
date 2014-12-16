@@ -55,7 +55,7 @@ public class MSResourceCollector : MonoBehaviour {
 			{ 
 				return 0;
 			}
-			return (int)Mathf.Min(_generator.productionRate * (secsSinceCollect/3600f), _generator.capacity);
+			return (int)Mathf.Min(_generator.productionRate * (secsSinceCollect/3600f) + overflow, _generator.capacity);
 		}
 	}
 
@@ -105,6 +105,8 @@ public class MSResourceCollector : MonoBehaviour {
     private MSBuildingUpgrade _upgrade;
 
 	public bool unblockClick = false;
+
+	int overflow = 0;
 
 	[SerializeField]
 	float unblockClickTime = 10f;
@@ -185,7 +187,7 @@ public class MSResourceCollector : MonoBehaviour {
 				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.collectOil);
 			}
 
-			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructUuid);
+			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructUuid, _generator.productionRate);
 			if (MSActionManager.Quest.OnMoneyCollected != null)
 			{
 				MSActionManager.Quest.OnMoneyCollected(_generator.resourceType, currMoney);
@@ -201,8 +203,16 @@ public class MSResourceCollector : MonoBehaviour {
 				}
 			}
 
+			overflow = MSResourceManager.instance.GetOverFlow(_generator.resourceType, currMoney);
 			_building.userStructProto.lastRetrieved = MSUtil.timeNowMillis;
-			_building.hoverIcon.gameObject.SetActive(false); 
+			if(canCollect)
+			{
+				StartCoroutine(HideHoverIcon());
+			}
+			else
+			{
+				_building.hoverIcon.gameObject.SetActive(false); 
+			}
 			
 			if (MSActionManager.Town.OnCollectFromBuilding != null)
 			{

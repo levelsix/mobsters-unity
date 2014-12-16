@@ -192,7 +192,8 @@ public class MSBuildingProgressBar : MonoBehaviour {
 			newTime = 0;
 
 			upgrading = false;
-			
+
+			miniAvatar.gameObject.SetActive(false);
 			bg.gameObject.SetActive(false);
 
 			if(building.obstacle != null)
@@ -208,6 +209,7 @@ public class MSBuildingProgressBar : MonoBehaviour {
 		{
 			newTime = 0;
 			bg.gameObject.SetActive(false);
+			miniAvatar.gameObject.SetActive(false);
 		}
 	}
 
