@@ -1,6 +1,8 @@
 #define DEBUG
 
-//#define STAGING
+#if !UNITY_EDITOR
+#define STAGING
+#endif
 //#define PROD
 
 using UnityEngine;
