@@ -524,6 +524,7 @@ public class MSGoonCard : MonoBehaviour {
 		if (goon.restricted)
 		{
 			TintElements(true);
+			healthBarBackground.alpha = 0;
 			lockIcon.SetActive(true);
 			bottomCardLabel.text = "Locked";
 			healCostLabel.text = " ";
@@ -581,8 +582,6 @@ public class MSGoonCard : MonoBehaviour {
 		cardBackground.spriteName = backgroundsForElements[goon.monster.monsterElement];
 		mediumBG.spriteName = mediumBackgrounds[goon.monster.monsterElement];
 		smallBG.spriteName = smallBackgrounds[goon.monster.monsterElement];
-
-		SetTextOverCard (goon);
 		
 		rarityRibbon.spriteName = mediumRibbon.spriteName = ribbonsForRarity[goon.monster.quality];
 		switch(goon.monster.quality)
@@ -612,6 +611,8 @@ public class MSGoonCard : MonoBehaviour {
 		healthBarText.text = goon.currHP + "/" + goon.maxHP;
 		healCostLabel.text = " ";
 		infoButton.SetActive(true);
+		
+		SetTextOverCard (goon);
 
 		string nameToDisplay = goon.monster.shorterName;
 		if (nameToDisplay.Equals("")) nameToDisplay = goon.monster.displayName;
