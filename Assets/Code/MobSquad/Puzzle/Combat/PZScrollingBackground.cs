@@ -209,9 +209,7 @@ public class PZScrollingBackground : MonoBehaviour {
 			spriteName = "scene2right";
 		}
 
-		Debug.Log("Setting background sprite for " + name + ": " + prefix + spriteName);
 		MSSpriteUtil.instance.SetSprite(prefix + "Scene", prefix + spriteName, sprite);
-		Debug.Log("loading background : " + prefix + "Scene, " + prefix + spriteName);
 		//if(sprite.sprite == null)
 		//{
 		//	MSSpriteUtil.instance.SetSprite("1Scene", "1" + spriteName, sprite);

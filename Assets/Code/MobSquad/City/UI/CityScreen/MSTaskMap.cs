@@ -152,7 +152,10 @@ public class MSTaskMap : MonoBehaviour {
 			Vector3 newLocation = trans.position;
 			newLocation.y = trans.position.y - nextTask.transform.position.y;
 			trans.position = newLocation;
-			scrollView.Scroll(1f);
+//			scrollView.Scroll(1f);
+			Debug.Log("center map: " + nextTask.mapTask.taskId);
+			Debug.Log("global: " + trans.position.ToString());
+			Debug.Log("local: " + trans.localPosition.ToString());
 		}
 		else
 		{
@@ -168,6 +171,17 @@ public class MSTaskMap : MonoBehaviour {
 		{
 			nextTask.OnClick();
 		}
+	}
+
+	[ContextMenu("Move Avatar")]
+	public void MoveAvatar()
+	{
+		avatar.MoveToNewTask(taskButtons[10]);
+	}
+
+	void Update()
+	{
+		Debug.Log(trans.position);
 	}
 
 	//commented out as we move events off the map

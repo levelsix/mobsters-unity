@@ -16,10 +16,10 @@ public class MSGachaSpinner : MonoBehaviour {
 	bool canStop = true;	
 	
 	[SerializeField]
-	float currSpeed;
-	
+	float speed;
+
 	[SerializeField]
-	float timeToLand;
+	float finalSpeed = 2f;
 	
 	[SerializeField]
 	MSGachaReveal reveal;
@@ -27,7 +27,7 @@ public class MSGachaSpinner : MonoBehaviour {
 	BoosterPackProto boosterPack;
 	
 	[SerializeField]
-	MSOffsetCenterOnChild spinnerCenter;
+	UICenterOnChild spinnerCenter;
 	
 	[SerializeField]
 	SpringPanel spinnerSpring;
@@ -107,7 +107,7 @@ public class MSGachaSpinner : MonoBehaviour {
 			while (!UMQNetworkManager.responseDict.ContainsKey (tagNum))
 			{
 				spinnerSpring.target = spinnerSpring.transform.localPosition + new Vector3(1000, 0, 0);
-				spinnerSpring.strength = currSpeed;
+				spinnerSpring.strength = speed;
 				yield return null;
 			}
 			
@@ -132,7 +132,7 @@ public class MSGachaSpinner : MonoBehaviour {
 		{
 			currTime += Time.deltaTime;
 			spinnerSpring.target = spinnerSpring.transform.localPosition + new Vector3(1000, 0, 0);
-			spinnerSpring.strength = currSpeed + 3 * currSpeed * currTime/minSpinTime;
+			spinnerSpring.strength = speed + 3 * speed * currTime/minSpinTime;
 			yield return null;
 		}
 
@@ -152,7 +152,7 @@ public class MSGachaSpinner : MonoBehaviour {
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_PURCHASE_BOOSTER_PACK_EVENT, null);
 
-		spinnerCenter.momentumAffectsSpring = false;
+//		spinnerCenter.momentumAffectsSpring = false;
 		StartCoroutine(SpinForTime(minSpinTime));
 		
 		canStop = false;
@@ -197,10 +197,11 @@ public class MSGachaSpinner : MonoBehaviour {
 		MSGachaItem theOne = lastToLoop;
 		
 		theOne.Setup(response.prize);
-		
+		spinnerSpring.strength = finalSpeed;
+		spinnerCenter.springStrength = finalSpeed;
 		spinnerCenter.CenterOn(theOne.transform);
 
-		spinnerCenter.momentumAffectsSpring = true;
+//		spinnerCenter.momentumAffectsSpring = true;
 		
 		//spinnerSpring.strength = currSpeed;
 		//theOne.label.text = "THE ONE";
@@ -211,14 +212,17 @@ public class MSGachaSpinner : MonoBehaviour {
 		dragHitBox.enabled = false;
 		spinning = true;
 		float currTime = 0;
+		float curSpeed = speed;
 		spinnerSpring.enabled = true;
 		while (currTime < seconds || !canStop)
 		{
 			Debug.Log("Spinning...");
 			currTime += Time.deltaTime;
 			spinnerSpring.target = spinnerSpring.transform.localPosition + new Vector3(1000, 0, 0);
-			spinnerSpring.strength = currSpeed;
-			spinnerCenter.springStrength = currSpeed;
+			spinnerSpring.strength = curSpeed;
+			spinnerCenter.springStrength = curSpeed;
+			curSpeed = speed * ( 1f-(currTime / (seconds * 2f)));// go from 'speed' to 'speed'/2 over the course of 'seconds'
+//			Debug.Log(curSpeed.ToString());
 			yield return null;
 		}
 		spinning = false;

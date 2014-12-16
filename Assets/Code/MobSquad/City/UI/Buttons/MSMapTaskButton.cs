@@ -215,4 +215,10 @@ public class MSMapTaskButton : MonoBehaviour {
 			collider.enabled = true;
 		}
 	}
+
+	[ContextMenu("DisplayGlobal")]
+	public void ButtonPosition()
+	{
+		Debug.Log(transform.position.ToString());
+	}
 }

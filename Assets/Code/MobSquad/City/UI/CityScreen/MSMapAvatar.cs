@@ -53,7 +53,7 @@ public class MSMapAvatar : MonoBehaviour {
 		}
 		else if(curTask != newTask.mapTask.taskId)
 		{
-			TweenPosition.Begin(gameObject, 2f, transform.InverseTransformPoint(newTask.transform.position));
+			TweenPosition.Begin(gameObject, 2f, transform.parent.InverseTransformPoint(newTask.transform.position));
 		}
 	}
 }

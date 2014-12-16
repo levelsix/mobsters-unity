@@ -1549,8 +1549,8 @@ GameObject:
   - 114: {fileID: 11400280}
   - 114: {fileID: 11400278}
   - 54: {fileID: 5400004}
-  - 114: {fileID: 11400284}
   - 114: {fileID: 11400282}
+  - 114: {fileID: 11400284}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -6337,6 +6337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTime: .400000006
+  targetAlpha: 1
   dragBehind: {fileID: 0}
 --- !u!114 &11400088
 MonoBehaviour:
@@ -10153,15 +10154,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4e325fb52df34a63aad06d688a32b59, type: 3}
+  m_Script: {fileID: 11500000, guid: d35d721694fa0ee48a2d14bddfcbf4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springStrength: 8
+  springStrength: 99
   nextPageThreshold: 0
-  offset: {x: 0, y: 0}
-  momentumAffectsSpring: 1
-  momentumWeight: .100000001
-  minMomentum: 1
 --- !u!114 &11400286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12875,8 +12872,8 @@ MonoBehaviour:
   - {fileID: 11400076}
   - {fileID: 11400072}
   minSpinTime: 5
-  currSpeed: 2
-  timeToLand: 3
+  speed: 2
+  finalSpeed: 2
   reveal: {fileID: 11400390}
   spinnerCenter: {fileID: 11400284}
   spinnerSpring: {fileID: 11400282}
