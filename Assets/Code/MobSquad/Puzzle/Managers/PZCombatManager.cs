@@ -581,6 +581,8 @@ public class PZCombatManager : MonoBehaviour {
 		}
 		else
 		{
+			totalEnemies = stages.Count;
+
 			activePlayer.Init(playerGoonies.Find(x=>x.currHP>0));
 			forfeitChance = FORFEIT_START_CHANCE;
 
