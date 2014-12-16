@@ -347,8 +347,6 @@ public class MSHospitalManager : MonoBehaviour {
 			{
 				CompleteHeal(MSHospitalManager.instance.healingMonsters[0]);
 			}
-			
-			RearrangeHealingQueue();
 		}
 
 		loadLock.Unlock();
@@ -737,7 +735,6 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 
 		monster.currHospital.RemoveToonFromQueue(monster);
-		monster.currHospital.RecalculateQueue();
 		
 		if (healRequestProto.umhNew.Contains(monster.healingMonster))
 		{
@@ -766,6 +763,14 @@ public class MSHospitalManager : MonoBehaviour {
 		if (MSActionManager.Goon.OnHealQueueChanged != null)
 		{
 			MSActionManager.Goon.OnHealQueueChanged();
+		}
+	}
+
+	public void MobsterUpdated(PZMonster monster)
+	{
+		if (!healRequestProto.umhUpdate.Contains(monster.healingMonster))
+		{
+			healRequestProto.umhUpdate.Add(monster.healingMonster);
 		}
 	}
 

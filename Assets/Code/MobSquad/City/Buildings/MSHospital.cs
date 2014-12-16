@@ -154,6 +154,7 @@ public class MSHospital {
 				break;
 			}
 			healQueue[i].healingMonster.priority = i;
+			MSHospitalManager.instance.MobsterUpdated(healQueue[i]);
 		}
 	}
 }

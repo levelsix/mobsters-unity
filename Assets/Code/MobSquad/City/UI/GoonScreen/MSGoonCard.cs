@@ -765,7 +765,7 @@ public class MSGoonCard : MonoBehaviour {
 	
 	void AddToHealQueue()
 	{
-		if (!MSHospitalManager.instance.healingMonsters.Contains(monster) && !MSHealScreen.instance.AddToonToCurrentQueue(monster))
+		if (!MSHealScreen.instance.AddToonToCurrentQueue(monster))
 		{
 			return;
 		}
@@ -777,7 +777,7 @@ public class MSGoonCard : MonoBehaviour {
 
 	void PutInHealQueue()
 	{	
-		name = (100 - monster.healingMonster.priority).ToString();
+		name = (9 - monster.healingMonster.priority).ToString();
 		
 		transform.parent = MSHealScreen.instance.currQueue.grid.transform;
 		MSHealScreen.instance.grid.Reposition();
@@ -793,11 +793,12 @@ public class MSGoonCard : MonoBehaviour {
 
 	void RemoveFromHealQueue()
 	{
-		MSHealScreen.instance.Remove(this);
-		MSHospitalManager.instance.RemoveFromHealQueue(monster);
-		
 		transform.parent = MSHealScreen.instance.grid.transform;
 		MSHealScreen.instance.grid.Reposition();
+
+		MSHospitalManager.instance.RemoveFromHealQueue(monster);
+		SetName();
+		MSHealScreen.instance.Remove(this);
 		
 		foreach (var widget in GetComponentsInChildren<UIWidget>()) 
 		{
@@ -805,6 +806,7 @@ public class MSGoonCard : MonoBehaviour {
 		}
 
 		StartCoroutine(ShiftSpriteSizes(smallHelper, bigHelper));
+
 	}
 
 	void AddToSellQueue()
