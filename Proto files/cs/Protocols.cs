@@ -327,6 +327,9 @@ namespace com.lvl6.proto
       [global::ProtoBuf.ProtoEnum(Name=@"C_AVENGE_CLAN_MATE_EVENT", Value=92)]
       C_AVENGE_CLAN_MATE_EVENT = 92,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"C_UPDATE_CLIENT_TASK_STATE_EVENT", Value=93)]
+      C_UPDATE_CLIENT_TASK_STATE_EVENT = 93,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"C_LOGOUT_EVENT", Value=101)]
       C_LOGOUT_EVENT = 101,
             
@@ -610,6 +613,9 @@ namespace com.lvl6.proto
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_AVENGE_CLAN_MATE_EVENT", Value=92)]
       S_AVENGE_CLAN_MATE_EVENT = 92,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_TASK_STATE_EVENT", Value=93)]
+      S_UPDATE_CLIENT_TASK_STATE_EVENT = 93,
             
       [global::ProtoBuf.ProtoEnum(Name=@"S_UPDATE_CLIENT_USER_EVENT", Value=101)]
       S_UPDATE_CLIENT_USER_EVENT = 101,

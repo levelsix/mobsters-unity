@@ -361,6 +361,15 @@ namespace com.lvl6.proto
       get { return _updatedOrNew; }
     }
   
+
+    private com.lvl6.proto.PvpHistoryProto _battleThatJustEnded = null;
+    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"battleThatJustEnded", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.PvpHistoryProto battleThatJustEnded
+    {
+      get { return _battleThatJustEnded; }
+      set { _battleThatJustEnded = value; }
+    }
     [global::ProtoBuf.ProtoContract(Name=@"EndPvpBattleStatus")]
     public enum EndPvpBattleStatus
     {
