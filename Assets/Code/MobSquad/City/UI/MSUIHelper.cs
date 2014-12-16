@@ -68,7 +68,10 @@ public class MSUIHelper : MonoBehaviour {
 
 	public void FadeOutAndOff()
 	{
-		StartCoroutine(DoFadeOutThenDisable());
+		if (gameObject.activeInHierarchy)
+		{
+			StartCoroutine(DoFadeOutThenDisable());
+		}
 	}
 
 	IEnumerator DoFadeOutThenDisable()

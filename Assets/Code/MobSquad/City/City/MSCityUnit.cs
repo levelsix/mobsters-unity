@@ -67,7 +67,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 
 		if (MSTutorialManager.instance.inTutorial)
 		{
-			Debug.Log("In Tutorial!");
+			//Debug.Log("In Tutorial!");
 			Stop();
 		}
 		else
@@ -120,7 +120,7 @@ public class MSCityUnit : MonoBehaviour, MSISelectable {
 			if (IsPastTarget(jumpNode))
 			{
 				IsPastTarget(jumpNode);
-				Debug.Log(name + " jumping\n" + trans.position + "\n" + jumpNode);
+				//Debug.Log(name + " jumping\n" + trans.position + "\n" + jumpNode);
 				unit.DoJump(MSTutorialManager.instance.TutorialValues.enemyEnterJumpHeight,
 				            MSTutorialManager.instance.TutorialValues.enemyEnterJumpTime);
 				jumpNode = null;

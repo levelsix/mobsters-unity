@@ -248,7 +248,7 @@ public class MSResourceCollector : MonoBehaviour {
 		request.structRetrievals[0].timeOfRetrieval = MSUtil.timeNowMillis;
 		request.structRetrievals[0].amountCollected = amount;
 		
-		Debug.Log("Collecting from: " + _building.userStructProto.userStructUuid);
+		//Debug.Log("Collecting from: " + _building.userStructProto.userStructUuid);
 		
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT, LoadCollectResponse);
 	}

@@ -110,10 +110,14 @@ public class MSPoolManager : MonoBehaviour {
 		{
 			pools[pooled.prefab] = new List<MSPoolable>();
 		}
-		
-		//Add it to the pool
-		pools[pooled.prefab].Add(pooled);
-		pooled.transf.parent = transform;
+
+		//If this isn't already pooled, we want to put it in the pool
+		if (!pools[pooled.prefab].Contains(pooled))
+		{
+			//Add it to the pool
+			pools[pooled.prefab].Add(pooled);
+			pooled.transf.parent = transform;
+		}
 	}
 
 	public void Warm(MonoBehaviour poolable)

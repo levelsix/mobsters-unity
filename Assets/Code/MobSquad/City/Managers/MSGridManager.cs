@@ -332,7 +332,7 @@ public class MSGridManager : MonoBehaviour {
     {
 		if(_grid[(int)building.groundPos.x, (int)building.groundPos.y] == building)
 		{
-			Debug.Log("Grid Manager removing:  " + building.name + ", id: " + building.id);
+//			Debug.Log("Grid Manager removing:  " + building.name + ", id: " + building.id);
 	        for (int i = 0; i < building.width; i++)
 	        {
 	            for (int j = 0; j < building.length; j++)
@@ -368,7 +368,7 @@ public class MSGridManager : MonoBehaviour {
 			}
 			return fromPoint.GetPoint(dist);
 		}
-		Debug.LogWarning("Raycast from screen to ground failed. Returned (0,0,0).");
+//		Debug.LogWarning("Raycast from screen to ground failed. Returned (0,0,0).");
 		return Vector3.zero;
 	}
 	

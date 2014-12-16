@@ -708,4 +708,80 @@ namespace com.lvl6.proto
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UpdateClientTaskStateRequestProto")]
+  public partial class UpdateClientTaskStateRequestProto : global::ProtoBuf.IExtensible
+  {
+    public UpdateClientTaskStateRequestProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private byte[] _taskState = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"taskState", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public byte[] taskState
+    {
+      get { return _taskState; }
+      set { _taskState = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"UpdateClientTaskStateResponseProto")]
+  public partial class UpdateClientTaskStateResponseProto : global::ProtoBuf.IExtensible
+  {
+    public UpdateClientTaskStateResponseProto() {}
+    
+
+    private com.lvl6.proto.MinimumUserProto _sender = null;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.MinimumUserProto sender
+    {
+      get { return _sender; }
+      set { _sender = value; }
+    }
+
+    private byte[] _taskState = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"taskState", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public byte[] taskState
+    {
+      get { return _taskState; }
+      set { _taskState = value; }
+    }
+
+    private com.lvl6.proto.UpdateClientTaskStateResponseProto.UpdateClientTaskStateStatus _status = com.lvl6.proto.UpdateClientTaskStateResponseProto.UpdateClientTaskStateStatus.SUCCESS;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.UpdateClientTaskStateResponseProto.UpdateClientTaskStateStatus.SUCCESS)]
+    public com.lvl6.proto.UpdateClientTaskStateResponseProto.UpdateClientTaskStateStatus status
+    {
+      get { return _status; }
+      set { _status = value; }
+    }
+    [global::ProtoBuf.ProtoContract(Name=@"UpdateClientTaskStateStatus")]
+    public enum UpdateClientTaskStateStatus
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SUCCESS", Value=1)]
+      SUCCESS = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"FAIL_OTHER", Value=2)]
+      FAIL_OTHER = 2
+    }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
 }

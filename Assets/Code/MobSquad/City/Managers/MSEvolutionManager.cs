@@ -127,12 +127,12 @@ public class MSEvolutionManager : MonoBehaviour {
 		currEvolution = evo;
 		if (isEvolving)
 		{
-			string str = "Evo monsters:";
-			foreach (var item in evo.userMonsterUuids) 
-			{
-				str += " " + item;
-			}
-			Debug.LogWarning(str);
+//			string str = "Evo monsters:";
+//			foreach (var item in evo.userMonsterUuids) 
+//			{
+//				str += " " + item;
+//			}
+//			Debug.LogWarning(str);
 			finishTime = evo.startTime + 
 				MSDataManager.instance.Get<MonsterProto>(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(evo.userMonsterUuids[0])).monster.evolutionMonsterId).minutesToEvolve * 60000;
 		}

@@ -60,7 +60,7 @@ public class MSSpriteUtil : MonoBehaviour {
 			internalBundles.Add(item.Name);
 			str += "\n" + item.Name;
 		}
-		Debug.Log(str);
+//		Debug.Log(str);
 #endif
 	}
 
@@ -166,7 +166,6 @@ public class MSSpriteUtil : MonoBehaviour {
 			
 			if (bundles.ContainsKey(bundleName))
 			{
-				
 				sprite.sprite2D = bundles[bundleName].Load(spriteName, typeof(Sprite)) as Sprite;
 				sprite.MakePixelPerfect();
 				sprite.alpha = finalAlpha;

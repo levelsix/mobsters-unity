@@ -149,7 +149,6 @@ public class MSHospitalQueue : MonoBehaviour
 
 	public void Remove(MSGoonCard card)
 	{
-		
 		currHeals.Remove(card);
 		
 		if (currHeals.Count == 0)
@@ -180,6 +179,11 @@ public class MSHospitalQueue : MonoBehaviour
 			slotsLeftLabel.color = slotsOpenLabelColor;
 			slotsLeftLabelBg.TurnOn();
 			arrow.spriteName = GREEN_ARROW;
+		}
+
+		foreach (var item in currHeals) 
+		{
+			item.name = (9-item.monster.healingMonster.priority).ToString();
 		}
 	}
 	

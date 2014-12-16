@@ -215,7 +215,7 @@ public class PZCombatUnit : MonoBehaviour {
 		if(monster.monster.shorterName != null && monster.monster.shorterName.Length != 0)
 		{
 			unitName.text = monster.monster.shorterName;
-			Debug.Log("name set to [" + monster.monster.shorterName +"]");
+//			Debug.Log("name set to [" + monster.monster.shorterName +"]");
 		}
 		else
 		{

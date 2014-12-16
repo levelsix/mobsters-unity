@@ -38,11 +38,11 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		get
 		{
-			if (healingMonsters.Count == 0)
-			{
-				return 0;
+			long max = 0;
+			foreach (var item in hospitals) {
+				max = Math.Max(max, item.finishTime);
 			}
-			return lastFinishTime - MSUtil.timeNowMillis;
+			return max;
 		}
 	}
 
@@ -163,15 +163,15 @@ public class MSHospitalManager : MonoBehaviour {
 	public void InitHealers()
 	{
 		initialized = true;
-		string hosp = "Hospitals:\n";
-		foreach (var item in hospitals) {
-			hosp += item.userBuildingData.userStructUuid + "\n";
-			}
-		Debug.Log(hosp);
+//		string hosp = "Hospitals:\n";
+//		foreach (var item in hospitals) {
+//			hosp += item.userBuildingData.userStructUuid + "\n";
+//			}
+//		Debug.Log(hosp);
 
 		foreach (var item in healingMonsters) 
 		{
-			Debug.Log("Finding hospital: " + item.healingMonster.userHospitalStructUuid);
+//			Debug.Log("Finding hospital: " + item.healingMonster.userHospitalStructUuid);
 			hospitals.Find(x=>x.userBuildingData.userStructUuid.Equals(item.healingMonster.userHospitalStructUuid)).AddExistingToon(item);
 		}
 
@@ -188,12 +188,12 @@ public class MSHospitalManager : MonoBehaviour {
 		healRequestProto.isSpeedup = false;
 	}
 
-	public Coroutine DoSendHealRequest()
+	public Coroutine DoSendHealRequest(bool asap = false)
 	{
-		return StartCoroutine(SendHealRequest());
+		return StartCoroutine(SendHealRequest(asap));
 	}
 
-	public IEnumerator SendHealRequest ()
+	public IEnumerator SendHealRequest (bool asap = false)
 	{
 		if (MSTutorialManager.instance.inTutorial)
 		{
@@ -214,7 +214,10 @@ public class MSHospitalManager : MonoBehaviour {
 			yield break;
 		}
 
-		yield return MSResourceManager.instance.RunCollectResources();
+		if (!asap)
+		{
+			yield return MSResourceManager.instance.RunCollectResources();
+		}
 		
 		healRequestProto.sender = MSWhiteboard.localMupWithResources;
 		
@@ -282,7 +285,7 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		if (monster.isHealing && monster.healTimeLeftMillis <= 0)
 		{
-			Debug.Log("Shit's done, bro");
+//			Debug.Log("Shit's done, bro");
 		}
 
 		return monster.isHealing && monster.healTimeLeftMillis <= 0;
@@ -347,8 +350,6 @@ public class MSHospitalManager : MonoBehaviour {
 			{
 				CompleteHeal(MSHospitalManager.instance.healingMonsters[0]);
 			}
-			
-			RearrangeHealingQueue();
 		}
 
 		loadLock.Unlock();
@@ -394,6 +395,8 @@ public class MSHospitalManager : MonoBehaviour {
 			MSActionManager.Popup.DisplayRedError("Healing Queue Full");
 			return false;
 		}
+
+		MSResourceManager.instance.RunCollectResources();
 
 		if (useGems)
 		{
@@ -593,8 +596,8 @@ public class MSHospitalManager : MonoBehaviour {
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
 		millis -= (int)monster.helpTime;
 
-		Debug.Log("Calculating finish time for " + monster.userMonsterId + "\nAt hospital " + hospital.userBuildingData.userStructUuid
-		          + "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
+//		Debug.Log("Calculating finish time for " + monster.userMonsterId + "\nAt hospital " + hospital.userBuildingData.userStructUuid
+//		          + "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
 		
 		return startTime + millis;
 	}
@@ -605,8 +608,8 @@ public class MSHospitalManager : MonoBehaviour {
 		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
 		millis -= (int)monster.helpTime;
 
-		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructUuid
-			+ "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
+//		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructUuid
+//			+ "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
 
 		return startTime + millis;
 	}
@@ -737,7 +740,6 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 
 		monster.currHospital.RemoveToonFromQueue(monster);
-		monster.currHospital.RecalculateQueue();
 		
 		if (healRequestProto.umhNew.Contains(monster.healingMonster))
 		{
@@ -769,6 +771,14 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 	}
 
+	public void MobsterUpdated(PZMonster monster)
+	{
+		if (!healRequestProto.umhUpdate.Contains(monster.healingMonster))
+		{
+			healRequestProto.umhUpdate.Add(monster.healingMonster);
+		}
+	}
+
 	void Update()
 	{
 		if (initialized)
@@ -779,7 +789,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 	void OnApplicationQuit()
 	{
-		DoSendHealRequest();
+		DoSendHealRequest(true);
 	}
 }
 

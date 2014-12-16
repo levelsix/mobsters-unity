@@ -195,7 +195,10 @@ namespace com.lvl6.proto
       SHUFFLE = 12,
             
       [global::ProtoBuf.ProtoEnum(Name=@"HEADSHOT", Value=13)]
-      HEADSHOT = 13
+      HEADSHOT = 13,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"MUD", Value=14)]
+      MUD = 14
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"SkillActivationType")]

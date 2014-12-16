@@ -229,13 +229,13 @@ public class MSTownCamera : MonoBehaviour, MSIPlaceable
 		Ray ray = new Ray(groundPos, -transform.forward);
 		debugRay = ray;
 
-		Debug.Log("Casting ray " + ray + " to plane");
+		//Debug.Log("Casting ray " + ray + " to plane");
 
 		float dist;
 		if (cameraPlane.Raycast(ray, out dist))
 		{
-			Debug.Log("Hit at " + ray.GetPoint(dist)
-			          + "\nGo to " + transform.InverseTransformPoint(ray.GetPoint(dist)));
+//			Debug.Log("Hit at " + ray.GetPoint(dist)
+//			          + "\nGo to " + transform.InverseTransformPoint(ray.GetPoint(dist)));
 
 			return transform.localPosition + transform.InverseTransformPoint(ray.GetPoint(dist));
 		}

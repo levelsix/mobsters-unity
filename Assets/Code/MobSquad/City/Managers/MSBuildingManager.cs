@@ -584,7 +584,7 @@ public class MSBuildingManager : MonoBehaviour
 			MSActionManager.Loading.OnBuildingsLoaded();
 		}
 
-		Debug.Log(response.obstacles.Count + " obstacles");
+//		Debug.Log(response.obstacles.Count + " obstacles");
 		for (int i = 0; i < response.obstacles.Count; i++) 
 		{
 			MakeObstacle(response.obstacles[i]);
@@ -1251,7 +1251,7 @@ public class MSBuildingManager : MonoBehaviour
 	{
 		if (MSWhiteboard.currCityType == MSWhiteboard.CityType.NEUTRAL) return;
 
-		Debug.Log("Distributing: " + resource + ": " + total);
+//		Debug.Log("Distributing: " + resource + ": " + total);
 
 		List<MSBuilding> storages = GetStorages(resource);
 		storages.Sort( (x,y)=>x.combinedProto.storage.capacity.CompareTo(y.combinedProto.storage.capacity));
@@ -1360,7 +1360,7 @@ public class MSBuildingManager : MonoBehaviour
 						return;
 					}
 				}
-				Debug.LogWarning ("A tap was detected but no toon was found on the grid to move");
+//				Debug.LogWarning ("A tap was detected but no toon was found on the grid to move");
 			}
 		}
 	}

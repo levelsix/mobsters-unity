@@ -94,7 +94,7 @@ public class MSHireFriendsPage : MonoBehaviour {
 	public void UpdateAcceptedFriends()
 	{
 		List<UserFacebookInviteForSlotProto> friends = MSResidenceManager.instance.GetAcceptedInvites();
-		Debug.Log("frinds::" + friends.ToString());
+//		Debug.Log("frinds::" + friends.ToString());
 		int index = 0;
 		foreach(UITexture texture in bottomFriends)
 		{
@@ -231,7 +231,7 @@ public class MSHireFriendsPage : MonoBehaviour {
 		int index = 0;
 		foreach(MSHireFriendInvite invite in inviteList)
 		{
-			Debug.Log("inviting " + invite.friendInfo.name);
+//			Debug.Log("inviting " + invite.friendInfo.name);
 			ids[index] = invite.friendInfo.id;
 			index++;
 		}
@@ -252,13 +252,13 @@ public class MSHireFriendsPage : MonoBehaviour {
 	{
 		if(result.Error == null)
 		{
-			Debug.Log("invite result:"+result.Text);
+//			Debug.Log("invite result:"+result.Text);
 			MSResidenceManager.instance.RequestCallback(result);
 			MSActionManager.Popup.CloseTopPopupLayer();
 		}
 		else
 		{
-			Debug.Log("Error" + result.Error);
+			Debug.LogError("Error" + result.Error);
 		}
 	}
 }

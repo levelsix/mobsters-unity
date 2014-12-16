@@ -210,7 +210,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
     {
 		if (!uProto.isComplete && uProto.purchaseTime > 0)
 		{
-			Debug.Log("Building " + uProto.userStructUuid + " isn't finished; checking upgrade");
+			//Debug.Log("Building " + uProto.userStructUuid + " isn't finished; checking upgrade");
 			building.SetupConstructionSprite();
 			StartCoroutine(CheckUpgrade());
 		}

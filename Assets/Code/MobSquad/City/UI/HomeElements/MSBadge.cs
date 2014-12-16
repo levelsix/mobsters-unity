@@ -17,7 +17,7 @@ public class MSBadge : MonoBehaviour {
 	{
 		get
 		{
-			Debug.LogWarning("get tween", this);
+			//Debug.LogWarning("get tween", this);
 			return label.GetComponent<TweenRotation>();
 		}
 	}

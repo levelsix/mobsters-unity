@@ -53,6 +53,8 @@ public class MSResourceManager : MonoBehaviour {
 
 	bool checkingEXP = false;
 
+	public bool awaitingCollectionResponse = false;
+
 	RetrieveCurrencyFromNormStructureRequestProto retrieveRequest = null;
 
 	public AnimationCurve gemsForTimeCurve;
@@ -98,7 +100,7 @@ public class MSResourceManager : MonoBehaviour {
 		{
 			if (MSActionManager.UI.OnChangeResource[item.Key] != null)
 			{
-				Debug.Log("Resource Setup: " + item.ToString());
+//				Debug.Log("Resource Setup: " + item.ToString());
 				MSActionManager.UI.OnChangeResource[item.Key](item.Value);
 			}
 		}
@@ -312,7 +314,7 @@ public class MSResourceManager : MonoBehaviour {
 
 			if (action != null)
 			{
-				Debug.Log("Triggered action");
+//				Debug.Log("Triggered action");
 				action();
 			}
 		}
@@ -349,7 +351,7 @@ public class MSResourceManager : MonoBehaviour {
 	{
 		if (MSWhiteboard.nextLevelInfo != null && _exp > expForNextLevel && !checkingEXP)
 		{
-			Debug.LogWarning("leveling up: " + _exp + " > " + expForNextLevel);
+//			Debug.LogWarning("leveling up: " + _exp + " > " + expForNextLevel);
 			checkingEXP = true;
 			StartCoroutine(LevelUp());
 		}
@@ -462,8 +464,11 @@ public class MSResourceManager : MonoBehaviour {
 			yield break;
 		}
 
+		while (awaitingCollectionResponse) yield return null;
+
 		int tagNum = UMQNetworkManager.instance.SendRequest(retrieveRequest, (int)EventProtocolRequest.C_RETRIEVE_CURRENCY_FROM_NORM_STRUCTURE_EVENT);
 		retrieveRequest = null;
+		awaitingCollectionResponse = true;
 
 		while (!UMQNetworkManager.responseDict.ContainsKey(tagNum))
 		{
@@ -472,6 +477,7 @@ public class MSResourceManager : MonoBehaviour {
 
 		RetrieveCurrencyFromNormStructureResponseProto response = UMQNetworkManager.responseDict[tagNum] as RetrieveCurrencyFromNormStructureResponseProto;
 		UMQNetworkManager.responseDict.Remove(tagNum);
+		awaitingCollectionResponse = false;
 
 		if (response.status != RetrieveCurrencyFromNormStructureResponseProto.RetrieveCurrencyFromNormStructureStatus.SUCCESS)
 		{

@@ -191,7 +191,7 @@ public class MSClanPopup : MonoBehaviour
 	{
 		if (currMode == ClanPopupMode.DETAILS)
 		{
-			Debug.Log("Shifting back");
+//			Debug.Log("Shifting back");
 			mover.PlayReverse();
 			backButton.FadeOutAndOff();
 			currMode = ClanPopupMode.BROWSE;

@@ -123,7 +123,7 @@ public class MSClanHelpManager : MonoBehaviour {
 			{
 				if(listing.stillHelpable)
 				{
-					Debug.Log("playerID: " + userList.Key + " " + listing.ToString());
+//					Debug.Log("playerID: " + userList.Key + " " + listing.ToString());
 					helpable++;
 				}
 			}
@@ -198,7 +198,7 @@ public class MSClanHelpManager : MonoBehaviour {
 			screenListings.Add(proto.mup.userUuid,new List<MSClanHelpListing>());
 		}
 		newListing.Init(proto);
-		Debug.LogWarning(proto.mup.userUuid + " adding new listing");
+//		Debug.LogWarning(proto.mup.userUuid + " adding new listing");
 		screenListings[proto.mup.userUuid].Add(newListing);
 		helpScreen.grid.animateSmoothly = animate;
 		helpScreen.grid.Reposition();

@@ -227,7 +227,7 @@ public class TCKControlManager : MonoBehaviour
 		}
 		if (touches.Count > 1)
 		{
-			Debug.Log("Multi");
+//			Debug.Log("Multi");
 			UpdateMultiTouch(touches.Count);
 		}
 		else 

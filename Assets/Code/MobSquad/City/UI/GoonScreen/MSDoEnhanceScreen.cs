@@ -375,7 +375,7 @@ public class MSDoEnhanceScreen : MSFunctionalScreen {
 		{
 			currTime += Time.deltaTime;
 			angle = Mathf.Lerp(startAngle, spinFinalAngle, spinCurve.Evaluate (currTime/time));
-			Debug.Log("Angle: " + angle);
+//			Debug.Log("Angle: " + angle);
 			card.transform.localPosition = MSMath.DirectionFromEuler(angle) * Mathf.Lerp(startDistance, 0, spinCurve.Evaluate(currTime/time));
 			card.transform.localScale = Vector3.Lerp(startScale, Vector3.zero, spinCurve.Evaluate(currTime/time));
 			yield return null;

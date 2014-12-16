@@ -28,8 +28,20 @@ public class MSGenericPopup : MonoBehaviour {
 
 	[SerializeField]
 	UISprite background;
+
+	[SerializeField]
+	Vector3 lastScale = Vector3.zero;
 	
 	const float BUTTON_WIDTH = 190;
+
+	void Update()
+	{
+		if (background.transform.localScale != lastScale)
+		{
+			background.UpdateAnchors();
+		}
+		lastScale = background.transform.localScale;
+	}
 	
 	/// <summary>
 	/// Init the specified message.
@@ -74,6 +86,7 @@ public class MSGenericPopup : MonoBehaviour {
 			buttons[i].onClick = buttonActions[i];
 			buttons[i].GetComponent<MSWaitButton>().Init(null);
 			buttons[i].button.normalSprite = buttonSprites[i];
+			buttons[i].transform.localScale = Vector3.one;
 		}
 		for (; i < buttons.Length; i++) 
 		{
@@ -101,6 +114,7 @@ public class MSGenericPopup : MonoBehaviour {
 			buttons[i].onClick = null;
 			buttons[i].button.normalSprite = buttonSprites[i];
 			buttons[i].GetComponent<MSWaitButton>().Init(waitActions[i]);
+			buttons[i].transform.localScale = Vector3.one;
 		}
 		for (; i < buttons.Length; i++) 
 		{

@@ -129,7 +129,7 @@ public class MSObstacle : MonoBehaviour {
 		}
 
 		endTime = MSUtil.timeNowMillis + obstacle.secondsToRemove * 1000;
-		Debug.Log("Start remove");
+		//Debug.Log("Start remove");
 		StartCoroutine(Check ());
 		
 		request.sender = MSWhiteboard.localMup;

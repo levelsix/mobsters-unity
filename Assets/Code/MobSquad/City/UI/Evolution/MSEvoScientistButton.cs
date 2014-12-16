@@ -42,7 +42,7 @@ public class MSEvoScientistButton : MonoBehaviour {
 
 	void OnClick()
 	{
-		Debug.Log("Clicked on a scientist");
+//		Debug.Log("Clicked on a scientist");
 		numbers.Init(scientistIds);
 		numbers.name = orderId + " 2 Numbers";
 		table.Reposition();

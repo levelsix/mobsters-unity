@@ -118,7 +118,7 @@ public class MSQuestCompletePopup : MonoBehaviour {
 			questName.text = "Text Test But Butt";
 		}
 
-		Debug.Log("Prizes:\nXP: " + xp + "\nCash: " + cash + "\nOil: " + oil + "\nGems: " + gem + "\nMonster: " + monsterId);
+//		Debug.Log("Prizes:\nXP: " + xp + "\nCash: " + cash + "\nOil: " + oil + "\nGems: " + gem + "\nMonster: " + monsterId);
 
 		InitObjects ();
 

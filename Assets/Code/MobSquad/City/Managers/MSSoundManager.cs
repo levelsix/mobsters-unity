@@ -159,7 +159,7 @@ public class MSSoundManager : MonoBehaviour {
 	{
 		if (playSounds)
 		{
-			Debug.Log("Playing sound: " + clip.name);
+//			Debug.Log("Playing sound: " + clip.name);
 			basicSource.PlayOneShot(clip);
 		}
 	}

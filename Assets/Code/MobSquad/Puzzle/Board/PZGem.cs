@@ -95,7 +95,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 					sprite.spriteName = baseSprite + "orb";
 					break;
 				case GemType.CAKE:
-					Debug.Log("Baking cake");
+//					Debug.Log("Baking cake");
 					sprite.spriteName = "cakeorb";
 					break;
 				case GemType.HORIZONTAL_ROCKET:
@@ -111,7 +111,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 					bombTimerLabel.gameObject.SetActive(true);
 					break;
 				case GemType.POISON:
-					Debug.Log("Made Poison!");
+//					Debug.Log("Made Poison!");
 					sprite.spriteName = baseSprite + "poison";
 					break;
 			}
@@ -255,7 +255,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 			PZPuzzleManager.instance.board[boardX, boardY] = this;
 		}catch (System.IndexOutOfRangeException e)
 		{
-			Debug.Log("RAWB: " + e.ToString() + "\n" + boardX + ", " + boardY);
+//			Debug.Log("RAWB: " + e.ToString() + "\n" + boardX + ", " + boardY);
 		}
 	}
 
@@ -501,16 +501,16 @@ public class PZGem : MonoBehaviour, MSPoolable {
 	{
 		switch (gemType) {
 		case GemType.ROCKET:
-			Debug.LogWarning("Detonating Rocket: " + boardX + ", " + boardY);
+//			Debug.LogWarning("Detonating Rocket: " + boardX + ", " + boardY);
 			MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.rocket);
 			PZPuzzleManager.instance.DetonateRocket(this);
 			break;
 		case GemType.MOLOTOV:
-			Debug.LogWarning("Detonating Molly: " + boardX + ", " + boardY);
+//			Debug.LogWarning("Detonating Molly: " + boardX + ", " + boardY);
 			PZPuzzleManager.instance.DetonateMolotovFromSwap(this, this);
 			break;
 		case GemType.GRENADE:
-			Debug.LogWarning("Detonating Bomb: " + boardX + ", " + boardY);
+//			Debug.LogWarning("Detonating Bomb: " + boardX + ", " + boardY);
 			PZPuzzleManager.instance.GetGrenadeMatch(this).Destroy();
 			break;
 		default:
@@ -874,7 +874,7 @@ public class PZGem : MonoBehaviour, MSPoolable {
 
 	void HijackCake()
 	{
-		Debug.Log("Releasing hijack");
+//		Debug.Log("Releasing hijack");
 		hijackCake = false;
 	}
 

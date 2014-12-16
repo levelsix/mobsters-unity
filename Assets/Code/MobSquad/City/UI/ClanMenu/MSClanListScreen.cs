@@ -80,7 +80,7 @@ public class MSClanListScreen : MonoBehaviour {
 		}
 		loading.SetActive(false);
 
-		Debug.Log("Clans: " + entryGrid.transform.childCount);
+//		Debug.Log("Clans: " + entryGrid.transform.childCount);
 		entryGrid.Reposition();
 
 		clansSearched = true;

@@ -89,7 +89,7 @@ public class MSTaskBar : MonoBehaviour {
 		else
 		{
 			bottomChat.Unhide();
-			taskButtons.Clear();
+			MoveButtons();
 		}
 	}
 	
@@ -141,6 +141,7 @@ public class MSTaskBar : MonoBehaviour {
 			item.trans.localScale = Vector3.one;
 		}
 
+		Debug.Log("Sorting " + taskButtonGrid.GetChildList().size + " buttons");
 		taskButtonGrid.Reposition();
 
 		for (int i = 0; i < taskButtons.Count; i++) 
@@ -173,6 +174,7 @@ public class MSTaskBar : MonoBehaviour {
 				{
 					AddButton(MSTaskButton.Mode.UPGRADE);
 				} 
+
 				if (building.combinedProto.structInfo.structType == com.lvl6.proto.StructureInfoProto.StructType.MINI_JOB
 				         && building.combinedProto.structInfo.level > 0)
 				{
@@ -187,7 +189,7 @@ public class MSTaskBar : MonoBehaviour {
 				{
 					AddButton(MSTaskButton.Mode.EVOLVE);
 				}
-				if (building.hospital != null)
+				else if (building.hospital != null)
 				{
 					AddButton(MSTaskButton.Mode.HEAL);
 				}
@@ -262,24 +264,5 @@ public class MSTaskBar : MonoBehaviour {
 
 			currBuilding = null;
 		}
-	}
-
-	IEnumerator TweenWhenOffScreen(MSBuilding building)
-	{
-		//Debug.Log("Da");
-		foreach (var item in taskButtons) 
-		{
-			while (item.tweeningOut)
-			{
-				yield return null;
-			}
-		}
-		while (tweenAlph.tweenFactor > 0)
-		{
-			yield return null;
-		}
-		taskButtons.Clear();
-		SetBuildingButtons(building);
-		tweenAlph.PlayForward();
 	}
 }

@@ -189,6 +189,15 @@ namespace com.lvl6.proto
       get { return _userTaskUuid; }
       set { _userTaskUuid = value; }
     }
+
+    private byte[] _clientState = null;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"clientState", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public byte[] clientState
+    {
+      get { return _clientState; }
+      set { _clientState = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

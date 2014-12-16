@@ -40,16 +40,19 @@ public class MSPopup : MonoBehaviour {
 	public virtual void Popup()
 	{
 		if (defaultInSound) MSSoundManager.instance.PlayOneShot (MSSoundManager.instance.defaultPopupIn);
+
 		gameObject.SetActive(true);
 		foreach (var item in outTweens) 
 		{
-			item.tweenFactor = 1;
+			item.enabled = false;
 		}
+		
 		foreach (var item in inTweens) 
 		{
-			item.ResetToBeginning();
+			item.Sample(0, true);
 			item.PlayForward();
 		}
+		
 		if (defaultIn)
 		{
 			MSPopupManager.instance.DefaultTweenIn(defaultTarget);
@@ -75,7 +78,7 @@ public class MSPopup : MonoBehaviour {
 		float maxDuration = 0;
 		foreach (var item in inTweens) 
 		{
-			item.tweenFactor = 1;
+			item.enabled = false;
 		}
 		foreach (var item in outTweens) 
 		{
@@ -98,5 +101,13 @@ public class MSPopup : MonoBehaviour {
 		{
 			gameObject.SetActive(false);
 		}
+	}
+
+	public override string ToString ()
+	{
+		return "MSPopup: " + name
+			+ "\nAt: " + transform.localPosition
+				+ "\nScale: " + transform.localScale
+				+ "\nRotation: " + transform.localRotation;
 	}
 }

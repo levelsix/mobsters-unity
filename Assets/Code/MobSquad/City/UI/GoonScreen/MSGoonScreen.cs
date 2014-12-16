@@ -68,7 +68,7 @@ public class MSGoonScreen : MonoBehaviour
 
 		if (currScreen >= screens.Length)
 		{
-			Debug.LogError("Da fuck you doin?");
+//			Debug.LogError("Da fuck you doin?");
 			return;
 		}
 
@@ -184,7 +184,7 @@ public class MSGoonScreen : MonoBehaviour
 		TweenPosition tp = TweenPosition.Begin(next.gameObject, .3f, Vector3.zero);
 		tp.onFinished.Clear();
 		tp = TweenPosition.Begin(curr.gameObject, .3f, new Vector3(SIZE, 0, 0));
-		tp.AddOnFinished(delegate{Debug.Log("Curr: " + curr.name);curr.gameObject.SetActive(false);});
+		tp.AddOnFinished(delegate{curr.gameObject.SetActive(false);});
 
 		if (doIcon)
 		{

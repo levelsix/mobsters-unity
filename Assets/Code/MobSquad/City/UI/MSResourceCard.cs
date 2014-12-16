@@ -111,7 +111,7 @@ public class MSResourceCard : MonoBehaviour {
 	IEnumerator Wat(){
 		while(button.normalSprite != BACK_IMAGE){
 			button.normalSprite = BACK_IMAGE;
-			Debug.Log(button.normalSprite + " = " + BACK_IMAGE);
+//			Debug.Log(button.normalSprite + " = " + BACK_IMAGE);
 			yield return null;
 		}
 	}
