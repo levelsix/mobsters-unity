@@ -35,8 +35,7 @@ public class MSHospitalQueue : MonoBehaviour
 	[SerializeField] 
 	UILabel levelLabel;
 
-	[SerializeField]
-	UIButton button;
+	public UIButton button;
 
 	[SerializeField]
 	TweenPosition tweenPos;

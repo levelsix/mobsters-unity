@@ -851,6 +851,7 @@ public class MSTutorialManager : MonoBehaviour
 		MSTaskButton healButton;
 		do
 		{
+			Debug.Log("Dafuq");
 			yield return null;
 			healButton = MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.HEAL);
 		}while(healButton == null);
@@ -868,7 +869,7 @@ public class MSTutorialManager : MonoBehaviour
 		TutorialUI.leftDialogue.RunPushOut();
 
 		//Finish the heal
-		yield return StartCoroutine(DoUIStep(TutorialUI.finishHealButton, 105, MSValues.Direction.NORTH));
+		yield return StartCoroutine(DoUIStep(MSHealScreen.instance.currQueue.button.gameObject, 105, MSValues.Direction.NORTH));
 
 		//Close the menu
 		yield return StartCoroutine(DoUIStep(TutorialUI.closeHealMenuButton, 50, MSValues.Direction.WEST));

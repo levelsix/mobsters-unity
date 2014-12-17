@@ -26,9 +26,9 @@ public class MSHospitalManager : MonoBehaviour {
 		get
 		{
 			long last = 0;
-			foreach (var item in healingMonsters) 
+			foreach (var item in hospitals) 
 			{
-				last = Math.Max(last, item.finishHealTimeMillis);
+				last = Math.Max(last, item.finishTime);
 			}
 			return last;
 		}
@@ -71,12 +71,15 @@ public class MSHospitalManager : MonoBehaviour {
 			{
 				if(help.helpType == GameActionType.HEAL)
 				{
-					foreach(PZMonster monster in healingMonsters)
+					foreach (var hospital in hospitals) 
 					{
-						if(monster.currActiveHelp.clanHelpUuid.Equals(help.clanHelpUuid))
+						foreach (var monster in hospital.healQueue) 
 						{
-							monster.currActiveHelp = help;
-							break;
+							if (monster.currActiveHelp.clanHelpUuid.Equals(help.clanHelpUuid))
+							{
+								monster.currActiveHelp = help;
+								break;
+							}
 						}
 					}
 				}
@@ -89,11 +92,14 @@ public class MSHospitalManager : MonoBehaviour {
 	{
 		if(self)
 		{
-			foreach(PZMonster monster in healingMonsters)
+			foreach (var hospital in hospitals) 
 			{
-				if(response.clanHelpUuids.Contains(monster.currActiveHelp.clanHelpUuid))
+				foreach (var monster in hospital.healQueue) 
 				{
-					monster.currActiveHelp = null;
+					if(response.clanHelpUuids.Contains(monster.currActiveHelp.clanHelpUuid))
+					{
+						monster.currActiveHelp = null;
+					}
 				}
 			}
 		}
@@ -239,18 +245,6 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 	}
 	
-	bool SomeMonsterFinishedHealing()
-	{
-		foreach (var item in MSHospitalManager.instance.healingMonsters) 
-		{
-			if (item.healTimeLeftMillis <= 0)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	void CheckHealingMonsters()
 	{
 		if (healRequestProto == null)
@@ -333,9 +327,8 @@ public class MSHospitalManager : MonoBehaviour {
 
 			if (response.status == HealMonsterResponseProto.HealMonsterStatus.SUCCESS)
 			{
-				while(healingMonsters.Count > 0)
-				{
-					CompleteHeal(healingMonsters[0]);
+				foreach (var item in healingMonsters) {
+					CompleteHeal(item);
 				}
 			}
 			else
@@ -346,9 +339,8 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 		else
 		{
-			while(MSHospitalManager.instance.healingMonsters.Count > 0)
-			{
-				CompleteHeal(MSHospitalManager.instance.healingMonsters[0]);
+			foreach (var item in healingMonsters) {
+				CompleteHeal(item);
 			}
 		}
 
@@ -641,14 +633,6 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 		monster.healingMonster.queuedTimeMillis = MSUtil.timeNowMillis;
 		
-	}
-	
-	void UpdateAllProgress()
-	{
-		foreach (var monster in MSHospitalManager.instance.healingMonsters) 
-		{
-			UpdateProgress(monster);
-		}
 	}
 	
 	/// <summary>

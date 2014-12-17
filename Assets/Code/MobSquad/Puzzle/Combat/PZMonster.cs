@@ -142,6 +142,8 @@ public class PZMonster {
 	{
 		get
 		{
+			if (MSTutorialManager.instance.inTutorial) return 60*4*1000;
+
 			return (long)(Mathf.Lerp(
 					baseLevelInfo.secsToFullyHeal,
 					maxLevelInfo.secsToFullyHeal,

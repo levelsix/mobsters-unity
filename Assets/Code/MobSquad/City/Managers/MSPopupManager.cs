@@ -123,7 +123,7 @@ public class MSPopupManager : MonoBehaviour {
 
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape) && !MSTutorialManager.instance.inTutorial)
+		if (Input.GetKeyDown(KeyCode.Escape))// && !MSTutorialManager.instance.inTutorial)
 		{
 			CloseTopLayer();
 		}
