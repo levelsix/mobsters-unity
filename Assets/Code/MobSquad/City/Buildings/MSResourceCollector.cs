@@ -55,7 +55,7 @@ public class MSResourceCollector : MonoBehaviour {
 			{ 
 				return 0;
 			}
-			return (int)Mathf.Min(_generator.productionRate * (secsSinceCollect/3600f) + overflow, _generator.capacity);
+			return (int)Mathf.Min(_generator.productionRate * (secsSinceCollect/3600f), _generator.capacity);
 		}
 	}
 
@@ -105,8 +105,6 @@ public class MSResourceCollector : MonoBehaviour {
     private MSBuildingUpgrade _upgrade;
 
 	public bool unblockClick = false;
-
-	int overflow = 0;
 
 	[SerializeField]
 	float unblockClickTime = 10f;
@@ -187,15 +185,9 @@ public class MSResourceCollector : MonoBehaviour {
 				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.collectOil);
 			}
 
-			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructUuid, _generator.productionRate);
-			if (MSActionManager.Quest.OnMoneyCollected != null)
-			{
-				MSActionManager.Quest.OnMoneyCollected(_generator.resourceType, currMoney);
-			}
-
 			if(_building != null){
 				MSResourceCollectLabel label = (MSPoolManager.instance.Get(_building.textLabel, Vector3.zero, _building.trans) as MSSimplePoolable).GetComponent<MSResourceCollectLabel>();
-				label.label.text = currMoney.ToString();
+				label.label.text = (currMoney - MSResourceManager.instance.GetOverFlow(_generator.resourceType, currMoney)).ToString() ;
 				if(_generator.resourceType == ResourceType.CASH){
 					label.setFontCash();
 				}else{
@@ -203,9 +195,14 @@ public class MSResourceCollector : MonoBehaviour {
 				}
 			}
 
-			overflow = MSResourceManager.instance.GetOverFlow(_generator.resourceType, currMoney);
-			_building.userStructProto.lastRetrieved = MSUtil.timeNowMillis;
-			if(canCollect)
+			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructUuid, _generator.productionRate);
+			if (MSActionManager.Quest.OnMoneyCollected != null)
+			{
+				MSActionManager.Quest.OnMoneyCollected(_generator.resourceType, currMoney);
+			}
+			
+			_building.userStructProto.lastRetrieved = MSUtil.timeNowMillis - (MSResourceManager.instance.GetOverFlow(_generator.resourceType, currMoney) * 60*60*1000);
+			if(hasMoney)
 			{
 				StartCoroutine(HideHoverIcon());
 			}
