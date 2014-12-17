@@ -351,7 +351,10 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	public void Pool ()
 	{
-		StartCoroutine(Exit());
+		if (gameObj.activeInHierarchy)
+		{
+			StartCoroutine(Exit());
+		}
 	}
 
 	void ClickRemove()

@@ -339,8 +339,10 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 		else
 		{
-			foreach (var item in healingMonsters) {
-				CompleteHeal(item);
+			foreach (var hospital in hospitals) {
+				while (hospital.healQueue.Count > 0) {
+					CompleteHeal(hospital.healQueue[0]);
+				}
 			}
 		}
 
@@ -349,14 +351,21 @@ public class MSHospitalManager : MonoBehaviour {
 	
 	void CompleteHeal(PZMonster monster)
 	{
-		UserMonsterCurrentHealthProto health = new UserMonsterCurrentHealthProto();
-		health.userMonsterUuid = monster.userMonster.userMonsterUuid;
-		health.currentHealth = monster.maxHP;
-		healRequestProto.umchp.Add (health);
+		if (!MSTutorialManager.instance.inTutorial)
+		{
+			UserMonsterCurrentHealthProto health = new UserMonsterCurrentHealthProto();
+			health.userMonsterUuid = monster.userMonster.userMonsterUuid;
+			health.currentHealth = monster.maxHP;
+			healRequestProto.umchp.Add (health);
 
-		monster.currHospital.RemoveToonFromQueue(monster);
-		monster.healingMonster = null;
-		monster.currHP = monster.maxHP;
+			monster.currHospital.RemoveToonFromQueue(monster);
+			monster.healingMonster = null;
+			monster.currHP = monster.maxHP;
+		}
+		else
+		{
+			hospitals[0].RemoveToonFromQueue(monster);
+		}
 
 		if (MSActionManager.Goon.OnMonsterRemoveQueue != null)
 		{

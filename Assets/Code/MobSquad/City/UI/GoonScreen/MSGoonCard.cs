@@ -950,6 +950,11 @@ public class MSGoonCard : MonoBehaviour {
 
 	}
 
+	public Coroutine DoPhaseOut()
+	{
+		return StartCoroutine(PhaseOut());
+	}
+
 	public IEnumerator PhaseOut()
 	{
 		transform.parent = transform.parent.parent;
