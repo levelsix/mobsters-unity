@@ -10,7 +10,7 @@ using System.Collections.Generic;
 /// </summary>
 public static class MSValues 
 {
-	public static float version = 1.0f;
+	public static float version = 1.2f;
 
 	public static string monsterName = "toon";
 
