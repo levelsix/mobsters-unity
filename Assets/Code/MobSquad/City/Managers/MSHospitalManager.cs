@@ -359,14 +359,14 @@ public class MSHospitalManager : MonoBehaviour {
 			healRequestProto.umchp.Add (health);
 
 			monster.currHospital.RemoveToonFromQueue(monster);
-			monster.healingMonster = null;
-			monster.currHP = monster.maxHP;
 		}
 		else
 		{
 			hospitals[0].RemoveToonFromQueue(monster);
 		}
-
+		monster.healingMonster = null;
+		monster.currHP = monster.maxHP;
+		
 		if (MSActionManager.Goon.OnMonsterRemoveQueue != null)
 		{
 			MSActionManager.Goon.OnMonsterRemoveQueue(monster);
@@ -774,7 +774,7 @@ public class MSHospitalManager : MonoBehaviour {
 
 	void Update()
 	{
-		if (initialized)
+		if (initialized || MSTutorialManager.instance.inTutorial)
 		{
 			CheckHealingMonsters();
 		}

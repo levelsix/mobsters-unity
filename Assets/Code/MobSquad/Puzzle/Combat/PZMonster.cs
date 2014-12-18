@@ -49,7 +49,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return healingMonster != null && !healingMonster.userMonsterUuid.Equals("");
+			return healingMonster != null && healingMonster.priority > 0;
 		}
 	}
 
@@ -142,7 +142,7 @@ public class PZMonster {
 	{
 		get
 		{
-			if (MSTutorialManager.instance.inTutorial) return 60*4*1000;
+			if (MSTutorialManager.instance.inTutorial) return baseLevelInfo.secsToFullyHeal * 1000;
 
 			return (long)(Mathf.Lerp(
 					baseLevelInfo.secsToFullyHeal,
@@ -160,25 +160,8 @@ public class PZMonster {
 			{
 				return 1;
 			}
-			float progress = healingMonster.healthProgress / totalHealthToHeal;
-			for (int i = 0; i < hospitalTimes.Count; i++) {
-				HospitalTime hosTime = hospitalTimes[i];
-				if (hosTime.startTime <= MSUtil.timeNowMillis)
-				{
-					if (i < hospitalTimes.Count-1 && hospitalTimes[i].startTime < MSUtil.timeNowMillis)
-					{
-						progress += ((hospitalTimes[i].startTime - hosTime.startTime) / 1000
-						             * hosTime.hospital.proto.healthPerSecond) / totalHealthToHeal;
-					}
-					else
-					{
-						progress += ((MSUtil.timeNowMillis - hosTime.startTime) / 1000
-						             * hosTime.hospital.proto.healthPerSecond) / totalHealthToHeal;
-					}
-				}
-			}
-			//Debug.Log("Progress: " + progress);
-			return progress;
+
+			return 1-((float)healTimeLeftMillis) / timeToHealMillis;
 		}
 	}
 	

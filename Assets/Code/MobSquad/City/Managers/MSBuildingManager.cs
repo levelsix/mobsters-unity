@@ -1466,10 +1466,10 @@ public class MSBuildingManager : MonoBehaviour
 	{
 		foreach (var item in MSMonsterManager.instance.userTeam) 
 		{
-			if (item != null && item.monster != null && item.monster.monsterId > 0)
+			if (item != null && item.monster != null && item.monster.monsterId > 0 && item.userMonster != null && !item.userMonster.userMonsterUuid.Equals(""))
 			{
 				//monster.userMonster.userMonsterUuid
-				if(_playerUnits.ContainsKey(item.userMonster.userMonsterUuid))
+				if( _playerUnits.ContainsKey(item.userMonster.userMonsterUuid))
 				{
 					if(item.isHealing)
 					{

@@ -128,8 +128,8 @@ public class MSHospital {
 	{
 		toon.healingMonster.userHospitalStructUuid = building.userStructProto.userStructUuid;
 		toon.healingMonster.queuedTimeMillis = finishTime;
-		toon.healingMonster.priority = healQueue.Count;
 		healQueue.Add(toon);
+		toon.healingMonster.priority = healQueue.Count;
 		SetGoon();
 	}
 
@@ -153,7 +153,7 @@ public class MSHospital {
 				healQueue[i].healingMonster.queuedTimeMillis = healQueue[i-1].finishHealTimeMillis;
 				break;
 			}
-			healQueue[i].healingMonster.priority = i;
+			healQueue[i].healingMonster.priority = i+1;
 			MSHospitalManager.instance.MobsterUpdated(healQueue[i]);
 		}
 	}
