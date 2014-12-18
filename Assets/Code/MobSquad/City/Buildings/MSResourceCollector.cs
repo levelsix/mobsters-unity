@@ -185,15 +185,9 @@ public class MSResourceCollector : MonoBehaviour {
 				MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.collectOil);
 			}
 
-			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructUuid);
-			if (MSActionManager.Quest.OnMoneyCollected != null)
-			{
-				MSActionManager.Quest.OnMoneyCollected(_generator.resourceType, currMoney);
-			}
-
 			if(_building != null){
 				MSResourceCollectLabel label = (MSPoolManager.instance.Get(_building.textLabel, Vector3.zero, _building.trans) as MSSimplePoolable).GetComponent<MSResourceCollectLabel>();
-				label.label.text = currMoney.ToString();
+				label.label.text = (currMoney - MSResourceManager.instance.GetOverFlow(_generator.resourceType, currMoney)).ToString() ;
 				if(_generator.resourceType == ResourceType.CASH){
 					label.setFontCash();
 				}else{
@@ -201,8 +195,21 @@ public class MSResourceCollector : MonoBehaviour {
 				}
 			}
 
-			_building.userStructProto.lastRetrieved = MSUtil.timeNowMillis;
-			_building.hoverIcon.gameObject.SetActive(false); 
+			MSResourceManager.instance.CollectFromBuilding(_generator.resourceType, currMoney, _building.userStructProto.userStructUuid, _generator.productionRate);
+			if (MSActionManager.Quest.OnMoneyCollected != null)
+			{
+				MSActionManager.Quest.OnMoneyCollected(_generator.resourceType, currMoney);
+			}
+			
+			_building.userStructProto.lastRetrieved = MSUtil.timeNowMillis - (MSResourceManager.instance.GetOverFlow(_generator.resourceType, currMoney) * 60*60*1000);
+			if(hasMoney)
+			{
+				StartCoroutine(HideHoverIcon());
+			}
+			else
+			{
+				_building.hoverIcon.gameObject.SetActive(false); 
+			}
 			
 			if (MSActionManager.Town.OnCollectFromBuilding != null)
 			{

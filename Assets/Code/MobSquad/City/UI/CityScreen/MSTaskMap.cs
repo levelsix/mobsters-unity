@@ -175,11 +175,6 @@ public class MSTaskMap : MonoBehaviour {
 		avatar.MoveToNewTask(taskButtons[10]);
 	}
 
-	void Update()
-	{
-		Debug.Log(trans.position);
-	}
-
 	//commented out as we move events off the map
 //	public void OnClick()
 //	{

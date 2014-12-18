@@ -5,18 +5,18 @@ public class MSResidence : MSBuildingFrame {
 
 	void OnEnable(){
 		MSActionManager.Goon.OnMonsterListChanged += CheckTag;
+		MSActionManager.Gacha.OnPurchaseBoosterSucces += CheckTag;
 		FirstFrameCheck();
 	}
 
 	public override void CheckTag(){
 		bubbleIcon.gameObject.SetActive(false);
 
-		if (MSMonsterManager.monstersOwned > MSMonsterManager.instance.totalResidenceSlots && Precheck()) {
+		if (MSMonsterManager.instance.userMonsters.Count > MSMonsterManager.instance.totalResidenceSlots && Precheck()) {
 			bubbleIcon.gameObject.SetActive(true);
-
-			if(MSMonsterManager.monstersOwned - MSMonsterManager.instance.totalResidenceSlots <= 9)
+			if(MSMonsterManager.instance.userMonsters.Count - MSMonsterManager.instance.totalResidenceSlots <= 9)
 			{
-				bubbleIcon.spriteName = "sellbubble" + (MSMonsterManager.monstersOwned - MSMonsterManager.instance.totalResidenceSlots);
+				bubbleIcon.spriteName = "sellbubble" + (MSMonsterManager.instance.userMonsters.Count - MSMonsterManager.instance.totalResidenceSlots);
 			}
 			else
 			{

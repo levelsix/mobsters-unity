@@ -220,6 +220,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSActionManager.UI.OnChangeResource[ResourceType.OIL] += DistributeOil;
 		MSActionManager.Goon.OnMonsterAddTeam += OnAddTeam;
 		MSActionManager.Goon.OnMonsterRemoveTeam += OnRemoveTeam;
+		MSActionManager.Goon.OnHealQueueChanged += OnHealQueueChanged;
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory += OnMonsterRemovedFromPlayerInventory;
 		MSActionManager.Scene.OnCity += UpdateDistribution;
 	}
@@ -240,6 +241,7 @@ public class MSBuildingManager : MonoBehaviour
 		MSActionManager.UI.OnChangeResource[ResourceType.OIL] -= DistributeOil;
 		MSActionManager.Goon.OnMonsterAddTeam -= OnAddTeam;
 		MSActionManager.Goon.OnMonsterRemoveTeam -= OnRemoveTeam;
+		MSActionManager.Goon.OnHealQueueChanged -= OnHealQueueChanged;
 		MSActionManager.Goon.OnMonsterRemovedFromPlayerInventory -= OnMonsterRemovedFromPlayerInventory;
 		MSActionManager.Scene.OnCity -= UpdateDistribution;
 	}
@@ -1458,6 +1460,28 @@ public class MSBuildingManager : MonoBehaviour
 
 	void OnRemoveTeam(PZMonster monster){
 			RemoveMonsterFromScene (monster, _playerUnits);
+	}
+
+	void OnHealQueueChanged()
+	{
+		foreach (var item in MSMonsterManager.instance.userTeam) 
+		{
+			if (item != null && item.monster != null && item.monster.monsterId > 0)
+			{
+				//monster.userMonster.userMonsterUuid
+				if(_playerUnits.ContainsKey(item.userMonster.userMonsterUuid))
+				{
+					if(item.isHealing)
+					{
+						_playerUnits[item.userMonster.userMonsterUuid].gameObject.SetActive(false);
+					}
+					else
+					{
+						_playerUnits[item.userMonster.userMonsterUuid].gameObject.SetActive(true);
+					}
+				}
+			}
+		}
 	}
 
 	void OnMonsterRemovedFromPlayerInventory(string monsterID){
