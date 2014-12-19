@@ -34,7 +34,7 @@ public class MSMobsterIcon : MonoBehaviour
 		else
 		{
 			bgSprite.spriteName = MSGoonCard.smallBackgrounds[monster.monsterElement];
-			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumb);
+			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Card", thumb);
 		}
 	}
 

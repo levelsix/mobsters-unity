@@ -26,7 +26,7 @@ public class MSMiniJobGoonPortrait : MonoBehaviour {
 	{
 		this.monster = monster;
 
-		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", goon);
+		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Card", goon, 1, delegate{ MSSpriteUtil.instance.FitIn(goon, bg); });
 
 		bg.spriteName = MSMiniGoonBox.elementBackgrounds[monster.monster.monsterElement];
 	}

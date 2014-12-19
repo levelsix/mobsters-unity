@@ -261,7 +261,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40.8709106, y: 8, z: 0}
+  m_LocalPosition: {x: -40.8104248, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -273,7 +273,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.1290894, y: 8, z: 0}
+  m_LocalPosition: {x: 44.1895142, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -285,7 +285,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -59.3708992, y: 8, z: 0}
+  m_LocalPosition: {x: -59.3104477, y: 8, z: 0}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -297,7 +297,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 513, y: 0, z: 0}
+  m_LocalPosition: {x: 545, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400022}
@@ -345,7 +345,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 696.980713, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -367,6 +367,7 @@ MonoBehaviour:
   elementSprite: {fileID: 11400014}
   topLabel: {fileID: 11400022}
   thumbNail: {fileID: 11400018}
+  border: {fileID: 11400020}
   bottomLabel: {fileID: 11400024}
   level: {fileID: 11400012}
   topPos: {fileID: 11400002}
@@ -769,19 +770,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 2
   aspectRatio: .818181813
+  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
+  mSpriteName: earthorb
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
+  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
-  mSpriteName: earthorb
-  mFillCenter: 1
 --- !u!114 &11400016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -892,23 +893,11 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
-  mType: 0
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
-  mFlip: 0
-  centerType: 1
-  leftType: 1
-  rightType: 1
-  bottomType: 1
-  topType: 1
   mSprite: {fileID: 21300002, guid: 49048e774da6048a683068ae4d06db71, type: 3}
   mMat: {fileID: 0}
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
-  mBorder: {x: 0, y: 0, z: 0, w: 0}
-  mFixedAspect: 0
-  mPixelSize: 1
   nextSprite: {fileID: 0}
+  fillAmount: 1
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -946,19 +935,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
+  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
+  mSpriteName: currentborder
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
+  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
-  mSpriteName: currentborder
-  mFillCenter: 1
 --- !u!114 &11400022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1052,7 +1041,7 @@ MonoBehaviour:
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 3
   mWidth: 74
-  mHeight: 26
+  mHeight: 31
   mDepth: 12
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -1145,42 +1134,42 @@ MonoBehaviour:
   leftAnchor:
     target: {fileID: 0}
     relative: 0
-    absolute: -5
+    absolute: -7
   rightAnchor:
     target: {fileID: 0}
     relative: 1
-    absolute: 5
+    absolute: 3
   bottomAnchor:
     target: {fileID: 0}
     relative: 0
-    absolute: -5
+    absolute: -10
   topAnchor:
     target: {fileID: 0}
     relative: 1
-    absolute: 5
+    absolute: 0
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 0}
   mPivot: 4
-  mWidth: 1035
+  mWidth: 1104
   mHeight: 652
   mDepth: 11
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.58742332
+  aspectRatio: 1.69325149
+  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
+  mSpriteName: blackcolormask
   mType: 1
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
+  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
-  mSpriteName: blackcolormask
-  mFillCenter: 1
 --- !u!114 &11400030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1256,19 +1245,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 2.71428561
+  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
+  mSpriteName: battleultratag
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
+  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
-  mSpriteName: battleultratag
-  mFillCenter: 1
 --- !u!114 &11400034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1306,19 +1295,19 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
+  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
+  mSpriteName: youwonitembg
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
+  mFillCenter: 1
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: ab7178cb24a9b45b7906df32523439c1, type: 2}
-  mSpriteName: youwonitembg
-  mFillCenter: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

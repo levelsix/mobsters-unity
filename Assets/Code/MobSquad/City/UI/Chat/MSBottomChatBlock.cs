@@ -111,6 +111,7 @@ public class MSBottomChatBlock : MonoBehaviour {
 
 	void OnStartup(StartupResponseProto response)
 	{
+		noChatLabel.fontSize = 22;
 		switch(chatMode)
 		{
 		case MSValues.ChatMode.GLOBAL:

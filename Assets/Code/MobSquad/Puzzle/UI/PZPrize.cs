@@ -139,7 +139,7 @@ public class PZPrize : MonoBehaviour {
 		{
 			pieceLabel.alpha = 1f;
 		}
-		MSSpriteUtil.instance.SetSprite(monster.imagePrefix,monster.imagePrefix+"Thumbnail",sprite2D);
+		MSSpriteUtil.instance.SetSprite(monster.imagePrefix,monster.imagePrefix+"Card",sprite2D);
 		sprite2D.MakePixelPerfect();
 		sprite2D.depth = icon.depth + 1;
 		rarityTag.alpha = 1f;
