@@ -232,7 +232,7 @@ public class MSTaskBar : MonoBehaviour {
 
 		if (building.combinedProto != null)
 		{
-			topText.text = building.name;
+			topText.text = building.name + " (LVL " + building.combinedProto.structInfo.level + ")";
 		}
 		else if (building.obstacle != null)
 		{

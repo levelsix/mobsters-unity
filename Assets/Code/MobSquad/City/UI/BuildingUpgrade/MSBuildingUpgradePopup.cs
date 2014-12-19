@@ -118,8 +118,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	static readonly Color cashTextColor = new Color(.353f, .491f, .027f);
 	static readonly Color oilTextColor = new Color(.776f, .533f, 0);
 
-	const int MAX_IMAGE_WIDTH = 220;
-	const int MAX_IMAGE_HEIGHT = 220;
+	[SerializeField] UIWidget buildingSpriteZone;
 	
 	MSBuilding currBuilding;
 	
@@ -146,9 +145,10 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 				poolable.Pool();
 			}
 		}
+	}
 
-		bottomBar.transform.parent.gameObject.SetActive(true);
-		townHallUpgradeUI.gameObject.SetActive(false);
+	void OnDisable()
+	{
 	}
 
 	IEnumerator WaitUntilFinish()
@@ -169,7 +169,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		if (MSBuildingManager.instance.currentUnderConstruction != null)
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",
-			                                    "Speed him up for (G) " + 
+			                                    "Speed him up for (G)  " + 
 			                                        MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime, true)
 			                                        + " and upgrade this building?",
                 new string[]{"Cancel", "Speed Up"},
@@ -266,17 +266,18 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		if (nextBuilding != null)
 		{
 				
-			header.text = "Upgrade to level " + nextBuilding.structInfo.level + "?";
+			header.text = "Upgrade to Level " + nextBuilding.structInfo.level + "?";
 			
 			upgradeTime.text = MSUtil.TimeStringLong(nextBuilding.structInfo.minutesToBuild * 60000);
 			
 			currResource = nextBuilding.structInfo.buildResourceType;
 			
-			currCost = (int) (nextBuilding.structInfo.buildCost);
+			currCost = nextBuilding.structInfo.buildCost;
 
 			upgradeButton.button.normalSprite = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? cashButtonName : oilButtonName);
-			upgradeButton.label.text = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? "$" : "(o) ") + currCost.ToString();
+			upgradeButton.label.text = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? "(c)  " : "(o) ") + string.Format("{0:n0}", currCost);
 			upgradeButton.label.color = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? cashTextColor : oilTextColor);
+			upgradeButton.label.symbolScale = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? 1.25f : 1.5f);
 
 			Sprite sprite = MSSpriteUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
 			buildingSprite.sprite2D = sprite;
@@ -285,19 +286,20 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			{
 				buildingSprite.width = (int)sprite.textureRect.width;
 				buildingSprite.height = (int)sprite.textureRect.height;
+				MSSpriteUtil.instance.FitIn(buildingSprite, buildingSpriteZone);
 
-				if(buildingSprite.width > MAX_IMAGE_WIDTH)
-				{
-					float newHeight = ((float)buildingSprite.height/(float)buildingSprite.width) * (float)MAX_IMAGE_WIDTH;
-					buildingSprite.width = MAX_IMAGE_WIDTH;
-					buildingSprite.height = (int)newHeight;
-				}
-				if(buildingSprite.height > MAX_IMAGE_HEIGHT)
-				{
-					float newWidth = ((float)buildingSprite.width/(float)buildingSprite.height) * (float)MAX_IMAGE_HEIGHT;
-					buildingSprite.height = MAX_IMAGE_HEIGHT;
-					buildingSprite.width = (int)newWidth;
-				}
+//				if(buildingSprite.width > MAX_IMAGE_WIDTH)
+//				{
+//					float newHeight = ((float)buildingSprite.height/(float)buildingSprite.width) * (float)MAX_IMAGE_WIDTH;
+//					buildingSprite.width = MAX_IMAGE_WIDTH;
+//					buildingSprite.height = (int)newHeight;
+//				}
+//				if(buildingSprite.height > MAX_IMAGE_HEIGHT)
+//				{
+//					float newWidth = ((float)buildingSprite.width/(float)buildingSprite.height) * (float)MAX_IMAGE_HEIGHT;
+//					buildingSprite.height = MAX_IMAGE_HEIGHT;
+//					buildingSprite.width = (int)newWidth;
+//				}
 
 				buildingSprite.MarkAsChanged();
 			}
@@ -312,6 +314,10 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 	void SetBuildingBarInfo (MSBuilding building, MSFullBuildingProto oldBuilding, MSFullBuildingProto nextBuilding)
 	{
+		
+		bottomBar.transform.parent.gameObject.SetActive(true);
+		townHallUpgradeUI.gameObject.SetActive(false);
+
 		MSFullBuildingProto max = nextBuilding.maxLevel;
 
 		switch (building.combinedProto.structInfo.structType) {
@@ -387,7 +393,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			break;
 		case StructureInfoProto.StructType.TOWN_HALL:
 			InitTownHallGrid(oldBuilding, nextBuilding);
-			townHallLabel.text = "Level " + nextBuilding.structInfo.level + " Command Center unlocks";
+			townHallLabel.text = "Level " + nextBuilding.structInfo.level + " Command Center Unlocks";
 			bottomBar.transform.parent.gameObject.SetActive(false);
 			break;
 		case StructureInfoProto.StructType.MINI_JOB:

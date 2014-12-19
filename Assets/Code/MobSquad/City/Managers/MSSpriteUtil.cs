@@ -378,8 +378,11 @@ public class MSSpriteUtil : MonoBehaviour {
 			ratio = (inThis.width-border)/((float)fitThis.width);
 		}
 
-		fitThis.height = Mathf.FloorToInt(fitThis.height * ratio);
-		fitThis.width = Mathf.FloorToInt(fitThis.width * ratio);
+		if (ratio < 1)
+		{
+			fitThis.height = Mathf.FloorToInt(fitThis.height * ratio);
+			fitThis.width = Mathf.FloorToInt(fitThis.width * ratio);
+		}
 	}
 
 	[ContextMenu ("Clean Cache")]

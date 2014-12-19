@@ -41,6 +41,8 @@ public class MSBuildingPrereqEntry : MonoBehaviour {
 			goButton.SetActive(true);
 		}
 
+		completionSymbol.MakePixelPerfect();
+
 		label.text = "LVL " + building.structInfo.level + " " + building.structInfo.name;
 		if (quantity > 1) label.text = quantity + " " + label.text;
 	}

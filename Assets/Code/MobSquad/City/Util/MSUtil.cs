@@ -63,37 +63,37 @@ public static class MSUtil {
 		time /= 1000;
 		if (time > SECS_PER_DAY)
 		{
-			string str = (time / SECS_PER_DAY) + "d";
+			string str = (time / SECS_PER_DAY) + "D";
 			long hours = ((time % SECS_PER_DAY) / SECS_PER_HOUR);
 			if (hours > 0)
 			{
-				str += " " + hours + "h";
+				str += " " + hours + "H";
 			}
 			return str;
 		}
 		else if (time > SECS_PER_HOUR)
 		{
-			string str = (time / SECS_PER_HOUR) + "h";
+			string str = (time / SECS_PER_HOUR) + "H";
 			long min = ((time % SECS_PER_HOUR) / SECS_PER_MIN);
 			if (min > 0)
 			{
-				str += " " + min + "m";
+				str += " " + min + "M";
 			}
 			return str;
 		}
 		else if (time > SECS_PER_MIN)
 		{
-			string str = (time / SECS_PER_MIN) + "m";
+			string str = (time / SECS_PER_MIN) + "M";
 			long sec = (time % SECS_PER_MIN);
 			if (sec > 0)
 			{
-				str += " " + sec + "s";
+				str += " " + sec + "S";
 			}
 			return str;
 		}
 		else
 		{
-			return time + "s";
+			return time + "S";
 		}
 	}
 	
@@ -118,18 +118,18 @@ public static class MSUtil {
 		{
 			string str = "";
 			long days = (time / SECS_PER_DAY);
-			str += days + " day";
+			str += days + " DAY";
 			if (days > 1)
 			{
-				str += "s";
+				str += "S";
 			}
 			long hours = ((time % SECS_PER_DAY) / SECS_PER_HOUR);
 			if (hours > 0)
 			{
-				str += " " + hours + " hr";
+				str += " " + hours + " HR";
 				if (hours > 1)
 				{
-					str += "s";
+					str += "S";
 				}
 			}
 			return str;
@@ -138,15 +138,15 @@ public static class MSUtil {
 		{
 			string str = "";
 			long hours = (time / SECS_PER_HOUR);
-			str += hours + " hr";
+			str += hours + " HR";
 			if (hours > 1)
 			{
-				str += "s";
+				str += "S";
 			}
 			long min = ((time % SECS_PER_HOUR) / SECS_PER_MIN);
 			if (min > 0)
 			{
-				str += " " + min + " min";
+				str += " " + min + " MIN";
 			}
 			return str;
 		}
@@ -154,17 +154,17 @@ public static class MSUtil {
 		{
 			string str = "";
 			long min = (time / SECS_PER_MIN);
-			str += min + " min";
+			str += min + " MIN";
 			long sec = (time % SECS_PER_MIN);
 			if (sec > 0)
 			{
-				str += " " + sec + " sec";
+				str += " " + sec + " SEC";
 			}
 			return str;
 		}
 		else
 		{
-			return time + " sec";
+			return time + " SEC";
 		}
 	}
 
@@ -189,10 +189,10 @@ public static class MSUtil {
 		{
 			string str = "";
 			long days = (time / SECS_PER_DAY);
-			str += days + " day";
+			str += days + " DAY";
 			if (days > 1)
 			{
-				str += "s";
+				str += "S";
 			}
 			if (onlyOne)
 			{
@@ -201,10 +201,10 @@ public static class MSUtil {
 			long hours = ((time % SECS_PER_DAY) / SECS_PER_HOUR);
 			if (hours > 0)
 			{
-				str += " " + hours + " hour";
+				str += " " + hours + " HOUR";
 				if (hours > 1)
 				{
-					str += "s";
+					str += "S";
 				}
 			}
 			return str;
@@ -213,10 +213,10 @@ public static class MSUtil {
 		{
 			string str = "";
 			long hours = (time / SECS_PER_HOUR);
-			str += hours + " hour";
+			str += hours + " HOUR";
 			if (hours > 1)
 			{
-				str += "s";
+				str += "S";
 			}
 			if (onlyOne)
 			{
@@ -225,10 +225,10 @@ public static class MSUtil {
 			long min = ((time % SECS_PER_HOUR) / SECS_PER_MIN);
 			if (min > 0)
 			{
-				str += " " + min + " minute";
+				str += " " + min + " MINUTE";
 				if (min > 1)
 				{
-					str += "s";
+					str += "S";
 				}
 			}
 			return str;
@@ -237,10 +237,10 @@ public static class MSUtil {
 		{
 			string str = "";
 			long min = (time / SECS_PER_MIN);
-			str += min + " minute";
+			str += min + " MINUTE";
 			if (min > 1)
 			{
-				str += "s";
+				str += "S";
 			}
 			if (onlyOne)
 			{
@@ -249,10 +249,10 @@ public static class MSUtil {
 			long sec = (time % SECS_PER_MIN);
 			if (sec > 0)
 			{
-				str += " " + sec + " second";
+				str += " " + sec + " SECOND";
 				if (sec > 1)
 				{
-					str += "s";
+					str += "S";
 				}
 			}
 			return str;
@@ -261,9 +261,9 @@ public static class MSUtil {
 		{
 			if (time != 1)
 			{
-				return time + " seconds";
+				return time + " SECONDS";
 			}
-			return time + " second";
+			return time + " SECOND";
 		}
 	}
 	
