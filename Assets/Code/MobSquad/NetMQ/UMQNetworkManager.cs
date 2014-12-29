@@ -380,7 +380,7 @@ public class UMQNetworkManager : MonoBehaviour {
 #else
 		IBasicProperties properties = channel.CreateBasicProperties();
 		properties.SetPersistent(true);
-		channel.BasicPublish(directExchangeName, "messagesFromPlayers", properties, message);
+		channel.BasicPublish(directExchangeName, "messagesFromPlayers1.1", properties, message);
 #endif
 
 
