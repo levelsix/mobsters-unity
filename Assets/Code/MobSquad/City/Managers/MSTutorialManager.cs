@@ -160,6 +160,8 @@ public class MSTutorialManager : MonoBehaviour
 	PZCombatUnit enemyTwoCombatant;
 	PZCombatUnit bossCombatant;
 
+	PZMonster userMonster;
+
 	#region Unit Paths
 	static readonly List<MSGridNode> enemyOneEnterPath = new List<MSGridNode>()
 	{
@@ -309,7 +311,7 @@ public class MSTutorialManager : MonoBehaviour
 		bossUnit = MSBuildingManager.instance.MakeTutorialUnit (enemyBoss.monsterId, TutorialValues.enemyStartPos, 5);
 
 
-		PZMonster userMonster = new PZMonster(userMobster, 1);
+		userMonster = new PZMonster(userMobster, 1);
 		userMonster.userMonster = new FullUserMonsterProto();
 		userMonster.userMonster.userMonsterUuid = "1";
 		userMonster.userMonster.isComplete = true;
@@ -868,7 +870,18 @@ public class MSTutorialManager : MonoBehaviour
 		TutorialUI.leftDialogue.RunPushOut();
 
 		//Finish the heal
-		yield return StartCoroutine(DoUIStep(TutorialUI.finishHealButton, 105, MSValues.Direction.NORTH));
+//		yield return StartCoroutine(DoUIStep(MSHealScreen.instance.currQueue.button.gameObject, 105, MSValues.Direction.NORTH));
+
+		currUi = MSHealScreen.instance.currQueue.button.gameObject;
+		MSTutorialArrow.instance.Init(currUi.transform, 105, MSValues.Direction.NORTH);
+		//Instead of waiting for UI, wait until the heal is completo
+		while (userMonster.isHealing)
+		{
+			yield return null;
+		}
+		
+		currUi = null;
+		MSTutorialArrow.instance.gameObject.SetActive(false);
 
 		//Close the menu
 		yield return StartCoroutine(DoUIStep(TutorialUI.closeHealMenuButton, 50, MSValues.Direction.WEST));
@@ -1111,11 +1124,18 @@ public class MSTutorialManager : MonoBehaviour
 		{
 			yield return null;
 		}
-		
+
 		//Finish
-		yield return StartCoroutine(DoUIStep(
-			MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.FINISH).gameObj,
-			150, MSValues.Direction.EAST));
+		currUi = MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.FINISH).gameObj;
+		MSTutorialArrow.instance.Init(currUi.transform, 150, MSValues.Direction.EAST);
+		while (MSBuildingManager.instance.currentUnderConstruction != null) yield return null;
+		currUi = null;
+		MSTutorialArrow.instance.gameObject.SetActive(false);
+
+		//Finish
+//		yield return StartCoroutine(DoUIStep(
+//			MSTaskBar.instance.taskButtons.Find(x => x.currMode == MSTaskButton.Mode.FINISH).gameObj,
+//			150, MSValues.Direction.EAST));
 	}
 
 	public void OnClick()

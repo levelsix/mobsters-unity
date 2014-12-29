@@ -939,7 +939,7 @@ static public class NGUIText
 	/// Print the specified text into the buffers.
 	/// </summary>
 
-	static public void Print (string text, BetterList<Vector3> verts, BetterList<Vector2> uvs, BetterList<Color32> cols)
+	static public void Print (string text, BetterList<Vector3> verts, BetterList<Vector2> uvs, BetterList<Color32> cols, float symbolScale = 1)
 	{
 		if (string.IsNullOrEmpty(text)) return;
 
@@ -1034,13 +1034,13 @@ static public class NGUIText
 
 			if (symbol != null)
 			{
-				v0x = x + symbol.offsetX * fontScale;
-				v1x = v0x + symbol.width * fontScale;
-				v1y = -(y + symbol.offsetY * fontScale);
-				v0y = v1y - symbol.height * fontScale;
+				v0x = x + symbol.offsetX * fontScale * symbolScale;
+				v1x = v0x + symbol.width * fontScale * symbolScale;
+				v1y = -(y + symbol.offsetY * fontScale * symbolScale);
+				v0y = v1y - symbol.height * fontScale * symbolScale;
 
 				// Doesn't fit? Move down to the next line
-				if (Mathf.RoundToInt(x + symbol.advance * fontScale) > rectWidth)
+				if (Mathf.RoundToInt(x + symbol.advance * fontScale * symbolScale) > rectWidth)
 				{
 					if (x == 0f) return;
 
@@ -1065,7 +1065,7 @@ static public class NGUIText
 				verts.Add(new Vector3(v1x, v1y));
 				verts.Add(new Vector3(v1x, v0y));
 
-				x += finalSpacingX + symbol.advance * fontScale;
+				x += finalSpacingX + symbol.advance * fontScale * symbolScale;
 				i += symbol.length - 1;
 				prev = 0;
 

@@ -57,10 +57,20 @@ public class UILabel : UIWidget
 	[HideInInspector][SerializeField] Alignment mAlignment = Alignment.Automatic;
 	[HideInInspector][SerializeField] bool mEncoding = true;
 	[HideInInspector][SerializeField] int mMaxLineCount = 0; // 0 denotes unlimited
+
+	[HideInInspector] [SerializeField] bool mHasShadow = false;
+	[HideInInspector] [SerializeField] Color mShadowColor = Color.black;
+	[HideInInspector] [SerializeField] Vector2 mShadowOffset = Vector2.one;
+
+	[HideInInspector] [SerializeField] bool mHasOutline = false;
+	[HideInInspector] [SerializeField] Color mOutlineColor = Color.black;
+	[HideInInspector] [SerializeField] Vector2 mOutlineOffset = Vector2.one;
+
 	[HideInInspector][SerializeField] Effect mEffectStyle = Effect.None;
 	[HideInInspector][SerializeField] Color mEffectColor = Color.black;
-	[HideInInspector][SerializeField] NGUIText.SymbolStyle mSymbols = NGUIText.SymbolStyle.Normal;
 	[HideInInspector][SerializeField] Vector2 mEffectDistance = Vector2.one;
+
+	[HideInInspector][SerializeField] NGUIText.SymbolStyle mSymbols = NGUIText.SymbolStyle.Normal;
 	[HideInInspector][SerializeField] Overflow mOverflow = Overflow.ShrinkContent;
 	[HideInInspector][SerializeField] Material mMaterial;
 	[HideInInspector][SerializeField] bool mApplyGradient = false;
@@ -75,6 +85,8 @@ public class UILabel : UIWidget
 	[HideInInspector][SerializeField] int mMaxLineHeight = 0;
 	[HideInInspector][SerializeField] float mLineWidth = 0;
 	[HideInInspector][SerializeField] bool mMultiline = true;
+
+	public float symbolScale = 1f;
 
 #if DYNAMIC_FONT
 	[System.NonSerialized]
@@ -1458,13 +1470,31 @@ public class UILabel : UIWidget
 		UpdateNGUIText();
 
 		NGUIText.tint = col;
-		NGUIText.Print(text, verts, uvs, cols);
+		NGUIText.Print(text, verts, uvs, cols, symbolScale);
 
 		// Center the content within the label vertically
 		Vector2 pos = ApplyOffset(verts, start);
 
 		// Effects don't work with packed fonts
 		if (mFont != null && mFont.packedFontShader) return;
+		
+		
+		
+		if (mHasShadow)
+		{
+			int end = verts.size;
+			pos.x = mShadowOffset.x;
+			pos.y = mShadowOffset.y;
+			
+			ApplyShadow(verts, uvs, cols, offset,end, pos.x, -pos.y, mShadowColor);
+			
+			offset = end;
+			end = verts.size;
+			
+			ApplyShadow(verts, uvs, cols, offset,end, -2*pos.x, -pos.y, mShadowColor);
+
+			offset = end;
+		}
 
 		// Apply an effect if one was requested
 		if (effectStyle != Effect.None)
@@ -1473,24 +1503,26 @@ public class UILabel : UIWidget
 			pos.x = mEffectDistance.x;
 			pos.y = mEffectDistance.y;
 
-			ApplyShadow(verts, uvs, cols, offset, end, pos.x, -pos.y);
+			ApplyShadow(verts, uvs, cols, offset, end, pos.x, -pos.y, mEffectColor);
 
 			if (effectStyle == Effect.Outline)
 			{
 				offset = end;
 				end = verts.size;
 
-				ApplyShadow(verts, uvs, cols, offset, end, -pos.x, pos.y);
+				ApplyShadow(verts, uvs, cols, offset, end, -pos.x, pos.y, mEffectColor);
 
 				offset = end;
 				end = verts.size;
 
-				ApplyShadow(verts, uvs, cols, offset, end, pos.x, pos.y);
+				ApplyShadow(verts, uvs, cols, offset, end, pos.x, pos.y, mEffectColor);
 
 				offset = end;
 				end = verts.size;
 
-				ApplyShadow(verts, uvs, cols, offset, end, -pos.x, -pos.y);
+				ApplyShadow(verts, uvs, cols, offset, end, -pos.x, -pos.y, mEffectColor);
+
+				offset = end;
 			}
 		}
 	}
@@ -1532,9 +1564,9 @@ public class UILabel : UIWidget
 	/// Apply a shadow effect to the buffer.
 	/// </summary>
 
-	void ApplyShadow (BetterList<Vector3> verts, BetterList<Vector2> uvs, BetterList<Color32> cols, int start, int end, float x, float y)
+	void ApplyShadow (BetterList<Vector3> verts, BetterList<Vector2> uvs, BetterList<Color32> cols, int start, int end, float x, float y, Color c)
 	{
-		Color c = mEffectColor;
+		//Color c = mEffectColor;
 		c.a *= finalAlpha;
 		Color32 col = (bitmapFont != null && bitmapFont.premultipliedAlphaShader) ? NGUITools.ApplyPMA(c) : c;
 

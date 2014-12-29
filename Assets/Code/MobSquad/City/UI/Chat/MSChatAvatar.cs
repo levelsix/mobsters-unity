@@ -72,11 +72,12 @@ public class MSChatAvatar : MonoBehaviour {
 		{
 			bg.spriteName = squareSprites[monster.monsterElement];
 		}
-		MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumbnail, 1, delegate {
-			thumbnail.width = Mathf.FloorToInt(thumbnail.width*scale); 
-			thumbnail.height = Mathf.FloorToInt(thumbnail.height*scale); 
-			thumbnail.gameObject.SetActive(false); thumbnail.gameObject.SetActive(true);
-		});
+//		MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Card", thumbnail, 1, delegate {
+//			thumbnail.width = Mathf.FloorToInt(thumbnail.width*scale); 
+//			thumbnail.height = Mathf.FloorToInt(thumbnail.height*scale); 
+//			thumbnail.gameObject.SetActive(false); thumbnail.gameObject.SetActive(true);
+//		});
+		MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Card", thumbnail, 1, FitInBg);
 	}
 
 	public void Init(MonsterProto monster)
@@ -91,9 +92,14 @@ public class MSChatAvatar : MonoBehaviour {
 			{
 				bg.spriteName = squareSprites[monster.monsterElement];
 			}
-			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Thumbnail", thumbnail);
-			thumbnail.MakePixelPerfect();
+			MSSpriteUtil.instance.SetSprite(monster.imagePrefix, monster.imagePrefix + "Card", thumbnail, 1, FitInBg);
+//			thumbnail.MakePixelPerfect();
 		}
+	}
+
+	void FitInBg()
+	{
+		MSSpriteUtil.instance.FitIn(thumbnail, bg, 6);
 	}
 
 	public void SetDepth(int depth)

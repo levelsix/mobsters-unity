@@ -65,13 +65,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 400006}
   - 65: {fileID: 6500002}
-  - 114: {fileID: 11400012}
   - 114: {fileID: 11400014}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400064}
   - 114: {fileID: 11400092}
+  - 114: {fileID: 11400096}
   m_Layer: 5
-  m_Name: BG
+  m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -294,6 +294,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &100032
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400032}
+  - 114: {fileID: 11400012}
+  m_Layer: 5
+  m_Name: Bg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -339,12 +355,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12, z: 0}
+  m_LocalPosition: {x: 0, y: 13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400012}
   - {fileID: 400024}
   - {fileID: 400002}
+  - {fileID: 400032}
   m_Father: {fileID: 400014}
   m_RootOrder: 0
 --- !u!4 &400008
@@ -378,7 +395,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 111, z: 0}
+  m_LocalPosition: {x: 0, y: 109, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400020}
@@ -501,6 +518,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 400026}
   m_RootOrder: 1
+--- !u!4 &400032
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100032}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400006}
+  m_RootOrder: 3
 --- !u!54 &5400000
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -562,7 +591,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1152, y: 768, z: 0}
+  m_Size: {x: 1347, y: 768, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500008
 BoxCollider:
@@ -785,7 +814,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
+  m_GameObject: {fileID: 100032}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
@@ -807,7 +836,7 @@ MonoBehaviour:
     target: {fileID: 400002}
     relative: 1
     absolute: 111
-  updateAnchors: 0
+  updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 500
@@ -880,6 +909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e45d618fcbbc4b5eb65be17cfad1b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  log: 0
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -976,31 +1006,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 400006}
+    target: {fileID: 400032}
     relative: 0
-    absolute: 7
+    absolute: 10
   rightAnchor:
-    target: {fileID: 400006}
+    target: {fileID: 400032}
     relative: 1
-    absolute: -7
+    absolute: -10
   bottomAnchor:
-    target: {fileID: 400006}
+    target: {fileID: 400032}
     relative: 1
-    absolute: -85
+    absolute: -88
   topAnchor:
-    target: {fileID: 400006}
+    target: {fileID: 400032}
     relative: 1
-    absolute: -7
+    absolute: -10
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 486
+  mWidth: 480
   mHeight: 78
   mDepth: 41
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.23076916
+  aspectRatio: 6.15384626
   mAtlas: {fileID: 11400000, guid: b29d208d2f47e4ba2bf8e5b45cafac71, type: 2}
   mSpriteName: greennotificationheader
   mType: 1
@@ -1497,13 +1527,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0, g: 0, b: 0, a: 0}
   mPivot: 4
-  mWidth: 1152
+  mWidth: 1347
   mHeight: 768
   mDepth: -1
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.5
+  aspectRatio: 1.75390625
   mAtlas: {fileID: 11400000, guid: bccc0f85403e649a1b5d5be40e18c0d6, type: 2}
   mSpriteName: BackgroundSlice
   mType: 1
@@ -1537,23 +1567,23 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   bottomAnchor:
-    target: {fileID: 400006}
+    target: {fileID: 400032}
     relative: 0
-    absolute: 18
+    absolute: 5
   topAnchor:
-    target: {fileID: 400006}
+    target: {fileID: 400032}
     relative: 0
-    absolute: 83
+    absolute: 94
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 2
-  mHeight: 65
+  mHeight: 89
   mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .0307692308
+  aspectRatio: .0224719103
 --- !u!114 &11400054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2104,6 +2134,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29efab34ae9eb4e2d9263e914977a21b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400096
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858a20c1b21a3f94bb5b2d3b901c9aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 100
+  mHeight: 100
+  mDepth: 0
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

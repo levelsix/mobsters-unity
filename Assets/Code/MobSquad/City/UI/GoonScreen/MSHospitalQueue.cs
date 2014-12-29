@@ -35,8 +35,7 @@ public class MSHospitalQueue : MonoBehaviour
 	[SerializeField] 
 	UILabel levelLabel;
 
-	[SerializeField]
-	UIButton button;
+	public UIButton button;
 
 	[SerializeField]
 	TweenPosition tweenPos;
@@ -183,7 +182,7 @@ public class MSHospitalQueue : MonoBehaviour
 
 		foreach (var item in currHeals) 
 		{
-			item.name = (9-item.monster.healingMonster.priority).ToString();
+			item.name = (10-item.monster.healingMonster.priority).ToString();
 		}
 	}
 	

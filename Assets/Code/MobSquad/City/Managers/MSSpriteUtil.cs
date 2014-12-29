@@ -366,6 +366,25 @@ public class MSSpriteUtil : MonoBehaviour {
 		}
 	}
 
+	public void FitIn(UIWidget fitThis, UIWidget inThis, int border = 0)
+	{
+		float ratio = 1;
+		if (fitThis.height > fitThis.width)
+		{
+			ratio = (inThis.height-border)/((float)fitThis.height);
+		}
+		else
+		{
+			ratio = (inThis.width-border)/((float)fitThis.width);
+		}
+
+		if (ratio < 1)
+		{
+			fitThis.height = Mathf.FloorToInt(fitThis.height * ratio);
+			fitThis.width = Mathf.FloorToInt(fitThis.width * ratio);
+		}
+	}
+
 	[ContextMenu ("Clean Cache")]
 	void CleanCache()
 	{

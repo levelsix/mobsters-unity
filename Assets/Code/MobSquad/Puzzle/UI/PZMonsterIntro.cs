@@ -14,6 +14,9 @@ public class PZMonsterIntro : MonoBehaviour {
 	UI2DSprite thumbNail;
 
 	[SerializeField]
+	UISprite border;
+
+	[SerializeField]
 	UILabel bottomLabel;
 
 	[SerializeField]
@@ -93,7 +96,7 @@ public class PZMonsterIntro : MonoBehaviour {
 		level.MakePixelPerfect();
 		level.MarkAsChanged();
 
-		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", thumbNail);
+		MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Card", thumbNail, 1, delegate{ MSSpriteUtil.instance.FitIn(thumbNail, border);});
 
 		if (curMonster.taskMonster == null)
 		{

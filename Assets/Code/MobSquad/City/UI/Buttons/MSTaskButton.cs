@@ -201,24 +201,24 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		case Mode.FIX:
 			if (currBuilding.combinedProto.structInfo.buildResourceType == com.lvl6.proto.ResourceType.OIL)
 			{
-				topLabel.text = "(o) " + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.text = "(o) " + string.Format("{0:n0}", currBuilding.combinedProto.successor.structInfo.buildCost);
 				topLabel.color = MSColors.oilTextColor;
 			}
 			else
 			{
-				topLabel.text = "(c) " + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.text = "(c) " + string.Format("{0:n0}", currBuilding.combinedProto.successor.structInfo.buildCost);
 				topLabel.color = MSColors.cashTextColor;
 			}
 			break;
 		case Mode.UPGRADE:
 			if (currBuilding.combinedProto.structInfo.buildResourceType == com.lvl6.proto.ResourceType.OIL)
 			{
-				topLabel.text = "(o) " + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.text = "(o) " + string.Format("{0:n0}", currBuilding.combinedProto.successor.structInfo.buildCost);;
 				topLabel.color = MSColors.oilTextColor;
 			}
 			else
 			{
-				topLabel.text = "(c) " + currBuilding.combinedProto.successor.structInfo.buildCost;
+				topLabel.text = "(c) " + string.Format("{0:n0}", currBuilding.combinedProto.successor.structInfo.buildCost);
 				topLabel.color = MSColors.cashTextColor;
 			}
 			break;
@@ -244,12 +244,12 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		case Mode.REMOVE_OBSTACLE:
 			if (currBuilding.obstacle.obstacle.removalCostType == com.lvl6.proto.ResourceType.OIL)
 			{
-				topLabel.text = "(o) " + currBuilding.obstacle.obstacle.cost;
+				topLabel.text = "(o) " + string.Format("{0:n0}", currBuilding.combinedProto.successor.structInfo.buildCost);
 				topLabel.color = MSColors.oilTextColor;
 			}
 			else
 			{
-				topLabel.text = "(c) " + currBuilding.obstacle.obstacle.cost;
+				topLabel.text = "(c) " + string.Format("{0:n0}", currBuilding.combinedProto.successor.structInfo.buildCost);
 				topLabel.color = MSColors.cashTextColor;
 			}
 			break;
@@ -351,7 +351,10 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 	
 	public void Pool ()
 	{
-		StartCoroutine(Exit());
+		if (gameObj.activeInHierarchy)
+		{
+			StartCoroutine(Exit());
+		}
 	}
 
 	void ClickRemove()

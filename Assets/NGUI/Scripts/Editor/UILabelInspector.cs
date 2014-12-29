@@ -242,7 +242,27 @@ public class UILabelInspector : UIWidgetInspector
 			GUILayout.EndHorizontal();
 
 			GUILayout.BeginHorizontal();
+			GUILayout.Label("Shadow", GUILayout.Width(76f));
+			sp = NGUIEditorTools.DrawProperty("", serializedObject, "mHasShadow", GUILayout.MinWidth(10f));
+
+			EditorGUI.BeginDisabledGroup(!sp.boolValue);
+			{
+				NGUIEditorTools.DrawProperty("", serializedObject, "mShadowColor", GUILayout.MinWidth(10f));
+				
+				GUILayout.EndHorizontal();
+				
+				GUILayout.BeginHorizontal();
+
+				NGUIEditorTools.DrawProperty("X", serializedObject, "mShadowOffset.x", GUILayout.MinWidth(10f));
+				NGUIEditorTools.DrawProperty("Y", serializedObject, "mShadowOffset.y", GUILayout.MinWidth(10f));
+			}
+			EditorGUI.EndDisabledGroup();
+
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
 			GUILayout.Label("Effect", GUILayout.Width(76f));
+
 			sp = NGUIEditorTools.DrawProperty("", serializedObject, "mEffectStyle", GUILayout.MinWidth(16f));
 
 			EditorGUI.BeginDisabledGroup(!sp.hasMultipleDifferentValues && !sp.boolValue);
@@ -260,6 +280,7 @@ public class UILabelInspector : UIWidgetInspector
 					NGUIEditorTools.SetLabelWidth(80f);
 				}
 			}
+
 			EditorGUI.EndDisabledGroup();
 			GUILayout.EndHorizontal();
 			EditorGUI.EndDisabledGroup();
@@ -282,6 +303,12 @@ public class UILabelInspector : UIWidgetInspector
 			NGUIEditorTools.DrawPaddedProperty("Symbols", serializedObject, "mSymbols");
 			NGUIEditorTools.SetLabelWidth(80f);
 			EditorGUI.EndDisabledGroup();
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+
+			NGUIEditorTools.DrawProperty("Symbol Scaling", serializedObject, "symbolScale", GUILayout.Width (100f));
+
 			GUILayout.EndHorizontal();
 		}
 		EditorGUI.EndDisabledGroup();

@@ -69,7 +69,7 @@ public class MSSceneManager : MonoBehaviour {
 			cityState = true;
 		}
 
-		if(MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
+		if(MSWhiteboard.localUser != null && MSUtil.timeSince(MSWhiteboard.localUser.lastFreeBoosterPackTime) > 24 * 60 * 60 * 1000)
 		{
 			if(MSActionManager.Popup.DisplayBlueError != null)
 			{

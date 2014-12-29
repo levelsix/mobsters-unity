@@ -2563,7 +2563,7 @@ public class PZCombatManager : MonoBehaviour {
 
 	public void RevivePopup()
 	{
-		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis) * revives;
+		int gemsToSpend = MSHospitalManager.instance.GemsForRevive(playerGoonies, revives);
 		MSPopupManager.instance.CreatePopup(
 			"Revive", 
 			"Revive your toons?",
@@ -2582,9 +2582,9 @@ public class PZCombatManager : MonoBehaviour {
 
 	IEnumerator ReviveWithGems()
 	{
-		int gemsToSpend = MSHospitalManager.instance.SimulateHealForRevive(playerGoonies, MSUtil.timeNowMillis) * revives;
+		int gemCost = MSHospitalManager.instance.GemsForRevive(playerGoonies, revives);
 		if (MSResourceManager.instance.Spend(ResourceType.GEMS, 
-		                                     gemsToSpend))
+		                                     gemCost))
 		{
 			ReviveInDungeonRequestProto request = new ReviveInDungeonRequestProto();
 			request.sender = MSWhiteboard.localMup;
@@ -2597,7 +2597,7 @@ public class PZCombatManager : MonoBehaviour {
 				request.reviveMe.Add(item.GetCurrentHealthProto());
 			}
 
-			request.gemsSpent = gemsToSpend;
+			request.gemsSpent = gemCost;
 
 			int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_REVIVE_IN_DUNGEON_EVENT);
 

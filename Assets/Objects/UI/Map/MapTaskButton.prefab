@@ -146,7 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e45d618fcbbc4b5eb65be17cfad1b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  log: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -281,10 +280,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 2
   mEffectColor: {r: 1, g: 1, b: 1, a: .321568638}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -297,6 +302,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1

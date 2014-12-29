@@ -212,6 +212,9 @@ public class MSGoonCard : MonoBehaviour {
 
 	bool _dark = false;
 
+	static int nextId = 0;
+	int id = nextId++;
+
 	bool fitsOnTeam
 	{
 		get
@@ -242,6 +245,7 @@ public class MSGoonCard : MonoBehaviour {
 
 	public void Init(PZMonster goon, GoonScreenMode mode)
 	{
+		Debug.Log("Initting: " + id);
 		goonScreenMode = mode;
 		switch (mode) {
 		case GoonScreenMode.HEAL:
@@ -524,6 +528,7 @@ public class MSGoonCard : MonoBehaviour {
 		if (goon.restricted)
 		{
 			TintElements(true);
+			healthBarBackground.alpha = 0;
 			lockIcon.SetActive(true);
 			bottomCardLabel.text = "Locked";
 			healCostLabel.text = " ";
@@ -581,8 +586,6 @@ public class MSGoonCard : MonoBehaviour {
 		cardBackground.spriteName = backgroundsForElements[goon.monster.monsterElement];
 		mediumBG.spriteName = mediumBackgrounds[goon.monster.monsterElement];
 		smallBG.spriteName = smallBackgrounds[goon.monster.monsterElement];
-
-		SetTextOverCard (goon);
 		
 		rarityRibbon.spriteName = mediumRibbon.spriteName = ribbonsForRarity[goon.monster.quality];
 		switch(goon.monster.quality)
@@ -612,6 +615,8 @@ public class MSGoonCard : MonoBehaviour {
 		healthBarText.text = goon.currHP + "/" + goon.maxHP;
 		healCostLabel.text = " ";
 		infoButton.SetActive(true);
+		
+		SetTextOverCard (goon);
 
 		string nameToDisplay = goon.monster.shorterName;
 		if (nameToDisplay.Equals("")) nameToDisplay = goon.monster.displayName;
@@ -777,7 +782,7 @@ public class MSGoonCard : MonoBehaviour {
 
 	void PutInHealQueue()
 	{	
-		name = (9 - monster.healingMonster.priority).ToString();
+		name = (10 - monster.healingMonster.priority).ToString();
 		
 		transform.parent = MSHealScreen.instance.currQueue.grid.transform;
 		MSHealScreen.instance.grid.Reposition();
@@ -949,6 +954,11 @@ public class MSGoonCard : MonoBehaviour {
 
 	}
 
+	public Coroutine DoPhaseOut()
+	{
+		return StartCoroutine(PhaseOut());
+	}
+
 	public IEnumerator PhaseOut()
 	{
 		transform.parent = transform.parent.parent;
@@ -1103,6 +1113,8 @@ public class MSGoonCard : MonoBehaviour {
 
 	public void Pool()
 	{
+		Debug.Log("Pooling: " + id);
+
 		if (isBuddyParent)
 		{
 			buddy.transform.parent = transform.parent;

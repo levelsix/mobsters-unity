@@ -118,8 +118,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 	static readonly Color cashTextColor = new Color(.353f, .491f, .027f);
 	static readonly Color oilTextColor = new Color(.776f, .533f, 0);
 
-	const int MAX_IMAGE_WIDTH = 220;
-	const int MAX_IMAGE_HEIGHT = 220;
+	[SerializeField] UIWidget buildingSpriteZone;
 	
 	MSBuilding currBuilding;
 	
@@ -146,9 +145,10 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 				poolable.Pool();
 			}
 		}
+	}
 
-		bottomBar.transform.parent.gameObject.SetActive(true);
-		townHallUpgradeUI.gameObject.SetActive(false);
+	void OnDisable()
+	{
 	}
 
 	IEnumerator WaitUntilFinish()
@@ -169,7 +169,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		if (MSBuildingManager.instance.currentUnderConstruction != null)
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",
-			                                    "Speed him up for (G) " + 
+			                                    "Speed him up for (G)  " + 
 			                                        MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime, true)
 			                                        + " and upgrade this building?",
                 new string[]{"Cancel", "Speed Up"},
@@ -266,17 +266,18 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		if (nextBuilding != null)
 		{
 				
-			header.text = "Upgrade to level " + nextBuilding.structInfo.level + "?";
+			header.text = "Upgrade to Level " + nextBuilding.structInfo.level + "?";
 			
 			upgradeTime.text = MSUtil.TimeStringLong(nextBuilding.structInfo.minutesToBuild * 60000);
 			
 			currResource = nextBuilding.structInfo.buildResourceType;
 			
-			currCost = (int) (nextBuilding.structInfo.buildCost);
+			currCost = nextBuilding.structInfo.buildCost;
 
 			upgradeButton.button.normalSprite = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? cashButtonName : oilButtonName);
-			upgradeButton.label.text = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? "$" : "(o) ") + currCost.ToString();
+			upgradeButton.label.text = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? "(c)  " : "(o) ") + string.Format("{0:n0}", currCost);
 			upgradeButton.label.color = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? cashTextColor : oilTextColor);
+			upgradeButton.label.symbolScale = ((nextBuilding.structInfo.buildResourceType == ResourceType.CASH) ? 1.25f : 1.5f);
 
 			Sprite sprite = MSSpriteUtil.instance.GetBuildingSprite(nextBuilding.structInfo.imgName);
 			buildingSprite.sprite2D = sprite;
@@ -285,19 +286,20 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			{
 				buildingSprite.width = (int)sprite.textureRect.width;
 				buildingSprite.height = (int)sprite.textureRect.height;
+				MSSpriteUtil.instance.FitIn(buildingSprite, buildingSpriteZone);
 
-				if(buildingSprite.width > MAX_IMAGE_WIDTH)
-				{
-					float newHeight = ((float)buildingSprite.height/(float)buildingSprite.width) * (float)MAX_IMAGE_WIDTH;
-					buildingSprite.width = MAX_IMAGE_WIDTH;
-					buildingSprite.height = (int)newHeight;
-				}
-				if(buildingSprite.height > MAX_IMAGE_HEIGHT)
-				{
-					float newWidth = ((float)buildingSprite.width/(float)buildingSprite.height) * (float)MAX_IMAGE_HEIGHT;
-					buildingSprite.height = MAX_IMAGE_HEIGHT;
-					buildingSprite.width = (int)newWidth;
-				}
+//				if(buildingSprite.width > MAX_IMAGE_WIDTH)
+//				{
+//					float newHeight = ((float)buildingSprite.height/(float)buildingSprite.width) * (float)MAX_IMAGE_WIDTH;
+//					buildingSprite.width = MAX_IMAGE_WIDTH;
+//					buildingSprite.height = (int)newHeight;
+//				}
+//				if(buildingSprite.height > MAX_IMAGE_HEIGHT)
+//				{
+//					float newWidth = ((float)buildingSprite.width/(float)buildingSprite.height) * (float)MAX_IMAGE_HEIGHT;
+//					buildingSprite.height = MAX_IMAGE_HEIGHT;
+//					buildingSprite.width = (int)newWidth;
+//				}
 
 				buildingSprite.MarkAsChanged();
 			}
@@ -312,6 +314,10 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 
 	void SetBuildingBarInfo (MSBuilding building, MSFullBuildingProto oldBuilding, MSFullBuildingProto nextBuilding)
 	{
+		
+		bottomBar.transform.parent.gameObject.SetActive(true);
+		townHallUpgradeUI.gameObject.SetActive(false);
+
 		MSFullBuildingProto max = nextBuilding.maxLevel;
 
 		switch (building.combinedProto.structInfo.structType) {
@@ -343,40 +349,51 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			break;
 		case StructureInfoProto.StructType.HOSPITAL:
 			topQuality.text = "Queue Size:";
-			botQuality.text = "Rate:";
+			botQuality.text = "Heal Speed:";
 			bottomBar.SetActive (true);
+
+			int currRate = (int)(oldBuilding.hospital.secsToFullyHealMultiplier*100);
+			int nextRate = (int)(nextBuilding.hospital.secsToFullyHealMultiplier*100);
+
 			SetBar (topBarCurrent, topBarFuture, oldBuilding.hospital.queueSize, nextBuilding.hospital.queueSize, max.hospital.queueSize);
-			SetBar (botBarCurrent, botBarFuture, oldBuilding.hospital.healthPerSecond, nextBuilding.hospital.healthPerSecond, max.hospital.healthPerSecond);
+			SetBar (botBarCurrent, botBarFuture, oldBuilding.hospital.secsToFullyHealMultiplier, nextBuilding.hospital.secsToFullyHealMultiplier, max.hospital.secsToFullyHealMultiplier);
 			if (nextBuilding.hospital.queueSize > oldBuilding.hospital.queueSize) {
 				topBarText.text = oldBuilding.hospital.queueSize + " + " + (nextBuilding.hospital.queueSize - oldBuilding.hospital.queueSize);
 			}
 			else {
 				topBarText.text = nextBuilding.hospital.queueSize.ToString ();
 			}
-			if (nextBuilding.hospital.healthPerSecond > oldBuilding.hospital.healthPerSecond) {
-				botBarText.text = oldBuilding.hospital.healthPerSecond + " + " + (nextBuilding.hospital.healthPerSecond - oldBuilding.hospital.healthPerSecond) + " Health Per Sec";
+
+			if (nextRate > currRate) {
+				botBarText.text = currRate + " + " + (currRate - nextRate) + "%";
 			}
 			else {
-				botBarText.text = oldBuilding.hospital.healthPerSecond + " Health Per Sec";
+				botBarText.text = currRate + "%";
 			}
 			break;
 		case StructureInfoProto.StructType.LAB:
 			topQuality.text = "Queue Size:";
-			botQuality.text = "Rate:";
+			botQuality.text = "Multiplier:";
 			bottomBar.SetActive (true);
+
+			int currMult = (int)(oldBuilding.lab.pointsMultiplier*100);
+			int nextMult = (int)(nextBuilding.lab.pointsMultiplier*100);
+
 			SetBar (topBarCurrent, topBarFuture, oldBuilding.lab.queueSize, nextBuilding.lab.queueSize, max.lab.queueSize);
-			SetBar (botBarCurrent, botBarFuture, oldBuilding.lab.pointsPerSecond, nextBuilding.lab.pointsPerSecond, max.lab.pointsPerSecond);
+			SetBar (botBarCurrent, botBarFuture, oldBuilding.lab.pointsMultiplier, nextBuilding.lab.pointsMultiplier, max.lab.pointsMultiplier);
+
 			if (nextBuilding.lab.queueSize > oldBuilding.lab.queueSize) {
 				topBarText.text = oldBuilding.lab.queueSize + " + " + (nextBuilding.lab.queueSize - oldBuilding.lab.queueSize);
 			}
 			else {
 				topBarText.text = nextBuilding.lab.queueSize.ToString ();
 			}
-			if (nextBuilding.lab.pointsPerSecond > oldBuilding.lab.pointsPerSecond) {
-				botBarText.text = oldBuilding.lab.pointsPerSecond + " + " + (nextBuilding.lab.pointsPerSecond - oldBuilding.lab.pointsPerSecond) + " Points Per Sec";
+
+			if (nextMult > currMult) {
+				botBarText.text = currMult + " + " + (nextMult - currMult) + "%";
 			}
 			else {
-				botBarText.text = oldBuilding.lab.pointsPerSecond + " Points Per Sec";
+				botBarText.text = currMult + "%";
 			}
 			break;
 		case StructureInfoProto.StructType.RESIDENCE:
@@ -387,7 +404,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			break;
 		case StructureInfoProto.StructType.TOWN_HALL:
 			InitTownHallGrid(oldBuilding, nextBuilding);
-			townHallLabel.text = "Level " + nextBuilding.structInfo.level + " Command Center unlocks";
+			townHallLabel.text = "Level " + nextBuilding.structInfo.level + " Command Center Unlocks";
 			bottomBar.transform.parent.gameObject.SetActive(false);
 			break;
 		case StructureInfoProto.StructType.MINI_JOB:
@@ -395,6 +412,24 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 			SetBar(topBarCurrent, topBarFuture, oldBuilding.miniJobCenter.generatedJobLimit, nextBuilding.miniJobCenter.generatedJobLimit, max.miniJobCenter.generatedJobLimit);
 			topQuality.text = "MiniJobs:";
 			topBarText.text = oldBuilding.miniJobCenter.generatedJobLimit + " + " + (nextBuilding.miniJobCenter.generatedJobLimit - oldBuilding.miniJobCenter.generatedJobLimit);
+			break;
+		case StructureInfoProto.StructType.TEAM_CENTER:
+			bottomBar.SetActive(false);
+			SetBar(topBarCurrent, topBarFuture, oldBuilding.teamCenter.teamCostLimit, nextBuilding.teamCenter.teamCostLimit, max.teamCenter.teamCostLimit);
+			topQuality.text = "Team Power:";
+			topBarText.text = oldBuilding.teamCenter.teamCostLimit + " + " + (nextBuilding.teamCenter.teamCostLimit-oldBuilding.teamCenter.teamCostLimit);
+			break;
+		case StructureInfoProto.StructType.CLAN:
+			bottomBar.SetActive(false);
+			SetBar(topBarCurrent, topBarFuture, oldBuilding.clanHouse.maxHelpersPerSolicitation, nextBuilding.clanHouse.maxHelpersPerSolicitation, max.clanHouse.maxHelpersPerSolicitation);
+			topQuality.text = "Help Limit:";
+			topBarText.text = oldBuilding.clanHouse.maxHelpersPerSolicitation + " + " + (nextBuilding.clanHouse.maxHelpersPerSolicitation - oldBuilding.clanHouse.maxHelpersPerSolicitation);
+			break;
+		case StructureInfoProto.StructType.EVO:
+			bottomBar.SetActive(false);
+			SetBar(topBarCurrent, topBarFuture, oldBuilding.structInfo.level, nextBuilding.structInfo.level, max.structInfo.level);
+			topQuality.text = "Unlocks:";
+			topBarText.text = nextBuilding.evoChamber.qualityUnlocked.ToString().Normalize() + " Evo " + nextBuilding.evoChamber.evoTierUnlocked;
 			break;
 		}
 	}

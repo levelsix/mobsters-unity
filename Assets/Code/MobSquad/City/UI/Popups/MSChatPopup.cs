@@ -301,7 +301,7 @@ public class MSChatPopup : MonoBehaviour {
 	{
 		myAvatar.Init(MSWhiteboard.localUser.avatarMonsterId);
 
-		inputField.label.text = "Type your message";
+		inputField.label.text = "Enter Message...";
 
 		if (MSChatBubbleOptions.instance != null)
 		{

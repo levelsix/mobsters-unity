@@ -49,6 +49,7 @@ public class UMQNetworkManager : MonoBehaviour {
 	string directExchangeName = "gamemessages";
 	string topicExchangeName = "chatmessages";
 	string chatKey = "chat_global";
+	string routingKey = "messagesFromPlayers1.1";
 	
 	string udidQueueName;
 	string udidKey;
@@ -370,7 +371,7 @@ public class UMQNetworkManager : MonoBehaviour {
 
 #if UNITY_ANDROID && !UNITY_EDITOR
 		try {
-			javaChannel.Call("basicPublish", directExchangeName, "messagesFromPlayers", null, message);
+			javaChannel.Call("basicPublish", directExchangeName, routingKey, null, message);
 		}
 		catch (AndroidJavaException e)
 		{
@@ -380,7 +381,7 @@ public class UMQNetworkManager : MonoBehaviour {
 #else
 		IBasicProperties properties = channel.CreateBasicProperties();
 		properties.SetPersistent(true);
-		channel.BasicPublish(directExchangeName, "messagesFromPlayers1.1", properties, message);
+		channel.BasicPublish(directExchangeName, routingKey, properties, message);
 #endif
 
 

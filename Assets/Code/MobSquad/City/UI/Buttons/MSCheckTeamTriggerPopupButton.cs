@@ -14,7 +14,7 @@ public class MSCheckTeamTriggerPopupButton : MSTriggerPopupButton {
 		//But you mustn't touch
 		int maxPowers = MSBuildingManager.currTeamCenter.teamCostLimit;
 
-		if(MSMonsterManager.instance.userMonsters.Count >= MSMonsterManager.instance.totalResidenceSlots )
+		if(MSMonsterManager.instance.userMonsters.Count > MSMonsterManager.instance.totalResidenceSlots )
 		{
 			ResidenceFullFail();
 			return;

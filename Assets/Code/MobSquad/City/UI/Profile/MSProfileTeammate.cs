@@ -65,7 +65,7 @@ public class MSProfileTeammate : MonoBehaviour {
 			noMobsterElements.SetActive(false);
 
 			mobsterBackground.spriteName = MSGoonCard.mediumBackgrounds[monster.monster.monsterElement];
-			MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Thumbnail", goonThumb);
+			MSSpriteUtil.instance.SetSprite(monster.monster.imagePrefix, monster.monster.imagePrefix + "Card", goonThumb);
 			nameLabel.text = monster.monster.displayName;
 			levelLabel.text = "LEVEL " + monster.userMonster.currentLvl;
 		}

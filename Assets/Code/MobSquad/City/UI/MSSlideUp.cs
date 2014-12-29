@@ -74,7 +74,7 @@ public class MSSlideUp : MonoBehaviour
 		progressLabel.text = progress;
 
 		goonBg.spriteName = bgName;
-		MSSpriteUtil.instance.SetSprite(goonImgPrefix, goonImgPrefix + "Thumbnail",
+		MSSpriteUtil.instance.SetSprite(goonImgPrefix, goonImgPrefix + "Card",
 		                                goonSprite);
 
 
