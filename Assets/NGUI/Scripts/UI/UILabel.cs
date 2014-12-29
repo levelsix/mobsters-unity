@@ -1477,6 +1477,24 @@ public class UILabel : UIWidget
 
 		// Effects don't work with packed fonts
 		if (mFont != null && mFont.packedFontShader) return;
+		
+		
+		
+		if (mHasShadow)
+		{
+			int end = verts.size;
+			pos.x = mShadowOffset.x;
+			pos.y = mShadowOffset.y;
+			
+			ApplyShadow(verts, uvs, cols, offset,end, pos.x, -pos.y, mShadowColor);
+			
+			offset = end;
+			end = verts.size;
+			
+			ApplyShadow(verts, uvs, cols, offset,end, -2*pos.x, -pos.y, mShadowColor);
+
+			offset = end;
+		}
 
 		// Apply an effect if one was requested
 		if (effectStyle != Effect.None)
@@ -1503,20 +1521,9 @@ public class UILabel : UIWidget
 				end = verts.size;
 
 				ApplyShadow(verts, uvs, cols, offset, end, -pos.x, -pos.y, mEffectColor);
+
+				offset = end;
 			}
-		}
-
-		if (mHasShadow)
-		{
-			int end = verts.size;
-			pos.x = mShadowOffset.x;
-			pos.y = mShadowOffset.y;
-
-			ApplyShadow(verts, uvs, cols, offset,end, pos.x, -pos.y, mShadowColor);
-
-			end = verts.size;
-			
-			ApplyShadow(verts, uvs, cols, offset,end, -pos.x, -pos.y, mShadowColor);
 		}
 	}
 

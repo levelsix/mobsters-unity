@@ -122,6 +122,7 @@ public class MSHospital {
 	{
 		healQueue.Add (toon);
 		SetGoon();
+		toon.SetTimer(GameActionType.HEAL, toon.healingMonster.queuedTimeMillis);
 	}
 
 	public void AddToonToQueue(PZMonster toon)
@@ -131,6 +132,7 @@ public class MSHospital {
 		healQueue.Add(toon);
 		toon.healingMonster.priority = healQueue.Count;
 		SetGoon();
+		toon.SetTimer(GameActionType.HEAL, toon.healingMonster.queuedTimeMillis);
 	}
 
 	public void RemoveToonFromQueue(PZMonster monster)
@@ -147,10 +149,10 @@ public class MSHospital {
 			switch(i)
 			{
 			case 0:
-				healQueue[i].healingMonster.queuedTimeMillis = Math.Min(MSUtil.timeNowMillis, healQueue[i].healingMonster.queuedTimeMillis);
+				healQueue[i].healStartTime = Math.Min(MSUtil.timeNowMillis, healQueue[i].healingMonster.queuedTimeMillis);
 				break;
 			default:
-				healQueue[i].healingMonster.queuedTimeMillis = healQueue[i-1].finishHealTimeMillis;
+				healQueue[i].healStartTime = healQueue[i-1].finishHealTimeMillis;
 				break;
 			}
 			healQueue[i].healingMonster.priority = i+1;

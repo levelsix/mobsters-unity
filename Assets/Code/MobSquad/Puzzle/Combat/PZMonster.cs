@@ -37,6 +37,8 @@ public class PZMonster {
 
 	StartupResponseProto.StartupConstants.ClanHelpConstants healHelpConstants;
 
+	MSTimer timer;
+
 	public float levelProgress
 	{
 		get
@@ -53,6 +55,19 @@ public class PZMonster {
 		}
 	}
 
+	public long healStartTime
+	{
+		get
+		{
+			return healingMonster.queuedTimeMillis;
+		}
+		set
+		{
+			healingMonster.queuedTimeMillis = value;
+			timer.AlterStartTime(value);
+		}
+	}
+
 	public MSHospital currHospital
 	{
 		get
@@ -62,93 +77,24 @@ public class PZMonster {
 		}
 	}
 
-	public int helpCount
-	{
-		get
-		{
-			if(isHealing)
-			{
-				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.HEAL || !currActiveHelp.userDataUuid.Equals(userMonster.userMonsterUuid))
-				{
-					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.HEAL, userMonster.userMonsterUuid);
-				}
-			}
-			else if(isEnhancing || isEvoloving)
-			{
-				//TODO: put code here
-				return 0;
-			}
-				
-			if(currActiveHelp != null && MSBuildingManager.clanHouse != null)
-			{
-				if(currActiveHelp.helperUuids.Count > MSBuildingManager.currClanHouse.maxHelpersPerSolicitation)
-				{
-					return MSBuildingManager.currClanHouse.maxHelpersPerSolicitation;
-				}
-				else
-				{
-					return currActiveHelp.helperUuids.Count;
-				}
-			}
-			return 0;
-		}
-	}
-
-	public long helpTime
-	{
-		get
-		{
-			int amountRemovedPerHelp = 1;
-			float percentRemovedPerHelp = 1;
-			long timeLeft = 1;
-			if(isHealing)
-			{
-				if(healHelpConstants == null)
-				{
-					healHelpConstants = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == GameActionType.HEAL);
-				}
-				amountRemovedPerHelp = healHelpConstants.amountRemovedPerHelp;
-				percentRemovedPerHelp = healHelpConstants.percentRemovedPerHelp;
-				timeLeft = finishHealTimeMillis - MSUtil.timeNowMillis;
-			}
-			else if(isEvoloving || isEnhancing)
-			{
-				//TODO: add code for evolve and enhance
-				return 0;
-			}
-			//Debug.Log(amountRemovedPerHelp + " * 1000 < " + percentRemovedPerHelp + " * " + timeLeft);
-			if(amountRemovedPerHelp * 1000 < percentRemovedPerHelp * timeLeft)
-			{
-				//Debug.Log(percentRemovedPerHelp + " * " + timeLeft + " * " + helpCount);
-				return (long)(percentRemovedPerHelp * timeLeft * helpCount);
-			}
-			else
-			{
-				//Debug.Log(amountRemovedPerHelp + " * 1000 * " + helpCount);
-				return (long)(amountRemovedPerHelp * 1000 * helpCount);
-			}
-		}
-	}
-
-	public long healStartTime
-	{
-		get
-		{
-			return healingMonster.queuedTimeMillis;
-		}
-	}
-
 	public long timeToHealMillis
 	{
 		get
 		{
-			if (MSTutorialManager.instance.inTutorial) return baseLevelInfo.secsToFullyHeal * 1000;
+			long baseTime = (long)(Mathf.Lerp(
+				baseLevelInfo.secsToFullyHeal,
+				maxLevelInfo.secsToFullyHeal,
+				Mathf.Pow(levelProgress, maxLevelInfo.hpExponentBase)
+				) * 1000);
 
-			return (long)(Mathf.Lerp(
-					baseLevelInfo.secsToFullyHeal,
-					maxLevelInfo.secsToFullyHeal,
-					Mathf.Pow(levelProgress, maxLevelInfo.hpExponentBase)
-				) * 1000 / currHospital.proto.secsToFullyHealMultiplier);// - helpTime;
+			if (currHospital != null)
+			{
+				baseTime = (long)(baseTime / currHospital.proto.secsToFullyHealMultiplier);
+			}
+
+			baseTime = (long)(baseTime * ((float)(maxHP-currHP)) / maxHP);
+
+			return baseTime;
 		}
 	}
 
@@ -156,12 +102,7 @@ public class PZMonster {
 	{
 		get
 		{
-			if (healingMonster == null)
-			{
-				return 1;
-			}
-
-			return 1-((float)healTimeLeftMillis) / timeToHealMillis;
+			return timer.progress;
 		}
 	}
 	
@@ -169,7 +110,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return healStartTime + timeToHealMillis;
+			return timer.finishTime;
 		}
 	}
 	
@@ -267,7 +208,7 @@ public class PZMonster {
 		get
 		{
 			if (MSEnhancementManager.instance.enhancementMonster == null) return 0;
-			return MSMath.TimeToEnhanceMonster(MSEnhancementManager.instance.enhancementMonster, this) - helpTime;
+			return MSMath.TimeToEnhanceMonster(MSEnhancementManager.instance.enhancementMonster, this);
 		}
 	}
 
@@ -276,7 +217,7 @@ public class PZMonster {
 		get
 		{
 			if (!isEnhancing) return 0;
-			return MSEnhancementManager.instance.currEnhancement.feeders.Find(x=>x.userMonsterUuid.Equals(userMonster.userMonsterUuid)).expectedStartTimeMillis;
+			return timer.startTime;
 		}
 	}
 
@@ -285,7 +226,7 @@ public class PZMonster {
 		get
 		{
 			if (!isEnhancing) return 0;
-			return enhanceTime + startEnhanceTime;
+			return timer.finishTime;
 		}
 	}
 
@@ -294,7 +235,7 @@ public class PZMonster {
 		get
 		{
 			if (!isEnhancing) return 0;
-			return finishEnhanceTime - MSUtil.timeNowMillis;
+			return timer.timeLeft;
 		}
 	}
 	
@@ -849,6 +790,25 @@ public class PZMonster {
 	}
 
 	#endregion
+
+	public void SetTimer(GameActionType actionType, long startTime, long length = 0)
+	{
+		if (length == 0)
+		{
+			switch (actionType) {
+			case GameActionType.COMBINE_MONSTER:
+				length = monster.minutesToCombinePieces * 60 * 1000;
+				break;
+			case GameActionType.HEAL:
+				length = timeToHealMillis;
+				break;
+			default:
+				break;
+			}
+		}
+
+		timer = new MSTimer(actionType, userMonster.userMonsterUuid, monster.monsterId, startTime, length);
+	}
 }
 
 [Serializable]

@@ -327,8 +327,9 @@ public class MSHospitalManager : MonoBehaviour {
 
 			if (response.status == HealMonsterResponseProto.HealMonsterStatus.SUCCESS)
 			{
-				foreach (var item in healingMonsters) {
-					CompleteHeal(item);
+				while (healingMonsters.Count >0)
+				{
+					CompleteHeal(healingMonsters[0]);
 				}
 			}
 			else
@@ -458,44 +459,52 @@ public class MSHospitalManager : MonoBehaviour {
 		}
 	}
 
-	public int SimulateHealForRevive(List<PZMonster> monsters, long startTime)
+	public int GemsForRevive(List<PZMonster> monsters, int reviveNum)
 	{
-		//Make hospital items for all the monsters, and calculate how much it
-		//would cost to heal them now
-		int cashCost = 0;
-		List<HospitalItem> items = new List<HospitalItem>();
-		foreach (var monster in monsters) 
+		//Simplified a fuckbuck
+		long time = 0;
+		foreach (var item in monsters) 
 		{
-			items.Add(new HospitalItem(monster));
-			cashCost += monster.healCost;
+			time += item.timeToHealMillis;
 		}
-
-		int gemCost = Mathf.CeilToInt(MSWhiteboard.constants.gemsPerResource * cashCost);
-
-		//We need copies so that we don't fuck with the originals in the simulation
-		List<MSHospital> hops = new List<MSHospital>();
-		foreach (var hospital in hospitals) 
-		{
-			hops.Add (new MSHospital(hospital)); 
-		}
-
-		foreach (var item in items) 
-		{
-			DetermineHealTime(item, hops);
-		}
-
-		long lastTime = 0;
-		foreach (var item in items) 
-		{
-			if (item.finishTime > lastTime)
-			{
-				lastTime = item.finishTime;
-			}
-		}
-
-		gemCost += MSMath.GemsForTime(lastTime - MSUtil.timeNowMillis, false);
-
-		return gemCost;
+		return MSMath.GemsForTime(time, false) * reviveNum;
+//
+//		//Make hospital items for all the monsters, and calculate how much it
+//		//would cost to heal them now
+//		int cashCost = 0;
+//		List<HospitalItem> items = new List<HospitalItem>();
+//		foreach (var monster in monsters) 
+//		{
+//			items.Add(new HospitalItem(monster));
+//			cashCost += monster.healCost;
+//		}
+//
+//		int gemCost = Mathf.CeilToInt(MSWhiteboard.constants.gemsPerResource * cashCost);
+//
+//		//We need copies so that we don't fuck with the originals in the simulation
+//		List<MSHospital> hops = new List<MSHospital>();
+//		foreach (var hospital in hospitals) 
+//		{
+//			hops.Add (new MSHospital(hospital)); 
+//		}
+//
+//		foreach (var item in items) 
+//		{
+//			DetermineHealTime(item, hops);
+//		}
+//
+//		long lastTime = 0;
+//		foreach (var item in items) 
+//		{
+//			if (item.finishTime > lastTime)
+//			{
+//				lastTime = item.finishTime;
+//			}
+//		}
+//
+//		gemCost += MSMath.GemsForTime(lastTime - MSUtil.timeNowMillis, false);
+//
+//		return gemCost;
 	}
 
 	void DetermineHealTime(HospitalItem monster, List<MSHospital> hospitals)
@@ -591,29 +600,29 @@ public class MSHospitalManager : MonoBehaviour {
 		
 	}
 
-	long CalculateFinishTime(HospitalItem monster, MSHospital hospital, float progress, long startTime)
-	{
-		float healthLeftToHeal = monster.healthToHeal - progress;
-		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
-		millis -= (int)monster.helpTime;
+//	long CalculateFinishTime(HospitalItem monster, MSHospital hospital, float progress, long startTime)
+//	{
+//		float healthLeftToHeal = monster.healthToHeal - progress;
+//		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
+//		millis -= (int)monster.helpTime;
+//
+////		Debug.Log("Calculating finish time for " + monster.userMonsterId + "\nAt hospital " + hospital.userBuildingData.userStructUuid
+////		          + "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
+//		
+//		return startTime + millis;
+//	}
 
-//		Debug.Log("Calculating finish time for " + monster.userMonsterId + "\nAt hospital " + hospital.userBuildingData.userStructUuid
-//		          + "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
-		
-		return startTime + millis;
-	}
-
-	long CalculateFinishTime(PZMonster monster, MSHospital hospital, float progress, long startTime)
-	{
-		float healthLeftToHeal = monster.maxHP - progress - monster.currHP;
-		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
-		millis -= (int)monster.helpTime;
-
-//		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructUuid
-//			+ "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
-
-		return startTime + millis;
-	}
+//	long CalculateFinishTime(PZMonster monster, MSHospital hospital, float progress, long startTime)
+//	{
+//		float healthLeftToHeal = monster.maxHP - progress - monster.currHP;
+//		int millis = Mathf.CeilToInt(healthLeftToHeal / hospital.proto.healthPerSecond * 1000);
+//		millis -= (int)monster.helpTime;
+//
+////		Debug.Log("Calculating finish time for " + monster.monster.displayName + "\nAt hospital " + hospital.userBuildingData.userStructUuid
+////			+ "\nProgress: " + progress + "\nStart time: " + startTime + "\nFinish should be: " + (startTime+millis));
+//
+//		return startTime + millis;
+//	}
 	
 	void UpdateProgress(PZMonster monster)
 	{
@@ -793,7 +802,6 @@ public class HospitalItem
 	public long queueTime;
 	public int healthToHeal;
 	public long finishTime;
-	public long helpTime;
 	public List<HospitalTime> hospitalTimes = new List<HospitalTime>();
 
 	public HospitalItem(PZMonster monster)
@@ -811,6 +819,5 @@ public class HospitalItem
 
 		userMonsterId = monster.userMonster.userMonsterUuid;
 		healthToHeal = monster.maxHP - monster.currHP;
-		helpTime = monster.helpTime;
 	}
 }

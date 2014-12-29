@@ -25,8 +25,6 @@ public class MSSimplePoolable : MonoBehaviour, MSPoolable {
 			_prefab = value as MSSimplePoolable;
 		}
 	}
-
-	[SerializeField] bool log = false;
 	
 	void Awake()
 	{
@@ -43,7 +41,6 @@ public class MSSimplePoolable : MonoBehaviour, MSPoolable {
 
 	public void Pool ()
 	{
-		if (log) Debug.Log("Pooling: " + name);
 		MSPoolManager.instance.Pool(this);
 	}
 }

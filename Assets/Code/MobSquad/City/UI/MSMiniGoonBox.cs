@@ -80,7 +80,7 @@ public class MSMiniGoonBox : MonoBehaviour {
 		else
 		{
 			string monsterPrefix = MSUtil.StripExtensions (monster.monster.imagePrefix);
-			MSSpriteUtil.instance.SetSprite(monsterPrefix, monsterPrefix + "Card", goonPortrait);
+			MSSpriteUtil.instance.SetSprite(monsterPrefix, monsterPrefix + "Card", goonPortrait, 1, delegate{MSSpriteUtil.instance.FitIn(goonPortrait, background, 5);});
 			if (monster.monster.monsterElement == Element.NO_ELEMENT)
 			{
 				//Debug.Log("What the fuck, " + monster.monster.displayName + " has no element");

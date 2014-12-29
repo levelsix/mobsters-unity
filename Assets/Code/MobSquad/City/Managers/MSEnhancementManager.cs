@@ -188,7 +188,7 @@ public class MSEnhancementManager : MonoBehaviour
 					last = currEnhancement.feeders[i];
 				}
 			}
-			return last.expectedStartTimeMillis + (long)(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(last.userMonsterUuid)).enhanceXP * 1000f / currLab.pointsPerSecond);
+			return MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(last.userMonsterUuid)).finishEnhanceTime;
 		}
 	}
 
@@ -241,9 +241,12 @@ public class MSEnhancementManager : MonoBehaviour
 		if (enhancement != null)
 		{
 			this.currEnhancement = enhancement;
+			PZMonster monster;
 			foreach (var item in enhancement.feeders) 
 			{
-				feeders.Add(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(item.userMonsterUuid)));
+				monster = MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(item.userMonsterUuid));
+				feeders.Add(monster);
+				monster.SetTimer(GameActionType.ENHANCE_TIME, item.expectedStartTimeMillis, monster.enhanceTime);
 			}
 		}
 	}
@@ -342,9 +345,11 @@ public class MSEnhancementManager : MonoBehaviour
 			item.userMonsterUuid = feeder.userMonster.userMonsterUuid;
 			item.enhancingCost = tempEnhancementMonster.enhanceCost;
 			item.expectedStartTimeMillis = lastStartTime;
-			lastStartTime += (long)(feeder.enhanceXP * 1000f / currLab.pointsPerSecond);
+			long feedTime = (long)(feeder.enhanceXP * 1000f / currLab.pointsPerSecond);
+			lastStartTime += feedTime;
 			enhancement.feeders.Add (item);
 			request.ueipNew.Add(item);
+			feeder.SetTimer(GameActionType.ENHANCE_TIME, item.expectedStartTimeMillis, feedTime);
 		}
 		
 		int tagNum = UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_SUBMIT_MONSTER_ENHANCEMENT_EVENT);

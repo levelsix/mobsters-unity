@@ -314,7 +314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100038
 GameObject:
   m_ObjectHideFlags: 1
@@ -1816,7 +1816,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -480.287231, y: -.574512482, z: 0}
+  m_LocalPosition: {x: -546.133362, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400018}
@@ -1989,7 +1989,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 480.287231, y: 0, z: 0}
+  m_LocalPosition: {x: 546.133362, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400070}
@@ -2300,7 +2300,7 @@ Transform:
   m_GameObject: {fileID: 100142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .660000026, y: .660000026, z: .660000086}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400220}
   m_RootOrder: 0
@@ -3357,10 +3357,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -3373,6 +3379,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3419,10 +3426,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -3435,6 +3448,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3609,10 +3623,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -3625,6 +3645,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3671,10 +3692,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -3687,6 +3714,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3832,10 +3860,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -3848,6 +3882,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3944,10 +3979,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -3960,6 +4001,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4078,10 +4120,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -4094,6 +4142,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4140,10 +4189,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: .549019635}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -4156,6 +4211,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4413,10 +4469,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -4429,6 +4491,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4475,10 +4538,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 1
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: .345098048}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -4491,6 +4560,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4587,10 +4657,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 1
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: .286274523}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -4603,6 +4679,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4649,10 +4726,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: .345098048}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -4665,6 +4748,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4793,10 +4877,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -4809,6 +4899,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4855,10 +4946,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -4871,6 +4968,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5012,7 +5110,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 9.85714245
+  aspectRatio: 9.78571415
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 40fb0df129f65444992a068dd06cf5b6, type: 2}
@@ -5022,10 +5120,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: .243137255}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -5038,6 +5142,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5134,10 +5239,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -5150,6 +5261,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5196,10 +5308,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -5212,6 +5330,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5554,10 +5673,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 0
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -5570,6 +5695,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5701,10 +5827,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: .568627477}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -5717,6 +5849,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5763,10 +5896,16 @@ MonoBehaviour:
   mAlignment: 1
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 0, g: 0, b: 0, a: .545098066}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -5779,6 +5918,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6064,7 +6204,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5023
+  startingRenderQueue: 5037
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: .670837402, z: 1092.1593, w: 640}
@@ -6252,10 +6392,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 0
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -6268,6 +6414,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6472,10 +6619,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 1, g: 1, b: 1, a: .568627477}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -6488,6 +6641,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6534,10 +6688,16 @@ MonoBehaviour:
   mAlignment: 1
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 1
   mEffectColor: {r: 0, g: 0, b: 0, a: .545098126}
-  mSymbols: 1
   mEffectDistance: {x: 0, y: 1}
+  mSymbols: 1
   mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -6550,6 +6710,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7111,10 +7272,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 0
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -7127,6 +7294,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7173,10 +7341,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 0
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -7189,6 +7363,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7235,10 +7410,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 0
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -7251,6 +7432,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7484,10 +7666,16 @@ MonoBehaviour:
   mAlignment: 0
   mEncoding: 1
   mMaxLineCount: 0
+  mHasShadow: 0
+  mShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  mShadowOffset: {x: 1, y: 1}
+  mHasOutline: 0
+  mOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  mOutlineOffset: {x: 1, y: 1}
   mEffectStyle: 0
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
+  mSymbols: 1
   mOverflow: 0
   mMaterial: {fileID: 0}
   mApplyGradient: 0
@@ -7500,6 +7688,7 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+  symbolScale: 1
 --- !u!114 &11400276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7692,7 +7881,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5032
+  startingRenderQueue: 5036
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 30, z: 56, w: 56}
