@@ -44,9 +44,9 @@ namespace com.lvl6.proto
       set { _width = value; }
     }
 
-    private com.lvl6.proto.Element _orbElements = com.lvl6.proto.Element.;
+    private com.lvl6.proto.Element _orbElements = com.lvl6.proto.Element.NO_ELEMENT;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"orbElements", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
     public com.lvl6.proto.Element orbElements
     {
       get { return _orbElements; }
@@ -115,9 +115,9 @@ namespace com.lvl6.proto
       set { _posY = value; }
     }
 
-    private com.lvl6.proto.Element _elem = com.lvl6.proto.Element.;
+    private com.lvl6.proto.Element _elem = com.lvl6.proto.Element.NO_ELEMENT;
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"elem", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
     public com.lvl6.proto.Element elem
     {
       get { return _elem; }
