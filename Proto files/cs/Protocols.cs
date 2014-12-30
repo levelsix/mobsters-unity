@@ -10,6 +10,7 @@
 // Generated from: Protocols.proto
 // Note: requires additional types generated from: AchievementStuff.proto
 // Note: requires additional types generated from: Battle.proto
+// Note: requires additional types generated from: Board.proto
 // Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: Chat.proto
 // Note: requires additional types generated from: City.proto
