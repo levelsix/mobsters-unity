@@ -42,7 +42,7 @@ namespace com.lvl6.proto
     }
 
     private float _versionNum = default(float);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"versionNum", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.Obsolete, global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"versionNum", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
     public float versionNum
     {
@@ -103,6 +103,52 @@ namespace com.lvl6.proto
       get { return _isFreshRestart; }
       set { _isFreshRestart = value; }
     }
+
+    private com.lvl6.proto.StartupRequestProto.VersionNumberProto _versionNumberProto = null;
+    [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"versionNumberProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public com.lvl6.proto.StartupRequestProto.VersionNumberProto versionNumberProto
+    {
+      get { return _versionNumberProto; }
+      set { _versionNumberProto = value; }
+    }
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"VersionNumberProto")]
+  public partial class VersionNumberProto : global::ProtoBuf.IExtensible
+  {
+    public VersionNumberProto() {}
+    
+
+    private int _superNum = default(int);
+    [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"superNum", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int superNum
+    {
+      get { return _superNum; }
+      set { _superNum = value; }
+    }
+
+    private int _majorNum = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"majorNum", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int majorNum
+    {
+      get { return _majorNum; }
+      set { _majorNum = value; }
+    }
+
+    private int _minorNum = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"minorNum", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int minorNum
+    {
+      get { return _minorNum; }
+      set { _minorNum = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

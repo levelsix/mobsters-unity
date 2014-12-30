@@ -10,6 +10,7 @@
 // Generated from: StaticData.proto
 // Note: requires additional types generated from: AchievementStuff.proto
 // Note: requires additional types generated from: Battle.proto
+// Note: requires additional types generated from: Board.proto
 // Note: requires additional types generated from: BoosterPackStuff.proto
 // Note: requires additional types generated from: City.proto
 // Note: requires additional types generated from: Clan.proto
@@ -252,6 +253,13 @@ namespace com.lvl6.proto
     public global::System.Collections.Generic.List<com.lvl6.proto.PrereqProto> prereqs
     {
       get { return _prereqs; }
+    }
+  
+    private readonly global::System.Collections.Generic.List<com.lvl6.proto.BoardLayoutProto> _boards = new global::System.Collections.Generic.List<com.lvl6.proto.BoardLayoutProto>();
+    [global::ProtoBuf.ProtoMember(34, Name=@"boards", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<com.lvl6.proto.BoardLayoutProto> boards
+    {
+      get { return _boards; }
     }
   
     private global::ProtoBuf.IExtension extensionObject;

@@ -480,6 +480,15 @@ namespace com.lvl6.proto
       set { _costToFullyHeal = value; }
     }
 
+    private float _costToFullyHealExponent = default(float);
+    [global::ProtoBuf.ProtoMember(24, IsRequired = false, Name=@"costToFullyHealExponent", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float costToFullyHealExponent
+    {
+      get { return _costToFullyHealExponent; }
+      set { _costToFullyHealExponent = value; }
+    }
+
     private int _secsToFullyHeal = default(int);
     [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"secsToFullyHeal", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -487,6 +496,15 @@ namespace com.lvl6.proto
     {
       get { return _secsToFullyHeal; }
       set { _secsToFullyHeal = value; }
+    }
+
+    private float _secsToFullyHealExponent = default(float);
+    [global::ProtoBuf.ProtoMember(25, IsRequired = false, Name=@"secsToFullyHealExponent", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::System.ComponentModel.DefaultValue(default(float))]
+    public float secsToFullyHealExponent
+    {
+      get { return _secsToFullyHealExponent; }
+      set { _secsToFullyHealExponent = value; }
     }
 
     private int _enhanceCostPerFeeder = default(int);
