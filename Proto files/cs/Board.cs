@@ -44,10 +44,10 @@ namespace com.lvl6.proto
       set { _width = value; }
     }
 
-    private com.lvl6.proto.Element _orbElements = com.lvl6.proto.Element.NO_ELEMENT;
+    private int _orbElements = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"orbElements", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
-    public com.lvl6.proto.Element orbElements
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int orbElements
     {
       get { return _orbElements; }
       set { _orbElements = value; }
