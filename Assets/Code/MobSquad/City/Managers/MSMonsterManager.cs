@@ -108,6 +108,7 @@ public class MSMonsterManager : MonoBehaviour {
 			if (!item.isComplete && item.numPieces >= mon.monster.numPuzzlePieces)
 			{
 				combiningMonsters.Add(mon);
+				mon.SetTimer(GameActionType.COMBINE_MONSTER, mon.userMonster.combineStartTime);
 			}
 		}
 
@@ -488,6 +489,7 @@ public class MSMonsterManager : MonoBehaviour {
 		else
 		{
 			monster.userMonster.combineStartTime = MSUtil.timeNowMillis;
+			monster.SetTimer(GameActionType.COMBINE_MONSTER, MSUtil.timeNowMillis);
 			combiningMonsters.Add(monster);
 		}
 	}
@@ -522,10 +524,13 @@ public class MSMonsterManager : MonoBehaviour {
 	{
 		if (combineRequestProto == null)
 		{
-			for (int i = combiningMonsters.Count - 1; i >= 0; i--){
+			for (int i = combiningMonsters.Count - 1; i >= 0; i--)
+			{
 				PZMonster item = combiningMonsters[i];
 				if (item.combineTimeLeft <= 0)
-				CombineMonster(item);
+				{
+					CombineMonster(item);
+				}
 			}
 			if (combineRequestProto != null)
 			{

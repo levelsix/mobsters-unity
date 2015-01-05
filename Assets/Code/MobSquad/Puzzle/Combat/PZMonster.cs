@@ -243,7 +243,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return userMonster.combineStartTime + (monster.minutesToCombinePieces * 60 * 1000);
+			return timer.finishTime;
 		}
 	}
 	
@@ -251,7 +251,7 @@ public class PZMonster {
 	{
 		get
 		{
-			return finishCombineTime - MSUtil.timeNowMillis;
+			return timer.timeLeft;
 		}
 	}
 	
@@ -797,10 +797,13 @@ public class PZMonster {
 		{
 			switch (actionType) {
 			case GameActionType.COMBINE_MONSTER:
-				length = monster.minutesToCombinePieces * 60 * 1000;
+				length = monster.minutesToCombinePieces * 60 * 1000L;
 				break;
 			case GameActionType.HEAL:
 				length = timeToHealMillis;
+				break;
+			case GameActionType.EVOLVE:
+				length = monster.minutesToEvolve * 1000L * 60;
 				break;
 			default:
 				break;
