@@ -245,7 +245,6 @@ public class MSGoonCard : MonoBehaviour {
 
 	public void Init(PZMonster goon, GoonScreenMode mode)
 	{
-		Debug.Log("Initting: " + id);
 		goonScreenMode = mode;
 		switch (mode) {
 		case GoonScreenMode.HEAL:
@@ -1113,8 +1112,6 @@ public class MSGoonCard : MonoBehaviour {
 
 	public void Pool()
 	{
-		Debug.Log("Pooling: " + id);
-
 		if (isBuddyParent)
 		{
 			buddy.transform.parent = transform.parent;

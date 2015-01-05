@@ -44,33 +44,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 	ClanHelpProto currActiveHelp = null;
 
-	public int helpCount
-	{
-		get
-		{
-			if(currActiveJob != null)
-			{
-				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.MINI_JOB || !currActiveHelp.userDataUuid.Equals(currActiveJob.userMiniJobUuid))
-				{
-					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.MINI_JOB, currActiveJob.userMiniJobUuid);
-				}
-
-				if(currActiveHelp != null)
-				{
-					if(currActiveHelp.helperUuids.Count > MSBuildingManager.currClanHouse.maxHelpersPerSolicitation)
-					{
-						return MSBuildingManager.currClanHouse.maxHelpersPerSolicitation;
-					}
-					else
-					{
-						return currActiveHelp.helperUuids.Count;
-					}
-				}
-			}
-
-			return 0;
-		}
-	}
+	MSTimer jobTimer;
 
 	StartupResponseProto.StartupConstants.ClanHelpConstants minijobHelpConstant;
 
@@ -107,29 +81,6 @@ public class MSMiniJobManager : MonoBehaviour {
 		}
 	}
 
-	public long helpTime
-	{
-		get
-		{
-			if(minijobHelpConstant == null)
-			{
-				minijobHelpConstant = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == GameActionType.MINI_JOB);
-			}
-			int amountRemovedPerHelp = minijobHelpConstant.amountRemovedPerHelp;
-			float percentRemovedPerHelp = minijobHelpConstant.percentRemovedPerHelp;
-
-			long totalTime = currActiveJob.durationSeconds;
-			if(amountRemovedPerHelp < percentRemovedPerHelp * totalTime)
-			{
-				return (long)(percentRemovedPerHelp * totalTime * helpCount);
-			}
-			else
-			{
-				return (long)(amountRemovedPerHelp * helpCount);
-			}
-		}
-	}
-
 	public long timeLeft
 	{
 		get
@@ -138,7 +89,7 @@ public class MSMiniJobManager : MonoBehaviour {
 			{
 				return 0;
 			}
-			return (currActiveJob.timeStarted + currActiveJob.durationSeconds * 1000 - MSUtil.timeNowMillis) - (helpTime * 1000);
+			return jobTimer.timeLeft;
 		}
 	}
 
@@ -149,7 +100,7 @@ public class MSMiniJobManager : MonoBehaviour {
 			return currActiveJob != null
 				&& !currActiveJob.userMiniJobUuid.Equals("")
 				&& currActiveJob.timeStarted > 0
-				&& timeLeft <= 0
+				&& jobTimer.done
 				&& currActiveJob.timeCompleted == 0;
 		}
 	}
@@ -193,6 +144,7 @@ public class MSMiniJobManager : MonoBehaviour {
 			if (item.timeStarted > 0)
 			{
 				currActiveJob = item;
+				jobTimer = new MSTimer(GameActionType.MINI_JOB, currActiveJob.userMiniJobUuid, currActiveJob.miniJob.miniJobId, currActiveJob.timeStarted, currActiveJob.durationSeconds * 1000L);
 			}
 		}
 	}
@@ -308,7 +260,7 @@ public class MSMiniJobManager : MonoBehaviour {
 
 		isBeginning = true;
 
-
+		jobTimer = new MSTimer(GameActionType.MINI_JOB, job.userMiniJobUuid, job.miniJob.miniJobId, MSUtil.timeNowMillis, job.durationSeconds * 1000L);
 
 		UMQNetworkManager.instance.SendRequest(request, (int)EventProtocolRequest.C_BEGIN_MINI_JOB_EVENT, 
 		                                       DealWithJobBegin);
