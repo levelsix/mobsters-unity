@@ -11,19 +11,19 @@ using com.lvl6.proto;
 [RequireComponent (typeof (MSBuilding))]
 public class MSObstacle : MonoBehaviour {
 
-	long endTime = 0;
-
 	public bool finishedWithGems = false;
 
 	public bool isRemoving;
 
 	public bool finished = false;
 
+	MSTimer removeTimer;
+
 	public int gemsToFinish
 	{
 		get
 		{
-			return MSMath.GemsForTime(endTime - MSUtil.timeNowMillis, false);
+			return MSMath.GemsForTime(removeTimer.timeLeft, false);
 		}
 	}
 
@@ -31,11 +31,7 @@ public class MSObstacle : MonoBehaviour {
 	{
 		get
 		{
-			if (endTime == 0)
-			{
-				return 0;
-			}
-			return endTime - MSUtil.timeNowMillis;
+			return removeTimer.timeLeft;
 		}
 	}
 
@@ -43,7 +39,7 @@ public class MSObstacle : MonoBehaviour {
 	{
 		get
 		{
-			if (endTime == 0)
+			if (removeTimer == null)
 			{
 				return 0;
 			}
@@ -66,15 +62,17 @@ public class MSObstacle : MonoBehaviour {
 	public void Init(MinimumObstacleProto proto)
 	{
 		obstacle = MSDataManager.instance.Get<ObstacleProto>(proto.obstacleId);
+		removeTimer = null;
 	}
 
 	public void Init(UserObstacleProto proto)
 	{
 		this.userObstacle = proto;
 		obstacle = MSDataManager.instance.Get<ObstacleProto>(proto.obstacleId);
+		removeTimer = null;
 		if (proto.removalStartTime > 0)
 		{
-			endTime = proto.removalStartTime + obstacle.secondsToRemove * 1000;
+			removeTimer = new MSTimer(GameActionType.REMOVE_OBSTACLE, proto.userObstacleUuid, obstacle.obstacleId, proto.removalStartTime, obstacle.secondsToRemove * 1000);
 			StartCoroutine(Check ());
 		}
 	}
@@ -128,8 +126,7 @@ public class MSObstacle : MonoBehaviour {
 			return;
 		}
 
-		endTime = MSUtil.timeNowMillis + obstacle.secondsToRemove * 1000;
-		//Debug.Log("Start remove");
+		removeTimer = new MSTimer(GameActionType.REMOVE_OBSTACLE, userObstacle.userObstacleUuid, obstacle.obstacleId, MSUtil.timeNowMillis, obstacle.secondsToRemove * 1000);
 		StartCoroutine(Check ());
 		
 		request.sender = MSWhiteboard.localMup;
@@ -157,7 +154,7 @@ public class MSObstacle : MonoBehaviour {
 		MSBuildingManager.instance.currentUnderConstruction = GetComponent<MSBuilding>();
 		while (true)
 		{
-			if (MSUtil.timeNowMillis > endTime && !finishedWithGems)
+			if (removeTimer.done && !finishedWithGems)
 			{
 				FinishRemove();
 				yield break;
