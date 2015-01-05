@@ -42,14 +42,23 @@ public class MSTimer
 				{
 					currActiveHelp = MSClanManager.instance.GetClanHelp (timerType, staticDataId, uuid);
 				}
-				else
+
+				if (currActiveHelp == null || !currActiveHelp.userDataUuid.Equals(uuid))
 				{
-					currActiveHelp = MSClanManager.instance.GetClanHelp(timerType, uuid);
+					currActiveHelp = MSClanManager.instance.GetClanHelp (timerType, uuid);
 				}
 			}
 
 			if (currActiveHelp == null) return 0;
 			return Mathf.Min(currActiveHelp.helperUuids.Count, currActiveHelp.maxHelpers);
+		}
+	}
+
+	public long amountPerHelp
+	{
+		get
+		{
+			return (long)Mathf.Max(length * helpConstants.percentRemovedPerHelp, helpConstants.amountRemovedPerHelp);
 		}
 	}
 
@@ -62,7 +71,8 @@ public class MSTimer
 				helpConstants = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == timerType);
 			}
 			if (helpConstants == null) return 0;
-			return helpConstants.amountRemovedPerHelp * helpCount;
+
+			return amountPerHelp * helpCount;
 		}
 	}
 

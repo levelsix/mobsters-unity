@@ -83,7 +83,7 @@ public class MSObstacle : MonoBehaviour {
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",
     			"Speed him up for (G) " + 
-	                MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime, true)
+	                MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.timeLeft, true)
 	                + " and remove this obstacle?",
                 new string[]{"Cancel", "Speed Up"},
 				new string[]{"greymenuoption", "purplemenuoption"},

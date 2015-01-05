@@ -10,7 +10,11 @@ using com.lvl6.proto;
 /// </summary>
 [RequireComponent (typeof (MSBuilding))]
 public class MSBuildingUpgrade : MonoBehaviour {
-	
+
+	MSTimer buildTimer;
+
+	StartupResponseProto.StartupConstants.ClanHelpConstants upgradeConstants;
+	ClanHelpProto currActiveHelp = null;
 	
 	/// <summary>
 	/// Quick getter and setter that wraps the FullUserStructureProto
@@ -51,7 +55,8 @@ public class MSBuildingUpgrade : MonoBehaviour {
 			{
 				return 0;
 			}
-			return building.userStructProto.purchaseTime + building.combinedProto.structInfo.minutesToBuild * 60000;
+			return buildTimer.finishTime;
+			//return building.userStructProto.purchaseTime + building.combinedProto.structInfo.minutesToBuild * 60000; //Deprecated
 		}
 	}
 	
@@ -59,61 +64,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			return upgradeCompleteTime - MSUtil.timeNowMillis;
-		}
-	}
-
-	StartupResponseProto.StartupConstants.ClanHelpConstants upgradeConstants;
-	ClanHelpProto currActiveHelp = null;
-
-	public int helpCount
-	{
-		get
-		{
-			if(!isComplete)
-			{
-				if(currActiveHelp == null || currActiveHelp.helpType != GameActionType.UPGRADE_STRUCT || !currActiveHelp.userDataUuid.Equals(building.userStructProto.userStructUuid))
-				{
-					currActiveHelp = MSClanManager.instance.GetClanHelp(GameActionType.UPGRADE_STRUCT, building.userStructProto.userStructUuid);
-				}
-				
-				if(currActiveHelp != null)
-				{
-					if(currActiveHelp.helperUuids.Count > MSBuildingManager.currClanHouse.maxHelpersPerSolicitation)
-					{
-						return MSBuildingManager.currClanHouse.maxHelpersPerSolicitation;
-					}
-					else
-					{
-						return currActiveHelp.helperUuids.Count;
-					}
-				}
-			}
-			
-			return 0;
-		}
-	}
-
-	public long helpTime
-	{
-		get
-		{
-			if(upgradeConstants == null)
-			{
-				upgradeConstants = MSWhiteboard.constants.clanHelpConstants.Find(x=>x.helpType == GameActionType.UPGRADE_STRUCT);
-			}
-			int amountRemovedPerHelp = upgradeConstants.amountRemovedPerHelp;
-			float percentRemovedPerHelp = upgradeConstants.percentRemovedPerHelp;
-			
-			long totalTime = (long)building.combinedProto.structInfo.minutesToBuild * 60000;
-			if(amountRemovedPerHelp < percentRemovedPerHelp * totalTime)
-			{
-				return (long)(percentRemovedPerHelp * totalTime * helpCount);
-			}
-			else
-			{
-				return (long)(amountRemovedPerHelp * helpCount);
-			}
+			return buildTimer.timeLeft;
 		}
 	}
 	
@@ -121,7 +72,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			return MSUtil.TimeStringShort(timeRemaining - helpTime);
+			return MSUtil.TimeStringShort(timeRemaining);
 		}
 	}
 
@@ -129,11 +80,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			float remaining = (float)timeRemaining;
-			float total = building.combinedProto.structInfo.minutesToBuild * 60000f;
-			float prog = remaining / total;
-			//Debug.LogWarning("Remaining: " + remaining + ", Total: " + total + ", Progress: " + prog);
-			return 1f - prog;//(((float)(timeRemaining)) / (building.combinedProto.structInfo.minutesToBuild * 60000));
+			return buildTimer.progress;
 		}
 	}
 	
@@ -162,14 +109,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
-			if(building.obstacle != null)
-			{
-				return MSMath.GemsForTime(timeRemaining, false);
-			}
-			else
-			{
-				return MSMath.GemsForTime(timeRemaining, true);
-			}
+			return MSMath.GemsForTime(timeRemaining, building.obstacle == null);
 		}
 	}
 
@@ -210,7 +150,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
     {
 		if (!uProto.isComplete && uProto.purchaseTime > 0)
 		{
-			//Debug.Log("Building " + uProto.userStructUuid + " isn't finished; checking upgrade");
+			buildTimer = new MSTimer(GameActionType.UPGRADE_STRUCT, uProto.userStructUuid, sProto.structId, uProto.purchaseTime, sProto.minutesToBuild * 1000L * 60);
 			building.SetupConstructionSprite();
 			StartCoroutine(CheckUpgrade());
 		}
@@ -221,16 +161,6 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	public void Init(bool operational)
 	{
 		enabled = operational;
-	}
-	
-	void OnSelect()
-	{
-		//upgradePopup.SetActive(true);
-	}
-	
-	void OnDeselect()
-	{
-		//upgradePopup.SetActive(false);
 	}
 	
 	public virtual void StartConstruction()
@@ -253,6 +183,8 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		building.userStructProto.isComplete = false;
 		building.userStructProto.purchaseTime = MSUtil.timeNowMillis;
 		building.SetupConstructionSprite();
+
+		buildTimer = new MSTimer(GameActionType.UPGRADE_STRUCT,  building.userStructProto.userStructUuid, building.combinedProto.structInfo.structId, MSUtil.timeNowMillis, building.combinedProto.structInfo.minutesToBuild * 1000L * 60); 
 		
 		StartCoroutine(CheckUpgrade());
 	}
@@ -289,28 +221,6 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	}
 	
 	/// <summary>
-	/// Calculates how much time it will take for this building to upgrade
-	/// when at the given level
-	/// </summary>
-	/// <returns>
-	/// The time it will take to upgrade
-	/// </returns>
-	/// <param name='level'>
-	/// Current level of the building
-	/// </param>
-	public long TimeToUpgrade(int level)
-	{
-		if (level == 1)
-		{
-			return building.combinedProto.structInfo.minutesToBuild * 60 * 1000;
-		}
-		else
-		{
-			return MSMath.TimeToBuildOrUpgradeStruct(building.combinedProto.structInfo.minutesToBuild, level);
-		}
-	}
-	
-	/// <summary>
 	/// Checks if the building has past the upgrade timer
 	/// </summary>
 	public IEnumerator CheckUpgrade()
@@ -319,8 +229,7 @@ public class MSBuildingUpgrade : MonoBehaviour {
 		yield return null;
 		while (!building.userStructProto.isComplete)
 		{
-			if (MSUtil.timeNowMillis > building.userStructProto.purchaseTime + building.combinedProto.structInfo.minutesToBuild * 60 * 1000
-				&& MSUtil.timeNowMillis > upgradeCompleteTime)
+			if (buildTimer.done)
 			{
 				FinishWithWait();
 			}

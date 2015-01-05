@@ -1,8 +1,8 @@
 #define DEBUG
 
-#if !UNITY_EDITOR
+//#if !UNITY_EDITOR
 #define STAGING
-#endif
+//#endif
 //#define PROD
 
 using UnityEngine;
@@ -572,6 +572,7 @@ public class UMQNetworkManager : MonoBehaviour {
 			if (actionDict.ContainsKey(tagNum) && actionDict[tagNum] != null)
 			{
 				actionDict[tagNum](tagNum);
+				actionDict.Remove(tagNum);
 			}
 			else 
 			{

@@ -730,11 +730,15 @@ public class MSClanManager : MonoBehaviour
 		{
 			foreach(ClanHelpProto helpProto in proto.clanHelps)
 			{
-				for(int i = 0; i < clanHelpRequests.Count;i++)
+				foreach(ClanHelpProto helpRequest in clanHelpRequests)
 				{
-					if(helpProto.clanHelpUuid.Equals(clanHelpRequests[i].clanHelpUuid))
+					if(helpProto.clanHelpUuid.Equals(helpRequest.clanHelpUuid))
 					{
-						clanHelpRequests[i] = helpProto;
+						helpRequest.helperUuids.Clear();
+						foreach (var helper in helpProto.helperUuids) 
+						{
+							helpRequest.helperUuids.Add(helper);
+						}
 					}
 				}
 			}

@@ -170,7 +170,7 @@ public class MSBuildingUpgradePopup : MonoBehaviour {
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",
 			                                    "Speed him up for (G)  " + 
-			                                        MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime, true)
+			                                        MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.timeLeft, true)
 			                                        + " and upgrade this building?",
                 new string[]{"Cancel", "Speed Up"},
 				new string[]{"greymenuoption", "purplemenuoption"},

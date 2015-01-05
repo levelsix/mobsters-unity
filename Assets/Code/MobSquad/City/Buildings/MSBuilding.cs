@@ -121,8 +121,6 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 
 	const float HOME_BUILDING_SCALE = 0.66f;
 
-	public long completeTime = 0;
-
 	/// <summary>
 	/// If the building is currently selected
 	/// </summary>
@@ -246,7 +244,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 	[SerializeField]
 	MSLoadLock confirmationLoadLock;
 
-	long constructionTimeLeft
+	public long timeLeft
 	{
 		get
 		{
@@ -760,7 +758,7 @@ public class MSBuilding : MonoBehaviour, MSIPlaceable, MSPoolable, MSITakesGridS
 		{
 			MSPopupManager.instance.CreatePopup("Your builder is busy!",  
             	"Speed him up for (G) " + 
-	                MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.completeTime, true)
+	                MSMath.GemsForTime(MSBuildingManager.instance.currentUnderConstruction.timeLeft, true)
 	                + " and build this structure?",
                 new string[]{"Cancel", "Speed Up"},
 				new string[]{"greymenuoption", "purplemenuoption"},
