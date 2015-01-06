@@ -15,7 +15,6 @@ namespace com.lvl6.proto
   {
     public BuildStructJobProto() {}
     
-
     private int _buildStructJobId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"buildStructJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -24,7 +23,6 @@ namespace com.lvl6.proto
       get { return _buildStructJobId; }
       set { _buildStructJobId = value; }
     }
-
     private int _structId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"structId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -33,7 +31,6 @@ namespace com.lvl6.proto
       get { return _structId; }
       set { _structId = value; }
     }
-
     private int _quantityRequired = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"quantityRequired", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -52,7 +49,6 @@ namespace com.lvl6.proto
   {
     public MinimumUserBuildStructJobProto() {}
     
-
     private int _userId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -61,7 +57,6 @@ namespace com.lvl6.proto
       get { return _userId; }
       set { _userId = value; }
     }
-
     private int _questId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"questId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -70,7 +65,6 @@ namespace com.lvl6.proto
       get { return _questId; }
       set { _questId = value; }
     }
-
     private int _buildStructJobId = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"buildStructJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -79,7 +73,6 @@ namespace com.lvl6.proto
       get { return _buildStructJobId; }
       set { _buildStructJobId = value; }
     }
-
     private int _numOfStructUserHas = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"numOfStructUserHas", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -98,7 +91,6 @@ namespace com.lvl6.proto
   {
     public UpgradeStructJobProto() {}
     
-
     private int _upgradeStructJobId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"upgradeStructJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -107,7 +99,6 @@ namespace com.lvl6.proto
       get { return _upgradeStructJobId; }
       set { _upgradeStructJobId = value; }
     }
-
     private int _structId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"structId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -116,7 +107,6 @@ namespace com.lvl6.proto
       get { return _structId; }
       set { _structId = value; }
     }
-
     private int _levelReq = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"levelReq", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -135,7 +125,6 @@ namespace com.lvl6.proto
   {
     public MinimumUserUpgradeStructJobProto() {}
     
-
     private int _userId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -144,7 +133,6 @@ namespace com.lvl6.proto
       get { return _userId; }
       set { _userId = value; }
     }
-
     private int _questId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"questId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -153,7 +141,6 @@ namespace com.lvl6.proto
       get { return _questId; }
       set { _questId = value; }
     }
-
     private int _upgradeStructJobId = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"upgradeStructJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -162,7 +149,6 @@ namespace com.lvl6.proto
       get { return _upgradeStructJobId; }
       set { _upgradeStructJobId = value; }
     }
-
     private int _currentLevel = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"currentLevel", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -181,7 +167,6 @@ namespace com.lvl6.proto
   {
     public MonsterJobProto() {}
     
-
     private int _monsterJobId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"monsterJobId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -190,7 +175,6 @@ namespace com.lvl6.proto
       get { return _monsterJobId; }
       set { _monsterJobId = value; }
     }
-
     private int _monsterId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"monsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -199,7 +183,6 @@ namespace com.lvl6.proto
       get { return _monsterId; }
       set { _monsterId = value; }
     }
-
     private int _quanity = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"quanity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -208,7 +191,6 @@ namespace com.lvl6.proto
       get { return _quanity; }
       set { _quanity = value; }
     }
-
     private com.lvl6.proto.MonsterJobType _monsterJobType = com.lvl6.proto.MonsterJobType.COLLECT;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"monsterJobType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.MonsterJobType.COLLECT)]

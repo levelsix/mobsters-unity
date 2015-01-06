@@ -16,7 +16,6 @@ namespace com.lvl6.proto
   {
     public PrereqProto() {}
     
-
     private int _prereqId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"prereqId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -25,7 +24,6 @@ namespace com.lvl6.proto
       get { return _prereqId; }
       set { _prereqId = value; }
     }
-
     private com.lvl6.proto.GameType _gameType = com.lvl6.proto.GameType.NO_TYPE;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"gameType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameType.NO_TYPE)]
@@ -34,7 +32,6 @@ namespace com.lvl6.proto
       get { return _gameType; }
       set { _gameType = value; }
     }
-
     private int _gameEntityId = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gameEntityId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -43,7 +40,6 @@ namespace com.lvl6.proto
       get { return _gameEntityId; }
       set { _gameEntityId = value; }
     }
-
     private com.lvl6.proto.GameType _prereqGameType = com.lvl6.proto.GameType.NO_TYPE;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"prereqGameType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameType.NO_TYPE)]
@@ -52,7 +48,6 @@ namespace com.lvl6.proto
       get { return _prereqGameType; }
       set { _prereqGameType = value; }
     }
-
     private int _prereqGameEntityId = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"prereqGameEntityId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -61,7 +56,6 @@ namespace com.lvl6.proto
       get { return _prereqGameEntityId; }
       set { _prereqGameEntityId = value; }
     }
-
     private int _quantity = default(int);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"quantity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]

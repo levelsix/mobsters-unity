@@ -16,7 +16,6 @@ namespace com.lvl6.proto
   {
     public UserCityExpansionDataProto() {}
     
-
     private string _userUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -25,7 +24,6 @@ namespace com.lvl6.proto
       get { return _userUuid; }
       set { _userUuid = value; }
     }
-
     private int _xPosition = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"xPosition", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -34,7 +32,6 @@ namespace com.lvl6.proto
       get { return _xPosition; }
       set { _xPosition = value; }
     }
-
     private int _yPosition = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"yPosition", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -43,7 +40,6 @@ namespace com.lvl6.proto
       get { return _yPosition; }
       set { _yPosition = value; }
     }
-
     private bool _isExpanding = default(bool);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"isExpanding", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -52,7 +48,6 @@ namespace com.lvl6.proto
       get { return _isExpanding; }
       set { _isExpanding = value; }
     }
-
     private long _expandStartTime = default(long);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"expandStartTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -71,7 +66,6 @@ namespace com.lvl6.proto
   {
     public CityExpansionCostProto() {}
     
-
     private int _expansionNum = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"expansionNum", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -80,7 +74,6 @@ namespace com.lvl6.proto
       get { return _expansionNum; }
       set { _expansionNum = value; }
     }
-
     private int _expansionCostCash = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"expansionCostCash", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -89,7 +82,6 @@ namespace com.lvl6.proto
       get { return _expansionCostCash; }
       set { _expansionCostCash = value; }
     }
-
     private int _numMinutesToExpand = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"numMinutesToExpand", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -108,7 +100,6 @@ namespace com.lvl6.proto
   {
     public CityElementProto() {}
     
-
     private int _cityId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"cityId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -117,7 +108,6 @@ namespace com.lvl6.proto
       get { return _cityId; }
       set { _cityId = value; }
     }
-
     private int _assetId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"assetId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -126,7 +116,6 @@ namespace com.lvl6.proto
       get { return _assetId; }
       set { _assetId = value; }
     }
-
     private com.lvl6.proto.CityElementProto.CityElemType _type = com.lvl6.proto.CityElementProto.CityElemType.BUILDING;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.CityElementProto.CityElemType.BUILDING)]
@@ -135,7 +124,6 @@ namespace com.lvl6.proto
       get { return _type; }
       set { _type = value; }
     }
-
     private com.lvl6.proto.CoordinateProto _coords = null;
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"coords", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -144,7 +132,6 @@ namespace com.lvl6.proto
       get { return _coords; }
       set { _coords = value; }
     }
-
     private float _xLength = default(float);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"xLength", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
@@ -153,7 +140,6 @@ namespace com.lvl6.proto
       get { return _xLength; }
       set { _xLength = value; }
     }
-
     private float _yLength = default(float);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"yLength", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
@@ -162,7 +148,6 @@ namespace com.lvl6.proto
       get { return _yLength; }
       set { _yLength = value; }
     }
-
     private string _imgId = "";
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"imgId", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -171,7 +156,6 @@ namespace com.lvl6.proto
       get { return _imgId; }
       set { _imgId = value; }
     }
-
     private com.lvl6.proto.StructOrientation _orientation = com.lvl6.proto.StructOrientation.POSITION_1;
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"orientation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.StructOrientation.POSITION_1)]
@@ -180,7 +164,6 @@ namespace com.lvl6.proto
       get { return _orientation; }
       set { _orientation = value; }
     }
-
     private com.lvl6.proto.CoordinateProto _spriteCoords = null;
     [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"spriteCoords", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -216,7 +199,6 @@ namespace com.lvl6.proto
   {
     public FullCityProto() {}
     
-
     private int _cityId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"cityId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -225,7 +207,6 @@ namespace com.lvl6.proto
       get { return _cityId; }
       set { _cityId = value; }
     }
-
     private string _name = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -234,7 +215,6 @@ namespace com.lvl6.proto
       get { return _name; }
       set { _name = value; }
     }
-
     private string _mapImgName = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"mapImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -243,7 +223,6 @@ namespace com.lvl6.proto
       get { return _mapImgName; }
       set { _mapImgName = value; }
     }
-
     private com.lvl6.proto.CoordinateProto _center = null;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"center", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -252,7 +231,6 @@ namespace com.lvl6.proto
       get { return _center; }
       set { _center = value; }
     }
-
     private string _roadImgName = "";
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"roadImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -261,7 +239,6 @@ namespace com.lvl6.proto
       get { return _roadImgName; }
       set { _roadImgName = value; }
     }
-
     private string _mapTmxName = "";
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"mapTmxName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -270,7 +247,6 @@ namespace com.lvl6.proto
       get { return _mapTmxName; }
       set { _mapTmxName = value; }
     }
-
     private com.lvl6.proto.CoordinateProto _roadImgCoords = null;
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"roadImgCoords", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -286,7 +262,6 @@ namespace com.lvl6.proto
       get { return _taskIds; }
     }
   
-
     private string _attackMapLabelImgName = "";
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"attackMapLabelImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]

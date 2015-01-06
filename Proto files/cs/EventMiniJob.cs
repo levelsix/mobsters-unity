@@ -18,7 +18,6 @@ namespace com.lvl6.proto
   {
     public SpawnMiniJobRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -27,7 +26,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -36,7 +34,6 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
-
     private int _numToSpawn = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"numToSpawn", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -45,7 +42,6 @@ namespace com.lvl6.proto
       get { return _numToSpawn; }
       set { _numToSpawn = value; }
     }
-
     private int _structId = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"structId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -64,7 +60,6 @@ namespace com.lvl6.proto
   {
     public SpawnMiniJobResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -80,7 +75,6 @@ namespace com.lvl6.proto
       get { return _miniJobs; }
     }
   
-
     private com.lvl6.proto.SpawnMiniJobResponseProto.SpawnMiniJobStatus _status = com.lvl6.proto.SpawnMiniJobResponseProto.SpawnMiniJobStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SpawnMiniJobResponseProto.SpawnMiniJobStatus.SUCCESS)]
@@ -110,7 +104,6 @@ namespace com.lvl6.proto
   {
     public BeginMiniJobRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -119,7 +112,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -135,7 +127,6 @@ namespace com.lvl6.proto
       get { return _userMonsterUuids; }
     }
   
-
     private string _userMiniJobUuid = "";
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userMiniJobUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -154,7 +145,6 @@ namespace com.lvl6.proto
   {
     public BeginMiniJobResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -163,7 +153,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.BeginMiniJobResponseProto.BeginMiniJobStatus _status = com.lvl6.proto.BeginMiniJobResponseProto.BeginMiniJobStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.BeginMiniJobResponseProto.BeginMiniJobStatus.SUCCESS)]
@@ -196,7 +185,6 @@ namespace com.lvl6.proto
   {
     public CompleteMiniJobRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -205,7 +193,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -214,7 +201,6 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
-
     private string _userMiniJobUuid = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMiniJobUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -223,7 +209,6 @@ namespace com.lvl6.proto
       get { return _userMiniJobUuid; }
       set { _userMiniJobUuid = value; }
     }
-
     private bool _isSpeedUp = default(bool);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"isSpeedUp", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -232,7 +217,6 @@ namespace com.lvl6.proto
       get { return _isSpeedUp; }
       set { _isSpeedUp = value; }
     }
-
     private int _gemCost = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"gemCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -251,7 +235,6 @@ namespace com.lvl6.proto
   {
     public CompleteMiniJobResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -260,7 +243,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.CompleteMiniJobResponseProto.CompleteMiniJobStatus _status = com.lvl6.proto.CompleteMiniJobResponseProto.CompleteMiniJobStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.CompleteMiniJobResponseProto.CompleteMiniJobStatus.SUCCESS)]
@@ -296,7 +278,6 @@ namespace com.lvl6.proto
   {
     public RedeemMiniJobRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -305,7 +286,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -314,7 +294,6 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
-
     private string _userMiniJobUuid = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userMiniJobUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -340,7 +319,6 @@ namespace com.lvl6.proto
   {
     public RedeemMiniJobResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -349,7 +327,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.FullUserMonsterProto _fump = null;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"fump", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -358,7 +335,6 @@ namespace com.lvl6.proto
       get { return _fump; }
       set { _fump = value; }
     }
-
     private com.lvl6.proto.RedeemMiniJobResponseProto.RedeemMiniJobStatus _status = com.lvl6.proto.RedeemMiniJobResponseProto.RedeemMiniJobStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RedeemMiniJobResponseProto.RedeemMiniJobStatus.SUCCESS)]

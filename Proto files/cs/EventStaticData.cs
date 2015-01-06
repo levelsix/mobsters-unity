@@ -16,7 +16,6 @@ namespace com.lvl6.proto
   {
     public PurgeClientStaticDataResponseProto() {}
     
-
     private string _senderUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"senderUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -25,7 +24,6 @@ namespace com.lvl6.proto
       get { return _senderUuid; }
       set { _senderUuid = value; }
     }
-
     private com.lvl6.proto.StaticDataProto _staticDataStuff = null;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"staticDataStuff", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]

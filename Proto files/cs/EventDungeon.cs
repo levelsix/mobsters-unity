@@ -20,7 +20,6 @@ namespace com.lvl6.proto
   {
     public BeginDungeonRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -29,7 +28,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -38,7 +36,6 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
-
     private int _taskId = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"taskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -47,7 +44,6 @@ namespace com.lvl6.proto
       get { return _taskId; }
       set { _taskId = value; }
     }
-
     private bool _userBeatAllCityTasks = default(bool);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"userBeatAllCityTasks", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -56,7 +52,6 @@ namespace com.lvl6.proto
       get { return _userBeatAllCityTasks; }
       set { _userBeatAllCityTasks = value; }
     }
-
     private bool _isEvent = default(bool);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"isEvent", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -65,7 +60,6 @@ namespace com.lvl6.proto
       get { return _isEvent; }
       set { _isEvent = value; }
     }
-
     private int _persistentEventId = default(int);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"persistentEventId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -74,7 +68,6 @@ namespace com.lvl6.proto
       get { return _persistentEventId; }
       set { _persistentEventId = value; }
     }
-
     private int _gemsSpent = default(int);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -90,7 +83,6 @@ namespace com.lvl6.proto
       get { return _questIds; }
     }
   
-
     private com.lvl6.proto.Element _elem = com.lvl6.proto.Element.NO_ELEMENT;
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"elem", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
@@ -99,7 +91,6 @@ namespace com.lvl6.proto
       get { return _elem; }
       set { _elem = value; }
     }
-
     private bool _forceEnemyElem = default(bool);
     [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"forceEnemyElem", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -108,7 +99,6 @@ namespace com.lvl6.proto
       get { return _forceEnemyElem; }
       set { _forceEnemyElem = value; }
     }
-
     private bool _alreadyCompletedMiniTutorialTask = default(bool);
     [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"alreadyCompletedMiniTutorialTask", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -127,7 +117,6 @@ namespace com.lvl6.proto
   {
     public BeginDungeonResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -143,7 +132,6 @@ namespace com.lvl6.proto
       get { return _tsp; }
     }
   
-
     private string _userTaskUuid = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userTaskUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -152,7 +140,6 @@ namespace com.lvl6.proto
       get { return _userTaskUuid; }
       set { _userTaskUuid = value; }
     }
-
     private int _taskId = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"taskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -161,7 +148,6 @@ namespace com.lvl6.proto
       get { return _taskId; }
       set { _taskId = value; }
     }
-
     private com.lvl6.proto.BeginDungeonResponseProto.BeginDungeonStatus _status = com.lvl6.proto.BeginDungeonResponseProto.BeginDungeonStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.BeginDungeonResponseProto.BeginDungeonStatus.SUCCESS)]
@@ -191,7 +177,6 @@ namespace com.lvl6.proto
   {
     public EndDungeonRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -200,7 +185,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private string _userTaskUuid = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userTaskUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -209,7 +193,6 @@ namespace com.lvl6.proto
       get { return _userTaskUuid; }
       set { _userTaskUuid = value; }
     }
-
     private bool _userWon = default(bool);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"userWon", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -218,7 +201,6 @@ namespace com.lvl6.proto
       get { return _userWon; }
       set { _userWon = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -227,7 +209,6 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
-
     private bool _firstTimeUserWonTask = default(bool);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"firstTimeUserWonTask", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -236,7 +217,6 @@ namespace com.lvl6.proto
       get { return _firstTimeUserWonTask; }
       set { _firstTimeUserWonTask = value; }
     }
-
     private bool _userBeatAllCityTasks = default(bool);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userBeatAllCityTasks", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -262,7 +242,6 @@ namespace com.lvl6.proto
   {
     public EndDungeonResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -271,7 +250,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.EndDungeonResponseProto.EndDungeonStatus _status = com.lvl6.proto.EndDungeonResponseProto.EndDungeonStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.EndDungeonResponseProto.EndDungeonStatus.SUCCESS)]
@@ -287,7 +265,6 @@ namespace com.lvl6.proto
       get { return _updatedOrNew; }
     }
   
-
     private int _taskId = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"taskId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -296,7 +273,6 @@ namespace com.lvl6.proto
       get { return _taskId; }
       set { _taskId = value; }
     }
-
     private bool _userWon = default(bool);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userWon", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -305,7 +281,6 @@ namespace com.lvl6.proto
       get { return _userWon; }
       set { _userWon = value; }
     }
-
     private com.lvl6.proto.UserItemProto _userItem = null;
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userItem", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -314,7 +289,6 @@ namespace com.lvl6.proto
       get { return _userItem; }
       set { _userItem = value; }
     }
-
     private string _taskMapSectionName = "";
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"taskMapSectionName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -344,7 +318,6 @@ namespace com.lvl6.proto
   {
     public ReviveInDungeonRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -353,7 +326,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private string _userTaskUuid = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userTaskUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -362,7 +334,6 @@ namespace com.lvl6.proto
       get { return _userTaskUuid; }
       set { _userTaskUuid = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -378,7 +349,6 @@ namespace com.lvl6.proto
       get { return _reviveMe; }
     }
   
-
     private int _gemsSpent = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"gemsSpent", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -397,7 +367,6 @@ namespace com.lvl6.proto
   {
     public ReviveInDungeonResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -406,7 +375,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.ReviveInDungeonResponseProto.ReviveInDungeonStatus _status = com.lvl6.proto.ReviveInDungeonResponseProto.ReviveInDungeonStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ReviveInDungeonResponseProto.ReviveInDungeonStatus.SUCCESS)]

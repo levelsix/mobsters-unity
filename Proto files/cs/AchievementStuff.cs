@@ -17,7 +17,6 @@ namespace com.lvl6.proto
   {
     public AchievementProto() {}
     
-
     private int _achievementId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"achievementId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -26,7 +25,6 @@ namespace com.lvl6.proto
       get { return _achievementId; }
       set { _achievementId = value; }
     }
-
     private string _name = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -35,7 +33,6 @@ namespace com.lvl6.proto
       get { return _name; }
       set { _name = value; }
     }
-
     private string _description = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"description", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -44,7 +41,6 @@ namespace com.lvl6.proto
       get { return _description; }
       set { _description = value; }
     }
-
     private int _gemReward = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"gemReward", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -53,7 +49,6 @@ namespace com.lvl6.proto
       get { return _gemReward; }
       set { _gemReward = value; }
     }
-
     private int _lvl = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"lvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -62,7 +57,6 @@ namespace com.lvl6.proto
       get { return _lvl; }
       set { _lvl = value; }
     }
-
     private com.lvl6.proto.AchievementProto.AchievementType _achievementType = com.lvl6.proto.AchievementProto.AchievementType.NO_ACHIEVEMENT;
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"achievementType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.AchievementProto.AchievementType.NO_ACHIEVEMENT)]
@@ -71,7 +65,6 @@ namespace com.lvl6.proto
       get { return _achievementType; }
       set { _achievementType = value; }
     }
-
     private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.NO_RESOURCE;
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"resourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.NO_RESOURCE)]
@@ -80,7 +73,6 @@ namespace com.lvl6.proto
       get { return _resourceType; }
       set { _resourceType = value; }
     }
-
     private com.lvl6.proto.Element _element = com.lvl6.proto.Element.NO_ELEMENT;
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"element", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
@@ -89,7 +81,6 @@ namespace com.lvl6.proto
       get { return _element; }
       set { _element = value; }
     }
-
     private com.lvl6.proto.Quality _quality = com.lvl6.proto.Quality.NO_QUALITY;
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"quality", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Quality.NO_QUALITY)]
@@ -98,7 +89,6 @@ namespace com.lvl6.proto
       get { return _quality; }
       set { _quality = value; }
     }
-
     private int _staticDataId = default(int);
     [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"staticDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -107,7 +97,6 @@ namespace com.lvl6.proto
       get { return _staticDataId; }
       set { _staticDataId = value; }
     }
-
     private int _quantity = default(int);
     [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"quantity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -116,7 +105,6 @@ namespace com.lvl6.proto
       get { return _quantity; }
       set { _quantity = value; }
     }
-
     private int _priority = default(int);
     [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"priority", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -125,7 +113,6 @@ namespace com.lvl6.proto
       get { return _priority; }
       set { _priority = value; }
     }
-
     private int _prerequisiteId = default(int);
     [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"prerequisiteId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -134,7 +121,6 @@ namespace com.lvl6.proto
       get { return _prerequisiteId; }
       set { _prerequisiteId = value; }
     }
-
     private int _successorId = default(int);
     [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"successorId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -218,7 +204,6 @@ namespace com.lvl6.proto
   {
     public UserAchievementProto() {}
     
-
     private int _achievementId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"achievementId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -227,7 +212,6 @@ namespace com.lvl6.proto
       get { return _achievementId; }
       set { _achievementId = value; }
     }
-
     private int _progress = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"progress", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -236,7 +220,6 @@ namespace com.lvl6.proto
       get { return _progress; }
       set { _progress = value; }
     }
-
     private bool _isComplete = default(bool);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"isComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -245,7 +228,6 @@ namespace com.lvl6.proto
       get { return _isComplete; }
       set { _isComplete = value; }
     }
-
     private bool _isRedeemed = default(bool);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"isRedeemed", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]

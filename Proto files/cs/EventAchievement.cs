@@ -17,7 +17,6 @@ namespace com.lvl6.proto
   {
     public AchievementProgressRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -33,7 +32,6 @@ namespace com.lvl6.proto
       get { return _uapList; }
     }
   
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -52,7 +50,6 @@ namespace com.lvl6.proto
   {
     public AchievementProgressResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -61,7 +58,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.AchievementProgressResponseProto.AchievementProgressStatus _status = com.lvl6.proto.AchievementProgressResponseProto.AchievementProgressStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.AchievementProgressResponseProto.AchievementProgressStatus.SUCCESS)]
@@ -91,7 +87,6 @@ namespace com.lvl6.proto
   {
     public AchievementRedeemRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -100,7 +95,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private int _achievementId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"achievementId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -109,7 +103,6 @@ namespace com.lvl6.proto
       get { return _achievementId; }
       set { _achievementId = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -128,7 +121,6 @@ namespace com.lvl6.proto
   {
     public AchievementRedeemResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -137,7 +129,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.AchievementRedeemResponseProto.AchievementRedeemStatus _status = com.lvl6.proto.AchievementRedeemResponseProto.AchievementRedeemStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.AchievementRedeemResponseProto.AchievementRedeemStatus.SUCCESS)]

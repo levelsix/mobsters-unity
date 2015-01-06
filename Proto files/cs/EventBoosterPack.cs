@@ -18,7 +18,6 @@ namespace com.lvl6.proto
   {
     public PurchaseBoosterPackRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -27,7 +26,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private int _boosterPackId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"boosterPackId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -36,7 +34,6 @@ namespace com.lvl6.proto
       get { return _boosterPackId; }
       set { _boosterPackId = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -45,7 +42,6 @@ namespace com.lvl6.proto
       get { return _clientTime; }
       set { _clientTime = value; }
     }
-
     private bool _dailyFreeBoosterPack = default(bool);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"dailyFreeBoosterPack", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -64,7 +60,6 @@ namespace com.lvl6.proto
   {
     public PurchaseBoosterPackResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -73,7 +68,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus _status = com.lvl6.proto.PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.PurchaseBoosterPackResponseProto.PurchaseBoosterPackStatus.SUCCESS)]
@@ -89,7 +83,6 @@ namespace com.lvl6.proto
       get { return _updatedOrNew; }
     }
   
-
     private com.lvl6.proto.BoosterItemProto _prize = null;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"prize", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -122,7 +115,6 @@ namespace com.lvl6.proto
   {
     public ReceivedRareBoosterPurchaseResponseProto() {}
     
-
     private com.lvl6.proto.RareBoosterPurchaseProto _rareBoosterPurchase = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"rareBoosterPurchase", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]

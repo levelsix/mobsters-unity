@@ -17,7 +17,6 @@ namespace com.lvl6.proto
   {
     public RetrieveTournamentRankingsRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -26,7 +25,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private int _eventId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"eventId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -35,7 +33,6 @@ namespace com.lvl6.proto
       get { return _eventId; }
       set { _eventId = value; }
     }
-
     private int _afterThisRank = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"afterThisRank", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -54,7 +51,6 @@ namespace com.lvl6.proto
   {
     public RetrieveTournamentRankingsResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -63,7 +59,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.RetrieveTournamentRankingsResponseProto.RetrieveTournamentStatus _status = com.lvl6.proto.RetrieveTournamentRankingsResponseProto.RetrieveTournamentStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RetrieveTournamentRankingsResponseProto.RetrieveTournamentStatus.SUCCESS)]
@@ -72,7 +67,6 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-
     private int _eventId = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"eventId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -81,7 +75,6 @@ namespace com.lvl6.proto
       get { return _eventId; }
       set { _eventId = value; }
     }
-
     private int _afterThisRank = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"afterThisRank", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -90,7 +83,6 @@ namespace com.lvl6.proto
       get { return _afterThisRank; }
       set { _afterThisRank = value; }
     }
-
     private com.lvl6.proto.MinimumUserProtoWithLevelForTournament _retriever = null;
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"retriever", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]

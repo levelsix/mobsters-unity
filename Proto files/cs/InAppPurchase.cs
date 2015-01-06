@@ -15,7 +15,6 @@ namespace com.lvl6.proto
   {
     public InAppPurchasePackageProto() {}
     
-
     private string _iapPackageId = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"iapPackageId", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -24,7 +23,6 @@ namespace com.lvl6.proto
       get { return _iapPackageId; }
       set { _iapPackageId = value; }
     }
-
     private int _currencyAmount = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"currencyAmount", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -33,7 +31,6 @@ namespace com.lvl6.proto
       get { return _currencyAmount; }
       set { _currencyAmount = value; }
     }
-
     private string _imageName = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"imageName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -52,7 +49,6 @@ namespace com.lvl6.proto
   {
     public GoldSaleProto() {}
     
-
     private int _saleId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"saleId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -61,7 +57,6 @@ namespace com.lvl6.proto
       get { return _saleId; }
       set { _saleId = value; }
     }
-
     private long _startDate = default(long);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"startDate", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -70,7 +65,6 @@ namespace com.lvl6.proto
       get { return _startDate; }
       set { _startDate = value; }
     }
-
     private long _endDate = default(long);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"endDate", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -79,7 +73,6 @@ namespace com.lvl6.proto
       get { return _endDate; }
       set { _endDate = value; }
     }
-
     private string _package1SaleIdentifier = "";
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"package1SaleIdentifier", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -88,7 +81,6 @@ namespace com.lvl6.proto
       get { return _package1SaleIdentifier; }
       set { _package1SaleIdentifier = value; }
     }
-
     private string _package2SaleIdentifier = "";
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"package2SaleIdentifier", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -97,7 +89,6 @@ namespace com.lvl6.proto
       get { return _package2SaleIdentifier; }
       set { _package2SaleIdentifier = value; }
     }
-
     private string _package3SaleIdentifier = "";
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"package3SaleIdentifier", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -106,7 +97,6 @@ namespace com.lvl6.proto
       get { return _package3SaleIdentifier; }
       set { _package3SaleIdentifier = value; }
     }
-
     private string _package4SaleIdentifier = "";
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"package4SaleIdentifier", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -115,7 +105,6 @@ namespace com.lvl6.proto
       get { return _package4SaleIdentifier; }
       set { _package4SaleIdentifier = value; }
     }
-
     private string _package5SaleIdentifier = "";
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"package5SaleIdentifier", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -124,7 +113,6 @@ namespace com.lvl6.proto
       get { return _package5SaleIdentifier; }
       set { _package5SaleIdentifier = value; }
     }
-
     private string _goldShoppeImageName = "";
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"goldShoppeImageName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -133,7 +121,6 @@ namespace com.lvl6.proto
       get { return _goldShoppeImageName; }
       set { _goldShoppeImageName = value; }
     }
-
     private string _goldBarImageName = "";
     [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"goldBarImageName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -142,7 +129,6 @@ namespace com.lvl6.proto
       get { return _goldBarImageName; }
       set { _goldBarImageName = value; }
     }
-
     private string _packageS1SaleIdentifier = "";
     [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"packageS1SaleIdentifier", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -151,7 +137,6 @@ namespace com.lvl6.proto
       get { return _packageS1SaleIdentifier; }
       set { _packageS1SaleIdentifier = value; }
     }
-
     private string _packageS2SaleIdentifier = "";
     [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"packageS2SaleIdentifier", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -160,7 +145,6 @@ namespace com.lvl6.proto
       get { return _packageS2SaleIdentifier; }
       set { _packageS2SaleIdentifier = value; }
     }
-
     private string _packageS3SaleIdentifier = "";
     [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"packageS3SaleIdentifier", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -169,7 +153,6 @@ namespace com.lvl6.proto
       get { return _packageS3SaleIdentifier; }
       set { _packageS3SaleIdentifier = value; }
     }
-
     private string _packageS4SaleIdentifier = "";
     [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"packageS4SaleIdentifier", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -178,7 +161,6 @@ namespace com.lvl6.proto
       get { return _packageS4SaleIdentifier; }
       set { _packageS4SaleIdentifier = value; }
     }
-
     private string _packageS5SaleIdentifier = "";
     [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"packageS5SaleIdentifier", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -187,7 +169,6 @@ namespace com.lvl6.proto
       get { return _packageS5SaleIdentifier; }
       set { _packageS5SaleIdentifier = value; }
     }
-
     private bool _isBeginnerSale = default(bool);
     [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"isBeginnerSale", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]

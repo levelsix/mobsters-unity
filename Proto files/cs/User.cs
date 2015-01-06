@@ -15,7 +15,6 @@ namespace com.lvl6.proto
   {
     public MinimumClanProto() {}
     
-
     private string _clanUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -24,7 +23,6 @@ namespace com.lvl6.proto
       get { return _clanUuid; }
       set { _clanUuid = value; }
     }
-
     private string _name = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -33,7 +31,6 @@ namespace com.lvl6.proto
       get { return _name; }
       set { _name = value; }
     }
-
     private long _createTime = default(long);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"createTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -42,7 +39,6 @@ namespace com.lvl6.proto
       get { return _createTime; }
       set { _createTime = value; }
     }
-
     private string _description = "";
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"description", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -51,7 +47,6 @@ namespace com.lvl6.proto
       get { return _description; }
       set { _description = value; }
     }
-
     private string _tag = "";
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"tag", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -60,7 +55,6 @@ namespace com.lvl6.proto
       get { return _tag; }
       set { _tag = value; }
     }
-
     private bool _requestToJoinRequired = default(bool);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"requestToJoinRequired", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -69,7 +63,6 @@ namespace com.lvl6.proto
       get { return _requestToJoinRequired; }
       set { _requestToJoinRequired = value; }
     }
-
     private int _clanIconId = default(int);
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"clanIconId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -88,7 +81,6 @@ namespace com.lvl6.proto
   {
     public MinimumUserProto() {}
     
-
     private string _userUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -97,7 +89,6 @@ namespace com.lvl6.proto
       get { return _userUuid; }
       set { _userUuid = value; }
     }
-
     private string _name = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -106,7 +97,6 @@ namespace com.lvl6.proto
       get { return _name; }
       set { _name = value; }
     }
-
     private com.lvl6.proto.MinimumClanProto _clan = null;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clan", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -115,7 +105,6 @@ namespace com.lvl6.proto
       get { return _clan; }
       set { _clan = value; }
     }
-
     private int _avatarMonsterId = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"avatarMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -134,7 +123,6 @@ namespace com.lvl6.proto
   {
     public MinimumUserProtoWithLevel() {}
     
-
     private com.lvl6.proto.MinimumUserProto _minUserProto = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"minUserProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -143,7 +131,6 @@ namespace com.lvl6.proto
       get { return _minUserProto; }
       set { _minUserProto = value; }
     }
-
     private int _level = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"level", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -162,7 +149,6 @@ namespace com.lvl6.proto
   {
     public MinimumUserProtoWithFacebookId() {}
     
-
     private com.lvl6.proto.MinimumUserProto _minUserProto = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"minUserProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -171,7 +157,6 @@ namespace com.lvl6.proto
       get { return _minUserProto; }
       set { _minUserProto = value; }
     }
-
     private string _facebookId = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"facebookId", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -190,7 +175,6 @@ namespace com.lvl6.proto
   {
     public MinimumUserProtoWithMaxResources() {}
     
-
     private com.lvl6.proto.MinimumUserProto _minUserProto = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"minUserProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -199,7 +183,6 @@ namespace com.lvl6.proto
       get { return _minUserProto; }
       set { _minUserProto = value; }
     }
-
     private int _maxCash = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"maxCash", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -208,7 +191,6 @@ namespace com.lvl6.proto
       get { return _maxCash; }
       set { _maxCash = value; }
     }
-
     private int _maxOil = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"maxOil", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -227,7 +209,6 @@ namespace com.lvl6.proto
   {
     public UserFacebookInviteForSlotProto() {}
     
-
     private string _inviteUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"inviteUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -236,7 +217,6 @@ namespace com.lvl6.proto
       get { return _inviteUuid; }
       set { _inviteUuid = value; }
     }
-
     private com.lvl6.proto.MinimumUserProtoWithFacebookId _inviter = null;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"inviter", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -245,7 +225,6 @@ namespace com.lvl6.proto
       get { return _inviter; }
       set { _inviter = value; }
     }
-
     private string _recipientFacebookId = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"recipientFacebookId", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -254,7 +233,6 @@ namespace com.lvl6.proto
       get { return _recipientFacebookId; }
       set { _recipientFacebookId = value; }
     }
-
     private long _timeOfInvite = default(long);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"timeOfInvite", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -263,7 +241,6 @@ namespace com.lvl6.proto
       get { return _timeOfInvite; }
       set { _timeOfInvite = value; }
     }
-
     private long _timeAccepted = default(long);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"timeAccepted", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -272,7 +249,6 @@ namespace com.lvl6.proto
       get { return _timeAccepted; }
       set { _timeAccepted = value; }
     }
-
     private string _userStructUuid = "";
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"userStructUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -281,7 +257,6 @@ namespace com.lvl6.proto
       get { return _userStructUuid; }
       set { _userStructUuid = value; }
     }
-
     private int _structFbLvl = default(int);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"structFbLvl", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -290,7 +265,6 @@ namespace com.lvl6.proto
       get { return _structFbLvl; }
       set { _structFbLvl = value; }
     }
-
     private long _redeemedTime = default(long);
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"redeemedTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -309,7 +283,6 @@ namespace com.lvl6.proto
   {
     public FullUserProto() {}
     
-
     private string _userUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -318,7 +291,6 @@ namespace com.lvl6.proto
       get { return _userUuid; }
       set { _userUuid = value; }
     }
-
     private string _name = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -327,7 +299,6 @@ namespace com.lvl6.proto
       get { return _name; }
       set { _name = value; }
     }
-
     private int _level = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"level", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -336,7 +307,6 @@ namespace com.lvl6.proto
       get { return _level; }
       set { _level = value; }
     }
-
     private int _gems = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"gems", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -345,7 +315,6 @@ namespace com.lvl6.proto
       get { return _gems; }
       set { _gems = value; }
     }
-
     private int _cash = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"cash", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -354,7 +323,6 @@ namespace com.lvl6.proto
       get { return _cash; }
       set { _cash = value; }
     }
-
     private int _oil = default(int);
     [global::ProtoBuf.ProtoMember(42, IsRequired = false, Name=@"oil", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -363,7 +331,6 @@ namespace com.lvl6.proto
       get { return _oil; }
       set { _oil = value; }
     }
-
     private int _experience = default(int);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"experience", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -372,7 +339,6 @@ namespace com.lvl6.proto
       get { return _experience; }
       set { _experience = value; }
     }
-
     private int _tasksCompleted = default(int);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"tasksCompleted", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -381,7 +347,6 @@ namespace com.lvl6.proto
       get { return _tasksCompleted; }
       set { _tasksCompleted = value; }
     }
-
     private string _referralCode = "";
     [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"referralCode", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -390,7 +355,6 @@ namespace com.lvl6.proto
       get { return _referralCode; }
       set { _referralCode = value; }
     }
-
     private int _numReferrals = default(int);
     [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"numReferrals", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -399,7 +363,6 @@ namespace com.lvl6.proto
       get { return _numReferrals; }
       set { _numReferrals = value; }
     }
-
     private long _lastLoginTime = default(long);
     [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"lastLoginTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -408,7 +371,6 @@ namespace com.lvl6.proto
       get { return _lastLoginTime; }
       set { _lastLoginTime = value; }
     }
-
     private long _lastLogoutTime = default(long);
     [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"lastLogoutTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -417,7 +379,6 @@ namespace com.lvl6.proto
       get { return _lastLogoutTime; }
       set { _lastLogoutTime = value; }
     }
-
     private bool _isFake = default(bool);
     [global::ProtoBuf.ProtoMember(19, IsRequired = false, Name=@"isFake", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -426,7 +387,6 @@ namespace com.lvl6.proto
       get { return _isFake; }
       set { _isFake = value; }
     }
-
     private bool _isAdmin = default(bool);
     [global::ProtoBuf.ProtoMember(21, IsRequired = false, Name=@"isAdmin", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -435,7 +395,6 @@ namespace com.lvl6.proto
       get { return _isAdmin; }
       set { _isAdmin = value; }
     }
-
     private int _numCoinsRetrievedFromStructs = default(int);
     [global::ProtoBuf.ProtoMember(23, IsRequired = false, Name=@"numCoinsRetrievedFromStructs", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -444,7 +403,6 @@ namespace com.lvl6.proto
       get { return _numCoinsRetrievedFromStructs; }
       set { _numCoinsRetrievedFromStructs = value; }
     }
-
     private int _numOilRetrievedFromStructs = default(int);
     [global::ProtoBuf.ProtoMember(43, IsRequired = false, Name=@"numOilRetrievedFromStructs", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -453,7 +411,6 @@ namespace com.lvl6.proto
       get { return _numOilRetrievedFromStructs; }
       set { _numOilRetrievedFromStructs = value; }
     }
-
     private com.lvl6.proto.MinimumClanProto _clan = null;
     [global::ProtoBuf.ProtoMember(25, IsRequired = false, Name=@"clan", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -462,7 +419,6 @@ namespace com.lvl6.proto
       get { return _clan; }
       set { _clan = value; }
     }
-
     private bool _hasReceivedfbReward = default(bool);
     [global::ProtoBuf.ProtoMember(28, IsRequired = false, Name=@"hasReceivedfbReward", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -471,7 +427,6 @@ namespace com.lvl6.proto
       get { return _hasReceivedfbReward; }
       set { _hasReceivedfbReward = value; }
     }
-
     private int _numBeginnerSalesPurchased = default(int);
     [global::ProtoBuf.ProtoMember(30, IsRequired = false, Name=@"numBeginnerSalesPurchased", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -480,7 +435,6 @@ namespace com.lvl6.proto
       get { return _numBeginnerSalesPurchased; }
       set { _numBeginnerSalesPurchased = value; }
     }
-
     private string _facebookId = "";
     [global::ProtoBuf.ProtoMember(40, IsRequired = false, Name=@"facebookId", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -489,7 +443,6 @@ namespace com.lvl6.proto
       get { return _facebookId; }
       set { _facebookId = value; }
     }
-
     private string _gameCenterId = "";
     [global::ProtoBuf.ProtoMember(45, IsRequired = false, Name=@"gameCenterId", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -498,7 +451,6 @@ namespace com.lvl6.proto
       get { return _gameCenterId; }
       set { _gameCenterId = value; }
     }
-
     private long _lastObstacleSpawnedTime = default(long);
     [global::ProtoBuf.ProtoMember(47, IsRequired = false, Name=@"lastObstacleSpawnedTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -507,7 +459,6 @@ namespace com.lvl6.proto
       get { return _lastObstacleSpawnedTime; }
       set { _lastObstacleSpawnedTime = value; }
     }
-
     private int _numObstaclesRemoved = default(int);
     [global::ProtoBuf.ProtoMember(49, IsRequired = false, Name=@"numObstaclesRemoved", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -516,7 +467,6 @@ namespace com.lvl6.proto
       get { return _numObstaclesRemoved; }
       set { _numObstaclesRemoved = value; }
     }
-
     private int _avatarMonsterId = default(int);
     [global::ProtoBuf.ProtoMember(51, IsRequired = false, Name=@"avatarMonsterId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -525,7 +475,6 @@ namespace com.lvl6.proto
       get { return _avatarMonsterId; }
       set { _avatarMonsterId = value; }
     }
-
     private com.lvl6.proto.UserPvpLeagueProto _pvpLeagueInfo = null;
     [global::ProtoBuf.ProtoMember(48, IsRequired = false, Name=@"pvpLeagueInfo", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -534,7 +483,6 @@ namespace com.lvl6.proto
       get { return _pvpLeagueInfo; }
       set { _pvpLeagueInfo = value; }
     }
-
     private long _lastMiniJobSpawnedTime = default(long);
     [global::ProtoBuf.ProtoMember(50, IsRequired = false, Name=@"lastMiniJobSpawnedTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -543,7 +491,6 @@ namespace com.lvl6.proto
       get { return _lastMiniJobSpawnedTime; }
       set { _lastMiniJobSpawnedTime = value; }
     }
-
     private long _lastFreeBoosterPackTime = default(long);
     [global::ProtoBuf.ProtoMember(52, IsRequired = false, Name=@"lastFreeBoosterPackTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -552,7 +499,6 @@ namespace com.lvl6.proto
       get { return _lastFreeBoosterPackTime; }
       set { _lastFreeBoosterPackTime = value; }
     }
-
     private int _numClanHelps = default(int);
     [global::ProtoBuf.ProtoMember(53, IsRequired = false, Name=@"numClanHelps", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -561,7 +507,6 @@ namespace com.lvl6.proto
       get { return _numClanHelps; }
       set { _numClanHelps = value; }
     }
-
     private long _lastSecretGiftCollectTime = default(long);
     [global::ProtoBuf.ProtoMember(54, IsRequired = false, Name=@"lastSecretGiftCollectTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -570,7 +515,6 @@ namespace com.lvl6.proto
       get { return _lastSecretGiftCollectTime; }
       set { _lastSecretGiftCollectTime = value; }
     }
-
     private string _pvpDefendingMessage = "";
     [global::ProtoBuf.ProtoMember(56, IsRequired = false, Name=@"pvpDefendingMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -579,7 +523,6 @@ namespace com.lvl6.proto
       get { return _pvpDefendingMessage; }
       set { _pvpDefendingMessage = value; }
     }
-
     private string _udidForHistory = "";
     [global::ProtoBuf.ProtoMember(46, IsRequired = false, Name=@"udidForHistory", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -588,7 +531,6 @@ namespace com.lvl6.proto
       get { return _udidForHistory; }
       set { _udidForHistory = value; }
     }
-
     private string _deviceToken = "";
     [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"deviceToken", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -597,7 +539,6 @@ namespace com.lvl6.proto
       get { return _deviceToken; }
       set { _deviceToken = value; }
     }
-
     private int _numBadges = default(int);
     [global::ProtoBuf.ProtoMember(18, IsRequired = false, Name=@"numBadges", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -606,7 +547,6 @@ namespace com.lvl6.proto
       get { return _numBadges; }
       set { _numBadges = value; }
     }
-
     private long _createTime = default(long);
     [global::ProtoBuf.ProtoMember(20, IsRequired = false, Name=@"createTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -615,7 +555,6 @@ namespace com.lvl6.proto
       get { return _createTime; }
       set { _createTime = value; }
     }
-
     private int _apsalarId = default(int);
     [global::ProtoBuf.ProtoMember(22, IsRequired = false, Name=@"apsalarId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -624,7 +563,6 @@ namespace com.lvl6.proto
       get { return _apsalarId; }
       set { _apsalarId = value; }
     }
-
     private int _numConsecutiveDaysPlayed = default(int);
     [global::ProtoBuf.ProtoMember(24, IsRequired = false, Name=@"numConsecutiveDaysPlayed", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -633,7 +571,6 @@ namespace com.lvl6.proto
       get { return _numConsecutiveDaysPlayed; }
       set { _numConsecutiveDaysPlayed = value; }
     }
-
     private long _lastWallPostNotificationTime = default(long);
     [global::ProtoBuf.ProtoMember(26, IsRequired = false, Name=@"lastWallPostNotificationTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -642,7 +579,6 @@ namespace com.lvl6.proto
       get { return _lastWallPostNotificationTime; }
       set { _lastWallPostNotificationTime = value; }
     }
-
     private string _kabamNaid = "";
     [global::ProtoBuf.ProtoMember(27, IsRequired = false, Name=@"kabamNaid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -651,7 +587,6 @@ namespace com.lvl6.proto
       get { return _kabamNaid; }
       set { _kabamNaid = value; }
     }
-
     private bool _fbIdSetOnUserCreate = default(bool);
     [global::ProtoBuf.ProtoMember(44, IsRequired = false, Name=@"fbIdSetOnUserCreate", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -660,7 +595,6 @@ namespace com.lvl6.proto
       get { return _fbIdSetOnUserCreate; }
       set { _fbIdSetOnUserCreate = value; }
     }
-
     private string _udid = "";
     [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"udid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -679,7 +613,6 @@ namespace com.lvl6.proto
   {
     public StaticUserLevelInfoProto() {}
     
-
     private int _level = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"level", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -688,7 +621,6 @@ namespace com.lvl6.proto
       get { return _level; }
       set { _level = value; }
     }
-
     private int _requiredExperience = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"requiredExperience", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -707,7 +639,6 @@ namespace com.lvl6.proto
   {
     public UserPvpLeagueProto() {}
     
-
     private string _userUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -716,7 +647,6 @@ namespace com.lvl6.proto
       get { return _userUuid; }
       set { _userUuid = value; }
     }
-
     private int _leagueId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"leagueId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -725,7 +655,6 @@ namespace com.lvl6.proto
       get { return _leagueId; }
       set { _leagueId = value; }
     }
-
     private int _rank = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"rank", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -734,7 +663,6 @@ namespace com.lvl6.proto
       get { return _rank; }
       set { _rank = value; }
     }
-
     private int _elo = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"elo", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -743,7 +671,6 @@ namespace com.lvl6.proto
       get { return _elo; }
       set { _elo = value; }
     }
-
     private int _battlesWon = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"battlesWon", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -752,7 +679,6 @@ namespace com.lvl6.proto
       get { return _battlesWon; }
       set { _battlesWon = value; }
     }
-
     private int _battlesLost = default(int);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"battlesLost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -761,7 +687,6 @@ namespace com.lvl6.proto
       get { return _battlesLost; }
       set { _battlesLost = value; }
     }
-
     private long _shieldEndTime = default(long);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"shieldEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -770,7 +695,6 @@ namespace com.lvl6.proto
       get { return _shieldEndTime; }
       set { _shieldEndTime = value; }
     }
-
     private float _monsterDmgMultiplier = default(float);
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"monsterDmgMultiplier", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
