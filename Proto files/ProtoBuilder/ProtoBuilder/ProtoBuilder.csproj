@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D5C9B02A-CF24-4C93-BB64-1D3118A2C97F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ProtoBuilder</RootNamespace>
+    <AssemblyName>ProtoBuilder</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="protobuf-net">
+      <HintPath>..\..\..\..\..\Downloads\protobuf-net r640\Full\unity\protobuf-net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MyClass.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="..\..\cs\Protocols.cs">
+      <Link>Protocols.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Battle.cs">
+      <Link>Battle.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\BoosterPackStuff.cs">
+      <Link>BoosterPackStuff.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Chat.cs">
+      <Link>Chat.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\City.cs">
+      <Link>City.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Clan.cs">
+      <Link>Clan.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventApns.cs">
+      <Link>EventApns.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventBoosterPack.cs">
+      <Link>EventBoosterPack.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventChat.cs">
+      <Link>EventChat.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventCity.cs">
+      <Link>EventCity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventClan.cs">
+      <Link>EventClan.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventDungeon.cs">
+      <Link>EventDungeon.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventInAppPurchase.cs">
+      <Link>EventInAppPurchase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventMonster.cs">
+      <Link>EventMonster.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventPvp.cs">
+      <Link>EventPvp.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventQuest.cs">
+      <Link>EventQuest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventReferral.cs">
+      <Link>EventReferral.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventStartup.cs">
+      <Link>EventStartup.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventStaticData.cs">
+      <Link>EventStaticData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventStructure.cs">
+      <Link>EventStructure.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventTournament.cs">
+      <Link>EventTournament.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventUser.cs">
+      <Link>EventUser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\InAppPurchase.cs">
+      <Link>InAppPurchase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Job.cs">
+      <Link>Job.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\MonsterStuff.cs">
+      <Link>MonsterStuff.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Quest.cs">
+      <Link>Quest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Structure.cs">
+      <Link>Structure.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Task.cs">
+      <Link>Task.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\TournamentStuff.cs">
+      <Link>TournamentStuff.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\User.cs">
+      <Link>User.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\StaticData.cs">
+      <Link>StaticData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\SharedEnumConfig.cs">
+      <Link>SharedEnumConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventAchievement.cs">
+      <Link>EventAchievement.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\AchievementStuff.cs">
+      <Link>AchievementStuff.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\MiniJobConfig.cs">
+      <Link>MiniJobConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventMiniJob.cs">
+      <Link>EventMiniJob.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Dev.cs">
+      <Link>Dev.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventDev.cs">
+      <Link>EventDev.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Skill.cs">
+      <Link>Skill.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Item.cs">
+      <Link>Item.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Prerequisite.cs">
+      <Link>Prerequisite.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\Board.cs">
+      <Link>Board.cs</Link>
+    </Compile>
+    <Compile Include="..\..\cs\EventItem.cs">
+      <Link>EventItem.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
