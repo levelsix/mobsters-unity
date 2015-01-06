@@ -54,7 +54,7 @@ public class MSEvolutionManager : MonoBehaviour {
 		}
 	}
 
-	long finishTime;
+	MSTimer evoTimer;
 
 	int oilCost
 	{
@@ -78,7 +78,7 @@ public class MSEvolutionManager : MonoBehaviour {
 			}
 			else
 			{
-				return finishTime - MSUtil.timeNowMillis ;
+				return evoTimer.timeLeft;
 			}
 		}
 	}
@@ -111,7 +111,7 @@ public class MSEvolutionManager : MonoBehaviour {
 	{
 		get
 		{
-			return currEvolution != null && currEvolution.startTime > 0 && finishTime > 0;
+			return currEvolution != null && currEvolution.startTime > 0 && evoTimer.startTime > 0;
 		}
 	}
 
@@ -127,14 +127,8 @@ public class MSEvolutionManager : MonoBehaviour {
 		currEvolution = evo;
 		if (isEvolving)
 		{
-//			string str = "Evo monsters:";
-//			foreach (var item in evo.userMonsterUuids) 
-//			{
-//				str += " " + item;
-//			}
-//			Debug.LogWarning(str);
-			finishTime = evo.startTime + 
-				MSDataManager.instance.Get<MonsterProto>(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(evo.userMonsterUuids[0])).monster.evolutionMonsterId).minutesToEvolve * 60000;
+			long evoTime = MSDataManager.instance.Get<MonsterProto>(MSMonsterManager.instance.userMonsters.Find(x=>x.userMonster.userMonsterUuid.Equals(evo.userMonsterUuids[0])).monster.evolutionMonsterId).minutesToEvolve * 60000L;
+			evoTimer = new MSTimer(GameActionType.EVOLVE, evo.userMonsterUuids[0], 0, evo.startTime, evoTime);
 		}
 	}
 
@@ -239,8 +233,8 @@ public class MSEvolutionManager : MonoBehaviour {
 		if (response.status == EvolveMonsterResponseProto.EvolveMonsterStatus.SUCCESS)
 		{
 			currEvolution = tempEvolution;
-			finishTime = currEvolution.startTime + MSDataManager.instance.Get<MonsterProto>(tempEvoMonster.monster.evolutionMonsterId).minutesToEvolve * 60000;
-
+			long evoTime = MSDataManager.instance.Get<MonsterProto>(tempEvoMonster.monster.evolutionMonsterId).minutesToEvolve * 60000L;
+			evoTimer = new MSTimer(GameActionType.EVOLVE, tempEvoMonster.userMonster.userMonsterUuid, 0, MSUtil.timeNowMillis, evoTime);
 		}
 		else
 		{
@@ -255,7 +249,7 @@ public class MSEvolutionManager : MonoBehaviour {
 		    && currEvolution != null 
 		    && currEvolution.userMonsterUuids.Count == 2
 		    && !currEvolution.catalystUserMonsterUuid.Equals("")
-		    && finishTime > 0
+		    && evoTimer.done
 		    && timeLeftMillis <= 0)
 		{
 			StartCoroutine(CompleteEvolution());

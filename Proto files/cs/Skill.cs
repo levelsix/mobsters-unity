@@ -15,7 +15,6 @@ namespace com.lvl6.proto
   {
     public SkillProto() {}
     
-
     private int _skillId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"skillId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -24,7 +23,6 @@ namespace com.lvl6.proto
       get { return _skillId; }
       set { _skillId = value; }
     }
-
     private string _name = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -33,7 +31,6 @@ namespace com.lvl6.proto
       get { return _name; }
       set { _name = value; }
     }
-
     private int _orbCost = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"orbCost", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -42,7 +39,6 @@ namespace com.lvl6.proto
       get { return _orbCost; }
       set { _orbCost = value; }
     }
-
     private com.lvl6.proto.SkillType _type = com.lvl6.proto.SkillType.NO_SKILL;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"type", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SkillType.NO_SKILL)]
@@ -51,7 +47,6 @@ namespace com.lvl6.proto
       get { return _type; }
       set { _type = value; }
     }
-
     private com.lvl6.proto.SkillActivationType _activationType = com.lvl6.proto.SkillActivationType.USER_ACTIVATED;
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"activationType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SkillActivationType.USER_ACTIVATED)]
@@ -60,7 +55,6 @@ namespace com.lvl6.proto
       get { return _activationType; }
       set { _activationType = value; }
     }
-
     private int _predecId = default(int);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"predecId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -69,7 +63,6 @@ namespace com.lvl6.proto
       get { return _predecId; }
       set { _predecId = value; }
     }
-
     private int _sucId = default(int);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"sucId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -85,7 +78,6 @@ namespace com.lvl6.proto
       get { return _properties; }
     }
   
-
     private string _desc = "";
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"desc", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -94,7 +86,6 @@ namespace com.lvl6.proto
       get { return _desc; }
       set { _desc = value; }
     }
-
     private string _imgNamePrefix = "";
     [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"imgNamePrefix", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -113,7 +104,6 @@ namespace com.lvl6.proto
   {
     public SkillPropertyProto() {}
     
-
     private int _skillPropertyId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"skillPropertyId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -122,7 +112,6 @@ namespace com.lvl6.proto
       get { return _skillPropertyId; }
       set { _skillPropertyId = value; }
     }
-
     private string _name = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -131,7 +120,6 @@ namespace com.lvl6.proto
       get { return _name; }
       set { _name = value; }
     }
-
     private float _skillValue = default(float);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"skillValue", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]

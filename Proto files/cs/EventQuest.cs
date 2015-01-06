@@ -18,7 +18,6 @@ namespace com.lvl6.proto
   {
     public QuestAcceptRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -27,7 +26,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private int _questId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"questId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -46,7 +44,6 @@ namespace com.lvl6.proto
   {
     public QuestAcceptResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -55,7 +52,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus _status = com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.QuestAcceptResponseProto.QuestAcceptStatus.SUCCESS)]
@@ -91,7 +87,6 @@ namespace com.lvl6.proto
   {
     public QuestProgressRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -100,7 +95,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private int _questId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"questId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -109,7 +103,6 @@ namespace com.lvl6.proto
       get { return _questId; }
       set { _questId = value; }
     }
-
     private bool _isComplete = default(bool);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"isComplete", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -142,7 +135,6 @@ namespace com.lvl6.proto
   {
     public QuestProgressResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -151,7 +143,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.QuestProgressResponseProto.QuestProgressStatus _status = com.lvl6.proto.QuestProgressResponseProto.QuestProgressStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.QuestProgressResponseProto.QuestProgressStatus.SUCCESS)]
@@ -196,7 +187,6 @@ namespace com.lvl6.proto
   {
     public QuestRedeemRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -205,7 +195,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private int _questId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"questId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -224,7 +213,6 @@ namespace com.lvl6.proto
   {
     public QuestRedeemResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -240,7 +228,6 @@ namespace com.lvl6.proto
       get { return _newlyAvailableQuests; }
     }
   
-
     private com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus _status = com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.QuestRedeemResponseProto.QuestRedeemStatus.SUCCESS)]
@@ -249,7 +236,6 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-
     private com.lvl6.proto.FullUserMonsterProto _fump = null;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"fump", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -258,7 +244,6 @@ namespace com.lvl6.proto
       get { return _fump; }
       set { _fump = value; }
     }
-
     private int _questId = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"questId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]

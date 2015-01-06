@@ -18,7 +18,6 @@ namespace com.lvl6.proto
   {
     public LoadPlayerCityRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -27,7 +26,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private string _cityOwnerUuid = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"cityOwnerUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -46,7 +44,6 @@ namespace com.lvl6.proto
   {
     public LoadPlayerCityResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -55,7 +52,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.MinimumUserProto _cityOwner = null;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"cityOwner", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -64,7 +60,6 @@ namespace com.lvl6.proto
       get { return _cityOwner; }
       set { _cityOwner = value; }
     }
-
     private com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus _status = com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.LoadPlayerCityResponseProto.LoadPlayerCityStatus.SUCCESS)]
@@ -118,7 +113,6 @@ namespace com.lvl6.proto
   {
     public PurchaseCityExpansionRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -127,7 +121,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private int _xPosition = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"xPosition", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -136,7 +129,6 @@ namespace com.lvl6.proto
       get { return _xPosition; }
       set { _xPosition = value; }
     }
-
     private int _yPosition = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"yPosition", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -145,7 +137,6 @@ namespace com.lvl6.proto
       get { return _yPosition; }
       set { _yPosition = value; }
     }
-
     private long _timeOfPurchase = default(long);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"timeOfPurchase", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -164,7 +155,6 @@ namespace com.lvl6.proto
   {
     public PurchaseCityExpansionResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -173,7 +163,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus _status = com.lvl6.proto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.PurchaseCityExpansionResponseProto.PurchaseCityExpansionStatus.SUCCESS)]
@@ -182,7 +171,6 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-
     private com.lvl6.proto.UserCityExpansionDataProto _ucedp = null;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"ucedp", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -221,7 +209,6 @@ namespace com.lvl6.proto
   {
     public LoadCityRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -230,7 +217,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private int _cityId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"cityId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -249,7 +235,6 @@ namespace com.lvl6.proto
   {
     public LoadCityResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -258,7 +243,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.LoadCityResponseProto.LoadCityStatus _status = com.lvl6.proto.LoadCityResponseProto.LoadCityStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.LoadCityResponseProto.LoadCityStatus.SUCCESS)]
@@ -274,7 +258,6 @@ namespace com.lvl6.proto
       get { return _cityElements; }
     }
   
-
     private int _cityId = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"cityId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]

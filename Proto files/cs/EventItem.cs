@@ -19,7 +19,6 @@ namespace com.lvl6.proto
   {
     public TradeItemForBoosterRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -28,7 +27,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private int _itemId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"itemId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -37,7 +35,6 @@ namespace com.lvl6.proto
       get { return _itemId; }
       set { _itemId = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -56,7 +53,6 @@ namespace com.lvl6.proto
   {
     public TradeItemForBoosterResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -65,7 +61,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.TradeItemForBoosterResponseProto.TradeItemForBoosterStatus _status = com.lvl6.proto.TradeItemForBoosterResponseProto.TradeItemForBoosterStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.TradeItemForBoosterResponseProto.TradeItemForBoosterStatus.SUCCESS)]
@@ -81,7 +76,6 @@ namespace com.lvl6.proto
       get { return _updatedOrNew; }
     }
   
-
     private com.lvl6.proto.BoosterItemProto _prize = null;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"prize", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -114,7 +108,6 @@ namespace com.lvl6.proto
   {
     public TradeItemForSpeedUpsRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -147,7 +140,6 @@ namespace com.lvl6.proto
   {
     public TradeItemForSpeedUpsResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -156,7 +148,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.TradeItemForSpeedUpsResponseProto.TradeItemForSpeedUpsStatus _status = com.lvl6.proto.TradeItemForSpeedUpsResponseProto.TradeItemForSpeedUpsStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.TradeItemForSpeedUpsResponseProto.TradeItemForSpeedUpsStatus.SUCCESS)]
@@ -193,7 +184,6 @@ namespace com.lvl6.proto
   {
     public RemoveUserItemUsedRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -219,7 +209,6 @@ namespace com.lvl6.proto
   {
     public RemoveUserItemUsedResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -228,7 +217,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.RemoveUserItemUsedResponseProto.RemoveUserItemUsedStatus _status = com.lvl6.proto.RemoveUserItemUsedResponseProto.RemoveUserItemUsedStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RemoveUserItemUsedResponseProto.RemoveUserItemUsedStatus.SUCCESS)]
@@ -258,7 +246,6 @@ namespace com.lvl6.proto
   {
     public TradeItemForResourcesRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -281,7 +268,6 @@ namespace com.lvl6.proto
       get { return _nuUserItems; }
     }
   
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -300,7 +286,6 @@ namespace com.lvl6.proto
   {
     public TradeItemForResourcesResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProtoWithMaxResources _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -309,7 +294,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.TradeItemForResourcesResponseProto.TradeItemForResourcesStatus _status = com.lvl6.proto.TradeItemForResourcesResponseProto.TradeItemForResourcesStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.TradeItemForResourcesResponseProto.TradeItemForResourcesStatus.SUCCESS)]
@@ -339,7 +323,6 @@ namespace com.lvl6.proto
   {
     public RedeemSecretGiftRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -348,7 +331,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -374,7 +356,6 @@ namespace com.lvl6.proto
   {
     public RedeemSecretGiftResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _mup = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"mup", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -390,7 +371,6 @@ namespace com.lvl6.proto
       get { return _nuGifts; }
     }
   
-
     private com.lvl6.proto.RedeemSecretGiftResponseProto.RedeemSecretGiftStatus _status = com.lvl6.proto.RedeemSecretGiftResponseProto.RedeemSecretGiftStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RedeemSecretGiftResponseProto.RedeemSecretGiftStatus.SUCCESS)]

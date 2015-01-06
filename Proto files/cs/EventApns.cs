@@ -16,7 +16,6 @@ namespace com.lvl6.proto
   {
     public EnableAPNSRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -25,7 +24,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private string _deviceToken = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"deviceToken", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -44,7 +42,6 @@ namespace com.lvl6.proto
   {
     public EnableAPNSResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -53,7 +50,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus _status = com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.EnableAPNSResponseProto.EnableAPNSStatus.SUCCESS)]

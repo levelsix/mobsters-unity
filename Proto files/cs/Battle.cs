@@ -17,7 +17,6 @@ namespace com.lvl6.proto
   {
     public PvpProto() {}
     
-
     private com.lvl6.proto.MinimumUserProtoWithLevel _defender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"defender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -33,7 +32,6 @@ namespace com.lvl6.proto
       get { return _defenderMonsters; }
     }
   
-
     private int _prospectiveCashWinnings = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"prospectiveCashWinnings", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -42,7 +40,6 @@ namespace com.lvl6.proto
       get { return _prospectiveCashWinnings; }
       set { _prospectiveCashWinnings = value; }
     }
-
     private int _prospectiveOilWinnings = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"prospectiveOilWinnings", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -51,7 +48,6 @@ namespace com.lvl6.proto
       get { return _prospectiveOilWinnings; }
       set { _prospectiveOilWinnings = value; }
     }
-
     private com.lvl6.proto.UserPvpLeagueProto _pvpLeagueStats = null;
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"pvpLeagueStats", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -60,7 +56,6 @@ namespace com.lvl6.proto
       get { return _pvpLeagueStats; }
       set { _pvpLeagueStats = value; }
     }
-
     private string _defenderMsg = "";
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"defenderMsg", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -79,7 +74,6 @@ namespace com.lvl6.proto
   {
     public PvpMonsterProto() {}
     
-
     private com.lvl6.proto.MinimumUserMonsterProto _defenderMonster = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"defenderMonster", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -88,7 +82,6 @@ namespace com.lvl6.proto
       get { return _defenderMonster; }
       set { _defenderMonster = value; }
     }
-
     private int _monsterIdDropped = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"monsterIdDropped", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -107,7 +100,6 @@ namespace com.lvl6.proto
   {
     public PvpHistoryProto() {}
     
-
     private long _battleEndTime = default(long);
     [global::ProtoBuf.ProtoMember(9, IsRequired = false, Name=@"battleEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -116,7 +108,6 @@ namespace com.lvl6.proto
       get { return _battleEndTime; }
       set { _battleEndTime = value; }
     }
-
     private com.lvl6.proto.FullUserProto _attacker = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"attacker", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -132,7 +123,6 @@ namespace com.lvl6.proto
       get { return _attackersMonsters; }
     }
   
-
     private bool _attackerWon = default(bool);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"attackerWon", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -141,7 +131,6 @@ namespace com.lvl6.proto
       get { return _attackerWon; }
       set { _attackerWon = value; }
     }
-
     private int _defenderCashChange = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"defenderCashChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -150,7 +139,6 @@ namespace com.lvl6.proto
       get { return _defenderCashChange; }
       set { _defenderCashChange = value; }
     }
-
     private int _defenderOilChange = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"defenderOilChange", DataFormat = global::ProtoBuf.DataFormat.ZigZag)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -159,7 +147,6 @@ namespace com.lvl6.proto
       get { return _defenderOilChange; }
       set { _defenderOilChange = value; }
     }
-
     private bool _exactedRevenge = default(bool);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"exactedRevenge", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -168,7 +155,6 @@ namespace com.lvl6.proto
       get { return _exactedRevenge; }
       set { _exactedRevenge = value; }
     }
-
     private int _prospectiveCashWinnings = default(int);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"prospectiveCashWinnings", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -177,7 +163,6 @@ namespace com.lvl6.proto
       get { return _prospectiveCashWinnings; }
       set { _prospectiveCashWinnings = value; }
     }
-
     private int _prospectiveOilWinnings = default(int);
     [global::ProtoBuf.ProtoMember(8, IsRequired = false, Name=@"prospectiveOilWinnings", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -186,7 +171,6 @@ namespace com.lvl6.proto
       get { return _prospectiveOilWinnings; }
       set { _prospectiveOilWinnings = value; }
     }
-
     private com.lvl6.proto.UserPvpLeagueProto _attackerBefore = null;
     [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"attackerBefore", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -195,7 +179,6 @@ namespace com.lvl6.proto
       get { return _attackerBefore; }
       set { _attackerBefore = value; }
     }
-
     private com.lvl6.proto.UserPvpLeagueProto _attackerAfter = null;
     [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"attackerAfter", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -204,7 +187,6 @@ namespace com.lvl6.proto
       get { return _attackerAfter; }
       set { _attackerAfter = value; }
     }
-
     private com.lvl6.proto.UserPvpLeagueProto _defenderBefore = null;
     [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"defenderBefore", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -213,7 +195,6 @@ namespace com.lvl6.proto
       get { return _defenderBefore; }
       set { _defenderBefore = value; }
     }
-
     private com.lvl6.proto.UserPvpLeagueProto _defenderAfter = null;
     [global::ProtoBuf.ProtoMember(13, IsRequired = false, Name=@"defenderAfter", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -222,7 +203,6 @@ namespace com.lvl6.proto
       get { return _defenderAfter; }
       set { _defenderAfter = value; }
     }
-
     private com.lvl6.proto.FullUserProto _defender = null;
     [global::ProtoBuf.ProtoMember(14, IsRequired = false, Name=@"defender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -231,7 +211,6 @@ namespace com.lvl6.proto
       get { return _defender; }
       set { _defender = value; }
     }
-
     private int _attackerCashChange = default(int);
     [global::ProtoBuf.ProtoMember(15, IsRequired = false, Name=@"attackerCashChange", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -240,7 +219,6 @@ namespace com.lvl6.proto
       get { return _attackerCashChange; }
       set { _attackerCashChange = value; }
     }
-
     private int _attackerOilChange = default(int);
     [global::ProtoBuf.ProtoMember(16, IsRequired = false, Name=@"attackerOilChange", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -249,7 +227,6 @@ namespace com.lvl6.proto
       get { return _attackerOilChange; }
       set { _attackerOilChange = value; }
     }
-
     private bool _clanAvenged = default(bool);
     [global::ProtoBuf.ProtoMember(17, IsRequired = false, Name=@"clanAvenged", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -268,7 +245,6 @@ namespace com.lvl6.proto
   {
     public PvpLeagueProto() {}
     
-
     private int _leagueId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"leagueId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -277,7 +253,6 @@ namespace com.lvl6.proto
       get { return _leagueId; }
       set { _leagueId = value; }
     }
-
     private string _leagueName = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"leagueName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -286,7 +261,6 @@ namespace com.lvl6.proto
       get { return _leagueName; }
       set { _leagueName = value; }
     }
-
     private string _imgPrefix = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"imgPrefix", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -295,7 +269,6 @@ namespace com.lvl6.proto
       get { return _imgPrefix; }
       set { _imgPrefix = value; }
     }
-
     private string _description = "";
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"description", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -314,7 +287,6 @@ namespace com.lvl6.proto
   {
     public PvpClanAvengeProto() {}
     
-
     private string _clanAvengeUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"clanAvengeUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -330,7 +302,6 @@ namespace com.lvl6.proto
       get { return _usersAvenging; }
     }
   
-
     private com.lvl6.proto.MinimumUserProtoWithLevel _attacker = null;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"attacker", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -339,7 +310,6 @@ namespace com.lvl6.proto
       get { return _attacker; }
       set { _attacker = value; }
     }
-
     private com.lvl6.proto.MinimumUserProto _defender = null;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"defender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -348,7 +318,6 @@ namespace com.lvl6.proto
       get { return _defender; }
       set { _defender = value; }
     }
-
     private long _battleEndTime = default(long);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"battleEndTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -357,7 +326,6 @@ namespace com.lvl6.proto
       get { return _battleEndTime; }
       set { _battleEndTime = value; }
     }
-
     private long _avengeRequestTime = default(long);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"avengeRequestTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -366,7 +334,6 @@ namespace com.lvl6.proto
       get { return _avengeRequestTime; }
       set { _avengeRequestTime = value; }
     }
-
     private string _defenderClanUuid = "";
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"defenderClanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -385,7 +352,6 @@ namespace com.lvl6.proto
   {
     public PvpUserClanAvengeProto() {}
     
-
     private string _userUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -394,7 +360,6 @@ namespace com.lvl6.proto
       get { return _userUuid; }
       set { _userUuid = value; }
     }
-
     private string _clanUuid = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"clanUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -403,7 +368,6 @@ namespace com.lvl6.proto
       get { return _clanUuid; }
       set { _clanUuid = value; }
     }
-
     private string _clanAvengeUuid = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"clanAvengeUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -412,7 +376,6 @@ namespace com.lvl6.proto
       get { return _clanAvengeUuid; }
       set { _clanAvengeUuid = value; }
     }
-
     private long _avengeTime = default(long);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"avengeTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]

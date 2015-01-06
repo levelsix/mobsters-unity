@@ -16,7 +16,6 @@ namespace com.lvl6.proto
   {
     public BoardLayoutProto() {}
     
-
     private int _boardId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"boardId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -25,7 +24,6 @@ namespace com.lvl6.proto
       get { return _boardId; }
       set { _boardId = value; }
     }
-
     private int _height = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"height", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -34,7 +32,6 @@ namespace com.lvl6.proto
       get { return _height; }
       set { _height = value; }
     }
-
     private int _width = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"width", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -43,7 +40,6 @@ namespace com.lvl6.proto
       get { return _width; }
       set { _width = value; }
     }
-
     private int _orbElements = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"orbElements", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -69,7 +65,6 @@ namespace com.lvl6.proto
   {
     public BoardPropertyProto() {}
     
-
     private int _boardPropertyId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"boardPropertyId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -78,7 +73,6 @@ namespace com.lvl6.proto
       get { return _boardPropertyId; }
       set { _boardPropertyId = value; }
     }
-
     private int _boardId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"boardId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -87,7 +81,6 @@ namespace com.lvl6.proto
       get { return _boardId; }
       set { _boardId = value; }
     }
-
     private string _name = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -96,7 +89,6 @@ namespace com.lvl6.proto
       get { return _name; }
       set { _name = value; }
     }
-
     private int _posX = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"posX", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -105,7 +97,6 @@ namespace com.lvl6.proto
       get { return _posX; }
       set { _posX = value; }
     }
-
     private int _posY = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"posY", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -114,16 +105,14 @@ namespace com.lvl6.proto
       get { return _posY; }
       set { _posY = value; }
     }
-
-    private com.lvl6.proto.Element _elem = com.lvl6.proto.Element.;
+    private com.lvl6.proto.Element _elem = com.lvl6.proto.Element.NO_ELEMENT;
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"elem", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
     public com.lvl6.proto.Element elem
     {
       get { return _elem; }
       set { _elem = value; }
     }
-
     private int _value = default(int);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"value", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]

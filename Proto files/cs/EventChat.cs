@@ -17,7 +17,6 @@ namespace com.lvl6.proto
   {
     public SendAdminMessageResponseProto() {}
     
-
     private string _senderUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"senderUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -26,7 +25,6 @@ namespace com.lvl6.proto
       get { return _senderUuid; }
       set { _senderUuid = value; }
     }
-
     private string _message = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"message", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -45,7 +43,6 @@ namespace com.lvl6.proto
   {
     public GeneralNotificationResponseProto() {}
     
-
     private string _title = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"title", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -54,7 +51,6 @@ namespace com.lvl6.proto
       get { return _title; }
       set { _title = value; }
     }
-
     private string _subtitle = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"subtitle", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -63,7 +59,6 @@ namespace com.lvl6.proto
       get { return _subtitle; }
       set { _subtitle = value; }
     }
-
     private com.lvl6.proto.ColorProto _rgb = null;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"rgb", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -82,7 +77,6 @@ namespace com.lvl6.proto
   {
     public SendGroupChatRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -91,16 +85,14 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
-    private com.lvl6.proto.GroupChatScope _scope = com.lvl6.proto.GroupChatScope.;
+    private com.lvl6.proto.GroupChatScope _scope = com.lvl6.proto.GroupChatScope.CLAN;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"scope", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GroupChatScope.)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GroupChatScope.CLAN)]
     public com.lvl6.proto.GroupChatScope scope
     {
       get { return _scope; }
       set { _scope = value; }
     }
-
     private string _chatMessage = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"chatMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -109,7 +101,6 @@ namespace com.lvl6.proto
       get { return _chatMessage; }
       set { _chatMessage = value; }
     }
-
     private long _clientTime = default(long);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"clientTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -128,7 +119,6 @@ namespace com.lvl6.proto
   {
     public SendGroupChatResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -137,7 +127,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.SendGroupChatResponseProto.SendGroupChatStatus _status = com.lvl6.proto.SendGroupChatResponseProto.SendGroupChatStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.SendGroupChatResponseProto.SendGroupChatStatus.SUCCESS)]
@@ -173,7 +162,6 @@ namespace com.lvl6.proto
   {
     public ReceivedGroupChatResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProtoWithLevel _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -182,7 +170,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private string _chatMessage = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"chatMessage", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -191,7 +178,6 @@ namespace com.lvl6.proto
       get { return _chatMessage; }
       set { _chatMessage = value; }
     }
-
     private com.lvl6.proto.GroupChatScope _scope = com.lvl6.proto.GroupChatScope.CLAN;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"scope", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GroupChatScope.CLAN)]
@@ -200,7 +186,6 @@ namespace com.lvl6.proto
       get { return _scope; }
       set { _scope = value; }
     }
-
     private bool _isAdmin = default(bool);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"isAdmin", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(default(bool))]
@@ -219,7 +204,6 @@ namespace com.lvl6.proto
   {
     public PrivateChatPostRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -228,7 +212,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private string _recipientUuid = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"recipientUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -237,7 +220,6 @@ namespace com.lvl6.proto
       get { return _recipientUuid; }
       set { _recipientUuid = value; }
     }
-
     private string _content = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"content", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -256,7 +238,6 @@ namespace com.lvl6.proto
   {
     public PrivateChatPostResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -265,7 +246,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.PrivateChatPostResponseProto.PrivateChatPostStatus _status = com.lvl6.proto.PrivateChatPostResponseProto.PrivateChatPostStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.PrivateChatPostResponseProto.PrivateChatPostStatus.SUCCESS)]
@@ -274,7 +254,6 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-
     private com.lvl6.proto.PrivateChatPostProto _post = null;
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"post", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -313,7 +292,6 @@ namespace com.lvl6.proto
   {
     public RetrievePrivateChatPostsRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -322,7 +300,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private string _otherUserUuid = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"otherUserUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -331,7 +308,6 @@ namespace com.lvl6.proto
       get { return _otherUserUuid; }
       set { _otherUserUuid = value; }
     }
-
     private int _beforePrivateChatId = default(int);
     [global::System.Obsolete, global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"beforePrivateChatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -350,7 +326,6 @@ namespace com.lvl6.proto
   {
     public RetrievePrivateChatPostsResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -366,7 +341,6 @@ namespace com.lvl6.proto
       get { return _posts; }
     }
   
-
     private int _beforePrivateChatId = default(int);
     [global::System.Obsolete, global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"beforePrivateChatId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -375,7 +349,6 @@ namespace com.lvl6.proto
       get { return _beforePrivateChatId; }
       set { _beforePrivateChatId = value; }
     }
-
     private com.lvl6.proto.RetrievePrivateChatPostsResponseProto.RetrievePrivateChatPostsStatus _status = com.lvl6.proto.RetrievePrivateChatPostsResponseProto.RetrievePrivateChatPostsStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.RetrievePrivateChatPostsResponseProto.RetrievePrivateChatPostsStatus.SUCCESS)]
@@ -384,7 +357,6 @@ namespace com.lvl6.proto
       get { return _status; }
       set { _status = value; }
     }
-
     private string _otherUserUuid = "";
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"otherUserUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]

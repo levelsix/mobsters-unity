@@ -19,7 +19,6 @@ namespace com.lvl6.proto
   {
     public DevRequestProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -28,8 +27,12 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
+<<<<<<< HEAD
 
     private com.lvl6.proto.DevRequest _devRequest = com.lvl6.proto.DevRequest.;
+=======
+    private com.lvl6.proto.DevRequest _devRequest = com.lvl6.proto.DevRequest.RESET_ACCOUNT;
+>>>>>>> 939b90c6f967446872f93971b2c2528e6cc699a1
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"devRequest", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DevRequest.)]
     public com.lvl6.proto.DevRequest devRequest
@@ -37,7 +40,6 @@ namespace com.lvl6.proto
       get { return _devRequest; }
       set { _devRequest = value; }
     }
-
     private int _staticDataId = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"staticDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -46,7 +48,6 @@ namespace com.lvl6.proto
       get { return _staticDataId; }
       set { _staticDataId = value; }
     }
-
     private int _quantity = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"quantity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -65,7 +66,6 @@ namespace com.lvl6.proto
   {
     public DevResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -74,7 +74,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.DevResponseProto.DevStatus _status = com.lvl6.proto.DevResponseProto.DevStatus.SUCCESS;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"status", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DevResponseProto.DevStatus.SUCCESS)]
@@ -90,7 +89,6 @@ namespace com.lvl6.proto
       get { return _fump; }
     }
   
-
     private com.lvl6.proto.UserItemProto _uip = null;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"uip", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]

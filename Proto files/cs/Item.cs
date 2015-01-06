@@ -16,7 +16,6 @@ namespace com.lvl6.proto
   {
     public UserItemProto() {}
     
-
     private string _userUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -25,7 +24,6 @@ namespace com.lvl6.proto
       get { return _userUuid; }
       set { _userUuid = value; }
     }
-
     private int _itemId = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"itemId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -34,7 +32,6 @@ namespace com.lvl6.proto
       get { return _itemId; }
       set { _itemId = value; }
     }
-
     private int _quantity = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"quantity", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -53,7 +50,6 @@ namespace com.lvl6.proto
   {
     public ItemProto() {}
     
-
     private int _itemId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"itemId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -62,7 +58,6 @@ namespace com.lvl6.proto
       get { return _itemId; }
       set { _itemId = value; }
     }
-
     private string _name = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"name", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -71,7 +66,6 @@ namespace com.lvl6.proto
       get { return _name; }
       set { _name = value; }
     }
-
     private string _imgName = "";
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"imgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -80,7 +74,6 @@ namespace com.lvl6.proto
       get { return _imgName; }
       set { _imgName = value; }
     }
-
     private com.lvl6.proto.ItemType _itemType = com.lvl6.proto.ItemType.BOOSTER_PACK;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"itemType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ItemType.BOOSTER_PACK)]
@@ -89,7 +82,6 @@ namespace com.lvl6.proto
       get { return _itemType; }
       set { _itemType = value; }
     }
-
     private int _staticDataId = default(int);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"staticDataId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -98,7 +90,6 @@ namespace com.lvl6.proto
       get { return _staticDataId; }
       set { _staticDataId = value; }
     }
-
     private int _amount = default(int);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"amount", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -107,7 +98,6 @@ namespace com.lvl6.proto
       get { return _amount; }
       set { _amount = value; }
     }
-
     private float _secretGiftChance = default(float);
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"secretGiftChance", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     [global::System.ComponentModel.DefaultValue(default(float))]
@@ -126,7 +116,6 @@ namespace com.lvl6.proto
   {
     public UserItemUsageProto() {}
     
-
     private string _usageUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"usageUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -135,7 +124,6 @@ namespace com.lvl6.proto
       get { return _usageUuid; }
       set { _usageUuid = value; }
     }
-
     private string _userUuid = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -144,7 +132,6 @@ namespace com.lvl6.proto
       get { return _userUuid; }
       set { _userUuid = value; }
     }
-
     private int _itemId = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"itemId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -153,7 +140,6 @@ namespace com.lvl6.proto
       get { return _itemId; }
       set { _itemId = value; }
     }
-
     private long _timeOfEntry = default(long);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"timeOfEntry", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -162,7 +148,6 @@ namespace com.lvl6.proto
       get { return _timeOfEntry; }
       set { _timeOfEntry = value; }
     }
-
     private string _userDataUuid = "";
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"userDataUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -171,10 +156,9 @@ namespace com.lvl6.proto
       get { return _userDataUuid; }
       set { _userDataUuid = value; }
     }
-
-    private com.lvl6.proto.GameActionType _actionType = com.lvl6.proto.GameActionType.;
+    private com.lvl6.proto.GameActionType _actionType = com.lvl6.proto.GameActionType.NO_HELP;
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"actionType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameActionType.)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameActionType.NO_HELP)]
     public com.lvl6.proto.GameActionType actionType
     {
       get { return _actionType; }
@@ -190,7 +174,6 @@ namespace com.lvl6.proto
   {
     public UserItemSecretGiftProto() {}
     
-
     private string _uisgUuid = "";
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"uisgUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -199,7 +182,6 @@ namespace com.lvl6.proto
       get { return _uisgUuid; }
       set { _uisgUuid = value; }
     }
-
     private string _userUuid = "";
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"userUuid", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -208,7 +190,6 @@ namespace com.lvl6.proto
       get { return _userUuid; }
       set { _userUuid = value; }
     }
-
     private int _secsTillCollection = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"secsTillCollection", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -217,7 +198,6 @@ namespace com.lvl6.proto
       get { return _secsTillCollection; }
       set { _secsTillCollection = value; }
     }
-
     private int _itemId = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"itemId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -226,7 +206,6 @@ namespace com.lvl6.proto
       get { return _itemId; }
       set { _itemId = value; }
     }
-
     private long _createTime = default(long);
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"createTime", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]

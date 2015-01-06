@@ -16,7 +16,6 @@ namespace com.lvl6.proto
   {
     public ReferralCodeUsedResponseProto() {}
     
-
     private com.lvl6.proto.MinimumUserProto _sender = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"sender", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -25,7 +24,6 @@ namespace com.lvl6.proto
       get { return _sender; }
       set { _sender = value; }
     }
-
     private com.lvl6.proto.MinimumUserProto _referredPlayer = null;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"referredPlayer", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -34,7 +32,6 @@ namespace com.lvl6.proto
       get { return _referredPlayer; }
       set { _referredPlayer = value; }
     }
-
     private int _coinsGivenToReferrer = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"coinsGivenToReferrer", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]

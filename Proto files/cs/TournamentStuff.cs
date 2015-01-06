@@ -17,7 +17,6 @@ namespace com.lvl6.proto
   {
     public TournamentEventProto() {}
     
-
     private int _eventId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"eventId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -26,7 +25,6 @@ namespace com.lvl6.proto
       get { return _eventId; }
       set { _eventId = value; }
     }
-
     private long _startDate = default(long);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"startDate", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -35,7 +33,6 @@ namespace com.lvl6.proto
       get { return _startDate; }
       set { _startDate = value; }
     }
-
     private long _endDate = default(long);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"endDate", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -44,7 +41,6 @@ namespace com.lvl6.proto
       get { return _endDate; }
       set { _endDate = value; }
     }
-
     private string _eventName = "";
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"eventName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -60,7 +56,6 @@ namespace com.lvl6.proto
       get { return _rewards; }
     }
   
-
     private long _lastShowDate = default(long);
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"lastShowDate", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(long))]
@@ -79,7 +74,6 @@ namespace com.lvl6.proto
   {
     public TournamentEventRewardProto() {}
     
-
     private int _tournamentEventId = default(int);
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"tournamentEventId", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -88,7 +82,6 @@ namespace com.lvl6.proto
       get { return _tournamentEventId; }
       set { _tournamentEventId = value; }
     }
-
     private int _minRank = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"minRank", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -97,7 +90,6 @@ namespace com.lvl6.proto
       get { return _minRank; }
       set { _minRank = value; }
     }
-
     private int _maxRank = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"maxRank", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -106,7 +98,6 @@ namespace com.lvl6.proto
       get { return _maxRank; }
       set { _maxRank = value; }
     }
-
     private int _goldRewarded = default(int);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"goldRewarded", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -115,7 +106,6 @@ namespace com.lvl6.proto
       get { return _goldRewarded; }
       set { _goldRewarded = value; }
     }
-
     private string _backgroundImageName = "";
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"backgroundImageName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -124,7 +114,6 @@ namespace com.lvl6.proto
       get { return _backgroundImageName; }
       set { _backgroundImageName = value; }
     }
-
     private string _prizeImageName = "";
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"prizeImageName", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
@@ -133,7 +122,6 @@ namespace com.lvl6.proto
       get { return _prizeImageName; }
       set { _prizeImageName = value; }
     }
-
     private com.lvl6.proto.ColorProto _titleColor = null;
     [global::ProtoBuf.ProtoMember(7, IsRequired = false, Name=@"titleColor", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -152,7 +140,6 @@ namespace com.lvl6.proto
   {
     public MinimumUserProtoWithLevelForTournament() {}
     
-
     private com.lvl6.proto.MinimumUserProto _minUserProto = null;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"minUserProto", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue(null)]
@@ -161,7 +148,6 @@ namespace com.lvl6.proto
       get { return _minUserProto; }
       set { _minUserProto = value; }
     }
-
     private int _level = default(int);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"level", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -170,7 +156,6 @@ namespace com.lvl6.proto
       get { return _level; }
       set { _level = value; }
     }
-
     private int _tournamentRank = default(int);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"tournamentRank", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(int))]
@@ -179,7 +164,6 @@ namespace com.lvl6.proto
       get { return _tournamentRank; }
       set { _tournamentRank = value; }
     }
-
     private double _tournamentScore = default(double);
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"tournamentScore", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(double))]
