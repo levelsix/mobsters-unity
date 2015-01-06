@@ -29,9 +29,9 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private com.lvl6.proto.DevRequest _devRequest = com.lvl6.proto.DevRequest.RESET_ACCOUNT;
+    private com.lvl6.proto.DevRequest _devRequest = com.lvl6.proto.DevRequest.;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"devRequest", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DevRequest.RESET_ACCOUNT)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.DevRequest.)]
     public com.lvl6.proto.DevRequest devRequest
     {
       get { return _devRequest; }

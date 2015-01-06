@@ -172,9 +172,9 @@ namespace com.lvl6.proto
       set { _userDataUuid = value; }
     }
 
-    private com.lvl6.proto.GameActionType _actionType = com.lvl6.proto.GameActionType.NO_HELP;
+    private com.lvl6.proto.GameActionType _actionType = com.lvl6.proto.GameActionType.;
     [global::ProtoBuf.ProtoMember(6, IsRequired = false, Name=@"actionType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameActionType.NO_HELP)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameActionType.)]
     public com.lvl6.proto.GameActionType actionType
     {
       get { return _actionType; }

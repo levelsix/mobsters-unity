@@ -259,4 +259,9 @@ public static class MSActionManager
 		public static Action OnLoginFail;
 		public static Action OnLoadFriends;
 	}
+
+	public static class Items
+	{
+		public static Action OnRedeemSeecretGift;
+	}
 }

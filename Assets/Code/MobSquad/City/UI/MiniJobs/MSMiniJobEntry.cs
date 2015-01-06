@@ -190,6 +190,11 @@ public class MSMiniJobEntry : MonoBehaviour {
 			reward = AddReward();
 			reward.InitMonster(miniJob.monsterIdReward);
 		}
+		if (miniJob.itemRewardQuantity > 0 && miniJob.itemIdReward > 0)
+		{
+			reward = AddReward();
+			reward.InitItem(miniJob.itemIdReward);
+		}
 
 		rewardGrid.Reposition();
 	}

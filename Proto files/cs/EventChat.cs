@@ -92,9 +92,9 @@ namespace com.lvl6.proto
       set { _sender = value; }
     }
 
-    private com.lvl6.proto.GroupChatScope _scope = com.lvl6.proto.GroupChatScope.CLAN;
+    private com.lvl6.proto.GroupChatScope _scope = com.lvl6.proto.GroupChatScope.;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"scope", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GroupChatScope.CLAN)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GroupChatScope.)]
     public com.lvl6.proto.GroupChatScope scope
     {
       get { return _scope; }

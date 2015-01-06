@@ -545,6 +545,7 @@ public class MSMiniJobManager : MonoBehaviour {
 			MSResourceManager.instance.Collect(ResourceType.CASH, currJob.miniJob.cashReward);
 			MSResourceManager.instance.Collect(ResourceType.OIL, currJob.miniJob.oilReward);
 			MSResourceManager.instance.Collect(ResourceType.GEMS, currJob.miniJob.gemReward);
+			MSItemManager.instance.AddItem(currJob.miniJob.itemIdReward, currJob.miniJob.itemRewardQuantity);
 
 			if(MSActionManager.MiniJob.OnMiniJobRedeem != null)
 			{

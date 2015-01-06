@@ -26,6 +26,31 @@ public class MSTimer
 
 	public float progress { get { return 1 -((float)timeLeft) / length; }}
 
+	#region gems
+
+	public bool canBeFree
+	{
+		get
+		{
+			//only healing and upgrading buildings can be free
+			return timerType == GameActionType.UPGRADE_STRUCT || timerType == GameActionType.HEAL;
+		}
+	}
+	/// <summary>
+	/// Total gems spent on finishing this timer
+	/// </summary>
+	public int gemsUsed = 0;
+
+	public int gemsNeededToComplete
+	{
+		get
+		{
+			return MSMath.GemsForTime(timeLeft, canBeFree);
+		}
+	}
+
+	#endregion
+
 	#region Help
 
 	ClanHelpProto currActiveHelp;
@@ -80,6 +105,7 @@ public class MSTimer
 
 	#region Speedup Items
 	//TODO: All of this!
+	List<UserItemUsageProto> speedUpItems = new List<UserItemUsageProto>();
 
 	long _speedUpTime = 0;
 	public long speedUpTime

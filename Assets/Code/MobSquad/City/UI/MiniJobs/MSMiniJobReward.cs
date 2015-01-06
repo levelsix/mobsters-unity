@@ -17,30 +17,38 @@ public class MSMiniJobReward : MonoBehaviour {
 	[SerializeField]
 	UILabel label;
 
-	const string gemSpriteName = "diamond";
-	const string cashSpriteName = "moneystack";
-	const string oilSpriteName = "oilicon";
+	const string GEM_SPRITE_NAME = "diamond";
+	const string CASH_SPRITE_NAME = "moneystack";
+	const string OIL_SPRITE_NAME = "oilicon";
+
+	readonly Vector3 RESOURCE_SCALE = new Vector3(0.5f, 0.5f, 1f);
+	readonly Vector3 ITEM_SCALE = Vector3.one;
 
 	void Init(string spriteName, string labelText, Color textColor)
 	{
 		icon.spriteName = spriteName;
 		label.text = labelText;
 		label.color = textColor;
+		label.MarkAsChanged();
+		icon.MakePixelPerfect();
 	}
 
 	public void InitCash(int amount)
 	{
-		Init (cashSpriteName, amount.ToString(), MSColors.cashTextColor);
+		Init (CASH_SPRITE_NAME, amount.ToString(), MSColors.cashTextColor);
+		icon.transform.localScale = RESOURCE_SCALE;
 	}
 
 	public void InitOil(int amount)
 	{
-		Init (oilSpriteName, amount.ToString(), MSColors.oilTextColor);
+		Init (OIL_SPRITE_NAME, amount.ToString(), MSColors.oilTextColor);
+		icon.transform.localScale = RESOURCE_SCALE;
 	}
 
 	public void InitGem(int amount)
 	{
-		Init (gemSpriteName, amount.ToString(), MSColors.gemTextColor);
+		Init (GEM_SPRITE_NAME, amount.ToString(), MSColors.gemTextColor);
+		icon.transform.localScale = RESOURCE_SCALE;
 	}
 
 	public void InitMonster(int monsterId)
@@ -50,6 +58,14 @@ public class MSMiniJobReward : MonoBehaviour {
 		Init(monster.quality.ToString().ToLower() + (monster.numPuzzlePieces > 1 ? "piece" : "capsule"),
 		     monster.quality.ToString().ToUpper(), 
 		     MSColors.qualityColors[monster.quality]);
+		icon.transform.localScale = ITEM_SCALE;
 
+	}
+
+	public void InitItem(int itemId)
+	{
+		ItemProto item = MSDataManager.instance.Get<ItemProto>(itemId);
+		Init(MSUtil.StripExtensions(item.imgName), item.name, Color.black);
+		icon.transform.localScale = ITEM_SCALE;
 	}
 }

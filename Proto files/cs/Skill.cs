@@ -95,22 +95,13 @@ namespace com.lvl6.proto
       set { _desc = value; }
     }
 
-    private string _iconImgName = "";
-    [global::ProtoBuf.ProtoMember(10, IsRequired = false, Name=@"iconImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private string _imgNamePrefix = "";
+    [global::ProtoBuf.ProtoMember(12, IsRequired = false, Name=@"imgNamePrefix", DataFormat = global::ProtoBuf.DataFormat.Default)]
     [global::System.ComponentModel.DefaultValue("")]
-    public string iconImgName
+    public string imgNamePrefix
     {
-      get { return _iconImgName; }
-      set { _iconImgName = value; }
-    }
-
-    private string _logoImgName = "";
-    [global::ProtoBuf.ProtoMember(11, IsRequired = false, Name=@"logoImgName", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue("")]
-    public string logoImgName
-    {
-      get { return _logoImgName; }
-      set { _logoImgName = value; }
+      get { return _imgNamePrefix; }
+      set { _imgNamePrefix = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

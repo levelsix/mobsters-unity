@@ -26,9 +26,9 @@ namespace com.lvl6.proto
       set { _prereqId = value; }
     }
 
-    private com.lvl6.proto.GameType _gameType = com.lvl6.proto.GameType.NO_TYPE;
+    private com.lvl6.proto.GameType _gameType = com.lvl6.proto.GameType.;
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"gameType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameType.NO_TYPE)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameType.)]
     public com.lvl6.proto.GameType gameType
     {
       get { return _gameType; }
@@ -44,9 +44,9 @@ namespace com.lvl6.proto
       set { _gameEntityId = value; }
     }
 
-    private com.lvl6.proto.GameType _prereqGameType = com.lvl6.proto.GameType.NO_TYPE;
+    private com.lvl6.proto.GameType _prereqGameType = com.lvl6.proto.GameType.;
     [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"prereqGameType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameType.NO_TYPE)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameType.)]
     public com.lvl6.proto.GameType prereqGameType
     {
       get { return _prereqGameType; }

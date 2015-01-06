@@ -1246,9 +1246,9 @@ namespace com.lvl6.proto
     public ClanHelpConstants() {}
     
 
-    private com.lvl6.proto.GameActionType _helpType = com.lvl6.proto.GameActionType.NO_HELP;
+    private com.lvl6.proto.GameActionType _helpType = com.lvl6.proto.GameActionType.;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"helpType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameActionType.NO_HELP)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.GameActionType.)]
     public com.lvl6.proto.GameActionType helpType
     {
       get { return _helpType; }
@@ -1384,9 +1384,9 @@ namespace com.lvl6.proto
     public ResourceConversionConstantProto() {}
     
 
-    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.NO_RESOURCE;
+    private com.lvl6.proto.ResourceType _resourceType = com.lvl6.proto.ResourceType.;
     [global::ProtoBuf.ProtoMember(1, IsRequired = false, Name=@"resourceType", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.NO_RESOURCE)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.ResourceType.)]
     public com.lvl6.proto.ResourceType resourceType
     {
       get { return _resourceType; }

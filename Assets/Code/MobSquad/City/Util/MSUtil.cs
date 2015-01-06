@@ -43,6 +43,16 @@ public static class MSUtil {
 	{
 		return Math.Max(timeNowMillis - time, 0);
 	}
+
+	//I stole this http://stackoverflow.com/questions/2134161/format-number-like-stack-overflow-rounded-to-thousands-with-k-suffix
+	public static string FormatNumber(int num) {
+		if (num >= 100000)
+			return FormatNumber(num / 1000) + "K";
+		if (num >= 10000) {
+			return (num / 1000D).ToString("0.#") + "K";
+		}
+		return num.ToString("#,0");
+	}
 	
 	/// <summary>
 	/// Returns a string describing an amount of time in short form

@@ -97,7 +97,12 @@ public static class UMQDeserializer {
 		{EventProtocolResponse.S_END_CLAN_HELP_EVENT, typeof(EndClanHelpResponseProto)},
 		{EventProtocolResponse.S_SOLICIT_CLAN_HELP_EVENT, typeof(SolicitClanHelpResponseProto)},
 		{EventProtocolResponse.S_GENERAL_NOTIFICATION_EVENT, typeof(GeneralNotificationResponseProto)},
-		{EventProtocolResponse.S_RETRIEVE_CLAN_DATA_EVENT, typeof(RetrieveClanDataResponseProto)}
+		{EventProtocolResponse.S_RETRIEVE_CLAN_DATA_EVENT, typeof(RetrieveClanDataResponseProto)},
+		{EventProtocolResponse.S_TRADE_ITEM_FOR_BOOSTER_EVENT, typeof(TradeItemForBoosterResponseProto)},
+		{EventProtocolResponse.S_TRADE_ITEM_FOR_RESOURCES_EVENT, typeof(TradeItemForResourcesResponseProto)},
+		{EventProtocolResponse.S_TRADE_ITEM_FOR_SPEED_UPS_EVENT, typeof(TradeItemForSpeedUpsResponseProto)},
+		{EventProtocolResponse.S_REDEEM_SECRET_GIFT_EVENT, typeof(RedeemSecretGiftResponseProto)},
+
 	};
 	
 	public static object Deserialize(Stream stream, EventProtocolResponse type)

@@ -561,9 +561,9 @@ namespace com.lvl6.proto
       set { _yPos = value; }
     }
 
-    private com.lvl6.proto.Element _element = com.lvl6.proto.Element.NO_ELEMENT;
+    private com.lvl6.proto.Element _element = com.lvl6.proto.Element.;
     [global::ProtoBuf.ProtoMember(5, IsRequired = false, Name=@"element", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.NO_ELEMENT)]
+    [global::System.ComponentModel.DefaultValue(com.lvl6.proto.Element.)]
     public com.lvl6.proto.Element element
     {
       get { return _element; }
