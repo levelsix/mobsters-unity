@@ -384,6 +384,11 @@ public class MSEnhancementManager : MonoBehaviour
 	#endregion
 
 	#region Completing
+	void Update()
+	{
+		CheckEnhancingMonsters();
+	}
+
 	void CheckEnhancingMonsters()
 	{
 		if (hasEnhancement && !finished && !isCompleting && timeLeft <= 0)

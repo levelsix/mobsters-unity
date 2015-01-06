@@ -244,12 +244,12 @@ public class MSTaskButton : MSTriggerPopupButton, MSPoolable {
 		case Mode.REMOVE_OBSTACLE:
 			if (currBuilding.obstacle.obstacle.removalCostType == com.lvl6.proto.ResourceType.OIL)
 			{
-				topLabel.text = "(o) " + string.Format("{0:n0}", currBuilding.combinedProto.successor.structInfo.buildCost);
+				topLabel.text = "(o) " + string.Format("{0:n0}", currBuilding.obstacle.obstacle.cost);
 				topLabel.color = MSColors.oilTextColor;
 			}
 			else
 			{
-				topLabel.text = "(c) " + string.Format("{0:n0}", currBuilding.combinedProto.successor.structInfo.buildCost);
+				topLabel.text = "(c) " + string.Format("{0:n0}", currBuilding.obstacle.obstacle.cost);
 				topLabel.color = MSColors.cashTextColor;
 			}
 			break;
