@@ -2,7 +2,7 @@
 
 //#define STAGING
 //#define PROD
-#define LOCAL
+//#define LOCAL
 
 using UnityEngine;
 using System.Collections;

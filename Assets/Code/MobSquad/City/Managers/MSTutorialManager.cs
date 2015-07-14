@@ -1027,7 +1027,6 @@ public class MSTutorialManager : MonoBehaviour
 	                       bool fullExit = true)
 	{
 		yield return dialogueUI.RunDialogue(bundleName, imageName, mobsterName, dialogue, wait);
-		Debug.Log ("Dialogue: " + dialogue);
 		if (wait)
 		{
 			currUi = dialogueUI.clickbox;
