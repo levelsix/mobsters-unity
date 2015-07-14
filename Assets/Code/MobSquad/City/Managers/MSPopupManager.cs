@@ -262,6 +262,9 @@ public class MSPopupManager : MonoBehaviour {
 
 	public float DefaultTweenIn(GameObject go)
 	{
+		if (go == null)
+			return 0;
+
 		TweenScale scale = TweenScale.Begin(go, defaultScaleIn.duration, defaultScaleIn.to);
 		scale.from = defaultScaleIn.from;
 		scale.animationCurve = defaultScaleIn.animationCurve;
@@ -277,6 +280,9 @@ public class MSPopupManager : MonoBehaviour {
 
 	public float DefaultTweenOut(GameObject go)
 	{
+		if (go == null)
+			return 0;
+
 		TweenScale scale = TweenScale.Begin(go, defaultScaleOut.duration, defaultScaleOut.to);
 		scale.from = defaultScaleOut.from;
 		scale.animationCurve = defaultScaleOut.animationCurve;

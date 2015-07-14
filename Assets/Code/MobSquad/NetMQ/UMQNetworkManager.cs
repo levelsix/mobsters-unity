@@ -1,9 +1,8 @@
 #define DEBUG
 
-//#if !UNITY_EDITOR
-#define STAGING
-//#endif
+//#define STAGING
 //#define PROD
+#define LOCAL
 
 using UnityEngine;
 using System.Collections;
@@ -27,18 +26,28 @@ public class UMQNetworkManager : MonoBehaviour {
 	string userName = "lvl6client";
 	string password = "devclient";
 	string virtualHost = "devmobsters";
+	bool useSSL = true;
 	int port = 5672;
 #elif STAGING
 	string hostName = "amqpstagingmobsters.lvl6.com";
 	string userName = "lvl6client";
 	string password = "devclient";
 	string virtualHost = "devmobsters";
+	bool useSSL = true;
 	int port = 5672;
-#else
-	string hostName = "amqpdevmobsters.lvl6.com";
+#elif LOCAL
+	string hostName = "10.0.1.189";
 	string userName = "lvl6client";
 	string password = "devclient";
 	string virtualHost = "devmobsters";
+	bool useSSL = false;
+	int port = 5672;
+#else
+	string hostName = "dev2mobsters.lvl6.com";
+	string userName = "lvl6client";
+	string password = "devclient";
+	string virtualHost = "devmobsters";
+	bool useSSL = false;
 	int port = 5672;
 #endif
 
@@ -152,7 +161,8 @@ public class UMQNetworkManager : MonoBehaviour {
 		factoryJava.Call("setUsername", userName);
 		factoryJava.Call("setPassword", password);
 		factoryJava.Call("setVirtualHost", virtualHost);
-		factoryJava.Call("useSslProtocol");
+		if (useSSL)
+			factoryJava.Call("useSslProtocol");
 
 		WriteDebug("Set connection settings...");
 #else
@@ -163,10 +173,12 @@ public class UMQNetworkManager : MonoBehaviour {
 		factory.VirtualHost = virtualHost;
 		factory.Port = port;
 
-//		factory.Ssl.ServerName = "lvl6ca";
-//		factory.Ssl.CertPath = "cacert.cer";
-//		factory.Ssl.AcceptablePolicyErrors = System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch | System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable;
-//		factory.Ssl.Enabled = true;
+		if (useSSL) {
+			factory.Ssl.ServerName = "lvl6ca";
+			factory.Ssl.CertPath = "cacert.cer";
+			factory.Ssl.AcceptablePolicyErrors = System.Net.Security.SslPolicyErrors.RemoteCertificateNameMismatch | System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable;
+			factory.Ssl.Enabled = true;
+		}
 #endif
 
 		try{
@@ -176,6 +188,8 @@ public class UMQNetworkManager : MonoBehaviour {
 			connection = factory.CreateConnection();
 #endif
 			gameObject.SetActive(true);
+
+			Debug.Log("Created connection");
 		}
 		catch (Exception e)
 		{
@@ -192,7 +206,6 @@ public class UMQNetworkManager : MonoBehaviour {
 			yield break;
 		}
 
-		Debug.Log("Created connection");
 		
 		try
 		{
@@ -439,6 +452,7 @@ public class UMQNetworkManager : MonoBehaviour {
 			response = consumer.Queue.DequeueNoWait(null);
 			if (response != null)
 			{
+				Debug.Log("responese");
 				ReceiveResponse((BasicDeliverEventArgs)response);
 			}
 			yield return new WaitForSeconds(.5f);

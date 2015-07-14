@@ -497,7 +497,7 @@ public class MSTutorialManager : MonoBehaviour
 
 		userUnit.animat = MSUnit.AnimationType.STAY;
 
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.YOLO, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "P2TutBig", userMobster.displayName, TutorialStrings.YOLO, false));
 
 		TutorialUI.fightButton.SetActive(true);
 		currUi = TutorialUI.fightButton;
@@ -604,7 +604,7 @@ public class MSTutorialManager : MonoBehaviour
 		PZPuzzleManager.instance.BlockBoard(turn1move1);
 		PZPuzzleManager.instance.CustomHintGems(turn1move1);
 		TutorialUI.hintHand.Init(turn1move1hintStart, turn1move1hintEnd);
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.MOVIN_ORBS, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "P3TutBig", userMobster.displayName, TutorialStrings.MOVIN_ORBS, false));
 		yield return StartCoroutine(WaitForTurn());
 
 		PZPuzzleManager.instance.BlockBoard(turn1move2);
@@ -1027,6 +1027,7 @@ public class MSTutorialManager : MonoBehaviour
 	                       bool fullExit = true)
 	{
 		yield return dialogueUI.RunDialogue(bundleName, imageName, mobsterName, dialogue, wait);
+		Debug.Log ("Dialogue: " + dialogue);
 		if (wait)
 		{
 			currUi = dialogueUI.clickbox;

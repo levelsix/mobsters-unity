@@ -74,13 +74,19 @@ public class MSGachaScreen : MonoBehaviour {
 		spinner.Init(pack);
 
 		buttonBack.spriteName = MSUtil.StripExtensions( pack.machineImgName);
-		
-		nextLeftIndex = LoopDisplayItemIndex(-1);
-		nextRightIndex = LoopDisplayItemIndex(2);
-		
-		foreach (var item in featuredMobsters) 
-		{
-			item.Init(PickGoonLeft());
+
+
+		if (currPack.specialItems.Count == 0) {
+			foreach (var item in featuredMobsters) {
+				item.gameObject.SetActive(false);
+			}
+		} else {
+			nextLeftIndex = LoopDisplayItemIndex (-1);
+			nextRightIndex = LoopDisplayItemIndex (2);
+			foreach (var item in featuredMobsters) {
+				item.gameObject.SetActive(true);
+				item.Init (PickGoonLeft ());
+			}
 		}
 
 		//Only the basic grab can be free.  Basic grab is ID 1

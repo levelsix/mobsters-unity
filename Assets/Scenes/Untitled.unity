@@ -73,6 +73,7 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
+    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &261823959
 GameObject:
@@ -344,6 +345,7 @@ GameObject:
   - 114: {fileID: 1359026105}
   - 114: {fileID: 1359026104}
   - 54: {fileID: 1359026103}
+  - 95: {fileID: 1359026106}
   m_Layer: 5
   m_Name: UI Root
   m_TagString: Untagged
@@ -359,7 +361,7 @@ Transform:
   m_GameObject: {fileID: 1359026101}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00333333341, y: .00333333341, z: .00333333341}
+  m_LocalScale: {x: .00216216221, y: .00216216221, z: .00216216221}
   m_Children:
   - {fileID: 1530776126}
   - {fileID: 505516209}
@@ -440,6 +442,21 @@ MonoBehaviour:
   maximumHeight: 1536
   adjustByDPI: 0
   shrinkPortraitUI: 0
+--- !u!95 &1359026106
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1359026101}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f8f99a544656c4386939e5b8172b8073, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1369820077
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +659,7 @@ Animator:
   m_GameObject: {fileID: 1714632116}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3e0b63fc3dede453d9a48e841e3829aa, type: 2}
+  m_Controller: {fileID: 9100000, guid: e142e7c9920e94934a0eefe46ea5981f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
