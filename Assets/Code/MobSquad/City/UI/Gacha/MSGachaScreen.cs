@@ -24,7 +24,7 @@ public class MSGachaScreen : MonoBehaviour {
 	UILabel tenSpinCostLabel;
 
 	[SerializeField]
-	UISprite buttonBack;
+	UISprite machine;
 	
 	public BoosterPackProto currPack;
 	
@@ -35,21 +35,20 @@ public class MSGachaScreen : MonoBehaviour {
 	
 	public void OnEnable()
 	{
-//		RecycleTabs();
-		
-		currPack = null;
+		//Set up the tabs
 		foreach (BoosterPackProto booster in MSDataManager.instance.GetAll<BoosterPackProto>().Values) 
 		{
-			if (currPack == null || currPack.boosterPackId == 0)
-			{
+			if (currPack == null)
 				currPack = booster;
+
+			if (booster.boosterPackName == "Basic Grab")
+			{
 				basicGrab.Init(booster, this);
 			}
-			else
+			else if (booster.boosterPackName == "Ultimate Grab")
 			{
 				goonieGrab.Init(booster, this);
 			}
-//			AddTab(booster);
 		}
 		Init (currPack); //Gotta call this after, else the tabs won't init properly
 
@@ -73,8 +72,8 @@ public class MSGachaScreen : MonoBehaviour {
 		
 		spinner.Init(pack);
 
-		buttonBack.spriteName = MSUtil.StripExtensions( pack.machineImgName);
-
+		machine.spriteName = MSUtil.StripExtensions( pack.machineImgName);
+		machine.MakePixelPerfect ();
 
 		if (currPack.specialItems.Count == 0) {
 			foreach (var item in featuredMobsters) {
@@ -122,6 +121,9 @@ public class MSGachaScreen : MonoBehaviour {
 	
 	public int LoopDisplayItemIndex(int index)
 	{
+		if (currPack.specialItems.Count == 0)
+			return 0;
+
 		while (index >= currPack.specialItems.Count)
 		{
 			index -= currPack.specialItems.Count;

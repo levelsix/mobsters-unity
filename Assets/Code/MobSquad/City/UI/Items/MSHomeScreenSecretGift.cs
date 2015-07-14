@@ -30,7 +30,7 @@ public class MSHomeScreenSecretGift : MonoBehaviour {
 		renderer = GetComponent<SpriteRenderer>();
 	}
 
-	void OnEnable()
+	void Start()
 	{
 		if(currGift == null || currGift != MSItemManager.instance.nextRedeemGift)
 		{
