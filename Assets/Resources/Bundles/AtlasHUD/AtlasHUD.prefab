@@ -42,7 +42,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: cae3212b7983c4b30a2b4d4fd8969e53, type: 2}
   mSprites:
   - name: activechatline
-    x: 17
+    x: 0
     y: 5
     width: 16
     height: 4
@@ -55,8 +55,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: addgems
-    x: 1021
-    y: 129
+    x: 1027
+    y: 180
     width: 48
     height: 48
     borderLeft: 0
@@ -120,8 +120,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingbonusslots
-    x: 1030
-    y: 248
+    x: 846
+    y: 7
     width: 52
     height: 52
     borderLeft: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: buildingenhance
-    x: 846
+    x: 899
     y: 7
     width: 52
     height: 52
@@ -173,7 +173,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: buildingfinishnow
     x: 846
-    y: 465
+    y: 681
     width: 152
     height: 107
     borderLeft: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: buildingfinishnowpressed
     x: 846
-    y: 357
+    y: 573
     width: 152
     height: 107
     borderLeft: 0
@@ -198,8 +198,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: buildingfix
-    x: 1027
-    y: 180
+    x: 1021
+    y: 129
     width: 48
     height: 48
     borderLeft: 0
@@ -209,6 +209,45 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
+    paddingBottom: 0
+  - name: buildinggethelp
+    x: 366
+    y: 54
+    width: 152
+    height: 107
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: buildinggethelpicon
+    x: 974
+    y: 18
+    width: 44
+    height: 52
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: buildinggethelppressed
+    x: 846
+    y: 789
+    width: 152
+    height: 107
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
     paddingBottom: 0
   - name: buildingheal
     x: 974
@@ -237,8 +276,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: buildinginfo
-    x: 899
-    y: 7
+    x: 1030
+    y: 248
     width: 52
     height: 52
     borderLeft: 0
@@ -277,7 +316,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: buildingoptionbutton
     x: 846
-    y: 789
+    y: 357
     width: 152
     height: 107
     borderLeft: 0
@@ -289,8 +328,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: buildingoptionbuttonpressed
-    x: 366
-    y: 54
+    x: 846
+    y: 465
     width: 152
     height: 107
     borderLeft: 0
@@ -509,6 +548,58 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: freegem
+    x: 999
+    y: 510
+    width: 80
+    height: 62
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 1
+  - name: freegemslabel
+    x: 999
+    y: 794
+    width: 58
+    height: 18
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: gemsspinner
+    x: 846
+    y: 229
+    width: 127
+    height: 127
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 1
+  - name: homescreentimer
+    x: 999
+    y: 580
+    width: 87
+    height: 29
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: HUDGems
     x: 846
     y: 897
@@ -574,6 +665,19 @@ MonoBehaviour:
     paddingRight: 5
     paddingTop: 1
     paddingBottom: 0
+  - name: HUD-Whitney-Semibold
+    x: 590
+    y: 769
+    width: 255
+    height: 255
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: inaclanbutton
     x: 999
     y: 705
@@ -588,7 +692,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: inactivechatline
-    x: 0
+    x: 17
     y: 5
     width: 16
     height: 4
@@ -860,6 +964,19 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 0
     paddingBottom: 0
+  - name: speedupbigicon
+    x: 519
+    y: 1
+    width: 46
+    height: 35
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: topbarbg
     x: 1098
     y: 989
@@ -886,123 +1003,6 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
-  - name: HUD-Whitney-Semibold
-    x: 590
-    y: 769
-    width: 255
-    height: 255
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: buildinggethelpicon
-    x: 974
-    y: 18
-    width: 44
-    height: 52
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: buildinggethelppressed
-    x: 846
-    y: 573
-    width: 152
-    height: 107
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: buildinggethelp
-    x: 846
-    y: 681
-    width: 152
-    height: 107
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: speedupbigicon
-    x: 519
-    y: 1
-    width: 46
-    height: 35
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: homescreentimer
-    x: 999
-    y: 580
-    width: 87
-    height: 29
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: freegemslabel
-    x: 999
-    y: 794
-    width: 58
-    height: 18
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: freegem
-    x: 999
-    y: 510
-    width: 80
-    height: 62
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 1
-  - name: gemsspinner
-    x: 846
-    y: 229
-    width: 127
-    height: 127
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 1
   mPixelSize: 1
   mReplacement: {fileID: 0}
   mCoordinates: 0

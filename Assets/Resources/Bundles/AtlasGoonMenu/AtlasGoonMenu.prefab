@@ -41,6 +41,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: d64f095246ebe4e40b8c0538e025e984, type: 2}
   mSprites:
+  - name: adminbutton
+    x: 1429
+    y: 1411
+    width: 286
+    height: 60
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: attackbarcapmj
     x: 504
     y: 1397
@@ -56,7 +69,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: attackbarmiddlemj
     x: 507
-    y: 1511
+    y: 1524
     width: 2
     height: 12
     borderLeft: 1
@@ -80,6 +93,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: behindcharacterglow
+    x: 0
+    y: 1119
+    width: 316
+    height: 417
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: bigsquarebottom
     x: 1535
     y: 1796
@@ -94,10 +120,23 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: bigsquareempty
-    x: 306
-    y: 142
+    x: 317
+    y: 1245
     width: 148
     height: 148
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: charactercircle
+    x: 1828
+    y: 1801
+    width: 208
+    height: 98
     borderLeft: 0
     borderRight: 0
     borderTop: 0
@@ -134,7 +173,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: commonband
     x: 1977
-    y: 1915
+    y: 1982
     width: 66
     height: 66
     borderLeft: 0
@@ -172,8 +211,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: darksquare
-    x: 1722
-    y: 1537
+    x: 1828
+    y: 1900
     width: 148
     height: 148
     borderLeft: 0
@@ -236,9 +275,87 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: earthenhancebg
+    x: 511
+    y: 1370
+    width: 305
+    height: 422
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: eartheventbg
+    x: 1535
+    y: 1835
+    width: 292
+    height: 106
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: eartheventbigbg
+    x: 753
+    y: 2
+    width: 2
+    height: 450
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: eartheventbigbgcap
+    x: 717
+    y: 2
+    width: 14
+    height: 450
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: eartheventtag
+    x: 455
+    y: 219
+    width: 46
+    height: 35
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: eartheventtimer
+    x: 475
+    y: 467
+    width: 27
+    height: 31
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: earthmediumsquare
     x: 511
-    y: 563
+    y: 466
     width: 96
     height: 96
     borderLeft: 0
@@ -263,8 +380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: earthsquare
-    x: 1828
-    y: 1900
+    x: 306
+    y: 565
     width: 148
     height: 148
     borderLeft: 0
@@ -274,6 +391,32 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
+    paddingBottom: 0
+  - name: enahncedonesquare
+    x: 475
+    y: 440
+    width: 26
+    height: 26
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: engagearrow
+    x: 325
+    y: 441
+    width: 12
+    height: 19
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
     paddingBottom: 0
   - name: enhancebottom
     x: 511
@@ -288,6 +431,19 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 0
     paddingBottom: 0
+  - name: enhancedonecheck
+    x: 466
+    y: 1357
+    width: 40
+    height: 36
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 1
   - name: enhanceheaderimage
     x: 1722
     y: 1421
@@ -341,8 +497,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: epicband
-    x: 599
-    y: 704
+    x: 439
+    y: 8
     width: 66
     height: 66
     borderLeft: 0
@@ -353,6 +509,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: eventdivider
+    x: 507
+    y: 1496
+    width: 2
+    height: 2
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 1
   - name: evolutionlabmenuheader
     x: 511
     y: 959
@@ -392,6 +561,84 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
+  - name: fireenhancebg
+    x: 0
+    y: 440
+    width: 305
+    height: 422
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: fireeventbg
+    x: 1429
+    y: 1472
+    width: 292
+    height: 106
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: fireeventbigbg
+    x: 747
+    y: 2
+    width: 2
+    height: 450
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: fireeventbigbgcap
+    x: 687
+    y: 2
+    width: 14
+    height: 450
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: fireeventtag
+    x: 455
+    y: 183
+    width: 46
+    height: 35
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: fireeventtimer
+    x: 486
+    y: 294
+    width: 23
+    height: 27
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: firemediumsquare
     x: 511
     y: 78
@@ -407,7 +654,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: firesmallsquare
     x: 672
-    y: 453
+    y: 623
     width: 84
     height: 84
     borderLeft: 0
@@ -419,8 +666,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: firesquare
-    x: 306
-    y: 565
+    x: 1722
+    y: 1537
     width: 148
     height: 148
     borderLeft: 0
@@ -442,6 +689,19 @@ MonoBehaviour:
     borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: GoonMenuGothamBlack
+    x: 511
+    y: 1793
+    width: 511
+    height: 255
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
   - name: GoonMenuGothamUltra24
@@ -498,7 +758,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: greyband
     x: 439
-    y: 8
+    y: 75
     width: 66
     height: 66
     borderLeft: 0
@@ -509,9 +769,35 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: greyeventbg
+    x: 1535
+    y: 1942
+    width: 292
+    height: 106
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: greyeventtag
+    x: 455
+    y: 358
+    width: 46
+    height: 35
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
   - name: greymediumsquare
     x: 511
-    y: 272
+    y: 563
     width: 96
     height: 96
     borderLeft: 0
@@ -549,8 +835,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: greysquare
-    x: 317
-    y: 1245
+    x: 306
+    y: 142
     width: 148
     height: 148
     borderLeft: 0
@@ -641,7 +927,7 @@ MonoBehaviour:
     paddingBottom: 2
   - name: hpbarmiddlemj
     x: 507
-    y: 1524
+    y: 1511
     width: 2
     height: 12
     borderLeft: 1
@@ -666,8 +952,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: legendband
-    x: 1977
-    y: 1982
+    x: 769
+    y: 1083
     width: 66
     height: 66
     borderLeft: 0
@@ -678,9 +964,87 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: lightenhancebg
+    x: 0
+    y: 17
+    width: 305
+    height: 422
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: lighteventbg
+    x: 1429
+    y: 1579
+    width: 292
+    height: 106
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: lighteventbigbg
+    x: 750
+    y: 2
+    width: 2
+    height: 450
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: lighteventbigbgcap
+    x: 672
+    y: 2
+    width: 14
+    height: 450
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: lighteventtag
+    x: 455
+    y: 255
+    width: 46
+    height: 35
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: lighteventtimer
+    x: 1574
+    y: 1379
+    width: 27
+    height: 31
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: lightmediumsquare
     x: 511
-    y: 369
+    y: 272
     width: 96
     height: 96
     borderLeft: 0
@@ -693,7 +1057,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: lightsmallsquare
     x: 672
-    y: 623
+    y: 453
     width: 84
     height: 84
     borderLeft: 0
@@ -706,7 +1070,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: lightsquare
     x: 306
-    y: 714
+    y: 291
     width: 148
     height: 148
     borderLeft: 0
@@ -755,6 +1119,32 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
+    paddingBottom: 0
+  - name: menuteamhealthbar
+    x: 1359
+    y: 1273
+    width: 170
+    height: 18
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 2
+    paddingRight: 2
+    paddingTop: 2
+    paddingBottom: 2
+  - name: minijobsbuilding
+    x: 306
+    y: 18
+    width: 132
+    height: 123
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
     paddingBottom: 0
   - name: minusteam
     x: 455
@@ -821,6 +1211,84 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: nightenhancebg
+    x: 1123
+    y: 1370
+    width: 305
+    height: 422
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: nighteventbg
+    x: 1722
+    y: 1686
+    width: 292
+    height: 106
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: nighteventbigbg
+    x: 756
+    y: 2
+    width: 2
+    height: 450
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: nighteventbigbgcap
+    x: 732
+    y: 2
+    width: 14
+    height: 450
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: nighteventtag
+    x: 455
+    y: 571
+    width: 46
+    height: 35
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: nighteventtimer
+    x: 1602
+    y: 1379
+    width: 27
+    height: 31
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: oilicon
     x: 455
     y: 722
@@ -860,6 +1328,19 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: openquestarrow
+    x: 479
+    y: 1202
+    width: 26
+    height: 42
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: orangemenuoption
     x: 1871
     y: 1443
@@ -875,7 +1356,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: popupline
     x: 507
-    y: 1494
+    y: 1491
     width: 2
     height: 1
     borderLeft: 1
@@ -888,7 +1369,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: popuplinehorizontal
     x: 507
-    y: 1491
+    y: 1493
     width: 1
     height: 2
     borderLeft: 1
@@ -901,7 +1382,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: purplemenuoption
     x: 1871
-    y: 1524
+    y: 1605
     width: 160
     height: 80
     borderLeft: 0
@@ -926,8 +1407,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: rareband
-    x: 439
-    y: 75
+    x: 586
+    y: 11
     width: 66
     height: 66
     borderLeft: 0
@@ -940,7 +1421,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: redmenuoption
     x: 1871
-    y: 1605
+    y: 1524
     width: 160
     height: 80
     borderLeft: 0
@@ -1030,8 +1511,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: superband
-    x: 586
-    y: 11
+    x: 599
+    y: 704
     width: 66
     height: 66
     borderLeft: 0
@@ -1041,6 +1522,19 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
+    paddingBottom: 0
+  - name: teamemptyslot
+    x: 672
+    y: 1054
+    width: 96
+    height: 95
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
     paddingBottom: 0
   - name: teamhealthbarbg
     x: 317
@@ -1082,8 +1576,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 3
   - name: ultraband
-    x: 769
-    y: 1083
+    x: 1977
+    y: 1915
     width: 66
     height: 66
     borderLeft: 0
@@ -1094,9 +1588,87 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: waterenhancebg
+    x: 817
+    y: 1370
+    width: 305
+    height: 422
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 0
+    paddingBottom: 0
+  - name: watereventbg
+    x: 1429
+    y: 1686
+    width: 292
+    height: 106
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: watereventbigbg
+    x: 759
+    y: 2
+    width: 2
+    height: 450
+    borderLeft: 1
+    borderRight: 1
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: watereventbigbgcap
+    x: 702
+    y: 2
+    width: 14
+    height: 450
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: watereventtag
+    x: 455
+    y: 322
+    width: 46
+    height: 35
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 1
+    paddingBottom: 0
+  - name: watereventtimer
+    x: 475
+    y: 499
+    width: 27
+    height: 31
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
   - name: watermediumsquare
     x: 511
-    y: 466
+    y: 369
     width: 96
     height: 96
     borderLeft: 0
@@ -1122,7 +1694,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: watersquare
     x: 306
-    y: 291
+    y: 714
     width: 148
     height: 148
     borderLeft: 0
@@ -1145,578 +1717,6 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
-    paddingBottom: 0
-  - name: teamemptyslot
-    x: 672
-    y: 1054
-    width: 96
-    height: 95
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: menuteamhealthbar
-    x: 1359
-    y: 1273
-    width: 170
-    height: 18
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 2
-    paddingRight: 2
-    paddingTop: 2
-    paddingBottom: 2
-  - name: minijobsbuilding
-    x: 306
-    y: 18
-    width: 132
-    height: 123
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: fireenhancebg
-    x: 0
-    y: 440
-    width: 305
-    height: 422
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: enahncedonesquare
-    x: 475
-    y: 440
-    width: 26
-    height: 26
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: lightenhancebg
-    x: 0
-    y: 17
-    width: 305
-    height: 422
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: earthenhancebg
-    x: 511
-    y: 1370
-    width: 305
-    height: 422
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: waterenhancebg
-    x: 817
-    y: 1370
-    width: 305
-    height: 422
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: nightenhancebg
-    x: 1123
-    y: 1370
-    width: 305
-    height: 422
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 0
-    paddingBottom: 0
-  - name: enhancedonecheck
-    x: 466
-    y: 1357
-    width: 40
-    height: 36
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 1
-  - name: adminbutton
-    x: 1429
-    y: 1411
-    width: 286
-    height: 60
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: nighteventbigbgcap
-    x: 732
-    y: 2
-    width: 14
-    height: 450
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: watereventbigbg
-    x: 759
-    y: 2
-    width: 2
-    height: 450
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: nighteventbigbg
-    x: 756
-    y: 2
-    width: 2
-    height: 450
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: eartheventbigbgcap
-    x: 717
-    y: 2
-    width: 14
-    height: 450
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: watereventbigbgcap
-    x: 702
-    y: 2
-    width: 14
-    height: 450
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: eartheventbigbg
-    x: 753
-    y: 2
-    width: 2
-    height: 450
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: fireeventbigbgcap
-    x: 687
-    y: 2
-    width: 14
-    height: 450
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: lighteventbigbg
-    x: 750
-    y: 2
-    width: 2
-    height: 450
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: lighteventbigbgcap
-    x: 672
-    y: 2
-    width: 14
-    height: 450
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: fireeventbigbg
-    x: 747
-    y: 2
-    width: 2
-    height: 450
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: eartheventtimer
-    x: 475
-    y: 499
-    width: 27
-    height: 31
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: nighteventbg
-    x: 1535
-    y: 1942
-    width: 292
-    height: 106
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: lighteventtimer
-    x: 1574
-    y: 1379
-    width: 27
-    height: 31
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: nighteventtimer
-    x: 1602
-    y: 1379
-    width: 27
-    height: 31
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: nighteventtag
-    x: 455
-    y: 322
-    width: 46
-    height: 35
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: fireeventbg
-    x: 1535
-    y: 1835
-    width: 292
-    height: 106
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: lighteventbg
-    x: 1429
-    y: 1686
-    width: 292
-    height: 106
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: lighteventtag
-    x: 455
-    y: 183
-    width: 46
-    height: 35
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: eartheventtag
-    x: 455
-    y: 255
-    width: 46
-    height: 35
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: fireeventtimer
-    x: 486
-    y: 294
-    width: 23
-    height: 27
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: watereventbg
-    x: 1429
-    y: 1579
-    width: 292
-    height: 106
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: fireeventtag
-    x: 455
-    y: 571
-    width: 46
-    height: 35
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: watereventtag
-    x: 455
-    y: 358
-    width: 46
-    height: 35
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: eartheventbg
-    x: 1722
-    y: 1686
-    width: 292
-    height: 106
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: watereventtimer
-    x: 475
-    y: 467
-    width: 27
-    height: 31
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: greyeventtag
-    x: 455
-    y: 219
-    width: 46
-    height: 35
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: behindcharacterglow
-    x: 0
-    y: 1119
-    width: 316
-    height: 417
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 1
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: greyeventbg
-    x: 1429
-    y: 1472
-    width: 292
-    height: 106
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: charactercircle
-    x: 1828
-    y: 1801
-    width: 208
-    height: 98
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: eventdivider
-    x: 507
-    y: 1496
-    width: 2
-    height: 2
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 1
-  - name: openquestarrow
-    x: 479
-    y: 1202
-    width: 26
-    height: 42
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: engagearrow
-    x: 325
-    y: 441
-    width: 12
-    height: 19
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 1
-    paddingBottom: 0
-  - name: GoonMenuGothamBlack
-    x: 511
-    y: 1793
-    width: 511
-    height: 255
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
     paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}
