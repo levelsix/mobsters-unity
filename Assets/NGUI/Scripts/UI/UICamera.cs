@@ -1507,10 +1507,10 @@ public class UICamera : MonoBehaviour
 
 						if (MSTutorialManager.instance.UiBlock)
 						{
-							Debug.Log("Tutorial UI blocked");
+							//Debug.Log("Tutorial UI blocked");
 							if (currentTouch.pressed == MSTutorialManager.instance.currUi)
 							{
-								Debug.Log("Tutorial clicked right thing");
+								//Debug.Log("Tutorial clicked right thing");
 								Notify(currentTouch.pressed, "OnClick", null);
 								MSTutorialManager.instance.OnClick();
 							}
@@ -1520,13 +1520,13 @@ public class UICamera : MonoBehaviour
 							}
 							else
 							{
-								Debug.Log(currentTouch.pressed.name + " isn't the Tutorial thing");
+								//Debug.Log(currentTouch.pressed.name + " isn't the Tutorial thing");
 
 							}
 						}
 						else
 						{
-							Debug.Log("Normal Click notification: " + currentTouch.pressed.name);
+							//Debug.Log("Normal Click notification: " + currentTouch.pressed.name);
 							Notify(currentTouch.pressed, "OnClick", null);
 						}
 
