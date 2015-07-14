@@ -23,8 +23,8 @@ public static class MSColors {
 	{
 //		{Quality.COMMON, new Color(.607f, .592f, .407f)}, old tan colored common
 		{Quality.COMMON, new Color(.412f, .412f, .412f)},
-		{Quality.RARE, new Color(.043f, .584f, .929f)},
-		{Quality.SUPER, Color.blue},
+		{Quality.RARE, Color.blue},
+		{Quality.SUPER, new Color(.043f, .584f, .929f)},
 		{Quality.ULTRA, new Color(1, .752f, .004f)},
 		{Quality.EPIC, new Color(.352f, .008f, 1)},
 		{Quality.LEGENDARY, new Color(.725f, .082f, .091f)},

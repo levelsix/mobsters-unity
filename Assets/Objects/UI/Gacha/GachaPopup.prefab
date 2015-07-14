@@ -828,7 +828,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100102
 GameObject:
   m_ObjectHideFlags: 1
@@ -3184,7 +3184,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 460, y: 0, z: 0}
+  m_LocalPosition: {x: 494, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400152}
@@ -3679,7 +3679,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: -1}
-  m_LocalPosition: {x: 391, y: -2, z: 0}
+  m_LocalPosition: {x: 425, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400270}
@@ -3870,7 +3870,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -123.5, y: 22.5, z: 0}
+  m_LocalPosition: {x: -140.5, y: 22.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400118}
@@ -4474,7 +4474,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1024, y: 127, z: 0}
+  m_Size: {x: 1092, y: 127, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500016
 BoxCollider:
@@ -4486,7 +4486,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 777, y: 431, z: 0}
+  m_Size: {x: 811, y: 431, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6500018
 BoxCollider:
@@ -4748,12 +4748,12 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4001
+  startingRenderQueue: 4002
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
   mClipSoftness: {x: 4, y: 4}
-  mDepth: 1
+  mDepth: 2
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400008
@@ -5487,12 +5487,12 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4006
+  startingRenderQueue: 4008
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 19, y: 22.4999924, z: 762, w: 431}
+  mClipRange: {x: 2, y: 22.4999924, z: 796, w: 431}
   mClipSoftness: {x: 0, y: 0}
-  mDepth: 1
+  mDepth: 3
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400042
@@ -5605,7 +5605,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1024
+  mWidth: 1092
   mHeight: 74
   mDepth: 11
   autoResizeBoxCollider: 0
@@ -8884,13 +8884,13 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1024
+  mWidth: 1092
   mHeight: 640
   mDepth: 10
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.60000002
+  aspectRatio: 1.70624995
   mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
   mSpriteName: backgroundflat
   mType: 1
@@ -10254,12 +10254,12 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4011
+  startingRenderQueue: 4001
   mAlpha: 1
   mClipping: 4
-  mClipRange: {x: -1, y: -.500007629, z: 1024, w: 126.999985}
+  mClipRange: {x: -1, y: -.500007629, z: 1092, w: 126.999985}
   mClipSoftness: {x: 4, y: 4}
-  mDepth: 2
+  mDepth: 4
   mSortingOrder: 0
   mClipOffset: {x: 702.513794, y: 0}
 --- !u!114 &11400282
@@ -10869,7 +10869,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1024
+  mWidth: 1092
   mHeight: 127
   mDepth: 0
   autoResizeBoxCollider: 1
@@ -11232,7 +11232,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: .956862748, g: .956862748, b: .956862748, a: 1}
   mPivot: 4
-  mWidth: 1024
+  mWidth: 1092
   mHeight: 127
   mDepth: 11
   autoResizeBoxCollider: 1
@@ -11618,7 +11618,7 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 777
+  mWidth: 811
   mHeight: 431
   mDepth: 15
   autoResizeBoxCollider: 1
@@ -13114,12 +13114,12 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4012
+  startingRenderQueue: 4007
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: -1, y: -228.5, z: 1024, w: 182.999985}
-  mClipSoftness: {x: 4, y: 4}
-  mDepth: 2
+  mClipRange: {x: -1, y: -228.5, z: 1092, w: 182.999985}
+  mClipSoftness: {x: 0, y: 0}
+  mDepth: 4
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!114 &11400422
@@ -13901,12 +13901,12 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 4010
+  startingRenderQueue: 4012
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: -40, y: -101, z: 380, w: 402}
   mClipSoftness: {x: 0, y: 0}
-  mDepth: 2
+  mDepth: 4
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 --- !u!1001 &100100000
