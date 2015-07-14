@@ -41,87 +41,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 11e708f94400648bb9f3f35548d66463, type: 2}
   mSprites:
-  - name: 1splashbg
-    x: 0
-    y: 738
-    width: 2
-    height: 640
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: 2splashbg
-    x: 0
-    y: 97
-    width: 2
-    height: 640
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: 3splashbg
-    x: 3
-    y: 738
-    width: 2
-    height: 640
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: 4splashbg
-    x: 3
-    y: 97
-    width: 2
-    height: 640
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: 5splashbg
-    x: 6
-    y: 738
-    width: 2
-    height: 640
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: 6splashbg
-    x: 6
-    y: 97
-    width: 2
-    height: 640
-    borderLeft: 1
-    borderRight: 1
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
   - name: Loading-Whitney-Black-Limited
-    x: 770
-    y: 1939
+    x: 1025
+    y: 1683
     width: 60
     height: 109
     borderLeft: 0
@@ -133,8 +55,8 @@ MonoBehaviour:
     paddingTop: 19
     paddingBottom: 0
   - name: Loading-Whitney-Semibold
-    x: 0
-    y: 1379
+    x: 1025
+    y: 1793
     width: 255
     height: 255
     borderLeft: 0
@@ -145,22 +67,22 @@ MonoBehaviour:
     paddingRight: 1
     paddingTop: 1
     paddingBottom: 0
-  - name: mssplashguys
+  - name: splash
     x: 0
-    y: 1635
-    width: 769
-    height: 413
+    y: 1472
+    width: 1024
+    height: 576
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 11
+    paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
-    paddingBottom: 1
+    paddingBottom: 0
   - name: splashloadingbar
-    x: 256
-    y: 1465
+    x: 1778
+    y: 1994
     width: 262
     height: 24
     borderLeft: 0
@@ -172,8 +94,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: splashloadingbarbg
-    x: 256
-    y: 1490
+    x: 1778
+    y: 2019
     width: 266
     height: 29
     borderLeft: 0
@@ -185,8 +107,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 1
   - name: splashloadingcap
-    x: 831
-    y: 2024
+    x: 1086
+    y: 1768
     width: 8
     height: 24
     borderLeft: 0
@@ -198,8 +120,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: splashloadingmiddle
-    x: 831
-    y: 1999
+    x: 1086
+    y: 1743
     width: 2
     height: 24
     borderLeft: 1
@@ -211,8 +133,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 4
   - name: tipbg
-    x: 256
-    y: 1520
+    x: 1281
+    y: 1934
     width: 496
     height: 114
     borderLeft: 0
