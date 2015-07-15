@@ -69,7 +69,11 @@ public class MSTangoManager : MonoBehaviour {
 		else if (!SessionFactory.getSession().tangoHasSdkSupport())
 		{
 			authenticateText = "Update Tango";
-		} 
+		}
+		else
+		{
+			uint requestId = SessionFactory.getSession().authenticate("AuthenticateCallback");
+		}
 		
 		Debug.Log("Tango login success: " + login + "\nAuthentication: " + authenticateText);
 
@@ -97,6 +101,7 @@ public class MSTangoManager : MonoBehaviour {
 		if (r.errorCode == ErrorCode.TANGO_SDK_SUCCESS) {
 			Debug.Log (r.result);
 			authenticateText = "Authenticated";
+			Debug.Log("Tango Authenticated");
 		} else {
 			Debug.Log (r.errorCode);
 			Debug.Log (r.errorText);
@@ -113,6 +118,7 @@ public class MSTangoManager : MonoBehaviour {
 			Debug.Log (r.result);
 			if(SessionFactory.getSession().isAuthenticated()){
 				authenticateText = "Authenticated";
+				Debug.Log("Tango Authenticated");
 			}
 			else {
 				authenticateText = "Authenticate";

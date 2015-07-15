@@ -92,6 +92,8 @@ public class UnityRockTest : MonoBehaviour {
 			authenticateText = "Update Tango";
 		} 
 
+		uint requestId = SessionFactory.getSession().authenticate("AuthenticateCallback");
+
 		version = SessionFactory.getSession().getVersion();
 		environmentName = SessionFactory.getSession().getEnvironmentName();
 
