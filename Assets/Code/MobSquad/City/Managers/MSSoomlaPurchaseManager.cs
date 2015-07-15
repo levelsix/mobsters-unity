@@ -8,6 +8,8 @@ public class MSSoomlaPurchaseManager : MonoBehaviour
 	// Use this for initialization
 	
 	void Start () {
+
+		Debug.Log ("Soomla manager started");
 		
 		SoomlaStore.Initialize(new MSAssets());
 

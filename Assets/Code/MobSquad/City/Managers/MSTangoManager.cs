@@ -57,7 +57,6 @@ public class MSTangoManager : MonoBehaviour {
 	void Start () 
 	{
 		bool login = TangoSDK.SessionFactory.getSession().init("ToonSquad", "toonsquad4t", gameObject.name, "SdkEventHandler");
-		Debug.Log("Tango login success: " + login);
 
 		if(SessionFactory.getSession().isAuthenticated())
 		{
@@ -72,6 +71,8 @@ public class MSTangoManager : MonoBehaviour {
 			authenticateText = "Update Tango";
 		} 
 		
+		Debug.Log("Tango login success: " + login + "\nAuthentication: " + authenticateText);
+
 		version = SessionFactory.getSession().getVersion();
 		environmentName = SessionFactory.getSession().getEnvironmentName();
 	}

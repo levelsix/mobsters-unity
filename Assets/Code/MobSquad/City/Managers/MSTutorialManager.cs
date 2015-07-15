@@ -7,37 +7,37 @@ using com.lvl6.proto;
 public static class TutorialStrings
 {
 	#region Pre-Combat Dialogue
-	public const string HEY_BOSS = "Hey boss! We've been expecting you!";
-	public const string EVIL_DICTATOR = "An evil dictator named Lil' Kim has taken over the world and it's up to you to stop him!";
+	public const string HEY_BOSS = "Hey Stranger! Welcome to our tiny town. Isn't it great?";
+	public const string FIELDS_SKY = "The fields are green, the skies are blue, and...";
 	public const string HOPEFULLY_DONT_FIND = "Hopefully they don't find...";
 
-	public const string PEASANT_SQUAD = "Well well well... you peasants think you can start a new squad, under my watch?";
-	public const string EGGSPECT = "Heh, did you really EGG-spect us not to find you here?";
+	public const string PEASANT_SQUAD = "What's up, peasants? Nice island. I will be taking it now."; //ArmsCrossed
+	public const string EGGSPECT = "Heh, EGG-cellent choice, supreme leader!"; //Pompous
 
-	public const string SEND_NEPHEW = "Oh no. It's Lil' Kim! Send my nephew into battle, Boss! I don't like him anyways.";
+	public const string SEND_NEPHEW = "Oh no, it's Dictator Kim! What are we going to do?"; //Crouch
 
-	public const string YOLO = "Yolo.";
+	public const string YOLO = "I'll take care of this, but I'll need your help!";
 	#endregion
 
 	#region Combat Dialogue
-	public const string WANTS_A_PIECE = "Who wants a piece of Swaggy?";
+	public const string WANTS_A_PIECE = "Who wants a face full of wood?";
 
 	public const string AINT_CHICKEN = "Lemme at 'em boss, I ain't chicken.";
-	public const string DOT_DOT_DOT = "......";
-	public const string MAKE_ME_FRY = "OW! Can't take a joke chicken? Don't make me fry...";
-	public const string GO_PEPE = "Enough you two! Take care of this degenerate, Pete!";
+	public const string DOT_DOT_DOT = "......"; //Angry
+	public const string MAKE_ME_FRY = "OW! Can't take a joke chicken? Don't make me fry..."; //Hurt
+	public const string GO_PEPE = "Enough you two! Take care of this degenerate, Sgt. Green!";
 
-	public const string MOVIN_ORBS = "Yo dawg, movin' orbs ain't my style. Help a brotha out.";
-	public const string SMOOTH_MOVE = "Smooth move homie! The more orbs you break, the stronger I get.";
-	public const string LAST_MOVE = "Dope! You got one last move before I make it rain. You got this!";
+	public const string MOVIN_ORBS = "My hands are too small to move the orbs. Help me out!";
+	public const string SMOOTH_MOVE = "Killer move! The more orbs you break, the stronger I get.";
+	public const string LAST_MOVE = "You're a natural! You got one last move before I make it attack.";
 
-	public const string CHICKENS_WORK = "Sigh, never leave a man to do a chicken's work. Take him out Drumstix.";
+	public const string CHICKENS_WORK = "Sigh, never leave a human to do a chicken's work. Take him out Mr. McNuggets.";
 
-	public const string CREATE_POWERUP = "Yo, this chicken is savage. Create a power-up by matching 4 orbs.";
-	public const string SWIPE_POWERUP = "Swipe the striped orb down to activate the power-up.";
-	public const string BALLIN = "BALLIN'! You got one last move homie.";
+	public const string CREATE_POWERUP = "This chicken is savage. Create a rocket by matching 4 orbs.";
+	public const string SWIPE_POWERUP = "Nice work. Match the rocket and activate it now!";
+	public const string BALLIN = "You've got one last move before I attack. Make it count!";
 
-	public const string NOLO = "Yolo... ain't... the... motto...";
+	public const string NOLO = "Ugh, I guess this is it...";
 	public const string POKE = "*Poke*";
 	public const string HEY_BUDDY = "Hey buddy, you don't look so good. Would you \"Like\" me to help you out?";
 
@@ -50,15 +50,15 @@ public static class TutorialStrings
 	public const string BEAT_A_CHICKEN = "Ohhh, bet you feel like a big man beating a chicken. This isn’t over, I’ll be back!";
 
 	public const string THANKS_ZARK_DIALOGUE = "Whew! That was a close one. Thanks for the help Zark!";
-	public const string KINDA_DYING_DIALOGUE = "No problem buddy, but in case you didn't notice, your nephew is kinda... dying.";
+	public const string KINDA_DYING_DIALOGUE = "No problem, but in case you didn't notice, your buddy is kinda... dying.";
 	public const string HEAD_TO_HOSPITAL_DIALOGUE = "Let's head to the Hospital and get him healed right up. Follow the magical floating arrows to begin.";
 	
-	public const string TAP_CARD_DIALOGUE = "Tap on Swaggy Steve to insert him into the healing queue.";
+	public const string TAP_CARD_DIALOGUE = "Tap on Jake to insert him into the healing queue.";
 	
 	public const string CHEST_OF_CASH_DIALOGUE = "If you're going to fight Lil' Kim and his men, you're going to need a war chest of cash.";
 	
 	public const string BUILD_CASH_PRINTER_DIALOGUE = "What better way to make money than to print it? Build a Cash Printer now!";
-	public const string AFTER_CASH_PRINTER_DIALOGUE = "Nice job! The printer can only store a small amount of cash, so we'll need a Vault to stash the rest of it.";
+	public const string AFTER_CASH_PRINTER_DIALOGUE = "Nice job! The Printer can only store a small amount of cash, so we'll need a Vault to stash the rest of it.";
 	
 	public const string BUILD_CASH_VAULT_DIALOGUE = "Amazon doesn’t ship to secret islands, so let’s construct one ourselves now.";
 	public const string AFTER_CASH_VAULT_DIALOGUE = "Good work! The Vault will protect your money from being stolen, so remember to upgrade it!";
@@ -422,16 +422,17 @@ public class MSTutorialManager : MonoBehaviour
 		currUi = TutorialUI.leftDialogue.clickbox;
 
 		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HEY_BOSS, true, false));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.EVIL_DICTATOR, true, false));
-		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HOPEFULLY_DONT_FIND, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.FIELDS_SKY, true, false));
+		//yield return StartCoroutine(DoDialogue(TutorialUI.leftDialogue, guide.imagePrefix, guide.imagePrefix + "TutBig", guide.displayName, TutorialStrings.HOPEFULLY_DONT_FIND, true));
 		
 		guideUnit.direction = MSValues.Direction.SOUTH;
 		guideUnit.animat = MSUnit.AnimationType.IDLE;
+		
+		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.boatScene);
+		Coroutine boatCoroutine = StartCoroutine (MoveBoat(TutorialValues.boatStartPos, TutorialValues.boatDockPos));
 
 		yield return MSTownCamera.instance.SlideToPos(pierCameraPos, TutorialValues.cameraSize, TutorialValues.panToBoatTime);
-
-		MSSoundManager.instance.PlayOneShot(MSSoundManager.instance.boatScene);
-		yield return StartCoroutine (MoveBoat(TutorialValues.boatStartPos, TutorialValues.boatDockPos));
+		yield return boatCoroutine;
 
 		enemyOneUnit.cityUnit.TutorialPath(enemyOneEnterPath);
 		enemyOneUnit.DoJump(TutorialValues.enemyEnterJumpHeight, TutorialValues.enemyEnterJumpTime);
@@ -497,7 +498,7 @@ public class MSTutorialManager : MonoBehaviour
 
 		userUnit.animat = MSUnit.AnimationType.STAY;
 
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "P2TutBig", userMobster.displayName, TutorialStrings.YOLO, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "ArmsCrossed", userMobster.displayName, TutorialStrings.YOLO, false));
 
 		TutorialUI.fightButton.SetActive(true);
 		currUi = TutorialUI.fightButton;
@@ -554,7 +555,7 @@ public class MSTutorialManager : MonoBehaviour
 		enemyOneCombatant.unit.animat = MSUnit.AnimationType.IDLE;
 		enemyTwoCombatant.unit.animat = MSUnit.AnimationType.IDLE;
 
-		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyOne.imagePrefix, enemyOne.imagePrefix + "TutBig", enemyOne.displayName, TutorialStrings.MAKE_ME_FRY, true));
+		yield return StartCoroutine(DoDialogue(TutorialUI.rightDialogue, enemyOne.imagePrefix, enemyOne.imagePrefix + "Hurt", enemyOne.displayName, TutorialStrings.MAKE_ME_FRY, true));
 
 		bossCombatant.unit.direction = MSValues.Direction.EAST;
 		yield return bossCombatant.unit.DoJump(TutorialValues.bossStompHeight * TutorialValues.puzzlePixelMod, TutorialValues.bossStompTime);
@@ -604,7 +605,7 @@ public class MSTutorialManager : MonoBehaviour
 		PZPuzzleManager.instance.BlockBoard(turn1move1);
 		PZPuzzleManager.instance.CustomHintGems(turn1move1);
 		TutorialUI.hintHand.Init(turn1move1hintStart, turn1move1hintEnd);
-		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "P3TutBig", userMobster.displayName, TutorialStrings.MOVIN_ORBS, false));
+		StartCoroutine(DoDialogue(TutorialUI.leftDialogue, userMobster.imagePrefix, userMobster.imagePrefix + "TutBig", userMobster.displayName, TutorialStrings.MOVIN_ORBS, false));
 		yield return StartCoroutine(WaitForTurn());
 
 		PZPuzzleManager.instance.BlockBoard(turn1move2);

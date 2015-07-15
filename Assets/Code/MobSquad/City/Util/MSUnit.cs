@@ -221,6 +221,10 @@ public class MSUnit : MonoBehaviour, MSPoolable {
 		{
 			nameLabel.text = name;
 		}
+
+		sprite.transform.localPosition = new Vector3 (sprite.transform.localPosition.x,
+		                                  (cityUnit == null ? 50 : 0) + monster.verticalPixelOffset / 50f,
+		                                  sprite.transform.localPosition.z);
 	}
 
 	void SetDirection ()
