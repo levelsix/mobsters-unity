@@ -157,7 +157,7 @@ public class MSSoundManager : MonoBehaviour {
 
 	public void PlayOneShot(AudioClip clip)
 	{
-		if (playSounds)
+		if (playSounds && clip != null)
 		{
 //			Debug.Log("Playing sound: " + clip.name);
 			basicSource.PlayOneShot(clip);
@@ -166,7 +166,7 @@ public class MSSoundManager : MonoBehaviour {
 
 	public void Loop(AudioClip clip, bool music = false)
 	{
-		if (music ? playMusic : playSounds)
+		if (clip != null && music ? playMusic : playSounds)
 		{
 			loopSource.clip = clip;
 			loopSource.Play();
