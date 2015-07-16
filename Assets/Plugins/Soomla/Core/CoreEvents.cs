@@ -17,6 +17,10 @@ using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+#if UNITY_WP8 && !UNITY_EDITOR
+using SoomlaWpCore.util;
+using SoomlaWpCore.events;
+#endif
 
 namespace Soomla {
 
@@ -40,6 +44,7 @@ namespace Soomla {
 		void Awake(){
 			if(instance == null){ 	// making sure we only initialize one instance.
 				instance = this;
+                gameObject.name = "CoreEvents";
 				GameObject.DontDestroyOnLoad(this.gameObject);
 				Initialize();
 			} else {				// Destroying unused instances.
@@ -48,7 +53,7 @@ namespace Soomla {
 		}
 
 		public static void Initialize() {
-			SoomlaUtils.LogDebug (TAG, "Initializing CoreEvents and Soomla Core ...");
+			SoomlaUtils.LogDebug(TAG, "Initializing CoreEvents and Soomla Core ...");
 #if UNITY_ANDROID && !UNITY_EDITOR
 			AndroidJNI.PushLocalFrame(100);
 
@@ -68,9 +73,30 @@ namespace Soomla {
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 #elif UNITY_IOS && !UNITY_EDITOR
 			soomlaCore_Init(CoreSettings.SoomlaSecret, CoreSettings.DebugMessages);
+#elif UNITY_WP8 && !UNITY_EDITOR
+            SoomlaWpCore.SoomlaConfig.logDebug = CoreSettings.DebugMessages;
+            SoomlaWpCore.Soomla.initialize(CoreSettings.SoomlaSecret);
+            BusProvider.Instance.Register(CoreEvents.instance);
 #endif
-		}
 
+        }
+
+
+#if UNITY_WP8 && !UNITY_EDITOR
+        [Subscribe]
+        public void onRewardGiven(RewardGivenEvent _Event)
+        {
+            SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onRewardGiven:" + _Event.RewardId);
+			string rewardId = _Event.RewardId;
+			CoreEvents.OnRewardGiven(Reward.GetReward(rewardId));
+        }
+        [Subscribe]
+        public void onRewardTaken(RewardTakenEvent _Event) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onRewardTaken:" + _Event.RewardId);
+			string rewardId = _Event.RewardId;
+			CoreEvents.OnRewardTaken(Reward.GetReward(rewardId));
+		}
+#endif
 		/// <summary>
 		/// Will be called when a reward was given to the user.
 		/// </summary>
@@ -78,9 +104,10 @@ namespace Soomla {
 		public void onRewardGiven(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onRewardGiven:" + message);
 			
-			JSONObject rewardObj = new JSONObject(message);
-			Reward reward = Reward.fromJSONObject(rewardObj);
-			CoreEvents.OnRewardGiven(reward);
+			JSONObject eventJSON = new JSONObject(message);
+			string rewardId = eventJSON["rewardId"].str;
+
+			CoreEvents.OnRewardGiven(Reward.GetReward(rewardId));
 		}
 
 		/// <summary>
@@ -90,16 +117,30 @@ namespace Soomla {
 		public void onRewardTaken(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onRewardTaken:" + message);
 			
-			JSONObject rewardObj = new JSONObject(message);
-			Reward reward = Reward.fromJSONObject(rewardObj);
-			CoreEvents.OnRewardTaken(reward);
+			JSONObject eventJSON = new JSONObject(message);
+			string rewardId = eventJSON["rewardId"].str;
+			
+			CoreEvents.OnRewardTaken(Reward.GetReward(rewardId));
 		}
 
+		/// <summary>
+		/// Will be called on custom events. Used for internal operations.
+		/// </summary>
+		public void onCustomEvent(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onCustomEvent:" + message);
+
+			JSONObject eventJSON = new JSONObject(message);
+			string name = eventJSON["name"].str;
+			Dictionary<string, string> extra = eventJSON["extra"].ToDictionary();
+
+			CoreEvents.OnCustomEvent(name, extra);
+		}
 
 		public delegate void Action();
 
 		public static Action<Reward> OnRewardGiven = delegate {};
 		public static Action<Reward> OnRewardTaken = delegate {};
+		public static Action<string, Dictionary<string, string>> OnCustomEvent = delegate {};
 
 	}
 }

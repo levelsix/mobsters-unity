@@ -22,6 +22,10 @@ namespace Soomla.Store {
 	public abstract class PurchasableVirtualItem : VirtualItem {
 
 		private const string TAG = "SOOMLA PurchasableVirtualItem";
+
+		/// <summary>
+		/// When we actually try to purchase this <c>PurchasableVirtualItem</c> this purchase type will be invoked.
+		/// </summary>
 		public PurchaseType PurchaseType;
 		
 		/// <summary>
@@ -35,37 +39,90 @@ namespace Soomla.Store {
 			base(name, description, itemId)
 		{
 			this.PurchaseType = purchaseType;
-		}
-		
-#if UNITY_ANDROID && !UNITY_EDITOR
-		protected PurchasableVirtualItem(AndroidJavaObject jniVirtualItem) :
-			base(jniVirtualItem)
-		{
-			SoomlaUtils.LogDebug(TAG, "Trying to create PurchasableVirtualItem with itemId: " + 
-			                    jniVirtualItem.Call<string>("getItemId"));
-			using(AndroidJavaObject jniPurchaseType = jniVirtualItem.Call<AndroidJavaObject>("getPurchaseType")) {
-				System.IntPtr cls = AndroidJNI.FindClass("com/soomla/store/purchaseTypes/PurchaseWithMarket");
-				if (AndroidJNI.IsInstanceOf(jniPurchaseType.GetRawObject(), cls)) {
-					using(AndroidJavaObject jniMarketItem = jniPurchaseType.Call<AndroidJavaObject>("getMarketItem")) {
-						MarketItem mi = new MarketItem(jniMarketItem);
-						PurchaseType = new PurchaseWithMarket(mi);
-					}
-				} else {
-					cls = AndroidJNI.FindClass("com/soomla/store/purchaseTypes/PurchaseWithVirtualItem");
-					if (AndroidJNI.IsInstanceOf(jniPurchaseType.GetRawObject(), cls)) {
-						string itemId = jniPurchaseType.Call<string>("getTargetItemId");
-			            int amount = jniPurchaseType.Call<int>("getAmount");
-						
-						PurchaseType = new PurchaseWithVirtualItem(itemId, amount);
-					} else {
-						SoomlaUtils.LogError(TAG, "Couldn't determine what type of class is the given purchaseType.");
-					}
-				} 
+
+			if (this.PurchaseType != null) {
+				this.PurchaseType.AssociatedItem = this;
 			}
 		}
-#endif
 
 		/// <summary>
+		/// Checks if there is enough funds to afford the <code>PurchasableVirtualItem</code>.
+		/// This action uses the associated <code>PurchaseType</code> to perform the check.
+		/// </summary>
+		/// <returns>True if there are enough funds to afford the virtual item with the given item id </returns>
+		public bool CanAfford() {
+			return PurchaseType.CanAfford();
+		}
+		
+		/// <summary>
+		/// Buys the <code>PurchasableVirtualItem</code>, after checking if the user is in a state that
+		/// allows him/her to buy. This action uses the associated <code>PurchaseType</code> to perform
+		/// the purchase.
+		/// </summary>
+		/// <param name="payload">a string you want to be assigned to the purchase. This string
+		/// is saved in a static variable and will be given bacl to you when the
+		///   purchase is completed..</param>
+		/// <exception cref="Soomla.Store.InsufficientFundsException">InsufficientFundsException if the user does not have enough funds for buying.</exception>
+		public void Buy(string payload) {
+			if (!canBuy()) return;
+
+			PurchaseType.Buy(payload);
+		}
+
+		/// <summary>
+		/// Determines if user is in a state that allows him/her to buy a specific <code>VirtualItem</code>.
+		/// </summary>
+		protected abstract bool canBuy();
+#if UNITY_WP8 && !UNITY_EDITOR
+		protected PurchasableVirtualItem(SoomlaWpStore.domain.PurchasableVirtualItem wpPurchasableVirtualItem) :
+            base(wpPurchasableVirtualItem)
+            {
+			SoomlaUtils.LogDebug(TAG, "Trying to create PurchasableVirtualItem with itemId: " +
+                                wpPurchasableVirtualItem.getItemId());
+
+            SoomlaWpStore.purchasesTypes.PurchaseType wpPT = wpPurchasableVirtualItem.GetPurchaseType();
+            if (wpPT is SoomlaWpStore.purchasesTypes.PurchaseWithMarket)
+            {
+                SoomlaWpStore.purchasesTypes.PurchaseWithMarket wpPWM = (SoomlaWpStore.purchasesTypes.PurchaseWithMarket)wpPT;
+                string productId = wpPWM.getMarketItem().getProductId();
+                /*MarketItem.Consumable consType = MarketItem.Consumable.CONSUMABLE;
+                if(wpPWM.getMarketItem().getManaged() == SoomlaWpStore.domain.MarketItem.Managed.MANAGED)
+                {
+                    consType = MarketItem.Consumable.CONSUMABLE;
+                }
+                if (wpPWM.getMarketItem().getManaged() == SoomlaWpStore.domain.MarketItem.Managed.UNMANAGED)
+                {
+                    consType = MarketItem.Consumable.NONCONSUMABLE;
+                }
+                if (wpPWM.getMarketItem().getManaged() == SoomlaWpStore.domain.MarketItem.Managed.SUBSCRIPTION)
+                {
+                    consType = MarketItem.Consumable.SUBSCRIPTION;
+                }*/
+                double price = wpPWM.getMarketItem().getPrice();
+
+                MarketItem mi = new MarketItem(productId, price);
+                mi.MarketTitle = wpPWM.getMarketItem().getMarketTitle();
+                mi.MarketPriceAndCurrency = wpPWM.getMarketItem().getMarketPrice();
+                mi.MarketDescription = wpPWM.getMarketItem().getMarketDescription();
+                if(wpPWM.getMarketItem().isPriceSuccessfullyParsed())
+                {
+                    mi.MarketPriceMicros = wpPWM.getMarketItem().getMarketPriceMicros();
+                    mi.MarketCurrencyCode = wpPWM.getMarketItem().getMarketCurrencyCode();
+                }
+                PurchaseType = new PurchaseWithMarket(mi);
+            }
+
+            if (wpPT is SoomlaWpStore.purchasesTypes.PurchaseWithVirtualItem)
+            {
+                SoomlaWpStore.purchasesTypes.PurchaseWithVirtualItem wpPWVI = (SoomlaWpStore.purchasesTypes.PurchaseWithVirtualItem)wpPT;
+                string itemId = wpPWVI.getTargetItemId();
+                int amount = wpPWVI.getAmount();
+                PurchaseType = new PurchaseWithVirtualItem(itemId, amount);
+            }
+        }
+#endif
+
+        /// <summary>
 		/// Constructor.
 		/// Generates an instance of <c>PurchasableVirtualItem</c> from a <c>JSONObject</c>.
 		/// </summary>
@@ -73,21 +130,24 @@ namespace Soomla.Store {
 		protected PurchasableVirtualItem(JSONObject jsonItem) :
 			base(jsonItem)
 		{
-			JSONObject purchasableObj = (JSONObject)jsonItem[JSONConsts.PURCHASABLE_ITEM];
-			string purchaseType = purchasableObj[JSONConsts.PURCHASE_TYPE].str;
+			JSONObject purchasableObj = (JSONObject)jsonItem[StoreJSONConsts.PURCHASABLE_ITEM];
+			string purchaseType = purchasableObj[StoreJSONConsts.PURCHASE_TYPE].str;
 
-	        if (purchaseType == JSONConsts.PURCHASE_TYPE_MARKET) {
-	            JSONObject marketItemObj = (JSONObject)purchasableObj[JSONConsts.PURCHASE_MARKET_ITEM];
+	        if (purchaseType == StoreJSONConsts.PURCHASE_TYPE_MARKET) {
+	            JSONObject marketItemObj = (JSONObject)purchasableObj[StoreJSONConsts.PURCHASE_MARKET_ITEM];
 	
 	            PurchaseType = new PurchaseWithMarket(new MarketItem(marketItemObj));
-	        } else if (purchaseType == JSONConsts.PURCHASE_TYPE_VI) {
-	            string itemId = purchasableObj[JSONConsts.PURCHASE_VI_ITEMID].str;
-	            int amount = System.Convert.ToInt32(((JSONObject)purchasableObj[JSONConsts.PURCHASE_VI_AMOUNT]).n);
-	
+	        } else if (purchaseType == StoreJSONConsts.PURCHASE_TYPE_VI) {
+	            string itemId = purchasableObj[StoreJSONConsts.PURCHASE_VI_ITEMID].str;
+	            int amount = System.Convert.ToInt32(((JSONObject)purchasableObj[StoreJSONConsts.PURCHASE_VI_AMOUNT]).n);
 				PurchaseType = new PurchaseWithVirtualItem(itemId, amount);
 	        } else {
 	            SoomlaUtils.LogError(TAG, "Couldn't determine what type of class is the given purchaseType.");
 	        }
+
+			if (this.PurchaseType != null) {
+				this.PurchaseType.AssociatedItem = this;
+			}
 		}
 		
 		/// <summary>
@@ -100,18 +160,18 @@ namespace Soomla.Store {
 	            JSONObject purchasableObj = new JSONObject(JSONObject.Type.OBJECT);
 	
 	            if(PurchaseType is PurchaseWithMarket) {
-	                purchasableObj.AddField(JSONConsts.PURCHASE_TYPE, JSONConsts.PURCHASE_TYPE_MARKET);
+	                purchasableObj.AddField(StoreJSONConsts.PURCHASE_TYPE, StoreJSONConsts.PURCHASE_TYPE_MARKET);
 	
 	                MarketItem  mi = ((PurchaseWithMarket) PurchaseType).MarketItem;
-	                purchasableObj.AddField(JSONConsts.PURCHASE_MARKET_ITEM, mi.toJSONObject());
+	                purchasableObj.AddField(StoreJSONConsts.PURCHASE_MARKET_ITEM, mi.toJSONObject());
 	            } else if(PurchaseType is PurchaseWithVirtualItem) {
-	                purchasableObj.AddField(JSONConsts.PURCHASE_TYPE, JSONConsts.PURCHASE_TYPE_VI);
+	                purchasableObj.AddField(StoreJSONConsts.PURCHASE_TYPE, StoreJSONConsts.PURCHASE_TYPE_VI);
 	
-	                purchasableObj.AddField(JSONConsts.PURCHASE_VI_ITEMID, ((PurchaseWithVirtualItem) PurchaseType).ItemId);
-	                purchasableObj.AddField(JSONConsts.PURCHASE_VI_AMOUNT, ((PurchaseWithVirtualItem) PurchaseType).Amount);
+	                purchasableObj.AddField(StoreJSONConsts.PURCHASE_VI_ITEMID, ((PurchaseWithVirtualItem) PurchaseType).TargetItemId);
+	                purchasableObj.AddField(StoreJSONConsts.PURCHASE_VI_AMOUNT, ((PurchaseWithVirtualItem) PurchaseType).Amount);
 	            }
 	
-	            jsonObject.AddField(JSONConsts.PURCHASABLE_ITEM, purchasableObj);
+	            jsonObject.AddField(StoreJSONConsts.PURCHASABLE_ITEM, purchasableObj);
 	        } catch (System.Exception e) {
 	            SoomlaUtils.LogError(TAG, "An error occurred while generating JSON object. " + e.Message);
 	        }

@@ -34,8 +34,10 @@ namespace Soomla.Store
 					_instance = new SoomlaStoreAndroid();
 					#elif UNITY_IOS && !UNITY_EDITOR
 					_instance = new SoomlaStoreIOS();
-					#else
-					_instance = new SoomlaStore();
+                    #elif UNITY_WP8 && !UNITY_EDITOR
+					_instance = new SoomlaStoreWP();
+                    #else
+                    _instance = new SoomlaStore();
 					#endif
 				}
 				return _instance;
@@ -46,31 +48,58 @@ namespace Soomla.Store
 		/// Initializes the SOOMLA SDK.
 		/// </summary>
 		/// <param name="storeAssets">Your game's economy.</param>
-		/// <exception cref="ExitGUIException">Thrown if soomlaSecret is missing or has not been changed.
-		/// </exception>
-		public static void Initialize(IStoreAssets storeAssets) {
+		/// <exception cref="ExitGUIException">Thrown if soomlaSecret is missing or has not been changed.</exception>
+		public static bool Initialize(IStoreAssets storeAssets) {
 			if (string.IsNullOrEmpty(CoreSettings.SoomlaSecret)) {
-				SoomlaUtils.LogError(TAG, "SOOMLA/UNITY MISSING SoomlaSecret !!! Stopping here !!");
+				SoomlaUtils.LogError(TAG, "MISSING SoomlaSecret !!! Stopping here !!");
 				throw new ExitGUIException();
 			}
-
+			
 			if (CoreSettings.SoomlaSecret==CoreSettings.ONLY_ONCE_DEFAULT) {
-				SoomlaUtils.LogError(TAG, "SOOMLA/UNITY You have to change SoomlaSecret !!! Stopping here !!");
+				SoomlaUtils.LogError(TAG, "You have to change SoomlaSecret !!! Stopping here !!");
 				throw new ExitGUIException();
 			}
 
-			instance._initialize(storeAssets);
+			var storeEvents = GameObject.FindObjectOfType<StoreEvents> ();
+			if (storeEvents == null) {
+				SoomlaUtils.LogDebug(TAG, "StoreEvents Component not found in scene. We're continuing from here but you won't get many events.");
+			}
+
+			if (Initialized) {
+				StoreEvents.Instance.onUnexpectedStoreError("{\"errorCode\": 0}", true);
+				SoomlaUtils.LogError(TAG, "SoomlaStore is already initialized. You can't initialize it twice!");
+				return false;
+			}
+
+			SoomlaUtils.LogDebug(TAG, "SoomlaStore Initializing ...");
+
+			StoreInfo.SetStoreAssets(storeAssets);
+
+			instance._loadBillingService();
+			
+			#if UNITY_IOS
+			// On iOS we only refresh market items
+			instance._refreshMarketItemsDetails();
+#elif UNITY_ANDROID
+			// On Android we refresh market items and restore transactions
+			instance._refreshInventory();
+#elif UNITY_WP8
+            instance._refreshInventory();
+            
+#endif
+
+			Initialized = true;
+			StoreEvents.Instance.onSoomlaStoreInitialized("", true);
+
+			return true;
 		}
 
 		/// <summary>
 		/// Starts a purchase process in the market.
 		/// </summary>
-		/// <param name="productId">id of the item to buy.</param>
-		/// <param name="payload">some text you want to get back when the purchasing process is completed. NOTE: This is not supported on iOS !</param>
+		/// <param name="productId">product id of the item to buy. This id is the one you set up on itunesconnect or Google Play developer console.</param>
+		/// <param name="payload">Some text you want to get back when the purchasing process is completed.</param>
 		public static void BuyMarketItem(string productId, string payload) {
-
-			// NOTE: payload is not supported on iOS !
-
 			instance._buyMarketItem(productId, payload);
 		}
 
@@ -120,10 +149,57 @@ namespace Soomla.Store
 			instance._stopIabServiceInBg();
 		}
 
+		/** protected functions **/
+		/** The implementation of these functions here will be the behaviour when working in the editor **/
 
-		protected virtual void _initialize(IStoreAssets storeAssets) { }
+		protected virtual void _loadBillingService() { }
 
-		protected virtual void _buyMarketItem(string productId, string payload) { }
+		protected virtual void _buyMarketItem(string productId, string payload) {
+#if UNITY_EDITOR
+			PurchasableVirtualItem item = StoreInfo.GetPurchasableItemWithProductId(productId);
+			if (item == null) {
+				throw new VirtualItemNotFoundException("ProductId", productId);
+			}
+
+			// simulate onMarketPurchaseStarted event
+			var eventJSON = new JSONObject();
+			eventJSON.AddField("itemId", item.ItemId);
+			eventJSON.AddField("payload", payload);
+			StoreEvents.Instance.onMarketPurchaseStarted(eventJSON.print());
+            
+			// simulate events as they happen on the device
+			// the order is : 
+			//    onMarketPurchase
+			//    give item
+			//    onItemPurchase
+			StoreEvents.Instance.RunLater(() => {
+				eventJSON = new JSONObject();
+				eventJSON.AddField("itemId", item.ItemId);
+				eventJSON.AddField("payload", payload);
+				var extraJSON = new JSONObject();
+			#if UNITY_IOS
+				extraJSON.AddField("receipt", "fake_receipt_abcd1234");
+				extraJSON.AddField("token", "fake_token_zyxw9876");
+			#elif UNITY_ANDROID
+				extraJSON.AddField("orderId", "fake_orderId_abcd1234");
+				extraJSON.AddField("purchaseToken", "fake_purchaseToken_zyxw9876");
+			#endif
+				eventJSON.AddField("extra", extraJSON);
+				StoreEvents.Instance.onMarketPurchase(eventJSON.print());
+
+				// in the editor we just give the item... no real market.
+				item.Give(1);
+	
+				// We have to make sure the ItemPurchased event will be fired AFTER the balance/currency-changed events.
+				StoreEvents.Instance.RunLater(() => {
+					eventJSON = new JSONObject();
+					eventJSON.AddField("itemId", item.ItemId);
+					eventJSON.AddField("payload", payload);
+	            	StoreEvents.Instance.onItemPurchased(eventJSON.print());
+				});
+			});
+#endif
+		}
 
 		protected virtual void _refreshInventory() { }
 
@@ -140,9 +216,15 @@ namespace Soomla.Store
 		protected virtual void _stopIabServiceInBg() { }
 
 
-		/// <summary> Class Members </summary>
+		/** Class Members **/
 
 		protected const string TAG = "SOOMLA SoomlaStore";
+
+		/// <summary>
+		/// Gets a value indicating whether <see cref="Soomla.Store.SoomlaStore"/> is initialized.
+		/// </summary>
+		/// <value><c>true</c> if initialized; otherwise, <c>false</c>.</value>
+		public static bool Initialized { get; private set; }
 
 	}
 }
