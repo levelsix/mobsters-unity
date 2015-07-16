@@ -8,23 +8,31 @@ public class MSMapAvatar : MonoBehaviour {
 	MSChatAvatar chatAvatar;
 
 	[SerializeField]
-	UITexture faceAvatar;
+	UI2DSprite faceAvatar;
 
 	int curTask = -1;
 
 	void OnEnable()
 	{
-		if(FB.IsLoggedIn)
-		{
+		if (MSTangoManager.instance.HasProfilePhoto ()) {
+			Debug.Log("setting tango profile photo for map");
 			faceAvatar.gameObject.SetActive(true);
-			chatAvatar.gameObject.SetActive(false);
+			chatAvatar.thumbnail.gameObject.SetActive(false);
 
-			MSFacebookManager.instance.RunLoadPhotoForUser(FB.UserId.ToString(),faceAvatar);
+			faceAvatar.sprite2D = MSTangoManager.instance.GetProfilePhoto();
+			faceAvatar.width = faceAvatar.height = 60;
 		}
+//		else if(FB.IsLoggedIn)
+//		{
+//			faceAvatar.gameObject.SetActive(true);
+//			chatAvatar.gameObject.SetActive(false);
+//
+//			MSFacebookManager.instance.RunLoadPhotoForUser(FB.UserId.ToString(),faceAvatar);
+//		}
 		else
 		{
 			faceAvatar.gameObject.SetActive(false);
-			chatAvatar.gameObject.SetActive(true);
+			chatAvatar.thumbnail.gameObject.SetActive(true);
 			chatAvatar.Init(MSWhiteboard.localUser.avatarMonsterId);
 		}
 

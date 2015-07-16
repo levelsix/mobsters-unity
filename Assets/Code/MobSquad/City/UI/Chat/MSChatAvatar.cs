@@ -8,8 +8,7 @@ public class MSChatAvatar : MonoBehaviour {
 	[SerializeField]
 	UISprite bg;
 
-	[SerializeField]
-	UI2DSprite thumbnail;
+	public UI2DSprite thumbnail;
 
 	[SerializeField]
 	bool big = false;

@@ -7,7 +7,9 @@ using SimpleJSON;
 using System.Text;
 
 public class MSTangoManager : MonoBehaviour {
-	
+
+	public static MSTangoManager instance;
+
 	private string authenticateText = "Authenticate";
 	
 	private string version;
@@ -21,6 +23,8 @@ public class MSTangoManager : MonoBehaviour {
 	private List<string> leaderboardEntries = new List<string>();
 	
 	private string possessionVersion = "0";
+
+	Sprite profilePic;
 
 #if UNITY_ANDROID
 	void HandleUrl(string url){
@@ -53,6 +57,10 @@ public class MSTangoManager : MonoBehaviour {
 	}
 	#endif
 
+	void Awake() {
+		MSTangoManager.instance = this;
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -61,6 +69,7 @@ public class MSTangoManager : MonoBehaviour {
 		if(SessionFactory.getSession().isAuthenticated())
 		{
 			authenticateText = "Authenticated";
+			SessionFactory.getSession().getMyProfile("GetMyProfileCallback");
 		}
 		else if(!SessionFactory.getSession().tangoIsInstalled())
 		{
@@ -102,6 +111,8 @@ public class MSTangoManager : MonoBehaviour {
 			Debug.Log (r.result);
 			authenticateText = "Authenticated";
 			Debug.Log("Tango Authenticated");
+			//Load Profile
+			SessionFactory.getSession().getMyProfile("GetMyProfileCallback");
 		} else {
 			Debug.Log (r.errorCode);
 			Debug.Log (r.errorText);
@@ -137,10 +148,27 @@ public class MSTangoManager : MonoBehaviour {
 			userId = result["Profile"][0]["AccountId"];
 			userName = result["Profile"][0]["FirstName"] + " " + result["Profile"][0]["LastName"];
 			userPhotoUrl = result["Profile"][0]["ProfilePhotoUrl"];
+			StartCoroutine(GetPhoto(userPhotoUrl));
 		} else {
 			Debug.Log (r.errorCode);
 			Debug.Log (r.errorText);
 		}
+	}
+
+	IEnumerator GetPhoto(string photoUrl) {
+		Debug.Log ("Tango: Starting photo download: " + photoUrl);
+		WWW www = new WWW (photoUrl);
+		yield return www;
+		profilePic = Sprite.Create (www.texture, new Rect (0, 0, 200, 200), Vector2.zero);
+		Debug.Log ("Tango: Downloaded photo! " + profilePic);
+	}
+
+	public bool HasProfilePhoto() {
+		return profilePic != null;
+	}
+
+	public Sprite GetProfilePhoto() {
+		return profilePic;
 	}
 	
 	void GetFriendsCallback(string message) {
