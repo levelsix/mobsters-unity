@@ -31,18 +31,18 @@ public class MSAssets : IStoreAssets {
 
 	public enum IAPSize {PILE, BAG, CASE, SAFE, BIG_SAFE};
 
-	public const string GEM_CURRENCY_ITEM_ID = "currency_gem";
-	public const string GEM50PACK_ITEM_ID = "pile_of_gems";
-	public const string GEM120PACK_ITEM_ID = "bag_of_gems";
-	public const string GEM250PACK_ITEM_ID = "case_of_gems";
-	public const string GEM650PACK_ITEM_ID = "safe_of_gems";
-	public const string GEM1500PACK_ITEM_ID = "big_safe_of_gems";
+	public string GEM_CURRENCY_ITEM_ID = "currency_gem";
+	public string GEM50PACK_ITEM_ID =  "pile_of_gems";
+	public string GEM120PACK_ITEM_ID = "bag_of_gems";
+	public string GEM250PACK_ITEM_ID = "case_of_gems";
+	public string GEM650PACK_ITEM_ID = "safe_of_gems";
+	public string GEM1500PACK_ITEM_ID = "big_safe_of_gems";
 	
-	public const string GEM50PACK_PACKAGE_ID = "android.test.purchased";
-	public const string GEM120PACK_PACKAGE_ID = "bag_of_gems";
-	public const string GEM250PACK_PACKAGE_ID = "case_of_gems";
-	public const string GEM650PACK_PACKAGE_ID = "safe_of_gems";
-	public const string GEM1500PACK_PACKAGE_ID = "big_safe_of_gems";
+	public string GEM50PACK_PACKAGE_ID = "com.lvl6.mobsters.gem1";
+	public string GEM120PACK_PACKAGE_ID = "com.lvl6.mobsters.gem2";
+	public string GEM250PACK_PACKAGE_ID = "com.lvl6.mobsters.gem3";
+	public string GEM650PACK_PACKAGE_ID = "com.lvl6.mobsters.gem4";
+	public string GEM1500PACK_PACKAGE_ID = "com.lvl6.mobsters.gem5";
 
 	public static readonly Dictionary<IAPSize, string> packNames = new Dictionary<IAPSize, string>()
 	{
