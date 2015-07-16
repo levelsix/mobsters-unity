@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Soomla.Store;
 
 public class MSSoomlaPurchaseManager : MonoBehaviour 
@@ -8,8 +9,7 @@ public class MSSoomlaPurchaseManager : MonoBehaviour
 	// Use this for initialization
 	
 	void Start () {
-
-		Debug.Log ("Soomla manager started");
+		Debug.Log( "MSSoomlaPurchaseManager starting" );
 		
 		SoomlaStore.Initialize(new MSAssets());
 
@@ -19,7 +19,7 @@ public class MSSoomlaPurchaseManager : MonoBehaviour
 		StoreEvents.OnMarketPurchase             += OnMarketPurchase;
 		StoreEvents.OnItemPurchaseStarted        += OnItemPurchaseStarted;
 		StoreEvents.OnItemPurchased              += OnItemPurchased;
-		StoreEvents.OnUnexpectedErrorInStore     += OnUnexpectedErrorInStore;
+		StoreEvents.OnUnexpectedStoreError       += OnUnexpectedStoreError;
 	}
 	
 	string s = "<nothing>";
@@ -29,8 +29,8 @@ public class MSSoomlaPurchaseManager : MonoBehaviour
 		s += "OnMarketPurchaseStarted: " + pvi.ItemId;
 	}
 	
-	public void OnMarketPurchase( PurchasableVirtualItem pvi, string s1, string s2 ) {
-		Debug.Log( "OnMarketPurchase: " + pvi.ItemId + ", " + s1 + ", " + s2 );
+	public void OnMarketPurchase( PurchasableVirtualItem pvi, string s1, Dictionary<string, string> dict ) {
+		Debug.Log( "OnMarketPurchase: " + pvi.ItemId + ", " + s1 + ", " + dict );
 		s += "OnMarketPurchase: " + pvi.ItemId;
 	}
 	
@@ -49,7 +49,7 @@ public class MSSoomlaPurchaseManager : MonoBehaviour
 		s += "OnStoreControllerInitialized";
 	}
 	
-	public void OnUnexpectedErrorInStore( string err ) {
+	public void OnUnexpectedStoreError( int err ) {
 		Debug.Log( "OnUnexpectedErrorInStore" + err );
 		s += "OnUnexpectedErrorInStore" + err;
 	}

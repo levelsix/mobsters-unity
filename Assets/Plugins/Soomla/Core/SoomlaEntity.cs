@@ -59,7 +59,16 @@ namespace Soomla {
 			this._id = jniSoomlaEntity.Call<string>("getID");
 		}
 #endif
-		/// <summary>
+
+#if UNITY_WP8 && UNITY_EDITOR
+        protected SoomlaEntity(SoomlaWpCore.SoomlaEntity<T> wpSoomlaEntity)
+        {
+            this.Name = wpSoomlaEntity.GetName();
+            this.Description = wpSoomlaEntity.GetDescription();
+            this._id = wpSoomlaEntity.GetId();
+		}
+#endif
+        /// <summary>
 		/// Constructor.
 		/// Generates an instance of <c>SoomlaEntity</c> from the given <c>JSONObject</c>.
 		/// </summary>
@@ -97,7 +106,7 @@ namespace Soomla {
 			obj.AddField(JSONConsts.SOOM_ENTITY_NAME, this.Name);
 			obj.AddField(JSONConsts.SOOM_ENTITY_DESCRIPTION, this.Description);
 			obj.AddField(JSONConsts.SOOM_ENTITY_ID, this._id);
-			obj.AddField(JSONConsts.SOOM_CLASSNAME, GetType().Name);
+			obj.AddField(JSONConsts.SOOM_CLASSNAME, SoomlaUtils.GetClassName(this));
 			
 			return obj;
 		}
@@ -173,7 +182,7 @@ namespace Soomla {
 
 		public virtual T Clone(string newId) {
 			JSONObject obj = this.toJSONObject();
-			obj.AddField(JSONConsts.SOOM_ENTITY_ID, newId);
+			obj.SetField(JSONConsts.SOOM_ENTITY_ID, JSONObject.CreateStringObject(newId));
 			return (T) Activator.CreateInstance(this.GetType(), new object[] { obj });
 		}
 	}

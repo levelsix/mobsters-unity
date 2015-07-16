@@ -39,9 +39,15 @@ namespace Soomla.Store {
 	/// <see cref="com.soomla.store.domain.VirtualItem"/>
 	/// </summary>
 	public class SingleUsePackVG : VirtualGood {
-		
-//		private static string TAG = "SOOMLA SingleUsePackVG";
+		private static string TAG = "SOOMLA SingleUsePackVG";
+
+		/// <summary>
+		/// The itemId of the <c>VirtualGood</c> associated with the pack.
+		/// </summary>
 		public string GoodItemId;
+		/// <summary>
+		/// The amount of instances of the associated virtual good.
+		/// </summary>
 		public int GoodAmount;
 		
 		/// <summary>
@@ -59,24 +65,23 @@ namespace Soomla.Store {
 			this.GoodItemId = goodItemId;
 			this.GoodAmount = amount;
 		}
-		
-#if UNITY_ANDROID && !UNITY_EDITOR
-		public SingleUsePackVG(AndroidJavaObject jniSingleUsePackVG) 
-			: base(jniSingleUsePackVG)
+
+#if UNITY_WP8 && !UNITY_EDITOR
+		public SingleUsePackVG(SoomlaWpStore.domain.virtualGoods.SingleUsePackVG wpSingleUsePackVG)
+            : base(wpSingleUsePackVG)
 		{
-			GoodItemId = jniSingleUsePackVG.Call<string>("getGoodItemId");
-			GoodAmount = jniSingleUsePackVG.Call<int>("getGoodAmount");
+            GoodItemId = wpSingleUsePackVG.getGoodItemId();
+			GoodAmount = wpSingleUsePackVG.getGoodAmount();
 		}
 #endif
-
-		/// <summary>
+        /// <summary>
 		/// see parent.
 		/// </summary>
 		public SingleUsePackVG(JSONObject jsonItem)
 			: base(jsonItem)
 		{
-			GoodItemId = jsonItem[JSONConsts.VGP_GOOD_ITEMID].str;
-	        this.GoodAmount = System.Convert.ToInt32(((JSONObject)jsonItem[JSONConsts.VGP_GOOD_AMOUNT]).n);
+			GoodItemId = jsonItem[StoreJSONConsts.VGP_GOOD_ITEMID].str;
+	        this.GoodAmount = System.Convert.ToInt32(((JSONObject)jsonItem[StoreJSONConsts.VGP_GOOD_AMOUNT]).n);
 		}
 
 		/// <summary>
@@ -85,18 +90,66 @@ namespace Soomla.Store {
 		public override JSONObject toJSONObject() 
 		{
 			JSONObject jsonObject = base.toJSONObject();
-	        jsonObject.AddField(JSONConsts.VGP_GOOD_ITEMID, GoodItemId);
-	        jsonObject.AddField(JSONConsts.VGP_GOOD_AMOUNT, GoodAmount);
+	        jsonObject.AddField(StoreJSONConsts.VGP_GOOD_ITEMID, GoodItemId);
+	        jsonObject.AddField(StoreJSONConsts.VGP_GOOD_AMOUNT, GoodAmount);
 	
 	        return jsonObject;
 		}
 
 		/// <summary>
-		/// Saves this instance.
+		/// This function gives a curtain amout of <c>VirtualGood</c>s according to the given amount and the amount in the pack.
 		/// </summary>
-		public override void save() 
-		{
-			save("SingleUsePackVG");
+		/// <param name="amount">amount the amount of the specific item to be given.</param>
+		/// <param name="notify">notify of change in user's balance of current virtual item.</param>
+		public override int Give(int amount, bool notify) {
+			SingleUseVG good = null;
+			try {
+				good = (SingleUseVG) StoreInfo.GetItemByItemId(GoodItemId);
+			} catch (VirtualItemNotFoundException) {
+				SoomlaUtils.LogError(TAG, "SingleUseVG with itemId: " + GoodItemId + " doesn't exist! Can't give this pack.");
+				return 0;
+			}
+			return VirtualGoodsStorage.Add(good, GoodAmount*amount, notify);
+		}
+
+		/// <summary>
+		/// This function takes a curtain amout of <c>VirtualGood</c>s according to the given amount and the amount in the pack.
+		/// </summary>
+		/// <param name="amount">the amount of the specific item to be taken.</param>
+		/// <param name="notify">notify of change in user's balance of current virtual item.</param>
+		public override int Take(int amount, bool notify) {
+			SingleUseVG good = null;
+			try {
+				good = (SingleUseVG) StoreInfo.GetItemByItemId(GoodItemId);
+			} catch (VirtualItemNotFoundException) {
+				SoomlaUtils.LogError(TAG, "SingleUseVG with itemId: " + GoodItemId + " doesn't exist! Can't give this pack.");
+				return 0;
+			}
+			return VirtualGoodsStorage.Remove(good, GoodAmount*amount, notify);
+		}
+
+		/// <summary>
+		/// DON't APPLY FOR A PACK
+		/// </summary>
+		public override int ResetBalance(int balance, bool notify) {
+			// Not supported for SingleUsePackVGs !
+			SoomlaUtils.LogError(TAG, "Someone tried to reset balance of GoodPack. "
+			                     + "That's not right.");
+			return 0;
+		}
+		
+		/// <summary>
+		/// DON'T APPLY FOR A PACK
+		/// </summary>
+		public override int GetBalance() {
+			// Not supported for SingleUsePackVGs !
+			SoomlaUtils.LogError(TAG, "Someone tried to check balance of GoodPack. "
+			                     + "That's not right.");
+			return 0;
+		}
+
+		protected override bool canBuy() {
+			return true;
 		}
 	}
 }

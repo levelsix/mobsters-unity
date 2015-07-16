@@ -15,6 +15,8 @@
 using UnityEngine;
 using System;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Soomla.Store
 {
@@ -28,22 +30,18 @@ namespace Soomla.Store
 
 		protected const string TAG = "SOOMLA StoreInventory";
 
-		static StoreInventory _instance = null;
-		static StoreInventory instance {
-			get {
-				if(_instance == null) {
-					#if UNITY_ANDROID && !UNITY_EDITOR
-					_instance = new StoreInventoryAndroid();
-					#elif UNITY_IOS && !UNITY_EDITOR
-					_instance = new StoreInventoryIOS();
-					#else
-					_instance = new StoreInventory();
-					#endif
-				}
-				return _instance;
-			}
+		/// <summary>
+		/// Checks if there is enough funds to afford <c>itemId</c>.
+		/// </summary>
+		/// <param name="itemId">id of item to be checked</param>
+		/// <returns>True if there are enough funds to afford the virtual item with the given item id </returns>
+		public static bool CanAfford(string itemId) {
+			SoomlaUtils.LogDebug(TAG, "Checking can afford: " + itemId);
+			
+			PurchasableVirtualItem pvi = (PurchasableVirtualItem) StoreInfo.GetItemByItemId(itemId);
+			return pvi.CanAfford();
 		}
-
+		
 		/// <summary>
 		/// Buys the item with the given <c>itemId</c>.
 		/// </summary>
@@ -53,7 +51,7 @@ namespace Soomla.Store
 		public static void BuyItem(string itemId) {
 			BuyItem(itemId, "");
 		}
-
+		
 		/// <summary>
 		/// Buys the item with the given <c>itemId</c>.
 		/// </summary>
@@ -63,15 +61,11 @@ namespace Soomla.Store
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item to be bought is not found.</exception>
 		/// <exception cref="InsufficientFundsException">Thrown if the user does not have enough funds.</exception>
 		public static void BuyItem(string itemId, string payload) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling BuyItem with: " + itemId);
-			instance._buyItem(itemId, payload);
+			SoomlaUtils.LogDebug(TAG, "Buying: " + itemId);
+
+			PurchasableVirtualItem pvi = (PurchasableVirtualItem) StoreInfo.GetItemByItemId(itemId);
+			pvi.Buy(payload);
 		}
-
-		virtual protected void _buyItem(string itemId, string payload) {
-		}
-
-
-		/** VIRTUAL ITEMS **/
 
 		/// <summary>
 		/// Retrieves the balance of the virtual item with the given <c>itemId</c>.
@@ -80,9 +74,16 @@ namespace Soomla.Store
 		/// <returns>Balance of the virtual item with the given item id.</returns>
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		public static int GetItemBalance(string itemId) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling GetItemBalance with: " + itemId);
-			return instance._getItemBalance(itemId);
+			int amount;
+			if (localItemBalances.TryGetValue(itemId, out amount)) {
+				return amount;
+			}
+			
+			VirtualItem item = StoreInfo.GetItemByItemId(itemId);
+			return item.GetBalance();
 		}
+
+		/** VIRTUAL ITEMS **/
 
 		/// <summary>
 		/// Gives your user the given amount of the virtual item with the given <c>itemId</c>.
@@ -96,8 +97,10 @@ namespace Soomla.Store
 		/// <param name="amount">Amount of the item to be given.</param>
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		public static void GiveItem(string itemId, int amount) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling GiveItem with itemId: " + itemId + " and amount: " + amount);
-			instance._giveItem(itemId, amount);
+			SoomlaUtils.LogDebug(TAG, "Giving: " + amount + " pieces of: " + itemId);
+
+			VirtualItem item = StoreInfo.GetItemByItemId(itemId);
+			item.Give(amount);
 		}
 
 		/// <summary>
@@ -108,22 +111,12 @@ namespace Soomla.Store
 		/// <param name="amount">Amount.</param>
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		public static void TakeItem(string itemId, int amount) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling TakeItem with itemId: " + itemId + " and amount: " + amount);
-			instance._takeItem(itemId, amount);
+			SoomlaUtils.LogDebug(TAG, "Taking: " + amount + " pieces of: " + itemId);
+
+			VirtualItem item = StoreInfo.GetItemByItemId(itemId);
+			item.Take(amount);
 		}
 
-		virtual protected int _getItemBalance(string itemId) {
-			return 0;
-		}
-
-		virtual protected void _giveItem(string itemId, int amount) {
-		}
-
-		virtual protected void _takeItem(string itemId, int amount) {
-		}
-
-
-		/** VIRTUAL GOODS **/
 
 		/// <summary>
 		/// Equips the virtual good with the given <c>goodItemId</c>.
@@ -134,8 +127,16 @@ namespace Soomla.Store
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		/// <exception cref="NotEnoughGoodsException"></exception>
 		public static void EquipVirtualGood(string goodItemId) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling EquipVirtualGood with: " + goodItemId);
-			instance._equipVirtualGood(goodItemId);
+			SoomlaUtils.LogDebug(TAG, "Equipping: " + goodItemId);
+
+			EquippableVG good = (EquippableVG) StoreInfo.GetItemByItemId(goodItemId);
+			
+			try {
+				good.Equip();
+			} catch (NotEnoughGoodsException e) {
+				SoomlaUtils.LogError(TAG, "UNEXPECTED! Couldn't equip something");
+				throw e;
+			}
 		}
 
 		/// <summary>
@@ -146,8 +147,10 @@ namespace Soomla.Store
 		/// <param name="goodItemId">Id of the good to be unequipped.</param>
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		public static void UnEquipVirtualGood(string goodItemId) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling UnEquipVirtualGood with: " + goodItemId);
-			instance._unEquipVirtualGood(goodItemId);
+			SoomlaUtils.LogDebug(TAG, "UnEquipping: " + goodItemId);
+			
+			EquippableVG good = (EquippableVG) StoreInfo.GetItemByItemId(goodItemId);
+			good.Unequip();
 		}
 
 		/// <summary>
@@ -157,17 +160,41 @@ namespace Soomla.Store
 		/// <returns>True if the virtual good is equipped, false otherwise.</returns>
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		public static bool IsVirtualGoodEquipped(string goodItemId) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling IsVirtualGoodEquipped with: " + goodItemId);
-			return instance._isVertualGoodEquipped(goodItemId);
+			SoomlaUtils.LogDebug(TAG, "Checking if " + goodItemId + " is equipped");
+
+			EquippableVG good = (EquippableVG) StoreInfo.GetItemByItemId(goodItemId);
+			
+			return VirtualGoodsStorage.IsEquipped(good);;
 		}
 
+		/// <summary>
+        /// Checks currently equipped good in given <c>category</c>
+        /// </summary>
+        /// <param name="category">Category we want to check</param>
+        /// <returns>EquippableVG otherwise null</returns>
+	    public static EquippableVG GetEquippedVirtualGood(VirtualCategory category){
+            SoomlaUtils.LogDebug(TAG, "Checking equipped goood in " + category.Name + " category");
+
+	        foreach (string goodItemId in category.GoodItemIds)
+	        {
+                EquippableVG good = (EquippableVG) StoreInfo.GetItemByItemId(goodItemId);
+
+	            if (good != null && good.Equipping == EquippableVG.EquippingModel.CATEGORY &&
+                    VirtualGoodsStorage.IsEquipped(good) &&
+	                StoreInfo.GetCategoryForVirtualGood(goodItemId) == category)
+	                return good;
+	        }
+            SoomlaUtils.LogError(TAG, "There is no virtual good equipped in " + category.Name + " category");
+	        return null;
+	    }
+		
 		/// <summary>
 		/// Retrieves the upgrade level of the virtual good with the given <c>goodItemId</c>.
 		/// For Example:
 		/// Let's say there's a strength attribute to one of the characters in your game and you provide
 		/// your users with the ability to upgrade that strength on a scale of 1-3.
 		/// This is what you've created:
-		/// 1. <c>SingleUseVG</c> for "strength". 
+		/// 1. <c>SingleUseVG</c> for "strength".
 		/// 2. <c>UpgradeVG</c> for strength 'level 1'.
 		/// 3. <c>UpgradeVG</c> for strength 'level 2'.
 		/// 4. <c>UpgradeVG</c> for strength 'level 3'.
@@ -177,8 +204,26 @@ namespace Soomla.Store
 		/// <returns>The good upgrade level.</returns>
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		public static int GetGoodUpgradeLevel(string goodItemId) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling GetGoodUpgradeLevel with: " + goodItemId);
-			return instance._getGoodUpgradeLevel(goodItemId);
+			SoomlaUtils.LogDebug(TAG, "Checking " + goodItemId + " upgrade level");
+
+			VirtualGood good = (VirtualGood) StoreInfo.GetItemByItemId(goodItemId);
+			if (good == null) {
+				SoomlaUtils.LogError(TAG, "You tried to get the level of a non-existant virtual good.");
+				return 0;
+			}
+			UpgradeVG upgradeVG = VirtualGoodsStorage.GetCurrentUpgrade(good);
+			if (upgradeVG == null) {
+				return 0; //no upgrade
+			}
+			
+			UpgradeVG first = StoreInfo.GetFirstUpgradeForVirtualGood(goodItemId);
+			int level = 1;
+			while (first.ItemId != upgradeVG.ItemId) {
+				first = (UpgradeVG) StoreInfo.GetItemByItemId(first.NextItemId);
+				level++;
+			}
+			
+			return level;
 		}
 
 		/// <summary>
@@ -188,15 +233,22 @@ namespace Soomla.Store
 		/// <returns>The good's current upgrade.</returns>
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		public static string GetGoodCurrentUpgrade(string goodItemId) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling GetGoodCurrentUpgrade with: " + goodItemId);
-			return instance._getGoodCurrentUpgrade(goodItemId);
+			SoomlaUtils.LogDebug(TAG, "Checking " + goodItemId + " current upgrade");
+
+			VirtualGood good = (VirtualGood) StoreInfo.GetItemByItemId(goodItemId);
+			
+			UpgradeVG upgradeVG = VirtualGoodsStorage.GetCurrentUpgrade(good);
+			if (upgradeVG == null) {
+				return "";
+			}
+			return upgradeVG.ItemId;
 		}
 
 		/// <summary>
 		/// Upgrades the virtual good with the given <c>goodItemId</c> by doing the following:
 		/// 1. Checks if the good is currently upgraded or if this is the first time being upgraded.
-		/// 2. If the good is currently upgraded, upgrades to the next upgrade in the series. 
-		/// In case there are no more upgrades available(meaning the current upgrade is the last available), 
+		/// 2. If the good is currently upgraded, upgrades to the next upgrade in the series.
+		/// In case there are no more upgrades available(meaning the current upgrade is the last available),
 		/// the function returns.
 		/// 3. If the good has never been upgraded before, the function upgrades it to the first
 		/// available upgrade with the first upgrade of the series.
@@ -205,7 +257,23 @@ namespace Soomla.Store
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		public static void UpgradeGood(string goodItemId) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling UpgradeGood with: " + goodItemId);
-			instance._upgradeGood(goodItemId);
+			VirtualGood good = (VirtualGood) StoreInfo.GetItemByItemId(goodItemId);
+			
+			UpgradeVG upgradeVG = VirtualGoodsStorage.GetCurrentUpgrade(good);
+			
+			if (upgradeVG != null) {
+				String nextItemId = upgradeVG.NextItemId;
+				if (string.IsNullOrEmpty(nextItemId)) {
+					return;
+				}
+				UpgradeVG vgu = (UpgradeVG) StoreInfo.GetItemByItemId(nextItemId);
+				vgu.Buy("");
+			} else {
+				UpgradeVG first = StoreInfo.GetFirstUpgradeForVirtualGood(goodItemId);
+				if (first != null) {
+					first.Buy("");
+				}
+			}
 		}
 
 		/// <summary>
@@ -215,80 +283,100 @@ namespace Soomla.Store
 		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
 		public static void RemoveGoodUpgrades(string goodItemId) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling RemoveGoodUpgrades with: " + goodItemId);
-			instance._removeGoodUpgrades(goodItemId);
-		}
 
-		virtual protected void _equipVirtualGood(string goodItemId) {
-		}
-
-		virtual protected void _unEquipVirtualGood(string goodItemId) {
-		}
-
-		virtual protected bool _isVertualGoodEquipped(string goodItemId) {
-			return false;
-		}
-
-		virtual protected int _getGoodUpgradeLevel(string goodItemId) {
-			return 0;
-		}
-
-		virtual protected string _getGoodCurrentUpgrade(string goodItemId) {
-			return null;
-		}
-
-		virtual protected void _upgradeGood(string goodItemId) {
-		}
-
-		virtual protected void _removeGoodUpgrades(string goodItemId) {
-		}
-
-
-
-		/** NON-CONSUMABLES **/
-
-		/// <summary>
-		/// Checks if the non-consumable with the given <c>nonConsItemId</c> exists.
-		/// </summary>
-		/// <param name="nonConsItemId">Id of the item to check if exists.</param>
-		/// <returns>True if non-consumable item with nonConsItemId exists, false otherwise.</returns>
-		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
-		public static bool NonConsumableItemExists(string nonConsItemId) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling NonConsumableItemExists with: " + nonConsItemId);
-			return instance._nonConsumableItemExists(nonConsItemId);
+			List<UpgradeVG> upgrades = StoreInfo.GetUpgradesForVirtualGood(goodItemId);
+			foreach (UpgradeVG upgrade in upgrades) {
+				VirtualGoodsStorage.Remove(upgrade, 1, true);
+			}
+			VirtualGood good = (VirtualGood) StoreInfo.GetItemByItemId(goodItemId);
+			VirtualGoodsStorage.RemoveUpgrades(good);
 		}
 
 		/// <summary>
-		/// Adds the non-consumable item with the given <c>nonConsItemId</c> to the non-consumable items storage.
+		/// This function refreshes a local set of objects that will hold your user's balances in memory for quick
+		/// and more efficient fetching for your game UI.
+		/// This way, we save many JNI or static calls to native platforms.
+		/// 
+		/// NOTE: You don't need to call this function as it's automatically called when the game initializes.
+		/// NOTE: This is less useful when you work in editor.
 		/// </summary>
-		/// <param name="nonConsItemId">Id of the item to be added.</param>
-		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
-		public static void AddNonConsumableItem(string nonConsItemId) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling AddNonConsumableItem with: " + nonConsItemId);
-			instance._addNonConsumableItem(nonConsItemId);
+		public static void RefreshLocalInventory() {
+			SoomlaUtils.LogDebug(TAG, "Refreshing local inventory");
+
+			localItemBalances = new Dictionary<string, int> ();
+			localUpgrades = new Dictionary<string, LocalUpgrade>();
+			localEquippedGoods = new HashSet<string>();
+			
+			foreach(VirtualCurrency item in StoreInfo.Currencies){
+				localItemBalances[item.ItemId] = VirtualCurrencyStorage.GetBalance(item);
+			}
+			
+			foreach(VirtualGood item in StoreInfo.Goods){
+				localItemBalances[item.ItemId] =  VirtualGoodsStorage.GetBalance(item);
+				
+				UpgradeVG upgrade = VirtualGoodsStorage.GetCurrentUpgrade(item);
+				if (upgrade != null) {
+					int upgradeLevel = GetGoodUpgradeLevel(item.ItemId);
+					localUpgrades.AddOrUpdate(item.ItemId, new LocalUpgrade { itemId = upgrade.ItemId, level = upgradeLevel });
+				}
+				
+				if (item is EquippableVG) {
+					if (VirtualGoodsStorage.IsEquipped((EquippableVG)item)) {
+						localEquippedGoods.Add(item.ItemId);
+					}
+				}
+			}
 		}
 
-		/// <summary>
-		/// Removes the non-consumable item with the given <c>nonConsItemId</c> from the non-consumable 
-		/// items storage.
-		/// </summary>
-		/// <param name="nonConsItemId">Id of the item to be removed.</param>
-		/// <exception cref="VirtualItemNotFoundException">Thrown if the item is not found.</exception>
-		public static void RemoveNonConsumableItem(string nonConsItemId) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY Calling RemoveNonConsumableItem with: " + nonConsItemId);
-			instance._removeNonConsumableItem(nonConsItemId);
+
+		/** A set of private functions to refresh the local inventory whenever there are changes on runtime. **/
+
+		public static void RefreshOnGoodUpgrade(VirtualGood vg, UpgradeVG uvg) {
+			if (uvg == null) {
+				localUpgrades.Remove(vg.ItemId);
+			} else {
+				int upgradeLevel = GetGoodUpgradeLevel(vg.ItemId);
+				LocalUpgrade upgrade;
+				if (localUpgrades.TryGetValue(vg.ItemId, out upgrade)) {
+					upgrade.itemId = uvg.ItemId;
+					upgrade.level = upgradeLevel;
+				} else {
+					localUpgrades.Add(vg.ItemId, new LocalUpgrade { itemId = uvg.ItemId, level = upgradeLevel });
+				}
+			}
+		}
+		
+		public static void RefreshOnGoodEquipped(EquippableVG equippable) {
+			localEquippedGoods.Add(equippable.ItemId);
+		}
+		
+		public static void RefreshOnGoodUnEquipped(EquippableVG equippable) {
+			localEquippedGoods.Remove(equippable.ItemId);
+		}
+		
+		public static void RefreshOnCurrencyBalanceChanged(VirtualCurrency virtualCurrency, int balance, int amountAdded) {
+			UpdateLocalBalance(virtualCurrency.ItemId, balance);
+		}
+		
+		public static void RefreshOnGoodBalanceChanged(VirtualGood good, int balance, int amountAdded) {
+			UpdateLocalBalance(good.ItemId, balance);
+		}
+		
+		private static void UpdateLocalBalance(string itemId, int balance) {
+			localItemBalances[itemId] = balance;
 		}
 
-		virtual protected bool _nonConsumableItemExists(string nonConsItemId) {
-			return false;
-		}
 
-		virtual protected void _addNonConsumableItem(string nonConsItemId) {
-		}
 
-		virtual protected void _removeNonConsumableItem(string nonConsItemId) {
+		/** Private local balances **/
+
+		private class LocalUpgrade {
+			public int level;
+			public string itemId;
 		}
+		
+		private static Dictionary<string, int> localItemBalances = null;
+		private static Dictionary<string, LocalUpgrade> localUpgrades = null;
+		private static HashSet<string> localEquippedGoods = null;
 	}
 }
-
-
-

@@ -45,42 +45,6 @@ namespace Soomla {
 		public List<DateTimeRange> TimeRanges;
 		public int ActivationLimit;
 
-//		public static TimeStrategy Once() {
-//			return Once(default(DateTime));
-//		}
-//
-//		public static TimeStrategy Once(DateTime startTime) {
-//			return Custom(startTime, 1);
-//		}
-//
-//		public static TimeStrategy EveryMonth(DateTime startTime, int repeatTimes) {
-//			return new TimeStrategy(Strategy.EVERYMONTH, startTime, repeatTimes);
-//		}
-//
-//		public static TimeStrategy EveryDay(DateTime startTime, int repeatTimes) {
-//			return new TimeStrategy(Strategy.EVERYDAY, startTime, repeatTimes);
-//		}
-//
-//		public static TimeStrategy EveryHour(DateTime startTime, int repeatTimes) {
-//			return new TimeStrategy(Strategy.EVERYHOUR, startTime, repeatTimes);
-//		}
-//
-//		public static TimeStrategy Custom(int repeatTimes) {
-//			return Custom(default(DateTime), repeatTimes);
-//		}
-//
-//		public static TimeStrategy Custom(DateTime startTime, int repeatTimes) {
-//			return new TimeStrategy(Strategy.CUSTOM, startTime, repeatTimes);
-//		}
-//
-//		public static TimeStrategy Always() {
-//			return Always(default(DateTime));
-//		}
-//
-//		public static TimeStrategy Always(DateTime startTime) {
-//			return new TimeStrategy(Strategy.ALWAYS, startTime, 0);
-//		}
-
 		public static Schedule AnyTimeOnce() {
 			return new Schedule(1);
 		}
@@ -138,19 +102,26 @@ namespace Soomla {
 		public JSONObject toJSONObject() {
 			JSONObject obj = new JSONObject(JSONObject.Type.OBJECT);
 
+			obj.AddField(JSONConsts.SOOM_CLASSNAME, SoomlaUtils.GetClassName(this));
 			obj.AddField(JSONConsts.SOOM_SCHE_REC, (int)RequiredRecurrence);
 			obj.AddField(JSONConsts.SOOM_SCHE_APPROVALS, ActivationLimit);
 
 			JSONObject rangesObj = new JSONObject(JSONObject.Type.ARRAY);
-			foreach(DateTimeRange dtr in TimeRanges) {
-				long startMillis = dtr.Start.Ticks / TimeSpan.TicksPerMillisecond;
-				long endMillis = dtr.End.Ticks / TimeSpan.TicksPerMillisecond;
-				JSONObject singleRange = new JSONObject(JSONObject.Type.OBJECT);
-				singleRange.AddField(JSONConsts.SOOM_SCHE_RANGE_START, startMillis);
-				singleRange.AddField(JSONConsts.SOOM_SCHE_RANGE_END, endMillis);
+			if (TimeRanges != null)
+			{
+				foreach(DateTimeRange dtr in TimeRanges)
+				{
+					long startMillis = dtr.Start.Ticks / TimeSpan.TicksPerMillisecond;
+					long endMillis = dtr.End.Ticks / TimeSpan.TicksPerMillisecond;
+					JSONObject singleRange = new JSONObject(JSONObject.Type.OBJECT);
+					singleRange.AddField(JSONConsts.SOOM_CLASSNAME, SoomlaUtils.GetClassName(dtr));
+					singleRange.AddField(JSONConsts.SOOM_SCHE_RANGE_START, startMillis);
+					singleRange.AddField(JSONConsts.SOOM_SCHE_RANGE_END, endMillis);
 
-				rangesObj.Add(singleRange);
+					rangesObj.Add(singleRange);
+				}
 			}
+
 			obj.AddField(JSONConsts.SOOM_SCHE_RANGES, rangesObj);
 			
 			return obj;

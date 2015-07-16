@@ -30,9 +30,15 @@ namespace Soomla.Store{
 	/// <see cref="com.soomla.store.domain.VirtualItem"/> 
 	/// </summary>
 	public class VirtualCurrencyPack : PurchasableVirtualItem {
-//		private static string TAG = "SOOMLA VirtualCurrencyPack";
-		
+		private static string TAG = "SOOMLA VirtualCurrencyPack";
+
+		/// <summary>
+		/// The amount of instances of the associated <c>VirtualCurrency</c>.
+		/// </summary>
 		public int CurrencyAmount;
+		/// <summary>
+		/// The itemId of the <c>VirtualCurrency</c> associated with this pack.
+		/// </summary>
 		public string CurrencyItemId;
 
 		/// <summary>
@@ -50,28 +56,27 @@ namespace Soomla.Store{
 			this.CurrencyAmount = currencyAmount;
 			this.CurrencyItemId = currencyItemId;
 		}
-		
-#if UNITY_ANDROID && !UNITY_EDITOR
-		public VirtualCurrencyPack(AndroidJavaObject jniVirtualCurrencyPack) 
-			: base(jniVirtualCurrencyPack)
+
+#if UNITY_WP8 && !UNITY_EDITOR
+		public VirtualCurrencyPack(SoomlaWpStore.domain.virtualCurrencies.VirtualCurrencyPack wpVirtualCurrencyPack)
+            : base(wpVirtualCurrencyPack)
 		{
-			this.CurrencyAmount = jniVirtualCurrencyPack.Call<int>("getCurrencyAmount");
+            this.CurrencyAmount = wpVirtualCurrencyPack.getCurrencyAmount();
 
 			// Virtual Currency
-			CurrencyItemId = jniVirtualCurrencyPack.Call<string>("getCurrencyItemId");
+            CurrencyItemId = wpVirtualCurrencyPack.getCurrencyItemId();
 		}
 #endif
-
-		/// <summary>
+        /// <summary>
 		/// Constructor.
 		/// </summary>
 		/// <param name="jsonItem">see parent</param>
 		public VirtualCurrencyPack(JSONObject jsonItem)
 			: base(jsonItem)
 		{
-			this.CurrencyAmount = System.Convert.ToInt32(((JSONObject)jsonItem[JSONConsts.CURRENCYPACK_CURRENCYAMOUNT]).n);
+			this.CurrencyAmount = System.Convert.ToInt32(((JSONObject)jsonItem[StoreJSONConsts.CURRENCYPACK_CURRENCYAMOUNT]).n);
 			
-			CurrencyItemId = jsonItem[JSONConsts.CURRENCYPACK_CURRENCYITEMID].str;
+			CurrencyItemId = jsonItem[StoreJSONConsts.CURRENCYPACK_CURRENCYITEMID].str;
 		}
 		
 		/// <summary>
@@ -80,17 +85,68 @@ namespace Soomla.Store{
 		/// <returns>JSON object.</returns>
 		public override JSONObject toJSONObject() {
 			JSONObject obj = base.toJSONObject();
-			obj.AddField(JSONConsts.CURRENCYPACK_CURRENCYAMOUNT, this.CurrencyAmount);
-			obj.AddField(JSONConsts.CURRENCYPACK_CURRENCYITEMID, this.CurrencyItemId);
+			obj.AddField(StoreJSONConsts.CURRENCYPACK_CURRENCYAMOUNT, this.CurrencyAmount);
+			obj.AddField(StoreJSONConsts.CURRENCYPACK_CURRENCYITEMID, this.CurrencyItemId);
 			return obj;
 		}
 
 		/// <summary>
-		/// Saves this instance.
+		/// Gives a curtain amount of <c>VirtualCurrency</c> according to the given amount and the definition of this pack.
 		/// </summary>
-		public override void save() 
-		{
-			save("VirtualCurrencyPack");
+		/// <param name="amount">amount the amount of the specific item to be given.</param>
+		/// <param name="notify">notify of change in user's balance of current virtual item.</param>
+		public override int Give(int amount, bool notify) {
+			VirtualCurrency currency = null;
+			try {
+				currency = (VirtualCurrency) StoreInfo.GetItemByItemId(CurrencyItemId);
+			} catch (VirtualItemNotFoundException) {
+				SoomlaUtils.LogError(TAG, "VirtualCurrency with itemId: " + CurrencyItemId
+				                     + " doesn't exist! Can't give this pack.");
+				return 0;
+			}
+			return VirtualCurrencyStorage.Add(
+				currency, CurrencyAmount * amount, notify);
+		}
+
+		/// <summary>
+		/// Takes a curtain amount of <c>VirtualCurrency</c> according to the given amount and the definition of this pack.
+		/// </summary>
+		/// <param name="amount">the amount of the specific item to be taken.</param>
+		/// <param name="notify">notify of change in user's balance of current virtual item.</param>
+		public override int Take(int amount, bool notify) {
+			VirtualCurrency currency = null;
+			try {
+				currency = (VirtualCurrency)StoreInfo.GetItemByItemId(CurrencyItemId);
+			} catch (VirtualItemNotFoundException) {
+				SoomlaUtils.LogError(TAG, "VirtualCurrency with itemId: " + CurrencyItemId +
+				                     " doesn't exist! Can't take this pack.");
+				return 0;
+			}
+			return VirtualCurrencyStorage.Remove(currency, CurrencyAmount * amount, notify);
+		}
+
+		/// <summary>
+		/// DON't APPLY FOR A PACK
+		/// </summary>
+		public override int ResetBalance(int balance, bool notify) {
+			// Not supported for VirtualCurrencyPacks !
+			SoomlaUtils.LogError(TAG, "Someone tried to reset balance of CurrencyPack. "
+			                     + "That's not right.");
+			return 0;
+		}
+
+		/// <summary>
+		/// DON'T APPLY FOR A PACK
+		/// </summary>
+		public override int GetBalance() {
+			// Not supported for VirtualCurrencyPacks !
+			SoomlaUtils.LogError(TAG, "Someone tried to check balance of CurrencyPack. "
+			                     + "That's not right.");
+			return 0;
+		}
+
+		protected override bool canBuy() {
+			return true;
 		}
 
 	}

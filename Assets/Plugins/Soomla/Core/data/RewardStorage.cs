@@ -30,8 +30,10 @@ namespace Soomla
 					_instance = new RewardStorageAndroid();
 					#elif UNITY_IOS && !UNITY_EDITOR
 					_instance = new RewardStorageIOS();
-					#else
-					_instance = new RewardStorage();
+                    #elif UNITY_WP8 && !UNITY_EDITOR
+					_instance = new RewardStorageWP();
+                    #else
+                    _instance = new RewardStorage();
 					#endif
 				}
 				return _instance;
@@ -140,7 +142,6 @@ namespace Soomla
 			return default(DateTime);
 #endif
 		}
-
 
 		/** keys **/
 #if UNITY_EDITOR
