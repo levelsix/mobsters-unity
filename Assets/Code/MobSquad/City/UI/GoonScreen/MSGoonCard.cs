@@ -343,10 +343,12 @@ public class MSGoonCard : MonoBehaviour {
 			{
 				TintElements (true);
 				bottomCardLabel.text = "Power: [ff0000]" + monster.teamCost + "[-]";
+				healthBarBackground.gameObject.SetActive(false);
 			}
 			else
 			{
 				TintElements(false);
+				healthBarBackground.gameObject.SetActive(true);
 			}
 		}
 	}
