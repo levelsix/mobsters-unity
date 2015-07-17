@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using com.lvl6.proto;
 using Soomla.Store;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// @author Rob Giusti
@@ -31,18 +32,55 @@ public class MSAssets : IStoreAssets {
 
 	public enum IAPSize {PILE, BAG, CASE, SAFE, BIG_SAFE};
 
-	public string GEM_CURRENCY_ITEM_ID = "currency_gem";
-	public string GEM50PACK_ITEM_ID =  "pile_of_gems";
-	public string GEM120PACK_ITEM_ID = "bag_of_gems";
-	public string GEM250PACK_ITEM_ID = "case_of_gems";
-	public string GEM650PACK_ITEM_ID = "safe_of_gems";
-	public string GEM1500PACK_ITEM_ID = "big_safe_of_gems";
+	public static string GEM_CURRENCY_ITEM_ID = "currency_gem";
+	public static string GEM50PACK_ITEM_ID =  "pile_of_gems";
+	public static string GEM120PACK_ITEM_ID = "bag_of_gems";
+	public static string GEM250PACK_ITEM_ID = "case_of_gems";
+	public static string GEM650PACK_ITEM_ID = "safe_of_gems";
+	public static string GEM1500PACK_ITEM_ID = "big_safe_of_gems";
+
+	static string _bundleIdentifier;
+	public static string bundleIdentifier {
+		get {
+			if (_bundleIdentifier == null)
+			{
+				Match match = Regex.Match(Application.persistentDataPath,
+				                          "com\\.\\w+\\.\\w+");
+				if (match.Success)
+				{
+					_bundleIdentifier = match.Value;
+					Debug.Log("Bundle identifier: " + _bundleIdentifier);
+				}
+			}
+			return _bundleIdentifier;
+		}
+	}
 	
-	public string GEM50PACK_PACKAGE_ID = "com.lvl6.mobsters.gem1";
-	public string GEM120PACK_PACKAGE_ID = "com.lvl6.mobsters.gem2";
-	public string GEM250PACK_PACKAGE_ID = "com.lvl6.mobsters.gem3";
-	public string GEM650PACK_PACKAGE_ID = "com.lvl6.mobsters.gem4";
-	public string GEM1500PACK_PACKAGE_ID = "com.lvl6.mobsters.gem5";
+	public static string GEM50PACK_PACKAGE_ID {
+		get{
+			return bundleIdentifier + ".gem1";
+		}
+	}
+	public static string GEM120PACK_PACKAGE_ID {
+		get {
+			return bundleIdentifier + ".gem2";
+		}
+	}
+	public static string GEM250PACK_PACKAGE_ID { 
+		get {
+			return bundleIdentifier + ".gem3";
+		}
+	}// = "com.lvl6.mobsters.gem3";
+	public static string GEM650PACK_PACKAGE_ID {
+		get {
+			return bundleIdentifier + ".gem4";
+		}
+	}//= "com.lvl6.mobsters.gem4";
+	public static string GEM1500PACK_PACKAGE_ID {
+		get {
+			return bundleIdentifier + ".gem5";
+		}
+	}
 
 	public static readonly Dictionary<IAPSize, string> packNames = new Dictionary<IAPSize, string>()
 	{
