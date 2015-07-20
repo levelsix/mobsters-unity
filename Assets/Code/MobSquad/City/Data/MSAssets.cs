@@ -14,7 +14,7 @@ public class MSAssets : IStoreAssets {
 
 	public int GetVersion()
 	{
-		return 2;
+		return 3;
 	}
 
 	public VirtualCurrency[] GetCurrencies()
@@ -57,7 +57,7 @@ public class MSAssets : IStoreAssets {
 	}
 	
 	public static string GEM50PACK_PACKAGE_ID {
-		get{
+		get {
 			return bundleIdentifier + ".gem1";
 		}
 	}
