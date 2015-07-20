@@ -23,7 +23,9 @@ public class MSSpriteUtil : MonoBehaviour {
 
 	#endregion
 
-	public BundleAtlas[] immediateBundles;
+	public BundleAtlas[] atlasBundles;
+
+	public string[] priorityBundles;
 
 	public static MSSpriteUtil instance;
 
@@ -310,6 +312,23 @@ public class MSSpriteUtil : MonoBehaviour {
 	public Coroutine RunDownloadAndCache(string bundleName)
 	{
 		return StartCoroutine(DownloadAndCache(bundleName));
+	}
+
+	public Coroutine RunDownloadProrityBundles()
+	{
+		return StartCoroutine (DownloadPriorityBundles ());
+	}
+
+	IEnumerator DownloadPriorityBundles() 
+	{
+		List<Coroutine> coroutines = new List<Coroutine> ();
+		foreach (string item in priorityBundles) {
+			coroutines.Add(RunDownloadAndCache(item));
+		}
+		foreach (Coroutine item in coroutines) {
+			yield return item;
+		}
+		yield return null;
 	}
 
 	/// <summary>

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d634d4323ca9f4bfb9832d543e32c6ef
+guid: 71c8ee00604c7466eac776d6a231bd7e
 TextureImporter:
   fileIDToRecycleName:
     21300000: ArmyGirl3T2AttackF00
@@ -32,6 +32,22 @@ TextureImporter:
     21300054: ArmyGirl3T2FlinchF01
     21300056: ArmyGirl3T2FlinchN00
     21300058: ArmyGirl3T2FlinchN01
+    21300060: ArmyGirl3T2RunF00
+    21300062: ArmyGirl3T2RunF01
+    21300064: ArmyGirl3T2RunF02
+    21300066: ArmyGirl3T2RunF03
+    21300068: ArmyGirl3T2RunF04
+    21300070: ArmyGirl3T2RunF05
+    21300072: ArmyGirl3T2RunF06
+    21300074: ArmyGirl3T2RunF07
+    21300076: ArmyGirl3T2RunN00
+    21300078: ArmyGirl3T2RunN01
+    21300080: ArmyGirl3T2RunN02
+    21300082: ArmyGirl3T2RunN03
+    21300084: ArmyGirl3T2RunN04
+    21300086: ArmyGirl3T2RunN05
+    21300088: ArmyGirl3T2RunN06
+    21300090: ArmyGirl3T2RunN07
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -51,11 +67,11 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: -1
   maxTextureSize: 4096
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -67,7 +83,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 50
+  spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
@@ -76,8 +92,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackF00
       rect:
         serializedVersion: 2
-        x: 117
-        y: 480
+        x: 115
+        y: 22
         width: 51
         height: 132
       alignment: 9
@@ -86,8 +102,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackF01
       rect:
         serializedVersion: 2
-        x: 2
-        y: 258
+        x: 460
+        y: 891
         width: 50
         height: 131
       alignment: 9
@@ -96,8 +112,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackF02
       rect:
         serializedVersion: 2
-        x: 112
-        y: 748
+        x: 2
+        y: 511
         width: 74
         height: 130
       alignment: 9
@@ -107,7 +123,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 423
-        y: 636
+        y: 410
         width: 75
         height: 128
       alignment: 9
@@ -116,8 +132,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackF04
       rect:
         serializedVersion: 2
-        x: 259
-        y: 634
+        x: 156
+        y: 620
         width: 74
         height: 127
       alignment: 9
@@ -146,8 +162,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackF07
       rect:
         serializedVersion: 2
-        x: 2
-        y: 523
+        x: 294
+        y: 277
         width: 58
         height: 128
       alignment: 9
@@ -156,8 +172,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackF08
       rect:
         serializedVersion: 2
-        x: 372
-        y: 894
+        x: 263
+        y: 763
         width: 80
         height: 128
       alignment: 9
@@ -166,8 +182,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackF09
       rect:
         serializedVersion: 2
-        x: 263
-        y: 763
+        x: 426
+        y: 540
         width: 78
         height: 128
       alignment: 9
@@ -176,7 +192,7 @@ TextureImporter:
     - name: ArmyGirl3T2AttackF10
       rect:
         serializedVersion: 2
-        x: 188
+        x: 192
         y: 749
         width: 69
         height: 129
@@ -186,8 +202,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackF11
       rect:
         serializedVersion: 2
-        x: 2
-        y: 391
+        x: 458
+        y: 759
         width: 52
         height: 130
       alignment: 9
@@ -196,8 +212,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackF12
       rect:
         serializedVersion: 2
-        x: 56
-        y: 358
+        x: 168
+        y: 22
         width: 51
         height: 132
       alignment: 9
@@ -206,8 +222,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN00
       rect:
         serializedVersion: 2
-        x: 454
-        y: 893
+        x: 270
+        y: 25
         width: 55
         height: 129
       alignment: 9
@@ -216,8 +232,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN01
       rect:
         serializedVersion: 2
-        x: 188
-        y: 619
+        x: 154
+        y: 490
         width: 69
         height: 128
       alignment: 9
@@ -226,8 +242,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN02
       rect:
         serializedVersion: 2
-        x: 343
-        y: 675
+        x: 112
+        y: 750
         width: 78
         height: 128
       alignment: 9
@@ -236,8 +252,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN03
       rect:
         serializedVersion: 2
-        x: 335
-        y: 547
+        x: 78
+        y: 507
         width: 74
         height: 126
       alignment: 9
@@ -246,8 +262,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN04
       rect:
         serializedVersion: 2
-        x: 259
-        y: 507
+        x: 2
+        y: 384
         width: 74
         height: 125
       alignment: 9
@@ -276,8 +292,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN07
       rect:
         serializedVersion: 2
-        x: 453
-        y: 766
+        x: 218
+        y: 274
         width: 57
         height: 125
       alignment: 9
@@ -286,8 +302,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN08
       rect:
         serializedVersion: 2
-        x: 71
-        y: 621
+        x: 441
+        y: 283
         width: 64
         height: 125
       alignment: 9
@@ -296,8 +312,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN09
       rect:
         serializedVersion: 2
-        x: 406
-        y: 378
+        x: 305
+        y: 407
         width: 68
         height: 126
       alignment: 9
@@ -306,8 +322,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN10
       rect:
         serializedVersion: 2
-        x: 335
-        y: 418
+        x: 2
+        y: 255
         width: 69
         height: 127
       alignment: 9
@@ -316,8 +332,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN11
       rect:
         serializedVersion: 2
-        x: 411
-        y: 506
+        x: 78
+        y: 377
         width: 69
         height: 128
       alignment: 9
@@ -326,8 +342,8 @@ TextureImporter:
     - name: ArmyGirl3T2AttackN12
       rect:
         serializedVersion: 2
-        x: 186
-        y: 488
+        x: 327
+        y: 25
         width: 55
         height: 129
       alignment: 9
@@ -336,8 +352,8 @@ TextureImporter:
     - name: ArmyGirl3T2FlinchF00
       rect:
         serializedVersion: 2
-        x: 137
-        y: 614
+        x: 221
+        y: 22
         width: 47
         height: 132
       alignment: 9
@@ -346,8 +362,8 @@ TextureImporter:
     - name: ArmyGirl3T2FlinchF01
       rect:
         serializedVersion: 2
-        x: 2
-        y: 653
+        x: 225
+        y: 401
         width: 67
         height: 115
       alignment: 9
@@ -356,8 +372,8 @@ TextureImporter:
     - name: ArmyGirl3T2FlinchN00
       rect:
         serializedVersion: 2
-        x: 62
-        y: 492
+        x: 384
+        y: 148
         width: 53
         height: 127
       alignment: 9
@@ -366,12 +382,172 @@ TextureImporter:
     - name: ArmyGirl3T2FlinchN01
       rect:
         serializedVersion: 2
-        x: 372
-        y: 805
+        x: 426
+        y: 670
         width: 79
         height: 87
       alignment: 9
       pivot: {x: .632911384, y: .517241359}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunF00
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 781
+        width: 84
+        height: 113
+      alignment: 9
+      pivot: {x: .416666657, y: .424778759}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunF01
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 27
+        width: 56
+        height: 127
+      alignment: 9
+      pivot: {x: .482142866, y: .496062994}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunF02
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 18
+        width: 53
+        height: 136
+      alignment: 9
+      pivot: {x: .509433985, y: .492647052}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunF03
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 277
+        width: 64
+        height: 131
+      alignment: 9
+      pivot: {x: .421875, y: .450381666}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunF04
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 635
+        width: 75
+        height: 113
+      alignment: 9
+      pivot: {x: .413333327, y: .407079637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunF05
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 156
+        width: 60
+        height: 125
+      alignment: 9
+      pivot: {x: .483333319, y: .472000003}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunF06
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 21
+        width: 56
+        height: 133
+      alignment: 9
+      pivot: {x: .428571433, y: .466165423}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunF07
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 635
+        width: 78
+        height: 126
+      alignment: 9
+      pivot: {x: .397435904, y: .428571433}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunN00
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 896
+        width: 86
+        height: 126
+      alignment: 9
+      pivot: {x: .511627913, y: .56349206}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunN01
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 518
+        width: 71
+        height: 115
+      alignment: 9
+      pivot: {x: .577464759, y: .547826111}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunN02
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 380
+        width: 67
+        height: 108
+      alignment: 9
+      pivot: {x: .552238822, y: .472222209}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunN03
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 535
+        width: 78
+        height: 119
+      alignment: 9
+      pivot: {x: .423076928, y: .487394959}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunN04
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 656
+        width: 79
+        height: 123
+      alignment: 9
+      pivot: {x: .430379748, y: .536585391}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunN05
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 163
+        width: 56
+        height: 112
+      alignment: 9
+      pivot: {x: .5, y: .508928597}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunN06
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 166
+        width: 56
+        height: 109
+      alignment: 9
+      pivot: {x: .535714269, y: .467889905}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: ArmyGirl3T2RunN07
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 643
+        width: 75
+        height: 125
+      alignment: 9
+      pivot: {x: .533333361, y: .512000024}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

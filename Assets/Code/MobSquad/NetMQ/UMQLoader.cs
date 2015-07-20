@@ -29,10 +29,12 @@ public class UMQLoader : MonoBehaviour {
 
 		Application.targetFrameRate = 60;
 
-		foreach (var item in MSSpriteUtil.instance.immediateBundles) 
+		foreach (var item in MSSpriteUtil.instance.atlasBundles) 
 		{
 			item.Download();
 		}
+
+		Coroutine priorityBundleDownload = MSSpriteUtil.instance.RunDownloadProrityBundles ();
 
 		//Debug.Log("Loader hanging out");
 
@@ -132,13 +134,14 @@ public class UMQLoader : MonoBehaviour {
 			//}
 		}
 
-		foreach (var item in MSSpriteUtil.instance.immediateBundles) 
+		foreach (var item in MSSpriteUtil.instance.atlasBundles) 
 		{
 			while (!item.loaded)
 			{
 				yield return null;
 			}
 		}
+		yield return priorityBundleDownload;
 
 		if (response.curTask != null && response.curTask.taskId > 0)
 		{

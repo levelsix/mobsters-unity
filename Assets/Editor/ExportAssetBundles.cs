@@ -29,6 +29,14 @@ public class ExportAssetBundles
 		}
 	}
 
+	[MenuItem("Bundles/Build Selected Folders")]
+	static void BuildFoldersToBundles () {
+		Object[] selection = Selection.GetFiltered (typeof(Object), SelectionMode.DeepAssets);
+		foreach (var item in selection) {
+			Debug.Log(item.name + ": " + item.GetType());
+		}
+	}
+
 	[MenuItem("Bundles/Build All Bundles")]
 	static void TestBuild () 
 	{
@@ -42,22 +50,37 @@ public class ExportAssetBundles
 		{
 			EditorUtility.DisplayProgressBar("Building bundles", "Bundle #" + i + "/" + dirs.Length, (float)i / dirs.Length);
 
-			DirectoryInfo animationFolder = dirs[i];
-			info = animationFolder.GetFiles().Where(x => !x.Name.EndsWith(".meta", System.StringComparison.CurrentCultureIgnoreCase)).ToArray();
-			files = new Object[info.Length];
-			savePath = "Bundles/" + animationFolder.Name + ".unity3d";
-			Debug.LogWarning("Building: " + animationFolder.Name);
-			for (int j = 0; j < info.Length; j++)
-			{
-				//Debug.Log("Adding File: " + path + "/" + animationFolder.Name + "/" + info[i].Name);
-				files[j] = AssetDatabase.LoadAssetAtPath(path + "/" + animationFolder.Name + "/" + info[j].Name, typeof(Object));
-			}
-			BuildPipeline.BuildAssetBundle(files[0], files, savePath, 
-				BuildAssetBundleOptions.CollectDependencies | BuildAssetBundleOptions.CompleteAssets,
-				BuildTarget.Android);
+			BuildFolderToBundle(dirs[i]);
+
+//			DirectoryInfo animationFolder = dirs[i];
+//			info = animationFolder.GetFiles().Where(x => !x.Name.EndsWith(".meta", System.StringComparison.CurrentCultureIgnoreCase)).ToArray();
+//			files = new Object[info.Length];
+//			savePath = "Bundles/" + animationFolder.Name + ".unity3d";
+//			Debug.LogWarning("Building: " + animationFolder.Name);
+//			for (int j = 0; j < info.Length; j++)
+//			{
+//				//Debug.Log("Adding File: " + path + "/" + animationFolder.Name + "/" + info[i].Name);
+//				files[j] = AssetDatabase.LoadAssetAtPath(path + "/" + animationFolder.Name + "/" + info[j].Name, typeof(Object));
+//			}
+//			BuildPipeline.BuildAssetBundle(files[0], files, savePath, 
+//				BuildAssetBundleOptions.CollectDependencies | BuildAssetBundleOptions.CompleteAssets,
+//				BuildTarget.Android);
 		}
 		Debug.Log ("Done!");
 		EditorUtility.ClearProgressBar();
+	}
+
+	static void BuildFolderToBundle(DirectoryInfo folder) {
+		FileInfo[] info = folder.GetFiles().Where(x => !x.Name.EndsWith(".meta", System.StringComparison.CurrentCultureIgnoreCase)).ToArray();
+		Object[] files = new Object[info.Length];
+		string savePath = "Bundles/" + folder.Name + ".unity3d";
+		for (int i = 0; i < info.Length; i++) {
+			files [i] = AssetDatabase.LoadAssetAtPath ("Assets/Bundles/" + folder.Name + "/" + info [i].Name, typeof(Object));
+		}
+		BuildPipeline.BuildAssetBundle(files[0], files, savePath, 
+		                               BuildAssetBundleOptions.CollectDependencies | BuildAssetBundleOptions.CompleteAssets,
+		                               BuildTarget.Android);
+
 	}
 
 }
