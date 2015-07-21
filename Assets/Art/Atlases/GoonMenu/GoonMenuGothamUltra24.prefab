@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11465494}
   m_Layer: 0
   m_Name: GoonMenuGothamUltra24
   m_TagString: Untagged
@@ -42,7 +43,7 @@ MonoBehaviour:
   mMat: {fileID: 2100000, guid: d64f095246ebe4e40b8c0538e025e984, type: 2}
   mUVRect:
     serializedVersion: 2
-    x: .499511719
+    x: .249511719
     y: 0
     width: .25
     height: .125
@@ -1011,6 +1012,18 @@ MonoBehaviour:
   mDynamicFont: {fileID: 0}
   mDynamicFontSize: 16
   mDynamicFontStyle: 0
+--- !u!114 &11465494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52cff68b6e2bb41d1b08987f1a79bdce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fontSpriteName: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -42,7 +42,13 @@ MonoBehaviour:
   atlasBundles:
   - referenceAtlas: {fileID: 11400000, guid: bb2221f527658467ba238c583c5d67a1, type: 2}
     atlasName: AtlasHUD
-    fonts: []
+    fonts:
+    - {fileID: 11402766, guid: afca7de2ee9d6487a85e6ecdd5c5b862, type: 2}
+    - {fileID: 11402766, guid: ced1eda36375d45589bdad391c1a2b66, type: 2}
+    - {fileID: 11402766, guid: 0a52298686dcc4052918f049f41b1c95, type: 2}
+    - {fileID: 11402766, guid: 43accbc6354884bcaab9cbea7b540cd3, type: 2}
+    - {fileID: 11478988, guid: b990f0caa7ce74511aaf15c14eb2a089, type: 2}
+    - {fileID: 11402766, guid: 640cc57df4a504855aaa133b55528e65, type: 2}
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: 64b29829b0c634a03b6278d32c865378, type: 2}
     atlasName: AtlasChat
@@ -53,6 +59,7 @@ MonoBehaviour:
     - {fileID: 11400002, guid: 33a97c5dc58284df8aa1aa59e6b23819, type: 2}
     - {fileID: 11400002, guid: f695474f783c14a17929e2c84d829ed6, type: 2}
     - {fileID: 11400002, guid: 9a8f43ef88c324403a2b5b428abfdd15, type: 2}
+    - {fileID: 11422230, guid: c8165d95760c74fbea176dae31eb15a2, type: 2}
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: 0bf4920dc60f6434cba799a772958462, type: 2}
     atlasName: AtlasMenusHD
@@ -61,6 +68,14 @@ MonoBehaviour:
     - {fileID: 11400002, guid: 8b255364756fd499a95751ae6f020698, type: 2}
     - {fileID: 11400002, guid: b551a3f4256134269861acec9ca9e927, type: 2}
     - {fileID: 11400002, guid: 6103dc100ea8d4f3cb1319f31abe8d5f, type: 2}
+    - {fileID: 11468128, guid: e51668310b5cb4d9bbad83588b939a3c, type: 2}
+    - {fileID: 11468128, guid: 126ed004349bf4d91a5d363579fd4421, type: 2}
+    - {fileID: 11468128, guid: cd60d05452b89491fa899645965cb6fe, type: 2}
+    - {fileID: 11468128, guid: e37aac379ba63499cbc2e0c58b2ca53b, type: 2}
+    - {fileID: 11468128, guid: d43fd88879d9f44228e33f7e62e64775, type: 2}
+    - {fileID: 11468128, guid: 27c87dc81c0804c03bb78fb9b50c9bc2, type: 2}
+    - {fileID: 11468128, guid: 76ed6b8b3463043948c681a0b12cc152, type: 2}
+    - {fileID: 11468128, guid: 4e6d2dae4d8d34d9dac8e2a81ce15587, type: 2}
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: cbd01d50678ae4a16911bd5aec07038d, type: 2}
     atlasName: AtlasPuzzle
@@ -71,6 +86,10 @@ MonoBehaviour:
     - {fileID: 11400002, guid: b1db628c71a344f2e9ba8c86e8fea08f, type: 2}
     - {fileID: 11400002, guid: c43e79add523947b19511d12a1b20cab, type: 2}
     - {fileID: 11400002, guid: fa47be72d4c12443da44cf3038709fb9, type: 2}
+    - {fileID: 11415938, guid: 4583b5322db0b4e5aa4b82ff0800dfb5, type: 2}
+    - {fileID: 11415938, guid: 17d7397560e9349d993457d1a4efe752, type: 2}
+    - {fileID: 11415938, guid: bc4081b9f1cf1463eb9a943e010e42ff, type: 2}
+    - {fileID: 11415938, guid: d6c973fecac634ca2873fafa28cc76d5, type: 2}
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: 0d9e9a6defcc74e97847a3bfeea48f72, type: 2}
     atlasName: AtlasCity
@@ -78,10 +97,15 @@ MonoBehaviour:
     - {fileID: 11400002, guid: 302900f382dbc47f4819bceb4ded80c1, type: 2}
     - {fileID: 11400002, guid: c20aa0d7ff23a43d38aeca99c1401c6b, type: 2}
     - {fileID: 11400002, guid: 471d1a9b4e4bf46cfa1275548a6f9eda, type: 2}
+    - {fileID: 11457888, guid: 272a891920cd6476ba8813fbf4320bc0, type: 2}
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: 8d0d1f3bcec9b4a3291c402b239699a9, type: 2}
     atlasName: AtlasGacha
-    fonts: []
+    fonts:
+    - {fileID: 11492202, guid: 65d75ea4cca834180b3beb11adee4e96, type: 2}
+    - {fileID: 11492202, guid: 94541cdab4e2b4961a5ab5f62f5fa553, type: 2}
+    - {fileID: 11492202, guid: 90eeabfbbab1341d39030576da2db203, type: 2}
+    - {fileID: 11492202, guid: c3c5f2bcb4e014a57b6c61fb03c7bc44, type: 2}
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: b29d208d2f47e4ba2bf8e5b45cafac71, type: 2}
     atlasName: AtlasGenericPopup
@@ -100,11 +124,20 @@ MonoBehaviour:
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: 096b3d5dfb1ab4bd298e86c644d7860f, type: 2}
     atlasName: AtlasGoonMenu
-    fonts: []
+    fonts:
+    - {fileID: 11465494, guid: afd09be08fe3f4f8c8ddc207cf341824, type: 2}
+    - {fileID: 11465494, guid: 67f90fb30a83a4473af5de54f3bc409e, type: 2}
+    - {fileID: 11465494, guid: 4277fc55b4f15405383a12712ce82f6d, type: 2}
+    - {fileID: 11465494, guid: b5bcc1a7a65a84fbeb9aa97d258ea5bc, type: 2}
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: df28a3f8558934e26b24d6c6d5e94fad, type: 2}
     atlasName: AtlasProfile
-    fonts: []
+    fonts:
+    - {fileID: 11455602, guid: be9eed20d8a3943e096e6eb7a38dac8a, type: 2}
+    - {fileID: 11455602, guid: b6c80324c18704f87a6e7e658e68e997, type: 2}
+    - {fileID: 11455602, guid: 00eeea8c97ebe45859500726a6e3abc2, type: 2}
+    - {fileID: 11455602, guid: 0a44cfdefb4a44905ae66ba7fa83b4c1, type: 2}
+    - {fileID: 11455602, guid: 6efbe93f3246148129987fec016f4e50, type: 2}
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: 7a96f4cab77584d12be676fa3ce0347f, type: 2}
     atlasName: AtlasMap
@@ -114,10 +147,15 @@ MonoBehaviour:
     - {fileID: 11400002, guid: 40fb0df129f65444992a068dd06cf5b6, type: 2}
     - {fileID: 11400002, guid: a9d4d7b17c2624f7392b6e47f68579a8, type: 2}
     - {fileID: 11400002, guid: e9b2f9ffe6f38441aa7d391da6a24a74, type: 2}
+    - {fileID: 11451730, guid: fae9fc8f3799948df98426c3fa90d6bd, type: 2}
+    - {fileID: 11474518, guid: ef9e646b3b082477eaecb4b1a7ef9237, type: 2}
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: bf8a6748d401f40e8a1171a547c509dc, type: 2}
     atlasName: AtlasShop
-    fonts: []
+    fonts:
+    - {fileID: 11423816, guid: 3413a9755aa18437fab621756db1df13, type: 2}
+    - {fileID: 11423816, guid: 66d3a5b86b4c641588e633bbac5ec131, type: 2}
+    - {fileID: 11423816, guid: f4242c5a6357e4a2392c2fa3806745e0, type: 2}
     loaded: 0
   - referenceAtlas: {fileID: 11400000, guid: b8a4780662dd544e1b92d6264ccf5aa4, type: 2}
     atlasName: AtlasRaid

@@ -38,7 +38,7 @@ public class MSSkillInfo : MonoBehaviour {
 		if (skill != null)
 		{
 			skillName.text = skill.name;
-			string skillBundleName = skill.iconImgName.Substring(0, skill.iconImgName.Length-8);
+			string skillBundleName = skill.iconImgName;//.Substring(0, skill.iconImgName.Length-8);
 			MSSpriteUtil.instance.SetSprite(skillBundleName, skillBundleName+"icon", skillIcon);
 			if (active)
 			{
