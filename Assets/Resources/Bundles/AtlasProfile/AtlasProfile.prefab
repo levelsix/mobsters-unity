@@ -41,6 +41,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: e6c6f5d27b17a482bb559dc166cbb562, type: 2}
   mSprites:
+  - name: attacksactiveicon
+    x: 127
+    y: 46
+    width: 26
+    height: 20
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: attacksinactiveicon
+    x: 49
+    y: 11
+    width: 26
+    height: 20
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: BackgroundSlice
     x: 203
     y: 131
@@ -172,8 +198,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: darkmediumsquare
-    x: 0
-    y: 18
+    x: 154
+    y: 7
     width: 48
     height: 48
     borderLeft: 0
@@ -198,7 +224,7 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 0
   - name: earthbigavatar
-    x: 227
+    x: 308
     y: 353
     width: 80
     height: 80
@@ -212,7 +238,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: earthmediumsquare
     x: 154
-    y: 7
+    y: 56
     width: 48
     height: 48
     borderLeft: 0
@@ -238,7 +264,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: firebigavatar
     x: 227
-    y: 434
+    y: 353
     width: 80
     height: 80
     borderLeft: 0
@@ -302,8 +328,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightbigavatar
-    x: 308
-    y: 353
+    x: 389
+    y: 434
     width: 80
     height: 80
     borderLeft: 0
@@ -315,7 +341,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: lightmediumsquare
-    x: 78
+    x: 0
     y: 18
     width: 48
     height: 48
@@ -341,7 +367,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: nightbigavatar
-    x: 389
+    x: 308
     y: 434
     width: 80
     height: 80
@@ -394,7 +420,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: profbronzegoldribbon
     x: 482
-    y: 466
+    y: 668
     width: 342
     height: 100
     borderLeft: 0
@@ -420,7 +446,7 @@ MonoBehaviour:
     paddingBottom: 1
   - name: profdiamondribbon
     x: 482
-    y: 668
+    y: 466
     width: 342
     height: 100
     borderLeft: 0
@@ -431,9 +457,74 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 1
     paddingBottom: 1
+  - name: Profile-Gotham-Book
+    x: 765
+    y: 769
+    width: 255
+    height: 255
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: Profile-Gotham-Medium
+    x: 227
+    y: 515
+    width: 254
+    height: 253
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 2
+    paddingTop: 3
+    paddingBottom: 0
+  - name: Profile-Gotham-Medium-Italic
+    x: 509
+    y: 769
+    width: 255
+    height: 255
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: Profile-Zigg
+    x: 0
+    y: 769
+    width: 508
+    height: 255
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 4
+    paddingTop: 1
+    paddingBottom: 0
+  - name: Profile-Zigg-Numeric
+    x: 0
+    y: 436
+    width: 226
+    height: 332
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 30
+    paddingTop: 180
+    paddingBottom: 0
   - name: profsenmessagebutton
     x: 0
-    y: 334
+    y: 385
     width: 212
     height: 50
     borderLeft: 0
@@ -446,7 +537,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: profsenmessagebuttonpressed
     x: 0
-    y: 385
+    y: 334
     width: 212
     height: 50
     borderLeft: 0
@@ -471,8 +562,8 @@ MonoBehaviour:
     paddingTop: 1
     paddingBottom: 1
   - name: profstatsactive
-    x: 428
-    y: 296
+    x: 227
+    y: 240
     width: 30
     height: 28
     borderLeft: 0
@@ -484,8 +575,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: profstatsinactive
-    x: 227
-    y: 240
+    x: 428
+    y: 296
     width: 30
     height: 28
     borderLeft: 0
@@ -521,6 +612,32 @@ MonoBehaviour:
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
+    paddingBottom: 0
+  - name: requestsactive
+    x: 203
+    y: 111
+    width: 19
+    height: 19
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 0
+  - name: requestsinactive
+    x: 127
+    y: 3
+    width: 19
+    height: 19
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 1
+    paddingTop: 1
     paddingBottom: 0
   - name: rockorb
     x: 189
@@ -562,7 +679,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: waterbigavatar
-    x: 308
+    x: 227
     y: 434
     width: 80
     height: 80
@@ -575,8 +692,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: watermediumsquare
-    x: 154
-    y: 56
+    x: 78
+    y: 18
     width: 48
     height: 48
     borderLeft: 0
@@ -592,123 +709,6 @@ MonoBehaviour:
     y: 172
     width: 28
     height: 33
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: Profile-Gotham-Book
-    x: 765
-    y: 769
-    width: 255
-    height: 255
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: Profile-Gotham-Medium-Italic
-    x: 509
-    y: 769
-    width: 255
-    height: 255
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: Profile-Zigg-Numeric
-    x: 0
-    y: 436
-    width: 226
-    height: 332
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 30
-    paddingTop: 180
-    paddingBottom: 0
-  - name: Profile-Zigg
-    x: 0
-    y: 769
-    width: 508
-    height: 255
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 4
-    paddingTop: 1
-    paddingBottom: 0
-  - name: Profile-Gotham-Medium
-    x: 227
-    y: 515
-    width: 254
-    height: 253
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 2
-    paddingTop: 3
-    paddingBottom: 0
-  - name: requestsinactive
-    x: 203
-    y: 111
-    width: 19
-    height: 19
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: attacksinactiveicon
-    x: 127
-    y: 46
-    width: 26
-    height: 20
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: requestsactive
-    x: 127
-    y: 3
-    width: 19
-    height: 19
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 1
-    paddingTop: 1
-    paddingBottom: 0
-  - name: attacksactiveicon
-    x: 49
-    y: 11
-    width: 26
-    height: 20
     borderLeft: 0
     borderRight: 0
     borderTop: 0

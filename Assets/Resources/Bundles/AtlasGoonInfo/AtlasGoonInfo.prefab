@@ -42,8 +42,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: a6f910a511eb142aa8abe4943e812732, type: 2}
   mSprites:
   - name: activeskill
-    x: 128
-    y: 121
+    x: 0
+    y: 16
     width: 60
     height: 60
     borderLeft: 0
@@ -276,8 +276,8 @@ MonoBehaviour:
     paddingTop: 13
     paddingBottom: 0
   - name: inactiveskill
-    x: 61
-    y: 16
+    x: 128
+    y: 121
     width: 60
     height: 60
     borderLeft: 0
@@ -367,7 +367,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: noskillcircle
-    x: 0
+    x: 61
     y: 16
     width: 60
     height: 60
