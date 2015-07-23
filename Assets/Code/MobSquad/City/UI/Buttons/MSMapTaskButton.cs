@@ -113,6 +113,9 @@ public class MSMapTaskButton : MonoBehaviour {
 		}
 		bossSprite.MarkAsChanged();
 		bossSprite.MakePixelPerfect();
+		Debug.Log (_mapTask.charImgHorizPixelOffset + ", " + _mapTask.charImgVertPixelOffset);
+		bossSprite.transform.localPosition = new Vector3(_mapTask.charImgHorizPixelOffset, _mapTask.charImgVertPixelOffset);
+
 		buttonLabel.gameObject.SetActive(false);
 	}
 

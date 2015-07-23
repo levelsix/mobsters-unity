@@ -378,10 +378,10 @@ public class MSChatPopup : MonoBehaviour {
 		privateChatButton.InitActive();
 
 		notInClanParent.SetActive(false);
+		mover.gameObject.SetActive(true);
 		if (MSChatManager.instance.hasPrivateChats)
 		{
 			noPrivateChatsParent.SetActive(false);
-			mover.gameObject.SetActive(true);
 			mover.Sample(0, true);
 			MSChatManager.instance.SetChatMode(MSValues.ChatMode.PRIVATE);
 		}
