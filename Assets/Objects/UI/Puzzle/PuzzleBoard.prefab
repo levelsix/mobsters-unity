@@ -43,6 +43,7 @@ GameObject:
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400116}
   - 54: {fileID: 5430110}
+  - 114: {fileID: 11400592}
   m_Layer: 5
   m_Name: PuzzleBoard
   m_TagString: Untagged
@@ -62,7 +63,6 @@ GameObject:
   - 114: {fileID: 11400066}
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400102}
-  - 114: {fileID: 11426682}
   - 54: {fileID: 5426682}
   m_Layer: 5
   m_Name: EnemySkill
@@ -566,7 +566,6 @@ GameObject:
   - 114: {fileID: 11400068}
   - 65: {fileID: 6500002}
   - 114: {fileID: 11400100}
-  - 114: {fileID: 11426680}
   - 54: {fileID: 5426680}
   m_Layer: 5
   m_Name: PlayerSkill
@@ -3994,15 +3993,15 @@ MonoBehaviour:
   mLineWidth: 0
   mMultiline: 1
   symbolScale: 1
---- !u!114 &11426680
+--- !u!114 &11400592
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100066}
+  m_GameObject: {fileID: 100004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae942c9068183dc40a9d01f648273726, type: 3}
+  m_Script: {fileID: 11500000, guid: 858a20c1b21a3f94bb5b2d3b901c9aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -4022,64 +4021,15 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  showInPanelTool: 1
-  generateNormals: 0
-  widgetsAreStatic: 0
-  cullWhileDragging: 0
-  alwaysOnScreen: 0
-  anchorOffset: 0
-  renderQueue: 0
-  startingRenderQueue: 5018
-  mAlpha: 1
-  mClipping: 0
-  mClipRange: {x: 0, y: 0, z: 300, w: 200}
-  mClipSoftness: {x: 4, y: 4}
-  mDepth: 8
-  mSortingOrder: 0
-  mClipOffset: {x: 0, y: 0}
---- !u!114 &11426682
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae942c9068183dc40a9d01f648273726, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  rightAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  bottomAnchor:
-    target: {fileID: 0}
-    relative: 0
-    absolute: 0
-  topAnchor:
-    target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  updateAnchors: 1
-  showInPanelTool: 1
-  generateNormals: 0
-  widgetsAreStatic: 0
-  cullWhileDragging: 0
-  alwaysOnScreen: 0
-  anchorOffset: 0
-  renderQueue: 0
-  startingRenderQueue: 5021
-  mAlpha: 1
-  mClipping: 0
-  mClipRange: {x: 0, y: 0, z: 300, w: 200}
-  mClipSoftness: {x: 4, y: 4}
-  mDepth: 8
-  mSortingOrder: 0
-  mClipOffset: {x: 0, y: 0}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 100
+  mHeight: 100
+  mDepth: 0
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 1
 --- !u!114 &11430108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4115,7 +4065,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5024
+  startingRenderQueue: 5018
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4201,7 +4151,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 5024
+  startingRenderQueue: 5018
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
