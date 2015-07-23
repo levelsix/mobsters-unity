@@ -62,7 +62,8 @@ public class MSBuildingProgressBar : MonoBehaviour {
 	{
 		get
 		{
-			return (building.upgrade != null && !building.upgrade.isComplete);
+			return (building.upgrade != null && !building.upgrade.isComplete
+			        && building.upgrade.timeRemaining > 0);
 		}
 	}
 

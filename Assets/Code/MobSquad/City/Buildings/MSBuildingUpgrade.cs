@@ -83,6 +83,9 @@ public class MSBuildingUpgrade : MonoBehaviour {
 	{
 		get
 		{
+			if (buildTimer == null) {
+				return 1;
+			}
 			return buildTimer.progress;
 		}
 	}
