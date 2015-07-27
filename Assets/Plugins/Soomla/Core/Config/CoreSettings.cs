@@ -27,7 +27,7 @@ namespace Soomla
 	[InitializeOnLoad]
 #endif
 	/// <summary>
-	/// This class holds the store's configurations. 
+	/// This class holds the store's configurations.
 	/// </summary>
 	public class CoreSettings : ISoomlaSettings
 	{
@@ -40,11 +40,11 @@ namespace Soomla
 		{
 			SoomlaEditorScript.addSettings(instance);
 		}
-		
+
 //		GUIContent emptyContent = new GUIContent("");
 
-		GUIContent frameworkVersion = new GUIContent("Framework Version [?]", "The SOOMLA Framework version. ");
-		GUIContent buildVersion = new GUIContent("Framework Build [?]", "The SOOMLA Framework build.");
+		GUIContent frameworkVersion = new GUIContent("Core Version [?]", "The SOOMLA Framework version. ");
+		GUIContent buildVersion = new GUIContent("Core Build [?]", "The SOOMLA Framework build.");
 
 		public void OnEnable() {
 			// Generating AndroidManifest.xml
@@ -56,14 +56,15 @@ namespace Soomla
 		}
 
 		public void OnInfoGUI() {
-			EditorGUILayout.HelpBox("SOOMLA SDK Info", MessageType.None);
-			SoomlaEditorScript.SelectableLabelField(frameworkVersion, "1.5.3");
+			EditorGUILayout.HelpBox("SOOMLA Framework Info", MessageType.None);
+			SoomlaEditorScript.SelectableLabelField(frameworkVersion, "1.0.8");
 			SoomlaEditorScript.SelectableLabelField(buildVersion, "1");
 			EditorGUILayout.Space();
 		}
 
 		GUIContent soomlaSecLabel = new GUIContent("Soomla Secret [?]:", "All the user information will be encrypted using this secret.");
-		GUIContent debugMsgsLabel = new GUIContent("Debug Messages [?]:", "Check if you want to show debug messages in the log (iOS and Android).");
+		GUIContent debugMsgsLabel = new GUIContent("Debug Native [?]:", "Check if you want to show debug messages from native code in the log (iOS and Android).");
+		GUIContent debugUnityMsgsLabel = new GUIContent("Debug Unity [?]:", "Check if you want to show debug messages from Unity code in the log (Editor, iOS and Android).");
 
 		public void OnSoomlaGUI() {
 			FileStream fs = new FileStream(Application.dataPath + @"/Soomla/Resources/soom_logo.png", FileMode.Open, FileAccess.Read);
@@ -76,18 +77,19 @@ namespace Soomla
 			GUIContent logoImgLabel = new GUIContent (logoTexture);
 			EditorGUILayout.LabelField(logoImgLabel, GUILayout.MaxHeight(70), GUILayout.ExpandWidth(true));
 			EditorGUILayout.EndHorizontal();
-			
+
 			GameObject.DestroyImmediate(logoTexture);
-			
+
 			EditorGUILayout.HelpBox("Make sure you fill out all the information below", MessageType.None);
 
 			EditorGUILayout.BeginHorizontal();
 			EditorGUILayout.LabelField(soomlaSecLabel, SoomlaEditorScript.FieldWidth, SoomlaEditorScript.FieldHeight);
 			SoomlaSecret = EditorGUILayout.TextField(SoomlaSecret, SoomlaEditorScript.FieldHeight);
 			EditorGUILayout.EndHorizontal();
-			
+
 			DebugMessages = EditorGUILayout.Toggle(debugMsgsLabel, DebugMessages);
-			
+			DebugUnityMessages = EditorGUILayout.Toggle(debugUnityMsgsLabel, DebugUnityMessages);
+
 			EditorGUILayout.Space();
 
 
@@ -103,7 +105,7 @@ namespace Soomla
 					msg = "Your defined keystore doesn't exist! You'll need to create a debug keystore or point to your keystore in 'Publishing Settings' from 'File -> Build Settings -> Player Settings...'";
 					break;
 				}
-				
+
 				EditorGUILayout.HelpBox(msg, MessageType.Error);
 			}
 		}
@@ -113,11 +115,11 @@ namespace Soomla
 
 		public static string SoomlaSecret
 		{
-			get { 
+			get {
 				string value;
 				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("SoomlaSecret", out value) ? value : ONLY_ONCE_DEFAULT;
 			}
-			set 
+			set
 			{
 				string v;
 				SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("SoomlaSecret", out v);
@@ -128,10 +130,10 @@ namespace Soomla
 				}
 			}
 		}
-		
+
 		public static bool DebugMessages
 		{
-			get { 
+			get {
 				string value;
 				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("DebugMessages", out value) ? Convert.ToBoolean(value) : false;
 			}
@@ -146,6 +148,24 @@ namespace Soomla
 				}
 			}
 		}
-		
+
+		public static bool DebugUnityMessages
+		{
+			get {
+				string value;
+				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("DebugUnityMessages", out value) ? Convert.ToBoolean(value) : true;
+			}
+			set
+			{
+				string v;
+				SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("DebugUnityMessages", out v);
+				if (Convert.ToBoolean(v) != value)
+				{
+					SoomlaEditorScript.Instance.setSettingsValue("DebugUnityMessages",value.ToString());
+					SoomlaEditorScript.DirtyEditor();
+				}
+			}
+		}
+
 	}
 }

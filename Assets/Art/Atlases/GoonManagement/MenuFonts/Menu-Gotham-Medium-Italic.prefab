@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11468128}
   m_Layer: 0
   m_Name: Menu-Gotham-Medium-Italic
   m_TagString: Untagged
@@ -1003,12 +1004,24 @@ MonoBehaviour:
       advance: 18
       channel: 15
       kerning: 
-  mAtlas: {fileID: 11400000, guid: 787637475982a49d19857c5d2bfd20aa, type: 2}
+  mAtlas: {fileID: 11400000, guid: 0bf4920dc60f6434cba799a772958462, type: 2}
   mReplacement: {fileID: 0}
   mSymbols: []
   mDynamicFont: {fileID: 0}
   mDynamicFontSize: 16
   mDynamicFontStyle: 0
+--- !u!114 &11468128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52cff68b6e2bb41d1b08987f1a79bdce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fontSpriteName: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

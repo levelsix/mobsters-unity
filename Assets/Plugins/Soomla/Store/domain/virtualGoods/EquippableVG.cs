@@ -59,8 +59,11 @@ namespace Soomla.Store {
 	/// <see cref="com.soomla.store.domain.VirtualItem"/>
 	/// </summary>
 	public class EquippableVG : LifetimeVG {
-		
-		///Equipping model is described above in the class description.
+		private static string TAG = "SOOMLA EquippableVG";
+
+		/// <summary>
+		/// Equipping model is described above in the class description.
+		/// </summary>
 		public sealed class EquippingModel {
 
     		private readonly string name;
@@ -84,7 +87,10 @@ namespace Soomla.Store {
 			}
 		
 		}
-		
+
+		/// <summary>
+		/// This is the current <c>EquippableVG</c>'s equipping model.
+		/// </summary>
 		public EquippingModel Equipping;
 		
 		/// <summary>
@@ -100,20 +106,19 @@ namespace Soomla.Store {
 		{
 			this.Equipping = equippingModel;
 		}
-		
-#if UNITY_ANDROID && !UNITY_EDITOR
-		public EquippableVG(AndroidJavaObject jniEquippableVG) 
-			: base(jniEquippableVG)
-		{
-			int emOrdinal = jniEquippableVG.Call<AndroidJavaObject>("getEquippingModel").Call<int>("ordinal");
-			switch(emOrdinal){
-				case 0:
+
+#if UNITY_WP8 && !UNITY_EDITOR
+		public EquippableVG(SoomlaWpStore.domain.virtualGoods.EquippableVG wpEquippableVG)
+            : base(wpEquippableVG)
+		{   
+			switch(wpEquippableVG.ToString()){
+				case "local":
 					this.Equipping = EquippingModel.LOCAL;
 					break;
-				case 1:
+				case "category":
 					this.Equipping = EquippingModel.CATEGORY;
 					break;
-				case 2:
+				case "global":
 					this.Equipping = EquippingModel.GLOBAL;
 					break;
 				default:
@@ -123,13 +128,13 @@ namespace Soomla.Store {
 		}
 #endif
 
-		/// <summary>
+        /// <summary>
 		/// see parent.
 		/// </summary>
 		public EquippableVG(JSONObject jsonItem)
 			: base(jsonItem)
 		{
-			string equippingStr = jsonItem[JSONConsts.EQUIPPABLE_EQUIPPING].str;
+			string equippingStr = jsonItem[StoreJSONConsts.EQUIPPABLE_EQUIPPING].str;
 			this.Equipping = EquippingModel.CATEGORY;
 			switch(equippingStr){
 				case "local":
@@ -150,17 +155,87 @@ namespace Soomla.Store {
 		public override JSONObject toJSONObject() 
 		{
 			JSONObject obj = base.toJSONObject();
-			obj.AddField(JSONConsts.EQUIPPABLE_EQUIPPING, this.Equipping.ToString());
+			obj.AddField(StoreJSONConsts.EQUIPPABLE_EQUIPPING, this.Equipping.ToString());
 			
 			return obj;
 		}
 
 		/// <summary>
-		/// Saves this instance.
+		/// Equips the current <code>EquippableVG</code>
 		/// </summary>
-		public override void save() 
-		{
-			save("EquippableVG");
+		/// <exception cref="Soomla.Store.NotEnoughGoodsException">Throws NotEnoughGoodsException</exception>
+		public void Equip() {
+			Equip(true);
+		}
+
+		/// <summary>
+		/// Equips the current <code>EquippableVG</code>.
+		/// The equipping is done according to the equipping model ('GLOBAL', 'CATEGORY', or 'LOCAL').
+		/// </summary>
+		/// <exception cref="Soomla.Store.NotEnoughGoodsException">Throws NotEnoughGoodsException</exception>
+		/// <param name="notify">if true, the relevant event will be posted when equipped.</param>
+		public void Equip(bool notify) {
+			// only if the user has bought this EquippableVG, the EquippableVG is equipped.
+			if (VirtualGoodsStorage.GetBalance(this) > 0){
+				
+				if (Equipping == EquippingModel.CATEGORY) {
+					VirtualCategory category = null;
+					try {
+						category = StoreInfo.GetCategoryForVirtualGood(this.ItemId);
+					} catch (VirtualItemNotFoundException) {
+						SoomlaUtils.LogError(TAG,
+						                     "Tried to unequip all other category VirtualGoods but there was no " +
+						                     "associated category. virtual good itemId: " + this.ItemId);
+						return;
+					}
+					
+					foreach (string goodItemId in category.GoodItemIds) {
+						EquippableVG equippableVG = null;
+						try {
+							equippableVG = (EquippableVG) StoreInfo.GetItemByItemId(goodItemId);
+							
+							if (equippableVG != null && equippableVG != this) {
+								equippableVG.Unequip(notify);
+							}
+						} catch (VirtualItemNotFoundException) {
+							SoomlaUtils.LogError(TAG, "On equip, couldn't find one of the itemIds "
+							                     + "in the category. Continuing to the next one. itemId: "
+							                     + goodItemId);
+						} catch (System.InvalidCastException) {
+							SoomlaUtils.LogDebug(TAG, "On equip, an error occurred. It's a debug "
+							                     + "message b/c the VirtualGood may just not be an EquippableVG. "
+							                     + "itemId: " + goodItemId);
+						}
+					}
+				} else if (Equipping == EquippingModel.GLOBAL) {
+					foreach(VirtualGood good in StoreInfo.Goods) {
+						if (good != this &&
+						    good is EquippableVG) {
+							((EquippableVG)good).Unequip(notify);
+						}
+					}
+				}
+
+				VirtualGoodsStorage.Equip(this, notify);
+			}
+			else {
+				throw new NotEnoughGoodsException(ItemId);
+			}
+		}
+
+		/// <summary>
+		/// Unequips the current <code>EquippableVG</code>
+		/// </summary>
+		public void Unequip() {
+			Unequip(true);
+		}
+
+		/// <summary>
+		/// Unequips the current <code>EquippableVG</code>
+		/// </summary>
+		/// <param name="notify">if true, the relevant event will be posted when unequipped.</param>
+		public void Unequip(bool notify) {
+			VirtualGoodsStorage.UnEquip(this, notify);
 		}
 
 	}

@@ -24,6 +24,11 @@ namespace Soomla.Store
 	/// </summary>
 	public class PurchaseWithMarket : PurchaseType
 	{
+		private const string TAG = "SOOMLA PurchaseWithMarket";
+
+		/// <summary>
+		/// The market item associated with the item that needs to be purchased.
+		/// </summary>
 		public MarketItem MarketItem;
 		
 		/// <summary>
@@ -36,7 +41,7 @@ namespace Soomla.Store
 		public PurchaseWithMarket (string productId, double price) :
 			base()
 		{
-			this.MarketItem = new MarketItem(productId, MarketItem.Consumable.CONSUMABLE, price);
+			this.MarketItem = new MarketItem(productId, price);
 		}
 		
 		/// <summary>
@@ -48,6 +53,40 @@ namespace Soomla.Store
 		{
 			this.MarketItem = marketItem;
 		}
+
+		/// <summary>
+		/// Buys the purchasable virtual item.
+		/// Implementation in subclasses will be according to specific type of purchase.
+		/// </summary>
+		/// <param name="payload">a string you want to be assigned to the purchase. This string
+		/// is saved in a static variable and will be given bacl to you when the
+		///  purchase is completed.</param>
+		/// <exception cref="Soomla.Store.InsufficientFundsException">throws InsufficientFundsException</exception>
+		public override void Buy(string payload)
+		{
+			SoomlaUtils.LogDebug(TAG, "Starting in-app purchase for productId: "
+			                     + MarketItem.ProductId);
+
+			JSONObject eventJSON = new JSONObject();
+			eventJSON.AddField("itemId", AssociatedItem.ItemId);
+			StoreEvents.Instance.onItemPurchaseStarted(eventJSON.print(), true);
+			SoomlaStore.BuyMarketItem(MarketItem.ProductId, payload);
+		}
+
+		/// <summary>
+		/// Checks if there is enough funds to afford the <code>PurchasableVirtualItem</code>.
+		/// Implementation in subclasses will be according to specific type of purchase.
+		/// </summary>
+		/// <returns>True if there are enough funds to afford the virtual item with the given item id </returns>
+		public override bool CanAfford() {
+			// for market purchases, always assume it can be afforded
+			return true;
+		}
+
+        public override string GetPrice()
+        {
+            return MarketItem.Price.ToString();
+        }
 	}
 }
 

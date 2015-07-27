@@ -17,38 +17,40 @@ public class MSMiniJobReward : MonoBehaviour {
 	[SerializeField]
 	UILabel label;
 
+	[SerializeField]
+	int iconHeight;
+
 	const string GEM_SPRITE_NAME = "diamond";
 	const string CASH_SPRITE_NAME = "moneystack";
 	const string OIL_SPRITE_NAME = "oilicon";
-
-	readonly Vector3 RESOURCE_SCALE = new Vector3(0.5f, 0.5f, 1f);
-	readonly Vector3 ITEM_SCALE = Vector3.one;
-
+	
 	void Init(string spriteName, string labelText, Color textColor)
 	{
-		icon.spriteName = spriteName;
 		label.text = labelText;
 		label.color = textColor;
 		label.MarkAsChanged();
+
+		//Set the icon, and resize it to get original ratio at preset height
+		icon.spriteName = spriteName;
+		icon.keepAspectRatio = UIWidget.AspectRatioSource.Free;
 		icon.MakePixelPerfect();
+		icon.keepAspectRatio = UIWidget.AspectRatioSource.BasedOnHeight;
+		icon.height = iconHeight;
 	}
 
 	public void InitCash(int amount)
 	{
 		Init (CASH_SPRITE_NAME, amount.ToString(), MSColors.cashTextColor);
-		icon.transform.localScale = RESOURCE_SCALE;
 	}
 
 	public void InitOil(int amount)
 	{
 		Init (OIL_SPRITE_NAME, amount.ToString(), MSColors.oilTextColor);
-		icon.transform.localScale = RESOURCE_SCALE;
 	}
 
 	public void InitGem(int amount)
 	{
 		Init (GEM_SPRITE_NAME, amount.ToString(), MSColors.gemTextColor);
-		icon.transform.localScale = RESOURCE_SCALE;
 	}
 
 	public void InitMonster(int monsterId)
@@ -58,7 +60,6 @@ public class MSMiniJobReward : MonoBehaviour {
 		Init(monster.quality.ToString().ToLower() + (monster.numPuzzlePieces > 1 ? "piece" : "capsule"),
 		     monster.quality.ToString().ToUpper(), 
 		     MSColors.qualityColors[monster.quality]);
-		icon.transform.localScale = ITEM_SCALE;
 
 	}
 
@@ -66,6 +67,8 @@ public class MSMiniJobReward : MonoBehaviour {
 	{
 		ItemProto item = MSDataManager.instance.Get<ItemProto>(itemId);
 		Init(MSUtil.StripExtensions(item.imgName), item.name, Color.black);
-		icon.transform.localScale = ITEM_SCALE;
+		if (item.itemType == ItemType.SPEED_UP) {
+			icon.height = (int)(icon.height * 1.5f);
+		}
 	}
 }

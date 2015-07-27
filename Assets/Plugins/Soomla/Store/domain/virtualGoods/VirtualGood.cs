@@ -41,14 +41,14 @@ namespace Soomla.Store {
 			: base(name, description, itemId, purchaseType)
 		{
 		}
-		
-#if UNITY_ANDROID && !UNITY_EDITOR
-		public VirtualGood(AndroidJavaObject jniVirtualGood) 
-			: base(jniVirtualGood)
+
+#if UNITY_WP8 && !UNITY_EDITOR
+		public VirtualGood(SoomlaWpStore.domain.virtualGoods.VirtualGood wpVirtualGood)
+            : base(wpVirtualGood)
 		{
 		}
 #endif
-		/// <summary>
+        /// <summary>
 		/// see parent.
 		/// </summary>
 		public VirtualGood(JSONObject jsonVg)
@@ -61,6 +61,21 @@ namespace Soomla.Store {
 		/// </summary>
 		public override JSONObject toJSONObject() {
 			return base.toJSONObject();
+		}
+
+		/// <summary>
+		/// <see cref="Soomla.Store.VirtualItem"/>
+		/// </summary>
+		public override int ResetBalance(int balance, bool notify) {
+			return VirtualGoodsStorage.SetBalance(this, balance, notify);
+		}
+
+		/// <summary>
+		/// Will fetch the balance for the current VirtualItem according to its type.
+		/// </summary>
+		/// <returns>The balance.</returns>
+		public override int GetBalance() {
+			return VirtualGoodsStorage.GetBalance(this);
 		}
 
 	}

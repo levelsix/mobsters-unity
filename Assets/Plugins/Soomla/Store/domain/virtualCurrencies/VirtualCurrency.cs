@@ -40,15 +40,14 @@ namespace Soomla.Store{
 			: base(name, description, itemId)
 		{
 		}
-		
-#if UNITY_ANDROID && !UNITY_EDITOR
-		public VirtualCurrency(AndroidJavaObject jniVirtualCurrency) 
-			: base(jniVirtualCurrency)
-		{
+
+#if UNITY_WP8 && !UNITY_EDITOR
+		public VirtualCurrency(SoomlaWpStore.domain.virtualCurrencies.VirtualCurrency wpVirtualCurrency)
+            	: base(wpVirtualCurrency)
+            	{
 		}
 #endif
-
-		/// <summary>
+        /// <summary>
 		/// Constructor.
 		/// Initializes a new instance of VirtualCurrency from the given JSON object.
 		/// </summary>
@@ -66,11 +65,39 @@ namespace Soomla.Store{
 		}
 
 		/// <summary>
-		/// Saves this instance.
+		/// Gives a curtain amount of this currency.
 		/// </summary>
-		public override void save() 
-		{
-			save("VirtualCurrency");
+		/// <param name="amount">amount the amount of the specific item to be given.</param>
+		/// <param name="notify">notify of change in user's balance of current virtual item.</param>
+		public override int Give(int amount, bool notify) {
+			return VirtualCurrencyStorage.Add(this, amount, notify);
+		}
+
+		/// <summary>
+		/// Takes a curtain amount of this currency.
+		/// </summary>
+		/// <param name="amount">the amount of the specific item to be taken.</param>
+		/// <param name="notify">notify of change in user's balance of current virtual item.</param>
+		public override int Take(int amount, bool notify) {
+			return VirtualCurrencyStorage.Remove(this, amount, notify);
+		}
+
+		/// <summary>
+		/// Resets the currency balance to a given balance.
+		/// </summary>
+		/// <returns>The balance after the reset process.</returns>
+		/// <param name="balance">The balance of the current virtual item.</param>
+		/// <param name="notify">Notify of change in user's balance of current virtual item.</param>
+		public override int ResetBalance(int balance, bool notify) {
+			return VirtualCurrencyStorage.SetBalance(this, balance, notify);
+		}
+
+		/// <summary>
+		/// Will fetch the balance for the current currency according to its type.
+		/// </summary>
+		/// <returns>The balance.</returns>
+		public override int GetBalance() {
+			return VirtualCurrencyStorage.GetBalance(this);
 		}
 	}
 }

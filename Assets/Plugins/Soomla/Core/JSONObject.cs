@@ -1,6 +1,6 @@
 #define PRETTY		//Comment out when you no longer need to read JSON to disable pretty Print system-wide
-//Using doubles will cause errors in VectorTemplates.cs; Unity speaks floats
-#define USEFLOAT	//Use floats for numbers instead of doubles	(enable if you're getting too many significant digits in string output)
+//Using doubles will cause errors in VectorTemplates.cs; Unity speaks floats, though floats will only provide you 7 digits of precision when updating Soomla StoreInventory balances
+//#define USEFLOAT	//Use floats for numbers instead of doubles	(enable if you're getting too many significant digits in string output)
 //#define POOLING	//Currently using a build setting for this one (also it's experimental)
 
 using System.Diagnostics;
@@ -8,6 +8,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Globalization;
 using Debug = UnityEngine.Debug;
 
 /*
@@ -15,6 +17,25 @@ using Debug = UnityEngine.Debug;
  * JSONObject class
  * for use with Unity
  * Copyright Matt Schoen 2010 - 2013
+ * 
+ * 
+ * 
+ * 
+ * The changes from the original version are under this license:
+ * 
+ * Copyright (C) 2012-2014 Soomla Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 public class JSONObject : NullCheckable {
@@ -178,11 +199,61 @@ public class JSONObject : NullCheckable {
 		return obj;
 	}
 	public static JSONObject CreateStringObject(string val) {
+		if (!string.IsNullOrEmpty(val)) {
+			val = EncodeJsString(val);
+		}
+
 		JSONObject obj = Create();
 		obj.type = Type.STRING;
 		obj.str = val;
 		return obj;
 	}
+
+	public static string EncodeJsString(string s)
+	{
+		StringBuilder sb = new StringBuilder();
+		foreach (char c in s)
+		{
+			switch (c)
+			{
+			case '\"':
+				sb.Append("\\\"");
+				break;
+			case '\\':
+				sb.Append("\\\\");
+				break;
+			case '\b':
+				sb.Append("\\b");
+				break;
+			case '\f':
+				sb.Append("\\f");
+				break;
+			case '\n':
+				sb.Append("\\n");
+				break;
+			case '\r':
+				sb.Append("\\r");
+				break;
+			case '\t':
+				sb.Append("\\t");
+				break;
+			default:
+				int i = (int)c;
+				if (i < 32 || i > 127)
+				{
+					sb.AppendFormat("\\u{0:X04}", i);
+				}
+				else
+				{
+					sb.Append(c);
+				}
+				break;
+			}
+		}
+		
+		return sb.ToString();
+	}
+
 	public static JSONObject CreateBakedObject(string val) {
 		JSONObject bakedObject = Create();
 		bakedObject.type = Type.BAKED;
@@ -237,13 +308,18 @@ public class JSONObject : NullCheckable {
 				}
 			}
 			if(str.Length > 0) {
-				if(string.Compare(str, "true", true) == 0) {
+                if (str.ToLower() == "true")
+                {
 					type = Type.BOOL;
 					b = true;
-				} else if(string.Compare(str, "false", true) == 0) {
+                }
+                else if (str.ToLower() == "false")
+                {
 					type = Type.BOOL;
 					b = false;
-				} else if(string.Compare(str, "null", true) == 0) {
+                }
+                else if (str.ToLower() == "null")
+                {
 					type = Type.NULL;
 					#if USEFLOAT
 				} else if(str == INFINITY) {
@@ -268,7 +344,7 @@ public class JSONObject : NullCheckable {
 					#endif
 				} else if(str[0] == '"') {
 					type = Type.STRING;
-					this.str = str.Substring(1, str.Length - 2);
+					this.str = Regex.Unescape(str.Substring(1, str.Length - 2));
 				} else {
 					int tokenTmp = 1;
 					/*
@@ -429,6 +505,9 @@ public class JSONObject : NullCheckable {
 	public void SetField(string name, bool val) { SetField(name, Create(val)); }
 	public void SetField(string name, float val) { SetField(name, Create(val)); }
 	public void SetField(string name, int val) { SetField(name, Create(val)); }
+	public void SetField(string name, string val) {
+		SetField(name, CreateStringObject(val));
+	}
 	public void SetField(string name, JSONObject obj) {
 		if(HasField(name)) {
 			list.Remove(this[name]);
@@ -797,7 +876,7 @@ public class JSONObject : NullCheckable {
 					builder.Append(NaN);
 				#endif
 				else
-					builder.Append(n.ToString());
+                    builder.Append(n.ToString(CultureInfo.InvariantCulture));
 				break;
 			case Type.OBJECT:
 				builder.Append("{");

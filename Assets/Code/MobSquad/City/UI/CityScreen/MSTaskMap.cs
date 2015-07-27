@@ -127,6 +127,8 @@ public class MSTaskMap : MonoBehaviour {
 		yield return null;
 		FullTaskProto taskProto;
 		foreach (TaskMapElementProto task in tasks.Values){
+			if (!taskButtons.ContainsKey(task.taskId)) continue;
+
 			taskProto = MSDataManager.instance.Get<FullTaskProto>(task.taskId);
 			if (MSQuestManager.instance.taskDict.ContainsKey (taskProto.taskId))
 			{

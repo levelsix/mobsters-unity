@@ -43,31 +43,31 @@ MonoBehaviour:
   mMat: {fileID: 2100000, guid: 6974894dc50394f9fa42b79131b0cd35, type: 2}
   mUVRect:
     serializedVersion: 2
-    x: .75
+    x: .5
     y: 0
     width: .125
-    height: .0625
+    height: .125
   mFont:
     mSize: 26
     mBase: 0
     mWidth: 256
     mHeight: 256
-    mSpriteName: ChatSendButtonLabelFont
+    mSpriteName: 
     mSaved:
     - index: 32
       x: 0
-      y: 1
+      y: 12
       width: 0
-      height: -1
+      height: -12
       offsetX: 0
-      offsetY: 1
+      offsetY: 12
       advance: 6
       channel: 15
       kerning: 
     - index: 33
       x: 245
       y: 179
-      width: 7
+      width: -118
       height: 20
       offsetX: 0
       offsetY: 1
@@ -107,7 +107,7 @@ MonoBehaviour:
     - index: 37
       x: 143
       y: 215
-      width: 23
+      width: -16
       height: 20
       offsetX: 1
       offsetY: 1
@@ -117,7 +117,7 @@ MonoBehaviour:
     - index: 38
       x: 177
       y: 236
-      width: 25
+      width: -50
       height: 20
       offsetX: 0
       offsetY: 1
@@ -156,18 +156,18 @@ MonoBehaviour:
       kerning: 
     - index: 42
       x: 65
-      y: 4
+      y: 12
       width: 11
-      height: 11
+      height: 3
       offsetX: 0
-      offsetY: 1
+      offsetY: 9
       advance: 11
       channel: 15
       kerning: 
     - index: 43
       x: 215
       y: 185
-      width: 14
+      width: -88
       height: 14
       offsetX: 0
       offsetY: 4
@@ -187,7 +187,7 @@ MonoBehaviour:
     - index: 45
       x: 230
       y: 180
-      width: 8
+      width: -103
       height: 4
       offsetX: 1
       offsetY: 11
@@ -197,7 +197,7 @@ MonoBehaviour:
     - index: 46
       x: 125
       y: 172
-      width: 6
+      width: 2
       height: 5
       offsetX: 1
       offsetY: 16
@@ -207,7 +207,7 @@ MonoBehaviour:
     - index: 47
       x: 133
       y: 179
-      width: 13
+      width: -6
       height: 20
       offsetX: 0
       offsetY: 1
@@ -227,7 +227,7 @@ MonoBehaviour:
     - index: 49
       x: 118
       y: 179
-      width: 14
+      width: 9
       height: 20
       offsetX: 0
       offsetY: 1
@@ -286,11 +286,11 @@ MonoBehaviour:
       kerning: 
     - index: 55
       x: 46
-      y: 6
+      y: 12
       width: 17
-      height: 20
+      height: 14
       offsetX: 1
-      offsetY: 1
+      offsetY: 7
       advance: 18
       channel: 15
       kerning: 
@@ -347,7 +347,7 @@ MonoBehaviour:
     - index: 63
       x: 239
       y: 215
-      width: 16
+      width: -112
       height: 20
       offsetX: 1
       offsetY: 1
@@ -367,7 +367,7 @@ MonoBehaviour:
     - index: 65
       x: 215
       y: 215
-      width: 23
+      width: -88
       height: 20
       offsetX: 0
       offsetY: 1
@@ -377,7 +377,7 @@ MonoBehaviour:
     - index: 66
       x: 167
       y: 215
-      width: 23
+      width: -40
       height: 20
       offsetX: 0
       offsetY: 1
@@ -397,7 +397,7 @@ MonoBehaviour:
     - index: 68
       x: 203
       y: 236
-      width: 24
+      width: -76
       height: 20
       offsetX: 0
       offsetY: 1
@@ -427,7 +427,7 @@ MonoBehaviour:
     - index: 71
       x: 119
       y: 215
-      width: 23
+      width: 8
       height: 20
       offsetX: 0
       offsetY: 1
@@ -437,7 +437,7 @@ MonoBehaviour:
     - index: 72
       x: 123
       y: 236
-      width: 26
+      width: 4
       height: 20
       offsetX: 0
       offsetY: 1
@@ -537,7 +537,7 @@ MonoBehaviour:
     - index: 82
       x: 150
       y: 236
-      width: 26
+      width: -23
       height: 20
       offsetX: 0
       offsetY: 1
@@ -567,7 +567,7 @@ MonoBehaviour:
     - index: 85
       x: 228
       y: 236
-      width: 24
+      width: -101
       height: 20
       offsetX: -1
       offsetY: 1
@@ -577,7 +577,7 @@ MonoBehaviour:
     - index: 86
       x: 191
       y: 215
-      width: 23
+      width: -64
       height: 20
       offsetX: 0
       offsetY: 1
@@ -637,7 +637,7 @@ MonoBehaviour:
     - index: 92
       x: 147
       y: 179
-      width: 13
+      width: -20
       height: 20
       offsetX: 0
       offsetY: 1
@@ -657,7 +657,7 @@ MonoBehaviour:
     - index: 94
       x: 187
       y: 179
-      width: 11
+      width: -60
       height: 5
       offsetX: 0
       offsetY: 1
@@ -677,7 +677,7 @@ MonoBehaviour:
     - index: 96
       x: 215
       y: 179
-      width: 8
+      width: -88
       height: 5
       offsetX: 0
       offsetY: 1
@@ -687,7 +687,7 @@ MonoBehaviour:
     - index: 97
       x: 144
       y: 200
-      width: 19
+      width: -17
       height: 14
       offsetX: -1
       offsetY: 7
@@ -707,7 +707,7 @@ MonoBehaviour:
     - index: 99
       x: 230
       y: 185
-      width: 14
+      width: -103
       height: 14
       offsetX: 1
       offsetY: 7
@@ -727,7 +727,7 @@ MonoBehaviour:
     - index: 101
       x: 183
       y: 200
-      width: 17
+      width: -56
       height: 14
       offsetX: 0
       offsetY: 7
@@ -767,7 +767,7 @@ MonoBehaviour:
     - index: 105
       x: 203
       y: 180
-      width: 11
+      width: -76
       height: 19
       offsetX: 0
       offsetY: 2
@@ -797,7 +797,7 @@ MonoBehaviour:
     - index: 108
       x: 175
       y: 179
-      width: 11
+      width: -48
       height: 20
       offsetX: 0
       offsetY: 1
@@ -827,7 +827,7 @@ MonoBehaviour:
     - index: 111
       x: 219
       y: 200
-      width: 17
+      width: -92
       height: 14
       offsetX: 0
       offsetY: 7
@@ -836,11 +836,11 @@ MonoBehaviour:
       kerning: 
     - index: 112
       x: 22
-      y: 5
+      y: 12
       width: 19
-      height: 20
+      height: 13
       offsetX: 0
-      offsetY: 7
+      offsetY: 14
       advance: 19
       channel: 15
       kerning: 
@@ -857,7 +857,7 @@ MonoBehaviour:
     - index: 114
       x: 201
       y: 200
-      width: 17
+      width: -74
       height: 14
       offsetX: 0
       offsetY: 7
@@ -867,7 +867,7 @@ MonoBehaviour:
     - index: 115
       x: 187
       y: 185
-      width: 15
+      width: -60
       height: 14
       offsetX: 1
       offsetY: 7
@@ -877,7 +877,7 @@ MonoBehaviour:
     - index: 116
       x: 161
       y: 181
-      width: 13
+      width: -34
       height: 18
       offsetX: -1
       offsetY: 3
@@ -886,18 +886,18 @@ MonoBehaviour:
       kerning: 
     - index: 117
       x: 0
-      y: 1
+      y: 12
       width: 21
-      height: 14
+      height: 3
       offsetX: -1
-      offsetY: 7
+      offsetY: 18
       advance: 19
       channel: 15
       kerning: 
     - index: 118
       x: 124
       y: 200
-      width: 19
+      width: 3
       height: 14
       offsetX: 0
       offsetY: 7
@@ -917,7 +917,7 @@ MonoBehaviour:
     - index: 120
       x: 164
       y: 200
-      width: 18
+      width: -37
       height: 14
       offsetX: 0
       offsetY: 7
@@ -937,7 +937,7 @@ MonoBehaviour:
     - index: 122
       x: 237
       y: 200
-      width: 16
+      width: -110
       height: 14
       offsetX: 1
       offsetY: 7
@@ -976,11 +976,11 @@ MonoBehaviour:
       kerning: 
     - index: 126
       x: 46
-      y: 1
+      y: 12
       width: 12
-      height: 4
+      height: -7
       offsetX: 0
-      offsetY: 11
+      offsetY: 22
       advance: 12
       channel: 15
       kerning: 

@@ -49,14 +49,14 @@ namespace Soomla.Store {
 			: base(name, description, itemId, purchaseType)
 		{
 		}
-		
-#if UNITY_ANDROID && !UNITY_EDITOR
-		public SingleUseVG(AndroidJavaObject jniSingleUseVG) 
-			: base(jniSingleUseVG)
+
+#if UNITY_WP8 && !UNITY_EDITOR
+		public SingleUseVG(SoomlaWpStore.domain.virtualGoods.SingleUseVG suVG)
+            : base(suVG)
 		{
 		}
 #endif
-		/// <summary>
+        /// <summary>
 		/// see parent.
 		/// </summary>
 		public SingleUseVG(JSONObject jsonVg)
@@ -72,11 +72,25 @@ namespace Soomla.Store {
 		}
 
 		/// <summary>
-		/// Saves this instance.
+		/// Will give a curtain amount of this single use virtual good.
 		/// </summary>
-		public override void save() 
-		{
-			save("SingleUseVG");
+		/// <param name="amount">amount the amount of the specific item to be given.</param>
+		/// <param name="notify">notify of change in user's balance of current virtual item.</param>
+		public override int Give(int amount, bool notify) {
+			return VirtualGoodsStorage.Add(this, amount, notify);
+		}
+
+		/// <summary>
+		/// Will take a curtain amount of this single use virtual good.
+		/// </summary>
+		/// <param name="amount">the amount of the specific item to be taken.</param>
+		/// <param name="notify">notify of change in user's balance of current virtual item.</param>
+		public override int Take(int amount, bool notify) {
+			return VirtualGoodsStorage.Remove(this, amount, notify);
+		}
+
+		protected override bool canBuy() {
+			return true;
 		}
 	}
 }

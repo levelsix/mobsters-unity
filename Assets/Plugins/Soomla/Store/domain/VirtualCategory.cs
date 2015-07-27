@@ -28,7 +28,15 @@ namespace Soomla.Store {
 	public class VirtualCategory {
 		
 		private const string TAG = "SOOMLA VirtualCategory";
+
+		/// <summary>
+		/// The name of the category.
+		/// </summary>
 		public string Name;
+
+		/// <summary>
+		/// A list of virtual goods in this category.
+		/// </summary>
 		public List<String> GoodItemIds = new List<String>();
 		
 		/// <summary>
@@ -40,30 +48,22 @@ namespace Soomla.Store {
 			this.Name = name;
 			this.GoodItemIds = goodItemIds;
 		}
-		
-#if UNITY_ANDROID && !UNITY_EDITOR
-		public VirtualCategory(AndroidJavaObject jniVirtualCategory) {
-			this.Name = jniVirtualCategory.Call<string>("getName");
-			
-			using(AndroidJavaObject jniItemIds = jniVirtualCategory.Call<AndroidJavaObject>("getGoodsItemIds")) {
-				for(int i=0; i<jniItemIds.Call<int>("size"); i++) {
-					using(AndroidJavaObject jniItemId = jniItemIds.Call<AndroidJavaObject>("get", i)) {
-						GoodItemIds.Add(jniItemId.Call<string>("toString"));
-					}
-				}
-			}
-		}
-#endif
 
-		/// <summary>
+#if UNITY_WP8 && !UNITY_EDITOR
+		public VirtualCategory(SoomlaWpStore.domain.VirtualCategory wpVirtualCategory) {
+    		this.Name = wpVirtualCategory.getName();
+    		GoodItemIds = wpVirtualCategory.getGoodsItemIds();
+    	}
+#endif
+        /// <summary>
 		/// Constructor.
 		/// Generates an instance of <c>VirtualCategory</c> from the given <c>JSONObject</c>.
 		/// </summary>
 		/// <param name="jsonItem">A JSONObject representation of the wanted <c>VirtualCategory</c>.</param>
 		public VirtualCategory(JSONObject jsonItem) {
-			this.Name = jsonItem[JSONConsts.CATEGORY_NAME].str;
+			this.Name = jsonItem[StoreJSONConsts.CATEGORY_NAME].str;
 
-	        JSONObject goodsArr = (JSONObject)jsonItem[JSONConsts.CATEGORY_GOODSITEMIDS];
+	        JSONObject goodsArr = (JSONObject)jsonItem[StoreJSONConsts.CATEGORY_GOODSITEMIDS];
 			
 	        foreach(JSONObject obj in goodsArr.list) {
 	            GoodItemIds.Add(obj.str);
@@ -76,14 +76,15 @@ namespace Soomla.Store {
 		/// <returns>A JSONObject representation of the current <c>VirtualCategory</c>.</returns>
 		public JSONObject toJSONObject() {
 			JSONObject obj = new JSONObject(JSONObject.Type.OBJECT);
-			obj.AddField(JSONConsts.CATEGORY_NAME, this.Name);
+			obj.AddField (Soomla.JSONConsts.SOOM_CLASSNAME, SoomlaUtils.GetClassName (this));
+			obj.AddField(StoreJSONConsts.CATEGORY_NAME, this.Name);
 			
 			JSONObject goodsArr = new JSONObject(JSONObject.Type.ARRAY);
 			foreach(string goodItemId in this.GoodItemIds) {
 				goodsArr.Add(goodItemId);
 			}
 			
-			obj.AddField(JSONConsts.CATEGORY_GOODSITEMIDS, goodsArr);
+			obj.AddField(StoreJSONConsts.CATEGORY_GOODSITEMIDS, goodsArr);
 			
 			return obj;
 		}

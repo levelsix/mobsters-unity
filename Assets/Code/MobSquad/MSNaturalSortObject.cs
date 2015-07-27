@@ -12,7 +12,7 @@ public class MSNaturalSortObject : IComparer<UnityEngine.Object> {
 	}
 
 	public static int Compare( string x, string y){
-		Regex regex = new Regex(@"(?<NumPart>\d+)(?<StrPart>\D*)",RegexOptions.Compiled);
+		Regex regex = new Regex(@"(?<NumPart>\d+)(?<StrPart>\D*)",RegexOptions.IgnoreCase);
 		var mx = regex.Match(x);
 		var my = regex.Match(y);
 		var ret = int.Parse(mx.Groups["NumPart"].Value).CompareTo(int.Parse(my.Groups["NumPart"].Value));

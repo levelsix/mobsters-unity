@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using com.lvl6.proto;
 using Soomla.Store;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// @author Rob Giusti
@@ -13,7 +14,7 @@ public class MSAssets : IStoreAssets {
 
 	public int GetVersion()
 	{
-		return 1;
+		return 3;
 	}
 
 	public VirtualCurrency[] GetCurrencies()
@@ -29,16 +30,57 @@ public class MSAssets : IStoreAssets {
 
 	public VirtualCategory[] GetCategories() { return new VirtualCategory[]{};}
 
-	public NonConsumableItem[] GetNonConsumableItems() { return new NonConsumableItem[]{};}
-
 	public enum IAPSize {PILE, BAG, CASE, SAFE, BIG_SAFE};
 
-	public const string GEM_CURRENCY_ITEM_ID = "currency_gem";
-	public const string GEM50PACK_ITEM_ID = "pile_of_gems";
-	public const string GEM120PACK_ITEM_ID = "bag_of_gems";
-	public const string GEM250PACK_ITEM_ID = "case_of_gems";
-	public const string GEM650PACK_ITEM_ID = "safe_of_gems";
-	public const string GEM1500PACK_ITEM_ID = "big_safe_of_gems";
+	public static string GEM_CURRENCY_ITEM_ID = "currency_gem";
+	public static string GEM50PACK_ITEM_ID =  "pile_of_gems";
+	public static string GEM120PACK_ITEM_ID = "bag_of_gems";
+	public static string GEM250PACK_ITEM_ID = "case_of_gems";
+	public static string GEM650PACK_ITEM_ID = "safe_of_gems";
+	public static string GEM1500PACK_ITEM_ID = "big_safe_of_gems";
+
+	static string _bundleIdentifier;
+	public static string bundleIdentifier {
+		get {
+			if (_bundleIdentifier == null)
+			{
+				Match match = Regex.Match(Application.persistentDataPath,
+				                          "com\\.\\w+\\.\\w+");
+				if (match.Success)
+				{
+					_bundleIdentifier = match.Value;
+					Debug.Log("Bundle identifier: " + _bundleIdentifier);
+				}
+			}
+			return _bundleIdentifier;
+		}
+	}
+	
+	public static string GEM50PACK_PACKAGE_ID {
+		get {
+			return bundleIdentifier + ".gem1";
+		}
+	}
+	public static string GEM120PACK_PACKAGE_ID {
+		get {
+			return bundleIdentifier + ".gem2";
+		}
+	}
+	public static string GEM250PACK_PACKAGE_ID { 
+		get {
+			return bundleIdentifier + ".gem3";
+		}
+	}// = "com.lvl6.mobsters.gem3";
+	public static string GEM650PACK_PACKAGE_ID {
+		get {
+			return bundleIdentifier + ".gem4";
+		}
+	}//= "com.lvl6.mobsters.gem4";
+	public static string GEM1500PACK_PACKAGE_ID {
+		get {
+			return bundleIdentifier + ".gem5";
+		}
+	}
 
 	public static readonly Dictionary<IAPSize, string> packNames = new Dictionary<IAPSize, string>()
 	{
@@ -60,7 +102,7 @@ public class MSAssets : IStoreAssets {
 		GEM50PACK_ITEM_ID,
 		50,
 		GEM_CURRENCY_ITEM_ID,
-		new PurchaseWithMarket(GEM50PACK_ITEM_ID, 4.99)
+		new PurchaseWithMarket(GEM50PACK_PACKAGE_ID, 4.99)
 	);
 	
 	public static VirtualCurrencyPack GEM120PACK = new VirtualCurrencyPack(
@@ -69,7 +111,7 @@ public class MSAssets : IStoreAssets {
 		GEM120PACK_ITEM_ID,
 		120,
 		GEM_CURRENCY_ITEM_ID,
-		new PurchaseWithMarket(GEM120PACK_ITEM_ID, 9.99)
+		new PurchaseWithMarket(GEM120PACK_PACKAGE_ID, 9.99)
 	);
 	public static VirtualCurrencyPack GEM250PACK = new VirtualCurrencyPack(
 		"Case of Gems",
@@ -77,16 +119,16 @@ public class MSAssets : IStoreAssets {
 		GEM250PACK_ITEM_ID,
 		250,
 		GEM_CURRENCY_ITEM_ID,
-		new PurchaseWithMarket(GEM250PACK_ITEM_ID, 19.99)
+		new PurchaseWithMarket(GEM250PACK_PACKAGE_ID, 19.99)
 	);
 
 	public static VirtualCurrencyPack GEM650PACK = new VirtualCurrencyPack(
-		"Valut of Gems",
+		"Vault of Gems",
 		"650 Gems",
 		GEM650PACK_ITEM_ID,
 		650,
 		GEM_CURRENCY_ITEM_ID,
-		new PurchaseWithMarket(GEM650PACK_ITEM_ID, 49.99)
+		new PurchaseWithMarket(GEM650PACK_PACKAGE_ID, 49.99)
 	);
 	
 	public static VirtualCurrencyPack GEM1500PACK = new VirtualCurrencyPack(
@@ -95,6 +137,6 @@ public class MSAssets : IStoreAssets {
 		GEM1500PACK_ITEM_ID,
 		1500,
 		GEM_CURRENCY_ITEM_ID,
-		new PurchaseWithMarket(GEM1500PACK_ITEM_ID, 99.99)
+		new PurchaseWithMarket(GEM1500PACK_PACKAGE_ID, 99.99)
 	);
 }

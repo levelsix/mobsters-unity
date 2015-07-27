@@ -28,9 +28,9 @@ namespace Soomla.Store {
 
 		/// Functions that call iOS-store functions.
 		[DllImport ("__Internal")]
-		private static extern void soomlaStore_Init();
+		private static extern void soomlaStore_LoadBillingService();
 		[DllImport ("__Internal")]
-		private static extern int soomlaStore_BuyMarketItem(string productId);
+		private static extern int soomlaStore_BuyMarketItem(string productId, string payload);
 		[DllImport ("__Internal")]
 		private static extern void soomlaStore_RestoreTransactions();
 		[DllImport ("__Internal")]
@@ -40,17 +40,12 @@ namespace Soomla.Store {
 		[DllImport ("__Internal")]
 		private static extern void soomlaStore_TransactionsAlreadyRestored(out bool outResult);
 		[DllImport ("__Internal")]
-		private static extern void soomlaStore_SetSSV(bool ssv, string verifyUrl);
+		private static extern void soomlaStore_SetSSV(bool ssv, string verifyUrl, bool forceOnItunesFailure);
 
 
-		/// <summary>
-		/// Initializes the SOOMLA SDK.
-		/// </summary>
-		/// <param name="storeAssets">Your game's economy.</param>
-		protected override void _initialize(IStoreAssets storeAssets) {
-			soomlaStore_SetSSV(StoreSettings.IosSSV, "https://verify.soom.la/verify_ios?platform=unity4");
-			StoreInfo.Initialize(storeAssets);
-			soomlaStore_Init();
+		protected override void _loadBillingService() {
+			soomlaStore_SetSSV(StoreSettings.IosSSV, "https://verify.soom.la/verify_ios?platform=unity4", false);
+			soomlaStore_LoadBillingService();
 		}
 
 		/// <summary>
@@ -58,10 +53,7 @@ namespace Soomla.Store {
 		/// </summary>
 		/// <param name="productId">id of the item to buy.</param>
 		protected override void _buyMarketItem(string productId, string payload) {
-
-			// NOTE: payload is not supported on iOS !
-
-			soomlaStore_BuyMarketItem(productId);
+			soomlaStore_BuyMarketItem(productId, payload);
 		}
 
 		/// <summary>

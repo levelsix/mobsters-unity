@@ -29,8 +29,33 @@ namespace Soomla.Store
 		public PurchaseType ()
 		{
 		}
+
+		/// <summary>
+		/// The item associated with this purchase type. 
+		/// This item is the one actually being purchased and the assignment of this variable is from the
+		/// <c>PurchasableItem</c>'s constructor.
+		/// </summary>
+		public PurchasableVirtualItem AssociatedItem;
+
+		/// <summary>
+		/// Buys the purchasable virtual item.
+		/// Implementation in subclasses will be according to specific type of purchase.
+		/// </summary>
+		/// <param name="payload">a string you want to be assigned to the purchase. This string
+		/// is saved in a static variable and will be given bacl to you when the
+		///   purchase is completed.</param>
+		/// <exception cref="Soomla.Store.InsufficientFundsException">throws InsufficientFundsException</exception>
+		public abstract void Buy(string payload);
+
+		/// <summary>
+		/// Checks if there is enough funds to afford the <code>PurchasableVirtualItem</code>.
+		/// Implementation in subclasses will be according to specific type of purchase.
+		/// </summary>
+		/// <returns>True if there are enough funds to afford the virtual item with the given item id </returns>
+		public abstract bool CanAfford();
+
+        public abstract string GetPrice();
 	}
-	
-	
+
 }
 

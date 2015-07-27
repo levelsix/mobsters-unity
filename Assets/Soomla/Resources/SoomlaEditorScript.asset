@@ -8,20 +8,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97db1d3efb8d149a1a81687bf682f373, type: 3}
+  m_Script: {fileID: 11500000, guid: e4e0a197f1a5042dc8fb2cd6ad519b70, type: 3}
   m_Name: SoomlaEditorScript
   m_EditorClassIdentifier: 
   SoomlaSettings:
     values:
     - name: SoomlaSecret
       value: l3v3ls1x
+    - name: DebugUnityMessages
+      value: True
     - name: GPlayBP
       value: True
     - name: AndroidPublicKey
-      value: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjz24BuNmGZ3HfL63fuPj2n/JbRbElGfXdEqtT5maY9X9PRYlz9cXvvyireW4R1/4nNxN2yw3ow3vDfzDqBDLwt4+AWMVvuGUBn0gy+UcE1xUIlcPuZVjuwbsCo6s2+SthsdezxouVqfFX2S3MxiwjeW0iPV/YOnz/a/EoaaTIGNCrkp0DnNhtCsXV09vEabU98Rp4iffDB9BVQC957EA3jGAMms2eVaqy4CqDysaJQCvnSa7BfALiCrbHVZiGuUf6oDxs1IxD+znwFLDujaC/oGGQbzKSqzKMJOpZtZ87hOT4C3dRwlsesmloU2eKEByCGXbEwLpBZofjB7C07ClTwIDAQAB
-
-'
-    - name: DebugMessages
-      value: True
+      value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjz24BuNmGZ3HfL63fuPj2n/JbRbElGfXdEqtT5maY9X9PRYlz9cXvvyireW4R1/4nNxN2yw3ow3vDfzDqBDLwt4+AWMVvuGUBn0gy+UcE1xUIlcPuZVjuwbsCo6s2+SthsdezxouVqfFX2S3MxiwjeW0iPV/YOnz/a/EoaaTIGNCrkp0DnNhtCsXV09vEabU98Rp4iffDB9BVQC957EA3jGAMms2eVaqy4CqDysaJQCvnSa7BfALiCrbHVZiGuUf6oDxs1IxD+znwFLDujaC/oGGQbzKSqzKMJOpZtZ87hOT4C3dRwlsesmloU2eKEByCGXbEwLpBZofjB7C07ClTwIDAQAB
     - name: AndroidTestPurchases
       value: True
+    - name: PlaySsvValidation
+      value: False
+    - name: PlayClientId
+      value: YOUR CLIENT ID
+    - name: PlayClientSecret
+      value: YOUR CLIENT SECRET
+    - name: PlayRefreshToken
+      value: YOUR REFRESH TOKEN
